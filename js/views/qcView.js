@@ -112,13 +112,26 @@ const qcMbReportFields = [
   qcField('verifiedBy', 'Verified By', 'text')
 ];
 
+const qcLabReportFields = [
+  qcField('sampleCollectionTime', 'Sample Collection Time', 'time'),
+  qcField('dateOfSampling', 'Date of Sampling', 'date'),
+  qcField('verifiedBy', 'Verified By', 'text'),
+  qcField('testedBy', 'Tested By', 'text'),
+  qcField('phValue', 'PH Value', 'number'),
+  qcField('temperature', 'Temperature', 'number'),
+  qcField('salinity', 'Salinity', 'number'),
+  qcField('hardness', 'Hardness', 'number'),
+  qcField('chlorine', 'Chlorine', 'number'),
+  qcField('totalDissolvedSolids', 'Total Dissolved Solids', 'number')
+];
+
 const qcSchemas = {
   'daily-qc-ops': { title: 'Daily QC Operations', fields: [qcDateField, qcField('timeSlot', 'Inspection Time', 'time'), qcField('batchNo', 'Batch Number'), qcLotField, qcField('productLine', 'Product Line', 'select', ['Line #1', 'Line #2', 'Line #3', 'Line #4', 'Line #5', 'Line #6']), qcField('coreTemp', 'Core Temperature (C)', 'temperature'), qcField('chlorineLevel', 'Free Chlorine (ppm)', 'number'), qcField('sensoryScore', 'Sensory Score (1-5)', 'score'), qcInspectorField] },
   'lots-list': { title: 'Lots List', fields: [qcField('lot', 'Lot Number'), qcField('rmDate', 'Receiving Date', 'date'), qcField('type', 'Procurement Type', 'select', ['Site Weightment', 'By Yield']), qcField('grader', 'Grader'), qcField('agent', 'Agent / Supplier'), qcField('count', 'Count (Pieces / kg)', 'number'), qcField('weight', 'Net Weight (kg)', 'number'), qcField('station', 'Station'), qcField('method', 'Test Method'), qcField('collectedBy', 'Collected By'), qcField('lab', 'Laboratory'), qcField('testTime', 'Sample Time', 'datetime-local'), qcField('antibiotics', 'Screening Panel')] },
   'ab-report': { title: 'Antibiotic ELISA Report', fields: qcAbReportFields },
   'rm-report': { title: 'Raw Material Inspection Report', fields: qcRmReportFields },
   'mb-report': { title: 'Microbiology Report', fields: qcMbReportFields },
-  'lab-report': { title: 'In-House Lab Report', fields: [qcLotField, qcDateField, qcField('reportNo', 'Report Number'), qcField('lab', 'Laboratory'), qcField('requiredTests', 'Tests Performed'), qcField('chemicalResult', 'Chemical Result', 'select', ['Pass', 'Fail', 'Pending']), qcField('antibioticResult', 'Antibiotic Result', 'select', ['Pass', 'Fail', 'Pending']), qcField('microbiologyResult', 'Microbiology Result', 'select', ['Pass', 'Fail', 'Pending']), qcInspectorField] },
+  'lab-report': { title: 'In-House Lab Report', fields: qcLabReportFields },
   'external-lab-report': { title: 'External Lab Report', fields: [qcLotField, qcDateField, qcField('reportNo', 'Report Number'), qcField('lab', 'Accredited Laboratory'), qcField('accreditationNo', 'Accreditation Number'), qcField('requiredTests', 'Tests Performed'), qcField('result', 'Lab Result', 'select', ['Pass', 'Fail', 'Pending']), qcField('coaNumber', 'COA Number'), qcInspectorField] },
   documentation: { title: 'QC Documentation', fields: [qcField('invoiceNo', 'Export Invoice'), qcField('poNo', 'Purchase Order'), qcField('buyer', 'Buyer / Consignee'), qcField('country', 'Destination', 'select', ['USA', 'EU', 'Japan', 'China']), qcField('internalLotNo', 'Internal Lot', 'lot'), qcField('certHealth', 'Health Certificate'), qcField('certCoa', 'Certificate of Analysis'), qcField('certOrigin', 'Certificate of Origin'), qcField('status', 'Status', 'select', ['In Review', 'Pending Release', 'Completed'])] },
   'qc-orders': { title: 'QC Orders', fields: [qcField('orderNo', 'Order Number'), qcLotField, qcField('orderType', 'Order Type', 'select', ['Inspection', 'Quarantine Release', 'Sample Dispatch']), qcField('sampleType', 'Sample Type', 'select', ['Finished Goods', 'Block Frozen', 'IQF', 'Raw Material']), qcField('requiredTests', 'Required Tests'), qcField('targetDate', 'Due Date', 'date'), qcField('assignedLab', 'Assigned Laboratory'), qcStatusField] },
@@ -211,6 +224,28 @@ export const QCView = {
         };
       });
     }
+    if (Array.isArray(this.state['lab-report'])) {
+      this.state['lab-report'] = this.state['lab-report'].map((row, idx) => {
+        const seedRow = (seed['lab-report'] && seed['lab-report'][idx]) || seed['lab-report'][0] || {};
+        return {
+          ...seedRow,
+          ...row,
+          id: row.id || `QC-lab-report-${idx + 1}`,
+          reportDate: row.dateOfSampling || row.reportDate || row.date || seedRow.reportDate || `2026-10-${25 + (idx % 5)}`,
+          dateOfSampling: row.dateOfSampling || row.reportDate || seedRow.dateOfSampling || `2026-10-${25 + (idx % 5)}`,
+          sampleCollectionTime: row.sampleCollectionTime || seedRow.sampleCollectionTime || '09:30',
+          verifiedBy: row.verifiedBy || seedRow.verifiedBy || 'Dr. S. Rao',
+          testedBy: row.testedBy || seedRow.testedBy || 'R. K. Patnaik',
+          phValue: row.phValue ?? seedRow.phValue ?? 7.4,
+          temperature: row.temperature ?? seedRow.temperature ?? 24.5,
+          salinity: row.salinity ?? seedRow.salinity ?? 15.0,
+          hardness: row.hardness ?? seedRow.hardness ?? 120,
+          chlorine: row.chlorine ?? seedRow.chlorine ?? 0.5,
+          totalDissolvedSolids: row.totalDissolvedSolids ?? seedRow.totalDissolvedSolids ?? 850,
+          status: 'Pass'
+        };
+      });
+    }
     Object.keys(qcSchemas).forEach(key => this.state[key].forEach(row => this.evaluate(key, row)));
     this.synchronize();
   },
@@ -275,6 +310,24 @@ export const QCView = {
               { sNo: 2, poNo: po, buyer: buyer, parameter: 'E. coli (MPN/g)', analysisDate: repDate, result: 'Pass' },
               { sNo: 3, poNo: po, buyer: buyer, parameter: 'Salmonella (25g)', analysisDate: repDate, result: 'Absent' }
             ]
+          });
+        }
+        if (key === 'lab-report') {
+          const samplingDate = `2026-10-${25 + index}`;
+          Object.assign(row, {
+            reportDate: samplingDate,
+            date: samplingDate,
+            sampleCollectionTime: ['09:30', '14:15', '16:45'][index],
+            dateOfSampling: samplingDate,
+            verifiedBy: ['Dr. S. Rao', 'Dr. S. Rao', 'A. Annavaram'][index],
+            testedBy: ['R. K. Patnaik', 'M. Srinu', 'P. Venkatesh'][index],
+            phValue: [7.40, 7.20, 7.80][index],
+            temperature: [24.5, 25.0, 24.0][index],
+            salinity: [15.0, 14.5, 16.0][index],
+            hardness: [120, 115, 125][index],
+            chlorine: [0.5, 0.4, 0.6][index],
+            totalDissolvedSolids: [850, 820, 890][index],
+            status: 'Pass'
           });
         }
         if (key === 'ab-report') {
@@ -404,8 +457,11 @@ export const QCView = {
       row.date = row.rmDate || row.purchaseDate || row.date;
       row.internalLotNo = row.lot;
     } else if (key === 'lab-report') {
-      const results = [row.chemicalResult, row.antibioticResult, row.microbiologyResult];
-      row.status = results.includes('Fail') ? 'Fail' : results.every(value => value === 'Pass') ? 'Pass' : 'Pending';
+      if (!row.reportDate) row.reportDate = row.dateOfSampling || row.date || new Date().toISOString().slice(0, 10);
+      if (!row.dateOfSampling) row.dateOfSampling = row.reportDate;
+      row.date = row.reportDate;
+      const ph = Number(row.phValue);
+      row.status = (Number.isFinite(ph) && (ph < 6.5 || ph > 8.5)) ? 'Hold' : 'Pass';
     } else if (key === 'external-lab-report') {
       row.status = row.result;
     } else if (qcSchemas[key].fields === qcSupplierFields) {
@@ -916,6 +972,10 @@ export const QCView = {
       this.openMbReportForm(row);
       return;
     }
+    if (key === 'lab-report') {
+      this.openLabReportForm(row);
+      return;
+    }
     if (!qcSchemas[key]) {
       this.openAbReportForm(row);
       return;
@@ -972,6 +1032,146 @@ export const QCView = {
     });
   },
 
+
+  openLabReportForm(row = null) {
+    const today = new Date().toISOString().slice(0, 10);
+    const val = (name, fallback = '') => row?.[name] ?? fallback;
+
+    Modal.open({
+      title: `${row ? 'Edit' : 'Add'} In-House Lab Report`,
+      size: 'full',
+      content: `
+        <form id="form-lab-report" class="space-y-4 text-xs text-[#172B4D]" onsubmit="return false;">
+          <!-- Section 1: General Information Fields (4-Column Responsive Grid) -->
+          <div class="space-y-2">
+            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">General Information Fields</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs">
+              <!-- 1. SAMPLE COLLECTION TIME -->
+              <div>
+                <label for="qclab-sample-time" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SAMPLE COLLECTION TIME <span class="text-[#DE350B]">*</span></label>
+                <input type="time" id="qclab-sample-time" name="sampleCollectionTime" value="${this.escape(val('sampleCollectionTime', '09:30'))}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
+              </div>
+
+              <!-- 2. DATE OF SAMPLING -->
+              <div>
+                <label for="qclab-sample-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">DATE OF SAMPLING <span class="text-[#DE350B]">*</span></label>
+                <div class="erp-date-wrapper">
+                  <input type="date" id="qclab-sample-date" name="dateOfSampling" value="${this.escape(val('dateOfSampling') || val('reportDate') || today)}" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" required onclick="this.showPicker ? this.showPicker() : this.focus()" />
+                </div>
+              </div>
+
+              <!-- 3. VERIFIED BY -->
+              <div>
+                <label for="qclab-verified-by" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">VERIFIED BY <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="qclab-verified-by" name="verifiedBy" value="${this.escape(val('verifiedBy', 'Dr. S. Rao'))}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required placeholder="Verifier name" />
+              </div>
+
+              <!-- 4. TESTED BY -->
+              <div>
+                <label for="qclab-tested-by" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TESTED BY <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="qclab-tested-by" name="testedBy" value="${this.escape(val('testedBy', 'R. K. Patnaik'))}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required placeholder="Tester / Analyst name" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Parameter Values (4-Column Responsive Grid) -->
+          <div class="border-t border-[#DFE1E6] pt-3 space-y-2">
+            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Parameter Values</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs">
+              <!-- 5. PH VALUE -->
+              <div>
+                <label for="qclab-ph" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">5. PH VALUE <span class="text-[#DE350B]">*</span></label>
+                <input type="number" step="0.01" min="0" max="14" id="qclab-ph" name="phValue" value="${this.escape(val('phValue', '7.40'))}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" placeholder="e.g. 7.4" required />
+              </div>
+
+              <!-- 6. TEMPERATURE -->
+              <div>
+                <label for="qclab-temperature" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">6. TEMPERATURE (°C) <span class="text-[#DE350B]">*</span></label>
+                <input type="number" step="0.1" id="qclab-temperature" name="temperature" value="${this.escape(val('temperature', '24.5'))}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" placeholder="e.g. 24.5" required />
+              </div>
+
+              <!-- 7. SALINITY -->
+              <div>
+                <label for="qclab-salinity" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">7. SALINITY (PPT) <span class="text-[#DE350B]">*</span></label>
+                <input type="number" step="any" min="0" id="qclab-salinity" name="salinity" value="${this.escape(val('salinity', '15.0'))}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" placeholder="e.g. 15.0" required />
+              </div>
+
+              <!-- 8. HARDNESS -->
+              <div>
+                <label for="qclab-hardness" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">8. HARDNESS (PPM) <span class="text-[#DE350B]">*</span></label>
+                <input type="number" step="any" min="0" id="qclab-hardness" name="hardness" value="${this.escape(val('hardness', '120'))}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" placeholder="e.g. 120" required />
+              </div>
+
+              <!-- 9. CHLORINE -->
+              <div>
+                <label for="qclab-chlorine" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">9. CHLORINE (PPM) <span class="text-[#DE350B]">*</span></label>
+                <input type="number" step="any" min="0" id="qclab-chlorine" name="chlorine" value="${this.escape(val('chlorine', '0.5'))}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" placeholder="e.g. 0.5" required />
+              </div>
+
+              <!-- 10. TOTAL DISSOLVED SOLIDS -->
+              <div>
+                <label for="qclab-tds" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">10. TOTAL DISSOLVED SOLIDS <span class="text-[#DE350B]">*</span></label>
+                <input type="number" step="any" min="0" id="qclab-tds" name="totalDissolvedSolids" value="${this.escape(val('totalDissolvedSolids', '850'))}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" placeholder="e.g. 850" required />
+              </div>
+            </div>
+          </div>
+        </form>
+      `,
+      footerButtons: [
+        { label: 'Cancel', type: 'secondary', onClick: modal => modal.close() },
+        {
+          label: 'Save Record',
+          type: 'primary',
+          onClick: () => {
+            const form = document.getElementById('form-lab-report');
+            if (!form || !form.reportValidity()) return;
+
+            const sampleCollectionTime = document.getElementById('qclab-sample-time')?.value;
+            const dateOfSampling = document.getElementById('qclab-sample-date')?.value || today;
+            const verifiedBy = document.getElementById('qclab-verified-by')?.value.trim();
+            const testedBy = document.getElementById('qclab-tested-by')?.value.trim();
+            const phValue = Number(document.getElementById('qclab-ph')?.value) || 7.4;
+            const temperature = Number(document.getElementById('qclab-temperature')?.value) || 24.5;
+            const salinity = Number(document.getElementById('qclab-salinity')?.value) || 15.0;
+            const hardness = Number(document.getElementById('qclab-hardness')?.value) || 120;
+            const chlorine = Number(document.getElementById('qclab-chlorine')?.value) || 0.5;
+            const totalDissolvedSolids = Number(document.getElementById('qclab-tds')?.value) || 850;
+
+            const entry = {
+              ...(row || {}),
+              id: row?.id || `QC-lab-report-${Date.now()}`,
+              reportDate: dateOfSampling,
+              date: dateOfSampling,
+              sampleCollectionTime,
+              dateOfSampling,
+              verifiedBy,
+              testedBy,
+              phValue,
+              temperature,
+              salinity,
+              hardness,
+              chlorine,
+              totalDissolvedSolids,
+              status: (phValue >= 6.5 && phValue <= 8.5) ? 'Pass' : 'Hold',
+              updatedAt: new Date().toISOString()
+            };
+
+            this.evaluate('lab-report', entry);
+            if (row) {
+              this.state['lab-report'] = this.state['lab-report'].map(item => item.id === row.id ? entry : item);
+            } else {
+              this.state['lab-report'].unshift(entry);
+            }
+            this.synchronize();
+            this.persist();
+            Modal.close();
+            this.renderRegister('lab-report');
+            Toast.show('In-House Lab record saved successfully.', 'success');
+          }
+        }
+      ]
+    });
+  },
 
   openMbReportForm(row = null) {
     const today = new Date().toISOString().slice(0, 10);
@@ -1903,6 +2103,23 @@ export const QCView = {
               <div><dt class="text-[10px] font-bold text-[#5E6C84] uppercase">BIG PIECES</dt><dd class="font-semibold text-[#172B4D] mt-0.5">${this.escape(row.bigPieces ?? '-')}</dd></div>
               <div><dt class="text-[10px] font-bold text-[#5E6C84] uppercase">SMALL PIECES</dt><dd class="font-semibold text-[#172B4D] mt-0.5">${this.escape(row.smallPieces ?? '-')}</dd></div>
               <div class="sm:col-span-2 md:col-span-4"><dt class="text-[10px] font-bold text-[#5E6C84] uppercase">REMARKS</dt><dd class="font-semibold text-[#172B4D] mt-0.5 whitespace-pre-wrap">${this.escape(row.remarks || row.reason || '-')}</dd></div>
+            </div>
+          </div>
+        ` : ''}
+        ${key === 'lab-report' ? `
+          <div class="space-y-3 mt-4">
+            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">General Information &amp; Water Quality Parameters</h4>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-[#F8FAFC] p-3 rounded-lg border border-[#DFE1E6]">
+              <div><dt class="text-[10px] font-bold text-[#5E6C84] uppercase">SAMPLE COLLECTION TIME</dt><dd class="font-mono font-bold text-[#172B4D] mt-0.5">${this.escape(row.sampleCollectionTime || '-')}</dd></div>
+              <div><dt class="text-[10px] font-bold text-[#5E6C84] uppercase">DATE OF SAMPLING</dt><dd class="font-semibold text-[#172B4D] mt-0.5">${row.dateOfSampling ? String(row.dateOfSampling).split('-').reverse().join('-') : '-'}</dd></div>
+              <div><dt class="text-[10px] font-bold text-[#5E6C84] uppercase">TESTED BY</dt><dd class="font-semibold text-[#172B4D] mt-0.5">${this.escape(row.testedBy || '-')}</dd></div>
+              <div><dt class="text-[10px] font-bold text-[#5E6C84] uppercase">VERIFIED BY</dt><dd class="font-semibold text-[#172B4D] mt-0.5">${this.escape(row.verifiedBy || '-')}</dd></div>
+              <div><dt class="text-[10px] font-bold text-[#5E6C84] uppercase">5. PH VALUE</dt><dd class="font-mono font-bold text-[#00A4B7] mt-0.5">${row.phValue !== undefined ? Number(row.phValue).toFixed(2) : '-'}</dd></div>
+              <div><dt class="text-[10px] font-bold text-[#5E6C84] uppercase">6. TEMPERATURE (°C)</dt><dd class="font-mono font-bold text-[#172B4D] mt-0.5">${row.temperature !== undefined ? row.temperature + ' °C' : '-'}</dd></div>
+              <div><dt class="text-[10px] font-bold text-[#5E6C84] uppercase">7. SALINITY (PPT)</dt><dd class="font-mono font-bold text-[#172B4D] mt-0.5">${row.salinity !== undefined ? row.salinity + ' ppt' : '-'}</dd></div>
+              <div><dt class="text-[10px] font-bold text-[#5E6C84] uppercase">8. HARDNESS (PPM)</dt><dd class="font-mono font-bold text-[#172B4D] mt-0.5">${row.hardness !== undefined ? row.hardness + ' ppm' : '-'}</dd></div>
+              <div><dt class="text-[10px] font-bold text-[#5E6C84] uppercase">9. CHLORINE (PPM)</dt><dd class="font-mono font-bold text-[#172B4D] mt-0.5">${row.chlorine !== undefined ? row.chlorine + ' ppm' : '-'}</dd></div>
+              <div><dt class="text-[10px] font-bold text-[#5E6C84] uppercase">10. TOTAL DISSOLVED SOLIDS</dt><dd class="font-mono font-bold text-[#172B4D] mt-0.5">${row.totalDissolvedSolids !== undefined ? row.totalDissolvedSolids + ' ppm' : '-'}</dd></div>
             </div>
           </div>
         ` : ''}
