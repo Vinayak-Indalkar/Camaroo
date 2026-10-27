@@ -30164,11 +30164,24 @@ const qcAbReportFields = [
 ];
 const qcAntibiotics5 = ['AOZ', 'SEM', 'CAP', 'AHD', 'AMOZ'];
 
+const qcRmReportFields = [
+  qcField('id', 'ID'),
+  qcField('lot', 'Lot Number', 'lot'),
+  qcField('purchaseDate', 'Purchase Date', 'date'),
+  qcField('rmDate', 'Rm Date', 'date'),
+  qcField('purchaseType', 'Purchase Type', 'select', ['Site Weightment', 'By Yield', 'Pond Procurement']),
+  qcField('count', 'Count', 'text'),
+  qcField('weight', 'Weight(KGS)', 'number'),
+  qcField('abStatus', 'AB Status', 'select', ['NEGATIVE', 'POSITIVE', 'Pending']),
+  qcField('status', 'Status', 'select', ['Pass', 'Hold', 'Reject', 'Completed']),
+  qcField('reason', 'Reason', 'text')
+];
+
 const qcSchemas = {
   'daily-qc-ops': { title: 'Daily QC Operations', fields: [qcDateField, qcField('timeSlot', 'Inspection Time', 'time'), qcField('batchNo', 'Batch Number'), qcLotField, qcField('productLine', 'Product Line', 'select', ['Line #1', 'Line #2', 'Line #3', 'Line #4', 'Line #5', 'Line #6']), qcField('coreTemp', 'Core Temperature (C)', 'temperature'), qcField('chlorineLevel', 'Free Chlorine (ppm)', 'number'), qcField('sensoryScore', 'Sensory Score (1-5)', 'score'), qcInspectorField] },
   'lots-list': { title: 'Lots List', fields: [qcField('lot', 'Lot Number'), qcField('rmDate', 'Receiving Date', 'date'), qcField('type', 'Procurement Type', 'select', ['Site Weightment', 'By Yield']), qcField('grader', 'Grader'), qcField('agent', 'Agent / Supplier'), qcField('count', 'Count (Pieces / kg)', 'number'), qcField('weight', 'Net Weight (kg)', 'number'), qcField('station', 'Station'), qcField('method', 'Test Method'), qcField('collectedBy', 'Collected By'), qcField('lab', 'Laboratory'), qcField('testTime', 'Sample Time', 'datetime-local'), qcField('antibiotics', 'Screening Panel')] },
   'ab-report': { title: 'Antibiotic ELISA Report', fields: qcAbReportFields },
-  'rm-report': { title: 'Raw Material Inspection Report', fields: [qcLotField, qcDateField, qcField('sensoryScore', 'Freshness Score (1-5)', 'score'), qcField('blackSpot', 'Black Spot (%)', 'percent'), qcField('softShell', 'Soft Shell (%)', 'percent'), qcField('broken', 'Broken (%)', 'percent'), qcField('dehydration', 'Dehydration (%)', 'percent'), qcField('coreTemp', 'Core Temperature (C)', 'temperature'), qcField('disposition', 'Inspection Decision', 'select', ['Pass', 'Hold', 'Reject']), qcInspectorField] },
+  'rm-report': { title: 'Raw Material Inspection Report', fields: qcRmReportFields },
   'mb-report': { title: 'Microbiology Report', fields: [qcLotField, qcDateField, qcField('TPC', 'TPC (CFU/g)', 'number'), qcField('ecoli', 'E. coli (MPN/g)', 'number'), qcField('coliforms', 'Coliforms (MPN/g)', 'number'), ...qcOrganisms.map(key => qcField(key, `${key} (25g)`, 'select', ['Absent', 'Present'])), qcField('staph', 'S. aureus (CFU/g)', 'number'), qcInspectorField] },
   'lab-report': { title: 'In-House Lab Report', fields: [qcLotField, qcDateField, qcField('reportNo', 'Report Number'), qcField('lab', 'Laboratory'), qcField('requiredTests', 'Tests Performed'), qcField('chemicalResult', 'Chemical Result', 'select', ['Pass', 'Fail', 'Pending']), qcField('antibioticResult', 'Antibiotic Result', 'select', ['Pass', 'Fail', 'Pending']), qcField('microbiologyResult', 'Microbiology Result', 'select', ['Pass', 'Fail', 'Pending']), qcInspectorField] },
   'external-lab-report': { title: 'External Lab Report', fields: [qcLotField, qcDateField, qcField('reportNo', 'Report Number'), qcField('lab', 'Accredited Laboratory'), qcField('accreditationNo', 'Accreditation Number'), qcField('requiredTests', 'Tests Performed'), qcField('result', 'Lab Result', 'select', ['Pass', 'Fail', 'Pending']), qcField('coaNumber', 'COA Number'), qcInspectorField] },
@@ -30221,6 +30234,24 @@ const QCView = {
     } catch {
       this.state = seed;
     }
+    if (Array.isArray(this.state['rm-report'])) {
+      this.state['rm-report'] = this.state['rm-report'].map((row, idx) => {
+        const seedRow = (seed['rm-report'] && seed['rm-report'][idx]) || seed['rm-report'][0] || {};
+        return {
+          ...seedRow,
+          ...row,
+          id: (row.id && !row.id.startsWith('QC-rm-report')) ? row.id : (seedRow.id || `RM-INSP-2026-00${idx + 1}`),
+          purchaseDate: row.purchaseDate || seedRow.purchaseDate || '2026-10-24',
+          rmDate: row.rmDate || seedRow.rmDate || row.date || '2026-10-25',
+          purchaseType: row.purchaseType || seedRow.purchaseType || 'Site Weightment',
+          count: row.count || seedRow.count || '40 Count',
+          weight: row.weight || seedRow.weight || 2850,
+          abStatus: row.abStatus || seedRow.abStatus || 'NEGATIVE',
+          status: row.status || seedRow.status || 'Pass',
+          reason: row.reason || seedRow.reason || 'Compliant with raw material specifications.'
+        };
+      });
+    }
     if (Array.isArray(this.state['ab-report'])) {
       this.state['ab-report'] = this.state['ab-report'].map((row, idx) => {
         const seedRow = (seed['ab-report'] && seed['ab-report'][idx]) || seed['ab-report'][0] || {};
@@ -30236,7 +30267,7 @@ const QCView = {
     const state = {};
     Object.entries(qcSchemas).forEach(([key, schema]) => {
       state[key] = lots.map((lot, index) => {
-        const row = { id: `QC-${key}-${index + 1}` };
+        const row = { id: key === 'rm-report' ? `RM-INSP-2026-00${index + 1}` : `QC-${key}-${index + 1}` };
         schema.fields.forEach(field => {
           row[field.key] = field.options ? field.options[0] : ['number', 'score', 'percent', 'temperature'].includes(field.type) ? 0 : field.type === 'date' ? `2026-10-${String(25 + index).padStart(2, '0')}` : `${field.label} ${index + 1}`;
         });
@@ -30250,6 +30281,13 @@ const QCView = {
           timeSlot: `${8 + index * 2}:00`.padStart(5, '0'), batchNo: `DEMO-BATCH-${101 + index}`,
           coreTemp: index === 1 ? 5 : 2.5, chlorineLevel: 7, sensoryScore: 4,
           blackSpot: index + 1, softShell: index + 2, broken: 1, dehydration: 1, disposition: 'Pass',
+          purchaseDate: `2026-10-${24 + index}`,
+          purchaseType: ['Site Weightment', 'By Yield', 'Site Weightment'][index],
+          reason: [
+            'Fresh farm harvest, excellent sensory score (5/5), zero black spot',
+            'Soft shell (3%) and core temp 5°C; quarantined pending LC-MS re-test',
+            'Optimal chilled condition (2.5°C), compliant with grade standards'
+          ][index],
           TPC: index === 2 ? 600000 : 10000, ecoli: 2, coliforms: 20, staph: 10,
           reportNo: `DEMO-LAB-${201 + index}`, result: index === 1 ? 'Pending' : 'Pass',
           chemicalResult: 'Pass', antibioticResult: index === 1 ? 'Fail' : 'Pass', microbiologyResult: 'Pass',
@@ -30374,7 +30412,16 @@ const QCView = {
         : Number(row.chlorineLevel) < 5 || Number(row.chlorineLevel) > 10 || Number(row.sensoryScore) < 3 ? 'Hold' : Number(row.coreTemp) > 4 ? 'Re-ice' : 'Pass';
     } else if (key === 'rm-report') {
       row.totalDefects = ['blackSpot', 'softShell', 'broken', 'dehydration'].reduce((sum, name) => sum + Number(row[name] || 0), 0);
-      row.status = row.disposition === 'Reject' ? 'Fail' : row.disposition === 'Hold' || Number(row.coreTemp) > 4 || Number(row.sensoryScore) < 3 ? 'Hold' : 'Pass';
+      if (!row.purchaseDate) row.purchaseDate = row.date || '2026-10-25';
+      if (!row.rmDate) row.rmDate = row.date || '2026-10-25';
+      if (!row.purchaseType) row.purchaseType = 'Site Weightment';
+      if (!row.abStatus) {
+        const report = this.latestReport('ab-report', row.lot);
+        row.abStatus = report?.status === 'Pass' ? 'NEGATIVE' : report?.status === 'Fail' ? 'POSITIVE' : 'Pending';
+      }
+      row.status = row.status || (row.abStatus === 'POSITIVE' ? 'Hold' : 'Pass');
+      row.date = row.rmDate || row.purchaseDate || row.date;
+      row.internalLotNo = row.lot;
     } else if (key === 'lab-report') {
       const results = [row.chemicalResult, row.antibioticResult, row.microbiologyResult];
       row.status = results.includes('Fail') ? 'Fail' : results.every(value => value === 'Pass') ? 'Pass' : 'Pending';
@@ -30443,7 +30490,7 @@ const QCView = {
       <div class="space-y-4 min-w-0">
         <div class="flex flex-wrap items-center justify-between gap-3">
           <h1 class="text-xl font-extrabold text-[#172B4D]">${schema.title}</h1>
-          ${key === 'lots-list' ? '' : `<button type="button" id="qc-add-record" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer border-0">${this.icon('Plus')}<span>Add Record</span></button>`}
+          ${['lots-list', 'rm-report'].includes(key) ? '' : `<button type="button" id="qc-add-record" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer border-0">${this.icon('Plus')}<span>Add Record</span></button>`}
         </div>
         <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200">
           <div class="flex items-center justify-between gap-2 pb-1">
@@ -30472,6 +30519,32 @@ const QCView = {
       qcField('nightTotal', 'Night Total', 'number')
     ] : schema.fields;
     const columns = tableFields.map(field => {
+      if (key === 'rm-report') {
+        if (field.key === 'id') {
+          return { field: 'id', header: 'ID', render: val => `<span class="font-mono font-bold text-[#00A4B7]">${this.escape(val || '-')}</span>` };
+        }
+        if (field.key === 'lot') {
+          return { field: 'lot', header: 'Lot Number', render: val => `<span class="font-mono font-semibold text-[#172B4D]">${this.escape(val || '-')}</span>` };
+        }
+        if (field.key === 'purchaseDate' || field.key === 'rmDate') {
+          return { field: field.key, header: field.label, render: val => val ? String(val).split('-').reverse().join('-') : '-' };
+        }
+        if (field.key === 'count') {
+          return { field: 'count', header: 'Count', render: val => `<span class="font-mono font-medium">${this.escape(val || '-')}</span>` };
+        }
+        if (field.key === 'weight') {
+          return { field: 'weight', header: 'Weight(KGS)', render: val => `<span class="font-mono font-bold text-right">${Number(val || 0).toLocaleString()} Kg</span>` };
+        }
+        if (field.key === 'abStatus') {
+          return { field: 'abStatus', header: 'AB Status', render: val => this.badge(val) };
+        }
+        if (field.key === 'status') {
+          return { field: 'status', header: 'Status', render: val => this.badge(val) };
+        }
+        if (field.key === 'reason') {
+          return { field: 'reason', header: 'Reason', render: val => `<span class="text-[#475569] truncate max-w-[240px] block" title="${this.escape(val || '')}">${this.escape(val || '-')}</span>` };
+        }
+      }
       if (key === 'ab-report' && field.key === 'lot') {
         return { field: 'lot', header: 'LOT NO', render: val => `<span class="font-mono font-bold text-[#00A4B7]">${this.escape(val || '-')}</span>` };
       }
