@@ -32,11 +32,13 @@ export const Modal = {
 
   completeAction(action, context) {
     this.confirmedActionDepth += 1;
+    let result;
     try {
-      action();
+      result = action();
     } finally {
       this.confirmedActionDepth -= 1;
     }
+    if (result === false) return;
     if (context?.isConnected) return;
     if (!document.querySelector('#erp-modal-root, #erp-drawer-root, [id^="modal-"].fixed, [role="dialog"]')) {
       this.success({});

@@ -137,3 +137,27 @@ npx http-server -p 8080
 ```
 
 Then open `http://localhost:8080` in your web browser.
+
+## Quality Control Module (Demo)
+
+The QC menu includes 18 pages across Dashboard, Lab, QC Operations, Chemical
+Screening, and QC Audits. Open `#/quality/dashboard/overview` to start. Existing
+links such as `qc-overview`, `incoming-lots`, and `antibiotic-testing` redirect
+to the equivalent new pages.
+
+- Registers reuse the existing tables, filters, row details, modals, and action confirmations.
+- Seed records are demo data. Changes are saved in this browser under `dfl_qc_demo_v1` in localStorage; they are not shared across devices or users.
+- COA attachments accept PDF, PNG, or JPEG files up to 2 MB. They remain in browser storage, can be replaced or removed, and are downloadable from record details. Storage quota errors leave the form open without committing the change.
+- AB results use the supplied strict thresholds: AOZ, AMOZ, AHD, SEM, and CAP below 0.1 ppb; OTC and CTC below 100 ppb.
+- MB results use TPC at most 500,000 CFU/g, E. coli below 10, coliforms and S. aureus below 100, and absence of Salmonella and both Vibrio species in 25 g.
+- Daily checks flag temperatures above 4 C for re-icing; chlorine outside 5-10 ppm or sensory scores below 3 trigger a hold. Raw-material dispositions are inspector-entered, with additional temperature and freshness holds.
+- Completed export documentation requires all three certificate references and passing latest dated AB and MB reports. Completed quarantine-release orders also require passing AB and MB reports. Changed or deleted reports revalidate these releases.
+- Screening includes certificate expiry, chemical-residue results, and biosecurity decisions. Audit registers track major/minor/critical findings and CAPA closure.
+
+These are specification-based demo checks, not regulatory advice, validated
+laboratory software, accreditation verification, or real export authorization.
+Production use requires approved market-specific rules, backend persistence,
+access controls, secure document storage, and an auditable approval process.
+
+Run `npm run build` after source changes to refresh the standalone app served
+by the local Node server.

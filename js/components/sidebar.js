@@ -99,52 +99,54 @@ export const ADMIN_NAV_HIERARCHY = [
       {
         id: "dashboard",
         title: "Dashboard",
-        defaultTab: "qc-overview",
+        defaultTab: "overview",
         tabs: [
-          { id: "qc-overview", label: "QC Overview", hash: "#/quality/dashboard/qc-overview" },
+          { id: "overview", label: "QC Overview", hash: "#/quality/dashboard/overview" },
           { id: "daily-qc-ops", label: "Daily QC Operations", hash: "#/quality/dashboard/daily-qc-ops" }
         ]
       },
       {
         id: "lab",
         title: "Lab",
-        defaultTab: "incoming-lots",
+        defaultTab: "lots-list",
         tabs: [
-          { id: "incoming-lots", label: "Incoming Lots", hash: "#/quality/lab/incoming-lots" },
-          { id: "antibiotic-testing", label: "Antibiotic Testing", hash: "#/quality/lab/antibiotic-testing" },
-          { id: "rm-testing", label: "Raw Material Testing", hash: "#/quality/lab/rm-testing" },
-          { id: "microbiology", label: "Microbiology Testing", hash: "#/quality/lab/microbiology" },
-          { id: "in-house-lab", label: "In-House Lab", hash: "#/quality/lab/in-house-lab" },
-          { id: "external-lab", label: "External Lab", hash: "#/quality/lab/external-lab" }
+          { id: "lots-list", label: "Lots List", hash: "#/quality/lab/lots-list" },
+          { id: "ab-report", label: "AB ELISA Report", hash: "#/quality/lab/ab-report" },
+          { id: "rm-report", label: "Raw Material Report", hash: "#/quality/lab/rm-report" },
+          { id: "mb-report", label: "Microbiology Report", hash: "#/quality/lab/mb-report" },
+          { id: "lab-report", label: "In-House Lab", hash: "#/quality/lab/lab-report" },
+          { id: "external-lab-report", label: "External Lab", hash: "#/quality/lab/external-lab-report" }
         ]
       },
       {
         id: "qc-operations",
         title: "QC Operations",
-        defaultTab: "qc-orders",
+        defaultTab: "documentation",
         tabs: [
-          { id: "qc-orders", label: "QC Orders", hash: "#/quality/qc-operations/qc-orders" },
-          { id: "documentation", label: "Documentation", hash: "#/quality/qc-operations/documentation" }
+          { id: "documentation", label: "Documentation", hash: "#/quality/qc-operations/documentation" },
+          { id: "qc-orders", label: "QC Orders", hash: "#/quality/qc-operations/qc-orders" }
         ]
       },
       {
         id: "chemical-screening",
         title: "Chemical Screening",
-        defaultTab: "screening-records",
+        defaultTab: "food-social-audit",
         tabs: [
-          { id: "screening-records", label: "Screening Records", hash: "#/quality/chemical-screening/screening-records" }
+          { id: "food-social-audit", label: "Food & Social Audit", hash: "#/quality/chemical-screening/food-social-audit" },
+          { id: "farm-mill-hatchery-audit", label: "Farm / Mill / Hatchery", hash: "#/quality/chemical-screening/farm-mill-hatchery-audit" },
+          { id: "hatchery-list", label: "Hatchery List", hash: "#/quality/chemical-screening/hatchery-list" }
         ]
       },
       {
         id: "qc-audits",
         title: "QC Audits",
-        defaultTab: "food-audits",
+        defaultTab: "food-audit-list",
         tabs: [
-          { id: "food-audits", label: "Food Audits", hash: "#/quality/qc-audits/food-audits" },
-          { id: "social-audits", label: "Social Audits", hash: "#/quality/qc-audits/social-audits" },
-          { id: "farm-audits", label: "Farm Audits", hash: "#/quality/qc-audits/farm-audits" },
-          { id: "hatchery-audits", label: "Hatchery Audits", hash: "#/quality/qc-audits/hatchery-audits" },
-          { id: "feed-mill-audits", label: "Feed Mill Audits", hash: "#/quality/qc-audits/feed-mill-audits" }
+          { id: "food-audit-list", label: "Food Audits", hash: "#/quality/qc-audits/food-audit-list" },
+          { id: "social-audit-list", label: "Social Audits", hash: "#/quality/qc-audits/social-audit-list" },
+          { id: "farm-audit-list", label: "Farm Audits", hash: "#/quality/qc-audits/farm-audit-list" },
+          { id: "hatchery-audit-list", label: "Hatchery Audits", hash: "#/quality/qc-audits/hatchery-audit-list" },
+          { id: "feed-mill-audit-list", label: "Feed Mill Audits", hash: "#/quality/qc-audits/feed-mill-audit-list" }
         ]
       }
     ]
