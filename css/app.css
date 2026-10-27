@@ -78,6 +78,21 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+:where(#main-content-container, #erp-modal-root, #erp-drawer-root, [id^="modal-"].fixed)
+:is(h2, h3, h4, h5, h6, span.font-bold.uppercase) > :is(svg, i[data-lucide]):not(.dt-top-filter-card *) {
+  display: none !important;
+}
+
+:where(#main-content-container, #erp-modal-root, #erp-drawer-root, [id^="modal-"].fixed)
+:is(div, section):has(> :is(h2, h3, h4, h5, h6)) > :is(svg, i[data-lucide], span.rounded-full:empty, span:has(> svg)):not(.dt-top-filter-card *) {
+  display: none !important;
+}
+
+:where(#main-content-container, #erp-modal-root, #erp-drawer-root, [id^="modal-"].fixed)
+:is(div, section)[class~="border-b"]:is(.font-bold, :has(> :is(h2, h3, h4, h5, h6, span.font-bold.uppercase)), :has(> div > :is(h2, h3, h4, h5, h6, span.font-bold.uppercase))):not(.px-6.py-4):not(.dt-top-filter-card *):not(:has(#dt-download-btn)) {
+  border-bottom-width: 0 !important;
+}
+
 /* ERP App Shell: Fixed Geometry & Anti-Overlap */
 :root {
   --erp-sidebar-width: 272px;

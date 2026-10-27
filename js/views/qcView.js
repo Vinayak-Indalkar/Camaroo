@@ -482,8 +482,8 @@ export const QCView = {
     const today = new Date().toISOString().slice(0, 10);
     Modal.open({
       title: `${row ? 'Edit' : 'Add'} ${schema.title}`,
-      size: 'lg',
-      content: `<form id="qc-record-form" class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+      size: 'full',
+      content: `<form id="qc-record-form" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs">
         ${schema.fields.map(field => {
           const value = row?.[field.key] ?? (field.type === 'date' ? today : '');
           const options = field.type === 'lot' ? this.state['lots-list'].map(lot => lot.lot) : field.options;
@@ -491,11 +491,16 @@ export const QCView = {
           const inputType = numeric ? 'number' : ['date', 'time', 'datetime-local'].includes(field.type) ? field.type : 'text';
           const optional = ['certHealth', 'certCoa', 'certOrigin', 'bapNumber'].includes(field.key);
           const fieldId = `qc-field-${field.key.replace(/[^a-zA-Z0-9_-]/g, '-')}`;
-          return `<div><label for="${fieldId}">${this.escape(field.label)}${optional ? '' : ' *'}</label>${options
-            ? `<select id="${fieldId}" name="${this.escape(field.key)}" class="w-full" required><option value="">Select</option>${options.map(option => `<option value="${this.escape(option)}" ${option === value ? 'selected' : ''}>${this.escape(option)}</option>`).join('')}</select>`
-            : `<input id="${fieldId}" name="${this.escape(field.key)}" type="${inputType}" value="${this.escape(value)}" class="w-full" ${optional ? '' : 'required'} ${numeric ? `step="any" min="${field.type === 'temperature' ? '-50' : field.type === 'score' ? '1' : '0'}" ${field.type === 'score' ? 'max="5"' : field.type === 'percent' ? 'max="100"' : ''}` : ''} />`}</div>`;
+          return `<div>
+            <label for="${fieldId}" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">${this.escape(field.label)}${optional ? '' : ' <span class="text-[#DE350B]">*</span>'}</label>
+            ${options
+              ? `<select id="${fieldId}" name="${this.escape(field.key)}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required><option value="">Select</option>${options.map(option => `<option value="${this.escape(option)}" ${option === value ? 'selected' : ''}>${this.escape(option)}</option>`).join('')}</select>`
+              : field.type === 'date'
+                ? `<div class="erp-date-wrapper"><input id="${fieldId}" name="${this.escape(field.key)}" type="date" value="${this.escape(value)}" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" ${optional ? '' : 'required'} onclick="this.showPicker ? this.showPicker() : this.focus()" /></div>`
+                : `<input id="${fieldId}" name="${this.escape(field.key)}" type="${inputType}" value="${this.escape(value)}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" ${optional ? '' : 'required'} ${numeric ? `step="any" min="${field.type === 'temperature' ? '-50' : field.type === 'score' ? '1' : '0'}" ${field.type === 'score' ? 'max="5"' : field.type === 'percent' ? 'max="100"' : ''}` : ''} />`}
+          </div>`;
         }).join('')}
-        ${key === 'external-lab-report' ? `<div class="sm:col-span-2"><label for="qc-coa-file">COA Attachment (PDF / PNG / JPEG, max 2 MB)</label><input id="qc-coa-file" type="file" accept="application/pdf,image/png,image/jpeg" class="w-full" />${row?.coaFileName ? `<span class="text-xs">${this.escape(row.coaFileName)}</span><label class="flex items-center gap-2 mt-2"><input id="qc-coa-remove" type="checkbox" />Remove attachment</label>` : ''}</div>` : ''}
+        ${key === 'external-lab-report' ? `<div class="sm:col-span-2 lg:col-span-4"><label for="qc-coa-file" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">COA Attachment (PDF / PNG / JPEG, max 2 MB)</label><input id="qc-coa-file" type="file" accept="application/pdf,image/png,image/jpeg" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" />${row?.coaFileName ? `<span class="text-xs text-[#00A4B7] font-semibold mt-1 block">${this.escape(row.coaFileName)}</span><label class="flex items-center gap-2 mt-2 text-xs"><input id="qc-coa-remove" type="checkbox" />Remove attachment</label>` : ''}</div>` : ''}
       </form>`,
       footerButtons: [
         { label: 'Cancel', type: 'secondary', onClick: modal => modal.close() },
@@ -556,15 +561,9 @@ export const QCView = {
       content: `
         <form id="qc-record-form" class="space-y-4" onsubmit="return false;">
           <!-- Section 1: Facility & Inspection Meta -->
-          <div class="bg-[#F8FAFC] p-3.5 rounded-xl border border-[#DFE1E6] space-y-3">
-            <div class="flex items-center justify-between pb-1 border-b border-[#E2E8F0]">
-              <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider flex items-center gap-1.5">
-                <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
-                Inspection &amp; Facility Information
-              </span>
-              <span class="text-[11px] font-bold text-[#00A4B7]">QC LAB - ELISA &amp; CHEMICAL</span>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+          <div class="space-y-3 pb-4">
+            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Inspection &amp; Facility Information</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
               <!-- 1. LOT NO -->
               <div>
                 <label for="qcf-lot" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">LOT NO <span class="text-[#DE350B]">*</span></label>
@@ -623,14 +622,9 @@ export const QCView = {
           </div>
 
           <!-- Section 2: Sample Specifications -->
-          <div class="bg-[#F8FAFC] p-3.5 rounded-xl border border-[#DFE1E6] space-y-3">
-            <div class="flex items-center justify-between pb-1 border-b border-[#E2E8F0]">
-              <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider flex items-center gap-1.5">
-                <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
-                Sample Specifications &amp; Loading Logistics
-              </span>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 text-xs">
+          <div class="space-y-3 pb-4">
+            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Sample Specifications &amp; Loading Logistics</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
               <!-- 8. SAMPLE TYPE -->
               <div>
                 <label for="qcf-sample-type" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SAMPLE TYPE <span class="text-[#DE350B]">*</span></label>
@@ -678,14 +672,9 @@ export const QCView = {
           </div>
 
           <!-- Section 3: Testing Parameters & Chemical / Sulphite Residue -->
-          <div class="bg-[#F8FAFC] p-3.5 rounded-xl border border-[#DFE1E6] space-y-3">
-            <div class="flex items-center justify-between pb-1 border-b border-[#E2E8F0]">
-              <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider flex items-center gap-1.5">
-                <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
-                Testing Protocol &amp; Sulphite Screening
-              </span>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+          <div class="space-y-3 pb-4">
+            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Testing Protocol &amp; Sulphite Screening</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
               <!-- 13. PARAMETER -->
               <div>
                 <label for="qcf-parameter" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PARAMETER <span class="text-[#DE350B]">*</span></label>
@@ -706,52 +695,44 @@ export const QCView = {
           </div>
 
           <!-- Section 4: Antibiotic Residue Panel (ppb) -->
-          <div class="bg-[#F0FDF4] p-3.5 rounded-xl border border-[#BBF7D0] space-y-3">
-            <div class="flex items-center justify-between pb-1 border-b border-[#DCFCE7]">
-              <div class="flex items-center gap-1.5">
-                <span class="text-xs font-bold text-[#166534] uppercase tracking-wider flex items-center gap-1.5">
-                  <svg class="w-4 h-4 text-[#16A34A]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-                  Antibiotic Residues (ppb / MRL: &lt; 0.10 ppb)
-                </span>
-              </div>
-              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#DCFCE7] text-[#15803D]">Zero Tolerance / USFDA &amp; EU MRL</span>
-            </div>
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 text-xs">
+          <div class="space-y-3 pb-4">
+            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Antibiotic Residues (ppb / Limit: &lt; 0.10 ppb)</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
               <!-- 15. AOZ -->
               <div>
-                <label for="qcf-aoz" class="block text-[11px] font-bold text-[#166534] uppercase tracking-wider mb-0">AOZ (PPB) <span class="text-[#DE350B]">*</span></label>
-                <input type="number" id="qcf-aoz" name="AOZ" value="${val('AOZ', 0.02)}" step="any" min="0" class="qc-ab-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#86EFAC] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#16A34A]" required />
+                <label for="qcf-aoz" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">AOZ (PPB) <span class="text-[#DE350B]">*</span></label>
+                <input type="number" id="qcf-aoz" name="AOZ" value="${val('AOZ', 0.02)}" step="any" min="0" class="qc-ab-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
               </div>
 
               <!-- 16. SEM -->
               <div>
-                <label for="qcf-sem" class="block text-[11px] font-bold text-[#166534] uppercase tracking-wider mb-0">SEM (PPB) <span class="text-[#DE350B]">*</span></label>
-                <input type="number" id="qcf-sem" name="SEM" value="${val('SEM', 0.02)}" step="any" min="0" class="qc-ab-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#86EFAC] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#16A34A]" required />
+                <label for="qcf-sem" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SEM (PPB) <span class="text-[#DE350B]">*</span></label>
+                <input type="number" id="qcf-sem" name="SEM" value="${val('SEM', 0.02)}" step="any" min="0" class="qc-ab-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
               </div>
 
               <!-- 17. CAP -->
               <div>
-                <label for="qcf-cap" class="block text-[11px] font-bold text-[#166534] uppercase tracking-wider mb-0">CAP (PPB) <span class="text-[#DE350B]">*</span></label>
-                <input type="number" id="qcf-cap" name="CAP" value="${val('CAP', 0.01)}" step="any" min="0" class="qc-ab-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#86EFAC] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#16A34A]" required />
+                <label for="qcf-cap" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">CAP (PPB) <span class="text-[#DE350B]">*</span></label>
+                <input type="number" id="qcf-cap" name="CAP" value="${val('CAP', 0.01)}" step="any" min="0" class="qc-ab-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
               </div>
 
               <!-- 18. AHD -->
               <div>
-                <label for="qcf-ahd" class="block text-[11px] font-bold text-[#166534] uppercase tracking-wider mb-0">AHD (PPB) <span class="text-[#DE350B]">*</span></label>
-                <input type="number" id="qcf-ahd" name="AHD" value="${val('AHD', 0.02)}" step="any" min="0" class="qc-ab-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#86EFAC] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#16A34A]" required />
+                <label for="qcf-ahd" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">AHD (PPB) <span class="text-[#DE350B]">*</span></label>
+                <input type="number" id="qcf-ahd" name="AHD" value="${val('AHD', 0.02)}" step="any" min="0" class="qc-ab-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
               </div>
 
               <!-- 19. AMOZ -->
               <div>
-                <label for="qcf-amoz" class="block text-[11px] font-bold text-[#166534] uppercase tracking-wider mb-0">AMOZ (PPB) <span class="text-[#DE350B]">*</span></label>
-                <input type="number" id="qcf-amoz" name="AMOZ" value="${val('AMOZ', 0.02)}" step="any" min="0" class="qc-ab-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#86EFAC] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#16A34A]" required />
+                <label for="qcf-amoz" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">AMOZ (PPB) <span class="text-[#DE350B]">*</span></label>
+                <input type="number" id="qcf-amoz" name="AMOZ" value="${val('AMOZ', 0.02)}" step="any" min="0" class="qc-ab-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
               </div>
             </div>
           </div>
 
           <!-- Section 5: Evaluation & Remarks -->
-          <div class="bg-[#F8FAFC] p-3.5 rounded-xl border border-[#DFE1E6] space-y-3">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+          <div class="space-y-3 pb-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
               <!-- 20. RESULT -->
               <div>
                 <label for="qcf-result" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">RESULT <span class="text-[#DE350B]">*</span></label>
@@ -766,7 +747,7 @@ export const QCView = {
               </div>
 
               <!-- 21. REMARKS -->
-              <div class="md:col-span-2">
+              <div class="sm:col-span-2 lg:col-span-3">
                 <label for="qcf-remarks" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">REMARKS</label>
                 <input type="text" id="qcf-remarks" name="remarks" value="${this.escape(val('remarks', 'Compliant with USFDA & EU MRL standards. Cleared for processing.'))}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" />
               </div>
@@ -775,12 +756,6 @@ export const QCView = {
 
           <!-- Section 6: Inner Breakdown Table Header & Save Button -->
           <div class="space-y-2 mt-4">
-            <div class="flex items-center justify-end">
-              <button type="button" id="btn-save-qc-sample-table" class="btn-primary rounded-full px-5 py-1.5 text-xs font-bold shadow-2xs hover:shadow-xs transition-all cursor-pointer inline-flex items-center gap-1.5 border-0">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                <span>Save</span>
-              </button>
-            </div>
             <div class="mb-2">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">QC Sample Antibiotic &amp; Chemical Testing Table</h4>
             </div>
@@ -793,7 +768,8 @@ export const QCView = {
         </form>
       `,
       footerButtons: [
-        { label: 'Cancel', type: 'secondary', onClick: modal => modal.close() }
+        { label: 'Cancel', type: 'secondary', onClick: modal => modal.close() },
+        { label: 'Save', type: 'primary', onClick: () => document.getElementById('qc-record-form')?.requestSubmit() }
       ]
     });
 
@@ -807,12 +783,8 @@ export const QCView = {
 
       if (!sampleRows || sampleRows.length === 0) {
         container.innerHTML = `
-          <div class="bg-white rounded-xl border border-[#DFE1E6] p-8 text-center">
-            <div class="inline-flex p-3 rounded-full bg-[#F1F5F9] text-[#64748B] mb-2">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-            </div>
+          <div class="border-y border-[#DFE1E6] py-8 text-center">
             <h4 class="text-xs font-bold text-[#172B4D]">No Data Available</h4>
-            <p class="text-[11px] text-[#64748B] mt-0.5">Click 'Save' above to verify test specifications and display QC sample testing breakdown.</p>
           </div>
         `;
         return;
@@ -821,9 +793,9 @@ export const QCView = {
       const totalQty = sampleRows.reduce((sum, r) => sum + (Number(r.quantity) || 0), 0);
 
       container.innerHTML = `
-        <div class="bg-white rounded-xl border border-[#DFE1E6] shadow-2xs overflow-hidden">
+        <div class="bg-white rounded-none border border-[#DFE1E6] overflow-hidden">
           <div class="overflow-x-auto" style="overflow-x: auto !important; -webkit-overflow-scrolling: touch;">
-            <table class="w-full text-left text-xs border-collapse" style="min-width: 1450px;">
+            <table class="erp-table w-full text-left text-xs border-collapse" style="min-width: 1450px;">
               <thead class="bg-[#F8FAFC] border-b border-[#DFE1E6] text-[#475569] font-bold uppercase tracking-wider text-[11px]">
                 <tr>
                   <th class="py-2.5 px-3 min-w-[140px]">Sample</th>
@@ -874,7 +846,7 @@ export const QCView = {
                       <td class="py-2.5 px-3 text-[#475569] truncate max-w-[200px]" title="${this.escape(sr.remarks || '')}">${this.escape(sr.remarks || '-')}</td>
                       <td class="py-2.5 px-3 font-medium text-[#172B4D]">${this.escape(sr.testedBy || '-')}</td>
                       <td class="py-2.5 px-2 text-center">
-                        <button type="button" class="btn-delete-qc-sample p-1 text-[#6B778C] hover:text-[#DE350B] rounded hover:bg-[#FEE2E2] transition-colors cursor-pointer" data-idx="${idx}" title="Delete Sample">
+                        <button type="button" class="btn-delete-qc-sample dt-action-btn inline-flex items-center justify-center bg-white border border-[#CBD5E1] text-[#334155] rounded-full transition-colors cursor-pointer" data-idx="${idx}" title="Delete Sample" aria-label="Delete Sample">
                           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                         </button>
                       </td>
@@ -933,7 +905,8 @@ export const QCView = {
     });
 
     // Save button above table - validates form, generates/saves samples, and saves record
-    document.getElementById('btn-save-qc-sample-table')?.addEventListener('click', () => {
+    form.addEventListener('submit', event => {
+      event.preventDefault();
       if (!form.reportValidity()) return;
 
       const lot = document.getElementById('qcf-lot')?.value || 'BLS/2627/0143';
@@ -1055,6 +1028,7 @@ export const QCView = {
         return;
       }
 
+      Modal.close();
       this.renderRegister('ab-report');
       Toast.show(`QC Record & Sample Test Items saved for Lot ${lot}.`, 'success');
     });

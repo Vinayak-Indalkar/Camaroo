@@ -2109,13 +2109,15 @@ export const PreprocessingView = {
     ];
     Modal.open({
       title: 'Add Deheading',
-      size: 'lg',
-      content: `<form id="form-add-deheading" class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+      size: 'full',
+      content: `<form id="form-add-deheading" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs">
         ${fields.map(field => `<div>
-          <label for="ndh-${field.name}" class="block text-xs font-semibold mb-0">${field.label}${field.optional ? '' : ' *'}</label>
+          <label for="ndh-${field.name}" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">${field.label}${field.optional ? '' : ' <span class="text-[#DE350B]">*</span>'}</label>
           ${field.options
-            ? `<select id="ndh-${field.name}" name="${field.name}" class="w-full" required>${field.options.map(option => `<option></option>`).join('')}</select>`
-            : `<input id="ndh-${field.name}" name="${field.name}" type="${field.type || 'text'}" value="${field.value || ''}" ${field.type === 'number' ? `min="${field.min || '0'}" step="any"` : ''} ${field.optional ? '' : 'required'} class="w-full" />`}
+            ? `<select id="ndh-${field.name}" name="${field.name}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>${field.options.map(option => `<option></option>`).join('')}</select>`
+            : field.type === 'date'
+              ? `<div class="erp-date-wrapper"><input id="ndh-${field.name}" name="${field.name}" type="date" value="${field.value || ''}" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" required onclick="this.showPicker ? this.showPicker() : this.focus()" /></div>`
+              : `<input id="ndh-${field.name}" name="${field.name}" type="${field.type || 'text'}" value="${field.value || ''}" ${field.type === 'number' ? `min="${field.min || '0'}" step="any"` : ''} ${field.optional ? '' : 'required'} class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" />`}
         </div>`).join('')}
       </form>`,
       footerButtons: [
@@ -2171,6 +2173,206 @@ export const PreprocessingView = {
       Modal.close();
       this.renderDeheadingScreen(container);
       Toast.show(`Deheading batch ${entry.id} added`, 'success');
+    });
+  },
+
+  // Edit Deheading Modal (4-Column Grid)
+  showEditDeheadingModal(row, container) {
+    const fields = [
+      { name: 'arrivalCode', label: 'Arrival / Lot Code', value: row.arrivalCode || row.lotNo },
+      { name: 'arrivalDate', label: 'Arrival Date', type: 'date', value: row.arrivalDate || '2026-10-27' },
+      { name: 'productionPlant', label: 'Production Plant', value: row.productionPlant, options: [...new Set(this.state.deheadingBatches.map(batch => batch.productionPlant))] },
+      { name: 'center', label: 'Center', value: row.center, options: [...new Set(this.state.deheadingBatches.map(batch => batch.center))] },
+      { name: 'deheadingStation', label: 'Deheading Station', value: row.deheadingStation, options: [...new Set(this.state.deheadingBatches.map(batch => batch.deheadingStation))] },
+      { name: 'deheadingDate', label: 'Deheading Date', type: 'date', value: row.deheadingDate ? (row.deheadingDate.includes('/') ? row.deheadingDate.split('/').reverse().join('-') : row.deheadingDate) : '2026-10-27' },
+      { name: 'shift', label: 'Shift', value: row.shift, options: ['Shift A (Day)', 'Shift B (Evening)', 'Shift C (Night)'] },
+      { name: 'supervisor', label: 'Supervisor', value: row.supervisor, options: [...new Set(this.state.deheadingBatches.map(batch => batch.supervisor))] },
+      { name: 'species', label: 'Species', value: row.species, options: [...new Set(this.state.deheadingBatches.map(batch => batch.species))] },
+      { name: 'checkingCount2', label: 'Checking Count-2', type: 'number', value: row.checkingCount2 },
+      { name: 'honCount', label: 'HON Count', type: 'number', value: row.honCount },
+      { name: 'hlCount', label: 'HL Count', type: 'number', value: row.hlCount },
+      { name: 'honQuantityKgs', label: 'HON Quantity (Kgs)', type: 'number', min: '0.01', value: row.honQuantityKgs || row.inputHonWt },
+      { name: 'hlQuantityKgs', label: 'HL Quantity (Kgs)', type: 'number', min: '0.01', value: row.hlQuantityKgs || row.outputDhWt },
+      { name: 'iceConsumption', label: 'Ice Consumption', optional: true, value: row.iceConsumption || '' },
+      { name: 'remarks', label: 'Remarks', optional: true, value: row.remarks || '' }
+    ];
+    Modal.open({
+      title: `Edit Deheading: ${row.id}`,
+      size: 'full',
+      content: `<form id="form-edit-deheading" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs">
+        ${fields.map(field => `<div>
+          <label for="edh-${field.name}" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">${field.label}${field.optional ? '' : ' <span class="text-[#DE350B]">*</span>'}</label>
+          ${field.options
+            ? `<select id="edh-${field.name}" name="${field.name}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>${field.options.map(option => `<option value="${this.escape(option)}" ${option === field.value ? 'selected' : ''}>${this.escape(option)}</option>`).join('')}</select>`
+            : field.type === 'date'
+              ? `<div class="erp-date-wrapper"><input id="edh-${field.name}" name="${field.name}" type="date" value="${field.value || ''}" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" required onclick="this.showPicker ? this.showPicker() : this.focus()" /></div>`
+              : `<input id="edh-${field.name}" name="${field.name}" type="${field.type || 'text'}" value="${field.value ?? ''}" ${field.type === 'number' ? `min="${field.min || '0'}" step="any"` : ''} ${field.optional ? '' : 'required'} class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" />`}
+        </div>`).join('')}
+      </form>`,
+      footerButtons: [
+        { label: 'Cancel', type: 'secondary', onClick: modal => modal.close() },
+        {
+          label: 'Save Changes',
+          type: 'primary',
+          onClick: () => {
+            const form = document.getElementById('form-edit-deheading');
+            if (!form || !form.reportValidity()) return;
+            const values = Object.fromEntries(new FormData(form));
+            const inputWeight = Number(values.honQuantityKgs);
+            const outputWeight = Number(values.hlQuantityKgs);
+            if (outputWeight > inputWeight) {
+              Toast.show('HL quantity cannot exceed HON quantity', 'error');
+              return;
+            }
+            const yieldPct = Number((outputWeight / inputWeight * 100).toFixed(1));
+            Object.assign(row, values, {
+              lotNo: values.arrivalCode,
+              deheadingDate: values.deheadingDate.includes('-') ? values.deheadingDate.split('-').reverse().join('/') : values.deheadingDate,
+              checkingCount2: Number(values.checkingCount2),
+              honCount: Number(values.honCount),
+              hlCount: Number(values.hlCount),
+              honQuantityKgs: inputWeight,
+              hlQuantityKgs: outputWeight,
+              inputHonWt: inputWeight,
+              outputDhWt: outputWeight,
+              yieldPct,
+              countNetYieldPct: yieldPct,
+              recoveryPct: yieldPct,
+              sampleYieldPct: yieldPct,
+              wasteHeadWt: inputWeight - outputWeight,
+              lineNo: values.deheadingStation
+            });
+            Modal.close();
+            this.renderDeheadingScreen(container);
+            Toast.show(`Deheading record ${row.id} updated successfully`, 'success');
+          }
+        }
+      ]
+    });
+  },
+
+  // Add Grading Modal (4-Column Grid)
+  showNewGradingModal(container) {
+    const today = new Date().toLocaleDateString('en-CA');
+    const fields = [
+      { name: 'arrivalCode', label: 'Arrival / Lot Code', value: 'LOT-2026-00125' },
+      { name: 'productionPlant', label: 'Production Plant', options: ['DFL UNIT-5 (JPT)', 'DFL UNIT-3 (PSP)', 'DFL UNIT-4 (PND)', 'DFL UNIT-1 (VSP)', 'DFL UNIT-6 (JPT-II)', 'DFL UNIT-2 (KKD)'] },
+      { name: 'gradingStation', label: 'Grading Station', options: ['Grading Line #1', 'Grading Line #2', 'Grading Line #3', 'Fish Sizing Table #1'] },
+      { name: 'gradingDate', label: 'Grading Date', type: 'date', value: today },
+      { name: 'gradingMachine', label: 'Grading Machine', options: ['Auto Grader #1', 'Auto Grader #2', 'Manual Sizing Table', 'Shrimp Sorter 2000'] },
+      { name: 'variety', label: 'Variety / Species', options: ['Vannamei (VM)', 'Black Tiger (BT)', 'Sea White', 'Scampi'] },
+      { name: 'hlCountPerLb', label: 'HL Count / Lb', value: '21/25 Count' },
+      { name: 'hlWeightKgs', label: 'Total Graded Wt (Kgs)', type: 'number', min: '0.01', value: 2750 },
+      { name: 'noOfCrates', label: 'No of Crates', type: 'number', min: '1', value: 110 },
+      { name: 'startTime', label: 'Start Time', value: '08:30' },
+      { name: 'endTime', label: 'End Time', value: '12:30' },
+      { name: 'breakTimeMinutes', label: 'Break (Mins)', type: 'number', value: 30 },
+      { name: 'status', label: 'Status', options: ['COMPLETED', 'IN_PROGRESS', 'PENDING'] },
+      { name: 'remarks', label: 'Remarks', optional: true, value: 'Calibrated for size uniformity' }
+    ];
+    Modal.open({
+      title: 'Add Grading Run',
+      size: 'full',
+      content: `<form id="form-add-grading" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs">
+        ${fields.map(field => `<div>
+          <label for="ngr-${field.name}" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">${field.label}${field.optional ? '' : ' <span class="text-[#DE350B]">*</span>'}</label>
+          ${field.options
+            ? `<select id="ngr-${field.name}" name="${field.name}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>${field.options.map(option => `<option value="${this.escape(option)}">${this.escape(option)}</option>`).join('')}</select>`
+            : field.type === 'date'
+              ? `<div class="erp-date-wrapper"><input id="ngr-${field.name}" name="${field.name}" type="date" value="${field.value || ''}" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" required onclick="this.showPicker ? this.showPicker() : this.focus()" /></div>`
+              : `<input id="ngr-${field.name}" name="${field.name}" type="${field.type || 'text'}" value="${field.value ?? ''}" ${field.type === 'number' ? `min="${field.min || '0'}" step="any"` : ''} ${field.optional ? '' : 'required'} class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" />`}
+        </div>`).join('')}
+      </form>`,
+      footerButtons: [
+        { label: 'Cancel', type: 'secondary', onClick: modal => modal.close() },
+        {
+          label: 'Save Grading Run',
+          type: 'primary',
+          onClick: () => {
+            const form = document.getElementById('form-add-grading');
+            if (!form || !form.reportValidity()) return;
+            const values = Object.fromEntries(new FormData(form));
+            const nextSeq = Math.max(200, ...this.state.gradingRuns.map(r => Number(r.id.split('-').pop()) || 0)) + 1;
+            const entry = {
+              ...values,
+              sNo: this.state.gradingRuns.length + 1,
+              id: `GR-2026-${nextSeq}`,
+              lotNo: values.arrivalCode,
+              arrivalDate: values.gradingDate,
+              gradingDate: values.gradingDate.includes('-') ? values.gradingDate.split('-').reverse().join('/') : values.gradingDate,
+              hlWeightKgs: Number(values.hlWeightKgs),
+              totalGradedKg: Number(values.hlWeightKgs),
+              noOfCrates: Number(values.noOfCrates),
+              breakTimeMinutes: Number(values.breakTimeMinutes) || 0,
+              machineId: values.gradingMachine,
+              species: values.variety.includes('Vannamei') ? 'Vannamei Shrimp' : 'Black Tiger Shrimp'
+            };
+            this.state.gradingRuns.unshift(entry);
+            this.state.gradingRuns.forEach((r, idx) => { r.sNo = idx + 1; });
+            Modal.close();
+            this.renderGradingScreen(container);
+            Toast.show(`Grading run ${entry.id} saved successfully`, 'success');
+          }
+        }
+      ]
+    });
+  },
+
+  // Edit Grading Modal (4-Column Grid)
+  showEditGradingModal(row, container) {
+    const fields = [
+      { name: 'arrivalCode', label: 'Arrival / Lot Code', value: row.arrivalCode || row.lotNo },
+      { name: 'productionPlant', label: 'Production Plant', value: row.productionPlant, options: ['DFL UNIT-5 (JPT)', 'DFL UNIT-3 (PSP)', 'DFL UNIT-4 (PND)', 'DFL UNIT-1 (VSP)', 'DFL UNIT-6 (JPT-II)', 'DFL UNIT-2 (KKD)'] },
+      { name: 'gradingStation', label: 'Grading Station', value: row.gradingStation, options: ['Grading Line #1', 'Grading Line #2', 'Grading Line #3', 'Fish Sizing Table #1'] },
+      { name: 'gradingDate', label: 'Grading Date', type: 'date', value: row.gradingDate ? (row.gradingDate.includes('/') ? row.gradingDate.split('/').reverse().join('-') : row.gradingDate) : '2026-10-27' },
+      { name: 'gradingMachine', label: 'Grading Machine', value: row.gradingMachine || row.machineId, options: ['Auto Grader #1', 'Auto Grader #2', 'Manual Sizing Table', 'Shrimp Sorter 2000'] },
+      { name: 'variety', label: 'Variety / Species', value: row.variety, options: ['Vannamei (VM)', 'Black Tiger (BT)', 'Sea White', 'Scampi'] },
+      { name: 'hlCountPerLb', label: 'HL Count / Lb', value: row.hlCountPerLb },
+      { name: 'hlWeightKgs', label: 'Total Graded Wt (Kgs)', type: 'number', min: '0.01', value: row.hlWeightKgs || row.totalGradedKg },
+      { name: 'noOfCrates', label: 'No of Crates', type: 'number', min: '1', value: row.noOfCrates },
+      { name: 'startTime', label: 'Start Time', value: row.startTime || '08:30' },
+      { name: 'endTime', label: 'End Time', value: row.endTime || '12:30' },
+      { name: 'breakTimeMinutes', label: 'Break (Mins)', type: 'number', value: 30 },
+      { name: 'status', label: 'Status', value: row.status, options: ['COMPLETED', 'IN_PROGRESS', 'PENDING'] },
+      { name: 'remarks', label: 'Remarks', optional: true, value: row.remarks || '' }
+    ];
+    Modal.open({
+      title: `Edit Grading Run: ${row.id}`,
+      size: 'full',
+      content: `<form id="form-edit-grading" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs">
+        ${fields.map(field => `<div>
+          <label for="egr-${field.name}" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">${field.label}${field.optional ? '' : ' <span class="text-[#DE350B]">*</span>'}</label>
+          ${field.options
+            ? `<select id="egr-${field.name}" name="${field.name}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>${field.options.map(option => `<option value="${this.escape(option)}" ${option === field.value ? 'selected' : ''}>${this.escape(option)}</option>`).join('')}</select>`
+            : field.type === 'date'
+              ? `<div class="erp-date-wrapper"><input id="egr-${field.name}" name="${field.name}" type="date" value="${field.value || ''}" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" required onclick="this.showPicker ? this.showPicker() : this.focus()" /></div>`
+              : `<input id="egr-${field.name}" name="${field.name}" type="${field.type || 'text'}" value="${field.value ?? ''}" ${field.type === 'number' ? `min="${field.min || '0'}" step="any"` : ''} ${field.optional ? '' : 'required'} class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" />`}
+        </div>`).join('')}
+      </form>`,
+      footerButtons: [
+        { label: 'Cancel', type: 'secondary', onClick: modal => modal.close() },
+        {
+          label: 'Save Changes',
+          type: 'primary',
+          onClick: () => {
+            const form = document.getElementById('form-edit-grading');
+            if (!form || !form.reportValidity()) return;
+            const values = Object.fromEntries(new FormData(form));
+            Object.assign(row, values, {
+              lotNo: values.arrivalCode,
+              gradingDate: values.gradingDate.includes('-') ? values.gradingDate.split('-').reverse().join('/') : values.gradingDate,
+              hlWeightKgs: Number(values.hlWeightKgs),
+              totalGradedKg: Number(values.hlWeightKgs),
+              noOfCrates: Number(values.noOfCrates),
+              breakTimeMinutes: Number(values.breakTimeMinutes) || 0,
+              machineId: values.gradingMachine
+            });
+            Modal.close();
+            this.renderGradingScreen(container);
+            Toast.show(`Grading run ${row.id} updated successfully`, 'success');
+          }
+        }
+      ]
     });
   },
 
