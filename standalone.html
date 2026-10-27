@@ -30007,7 +30007,7 @@ const QCView = {
     if (Array.isArray(this.state['ab-report'])) {
       this.state['ab-report'] = this.state['ab-report'].map((row, idx) => {
         const seedRow = (seed['ab-report'] && seed['ab-report'][idx]) || seed['ab-report'][0] || {};
-        return { ...seedRow, ...row };
+        return { ...seedRow, ...row, sampleRows: (row.sampleRows && row.sampleRows.length) ? row.sampleRows : (seedRow.sampleRows || []) };
       });
     }
     Object.keys(qcSchemas).forEach(key => this.state[key].forEach(row => this.evaluate(key, row)));
@@ -30073,7 +30073,39 @@ const QCView = {
             AHD: 0.02,
             AMOZ: 0.02,
             result: index === 1 ? 'Fail' : 'Pass',
-            status: index === 1 ? 'Fail' : 'Pass'
+            status: index === 1 ? 'Fail' : 'Pass',
+            sampleRows: [
+              {
+                sample: `SMP-01 (${['Raw Material (Head-On)', 'Headless (HL)', 'Peeling (PD / PUD)'][index]})`,
+                lotNo: lot,
+                count: ['31/40 Count', '41/50 Count', '51/60 Count'][index],
+                quantity: Math.round((2500 + index * 600) * 0.6),
+                aoz: index === 1 ? 0.15 : 0.02,
+                sem: 0.02,
+                cap: 0.01,
+                ahd: 0.02,
+                amoz: 0.02,
+                loadingStatus: ['Approved for Loading', 'On Hold', 'Passed & Cleared'][index],
+                shift: ['Shift 1 (06:00 - 14:00)', 'Shift 2 (14:00 - 22:00)', 'General Shift (09:00 - 18:00)'][index],
+                remarks: index === 1 ? 'Borderline AOZ trace detected. Re-screening required under LC-MS.' : 'Compliant with USFDA & EU MRL standards.',
+                testedBy: ['R. K. Patnaik', 'M. Srinu', 'P. Venkatesh'][index]
+              },
+              {
+                sample: 'SMP-02 (Duplicate Aliquot)',
+                lotNo: lot,
+                count: ['31/40 Count', '41/50 Count', '51/60 Count'][index],
+                quantity: Math.round((2500 + index * 600) * 0.4),
+                aoz: index === 1 ? 0.14 : 0.02,
+                sem: 0.02,
+                cap: 0.01,
+                ahd: 0.02,
+                amoz: 0.02,
+                loadingStatus: ['Approved for Loading', 'On Hold', 'Passed & Cleared'][index],
+                shift: ['Shift 1 (06:00 - 14:00)', 'Shift 2 (14:00 - 22:00)', 'General Shift (09:00 - 18:00)'][index],
+                remarks: 'Duplicate aliquot test confirmed. MRL verified.',
+                testedBy: ['R. K. Patnaik', 'M. Srinu', 'P. Venkatesh'][index]
+              }
+            ]
           });
         }
         qcOrganisms.forEach(parameter => { row[parameter] = 'Absent'; });
@@ -30170,6 +30202,21 @@ const QCView = {
     return `<span class="lozenge lozenge-${style}">${this.escape(value || 'Pending')}</span>`;
   },
 
+  registerRows(key) {
+    if (key !== 'ab-report') return this.state[key];
+    return this.state[key].map(row => {
+      const nightShift = /night|shift 3|^\s*22:00/i.test(row.shift || '');
+      const dayShift = !nightShift && /day|general|shift [12]/i.test(row.shift || '');
+      return {
+        ...row,
+        reportId: row.reportId || row.reportNo || row.id,
+        totalReports: row.totalReports ?? 1,
+        dayTotal: row.dayTotal ?? (dayShift ? 1 : 0),
+        nightTotal: row.nightTotal ?? (nightShift ? 1 : 0)
+      };
+    });
+  },
+
   renderRegister(key) {
     const schema = qcSchemas[key];
     this.state[key].forEach(row => this.evaluate(key, row));
@@ -30199,7 +30246,15 @@ const QCView = {
         </div>
         <div id="qc-register-table" class="min-w-0"></div>
       </div>`;
-    const columns = schema.fields.map(field => {
+    const tableFields = key === 'ab-report' ? [
+      qcField('reportId', 'Report ID'),
+      qcField('analysisDate', 'Analysis Date', 'date'),
+      qcField('reportDate', 'Report Date', 'date'),
+      qcField('totalReports', 'Total Reports', 'number'),
+      qcField('dayTotal', 'Day Total', 'number'),
+      qcField('nightTotal', 'Night Total', 'number')
+    ] : schema.fields;
+    const columns = tableFields.map(field => {
       if (key === 'ab-report' && field.key === 'lot') {
         return { field: 'lot', header: 'LOT NO', render: val => `<span class="font-mono font-bold text-[#00A4B7]">${this.escape(val || '-')}</span>` };
       }
@@ -30235,16 +30290,19 @@ const QCView = {
       }
       return { field: field.key, header: field.label, render: value => this.escape(value ?? '-') };
     });
-    if (!columns.some(column => column.field === 'status')) columns.push({ field: 'status', header: key === 'lots-list' ? 'AB Status' : 'Status', render: value => this.badge(value) });
-    else columns.find(column => column.field === 'status').render = value => this.badge(value);
+    if (key !== 'ab-report') {
+      if (!columns.some(column => column.field === 'status')) columns.push({ field: 'status', header: key === 'lots-list' ? 'AB Status' : 'Status', render: value => this.badge(value) });
+      else columns.find(column => column.field === 'status').render = value => this.badge(value);
+    }
     if (key === 'external-lab-report') columns.push({ field: 'coaFileName', header: 'COA Attachment', render: value => this.escape(value || 'Not attached') });
+    const sourceRow = row => this.state[key].find(record => record.id === row.id) || row;
     this.table = new DataTable({
-      containerId: 'qc-register-table', tableTitle: schema.title, columns, data: this.state[key],
+      containerId: 'qc-register-table', tableTitle: schema.title, columns, data: this.registerRows(key),
       actions: key === 'lots-list' ? [] : [
-        { label: 'Edit', icon: this.icon('Pencil'), onClick: row => this.openForm(key, row) },
-        { label: 'Delete', icon: this.icon('Trash2'), onClick: row => this.deleteRecord(key, row) }
+        { label: 'Edit', icon: this.icon('Pencil'), onClick: row => this.openForm(key, sourceRow(row)) },
+        { label: 'Delete', icon: this.icon('Trash2'), onClick: row => this.deleteRecord(key, sourceRow(row)) }
       ],
-      onRowClick: row => this.showDetails(key, row)
+      onRowClick: row => this.showDetails(key, sourceRow(row))
     });
     if (typeof lucide !== 'undefined') lucide.createIcons();
     document.getElementById('qc-add-record')?.addEventListener('click', () => this.openForm(key));
@@ -30270,7 +30328,7 @@ const QCView = {
     const from = document.getElementById('qc-filter-from').value;
     const to = document.getElementById('qc-filter-to').value;
     if (from && to && from > to) { Toast.show('From date must not be after To date.', 'warning'); return; }
-    this.table.setData(this.state[key].filter(row => {
+    this.table.setData(this.registerRows(key).filter(row => {
       const date = row.date || row.rmDate || row.auditDate || row.targetDate || '';
       return (status === 'ALL' || row.status === status) && (lot === 'ALL' || (row.lot || row.internalLotNo) === lot) && (!from || date >= from) && (!to || date <= to);
     }));
@@ -30349,6 +30407,9 @@ const QCView = {
     ];
 
     const val = (name, fallback = '') => row?.[name] ?? fallback;
+
+    // Sample rows state for inner breakdown table
+    let sampleRows = row?.sampleRows ? [...row.sampleRows] : [];
 
     Modal.open({
       title: `${row ? 'Edit' : 'Add'} Antibiotic & Chemical Testing Record (ELISA)`,
@@ -30517,31 +30578,31 @@ const QCView = {
               <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#DCFCE7] text-[#15803D]">Zero Tolerance / USFDA &amp; EU MRL</span>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 text-xs">
-              <!-- 16. AOZ -->
+              <!-- 15. AOZ -->
               <div>
                 <label for="qcf-aoz" class="block text-[11px] font-bold text-[#166534] uppercase tracking-wider mb-0">AOZ (PPB) <span class="text-[#DE350B]">*</span></label>
                 <input type="number" id="qcf-aoz" name="AOZ" value="${val('AOZ', 0.02)}" step="any" min="0" class="qc-ab-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#86EFAC] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#16A34A]" required />
               </div>
 
-              <!-- 17. SEM -->
+              <!-- 16. SEM -->
               <div>
                 <label for="qcf-sem" class="block text-[11px] font-bold text-[#166534] uppercase tracking-wider mb-0">SEM (PPB) <span class="text-[#DE350B]">*</span></label>
                 <input type="number" id="qcf-sem" name="SEM" value="${val('SEM', 0.02)}" step="any" min="0" class="qc-ab-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#86EFAC] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#16A34A]" required />
               </div>
 
-              <!-- 18. CAP -->
+              <!-- 17. CAP -->
               <div>
                 <label for="qcf-cap" class="block text-[11px] font-bold text-[#166534] uppercase tracking-wider mb-0">CAP (PPB) <span class="text-[#DE350B]">*</span></label>
                 <input type="number" id="qcf-cap" name="CAP" value="${val('CAP', 0.01)}" step="any" min="0" class="qc-ab-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#86EFAC] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#16A34A]" required />
               </div>
 
-              <!-- 19. AHD -->
+              <!-- 18. AHD -->
               <div>
                 <label for="qcf-ahd" class="block text-[11px] font-bold text-[#166534] uppercase tracking-wider mb-0">AHD (PPB) <span class="text-[#DE350B]">*</span></label>
                 <input type="number" id="qcf-ahd" name="AHD" value="${val('AHD', 0.02)}" step="any" min="0" class="qc-ab-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#86EFAC] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#16A34A]" required />
               </div>
 
-              <!-- 20. AMOZ -->
+              <!-- 19. AMOZ -->
               <div>
                 <label for="qcf-amoz" class="block text-[11px] font-bold text-[#166534] uppercase tracking-wider mb-0">AMOZ (PPB) <span class="text-[#DE350B]">*</span></label>
                 <input type="number" id="qcf-amoz" name="AMOZ" value="${val('AMOZ', 0.02)}" step="any" min="0" class="qc-ab-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#86EFAC] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#16A34A]" required />
@@ -30552,7 +30613,7 @@ const QCView = {
           <!-- Section 5: Evaluation & Remarks -->
           <div class="bg-[#F8FAFC] p-3.5 rounded-xl border border-[#DFE1E6] space-y-3">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
-              <!-- 21. RESULT -->
+              <!-- 20. RESULT -->
               <div>
                 <label for="qcf-result" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">RESULT <span class="text-[#DE350B]">*</span></label>
                 <select id="qcf-result" name="result" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-bold text-[#00875A] focus:outline-none focus:border-[#0284C7]" required>
@@ -30565,23 +30626,150 @@ const QCView = {
                 </select>
               </div>
 
-              <!-- 15. REMARKS -->
+              <!-- 21. REMARKS -->
               <div class="md:col-span-2">
                 <label for="qcf-remarks" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">REMARKS</label>
                 <input type="text" id="qcf-remarks" name="remarks" value="${this.escape(val('remarks', 'Compliant with USFDA & EU MRL standards. Cleared for processing.'))}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" />
               </div>
             </div>
           </div>
+
+          <!-- Section 6: Inner Breakdown Table Header & Save Button -->
+          <div class="space-y-2 mt-4">
+            <div class="flex items-center justify-end">
+              <button type="button" id="btn-save-qc-sample-table" class="btn-primary rounded-full px-5 py-1.5 text-xs font-bold shadow-2xs hover:shadow-xs transition-all cursor-pointer inline-flex items-center gap-1.5 border-0">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                <span>Save</span>
+              </button>
+            </div>
+            <div class="mb-2">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">QC Sample Antibiotic &amp; Chemical Testing Table</h4>
+            </div>
+
+            <!-- Dynamic Table Container -->
+            <div id="qc-samples-table-container">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
         </form>
       `,
       footerButtons: [
-        { label: 'Cancel', type: 'secondary', onClick: modal => modal.close() },
-        { label: 'Save Record', type: 'primary', onClick: () => document.getElementById('qc-record-form')?.requestSubmit() }
+        { label: 'Cancel', type: 'secondary', onClick: modal => modal.close() }
       ]
     });
 
     const form = document.getElementById('qc-record-form');
     if (!form) return;
+
+    // Helper to render the inner QC Samples Table
+    const renderSamplesTable = () => {
+      const container = document.getElementById('qc-samples-table-container');
+      if (!container) return;
+
+      if (!sampleRows || sampleRows.length === 0) {
+        container.innerHTML = `
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-8 text-center">
+            <div class="inline-flex p-3 rounded-full bg-[#F1F5F9] text-[#64748B] mb-2">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+            </div>
+            <h4 class="text-xs font-bold text-[#172B4D]">No Data Available</h4>
+            <p class="text-[11px] text-[#64748B] mt-0.5">Click 'Save' above to verify test specifications and display QC sample testing breakdown.</p>
+          </div>
+        `;
+        return;
+      }
+
+      const totalQty = sampleRows.reduce((sum, r) => sum + (Number(r.quantity) || 0), 0);
+
+      container.innerHTML = `
+        <div class="bg-white rounded-xl border border-[#DFE1E6] shadow-2xs overflow-hidden">
+          <div class="overflow-x-auto" style="overflow-x: auto !important; -webkit-overflow-scrolling: touch;">
+            <table class="w-full text-left text-xs border-collapse" style="min-width: 1450px;">
+              <thead class="bg-[#F8FAFC] border-b border-[#DFE1E6] text-[#475569] font-bold uppercase tracking-wider text-[11px]">
+                <tr>
+                  <th class="py-2.5 px-3 min-w-[140px]">Sample</th>
+                  <th class="py-2.5 px-3 min-w-[130px]">Lot No</th>
+                  <th class="py-2.5 px-3 min-w-[100px]">Count</th>
+                  <th class="py-2.5 px-3 min-w-[110px] text-right">Quantity</th>
+                  <th class="py-2.5 px-2 min-w-[85px] text-right">AOZ</th>
+                  <th class="py-2.5 px-2 min-w-[85px] text-right">SEM</th>
+                  <th class="py-2.5 px-2 min-w-[85px] text-right">CAP</th>
+                  <th class="py-2.5 px-2 min-w-[85px] text-right">AHD</th>
+                  <th class="py-2.5 px-2 min-w-[85px] text-right">AMOZ</th>
+                  <th class="py-2.5 px-3 min-w-[150px] text-center">Loading Status</th>
+                  <th class="py-2.5 px-3 min-w-[130px]">Shift</th>
+                  <th class="py-2.5 px-3 min-w-[200px]">Remarks</th>
+                  <th class="py-2.5 px-3 min-w-[130px]">Tested By</th>
+                  <th class="py-2.5 px-2 w-16 text-center">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="qc-samples-tbody" class="divide-y divide-[#E2E8F0] text-[#1E293B]">
+                ${sampleRows.map((sr, idx) => {
+                  const numAoz = Number(sr.aoz);
+                  const numSem = Number(sr.sem);
+                  const numCap = Number(sr.cap);
+                  const numAhd = Number(sr.ahd);
+                  const numAmoz = Number(sr.amoz);
+                  const statusCls = sr.loadingStatus === 'Approved for Loading' || sr.loadingStatus === 'Passed & Cleared'
+                    ? 'bg-[#E3FCEF] text-[#006644]'
+                    : sr.loadingStatus === 'On Hold'
+                      ? 'bg-[#FFF0B3] text-[#172B4D]'
+                      : sr.loadingStatus === 'Rejected'
+                        ? 'bg-[#FFEBE6] text-[#BF2600]'
+                        : 'bg-[#EAE6FF] text-[#403294]';
+                  return `
+                    <tr class="hover:bg-[#F8FAFC] transition-colors" data-row-idx="${idx}">
+                      <td class="py-2.5 px-3 font-semibold text-[#172B4D]">${this.escape(sr.sample || `SMP-${String(idx + 1).padStart(2, '0')}`)}</td>
+                      <td class="py-2.5 px-3 font-mono font-bold text-[#00A4B7]">${this.escape(sr.lotNo || '-')}</td>
+                      <td class="py-2.5 px-3 font-mono font-medium">${this.escape(sr.count || '-')}</td>
+                      <td class="py-2.5 px-3 text-right font-mono font-bold text-[#172B4D]">${Number(sr.quantity || 0).toLocaleString()} Kg</td>
+                      <td class="py-2.5 px-2 text-right font-mono ${numAoz >= 0.1 ? 'font-bold text-[#DE350B]' : 'text-[#1E293B]'}">${Number.isFinite(numAoz) ? numAoz.toFixed(2) : '-'}</td>
+                      <td class="py-2.5 px-2 text-right font-mono ${numSem >= 0.1 ? 'font-bold text-[#DE350B]' : 'text-[#1E293B]'}">${Number.isFinite(numSem) ? numSem.toFixed(2) : '-'}</td>
+                      <td class="py-2.5 px-2 text-right font-mono ${numCap >= 0.1 ? 'font-bold text-[#DE350B]' : 'text-[#1E293B]'}">${Number.isFinite(numCap) ? numCap.toFixed(2) : '-'}</td>
+                      <td class="py-2.5 px-2 text-right font-mono ${numAhd >= 0.1 ? 'font-bold text-[#DE350B]' : 'text-[#1E293B]'}">${Number.isFinite(numAhd) ? numAhd.toFixed(2) : '-'}</td>
+                      <td class="py-2.5 px-2 text-right font-mono ${numAmoz >= 0.1 ? 'font-bold text-[#DE350B]' : 'text-[#1E293B]'}">${Number.isFinite(numAmoz) ? numAmoz.toFixed(2) : '-'}</td>
+                      <td class="py-2.5 px-3 text-center">
+                        <span class="inline-flex px-2 py-0.5 rounded-full text-[10px] font-bold ${statusCls}">${this.escape(sr.loadingStatus || 'Approved for Loading')}</span>
+                      </td>
+                      <td class="py-2.5 px-3 font-medium text-[#475569]">${this.escape(sr.shift || '-')}</td>
+                      <td class="py-2.5 px-3 text-[#475569] truncate max-w-[200px]" title="${this.escape(sr.remarks || '')}">${this.escape(sr.remarks || '-')}</td>
+                      <td class="py-2.5 px-3 font-medium text-[#172B4D]">${this.escape(sr.testedBy || '-')}</td>
+                      <td class="py-2.5 px-2 text-center">
+                        <button type="button" class="btn-delete-qc-sample p-1 text-[#6B778C] hover:text-[#DE350B] rounded hover:bg-[#FEE2E2] transition-colors cursor-pointer" data-idx="${idx}" title="Delete Sample">
+                          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                        </button>
+                      </td>
+                    </tr>
+                  `;
+                }).join('')}
+              </tbody>
+              <tfoot class="bg-[#F8FAFC] border-t-2 border-[#DFE1E6] font-bold text-xs text-[#0F172A]">
+                <tr>
+                  <td colspan="3" class="py-2.5 px-3 text-right uppercase tracking-wider text-[#475569]">Total Quantity:</td>
+                  <td class="py-2.5 px-3 text-right font-mono text-sm text-[#00875A]">${totalQty.toLocaleString()} Kg</td>
+                  <td colspan="10" class="py-2.5 px-3 text-right text-[11px] text-[#64748B] italic">All 5 Antibiotic Metabolites within LOD / MRL specifications</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      `;
+
+      // Attach row deletion handlers
+      container.querySelectorAll('.btn-delete-qc-sample').forEach(btn => {
+        btn.addEventListener('click', e => {
+          const idx = parseInt(e.currentTarget.getAttribute('data-idx'), 10);
+          if (!isNaN(idx)) {
+            sampleRows.splice(idx, 1);
+            renderSamplesTable();
+            Toast.show('Sample testing item removed.', 'info');
+          }
+        });
+      });
+    };
+
+    // Initial render of the samples table (empty state if new record, or existing samples if editing)
+    renderSamplesTable();
 
     // Auto-update Result based on Antibiotic Values
     const updateAutoResult = () => {
@@ -30605,9 +30793,131 @@ const QCView = {
       input.addEventListener('input', updateAutoResult);
     });
 
-    form.addEventListener('submit', event => {
-      event.preventDefault();
-      this.saveAbReportRecord(row, form);
+    // Save button above table - validates form, generates/saves samples, and saves record
+    document.getElementById('btn-save-qc-sample-table')?.addEventListener('click', () => {
+      if (!form.reportValidity()) return;
+
+      const lot = document.getElementById('qcf-lot')?.value || 'BLS/2627/0143';
+      const plant = document.getElementById('qcf-plant')?.value || 'DFL UNIT-5 (JPT)';
+      const analysisDate = document.getElementById('qcf-analysis-date')?.value || today;
+      const reportDate = document.getElementById('qcf-report-date')?.value || today;
+      const shift = document.getElementById('qcf-shift')?.value || 'Shift 1 (06:00 - 14:00)';
+      const testedBy = document.getElementById('qcf-tested-by')?.value || 'R. K. Patnaik';
+      const verifiedBy = document.getElementById('qcf-verified-by')?.value || 'Dr. S. Rao';
+      const sampleType = document.getElementById('qcf-sample-type')?.value || 'Raw Material (Head-On)';
+      const sampleDetails = document.getElementById('qcf-sample-details')?.value || 'Fresh Harvest White Shrimp';
+      const count = document.getElementById('qcf-count')?.value || '31/40 Count';
+      const quantity = parseFloat(document.getElementById('qcf-quantity')?.value) || 2500;
+      const loadingStatus = document.getElementById('qcf-loading-status')?.value || 'Approved for Loading';
+      const parameter = document.getElementById('qcf-parameter')?.value || 'ELISA 5-Antibiotic Panel + Sulphite';
+      const sulphite = document.getElementById('qcf-sulphite')?.value || 'Negative (< 10 ppm)';
+      const aoz = parseFloat(document.getElementById('qcf-aoz')?.value) || 0.02;
+      const sem = parseFloat(document.getElementById('qcf-sem')?.value) || 0.02;
+      const cap = parseFloat(document.getElementById('qcf-cap')?.value) || 0.01;
+      const ahd = parseFloat(document.getElementById('qcf-ahd')?.value) || 0.02;
+      const amoz = parseFloat(document.getElementById('qcf-amoz')?.value) || 0.02;
+      const result = document.getElementById('qcf-result')?.value || 'Pass';
+      const remarks = document.getElementById('qcf-remarks')?.value || 'Compliant with USFDA & EU MRL standards. Cleared for processing.';
+
+      // Generate sample rows if empty or update them
+      if (sampleRows.length === 0) {
+        const q1 = Math.round(quantity * 0.6) || 1500;
+        const q2 = (quantity - q1) > 0 ? (quantity - q1) : Math.round(quantity * 0.4) || 1000;
+        sampleRows = [
+          {
+            sample: `SMP-01 (${sampleType})`,
+            lotNo: lot,
+            count: count,
+            quantity: q1,
+            aoz: aoz,
+            sem: sem,
+            cap: cap,
+            ahd: ahd,
+            amoz: amoz,
+            loadingStatus: loadingStatus,
+            shift: shift,
+            remarks: remarks,
+            testedBy: testedBy
+          },
+          {
+            sample: 'SMP-02 (Duplicate Aliquot)',
+            lotNo: lot,
+            count: count,
+            quantity: q2,
+            aoz: Number((aoz * 0.95).toFixed(2)),
+            sem: Number((sem * 1.02).toFixed(2)),
+            cap: cap,
+            ahd: ahd,
+            amoz: amoz,
+            loadingStatus: loadingStatus,
+            shift: shift,
+            remarks: 'Duplicate screening verified. MRL compliant.',
+            testedBy: testedBy
+          }
+        ];
+      } else {
+        // Sync existing rows with updated form fields
+        sampleRows.forEach(sr => {
+          sr.lotNo = lot;
+          sr.count = count;
+          sr.loadingStatus = loadingStatus;
+          sr.shift = shift;
+          sr.testedBy = testedBy;
+        });
+      }
+
+      // Re-render table with data
+      renderSamplesTable();
+
+      // Persist the record
+      const totalQty = sampleRows.reduce((sum, r) => sum + (Number(r.quantity) || 0), 0) || quantity;
+      const entry = {
+        ...row,
+        lot,
+        plant,
+        analysisDate,
+        reportDate,
+        date: analysisDate || reportDate,
+        shift,
+        testedBy,
+        verifiedBy,
+        sampleType,
+        sampleDetails,
+        count,
+        quantity: totalQty,
+        loadingStatus,
+        parameter,
+        sulphite,
+        AOZ: aoz,
+        SEM: sem,
+        CAP: cap,
+        AHD: ahd,
+        AMOZ: amoz,
+        result,
+        status: result,
+        remarks,
+        sampleRows: [...sampleRows],
+        id: row?.id || `QC-ab-report-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
+        updatedAt: new Date().toISOString()
+      };
+
+      this.evaluate('ab-report', entry);
+
+      const previous = JSON.parse(JSON.stringify(this.state));
+      if (row) {
+        this.state['ab-report'] = this.state['ab-report'].map(r => r.id === row.id ? entry : r);
+      } else {
+        this.state['ab-report'].unshift(entry);
+      }
+
+      this.synchronize();
+      if (!this.persist()) {
+        this.state = previous;
+        return;
+      }
+
+      this.renderRegister('ab-report');
+      Toast.show(`QC Record & Sample Test Items saved for Lot ${lot}.`, 'success');
     });
   },
 
@@ -30753,6 +31063,62 @@ const QCView = {
           </div>`).join('')}
           ${row.coaFileName ? `<div class="min-w-0 sm:col-span-2"><dt class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">COA Attachment</dt><dd class="font-semibold text-[#172B4D] block mt-0.5 break-all">${this.escape(row.coaFileName)}</dd></div>` : ''}
         </dl>
+        ${row.sampleRows && row.sampleRows.length ? `
+          <div class="space-y-2 mt-4">
+            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Sample Antibiotic &amp; Chemical Testing Breakdown</h4>
+            <div class="bg-white rounded-xl border border-[#DFE1E6] shadow-2xs overflow-hidden">
+              <div class="overflow-x-auto" style="overflow-x: auto !important; -webkit-overflow-scrolling: touch;">
+                <table class="w-full text-left text-xs border-collapse" style="min-width: 1350px;">
+                  <thead class="bg-[#F8FAFC] border-b border-[#DFE1E6] text-[#475569] font-bold uppercase tracking-wider text-[11px]">
+                    <tr>
+                      <th class="py-2.5 px-3 min-w-[140px]">Sample</th>
+                      <th class="py-2.5 px-3 min-w-[130px]">Lot No</th>
+                      <th class="py-2.5 px-3 min-w-[100px]">Count</th>
+                      <th class="py-2.5 px-3 min-w-[110px] text-right">Quantity</th>
+                      <th class="py-2.5 px-2 min-w-[85px] text-right">AOZ</th>
+                      <th class="py-2.5 px-2 min-w-[85px] text-right">SEM</th>
+                      <th class="py-2.5 px-2 min-w-[85px] text-right">CAP</th>
+                      <th class="py-2.5 px-2 min-w-[85px] text-right">AHD</th>
+                      <th class="py-2.5 px-2 min-w-[85px] text-right">AMOZ</th>
+                      <th class="py-2.5 px-3 min-w-[150px] text-center">Loading Status</th>
+                      <th class="py-2.5 px-3 min-w-[130px]">Shift</th>
+                      <th class="py-2.5 px-3 min-w-[200px]">Remarks</th>
+                      <th class="py-2.5 px-3 min-w-[130px]">Tested By</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-[#E2E8F0] text-[#1E293B]">
+                    ${row.sampleRows.map((sr, idx) => `
+                      <tr class="hover:bg-[#F8FAFC] transition-colors">
+                        <td class="py-2.5 px-3 font-semibold text-[#172B4D]">${this.escape(sr.sample || `SMP-${String(idx + 1).padStart(2, '0')}`)}</td>
+                        <td class="py-2.5 px-3 font-mono font-bold text-[#00A4B7]">${this.escape(sr.lotNo || '-')}</td>
+                        <td class="py-2.5 px-3 font-mono font-medium">${this.escape(sr.count || '-')}</td>
+                        <td class="py-2.5 px-3 text-right font-mono font-bold text-[#172B4D]">${Number(sr.quantity || 0).toLocaleString()} Kg</td>
+                        <td class="py-2.5 px-2 text-right font-mono ${Number(sr.aoz) >= 0.1 ? 'font-bold text-[#DE350B]' : 'text-[#1E293B]'}">${Number.isFinite(Number(sr.aoz)) ? Number(sr.aoz).toFixed(2) : '-'}</td>
+                        <td class="py-2.5 px-2 text-right font-mono ${Number(sr.sem) >= 0.1 ? 'font-bold text-[#DE350B]' : 'text-[#1E293B]'}">${Number.isFinite(Number(sr.sem)) ? Number(sr.sem).toFixed(2) : '-'}</td>
+                        <td class="py-2.5 px-2 text-right font-mono ${Number(sr.cap) >= 0.1 ? 'font-bold text-[#DE350B]' : 'text-[#1E293B]'}">${Number.isFinite(Number(sr.cap)) ? Number(sr.cap).toFixed(2) : '-'}</td>
+                        <td class="py-2.5 px-2 text-right font-mono ${Number(sr.ahd) >= 0.1 ? 'font-bold text-[#DE350B]' : 'text-[#1E293B]'}">${Number.isFinite(Number(sr.ahd)) ? Number(sr.ahd).toFixed(2) : '-'}</td>
+                        <td class="py-2.5 px-2 text-right font-mono ${Number(sr.amoz) >= 0.1 ? 'font-bold text-[#DE350B]' : 'text-[#1E293B]'}">${Number.isFinite(Number(sr.amoz)) ? Number(sr.amoz).toFixed(2) : '-'}</td>
+                        <td class="py-2.5 px-3 text-center">
+                          <span class="inline-flex px-2 py-0.5 rounded-full text-[10px] font-bold ${sr.loadingStatus === 'Approved for Loading' || sr.loadingStatus === 'Passed & Cleared' ? 'bg-[#E3FCEF] text-[#006644]' : 'bg-[#FFF0B3] text-[#172B4D]'}">${this.escape(sr.loadingStatus || '-')}</span>
+                        </td>
+                        <td class="py-2.5 px-3 font-medium text-[#475569]">${this.escape(sr.shift || '-')}</td>
+                        <td class="py-2.5 px-3 text-[#475569]">${this.escape(sr.remarks || '-')}</td>
+                        <td class="py-2.5 px-3 font-medium text-[#172B4D]">${this.escape(sr.testedBy || '-')}</td>
+                      </tr>
+                    `).join('')}
+                  </tbody>
+                  <tfoot class="bg-[#F8FAFC] border-t-2 border-[#DFE1E6] font-bold text-xs text-[#0F172A]">
+                    <tr>
+                      <td colspan="3" class="py-2.5 px-3 text-right uppercase tracking-wider text-[#475569]">Total Quantity:</td>
+                      <td class="py-2.5 px-3 text-right font-mono text-sm text-[#00875A]">${row.sampleRows.reduce((sum, r) => sum + (Number(r.quantity) || 0), 0).toLocaleString()} Kg</td>
+                      <td colspan="9"></td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+          </div>
+        ` : ''}
       </div>`,
       footerButtons: [
         { label: 'Close', type: 'secondary', onClick: modal => modal.close() },
