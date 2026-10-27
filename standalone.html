@@ -30588,10 +30588,15 @@ const QCView = {
     const sourceRow = row => this.state[key].find(record => record.id === row.id) || row;
     this.table = new DataTable({
       containerId: 'qc-register-table', tableTitle: schema.title, columns, data: this.registerRows(key),
-      actions: key === 'lots-list' ? [] : [
-        { label: 'Edit', icon: this.icon('Pencil'), onClick: row => this.openForm(key, sourceRow(row)) },
-        { label: 'Delete', icon: this.icon('Trash2'), onClick: row => this.deleteRecord(key, sourceRow(row)) }
-      ],
+      actionsTitle: key === 'rm-report' ? 'action' : 'Actions',
+      actions: key === 'lots-list' ? [] : (
+        key === 'rm-report' ? [
+          { label: 'Add', icon: this.icon('Plus'), onClick: row => this.openRmInspectionModal(sourceRow(row)) }
+        ] : [
+          { label: 'Edit', icon: this.icon('Pencil'), onClick: row => this.openForm(key, sourceRow(row)) },
+          { label: 'Delete', icon: this.icon('Trash2'), onClick: row => this.deleteRecord(key, sourceRow(row)) }
+        ]
+      ),
       onRowClick: row => this.showDetails(key, sourceRow(row))
     });
     if (typeof lucide !== 'undefined') lucide.createIcons();
@@ -30622,6 +30627,229 @@ const QCView = {
       const date = row.date || row.rmDate || row.auditDate || row.targetDate || '';
       return (status === 'ALL' || row.status === status) && (lot === 'ALL' || (row.lot || row.internalLotNo) === lot) && (!from || date >= from) && (!to || date <= to);
     }));
+  },
+
+  openRmInspectionModal(row) {
+    if (!row) return;
+    const r = row;
+    const details = r.inspectionDetails || {};
+    const checkedCountVal = r.checkedCount ?? details.checkedCount ?? (r.count ? String(r.count).replace(/[^0-9.]/g, '') : '');
+    const redBlackGillVal = r.redBlackGill ?? details.redBlackGill ?? '';
+    const softShellVal = r.softShell ?? details.softShell ?? '';
+    const droppingHeadVal = r.droppingHead ?? details.droppingHead ?? '';
+    const blackSpotVal = r.blackSpot ?? details.blackSpot ?? '';
+    const brokenVal = r.broken ?? details.broken ?? '';
+    const improperLegsVal = r.improperLegs ?? details.improperLegs ?? '';
+    const bendsVal = r.bends ?? details.bends ?? '';
+    const fitForHeadOnVal = r.fitForHeadOn ?? details.fitForHeadOn ?? 'YES';
+    const bigPiecesVal = r.bigPieces ?? details.bigPieces ?? '';
+    const smallPiecesVal = r.smallPieces ?? details.smallPieces ?? '';
+    const remarksVal = r.remarks ?? details.remarks ?? r.reason ?? '';
+
+    const purchaseDateFormatted = r.purchaseDate ? String(r.purchaseDate).split('-').reverse().join('-') : '-';
+    const rmDateFormatted = r.rmDate ? String(r.rmDate).split('-').reverse().join('-') : '-';
+    const weightFormatted = r.weight ? Number(r.weight).toLocaleString() + ' Kg' : '-';
+
+    Modal.open({
+      title: `Add Raw Material Inspection Details - ${r.lot || r.id}`,
+      size: 'full',
+      content: `
+        <div class="space-y-4 text-xs text-[#172B4D]">
+          <!-- Overview Summary Banner -->
+          <div class="bg-[#F8FAFC] border border-[#DFE1E6] rounded-lg p-3 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 text-xs">
+            <div>
+              <span class="block text-[10px] font-bold uppercase tracking-wider text-[#5E6C84]">ID</span>
+              <span class="font-mono font-bold text-[#00A4B7]">${this.escape(r.id || '-')}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold uppercase tracking-wider text-[#5E6C84]">LOT NUMBER</span>
+              <span class="font-mono font-semibold text-[#172B4D]">${this.escape(r.lot || '-')}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold uppercase tracking-wider text-[#5E6C84]">PURCHASE DATE</span>
+              <span class="font-medium text-[#172B4D]">${purchaseDateFormatted}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold uppercase tracking-wider text-[#5E6C84]">RM DATE</span>
+              <span class="font-medium text-[#172B4D]">${rmDateFormatted}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold uppercase tracking-wider text-[#5E6C84]">PURCHASE TYPE</span>
+              <span class="font-medium text-[#172B4D]">${this.escape(r.purchaseType || '-')}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold uppercase tracking-wider text-[#5E6C84]">WEIGHT (KGS)</span>
+              <span class="font-mono font-bold text-[#172B4D]">${weightFormatted}</span>
+            </div>
+          </div>
+
+          <!-- 12 Input Fields in 4-Column Responsive Grid -->
+          <form id="form-rm-inspection-modal" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs" onsubmit="return false;">
+            <!-- 1. CHECKED COUNT/KG -->
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
+                CHECKED COUNT/KG <span class="text-[#DE350B]">*</span>
+              </label>
+              <input type="number" step="any" min="0" id="rmi-checked-count" name="checkedCount" value="${this.escape(checkedCountVal)}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" placeholder="e.g. 42" required />
+            </div>
+
+            <!-- 2. RED/BLACK GILL -->
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
+                RED/BLACK GILL
+              </label>
+              <input type="text" id="rmi-red-black-gill" name="redBlackGill" value="${this.escape(redBlackGillVal)}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" placeholder="e.g. 0 % or Count" />
+            </div>
+
+            <!-- 3. SOFT/SEMI SOFT/PAPER SOFT -->
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
+                SOFT/SEMI SOFT/PAPER SOFT
+              </label>
+              <input type="text" id="rmi-soft-shell" name="softShell" value="${this.escape(softShellVal)}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" placeholder="e.g. 0 % or Count" />
+            </div>
+
+            <!-- 4. DROPPING HEAD IN % -->
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
+                DROPPING HEAD IN %
+              </label>
+              <input type="number" step="0.01" min="0" max="100" id="rmi-dropping-head" name="droppingHead" value="${this.escape(droppingHeadVal)}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" placeholder="0.00 %" />
+            </div>
+
+            <!-- 5. BLACK SPOT/BLACK DOT -->
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
+                BLACK SPOT/BLACK DOT
+              </label>
+              <input type="text" id="rmi-black-spot" name="blackSpot" value="${this.escape(blackSpotVal)}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" placeholder="e.g. 0 % or Count" />
+            </div>
+
+            <!-- 6. BROKEN/DAMAGES -->
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
+                BROKEN/DAMAGES
+              </label>
+              <input type="text" id="rmi-broken" name="broken" value="${this.escape(brokenVal)}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" placeholder="e.g. 0 % or Count" />
+            </div>
+
+            <!-- 7. IMPROPER LEGS/DECOMPOSITION/DISCOLORATION -->
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
+                IMPROPER LEGS/DECOMPOSITION/DISCOLORATION
+              </label>
+              <input type="text" id="rmi-improper-legs" name="improperLegs" value="${this.escape(improperLegsVal)}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" placeholder="e.g. 0 % or Count" />
+            </div>
+
+            <!-- 8. BENDS -->
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
+                BENDS
+              </label>
+              <input type="text" id="rmi-bends" name="bends" value="${this.escape(bendsVal)}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" placeholder="e.g. 0 % or Count" />
+            </div>
+
+            <!-- 9. MATERIAL IS FIT FOR HEAD ON PACKING OR NOT -->
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
+                MATERIAL IS FIT FOR HEAD ON PACKING OR NOT <span class="text-[#DE350B]">*</span>
+              </label>
+              <select id="rmi-fit-head-on" name="fitForHeadOn" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]">
+                <option value="YES" ${fitForHeadOnVal !== 'NO' ? 'selected' : ''}>YES</option>
+                <option value="NO" ${fitForHeadOnVal === 'NO' ? 'selected' : ''}>NO</option>
+              </select>
+            </div>
+
+            <!-- 10. BIG PIECES -->
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
+                BIG PIECES
+              </label>
+              <input type="text" id="rmi-big-pieces" name="bigPieces" value="${this.escape(bigPiecesVal)}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" placeholder="e.g. 0" />
+            </div>
+
+            <!-- 11. SMALL PIECES -->
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
+                SMALL PIECES
+              </label>
+              <input type="text" id="rmi-small-pieces" name="smallPieces" value="${this.escape(smallPiecesVal)}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" placeholder="e.g. 0" />
+            </div>
+
+            <!-- 12. REMARKS (spans full row / 4 cols) -->
+            <div class="sm:col-span-2 lg:col-span-4">
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
+                REMARKS
+              </label>
+              <textarea id="rmi-remarks" name="remarks" rows="2" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" placeholder="Enter inspection remarks, sensory observations, or notes...">${this.escape(remarksVal)}</textarea>
+            </div>
+          </form>
+        </div>
+      `,
+      footerButtons: [
+        { label: 'Cancel', type: 'secondary', onClick: modal => modal.close() },
+        {
+          label: 'Save',
+          type: 'primary',
+          onClick: () => {
+            const checkedCount = document.getElementById('rmi-checked-count')?.value.trim();
+            const redBlackGill = document.getElementById('rmi-red-black-gill')?.value.trim();
+            const softShell = document.getElementById('rmi-soft-shell')?.value.trim();
+            const droppingHead = document.getElementById('rmi-dropping-head')?.value.trim();
+            const blackSpot = document.getElementById('rmi-black-spot')?.value.trim();
+            const broken = document.getElementById('rmi-broken')?.value.trim();
+            const improperLegs = document.getElementById('rmi-improper-legs')?.value.trim();
+            const bends = document.getElementById('rmi-bends')?.value.trim();
+            const fitForHeadOn = document.getElementById('rmi-fit-head-on')?.value || 'YES';
+            const bigPieces = document.getElementById('rmi-big-pieces')?.value.trim();
+            const smallPieces = document.getElementById('rmi-small-pieces')?.value.trim();
+            const remarks = document.getElementById('rmi-remarks')?.value.trim();
+
+            const target = this.state['rm-report']?.find(item => item.id === r.id) || r;
+            target.checkedCount = checkedCount;
+            target.redBlackGill = redBlackGill;
+            target.softShell = softShell;
+            target.droppingHead = droppingHead;
+            target.blackSpot = blackSpot;
+            target.broken = broken;
+            target.improperLegs = improperLegs;
+            target.bends = bends;
+            target.fitForHeadOn = fitForHeadOn;
+            target.bigPieces = bigPieces;
+            target.smallPieces = smallPieces;
+            target.remarks = remarks;
+
+            if (checkedCount) {
+              target.count = `${checkedCount} Count`;
+            }
+            if (remarks) {
+              target.reason = remarks;
+            }
+
+            target.inspectionDetails = {
+              checkedCount,
+              redBlackGill,
+              softShell,
+              droppingHead,
+              blackSpot,
+              broken,
+              improperLegs,
+              bends,
+              fitForHeadOn,
+              bigPieces,
+              smallPieces,
+              remarks,
+              updatedAt: new Date().toISOString()
+            };
+
+            this.persist();
+            Modal.close();
+            Toast.show('Raw Material Inspection details saved successfully', 'success');
+            this.renderRegister('rm-report');
+          }
+        }
+      ]
+    });
   },
 
   openForm(key, row = null) {
@@ -31327,6 +31555,25 @@ const QCView = {
           </div>`).join('')}
           ${row.coaFileName ? `<div class="min-w-0 sm:col-span-2"><dt class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">COA Attachment</dt><dd class="font-semibold text-[#172B4D] block mt-0.5 break-all">${this.escape(row.coaFileName)}</dd></div>` : ''}
         </dl>
+        ${key === 'rm-report' ? `
+          <div class="space-y-2 mt-4">
+            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Raw Material Quality Inspection Parameters</h4>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 bg-[#F8FAFC] p-3 rounded-lg border border-[#DFE1E6]">
+              <div><dt class="text-[10px] font-bold text-[#5E6C84] uppercase">CHECKED COUNT/KG</dt><dd class="font-semibold text-[#172B4D] mt-0.5">${this.escape(row.checkedCount || row.count || '-')}</dd></div>
+              <div><dt class="text-[10px] font-bold text-[#5E6C84] uppercase">RED/BLACK GILL</dt><dd class="font-semibold text-[#172B4D] mt-0.5">${this.escape(row.redBlackGill ?? '-')}</dd></div>
+              <div><dt class="text-[10px] font-bold text-[#5E6C84] uppercase">SOFT/SEMI SOFT/PAPER SOFT</dt><dd class="font-semibold text-[#172B4D] mt-0.5">${this.escape(row.softShell ?? '-')}</dd></div>
+              <div><dt class="text-[10px] font-bold text-[#5E6C84] uppercase">DROPPING HEAD IN %</dt><dd class="font-semibold text-[#172B4D] mt-0.5">${row.droppingHead !== undefined && row.droppingHead !== '' ? row.droppingHead + '%' : '-'}</dd></div>
+              <div><dt class="text-[10px] font-bold text-[#5E6C84] uppercase">BLACK SPOT/BLACK DOT</dt><dd class="font-semibold text-[#172B4D] mt-0.5">${this.escape(row.blackSpot ?? '-')}</dd></div>
+              <div><dt class="text-[10px] font-bold text-[#5E6C84] uppercase">BROKEN/DAMAGES</dt><dd class="font-semibold text-[#172B4D] mt-0.5">${this.escape(row.broken ?? '-')}</dd></div>
+              <div><dt class="text-[10px] font-bold text-[#5E6C84] uppercase">IMPROPER LEGS/DECOMPOSITION/DISCOLORATION</dt><dd class="font-semibold text-[#172B4D] mt-0.5">${this.escape(row.improperLegs ?? '-')}</dd></div>
+              <div><dt class="text-[10px] font-bold text-[#5E6C84] uppercase">BENDS</dt><dd class="font-semibold text-[#172B4D] mt-0.5">${this.escape(row.bends ?? '-')}</dd></div>
+              <div><dt class="text-[10px] font-bold text-[#5E6C84] uppercase">FIT FOR HEAD ON PACKING</dt><dd class="font-semibold mt-0.5 ${row.fitForHeadOn === 'NO' ? 'text-[#DE350B]' : 'text-[#006644]'}">${this.escape(row.fitForHeadOn || 'YES')}</dd></div>
+              <div><dt class="text-[10px] font-bold text-[#5E6C84] uppercase">BIG PIECES</dt><dd class="font-semibold text-[#172B4D] mt-0.5">${this.escape(row.bigPieces ?? '-')}</dd></div>
+              <div><dt class="text-[10px] font-bold text-[#5E6C84] uppercase">SMALL PIECES</dt><dd class="font-semibold text-[#172B4D] mt-0.5">${this.escape(row.smallPieces ?? '-')}</dd></div>
+              <div class="sm:col-span-2 md:col-span-4"><dt class="text-[10px] font-bold text-[#5E6C84] uppercase">REMARKS</dt><dd class="font-semibold text-[#172B4D] mt-0.5 whitespace-pre-wrap">${this.escape(row.remarks || row.reason || '-')}</dd></div>
+            </div>
+          </div>
+        ` : ''}
         ${row.sampleRows && row.sampleRows.length ? `
           <div class="space-y-2 mt-4">
             <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Sample Antibiotic &amp; Chemical Testing Breakdown</h4>
