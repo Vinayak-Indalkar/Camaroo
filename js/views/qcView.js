@@ -206,7 +206,8 @@ export const QCView = {
           unitName: row.unitName || seedRow.unitName || 'DFL UNIT-5 (JPT)',
           analysedBy: row.analysedBy || seedRow.analysedBy || 'R. K. Patnaik',
           verifiedBy: row.verifiedBy || seedRow.verifiedBy || 'Dr. S. Rao',
-          status: 'Pass'
+          status: 'Pass',
+          mbRows: (row.mbRows && row.mbRows.length) ? row.mbRows : (seedRow.mbRows || [])
         };
       });
     }
@@ -258,14 +259,22 @@ export const QCView = {
         });
         qcAntibiotics.forEach(parameter => { row[parameter] = index === 1 && parameter === 'AOZ' ? 0.15 : parameter === 'OTC' || parameter === 'CTC' ? 10 : 0.02; });
         if (key === 'mb-report') {
+          const po = `PO-2026-00${index + 1}`;
+          const buyer = ['Pacific Seafood Inc', 'Maruha Nichiro Corp', 'Royal Greenland A/S'][index];
+          const repDate = `2026-10-${25 + index}`;
           Object.assign(row, {
-            poNo: `PO-2026-00${index + 1}`,
-            buyer: ['Pacific Seafood Inc', 'Maruha Nichiro Corp', 'Royal Greenland A/S'][index],
-            reportDate: `2026-10-${25 + index}`,
+            poNo: po,
+            buyer: buyer,
+            reportDate: repDate,
             unitName: ['DFL UNIT-5 (JPT)', 'DFL UNIT-3 (PSP)', 'DFL UNIT-4 (PND)'][index],
             analysedBy: ['R. K. Patnaik', 'M. Srinu', 'P. Venkatesh'][index],
             verifiedBy: ['Dr. S. Rao', 'Dr. S. Rao', 'A. Annavaram'][index],
-            status: 'Pass'
+            status: 'Pass',
+            mbRows: [
+              { sNo: 1, poNo: po, buyer: buyer, parameter: 'TPC (CFU/g)', analysisDate: repDate, result: 'Pass' },
+              { sNo: 2, poNo: po, buyer: buyer, parameter: 'E. coli (MPN/g)', analysisDate: repDate, result: 'Pass' },
+              { sNo: 3, poNo: po, buyer: buyer, parameter: 'Salmonella (25g)', analysisDate: repDate, result: 'Absent' }
+            ]
           });
         }
         if (key === 'ab-report') {
@@ -482,7 +491,7 @@ export const QCView = {
             </div>
           </div>
           <form id="qc-filters" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
-            ${key === 'mb-report' ? `
+            ${['mb-report', 'lab-report'].includes(key) ? `
               <div>
                 <label for="qc-filter-from" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">Select From Date:</label>
                 <div class="erp-date-wrapper">
@@ -502,7 +511,7 @@ export const QCView = {
               <div><label for="qc-filter-to" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TO DATE</label><div class="erp-date-wrapper"><input id="qc-filter-to" type="date" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" onclick="this.showPicker ? this.showPicker() : this.focus()" /></div></div>
             `}
             <div class="flex items-end">
-              <button type="submit" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 cursor-pointer">${this.icon('Search')}<span>Search</span></button>
+              <button type="submit" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 cursor-pointer">${this.icon('Search')}<span>${key === 'lab-report' ? 'Reports' : 'Search'}</span></button>
             </div>
           </form>
         </div>
@@ -651,8 +660,8 @@ export const QCView = {
   },
 
   filterRecords(key) {
-    const status = document.getElementById('qc-filter-status').value;
-    const lot = document.getElementById('qc-filter-lot').value;
+    const status = document.getElementById('qc-filter-status')?.value || 'ALL';
+    const lot = document.getElementById('qc-filter-lot')?.value || 'ALL';
     const from = document.getElementById('qc-filter-from').value;
     const to = document.getElementById('qc-filter-to').value;
     if (from && to && from > to) { Toast.show('From date must not be after To date.', 'warning'); return; }
@@ -886,7 +895,15 @@ export const QCView = {
   },
 
   openForm(key, row = null) {
-    if (key === 'ab-report' || !qcSchemas[key]) {
+    if (key === 'ab-report') {
+      this.openAbReportForm(row);
+      return;
+    }
+    if (key === 'mb-report') {
+      this.openMbReportForm(row);
+      return;
+    }
+    if (!qcSchemas[key]) {
       this.openAbReportForm(row);
       return;
     }
@@ -942,6 +959,282 @@ export const QCView = {
     });
   },
 
+
+  openMbReportForm(row = null) {
+    const today = new Date().toISOString().slice(0, 10);
+    const plants = [
+      'DFL UNIT-5 (JPT)',
+      'DFL UNIT-3 (PSP)',
+      'DFL UNIT-4 (PND)',
+      'DFL UNIT-1 (VSP)',
+      'DFL UNIT-6 (JPT-II)',
+      'DFL UNIT-2 (KKD)'
+    ];
+
+    const val = (name, fallback = '') => row?.[name] ?? fallback;
+    let mbRows = row?.mbRows ? JSON.parse(JSON.stringify(row.mbRows)) : (
+      row ? [] : [
+        { sNo: 1, poNo: 'PO-2026-001', buyer: 'Pacific Seafood Inc', parameter: 'TPC (CFU/g)', analysisDate: today, result: 'Pass' }
+      ]
+    );
+
+    Modal.open({
+      title: `${row ? 'Edit' : 'Add'} Microbiology Report`,
+      size: 'full',
+      content: `
+        <div class="space-y-4 text-xs text-[#172B4D]">
+          <!-- Section 1: Unit Name, Analysed By, Verified By -->
+          <div class="bg-[#F8FAFC] border border-[#DFE1E6] rounded-lg p-3.5 space-y-3">
+            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Facility &amp; Inspector Information</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+              <!-- 1. Unit Name -->
+              <div>
+                <label for="qcmb-unit-name" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Unit Name <span class="text-[#DE350B]">*</span></label>
+                <select id="qcmb-unit-name" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+                  ${plants.map(p => `<option value="${p}" ${val('unitName', 'DFL UNIT-5 (JPT)') === p ? 'selected' : ''}>${p}</option>`).join('')}
+                </select>
+              </div>
+
+              <!-- 2. Analysed By -->
+              <div>
+                <label for="qcmb-analysed-by" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Analysed By <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="qcmb-analysed-by" value="${this.escape(val('analysedBy', 'R. K. Patnaik'))}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required placeholder="Inspector name" />
+              </div>
+
+              <!-- 3. Verified By -->
+              <div>
+                <label for="qcmb-verified-by" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Verified By <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="qcmb-verified-by" value="${this.escape(val('verifiedBy', 'Dr. S. Rao'))}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required placeholder="Verifier name" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Input Fields & Save Button for Inner Table -->
+          <div class="border border-[#DFE1E6] rounded-lg p-3.5 space-y-3 bg-white shadow-2xs">
+            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Add Microbiology Test Entry</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 text-xs">
+              <!-- PO No -->
+              <div>
+                <label for="qcmb-input-po" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PO No <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="qcmb-input-po" value="${this.escape(val('poNo', 'PO-2026-001'))}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#0284C7]" placeholder="e.g. PO-2026-001" />
+              </div>
+
+              <!-- Buyer Name -->
+              <div>
+                <label for="qcmb-input-buyer" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Buyer Name <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="qcmb-input-buyer" value="${this.escape(val('buyer', 'Pacific Seafood Inc'))}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" placeholder="e.g. Pacific Seafood Inc" />
+              </div>
+
+              <!-- Parameter -->
+              <div>
+                <label for="qcmb-input-param" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Parameter <span class="text-[#DE350B]">*</span></label>
+                <select id="qcmb-input-param" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]">
+                  <option value="TPC (CFU/g)">TPC (CFU/g)</option>
+                  <option value="E. coli (MPN/g)">E. coli (MPN/g)</option>
+                  <option value="Coliforms (MPN/g)">Coliforms (MPN/g)</option>
+                  <option value="Salmonella (25g)">Salmonella (25g)</option>
+                  <option value="Vibrio cholerae (25g)">Vibrio cholerae (25g)</option>
+                  <option value="Vibrio parahaemolyticus (25g)">Vibrio parahaemolyticus (25g)</option>
+                  <option value="S. aureus (CFU/g)">S. aureus (CFU/g)</option>
+                  <option value="L. monocytogenes (25g)">L. monocytogenes (25g)</option>
+                  <option value="Faecal Streptococci">Faecal Streptococci</option>
+                  <option value="Total Yeast &amp; Mould">Total Yeast &amp; Mould</option>
+                </select>
+              </div>
+
+              <!-- Analysis Date -->
+              <div>
+                <label for="qcmb-input-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Analysis Date <span class="text-[#DE350B]">*</span></label>
+                <div class="erp-date-wrapper">
+                  <input type="date" id="qcmb-input-date" value="${today}" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" onclick="this.showPicker ? this.showPicker() : this.focus()" />
+                </div>
+              </div>
+
+              <!-- Result -->
+              <div>
+                <label for="qcmb-input-result" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Result <span class="text-[#DE350B]">*</span></label>
+                <select id="qcmb-input-result" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-bold text-[#00875A] focus:outline-none focus:border-[#0284C7]">
+                  <option value="Pass">Pass</option>
+                  <option value="Fail">Fail</option>
+                  <option value="Absent">Absent</option>
+                  <option value="Present">Present</option>
+                  <option value="Negative">Negative</option>
+                  <option value="Positive">Positive</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Save Button to add data into the table -->
+            <div class="flex items-center justify-end pt-1">
+              <button type="button" id="btn-save-mb-row" class="btn-primary rounded-full px-5 py-1.5 text-xs font-bold shadow-2xs hover:shadow-xs transition-all cursor-pointer inline-flex items-center gap-1.5 border-0">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                <span>Save</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Section 3: The Table (S.No, PO No, Buyer Name, Parameter, Analysis Date, Result, Remove) -->
+          <div class="space-y-2">
+            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Microbiology Test Breakdown Table</h4>
+            <div id="qcmb-table-container">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+        </div>
+      `,
+      footerButtons: [
+        { label: 'Cancel', type: 'secondary', onClick: modal => modal.close() },
+        {
+          label: 'Save Record',
+          type: 'primary',
+          onClick: () => {
+            const unitName = document.getElementById('qcmb-unit-name')?.value;
+            const analysedBy = document.getElementById('qcmb-analysed-by')?.value.trim();
+            const verifiedBy = document.getElementById('qcmb-verified-by')?.value.trim();
+
+            if (!analysedBy) { Toast.show('Please enter Analysed By.', 'warning'); return; }
+            if (!verifiedBy) { Toast.show('Please enter Verified By.', 'warning'); return; }
+
+            const primaryRow = mbRows[0] || {};
+            const poNo = primaryRow.poNo || row?.poNo || 'PO-2026-001';
+            const buyer = primaryRow.buyer || row?.buyer || 'Pacific Seafood Inc';
+            const reportDate = primaryRow.analysisDate || row?.reportDate || today;
+
+            const entry = {
+              ...(row || {}),
+              id: row?.id || `QC-mb-report-${Date.now()}`,
+              poNo,
+              buyer,
+              reportDate,
+              date: reportDate,
+              unitName: unitName || 'DFL UNIT-5 (JPT)',
+              analysedBy,
+              verifiedBy,
+              mbRows: [...mbRows],
+              status: mbRows.some(r => r.result === 'Fail' || r.result === 'Present') ? 'Fail' : 'Pass',
+              updatedAt: new Date().toISOString()
+            };
+
+            this.evaluate('mb-report', entry);
+            if (row) {
+              this.state['mb-report'] = this.state['mb-report'].map(item => item.id === row.id ? entry : item);
+            } else {
+              this.state['mb-report'].unshift(entry);
+            }
+            this.synchronize();
+            this.persist();
+            Modal.close();
+            this.renderRegister('mb-report');
+            Toast.show('Microbiology Report saved successfully.', 'success');
+          }
+        }
+      ]
+    });
+
+    const renderMbTable = () => {
+      const container = document.getElementById('qcmb-table-container');
+      if (!container) return;
+
+      if (!mbRows || mbRows.length === 0) {
+        container.innerHTML = `
+          <div class="border border-[#DFE1E6] rounded-lg py-8 text-center bg-[#FAFBFC]">
+            <div class="flex flex-col items-center justify-center">
+              <div class="w-10 h-10 rounded-full bg-[#EBECF0] flex items-center justify-center text-[#6B778C] mb-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+              </div>
+              <h4 class="text-xs font-bold text-[#172B4D]">No Data Available</h4>
+              <p class="text-[11px] text-[#5E6C84] mt-0.5">Fill in the fields above and click Save to add microbiology test records.</p>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = `
+        <div class="bg-white rounded-lg border border-[#DFE1E6] shadow-2xs overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs border-collapse">
+              <thead class="bg-[#F8FAFC] border-b border-[#DFE1E6] text-[#475569] font-bold uppercase tracking-wider text-[11px]">
+                <tr>
+                  <th class="py-2.5 px-3 min-w-[60px]">S.No</th>
+                  <th class="py-2.5 px-3 min-w-[120px]">PO No</th>
+                  <th class="py-2.5 px-3 min-w-[160px]">Buyer Name</th>
+                  <th class="py-2.5 px-3 min-w-[160px]">Parameter</th>
+                  <th class="py-2.5 px-3 min-w-[120px]">Analysis Date</th>
+                  <th class="py-2.5 px-3 min-w-[100px]">Result</th>
+                  <th class="py-2.5 px-3 min-w-[80px] text-center">Remove</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-[#F1F5F9]">
+                ${mbRows.map((r, idx) => `
+                  <tr class="hover:bg-[#F8FAFC] transition-colors">
+                    <td class="py-2 px-3 font-bold text-[#5E6C84]">${idx + 1}</td>
+                    <td class="py-2 px-3 font-mono font-bold text-[#00A4B7]">${this.escape(r.poNo || '-')}</td>
+                    <td class="py-2 px-3 font-semibold text-[#172B4D]">${this.escape(r.buyer || '-')}</td>
+                    <td class="py-2 px-3 font-medium text-[#172B4D]">${this.escape(r.parameter || '-')}</td>
+                    <td class="py-2 px-3 text-[#172B4D]">${r.analysisDate ? String(r.analysisDate).split('-').reverse().join('-') : '-'}</td>
+                    <td class="py-2 px-3">${this.badge(r.result || 'Pass')}</td>
+                    <td class="py-2 px-3 text-center">
+                      <button type="button" data-index="${idx}" class="btn-remove-mb-row p-1 text-[#DE350B] hover:bg-[#FFEBE6] rounded transition-colors cursor-pointer inline-flex items-center justify-center" title="Remove row">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                      </button>
+                    </td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      `;
+
+      container.querySelectorAll('.btn-remove-mb-row').forEach(btn => {
+        btn.addEventListener('click', e => {
+          const idx = parseInt(e.currentTarget.getAttribute('data-index'), 10);
+          mbRows.splice(idx, 1);
+          renderMbTable();
+          Toast.show('Item removed from table.', 'info');
+        });
+      });
+    };
+
+    renderMbTable();
+
+    // Event listener for Save button (adds data into table)
+    document.getElementById('btn-save-mb-row')?.addEventListener('click', () => {
+      const poNo = document.getElementById('qcmb-input-po')?.value.trim();
+      const buyer = document.getElementById('qcmb-input-buyer')?.value.trim();
+      const parameter = document.getElementById('qcmb-input-param')?.value;
+      const analysisDate = document.getElementById('qcmb-input-date')?.value;
+      const result = document.getElementById('qcmb-input-result')?.value;
+
+      if (!poNo) {
+        Toast.show('Please enter PO No.', 'warning');
+        document.getElementById('qcmb-input-po')?.focus();
+        return;
+      }
+      if (!buyer) {
+        Toast.show('Please enter Buyer Name.', 'warning');
+        document.getElementById('qcmb-input-buyer')?.focus();
+        return;
+      }
+      if (!parameter) {
+        Toast.show('Please select a Parameter.', 'warning');
+        return;
+      }
+
+      mbRows.push({
+        sNo: mbRows.length + 1,
+        poNo,
+        buyer,
+        parameter,
+        analysisDate: analysisDate || today,
+        result: result || 'Pass'
+      });
+
+      renderMbTable();
+      Toast.show('Microbiology test entry added to table.', 'success');
+    });
+  },
 
   openAbReportForm(row = null) {
     const today = new Date().toISOString().slice(0, 10);
@@ -1604,6 +1897,39 @@ export const QCView = {
               <div><dt class="text-[10px] font-bold text-[#5E6C84] uppercase">BIG PIECES</dt><dd class="font-semibold text-[#172B4D] mt-0.5">${this.escape(row.bigPieces ?? '-')}</dd></div>
               <div><dt class="text-[10px] font-bold text-[#5E6C84] uppercase">SMALL PIECES</dt><dd class="font-semibold text-[#172B4D] mt-0.5">${this.escape(row.smallPieces ?? '-')}</dd></div>
               <div class="sm:col-span-2 md:col-span-4"><dt class="text-[10px] font-bold text-[#5E6C84] uppercase">REMARKS</dt><dd class="font-semibold text-[#172B4D] mt-0.5 whitespace-pre-wrap">${this.escape(row.remarks || row.reason || '-')}</dd></div>
+            </div>
+          </div>
+        ` : ''}
+        ${key === 'mb-report' && row.mbRows && row.mbRows.length ? `
+          <div class="space-y-2 mt-4">
+            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Microbiology Test Breakdown</h4>
+            <div class="bg-white rounded-lg border border-[#DFE1E6] shadow-2xs overflow-hidden">
+              <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs border-collapse">
+                  <thead class="bg-[#F8FAFC] border-b border-[#DFE1E6] text-[#475569] font-bold uppercase tracking-wider text-[11px]">
+                    <tr>
+                      <th class="py-2.5 px-3 min-w-[60px]">S.No</th>
+                      <th class="py-2.5 px-3 min-w-[120px]">PO No</th>
+                      <th class="py-2.5 px-3 min-w-[160px]">Buyer Name</th>
+                      <th class="py-2.5 px-3 min-w-[160px]">Parameter</th>
+                      <th class="py-2.5 px-3 min-w-[120px]">Analysis Date</th>
+                      <th class="py-2.5 px-3 min-w-[100px]">Result</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-[#F1F5F9]">
+                    ${row.mbRows.map((r, idx) => `
+                      <tr class="hover:bg-[#F8FAFC] transition-colors">
+                        <td class="py-2 px-3 font-bold text-[#5E6C84]">${idx + 1}</td>
+                        <td class="py-2 px-3 font-mono font-bold text-[#00A4B7]">${this.escape(r.poNo || '-')}</td>
+                        <td class="py-2 px-3 font-semibold text-[#172B4D]">${this.escape(r.buyer || '-')}</td>
+                        <td class="py-2 px-3 font-medium text-[#172B4D]">${this.escape(r.parameter || '-')}</td>
+                        <td class="py-2 px-3 text-[#172B4D]">${r.analysisDate ? String(r.analysisDate).split('-').reverse().join('-') : '-'}</td>
+                        <td class="py-2 px-3">${this.badge(r.result || 'Pass')}</td>
+                      </tr>
+                    `).join('')}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         ` : ''}
