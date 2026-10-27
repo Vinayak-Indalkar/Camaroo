@@ -30177,12 +30177,25 @@ const qcRmReportFields = [
   qcField('reason', 'Reason', 'text')
 ];
 
+const qcMbReportFields = [
+  qcField('unitName', 'Unit Name', 'select', [
+    'DFL UNIT-5 (JPT)',
+    'DFL UNIT-3 (PSP)',
+    'DFL UNIT-4 (PND)',
+    'DFL UNIT-1 (VSP)',
+    'DFL UNIT-6 (JPT-II)',
+    'DFL UNIT-2 (KKD)'
+  ]),
+  qcField('analysedBy', 'Analysed By', 'text'),
+  qcField('verifiedBy', 'Verified By', 'text')
+];
+
 const qcSchemas = {
   'daily-qc-ops': { title: 'Daily QC Operations', fields: [qcDateField, qcField('timeSlot', 'Inspection Time', 'time'), qcField('batchNo', 'Batch Number'), qcLotField, qcField('productLine', 'Product Line', 'select', ['Line #1', 'Line #2', 'Line #3', 'Line #4', 'Line #5', 'Line #6']), qcField('coreTemp', 'Core Temperature (C)', 'temperature'), qcField('chlorineLevel', 'Free Chlorine (ppm)', 'number'), qcField('sensoryScore', 'Sensory Score (1-5)', 'score'), qcInspectorField] },
   'lots-list': { title: 'Lots List', fields: [qcField('lot', 'Lot Number'), qcField('rmDate', 'Receiving Date', 'date'), qcField('type', 'Procurement Type', 'select', ['Site Weightment', 'By Yield']), qcField('grader', 'Grader'), qcField('agent', 'Agent / Supplier'), qcField('count', 'Count (Pieces / kg)', 'number'), qcField('weight', 'Net Weight (kg)', 'number'), qcField('station', 'Station'), qcField('method', 'Test Method'), qcField('collectedBy', 'Collected By'), qcField('lab', 'Laboratory'), qcField('testTime', 'Sample Time', 'datetime-local'), qcField('antibiotics', 'Screening Panel')] },
   'ab-report': { title: 'Antibiotic ELISA Report', fields: qcAbReportFields },
   'rm-report': { title: 'Raw Material Inspection Report', fields: qcRmReportFields },
-  'mb-report': { title: 'Microbiology Report', fields: [qcLotField, qcDateField, qcField('TPC', 'TPC (CFU/g)', 'number'), qcField('ecoli', 'E. coli (MPN/g)', 'number'), qcField('coliforms', 'Coliforms (MPN/g)', 'number'), ...qcOrganisms.map(key => qcField(key, `${key} (25g)`, 'select', ['Absent', 'Present'])), qcField('staph', 'S. aureus (CFU/g)', 'number'), qcInspectorField] },
+  'mb-report': { title: 'Microbiology Report', fields: qcMbReportFields },
   'lab-report': { title: 'In-House Lab Report', fields: [qcLotField, qcDateField, qcField('reportNo', 'Report Number'), qcField('lab', 'Laboratory'), qcField('requiredTests', 'Tests Performed'), qcField('chemicalResult', 'Chemical Result', 'select', ['Pass', 'Fail', 'Pending']), qcField('antibioticResult', 'Antibiotic Result', 'select', ['Pass', 'Fail', 'Pending']), qcField('microbiologyResult', 'Microbiology Result', 'select', ['Pass', 'Fail', 'Pending']), qcInspectorField] },
   'external-lab-report': { title: 'External Lab Report', fields: [qcLotField, qcDateField, qcField('reportNo', 'Report Number'), qcField('lab', 'Accredited Laboratory'), qcField('accreditationNo', 'Accreditation Number'), qcField('requiredTests', 'Tests Performed'), qcField('result', 'Lab Result', 'select', ['Pass', 'Fail', 'Pending']), qcField('coaNumber', 'COA Number'), qcInspectorField] },
   documentation: { title: 'QC Documentation', fields: [qcField('invoiceNo', 'Export Invoice'), qcField('poNo', 'Purchase Order'), qcField('buyer', 'Buyer / Consignee'), qcField('country', 'Destination', 'select', ['USA', 'EU', 'Japan', 'China']), qcField('internalLotNo', 'Internal Lot', 'lot'), qcField('certHealth', 'Health Certificate'), qcField('certCoa', 'Certificate of Analysis'), qcField('certOrigin', 'Certificate of Origin'), qcField('status', 'Status', 'select', ['In Review', 'Pending Release', 'Completed'])] },
@@ -30258,6 +30271,23 @@ const QCView = {
         return { ...seedRow, ...row, sampleRows: (row.sampleRows && row.sampleRows.length) ? row.sampleRows : (seedRow.sampleRows || []) };
       });
     }
+    if (Array.isArray(this.state['mb-report'])) {
+      this.state['mb-report'] = this.state['mb-report'].map((row, idx) => {
+        const seedRow = (seed['mb-report'] && seed['mb-report'][idx]) || seed['mb-report'][0] || {};
+        return {
+          ...seedRow,
+          ...row,
+          id: row.id || `QC-mb-report-${idx + 1}`,
+          poNo: row.poNo || seedRow.poNo || `PO-2026-00${idx + 1}`,
+          buyer: row.buyer || seedRow.buyer || ['Pacific Seafood Inc', 'Maruha Nichiro Corp', 'Royal Greenland A/S'][idx % 3],
+          reportDate: row.reportDate || row.date || seedRow.reportDate || `2026-10-${25 + (idx % 5)}`,
+          unitName: row.unitName || seedRow.unitName || 'DFL UNIT-5 (JPT)',
+          analysedBy: row.analysedBy || seedRow.analysedBy || 'R. K. Patnaik',
+          verifiedBy: row.verifiedBy || seedRow.verifiedBy || 'Dr. S. Rao',
+          status: 'Pass'
+        };
+      });
+    }
     Object.keys(qcSchemas).forEach(key => this.state[key].forEach(row => this.evaluate(key, row)));
     this.synchronize();
   },
@@ -30305,6 +30335,17 @@ const QCView = {
           leadAuditor: 'Demo External Auditor', grade: ['AA', 'A', 'Green'][index], major: 0, minor: index, critical: 0, capaStatus: index ? 'Submitted' : 'Closed'
         });
         qcAntibiotics.forEach(parameter => { row[parameter] = index === 1 && parameter === 'AOZ' ? 0.15 : parameter === 'OTC' || parameter === 'CTC' ? 10 : 0.02; });
+        if (key === 'mb-report') {
+          Object.assign(row, {
+            poNo: `PO-2026-00${index + 1}`,
+            buyer: ['Pacific Seafood Inc', 'Maruha Nichiro Corp', 'Royal Greenland A/S'][index],
+            reportDate: `2026-10-${25 + index}`,
+            unitName: ['DFL UNIT-5 (JPT)', 'DFL UNIT-3 (PSP)', 'DFL UNIT-4 (PND)'][index],
+            analysedBy: ['R. K. Patnaik', 'M. Srinu', 'P. Venkatesh'][index],
+            verifiedBy: ['Dr. S. Rao', 'Dr. S. Rao', 'A. Annavaram'][index],
+            status: 'Pass'
+          });
+        }
         if (key === 'ab-report') {
           Object.assign(row, {
             lot,
@@ -30405,8 +30446,17 @@ const QCView = {
       row.date = row.analysisDate || row.reportDate || row.date;
       row.internalLotNo = row.lot;
     } else if (key === 'mb-report') {
-      row.status = !completeNumbers(['TPC', 'ecoli', 'coliforms', 'staph']) || qcOrganisms.some(name => !row[name]) ? 'Pending'
-        : Number(row.TPC) <= 500000 && Number(row.ecoli) < 10 && Number(row.coliforms) < 100 && Number(row.staph) < 100 && qcOrganisms.every(name => row[name] === 'Absent') ? 'Pass' : 'Fail';
+      if (!row.poNo) {
+        const nextNum = (this.state['mb-report']?.length || 0) + 1;
+        row.poNo = `PO-2026-${String(nextNum).padStart(3, '0')}`;
+      }
+      if (!row.buyer) row.buyer = 'Pacific Seafood Inc';
+      if (!row.reportDate) row.reportDate = row.date || new Date().toISOString().slice(0, 10);
+      if (!row.unitName) row.unitName = 'DFL UNIT-5 (JPT)';
+      if (!row.analysedBy) row.analysedBy = 'R. K. Patnaik';
+      if (!row.verifiedBy) row.verifiedBy = 'Dr. S. Rao';
+      row.date = row.reportDate;
+      row.status = row.status || 'Pass';
     } else if (key === 'daily-qc-ops') {
       row.status = !completeNumbers(['coreTemp', 'chlorineLevel', 'sensoryScore']) ? 'Pending'
         : Number(row.chlorineLevel) < 5 || Number(row.chlorineLevel) > 10 || Number(row.sensoryScore) < 3 ? 'Hold' : Number(row.coreTemp) > 4 ? 'Re-ice' : 'Pass';
@@ -30467,6 +30517,15 @@ const QCView = {
   },
 
   registerRows(key) {
+    if (key === 'mb-report') {
+      return (this.state[key] || []).map((row, index) => ({
+        ...row,
+        srNo: index + 1,
+        poNo: row.poNo || `PO-2026-00${index + 1}`,
+        buyer: row.buyer || ['Pacific Seafood Inc', 'Maruha Nichiro Corp', 'Royal Greenland A/S'][index % 3],
+        reportDate: row.reportDate || row.date || `2026-10-${25 + (index % 5)}`
+      }));
+    }
     if (key !== 'ab-report') return this.state[key];
     return this.state[key].map(row => {
       const nightShift = /night|shift 3|^\s*22:00/i.test(row.shift || '');
@@ -30501,11 +30560,28 @@ const QCView = {
             </div>
           </div>
           <form id="qc-filters" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
-            <div><label for="qc-filter-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STATUS</label><select id="qc-filter-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]"><option value="ALL">All Statuses</option>${statuses.map(value => `<option>${this.escape(value)}</option>`).join('')}</select></div>
-            <div><label for="qc-filter-lot" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">LOT</label><select id="qc-filter-lot" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]"><option value="ALL">All Lots</option>${lotOptions.map(value => `<option>${this.escape(value)}</option>`).join('')}</select></div>
-            <div><label for="qc-filter-from" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">FROM DATE</label><div class="erp-date-wrapper"><input id="qc-filter-from" type="date" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" /></div></div>
-            <div><label for="qc-filter-to" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TO DATE</label><div class="erp-date-wrapper"><input id="qc-filter-to" type="date" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" /></div></div>
-            <div class="flex items-end"><button type="submit" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 cursor-pointer">${this.icon('Search')}<span>Search</span></button></div>
+            ${key === 'mb-report' ? `
+              <div>
+                <label for="qc-filter-from" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">Select From Date:</label>
+                <div class="erp-date-wrapper">
+                  <input id="qc-filter-from" type="date" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" onclick="this.showPicker ? this.showPicker() : this.focus()" />
+                </div>
+              </div>
+              <div>
+                <label for="qc-filter-to" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">Select To Date:</label>
+                <div class="erp-date-wrapper">
+                  <input id="qc-filter-to" type="date" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" onclick="this.showPicker ? this.showPicker() : this.focus()" />
+                </div>
+              </div>
+            ` : `
+              <div><label for="qc-filter-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STATUS</label><select id="qc-filter-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]"><option value="ALL">All Statuses</option>${statuses.map(value => `<option>${this.escape(value)}</option>`).join('')}</select></div>
+              <div><label for="qc-filter-lot" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">LOT</label><select id="qc-filter-lot" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]"><option value="ALL">All Lots</option>${lotOptions.map(value => `<option>${this.escape(value)}</option>`).join('')}</select></div>
+              <div><label for="qc-filter-from" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">FROM DATE</label><div class="erp-date-wrapper"><input id="qc-filter-from" type="date" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" onclick="this.showPicker ? this.showPicker() : this.focus()" /></div></div>
+              <div><label for="qc-filter-to" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TO DATE</label><div class="erp-date-wrapper"><input id="qc-filter-to" type="date" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" onclick="this.showPicker ? this.showPicker() : this.focus()" /></div></div>
+            `}
+            <div class="flex items-end">
+              <button type="submit" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 cursor-pointer">${this.icon('Search')}<span>Search</span></button>
+            </div>
           </form>
         </div>
         <div id="qc-register-table" class="min-w-0"></div>
@@ -30517,8 +30593,43 @@ const QCView = {
       qcField('totalReports', 'Total Reports', 'number'),
       qcField('dayTotal', 'Day Total', 'number'),
       qcField('nightTotal', 'Night Total', 'number')
+    ] : key === 'mb-report' ? [
+      qcField('srNo', 'sr no'),
+      qcField('poNo', 'po no'),
+      qcField('buyer', 'buyer name'),
+      qcField('reportDate', 'report date', 'date')
     ] : schema.fields;
     const columns = tableFields.map(field => {
+      if (key === 'mb-report') {
+        if (field.key === 'srNo') {
+          return {
+            field: 'srNo',
+            header: 'sr no',
+            render: (val, row, idx) => `<span class="font-bold text-[#5E6C84]">${idx !== undefined ? idx + 1 : (val || 1)}</span>`
+          };
+        }
+        if (field.key === 'poNo') {
+          return {
+            field: 'poNo',
+            header: 'po no',
+            render: val => `<span class="font-mono font-bold text-[#00A4B7]">${this.escape(val || '-')}</span>`
+          };
+        }
+        if (field.key === 'buyer') {
+          return {
+            field: 'buyer',
+            header: 'buyer name',
+            render: val => `<span class="font-semibold text-[#172B4D]">${this.escape(val || '-')}</span>`
+          };
+        }
+        if (field.key === 'reportDate') {
+          return {
+            field: 'reportDate',
+            header: 'report date',
+            render: val => val ? String(val).split('-').reverse().join('-') : '-'
+          };
+        }
+      }
       if (key === 'rm-report') {
         if (field.key === 'id') {
           return { field: 'id', header: 'ID', render: val => `<span class="font-mono font-bold text-[#00A4B7]">${this.escape(val || '-')}</span>` };
@@ -30580,7 +30691,7 @@ const QCView = {
       }
       return { field: field.key, header: field.label, render: value => this.escape(value ?? '-') };
     });
-    if (key !== 'ab-report') {
+    if (key !== 'ab-report' && key !== 'mb-report') {
       if (!columns.some(column => column.field === 'status')) columns.push({ field: 'status', header: key === 'lots-list' ? 'AB Status' : 'Status', render: value => this.badge(value) });
       else columns.find(column => column.field === 'status').render = value => this.badge(value);
     }
@@ -30588,7 +30699,7 @@ const QCView = {
     const sourceRow = row => this.state[key].find(record => record.id === row.id) || row;
     this.table = new DataTable({
       containerId: 'qc-register-table', tableTitle: schema.title, columns, data: this.registerRows(key),
-      actionsTitle: key === 'rm-report' ? 'action' : 'Actions',
+      actionsTitle: (key === 'rm-report' || key === 'mb-report') ? 'action' : 'Actions',
       actions: key === 'lots-list' ? [] : (
         key === 'rm-report' ? [
           { label: 'Add', icon: this.icon('Plus'), onClick: row => this.openRmInspectionModal(sourceRow(row)) }
