@@ -7055,9 +7055,12 @@ const ADMIN_NAV_HIERARCHY = [
       {
         id: "operations",
         title: "Operations",
-        defaultTab: "overview",
+        defaultTab: "production-standard-yields",
         tabs: [
-          { id: "overview", label: "Overview", hash: "#/production/operations/overview" }
+          { id: "production-standard-yields", label: "ProductionStandardYields", hash: "#/production/operations/production-standard-yields" },
+          { id: "soaking", label: "Soaking", hash: "#/production/operations/soaking" },
+          { id: "soaking-v2", label: "Soaking (V2)", hash: "#/production/operations/soaking-v2" },
+          { id: "freezing-store", label: "Freezing-Store", hash: "#/production/operations/freezing-store" }
         ]
       }
     ]
@@ -34131,6 +34134,486 @@ const ProductionView = {
         remarks: 'Staging in ante-room, waiting for final blast tunnel completion',
         status: 'PENDING'
       }
+    ],
+
+    standardYields: [
+      {
+        sNo: 1,
+        id: 'SY-2026-001',
+        species: 'Vannamei (White Shrimp)',
+        variety: 'Head-Less Shell-On (HLSO)',
+        processType: 'Deheading & Grading',
+        grade: '31/40',
+        targetYieldPct: 66.5,
+        tolerancePct: '± 1.5%',
+        stdWastePct: 33.5,
+        stdCycleTime: '3.2 Hrs/MT',
+        productionPlant: 'DFL UNIT-5 (JPT)',
+        effectiveDate: '2026-04-01',
+        status: 'ACTIVE',
+        remarks: 'Export standard benchmark cleared by Devi Fisheries QC'
+      },
+      {
+        sNo: 2,
+        id: 'SY-2026-002',
+        species: 'Vannamei (White Shrimp)',
+        variety: 'Peeled & Deveined (PD)',
+        processType: 'Peeling & Deveining',
+        grade: '26/30',
+        targetYieldPct: 61.0,
+        tolerancePct: '± 2.0%',
+        stdWastePct: 39.0,
+        stdCycleTime: '5.8 Hrs/MT',
+        productionPlant: 'DFL UNIT-3 (PSP)',
+        effectiveDate: '2026-04-01',
+        status: 'ACTIVE',
+        remarks: 'Peeled tails verified with automated count sizing'
+      },
+      {
+        sNo: 3,
+        id: 'SY-2026-003',
+        species: 'Vannamei (White Shrimp)',
+        variety: 'Peeled Deveined Tail-On (PDTO)',
+        processType: 'Tail-On Peeling',
+        grade: '21/25',
+        targetYieldPct: 63.5,
+        tolerancePct: '± 1.5%',
+        stdWastePct: 36.5,
+        stdCycleTime: '5.0 Hrs/MT',
+        productionPlant: 'DFL UNIT-4 (PND)',
+        effectiveDate: '2026-04-01',
+        status: 'ACTIVE',
+        remarks: 'Premium IQF retail pouch benchmark specification'
+      },
+      {
+        sNo: 4,
+        id: 'SY-2026-004',
+        species: 'Black Tiger (Monodon)',
+        variety: 'Head-On Shell-On (HOSO)',
+        processType: 'Whole Round Pack',
+        grade: '16/20',
+        targetYieldPct: 96.5,
+        tolerancePct: '± 1.0%',
+        stdWastePct: 3.5,
+        stdCycleTime: '1.5 Hrs/MT',
+        productionPlant: 'DFL UNIT-1 (VSP)',
+        effectiveDate: '2026-04-01',
+        status: 'ACTIVE',
+        remarks: 'Direct farm intake sizing, high recovery intact cephalothorax'
+      },
+      {
+        sNo: 5,
+        id: 'SY-2026-005',
+        species: 'Asian Seabass',
+        variety: 'Skin-On Boneless Fillet',
+        processType: 'Filleting & Trimming',
+        grade: '300/500g',
+        targetYieldPct: 49.5,
+        tolerancePct: '± 2.0%',
+        stdWastePct: 50.5,
+        stdCycleTime: '6.5 Hrs/MT',
+        productionPlant: 'DFL UNIT-6 (JPT-II)',
+        effectiveDate: '2026-04-01',
+        status: 'ACTIVE',
+        remarks: 'Pinbone out, precision manual filleting recovery rate'
+      },
+      {
+        sNo: 6,
+        id: 'SY-2026-006',
+        species: 'Scampi',
+        variety: 'Easy Peel (EZP)',
+        processType: 'Splitting & Scoring',
+        grade: '11/15',
+        targetYieldPct: 58.0,
+        tolerancePct: '± 2.5%',
+        stdWastePct: 42.0,
+        stdCycleTime: '4.5 Hrs/MT',
+        productionPlant: 'DFL UNIT-2 (KKD)',
+        effectiveDate: '2026-04-01',
+        status: 'PENDING_REVIEW',
+        remarks: 'Trial seasonal recovery calculation for EU supermarket order'
+      }
+    ],
+
+    soakingOperations: [
+      {
+        sNo: 1,
+        id: 'SOAK-2026-101',
+        soakBatchNo: 'SOAK-2026-101',
+        soakingDate: '2026-10-06',
+        productionPlant: 'DFL UNIT-5 (JPT)',
+        tubNumber: 'Tub-01',
+        variety: 'Vannamei (VM)',
+        grade: '31/40',
+        rawInWeight: '500.0 Kgs',
+        chemical: 'Non-Phosphate Moisture Retainer',
+        chemicalQty: '15.0 Kgs',
+        saltQty: '10.0 Kgs',
+        soakDuration: '45 Mins',
+        soakOutWeight: '524.5 Kgs',
+        pickupPct: '4.9%',
+        bathTemp: '1.8°C',
+        shift: 'Shift A (Day)',
+        supervisor: 'Laxmi Narayana',
+        remarks: 'Uniform uptake, texture firm, zero drip loss',
+        status: 'COMPLETED'
+      },
+      {
+        sNo: 2,
+        id: 'SOAK-2026-102',
+        soakBatchNo: 'SOAK-2026-102',
+        soakingDate: '2026-10-06',
+        productionPlant: 'DFL UNIT-3 (PSP)',
+        tubNumber: 'Tub-04',
+        variety: 'Black Tiger (BT)',
+        grade: '16/20',
+        rawInWeight: '620.0 Kgs',
+        chemical: 'Food Grade STPP (Sodium Tripolyphosphate)',
+        chemicalQty: '18.5 Kgs',
+        saltQty: '12.0 Kgs',
+        soakDuration: '50 Mins',
+        soakOutWeight: '651.0 Kgs',
+        pickupPct: '5.0%',
+        bathTemp: '1.6°C',
+        shift: 'Shift A (Day)',
+        supervisor: 'K. Subba Rao',
+        remarks: 'Controlled phosphate soaking for US market compliance',
+        status: 'COMPLETED'
+      },
+      {
+        sNo: 3,
+        id: 'SOAK-2026-103',
+        soakBatchNo: 'SOAK-2026-103',
+        soakingDate: '2026-10-07',
+        productionPlant: 'DFL UNIT-4 (PND)',
+        tubNumber: 'Tub-07',
+        variety: 'Vannamei (VM)',
+        grade: '21/25',
+        rawInWeight: '450.0 Kgs',
+        chemical: 'Fresh Raw (Chilled Brine)',
+        chemicalQty: '0.0 Kgs',
+        saltQty: '15.0 Kgs',
+        soakDuration: '30 Mins',
+        soakOutWeight: '463.5 Kgs',
+        pickupPct: '3.0%',
+        bathTemp: '1.2°C',
+        shift: 'Shift B (Evening)',
+        supervisor: 'Ch. Prasad',
+        remarks: 'Chemical-free natural chilled brine soak',
+        status: 'SOAKING'
+      },
+      {
+        sNo: 4,
+        id: 'SOAK-2026-104',
+        soakBatchNo: 'SOAK-2026-104',
+        soakingDate: '2026-10-07',
+        productionPlant: 'DFL UNIT-1 (VSP)',
+        tubNumber: 'Tub-02',
+        variety: 'Sea White',
+        grade: '41/50',
+        rawInWeight: '380.0 Kgs',
+        chemical: 'Citric Acid & Salt Blend',
+        chemicalQty: '11.0 Kgs',
+        saltQty: '9.0 Kgs',
+        soakDuration: '40 Mins',
+        soakOutWeight: '395.2 Kgs',
+        pickupPct: '4.0%',
+        bathTemp: '2.0°C',
+        shift: 'Shift A (Day)',
+        supervisor: 'Mallesh',
+        remarks: 'EU compliance blend, organoleptic test passed',
+        status: 'COMPLETED'
+      },
+      {
+        sNo: 5,
+        id: 'SOAK-2026-105',
+        soakBatchNo: 'SOAK-2026-105',
+        soakingDate: '2026-10-07',
+        productionPlant: 'DFL UNIT-6 (JPT-II)',
+        tubNumber: 'Tub-09',
+        variety: 'Scampi',
+        grade: '11/15',
+        rawInWeight: '320.0 Kgs',
+        chemical: 'Non-Phosphate Moisture Retainer',
+        chemicalQty: '9.5 Kgs',
+        saltQty: '7.5 Kgs',
+        soakDuration: '45 Mins',
+        soakOutWeight: '334.4 Kgs',
+        pickupPct: '4.5%',
+        bathTemp: '1.9°C',
+        shift: 'Shift C (Night)',
+        supervisor: 'D. Rambabu',
+        remarks: 'Transferred to Tunnel Freezer #1 staging ante-room',
+        status: 'TRANSFERRED'
+      },
+      {
+        sNo: 6,
+        id: 'SOAK-2026-106',
+        soakBatchNo: 'SOAK-2026-106',
+        soakingDate: '2026-10-08',
+        productionPlant: 'DFL UNIT-2 (KKD)',
+        tubNumber: 'Tub-05',
+        variety: 'Vannamei (VM)',
+        grade: '31/40',
+        rawInWeight: '550.0 Kgs',
+        chemical: 'STPP Controlled Soak',
+        chemicalQty: '16.5 Kgs',
+        saltQty: '11.0 Kgs',
+        soakDuration: '45 Mins',
+        soakOutWeight: '576.4 Kgs',
+        pickupPct: '4.8%',
+        bathTemp: '1.7°C',
+        shift: 'Shift A (Day)',
+        supervisor: 'G. Suribabu',
+        remarks: 'Solution prepared, tub loading in progress',
+        status: 'SOAKING'
+      }
+    ],
+
+    soakingV2Lots: [
+      {
+        sNo: 1,
+        id: 'LOT-SK2-001',
+        lotCode: 'LOT-SK2-001',
+        productionPlant: 'DFL UNIT-5 (JPT)',
+        date: '2026-10-06',
+        shift: 'Shift A (Day)',
+        tankPitNo: 'Pit #3 (2000L)',
+        variety: 'Vannamei (VM)',
+        inwardWeight: '1200.0 Kgs',
+        chemicalFormulation: 'STPP & Citric Buffer',
+        dosingRatio: '2.5%',
+        bathTemp: '1.5°C',
+        phLevel: '7.2 pH',
+        outwardWeight: '1256.4 Kgs',
+        netGainPct: '4.7%',
+        qcClearance: 'PASSED',
+        supervisor: 'S. K. Murthy',
+        remarks: 'Automated chiller pump circulation active, zero thermal rise',
+        status: 'APPROVED'
+      },
+      {
+        sNo: 2,
+        id: 'LOT-SK2-002',
+        lotCode: 'LOT-SK2-002',
+        productionPlant: 'DFL UNIT-3 (PSP)',
+        date: '2026-10-06',
+        shift: 'Shift A (Day)',
+        tankPitNo: 'Pit #1 (1500L)',
+        variety: 'Black Tiger (BT)',
+        inwardWeight: '980.0 Kgs',
+        chemicalFormulation: 'Non-Phosphate Organic Blend',
+        dosingRatio: '3.0%',
+        bathTemp: '1.4°C',
+        phLevel: '7.0 pH',
+        outwardWeight: '1027.0 Kgs',
+        netGainPct: '4.8%',
+        qcClearance: 'PASSED',
+        supervisor: 'B. Subrahmanyam',
+        remarks: 'High purity RO water circulation maintained',
+        status: 'APPROVED'
+      },
+      {
+        sNo: 3,
+        id: 'LOT-SK2-003',
+        lotCode: 'LOT-SK2-003',
+        productionPlant: 'DFL UNIT-4 (PND)',
+        date: '2026-10-07',
+        shift: 'Shift B (Evening)',
+        tankPitNo: 'Pit #2 (1500L)',
+        variety: 'Vannamei (VM)',
+        inwardWeight: '850.0 Kgs',
+        chemicalFormulation: 'STPP Controlled Release',
+        dosingRatio: '2.8%',
+        bathTemp: '1.8°C',
+        phLevel: '7.4 pH',
+        outwardWeight: '891.7 Kgs',
+        netGainPct: '4.9%',
+        qcClearance: 'PASSED',
+        supervisor: 'K. Somaraju',
+        remarks: 'Texture index test verified on automated shear press',
+        status: 'APPROVED'
+      },
+      {
+        sNo: 4,
+        id: 'LOT-SK2-004',
+        lotCode: 'LOT-SK2-004',
+        productionPlant: 'DFL UNIT-1 (VSP)',
+        date: '2026-10-07',
+        shift: 'Shift A (Day)',
+        tankPitNo: 'Pit #4 (2000L)',
+        variety: 'Sea White',
+        inwardWeight: '1100.0 Kgs',
+        chemicalFormulation: 'Citric Acid & Marine Salt',
+        dosingRatio: '2.0%',
+        bathTemp: '2.1°C',
+        phLevel: '6.8 pH',
+        outwardWeight: '1142.9 Kgs',
+        netGainPct: '3.9%',
+        qcClearance: 'PASSED',
+        supervisor: 'M. Jagannadham',
+        remarks: 'Low sodium formulation cleared for European retailer specs',
+        status: 'APPROVED'
+      },
+      {
+        sNo: 5,
+        id: 'LOT-SK2-005',
+        lotCode: 'LOT-SK2-005',
+        productionPlant: 'DFL UNIT-6 (JPT-II)',
+        date: '2026-10-07',
+        shift: 'Shift C (Night)',
+        tankPitNo: 'Pit #1 (1500L)',
+        variety: 'Scampi',
+        inwardWeight: '750.0 Kgs',
+        chemicalFormulation: 'Non-Phosphate Hydration Compound',
+        dosingRatio: '2.6%',
+        bathTemp: '1.7°C',
+        phLevel: '7.1 pH',
+        outwardWeight: '784.5 Kgs',
+        netGainPct: '4.6%',
+        qcClearance: 'PENDING',
+        supervisor: 'V. Rajesh',
+        remarks: 'Sample drawn for final residual phosphate analysis',
+        status: 'IN_PROCESS'
+      },
+      {
+        sNo: 6,
+        id: 'LOT-SK2-006',
+        lotCode: 'LOT-SK2-006',
+        productionPlant: 'DFL UNIT-2 (KKD)',
+        date: '2026-10-08',
+        shift: 'Shift A (Day)',
+        tankPitNo: 'Pit #2 (1500L)',
+        variety: 'Vannamei (VM)',
+        inwardWeight: '1350.0 Kgs',
+        chemicalFormulation: 'STPP & Salt Mix',
+        dosingRatio: '2.5%',
+        bathTemp: '1.6°C',
+        phLevel: '7.3 pH',
+        outwardWeight: '1414.8 Kgs',
+        netGainPct: '4.8%',
+        qcClearance: 'PASSED',
+        supervisor: 'T. Nageswara Rao',
+        remarks: 'Bath agitation cycle running at 15 RPM',
+        status: 'IN_PROCESS'
+      }
+    ],
+
+    freezingStoreReports: [
+      {
+        sNo: 1,
+        id: 'IQF-REP-2026-301',
+        reportDate: '2026-10-06',
+        batchNo: 'IQF-REP-2026-301',
+        productionPlant: 'DFL UNIT-5 (JPT)',
+        freezerLine: 'Tunnel Freezer #1 (IQF)',
+        product: 'Vannamei HLSO IQF',
+        grade: '31/40',
+        infeedWeight: '450.0 Kgs',
+        outfeedWeight: '486.0 Kgs',
+        glazePct: '8.0%',
+        cartonCount: '48 Master Cartons',
+        coreTemp: '-22.4°C',
+        destinationChamber: 'Coldstore Chamber #2',
+        supervisor: 'Laxmi Narayana',
+        status: 'STORED',
+        remarks: 'Glaze uniform 8%, exit temp -22.4°C verified by Coldstore intake'
+      },
+      {
+        sNo: 2,
+        id: 'IQF-REP-2026-302',
+        reportDate: '2026-10-06',
+        batchNo: 'IQF-REP-2026-302',
+        productionPlant: 'DFL UNIT-3 (PSP)',
+        freezerLine: 'Contact Plate Freezer #2',
+        product: 'Black Tiger Block Frozen',
+        grade: '16/20',
+        infeedWeight: '600.0 Kgs',
+        outfeedWeight: '636.0 Kgs',
+        glazePct: '6.0%',
+        cartonCount: '60 Master Cartons',
+        coreTemp: '-24.1°C',
+        destinationChamber: 'Coldstore Chamber #1',
+        supervisor: 'K. Subba Rao',
+        status: 'STORED',
+        remarks: 'Solid blocks palletized, stretch wrapped, and chamber stacked'
+      },
+      {
+        sNo: 3,
+        id: 'IQF-REP-2026-303',
+        reportDate: '2026-10-07',
+        batchNo: 'IQF-REP-2026-303',
+        productionPlant: 'DFL UNIT-4 (PND)',
+        freezerLine: 'Spiral Freezer #1 (IQF)',
+        product: 'Cooked Peeled Vannamei',
+        grade: '21/25',
+        infeedWeight: '520.0 Kgs',
+        outfeedWeight: '572.0 Kgs',
+        glazePct: '10.0%',
+        cartonCount: '52 Master Cartons',
+        coreTemp: '-21.8°C',
+        destinationChamber: 'Coldstore Chamber #3',
+        supervisor: 'Ch. Prasad',
+        status: 'TRANSFERRED',
+        remarks: 'Double-glazed individually quick frozen prawns transferred'
+      },
+      {
+        sNo: 4,
+        id: 'IQF-REP-2026-304',
+        reportDate: '2026-10-07',
+        batchNo: 'IQF-REP-2026-304',
+        productionPlant: 'DFL UNIT-1 (VSP)',
+        freezerLine: 'Tunnel Freezer #2 (IQF)',
+        product: 'Sea White Fillets IQF',
+        grade: '41/50',
+        infeedWeight: '380.0 Kgs',
+        outfeedWeight: '399.0 Kgs',
+        glazePct: '5.0%',
+        cartonCount: '38 Master Cartons',
+        coreTemp: '-23.0°C',
+        destinationChamber: 'Coldstore Chamber #1',
+        supervisor: 'Mallesh',
+        status: 'STORED',
+        remarks: 'Export grade Seabass fillets packed into master cartons'
+      },
+      {
+        sNo: 5,
+        id: 'IQF-REP-2026-305',
+        reportDate: '2026-10-07',
+        batchNo: 'IQF-REP-2026-305',
+        productionPlant: 'DFL UNIT-6 (JPT-II)',
+        freezerLine: 'Contact Plate Freezer #1',
+        product: 'Scampi Block Frozen',
+        grade: '11/15',
+        infeedWeight: '410.0 Kgs',
+        outfeedWeight: '438.7 Kgs',
+        glazePct: '7.0%',
+        cartonCount: '41 Master Cartons',
+        coreTemp: '-25.2°C',
+        destinationChamber: 'Coldstore Chamber #2',
+        supervisor: 'D. Rambabu',
+        status: 'STORED',
+        remarks: 'Plate freezing completed in 110 minutes, core temperature passed'
+      },
+      {
+        sNo: 6,
+        id: 'IQF-REP-2026-306',
+        reportDate: '2026-10-08',
+        batchNo: 'IQF-REP-2026-306',
+        productionPlant: 'DFL UNIT-2 (KKD)',
+        freezerLine: 'Tunnel Freezer #1 (IQF)',
+        product: 'Blanched Vannamei IQF',
+        grade: '31/40',
+        infeedWeight: '490.0 Kgs',
+        outfeedWeight: '529.2 Kgs',
+        glazePct: '8.0%',
+        cartonCount: '49 Master Cartons',
+        coreTemp: '-21.5°C',
+        destinationChamber: 'Ante-Room Staging',
+        supervisor: 'G. Suribabu',
+        status: 'IN_INSPECTION',
+        remarks: 'Final QA temperature and glaze melt test sample under evaluation'
+      }
     ]
   },
 
@@ -34154,6 +34637,26 @@ const ProductionView = {
 
     if (subPage === 'freezing-trackid') {
       this.renderFreezingTrackIdScreen(subContainer);
+      return;
+    }
+
+    if (subPage === 'production-standard-yields') {
+      this.renderProductionStandardYieldsScreen(subContainer);
+      return;
+    }
+
+    if (subPage === 'soaking') {
+      this.renderSoakingScreen(subContainer);
+      return;
+    }
+
+    if (subPage === 'soaking-v2') {
+      this.renderSoakingV2Screen(subContainer);
+      return;
+    }
+
+    if (subPage === 'freezing-store') {
+      this.renderFreezingStoreScreen(subContainer);
       return;
     }
 
@@ -36314,6 +36817,2656 @@ const ProductionView = {
           this.state.freezingTrackIds.splice(idx, 1);
           this.renderFreezingTrackIdScreen(container);
           Toast.show(`Track ID ${row.trackCode || row.trackId} deleted successfully`, 'success');
+        }
+      }
+    });
+  },
+
+  // =========================================================================
+  // OPERATIONS TAB 1: PRODUCTION STANDARD YIELDS
+  // =========================================================================
+  renderProductionStandardYieldsScreen(container) {
+    container.innerHTML = `
+      <div class="space-y-4">
+        <!-- Top Action Bar -->
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-0">
+          <div>
+            <h1 class="text-xl font-extrabold text-[#172B4D]">Production Standard Yields</h1>
+          </div>
+          <div>
+            <button type="button" id="btn-set-std-yield" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer border-0">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+              <span>Set Standard Yield</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Filter Card -->
+        <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200">
+          <div class="flex items-center justify-between pb-1">
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-[#0284C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+              <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
+            </div>
+
+            <div class="inline-flex items-center gap-2">
+              <button type="button" id="yields-top-reset-btn" class="dt-top-filter-reset-btn inline-flex items-center justify-center bg-white border border-[#CBD5E1] text-[#334155] rounded-full cursor-pointer" title="Reset all filters" aria-label="Reset all filters">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+              </button>
+              <button type="button" id="yields-top-toggle-btn" class="dt-top-filter-toggle-btn inline-flex items-center justify-center bg-white border border-[#CBD5E1] text-[#334155] rounded-full cursor-pointer" title="Hide Filter" aria-label="Hide Filter">
+                <svg class="w-4 h-4 transform transition-transform duration-200" id="yields-top-toggle-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+              </button>
+            </div>
+          </div>
+
+          <div id="yields-top-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
+            <div>
+              <label for="yd-filter-plant" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCTION PLANT</label>
+              <select id="yd-filter-plant" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]">
+                <option value="ALL">All Production Plants</option>
+                <option value="DFL UNIT-5 (JPT)">DFL UNIT-5 (JPT)</option>
+                <option value="DFL UNIT-3 (PSP)">DFL UNIT-3 (PSP)</option>
+                <option value="DFL UNIT-4 (PND)">DFL UNIT-4 (PND)</option>
+                <option value="DFL UNIT-1 (VSP)">DFL UNIT-1 (VSP)</option>
+                <option value="DFL UNIT-6 (JPT-II)">DFL UNIT-6 (JPT-II)</option>
+                <option value="DFL UNIT-2 (KKD)">DFL UNIT-2 (KKD)</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="yd-filter-species" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SPECIES</label>
+              <select id="yd-filter-species" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]">
+                <option value="ALL">All Species</option>
+                <option value="Vannamei">Vannamei (White Shrimp)</option>
+                <option value="Black Tiger">Black Tiger (Monodon)</option>
+                <option value="Asian Seabass">Asian Seabass</option>
+                <option value="Scampi">Scampi</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="yd-filter-variety" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCT VARIETY</label>
+              <input type="text" id="yd-filter-variety" placeholder="e.g. HLSO, PD, Fillet" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" />
+            </div>
+
+            <div>
+              <label for="yd-filter-process" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PROCESS TYPE</label>
+              <select id="yd-filter-process" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]">
+                <option value="ALL">All Process Types</option>
+                <option value="Deheading & Grading">Deheading & Grading</option>
+                <option value="Peeling & Deveining">Peeling & Deveining</option>
+                <option value="Tail-On Peeling">Tail-On Peeling</option>
+                <option value="Whole Round Pack">Whole Round Pack</option>
+                <option value="Filleting & Trimming">Filleting & Trimming</option>
+                <option value="Splitting & Scoring">Splitting & Scoring</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="yd-filter-grade" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">GRADE / COUNT</label>
+              <input type="text" id="yd-filter-grade" placeholder="e.g. 31/40, 16/20" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" />
+            </div>
+
+            <div>
+              <label for="yd-filter-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STATUS</label>
+              <select id="yd-filter-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]">
+                <option value="ALL">All Statuses</option>
+                <option value="ACTIVE">ACTIVE</option>
+                <option value="PENDING_REVIEW">PENDING REVIEW</option>
+              </select>
+            </div>
+
+            <!-- Search Button Slot -->
+            <div class="flex items-end sm:col-span-2">
+              <button type="button" id="yields-filter-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                <span>Search</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- DataTable Container -->
+        <div id="yields-table-container"></div>
+      </div>
+    `;
+
+    document.getElementById('btn-set-std-yield')?.addEventListener('click', () => {
+      this.showSetYieldModal(container);
+    });
+
+    const toggleBtn = document.getElementById('yields-top-toggle-btn');
+    toggleBtn?.addEventListener('click', () => {
+      const body = document.getElementById('yields-top-filter-body');
+      const icon = document.getElementById('yields-top-toggle-icon');
+      if (body) {
+        body.classList.toggle('hidden');
+        const isHidden = body.classList.contains('hidden');
+        toggleBtn.title = isHidden ? 'Show Filter' : 'Hide Filter';
+        icon?.classList.toggle('-rotate-90', isHidden);
+      }
+    });
+
+    const applyFilters = () => {
+      const plant = document.getElementById('yd-filter-plant')?.value || 'ALL';
+      const sp = document.getElementById('yd-filter-species')?.value || 'ALL';
+      const varQuery = (document.getElementById('yd-filter-variety')?.value || '').trim().toLowerCase();
+      const proc = document.getElementById('yd-filter-process')?.value || 'ALL';
+      const grQuery = (document.getElementById('yd-filter-grade')?.value || '').trim().toLowerCase();
+      const st = document.getElementById('yd-filter-status')?.value || 'ALL';
+
+      const filtered = this.state.standardYields.filter(row => {
+        if (plant !== 'ALL' && row.productionPlant !== plant) return false;
+        if (sp !== 'ALL' && !String(row.species || '').includes(sp)) return false;
+        if (varQuery && !String(row.variety || '').toLowerCase().includes(varQuery)) return false;
+        if (proc !== 'ALL' && row.processType !== proc) return false;
+        if (grQuery && !String(row.grade || '').toLowerCase().includes(grQuery)) return false;
+        if (st !== 'ALL' && row.status !== st) return false;
+        return true;
+      });
+
+      renderTable(filtered);
+    };
+
+    ['yd-filter-plant', 'yd-filter-species', 'yd-filter-process', 'yd-filter-status'].forEach(id => {
+      document.getElementById(id)?.addEventListener('change', applyFilters);
+    });
+    ['yd-filter-variety', 'yd-filter-grade'].forEach(id => {
+      document.getElementById(id)?.addEventListener('input', applyFilters);
+      document.getElementById(id)?.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          applyFilters();
+        }
+      });
+    });
+
+    document.getElementById('yields-filter-search-btn')?.addEventListener('click', () => {
+      applyFilters();
+      Toast.show('Filters applied', 'info');
+    });
+
+    document.getElementById('yields-top-reset-btn')?.addEventListener('click', () => {
+      if (document.getElementById('yd-filter-plant')) document.getElementById('yd-filter-plant').value = 'ALL';
+      if (document.getElementById('yd-filter-species')) document.getElementById('yd-filter-species').value = 'ALL';
+      if (document.getElementById('yd-filter-variety')) document.getElementById('yd-filter-variety').value = '';
+      if (document.getElementById('yd-filter-process')) document.getElementById('yd-filter-process').value = 'ALL';
+      if (document.getElementById('yd-filter-grade')) document.getElementById('yd-filter-grade').value = '';
+      if (document.getElementById('yd-filter-status')) document.getElementById('yd-filter-status').value = 'ALL';
+      renderTable(this.state.standardYields);
+      Toast.show('Filters reset', 'info');
+    });
+
+    const renderTable = (data) => {
+      new DataTable({
+        containerId: 'yields-table-container',
+        data: data,
+        keyField: 'id',
+        tableTitle: 'Standard Yield Benchmarks',
+        searchable: true,
+        exportable: true,
+        pageSize: 10,
+        columns: [
+          {
+            field: 'sNo',
+            header: 'S.No',
+            render: (v, row, idx) => `<span class="text-[#5E6C84] font-semibold">${v || (idx + 1)}</span>`
+          },
+          {
+            field: 'species',
+            header: 'Species',
+            render: (v) => `<span class="font-bold text-[#172B4D] whitespace-nowrap cursor-pointer hover:underline text-[#0284C7]">${this.escape(v)}</span>`
+          },
+          {
+            field: 'variety',
+            header: 'Product Variety',
+            render: (v) => `<span class="font-semibold text-[#172B4D] whitespace-nowrap">${this.escape(v)}</span>`
+          },
+          {
+            field: 'processType',
+            header: 'Process Type',
+            render: (v) => `<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF] whitespace-nowrap">${this.escape(v)}</span>`
+          },
+          {
+            field: 'grade',
+            header: 'Grade / Count',
+            render: (v) => `<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#F4F5F7] text-[#42526E] border border-[#DFE1E6] whitespace-nowrap">${this.escape(v)}</span>`
+          },
+          {
+            field: 'targetYieldPct',
+            header: 'Target Yield (%)',
+            render: (v) => `<span class="font-mono font-extrabold text-[#00875A] text-xs">${Number(v || 0).toFixed(1)}%</span>`
+          },
+          {
+            field: 'tolerancePct',
+            header: 'Tolerance (%)',
+            render: (v) => `<span class="font-mono text-xs text-[#64748B]">${this.escape(v || '± 1.5%')}</span>`
+          },
+          {
+            field: 'stdWastePct',
+            header: 'Std Waste (%)',
+            render: (v) => `<span class="font-mono text-xs text-[#DE350B] font-semibold">${Number(v || 0).toFixed(1)}%</span>`
+          },
+          {
+            field: 'stdCycleTime',
+            header: 'Std Cycle Time',
+            render: (v) => `<span class="font-mono text-xs text-[#172B4D]">${this.escape(v || '-')}</span>`
+          },
+          {
+            field: 'productionPlant',
+            header: 'Production Plant',
+            render: (v) => `<span class="text-xs font-medium text-[#172B4D] whitespace-nowrap">${this.escape(v)}</span>`
+          },
+          {
+            field: 'status',
+            header: 'Status',
+            render: (v) => `<span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase ${
+              v === 'ACTIVE' ? 'bg-[#DCFCE7] text-[#166534] border border-[#86EFAC]' : 'bg-[#FEF3C7] text-[#92400E] border border-[#FCD34D]'
+            }">${this.escape(v || 'ACTIVE')}</span>`
+          }
+        ],
+        actions: [
+          {
+            label: 'Edit',
+            icon: `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>`,
+            onClick: row => this.showEditYieldModal(row, container)
+          },
+          {
+            label: 'Delete',
+            icon: `<svg class="w-3.5 h-3.5 text-[#DE350B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>`,
+            onClick: row => this.deleteYieldRow(row, container)
+          }
+        ],
+        onRowClick: (row) => this.showYieldDetails(row)
+      });
+    };
+
+    renderTable(this.state.standardYields);
+  },
+
+  showSetYieldModal(container) {
+    const nextSeq = this.state.standardYields.length + 1;
+    const defaultId = `SY-2026-${String(nextSeq).padStart(3, '0')}`;
+
+    Modal.open({
+      title: 'Set Production Standard Yield',
+      size: 'xl',
+      content: `
+        <form id="form-set-yield" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs">
+          <div>
+            <label for="sy-id" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">BENCHMARK ID <span class="text-[#DE350B]">*</span></label>
+            <input id="sy-id" name="id" type="text" value="${defaultId}" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#0284C7] focus:outline-none" required />
+          </div>
+
+          <div>
+            <label for="sy-plant" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCTION PLANT <span class="text-[#DE350B]">*</span></label>
+            <select id="sy-plant" name="productionPlant" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+              <option value="DFL UNIT-5 (JPT)" selected>DFL UNIT-5 (JPT)</option>
+              <option value="DFL UNIT-3 (PSP)">DFL UNIT-3 (PSP)</option>
+              <option value="DFL UNIT-4 (PND)">DFL UNIT-4 (PND)</option>
+              <option value="DFL UNIT-1 (VSP)">DFL UNIT-1 (VSP)</option>
+              <option value="DFL UNIT-6 (JPT-II)">DFL UNIT-6 (JPT-II)</option>
+              <option value="DFL UNIT-2 (KKD)">DFL UNIT-2 (KKD)</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="sy-species" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SPECIES <span class="text-[#DE350B]">*</span></label>
+            <select id="sy-species" name="species" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+              <option value="Vannamei (White Shrimp)" selected>Vannamei (White Shrimp)</option>
+              <option value="Black Tiger (Monodon)">Black Tiger (Monodon)</option>
+              <option value="Asian Seabass">Asian Seabass</option>
+              <option value="Scampi">Scampi</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="sy-variety" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCT VARIETY <span class="text-[#DE350B]">*</span></label>
+            <input id="sy-variety" name="variety" type="text" value="Head-Less Shell-On (HLSO)" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="sy-process" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PROCESS TYPE <span class="text-[#DE350B]">*</span></label>
+            <select id="sy-process" name="processType" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+              <option value="Deheading & Grading" selected>Deheading & Grading</option>
+              <option value="Peeling & Deveining">Peeling & Deveining</option>
+              <option value="Tail-On Peeling">Tail-On Peeling</option>
+              <option value="Whole Round Pack">Whole Round Pack</option>
+              <option value="Filleting & Trimming">Filleting & Trimming</option>
+              <option value="Splitting & Scoring">Splitting & Scoring</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="sy-grade" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">GRADE / COUNT <span class="text-[#DE350B]">*</span></label>
+            <input id="sy-grade" name="grade" type="text" value="31/40" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="sy-target" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TARGET YIELD (%) <span class="text-[#DE350B]">*</span></label>
+            <input id="sy-target" name="targetYieldPct" type="number" step="0.1" value="66.5" min="1" max="100" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="sy-tolerance" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TOLERANCE (%) <span class="text-[#DE350B]">*</span></label>
+            <input id="sy-tolerance" name="tolerancePct" type="text" value="± 1.5%" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="sy-waste" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STD WASTE (%) <span class="text-[#DE350B]">*</span></label>
+            <input id="sy-waste" name="stdWastePct" type="number" step="0.1" value="33.5" min="0" max="100" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono text-[#DE350B] focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="sy-cycle" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STD CYCLE TIME <span class="text-[#DE350B]">*</span></label>
+            <input id="sy-cycle" name="stdCycleTime" type="text" value="3.2 Hrs/MT" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="sy-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STATUS <span class="text-[#DE350B]">*</span></label>
+            <select id="sy-status" name="status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+              <option value="ACTIVE" selected>ACTIVE</option>
+              <option value="PENDING_REVIEW">PENDING REVIEW</option>
+            </select>
+          </div>
+
+          <div class="sm:col-span-2">
+            <label for="sy-remarks" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">REMARKS</label>
+            <input id="sy-remarks" name="remarks" type="text" value="Standard benchmark approved by Devi Fisheries Technical Committee" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" />
+          </div>
+        </form>
+      `,
+      footerButtons: [
+        { label: 'Cancel', type: 'secondary', onClick: modal => modal.close() },
+        {
+          label: 'Save Standard',
+          type: 'primary',
+          onClick: () => {
+            const form = document.getElementById('form-set-yield');
+            if (!form || !form.reportValidity()) return;
+            const values = Object.fromEntries(new FormData(form));
+
+            Modal.confirm({
+              title: 'Confirm Standard Yield',
+              message: `Set standard yield of ${values.targetYieldPct}% for ${values.species} (${values.variety})?`,
+              confirmLabel: 'Save Standard',
+              type: 'primary',
+              onConfirm: () => {
+                const newRow = {
+                  sNo: this.state.standardYields.length + 1,
+                  id: values.id,
+                  species: values.species,
+                  variety: values.variety,
+                  processType: values.processType,
+                  grade: values.grade,
+                  targetYieldPct: Number(values.targetYieldPct || 0),
+                  tolerancePct: values.tolerancePct || '± 1.5%',
+                  stdWastePct: Number(values.stdWastePct || 0),
+                  stdCycleTime: values.stdCycleTime || '3.5 Hrs/MT',
+                  productionPlant: values.productionPlant,
+                  effectiveDate: new Date().toISOString().slice(0, 10),
+                  status: values.status,
+                  remarks: values.remarks || 'Standard benchmark recorded'
+                };
+
+                this.state.standardYields.unshift(newRow);
+                Modal.close();
+                this.renderProductionStandardYieldsScreen(container);
+                Toast.show(`Standard yield for ${newRow.variety} saved successfully`, 'success');
+              }
+            });
+          }
+        }
+      ]
+    });
+  },
+
+  showEditYieldModal(row, container) {
+    Modal.open({
+      title: `Edit Standard Yield: ${row.variety}`,
+      size: 'xl',
+      content: `
+        <form id="form-edit-yield" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs">
+          <div>
+            <label for="ey-id" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">BENCHMARK ID</label>
+            <input id="ey-id" name="id" type="text" value="${row.id}" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#0284C7] focus:outline-none" />
+          </div>
+
+          <div>
+            <label for="ey-plant" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCTION PLANT <span class="text-[#DE350B]">*</span></label>
+            <select id="ey-plant" name="productionPlant" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+              ${['DFL UNIT-5 (JPT)', 'DFL UNIT-3 (PSP)', 'DFL UNIT-4 (PND)', 'DFL UNIT-1 (VSP)', 'DFL UNIT-6 (JPT-II)', 'DFL UNIT-2 (KKD)'].map(p => `<option value="${p}" ${p === row.productionPlant ? 'selected' : ''}>${p}</option>`).join('')}
+            </select>
+          </div>
+
+          <div>
+            <label for="ey-species" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SPECIES <span class="text-[#DE350B]">*</span></label>
+            <select id="ey-species" name="species" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+              ${['Vannamei (White Shrimp)', 'Black Tiger (Monodon)', 'Asian Seabass', 'Scampi'].map(s => `<option value="${s}" ${s === row.species ? 'selected' : ''}>${s}</option>`).join('')}
+            </select>
+          </div>
+
+          <div>
+            <label for="ey-variety" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCT VARIETY <span class="text-[#DE350B]">*</span></label>
+            <input id="ey-variety" name="variety" type="text" value="${this.escape(row.variety)}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="ey-process" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PROCESS TYPE <span class="text-[#DE350B]">*</span></label>
+            <select id="ey-process" name="processType" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+              ${['Deheading & Grading', 'Peeling & Deveining', 'Tail-On Peeling', 'Whole Round Pack', 'Filleting & Trimming', 'Splitting & Scoring'].map(pr => `<option value="${pr}" ${pr === row.processType ? 'selected' : ''}>${pr}</option>`).join('')}
+            </select>
+          </div>
+
+          <div>
+            <label for="ey-grade" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">GRADE / COUNT <span class="text-[#DE350B]">*</span></label>
+            <input id="ey-grade" name="grade" type="text" value="${this.escape(row.grade)}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="ey-target" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TARGET YIELD (%) <span class="text-[#DE350B]">*</span></label>
+            <input id="ey-target" name="targetYieldPct" type="number" step="0.1" value="${row.targetYieldPct}" min="1" max="100" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="ey-tolerance" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TOLERANCE (%) <span class="text-[#DE350B]">*</span></label>
+            <input id="ey-tolerance" name="tolerancePct" type="text" value="${this.escape(row.tolerancePct || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="ey-waste" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STD WASTE (%) <span class="text-[#DE350B]">*</span></label>
+            <input id="ey-waste" name="stdWastePct" type="number" step="0.1" value="${row.stdWastePct}" min="0" max="100" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono text-[#DE350B] focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="ey-cycle" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STD CYCLE TIME <span class="text-[#DE350B]">*</span></label>
+            <input id="ey-cycle" name="stdCycleTime" type="text" value="${this.escape(row.stdCycleTime || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="ey-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STATUS <span class="text-[#DE350B]">*</span></label>
+            <select id="ey-status" name="status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+              ${['ACTIVE', 'PENDING_REVIEW'].map(st => `<option value="${st}" ${st === row.status ? 'selected' : ''}>${st}</option>`).join('')}
+            </select>
+          </div>
+
+          <div class="sm:col-span-2">
+            <label for="ey-remarks" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">REMARKS</label>
+            <input id="ey-remarks" name="remarks" type="text" value="${this.escape(row.remarks || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" />
+          </div>
+        </form>
+      `,
+      footerButtons: [
+        { label: 'Cancel', type: 'secondary', onClick: modal => modal.close() },
+        {
+          label: 'Save Changes',
+          type: 'primary',
+          onClick: () => {
+            const form = document.getElementById('form-edit-yield');
+            if (!form || !form.reportValidity()) return;
+            const values = Object.fromEntries(new FormData(form));
+
+            Modal.confirm({
+              title: 'Confirm Update',
+              message: `Save changes for Standard Yield "${row.variety}"?`,
+              confirmLabel: 'Save',
+              type: 'primary',
+              onConfirm: () => {
+                Object.assign(row, values, {
+                  targetYieldPct: Number(values.targetYieldPct || 0),
+                  stdWastePct: Number(values.stdWastePct || 0)
+                });
+                Modal.close();
+                this.renderProductionStandardYieldsScreen(container);
+                Toast.show(`Standard yield for ${row.variety} updated successfully`, 'success');
+              }
+            });
+          }
+        }
+      ]
+    });
+  },
+
+  showYieldDetails(row) {
+    Modal.open({
+      title: `Standard Yield: ${row.variety}`,
+      size: 'xl',
+      content: `
+        <div class="space-y-4 text-xs">
+          <!-- Hero Card -->
+          <div class="bg-gradient-to-r from-[#F0FDF4] to-[#F8FAFC] p-4 rounded-xl border border-[#BBF7D0] flex flex-wrap items-center justify-between gap-3 shadow-2xs">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-[#00875A] text-white flex items-center justify-center font-bold shadow-xs">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+              </div>
+              <div>
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span class="font-mono font-extrabold text-[#0F172A] text-base">${this.escape(row.variety)}</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold tracking-wide uppercase ${
+                    row.status === 'ACTIVE' ? 'bg-[#DCFCE7] text-[#166534] border border-[#86EFAC]' : 'bg-[#FEF3C7] text-[#92400E] border border-[#FCD34D]'
+                  }">${this.escape(row.status || 'ACTIVE')}</span>
+                  <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">${this.escape(row.processType)}</span>
+                </div>
+                <p class="text-[11px] text-[#64748B] mt-0.5 font-medium flex items-center gap-1.5 flex-wrap">
+                  <span>Species: <strong class="text-[#334155]">${this.escape(row.species)}</strong></span>
+                  <span>&bull;</span>
+                  <span>Plant: <strong class="text-[#334155]">${this.escape(row.productionPlant)}</strong></span>
+                  <span>&bull;</span>
+                  <span>Grade: <strong class="text-[#334155]">${this.escape(row.grade)}</strong></span>
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2">
+              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Target Yield</span>
+                <span class="font-mono font-extrabold text-sm text-[#00875A]">${Number(row.targetYieldPct || 0).toFixed(1)}%</span>
+              </div>
+              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Tolerance</span>
+                <span class="font-mono font-bold text-xs text-[#0284C7]">${this.escape(row.tolerancePct || '± 1.5%')}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 1: Benchmark Specifications -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider mb-3 pb-2 border-b border-[#F1F5F9]">Benchmark &amp; Processing Targets</h4>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Benchmark ID</span>
+                <span class="font-mono font-bold text-[#0284C7] text-xs block mt-0.5">${this.escape(row.id)}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Target Recovery (%)</span>
+                <span class="font-mono font-extrabold text-[#00875A] text-xs block mt-0.5">${Number(row.targetYieldPct || 0).toFixed(1)}%</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Standard Waste / Byproduct</span>
+                <span class="font-mono font-bold text-[#DE350B] text-xs block mt-0.5">${Number(row.stdWastePct || 0).toFixed(1)}%</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Standard Cycle Time</span>
+                <span class="font-mono font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.stdCycleTime || '-')}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Remarks -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider mb-2">Technical Approval Notes</h4>
+            <p class="text-xs text-[#334155] leading-relaxed">${this.escape(row.remarks || 'Standard benchmark verified by QA department.')}</p>
+          </div>
+        </div>
+      `,
+      footerButtons: [
+        { label: 'Close', type: 'secondary', onClick: modal => modal.close() }
+      ]
+    });
+  },
+
+  deleteYieldRow(row, container) {
+    Modal.confirm({
+      title: 'Confirm Deletion',
+      message: `Are you sure you want to delete Standard Yield benchmark for "${row.variety}"?`,
+      confirmLabel: 'Delete Benchmark',
+      type: 'danger',
+      onConfirm: () => {
+        const idx = this.state.standardYields.findIndex(item => item.id === row.id);
+        if (idx !== -1) {
+          this.state.standardYields.splice(idx, 1);
+          this.renderProductionStandardYieldsScreen(container);
+          Toast.show(`Standard yield for ${row.variety} deleted successfully`, 'success');
+        }
+      }
+    });
+  },
+
+  // =========================================================================
+  // OPERATIONS TAB 2: SOAKING
+  // =========================================================================
+  renderSoakingScreen(container) {
+    container.innerHTML = `
+      <div class="space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-0">
+          <div>
+            <h1 class="text-xl font-extrabold text-[#172B4D]">Soaking Operations Register</h1>
+          </div>
+          <div>
+            <button type="button" id="btn-log-soak-batch" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer border-0">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+              <span>Log Soaking Batch</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200">
+          <div class="flex items-center justify-between pb-1">
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-[#0284C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+              <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
+            </div>
+
+            <div class="inline-flex items-center gap-2">
+              <button type="button" id="soak-top-reset-btn" class="dt-top-filter-reset-btn inline-flex items-center justify-center bg-white border border-[#CBD5E1] text-[#334155] rounded-full cursor-pointer" title="Reset all filters" aria-label="Reset all filters">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+              </button>
+              <button type="button" id="soak-top-toggle-btn" class="dt-top-filter-toggle-btn inline-flex items-center justify-center bg-white border border-[#CBD5E1] text-[#334155] rounded-full cursor-pointer" title="Hide Filter" aria-label="Hide Filter">
+                <svg class="w-4 h-4 transform transition-transform duration-200" id="soak-top-toggle-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+              </button>
+            </div>
+          </div>
+
+          <div id="soak-top-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
+            <div>
+              <label for="sk-op-plant" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCTION PLANT</label>
+              <select id="sk-op-plant" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]">
+                <option value="ALL">All Production Plants</option>
+                <option value="DFL UNIT-5 (JPT)">DFL UNIT-5 (JPT)</option>
+                <option value="DFL UNIT-3 (PSP)">DFL UNIT-3 (PSP)</option>
+                <option value="DFL UNIT-4 (PND)">DFL UNIT-4 (PND)</option>
+                <option value="DFL UNIT-1 (VSP)">DFL UNIT-1 (VSP)</option>
+                <option value="DFL UNIT-6 (JPT-II)">DFL UNIT-6 (JPT-II)</option>
+                <option value="DFL UNIT-2 (KKD)">DFL UNIT-2 (KKD)</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="sk-op-batch" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">BATCH NO</label>
+              <input type="text" id="sk-op-batch" placeholder="e.g. SOAK-2026" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono focus:outline-none focus:border-[#0284C7]" />
+            </div>
+
+            <div>
+              <label for="sk-op-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SOAKING DATE</label>
+              <input type="date" id="sk-op-date" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" onclick="this.showPicker ? this.showPicker() : this.focus()" />
+            </div>
+
+            <div>
+              <label for="sk-op-variety" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">VARIETY</label>
+              <select id="sk-op-variety" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]">
+                <option value="ALL">All Varieties</option>
+                <option value="Vannamei (VM)">Vannamei (VM)</option>
+                <option value="Black Tiger (BT)">Black Tiger (BT)</option>
+                <option value="Sea White">Sea White</option>
+                <option value="Scampi">Scampi</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="sk-op-shift" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SHIFT</label>
+              <select id="sk-op-shift" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]">
+                <option value="ALL">All Shifts</option>
+                <option value="Shift A (Day)">Shift A (Day)</option>
+                <option value="Shift B (Evening)">Shift B (Evening)</option>
+                <option value="Shift C (Night)">Shift C (Night)</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="sk-op-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STATUS</label>
+              <select id="sk-op-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]">
+                <option value="ALL">All Statuses</option>
+                <option value="COMPLETED">COMPLETED</option>
+                <option value="SOAKING">SOAKING</option>
+                <option value="TRANSFERRED">TRANSFERRED</option>
+              </select>
+            </div>
+
+            <!-- Search Button Slot -->
+            <div class="flex items-end sm:col-span-2">
+              <button type="button" id="soak-filter-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                <span>Search</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div id="soaking-op-table-container"></div>
+      </div>
+    `;
+
+    document.getElementById('btn-log-soak-batch')?.addEventListener('click', () => {
+      this.showLogSoakingModal(container);
+    });
+
+    const toggleBtn = document.getElementById('soak-top-toggle-btn');
+    toggleBtn?.addEventListener('click', () => {
+      const body = document.getElementById('soak-top-filter-body');
+      const icon = document.getElementById('soak-top-toggle-icon');
+      if (body) {
+        body.classList.toggle('hidden');
+        const isHidden = body.classList.contains('hidden');
+        toggleBtn.title = isHidden ? 'Show Filter' : 'Hide Filter';
+        icon?.classList.toggle('-rotate-90', isHidden);
+      }
+    });
+
+    const applyFilters = () => {
+      const plant = document.getElementById('sk-op-plant')?.value || 'ALL';
+      const bCode = (document.getElementById('sk-op-batch')?.value || '').trim().toLowerCase();
+      const sDate = document.getElementById('sk-op-date')?.value || '';
+      const varVal = document.getElementById('sk-op-variety')?.value || 'ALL';
+      const shift = document.getElementById('sk-op-shift')?.value || 'ALL';
+      const st = document.getElementById('sk-op-status')?.value || 'ALL';
+
+      const filtered = this.state.soakingOperations.filter(row => {
+        if (plant !== 'ALL' && row.productionPlant !== plant) return false;
+        if (bCode && !String(row.soakBatchNo || '').toLowerCase().includes(bCode)) return false;
+        if (sDate && row.soakingDate !== sDate) return false;
+        if (varVal !== 'ALL' && row.variety !== varVal) return false;
+        if (shift !== 'ALL' && row.shift !== shift) return false;
+        if (st !== 'ALL' && row.status !== st) return false;
+        return true;
+      });
+
+      renderTable(filtered);
+    };
+
+    ['sk-op-plant', 'sk-op-variety', 'sk-op-shift', 'sk-op-status'].forEach(id => {
+      document.getElementById(id)?.addEventListener('change', applyFilters);
+    });
+    ['sk-op-batch', 'sk-op-date'].forEach(id => {
+      document.getElementById(id)?.addEventListener('input', applyFilters);
+      document.getElementById(id)?.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          applyFilters();
+        }
+      });
+    });
+
+    document.getElementById('soak-filter-search-btn')?.addEventListener('click', () => {
+      applyFilters();
+      Toast.show('Filters applied', 'info');
+    });
+
+    document.getElementById('soak-top-reset-btn')?.addEventListener('click', () => {
+      if (document.getElementById('sk-op-plant')) document.getElementById('sk-op-plant').value = 'ALL';
+      if (document.getElementById('sk-op-batch')) document.getElementById('sk-op-batch').value = '';
+      if (document.getElementById('sk-op-date')) document.getElementById('sk-op-date').value = '';
+      if (document.getElementById('sk-op-variety')) document.getElementById('sk-op-variety').value = 'ALL';
+      if (document.getElementById('sk-op-shift')) document.getElementById('sk-op-shift').value = 'ALL';
+      if (document.getElementById('sk-op-status')) document.getElementById('sk-op-status').value = 'ALL';
+      renderTable(this.state.soakingOperations);
+      Toast.show('Filters reset', 'info');
+    });
+
+    const renderTable = (data) => {
+      new DataTable({
+        containerId: 'soaking-op-table-container',
+        data: data,
+        keyField: 'soakBatchNo',
+        tableTitle: 'Soaking Operations Log',
+        searchable: true,
+        exportable: true,
+        pageSize: 10,
+        columns: [
+          {
+            field: 'sNo',
+            header: 'S.No',
+            render: (v, row, idx) => `<span class="text-[#5E6C84] font-semibold">${v || (idx + 1)}</span>`
+          },
+          {
+            field: 'soakingDate',
+            header: 'Soaking Date',
+            render: (v) => `<span class="text-[#172B4D] whitespace-nowrap">${v ? String(v).split('-').reverse().join('-') : '-'}</span>`
+          },
+          {
+            field: 'soakBatchNo',
+            header: 'Batch No',
+            render: (v) => `<span class="font-mono font-bold text-[#0284C7] bg-[#F0F9FF] px-2 py-0.5 rounded border border-[#BAE6FD] whitespace-nowrap cursor-pointer hover:underline">${this.escape(v)}</span>`
+          },
+          {
+            field: 'productionPlant',
+            header: 'Production Plant',
+            render: (v) => `<span class="font-semibold text-[#172B4D] whitespace-nowrap">${this.escape(v)}</span>`
+          },
+          {
+            field: 'tubNumber',
+            header: 'Tub Number',
+            render: (v) => `<span class="font-mono text-xs font-semibold text-[#00A4B7] whitespace-nowrap">${this.escape(v)}</span>`
+          },
+          {
+            field: 'variety',
+            header: 'Variety',
+            render: (v) => `<span class="font-semibold text-[#172B4D] whitespace-nowrap">${this.escape(v)}</span>`
+          },
+          {
+            field: 'grade',
+            header: 'Grade',
+            render: (v) => `<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#F4F5F7] text-[#42526E] border border-[#DFE1E6] whitespace-nowrap">${this.escape(v)}</span>`
+          },
+          {
+            field: 'rawInWeight',
+            header: 'Raw In Wt (Kg)',
+            render: (v) => `<span class="font-mono font-bold text-[#172B4D] whitespace-nowrap">${this.escape(v)}</span>`
+          },
+          {
+            field: 'chemical',
+            header: 'Chemical Formulation',
+            render: (v) => `<span class="text-xs text-[#0284C7] font-medium whitespace-nowrap truncate max-w-[160px] block" title="${this.escape(v)}">${this.escape(v)}</span>`
+          },
+          {
+            field: 'chemicalQty',
+            header: 'Chemical Qty (Kg)',
+            render: (v) => `<span class="font-mono text-xs text-[#172B4D] whitespace-nowrap">${this.escape(v)}</span>`
+          },
+          {
+            field: 'soakDuration',
+            header: 'Duration',
+            render: (v) => `<span class="font-semibold text-[#172B4D] whitespace-nowrap">${this.escape(v)}</span>`
+          },
+          {
+            field: 'soakOutWeight',
+            header: 'Soak Out Wt (Kg)',
+            render: (v) => `<span class="font-mono font-bold text-[#0F172A] whitespace-nowrap">${this.escape(v)}</span>`
+          },
+          {
+            field: 'pickupPct',
+            header: 'PickUp (%)',
+            render: (v) => `<span class="font-mono font-extrabold text-[#00875A] text-xs whitespace-nowrap">${this.escape(v)}</span>`
+          },
+          {
+            field: 'shift',
+            header: 'Shift & Supervisor',
+            render: (v, row) => `<span class="text-xs text-[#172B4D] whitespace-nowrap">${this.escape(v)} <span class="text-[#64748B]">(${this.escape(row.supervisor || '-')})</span></span>`
+          },
+          {
+            field: 'status',
+            header: 'Status',
+            render: (v) => `<span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase ${
+              v === 'COMPLETED' ? 'bg-[#DCFCE7] text-[#166534] border border-[#86EFAC]' :
+              v === 'SOAKING' ? 'bg-[#E0F2FE] text-[#0369A1] border border-[#7DD3FC]' :
+              'bg-[#FEF3C7] text-[#92400E] border border-[#FCD34D]'
+            }">${this.escape(v || 'COMPLETED')}</span>`
+          }
+        ],
+        actions: [
+          {
+            label: 'Edit',
+            icon: `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>`,
+            onClick: row => this.showEditSoakingOpModal(row, container)
+          },
+          {
+            label: 'Delete',
+            icon: `<svg class="w-3.5 h-3.5 text-[#DE350B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>`,
+            onClick: row => this.deleteSoakingOpRow(row, container)
+          }
+        ],
+        onRowClick: (row) => this.showSoakingOpDetails(row)
+      });
+    };
+
+    renderTable(this.state.soakingOperations);
+  },
+
+  showLogSoakingModal(container) {
+    const nextSeq = this.state.soakingOperations.length + 1;
+    const defaultBatch = `SOAK-2026-${100 + nextSeq}`;
+    const today = new Date().toISOString().slice(0, 10);
+
+    Modal.open({
+      title: 'Log Soaking Operation Batch',
+      size: 'xl',
+      content: `
+        <form id="form-log-soaking" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs">
+          <div>
+            <label for="sl-batch" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SOAK BATCH NO <span class="text-[#DE350B]">*</span></label>
+            <input id="sl-batch" name="soakBatchNo" type="text" value="${defaultBatch}" class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#0284C7] focus:outline-none" required />
+          </div>
+
+          <div>
+            <label for="sl-plant" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCTION PLANT <span class="text-[#DE350B]">*</span></label>
+            <select id="sl-plant" name="productionPlant" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+              <option value="DFL UNIT-5 (JPT)" selected>DFL UNIT-5 (JPT)</option>
+              <option value="DFL UNIT-3 (PSP)">DFL UNIT-3 (PSP)</option>
+              <option value="DFL UNIT-4 (PND)">DFL UNIT-4 (PND)</option>
+              <option value="DFL UNIT-1 (VSP)">DFL UNIT-1 (VSP)</option>
+              <option value="DFL UNIT-6 (JPT-II)">DFL UNIT-6 (JPT-II)</option>
+              <option value="DFL UNIT-2 (KKD)">DFL UNIT-2 (KKD)</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="sl-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SOAKING DATE <span class="text-[#DE350B]">*</span></label>
+            <input id="sl-date" name="soakingDate" type="date" value="${today}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" required onclick="this.showPicker ? this.showPicker() : this.focus()" />
+          </div>
+
+          <div>
+            <label for="sl-tub" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TUB NUMBER <span class="text-[#DE350B]">*</span></label>
+            <input id="sl-tub" name="tubNumber" type="text" value="Tub-01" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="sl-variety" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">VARIETY <span class="text-[#DE350B]">*</span></label>
+            <select id="sl-variety" name="variety" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+              <option value="Vannamei (VM)" selected>Vannamei (VM)</option>
+              <option value="Black Tiger (BT)">Black Tiger (BT)</option>
+              <option value="Sea White">Sea White</option>
+              <option value="Scampi">Scampi</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="sl-grade" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">GRADE <span class="text-[#DE350B]">*</span></label>
+            <input id="sl-grade" name="grade" type="text" value="31/40" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="sl-in-wt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">RAW IN WEIGHT (KG) <span class="text-[#DE350B]">*</span></label>
+            <input id="sl-in-wt" name="rawInWeight" type="text" value="500.0 Kgs" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="sl-chemical" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">CHEMICAL FORMULATION <span class="text-[#DE350B]">*</span></label>
+            <select id="sl-chemical" name="chemical" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+              <option value="Non-Phosphate Moisture Retainer" selected>Non-Phosphate Moisture Retainer</option>
+              <option value="Food Grade STPP (Sodium Tripolyphosphate)">Food Grade STPP</option>
+              <option value="Citric Acid & Salt Blend">Citric Acid & Salt Blend</option>
+              <option value="Fresh Raw (Chilled Brine)">Fresh Raw (Chilled Brine)</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="sl-chem-qty" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">CHEMICAL QTY (KG) <span class="text-[#DE350B]">*</span></label>
+            <input id="sl-chem-qty" name="chemicalQty" type="text" value="15.0 Kgs" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="sl-duration" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">DURATION <span class="text-[#DE350B]">*</span></label>
+            <input id="sl-duration" name="soakDuration" type="text" value="45 Mins" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="sl-out-wt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SOAK OUT WT (KG) <span class="text-[#DE350B]">*</span></label>
+            <input id="sl-out-wt" name="soakOutWeight" type="text" value="524.0 Kgs" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#0F172A] focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="sl-pickup" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PICKUP (%) <span class="text-[#DE350B]">*</span></label>
+            <input id="sl-pickup" name="pickupPct" type="text" value="4.8%" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="sl-shift" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SHIFT <span class="text-[#DE350B]">*</span></label>
+            <select id="sl-shift" name="shift" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+              <option value="Shift A (Day)" selected>Shift A (Day)</option>
+              <option value="Shift B (Evening)">Shift B (Evening)</option>
+              <option value="Shift C (Night)">Shift C (Night)</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="sl-supervisor" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SUPERVISOR <span class="text-[#DE350B]">*</span></label>
+            <select id="sl-supervisor" name="supervisor" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+              <option value="Laxmi Narayana" selected>Laxmi Narayana</option>
+              <option value="K. Subba Rao">K. Subba Rao</option>
+              <option value="Ch. Prasad">Ch. Prasad</option>
+              <option value="Mallesh">Mallesh</option>
+              <option value="D. Rambabu">D. Rambabu</option>
+              <option value="G. Suribabu">G. Suribabu</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="sl-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STATUS <span class="text-[#DE350B]">*</span></label>
+            <select id="sl-status" name="status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+              <option value="COMPLETED" selected>COMPLETED</option>
+              <option value="SOAKING">SOAKING</option>
+              <option value="TRANSFERRED">TRANSFERRED</option>
+            </select>
+          </div>
+
+          <div class="sm:col-span-2">
+            <label for="sl-remarks" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">REMARKS</label>
+            <input id="sl-remarks" name="remarks" type="text" value="Standard soaking process completed with approved uptake" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" />
+          </div>
+        </form>
+      `,
+      footerButtons: [
+        { label: 'Cancel', type: 'secondary', onClick: modal => modal.close() },
+        {
+          label: 'Log Batch',
+          type: 'primary',
+          onClick: () => {
+            const form = document.getElementById('form-log-soaking');
+            if (!form || !form.reportValidity()) return;
+            const values = Object.fromEntries(new FormData(form));
+
+            Modal.confirm({
+              title: 'Confirm Soaking Batch Log',
+              message: `Log soaking batch "${values.soakBatchNo}" for ${values.productionPlant}?`,
+              confirmLabel: 'Confirm & Log',
+              type: 'primary',
+              onConfirm: () => {
+                const newRow = {
+                  sNo: this.state.soakingOperations.length + 1,
+                  id: values.soakBatchNo,
+                  soakBatchNo: values.soakBatchNo,
+                  soakingDate: values.soakingDate,
+                  productionPlant: values.productionPlant,
+                  tubNumber: values.tubNumber,
+                  variety: values.variety,
+                  grade: values.grade,
+                  rawInWeight: values.rawInWeight,
+                  chemical: values.chemical,
+                  chemicalQty: values.chemicalQty,
+                  saltQty: '10.0 Kgs',
+                  soakDuration: values.soakDuration,
+                  soakOutWeight: values.soakOutWeight,
+                  pickupPct: values.pickupPct,
+                  bathTemp: '1.8°C',
+                  shift: values.shift,
+                  supervisor: values.supervisor,
+                  remarks: values.remarks || 'Standard soaking operation logged',
+                  status: values.status
+                };
+
+                this.state.soakingOperations.unshift(newRow);
+                Modal.close();
+                this.renderSoakingScreen(container);
+                Toast.show(`Soaking batch ${newRow.soakBatchNo} logged successfully`, 'success');
+              }
+            });
+          }
+        }
+      ]
+    });
+  },
+
+  showEditSoakingOpModal(row, container) {
+    Modal.open({
+      title: `Edit Soaking Batch: ${row.soakBatchNo}`,
+      size: 'xl',
+      content: `
+        <form id="form-edit-soaking-op" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs">
+          <div>
+            <label for="esl-batch" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SOAK BATCH NO</label>
+            <input id="esl-batch" name="soakBatchNo" type="text" value="${row.soakBatchNo}" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#0284C7] focus:outline-none" />
+          </div>
+
+          <div>
+            <label for="esl-plant" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCTION PLANT <span class="text-[#DE350B]">*</span></label>
+            <select id="esl-plant" name="productionPlant" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+              ${['DFL UNIT-5 (JPT)', 'DFL UNIT-3 (PSP)', 'DFL UNIT-4 (PND)', 'DFL UNIT-1 (VSP)', 'DFL UNIT-6 (JPT-II)', 'DFL UNIT-2 (KKD)'].map(p => `<option value="${p}" ${p === row.productionPlant ? 'selected' : ''}>${p}</option>`).join('')}
+            </select>
+          </div>
+
+          <div>
+            <label for="esl-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SOAKING DATE <span class="text-[#DE350B]">*</span></label>
+            <input id="esl-date" name="soakingDate" type="date" value="${row.soakingDate || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" required onclick="this.showPicker ? this.showPicker() : this.focus()" />
+          </div>
+
+          <div>
+            <label for="esl-tub" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TUB NUMBER <span class="text-[#DE350B]">*</span></label>
+            <input id="esl-tub" name="tubNumber" type="text" value="${this.escape(row.tubNumber || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="esl-variety" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">VARIETY <span class="text-[#DE350B]">*</span></label>
+            <select id="esl-variety" name="variety" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+              ${['Vannamei (VM)', 'Black Tiger (BT)', 'Sea White', 'Scampi'].map(v => `<option value="${v}" ${v === row.variety ? 'selected' : ''}>${v}</option>`).join('')}
+            </select>
+          </div>
+
+          <div>
+            <label for="esl-grade" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">GRADE <span class="text-[#DE350B]">*</span></label>
+            <input id="esl-grade" name="grade" type="text" value="${this.escape(row.grade || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="esl-in-wt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">RAW IN WEIGHT <span class="text-[#DE350B]">*</span></label>
+            <input id="esl-in-wt" name="rawInWeight" type="text" value="${this.escape(row.rawInWeight || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="esl-chemical" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">CHEMICAL <span class="text-[#DE350B]">*</span></label>
+            <select id="esl-chemical" name="chemical" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+              ${['Non-Phosphate Moisture Retainer', 'Food Grade STPP (Sodium Tripolyphosphate)', 'Citric Acid & Salt Blend', 'Fresh Raw (Chilled Brine)'].map(c => `<option value="${c}" ${c === row.chemical ? 'selected' : ''}>${c}</option>`).join('')}
+            </select>
+          </div>
+
+          <div>
+            <label for="esl-chem-qty" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">CHEMICAL QTY <span class="text-[#DE350B]">*</span></label>
+            <input id="esl-chem-qty" name="chemicalQty" type="text" value="${this.escape(row.chemicalQty || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="esl-duration" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">DURATION <span class="text-[#DE350B]">*</span></label>
+            <input id="esl-duration" name="soakDuration" type="text" value="${this.escape(row.soakDuration || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="esl-out-wt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SOAK OUT WT <span class="text-[#DE350B]">*</span></label>
+            <input id="esl-out-wt" name="soakOutWeight" type="text" value="${this.escape(row.soakOutWeight || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#0F172A] focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="esl-pickup" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PICKUP (%) <span class="text-[#DE350B]">*</span></label>
+            <input id="esl-pickup" name="pickupPct" type="text" value="${this.escape(row.pickupPct || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="esl-shift" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SHIFT <span class="text-[#DE350B]">*</span></label>
+            <select id="esl-shift" name="shift" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+              ${['Shift A (Day)', 'Shift B (Evening)', 'Shift C (Night)'].map(s => `<option value="${s}" ${s === row.shift ? 'selected' : ''}>${s}</option>`).join('')}
+            </select>
+          </div>
+
+          <div>
+            <label for="esl-supervisor" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SUPERVISOR <span class="text-[#DE350B]">*</span></label>
+            <select id="esl-supervisor" name="supervisor" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+              ${['Laxmi Narayana', 'K. Subba Rao', 'Ch. Prasad', 'Mallesh', 'D. Rambabu', 'G. Suribabu'].map(sup => `<option value="${sup}" ${sup === row.supervisor ? 'selected' : ''}>${sup}</option>`).join('')}
+            </select>
+          </div>
+
+          <div>
+            <label for="esl-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STATUS <span class="text-[#DE350B]">*</span></label>
+            <select id="esl-status" name="status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+              ${['COMPLETED', 'SOAKING', 'TRANSFERRED'].map(st => `<option value="${st}" ${st === row.status ? 'selected' : ''}>${st}</option>`).join('')}
+            </select>
+          </div>
+
+          <div class="sm:col-span-2">
+            <label for="esl-remarks" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">REMARKS</label>
+            <input id="esl-remarks" name="remarks" type="text" value="${this.escape(row.remarks || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" />
+          </div>
+        </form>
+      `,
+      footerButtons: [
+        { label: 'Cancel', type: 'secondary', onClick: modal => modal.close() },
+        {
+          label: 'Save Changes',
+          type: 'primary',
+          onClick: () => {
+            const form = document.getElementById('form-edit-soaking-op');
+            if (!form || !form.reportValidity()) return;
+            const values = Object.fromEntries(new FormData(form));
+
+            Modal.confirm({
+              title: 'Confirm Update',
+              message: `Save changes for Soaking Batch "${row.soakBatchNo}"?`,
+              confirmLabel: 'Save',
+              type: 'primary',
+              onConfirm: () => {
+                Object.assign(row, values);
+                Modal.close();
+                this.renderSoakingScreen(container);
+                Toast.show(`Soaking batch ${row.soakBatchNo} updated successfully`, 'success');
+              }
+            });
+          }
+        }
+      ]
+    });
+  },
+
+  showSoakingOpDetails(row) {
+    Modal.open({
+      title: `Soaking Operation Details: ${row.soakBatchNo}`,
+      size: 'xl',
+      content: `
+        <div class="space-y-4 text-xs">
+          <!-- Hero Card -->
+          <div class="bg-gradient-to-r from-[#F0F9FF] to-[#F8FAFC] p-4 rounded-xl border border-[#BAE6FD] flex flex-wrap items-center justify-between gap-3 shadow-2xs">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-[#0284C7] text-white flex items-center justify-center font-bold shadow-xs">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+              </div>
+              <div>
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span class="font-mono font-extrabold text-[#0F172A] text-base">${this.escape(row.soakBatchNo)}</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold tracking-wide uppercase ${
+                    row.status === 'COMPLETED' ? 'bg-[#DCFCE7] text-[#166534] border border-[#86EFAC]' :
+                    row.status === 'SOAKING' ? 'bg-[#E0F2FE] text-[#0369A1] border border-[#7DD3FC]' :
+                    'bg-[#FEF3C7] text-[#92400E] border border-[#FCD34D]'
+                  }">${this.escape(row.status || 'COMPLETED')}</span>
+                  <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">${this.escape(row.variety)}</span>
+                </div>
+                <p class="text-[11px] text-[#64748B] mt-0.5 font-medium flex items-center gap-1.5 flex-wrap">
+                  <span>Plant: <strong class="text-[#334155]">${this.escape(row.productionPlant)}</strong></span>
+                  <span>&bull;</span>
+                  <span>Date: <strong class="text-[#334155]">${this.escape(row.soakingDate)}</strong></span>
+                  <span>&bull;</span>
+                  <span>Tub: <strong class="text-[#334155]">${this.escape(row.tubNumber)}</strong> (${this.escape(row.shift)})</span>
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2">
+              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">PickUp</span>
+                <span class="font-mono font-extrabold text-sm text-[#00875A]">${this.escape(row.pickupPct || '0%')}</span>
+              </div>
+              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Raw In</span>
+                <span class="font-mono font-bold text-xs text-[#172B4D]">${this.escape(row.rawInWeight)}</span>
+              </div>
+              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Soak Out</span>
+                <span class="font-mono font-bold text-xs text-[#0F172A]">${this.escape(row.soakOutWeight)}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 1: Chemical & Bath Parameters -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider mb-3 pb-2 border-b border-[#F1F5F9]">Chemical &amp; Solution Parameters</h4>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Chemical Formulation</span>
+                <span class="font-semibold text-[#0284C7] text-xs block mt-0.5">${this.escape(row.chemical)}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Chemical Quantity</span>
+                <span class="font-mono font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.chemicalQty)}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Soak Duration</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.soakDuration)}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Chilled Bath Temp</span>
+                <span class="font-mono font-bold text-[#00875A] text-xs block mt-0.5">${this.escape(row.bathTemp || '1.8°C')}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Product & Supervision -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider mb-3 pb-2 border-b border-[#F1F5F9]">Product &amp; Supervision</h4>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3.5">
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Grade</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.grade)}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Shift &amp; Supervisor</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.shift)} (${this.escape(row.supervisor)})</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Operational Notes</span>
+                <span class="text-xs text-[#334155] block mt-0.5">${this.escape(row.remarks || 'None')}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      `,
+      footerButtons: [
+        { label: 'Close', type: 'secondary', onClick: modal => modal.close() }
+      ]
+    });
+  },
+
+  deleteSoakingOpRow(row, container) {
+    Modal.confirm({
+      title: 'Confirm Deletion',
+      message: `Are you sure you want to delete Soaking Batch "${row.soakBatchNo}"?`,
+      confirmLabel: 'Delete Batch',
+      type: 'danger',
+      onConfirm: () => {
+        const idx = this.state.soakingOperations.findIndex(item => item.soakBatchNo === row.soakBatchNo);
+        if (idx !== -1) {
+          this.state.soakingOperations.splice(idx, 1);
+          this.renderSoakingScreen(container);
+          Toast.show(`Soaking batch ${row.soakBatchNo} deleted successfully`, 'success');
+        }
+      }
+    });
+  },
+
+  // =========================================================================
+  // OPERATIONS TAB 3: SOAKING (V2)
+  // =========================================================================
+  renderSoakingV2Screen(container) {
+    container.innerHTML = `
+      <div class="space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-0">
+          <div>
+            <h1 class="text-xl font-extrabold text-[#172B4D]">Soaking Lots &amp; Solution Management (V2)</h1>
+          </div>
+          <div>
+            <button type="button" id="btn-new-soak-v2" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer border-0">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+              <span>New Soaking Lot (V2)</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200">
+          <div class="flex items-center justify-between pb-1">
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-[#0284C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+              <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
+            </div>
+
+            <div class="inline-flex items-center gap-2">
+              <button type="button" id="soakv2-top-reset-btn" class="dt-top-filter-reset-btn inline-flex items-center justify-center bg-white border border-[#CBD5E1] text-[#334155] rounded-full cursor-pointer" title="Reset all filters" aria-label="Reset all filters">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+              </button>
+              <button type="button" id="soakv2-top-toggle-btn" class="dt-top-filter-toggle-btn inline-flex items-center justify-center bg-white border border-[#CBD5E1] text-[#334155] rounded-full cursor-pointer" title="Hide Filter" aria-label="Hide Filter">
+                <svg class="w-4 h-4 transform transition-transform duration-200" id="soakv2-top-toggle-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+              </button>
+            </div>
+          </div>
+
+          <div id="soakv2-top-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
+            <div>
+              <label for="sk2-filter-plant" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCTION PLANT</label>
+              <select id="sk2-filter-plant" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]">
+                <option value="ALL">All Production Plants</option>
+                <option value="DFL UNIT-5 (JPT)">DFL UNIT-5 (JPT)</option>
+                <option value="DFL UNIT-3 (PSP)">DFL UNIT-3 (PSP)</option>
+                <option value="DFL UNIT-4 (PND)">DFL UNIT-4 (PND)</option>
+                <option value="DFL UNIT-1 (VSP)">DFL UNIT-1 (VSP)</option>
+                <option value="DFL UNIT-6 (JPT-II)">DFL UNIT-6 (JPT-II)</option>
+                <option value="DFL UNIT-2 (KKD)">DFL UNIT-2 (KKD)</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="sk2-filter-lot" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">LOT CODE</label>
+              <input type="text" id="sk2-filter-lot" placeholder="e.g. LOT-SK2" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono focus:outline-none focus:border-[#0284C7]" />
+            </div>
+
+            <div>
+              <label for="sk2-filter-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">DATE</label>
+              <input type="date" id="sk2-filter-date" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" onclick="this.showPicker ? this.showPicker() : this.focus()" />
+            </div>
+
+            <div>
+              <label for="sk2-filter-formulation" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">CHEMICAL FORMULATION</label>
+              <input type="text" id="sk2-filter-formulation" placeholder="e.g. STPP, Non-Phos" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" />
+            </div>
+
+            <div>
+              <label for="sk2-filter-qc" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">QC CLEARANCE</label>
+              <select id="sk2-filter-qc" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]">
+                <option value="ALL">All Clearances</option>
+                <option value="PASSED">PASSED</option>
+                <option value="PENDING">PENDING</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="sk2-filter-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STATUS</label>
+              <select id="sk2-filter-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]">
+                <option value="ALL">All Statuses</option>
+                <option value="APPROVED">APPROVED</option>
+                <option value="IN_PROCESS">IN PROCESS</option>
+              </select>
+            </div>
+
+            <!-- Search Button Slot -->
+            <div class="flex items-end sm:col-span-2">
+              <button type="button" id="soakv2-filter-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                <span>Search</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div id="soaking-v2-table-container"></div>
+      </div>
+    `;
+
+    document.getElementById('btn-new-soak-v2')?.addEventListener('click', () => {
+      this.showNewSoakingV2Modal(container);
+    });
+
+    const toggleBtn = document.getElementById('soakv2-top-toggle-btn');
+    toggleBtn?.addEventListener('click', () => {
+      const body = document.getElementById('soakv2-top-filter-body');
+      const icon = document.getElementById('soakv2-top-toggle-icon');
+      if (body) {
+        body.classList.toggle('hidden');
+        const isHidden = body.classList.contains('hidden');
+        toggleBtn.title = isHidden ? 'Show Filter' : 'Hide Filter';
+        icon?.classList.toggle('-rotate-90', isHidden);
+      }
+    });
+
+    const applyFilters = () => {
+      const plant = document.getElementById('sk2-filter-plant')?.value || 'ALL';
+      const lotQuery = (document.getElementById('sk2-filter-lot')?.value || '').trim().toLowerCase();
+      const dVal = document.getElementById('sk2-filter-date')?.value || '';
+      const fQuery = (document.getElementById('sk2-filter-formulation')?.value || '').trim().toLowerCase();
+      const qc = document.getElementById('sk2-filter-qc')?.value || 'ALL';
+      const st = document.getElementById('sk2-filter-status')?.value || 'ALL';
+
+      const filtered = this.state.soakingV2Lots.filter(row => {
+        if (plant !== 'ALL' && row.productionPlant !== plant) return false;
+        if (lotQuery && !String(row.lotCode || '').toLowerCase().includes(lotQuery)) return false;
+        if (dVal && row.date !== dVal) return false;
+        if (fQuery && !String(row.chemicalFormulation || '').toLowerCase().includes(fQuery)) return false;
+        if (qc !== 'ALL' && row.qcClearance !== qc) return false;
+        if (st !== 'ALL' && row.status !== st) return false;
+        return true;
+      });
+
+      renderTable(filtered);
+    };
+
+    ['sk2-filter-plant', 'sk2-filter-qc', 'sk2-filter-status'].forEach(id => {
+      document.getElementById(id)?.addEventListener('change', applyFilters);
+    });
+    ['sk2-filter-lot', 'sk2-filter-date', 'sk2-filter-formulation'].forEach(id => {
+      document.getElementById(id)?.addEventListener('input', applyFilters);
+      document.getElementById(id)?.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          applyFilters();
+        }
+      });
+    });
+
+    document.getElementById('soakv2-filter-search-btn')?.addEventListener('click', () => {
+      applyFilters();
+      Toast.show('Filters applied', 'info');
+    });
+
+    document.getElementById('soakv2-top-reset-btn')?.addEventListener('click', () => {
+      if (document.getElementById('sk2-filter-plant')) document.getElementById('sk2-filter-plant').value = 'ALL';
+      if (document.getElementById('sk2-filter-lot')) document.getElementById('sk2-filter-lot').value = '';
+      if (document.getElementById('sk2-filter-date')) document.getElementById('sk2-filter-date').value = '';
+      if (document.getElementById('sk2-filter-formulation')) document.getElementById('sk2-filter-formulation').value = '';
+      if (document.getElementById('sk2-filter-qc')) document.getElementById('sk2-filter-qc').value = 'ALL';
+      if (document.getElementById('sk2-filter-status')) document.getElementById('sk2-filter-status').value = 'ALL';
+      renderTable(this.state.soakingV2Lots);
+      Toast.show('Filters reset', 'info');
+    });
+
+    const renderTable = (data) => {
+      new DataTable({
+        containerId: 'soaking-v2-table-container',
+        data: data,
+        keyField: 'lotCode',
+        tableTitle: 'Soaking Lots (V2) Register',
+        searchable: true,
+        exportable: true,
+        pageSize: 10,
+        columns: [
+          {
+            field: 'sNo',
+            header: 'S.No',
+            render: (v, row, idx) => `<span class="text-[#5E6C84] font-semibold">${v || (idx + 1)}</span>`
+          },
+          {
+            field: 'lotCode',
+            header: 'Lot Code',
+            render: (v) => `<span class="font-mono font-bold text-[#0284C7] bg-[#F0F9FF] px-2 py-0.5 rounded border border-[#BAE6FD] whitespace-nowrap cursor-pointer hover:underline">${this.escape(v)}</span>`
+          },
+          {
+            field: 'productionPlant',
+            header: 'Production Plant',
+            render: (v) => `<span class="font-semibold text-[#172B4D] whitespace-nowrap">${this.escape(v)}</span>`
+          },
+          {
+            field: 'date',
+            header: 'Date & Shift',
+            render: (v, row) => `<span class="text-[#172B4D] whitespace-nowrap">${v ? String(v).split('-').reverse().join('-') : '-'} <span class="text-[#64748B]">(${this.escape(row.shift)})</span></span>`
+          },
+          {
+            field: 'tankPitNo',
+            header: 'Tank / Pit No',
+            render: (v) => `<span class="font-mono text-xs font-semibold text-[#00A4B7] whitespace-nowrap">${this.escape(v)}</span>`
+          },
+          {
+            field: 'variety',
+            header: 'Variety',
+            render: (v) => `<span class="font-semibold text-[#172B4D] whitespace-nowrap">${this.escape(v)}</span>`
+          },
+          {
+            field: 'inwardWeight',
+            header: 'Inward Wt (Kg)',
+            render: (v) => `<span class="font-mono font-bold text-[#172B4D] whitespace-nowrap">${this.escape(v)}</span>`
+          },
+          {
+            field: 'chemicalFormulation',
+            header: 'Chemical Formulation',
+            render: (v) => `<span class="text-xs text-[#0284C7] font-medium whitespace-nowrap truncate max-w-[150px] block" title="${this.escape(v)}">${this.escape(v)}</span>`
+          },
+          {
+            field: 'dosingRatio',
+            header: 'Dosing Ratio',
+            render: (v) => `<span class="font-mono text-xs text-[#172B4D] whitespace-nowrap">${this.escape(v)}</span>`
+          },
+          {
+            field: 'bathTemp',
+            header: 'Bath Temp (°C)',
+            render: (v) => `<span class="font-mono text-xs font-semibold text-[#00875A] whitespace-nowrap">${this.escape(v)}</span>`
+          },
+          {
+            field: 'phLevel',
+            header: 'pH Level',
+            render: (v) => `<span class="font-mono text-xs font-medium text-[#403294] whitespace-nowrap">${this.escape(v)}</span>`
+          },
+          {
+            field: 'outwardWeight',
+            header: 'Outward Wt (Kg)',
+            render: (v) => `<span class="font-mono font-bold text-[#0F172A] whitespace-nowrap">${this.escape(v)}</span>`
+          },
+          {
+            field: 'netGainPct',
+            header: 'Net Gain (%)',
+            render: (v) => `<span class="font-mono font-extrabold text-[#00875A] text-xs whitespace-nowrap">${this.escape(v)}</span>`
+          },
+          {
+            field: 'qcClearance',
+            header: 'QC Clearance',
+            render: (v) => `<span class="px-2 py-0.5 rounded text-[11px] font-bold ${
+              v === 'PASSED' ? 'bg-[#DCFCE7] text-[#166534] border border-[#86EFAC]' : 'bg-[#FEF3C7] text-[#92400E] border border-[#FCD34D]'
+            } whitespace-nowrap">${this.escape(v)}</span>`
+          },
+          {
+            field: 'status',
+            header: 'Status',
+            render: (v) => `<span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase ${
+              v === 'APPROVED' ? 'bg-[#DCFCE7] text-[#166534] border border-[#86EFAC]' : 'bg-[#E0F2FE] text-[#0369A1] border border-[#7DD3FC]'
+            }">${this.escape(v)}</span>`
+          }
+        ],
+        actions: [
+          {
+            label: 'Edit',
+            icon: `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>`,
+            onClick: row => this.showEditSoakingV2Modal(row, container)
+          },
+          {
+            label: 'Delete',
+            icon: `<svg class="w-3.5 h-3.5 text-[#DE350B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>`,
+            onClick: row => this.deleteSoakingV2Row(row, container)
+          }
+        ],
+        onRowClick: (row) => this.showSoakingV2Details(row)
+      });
+    };
+
+    renderTable(this.state.soakingV2Lots);
+  },
+
+  showNewSoakingV2Modal(container) {
+    const nextSeq = this.state.soakingV2Lots.length + 1;
+    const defaultLot = `LOT-SK2-${String(nextSeq).padStart(3, '0')}`;
+    const today = new Date().toISOString().slice(0, 10);
+
+    Modal.open({
+      title: 'New Soaking Lot & Chemical Dosing (V2)',
+      size: 'xl',
+      content: `
+        <form id="form-new-soak-v2" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs">
+          <div>
+            <label for="sk2-lot" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">LOT CODE <span class="text-[#DE350B]">*</span></label>
+            <input id="sk2-lot" name="lotCode" type="text" value="${defaultLot}" class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#0284C7] focus:outline-none" required />
+          </div>
+
+          <div>
+            <label for="sk2-plant" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCTION PLANT <span class="text-[#DE350B]">*</span></label>
+            <select id="sk2-plant" name="productionPlant" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+              <option value="DFL UNIT-5 (JPT)" selected>DFL UNIT-5 (JPT)</option>
+              <option value="DFL UNIT-3 (PSP)">DFL UNIT-3 (PSP)</option>
+              <option value="DFL UNIT-4 (PND)">DFL UNIT-4 (PND)</option>
+              <option value="DFL UNIT-1 (VSP)">DFL UNIT-1 (VSP)</option>
+              <option value="DFL UNIT-6 (JPT-II)">DFL UNIT-6 (JPT-II)</option>
+              <option value="DFL UNIT-2 (KKD)">DFL UNIT-2 (KKD)</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="sk2-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">DATE <span class="text-[#DE350B]">*</span></label>
+            <input id="sk2-date" name="date" type="date" value="${today}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" required onclick="this.showPicker ? this.showPicker() : this.focus()" />
+          </div>
+
+          <div>
+            <label for="sk2-shift" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SHIFT <span class="text-[#DE350B]">*</span></label>
+            <select id="sk2-shift" name="shift" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+              <option value="Shift A (Day)" selected>Shift A (Day)</option>
+              <option value="Shift B (Evening)">Shift B (Evening)</option>
+              <option value="Shift C (Night)">Shift C (Night)</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="sk2-tank" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TANK / PIT NO <span class="text-[#DE350B]">*</span></label>
+            <input id="sk2-tank" name="tankPitNo" type="text" value="Pit #3 (2000L)" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="sk2-variety" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">RAW MATERIAL VARIETY <span class="text-[#DE350B]">*</span></label>
+            <select id="sk2-variety" name="variety" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+              <option value="Vannamei (VM)" selected>Vannamei (VM)</option>
+              <option value="Black Tiger (BT)">Black Tiger (BT)</option>
+              <option value="Sea White">Sea White</option>
+              <option value="Scampi">Scampi</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="sk2-in-wt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">INWARD WT (KG) <span class="text-[#DE350B]">*</span></label>
+            <input id="sk2-in-wt" name="inwardWeight" type="text" value="1200.0 Kgs" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="sk2-formula" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">CHEMICAL FORMULATION <span class="text-[#DE350B]">*</span></label>
+            <select id="sk2-formula" name="chemicalFormulation" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+              <option value="STPP & Citric Buffer" selected>STPP & Citric Buffer</option>
+              <option value="Non-Phosphate Organic Blend">Non-Phosphate Organic Blend</option>
+              <option value="STPP Controlled Release">STPP Controlled Release</option>
+              <option value="Citric Acid & Marine Salt">Citric Acid & Marine Salt</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="sk2-dose" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">DOSING RATIO (%) <span class="text-[#DE350B]">*</span></label>
+            <input id="sk2-dose" name="dosingRatio" type="text" value="2.5%" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="sk2-temp" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">BATH TEMP (°C) <span class="text-[#DE350B]">*</span></label>
+            <input id="sk2-temp" name="bathTemp" type="text" value="1.5°C" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="sk2-ph" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PH LEVEL <span class="text-[#DE350B]">*</span></label>
+            <input id="sk2-ph" name="phLevel" type="text" value="7.2 pH" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono text-[#403294] focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="sk2-out-wt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">OUTWARD WT (KG) <span class="text-[#DE350B]">*</span></label>
+            <input id="sk2-out-wt" name="outwardWeight" type="text" value="1256.4 Kgs" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#0F172A] focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="sk2-gain" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">NET GAIN (%) <span class="text-[#DE350B]">*</span></label>
+            <input id="sk2-gain" name="netGainPct" type="text" value="4.7%" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="sk2-qc" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">QC CLEARANCE <span class="text-[#DE350B]">*</span></label>
+            <select id="sk2-qc" name="qcClearance" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+              <option value="PASSED" selected>PASSED</option>
+              <option value="PENDING">PENDING</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="sk2-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STATUS <span class="text-[#DE350B]">*</span></label>
+            <select id="sk2-status" name="status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+              <option value="APPROVED" selected>APPROVED</option>
+              <option value="IN_PROCESS">IN PROCESS</option>
+            </select>
+          </div>
+
+          <div class="sm:col-span-2">
+            <label for="sk2-remarks" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">REMARKS</label>
+            <input id="sk2-remarks" name="remarks" type="text" value="Automated solution dosing cycle verified by shift chemist" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" />
+          </div>
+        </form>
+      `,
+      footerButtons: [
+        { label: 'Cancel', type: 'secondary', onClick: modal => modal.close() },
+        {
+          label: 'Create Lot',
+          type: 'primary',
+          onClick: () => {
+            const form = document.getElementById('form-new-soak-v2');
+            if (!form || !form.reportValidity()) return;
+            const values = Object.fromEntries(new FormData(form));
+
+            Modal.confirm({
+              title: 'Confirm Soaking Lot Creation',
+              message: `Create new soaking lot "${values.lotCode}" for ${values.productionPlant}?`,
+              confirmLabel: 'Confirm & Create',
+              type: 'primary',
+              onConfirm: () => {
+                const newRow = {
+                  sNo: this.state.soakingV2Lots.length + 1,
+                  id: values.lotCode,
+                  lotCode: values.lotCode,
+                  productionPlant: values.productionPlant,
+                  date: values.date,
+                  shift: values.shift,
+                  tankPitNo: values.tankPitNo,
+                  variety: values.variety,
+                  inwardWeight: values.inwardWeight,
+                  chemicalFormulation: values.chemicalFormulation,
+                  dosingRatio: values.dosingRatio,
+                  bathTemp: values.bathTemp,
+                  phLevel: values.phLevel,
+                  outwardWeight: values.outwardWeight,
+                  netGainPct: values.netGainPct,
+                  qcClearance: values.qcClearance,
+                  supervisor: 'S. K. Murthy',
+                  remarks: values.remarks || 'Standard solution dosing recorded',
+                  status: values.status
+                };
+
+                this.state.soakingV2Lots.unshift(newRow);
+                Modal.close();
+                this.renderSoakingV2Screen(container);
+                Toast.show(`Soaking lot ${newRow.lotCode} created successfully`, 'success');
+              }
+            });
+          }
+        }
+      ]
+    });
+  },
+
+  showEditSoakingV2Modal(row, container) {
+    Modal.open({
+      title: `Edit Soaking Lot (V2): ${row.lotCode}`,
+      size: 'xl',
+      content: `
+        <form id="form-edit-soak-v2" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs">
+          <div>
+            <label for="esk2-lot" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">LOT CODE</label>
+            <input id="esk2-lot" name="lotCode" type="text" value="${row.lotCode}" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#0284C7] focus:outline-none" />
+          </div>
+
+          <div>
+            <label for="esk2-plant" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCTION PLANT <span class="text-[#DE350B]">*</span></label>
+            <select id="esk2-plant" name="productionPlant" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+              ${['DFL UNIT-5 (JPT)', 'DFL UNIT-3 (PSP)', 'DFL UNIT-4 (PND)', 'DFL UNIT-1 (VSP)', 'DFL UNIT-6 (JPT-II)', 'DFL UNIT-2 (KKD)'].map(p => `<option value="${p}" ${p === row.productionPlant ? 'selected' : ''}>${p}</option>`).join('')}
+            </select>
+          </div>
+
+          <div>
+            <label for="esk2-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">DATE <span class="text-[#DE350B]">*</span></label>
+            <input id="esk2-date" name="date" type="date" value="${row.date || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" required onclick="this.showPicker ? this.showPicker() : this.focus()" />
+          </div>
+
+          <div>
+            <label for="esk2-shift" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SHIFT <span class="text-[#DE350B]">*</span></label>
+            <select id="esk2-shift" name="shift" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+              ${['Shift A (Day)', 'Shift B (Evening)', 'Shift C (Night)'].map(s => `<option value="${s}" ${s === row.shift ? 'selected' : ''}>${s}</option>`).join('')}
+            </select>
+          </div>
+
+          <div>
+            <label for="esk2-tank" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TANK / PIT NO <span class="text-[#DE350B]">*</span></label>
+            <input id="esk2-tank" name="tankPitNo" type="text" value="${this.escape(row.tankPitNo || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="esk2-variety" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">VARIETY <span class="text-[#DE350B]">*</span></label>
+            <select id="esk2-variety" name="variety" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+              ${['Vannamei (VM)', 'Black Tiger (BT)', 'Sea White', 'Scampi'].map(v => `<option value="${v}" ${v === row.variety ? 'selected' : ''}>${v}</option>`).join('')}
+            </select>
+          </div>
+
+          <div>
+            <label for="esk2-in-wt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">INWARD WT <span class="text-[#DE350B]">*</span></label>
+            <input id="esk2-in-wt" name="inwardWeight" type="text" value="${this.escape(row.inwardWeight || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="esk2-formula" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">CHEMICAL <span class="text-[#DE350B]">*</span></label>
+            <select id="esk2-formula" name="chemicalFormulation" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+              ${['STPP & Citric Buffer', 'Non-Phosphate Organic Blend', 'STPP Controlled Release', 'Citric Acid & Marine Salt'].map(c => `<option value="${c}" ${c === row.chemicalFormulation ? 'selected' : ''}>${c}</option>`).join('')}
+            </select>
+          </div>
+
+          <div>
+            <label for="esk2-dose" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">DOSING RATIO <span class="text-[#DE350B]">*</span></label>
+            <input id="esk2-dose" name="dosingRatio" type="text" value="${this.escape(row.dosingRatio || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="esk2-temp" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">BATH TEMP (°C) <span class="text-[#DE350B]">*</span></label>
+            <input id="esk2-temp" name="bathTemp" type="text" value="${this.escape(row.bathTemp || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="esk2-ph" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PH LEVEL <span class="text-[#DE350B]">*</span></label>
+            <input id="esk2-ph" name="phLevel" type="text" value="${this.escape(row.phLevel || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono text-[#403294] focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="esk2-out-wt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">OUTWARD WT <span class="text-[#DE350B]">*</span></label>
+            <input id="esk2-out-wt" name="outwardWeight" type="text" value="${this.escape(row.outwardWeight || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#0F172A] focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="esk2-gain" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">NET GAIN (%) <span class="text-[#DE350B]">*</span></label>
+            <input id="esk2-gain" name="netGainPct" type="text" value="${this.escape(row.netGainPct || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="esk2-qc" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">QC CLEARANCE <span class="text-[#DE350B]">*</span></label>
+            <select id="esk2-qc" name="qcClearance" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+              ${['PASSED', 'PENDING'].map(q => `<option value="${q}" ${q === row.qcClearance ? 'selected' : ''}>${q}</option>`).join('')}
+            </select>
+          </div>
+
+          <div>
+            <label for="esk2-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STATUS <span class="text-[#DE350B]">*</span></label>
+            <select id="esk2-status" name="status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+              ${['APPROVED', 'IN_PROCESS'].map(st => `<option value="${st}" ${st === row.status ? 'selected' : ''}>${st}</option>`).join('')}
+            </select>
+          </div>
+
+          <div class="sm:col-span-2">
+            <label for="esk2-remarks" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">REMARKS</label>
+            <input id="esk2-remarks" name="remarks" type="text" value="${this.escape(row.remarks || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" />
+          </div>
+        </form>
+      `,
+      footerButtons: [
+        { label: 'Cancel', type: 'secondary', onClick: modal => modal.close() },
+        {
+          label: 'Save Changes',
+          type: 'primary',
+          onClick: () => {
+            const form = document.getElementById('form-edit-soak-v2');
+            if (!form || !form.reportValidity()) return;
+            const values = Object.fromEntries(new FormData(form));
+
+            Modal.confirm({
+              title: 'Confirm Update',
+              message: `Save changes for Soaking Lot "${row.lotCode}"?`,
+              confirmLabel: 'Save',
+              type: 'primary',
+              onConfirm: () => {
+                Object.assign(row, values);
+                Modal.close();
+                this.renderSoakingV2Screen(container);
+                Toast.show(`Soaking lot ${row.lotCode} updated successfully`, 'success');
+              }
+            });
+          }
+        }
+      ]
+    });
+  },
+
+  showSoakingV2Details(row) {
+    Modal.open({
+      title: `Soaking Lot (V2) Details: ${row.lotCode}`,
+      size: 'xl',
+      content: `
+        <div class="space-y-4 text-xs">
+          <!-- Hero Card -->
+          <div class="bg-gradient-to-r from-[#F0FDF4] to-[#F8FAFC] p-4 rounded-xl border border-[#BBF7D0] flex flex-wrap items-center justify-between gap-3 shadow-2xs">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-[#00875A] text-white flex items-center justify-center font-bold shadow-xs">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+              </div>
+              <div>
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span class="font-mono font-extrabold text-[#0F172A] text-base">${this.escape(row.lotCode)}</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold tracking-wide uppercase ${
+                    row.status === 'APPROVED' ? 'bg-[#DCFCE7] text-[#166534] border border-[#86EFAC]' : 'bg-[#E0F2FE] text-[#0369A1] border border-[#7DD3FC]'
+                  }">${this.escape(row.status || 'APPROVED')}</span>
+                  <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-[#DCFCE7] text-[#166534] border border-[#86EFAC]">QC: ${this.escape(row.qcClearance || 'PASSED')}</span>
+                </div>
+                <p class="text-[11px] text-[#64748B] mt-0.5 font-medium flex items-center gap-1.5 flex-wrap">
+                  <span>Plant: <strong class="text-[#334155]">${this.escape(row.productionPlant)}</strong></span>
+                  <span>&bull;</span>
+                  <span>Date: <strong class="text-[#334155]">${this.escape(row.date)}</strong></span>
+                  <span>&bull;</span>
+                  <span>Pit: <strong class="text-[#334155]">${this.escape(row.tankPitNo)}</strong> (${this.escape(row.shift)})</span>
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2">
+              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Net Gain</span>
+                <span class="font-mono font-extrabold text-sm text-[#00875A]">${this.escape(row.netGainPct || '0%')}</span>
+              </div>
+              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Inward</span>
+                <span class="font-mono font-bold text-xs text-[#172B4D]">${this.escape(row.inwardWeight)}</span>
+              </div>
+              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Outward</span>
+                <span class="font-mono font-bold text-xs text-[#0F172A]">${this.escape(row.outwardWeight)}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 1: Solution Formulation & Dosing -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider mb-3 pb-2 border-b border-[#F1F5F9]">Chemical Dosing &amp; Bath Physics</h4>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Chemical Formulation</span>
+                <span class="font-semibold text-[#0284C7] text-xs block mt-0.5">${this.escape(row.chemicalFormulation)}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Dosing Ratio (%)</span>
+                <span class="font-mono font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.dosingRatio)}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Chilled Bath Temp</span>
+                <span class="font-mono font-bold text-[#00875A] text-xs block mt-0.5">${this.escape(row.bathTemp)}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Solution pH</span>
+                <span class="font-mono font-bold text-[#403294] text-xs block mt-0.5">${this.escape(row.phLevel)}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Lot Details & Supervision -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider mb-3 pb-2 border-b border-[#F1F5F9]">Lot Identification &amp; Notes</h4>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3.5">
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Variety</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.variety)}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Supervisor</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.supervisor || 'Shift Chemist')}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">QC &amp; Calibration Notes</span>
+                <span class="text-xs text-[#334155] block mt-0.5">${this.escape(row.remarks || 'None')}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      `,
+      footerButtons: [
+        { label: 'Close', type: 'secondary', onClick: modal => modal.close() }
+      ]
+    });
+  },
+
+  deleteSoakingV2Row(row, container) {
+    Modal.confirm({
+      title: 'Confirm Deletion',
+      message: `Are you sure you want to delete Soaking Lot (V2) "${row.lotCode}"?`,
+      confirmLabel: 'Delete Lot',
+      type: 'danger',
+      onConfirm: () => {
+        const idx = this.state.soakingV2Lots.findIndex(item => item.lotCode === row.lotCode);
+        if (idx !== -1) {
+          this.state.soakingV2Lots.splice(idx, 1);
+          this.renderSoakingV2Screen(container);
+          Toast.show(`Soaking lot ${row.lotCode} deleted successfully`, 'success');
+        }
+      }
+    });
+  },
+
+  // =========================================================================
+  // OPERATIONS TAB 4: FREEZING-STORE
+  // =========================================================================
+  renderFreezingStoreScreen(container) {
+    container.innerHTML = `
+      <div class="space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-0">
+          <div>
+            <h1 class="text-xl font-extrabold text-[#172B4D]">Freezing-Store Intake &amp; IQF Report</h1>
+          </div>
+          <div>
+            <button type="button" id="btn-add-iqf-report" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer border-0">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+              <span>Add IQF / Freezing Report</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200">
+          <div class="flex items-center justify-between pb-1">
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-[#0284C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+              <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
+            </div>
+
+            <div class="inline-flex items-center gap-2">
+              <button type="button" id="fzstore-top-reset-btn" class="dt-top-filter-reset-btn inline-flex items-center justify-center bg-white border border-[#CBD5E1] text-[#334155] rounded-full cursor-pointer" title="Reset all filters" aria-label="Reset all filters">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+              </button>
+              <button type="button" id="fzstore-top-toggle-btn" class="dt-top-filter-toggle-btn inline-flex items-center justify-center bg-white border border-[#CBD5E1] text-[#334155] rounded-full cursor-pointer" title="Hide Filter" aria-label="Hide Filter">
+                <svg class="w-4 h-4 transform transition-transform duration-200" id="fzstore-top-toggle-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+              </button>
+            </div>
+          </div>
+
+          <div id="fzstore-top-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
+            <div>
+              <label for="fzs-filter-plant" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCTION PLANT</label>
+              <select id="fzs-filter-plant" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]">
+                <option value="ALL">All Production Plants</option>
+                <option value="DFL UNIT-5 (JPT)">DFL UNIT-5 (JPT)</option>
+                <option value="DFL UNIT-3 (PSP)">DFL UNIT-3 (PSP)</option>
+                <option value="DFL UNIT-4 (PND)">DFL UNIT-4 (PND)</option>
+                <option value="DFL UNIT-1 (VSP)">DFL UNIT-1 (VSP)</option>
+                <option value="DFL UNIT-6 (JPT-II)">DFL UNIT-6 (JPT-II)</option>
+                <option value="DFL UNIT-2 (KKD)">DFL UNIT-2 (KKD)</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="fzs-filter-batch" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">BATCH NO</label>
+              <input type="text" id="fzs-filter-batch" placeholder="e.g. IQF-REP" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono focus:outline-none focus:border-[#0284C7]" />
+            </div>
+
+            <div>
+              <label for="fzs-filter-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">REPORT DATE</label>
+              <input type="date" id="fzs-filter-date" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" onclick="this.showPicker ? this.showPicker() : this.focus()" />
+            </div>
+
+            <div>
+              <label for="fzs-filter-line" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">FREEZER LINE</label>
+              <select id="fzs-filter-line" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]">
+                <option value="ALL">All Lines</option>
+                <option value="Tunnel Freezer #1 (IQF)">Tunnel Freezer #1 (IQF)</option>
+                <option value="Contact Plate Freezer #2">Contact Plate Freezer #2</option>
+                <option value="Spiral Freezer #1 (IQF)">Spiral Freezer #1 (IQF)</option>
+                <option value="Tunnel Freezer #2 (IQF)">Tunnel Freezer #2 (IQF)</option>
+                <option value="Contact Plate Freezer #1">Contact Plate Freezer #1</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="fzs-filter-chamber" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">DESTINATION CHAMBER</label>
+              <select id="fzs-filter-chamber" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]">
+                <option value="ALL">All Chambers</option>
+                <option value="Coldstore Chamber #1">Coldstore Chamber #1</option>
+                <option value="Coldstore Chamber #2">Coldstore Chamber #2</option>
+                <option value="Coldstore Chamber #3">Coldstore Chamber #3</option>
+                <option value="Ante-Room Staging">Ante-Room Staging</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="fzs-filter-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STATUS</label>
+              <select id="fzs-filter-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]">
+                <option value="ALL">All Statuses</option>
+                <option value="STORED">STORED</option>
+                <option value="TRANSFERRED">TRANSFERRED</option>
+                <option value="IN_INSPECTION">IN INSPECTION</option>
+              </select>
+            </div>
+
+            <!-- Search Button Slot -->
+            <div class="flex items-end sm:col-span-2">
+              <button type="button" id="fzstore-filter-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                <span>Search</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div id="freezing-store-table-container"></div>
+      </div>
+    `;
+
+    document.getElementById('btn-add-iqf-report')?.addEventListener('click', () => {
+      this.showAddIqfReportModal(container);
+    });
+
+    const toggleBtn = document.getElementById('fzstore-top-toggle-btn');
+    toggleBtn?.addEventListener('click', () => {
+      const body = document.getElementById('fzstore-top-filter-body');
+      const icon = document.getElementById('fzstore-top-toggle-icon');
+      if (body) {
+        body.classList.toggle('hidden');
+        const isHidden = body.classList.contains('hidden');
+        toggleBtn.title = isHidden ? 'Show Filter' : 'Hide Filter';
+        icon?.classList.toggle('-rotate-90', isHidden);
+      }
+    });
+
+    const applyFilters = () => {
+      const plant = document.getElementById('fzs-filter-plant')?.value || 'ALL';
+      const bQuery = (document.getElementById('fzs-filter-batch')?.value || '').trim().toLowerCase();
+      const dVal = document.getElementById('fzs-filter-date')?.value || '';
+      const line = document.getElementById('fzs-filter-line')?.value || 'ALL';
+      const ch = document.getElementById('fzs-filter-chamber')?.value || 'ALL';
+      const st = document.getElementById('fzs-filter-status')?.value || 'ALL';
+
+      const filtered = this.state.freezingStoreReports.filter(row => {
+        if (plant !== 'ALL' && row.productionPlant !== plant) return false;
+        if (bQuery && !String(row.batchNo || '').toLowerCase().includes(bQuery)) return false;
+        if (dVal && row.reportDate !== dVal) return false;
+        if (line !== 'ALL' && row.freezerLine !== line) return false;
+        if (ch !== 'ALL' && row.destinationChamber !== ch) return false;
+        if (st !== 'ALL' && row.status !== st) return false;
+        return true;
+      });
+
+      renderTable(filtered);
+    };
+
+    ['fzs-filter-plant', 'fzs-filter-line', 'fzs-filter-chamber', 'fzs-filter-status'].forEach(id => {
+      document.getElementById(id)?.addEventListener('change', applyFilters);
+    });
+    ['fzs-filter-batch', 'fzs-filter-date'].forEach(id => {
+      document.getElementById(id)?.addEventListener('input', applyFilters);
+      document.getElementById(id)?.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          applyFilters();
+        }
+      });
+    });
+
+    document.getElementById('fzstore-filter-search-btn')?.addEventListener('click', () => {
+      applyFilters();
+      Toast.show('Filters applied', 'info');
+    });
+
+    document.getElementById('fzstore-top-reset-btn')?.addEventListener('click', () => {
+      if (document.getElementById('fzs-filter-plant')) document.getElementById('fzs-filter-plant').value = 'ALL';
+      if (document.getElementById('fzs-filter-batch')) document.getElementById('fzs-filter-batch').value = '';
+      if (document.getElementById('fzs-filter-date')) document.getElementById('fzs-filter-date').value = '';
+      if (document.getElementById('fzs-filter-line')) document.getElementById('fzs-filter-line').value = 'ALL';
+      if (document.getElementById('fzs-filter-chamber')) document.getElementById('fzs-filter-chamber').value = 'ALL';
+      if (document.getElementById('fzs-filter-status')) document.getElementById('fzs-filter-status').value = 'ALL';
+      renderTable(this.state.freezingStoreReports);
+      Toast.show('Filters reset', 'info');
+    });
+
+    const renderTable = (data) => {
+      new DataTable({
+        containerId: 'freezing-store-table-container',
+        data: data,
+        keyField: 'batchNo',
+        tableTitle: 'Freezing Intake & Coldstore Registry',
+        searchable: true,
+        exportable: true,
+        pageSize: 10,
+        columns: [
+          {
+            field: 'sNo',
+            header: 'S.No',
+            render: (v, row, idx) => `<span class="text-[#5E6C84] font-semibold">${v || (idx + 1)}</span>`
+          },
+          {
+            field: 'reportDate',
+            header: 'Report Date',
+            render: (v) => `<span class="text-[#172B4D] whitespace-nowrap">${v ? String(v).split('-').reverse().join('-') : '-'}</span>`
+          },
+          {
+            field: 'batchNo',
+            header: 'Batch No',
+            render: (v) => `<span class="font-mono font-bold text-[#0284C7] bg-[#F0F9FF] px-2 py-0.5 rounded border border-[#BAE6FD] whitespace-nowrap cursor-pointer hover:underline">${this.escape(v)}</span>`
+          },
+          {
+            field: 'productionPlant',
+            header: 'Production Plant',
+            render: (v) => `<span class="font-semibold text-[#172B4D] whitespace-nowrap">${this.escape(v)}</span>`
+          },
+          {
+            field: 'freezerLine',
+            header: 'Freezer Line',
+            render: (v) => `<span class="text-xs text-[#172B4D] whitespace-nowrap">${this.escape(v)}</span>`
+          },
+          {
+            field: 'product',
+            header: 'Product',
+            render: (v) => `<span class="font-semibold text-[#172B4D] whitespace-nowrap">${this.escape(v)}</span>`
+          },
+          {
+            field: 'grade',
+            header: 'Grade',
+            render: (v) => `<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#F4F5F7] text-[#42526E] border border-[#DFE1E6] whitespace-nowrap">${this.escape(v)}</span>`
+          },
+          {
+            field: 'infeedWeight',
+            header: 'Infeed Wt (Kg)',
+            render: (v) => `<span class="font-mono text-xs text-[#172B4D] whitespace-nowrap">${this.escape(v)}</span>`
+          },
+          {
+            field: 'outfeedWeight',
+            header: 'Outfeed Wt (Kg)',
+            render: (v) => `<span class="font-mono font-bold text-[#0F172A] whitespace-nowrap">${this.escape(v)}</span>`
+          },
+          {
+            field: 'glazePct',
+            header: 'Glaze (%)',
+            render: (v) => `<span class="font-mono font-bold text-[#0284C7] text-xs whitespace-nowrap">${this.escape(v)}</span>`
+          },
+          {
+            field: 'cartonCount',
+            header: 'Cartons / Slabs',
+            render: (v) => `<span class="font-mono text-xs font-semibold text-[#00875A] whitespace-nowrap">${this.escape(v)}</span>`
+          },
+          {
+            field: 'coreTemp',
+            header: 'Core Temp (°C)',
+            render: (v) => `<span class="font-mono font-bold text-[#0284C7] text-xs whitespace-nowrap">${this.escape(v)}</span>`
+          },
+          {
+            field: 'destinationChamber',
+            header: 'Destination Chamber',
+            render: (v) => `<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF] whitespace-nowrap">${this.escape(v)}</span>`
+          },
+          {
+            field: 'supervisor',
+            header: 'Supervisor',
+            render: (v) => `<span class="text-xs text-[#172B4D] whitespace-nowrap">${this.escape(v)}</span>`
+          },
+          {
+            field: 'status',
+            header: 'Status',
+            render: (v) => `<span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase ${
+              v === 'STORED' ? 'bg-[#DCFCE7] text-[#166534] border border-[#86EFAC]' :
+              v === 'TRANSFERRED' ? 'bg-[#E0F2FE] text-[#0369A1] border border-[#7DD3FC]' :
+              'bg-[#FEF3C7] text-[#92400E] border border-[#FCD34D]'
+            }">${this.escape(v || 'STORED')}</span>`
+          }
+        ],
+        actions: [
+          {
+            label: 'Edit',
+            icon: `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>`,
+            onClick: row => this.showEditIqfReportModal(row, container)
+          },
+          {
+            label: 'Delete',
+            icon: `<svg class="w-3.5 h-3.5 text-[#DE350B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>`,
+            onClick: row => this.deleteFreezingStoreRow(row, container)
+          }
+        ],
+        onRowClick: (row) => this.showFreezingStoreDetails(row)
+      });
+    };
+
+    renderTable(this.state.freezingStoreReports);
+  },
+
+  showAddIqfReportModal(container) {
+    const nextSeq = this.state.freezingStoreReports.length + 1;
+    const defaultBatch = `IQF-REP-2026-${300 + nextSeq}`;
+    const today = new Date().toISOString().slice(0, 10);
+
+    Modal.open({
+      title: 'Add IQF / Freezing Chamber Intake Report',
+      size: 'xl',
+      content: `
+        <form id="form-add-iqf-report" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs">
+          <div>
+            <label for="ir-batch" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">REPORT / BATCH NO <span class="text-[#DE350B]">*</span></label>
+            <input id="ir-batch" name="batchNo" type="text" value="${defaultBatch}" class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#0284C7] focus:outline-none" required />
+          </div>
+
+          <div>
+            <label for="ir-plant" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCTION PLANT <span class="text-[#DE350B]">*</span></label>
+            <select id="ir-plant" name="productionPlant" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+              <option value="DFL UNIT-5 (JPT)" selected>DFL UNIT-5 (JPT)</option>
+              <option value="DFL UNIT-3 (PSP)">DFL UNIT-3 (PSP)</option>
+              <option value="DFL UNIT-4 (PND)">DFL UNIT-4 (PND)</option>
+              <option value="DFL UNIT-1 (VSP)">DFL UNIT-1 (VSP)</option>
+              <option value="DFL UNIT-6 (JPT-II)">DFL UNIT-6 (JPT-II)</option>
+              <option value="DFL UNIT-2 (KKD)">DFL UNIT-2 (KKD)</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="ir-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">REPORT DATE <span class="text-[#DE350B]">*</span></label>
+            <input id="ir-date" name="reportDate" type="date" value="${today}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" required onclick="this.showPicker ? this.showPicker() : this.focus()" />
+          </div>
+
+          <div>
+            <label for="ir-line" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">FREEZER LINE <span class="text-[#DE350B]">*</span></label>
+            <select id="ir-line" name="freezerLine" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+              <option value="Tunnel Freezer #1 (IQF)" selected>Tunnel Freezer #1 (IQF)</option>
+              <option value="Contact Plate Freezer #2">Contact Plate Freezer #2</option>
+              <option value="Spiral Freezer #1 (IQF)">Spiral Freezer #1 (IQF)</option>
+              <option value="Tunnel Freezer #2 (IQF)">Tunnel Freezer #2 (IQF)</option>
+              <option value="Contact Plate Freezer #1">Contact Plate Freezer #1</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="ir-product" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCT <span class="text-[#DE350B]">*</span></label>
+            <input id="ir-product" name="product" type="text" value="Vannamei HLSO IQF" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="ir-grade" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">GRADE <span class="text-[#DE350B]">*</span></label>
+            <input id="ir-grade" name="grade" type="text" value="31/40" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="ir-in-wt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">INFEED WT (KG) <span class="text-[#DE350B]">*</span></label>
+            <input id="ir-in-wt" name="infeedWeight" type="text" value="450.0 Kgs" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="ir-out-wt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">OUTFEED WT (KG) <span class="text-[#DE350B]">*</span></label>
+            <input id="ir-out-wt" name="outfeedWeight" type="text" value="486.0 Kgs" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#0F172A] focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="ir-glaze" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">GLAZE (%) <span class="text-[#DE350B]">*</span></label>
+            <input id="ir-glaze" name="glazePct" type="text" value="8.0%" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#0284C7] focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="ir-cartons" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">CARTONS / SLABS <span class="text-[#DE350B]">*</span></label>
+            <input id="ir-cartons" name="cartonCount" type="text" value="48 Master Cartons" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#00875A] focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="ir-temp" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">CORE TEMP (°C) <span class="text-[#DE350B]">*</span></label>
+            <input id="ir-temp" name="coreTemp" type="text" value="-22.5°C" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#0284C7] focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="ir-chamber" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">DESTINATION CHAMBER <span class="text-[#DE350B]">*</span></label>
+            <select id="ir-chamber" name="destinationChamber" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+              <option value="Coldstore Chamber #1">Coldstore Chamber #1</option>
+              <option value="Coldstore Chamber #2" selected>Coldstore Chamber #2</option>
+              <option value="Coldstore Chamber #3">Coldstore Chamber #3</option>
+              <option value="Ante-Room Staging">Ante-Room Staging</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="ir-supervisor" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SUPERVISOR <span class="text-[#DE350B]">*</span></label>
+            <select id="ir-supervisor" name="supervisor" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+              <option value="Laxmi Narayana" selected>Laxmi Narayana</option>
+              <option value="K. Subba Rao">K. Subba Rao</option>
+              <option value="Ch. Prasad">Ch. Prasad</option>
+              <option value="Mallesh">Mallesh</option>
+              <option value="D. Rambabu">D. Rambabu</option>
+              <option value="G. Suribabu">G. Suribabu</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="ir-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STATUS <span class="text-[#DE350B]">*</span></label>
+            <select id="ir-status" name="status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+              <option value="STORED" selected>STORED</option>
+              <option value="TRANSFERRED">TRANSFERRED</option>
+              <option value="IN_INSPECTION">IN INSPECTION</option>
+            </select>
+          </div>
+
+          <div class="sm:col-span-2">
+            <label for="ir-remarks" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">REMARKS</label>
+            <input id="ir-remarks" name="remarks" type="text" value="Glaze uniform, exit temp compliant, transferred to chamber" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" />
+          </div>
+        </form>
+      `,
+      footerButtons: [
+        { label: 'Cancel', type: 'secondary', onClick: modal => modal.close() },
+        {
+          label: 'Submit IQF Report',
+          type: 'primary',
+          onClick: () => {
+            const form = document.getElementById('form-add-iqf-report');
+            if (!form || !form.reportValidity()) return;
+            const values = Object.fromEntries(new FormData(form));
+
+            Modal.confirm({
+              title: 'Confirm IQF Freezing Report',
+              message: `Submit IQF report "${values.batchNo}" for destination ${values.destinationChamber}?`,
+              confirmLabel: 'Confirm & Submit',
+              type: 'primary',
+              onConfirm: () => {
+                const newRow = {
+                  sNo: this.state.freezingStoreReports.length + 1,
+                  id: values.batchNo,
+                  batchNo: values.batchNo,
+                  reportDate: values.reportDate,
+                  productionPlant: values.productionPlant,
+                  freezerLine: values.freezerLine,
+                  product: values.product,
+                  grade: values.grade,
+                  infeedWeight: values.infeedWeight,
+                  outfeedWeight: values.outfeedWeight,
+                  glazePct: values.glazePct,
+                  cartonCount: values.cartonCount,
+                  coreTemp: values.coreTemp,
+                  destinationChamber: values.destinationChamber,
+                  supervisor: values.supervisor,
+                  remarks: values.remarks || 'Standard IQF freezing report filed',
+                  status: values.status
+                };
+
+                this.state.freezingStoreReports.unshift(newRow);
+                Modal.close();
+                this.renderFreezingStoreScreen(container);
+                Toast.show(`IQF report ${newRow.batchNo} submitted successfully`, 'success');
+              }
+            });
+          }
+        }
+      ]
+    });
+  },
+
+  showEditIqfReportModal(row, container) {
+    Modal.open({
+      title: `Edit IQF Freezing Report: ${row.batchNo}`,
+      size: 'xl',
+      content: `
+        <form id="form-edit-iqf-report" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs">
+          <div>
+            <label for="eir-batch" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">REPORT / BATCH NO</label>
+            <input id="eir-batch" name="batchNo" type="text" value="${row.batchNo}" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#0284C7] focus:outline-none" />
+          </div>
+
+          <div>
+            <label for="eir-plant" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCTION PLANT <span class="text-[#DE350B]">*</span></label>
+            <select id="eir-plant" name="productionPlant" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+              ${['DFL UNIT-5 (JPT)', 'DFL UNIT-3 (PSP)', 'DFL UNIT-4 (PND)', 'DFL UNIT-1 (VSP)', 'DFL UNIT-6 (JPT-II)', 'DFL UNIT-2 (KKD)'].map(p => `<option value="${p}" ${p === row.productionPlant ? 'selected' : ''}>${p}</option>`).join('')}
+            </select>
+          </div>
+
+          <div>
+            <label for="eir-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">REPORT DATE <span class="text-[#DE350B]">*</span></label>
+            <input id="eir-date" name="reportDate" type="date" value="${row.reportDate || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" required onclick="this.showPicker ? this.showPicker() : this.focus()" />
+          </div>
+
+          <div>
+            <label for="eir-line" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">FREEZER LINE <span class="text-[#DE350B]">*</span></label>
+            <select id="eir-line" name="freezerLine" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+              ${['Tunnel Freezer #1 (IQF)', 'Contact Plate Freezer #2', 'Spiral Freezer #1 (IQF)', 'Tunnel Freezer #2 (IQF)', 'Contact Plate Freezer #1'].map(l => `<option value="${l}" ${l === row.freezerLine ? 'selected' : ''}>${l}</option>`).join('')}
+            </select>
+          </div>
+
+          <div>
+            <label for="eir-product" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCT <span class="text-[#DE350B]">*</span></label>
+            <input id="eir-product" name="product" type="text" value="${this.escape(row.product || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="eir-grade" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">GRADE <span class="text-[#DE350B]">*</span></label>
+            <input id="eir-grade" name="grade" type="text" value="${this.escape(row.grade || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="eir-in-wt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">INFEED WT <span class="text-[#DE350B]">*</span></label>
+            <input id="eir-in-wt" name="infeedWeight" type="text" value="${this.escape(row.infeedWeight || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="eir-out-wt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">OUTFEED WT <span class="text-[#DE350B]">*</span></label>
+            <input id="eir-out-wt" name="outfeedWeight" type="text" value="${this.escape(row.outfeedWeight || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#0F172A] focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="eir-glaze" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">GLAZE (%) <span class="text-[#DE350B]">*</span></label>
+            <input id="eir-glaze" name="glazePct" type="text" value="${this.escape(row.glazePct || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#0284C7] focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="eir-cartons" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">CARTONS / SLABS <span class="text-[#DE350B]">*</span></label>
+            <input id="eir-cartons" name="cartonCount" type="text" value="${this.escape(row.cartonCount || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#00875A] focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="eir-temp" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">CORE TEMP (°C) <span class="text-[#DE350B]">*</span></label>
+            <input id="eir-temp" name="coreTemp" type="text" value="${this.escape(row.coreTemp || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#0284C7] focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="eir-chamber" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">DESTINATION CHAMBER <span class="text-[#DE350B]">*</span></label>
+            <select id="eir-chamber" name="destinationChamber" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+              ${['Coldstore Chamber #1', 'Coldstore Chamber #2', 'Coldstore Chamber #3', 'Ante-Room Staging'].map(ch => `<option value="${ch}" ${ch === row.destinationChamber ? 'selected' : ''}>${ch}</option>`).join('')}
+            </select>
+          </div>
+
+          <div>
+            <label for="eir-supervisor" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SUPERVISOR <span class="text-[#DE350B]">*</span></label>
+            <select id="eir-supervisor" name="supervisor" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+              ${['Laxmi Narayana', 'K. Subba Rao', 'Ch. Prasad', 'Mallesh', 'D. Rambabu', 'G. Suribabu'].map(sup => `<option value="${sup}" ${sup === row.supervisor ? 'selected' : ''}>${sup}</option>`).join('')}
+            </select>
+          </div>
+
+          <div>
+            <label for="eir-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STATUS <span class="text-[#DE350B]">*</span></label>
+            <select id="eir-status" name="status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+              ${['STORED', 'TRANSFERRED', 'IN_INSPECTION'].map(st => `<option value="${st}" ${st === row.status ? 'selected' : ''}>${st}</option>`).join('')}
+            </select>
+          </div>
+
+          <div class="sm:col-span-2">
+            <label for="eir-remarks" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">REMARKS</label>
+            <input id="eir-remarks" name="remarks" type="text" value="${this.escape(row.remarks || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" />
+          </div>
+        </form>
+      `,
+      footerButtons: [
+        { label: 'Cancel', type: 'secondary', onClick: modal => modal.close() },
+        {
+          label: 'Save Changes',
+          type: 'primary',
+          onClick: () => {
+            const form = document.getElementById('form-edit-iqf-report');
+            if (!form || !form.reportValidity()) return;
+            const values = Object.fromEntries(new FormData(form));
+
+            Modal.confirm({
+              title: 'Confirm Update',
+              message: `Save changes for IQF Report "${row.batchNo}"?`,
+              confirmLabel: 'Save',
+              type: 'primary',
+              onConfirm: () => {
+                Object.assign(row, values);
+                Modal.close();
+                this.renderFreezingStoreScreen(container);
+                Toast.show(`IQF report ${row.batchNo} updated successfully`, 'success');
+              }
+            });
+          }
+        }
+      ]
+    });
+  },
+
+  showFreezingStoreDetails(row) {
+    Modal.open({
+      title: `IQF Freezing & Storage Details: ${row.batchNo}`,
+      size: 'xl',
+      content: `
+        <div class="space-y-4 text-xs">
+          <!-- Hero Card -->
+          <div class="bg-gradient-to-r from-[#F0FDF4] to-[#F8FAFC] p-4 rounded-xl border border-[#BBF7D0] flex flex-wrap items-center justify-between gap-3 shadow-2xs">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-[#00875A] text-white flex items-center justify-center font-bold shadow-xs">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+              </div>
+              <div>
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span class="font-mono font-extrabold text-[#0F172A] text-base">${this.escape(row.batchNo)}</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold tracking-wide uppercase ${
+                    row.status === 'STORED' ? 'bg-[#DCFCE7] text-[#166534] border border-[#86EFAC]' :
+                    row.status === 'TRANSFERRED' ? 'bg-[#E0F2FE] text-[#0369A1] border border-[#7DD3FC]' :
+                    'bg-[#FEF3C7] text-[#92400E] border border-[#FCD34D]'
+                  }">${this.escape(row.status || 'STORED')}</span>
+                  <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">${this.escape(row.destinationChamber)}</span>
+                </div>
+                <p class="text-[11px] text-[#64748B] mt-0.5 font-medium flex items-center gap-1.5 flex-wrap">
+                  <span>Plant: <strong class="text-[#334155]">${this.escape(row.productionPlant)}</strong></span>
+                  <span>&bull;</span>
+                  <span>Date: <strong class="text-[#334155]">${this.escape(row.reportDate)}</strong></span>
+                  <span>&bull;</span>
+                  <span>Line: <strong class="text-[#334155]">${this.escape(row.freezerLine)}</strong></span>
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2">
+              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Glaze %</span>
+                <span class="font-mono font-extrabold text-sm text-[#0284C7]">${this.escape(row.glazePct || '0%')}</span>
+              </div>
+              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Core Temp</span>
+                <span class="font-mono font-bold text-xs text-[#0284C7]">${this.escape(row.coreTemp)}</span>
+              </div>
+              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Outfeed Wt</span>
+                <span class="font-mono font-bold text-xs text-[#0F172A]">${this.escape(row.outfeedWeight)}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 1: Product & Production Weights -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider mb-3 pb-2 border-b border-[#F1F5F9]">Product &amp; Weight Reconciliation</h4>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Product Description</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.product)}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Grade</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.grade)}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Infeed Raw Weight</span>
+                <span class="font-mono font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.infeedWeight)}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Cartons / Slabs</span>
+                <span class="font-mono font-bold text-[#00875A] text-xs block mt-0.5">${this.escape(row.cartonCount)}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Storage & QA Remarks -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider mb-3 pb-2 border-b border-[#F1F5F9]">Coldstore Allocation &amp; Remarks</h4>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3.5">
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Destination Chamber</span>
+                <span class="font-semibold text-[#403294] text-xs block mt-0.5">${this.escape(row.destinationChamber)}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Supervisor / Inspector</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.supervisor)}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">QA Verification Notes</span>
+                <span class="text-xs text-[#334155] block mt-0.5">${this.escape(row.remarks || 'None')}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      `,
+      footerButtons: [
+        { label: 'Close', type: 'secondary', onClick: modal => modal.close() }
+      ]
+    });
+  },
+
+  deleteFreezingStoreRow(row, container) {
+    Modal.confirm({
+      title: 'Confirm Deletion',
+      message: `Are you sure you want to delete IQF Freezing Report "${row.batchNo}"?`,
+      confirmLabel: 'Delete Report',
+      type: 'danger',
+      onConfirm: () => {
+        const idx = this.state.freezingStoreReports.findIndex(item => item.batchNo === row.batchNo);
+        if (idx !== -1) {
+          this.state.freezingStoreReports.splice(idx, 1);
+          this.renderFreezingStoreScreen(container);
+          Toast.show(`IQF report ${row.batchNo} deleted successfully`, 'success');
         }
       }
     });

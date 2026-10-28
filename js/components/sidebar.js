@@ -175,9 +175,12 @@ export const ADMIN_NAV_HIERARCHY = [
       {
         id: "operations",
         title: "Operations",
-        defaultTab: "overview",
+        defaultTab: "production-standard-yields",
         tabs: [
-          { id: "overview", label: "Overview", hash: "#/production/operations/overview" }
+          { id: "production-standard-yields", label: "ProductionStandardYields", hash: "#/production/operations/production-standard-yields" },
+          { id: "soaking", label: "Soaking", hash: "#/production/operations/soaking" },
+          { id: "soaking-v2", label: "Soaking (V2)", hash: "#/production/operations/soaking-v2" },
+          { id: "freezing-store", label: "Freezing-Store", hash: "#/production/operations/freezing-store" }
         ]
       }
     ]
