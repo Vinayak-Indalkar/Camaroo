@@ -166,9 +166,10 @@ export const ADMIN_NAV_HIERARCHY = [
       {
         id: "pre-processing",
         title: "Pre-Processing",
-        defaultTab: "overview",
+        defaultTab: "soaking-trackid",
         tabs: [
-          { id: "overview", label: "Overview", hash: "#/production/pre-processing/overview" }
+          { id: "soaking-trackid", label: "Soaking trackid", hash: "#/production/pre-processing/soaking-trackid" },
+          { id: "freezing-trackid", label: "Freezing trackid", hash: "#/production/pre-processing/freezing-trackid" }
         ]
       },
       {
