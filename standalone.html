@@ -30093,6 +30093,18 @@ const qcInspectorField = qcField('inspector', 'Inspector');
 const qcStatusField = qcField('status', 'Status', 'select', ['Pending', 'In Review', 'Completed']);
 const qcAntibiotics = ['AOZ', 'AMOZ', 'AHD', 'SEM', 'CAP', 'OTC', 'CTC'];
 const qcOrganisms = ['Salmonella', 'Vibrio cholerae', 'Vibrio parahaemolyticus'];
+const qcFoodAuditFields = [
+  qcField('productionPlant', 'Production Plant', 'select', ['DFL UNIT-5 (JPT)', 'DFL UNIT-3 (PSP)', 'DFL UNIT-4 (PND)']),
+  qcField('auditName', 'Name of Audit'),
+  qcField('gradeScore', 'Grade/Score'),
+  qcField('auditStartDate', 'Audit Start Date', 'date'),
+  qcField('auditEndDate', 'Audit End Date', 'date'),
+  qcField('renewalDate', 'Renewal Date', 'date'),
+  qcField('validityDate', 'Validity Date', 'date'),
+  qcField('paymentStatus', 'Payment Status', 'select', ['Paid', 'Pending', 'Under Process', 'Waived']),
+  qcStatusField
+];
+
 const qcHatcheryFields = [
   qcField('hatcheryName', 'Hatchery Name'),
   qcField('hatcheryLocation', 'Hatchery Location'),
@@ -30270,10 +30282,11 @@ const qcSchemas = {
   documentation: { title: 'QC Operations', fields: qcDocumentationFields },
   'food-social-audit': { title: 'Food & Social Screening', fields: qcFoodSocialAuditFields },
   'farm-mill-hatchery-audit': { title: 'Farm / Mill / Hatchery Screening', fields: qcFmhAuditFields },
-  'hatchery-list': { title: 'Hatchery Register', fields: qcHatcheryFields }
+  'hatchery-list': { title: 'Hatchery Register', fields: qcHatcheryFields },
+  'food-audit-list': { title: 'Food Safety Audits', fields: qcFoodAuditFields, auditType: 'Food Safety', standard: 'BRCGS Issue 9' }
 };
 [
-  ['food-audit-list', 'Food Safety Audits', 'Food Safety', 'BRCGS Issue 9'],
+  
   ['social-audit-list', 'Social Compliance Audits', 'Social', 'SMETA 4-Pillar'],
   ['farm-audit-list', 'Farm Audits', 'Supplier', 'ASC / BAP'],
   ['hatchery-audit-list', 'Hatchery Audits', 'Biosecurity', 'BAP Hatchery'],
@@ -30376,6 +30389,26 @@ const QCView = {
           chlorine: row.chlorine ?? seedRow.chlorine ?? 0.5,
           totalDissolvedSolids: row.totalDissolvedSolids ?? seedRow.totalDissolvedSolids ?? 850,
           status: 'Pass'
+        };
+      });
+    }
+    if (Array.isArray(this.state['food-audit-list'])) {
+      this.state['food-audit-list'] = this.state['food-audit-list'].map((row, idx) => {
+        const seedRow = (seed['food-audit-list'] && seed['food-audit-list'][idx]) || seed['food-audit-list'][0] || {};
+        return {
+          ...seedRow,
+          ...row,
+          sNo: idx + 1,
+          productionPlant: row.productionPlant || row.plant || seedRow.productionPlant || 'DFL UNIT-5 (JPT)',
+          auditName: row.auditName || row.standard || seedRow.auditName || 'BRCGS Issue 9 Global Standard for Food Safety',
+          gradeScore: row.gradeScore || (row.grade ? `Grade ${row.grade}` : null) || seedRow.gradeScore || 'Grade AA (98.5%)',
+          auditStartDate: row.auditStartDate || row.auditDate || seedRow.auditStartDate || `2026-10-${20 + idx}`,
+          auditEndDate: row.auditEndDate || row.endDate || seedRow.auditEndDate || `2026-10-${22 + idx}`,
+          renewalDate: row.renewalDate || seedRow.renewalDate || `2027-09-${20 + idx}`,
+          validityDate: row.validityDate || row.certificateExpiry || seedRow.validityDate || `2027-10-${22 + idx}`,
+          paymentStatus: row.paymentStatus || seedRow.paymentStatus || 'Paid',
+          year: row.year || (row.auditStartDate ? String(row.auditStartDate).slice(0, 4) : '2026'),
+          status: row.status || seedRow.status || 'Completed'
         };
       });
     }
@@ -30602,7 +30635,22 @@ const QCView = {
           });
         }
         qcOrganisms.forEach(parameter => { row[parameter] = 'Absent'; });
-        if (key === 'hatchery-list') {
+        if (key === 'food-audit-list') {
+          Object.assign(row, {
+            sNo: index + 1,
+            productionPlant: ['DFL UNIT-5 (JPT)', 'DFL UNIT-3 (PSP)', 'DFL UNIT-4 (PND)'][index],
+            auditName: ['BRCGS Issue 9 Global Standard for Food Safety', 'FSSC 22000 Food Safety System Certification', 'IFS Food Standard Version 8'][index],
+            gradeScore: ['Grade AA (98.5%)', 'Grade A (94.0%)', 'Higher Level (96.8%)'][index],
+            auditStartDate: `2026-10-${20 + index}`,
+            auditEndDate: `2026-10-${22 + index}`,
+            renewalDate: `2027-09-${20 + index}`,
+            validityDate: `2027-10-${22 + index}`,
+            paymentStatus: ['Paid', 'Pending', 'Paid'][index],
+            year: '2026',
+            status: index === 1 ? 'In Review' : 'Completed'
+          });
+        }
+      if (key === 'hatchery-list') {
           Object.assign(row, {
             sNo: index + 1,
             hatcheryName: ['Coastal Seed Hatchery', 'Delta Vannamei Hatchery', 'Blue Marine SPF Hatchery'][index],
@@ -30793,6 +30841,28 @@ const QCView = {
   },
 
   registerRows(key) {
+    if (key === 'food-audit-list') {
+      return (this.state[key] || []).map((row, index) => {
+        const sDate = row.auditStartDate || row.auditDate || `2026-10-${20 + (index % 5)}`;
+        const eDate = row.auditEndDate || row.endDate || `2026-10-${22 + (index % 5)}`;
+        const rDate = row.renewalDate || `2027-09-${20 + (index % 5)}`;
+        const vDate = row.validityDate || row.certificateExpiry || `2027-10-${22 + (index % 5)}`;
+        return {
+          ...row,
+          sNo: index + 1,
+          productionPlant: row.productionPlant || row.plant || ['DFL UNIT-5 (JPT)', 'DFL UNIT-3 (PSP)', 'DFL UNIT-4 (PND)'][index % 3],
+          auditName: row.auditName || ['BRCGS Issue 9 Global Standard for Food Safety', 'FSSC 22000 Food Safety System Certification', 'IFS Food Standard Version 8'][index % 3],
+          gradeScore: row.gradeScore || (row.grade ? `Grade ${row.grade}` : null) || ['Grade AA (98.5%)', 'Grade A (94.0%)', 'Higher Level (96.8%)'][index % 3],
+          auditStartDate: sDate,
+          auditEndDate: eDate,
+          renewalDate: rDate,
+          validityDate: vDate,
+          paymentStatus: row.paymentStatus || ['Paid', 'Pending', 'Paid'][index % 3],
+          year: row.year || sDate.slice(0, 4),
+          status: row.status || (index === 1 ? 'In Review' : 'Completed')
+        };
+      });
+    }
     if (key === 'hatchery-list') {
       return (this.state[key] || []).map((row, index) => ({
         ...row,
@@ -30934,7 +31004,27 @@ const QCView = {
             </div>
           </div>
           <form id="qc-filters" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
-            ${key === 'documentation' ? `
+            ${key === 'food-audit-list' ? `
+              <div>
+                <label for="qc-filter-plant" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCTION PLANT</label>
+                <select id="qc-filter-plant" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]">
+                  <option value="ALL">All Production Plants</option>
+                  <option value="DFL UNIT-5 (JPT)">DFL UNIT-5 (JPT)</option>
+                  <option value="DFL UNIT-3 (PSP)">DFL UNIT-3 (PSP)</option>
+                  <option value="DFL UNIT-4 (PND)">DFL UNIT-4 (PND)</option>
+                </select>
+              </div>
+              <div>
+                <label for="qc-filter-year" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SELECT YEAR</label>
+                <select id="qc-filter-year" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]">
+                  <option value="ALL">All Years</option>
+                  <option value="2026" selected>2026</option>
+                  <option value="2025">2025</option>
+                  <option value="2024">2024</option>
+                  <option value="2023">2023</option>
+                </select>
+              </div>
+            ` : key === 'documentation' ? `
               <div>
                 <label for="qc-filter-type" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">QC TYPE</label>
                 <select id="qc-filter-type" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]">
@@ -31088,8 +31178,94 @@ const QCView = {
       qcField('hatcheryName', 'Hatchery Name'),
       qcField('hatcheryLocation', 'Hatchery Location'),
       qcField('hatcheryCapacity', 'Hatchery Capacity')
+    ] : key === 'food-audit-list' ? [
+      qcField('sNo', 'S.No'),
+      qcField('productionPlant', 'Production Plant'),
+      qcField('auditName', 'Name of Audit'),
+      qcField('gradeScore', 'Grade/Score'),
+      qcField('auditStartDate', 'Audit Start Date', 'date'),
+      qcField('auditEndDate', 'Audit End Date', 'date'),
+      qcField('renewalDate', 'Renewal Date', 'date'),
+      qcField('validityDate', 'Validity Date', 'date'),
+      qcField('paymentStatus', 'Payment Status'),
+      qcField('status', 'Status')
     ] : schema.fields;
     const columns = tableFields.map(field => {
+      if (key === 'food-audit-list') {
+        if (field.key === 'sNo') {
+          return {
+            field: 'sNo',
+            header: 'S.No',
+            render: (val, row, idx) => `<span class="font-bold text-[#5E6C84]">${idx !== undefined ? idx + 1 : (val || 1)}</span>`
+          };
+        }
+        if (field.key === 'productionPlant') {
+          return {
+            field: 'productionPlant',
+            header: 'Production Plant',
+            render: val => `<span class="font-semibold text-[#172B4D]">${this.escape(val || '-')}</span>`
+          };
+        }
+        if (field.key === 'auditName') {
+          return {
+            field: 'auditName',
+            header: 'Name of Audit',
+            render: val => `<span class="font-medium text-[#172B4D]">${this.escape(val || '-')}</span>`
+          };
+        }
+        if (field.key === 'gradeScore') {
+          return {
+            field: 'gradeScore',
+            header: 'Grade/Score',
+            render: val => `<span class="inline-flex items-center justify-center font-bold px-2 py-0.5 rounded text-[11px] bg-[#E3FCEF] text-[#006644]">${this.escape(val || '-')}</span>`
+          };
+        }
+        if (field.key === 'auditStartDate') {
+          return {
+            field: 'auditStartDate',
+            header: 'Audit Start Date',
+            render: val => val ? String(val).split('-').reverse().join('-') : '-'
+          };
+        }
+        if (field.key === 'auditEndDate') {
+          return {
+            field: 'auditEndDate',
+            header: 'Audit End Date',
+            render: val => val ? String(val).split('-').reverse().join('-') : '-'
+          };
+        }
+        if (field.key === 'renewalDate') {
+          return {
+            field: 'renewalDate',
+            header: 'Renewal Date',
+            render: val => val ? String(val).split('-').reverse().join('-') : '-'
+          };
+        }
+        if (field.key === 'validityDate') {
+          return {
+            field: 'validityDate',
+            header: 'Validity Date',
+            render: val => val ? String(val).split('-').reverse().join('-') : '-'
+          };
+        }
+        if (field.key === 'paymentStatus') {
+          return {
+            field: 'paymentStatus',
+            header: 'Payment Status',
+            render: val => {
+              const cls = val === 'Paid' ? 'bg-[#E3FCEF] text-[#006644]' : val === 'Pending' ? 'bg-[#FFF0B3] text-[#172B4D]' : 'bg-[#EAE6FF] text-[#403294]';
+              return `<span class="inline-flex px-2 py-0.5 rounded-full text-[10px] font-bold ${cls}">${this.escape(val || '-')}</span>`;
+            }
+          };
+        }
+        if (field.key === 'status') {
+          return {
+            field: 'status',
+            header: 'Status',
+            render: val => this.badge(val)
+          };
+        }
+      }
       if (key === 'hatchery-list') {
         if (field.key === 'sNo') {
           return {
@@ -31493,7 +31669,7 @@ const QCView = {
       }
       return { field: field.key, header: field.label, render: value => this.escape(value ?? '-') };
     });
-    if (!['ab-report', 'mb-report', 'lab-report', 'documentation', 'food-social-audit', 'farm-mill-hatchery-audit', 'hatchery-list'].includes(key)) {
+    if (!['ab-report', 'mb-report', 'lab-report', 'documentation', 'food-social-audit', 'farm-mill-hatchery-audit', 'hatchery-list', 'food-audit-list'].includes(key)) {
       if (!columns.some(column => column.field === 'status')) columns.push({ field: 'status', header: key === 'lots-list' ? 'AB Status' : 'Status', render: value => this.badge(value) });
       else columns.find(column => column.field === 'status').render = value => this.badge(value);
     }
@@ -31549,10 +31725,22 @@ const QCView = {
       button.setAttribute('title', collapsed ? 'Show Filter' : 'Hide Filter');
       button.querySelector('svg')?.classList.toggle('-rotate-90', collapsed);
     });
-    if (key === 'documentation') this.filterRecords(key);
+    if (['documentation', 'food-audit-list'].includes(key)) this.filterRecords(key);
   },
 
   filterRecords(key) {
+    if (key === 'food-audit-list') {
+      const plant = document.getElementById('qc-filter-plant')?.value || 'ALL';
+      const year = document.getElementById('qc-filter-year')?.value || 'ALL';
+      this.table.setData(this.registerRows(key).filter(row => {
+        const rowPlant = row.productionPlant || row.plant || '';
+        const rowYear = row.year || (row.auditStartDate ? String(row.auditStartDate).slice(0, 4) : '2026');
+        if (plant !== 'ALL' && !rowPlant.toLowerCase().includes(plant.toLowerCase())) return false;
+        if (year !== 'ALL' && rowYear !== year) return false;
+        return true;
+      }));
+      return;
+    }
     if (key === 'documentation') {
       const qcType = document.getElementById('qc-filter-type')?.value || 'Documentation';
       const year = document.getElementById('qc-filter-year')?.value || 'ALL';
