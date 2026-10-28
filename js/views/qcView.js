@@ -646,7 +646,7 @@ export const QCView = {
               <button type="button" id="qc-toggle-filters" class="dt-top-filter-toggle-btn inline-flex items-center justify-center bg-white border border-[#CBD5E1] text-[#334155] rounded-full cursor-pointer" title="Hide Filter" aria-label="Hide Filter" aria-expanded="true" aria-controls="qc-filters">${this.icon('ChevronDown')}</button>
             </div>
           </div>
-          <form id="qc-filters" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 ${key === 'documentation' ? 'lg:grid-cols-6' : 'lg:grid-cols-4'} gap-3 text-xs transition-all duration-200">
+          <form id="qc-filters" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
             ${key === 'documentation' ? `
               <div>
                 <label for="qc-filter-type" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">QC TYPE</label>
