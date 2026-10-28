@@ -30208,6 +30208,17 @@ const qcLabReportFields = [
   qcField('totalDissolvedSolids', 'Total Dissolved Solids', 'number')
 ];
 
+const qcDocumentationFields = [
+  qcField('sno', 'SNO'),
+  qcField('id', 'ID'),
+  qcField('invoiceNo', 'Invoice No'),
+  qcField('invoiceDate', 'Invoice Date', 'date'),
+  qcField('poNo', 'Po No'),
+  qcField('buyer', 'Buyer'),
+  qcField('country', 'Country', 'select', ['USA', 'EU', 'Japan', 'China', 'UK', 'Canada', 'Australia']),
+  qcField('internalLotNo', 'Internal Lot No', 'lot')
+];
+
 const qcSchemas = {
   'daily-qc-ops': { title: 'Daily QC Operations', fields: [qcDateField, qcField('timeSlot', 'Inspection Time', 'time'), qcField('batchNo', 'Batch Number'), qcLotField, qcField('productLine', 'Product Line', 'select', ['Line #1', 'Line #2', 'Line #3', 'Line #4', 'Line #5', 'Line #6']), qcField('coreTemp', 'Core Temperature (C)', 'temperature'), qcField('chlorineLevel', 'Free Chlorine (ppm)', 'number'), qcField('sensoryScore', 'Sensory Score (1-5)', 'score'), qcInspectorField] },
   'lots-list': { title: 'Lots List', fields: [qcField('lot', 'Lot Number'), qcField('rmDate', 'Receiving Date', 'date'), qcField('type', 'Procurement Type', 'select', ['Site Weightment', 'By Yield']), qcField('grader', 'Grader'), qcField('agent', 'Agent / Supplier'), qcField('count', 'Count (Pieces / kg)', 'number'), qcField('weight', 'Net Weight (kg)', 'number'), qcField('station', 'Station'), qcField('method', 'Test Method'), qcField('collectedBy', 'Collected By'), qcField('lab', 'Laboratory'), qcField('testTime', 'Sample Time', 'datetime-local'), qcField('antibiotics', 'Screening Panel')] },
@@ -30216,7 +30227,7 @@ const qcSchemas = {
   'mb-report': { title: 'Microbiology Report', fields: qcMbReportFields },
   'lab-report': { title: 'In-House Lab Report', fields: qcLabReportFields },
   'external-lab-report': { title: 'External Lab Report', fields: [qcField('exporter', 'Exporter'), qcLotField, qcDateField, qcField('reportNo', 'Report Number'), qcField('lab', 'Accredited Laboratory'), qcField('accreditationNo', 'Accreditation Number'), qcField('requiredTests', 'Tests Performed'), qcField('result', 'Lab Result', 'select', ['Pass', 'Fail', 'Pending']), qcField('coaNumber', 'COA Number'), qcInspectorField] },
-  documentation: { title: 'QC Documentation', fields: [qcField('invoiceNo', 'Export Invoice'), qcField('poNo', 'Purchase Order'), qcField('buyer', 'Buyer / Consignee'), qcField('country', 'Destination', 'select', ['USA', 'EU', 'Japan', 'China']), qcField('internalLotNo', 'Internal Lot', 'lot'), qcField('certHealth', 'Health Certificate'), qcField('certCoa', 'Certificate of Analysis'), qcField('certOrigin', 'Certificate of Origin'), qcField('status', 'Status', 'select', ['In Review', 'Pending Release', 'Completed'])] },
+  documentation: { title: 'QC Documentation', fields: qcDocumentationFields },
   'qc-orders': { title: 'QC Orders', fields: [qcField('orderNo', 'Order Number'), qcLotField, qcField('orderType', 'Order Type', 'select', ['Inspection', 'Quarantine Release', 'Sample Dispatch']), qcField('sampleType', 'Sample Type', 'select', ['Finished Goods', 'Block Frozen', 'IQF', 'Raw Material']), qcField('requiredTests', 'Required Tests'), qcField('targetDate', 'Due Date', 'date'), qcField('assignedLab', 'Assigned Laboratory'), qcStatusField] },
   'food-social-audit': { title: 'Food & Social Screening', fields: qcSupplierFields },
   'farm-mill-hatchery-audit': { title: 'Farm / Mill / Hatchery Screening', fields: qcSupplierFields },
@@ -30332,14 +30343,22 @@ const QCView = {
     if (Array.isArray(this.state.documentation)) {
       this.state.documentation = this.state.documentation.map((row, idx) => {
         const seedRow = (seed.documentation && seed.documentation[idx]) || seed.documentation[0] || {};
+        const d = row.invoiceDate || row.date || seedRow.invoiceDate || `2026-10-${24 + (idx % 5)}`;
         return {
           ...seedRow,
           ...row,
-          year: row.year || seedRow.year || (row.date ? String(row.date).slice(0, 4) : '2026'),
-          exporter: row.exporter || seedRow.exporter || 'Devi Fisheries Limited',
-          consignee: row.consignee || row.buyer || seedRow.consignee || 'Pacific Seafood Inc',
+          id: (row.id && !row.id.startsWith('QC-documentation')) ? row.id : (seedRow.id || `DOC-2026-00${idx + 1}`),
+          sno: idx + 1,
+          invoiceNo: row.invoiceNo || seedRow.invoiceNo || `EXP-INV-2026-00${idx + 1}`,
+          invoiceDate: d,
+          date: d,
+          poNo: row.poNo || seedRow.poNo || `PO-2026-00${idx + 1}`,
           buyer: row.buyer || row.consignee || seedRow.buyer || 'Pacific Seafood Inc',
+          consignee: row.consignee || row.buyer || seedRow.consignee || 'Pacific Seafood Inc',
           country: row.country || seedRow.country || 'USA',
+          internalLotNo: row.internalLotNo || row.lot || seedRow.internalLotNo || `BLS/2627/014${3 + (idx % 3)}`,
+          year: row.year || seedRow.year || d.slice(0, 4),
+          exporter: row.exporter || seedRow.exporter || 'Devi Fisheries Limited',
           billsType: row.billsType || seedRow.billsType || 'Commercial Bill',
           status: row.status || 'In Review'
         };
@@ -30490,15 +30509,24 @@ const QCView = {
         }
         qcOrganisms.forEach(parameter => { row[parameter] = 'Absent'; });
         if (key === 'documentation') {
+          const invDate = `2026-10-${24 + index}`;
           Object.assign(row, {
-            year: ['2026', '2026', '2025'][index],
-            exporter: ['Devi Fisheries Limited', 'Devi Fisheries Limited', 'Devi Sea Foods Ltd'][index],
-            consignee: ['Pacific Seafood Inc', 'Maruha Nichiro Corp', 'Royal Greenland A/S'][index],
-            buyer: ['Pacific Seafood Inc', 'Maruha Nichiro Corp', 'Royal Greenland A/S'][index],
-            country: ['USA', 'Japan', 'EU'][index],
-            billsType: ['Commercial Bill', 'Export Bill', 'Commercial Bill'][index],
+            id: `DOC-2026-00${index + 1}`,
+            sno: index + 1,
             invoiceNo: `EXP-INV-2026-00${index + 1}`,
+            invoiceDate: invDate,
+            date: invDate,
             poNo: `PO-2026-00${index + 1}`,
+            buyer: ['Pacific Seafood Inc', 'Maruha Nichiro Corp', 'Royal Greenland A/S'][index],
+            consignee: ['Pacific Seafood Inc', 'Maruha Nichiro Corp', 'Royal Greenland A/S'][index],
+            country: ['USA', 'Japan', 'EU'][index],
+            internalLotNo: lot,
+            year: '2026',
+            exporter: ['Devi Fisheries Limited', 'Devi Fisheries Limited', 'Devi Sea Foods Ltd'][index],
+            billsType: ['Commercial Bill', 'Export Bill', 'Commercial Bill'][index],
+            certHealth: `EIC/HC/2026/${1001 + index}`,
+            certCoa: `COA-2026-00${index + 1}`,
+            certOrigin: `COO-MPEDA-2026-${501 + index}`,
             status: 'In Review'
           });
         }
@@ -30622,15 +30650,25 @@ const QCView = {
 
   registerRows(key) {
     if (key === 'documentation') {
-      return (this.state.documentation || []).map((row, index) => ({
-        ...row,
-        year: row.year || (row.date ? String(row.date).slice(0, 4) : '2026'),
-        exporter: row.exporter || ['Devi Fisheries Limited', 'Devi Fisheries Limited', 'Devi Sea Foods Ltd'][index % 3],
-        consignee: row.consignee || row.buyer || ['Pacific Seafood Inc', 'Maruha Nichiro Corp', 'Royal Greenland A/S'][index % 3],
-        buyer: row.buyer || row.consignee || ['Pacific Seafood Inc', 'Maruha Nichiro Corp', 'Royal Greenland A/S'][index % 3],
-        country: row.country || ['USA', 'Japan', 'EU'][index % 3],
-        billsType: row.billsType || ['Commercial Bill', 'Export Bill', 'Commercial Bill'][index % 3]
-      }));
+      return (this.state.documentation || []).map((row, index) => {
+        const d = row.invoiceDate || row.date || `2026-10-${24 + (index % 5)}`;
+        return {
+          ...row,
+          sno: index + 1,
+          id: (row.id && !row.id.startsWith('QC-documentation')) ? row.id : `DOC-2026-00${index + 1}`,
+          invoiceNo: row.invoiceNo || `EXP-INV-2026-00${index + 1}`,
+          invoiceDate: d,
+          date: d,
+          poNo: row.poNo || `PO-2026-00${index + 1}`,
+          buyer: row.buyer || row.consignee || ['Pacific Seafood Inc', 'Maruha Nichiro Corp', 'Royal Greenland A/S'][index % 3],
+          consignee: row.consignee || row.buyer || ['Pacific Seafood Inc', 'Maruha Nichiro Corp', 'Royal Greenland A/S'][index % 3],
+          country: row.country || ['USA', 'Japan', 'EU'][index % 3],
+          internalLotNo: row.internalLotNo || row.lot || `BLS/2627/014${3 + (index % 3)}`,
+          year: row.year || d.slice(0, 4),
+          exporter: row.exporter || ['Devi Fisheries Limited', 'Devi Fisheries Limited', 'Devi Sea Foods Ltd'][index % 3],
+          billsType: row.billsType || ['Commercial Bill', 'Export Bill', 'Commercial Bill'][index % 3]
+        };
+      });
     }
     if (key === 'external-lab-report') {
       return this.state[key].map(row => ({ ...row, exporter: this.exporterName(row), reportDate: row.reportDate || row.date || '' }));
@@ -30788,8 +30826,75 @@ const QCView = {
     ] : key === 'lab-report' ? [
       qcField('srNo', 'Sr No', 'number'),
       qcField('reportDate', 'Report Date', 'date')
+    ] : key === 'documentation' ? [
+      qcField('sno', 'SNO'),
+      qcField('id', 'ID'),
+      qcField('invoiceNo', 'Invoice No'),
+      qcField('invoiceDate', 'Invoice Date', 'date'),
+      qcField('poNo', 'Po No'),
+      qcField('buyer', 'Buyer'),
+      qcField('country', 'Country'),
+      qcField('internalLotNo', 'Internal Lot No')
     ] : schema.fields;
     const columns = tableFields.map(field => {
+      if (key === 'documentation') {
+        if (field.key === 'sno') {
+          return {
+            field: 'sno',
+            header: 'SNO',
+            render: (val, row, idx) => `<span class="font-bold text-[#5E6C84]">${idx !== undefined ? idx + 1 : (val || 1)}</span>`
+          };
+        }
+        if (field.key === 'id') {
+          return {
+            field: 'id',
+            header: 'ID',
+            render: val => `<span class="font-mono font-bold text-[#00A4B7]">${this.escape(val || '-')}</span>`
+          };
+        }
+        if (field.key === 'invoiceNo') {
+          return {
+            field: 'invoiceNo',
+            header: 'Invoice No',
+            render: val => `<span class="font-mono font-semibold text-[#172B4D]">${this.escape(val || '-')}</span>`
+          };
+        }
+        if (field.key === 'invoiceDate') {
+          return {
+            field: 'invoiceDate',
+            header: 'Invoice Date',
+            render: val => val ? String(val).split('-').reverse().join('-') : '-'
+          };
+        }
+        if (field.key === 'poNo') {
+          return {
+            field: 'poNo',
+            header: 'Po No',
+            render: val => `<span class="font-mono font-medium text-[#172B4D]">${this.escape(val || '-')}</span>`
+          };
+        }
+        if (field.key === 'buyer') {
+          return {
+            field: 'buyer',
+            header: 'Buyer',
+            render: val => `<span class="font-semibold text-[#172B4D]">${this.escape(val || '-')}</span>`
+          };
+        }
+        if (field.key === 'country') {
+          return {
+            field: 'country',
+            header: 'Country',
+            render: val => `<span class="inline-flex px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#F4F5F7] text-[#172B4D] border border-[#DFE1E6]">${this.escape(val || '-')}</span>`
+          };
+        }
+        if (field.key === 'internalLotNo') {
+          return {
+            field: 'internalLotNo',
+            header: 'Internal Lot No',
+            render: val => `<span class="font-mono font-medium text-[#172B4D]">${this.escape(val || '-')}</span>`
+          };
+        }
+      }
       if (key === 'lab-report' && field.key === 'reportDate') {
         return { field: 'reportDate', header: 'Report Date', render: value => value ? this.escape(String(value).split('-').reverse().join('-')) : '-' };
       }
@@ -30884,7 +30989,7 @@ const QCView = {
       }
       return { field: field.key, header: field.label, render: value => this.escape(value ?? '-') };
     });
-    if (!['ab-report', 'mb-report', 'lab-report'].includes(key)) {
+    if (!['ab-report', 'mb-report', 'lab-report', 'documentation'].includes(key)) {
       if (!columns.some(column => column.field === 'status')) columns.push({ field: 'status', header: key === 'lots-list' ? 'AB Status' : 'Status', render: value => this.badge(value) });
       else columns.find(column => column.field === 'status').render = value => this.badge(value);
     }
