@@ -86,6 +86,15 @@ export const Skeleton = {
     `;
   },
 
+  renderRoute(isDashboard = false) {
+    return `
+      <div role="status" aria-live="polite" aria-label="Loading page">
+        <span class="sr-only">Loading page</span>
+        ${isDashboard ? this.renderDashboard() : this.renderTable(6, 6)}
+      </div>
+    `;
+  },
+
   // Render Table / CRUD View Skeleton
   renderTable(rows = 7, cols = 6) {
     const colWidths = ['w-24', 'w-36', 'w-28', 'w-32', 'w-20', 'w-16'];

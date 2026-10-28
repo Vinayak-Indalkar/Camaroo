@@ -164,57 +164,19 @@ export const ADMIN_NAV_HIERARCHY = [
         ]
       },
       {
-        id: "setup-master",
-        title: "Setup & Master Data",
-        defaultTab: "standard-yields",
+        id: "pre-processing",
+        title: "Pre-Processing",
+        defaultTab: "overview",
         tabs: [
-          { id: "standard-yields", label: "Standard Yields", hash: "#/production/setup-master/standard-yields" }
+          { id: "overview", label: "Overview", hash: "#/production/pre-processing/overview" }
         ]
       },
       {
-        id: "batch-tracking",
-        title: "Batch Tracking",
-        defaultTab: "soaking-tracking",
+        id: "operations",
+        title: "Operations",
+        defaultTab: "overview",
         tabs: [
-          { id: "soaking-tracking", label: "Soaking Tracking", hash: "#/production/batch-tracking/soaking-tracking" },
-          { id: "freezing-tracking", label: "Freezing Tracking", hash: "#/production/batch-tracking/freezing-tracking" }
-        ]
-      },
-      {
-        id: "production-operations",
-        title: "Production Operations",
-        defaultTab: "soaking",
-        tabs: [
-          { id: "soaking", label: "Soaking", hash: "#/production/production-operations/soaking" },
-          { id: "freezing-storage", label: "Freezing & Storage", hash: "#/production/production-operations/freezing-storage" }
-        ]
-      },
-      {
-        id: "production-control",
-        title: "Production Control",
-        defaultTab: "floor-balance",
-        tabs: [
-          { id: "floor-balance", label: "Floor Balance", hash: "#/production/production-control/floor-balance" },
-          { id: "untreated-control", label: "Untreated Control", hash: "#/production/production-control/untreated-control" },
-          { id: "floor-balance-variety", label: "Floor Balance by Variety", hash: "#/production/production-control/floor-balance-variety" },
-          { id: "soaking-control", label: "Soaking Control", hash: "#/production/production-control/soaking-control" },
-          { id: "freezing-control", label: "Freezing Control", hash: "#/production/production-control/freezing-control" },
-          { id: "freezing-prod-control", label: "Freezing Production Control", hash: "#/production/production-control/freezing-prod-control" },
-          { id: "reconciliation", label: "Reconciliation", hash: "#/production/production-control/reconciliation" },
-          { id: "conversion-headon", label: "Head-on to Finished Conversion", hash: "#/production/production-control/conversion-headon" }
-        ]
-      },
-      {
-        id: "anti-dumping",
-        title: "Anti-Dumping Compliance",
-        defaultTab: "entry",
-        tabs: [
-          { id: "entry", label: "Entry", hash: "#/production/anti-dumping/entry" },
-          { id: "audit-logs", label: "Audit Logs", hash: "#/production/anti-dumping/audit-logs" },
-          { id: "negative-audit", label: "Negative Audit", hash: "#/production/anti-dumping/negative-audit" },
-          { id: "shipment-audit", label: "Shipment Audit", hash: "#/production/anti-dumping/shipment-audit" },
-          { id: "ledger", label: "Opening & Closing Ledger", hash: "#/production/anti-dumping/ledger" },
-          { id: "closing-bal", label: "Closing Balance", hash: "#/production/anti-dumping/closing-bal" }
+          { id: "overview", label: "Overview", hash: "#/production/operations/overview" }
         ]
       }
     ]

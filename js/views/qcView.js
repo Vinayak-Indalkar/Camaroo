@@ -2763,9 +2763,16 @@ export const QCView = {
       container.querySelectorAll('.btn-remove-mb-row').forEach(btn => {
         btn.addEventListener('click', e => {
           const idx = parseInt(e.currentTarget.getAttribute('data-index'), 10);
-          mbRows.splice(idx, 1);
-          renderMbTable();
-          Toast.show('Item removed from table.', 'info');
+          Modal.confirm({
+            title: 'Remove Microbiology Test Entry',
+            message: 'Are you sure you want to remove this test entry?',
+            isDestructive: true,
+            onConfirm: () => {
+              mbRows.splice(idx, 1);
+              renderMbTable();
+              Toast.show('Item removed from table.', 'info');
+            }
+          });
         });
       });
     };
@@ -2795,17 +2802,23 @@ export const QCView = {
         return;
       }
 
-      mbRows.push({
-        sNo: mbRows.length + 1,
-        poNo,
-        buyer,
-        parameter,
-        analysisDate: analysisDate || today,
-        result: result || 'Pass'
-      });
+      Modal.confirm({
+        title: 'Add Microbiology Test Entry',
+        message: 'Are you sure you want to add this test entry to the report?',
+        onConfirm: () => {
+          mbRows.push({
+            sNo: mbRows.length + 1,
+            poNo,
+            buyer,
+            parameter,
+            analysisDate: analysisDate || today,
+            result: result || 'Pass'
+          });
 
-      renderMbTable();
-      Toast.show('Microbiology test entry added to table.', 'success');
+          renderMbTable();
+          Toast.show('Microbiology test entry added to table.', 'success');
+        }
+      });
     });
   },
 
@@ -3149,9 +3162,16 @@ export const QCView = {
         btn.addEventListener('click', e => {
           const idx = parseInt(e.currentTarget.getAttribute('data-idx'), 10);
           if (!isNaN(idx)) {
-            sampleRows.splice(idx, 1);
-            renderSamplesTable();
-            Toast.show('Sample testing item removed.', 'info');
+            Modal.confirm({
+              title: 'Delete QC Sample',
+              message: 'Are you sure you want to delete this sample from the report?',
+              isDestructive: true,
+              onConfirm: () => {
+                sampleRows.splice(idx, 1);
+                renderSamplesTable();
+                Toast.show('Sample testing item removed.', 'info');
+              }
+            });
           }
         });
       });

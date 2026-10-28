@@ -4,6 +4,8 @@ import { UIEnhancements } from './components/uiEnhancements.js';
 import { ERP_DATA } from './data/mockData.js';
 import { Toast } from './components/toast.js';
 import { Modal } from './components/modal.js';
+import { Skeleton } from './components/skeleton.js';
+import { renderRouteMessage } from './components/emptyState.js';
 import { Header } from './components/header.js';
 import { Sidebar, NAV_HIERARCHY } from './components/sidebar.js';
 import { Breadcrumbs } from './components/breadcrumbs.js';
@@ -24,6 +26,8 @@ import { SuperAdminDashboardView } from './views/superAdminDashboardView.js';
 import { SuperAdminReportsView } from './views/superAdminReportsView.js';
 
 export const App = {
+  routeVersion: 0,
+
   init() {
     if (localStorage.getItem('dfl_theme') === 'dark') {
       document.documentElement.classList.add('theme-dark');
@@ -118,12 +122,33 @@ export const App = {
     window.addEventListener('hashchange', () => this.route());
   },
 
+  renderRouteError(code, title, message, homeHash) {
+    Sidebar.render('sidebar-container', homeHash);
+    Breadcrumbs.render('breadcrumbs-container', homeHash);
+    const mainEl = document.getElementById('main-content-container');
+    if (!mainEl) return;
+    mainEl.removeAttribute('aria-busy');
+    mainEl.innerHTML = renderRouteMessage({
+      code,
+      title,
+      message,
+      actionLabel: 'Return to dashboard',
+      actionHref: homeHash
+    });
+    mainEl.scrollTop = 0;
+  },
+
   route() {
+    const routeVersion = ++this.routeVersion;
     const rawHash = window.location.hash || '';
     // If explicitly on login page
     if (rawHash === '#/login' || rawHash === '#/signin' || rawHash === '#login') {
-      document.getElementById('app-root').innerHTML = `<div id="login-view-container"></div>`;
-      LoginView.render('login-view-container');
+      const appRoot = document.getElementById('app-root');
+      if (!appRoot) return;
+      appRoot.innerHTML = `<div id="login-view-container">${Skeleton.renderRoute()}</div>`;
+      setTimeout(() => requestAnimationFrame(() => {
+        if (routeVersion === this.routeVersion) LoginView.render('login-view-container');
+      }), 120);
       return;
     }
 
@@ -148,19 +173,27 @@ export const App = {
     const moduleName = parts[0] || defaultModule;
     let submenuName = parts[1] || '';
     let tabName = parts[2] || '';
+    const homeHash = isSuperAdmin
+      ? '#/dashboard/overview/system-overview'
+      : '#/purchase/dashboard/rm-dashboard';
 
-    // If Super Admin navigates to an operational or removed module, guard and redirect to super admin dashboard
+    // Keep direct URL navigation subject to the same module restrictions as the sidebar.
     const operationalModules = ['purchase', 'preprocessing', 'quality', 'production', 'coldstore', 'inventory', 'sales', 'help', 'master'];
-    if (isSuperAdmin && operationalModules.includes(moduleName)) {
-      window.location.hash = '#/dashboard/overview/system-overview';
+    const superAdminModules = ['dashboard', 'general', 'super-reports'];
+    if ((isSuperAdmin && operationalModules.includes(moduleName)) || (!isSuperAdmin && superAdminModules.includes(moduleName))) {
+      this.renderRouteError(403, 'Access denied', 'You do not have permission to access this section.', homeHash);
       return;
     }
 
-    // Auto-resolve default module, submenu, and tab if missing or shorthand
-    const modObj = NAV_HIERARCHY.find(m => m.id === moduleName) || (isSuperAdmin ? NAV_HIERARCHY.find(m => m.id === 'dashboard') : NAV_HIERARCHY[0]);
+    const modObj = NAV_HIERARCHY.find(m => m.id === moduleName);
+    if (!modObj) {
+      this.renderRouteError(404, 'Page not found', 'The requested application page does not exist.', homeHash);
+      return;
+    }
+
+    // Support module/tab shorthand while rejecting unknown submenu and tab IDs.
     let subObj = modObj.submenus.find(s => s.id === submenuName);
-    if (!subObj) {
-      // Check if parts[1] was actually a tab ID under one of the submenus
+    if (!subObj && submenuName) {
       for (const sm of modObj.submenus) {
         if (sm.tabs.some(t => t.id === submenuName)) {
           subObj = sm;
@@ -169,13 +202,23 @@ export const App = {
           break;
         }
       }
-      if (!subObj) {
-        subObj = modObj.submenus[0];
-        submenuName = subObj.id;
-      }
     }
+    if (!subObj && submenuName) {
+      this.renderRouteError(404, 'Page not found', 'The requested application section does not exist.', homeHash);
+      return;
+    }
+    if (!subObj) subObj = modObj.submenus[0];
+    if (!subObj) {
+      this.renderRouteError(404, 'Page not found', 'The requested application section does not exist.', homeHash);
+      return;
+    }
+    submenuName = subObj.id;
     if (!tabName) {
       tabName = subObj.defaultTab || subObj.tabs[0]?.id || '';
+    }
+    if (!subObj.tabs.some(tab => tab.id === tabName)) {
+      this.renderRouteError(404, 'Page not found', 'The requested application page does not exist.', homeHash);
+      return;
     }
 
     const resolvedHash = `#/${modObj.id}/${subObj.id}/${tabName}`;
@@ -185,66 +228,70 @@ export const App = {
     Breadcrumbs.render('breadcrumbs-container', resolvedHash);
 
     const mainContainer = 'main-content-container';
-
-    switch (modObj.id) {
-      // Super Admin Main Menus
-      case 'dashboard':
-        SuperAdminDashboardView.render(mainContainer, tabName || 'system-overview', resolvedHash);
-        break;
-      case 'general':
-        SetupView.render(mainContainer, tabName || 'clients', resolvedHash);
-        break;
-      case 'super-reports':
-        SuperAdminReportsView.render(mainContainer, tabName || 'clients-overview', resolvedHash);
-        break;
-      case 'setup':
-        SetupView.render(mainContainer, tabName || 'clients', resolvedHash);
-        break;
-
-      // Admin Operational Modules
-      case 'purchase':
-        PurchaseView.render(mainContainer, tabName || 'rm-dashboard', resolvedHash);
-        break;
-      case 'preprocessing':
-        PreprocessingView.render(mainContainer, tabName || 'floor-overview', resolvedHash);
-        break;
-      case 'quality':
-        QCView.render(mainContainer, tabName || 'qc-overview', resolvedHash);
-        break;
-      case 'production':
-        ProductionView.render(mainContainer, tabName || 'overview', resolvedHash);
-        break;
-      case 'coldstore':
-        ColdstoreView.render(mainContainer, tabName || 'overview', resolvedHash);
-        break;
-      case 'inventory':
-        InventoryView.render(mainContainer, tabName || 'overview', resolvedHash);
-        break;
-      case 'sales':
-        SalesView.render(mainContainer, tabName || 'overview', resolvedHash);
-        break;
-      case 'reports':
-        if (isSuperAdmin) {
-          SuperAdminReportsView.render(mainContainer, tabName || 'clients-overview', resolvedHash);
-        } else {
-          ReportsView.render(mainContainer, tabName || 'yield-reports', resolvedHash);
-        }
-        break;
-      case 'help':
-        HelpView.render(mainContainer, tabName || 'compliance-manual', resolvedHash);
-        break;
-      default:
-        if (isSuperAdmin) {
-          SuperAdminDashboardView.render(mainContainer, 'system-overview', '#/dashboard/overview/system-overview');
-        } else {
-          PurchaseView.render(mainContainer, 'rm-dashboard', '#/purchase/dashboard/rm-dashboard');
-        }
-        break;
-    }
-
-    // Scroll to top of main content
     const mainEl = document.getElementById(mainContainer);
-    if (mainEl) mainEl.scrollTop = 0;
+    if (!mainEl) return;
+    mainEl.setAttribute('aria-busy', 'true');
+    mainEl.innerHTML = Skeleton.renderRoute(moduleName === 'dashboard' || submenuName === 'dashboard');
+
+    setTimeout(() => requestAnimationFrame(() => {
+      if (routeVersion !== this.routeVersion || !mainEl.isConnected) return;
+      try {
+        switch (modObj.id) {
+          case 'dashboard':
+            SuperAdminDashboardView.render(mainContainer, tabName, resolvedHash);
+            break;
+          case 'general':
+            SetupView.render(mainContainer, tabName, resolvedHash);
+            break;
+          case 'super-reports':
+            SuperAdminReportsView.render(mainContainer, tabName, resolvedHash);
+            break;
+          case 'setup':
+            SetupView.render(mainContainer, tabName, resolvedHash);
+            break;
+          case 'purchase':
+            PurchaseView.render(mainContainer, tabName, resolvedHash);
+            break;
+          case 'preprocessing':
+            PreprocessingView.render(mainContainer, tabName, resolvedHash);
+            break;
+          case 'quality':
+            QCView.render(mainContainer, tabName, resolvedHash);
+            break;
+          case 'production':
+            ProductionView.render(mainContainer, tabName, resolvedHash);
+            break;
+          case 'coldstore':
+            ColdstoreView.render(mainContainer, tabName, resolvedHash);
+            break;
+          case 'inventory':
+            InventoryView.render(mainContainer, tabName, resolvedHash);
+            break;
+          case 'sales':
+            SalesView.render(mainContainer, tabName, resolvedHash);
+            break;
+          case 'reports':
+            if (isSuperAdmin) {
+              SuperAdminReportsView.render(mainContainer, tabName, resolvedHash);
+            } else {
+              ReportsView.render(mainContainer, tabName, resolvedHash);
+            }
+            break;
+          case 'help':
+            HelpView.render(mainContainer, tabName, resolvedHash);
+            break;
+        }
+      } catch (error) {
+        console.error('Application route failed to render.', error);
+        this.renderRouteError(500, 'Page unavailable', 'An unexpected error prevented this page from loading.', homeHash);
+      } finally {
+        if (routeVersion === this.routeVersion) {
+          const renderedMain = document.getElementById(mainContainer);
+          renderedMain?.removeAttribute('aria-busy');
+          if (renderedMain) renderedMain.scrollTop = 0;
+        }
+      }
+    }), 120);
   },
 
   ensureShellMounted() {

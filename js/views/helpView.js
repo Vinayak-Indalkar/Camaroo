@@ -24,7 +24,9 @@ export const HelpView = {
         const tabLabel = tabContext?.submenu?.tabs?.find(t => t.id === subPage)?.label || (subPage ? subPage.replace(/-/g, ' ') : 'Overview');
         subContainer.innerHTML = renderEmptyState({
           moduleName: "Help",
-          tabName: tabLabel
+          tabName: tabLabel,
+          title: `No ${tabLabel} content available`,
+          description: 'There is no published help content for this section yet.'
         });
       }, 120);
     }

@@ -741,12 +741,12 @@ div:has(> div > div > .dt-top-filter-body) {
 #ctx-top-toggle-btn,
 #pay-top-reset-btn,
 #pay-top-toggle-btn {
-  width: 30px !important;
-  height: 30px !important;
-  min-width: 30px !important;
-  min-height: 30px !important;
-  max-width: 30px !important;
-  max-height: 30px !important;
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  min-height: 32px !important;
+  max-width: 32px !important;
+  max-height: 32px !important;
   border-radius: 9999px !important;
   border: 1px solid #CBD5E1 !important;
   background-color: #ffffff !important;
@@ -1436,7 +1436,7 @@ table.is-resizing * {
   background-color: #FFFFFF !important;
 }
 
-/* Action Icons: 30px by 30px Circle exclusively in table Actions Column */
+/* Action Icons: 32px by 32px Circle exclusively in table Actions Column */
 .erp-table .sticky-action-col > div,
 table .sticky-action-col > div {
   display: inline-flex !important;
@@ -1456,12 +1456,12 @@ td.sticky-action-col button,
 table td button.dt-action-btn:not(.dt-top-filter-reset-btn):not(.dt-top-filter-toggle-btn),
 .erp-table td button.dt-action-btn:not(.dt-top-filter-reset-btn):not(.dt-top-filter-toggle-btn),
 button.dt-action-btn:not(.dt-top-filter-reset-btn):not(.dt-top-filter-toggle-btn) {
-  width: 30px !important;
-  height: 30px !important;
-  min-width: 30px !important;
-  min-height: 30px !important;
-  max-width: 30px !important;
-  max-height: 30px !important;
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  min-height: 32px !important;
+  max-width: 32px !important;
+  max-height: 32px !important;
   padding: 0 !important;
   margin: 0 !important;
   box-sizing: border-box !important;
@@ -1621,12 +1621,12 @@ button.dt-action-btn:not(.dt-top-filter-reset-btn):not(.dt-top-filter-toggle-btn
 #ctx-top-toggle-btn,
 #pay-top-reset-btn,
 #pay-top-toggle-btn {
-  width: 30px !important;
-  height: 30px !important;
-  min-width: 30px !important;
-  min-height: 30px !important;
-  max-width: 30px !important;
-  max-height: 30px !important;
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  min-height: 32px !important;
+  max-width: 32px !important;
+  max-height: 32px !important;
   border-radius: 9999px !important;
   border: 1px solid #CBD5E1 !important;
   background-color: #ffffff !important;
@@ -2149,7 +2149,7 @@ div:has(> h1) {
 #erp-dropdown-search-input {
   min-height: 32px !important;
   height: 32px !important;
-  padding: 4px 10px 4px 30px !important;
+  padding: 4px 10px 4px 32px !important;
   font-size: 12px !important;
   line-height: 20px !important;
   border-radius: 6px !important;
