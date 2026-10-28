@@ -23,7 +23,7 @@ export const TabBar = {
         tabId = subId;
       }
     }
-    if (!submenu || submenu.tabs.length <= 1) {
+    if (!submenu || submenu.tabs.length <= 1 || submenu.id === 'qc-operations') {
       container.innerHTML = '';
       return null;
     }

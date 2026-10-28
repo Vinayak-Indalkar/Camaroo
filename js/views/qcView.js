@@ -146,7 +146,6 @@ const qcSchemas = {
   'lab-report': { title: 'In-House Lab Report', fields: qcLabReportFields },
   'external-lab-report': { title: 'External Lab Report', fields: [qcField('exporter', 'Exporter'), qcLotField, qcDateField, qcField('reportNo', 'Report Number'), qcField('lab', 'Accredited Laboratory'), qcField('accreditationNo', 'Accreditation Number'), qcField('requiredTests', 'Tests Performed'), qcField('result', 'Lab Result', 'select', ['Pass', 'Fail', 'Pending']), qcField('coaNumber', 'COA Number'), qcInspectorField] },
   documentation: { title: 'QC Documentation', fields: qcDocumentationFields },
-  'qc-orders': { title: 'QC Orders', fields: [qcField('orderNo', 'Order Number'), qcLotField, qcField('orderType', 'Order Type', 'select', ['Inspection', 'Quarantine Release', 'Sample Dispatch']), qcField('sampleType', 'Sample Type', 'select', ['Finished Goods', 'Block Frozen', 'IQF', 'Raw Material']), qcField('requiredTests', 'Required Tests'), qcField('targetDate', 'Due Date', 'date'), qcField('assignedLab', 'Assigned Laboratory'), qcStatusField] },
   'food-social-audit': { title: 'Food & Social Screening', fields: qcSupplierFields },
   'farm-mill-hatchery-audit': { title: 'Farm / Mill / Hatchery Screening', fields: qcSupplierFields },
   'hatchery-list': { title: 'Hatchery Register', fields: qcSupplierFields }
@@ -160,7 +159,7 @@ const qcSchemas = {
 ].forEach(([key, title, auditType, standard]) => { qcSchemas[key] = { title, fields: qcAuditFields, auditType, standard }; });
 
 const qcAliases = {
-  'qc-overview': 'overview', 'incoming-lots': 'lots-list', 'antibiotic-testing': 'ab-report',
+  'qc-overview': 'overview', 'qc-orders': 'documentation', 'incoming-lots': 'lots-list', 'antibiotic-testing': 'ab-report',
   'rm-testing': 'rm-report', microbiology: 'mb-report', 'in-house-lab': 'lab-report', 'external-lab': 'external-lab-report',
   'screening-records': 'food-social-audit', 'food-audits': 'food-audit-list', 'social-audits': 'social-audit-list',
   'farm-audits': 'farm-audit-list', 'hatchery-audits': 'hatchery-audit-list', 'feed-mill-audits': 'feed-mill-audit-list'
@@ -470,7 +469,7 @@ export const QCView = {
     this.state.documentation.forEach(row => {
       if (row.status === 'Completed' && this.clearanceIssue(row.internalLotNo)) row.status = 'Pending Release';
     });
-    this.state['qc-orders'].forEach(row => {
+    if (this.state['qc-orders']) this.state['qc-orders'].forEach(row => {
       if (row.orderType === 'Quarantine Release' && row.status === 'Completed' && this.clearanceIssue(row.lot)) row.status = 'In Review';
     });
   },
