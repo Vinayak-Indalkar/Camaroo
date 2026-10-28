@@ -30114,6 +30114,16 @@ const qcHatcheryAuditFields = [
   qcField('paymentStatus', 'Payment Status', 'select', ['Paid', 'Pending', 'Under Process', 'Waived']),
   qcStatusField
 ];
+const qcFeedMillAuditFields = [
+  qcField('productionPlant', 'Production Plant', 'select', ['DFL UNIT-5 (JPT)', 'DFL UNIT-3 (PSP)', 'DFL UNIT-4 (PND)']),
+  qcField('auditName', 'Audit Name'),
+  qcField('farmerLocation', 'Farmer Location'),
+  qcField('auditDate', 'Audit Date', 'date'),
+  qcField('renewalDate', 'Renewal Date', 'date'),
+  qcField('validityDate', 'Validity Date', 'date'),
+  qcField('paymentStatus', 'Payment Status', 'select', ['Paid', 'Pending', 'Under Process', 'Waived']),
+  qcStatusField
+];
 
 const qcSocialAuditFields = [
   qcField('productionPlant', 'Production Plant', 'select', ['DFL UNIT-5 (JPT)', 'DFL UNIT-3 (PSP)', 'DFL UNIT-4 (PND)']),
@@ -30320,15 +30330,9 @@ const qcSchemas = {
   'food-audit-list': { title: 'Food Safety Audits', fields: qcFoodAuditFields, auditType: 'Food Safety', standard: 'BRCGS Issue 9' },
   'social-audit-list': { title: 'Social Compliance Audits', fields: qcSocialAuditFields, auditType: 'Social', standard: 'SMETA 4-Pillar' },
   'farm-audit-list': { title: 'Farm Audits', fields: qcFarmAuditFields, auditType: 'Supplier', standard: 'ASC / BAP' },
-  'hatchery-audit-list': { title: 'Hatchery Audits', fields: qcHatcheryAuditFields, auditType: 'Biosecurity', standard: 'BAP Hatchery' }
+  'hatchery-audit-list': { title: 'Hatchery Audits', fields: qcHatcheryAuditFields, auditType: 'Biosecurity', standard: 'BAP Hatchery' },
+  'feed-mill-audit-list': { title: 'Feed Mill Audits', fields: qcFeedMillAuditFields, auditType: 'Supplier', standard: 'BAP Feed Mill' }
 };
-[
-  
-  
-  
-    ['feed-mill-audit-list', 'Feed Mill Audits', 'Supplier', 'BAP Feed Mill']
-].forEach(([key, title, auditType, standard]) => { qcSchemas[key] = { title, fields: qcAuditFields, auditType, standard }; });
-
 const qcAliases = {
   'qc-overview': 'overview', 'qc-orders': 'documentation', 'incoming-lots': 'lots-list', 'antibiotic-testing': 'ab-report',
   'rm-testing': 'rm-report', microbiology: 'mb-report', 'in-house-lab': 'lab-report', 'external-lab': 'external-lab-report',
@@ -30467,6 +30471,26 @@ const QCView = {
         };
       });
     }
+    if (Array.isArray(this.state['feed-mill-audit-list'])) {
+      this.state['feed-mill-audit-list'] = this.state['feed-mill-audit-list'].map((row, idx) => {
+        const seedRow = (seed['feed-mill-audit-list'] && seed['feed-mill-audit-list'][idx]) || seed['feed-mill-audit-list'][0] || {};
+        return {
+          ...seedRow,
+          ...row,
+          sNo: idx + 1,
+          productionPlant: row.productionPlant || row.plant || seedRow.productionPlant || ['DFL UNIT-5 (JPT)', 'DFL UNIT-3 (PSP)', 'DFL UNIT-4 (PND)'][idx % 3],
+          auditName: row.auditName || row.standard || seedRow.auditName || ['BAP Feed Mill Standard Audit', 'GlobalG.A.P. Compound Feed Audit', 'GMP+ Feed Safety Assurance Audit'][idx % 3],
+          farmerLocation: row.farmerLocation || row.location || seedRow.farmerLocation || ['Balsore Feed Plant', 'Kakinada Processing Hub', 'Bhimavaram Mill Zone'][idx % 3],
+          auditDate: row.auditDate || seedRow.auditDate || `2026-10-${20 + idx}`,
+          renewalDate: row.renewalDate || seedRow.renewalDate || `2027-09-${20 + idx}`,
+          validityDate: row.validityDate || row.certificateExpiry || seedRow.validityDate || `2027-10-${20 + idx}`,
+          paymentStatus: row.paymentStatus || seedRow.paymentStatus || 'Paid',
+          year: row.year || (row.auditDate ? String(row.auditDate).slice(0, 4) : '2026'),
+          status: row.status || seedRow.status || 'Completed'
+        };
+      });
+    }
+
 
     if (Array.isArray(this.state['social-audit-list'])) {
       this.state['social-audit-list'] = this.state['social-audit-list'].map((row, idx) => {
@@ -30760,6 +30784,21 @@ const QCView = {
             status: index === 1 ? 'In Review' : 'Completed'
           });
         }
+        if (key === 'feed-mill-audit-list') {
+          Object.assign(row, {
+            sNo: index + 1,
+            productionPlant: ['DFL UNIT-5 (JPT)', 'DFL UNIT-3 (PSP)', 'DFL UNIT-4 (PND)'][index],
+            auditName: ['BAP Feed Mill Standard Audit', 'GlobalG.A.P. Compound Feed Audit', 'GMP+ Feed Safety Assurance Audit'][index],
+            farmerLocation: ['Balsore Feed Plant', 'Kakinada Processing Hub', 'Bhimavaram Mill Zone'][index],
+            auditDate: `2026-10-${20 + index}`,
+            renewalDate: `2027-09-${20 + index}`,
+            validityDate: `2027-10-${20 + index}`,
+            paymentStatus: ['Paid', 'Pending', 'Paid'][index],
+            year: '2026',
+            status: index === 1 ? 'In Review' : 'Completed'
+          });
+        }
+
 
         if (key === 'social-audit-list') {
           Object.assign(row, {
@@ -30982,6 +31021,26 @@ const QCView = {
   },
 
   registerRows(key) {
+    if (key === 'feed-mill-audit-list') {
+      return (this.state[key] || []).map((row, index) => {
+        const aDate = row.auditDate || `2026-10-${20 + (index % 5)}`;
+        const rDate = row.renewalDate || `2027-09-${20 + (index % 5)}`;
+        const vDate = row.validityDate || row.certificateExpiry || `2027-10-${20 + (index % 5)}`;
+        return {
+          ...row,
+          sNo: index + 1,
+          productionPlant: row.productionPlant || row.plant || ['DFL UNIT-5 (JPT)', 'DFL UNIT-3 (PSP)', 'DFL UNIT-4 (PND)'][index % 3],
+          auditName: row.auditName || ['BAP Feed Mill Standard Audit', 'GlobalG.A.P. Compound Feed Audit', 'GMP+ Feed Safety Assurance Audit'][index % 3],
+          farmerLocation: row.farmerLocation || row.location || ['Balsore Feed Plant', 'Kakinada Processing Hub', 'Bhimavaram Mill Zone'][index % 3],
+          auditDate: aDate,
+          renewalDate: rDate,
+          validityDate: vDate,
+          paymentStatus: row.paymentStatus || ['Paid', 'Pending', 'Paid'][index % 3],
+          year: row.year || aDate.slice(0, 4),
+          status: row.status || (index === 1 ? 'In Review' : 'Completed')
+        };
+      });
+    }
     if (key === 'hatchery-audit-list') {
       return (this.state[key] || []).map((row, index) => {
         const aDate = row.auditDate || `2026-10-${20 + (index % 5)}`;
@@ -31208,7 +31267,7 @@ const QCView = {
             </div>
           </div>
           <form id="qc-filters" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
-            ${['food-audit-list', 'social-audit-list', 'farm-audit-list', 'hatchery-audit-list'].includes(key) ? `
+            ${['food-audit-list', 'social-audit-list', 'farm-audit-list', 'hatchery-audit-list', 'feed-mill-audit-list'].includes(key) ? `
               <div>
                 <label for="qc-filter-plant" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCTION PLANT</label>
                 <select id="qc-filter-plant" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]">
@@ -31382,7 +31441,17 @@ const QCView = {
       qcField('hatcheryName', 'Hatchery Name'),
       qcField('hatcheryLocation', 'Hatchery Location'),
       qcField('hatcheryCapacity', 'Hatchery Capacity')
-        ] : key === 'hatchery-audit-list' ? [
+            ] : key === 'feed-mill-audit-list' ? [
+      qcField('sNo', 'S.No'),
+      qcField('productionPlant', 'Production Plant'),
+      qcField('auditName', 'Audit Name'),
+      qcField('farmerLocation', 'Farmer Location'),
+      qcField('auditDate', 'Audit Date', 'date'),
+      qcField('renewalDate', 'Renewal Date', 'date'),
+      qcField('validityDate', 'Validity Date', 'date'),
+      qcField('paymentStatus', 'Payment Status'),
+      qcField('status', 'Status')
+] : key === 'hatchery-audit-list' ? [
       qcField('sNo', 'S.No'),
       qcField('productionPlant', 'Production Plant'),
       qcField('hatcheryName', 'Hatchery Name'),
@@ -31427,7 +31496,7 @@ const QCView = {
       qcField('status', 'Status')
     ] : schema.fields;
     const columns = tableFields.map(field => {
-      if (['food-audit-list', 'social-audit-list', 'farm-audit-list', 'hatchery-audit-list'].includes(key)) {
+      if (['food-audit-list', 'social-audit-list', 'farm-audit-list', 'hatchery-audit-list', 'feed-mill-audit-list'].includes(key)) {
         if (field.key === 'sNo') {
           return {
             field: 'sNo',
@@ -31456,6 +31525,14 @@ const QCView = {
             render: val => `<span class="font-medium text-[#172B4D]">${this.escape(val || '-')}</span>`
           };
         }
+        if (field.key === 'farmerLocation') {
+          return {
+            field: 'farmerLocation',
+            header: 'Farmer Location',
+            render: val => `<span class="font-medium text-[#172B4D]">${this.escape(val || '-')}</span>`
+          };
+        }
+
         if (field.key === 'remarks') {
           return {
             field: 'remarks',
@@ -31467,7 +31544,7 @@ const QCView = {
         if (field.key === 'auditName') {
           return {
             field: 'auditName',
-            header: key === 'social-audit-list' ? 'Audit Name' : 'Name of Audit',
+            header: ['social-audit-list', 'feed-mill-audit-list'].includes(key) ? 'Audit Name' : 'Name of Audit',
             render: val => `<span class="font-medium text-[#172B4D]">${this.escape(val || '-')}</span>`
           };
         }
@@ -31927,7 +32004,7 @@ const QCView = {
       }
       return { field: field.key, header: field.label, render: value => this.escape(value ?? '-') };
     });
-    if (!['ab-report', 'mb-report', 'lab-report', 'documentation', 'food-social-audit', 'farm-mill-hatchery-audit', 'hatchery-list', 'food-audit-list', 'social-audit-list', 'farm-audit-list', 'hatchery-audit-list'].includes(key)) {
+    if (!['ab-report', 'mb-report', 'lab-report', 'documentation', 'food-social-audit', 'farm-mill-hatchery-audit', 'hatchery-list', 'food-audit-list', 'social-audit-list', 'farm-audit-list', 'hatchery-audit-list', 'feed-mill-audit-list'].includes(key)) {
       if (!columns.some(column => column.field === 'status')) columns.push({ field: 'status', header: key === 'lots-list' ? 'AB Status' : 'Status', render: value => this.badge(value) });
       else columns.find(column => column.field === 'status').render = value => this.badge(value);
     }
@@ -31983,11 +32060,11 @@ const QCView = {
       button.setAttribute('title', collapsed ? 'Show Filter' : 'Hide Filter');
       button.querySelector('svg')?.classList.toggle('-rotate-90', collapsed);
     });
-    if (['documentation', 'food-audit-list', 'social-audit-list', 'farm-audit-list', 'hatchery-audit-list'].includes(key)) this.filterRecords(key);
+    if (['documentation', 'food-audit-list', 'social-audit-list', 'farm-audit-list', 'hatchery-audit-list', 'feed-mill-audit-list'].includes(key)) this.filterRecords(key);
   },
 
   filterRecords(key) {
-    if (['food-audit-list', 'social-audit-list', 'farm-audit-list', 'hatchery-audit-list'].includes(key)) {
+    if (['food-audit-list', 'social-audit-list', 'farm-audit-list', 'hatchery-audit-list', 'feed-mill-audit-list'].includes(key)) {
       const plant = document.getElementById('qc-filter-plant')?.value || 'ALL';
       const year = document.getElementById('qc-filter-year')?.value || 'ALL';
       this.table.setData(this.registerRows(key).filter(row => {
