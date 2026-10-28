@@ -12,6 +12,12 @@ const qcInspectorField = qcField('inspector', 'Inspector');
 const qcStatusField = qcField('status', 'Status', 'select', ['Pending', 'In Review', 'Completed']);
 const qcAntibiotics = ['AOZ', 'AMOZ', 'AHD', 'SEM', 'CAP', 'OTC', 'CTC'];
 const qcOrganisms = ['Salmonella', 'Vibrio cholerae', 'Vibrio parahaemolyticus'];
+const qcHatcheryFields = [
+  qcField('hatcheryName', 'Hatchery Name'),
+  qcField('hatcheryLocation', 'Hatchery Location'),
+  qcField('hatcheryCapacity', 'Hatchery Capacity')
+];
+
 const qcFmhAuditFields = [
   qcField('plantName', 'Plant Name'),
   qcField('auditName', 'Audit Name'),
@@ -183,7 +189,7 @@ const qcSchemas = {
   documentation: { title: 'QC Operations', fields: qcDocumentationFields },
   'food-social-audit': { title: 'Food & Social Screening', fields: qcFoodSocialAuditFields },
   'farm-mill-hatchery-audit': { title: 'Farm / Mill / Hatchery Screening', fields: qcFmhAuditFields },
-  'hatchery-list': { title: 'Hatchery Register', fields: qcSupplierFields }
+  'hatchery-list': { title: 'Hatchery Register', fields: qcHatcheryFields }
 };
 [
   ['food-audit-list', 'Food Safety Audits', 'Food Safety', 'BRCGS Issue 9'],
@@ -289,6 +295,19 @@ export const QCView = {
           chlorine: row.chlorine ?? seedRow.chlorine ?? 0.5,
           totalDissolvedSolids: row.totalDissolvedSolids ?? seedRow.totalDissolvedSolids ?? 850,
           status: 'Pass'
+        };
+      });
+    }
+    if (Array.isArray(this.state['hatchery-list'])) {
+      this.state['hatchery-list'] = this.state['hatchery-list'].map((row, idx) => {
+        const seedRow = (seed['hatchery-list'] && seed['hatchery-list'][idx]) || seed['hatchery-list'][0] || {};
+        return {
+          ...seedRow,
+          ...row,
+          sNo: idx + 1,
+          hatcheryName: row.hatcheryName || row.farmName || seedRow.hatcheryName || 'Coastal Seed Hatchery',
+          hatcheryLocation: row.hatcheryLocation || row.location || seedRow.hatcheryLocation || 'Balsore (BLS)',
+          hatcheryCapacity: row.hatcheryCapacity || (row.tonnagePerAnnum ? `${row.tonnagePerAnnum} MT/Year` : null) || seedRow.hatcheryCapacity || '500 Million PL/Year'
         };
       });
     }
@@ -502,7 +521,15 @@ export const QCView = {
           });
         }
         qcOrganisms.forEach(parameter => { row[parameter] = 'Absent'; });
-        if (key === 'farm-mill-hatchery-audit') {
+        if (key === 'hatchery-list') {
+          Object.assign(row, {
+            sNo: index + 1,
+            hatcheryName: ['Coastal Seed Hatchery', 'Delta Vannamei Hatchery', 'Blue Marine SPF Hatchery'][index],
+            hatcheryLocation: ['Balsore (BLS)', 'Kakinada (KKD)', 'Bhimavaram (BVM)'][index],
+            hatcheryCapacity: ['500 Million PL/Year', '350 Million PL/Year', '600 Million PL/Year'][index]
+          });
+        }
+      if (key === 'farm-mill-hatchery-audit') {
           Object.assign(row, {
             sNo: index + 1,
             plantName: ['DFL UNIT-5 (JPT)', 'DFL UNIT-3 (PSP)', 'DFL UNIT-4 (PND)'][index % 3],
@@ -685,6 +712,15 @@ export const QCView = {
   },
 
   registerRows(key) {
+    if (key === 'hatchery-list') {
+      return (this.state[key] || []).map((row, index) => ({
+        ...row,
+        sNo: index + 1,
+        hatcheryName: row.hatcheryName || row.farmName || ['Coastal Seed Hatchery', 'Delta Vannamei Hatchery', 'Blue Marine SPF Hatchery'][index % 3],
+        hatcheryLocation: row.hatcheryLocation || row.location || ['Balsore (BLS)', 'Kakinada (KKD)', 'Bhimavaram (BVM)'][index % 3],
+        hatcheryCapacity: row.hatcheryCapacity || (row.tonnagePerAnnum ? `${row.tonnagePerAnnum} MT/Year` : null) || ['500 Million PL/Year', '350 Million PL/Year', '600 Million PL/Year'][index % 3]
+      }));
+    }
     if (key === 'farm-mill-hatchery-audit') {
       return (this.state[key] || []).map((row, index) => {
         const sDate = row.auditStartDate || row.auditDate || `2026-10-${20 + (index % 5)}`;
@@ -966,8 +1002,43 @@ export const QCView = {
       qcField('renewalDate', 'Renewal Date', 'date'),
       qcField('auditGrade', 'Audit Grade'),
       qcField('status', 'Status')
+    ] : key === 'hatchery-list' ? [
+      qcField('sNo', 'S.No'),
+      qcField('hatcheryName', 'Hatchery Name'),
+      qcField('hatcheryLocation', 'Hatchery Location'),
+      qcField('hatcheryCapacity', 'Hatchery Capacity')
     ] : schema.fields;
     const columns = tableFields.map(field => {
+      if (key === 'hatchery-list') {
+        if (field.key === 'sNo') {
+          return {
+            field: 'sNo',
+            header: 'S.No',
+            render: (val, row, idx) => `<span class="font-bold text-[#5E6C84]">${idx !== undefined ? idx + 1 : (val || 1)}</span>`
+          };
+        }
+        if (field.key === 'hatcheryName') {
+          return {
+            field: 'hatcheryName',
+            header: 'Hatchery Name',
+            render: val => `<span class="font-semibold text-[#172B4D]">${this.escape(val || '-')}</span>`
+          };
+        }
+        if (field.key === 'hatcheryLocation') {
+          return {
+            field: 'hatcheryLocation',
+            header: 'Hatchery Location',
+            render: val => this.escape(val || '-')
+          };
+        }
+        if (field.key === 'hatcheryCapacity') {
+          return {
+            field: 'hatcheryCapacity',
+            header: 'Hatchery Capacity',
+            render: val => `<span class="font-mono text-xs font-semibold text-[#00A4B7]">${this.escape(val || '-')}</span>`
+          };
+        }
+      }
       if (key === 'farm-mill-hatchery-audit') {
         if (field.key === 'sNo') {
           return {
@@ -1341,7 +1412,7 @@ export const QCView = {
       }
       return { field: field.key, header: field.label, render: value => this.escape(value ?? '-') };
     });
-    if (!['ab-report', 'mb-report', 'lab-report', 'documentation', 'food-social-audit', 'farm-mill-hatchery-audit'].includes(key)) {
+    if (!['ab-report', 'mb-report', 'lab-report', 'documentation', 'food-social-audit', 'farm-mill-hatchery-audit', 'hatchery-list'].includes(key)) {
       if (!columns.some(column => column.field === 'status')) columns.push({ field: 'status', header: key === 'lots-list' ? 'AB Status' : 'Status', render: value => this.badge(value) });
       else columns.find(column => column.field === 'status').render = value => this.badge(value);
     }
