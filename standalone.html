@@ -30093,6 +30093,23 @@ const qcInspectorField = qcField('inspector', 'Inspector');
 const qcStatusField = qcField('status', 'Status', 'select', ['Pending', 'In Review', 'Completed']);
 const qcAntibiotics = ['AOZ', 'AMOZ', 'AHD', 'SEM', 'CAP', 'OTC', 'CTC'];
 const qcOrganisms = ['Salmonella', 'Vibrio cholerae', 'Vibrio parahaemolyticus'];
+const qcFmhAuditFields = [
+  qcField('plantName', 'Plant Name'),
+  qcField('auditName', 'Audit Name'),
+  qcField('auditType', 'Audit Type', 'select', ['Hatchery', 'Farm', 'Feed Mill']),
+  qcField('certAuthority', 'Certification Authority'),
+  qcField('regNumber', 'Registration Number'),
+  qcField('certNumber', 'Certification Number'),
+  qcField('auditStartDate', 'Audit Start Date', 'date'),
+  qcField('auditEndDate', 'Audit End Date', 'date'),
+  qcField('auditProgram', 'Audit Program', 'select', ['BAP 4-Star', 'ASC Shrimp Standard', 'GlobalG.A.P. IFA', 'BRCGS Issue 9', 'ISO 22000']),
+  qcField('issuedOn', 'Issued On', 'date'),
+  qcField('validUpto', 'Valid Upto', 'date'),
+  qcField('renewalDate', 'Renewal Date', 'date'),
+  qcField('auditGrade', 'Audit Grade', 'select', ['AA', 'A', 'Green', 'Pass']),
+  qcStatusField
+];
+
 const qcFoodSocialAuditFields = [
   qcField('auditType', 'Audit Type', 'select', ['Hatchery', 'Farm', 'Feed Mill']),
   qcField('farmName', 'Farm Name'),
@@ -30246,7 +30263,7 @@ const qcSchemas = {
   'external-lab-report': { title: 'External Lab Report', fields: [qcField('exporter', 'Exporter'), qcLotField, qcDateField, qcField('reportNo', 'Report Number'), qcField('lab', 'Accredited Laboratory'), qcField('accreditationNo', 'Accreditation Number'), qcField('requiredTests', 'Tests Performed'), qcField('result', 'Lab Result', 'select', ['Pass', 'Fail', 'Pending']), qcField('coaNumber', 'COA Number'), qcInspectorField] },
   documentation: { title: 'QC Operations', fields: qcDocumentationFields },
   'food-social-audit': { title: 'Food & Social Screening', fields: qcFoodSocialAuditFields },
-  'farm-mill-hatchery-audit': { title: 'Farm / Mill / Hatchery Screening', fields: qcSupplierFields },
+  'farm-mill-hatchery-audit': { title: 'Farm / Mill / Hatchery Screening', fields: qcFmhAuditFields },
   'hatchery-list': { title: 'Hatchery Register', fields: qcSupplierFields }
 };
 [
@@ -30353,6 +30370,30 @@ const QCView = {
           chlorine: row.chlorine ?? seedRow.chlorine ?? 0.5,
           totalDissolvedSolids: row.totalDissolvedSolids ?? seedRow.totalDissolvedSolids ?? 850,
           status: 'Pass'
+        };
+      });
+    }
+    if (Array.isArray(this.state['farm-mill-hatchery-audit'])) {
+      this.state['farm-mill-hatchery-audit'] = this.state['farm-mill-hatchery-audit'].map((row, idx) => {
+        const seedRow = (seed['farm-mill-hatchery-audit'] && seed['farm-mill-hatchery-audit'][idx]) || seed['farm-mill-hatchery-audit'][0] || {};
+        return {
+          ...seedRow,
+          ...row,
+          sNo: idx + 1,
+          plantName: row.plantName || seedRow.plantName || 'DFL UNIT-5 (JPT)',
+          auditName: row.auditName || seedRow.auditName || 'Annual Hatchery Surveillance',
+          auditType: row.auditType || seedRow.auditType || 'Hatchery',
+          certAuthority: row.certAuthority || seedRow.certAuthority || 'Demo Certification Agency',
+          regNumber: row.regNumber || row.govRegNumber || seedRow.regNumber || `DEMO-REG-${idx + 1}`,
+          certNumber: row.certNumber || row.bapNumber || seedRow.certNumber || `BAP-CERT-2026-00${idx + 1}`,
+          auditStartDate: row.auditStartDate || row.auditDate || seedRow.auditStartDate || `2026-10-${20 + idx}`,
+          auditEndDate: row.auditEndDate || row.endDate || seedRow.auditEndDate || `2026-10-${21 + idx}`,
+          auditProgram: row.auditProgram || row.standard || seedRow.auditProgram || 'BAP 4-Star',
+          issuedOn: row.issuedOn || row.issuedOnDate || seedRow.issuedOn || `2026-10-${22 + idx}`,
+          validUpto: row.validUpto || row.certificateExpiry || seedRow.validUpto || '2027-10-27',
+          renewalDate: row.renewalDate || seedRow.renewalDate || '2027-09-27',
+          auditGrade: row.auditGrade || row.grade || seedRow.auditGrade || 'A',
+          status: row.status || seedRow.status || 'Completed'
         };
       });
     }
@@ -30542,7 +30583,26 @@ const QCView = {
           });
         }
         qcOrganisms.forEach(parameter => { row[parameter] = 'Absent'; });
-        if (key === 'food-social-audit') {
+        if (key === 'farm-mill-hatchery-audit') {
+          Object.assign(row, {
+            sNo: index + 1,
+            plantName: ['DFL UNIT-5 (JPT)', 'DFL UNIT-3 (PSP)', 'DFL UNIT-4 (PND)'][index % 3],
+            auditName: ['Annual Hatchery Surveillance', 'Farm Social & Environmental Audit', 'Feed Mill BAP Standard Inspection'][index % 3],
+            auditType: ['Hatchery', 'Farm', 'Feed Mill'][index % 3],
+            certAuthority: 'Demo Certification Agency',
+            regNumber: `DEMO-REG-${index + 1}`,
+            certNumber: `BAP-CERT-2026-00${index + 1}`,
+            auditStartDate: `2026-10-${20 + index}`,
+            auditEndDate: `2026-10-${21 + index}`,
+            auditProgram: ['BAP 4-Star', 'ASC Shrimp Standard', 'GlobalG.A.P. IFA'][index % 3],
+            issuedOn: `2026-10-${22 + index}`,
+            validUpto: '2027-10-27',
+            renewalDate: '2027-09-27',
+            auditGrade: ['AA', 'A', 'Green'][index % 3],
+            status: index === 1 ? 'In Review' : 'Completed'
+          });
+        }
+    if (key === 'food-social-audit') {
           Object.assign(row, {
             sNo: index + 1,
             auditType: ['Hatchery', 'Farm', 'Feed Mill'][index % 3],
@@ -30706,6 +30766,33 @@ const QCView = {
   },
 
   registerRows(key) {
+    if (key === 'farm-mill-hatchery-audit') {
+      return (this.state[key] || []).map((row, index) => {
+        const sDate = row.auditStartDate || row.auditDate || `2026-10-${20 + (index % 5)}`;
+        const eDate = row.auditEndDate || row.endDate || `2026-10-${21 + (index % 5)}`;
+        const iDate = row.issuedOn || row.issuedOnDate || `2026-10-${22 + (index % 5)}`;
+        const vDate = row.validUpto || row.certificateExpiry || '2027-10-27';
+        const rDate = row.renewalDate || '2027-09-27';
+        return {
+          ...row,
+          sNo: index + 1,
+          plantName: row.plantName || row.plant || ['DFL UNIT-5 (JPT)', 'DFL UNIT-3 (PSP)', 'DFL UNIT-4 (PND)'][index % 3],
+          auditName: row.auditName || ['Annual Hatchery Surveillance', 'Farm Social & Environmental Audit', 'Feed Mill BAP Standard Inspection'][index % 3],
+          auditType: row.auditType || ['Hatchery', 'Farm', 'Feed Mill'][index % 3],
+          certAuthority: row.certAuthority || row.certifiedBody || 'Demo Certification Agency',
+          regNumber: row.regNumber || row.govRegNumber || `DEMO-REG-${index + 1}`,
+          certNumber: row.certNumber || row.bapNumber || `BAP-CERT-2026-00${index + 1}`,
+          auditStartDate: sDate,
+          auditEndDate: eDate,
+          auditProgram: row.auditProgram || row.standard || ['BAP 4-Star', 'ASC Shrimp Standard', 'GlobalG.A.P. IFA'][index % 3],
+          issuedOn: iDate,
+          validUpto: vDate,
+          renewalDate: rDate,
+          auditGrade: row.auditGrade || row.grade || ['AA', 'A', 'Green'][index % 3],
+          status: row.status || (index === 1 ? 'In Review' : 'Completed')
+        };
+      });
+    }
     if (key === 'food-social-audit') {
       return (this.state[key] || []).map((row, index) => {
         const aDate = row.auditDate || `2026-10-${20 + (index % 5)}`;
@@ -30944,8 +31031,131 @@ const QCView = {
       qcField('issuedOnDate', 'Issued On Date', 'date'),
       qcField('validityUpto', 'Validty Upto', 'date'),
       qcField('status', 'Status')
+    ] : key === 'farm-mill-hatchery-audit' ? [
+      qcField('sNo', 'S.NO'),
+      qcField('plantName', 'Plant Name'),
+      qcField('auditName', 'Audit Name'),
+      qcField('auditType', 'Audit Type'),
+      qcField('certAuthority', 'Certification Authority'),
+      qcField('regNumber', 'Registration Number'),
+      qcField('certNumber', 'Certification Number'),
+      qcField('auditStartDate', 'Audit Start Date', 'date'),
+      qcField('auditEndDate', 'Audit End Date', 'date'),
+      qcField('auditProgram', 'Audit Program'),
+      qcField('issuedOn', 'Issued On', 'date'),
+      qcField('validUpto', 'Valid Upto', 'date'),
+      qcField('renewalDate', 'Renewal Date', 'date'),
+      qcField('auditGrade', 'Audit Grade'),
+      qcField('status', 'Status')
     ] : schema.fields;
     const columns = tableFields.map(field => {
+      if (key === 'farm-mill-hatchery-audit') {
+        if (field.key === 'sNo') {
+          return {
+            field: 'sNo',
+            header: 'S.NO',
+            render: (val, row, idx) => `<span class="font-bold text-[#5E6C84]">${idx !== undefined ? idx + 1 : (val || 1)}</span>`
+          };
+        }
+        if (field.key === 'plantName') {
+          return {
+            field: 'plantName',
+            header: 'Plant Name',
+            render: val => `<span class="font-semibold text-[#172B4D]">${this.escape(val || '-')}</span>`
+          };
+        }
+        if (field.key === 'auditName') {
+          return {
+            field: 'auditName',
+            header: 'Audit Name',
+            render: val => `<span class="font-medium text-[#172B4D]">${this.escape(val || '-')}</span>`
+          };
+        }
+        if (field.key === 'auditType') {
+          return {
+            field: 'auditType',
+            header: 'Audit Type',
+            render: val => `<span class="inline-flex px-2 py-0.5 rounded text-[11px] font-semibold bg-[#F4F5F7] text-[#172B4D] border border-[#DFE1E6]">${this.escape(val || '-')}</span>`
+          };
+        }
+        if (field.key === 'certAuthority') {
+          return {
+            field: 'certAuthority',
+            header: 'Certification Authority',
+            render: val => this.escape(val || '-')
+          };
+        }
+        if (field.key === 'regNumber') {
+          return {
+            field: 'regNumber',
+            header: 'Registration Number',
+            render: val => `<span class="font-mono text-xs font-semibold text-[#172B4D]">${this.escape(val || '-')}</span>`
+          };
+        }
+        if (field.key === 'certNumber') {
+          return {
+            field: 'certNumber',
+            header: 'Certification Number',
+            render: val => `<span class="font-mono text-xs font-semibold text-[#00A4B7]">${this.escape(val || '-')}</span>`
+          };
+        }
+        if (field.key === 'auditStartDate') {
+          return {
+            field: 'auditStartDate',
+            header: 'Audit Start Date',
+            render: val => val ? String(val).split('-').reverse().join('-') : '-'
+          };
+        }
+        if (field.key === 'auditEndDate') {
+          return {
+            field: 'auditEndDate',
+            header: 'Audit End Date',
+            render: val => val ? String(val).split('-').reverse().join('-') : '-'
+          };
+        }
+        if (field.key === 'auditProgram') {
+          return {
+            field: 'auditProgram',
+            header: 'Audit Program',
+            render: val => `<span class="font-semibold text-[#0284C7]">${this.escape(val || '-')}</span>`
+          };
+        }
+        if (field.key === 'issuedOn') {
+          return {
+            field: 'issuedOn',
+            header: 'Issued On',
+            render: val => val ? String(val).split('-').reverse().join('-') : '-'
+          };
+        }
+        if (field.key === 'validUpto') {
+          return {
+            field: 'validUpto',
+            header: 'Valid Upto',
+            render: val => val ? String(val).split('-').reverse().join('-') : '-'
+          };
+        }
+        if (field.key === 'renewalDate') {
+          return {
+            field: 'renewalDate',
+            header: 'Renewal Date',
+            render: val => val ? String(val).split('-').reverse().join('-') : '-'
+          };
+        }
+        if (field.key === 'auditGrade') {
+          return {
+            field: 'auditGrade',
+            header: 'Audit Grade',
+            render: val => `<span class="inline-flex items-center justify-center font-bold px-2 py-0.5 rounded text-[11px] bg-[#E3FCEF] text-[#006644]">${this.escape(val || '-')}</span>`
+          };
+        }
+        if (field.key === 'status') {
+          return {
+            field: 'status',
+            header: 'Status',
+            render: val => this.badge(val)
+          };
+        }
+      }
       if (key === 'food-social-audit') {
         if (field.key === 'sNo') {
           return {
@@ -31212,7 +31422,7 @@ const QCView = {
       }
       return { field: field.key, header: field.label, render: value => this.escape(value ?? '-') };
     });
-    if (!['ab-report', 'mb-report', 'lab-report', 'documentation', 'food-social-audit'].includes(key)) {
+    if (!['ab-report', 'mb-report', 'lab-report', 'documentation', 'food-social-audit', 'farm-mill-hatchery-audit'].includes(key)) {
       if (!columns.some(column => column.field === 'status')) columns.push({ field: 'status', header: key === 'lots-list' ? 'AB Status' : 'Status', render: value => this.badge(value) });
       else columns.find(column => column.field === 'status').render = value => this.badge(value);
     }
