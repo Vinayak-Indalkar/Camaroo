@@ -34140,97 +34140,91 @@ const ProductionView = {
       {
         sNo: 1,
         id: 'SY-2026-001',
-        species: 'Vannamei (White Shrimp)',
-        variety: 'Head-Less Shell-On (HLSO)',
-        processType: 'Deheading & Grading',
+        species: 'Vannamei',
+        typeProduct: 'HLSO',
+        variety: 'Aquaculture',
         grade: '31/40',
-        targetYieldPct: 66.5,
-        tolerancePct: '± 1.5%',
-        stdWastePct: 33.5,
-        stdCycleTime: '3.2 Hrs/MT',
-        productionPlant: 'DFL UNIT-5 (JPT)',
-        effectiveDate: '2026-04-01',
-        status: 'ACTIVE',
+        count: '31-40 pcs/lb',
+        freezingType: 'IQF',
+        treatment: 'Non-Phosphate',
+        typeOfMaterial: 'Headless Shell-On',
+        yield: '66.5%',
+        status: 'Active',
         remarks: 'Export standard benchmark cleared by Devi Fisheries QC'
       },
       {
         sNo: 2,
         id: 'SY-2026-002',
-        species: 'Vannamei (White Shrimp)',
-        variety: 'Peeled & Deveined (PD)',
-        processType: 'Peeling & Deveining',
+        species: 'Vannamei',
+        typeProduct: 'PD',
+        variety: 'Aquaculture',
         grade: '26/30',
-        targetYieldPct: 61.0,
-        tolerancePct: '± 2.0%',
-        stdWastePct: 39.0,
-        stdCycleTime: '5.8 Hrs/MT',
-        productionPlant: 'DFL UNIT-3 (PSP)',
-        effectiveDate: '2026-04-01',
-        status: 'ACTIVE',
+        count: '26-30 pcs/lb',
+        freezingType: 'Block Frozen',
+        treatment: 'Food Grade STPP',
+        typeOfMaterial: 'Peeled Undeveined',
+        yield: '61.0%',
+        status: 'Active',
         remarks: 'Peeled tails verified with automated count sizing'
       },
       {
         sNo: 3,
         id: 'SY-2026-003',
-        species: 'Vannamei (White Shrimp)',
-        variety: 'Peeled Deveined Tail-On (PDTO)',
-        processType: 'Tail-On Peeling',
+        species: 'Vannamei',
+        typeProduct: 'PDTO',
+        variety: 'Aquaculture',
         grade: '21/25',
-        targetYieldPct: 63.5,
-        tolerancePct: '± 1.5%',
-        stdWastePct: 36.5,
-        stdCycleTime: '5.0 Hrs/MT',
-        productionPlant: 'DFL UNIT-4 (PND)',
-        effectiveDate: '2026-04-01',
-        status: 'ACTIVE',
+        count: '21-25 pcs/lb',
+        freezingType: 'IQF',
+        treatment: 'Non-Phosphate',
+        typeOfMaterial: 'Peeled Deveined Tail-On',
+        yield: '63.5%',
+        status: 'Active',
         remarks: 'Premium IQF retail pouch benchmark specification'
       },
       {
         sNo: 4,
         id: 'SY-2026-004',
-        species: 'Black Tiger (Monodon)',
-        variety: 'Head-On Shell-On (HOSO)',
-        processType: 'Whole Round Pack',
+        species: 'Black Tiger',
+        typeProduct: 'HOSO',
+        variety: 'Sea Caught',
         grade: '16/20',
-        targetYieldPct: 96.5,
-        tolerancePct: '± 1.0%',
-        stdWastePct: 3.5,
-        stdCycleTime: '1.5 Hrs/MT',
-        productionPlant: 'DFL UNIT-1 (VSP)',
-        effectiveDate: '2026-04-01',
-        status: 'ACTIVE',
+        count: '16-20 pcs/lb',
+        freezingType: 'Semi-IQF',
+        treatment: 'Fresh Raw (Untreated)',
+        typeOfMaterial: 'Head-On Shell-On',
+        yield: '96.5%',
+        status: 'Active',
         remarks: 'Direct farm intake sizing, high recovery intact cephalothorax'
       },
       {
         sNo: 5,
         id: 'SY-2026-005',
         species: 'Asian Seabass',
-        variety: 'Skin-On Boneless Fillet',
-        processType: 'Filleting & Trimming',
+        typeProduct: 'Fillet',
+        variety: 'Aquaculture',
         grade: '300/500g',
-        targetYieldPct: 49.5,
-        tolerancePct: '± 2.0%',
-        stdWastePct: 50.5,
-        stdCycleTime: '6.5 Hrs/MT',
-        productionPlant: 'DFL UNIT-6 (JPT-II)',
-        effectiveDate: '2026-04-01',
-        status: 'ACTIVE',
+        count: '2-3 pcs/kg',
+        freezingType: 'IQF',
+        treatment: 'Salt Treated',
+        typeOfMaterial: 'Skin-On Boneless Fillet',
+        yield: '49.5%',
+        status: 'Active',
         remarks: 'Pinbone out, precision manual filleting recovery rate'
       },
       {
         sNo: 6,
         id: 'SY-2026-006',
         species: 'Scampi',
-        variety: 'Easy Peel (EZP)',
-        processType: 'Splitting & Scoring',
+        typeProduct: 'Easy Peel',
+        variety: 'Freshwater',
         grade: '11/15',
-        targetYieldPct: 58.0,
-        tolerancePct: '± 2.5%',
-        stdWastePct: 42.0,
-        stdCycleTime: '4.5 Hrs/MT',
-        productionPlant: 'DFL UNIT-2 (KKD)',
-        effectiveDate: '2026-04-01',
-        status: 'PENDING_REVIEW',
+        count: '11-15 pcs/lb',
+        freezingType: 'IQF',
+        treatment: 'Non-Phosphate',
+        typeOfMaterial: 'Split & Deveined',
+        yield: '58.0%',
+        status: 'Pending Review',
         remarks: 'Trial seasonal recovery calculation for EU supermarket order'
       }
     ],
@@ -36861,59 +36855,83 @@ const ProductionView = {
 
           <div id="yields-top-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
             <div>
-              <label for="yd-filter-plant" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCTION PLANT</label>
-              <select id="yd-filter-plant" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]">
-                <option value="ALL">All Production Plants</option>
-                <option value="DFL UNIT-5 (JPT)">DFL UNIT-5 (JPT)</option>
-                <option value="DFL UNIT-3 (PSP)">DFL UNIT-3 (PSP)</option>
-                <option value="DFL UNIT-4 (PND)">DFL UNIT-4 (PND)</option>
-                <option value="DFL UNIT-1 (VSP)">DFL UNIT-1 (VSP)</option>
-                <option value="DFL UNIT-6 (JPT-II)">DFL UNIT-6 (JPT-II)</option>
-                <option value="DFL UNIT-2 (KKD)">DFL UNIT-2 (KKD)</option>
-              </select>
-            </div>
-
-            <div>
               <label for="yd-filter-species" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SPECIES</label>
               <select id="yd-filter-species" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]">
                 <option value="ALL">All Species</option>
-                <option value="Vannamei">Vannamei (White Shrimp)</option>
-                <option value="Black Tiger">Black Tiger (Monodon)</option>
+                <option value="Vannamei">Vannamei</option>
+                <option value="Black Tiger">Black Tiger</option>
                 <option value="Asian Seabass">Asian Seabass</option>
                 <option value="Scampi">Scampi</option>
               </select>
             </div>
 
             <div>
-              <label for="yd-filter-variety" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCT VARIETY</label>
-              <input type="text" id="yd-filter-variety" placeholder="e.g. HLSO, PD, Fillet" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" />
-            </div>
-
-            <div>
-              <label for="yd-filter-process" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PROCESS TYPE</label>
-              <select id="yd-filter-process" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]">
-                <option value="ALL">All Process Types</option>
-                <option value="Deheading & Grading">Deheading & Grading</option>
-                <option value="Peeling & Deveining">Peeling & Deveining</option>
-                <option value="Tail-On Peeling">Tail-On Peeling</option>
-                <option value="Whole Round Pack">Whole Round Pack</option>
-                <option value="Filleting & Trimming">Filleting & Trimming</option>
-                <option value="Splitting & Scoring">Splitting & Scoring</option>
+              <label for="yd-filter-type-product" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TYPE PRODUCT</label>
+              <select id="yd-filter-type-product" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]">
+                <option value="ALL">All Product Types</option>
+                <option value="HLSO">HLSO</option>
+                <option value="PD">PD</option>
+                <option value="PDTO">PDTO</option>
+                <option value="HOSO">HOSO</option>
+                <option value="Fillet">Fillet</option>
+                <option value="Easy Peel">Easy Peel</option>
               </select>
             </div>
 
             <div>
-              <label for="yd-filter-grade" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">GRADE / COUNT</label>
-              <input type="text" id="yd-filter-grade" placeholder="e.g. 31/40, 16/20" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" />
+              <label for="yd-filter-variety" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">VARIETY</label>
+              <input type="text" id="yd-filter-variety" placeholder="e.g. Aquaculture, Sea Caught" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" />
+            </div>
+
+            <div>
+              <label for="yd-filter-grade" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">GRADE</label>
+              <input type="text" id="yd-filter-grade" placeholder="e.g. 31/40, 26/30, 16/20" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" />
+            </div>
+
+            <div>
+              <label for="yd-filter-count" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">COUNT</label>
+              <input type="text" id="yd-filter-count" placeholder="e.g. 31-40 pcs/lb" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" />
+            </div>
+
+            <div>
+              <label for="yd-filter-freezing" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">FREEZING TYPE</label>
+              <select id="yd-filter-freezing" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]">
+                <option value="ALL">All Freezing Types</option>
+                <option value="IQF">IQF</option>
+                <option value="Block Frozen">Block Frozen</option>
+                <option value="Semi-IQF">Semi-IQF</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="yd-filter-treatment" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TREATMENT</label>
+              <select id="yd-filter-treatment" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]">
+                <option value="ALL">All Treatments</option>
+                <option value="Non-Phosphate">Non-Phosphate</option>
+                <option value="Food Grade STPP">Food Grade STPP</option>
+                <option value="Fresh Raw">Fresh Raw (Untreated)</option>
+                <option value="Salt Treated">Salt Treated</option>
+              </select>
             </div>
 
             <div>
               <label for="yd-filter-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STATUS</label>
               <select id="yd-filter-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]">
                 <option value="ALL">All Statuses</option>
-                <option value="ACTIVE">ACTIVE</option>
-                <option value="PENDING_REVIEW">PENDING REVIEW</option>
+                <option value="Active">Active</option>
+                <option value="Pending Review">Pending Review</option>
+                <option value="Inactive">Inactive</option>
               </select>
+            </div>
+
+            <div>
+              <label for="yd-filter-material" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TYPE OF MATERIAL</label>
+              <input type="text" id="yd-filter-material" placeholder="e.g. Headless Shell-On" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" />
+            </div>
+
+            <div>
+              <label for="yd-filter-search" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">KEYWORD SEARCH</label>
+              <input type="text" id="yd-filter-search" placeholder="Search any column..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" />
             </div>
 
             <!-- Search Button Slot -->
@@ -36948,30 +36966,41 @@ const ProductionView = {
     });
 
     const applyFilters = () => {
-      const plant = document.getElementById('yd-filter-plant')?.value || 'ALL';
       const sp = document.getElementById('yd-filter-species')?.value || 'ALL';
+      const tp = document.getElementById('yd-filter-type-product')?.value || 'ALL';
       const varQuery = (document.getElementById('yd-filter-variety')?.value || '').trim().toLowerCase();
-      const proc = document.getElementById('yd-filter-process')?.value || 'ALL';
       const grQuery = (document.getElementById('yd-filter-grade')?.value || '').trim().toLowerCase();
+      const cntQuery = (document.getElementById('yd-filter-count')?.value || '').trim().toLowerCase();
+      const fz = document.getElementById('yd-filter-freezing')?.value || 'ALL';
+      const trt = document.getElementById('yd-filter-treatment')?.value || 'ALL';
+      const matQuery = (document.getElementById('yd-filter-material')?.value || '').trim().toLowerCase();
       const st = document.getElementById('yd-filter-status')?.value || 'ALL';
+      const kw = (document.getElementById('yd-filter-search')?.value || '').trim().toLowerCase();
 
       const filtered = this.state.standardYields.filter(row => {
-        if (plant !== 'ALL' && row.productionPlant !== plant) return false;
-        if (sp !== 'ALL' && !String(row.species || '').includes(sp)) return false;
+        if (sp !== 'ALL' && !String(row.species || '').toLowerCase().includes(sp.toLowerCase())) return false;
+        if (tp !== 'ALL' && row.typeProduct !== tp) return false;
         if (varQuery && !String(row.variety || '').toLowerCase().includes(varQuery)) return false;
-        if (proc !== 'ALL' && row.processType !== proc) return false;
         if (grQuery && !String(row.grade || '').toLowerCase().includes(grQuery)) return false;
-        if (st !== 'ALL' && row.status !== st) return false;
+        if (cntQuery && !String(row.count || '').toLowerCase().includes(cntQuery)) return false;
+        if (fz !== 'ALL' && row.freezingType !== fz) return false;
+        if (trt !== 'ALL' && !String(row.treatment || '').toLowerCase().includes(trt.toLowerCase())) return false;
+        if (matQuery && !String(row.typeOfMaterial || '').toLowerCase().includes(matQuery)) return false;
+        if (st !== 'ALL' && String(row.status || '').toLowerCase() !== st.toLowerCase()) return false;
+        if (kw) {
+          const haystack = `${row.species} ${row.typeProduct} ${row.variety} ${row.grade} ${row.count} ${row.freezingType} ${row.treatment} ${row.typeOfMaterial} ${row.yield} ${row.status}`.toLowerCase();
+          if (!haystack.includes(kw)) return false;
+        }
         return true;
       });
 
       renderTable(filtered);
     };
 
-    ['yd-filter-plant', 'yd-filter-species', 'yd-filter-process', 'yd-filter-status'].forEach(id => {
+    ['yd-filter-species', 'yd-filter-type-product', 'yd-filter-freezing', 'yd-filter-treatment', 'yd-filter-status'].forEach(id => {
       document.getElementById(id)?.addEventListener('change', applyFilters);
     });
-    ['yd-filter-variety', 'yd-filter-grade'].forEach(id => {
+    ['yd-filter-variety', 'yd-filter-grade', 'yd-filter-count', 'yd-filter-material', 'yd-filter-search'].forEach(id => {
       document.getElementById(id)?.addEventListener('input', applyFilters);
       document.getElementById(id)?.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
@@ -36987,12 +37016,16 @@ const ProductionView = {
     });
 
     document.getElementById('yields-top-reset-btn')?.addEventListener('click', () => {
-      if (document.getElementById('yd-filter-plant')) document.getElementById('yd-filter-plant').value = 'ALL';
       if (document.getElementById('yd-filter-species')) document.getElementById('yd-filter-species').value = 'ALL';
+      if (document.getElementById('yd-filter-type-product')) document.getElementById('yd-filter-type-product').value = 'ALL';
       if (document.getElementById('yd-filter-variety')) document.getElementById('yd-filter-variety').value = '';
-      if (document.getElementById('yd-filter-process')) document.getElementById('yd-filter-process').value = 'ALL';
       if (document.getElementById('yd-filter-grade')) document.getElementById('yd-filter-grade').value = '';
+      if (document.getElementById('yd-filter-count')) document.getElementById('yd-filter-count').value = '';
+      if (document.getElementById('yd-filter-freezing')) document.getElementById('yd-filter-freezing').value = 'ALL';
+      if (document.getElementById('yd-filter-treatment')) document.getElementById('yd-filter-treatment').value = 'ALL';
       if (document.getElementById('yd-filter-status')) document.getElementById('yd-filter-status').value = 'ALL';
+      if (document.getElementById('yd-filter-material')) document.getElementById('yd-filter-material').value = '';
+      if (document.getElementById('yd-filter-search')) document.getElementById('yd-filter-search').value = '';
       renderTable(this.state.standardYields);
       Toast.show('Filters reset', 'info');
     });
@@ -37002,7 +37035,7 @@ const ProductionView = {
         containerId: 'yields-table-container',
         data: data,
         keyField: 'id',
-        tableTitle: 'Standard Yield Benchmarks',
+        tableTitle: 'Production Standard Yields',
         searchable: true,
         exportable: true,
         pageSize: 10,
@@ -37018,51 +37051,51 @@ const ProductionView = {
             render: (v) => `<span class="font-bold text-[#172B4D] whitespace-nowrap cursor-pointer hover:underline text-[#0284C7]">${this.escape(v)}</span>`
           },
           {
-            field: 'variety',
-            header: 'Product Variety',
-            render: (v) => `<span class="font-semibold text-[#172B4D] whitespace-nowrap">${this.escape(v)}</span>`
-          },
-          {
-            field: 'processType',
-            header: 'Process Type',
+            field: 'typeProduct',
+            header: 'Type Product',
             render: (v) => `<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF] whitespace-nowrap">${this.escape(v)}</span>`
           },
           {
+            field: 'variety',
+            header: 'Variety',
+            render: (v) => `<span class="font-semibold text-[#172B4D] whitespace-nowrap">${this.escape(v)}</span>`
+          },
+          {
             field: 'grade',
-            header: 'Grade / Count',
+            header: 'Grade',
             render: (v) => `<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#F4F5F7] text-[#42526E] border border-[#DFE1E6] whitespace-nowrap">${this.escape(v)}</span>`
           },
           {
-            field: 'targetYieldPct',
-            header: 'Target Yield (%)',
-            render: (v) => `<span class="font-mono font-extrabold text-[#00875A] text-xs">${Number(v || 0).toFixed(1)}%</span>`
+            field: 'count',
+            header: 'Count',
+            render: (v) => `<span class="font-mono text-xs text-[#172B4D] whitespace-nowrap">${this.escape(v || '-')}</span>`
           },
           {
-            field: 'tolerancePct',
-            header: 'Tolerance (%)',
-            render: (v) => `<span class="font-mono text-xs text-[#64748B]">${this.escape(v || '± 1.5%')}</span>`
+            field: 'freezingType',
+            header: 'Freezing Type',
+            render: (v) => `<span class="px-2 py-0.5 rounded text-[11px] font-medium bg-[#E0F2FE] text-[#0369A1] border border-[#BAE6FD] whitespace-nowrap">${this.escape(v || '-')}</span>`
           },
           {
-            field: 'stdWastePct',
-            header: 'Std Waste (%)',
-            render: (v) => `<span class="font-mono text-xs text-[#DE350B] font-semibold">${Number(v || 0).toFixed(1)}%</span>`
+            field: 'treatment',
+            header: 'Treatment',
+            render: (v) => `<span class="text-xs text-[#334155] whitespace-nowrap font-medium">${this.escape(v || '-')}</span>`
           },
           {
-            field: 'stdCycleTime',
-            header: 'Std Cycle Time',
-            render: (v) => `<span class="font-mono text-xs text-[#172B4D]">${this.escape(v || '-')}</span>`
+            field: 'typeOfMaterial',
+            header: 'Type of Material',
+            render: (v) => `<span class="text-xs text-[#172B4D] whitespace-nowrap">${this.escape(v || '-')}</span>`
           },
           {
-            field: 'productionPlant',
-            header: 'Production Plant',
-            render: (v) => `<span class="text-xs font-medium text-[#172B4D] whitespace-nowrap">${this.escape(v)}</span>`
+            field: 'yield',
+            header: 'Yield',
+            render: (v) => `<span class="font-mono font-extrabold text-[#00875A] text-xs">${this.escape(v || '0%')}</span>`
           },
           {
             field: 'status',
             header: 'Status',
             render: (v) => `<span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase ${
-              v === 'ACTIVE' ? 'bg-[#DCFCE7] text-[#166534] border border-[#86EFAC]' : 'bg-[#FEF3C7] text-[#92400E] border border-[#FCD34D]'
-            }">${this.escape(v || 'ACTIVE')}</span>`
+              String(v).toUpperCase() === 'ACTIVE' ? 'bg-[#DCFCE7] text-[#166534] border border-[#86EFAC]' : 'bg-[#FEF3C7] text-[#92400E] border border-[#FCD34D]'
+            }">${this.escape(v || 'Active')}</span>`
           }
         ],
         actions: [
@@ -37094,79 +37127,77 @@ const ProductionView = {
       content: `
         <form id="form-set-yield" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs">
           <div>
-            <label for="sy-id" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">BENCHMARK ID <span class="text-[#DE350B]">*</span></label>
-            <input id="sy-id" name="id" type="text" value="${defaultId}" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#0284C7] focus:outline-none" required />
-          </div>
-
-          <div>
-            <label for="sy-plant" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCTION PLANT <span class="text-[#DE350B]">*</span></label>
-            <select id="sy-plant" name="productionPlant" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
-              <option value="DFL UNIT-5 (JPT)" selected>DFL UNIT-5 (JPT)</option>
-              <option value="DFL UNIT-3 (PSP)">DFL UNIT-3 (PSP)</option>
-              <option value="DFL UNIT-4 (PND)">DFL UNIT-4 (PND)</option>
-              <option value="DFL UNIT-1 (VSP)">DFL UNIT-1 (VSP)</option>
-              <option value="DFL UNIT-6 (JPT-II)">DFL UNIT-6 (JPT-II)</option>
-              <option value="DFL UNIT-2 (KKD)">DFL UNIT-2 (KKD)</option>
-            </select>
-          </div>
-
-          <div>
             <label for="sy-species" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SPECIES <span class="text-[#DE350B]">*</span></label>
             <select id="sy-species" name="species" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
-              <option value="Vannamei (White Shrimp)" selected>Vannamei (White Shrimp)</option>
-              <option value="Black Tiger (Monodon)">Black Tiger (Monodon)</option>
+              <option value="Vannamei" selected>Vannamei</option>
+              <option value="Black Tiger">Black Tiger</option>
               <option value="Asian Seabass">Asian Seabass</option>
               <option value="Scampi">Scampi</option>
             </select>
           </div>
 
           <div>
-            <label for="sy-variety" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCT VARIETY <span class="text-[#DE350B]">*</span></label>
-            <input id="sy-variety" name="variety" type="text" value="Head-Less Shell-On (HLSO)" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
-          </div>
-
-          <div>
-            <label for="sy-process" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PROCESS TYPE <span class="text-[#DE350B]">*</span></label>
-            <select id="sy-process" name="processType" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
-              <option value="Deheading & Grading" selected>Deheading & Grading</option>
-              <option value="Peeling & Deveining">Peeling & Deveining</option>
-              <option value="Tail-On Peeling">Tail-On Peeling</option>
-              <option value="Whole Round Pack">Whole Round Pack</option>
-              <option value="Filleting & Trimming">Filleting & Trimming</option>
-              <option value="Splitting & Scoring">Splitting & Scoring</option>
+            <label for="sy-type-product" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TYPE PRODUCT <span class="text-[#DE350B]">*</span></label>
+            <select id="sy-type-product" name="typeProduct" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+              <option value="HLSO" selected>HLSO</option>
+              <option value="PD">PD</option>
+              <option value="PDTO">PDTO</option>
+              <option value="HOSO">HOSO</option>
+              <option value="Fillet">Fillet</option>
+              <option value="Easy Peel">Easy Peel</option>
             </select>
           </div>
 
           <div>
-            <label for="sy-grade" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">GRADE / COUNT <span class="text-[#DE350B]">*</span></label>
-            <input id="sy-grade" name="grade" type="text" value="31/40" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
+            <label for="sy-variety" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">VARIETY <span class="text-[#DE350B]">*</span></label>
+            <input id="sy-variety" name="variety" type="text" value="Aquaculture" placeholder="e.g. Aquaculture, Sea Caught" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
           </div>
 
           <div>
-            <label for="sy-target" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TARGET YIELD (%) <span class="text-[#DE350B]">*</span></label>
-            <input id="sy-target" name="targetYieldPct" type="number" step="0.1" value="66.5" min="1" max="100" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] focus:outline-none focus:border-[#0284C7]" required />
+            <label for="sy-grade" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">GRADE <span class="text-[#DE350B]">*</span></label>
+            <input id="sy-grade" name="grade" type="text" value="31/40" placeholder="e.g. 31/40, 26/30" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
           </div>
 
           <div>
-            <label for="sy-tolerance" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TOLERANCE (%) <span class="text-[#DE350B]">*</span></label>
-            <input id="sy-tolerance" name="tolerancePct" type="text" value="± 1.5%" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono focus:outline-none focus:border-[#0284C7]" required />
+            <label for="sy-count" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">COUNT <span class="text-[#DE350B]">*</span></label>
+            <input id="sy-count" name="count" type="text" value="31-40 pcs/lb" placeholder="e.g. 31-40 pcs/lb" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
           </div>
 
           <div>
-            <label for="sy-waste" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STD WASTE (%) <span class="text-[#DE350B]">*</span></label>
-            <input id="sy-waste" name="stdWastePct" type="number" step="0.1" value="33.5" min="0" max="100" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono text-[#DE350B] focus:outline-none focus:border-[#0284C7]" required />
+            <label for="sy-freezing" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">FREEZING TYPE <span class="text-[#DE350B]">*</span></label>
+            <select id="sy-freezing" name="freezingType" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+              <option value="IQF" selected>IQF</option>
+              <option value="Block Frozen">Block Frozen</option>
+              <option value="Semi-IQF">Semi-IQF</option>
+            </select>
           </div>
 
           <div>
-            <label for="sy-cycle" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STD CYCLE TIME <span class="text-[#DE350B]">*</span></label>
-            <input id="sy-cycle" name="stdCycleTime" type="text" value="3.2 Hrs/MT" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono focus:outline-none focus:border-[#0284C7]" required />
+            <label for="sy-treatment" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TREATMENT <span class="text-[#DE350B]">*</span></label>
+            <select id="sy-treatment" name="treatment" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+              <option value="Non-Phosphate" selected>Non-Phosphate</option>
+              <option value="Food Grade STPP">Food Grade STPP</option>
+              <option value="Fresh Raw (Untreated)">Fresh Raw (Untreated)</option>
+              <option value="Salt Treated">Salt Treated</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="sy-material" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TYPE OF MATERIAL <span class="text-[#DE350B]">*</span></label>
+            <input id="sy-material" name="typeOfMaterial" type="text" value="Headless Shell-On" placeholder="e.g. Headless Shell-On" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="sy-yield" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">YIELD <span class="text-[#DE350B]">*</span></label>
+            <input id="sy-yield" name="yield" type="text" value="66.5%" placeholder="e.g. 66.5%" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] focus:outline-none focus:border-[#0284C7]" required />
           </div>
 
           <div>
             <label for="sy-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STATUS <span class="text-[#DE350B]">*</span></label>
             <select id="sy-status" name="status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
-              <option value="ACTIVE" selected>ACTIVE</option>
-              <option value="PENDING_REVIEW">PENDING REVIEW</option>
+              <option value="Active" selected>Active</option>
+              <option value="Pending Review">Pending Review</option>
+              <option value="Inactive">Inactive</option>
             </select>
           </div>
 
@@ -37188,23 +37219,22 @@ const ProductionView = {
 
             Modal.confirm({
               title: 'Confirm Standard Yield',
-              message: `Set standard yield of ${values.targetYieldPct}% for ${values.species} (${values.variety})?`,
+              message: `Set standard yield of ${values.yield} for ${values.species} (${values.typeProduct})?`,
               confirmLabel: 'Save Standard',
               type: 'primary',
               onConfirm: () => {
                 const newRow = {
                   sNo: this.state.standardYields.length + 1,
-                  id: values.id,
+                  id: defaultId,
                   species: values.species,
+                  typeProduct: values.typeProduct,
                   variety: values.variety,
-                  processType: values.processType,
                   grade: values.grade,
-                  targetYieldPct: Number(values.targetYieldPct || 0),
-                  tolerancePct: values.tolerancePct || '± 1.5%',
-                  stdWastePct: Number(values.stdWastePct || 0),
-                  stdCycleTime: values.stdCycleTime || '3.5 Hrs/MT',
-                  productionPlant: values.productionPlant,
-                  effectiveDate: new Date().toISOString().slice(0, 10),
+                  count: values.count,
+                  freezingType: values.freezingType,
+                  treatment: values.treatment,
+                  typeOfMaterial: values.typeOfMaterial,
+                  yield: values.yield.includes('%') ? values.yield : `${values.yield}%`,
                   status: values.status,
                   remarks: values.remarks || 'Standard benchmark recorded'
                 };
@@ -37212,7 +37242,7 @@ const ProductionView = {
                 this.state.standardYields.unshift(newRow);
                 Modal.close();
                 this.renderProductionStandardYieldsScreen(container);
-                Toast.show(`Standard yield for ${newRow.variety} saved successfully`, 'success');
+                Toast.show(`Standard yield for ${newRow.species} (${newRow.typeProduct}) saved successfully`, 'success');
               }
             });
           }
@@ -37223,70 +37253,67 @@ const ProductionView = {
 
   showEditYieldModal(row, container) {
     Modal.open({
-      title: `Edit Standard Yield: ${row.variety}`,
+      title: `Edit Standard Yield: ${row.species} - ${row.typeProduct}`,
       size: 'xl',
       content: `
         <form id="form-edit-yield" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs">
           <div>
-            <label for="ey-id" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">BENCHMARK ID</label>
-            <input id="ey-id" name="id" type="text" value="${row.id}" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#0284C7] focus:outline-none" />
-          </div>
-
-          <div>
-            <label for="ey-plant" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCTION PLANT <span class="text-[#DE350B]">*</span></label>
-            <select id="ey-plant" name="productionPlant" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
-              ${['DFL UNIT-5 (JPT)', 'DFL UNIT-3 (PSP)', 'DFL UNIT-4 (PND)', 'DFL UNIT-1 (VSP)', 'DFL UNIT-6 (JPT-II)', 'DFL UNIT-2 (KKD)'].map(p => `<option value="${p}" ${p === row.productionPlant ? 'selected' : ''}>${p}</option>`).join('')}
-            </select>
-          </div>
-
-          <div>
             <label for="ey-species" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SPECIES <span class="text-[#DE350B]">*</span></label>
             <select id="ey-species" name="species" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
-              ${['Vannamei (White Shrimp)', 'Black Tiger (Monodon)', 'Asian Seabass', 'Scampi'].map(s => `<option value="${s}" ${s === row.species ? 'selected' : ''}>${s}</option>`).join('')}
+              ${['Vannamei', 'Black Tiger', 'Asian Seabass', 'Scampi'].map(s => `<option value="${s}" ${s === row.species ? 'selected' : ''}>${s}</option>`).join('')}
             </select>
           </div>
 
           <div>
-            <label for="ey-variety" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCT VARIETY <span class="text-[#DE350B]">*</span></label>
+            <label for="ey-type-product" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TYPE PRODUCT <span class="text-[#DE350B]">*</span></label>
+            <select id="ey-type-product" name="typeProduct" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+              ${['HLSO', 'PD', 'PDTO', 'HOSO', 'Fillet', 'Easy Peel'].map(tp => `<option value="${tp}" ${tp === row.typeProduct ? 'selected' : ''}>${tp}</option>`).join('')}
+            </select>
+          </div>
+
+          <div>
+            <label for="ey-variety" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">VARIETY <span class="text-[#DE350B]">*</span></label>
             <input id="ey-variety" name="variety" type="text" value="${this.escape(row.variety)}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
           </div>
 
           <div>
-            <label for="ey-process" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PROCESS TYPE <span class="text-[#DE350B]">*</span></label>
-            <select id="ey-process" name="processType" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
-              ${['Deheading & Grading', 'Peeling & Deveining', 'Tail-On Peeling', 'Whole Round Pack', 'Filleting & Trimming', 'Splitting & Scoring'].map(pr => `<option value="${pr}" ${pr === row.processType ? 'selected' : ''}>${pr}</option>`).join('')}
-            </select>
-          </div>
-
-          <div>
-            <label for="ey-grade" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">GRADE / COUNT <span class="text-[#DE350B]">*</span></label>
+            <label for="ey-grade" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">GRADE <span class="text-[#DE350B]">*</span></label>
             <input id="ey-grade" name="grade" type="text" value="${this.escape(row.grade)}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
           </div>
 
           <div>
-            <label for="ey-target" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TARGET YIELD (%) <span class="text-[#DE350B]">*</span></label>
-            <input id="ey-target" name="targetYieldPct" type="number" step="0.1" value="${row.targetYieldPct}" min="1" max="100" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] focus:outline-none focus:border-[#0284C7]" required />
+            <label for="ey-count" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">COUNT <span class="text-[#DE350B]">*</span></label>
+            <input id="ey-count" name="count" type="text" value="${this.escape(row.count)}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
           </div>
 
           <div>
-            <label for="ey-tolerance" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TOLERANCE (%) <span class="text-[#DE350B]">*</span></label>
-            <input id="ey-tolerance" name="tolerancePct" type="text" value="${this.escape(row.tolerancePct || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono focus:outline-none focus:border-[#0284C7]" required />
+            <label for="ey-freezing" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">FREEZING TYPE <span class="text-[#DE350B]">*</span></label>
+            <select id="ey-freezing" name="freezingType" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+              ${['IQF', 'Block Frozen', 'Semi-IQF'].map(fz => `<option value="${fz}" ${fz === row.freezingType ? 'selected' : ''}>${fz}</option>`).join('')}
+            </select>
           </div>
 
           <div>
-            <label for="ey-waste" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STD WASTE (%) <span class="text-[#DE350B]">*</span></label>
-            <input id="ey-waste" name="stdWastePct" type="number" step="0.1" value="${row.stdWastePct}" min="0" max="100" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono text-[#DE350B] focus:outline-none focus:border-[#0284C7]" required />
+            <label for="ey-treatment" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TREATMENT <span class="text-[#DE350B]">*</span></label>
+            <select id="ey-treatment" name="treatment" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+              ${['Non-Phosphate', 'Food Grade STPP', 'Fresh Raw (Untreated)', 'Salt Treated'].map(trt => `<option value="${trt}" ${trt === row.treatment ? 'selected' : ''}>${trt}</option>`).join('')}
+            </select>
           </div>
 
           <div>
-            <label for="ey-cycle" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STD CYCLE TIME <span class="text-[#DE350B]">*</span></label>
-            <input id="ey-cycle" name="stdCycleTime" type="text" value="${this.escape(row.stdCycleTime || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono focus:outline-none focus:border-[#0284C7]" required />
+            <label for="ey-material" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TYPE OF MATERIAL <span class="text-[#DE350B]">*</span></label>
+            <input id="ey-material" name="typeOfMaterial" type="text" value="${this.escape(row.typeOfMaterial)}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="ey-yield" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">YIELD <span class="text-[#DE350B]">*</span></label>
+            <input id="ey-yield" name="yield" type="text" value="${this.escape(row.yield)}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] focus:outline-none focus:border-[#0284C7]" required />
           </div>
 
           <div>
             <label for="ey-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STATUS <span class="text-[#DE350B]">*</span></label>
             <select id="ey-status" name="status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
-              ${['ACTIVE', 'PENDING_REVIEW'].map(st => `<option value="${st}" ${st === row.status ? 'selected' : ''}>${st}</option>`).join('')}
+              ${['Active', 'Pending Review', 'Inactive'].map(st => `<option value="${st}" ${st === row.status ? 'selected' : ''}>${st}</option>`).join('')}
             </select>
           </div>
 
@@ -37308,17 +37335,16 @@ const ProductionView = {
 
             Modal.confirm({
               title: 'Confirm Update',
-              message: `Save changes for Standard Yield "${row.variety}"?`,
+              message: `Save changes for Standard Yield "${row.species} - ${row.typeProduct}"?`,
               confirmLabel: 'Save',
               type: 'primary',
               onConfirm: () => {
                 Object.assign(row, values, {
-                  targetYieldPct: Number(values.targetYieldPct || 0),
-                  stdWastePct: Number(values.stdWastePct || 0)
+                  yield: values.yield.includes('%') ? values.yield : `${values.yield}%`
                 });
                 Modal.close();
                 this.renderProductionStandardYieldsScreen(container);
-                Toast.show(`Standard yield for ${row.variety} updated successfully`, 'success');
+                Toast.show(`Standard yield for ${row.species} (${row.typeProduct}) updated successfully`, 'success');
               }
             });
           }
@@ -37329,7 +37355,7 @@ const ProductionView = {
 
   showYieldDetails(row) {
     Modal.open({
-      title: `Standard Yield: ${row.variety}`,
+      title: `Standard Yield: ${row.species} - ${row.typeProduct}`,
       size: 'xl',
       content: `
         <div class="space-y-4 text-xs">
@@ -37341,53 +37367,74 @@ const ProductionView = {
               </div>
               <div>
                 <div class="flex items-center gap-2 flex-wrap">
-                  <span class="font-mono font-extrabold text-[#0F172A] text-base">${this.escape(row.variety)}</span>
+                  <span class="font-mono font-extrabold text-[#0F172A] text-base">${this.escape(row.species)} &bull; ${this.escape(row.typeProduct)}</span>
                   <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold tracking-wide uppercase ${
-                    row.status === 'ACTIVE' ? 'bg-[#DCFCE7] text-[#166534] border border-[#86EFAC]' : 'bg-[#FEF3C7] text-[#92400E] border border-[#FCD34D]'
-                  }">${this.escape(row.status || 'ACTIVE')}</span>
-                  <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">${this.escape(row.processType)}</span>
+                    String(row.status).toUpperCase() === 'ACTIVE' ? 'bg-[#DCFCE7] text-[#166534] border border-[#86EFAC]' : 'bg-[#FEF3C7] text-[#92400E] border border-[#FCD34D]'
+                  }">${this.escape(row.status || 'Active')}</span>
+                  <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">${this.escape(row.freezingType)}</span>
+                  <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#E0F2FE] text-[#0369A1] border border-[#BAE6FD]">${this.escape(row.treatment)}</span>
                 </div>
                 <p class="text-[11px] text-[#64748B] mt-0.5 font-medium flex items-center gap-1.5 flex-wrap">
-                  <span>Species: <strong class="text-[#334155]">${this.escape(row.species)}</strong></span>
-                  <span>&bull;</span>
-                  <span>Plant: <strong class="text-[#334155]">${this.escape(row.productionPlant)}</strong></span>
+                  <span>Variety: <strong class="text-[#334155]">${this.escape(row.variety)}</strong></span>
                   <span>&bull;</span>
                   <span>Grade: <strong class="text-[#334155]">${this.escape(row.grade)}</strong></span>
+                  <span>&bull;</span>
+                  <span>Count: <strong class="text-[#334155]">${this.escape(row.count)}</strong></span>
                 </p>
               </div>
             </div>
 
             <div class="flex items-center gap-2">
               <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center">
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Target Yield</span>
-                <span class="font-mono font-extrabold text-sm text-[#00875A]">${Number(row.targetYieldPct || 0).toFixed(1)}%</span>
-              </div>
-              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center">
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Tolerance</span>
-                <span class="font-mono font-bold text-xs text-[#0284C7]">${this.escape(row.tolerancePct || '± 1.5%')}</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Standard Yield</span>
+                <span class="font-mono font-extrabold text-base text-[#00875A]">${this.escape(row.yield)}</span>
               </div>
             </div>
           </div>
 
-          <!-- Section 1: Benchmark Specifications -->
+          <!-- Section 1: Standard Yield Specifications -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider mb-3 pb-2 border-b border-[#F1F5F9]">Benchmark &amp; Processing Targets</h4>
+            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider mb-3 pb-2 border-b border-[#F1F5F9]">Yield &amp; Product Specifications</h4>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
               <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Benchmark ID</span>
-                <span class="font-mono font-bold text-[#0284C7] text-xs block mt-0.5">${this.escape(row.id)}</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Species</span>
+                <span class="font-bold text-[#0284C7] text-xs block mt-0.5">${this.escape(row.species)}</span>
               </div>
               <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Target Recovery (%)</span>
-                <span class="font-mono font-extrabold text-[#00875A] text-xs block mt-0.5">${Number(row.targetYieldPct || 0).toFixed(1)}%</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Type Product</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.typeProduct)}</span>
               </div>
               <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Standard Waste / Byproduct</span>
-                <span class="font-mono font-bold text-[#DE350B] text-xs block mt-0.5">${Number(row.stdWastePct || 0).toFixed(1)}%</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Variety</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.variety)}</span>
               </div>
               <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Standard Cycle Time</span>
-                <span class="font-mono font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.stdCycleTime || '-')}</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Grade</span>
+                <span class="font-mono font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.grade)}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Count</span>
+                <span class="font-mono font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.count)}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Freezing Type</span>
+                <span class="font-semibold text-[#0369A1] text-xs block mt-0.5">${this.escape(row.freezingType)}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Treatment</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.treatment)}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Type of Material</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.typeOfMaterial)}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Standard Yield</span>
+                <span class="font-mono font-extrabold text-[#00875A] text-xs block mt-0.5">${this.escape(row.yield)}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Status</span>
+                <span class="font-bold text-xs block mt-0.5">${this.escape(row.status)}</span>
               </div>
             </div>
           </div>
@@ -37395,7 +37442,7 @@ const ProductionView = {
           <!-- Section 2: Remarks -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
             <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider mb-2">Technical Approval Notes</h4>
-            <p class="text-xs text-[#334155] leading-relaxed">${this.escape(row.remarks || 'Standard benchmark verified by QA department.')}</p>
+            <p class="text-xs text-[#334155] leading-relaxed">${this.escape(row.remarks || 'Standard benchmark verified by Devi Fisheries QA department.')}</p>
           </div>
         </div>
       `,
@@ -37408,7 +37455,7 @@ const ProductionView = {
   deleteYieldRow(row, container) {
     Modal.confirm({
       title: 'Confirm Deletion',
-      message: `Are you sure you want to delete Standard Yield benchmark for "${row.variety}"?`,
+      message: `Are you sure you want to delete Standard Yield for "${row.species} - ${row.typeProduct} (${row.grade})"?`,
       confirmLabel: 'Delete Benchmark',
       type: 'danger',
       onConfirm: () => {
@@ -37416,7 +37463,7 @@ const ProductionView = {
         if (idx !== -1) {
           this.state.standardYields.splice(idx, 1);
           this.renderProductionStandardYieldsScreen(container);
-          Toast.show(`Standard yield for ${row.variety} deleted successfully`, 'success');
+          Toast.show(`Standard yield for ${row.species} (${row.typeProduct}) deleted successfully`, 'success');
         }
       }
     });
