@@ -34373,10 +34373,15 @@ const ProductionView = {
     soakingV2Lots: [
       {
         sNo: 1,
-        id: 'LOT-SK2-001',
+        id: 1,
+        lot: 'LOT-SK2-001',
         lotCode: 'LOT-SK2-001',
+        station: 'Station #1',
         productionPlant: 'DFL UNIT-5 (JPT)',
+        rmDate: '2026-10-06',
         date: '2026-10-06',
+        type: 'HLSO',
+        inQty: '1200.0',
         shift: 'Shift A (Day)',
         tankPitNo: 'Pit #3 (2000L)',
         variety: 'Vannamei (VM)',
@@ -34394,10 +34399,15 @@ const ProductionView = {
       },
       {
         sNo: 2,
-        id: 'LOT-SK2-002',
+        id: 2,
+        lot: 'LOT-SK2-002',
         lotCode: 'LOT-SK2-002',
+        station: 'Station #2',
         productionPlant: 'DFL UNIT-3 (PSP)',
+        rmDate: '2026-10-06',
         date: '2026-10-06',
+        type: 'PD',
+        inQty: '980.0',
         shift: 'Shift A (Day)',
         tankPitNo: 'Pit #1 (1500L)',
         variety: 'Black Tiger (BT)',
@@ -34415,10 +34425,15 @@ const ProductionView = {
       },
       {
         sNo: 3,
-        id: 'LOT-SK2-003',
+        id: 3,
+        lot: 'LOT-SK2-003',
         lotCode: 'LOT-SK2-003',
+        station: 'Station #3',
         productionPlant: 'DFL UNIT-4 (PND)',
+        rmDate: '2026-10-07',
         date: '2026-10-07',
+        type: 'PDTO',
+        inQty: '850.0',
         shift: 'Shift B (Evening)',
         tankPitNo: 'Pit #2 (1500L)',
         variety: 'Vannamei (VM)',
@@ -34436,10 +34451,15 @@ const ProductionView = {
       },
       {
         sNo: 4,
-        id: 'LOT-SK2-004',
+        id: 4,
+        lot: 'LOT-SK2-004',
         lotCode: 'LOT-SK2-004',
+        station: 'Station #1',
         productionPlant: 'DFL UNIT-1 (VSP)',
+        rmDate: '2026-10-07',
         date: '2026-10-07',
+        type: 'HOSO',
+        inQty: '1100.0',
         shift: 'Shift A (Day)',
         tankPitNo: 'Pit #4 (2000L)',
         variety: 'Sea White',
@@ -34457,10 +34477,15 @@ const ProductionView = {
       },
       {
         sNo: 5,
-        id: 'LOT-SK2-005',
+        id: 5,
+        lot: 'LOT-SK2-005',
         lotCode: 'LOT-SK2-005',
+        station: 'Station #4',
         productionPlant: 'DFL UNIT-6 (JPT-II)',
+        rmDate: '2026-10-07',
         date: '2026-10-07',
+        type: 'EZ Peel',
+        inQty: '750.0',
         shift: 'Shift C (Night)',
         tankPitNo: 'Pit #1 (1500L)',
         variety: 'Scampi',
@@ -34478,10 +34503,15 @@ const ProductionView = {
       },
       {
         sNo: 6,
-        id: 'LOT-SK2-006',
+        id: 6,
+        lot: 'LOT-SK2-006',
         lotCode: 'LOT-SK2-006',
+        station: 'Station #2',
         productionPlant: 'DFL UNIT-2 (KKD)',
+        rmDate: '2026-10-08',
         date: '2026-10-08',
+        type: 'HLSO',
+        inQty: '1350.0',
         shift: 'Shift A (Day)',
         tankPitNo: 'Pit #2 (1500L)',
         variety: 'Vannamei (VM)',
@@ -34496,6 +34526,58 @@ const ProductionView = {
         supervisor: 'T. Nageswara Rao',
         remarks: 'Bath agitation cycle running at 15 RPM',
         status: 'IN_PROCESS'
+      },
+      {
+        sNo: 7,
+        id: 7,
+        lot: 'LOT-SK2-007',
+        lotCode: 'LOT-SK2-007',
+        station: 'Station #5',
+        productionPlant: 'DFL UNIT-5 (JPT)',
+        rmDate: '2026-10-09',
+        date: '2026-10-09',
+        type: 'PUD',
+        inQty: '1050.0',
+        shift: 'Shift B (Evening)',
+        tankPitNo: 'Pit #3 (2000L)',
+        variety: 'Vannamei (VM)',
+        inwardWeight: '1050.0 Kgs',
+        chemicalFormulation: 'STPP & Citric Buffer',
+        dosingRatio: '2.4%',
+        bathTemp: '1.6°C',
+        phLevel: '7.2 pH',
+        outwardWeight: '1098.3 Kgs',
+        netGainPct: '4.6%',
+        qcClearance: 'PASSED',
+        supervisor: 'S. K. Murthy',
+        remarks: 'Uniform absorption and weight gain certified',
+        status: 'APPROVED'
+      },
+      {
+        sNo: 8,
+        id: 8,
+        lot: 'LOT-SK2-008',
+        lotCode: 'LOT-SK2-008',
+        station: 'Station #3',
+        productionPlant: 'DFL UNIT-3 (PSP)',
+        rmDate: '2026-10-10',
+        date: '2026-10-10',
+        type: 'PDTO',
+        inQty: '920.0',
+        shift: 'Shift A (Day)',
+        tankPitNo: 'Pit #1 (1500L)',
+        variety: 'Black Tiger (BT)',
+        inwardWeight: '920.0 Kgs',
+        chemicalFormulation: 'Non-Phosphate Organic Blend',
+        dosingRatio: '2.8%',
+        bathTemp: '1.5°C',
+        phLevel: '7.1 pH',
+        outwardWeight: '963.2 Kgs',
+        netGainPct: '4.7%',
+        qcClearance: 'PASSED',
+        supervisor: 'B. Subrahmanyam',
+        remarks: 'Temperature sensor calibration logged at 08:30 AM',
+        status: 'APPROVED'
       }
     ],
 
@@ -38227,12 +38309,6 @@ const ProductionView = {
           <div>
             <h1 class="text-xl font-extrabold text-[#172B4D]">Soaking Lots &amp; Solution Management (V2)</h1>
           </div>
-          <div>
-            <button type="button" id="btn-new-soak-v2" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer border-0">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-              <span>New Soaking Lot (V2)</span>
-            </button>
-          </div>
         </div>
 
         <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200">
@@ -38252,55 +38328,51 @@ const ProductionView = {
             </div>
           </div>
 
-          <div id="soakv2-top-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
+          <div id="soakv2-top-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs transition-all duration-200">
             <div>
-              <label for="sk2-filter-plant" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCTION PLANT</label>
-              <select id="sk2-filter-plant" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]">
-                <option value="ALL">All Production Plants</option>
-                <option value="DFL UNIT-5 (JPT)">DFL UNIT-5 (JPT)</option>
-                <option value="DFL UNIT-3 (PSP)">DFL UNIT-3 (PSP)</option>
-                <option value="DFL UNIT-4 (PND)">DFL UNIT-4 (PND)</option>
-                <option value="DFL UNIT-1 (VSP)">DFL UNIT-1 (VSP)</option>
-                <option value="DFL UNIT-6 (JPT-II)">DFL UNIT-6 (JPT-II)</option>
-                <option value="DFL UNIT-2 (KKD)">DFL UNIT-2 (KKD)</option>
+              <label for="sk2-filter-station" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">ALL STATIONS</label>
+              <select id="sk2-filter-station" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]">
+                <option value="ALL" selected>All Stations</option>
+                <option value="Station #1">Station #1</option>
+                <option value="Station #2">Station #2</option>
+                <option value="Station #3">Station #3</option>
+                <option value="Station #4">Station #4</option>
+                <option value="Station #5">Station #5</option>
               </select>
             </div>
 
             <div>
-              <label for="sk2-filter-lot" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">LOT CODE</label>
-              <input type="text" id="sk2-filter-lot" placeholder="e.g. LOT-SK2" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono focus:outline-none focus:border-[#0284C7]" />
-            </div>
-
-            <div>
-              <label for="sk2-filter-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">DATE</label>
-              <input type="date" id="sk2-filter-date" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" onclick="this.showPicker ? this.showPicker() : this.focus()" />
-            </div>
-
-            <div>
-              <label for="sk2-filter-formulation" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">CHEMICAL FORMULATION</label>
-              <input type="text" id="sk2-filter-formulation" placeholder="e.g. STPP, Non-Phos" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" />
-            </div>
-
-            <div>
-              <label for="sk2-filter-qc" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">QC CLEARANCE</label>
-              <select id="sk2-filter-qc" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]">
-                <option value="ALL">All Clearances</option>
-                <option value="PASSED">PASSED</option>
-                <option value="PENDING">PENDING</option>
+              <label for="sk2-filter-month" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">OCTOBER</label>
+              <select id="sk2-filter-month" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]">
+                <option value="ALL">All Months</option>
+                <option value="01">January</option>
+                <option value="02">February</option>
+                <option value="03">March</option>
+                <option value="04">April</option>
+                <option value="05">May</option>
+                <option value="06">June</option>
+                <option value="07">July</option>
+                <option value="08">August</option>
+                <option value="09">September</option>
+                <option value="10" selected>October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
               </select>
             </div>
 
             <div>
-              <label for="sk2-filter-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STATUS</label>
-              <select id="sk2-filter-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]">
-                <option value="ALL">All Statuses</option>
-                <option value="APPROVED">APPROVED</option>
-                <option value="IN_PROCESS">IN PROCESS</option>
+              <label for="sk2-filter-year" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">2026</label>
+              <select id="sk2-filter-year" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]">
+                <option value="ALL">All Years</option>
+                <option value="2024">2024</option>
+                <option value="2025">2025</option>
+                <option value="2026" selected>2026</option>
+                <option value="2027">2027</option>
               </select>
             </div>
 
             <!-- Search Button Slot -->
-            <div class="flex items-end sm:col-span-2">
+            <div class="flex items-end">
               <button type="button" id="soakv2-filter-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                 <span>Search</span>
@@ -38312,10 +38384,6 @@ const ProductionView = {
         <div id="soaking-v2-table-container"></div>
       </div>
     `;
-
-    document.getElementById('btn-new-soak-v2')?.addEventListener('click', () => {
-      this.showNewSoakingV2Modal(container);
-    });
 
     const toggleBtn = document.getElementById('soakv2-top-toggle-btn');
     toggleBtn?.addEventListener('click', () => {
@@ -38330,37 +38398,30 @@ const ProductionView = {
     });
 
     const applyFilters = () => {
-      const plant = document.getElementById('sk2-filter-plant')?.value || 'ALL';
-      const lotQuery = (document.getElementById('sk2-filter-lot')?.value || '').trim().toLowerCase();
-      const dVal = document.getElementById('sk2-filter-date')?.value || '';
-      const fQuery = (document.getElementById('sk2-filter-formulation')?.value || '').trim().toLowerCase();
-      const qc = document.getElementById('sk2-filter-qc')?.value || 'ALL';
-      const st = document.getElementById('sk2-filter-status')?.value || 'ALL';
+      const station = document.getElementById('sk2-filter-station')?.value || 'ALL';
+      const month = document.getElementById('sk2-filter-month')?.value || 'ALL';
+      const year = document.getElementById('sk2-filter-year')?.value || 'ALL';
 
       const filtered = this.state.soakingV2Lots.filter(row => {
-        if (plant !== 'ALL' && row.productionPlant !== plant) return false;
-        if (lotQuery && !String(row.lotCode || '').toLowerCase().includes(lotQuery)) return false;
-        if (dVal && row.date !== dVal) return false;
-        if (fQuery && !String(row.chemicalFormulation || '').toLowerCase().includes(fQuery)) return false;
-        if (qc !== 'ALL' && row.qcClearance !== qc) return false;
-        if (st !== 'ALL' && row.status !== st) return false;
+        if (station !== 'ALL' && row.station !== station) return false;
+        const d = row.rmDate || row.date || '';
+        if (d) {
+          const parts = d.split('-');
+          if (parts.length >= 3) {
+            const y = parts[0];
+            const m = parts[1];
+            if (month !== 'ALL' && m !== month) return false;
+            if (year !== 'ALL' && y !== year) return false;
+          }
+        }
         return true;
       });
 
       renderTable(filtered);
     };
 
-    ['sk2-filter-plant', 'sk2-filter-qc', 'sk2-filter-status'].forEach(id => {
+    ['sk2-filter-station', 'sk2-filter-month', 'sk2-filter-year'].forEach(id => {
       document.getElementById(id)?.addEventListener('change', applyFilters);
-    });
-    ['sk2-filter-lot', 'sk2-filter-date', 'sk2-filter-formulation'].forEach(id => {
-      document.getElementById(id)?.addEventListener('input', applyFilters);
-      document.getElementById(id)?.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-          applyFilters();
-        }
-      });
     });
 
     document.getElementById('soakv2-filter-search-btn')?.addEventListener('click', () => {
@@ -38369,13 +38430,10 @@ const ProductionView = {
     });
 
     document.getElementById('soakv2-top-reset-btn')?.addEventListener('click', () => {
-      if (document.getElementById('sk2-filter-plant')) document.getElementById('sk2-filter-plant').value = 'ALL';
-      if (document.getElementById('sk2-filter-lot')) document.getElementById('sk2-filter-lot').value = '';
-      if (document.getElementById('sk2-filter-date')) document.getElementById('sk2-filter-date').value = '';
-      if (document.getElementById('sk2-filter-formulation')) document.getElementById('sk2-filter-formulation').value = '';
-      if (document.getElementById('sk2-filter-qc')) document.getElementById('sk2-filter-qc').value = 'ALL';
-      if (document.getElementById('sk2-filter-status')) document.getElementById('sk2-filter-status').value = 'ALL';
-      renderTable(this.state.soakingV2Lots);
+      if (document.getElementById('sk2-filter-station')) document.getElementById('sk2-filter-station').value = 'ALL';
+      if (document.getElementById('sk2-filter-month')) document.getElementById('sk2-filter-month').value = '10';
+      if (document.getElementById('sk2-filter-year')) document.getElementById('sk2-filter-year').value = '2026';
+      applyFilters();
       Toast.show('Filters reset', 'info');
     });
 
@@ -38384,89 +38442,38 @@ const ProductionView = {
         containerId: 'soaking-v2-table-container',
         data: data,
         keyField: 'lotCode',
-        tableTitle: 'Soaking Lots (V2) Register',
+        tableTitle: 'Soaking Lots & Solution Management (V2)',
         searchable: true,
         exportable: true,
         pageSize: 10,
         columns: [
           {
-            field: 'sNo',
-            header: 'S.No',
-            render: (v, row, idx) => `<span class="text-[#5E6C84] font-semibold">${v || (idx + 1)}</span>`
+            field: 'id',
+            header: 'ID',
+            render: (v, row, idx) => `<span class="text-[#5E6C84] font-semibold">${v != null ? v : (idx + 1)}</span>`
           },
           {
-            field: 'lotCode',
-            header: 'Lot Code',
-            render: (v) => `<span class="font-mono font-bold text-[#0284C7] bg-[#F0F9FF] px-2 py-0.5 rounded border border-[#BAE6FD] whitespace-nowrap cursor-pointer hover:underline">${this.escape(v)}</span>`
+            field: 'lot',
+            header: 'Lot',
+            render: (v, row) => `<span class="font-mono font-bold text-[#0284C7] bg-[#F0F9FF] px-2 py-0.5 rounded border border-[#BAE6FD] whitespace-nowrap cursor-pointer hover:underline">${this.escape(v || row.lotCode || '')}</span>`
           },
           {
-            field: 'productionPlant',
-            header: 'Production Plant',
-            render: (v) => `<span class="font-semibold text-[#172B4D] whitespace-nowrap">${this.escape(v)}</span>`
+            field: 'rmDate',
+            header: 'Rm Date',
+            render: (v, row) => {
+              const d = v || row.date || '';
+              return `<span class="text-[#172B4D] whitespace-nowrap font-medium">${d ? String(d).split('-').reverse().join('-') : '-'}</span>`;
+            }
           },
           {
-            field: 'date',
-            header: 'Date & Shift',
-            render: (v, row) => `<span class="text-[#172B4D] whitespace-nowrap">${v ? String(v).split('-').reverse().join('-') : '-'} <span class="text-[#64748B]">(${this.escape(row.shift)})</span></span>`
+            field: 'type',
+            header: 'Type',
+            render: (v, row) => `<span class="font-semibold text-[#172B4D] whitespace-nowrap">${this.escape(v || row.variety || '')}</span>`
           },
           {
-            field: 'tankPitNo',
-            header: 'Tank / Pit No',
-            render: (v) => `<span class="font-mono text-xs font-semibold text-[#00A4B7] whitespace-nowrap">${this.escape(v)}</span>`
-          },
-          {
-            field: 'variety',
-            header: 'Variety',
-            render: (v) => `<span class="font-semibold text-[#172B4D] whitespace-nowrap">${this.escape(v)}</span>`
-          },
-          {
-            field: 'inwardWeight',
-            header: 'Inward Wt (Kg)',
-            render: (v) => `<span class="font-mono font-bold text-[#172B4D] whitespace-nowrap">${this.escape(v)}</span>`
-          },
-          {
-            field: 'chemicalFormulation',
-            header: 'Chemical Formulation',
-            render: (v) => `<span class="text-xs text-[#0284C7] font-medium whitespace-nowrap truncate max-w-[150px] block" title="${this.escape(v)}">${this.escape(v)}</span>`
-          },
-          {
-            field: 'dosingRatio',
-            header: 'Dosing Ratio',
-            render: (v) => `<span class="font-mono text-xs text-[#172B4D] whitespace-nowrap">${this.escape(v)}</span>`
-          },
-          {
-            field: 'bathTemp',
-            header: 'Bath Temp (°C)',
-            render: (v) => `<span class="font-mono text-xs font-semibold text-[#00875A] whitespace-nowrap">${this.escape(v)}</span>`
-          },
-          {
-            field: 'phLevel',
-            header: 'pH Level',
-            render: (v) => `<span class="font-mono text-xs font-medium text-[#403294] whitespace-nowrap">${this.escape(v)}</span>`
-          },
-          {
-            field: 'outwardWeight',
-            header: 'Outward Wt (Kg)',
-            render: (v) => `<span class="font-mono font-bold text-[#0F172A] whitespace-nowrap">${this.escape(v)}</span>`
-          },
-          {
-            field: 'netGainPct',
-            header: 'Net Gain (%)',
-            render: (v) => `<span class="font-mono font-extrabold text-[#00875A] text-xs whitespace-nowrap">${this.escape(v)}</span>`
-          },
-          {
-            field: 'qcClearance',
-            header: 'QC Clearance',
-            render: (v) => `<span class="px-2 py-0.5 rounded text-[11px] font-bold ${
-              v === 'PASSED' ? 'bg-[#DCFCE7] text-[#166534] border border-[#86EFAC]' : 'bg-[#FEF3C7] text-[#92400E] border border-[#FCD34D]'
-            } whitespace-nowrap">${this.escape(v)}</span>`
-          },
-          {
-            field: 'status',
-            header: 'Status',
-            render: (v) => `<span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase ${
-              v === 'APPROVED' ? 'bg-[#DCFCE7] text-[#166534] border border-[#86EFAC]' : 'bg-[#E0F2FE] text-[#0369A1] border border-[#7DD3FC]'
-            }">${this.escape(v)}</span>`
+            field: 'inQty',
+            header: 'In Qty(Kgs)',
+            render: (v, row) => `<span class="font-mono font-bold text-[#172B4D] whitespace-nowrap">${this.escape(v || row.inwardWeight || '')}</span>`
           }
         ],
         actions: [
@@ -38485,261 +38492,47 @@ const ProductionView = {
       });
     };
 
-    renderTable(this.state.soakingV2Lots);
-  },
-
-  showNewSoakingV2Modal(container) {
-    const nextSeq = this.state.soakingV2Lots.length + 1;
-    const defaultLot = `LOT-SK2-${String(nextSeq).padStart(3, '0')}`;
-    const today = new Date().toISOString().slice(0, 10);
-
-    Modal.open({
-      title: 'New Soaking Lot & Chemical Dosing (V2)',
-      size: 'xl',
-      content: `
-        <form id="form-new-soak-v2" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs">
-          <div>
-            <label for="sk2-lot" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">LOT CODE <span class="text-[#DE350B]">*</span></label>
-            <input id="sk2-lot" name="lotCode" type="text" value="${defaultLot}" class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#0284C7] focus:outline-none" required />
-          </div>
-
-          <div>
-            <label for="sk2-plant" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCTION PLANT <span class="text-[#DE350B]">*</span></label>
-            <select id="sk2-plant" name="productionPlant" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
-              <option value="DFL UNIT-5 (JPT)" selected>DFL UNIT-5 (JPT)</option>
-              <option value="DFL UNIT-3 (PSP)">DFL UNIT-3 (PSP)</option>
-              <option value="DFL UNIT-4 (PND)">DFL UNIT-4 (PND)</option>
-              <option value="DFL UNIT-1 (VSP)">DFL UNIT-1 (VSP)</option>
-              <option value="DFL UNIT-6 (JPT-II)">DFL UNIT-6 (JPT-II)</option>
-              <option value="DFL UNIT-2 (KKD)">DFL UNIT-2 (KKD)</option>
-            </select>
-          </div>
-
-          <div>
-            <label for="sk2-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">DATE <span class="text-[#DE350B]">*</span></label>
-            <input id="sk2-date" name="date" type="date" value="${today}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" required onclick="this.showPicker ? this.showPicker() : this.focus()" />
-          </div>
-
-          <div>
-            <label for="sk2-shift" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SHIFT <span class="text-[#DE350B]">*</span></label>
-            <select id="sk2-shift" name="shift" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
-              <option value="Shift A (Day)" selected>Shift A (Day)</option>
-              <option value="Shift B (Evening)">Shift B (Evening)</option>
-              <option value="Shift C (Night)">Shift C (Night)</option>
-            </select>
-          </div>
-
-          <div>
-            <label for="sk2-tank" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TANK / PIT NO <span class="text-[#DE350B]">*</span></label>
-            <input id="sk2-tank" name="tankPitNo" type="text" value="Pit #3 (2000L)" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
-          </div>
-
-          <div>
-            <label for="sk2-variety" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">RAW MATERIAL VARIETY <span class="text-[#DE350B]">*</span></label>
-            <select id="sk2-variety" name="variety" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
-              <option value="Vannamei (VM)" selected>Vannamei (VM)</option>
-              <option value="Black Tiger (BT)">Black Tiger (BT)</option>
-              <option value="Sea White">Sea White</option>
-              <option value="Scampi">Scampi</option>
-            </select>
-          </div>
-
-          <div>
-            <label for="sk2-in-wt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">INWARD WT (KG) <span class="text-[#DE350B]">*</span></label>
-            <input id="sk2-in-wt" name="inwardWeight" type="text" value="1200.0 Kgs" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
-          </div>
-
-          <div>
-            <label for="sk2-formula" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">CHEMICAL FORMULATION <span class="text-[#DE350B]">*</span></label>
-            <select id="sk2-formula" name="chemicalFormulation" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
-              <option value="STPP & Citric Buffer" selected>STPP & Citric Buffer</option>
-              <option value="Non-Phosphate Organic Blend">Non-Phosphate Organic Blend</option>
-              <option value="STPP Controlled Release">STPP Controlled Release</option>
-              <option value="Citric Acid & Marine Salt">Citric Acid & Marine Salt</option>
-            </select>
-          </div>
-
-          <div>
-            <label for="sk2-dose" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">DOSING RATIO (%) <span class="text-[#DE350B]">*</span></label>
-            <input id="sk2-dose" name="dosingRatio" type="text" value="2.5%" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono focus:outline-none focus:border-[#0284C7]" required />
-          </div>
-
-          <div>
-            <label for="sk2-temp" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">BATH TEMP (°C) <span class="text-[#DE350B]">*</span></label>
-            <input id="sk2-temp" name="bathTemp" type="text" value="1.5°C" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] focus:outline-none focus:border-[#0284C7]" required />
-          </div>
-
-          <div>
-            <label for="sk2-ph" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PH LEVEL <span class="text-[#DE350B]">*</span></label>
-            <input id="sk2-ph" name="phLevel" type="text" value="7.2 pH" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono text-[#403294] focus:outline-none focus:border-[#0284C7]" required />
-          </div>
-
-          <div>
-            <label for="sk2-out-wt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">OUTWARD WT (KG) <span class="text-[#DE350B]">*</span></label>
-            <input id="sk2-out-wt" name="outwardWeight" type="text" value="1256.4 Kgs" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#0F172A] focus:outline-none focus:border-[#0284C7]" required />
-          </div>
-
-          <div>
-            <label for="sk2-gain" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">NET GAIN (%) <span class="text-[#DE350B]">*</span></label>
-            <input id="sk2-gain" name="netGainPct" type="text" value="4.7%" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] focus:outline-none focus:border-[#0284C7]" required />
-          </div>
-
-          <div>
-            <label for="sk2-qc" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">QC CLEARANCE <span class="text-[#DE350B]">*</span></label>
-            <select id="sk2-qc" name="qcClearance" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
-              <option value="PASSED" selected>PASSED</option>
-              <option value="PENDING">PENDING</option>
-            </select>
-          </div>
-
-          <div>
-            <label for="sk2-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STATUS <span class="text-[#DE350B]">*</span></label>
-            <select id="sk2-status" name="status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
-              <option value="APPROVED" selected>APPROVED</option>
-              <option value="IN_PROCESS">IN PROCESS</option>
-            </select>
-          </div>
-
-          <div class="sm:col-span-2">
-            <label for="sk2-remarks" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">REMARKS</label>
-            <input id="sk2-remarks" name="remarks" type="text" value="Automated solution dosing cycle verified by shift chemist" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" />
-          </div>
-        </form>
-      `,
-      footerButtons: [
-        { label: 'Cancel', type: 'secondary', onClick: modal => modal.close() },
-        {
-          label: 'Create Lot',
-          type: 'primary',
-          onClick: () => {
-            const form = document.getElementById('form-new-soak-v2');
-            if (!form || !form.reportValidity()) return;
-            const values = Object.fromEntries(new FormData(form));
-
-            Modal.confirm({
-              title: 'Confirm Soaking Lot Creation',
-              message: `Create new soaking lot "${values.lotCode}" for ${values.productionPlant}?`,
-              confirmLabel: 'Confirm & Create',
-              type: 'primary',
-              onConfirm: () => {
-                const newRow = {
-                  sNo: this.state.soakingV2Lots.length + 1,
-                  id: values.lotCode,
-                  lotCode: values.lotCode,
-                  productionPlant: values.productionPlant,
-                  date: values.date,
-                  shift: values.shift,
-                  tankPitNo: values.tankPitNo,
-                  variety: values.variety,
-                  inwardWeight: values.inwardWeight,
-                  chemicalFormulation: values.chemicalFormulation,
-                  dosingRatio: values.dosingRatio,
-                  bathTemp: values.bathTemp,
-                  phLevel: values.phLevel,
-                  outwardWeight: values.outwardWeight,
-                  netGainPct: values.netGainPct,
-                  qcClearance: values.qcClearance,
-                  supervisor: 'S. K. Murthy',
-                  remarks: values.remarks || 'Standard solution dosing recorded',
-                  status: values.status
-                };
-
-                this.state.soakingV2Lots.unshift(newRow);
-                Modal.close();
-                this.renderSoakingV2Screen(container);
-                Toast.show(`Soaking lot ${newRow.lotCode} created successfully`, 'success');
-              }
-            });
-          }
-        }
-      ]
-    });
+    applyFilters();
   },
 
   showEditSoakingV2Modal(row, container) {
     Modal.open({
-      title: `Edit Soaking Lot (V2): ${row.lotCode}`,
-      size: 'xl',
+      title: `Edit Soaking Lot (V2): ${row.lot || row.lotCode}`,
+      size: 'lg',
       content: `
-        <form id="form-edit-soak-v2" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs">
+        <form id="form-edit-soak-v2" class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
           <div>
-            <label for="esk2-lot" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">LOT CODE</label>
-            <input id="esk2-lot" name="lotCode" type="text" value="${row.lotCode}" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#0284C7] focus:outline-none" />
+            <label for="esk2-id" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">ID</label>
+            <input id="esk2-id" name="id" type="text" value="${row.id != null ? row.id : ''}" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#5E6C84] focus:outline-none" />
           </div>
 
           <div>
-            <label for="esk2-plant" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCTION PLANT <span class="text-[#DE350B]">*</span></label>
-            <select id="esk2-plant" name="productionPlant" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
-              ${['DFL UNIT-5 (JPT)', 'DFL UNIT-3 (PSP)', 'DFL UNIT-4 (PND)', 'DFL UNIT-1 (VSP)', 'DFL UNIT-6 (JPT-II)', 'DFL UNIT-2 (KKD)'].map(p => `<option value="${p}" ${p === row.productionPlant ? 'selected' : ''}>${p}</option>`).join('')}
+            <label for="esk2-lot" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">LOT</label>
+            <input id="esk2-lot" name="lot" type="text" value="${this.escape(row.lot || row.lotCode || '')}" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#0284C7] focus:outline-none" />
+          </div>
+
+          <div>
+            <label for="esk2-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">RM DATE <span class="text-[#DE350B]">*</span></label>
+            <input id="esk2-date" name="rmDate" type="date" value="${row.rmDate || row.date || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" required onclick="this.showPicker ? this.showPicker() : this.focus()" />
+          </div>
+
+          <div>
+            <label for="esk2-station" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STATION <span class="text-[#DE350B]">*</span></label>
+            <select id="esk2-station" name="station" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+              ${['Station #1', 'Station #2', 'Station #3', 'Station #4', 'Station #5'].map(s => `<option value="${s}" ${s === row.station ? 'selected' : ''}>${s}</option>`).join('')}
             </select>
           </div>
 
           <div>
-            <label for="esk2-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">DATE <span class="text-[#DE350B]">*</span></label>
-            <input id="esk2-date" name="date" type="date" value="${row.date || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" required onclick="this.showPicker ? this.showPicker() : this.focus()" />
-          </div>
-
-          <div>
-            <label for="esk2-shift" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SHIFT <span class="text-[#DE350B]">*</span></label>
-            <select id="esk2-shift" name="shift" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
-              ${['Shift A (Day)', 'Shift B (Evening)', 'Shift C (Night)'].map(s => `<option value="${s}" ${s === row.shift ? 'selected' : ''}>${s}</option>`).join('')}
+            <label for="esk2-type" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TYPE <span class="text-[#DE350B]">*</span></label>
+            <select id="esk2-type" name="type" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+              ${['HLSO', 'PD', 'PDTO', 'HOSO', 'EZ Peel', 'PUD'].map(t => `<option value="${t}" ${t === (row.type || row.variety) ? 'selected' : ''}>${t}</option>`).join('')}
             </select>
           </div>
 
           <div>
-            <label for="esk2-tank" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TANK / PIT NO <span class="text-[#DE350B]">*</span></label>
-            <input id="esk2-tank" name="tankPitNo" type="text" value="${this.escape(row.tankPitNo || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
-          </div>
-
-          <div>
-            <label for="esk2-variety" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">VARIETY <span class="text-[#DE350B]">*</span></label>
-            <select id="esk2-variety" name="variety" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
-              ${['Vannamei (VM)', 'Black Tiger (BT)', 'Sea White', 'Scampi'].map(v => `<option value="${v}" ${v === row.variety ? 'selected' : ''}>${v}</option>`).join('')}
-            </select>
-          </div>
-
-          <div>
-            <label for="esk2-in-wt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">INWARD WT <span class="text-[#DE350B]">*</span></label>
-            <input id="esk2-in-wt" name="inwardWeight" type="text" value="${this.escape(row.inwardWeight || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
-          </div>
-
-          <div>
-            <label for="esk2-formula" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">CHEMICAL <span class="text-[#DE350B]">*</span></label>
-            <select id="esk2-formula" name="chemicalFormulation" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
-              ${['STPP & Citric Buffer', 'Non-Phosphate Organic Blend', 'STPP Controlled Release', 'Citric Acid & Marine Salt'].map(c => `<option value="${c}" ${c === row.chemicalFormulation ? 'selected' : ''}>${c}</option>`).join('')}
-            </select>
-          </div>
-
-          <div>
-            <label for="esk2-dose" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">DOSING RATIO <span class="text-[#DE350B]">*</span></label>
-            <input id="esk2-dose" name="dosingRatio" type="text" value="${this.escape(row.dosingRatio || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono focus:outline-none focus:border-[#0284C7]" required />
-          </div>
-
-          <div>
-            <label for="esk2-temp" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">BATH TEMP (°C) <span class="text-[#DE350B]">*</span></label>
-            <input id="esk2-temp" name="bathTemp" type="text" value="${this.escape(row.bathTemp || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] focus:outline-none focus:border-[#0284C7]" required />
-          </div>
-
-          <div>
-            <label for="esk2-ph" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PH LEVEL <span class="text-[#DE350B]">*</span></label>
-            <input id="esk2-ph" name="phLevel" type="text" value="${this.escape(row.phLevel || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono text-[#403294] focus:outline-none focus:border-[#0284C7]" required />
-          </div>
-
-          <div>
-            <label for="esk2-out-wt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">OUTWARD WT <span class="text-[#DE350B]">*</span></label>
-            <input id="esk2-out-wt" name="outwardWeight" type="text" value="${this.escape(row.outwardWeight || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#0F172A] focus:outline-none focus:border-[#0284C7]" required />
-          </div>
-
-          <div>
-            <label for="esk2-gain" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">NET GAIN (%) <span class="text-[#DE350B]">*</span></label>
-            <input id="esk2-gain" name="netGainPct" type="text" value="${this.escape(row.netGainPct || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] focus:outline-none focus:border-[#0284C7]" required />
-          </div>
-
-          <div>
-            <label for="esk2-qc" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">QC CLEARANCE <span class="text-[#DE350B]">*</span></label>
-            <select id="esk2-qc" name="qcClearance" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
-              ${['PASSED', 'PENDING'].map(q => `<option value="${q}" ${q === row.qcClearance ? 'selected' : ''}>${q}</option>`).join('')}
-            </select>
+            <label for="esk2-in-qty" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">IN QTY (KGS) <span class="text-[#DE350B]">*</span></label>
+            <input id="esk2-in-qty" name="inQty" type="text" value="${this.escape(row.inQty || row.inwardWeight || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
           </div>
 
           <div>
@@ -38767,14 +38560,23 @@ const ProductionView = {
 
             Modal.confirm({
               title: 'Confirm Update',
-              message: `Save changes for Soaking Lot "${row.lotCode}"?`,
+              message: `Save changes for Soaking Lot "${row.lot || row.lotCode}"?`,
               confirmLabel: 'Save',
               type: 'primary',
               onConfirm: () => {
-                Object.assign(row, values);
+                row.rmDate = values.rmDate;
+                row.date = values.rmDate;
+                row.station = values.station;
+                row.type = values.type;
+                row.variety = values.type;
+                row.inQty = values.inQty;
+                row.inwardWeight = values.inQty.endsWith('Kgs') ? values.inQty : `${values.inQty} Kgs`;
+                row.status = values.status;
+                row.remarks = values.remarks;
+
                 Modal.close();
                 this.renderSoakingV2Screen(container);
-                Toast.show(`Soaking lot ${row.lotCode} updated successfully`, 'success');
+                Toast.show(`Soaking lot ${row.lot || row.lotCode} updated successfully`, 'success');
               }
             });
           }
@@ -38785,7 +38587,7 @@ const ProductionView = {
 
   showSoakingV2Details(row) {
     Modal.open({
-      title: `Soaking Lot (V2) Details: ${row.lotCode}`,
+      title: `Soaking Lot (V2) Details: ${row.lot || row.lotCode}`,
       size: 'xl',
       content: `
         <div class="space-y-4 text-xs">
@@ -38797,75 +38599,99 @@ const ProductionView = {
               </div>
               <div>
                 <div class="flex items-center gap-2 flex-wrap">
-                  <span class="font-mono font-extrabold text-[#0F172A] text-base">${this.escape(row.lotCode)}</span>
+                  <span class="text-xs font-bold text-[#5E6C84]">ID: #${this.escape(row.id != null ? row.id : '-')}</span>
+                  <span class="font-mono font-extrabold text-[#0F172A] text-base">${this.escape(row.lot || row.lotCode)}</span>
                   <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold tracking-wide uppercase ${
                     row.status === 'APPROVED' ? 'bg-[#DCFCE7] text-[#166534] border border-[#86EFAC]' : 'bg-[#E0F2FE] text-[#0369A1] border border-[#7DD3FC]'
                   }">${this.escape(row.status || 'APPROVED')}</span>
                   <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-[#DCFCE7] text-[#166534] border border-[#86EFAC]">QC: ${this.escape(row.qcClearance || 'PASSED')}</span>
                 </div>
                 <p class="text-[11px] text-[#64748B] mt-0.5 font-medium flex items-center gap-1.5 flex-wrap">
-                  <span>Plant: <strong class="text-[#334155]">${this.escape(row.productionPlant)}</strong></span>
+                  <span>Station: <strong class="text-[#334155]">${this.escape(row.station || 'Station #1')}</strong></span>
                   <span>&bull;</span>
-                  <span>Date: <strong class="text-[#334155]">${this.escape(row.date)}</strong></span>
+                  <span>RM Date: <strong class="text-[#334155]">${this.escape(row.rmDate || row.date)}</strong></span>
                   <span>&bull;</span>
-                  <span>Pit: <strong class="text-[#334155]">${this.escape(row.tankPitNo)}</strong> (${this.escape(row.shift)})</span>
+                  <span>Type: <strong class="text-[#0284C7]">${this.escape(row.type || row.variety)}</strong></span>
                 </p>
               </div>
             </div>
 
             <div class="flex items-center gap-2">
               <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center">
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Net Gain</span>
-                <span class="font-mono font-extrabold text-sm text-[#00875A]">${this.escape(row.netGainPct || '0%')}</span>
-              </div>
-              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center">
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Inward</span>
-                <span class="font-mono font-bold text-xs text-[#172B4D]">${this.escape(row.inwardWeight)}</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">In Qty</span>
+                <span class="font-mono font-bold text-xs text-[#172B4D]">${this.escape(row.inQty || row.inwardWeight)}</span>
               </div>
               <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center">
                 <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Outward</span>
-                <span class="font-mono font-bold text-xs text-[#0F172A]">${this.escape(row.outwardWeight)}</span>
+                <span class="font-mono font-bold text-xs text-[#0F172A]">${this.escape(row.outwardWeight || '-')}</span>
+              </div>
+              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Net Gain</span>
+                <span class="font-mono font-extrabold text-sm text-[#00875A]">${this.escape(row.netGainPct || '0%')}</span>
               </div>
             </div>
           </div>
 
-          <!-- Section 1: Solution Formulation & Dosing -->
+          <!-- Section 1: Soaking & Station Specifications -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider mb-3 pb-2 border-b border-[#F1F5F9]">Soaking &amp; Station Specifications</h4>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Station</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.station || 'Station #1')}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">RM Date</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.rmDate || row.date)}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Product Type</span>
+                <span class="font-semibold text-[#0284C7] text-xs block mt-0.5">${this.escape(row.type || row.variety)}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">In Qty (Kgs)</span>
+                <span class="font-mono font-bold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.inQty || row.inwardWeight)}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Chemical Formulation & Physics -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
             <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider mb-3 pb-2 border-b border-[#F1F5F9]">Chemical Dosing &amp; Bath Physics</h4>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
               <div>
                 <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Chemical Formulation</span>
-                <span class="font-semibold text-[#0284C7] text-xs block mt-0.5">${this.escape(row.chemicalFormulation)}</span>
+                <span class="font-semibold text-[#0284C7] text-xs block mt-0.5">${this.escape(row.chemicalFormulation || 'STPP Buffer')}</span>
               </div>
               <div>
                 <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Dosing Ratio (%)</span>
-                <span class="font-mono font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.dosingRatio)}</span>
+                <span class="font-mono font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.dosingRatio || '2.5%')}</span>
               </div>
               <div>
                 <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Chilled Bath Temp</span>
-                <span class="font-mono font-bold text-[#00875A] text-xs block mt-0.5">${this.escape(row.bathTemp)}</span>
+                <span class="font-mono font-bold text-[#00875A] text-xs block mt-0.5">${this.escape(row.bathTemp || '1.5°C')}</span>
               </div>
               <div>
                 <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Solution pH</span>
-                <span class="font-mono font-bold text-[#403294] text-xs block mt-0.5">${this.escape(row.phLevel)}</span>
+                <span class="font-mono font-bold text-[#403294] text-xs block mt-0.5">${this.escape(row.phLevel || '7.2 pH')}</span>
               </div>
             </div>
           </div>
 
-          <!-- Section 2: Lot Details & Supervision -->
+          <!-- Section 3: Notes & Supervision -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider mb-3 pb-2 border-b border-[#F1F5F9]">Lot Identification &amp; Notes</h4>
+            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider mb-3 pb-2 border-b border-[#F1F5F9]">Lot Supervision &amp; Notes</h4>
             <div class="grid grid-cols-2 sm:grid-cols-3 gap-3.5">
               <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Variety</span>
-                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.variety)}</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Production Plant</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.productionPlant || '-')}</span>
               </div>
               <div>
                 <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Supervisor</span>
                 <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.supervisor || 'Shift Chemist')}</span>
               </div>
               <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">QC &amp; Calibration Notes</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Remarks / Notes</span>
                 <span class="text-xs text-[#334155] block mt-0.5">${this.escape(row.remarks || 'None')}</span>
               </div>
             </div>
@@ -38881,15 +38707,19 @@ const ProductionView = {
   deleteSoakingV2Row(row, container) {
     Modal.confirm({
       title: 'Confirm Deletion',
-      message: `Are you sure you want to delete Soaking Lot (V2) "${row.lotCode}"?`,
+      message: `Are you sure you want to delete Soaking Lot (V2) "${row.lot || row.lotCode}"?`,
       confirmLabel: 'Delete Lot',
       type: 'danger',
       onConfirm: () => {
-        const idx = this.state.soakingV2Lots.findIndex(item => item.lotCode === row.lotCode);
+        const idx = this.state.soakingV2Lots.findIndex(item => 
+          (item.id != null && item.id === row.id) || 
+          (item.lot && item.lot === row.lot) || 
+          (item.lotCode && item.lotCode === row.lotCode)
+        );
         if (idx !== -1) {
           this.state.soakingV2Lots.splice(idx, 1);
           this.renderSoakingV2Screen(container);
-          Toast.show(`Soaking lot ${row.lotCode} deleted successfully`, 'success');
+          Toast.show(`Soaking lot ${row.lot || row.lotCode} deleted successfully`, 'success');
         }
       }
     });
