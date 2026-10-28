@@ -123,7 +123,7 @@ export const ADMIN_NAV_HIERARCHY = [
         title: "QC Operations",
         defaultTab: "documentation",
         tabs: [
-          { id: "documentation", label: "Documentation", hash: "#/quality/qc-operations/documentation" }
+          { id: "documentation", label: "QC Operations", hash: "#/quality/qc-operations/documentation" }
         ]
       },
       {

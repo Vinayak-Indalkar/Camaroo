@@ -145,7 +145,7 @@ const qcSchemas = {
   'mb-report': { title: 'Microbiology Report', fields: qcMbReportFields },
   'lab-report': { title: 'In-House Lab Report', fields: qcLabReportFields },
   'external-lab-report': { title: 'External Lab Report', fields: [qcField('exporter', 'Exporter'), qcLotField, qcDateField, qcField('reportNo', 'Report Number'), qcField('lab', 'Accredited Laboratory'), qcField('accreditationNo', 'Accreditation Number'), qcField('requiredTests', 'Tests Performed'), qcField('result', 'Lab Result', 'select', ['Pass', 'Fail', 'Pending']), qcField('coaNumber', 'COA Number'), qcInspectorField] },
-  documentation: { title: 'QC Documentation', fields: qcDocumentationFields },
+  documentation: { title: 'QC Operations', fields: qcDocumentationFields },
   'food-social-audit': { title: 'Food & Social Screening', fields: qcSupplierFields },
   'farm-mill-hatchery-audit': { title: 'Farm / Mill / Hatchery Screening', fields: qcSupplierFields },
   'hatchery-list': { title: 'Hatchery Register', fields: qcSupplierFields }
