@@ -36866,7 +36866,12 @@ const ProductionView = {
             </div>
 
             <div>
-              <label for="yd-filter-type-product" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TYPE PRODUCT</label>
+              <label for="yd-filter-variety" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">VARIETY</label>
+              <input type="text" id="yd-filter-variety" placeholder="e.g. Aquaculture, Sea Caught" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" />
+            </div>
+
+            <div>
+              <label for="yd-filter-type-product" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TYPE OF PRODUCT</label>
               <select id="yd-filter-type-product" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]">
                 <option value="ALL">All Product Types</option>
                 <option value="HLSO">HLSO</option>
@@ -36876,11 +36881,6 @@ const ProductionView = {
                 <option value="Fillet">Fillet</option>
                 <option value="Easy Peel">Easy Peel</option>
               </select>
-            </div>
-
-            <div>
-              <label for="yd-filter-variety" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">VARIETY</label>
-              <input type="text" id="yd-filter-variety" placeholder="e.g. Aquaculture, Sea Caught" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" />
             </div>
 
             <div>
@@ -36915,6 +36915,11 @@ const ProductionView = {
             </div>
 
             <div>
+              <label for="yd-filter-material" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TYPE OF MATERIAL</label>
+              <input type="text" id="yd-filter-material" placeholder="e.g. Headless Shell-On" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" />
+            </div>
+
+            <div>
               <label for="yd-filter-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STATUS</label>
               <select id="yd-filter-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]">
                 <option value="ALL">All Statuses</option>
@@ -36922,11 +36927,6 @@ const ProductionView = {
                 <option value="Pending Review">Pending Review</option>
                 <option value="Inactive">Inactive</option>
               </select>
-            </div>
-
-            <div>
-              <label for="yd-filter-material" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TYPE OF MATERIAL</label>
-              <input type="text" id="yd-filter-material" placeholder="e.g. Headless Shell-On" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" />
             </div>
 
             <div>
@@ -36978,8 +36978,9 @@ const ProductionView = {
       const kw = (document.getElementById('yd-filter-search')?.value || '').trim().toLowerCase();
 
       const filtered = this.state.standardYields.filter(row => {
+        const rowProd = row.typeOfProduct || row.typeProduct || '';
         if (sp !== 'ALL' && !String(row.species || '').toLowerCase().includes(sp.toLowerCase())) return false;
-        if (tp !== 'ALL' && row.typeProduct !== tp) return false;
+        if (tp !== 'ALL' && rowProd !== tp) return false;
         if (varQuery && !String(row.variety || '').toLowerCase().includes(varQuery)) return false;
         if (grQuery && !String(row.grade || '').toLowerCase().includes(grQuery)) return false;
         if (cntQuery && !String(row.count || '').toLowerCase().includes(cntQuery)) return false;
@@ -36988,7 +36989,7 @@ const ProductionView = {
         if (matQuery && !String(row.typeOfMaterial || '').toLowerCase().includes(matQuery)) return false;
         if (st !== 'ALL' && String(row.status || '').toLowerCase() !== st.toLowerCase()) return false;
         if (kw) {
-          const haystack = `${row.species} ${row.typeProduct} ${row.variety} ${row.grade} ${row.count} ${row.freezingType} ${row.treatment} ${row.typeOfMaterial} ${row.yield} ${row.status}`.toLowerCase();
+          const haystack = `${row.species} ${rowProd} ${row.variety} ${row.grade} ${row.count} ${row.freezingType} ${row.treatment} ${row.typeOfMaterial} ${row.yield} ${row.status}`.toLowerCase();
           if (!haystack.includes(kw)) return false;
         }
         return true;
@@ -37051,14 +37052,14 @@ const ProductionView = {
             render: (v) => `<span class="font-bold text-[#172B4D] whitespace-nowrap cursor-pointer hover:underline text-[#0284C7]">${this.escape(v)}</span>`
           },
           {
-            field: 'typeProduct',
-            header: 'Type Product',
-            render: (v) => `<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF] whitespace-nowrap">${this.escape(v)}</span>`
-          },
-          {
             field: 'variety',
             header: 'Variety',
             render: (v) => `<span class="font-semibold text-[#172B4D] whitespace-nowrap">${this.escape(v)}</span>`
+          },
+          {
+            field: 'typeOfProduct',
+            header: 'Type of Product',
+            render: (v, row) => `<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF] whitespace-nowrap">${this.escape(v || row.typeProduct || '')}</span>`
           },
           {
             field: 'grade',
@@ -37087,7 +37088,7 @@ const ProductionView = {
           },
           {
             field: 'yield',
-            header: 'Yield',
+            header: 'Yield %',
             render: (v) => `<span class="font-mono font-extrabold text-[#00875A] text-xs">${this.escape(v || '0%')}</span>`
           },
           {
@@ -37137,8 +37138,13 @@ const ProductionView = {
           </div>
 
           <div>
-            <label for="sy-type-product" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TYPE PRODUCT <span class="text-[#DE350B]">*</span></label>
-            <select id="sy-type-product" name="typeProduct" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+            <label for="sy-variety" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">VARIETY <span class="text-[#DE350B]">*</span></label>
+            <input id="sy-variety" name="variety" type="text" value="Aquaculture" placeholder="e.g. Aquaculture, Sea Caught" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="sy-type-of-product" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TYPE OF PRODUCT <span class="text-[#DE350B]">*</span></label>
+            <select id="sy-type-of-product" name="typeOfProduct" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
               <option value="HLSO" selected>HLSO</option>
               <option value="PD">PD</option>
               <option value="PDTO">PDTO</option>
@@ -37146,11 +37152,6 @@ const ProductionView = {
               <option value="Fillet">Fillet</option>
               <option value="Easy Peel">Easy Peel</option>
             </select>
-          </div>
-
-          <div>
-            <label for="sy-variety" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">VARIETY <span class="text-[#DE350B]">*</span></label>
-            <input id="sy-variety" name="variety" type="text" value="Aquaculture" placeholder="e.g. Aquaculture, Sea Caught" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
           </div>
 
           <div>
@@ -37188,7 +37189,7 @@ const ProductionView = {
           </div>
 
           <div>
-            <label for="sy-yield" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">YIELD <span class="text-[#DE350B]">*</span></label>
+            <label for="sy-yield" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">YIELD % <span class="text-[#DE350B]">*</span></label>
             <input id="sy-yield" name="yield" type="text" value="66.5%" placeholder="e.g. 66.5%" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] focus:outline-none focus:border-[#0284C7]" required />
           </div>
 
@@ -37199,11 +37200,6 @@ const ProductionView = {
               <option value="Pending Review">Pending Review</option>
               <option value="Inactive">Inactive</option>
             </select>
-          </div>
-
-          <div class="sm:col-span-2">
-            <label for="sy-remarks" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">REMARKS</label>
-            <input id="sy-remarks" name="remarks" type="text" value="Standard benchmark approved by Devi Fisheries Technical Committee" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" />
           </div>
         </form>
       `,
@@ -37219,7 +37215,7 @@ const ProductionView = {
 
             Modal.confirm({
               title: 'Confirm Standard Yield',
-              message: `Set standard yield of ${values.yield} for ${values.species} (${values.typeProduct})?`,
+              message: `Set standard yield of ${values.yield} for ${values.species} (${values.variety})?`,
               confirmLabel: 'Save Standard',
               type: 'primary',
               onConfirm: () => {
@@ -37227,8 +37223,9 @@ const ProductionView = {
                   sNo: this.state.standardYields.length + 1,
                   id: defaultId,
                   species: values.species,
-                  typeProduct: values.typeProduct,
                   variety: values.variety,
+                  typeOfProduct: values.typeOfProduct,
+                  typeProduct: values.typeOfProduct,
                   grade: values.grade,
                   count: values.count,
                   freezingType: values.freezingType,
@@ -37236,13 +37233,13 @@ const ProductionView = {
                   typeOfMaterial: values.typeOfMaterial,
                   yield: values.yield.includes('%') ? values.yield : `${values.yield}%`,
                   status: values.status,
-                  remarks: values.remarks || 'Standard benchmark recorded'
+                  remarks: 'Standard benchmark recorded'
                 };
 
                 this.state.standardYields.unshift(newRow);
                 Modal.close();
                 this.renderProductionStandardYieldsScreen(container);
-                Toast.show(`Standard yield for ${newRow.species} (${newRow.typeProduct}) saved successfully`, 'success');
+                Toast.show(`Standard yield for ${newRow.species} (${newRow.variety}) saved successfully`, 'success');
               }
             });
           }
@@ -37253,7 +37250,7 @@ const ProductionView = {
 
   showEditYieldModal(row, container) {
     Modal.open({
-      title: `Edit Standard Yield: ${row.species} - ${row.typeProduct}`,
+      title: `Edit Standard Yield: ${row.species} - ${row.variety}`,
       size: 'xl',
       content: `
         <form id="form-edit-yield" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs">
@@ -37265,15 +37262,15 @@ const ProductionView = {
           </div>
 
           <div>
-            <label for="ey-type-product" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TYPE PRODUCT <span class="text-[#DE350B]">*</span></label>
-            <select id="ey-type-product" name="typeProduct" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
-              ${['HLSO', 'PD', 'PDTO', 'HOSO', 'Fillet', 'Easy Peel'].map(tp => `<option value="${tp}" ${tp === row.typeProduct ? 'selected' : ''}>${tp}</option>`).join('')}
-            </select>
+            <label for="ey-variety" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">VARIETY <span class="text-[#DE350B]">*</span></label>
+            <input id="ey-variety" name="variety" type="text" value="${this.escape(row.variety)}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
           </div>
 
           <div>
-            <label for="ey-variety" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">VARIETY <span class="text-[#DE350B]">*</span></label>
-            <input id="ey-variety" name="variety" type="text" value="${this.escape(row.variety)}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
+            <label for="ey-type-of-product" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TYPE OF PRODUCT <span class="text-[#DE350B]">*</span></label>
+            <select id="ey-type-of-product" name="typeOfProduct" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
+              ${['HLSO', 'PD', 'PDTO', 'HOSO', 'Fillet', 'Easy Peel'].map(tp => `<option value="${tp}" ${tp === (row.typeOfProduct || row.typeProduct) ? 'selected' : ''}>${tp}</option>`).join('')}
+            </select>
           </div>
 
           <div>
@@ -37306,7 +37303,7 @@ const ProductionView = {
           </div>
 
           <div>
-            <label for="ey-yield" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">YIELD <span class="text-[#DE350B]">*</span></label>
+            <label for="ey-yield" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">YIELD % <span class="text-[#DE350B]">*</span></label>
             <input id="ey-yield" name="yield" type="text" value="${this.escape(row.yield)}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] focus:outline-none focus:border-[#0284C7]" required />
           </div>
 
@@ -37315,11 +37312,6 @@ const ProductionView = {
             <select id="ey-status" name="status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
               ${['Active', 'Pending Review', 'Inactive'].map(st => `<option value="${st}" ${st === row.status ? 'selected' : ''}>${st}</option>`).join('')}
             </select>
-          </div>
-
-          <div class="sm:col-span-2">
-            <label for="ey-remarks" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">REMARKS</label>
-            <input id="ey-remarks" name="remarks" type="text" value="${this.escape(row.remarks || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" />
           </div>
         </form>
       `,
@@ -37335,16 +37327,17 @@ const ProductionView = {
 
             Modal.confirm({
               title: 'Confirm Update',
-              message: `Save changes for Standard Yield "${row.species} - ${row.typeProduct}"?`,
-              confirmLabel: 'Save',
+              message: `Save changes for Standard Yield "${row.species} - ${values.variety}"?`,
+              confirmLabel: 'Save Changes',
               type: 'primary',
               onConfirm: () => {
                 Object.assign(row, values, {
+                  typeProduct: values.typeOfProduct,
                   yield: values.yield.includes('%') ? values.yield : `${values.yield}%`
                 });
                 Modal.close();
                 this.renderProductionStandardYieldsScreen(container);
-                Toast.show(`Standard yield for ${row.species} (${row.typeProduct}) updated successfully`, 'success');
+                Toast.show(`Standard yield for ${row.species} (${row.variety}) updated successfully`, 'success');
               }
             });
           }
@@ -37354,8 +37347,9 @@ const ProductionView = {
   },
 
   showYieldDetails(row) {
+    const productType = row.typeOfProduct || row.typeProduct || '-';
     Modal.open({
-      title: `Standard Yield: ${row.species} - ${row.typeProduct}`,
+      title: `Standard Yield: ${row.species} - ${row.variety}`,
       size: 'xl',
       content: `
         <div class="space-y-4 text-xs">
@@ -37367,7 +37361,7 @@ const ProductionView = {
               </div>
               <div>
                 <div class="flex items-center gap-2 flex-wrap">
-                  <span class="font-mono font-extrabold text-[#0F172A] text-base">${this.escape(row.species)} &bull; ${this.escape(row.typeProduct)}</span>
+                  <span class="font-mono font-extrabold text-[#0F172A] text-base">${this.escape(row.species)} &bull; ${this.escape(row.variety)}</span>
                   <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold tracking-wide uppercase ${
                     String(row.status).toUpperCase() === 'ACTIVE' ? 'bg-[#DCFCE7] text-[#166534] border border-[#86EFAC]' : 'bg-[#FEF3C7] text-[#92400E] border border-[#FCD34D]'
                   }">${this.escape(row.status || 'Active')}</span>
@@ -37375,7 +37369,7 @@ const ProductionView = {
                   <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#E0F2FE] text-[#0369A1] border border-[#BAE6FD]">${this.escape(row.treatment)}</span>
                 </div>
                 <p class="text-[11px] text-[#64748B] mt-0.5 font-medium flex items-center gap-1.5 flex-wrap">
-                  <span>Variety: <strong class="text-[#334155]">${this.escape(row.variety)}</strong></span>
+                  <span>Type of Product: <strong class="text-[#334155]">${this.escape(productType)}</strong></span>
                   <span>&bull;</span>
                   <span>Grade: <strong class="text-[#334155]">${this.escape(row.grade)}</strong></span>
                   <span>&bull;</span>
@@ -37394,55 +37388,49 @@ const ProductionView = {
 
           <!-- Section 1: Standard Yield Specifications -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider mb-3 pb-2 border-b border-[#F1F5F9]">Yield &amp; Product Specifications</h4>
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider mb-3 pb-2 border-b border-[#F1F5F9]">Standard Yield Specifications</h4>
+            <div class="grid grid-cols-2 sm:grid-cols-5 gap-3.5">
               <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Species</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">SPECIES</span>
                 <span class="font-bold text-[#0284C7] text-xs block mt-0.5">${this.escape(row.species)}</span>
               </div>
               <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Type Product</span>
-                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.typeProduct)}</span>
-              </div>
-              <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Variety</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">VARIETY</span>
                 <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.variety)}</span>
               </div>
               <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Grade</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">TYPE OF PRODUCT</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(productType)}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">GRADE</span>
                 <span class="font-mono font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.grade)}</span>
               </div>
               <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Count</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">COUNT</span>
                 <span class="font-mono font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.count)}</span>
               </div>
               <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Freezing Type</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">FREEZING TYPE</span>
                 <span class="font-semibold text-[#0369A1] text-xs block mt-0.5">${this.escape(row.freezingType)}</span>
               </div>
               <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Treatment</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">TREATMENT</span>
                 <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.treatment)}</span>
               </div>
               <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Type of Material</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">TYPE OF MATERIAL</span>
                 <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.typeOfMaterial)}</span>
               </div>
               <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Standard Yield</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">YIELD %</span>
                 <span class="font-mono font-extrabold text-[#00875A] text-xs block mt-0.5">${this.escape(row.yield)}</span>
               </div>
               <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Status</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">STATUS</span>
                 <span class="font-bold text-xs block mt-0.5">${this.escape(row.status)}</span>
               </div>
             </div>
-          </div>
-
-          <!-- Section 2: Remarks -->
-          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider mb-2">Technical Approval Notes</h4>
-            <p class="text-xs text-[#334155] leading-relaxed">${this.escape(row.remarks || 'Standard benchmark verified by Devi Fisheries QA department.')}</p>
           </div>
         </div>
       `,
@@ -37455,7 +37443,7 @@ const ProductionView = {
   deleteYieldRow(row, container) {
     Modal.confirm({
       title: 'Confirm Deletion',
-      message: `Are you sure you want to delete Standard Yield for "${row.species} - ${row.typeProduct} (${row.grade})"?`,
+      message: `Are you sure you want to delete Standard Yield for "${row.species} - ${row.variety}"?`,
       confirmLabel: 'Delete Benchmark',
       type: 'danger',
       onConfirm: () => {
