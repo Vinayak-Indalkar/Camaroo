@@ -16,9 +16,9 @@ const qcFmhAuditFields = [
   qcField('plantName', 'Plant Name'),
   qcField('auditName', 'Audit Name'),
   qcField('auditType', 'Audit Type', 'select', ['Hatchery', 'Farm', 'Feed Mill']),
-  qcField('certAuthority', 'Certification Authority'),
+  qcField('certAuthority', 'Certificate Authority'),
   qcField('regNumber', 'Registration Number'),
-  qcField('certNumber', 'Certification Number'),
+  qcField('certNumber', 'Certificate Number'),
   qcField('auditStartDate', 'Audit Start Date', 'date'),
   qcField('auditEndDate', 'Audit End Date', 'date'),
   qcField('auditProgram', 'Audit Program', 'select', ['BAP 4-Star', 'ASC Shrimp Standard', 'GlobalG.A.P. IFA', 'BRCGS Issue 9', 'ISO 22000']),
@@ -955,9 +955,9 @@ export const QCView = {
       qcField('plantName', 'Plant Name'),
       qcField('auditName', 'Audit Name'),
       qcField('auditType', 'Audit Type'),
-      qcField('certAuthority', 'Certification Authority'),
+      qcField('certAuthority', 'Certificate Authority'),
       qcField('regNumber', 'Registration Number'),
-      qcField('certNumber', 'Certification Number'),
+      qcField('certNumber', 'Certificate Number'),
       qcField('auditStartDate', 'Audit Start Date', 'date'),
       qcField('auditEndDate', 'Audit End Date', 'date'),
       qcField('auditProgram', 'Audit Program'),
@@ -1000,7 +1000,7 @@ export const QCView = {
         if (field.key === 'certAuthority') {
           return {
             field: 'certAuthority',
-            header: 'Certification Authority',
+            header: 'Certificate Authority',
             render: val => this.escape(val || '-')
           };
         }
@@ -1014,7 +1014,7 @@ export const QCView = {
         if (field.key === 'certNumber') {
           return {
             field: 'certNumber',
-            header: 'Certification Number',
+            header: 'Certificate Number',
             render: val => `<span class="font-mono text-xs font-semibold text-[#00A4B7]">${this.escape(val || '-')}</span>`
           };
         }
