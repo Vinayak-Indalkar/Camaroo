@@ -203,7 +203,10 @@ export const Modal = {
   },
 
   // Confirmation Dialog
-  confirm({ title = 'Confirm Action', message, confirmText = 'Confirm', cancelText = 'Cancel', isDestructive = false, onConfirm, context = null }) {
+  confirm({ title = 'Confirm Action', message, confirmText = 'Confirm', confirmLabel = null, cancelText = 'Cancel', isDestructive = false, type = 'primary', onConfirm, context = null }) {
+    const finalConfirmText = confirmLabel || confirmText;
+    const finalIsDestructive = Boolean(isDestructive || type === 'danger');
+
     if (this.confirmedActionDepth) {
       if (onConfirm) onConfirm();
       return;
@@ -231,8 +234,8 @@ export const Modal = {
           onClick: (modal) => modal.close()
         },
         {
-          label: confirmText,
-          type: isDestructive ? 'danger' : 'primary',
+          label: finalConfirmText,
+          type: finalIsDestructive ? 'danger' : 'primary',
           onClick: (modal) => {
             this.onDismiss = null;
             modal.close();

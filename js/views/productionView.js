@@ -3835,7 +3835,10 @@ export const ProductionView = {
 
           <!-- Section 1: Standard Yield Specifications -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider mb-3 pb-2 border-b border-[#F1F5F9]">Standard Yield Specifications</h4>
+            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+              <span class="w-6 h-6 rounded-md bg-[#DCFCE7] text-[#166534] flex items-center justify-center font-bold text-xs">1</span>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Standard Yield Benchmark Specifications</h4>
+            </div>
             <div class="grid grid-cols-2 sm:grid-cols-5 gap-3.5">
               <div>
                 <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">SPECIES</span>
@@ -3878,6 +3881,15 @@ export const ProductionView = {
                 <span class="font-bold text-xs block mt-0.5">${this.escape(row.status)}</span>
               </div>
             </div>
+          </div>
+
+          <!-- Section 2: Quality & Compliance Notes -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 pb-2.5 mb-2 border-b border-[#F1F5F9]">
+              <span class="w-6 h-6 rounded-md bg-[#DCFCE7] text-[#166534] flex items-center justify-center font-bold text-xs">2</span>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Benchmark &amp; Compliance Notes</h4>
+            </div>
+            <p class="text-xs text-[#334155] leading-relaxed">${this.escape(row.remarks || 'Standard production yield target applied across all processing lines.')}</p>
           </div>
         </div>
       `,
@@ -4554,7 +4566,10 @@ export const ProductionView = {
 
           <!-- Section 1: Detailed Log Parameters -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider mb-3 pb-2 border-b border-[#F1F5F9]">Batch &amp; Solution Information</h4>
+            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+              <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#0284C7] flex items-center justify-center font-bold text-xs">1</span>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Batch &amp; Solution Information</h4>
+            </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
               <div>
                 <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Arrival Date</span>
@@ -4629,7 +4644,10 @@ export const ProductionView = {
 
           <!-- Section 2: Remarks -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider mb-2">Remarks</h4>
+            <div class="flex items-center gap-2 pb-2.5 mb-2 border-b border-[#F1F5F9]">
+              <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#0284C7] flex items-center justify-center font-bold text-xs">2</span>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Remarks &amp; Operational Notes</h4>
+            </div>
             <p class="text-xs text-[#334155] leading-relaxed">${this.escape(row.remarks || 'No remarks recorded.')}</p>
           </div>
         </div>
@@ -4988,7 +5006,10 @@ export const ProductionView = {
 
           <!-- Section 1: Soaking & Station Specifications -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider mb-3 pb-2 border-b border-[#F1F5F9]">Soaking &amp; Station Specifications</h4>
+            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+              <span class="w-6 h-6 rounded-md bg-[#DCFCE7] text-[#166534] flex items-center justify-center font-bold text-xs">1</span>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Soaking &amp; Station Specifications</h4>
+            </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
               <div>
                 <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Station</span>
@@ -5011,7 +5032,10 @@ export const ProductionView = {
 
           <!-- Section 2: Chemical Formulation & Physics -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider mb-3 pb-2 border-b border-[#F1F5F9]">Chemical Dosing &amp; Bath Physics</h4>
+            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+              <span class="w-6 h-6 rounded-md bg-[#DCFCE7] text-[#166534] flex items-center justify-center font-bold text-xs">2</span>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Chemical Dosing &amp; Bath Physics</h4>
+            </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
               <div>
                 <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Chemical Formulation</span>
@@ -5034,7 +5058,10 @@ export const ProductionView = {
 
           <!-- Section 3: Notes & Supervision -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider mb-3 pb-2 border-b border-[#F1F5F9]">Lot Supervision &amp; Notes</h4>
+            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+              <span class="w-6 h-6 rounded-md bg-[#DCFCE7] text-[#166534] flex items-center justify-center font-bold text-xs">3</span>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Lot Supervision &amp; Notes</h4>
+            </div>
             <div class="grid grid-cols-2 sm:grid-cols-3 gap-3.5">
               <div>
                 <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Production Plant</span>
@@ -5771,7 +5798,10 @@ export const ProductionView = {
 
           <!-- Section 1: Production & Station Information -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider mb-3 pb-2 border-b border-[#F1F5F9]">Production &amp; Station Allocation</h4>
+            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+              <span class="w-6 h-6 rounded-md bg-[#DCFCE7] text-[#166534] flex items-center justify-center font-bold text-xs">1</span>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Production &amp; Station Allocation</h4>
+            </div>
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3.5">
               <div>
                 <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Production Date</span>
@@ -5802,7 +5832,10 @@ export const ProductionView = {
 
           <!-- Section 2: Product & Packaging Specifications -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider mb-3 pb-2 border-b border-[#F1F5F9]">Product &amp; Packaging Specifications</h4>
+            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+              <span class="w-6 h-6 rounded-md bg-[#DCFCE7] text-[#166534] flex items-center justify-center font-bold text-xs">2</span>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Product &amp; Packaging Specifications</h4>
+            </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
               <div>
                 <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Variety</span>
@@ -5841,7 +5874,10 @@ export const ProductionView = {
 
           <!-- Section 3: Quantity & Weights -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider mb-3 pb-2 border-b border-[#F1F5F9]">Quantity &amp; Weight Breakdown</h4>
+            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+              <span class="w-6 h-6 rounded-md bg-[#DCFCE7] text-[#166534] flex items-center justify-center font-bold text-xs">3</span>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Quantity &amp; Weight Breakdown</h4>
+            </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
               <div>
                 <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">No. of Cartons (MCS)</span>
@@ -5864,7 +5900,10 @@ export const ProductionView = {
 
           <!-- Section 4: Line Remarks -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider mb-2 pb-2 border-b border-[#F1F5F9]">Line Remarks</h4>
+            <div class="flex items-center gap-2 pb-2 mb-2 border-b border-[#F1F5F9]">
+              <span class="w-6 h-6 rounded-md bg-[#DCFCE7] text-[#166534] flex items-center justify-center font-bold text-xs">4</span>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Line Remarks</h4>
+            </div>
             <p class="text-xs text-[#334155] leading-relaxed">${this.escape(row.lineRemarks || 'No remarks recorded for this freezing intake lot.')}</p>
           </div>
         </div>
