@@ -30093,6 +30093,24 @@ const qcInspectorField = qcField('inspector', 'Inspector');
 const qcStatusField = qcField('status', 'Status', 'select', ['Pending', 'In Review', 'Completed']);
 const qcAntibiotics = ['AOZ', 'AMOZ', 'AHD', 'SEM', 'CAP', 'OTC', 'CTC'];
 const qcOrganisms = ['Salmonella', 'Vibrio cholerae', 'Vibrio parahaemolyticus'];
+const qcFoodSocialAuditFields = [
+  qcField('auditType', 'Audit Type', 'select', ['Hatchery', 'Farm', 'Feed Mill']),
+  qcField('farmName', 'Farm Name'),
+  qcField('farmerName', 'Farmer Name'),
+  qcField('location', 'Hatchry Location'),
+  qcField('certifiedBody', 'Certified Body'),
+  qcField('associatedFactory', 'Associated Factory'),
+  qcField('govAuthority', 'Government Authority', 'select', ['MPEDA', 'CAA', 'EIA']),
+  qcField('govRegNumber', 'Gov Registration Number'),
+  qcField('bapNumber', 'BAP Number'),
+  qcField('tonnagePerAnnum', 'Tonnage/Annum', 'number'),
+  qcField('waterSpreadArea', 'Water Spread Area', 'number'),
+  qcField('auditDate', 'Audit Date', 'date'),
+  qcField('issuedOnDate', 'Issued On Date', 'date'),
+  qcField('validityUpto', 'Validty Upto', 'date'),
+  qcStatusField
+];
+
 const qcSupplierFields = [
   qcField('auditType', 'Facility Type', 'select', ['Hatchery', 'Farm', 'Feed Mill']),
   qcField('farmName', 'Facility Name'), qcField('farmerName', 'Operator / Proprietor'),
@@ -30227,7 +30245,7 @@ const qcSchemas = {
   'lab-report': { title: 'In-House Lab Report', fields: qcLabReportFields },
   'external-lab-report': { title: 'External Lab Report', fields: [qcField('exporter', 'Exporter'), qcLotField, qcDateField, qcField('reportNo', 'Report Number'), qcField('lab', 'Accredited Laboratory'), qcField('accreditationNo', 'Accreditation Number'), qcField('requiredTests', 'Tests Performed'), qcField('result', 'Lab Result', 'select', ['Pass', 'Fail', 'Pending']), qcField('coaNumber', 'COA Number'), qcInspectorField] },
   documentation: { title: 'QC Operations', fields: qcDocumentationFields },
-  'food-social-audit': { title: 'Food & Social Screening', fields: qcSupplierFields },
+  'food-social-audit': { title: 'Food & Social Screening', fields: qcFoodSocialAuditFields },
   'farm-mill-hatchery-audit': { title: 'Farm / Mill / Hatchery Screening', fields: qcSupplierFields },
   'hatchery-list': { title: 'Hatchery Register', fields: qcSupplierFields }
 };
@@ -30335,6 +30353,23 @@ const QCView = {
           chlorine: row.chlorine ?? seedRow.chlorine ?? 0.5,
           totalDissolvedSolids: row.totalDissolvedSolids ?? seedRow.totalDissolvedSolids ?? 850,
           status: 'Pass'
+        };
+      });
+    }
+    if (Array.isArray(this.state['food-social-audit'])) {
+      this.state['food-social-audit'] = this.state['food-social-audit'].map((row, idx) => {
+        const seedRow = (seed['food-social-audit'] && seed['food-social-audit'][idx]) || seed['food-social-audit'][0] || {};
+        const aDate = row.auditDate || seedRow.auditDate || `2026-10-${20 + idx}`;
+        const iDate = row.issuedOnDate || seedRow.issuedOnDate || `2026-10-${22 + idx}`;
+        const vDate = row.validityUpto || row.certificateExpiry || seedRow.validityUpto || '2027-10-27';
+        return {
+          ...seedRow,
+          ...row,
+          sNo: idx + 1,
+          auditDate: aDate,
+          issuedOnDate: iDate,
+          validityUpto: vDate,
+          certificateExpiry: vDate
         };
       });
     }
@@ -30507,7 +30542,55 @@ const QCView = {
           });
         }
         qcOrganisms.forEach(parameter => { row[parameter] = 'Absent'; });
-        if (key === 'documentation') {
+        if (key === 'food-social-audit') {
+          Object.assign(row, {
+            sNo: index + 1,
+            auditType: ['Hatchery', 'Farm', 'Feed Mill'][index % 3],
+            farmName: ['Coastal Seed Hatchery', 'Delta Aqua Farm', 'Marine Feed Mill'][index % 3],
+            farmerName: ['A. Rao', 'K. Ramu', 'P. Prasad'][index % 3],
+            location: ['Balsore', 'Kakinada', 'Bhimavaram'][index % 3],
+            certifiedBody: 'Demo Certification Agency',
+            associatedFactory: 'DFL UNIT-5 (JPT)',
+            govAuthority: 'MPEDA',
+            govRegNumber: `DEMO-REG-${index + 1}`,
+            bapNumber: `DEMO-BAP-${index + 1}`,
+            tonnagePerAnnum: 500 + index * 100,
+            waterSpreadArea: 10 + index * 5,
+            auditDate: `2026-10-${20 + index}`,
+            issuedOnDate: `2026-10-${22 + index}`,
+            validityUpto: '2027-10-27',
+            certificateExpiry: '2027-10-27',
+            status: index === 1 ? 'Hold' : 'Approved'
+          });
+        }
+        if (key === 'food-social-audit') {
+      return (this.state[key] || []).map((row, index) => {
+        const aDate = row.auditDate || `2026-10-${20 + (index % 5)}`;
+        const iDate = row.issuedOnDate || row.issuedDate || `2026-10-${22 + (index % 5)}`;
+        const vDate = row.validityUpto || row.certificateExpiry || '2027-10-27';
+        return {
+          ...row,
+          sNo: index + 1,
+          auditType: row.auditType || ['Hatchery', 'Farm', 'Feed Mill'][index % 3],
+          farmName: row.farmName || ['Coastal Seed Hatchery', 'Delta Aqua Farm', 'Marine Feed Mill'][index % 3],
+          farmerName: row.farmerName || ['A. Rao', 'K. Ramu', 'P. Prasad'][index % 3],
+          location: row.location || ['Balsore', 'Kakinada', 'Bhimavaram'][index % 3],
+          certifiedBody: row.certifiedBody || 'Demo Certification Agency',
+          associatedFactory: row.associatedFactory || 'DFL UNIT-5 (JPT)',
+          govAuthority: row.govAuthority || 'MPEDA',
+          govRegNumber: row.govRegNumber || `DEMO-REG-${index + 1}`,
+          bapNumber: row.bapNumber || `DEMO-BAP-${index + 1}`,
+          tonnagePerAnnum: row.tonnagePerAnnum ?? (500 + (index % 5) * 100),
+          waterSpreadArea: row.waterSpreadArea ?? (10 + (index % 5) * 5),
+          auditDate: aDate,
+          issuedOnDate: iDate,
+          validityUpto: vDate,
+          certificateExpiry: vDate,
+          status: row.status || (index === 1 ? 'Hold' : 'Approved')
+        };
+      });
+    }
+    if (key === 'documentation') {
           const invDate = `2026-10-${24 + index}`;
           const isQcOrder = index % 2 === 1;
           Object.assign(row, {
@@ -30844,8 +30927,139 @@ const QCView = {
       qcField('buyer', 'Buyer'),
       qcField('country', 'Country'),
       qcField('internalLotNo', 'Internal Lot No')
+    ] : key === 'food-social-audit' ? [
+      qcField('sNo', 'S.NO'),
+      qcField('auditType', 'Audit Type'),
+      qcField('farmName', 'Farm Name'),
+      qcField('farmerName', 'Farmer Name'),
+      qcField('location', 'Hatchry Location'),
+      qcField('certifiedBody', 'Certified Body'),
+      qcField('associatedFactory', 'Associated Factory'),
+      qcField('govAuthority', 'Government Authority'),
+      qcField('govRegNumber', 'Gov Registration Number'),
+      qcField('bapNumber', 'BAP Number'),
+      qcField('tonnagePerAnnum', 'Tonnage/Annum'),
+      qcField('waterSpreadArea', 'Water Spread Area'),
+      qcField('auditDate', 'Audit Date', 'date'),
+      qcField('issuedOnDate', 'Issued On Date', 'date'),
+      qcField('validityUpto', 'Validty Upto', 'date'),
+      qcField('status', 'Status')
     ] : schema.fields;
     const columns = tableFields.map(field => {
+      if (key === 'food-social-audit') {
+        if (field.key === 'sNo') {
+          return {
+            field: 'sNo',
+            header: 'S.NO',
+            render: (val, row, idx) => `<span class="font-bold text-[#5E6C84]">${idx !== undefined ? idx + 1 : (val || 1)}</span>`
+          };
+        }
+        if (field.key === 'auditType') {
+          return {
+            field: 'auditType',
+            header: 'Audit Type',
+            render: val => `<span class="font-semibold text-[#172B4D]">${this.escape(val || '-')}</span>`
+          };
+        }
+        if (field.key === 'farmName') {
+          return {
+            field: 'farmName',
+            header: 'Farm Name',
+            render: val => `<span class="font-medium text-[#172B4D]">${this.escape(val || '-')}</span>`
+          };
+        }
+        if (field.key === 'farmerName') {
+          return {
+            field: 'farmerName',
+            header: 'Farmer Name',
+            render: val => this.escape(val || '-')
+          };
+        }
+        if (field.key === 'location') {
+          return {
+            field: 'location',
+            header: 'Hatchry Location',
+            render: val => this.escape(val || '-')
+          };
+        }
+        if (field.key === 'certifiedBody') {
+          return {
+            field: 'certifiedBody',
+            header: 'Certified Body',
+            render: val => this.escape(val || '-')
+          };
+        }
+        if (field.key === 'associatedFactory') {
+          return {
+            field: 'associatedFactory',
+            header: 'Associated Factory',
+            render: val => this.escape(val || '-')
+          };
+        }
+        if (field.key === 'govAuthority') {
+          return {
+            field: 'govAuthority',
+            header: 'Government Authority',
+            render: val => `<span class="inline-flex px-2 py-0.5 rounded text-[11px] font-bold bg-[#F4F5F7] text-[#172B4D] border border-[#DFE1E6]">${this.escape(val || '-')}</span>`
+          };
+        }
+        if (field.key === 'govRegNumber') {
+          return {
+            field: 'govRegNumber',
+            header: 'Gov Registration Number',
+            render: val => `<span class="font-mono text-xs font-semibold text-[#172B4D]">${this.escape(val || '-')}</span>`
+          };
+        }
+        if (field.key === 'bapNumber') {
+          return {
+            field: 'bapNumber',
+            header: 'BAP Number',
+            render: val => `<span class="font-mono text-xs font-semibold text-[#00A4B7]">${this.escape(val || '-')}</span>`
+          };
+        }
+        if (field.key === 'tonnagePerAnnum') {
+          return {
+            field: 'tonnagePerAnnum',
+            header: 'Tonnage/Annum',
+            render: val => `<span class="font-mono font-medium">${val !== undefined && val !== null ? Number(val).toLocaleString() : '-'}</span>`
+          };
+        }
+        if (field.key === 'waterSpreadArea') {
+          return {
+            field: 'waterSpreadArea',
+            header: 'Water Spread Area',
+            render: val => `<span class="font-mono font-medium">${val !== undefined && val !== null ? Number(val).toLocaleString() : '-'}</span>`
+          };
+        }
+        if (field.key === 'auditDate') {
+          return {
+            field: 'auditDate',
+            header: 'Audit Date',
+            render: val => val ? String(val).split('-').reverse().join('-') : '-'
+          };
+        }
+        if (field.key === 'issuedOnDate') {
+          return {
+            field: 'issuedOnDate',
+            header: 'Issued On Date',
+            render: val => val ? String(val).split('-').reverse().join('-') : '-'
+          };
+        }
+        if (field.key === 'validityUpto') {
+          return {
+            field: 'validityUpto',
+            header: 'Validty Upto',
+            render: val => val ? String(val).split('-').reverse().join('-') : '-'
+          };
+        }
+        if (field.key === 'status') {
+          return {
+            field: 'status',
+            header: 'Status',
+            render: val => this.badge(val)
+          };
+        }
+      }
       if (key === 'documentation') {
         if (field.key === 'sno') {
           return {
@@ -30998,7 +31212,7 @@ const QCView = {
       }
       return { field: field.key, header: field.label, render: value => this.escape(value ?? '-') };
     });
-    if (!['ab-report', 'mb-report', 'lab-report', 'documentation'].includes(key)) {
+    if (!['ab-report', 'mb-report', 'lab-report', 'documentation', 'food-social-audit'].includes(key)) {
       if (!columns.some(column => column.field === 'status')) columns.push({ field: 'status', header: key === 'lots-list' ? 'AB Status' : 'Status', render: value => this.badge(value) });
       else columns.find(column => column.field === 'status').render = value => this.badge(value);
     }
