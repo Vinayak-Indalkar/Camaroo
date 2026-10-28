@@ -195,47 +195,55 @@ export const ADMIN_NAV_HIERARCHY = [
         title: "Dashboard",
         defaultTab: "overview",
         tabs: [
-          { id: "overview", label: "Overview", hash: "#/coldstore/dashboard/overview" }
+          { id: "overview", label: "Dashboard", hash: "#/coldstore/dashboard/overview" }
         ]
       },
       {
-        id: "inward-intake",
-        title: "Inward & Intake",
-        defaultTab: "production-intake",
+        id: "stock",
+        title: "Stock",
+        defaultTab: "stock-list",
         tabs: [
-          { id: "production-intake", label: "Production Intake", hash: "#/coldstore/inward-intake/production-intake" },
-          { id: "general-stock-in", label: "General Stock In", hash: "#/coldstore/inward-intake/general-stock-in" },
-          { id: "inward-approvals", label: "Inward Approvals", hash: "#/coldstore/inward-intake/inward-approvals" }
+          { id: "stock-list", label: "Stock", hash: "#/coldstore/stock/stock-list" }
         ]
       },
       {
-        id: "store-operations",
-        title: "Store Operations",
-        defaultTab: "master-inventory",
+        id: "orders",
+        title: "Orders",
+        defaultTab: "orders-list",
         tabs: [
-          { id: "master-inventory", label: "Master Inventory", hash: "#/coldstore/store-operations/master-inventory" },
-          { id: "thawing-repacking", label: "Thawing & Repacking", hash: "#/coldstore/store-operations/thawing-repacking" },
-          { id: "physical-adjustments", label: "Physical Adjustments", hash: "#/coldstore/store-operations/physical-adjustments" }
+          { id: "orders-list", label: "Orders", hash: "#/coldstore/orders/orders-list" }
         ]
       },
       {
-        id: "dispatch-outward",
-        title: "Dispatch & Outward",
-        defaultTab: "orders-allocations",
+        id: "store",
+        title: "Store",
+        defaultTab: "store-operations",
         tabs: [
-          { id: "orders-allocations", label: "Orders & Allocations", hash: "#/coldstore/dispatch-outward/orders-allocations" },
-          { id: "shipments", label: "Shipments", hash: "#/coldstore/dispatch-outward/shipments" },
-          { id: "stock-out", label: "Stock Out", hash: "#/coldstore/dispatch-outward/stock-out" },
-          { id: "ibt-management", label: "IBT Management", hash: "#/coldstore/dispatch-outward/ibt-management" }
+          { id: "store-operations", label: "Store", hash: "#/coldstore/store/store-operations" }
         ]
       },
       {
-        id: "setup-imports",
-        title: "Setup & Imports",
-        defaultTab: "racks-locations",
+        id: "stock-approvals",
+        title: "Stock Approvals",
+        defaultTab: "stock-approvals-list",
         tabs: [
-          { id: "racks-locations", label: "Racks & Locations", hash: "#/coldstore/setup-imports/racks-locations" },
-          { id: "batch-uploads", label: "Batch Data Uploads", hash: "#/coldstore/setup-imports/batch-uploads" }
+          { id: "stock-approvals-list", label: "Stock Approvals", hash: "#/coldstore/stock-approvals/stock-approvals-list" }
+        ]
+      },
+      {
+        id: "ibt",
+        title: "IBT",
+        defaultTab: "ibt-management",
+        tabs: [
+          { id: "ibt-management", label: "IBT", hash: "#/coldstore/ibt/ibt-management" }
+        ]
+      },
+      {
+        id: "shipment",
+        title: "Shipment",
+        defaultTab: "shipments",
+        tabs: [
+          { id: "shipments", label: "Shipment", hash: "#/coldstore/shipment/shipments" }
         ]
       }
     ]
