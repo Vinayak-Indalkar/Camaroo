@@ -482,33 +482,6 @@ export const QCView = {
             status: index === 1 ? 'Hold' : 'Approved'
           });
         }
-        if (key === 'food-social-audit') {
-      return (this.state[key] || []).map((row, index) => {
-        const aDate = row.auditDate || `2026-10-${20 + (index % 5)}`;
-        const iDate = row.issuedOnDate || row.issuedDate || `2026-10-${22 + (index % 5)}`;
-        const vDate = row.validityUpto || row.certificateExpiry || '2027-10-27';
-        return {
-          ...row,
-          sNo: index + 1,
-          auditType: row.auditType || ['Hatchery', 'Farm', 'Feed Mill'][index % 3],
-          farmName: row.farmName || ['Coastal Seed Hatchery', 'Delta Aqua Farm', 'Marine Feed Mill'][index % 3],
-          farmerName: row.farmerName || ['A. Rao', 'K. Ramu', 'P. Prasad'][index % 3],
-          location: row.location || ['Balsore', 'Kakinada', 'Bhimavaram'][index % 3],
-          certifiedBody: row.certifiedBody || 'Demo Certification Agency',
-          associatedFactory: row.associatedFactory || 'DFL UNIT-5 (JPT)',
-          govAuthority: row.govAuthority || 'MPEDA',
-          govRegNumber: row.govRegNumber || `DEMO-REG-${index + 1}`,
-          bapNumber: row.bapNumber || `DEMO-BAP-${index + 1}`,
-          tonnagePerAnnum: row.tonnagePerAnnum ?? (500 + (index % 5) * 100),
-          waterSpreadArea: row.waterSpreadArea ?? (10 + (index % 5) * 5),
-          auditDate: aDate,
-          issuedOnDate: iDate,
-          validityUpto: vDate,
-          certificateExpiry: vDate,
-          status: row.status || (index === 1 ? 'Hold' : 'Approved')
-        };
-      });
-    }
     if (key === 'documentation') {
           const invDate = `2026-10-${24 + index}`;
           const isQcOrder = index % 2 === 1;
@@ -652,6 +625,33 @@ export const QCView = {
   },
 
   registerRows(key) {
+    if (key === 'food-social-audit') {
+      return (this.state[key] || []).map((row, index) => {
+        const aDate = row.auditDate || `2026-10-${20 + (index % 5)}`;
+        const iDate = row.issuedOnDate || row.issuedDate || `2026-10-${22 + (index % 5)}`;
+        const vDate = row.validityUpto || row.certificateExpiry || '2027-10-27';
+        return {
+          ...row,
+          sNo: index + 1,
+          auditType: row.auditType || ['Hatchery', 'Farm', 'Feed Mill'][index % 3],
+          farmName: row.farmName || ['Coastal Seed Hatchery', 'Delta Aqua Farm', 'Marine Feed Mill'][index % 3],
+          farmerName: row.farmerName || ['A. Rao', 'K. Ramu', 'P. Prasad'][index % 3],
+          location: row.location || ['Balsore', 'Kakinada', 'Bhimavaram'][index % 3],
+          certifiedBody: row.certifiedBody || 'Demo Certification Agency',
+          associatedFactory: row.associatedFactory || 'DFL UNIT-5 (JPT)',
+          govAuthority: row.govAuthority || 'MPEDA',
+          govRegNumber: row.govRegNumber || `DEMO-REG-${index + 1}`,
+          bapNumber: row.bapNumber || `DEMO-BAP-${index + 1}`,
+          tonnagePerAnnum: row.tonnagePerAnnum ?? (500 + (index % 5) * 100),
+          waterSpreadArea: row.waterSpreadArea ?? (10 + (index % 5) * 5),
+          auditDate: aDate,
+          issuedOnDate: iDate,
+          validityUpto: vDate,
+          certificateExpiry: vDate,
+          status: row.status || (index === 1 ? 'Hold' : 'Approved')
+        };
+      });
+    }
     if (key === 'documentation') {
       return (this.state.documentation || []).map((row, index) => {
         const d = row.invoiceDate || row.date || `2026-10-${24 + (index % 5)}`;
