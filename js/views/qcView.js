@@ -277,6 +277,7 @@ export const QCView = {
           year: row.year || seedRow.year || d.slice(0, 4),
           exporter: row.exporter || seedRow.exporter || 'Devi Fisheries Limited',
           billsType: row.billsType || seedRow.billsType || 'Commercial Bill',
+          qcType: row.qcType || seedRow.qcType || (idx % 2 === 1 ? 'QC Orders' : 'Documentation'),
           status: row.status || 'In Review'
         };
       });
@@ -427,8 +428,9 @@ export const QCView = {
         qcOrganisms.forEach(parameter => { row[parameter] = 'Absent'; });
         if (key === 'documentation') {
           const invDate = `2026-10-${24 + index}`;
+          const isQcOrder = index % 2 === 1;
           Object.assign(row, {
-            id: `DOC-2026-00${index + 1}`,
+            id: isQcOrder ? `QCO-2026-00${index + 1}` : `DOC-2026-00${index + 1}`,
             sno: index + 1,
             invoiceNo: `EXP-INV-2026-00${index + 1}`,
             invoiceDate: invDate,
@@ -441,6 +443,7 @@ export const QCView = {
             year: '2026',
             exporter: ['Devi Fisheries Limited', 'Devi Fisheries Limited', 'Devi Sea Foods Ltd'][index],
             billsType: ['Commercial Bill', 'Export Bill', 'Commercial Bill'][index],
+            qcType: isQcOrder ? 'QC Orders' : 'Documentation',
             certHealth: `EIC/HC/2026/${1001 + index}`,
             certCoa: `COA-2026-00${index + 1}`,
             certOrigin: `COO-MPEDA-2026-${501 + index}`,
@@ -583,7 +586,8 @@ export const QCView = {
           internalLotNo: row.internalLotNo || row.lot || `BLS/2627/014${3 + (index % 3)}`,
           year: row.year || d.slice(0, 4),
           exporter: row.exporter || ['Devi Fisheries Limited', 'Devi Fisheries Limited', 'Devi Sea Foods Ltd'][index % 3],
-          billsType: row.billsType || ['Commercial Bill', 'Export Bill', 'Commercial Bill'][index % 3]
+          billsType: row.billsType || ['Commercial Bill', 'Export Bill', 'Commercial Bill'][index % 3],
+          qcType: row.qcType || (index % 2 === 1 ? 'QC Orders' : 'Documentation')
         };
       });
     }
@@ -644,6 +648,13 @@ export const QCView = {
           </div>
           <form id="qc-filters" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 ${key === 'documentation' ? 'lg:grid-cols-6' : 'lg:grid-cols-4'} gap-3 text-xs transition-all duration-200">
             ${key === 'documentation' ? `
+              <div>
+                <label for="qc-filter-type" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">QC TYPE</label>
+                <select id="qc-filter-type" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]">
+                  <option value="Documentation" selected>Documentation</option>
+                  <option value="QC Orders">QC Orders</option>
+                </select>
+              </div>
               <div>
                 <label for="qc-filter-year" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SELECT YEAR</label>
                 <select id="qc-filter-year" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]">
@@ -948,6 +959,7 @@ export const QCView = {
     if (typeof lucide !== 'undefined') lucide.createIcons();
     document.getElementById('qc-add-record')?.addEventListener('click', () => this.openForm(key));
     document.getElementById('qc-filters').addEventListener('submit', event => { event.preventDefault(); this.filterRecords(key); });
+    document.getElementById('qc-filters').addEventListener('change', () => this.filterRecords(key));
     document.getElementById('qc-reset-filters').addEventListener('click', () => {
       document.getElementById('qc-filters').reset();
       this.filterRecords(key);
@@ -961,10 +973,12 @@ export const QCView = {
       button.setAttribute('title', collapsed ? 'Show Filter' : 'Hide Filter');
       button.querySelector('svg')?.classList.toggle('-rotate-90', collapsed);
     });
+    if (key === 'documentation') this.filterRecords(key);
   },
 
   filterRecords(key) {
     if (key === 'documentation') {
+      const qcType = document.getElementById('qc-filter-type')?.value || 'Documentation';
       const year = document.getElementById('qc-filter-year')?.value || 'ALL';
       const exporter = document.getElementById('qc-filter-exporter')?.value || 'ALL';
       const consignee = document.getElementById('qc-filter-consignee')?.value || 'ALL';
@@ -978,6 +992,8 @@ export const QCView = {
         const rowCountry = row.country || '';
         const rowBillsType = row.billsType || 'Commercial Bill';
 
+        const rowType = row.qcType || 'Documentation';
+        if (qcType !== 'ALL' && rowType.toLowerCase() !== qcType.toLowerCase()) return false;
         if (year !== 'ALL' && rowYear !== year) return false;
         if (exporter !== 'ALL' && !rowExporter.toLowerCase().includes(exporter.toLowerCase())) return false;
         if (consignee !== 'ALL' && !rowConsignee.toLowerCase().includes(consignee.toLowerCase())) return false;
