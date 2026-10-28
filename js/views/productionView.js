@@ -472,6 +472,14 @@ export const ProductionView = {
               <label for="sk-filter-tub" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TUB NUMBER</label>
               <input type="text" id="sk-filter-tub" placeholder="e.g. Tub-01" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono" />
             </div>
+
+            <!-- Search Action Button -->
+            <div class="flex items-end">
+              <button type="button" id="soaktrack-filter-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]" title="Apply Filters">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                <span>Search</span>
+              </button>
+            </div>
           </div>
         </div>
 
@@ -530,6 +538,18 @@ export const ProductionView = {
     });
     ['sk-filter-trackcode', 'sk-filter-soak-date', 'sk-filter-tub'].forEach(id => {
       document.getElementById(id)?.addEventListener('input', applyFilters);
+      document.getElementById(id)?.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          applyFilters();
+        }
+      });
+    });
+
+    // Search Button Click Handler
+    document.getElementById('soaktrack-filter-search-btn')?.addEventListener('click', () => {
+      applyFilters();
+      Toast.show('Filters applied', 'info');
     });
 
     // Reset Handler
@@ -710,11 +730,6 @@ export const ProductionView = {
         ],
         actions: [
           {
-            label: 'View',
-            icon: `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>`,
-            onClick: row => this.showSoakingDetails(row)
-          },
-          {
             label: 'Edit',
             icon: `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>`,
             onClick: row => this.showEditSoakingModal(row, container)
@@ -724,7 +739,8 @@ export const ProductionView = {
             icon: `<svg class="w-3.5 h-3.5 text-[#DE350B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>`,
             onClick: row => this.deleteSoakingRow(row, container)
           }
-        ]
+        ],
+        onRowClick: (row) => this.showSoakingDetails(row)
       });
     };
 
@@ -1186,132 +1202,190 @@ export const ProductionView = {
   showSoakingDetails(row) {
     Modal.open({
       title: `Soaking Track ID Details: ${row.trackCode || row.trackId}`,
-      size: 'full',
+      size: 'xl',
       content: `
         <div class="space-y-4 text-xs">
-          <!-- Section 1: General Batch Identification -->
-          <div>
-            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider mb-2">1. Batch & Plant Identification</h4>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 bg-[#F8FAFC] p-3.5 rounded-xl border border-[#DFE1E6]">
-              <div>
-                <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Track Code</span>
-                <span class="font-mono font-bold text-[#00A4B7] text-sm block mt-0.5">${this.escape(row.trackCode || row.trackId)}</span>
+          <!-- Top Hero / Batch Summary Card -->
+          <div class="bg-gradient-to-r from-[#F0F9FF] to-[#F8FAFC] p-4 rounded-xl border border-[#BAE6FD] flex flex-wrap items-center justify-between gap-3 shadow-2xs">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-[#0284C7] text-white flex items-center justify-center font-bold shadow-xs">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
               </div>
               <div>
-                <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Production Plant</span>
-                <span class="font-semibold text-[#172B4D] block mt-0.5">${this.escape(row.plant || row.productionPlant)}</span>
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span class="font-mono font-extrabold text-[#0F172A] text-base">${this.escape(row.trackCode || row.trackId)}</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold tracking-wide uppercase ${
+                    row.status === 'COMPLETED' ? 'bg-[#DCFCE7] text-[#166534] border border-[#86EFAC]' :
+                    row.status === 'ACTIVE' ? 'bg-[#E0F2FE] text-[#0369A1] border border-[#7DD3FC]' :
+                    'bg-[#FEF3C7] text-[#92400E] border border-[#FCD34D]'
+                  }">${this.escape(row.status || 'COMPLETED')}</span>
+                  <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">${this.escape(row.typeOfProduct || 'HLSO')}</span>
+                </div>
+                <p class="text-[11px] text-[#64748B] mt-0.5 font-medium flex items-center gap-1.5 flex-wrap">
+                  <span>Plant: <strong class="text-[#334155]">${this.escape(row.plant || row.productionPlant)}</strong></span>
+                  <span>&bull;</span>
+                  <span>Arrival: <strong class="text-[#334155]">${this.escape(row.arrivalDate || '-')}</strong></span>
+                  <span>&bull;</span>
+                  <span>Soaked: <strong class="text-[#334155]">${this.escape(row.soakingDate || '-')}</strong> (${this.escape(row.shift || '-')})</span>
+                </p>
+              </div>
+            </div>
+
+            <!-- Quick Metrics Badges -->
+            <div class="flex items-center gap-2">
+              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">PickUp</span>
+                <span class="font-mono font-extrabold text-xs text-[#00875A]">${this.escape(row.pickUp || '0%')}</span>
+              </div>
+              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">In Qty</span>
+                <span class="font-mono font-bold text-xs text-[#172B4D]">${this.escape(row.inQuantity || '-')}</span>
+              </div>
+              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Out Temp</span>
+                <span class="font-mono font-bold text-xs text-[#0284C7]">${this.escape(row.soakingOutTemp || '-')}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 1: Batch & Plant Identification -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+              <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#0284C7] flex items-center justify-center font-bold text-xs">1</span>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Batch &amp; Plant Identification</h4>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Track Code</span>
+                <span class="font-mono font-bold text-[#0284C7] text-xs block mt-0.5">${this.escape(row.trackCode || row.trackId)}</span>
               </div>
               <div>
-                <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Arrival Date</span>
-                <span class="font-semibold text-[#172B4D] block mt-0.5">${this.escape(row.arrivalDate || '-')}</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Production Plant</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.plant || row.productionPlant)}</span>
               </div>
               <div>
-                <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Soaking Date</span>
-                <span class="font-semibold text-[#172B4D] block mt-0.5">${this.escape(row.soakingDate || '-')}</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Arrival Date</span>
+                <span class="font-medium text-[#172B4D] text-xs block mt-0.5">${this.escape(row.arrivalDate || '-')}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Soaking Date</span>
+                <span class="font-medium text-[#172B4D] text-xs block mt-0.5">${this.escape(row.soakingDate || '-')}</span>
               </div>
             </div>
           </div>
 
           <!-- Section 2: Timing, Shifts & Line Allocation -->
-          <div>
-            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider mb-2">2. Timing & Line Allocation</h4>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 bg-[#F8FAFC] p-3.5 rounded-xl border border-[#DFE1E6]">
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+              <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#0284C7] flex items-center justify-center font-bold text-xs">2</span>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Timing &amp; Line Allocation</h4>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
               <div>
-                <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Start Time</span>
-                <span class="font-mono font-semibold text-[#172B4D] block mt-0.5">${this.escape(row.startTime || '-')}</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Start Time</span>
+                <span class="font-mono font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.startTime || '-')}</span>
               </div>
               <div>
-                <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Time Period</span>
-                <span class="font-semibold text-[#172B4D] block mt-0.5">${this.escape(row.timePeriod || '-')}</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Time Period / Duration</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.timePeriod || '-')}</span>
               </div>
               <div>
-                <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Shift</span>
-                <span class="font-semibold text-[#172B4D] block mt-0.5">${this.escape(row.shift || '-')}</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Shift</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.shift || '-')}</span>
               </div>
               <div>
-                <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Line List / Tub Number</span>
-                <span class="font-semibold text-[#00A4B7] block mt-0.5">${this.escape(row.lineList || '-')} (${this.escape(row.tubNumber || '-')})</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Line List / Tub Number</span>
+                <span class="font-semibold text-[#00A4B7] text-xs block mt-0.5">${this.escape(row.lineList || '-')} <span class="text-[#64748B]">(${this.escape(row.tubNumber || '-')})</span></span>
               </div>
             </div>
           </div>
 
           <!-- Section 3: Chemical & Salt Formulations -->
-          <div>
-            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider mb-2">3. Chemical & Salt Formulation</h4>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 bg-[#F8FAFC] p-3.5 rounded-xl border border-[#DFE1E6]">
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+              <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#0284C7] flex items-center justify-center font-bold text-xs">3</span>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Chemical &amp; Salt Formulation</h4>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
               <div>
-                <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Chemical Formulation</span>
-                <span class="font-semibold text-[#0284C7] block mt-0.5">${this.escape(row.chemical || '-')}</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Chemical Formulation</span>
+                <span class="font-semibold text-[#0284C7] text-xs block mt-0.5">${this.escape(row.chemical || '-')}</span>
               </div>
               <div>
-                <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Chemical Quantity</span>
-                <span class="font-mono font-bold text-[#172B4D] block mt-0.5">${Number(row.chemicalQty || 0).toFixed(1)} Kgs</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Chemical Quantity (Kgs)</span>
+                <span class="font-mono font-bold text-[#172B4D] text-xs block mt-0.5">${Number(row.chemicalQty || 0).toFixed(1)} Kgs</span>
               </div>
               <div>
-                <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Salt Quantity</span>
-                <span class="font-mono font-bold text-[#172B4D] block mt-0.5">${Number(row.saltQty || 0).toFixed(1)} Kgs</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Salt Quantity (Kgs)</span>
+                <span class="font-mono font-bold text-[#172B4D] text-xs block mt-0.5">${Number(row.saltQty || 0).toFixed(1)} Kgs</span>
               </div>
               <div>
-                <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Soaking Treatment</span>
-                <span class="font-semibold text-[#00875A] block mt-0.5">${this.escape(row.treatment || row.soakingTreatment || '-')}</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Soaking Treatment</span>
+                <span class="font-semibold text-[#00875A] text-xs block mt-0.5">${this.escape(row.treatment || row.soakingTreatment || '-')}</span>
               </div>
             </div>
           </div>
 
-          <!-- Section 4: Product Specs, Counts & Pickup -->
-          <div>
-            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider mb-2">4. Product Specifications, Yield & Pickup</h4>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 bg-[#F8FAFC] p-3.5 rounded-xl border border-[#DFE1E6]">
+          <!-- Section 4: Product Specifications & Yield -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+              <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#0284C7] flex items-center justify-center font-bold text-xs">4</span>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Product Specifications, Yield &amp; Pickup</h4>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
               <div>
-                <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Variety / Species</span>
-                <span class="font-semibold text-[#172B4D] block mt-0.5">${this.escape(row.variety || '-')}</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Variety / Species</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.variety || '-')}</span>
               </div>
               <div>
-                <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Type Of Product</span>
-                <span class="font-semibold text-[#403294] block mt-0.5">${this.escape(row.typeOfProduct || '-')}</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Type Of Product</span>
+                <span class="font-semibold text-[#403294] text-xs block mt-0.5">${this.escape(row.typeOfProduct || '-')}</span>
               </div>
               <div>
-                <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Grade</span>
-                <span class="font-semibold text-[#172B4D] block mt-0.5">${this.escape(row.grade || '-')}</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Grade</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.grade || '-')}</span>
               </div>
               <div>
-                <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">PickUp (%)</span>
-                <span class="font-mono font-extrabold text-[#00875A] block mt-0.5">${this.escape(row.pickUp || '0%')}</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">PickUp (%)</span>
+                <span class="font-mono font-extrabold text-[#00875A] text-xs block mt-0.5">${this.escape(row.pickUp || '0%')}</span>
               </div>
               <div>
-                <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Source Count</span>
-                <span class="font-mono font-medium text-[#172B4D] block mt-0.5">${this.escape(row.sourceCount || '-')}</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Source Count</span>
+                <span class="font-mono font-medium text-[#172B4D] text-xs block mt-0.5">${this.escape(row.sourceCount || '-')}</span>
               </div>
               <div>
-                <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">In Count / In Qty</span>
-                <span class="font-mono font-semibold text-[#172B4D] block mt-0.5">${row.inCount ?? '-'} (${this.escape(row.inQuantity || '-')})</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">In Count / In Quantity</span>
+                <span class="font-mono font-semibold text-[#172B4D] text-xs block mt-0.5">${row.inCount ?? '-'} <span class="text-[#64748B]">(${this.escape(row.inQuantity || '-')})</span></span>
               </div>
               <div>
-                <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Out Count</span>
-                <span class="font-mono font-semibold text-[#172B4D] block mt-0.5">${row.outCount ?? '-'}</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Out Count</span>
+                <span class="font-mono font-semibold text-[#172B4D] text-xs block mt-0.5">${row.outCount ?? '-'}</span>
               </div>
               <div>
-                <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Ice / Water Qty %</span>
-                <span class="font-mono font-semibold text-[#0284C7] block mt-0.5">${this.escape(row.iceQtyPct || '-')} / ${this.escape(row.waterQtyPct || '-')}</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Ice / Water Qty %</span>
+                <span class="font-mono font-semibold text-[#0284C7] text-xs block mt-0.5">${this.escape(row.iceQtyPct || '-')} / ${this.escape(row.waterQtyPct || '-')}</span>
               </div>
             </div>
           </div>
 
           <!-- Section 5: Temperatures & Remarks -->
-          <div>
-            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider mb-2">5. Temperature Controls & Remarks</h4>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 bg-[#F8FAFC] p-3.5 rounded-xl border border-[#DFE1E6]">
-              <div>
-                <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Soaking In Temperature</span>
-                <span class="font-mono font-bold text-[#00875A] block mt-0.5">${this.escape(row.soakingInTemp || '-')}</span>
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+              <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#0284C7] flex items-center justify-center font-bold text-xs">5</span>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Temperature Controls &amp; Remarks</h4>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+              <div class="p-3 bg-[#F8FAFC] rounded-lg border border-[#E2E8F0]">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Soaking In Temperature</span>
+                <span class="font-mono font-extrabold text-[#00875A] text-sm block mt-1">${this.escape(row.soakingInTemp || '-')}</span>
               </div>
-              <div>
-                <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Soaking Out Temperature</span>
-                <span class="font-mono font-bold text-[#00875A] block mt-0.5">${this.escape(row.soakingOutTemp || '-')}</span>
+              <div class="p-3 bg-[#F8FAFC] rounded-lg border border-[#E2E8F0]">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Soaking Out Temperature</span>
+                <span class="font-mono font-extrabold text-[#00875A] text-sm block mt-1">${this.escape(row.soakingOutTemp || '-')}</span>
               </div>
-              <div>
-                <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Remarks</span>
-                <span class="text-[#172B4D] block mt-0.5">${this.escape(row.remarks || 'None')}</span>
+              <div class="p-3 bg-[#F8FAFC] rounded-lg border border-[#E2E8F0]">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Remarks</span>
+                <span class="text-[#334155] text-xs font-medium block mt-1">${this.escape(row.remarks || 'Standard soaking operation completed and verified.')}</span>
               </div>
             </div>
           </div>
@@ -1449,6 +1523,14 @@ export const ProductionView = {
                 <option value="PENDING">PENDING</option>
               </select>
             </div>
+
+            <!-- Search Action Button -->
+            <div class="flex items-end">
+              <button type="button" id="freezetrack-filter-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]" title="Apply Filters">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                <span>Search</span>
+              </button>
+            </div>
           </div>
         </div>
 
@@ -1503,6 +1585,18 @@ export const ProductionView = {
     });
     ['fz-filter-arrival-date', 'fz-filter-freeze-date', 'fz-filter-trackid'].forEach(id => {
       document.getElementById(id)?.addEventListener('input', applyFilters);
+      document.getElementById(id)?.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          applyFilters();
+        }
+      });
+    });
+
+    // Freezing Filter Search Button
+    document.getElementById('freezetrack-filter-search-btn')?.addEventListener('click', () => {
+      applyFilters();
+      Toast.show('Filters applied', 'info');
     });
 
     document.getElementById('freezetrack-top-reset-btn')?.addEventListener('click', () => {
@@ -1536,7 +1630,7 @@ export const ProductionView = {
           {
             field: 'trackId',
             header: 'Track ID',
-            render: (v) => `<span class="font-mono font-bold text-[#00A4B7] bg-[#F0F9FF] px-2 py-0.5 rounded border border-[#BAE6FD] whitespace-nowrap">${this.escape(v)}</span>`
+            render: (v) => `<span class="font-mono font-bold text-[#0284C7] bg-[#F0F9FF] px-2 py-0.5 rounded border border-[#BAE6FD] whitespace-nowrap cursor-pointer hover:underline">${this.escape(v)}</span>`
           },
           {
             field: 'productionPlant',
@@ -1591,11 +1685,6 @@ export const ProductionView = {
         ],
         actions: [
           {
-            label: 'View',
-            icon: `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>`,
-            onClick: row => this.showFreezingDetails(row)
-          },
-          {
             label: 'Edit',
             icon: `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>`,
             onClick: row => this.showEditFreezingModal(row, container)
@@ -1605,7 +1694,8 @@ export const ProductionView = {
             icon: `<svg class="w-3.5 h-3.5 text-[#DE350B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>`,
             onClick: row => this.deleteFreezingRow(row, container)
           }
-        ]
+        ],
+        onRowClick: (row) => this.showFreezingDetails(row)
       });
     };
 
@@ -1870,54 +1960,121 @@ export const ProductionView = {
   showFreezingDetails(row) {
     Modal.open({
       title: `Freezing Track ID Details: ${row.trackId}`,
-      size: 'large',
+      size: 'xl',
       content: `
         <div class="space-y-4 text-xs">
-          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 bg-[#F8FAFC] p-4 rounded-xl border border-[#DFE1E6]">
-            <div>
-              <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Track ID</span>
-              <span class="font-mono font-bold text-[#00A4B7] text-sm block mt-0.5">${this.escape(row.trackId)}</span>
+          <!-- Top Hero / Freezing Summary Card -->
+          <div class="bg-gradient-to-r from-[#F0FDF4] to-[#F8FAFC] p-4 rounded-xl border border-[#BBF7D0] flex flex-wrap items-center justify-between gap-3 shadow-2xs">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-[#00875A] text-white flex items-center justify-center font-bold shadow-xs">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              </div>
+              <div>
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span class="font-mono font-extrabold text-[#0F172A] text-base">${this.escape(row.trackId)}</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold tracking-wide uppercase ${
+                    row.status === 'COMPLETED' ? 'bg-[#DCFCE7] text-[#166534] border border-[#86EFAC]' :
+                    row.status === 'ACTIVE' ? 'bg-[#E0F2FE] text-[#0369A1] border border-[#7DD3FC]' :
+                    'bg-[#FEF3C7] text-[#92400E] border border-[#FCD34D]'
+                  }">${this.escape(row.status || 'COMPLETED')}</span>
+                  <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#E0F2FE] text-[#0369A1] border border-[#BAE6FD]">${this.escape(row.freezingMethod || 'IQF')}</span>
+                </div>
+                <p class="text-[11px] text-[#64748B] mt-0.5 font-medium flex items-center gap-1.5 flex-wrap">
+                  <span>Plant: <strong class="text-[#334155]">${this.escape(row.productionPlant)}</strong></span>
+                  <span>&bull;</span>
+                  <span>Arrival: <strong class="text-[#334155]">${this.escape(row.arrivalDate || '-')}</strong></span>
+                  <span>&bull;</span>
+                  <span>Frozen: <strong class="text-[#334155]">${this.escape(row.freezingDate || '-')}</strong> (${this.escape(row.shift || '-')})</span>
+                </p>
+              </div>
             </div>
-            <div>
-              <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Production Plant</span>
-              <span class="font-semibold text-[#172B4D] block mt-0.5">${this.escape(row.productionPlant)}</span>
+
+            <!-- Quick Metrics Badges -->
+            <div class="flex items-center gap-2">
+              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Core Temp</span>
+                <span class="font-mono font-extrabold text-xs text-[#0284C7]">${Number(row.coreTemp || 0).toFixed(1)}°C</span>
+              </div>
+              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Line / Unit</span>
+                <span class="font-semibold text-xs text-[#172B4D]">${this.escape(row.line || '-')}</span>
+              </div>
             </div>
-            <div>
-              <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Status</span>
-              <div class="mt-0.5">${this.badge(row.status)}</div>
+          </div>
+
+          <!-- Section 1: Facility & Line Assignment -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+              <span class="w-6 h-6 rounded-md bg-[#DCFCE7] text-[#166534] flex items-center justify-center font-bold text-xs">1</span>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Facility &amp; Line Allocation</h4>
             </div>
-            <div>
-              <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Arrival Date</span>
-              <span class="font-semibold text-[#172B4D] block mt-0.5">${this.escape(row.arrivalDate || '-')}</span>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Track ID</span>
+                <span class="font-mono font-bold text-[#0284C7] text-xs block mt-0.5">${this.escape(row.trackId)}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Production Plant</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.productionPlant)}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Arrival Date</span>
+                <span class="font-medium text-[#172B4D] text-xs block mt-0.5">${this.escape(row.arrivalDate || '-')}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Freezing Date</span>
+                <span class="font-medium text-[#172B4D] text-xs block mt-0.5">${this.escape(row.freezingDate || '-')}</span>
+              </div>
             </div>
-            <div>
-              <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Freezing Date</span>
-              <span class="font-semibold text-[#172B4D] block mt-0.5">${this.escape(row.freezingDate || '-')}</span>
+          </div>
+
+          <!-- Section 2: Shift, Method & Temperature Monitoring -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+              <span class="w-6 h-6 rounded-md bg-[#DCFCE7] text-[#166534] flex items-center justify-center font-bold text-xs">2</span>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Operations &amp; Temperature Control</h4>
             </div>
-            <div>
-              <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Shift & Supervisor</span>
-              <span class="font-semibold text-[#172B4D] block mt-0.5">${this.escape(row.shift || '-')} (${this.escape(row.supervisor || '-')})</span>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Shift</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.shift || '-')}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Supervisor</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.supervisor || '-')}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Freezer Line / Unit</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.line || '-')}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Freezing Method</span>
+                <span class="font-semibold text-[#0284C7] text-xs block mt-0.5">${this.escape(row.freezingMethod || '-')}</span>
+              </div>
             </div>
-            <div>
-              <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Freezer Line / Unit</span>
-              <span class="font-semibold text-[#172B4D] block mt-0.5">${this.escape(row.line || '-')}</span>
+          </div>
+
+          <!-- Section 3: Core Temp & Quality Remarks -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+              <span class="w-6 h-6 rounded-md bg-[#DCFCE7] text-[#166534] flex items-center justify-center font-bold text-xs">3</span>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Quality Audit &amp; Remarks</h4>
             </div>
-            <div>
-              <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Freezing Method</span>
-              <span class="font-semibold text-[#0284C7] block mt-0.5">${this.escape(row.freezingMethod || '-')}</span>
-            </div>
-            <div>
-              <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Core Temp (°C)</span>
-              <span class="font-mono font-bold text-[#0284C7] text-sm block mt-0.5">${row.coreTemp}°C</span>
-            </div>
-            <div class="sm:col-span-2 md:col-span-3">
-              <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Remarks</span>
-              <span class="text-[#172B4D] block mt-0.5">${this.escape(row.remarks || 'None')}</span>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+              <div class="p-3 bg-[#F8FAFC] rounded-lg border border-[#E2E8F0]">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Exit Core Temperature</span>
+                <span class="font-mono font-extrabold text-[#0284C7] text-sm block mt-1">${Number(row.coreTemp || 0).toFixed(1)}°C</span>
+              </div>
+              <div class="sm:col-span-2 p-3 bg-[#F8FAFC] rounded-lg border border-[#E2E8F0]">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Operational Remarks</span>
+                <span class="text-[#334155] text-xs font-medium block mt-1">${this.escape(row.remarks || 'Standard freezing run compliant with QA parameters.')}</span>
+              </div>
             </div>
           </div>
         </div>
       `,
       footerButtons: [
+        { label: 'Print Freezing Log', type: 'secondary', onClick: () => window.print() },
         { label: 'Close', type: 'secondary', onClick: modal => modal.close() }
       ]
     });
