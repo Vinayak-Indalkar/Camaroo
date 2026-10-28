@@ -12,6 +12,18 @@ const qcInspectorField = qcField('inspector', 'Inspector');
 const qcStatusField = qcField('status', 'Status', 'select', ['Pending', 'In Review', 'Completed']);
 const qcAntibiotics = ['AOZ', 'AMOZ', 'AHD', 'SEM', 'CAP', 'OTC', 'CTC'];
 const qcOrganisms = ['Salmonella', 'Vibrio cholerae', 'Vibrio parahaemolyticus'];
+const qcSocialAuditFields = [
+  qcField('productionPlant', 'Production Plant', 'select', ['DFL UNIT-5 (JPT)', 'DFL UNIT-3 (PSP)', 'DFL UNIT-4 (PND)']),
+  qcField('auditName', 'Audit Name'),
+  qcField('gradeScore', 'Grade/Score'),
+  qcField('auditStartDate', 'Audit Start Date', 'date'),
+  qcField('auditEndDate', 'Audit End Date', 'date'),
+  qcField('renewalDate', 'Renewal Date', 'date'),
+  qcField('validityDate', 'Validity Date', 'date'),
+  qcField('paymentStatus', 'Payment Status', 'select', ['Paid', 'Pending', 'Under Process', 'Waived']),
+  qcStatusField
+];
+
 const qcFoodAuditFields = [
   qcField('productionPlant', 'Production Plant', 'select', ['DFL UNIT-5 (JPT)', 'DFL UNIT-3 (PSP)', 'DFL UNIT-4 (PND)']),
   qcField('auditName', 'Name of Audit'),
@@ -202,11 +214,12 @@ const qcSchemas = {
   'food-social-audit': { title: 'Food & Social Screening', fields: qcFoodSocialAuditFields },
   'farm-mill-hatchery-audit': { title: 'Farm / Mill / Hatchery Screening', fields: qcFmhAuditFields },
   'hatchery-list': { title: 'Hatchery Register', fields: qcHatcheryFields },
-  'food-audit-list': { title: 'Food Safety Audits', fields: qcFoodAuditFields, auditType: 'Food Safety', standard: 'BRCGS Issue 9' }
+  'food-audit-list': { title: 'Food Safety Audits', fields: qcFoodAuditFields, auditType: 'Food Safety', standard: 'BRCGS Issue 9' },
+  'social-audit-list': { title: 'Social Compliance Audits', fields: qcSocialAuditFields, auditType: 'Social', standard: 'SMETA 4-Pillar' }
 };
 [
   
-  ['social-audit-list', 'Social Compliance Audits', 'Social', 'SMETA 4-Pillar'],
+  
   ['farm-audit-list', 'Farm Audits', 'Supplier', 'ASC / BAP'],
   ['hatchery-audit-list', 'Hatchery Audits', 'Biosecurity', 'BAP Hatchery'],
   ['feed-mill-audit-list', 'Feed Mill Audits', 'Supplier', 'BAP Feed Mill']
@@ -308,6 +321,26 @@ export const QCView = {
           chlorine: row.chlorine ?? seedRow.chlorine ?? 0.5,
           totalDissolvedSolids: row.totalDissolvedSolids ?? seedRow.totalDissolvedSolids ?? 850,
           status: 'Pass'
+        };
+      });
+    }
+    if (Array.isArray(this.state['social-audit-list'])) {
+      this.state['social-audit-list'] = this.state['social-audit-list'].map((row, idx) => {
+        const seedRow = (seed['social-audit-list'] && seed['social-audit-list'][idx]) || seed['social-audit-list'][0] || {};
+        return {
+          ...seedRow,
+          ...row,
+          sNo: idx + 1,
+          productionPlant: row.productionPlant || row.plant || seedRow.productionPlant || 'DFL UNIT-5 (JPT)',
+          auditName: row.auditName || row.standard || seedRow.auditName || 'SMETA 4-Pillar Ethical Trade Audit',
+          gradeScore: row.gradeScore || (row.grade ? `Grade ${row.grade}` : null) || seedRow.gradeScore || 'Zero Non-Conformances',
+          auditStartDate: row.auditStartDate || row.auditDate || seedRow.auditStartDate || `2026-10-${18 + idx}`,
+          auditEndDate: row.auditEndDate || row.endDate || seedRow.auditEndDate || `2026-10-${20 + idx}`,
+          renewalDate: row.renewalDate || seedRow.renewalDate || `2027-09-${18 + idx}`,
+          validityDate: row.validityDate || row.certificateExpiry || seedRow.validityDate || `2027-10-${20 + idx}`,
+          paymentStatus: row.paymentStatus || seedRow.paymentStatus || 'Paid',
+          year: row.year || (row.auditStartDate ? String(row.auditStartDate).slice(0, 4) : '2026'),
+          status: row.status || seedRow.status || 'Completed'
         };
       });
     }
@@ -554,6 +587,21 @@ export const QCView = {
           });
         }
         qcOrganisms.forEach(parameter => { row[parameter] = 'Absent'; });
+        if (key === 'social-audit-list') {
+          Object.assign(row, {
+            sNo: index + 1,
+            productionPlant: ['DFL UNIT-5 (JPT)', 'DFL UNIT-3 (PSP)', 'DFL UNIT-4 (PND)'][index],
+            auditName: ['SMETA 4-Pillar Ethical Trade Audit', 'BSCI Social Compliance Assessment', 'SA8000 Social Accountability Audit'][index],
+            gradeScore: ['Zero Non-Conformances', 'Grade A (Excellent)', 'Full Compliance'][index],
+            auditStartDate: `2026-10-${18 + index}`,
+            auditEndDate: `2026-10-${20 + index}`,
+            renewalDate: `2027-09-${18 + index}`,
+            validityDate: `2027-10-${20 + index}`,
+            paymentStatus: ['Paid', 'Paid', 'Pending'][index],
+            year: '2026',
+            status: index === 2 ? 'In Review' : 'Completed'
+          });
+        }
         if (key === 'food-audit-list') {
           Object.assign(row, {
             sNo: index + 1,
@@ -760,6 +808,28 @@ export const QCView = {
   },
 
   registerRows(key) {
+    if (key === 'social-audit-list') {
+      return (this.state[key] || []).map((row, index) => {
+        const sDate = row.auditStartDate || row.auditDate || `2026-10-${18 + (index % 5)}`;
+        const eDate = row.auditEndDate || row.endDate || `2026-10-${20 + (index % 5)}`;
+        const rDate = row.renewalDate || `2027-09-${18 + (index % 5)}`;
+        const vDate = row.validityDate || row.certificateExpiry || `2027-10-${20 + (index % 5)}`;
+        return {
+          ...row,
+          sNo: index + 1,
+          productionPlant: row.productionPlant || row.plant || ['DFL UNIT-5 (JPT)', 'DFL UNIT-3 (PSP)', 'DFL UNIT-4 (PND)'][index % 3],
+          auditName: row.auditName || ['SMETA 4-Pillar Ethical Trade Audit', 'BSCI Social Compliance Assessment', 'SA8000 Social Accountability Audit'][index % 3],
+          gradeScore: row.gradeScore || (row.grade ? `Grade ${row.grade}` : null) || ['Zero Non-Conformances', 'Grade A (Excellent)', 'Full Compliance'][index % 3],
+          auditStartDate: sDate,
+          auditEndDate: eDate,
+          renewalDate: rDate,
+          validityDate: vDate,
+          paymentStatus: row.paymentStatus || ['Paid', 'Paid', 'Pending'][index % 3],
+          year: row.year || sDate.slice(0, 4),
+          status: row.status || (index === 2 ? 'In Review' : 'Completed')
+        };
+      });
+    }
     if (key === 'food-audit-list') {
       return (this.state[key] || []).map((row, index) => {
         const sDate = row.auditStartDate || row.auditDate || `2026-10-${20 + (index % 5)}`;
@@ -923,7 +993,7 @@ export const QCView = {
             </div>
           </div>
           <form id="qc-filters" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
-            ${key === 'food-audit-list' ? `
+            ${['food-audit-list', 'social-audit-list'].includes(key) ? `
               <div>
                 <label for="qc-filter-plant" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCTION PLANT</label>
                 <select id="qc-filter-plant" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]">
@@ -1097,6 +1167,17 @@ export const QCView = {
       qcField('hatcheryName', 'Hatchery Name'),
       qcField('hatcheryLocation', 'Hatchery Location'),
       qcField('hatcheryCapacity', 'Hatchery Capacity')
+    ] : key === 'social-audit-list' ? [
+      qcField('sNo', 'S.No'),
+      qcField('productionPlant', 'Production Plant'),
+      qcField('auditName', 'Audit Name'),
+      qcField('gradeScore', 'Grade/Score'),
+      qcField('auditStartDate', 'Audit Start Date', 'date'),
+      qcField('auditEndDate', 'Audit End Date', 'date'),
+      qcField('renewalDate', 'Renewal Date', 'date'),
+      qcField('validityDate', 'Validity Date', 'date'),
+      qcField('paymentStatus', 'Payment Status'),
+      qcField('status', 'Status')
     ] : key === 'food-audit-list' ? [
       qcField('sNo', 'S.No'),
       qcField('productionPlant', 'Production Plant'),
@@ -1110,7 +1191,7 @@ export const QCView = {
       qcField('status', 'Status')
     ] : schema.fields;
     const columns = tableFields.map(field => {
-      if (key === 'food-audit-list') {
+      if (['food-audit-list', 'social-audit-list'].includes(key)) {
         if (field.key === 'sNo') {
           return {
             field: 'sNo',
@@ -1128,7 +1209,7 @@ export const QCView = {
         if (field.key === 'auditName') {
           return {
             field: 'auditName',
-            header: 'Name of Audit',
+            header: key === 'social-audit-list' ? 'Audit Name' : 'Name of Audit',
             render: val => `<span class="font-medium text-[#172B4D]">${this.escape(val || '-')}</span>`
           };
         }
@@ -1588,7 +1669,7 @@ export const QCView = {
       }
       return { field: field.key, header: field.label, render: value => this.escape(value ?? '-') };
     });
-    if (!['ab-report', 'mb-report', 'lab-report', 'documentation', 'food-social-audit', 'farm-mill-hatchery-audit', 'hatchery-list', 'food-audit-list'].includes(key)) {
+    if (!['ab-report', 'mb-report', 'lab-report', 'documentation', 'food-social-audit', 'farm-mill-hatchery-audit', 'hatchery-list', 'food-audit-list', 'social-audit-list'].includes(key)) {
       if (!columns.some(column => column.field === 'status')) columns.push({ field: 'status', header: key === 'lots-list' ? 'AB Status' : 'Status', render: value => this.badge(value) });
       else columns.find(column => column.field === 'status').render = value => this.badge(value);
     }
@@ -1644,11 +1725,11 @@ export const QCView = {
       button.setAttribute('title', collapsed ? 'Show Filter' : 'Hide Filter');
       button.querySelector('svg')?.classList.toggle('-rotate-90', collapsed);
     });
-    if (['documentation', 'food-audit-list'].includes(key)) this.filterRecords(key);
+    if (['documentation', 'food-audit-list', 'social-audit-list'].includes(key)) this.filterRecords(key);
   },
 
   filterRecords(key) {
-    if (key === 'food-audit-list') {
+    if (['food-audit-list', 'social-audit-list'].includes(key)) {
       const plant = document.getElementById('qc-filter-plant')?.value || 'ALL';
       const year = document.getElementById('qc-filter-year')?.value || 'ALL';
       this.table.setData(this.registerRows(key).filter(row => {
