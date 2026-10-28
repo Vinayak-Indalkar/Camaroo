@@ -384,7 +384,7 @@ export class DataTable {
           </div>
 
           <!-- Pagination Toolbar -->
-          <div class="p-3 border-t border-[#DFE1E6] bg-[#FAFBFC] flex items-center justify-between text-xs text-[#5E6C84]" id="dt-pagination-container">
+          <div class="p-3 border-t border-[#DFE1E6] bg-[#FAFBFC] flex flex-wrap items-center justify-between gap-3 text-xs text-[#5E6C84]" id="dt-pagination-container">
           </div>
         </div>
       </div>
@@ -685,10 +685,10 @@ export class DataTable {
     }
 
     pagContainer.innerHTML = `
-      <div class="flex items-center gap-1.5 text-xs text-[#5E6C84]">
+      <div class="flex flex-wrap items-center gap-1.5 text-xs text-[#5E6C84]">
         Showing <span class="font-semibold text-[#172B4D]">${startRecord}</span> to <span class="font-semibold text-[#172B4D]">${endRecord}</span> of <span class="font-semibold text-[#172B4D]">${this.filteredData.length}</span> entries
       </div>
-      <div class="flex items-center flex-wrap gap-2.5">
+      <div class="flex items-center flex-wrap gap-2.5 min-w-0 max-w-full">
         <!-- Rows per page selector -->
         <div class="flex items-center gap-2 text-xs font-medium text-[#64748B]">
           <span>Rows:</span>
@@ -702,7 +702,7 @@ export class DataTable {
         </div>
 
         <!-- Page navigation buttons -->
-        <div class="flex items-center gap-1.5">
+        <div class="flex flex-wrap items-center gap-1.5 max-w-full">
           <!-- Previous page button -->
           <button type="button" id="dt-page-prev" style="padding: 0 !important; width: 36px !important; height: 36px !important;" class="w-9 h-9 min-w-[36px] flex items-center justify-center bg-white border border-[#CBD5E1] rounded-xl text-[#64748B] hover:text-[#0284C7] hover:border-[#0284C7] transition-all ${
             this.currentPage === 1 ? 'opacity-40 cursor-not-allowed hover:border-[#CBD5E1] hover:text-[#64748B]' : 'cursor-pointer'

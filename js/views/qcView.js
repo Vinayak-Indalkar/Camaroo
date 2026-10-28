@@ -3,6 +3,7 @@ import { DataTable } from '../components/table.js';
 import { Modal } from '../components/modal.js';
 import { Toast } from '../components/toast.js';
 import { Charts } from '../components/charts.js';
+import { ERP_DATA } from '../data/mockData.js';
 
 const qcField = (key, label, type = 'text', options = null) => ({ key, label, type, options });
 const qcLotField = qcField('lot', 'Lot Number', 'lot');
@@ -132,7 +133,7 @@ const qcSchemas = {
   'rm-report': { title: 'Raw Material Inspection Report', fields: qcRmReportFields },
   'mb-report': { title: 'Microbiology Report', fields: qcMbReportFields },
   'lab-report': { title: 'In-House Lab Report', fields: qcLabReportFields },
-  'external-lab-report': { title: 'External Lab Report', fields: [qcLotField, qcDateField, qcField('reportNo', 'Report Number'), qcField('lab', 'Accredited Laboratory'), qcField('accreditationNo', 'Accreditation Number'), qcField('requiredTests', 'Tests Performed'), qcField('result', 'Lab Result', 'select', ['Pass', 'Fail', 'Pending']), qcField('coaNumber', 'COA Number'), qcInspectorField] },
+  'external-lab-report': { title: 'External Lab Report', fields: [qcField('exporter', 'Exporter'), qcLotField, qcDateField, qcField('reportNo', 'Report Number'), qcField('lab', 'Accredited Laboratory'), qcField('accreditationNo', 'Accreditation Number'), qcField('requiredTests', 'Tests Performed'), qcField('result', 'Lab Result', 'select', ['Pass', 'Fail', 'Pending']), qcField('coaNumber', 'COA Number'), qcInspectorField] },
   documentation: { title: 'QC Documentation', fields: [qcField('invoiceNo', 'Export Invoice'), qcField('poNo', 'Purchase Order'), qcField('buyer', 'Buyer / Consignee'), qcField('country', 'Destination', 'select', ['USA', 'EU', 'Japan', 'China']), qcField('internalLotNo', 'Internal Lot', 'lot'), qcField('certHealth', 'Health Certificate'), qcField('certCoa', 'Certificate of Analysis'), qcField('certOrigin', 'Certificate of Origin'), qcField('status', 'Status', 'select', ['In Review', 'Pending Release', 'Completed'])] },
   'qc-orders': { title: 'QC Orders', fields: [qcField('orderNo', 'Order Number'), qcLotField, qcField('orderType', 'Order Type', 'select', ['Inspection', 'Quarantine Release', 'Sample Dispatch']), qcField('sampleType', 'Sample Type', 'select', ['Finished Goods', 'Block Frozen', 'IQF', 'Raw Material']), qcField('requiredTests', 'Required Tests'), qcField('targetDate', 'Due Date', 'date'), qcField('assignedLab', 'Assigned Laboratory'), qcStatusField] },
   'food-social-audit': { title: 'Food & Social Screening', fields: qcSupplierFields },
@@ -246,6 +247,22 @@ export const QCView = {
         };
       });
     }
+    if (Array.isArray(this.state.documentation)) {
+      this.state.documentation = this.state.documentation.map((row, idx) => {
+        const seedRow = (seed.documentation && seed.documentation[idx]) || seed.documentation[0] || {};
+        return {
+          ...seedRow,
+          ...row,
+          year: row.year || seedRow.year || (row.date ? String(row.date).slice(0, 4) : '2026'),
+          exporter: row.exporter || seedRow.exporter || 'Devi Fisheries Limited',
+          consignee: row.consignee || row.buyer || seedRow.consignee || 'Pacific Seafood Inc',
+          buyer: row.buyer || row.consignee || seedRow.buyer || 'Pacific Seafood Inc',
+          country: row.country || seedRow.country || 'USA',
+          billsType: row.billsType || seedRow.billsType || 'Commercial Bill',
+          status: row.status || 'In Review'
+        };
+      });
+    }
     Object.keys(qcSchemas).forEach(key => this.state[key].forEach(row => this.evaluate(key, row)));
     this.synchronize();
   },
@@ -292,6 +309,7 @@ export const QCView = {
           standard: schema.standard || 'BAP', auditDate: `2026-10-${20 + index}`, endDate: `2026-10-${21 + index}`,
           leadAuditor: 'Demo External Auditor', grade: ['AA', 'A', 'Green'][index], major: 0, minor: index, critical: 0, capaStatus: index ? 'Submitted' : 'Closed'
         });
+        if (key === 'external-lab-report') row.exporter = this.exporterName({});
         qcAntibiotics.forEach(parameter => { row[parameter] = index === 1 && parameter === 'AOZ' ? 0.15 : parameter === 'OTC' || parameter === 'CTC' ? 10 : 0.02; });
         if (key === 'mb-report') {
           const po = `PO-2026-00${index + 1}`;
@@ -389,7 +407,20 @@ export const QCView = {
           });
         }
         qcOrganisms.forEach(parameter => { row[parameter] = 'Absent'; });
-        if (key === 'documentation' || key === 'qc-orders') row.status = 'In Review';
+        if (key === 'documentation') {
+          Object.assign(row, {
+            year: ['2026', '2026', '2025'][index],
+            exporter: ['Devi Fisheries Limited', 'Devi Fisheries Limited', 'Devi Sea Foods Ltd'][index],
+            consignee: ['Pacific Seafood Inc', 'Maruha Nichiro Corp', 'Royal Greenland A/S'][index],
+            buyer: ['Pacific Seafood Inc', 'Maruha Nichiro Corp', 'Royal Greenland A/S'][index],
+            country: ['USA', 'Japan', 'EU'][index],
+            billsType: ['Commercial Bill', 'Export Bill', 'Commercial Bill'][index],
+            invoiceNo: `EXP-INV-2026-00${index + 1}`,
+            poNo: `PO-2026-00${index + 1}`,
+            status: 'In Review'
+          });
+        }
+        if (key === 'qc-orders') row.status = 'In Review';
         return row;
       });
     });
@@ -503,7 +534,25 @@ export const QCView = {
     return `<span class="lozenge lozenge-${style}">${this.escape(value || 'Pending')}</span>`;
   },
 
+  exporterName(row) {
+    return row.exporter || row.exporterName || ERP_DATA.company?.name || 'Devi Fisheries Limited';
+  },
+
   registerRows(key) {
+    if (key === 'documentation') {
+      return (this.state.documentation || []).map((row, index) => ({
+        ...row,
+        year: row.year || (row.date ? String(row.date).slice(0, 4) : '2026'),
+        exporter: row.exporter || ['Devi Fisheries Limited', 'Devi Fisheries Limited', 'Devi Sea Foods Ltd'][index % 3],
+        consignee: row.consignee || row.buyer || ['Pacific Seafood Inc', 'Maruha Nichiro Corp', 'Royal Greenland A/S'][index % 3],
+        buyer: row.buyer || row.consignee || ['Pacific Seafood Inc', 'Maruha Nichiro Corp', 'Royal Greenland A/S'][index % 3],
+        country: row.country || ['USA', 'Japan', 'EU'][index % 3],
+        billsType: row.billsType || ['Commercial Bill', 'Export Bill', 'Commercial Bill'][index % 3]
+      }));
+    }
+    if (key === 'external-lab-report') {
+      return this.state[key].map(row => ({ ...row, exporter: this.exporterName(row), reportDate: row.reportDate || row.date || '' }));
+    }
     if (key === 'lab-report') {
       return this.state[key].map((row, index) => ({
         ...row,
@@ -539,11 +588,14 @@ export const QCView = {
     this.state[key].forEach(row => this.evaluate(key, row));
     const lotOptions = [...new Set(this.state['lots-list'].map(row => row.lot))];
     const statuses = [...new Set(this.state[key].map(row => row.status || 'Pending'))];
+    const externalRows = key === 'external-lab-report' ? this.registerRows(key) : [];
+    const exporterOptions = [...new Set(externalRows.map(row => row.exporter))].sort();
+    const yearOptions = [...new Set(externalRows.map(row => row.reportDate.slice(0, 4)).filter(year => /^\d{4}$/.test(year)))].sort().reverse();
     this.content.innerHTML = `
       <div class="space-y-4 min-w-0">
         <div class="flex flex-wrap items-center justify-between gap-3">
           <h1 class="text-xl font-extrabold text-[#172B4D]">${schema.title}</h1>
-          ${['lots-list', 'rm-report'].includes(key) ? '' : `<button type="button" id="qc-add-record" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer border-0">${this.icon('Plus')}<span>Add Record</span></button>`}
+          ${['lots-list', 'rm-report', 'documentation'].includes(key) ? '' : `<button type="button" id="qc-add-record" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer border-0">${this.icon('Plus')}<span>Add Record</span></button>`}
         </div>
         <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200">
           <div class="flex items-center justify-between gap-2 pb-1">
@@ -553,8 +605,67 @@ export const QCView = {
               <button type="button" id="qc-toggle-filters" class="dt-top-filter-toggle-btn inline-flex items-center justify-center bg-white border border-[#CBD5E1] text-[#334155] rounded-full cursor-pointer" title="Hide Filter" aria-label="Hide Filter" aria-expanded="true" aria-controls="qc-filters">${this.icon('ChevronDown')}</button>
             </div>
           </div>
-          <form id="qc-filters" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
-            ${['mb-report', 'lab-report'].includes(key) ? `
+          <form id="qc-filters" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 ${key === 'documentation' ? 'lg:grid-cols-6' : 'lg:grid-cols-4'} gap-3 text-xs transition-all duration-200">
+            ${key === 'documentation' ? `
+              <div>
+                <label for="qc-filter-year" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SELECT YEAR</label>
+                <select id="qc-filter-year" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]">
+                  <option value="ALL">All Years</option>
+                  <option value="2026" selected>2026</option>
+                  <option value="2025">2025</option>
+                  <option value="2024">2024</option>
+                  <option value="2023">2023</option>
+                </select>
+              </div>
+              <div>
+                <label for="qc-filter-exporter" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SELECT EXPORTER :</label>
+                <select id="qc-filter-exporter" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]">
+                  <option value="ALL">All Exporters</option>
+                  <option value="Devi Fisheries Limited">Devi Fisheries Limited</option>
+                  <option value="Devi Sea Foods Ltd">Devi Sea Foods Ltd</option>
+                  <option value="Devi Aqua Feeds">Devi Aqua Feeds</option>
+                </select>
+              </div>
+              <div>
+                <label for="qc-filter-consignee" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SELECT CONSIGNEE :</label>
+                <select id="qc-filter-consignee" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]">
+                  <option value="ALL">All Consignees</option>
+                  <option value="Pacific Seafood Inc">Pacific Seafood Inc</option>
+                  <option value="Maruha Nichiro Corp">Maruha Nichiro Corp</option>
+                  <option value="Royal Greenland A/S">Royal Greenland A/S</option>
+                  <option value="Sysco Corporation">Sysco Corporation</option>
+                  <option value="Red Chamber Co.">Red Chamber Co.</option>
+                </select>
+              </div>
+              <div>
+                <label for="qc-filter-country" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SELECT COUNTRY:</label>
+                <select id="qc-filter-country" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]">
+                  <option value="ALL">All Countries</option>
+                  <option value="USA">USA</option>
+                  <option value="EU">EU</option>
+                  <option value="Japan">Japan</option>
+                  <option value="China">China</option>
+                  <option value="UK">UK</option>
+                  <option value="Canada">Canada</option>
+                  <option value="Australia">Australia</option>
+                </select>
+              </div>
+              <div>
+                <label for="qc-filter-bills-type" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">BILLS TYPE:</label>
+                <select id="qc-filter-bills-type" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]">
+                  <option value="ALL">All Bills Type</option>
+                  <option value="Commercial Bill">Commercial Bill</option>
+                  <option value="Export Bill">Export Bill</option>
+                  <option value="Advance Bill">Advance Bill</option>
+                  <option value="Sample Bill">Sample Bill</option>
+                  <option value="Consignment Bill">Consignment Bill</option>
+                </select>
+              </div>
+            ` : key === 'external-lab-report' ? `
+              <div><label for="qc-filter-exporter" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">Select Exporter:</label><select id="qc-filter-exporter" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D]"><option value="ALL">All Exporters</option>${exporterOptions.map(value => `<option value="${this.escape(value)}">${this.escape(value)}</option>`).join('')}</select></div>
+              <div><label for="qc-filter-year" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">Select Year</label><select id="qc-filter-year" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D]"><option value="ALL">All Years</option>${yearOptions.map(value => `<option>${value}</option>`).join('')}</select></div>
+              <div><label for="qc-filter-month" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">Select Month</label><select id="qc-filter-month" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D]"><option value="ALL">All Months</option>${['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'].map((name, index) => `<option value="${String(index + 1).padStart(2, '0')}">${name}</option>`).join('')}</select></div>
+            ` : ['mb-report', 'lab-report'].includes(key) ? `
               <div>
                 <label for="qc-filter-from" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">Select From Date:</label>
                 <div class="erp-date-wrapper">
@@ -695,13 +806,33 @@ export const QCView = {
       if (!columns.some(column => column.field === 'status')) columns.push({ field: 'status', header: key === 'lots-list' ? 'AB Status' : 'Status', render: value => this.badge(value) });
       else columns.find(column => column.field === 'status').render = value => this.badge(value);
     }
+    columns.forEach(column => {
+      const field = tableFields.find(item => item.key === column.field);
+      if (field && ['date', 'datetime-local'].includes(field.type)) {
+        column.render = value => {
+          if (!value) return '-';
+          const text = String(value);
+          if (!/^\d{4}-\d{2}-\d{2}(?:$|T)/.test(text)) return this.escape(text);
+          const [date, time] = text.split('T');
+          return this.escape(`${date.split('-').reverse().join('-')}${time ? ` ${time.slice(0, 5)}` : ''}`);
+        };
+      }
+      if (['result', 'chemicalResult', 'antibioticResult', 'microbiologyResult'].includes(column.field)) {
+        column.render = value => this.badge(value);
+      }
+      if (['srNo', 'totalReports', 'dayTotal', 'nightTotal'].includes(column.field)) {
+        column.render = value => `<span class="font-semibold text-[#172B4D]">${value === null || value === undefined || value === '' ? '-' : this.escape(Number(value).toLocaleString('en-IN'))}</span>`;
+      }
+    });
     if (key === 'external-lab-report') columns.push({ field: 'coaFileName', header: 'COA Attachment', render: value => this.escape(value || 'Not attached') });
     const sourceRow = row => this.state[key].find(record => record.id === row.id) || row;
     this.table = new DataTable({
       containerId: 'qc-register-table', tableTitle: schema.title, columns, data: this.registerRows(key),
       actionsTitle: key === 'lab-report' ? 'Action' : (key === 'rm-report' || key === 'mb-report') ? 'action' : 'Actions',
       actions: key === 'lots-list' ? [] : (
-        key === 'rm-report' ? [
+        key === 'external-lab-report' ? [
+          { label: 'Print', icon: this.icon('Printer'), onClick: row => this.printExternalReport(sourceRow(row)) }
+        ] : key === 'rm-report' ? [
           { label: 'Add', icon: this.icon('Plus'), onClick: row => this.openRmInspectionModal(sourceRow(row)) }
         ] : [
           { label: 'Edit', icon: this.icon('Pencil'), onClick: row => this.openForm(key, sourceRow(row)) },
@@ -729,15 +860,49 @@ export const QCView = {
   },
 
   filterRecords(key) {
+    if (key === 'documentation') {
+      const year = document.getElementById('qc-filter-year')?.value || 'ALL';
+      const exporter = document.getElementById('qc-filter-exporter')?.value || 'ALL';
+      const consignee = document.getElementById('qc-filter-consignee')?.value || 'ALL';
+      const country = document.getElementById('qc-filter-country')?.value || 'ALL';
+      const billsType = document.getElementById('qc-filter-bills-type')?.value || 'ALL';
+
+      this.table.setData(this.registerRows(key).filter(row => {
+        const rowYear = row.year || (row.date ? String(row.date).slice(0, 4) : '2026');
+        const rowExporter = row.exporter || 'Devi Fisheries Limited';
+        const rowConsignee = row.consignee || row.buyer || '';
+        const rowCountry = row.country || '';
+        const rowBillsType = row.billsType || 'Commercial Bill';
+
+        if (year !== 'ALL' && rowYear !== year) return false;
+        if (exporter !== 'ALL' && !rowExporter.toLowerCase().includes(exporter.toLowerCase())) return false;
+        if (consignee !== 'ALL' && !rowConsignee.toLowerCase().includes(consignee.toLowerCase())) return false;
+        if (country !== 'ALL' && rowCountry.toUpperCase() !== country.toUpperCase()) return false;
+        if (billsType !== 'ALL' && !rowBillsType.toLowerCase().includes(billsType.toLowerCase())) return false;
+        return true;
+      }));
+      return;
+    }
     const status = document.getElementById('qc-filter-status')?.value || 'ALL';
     const lot = document.getElementById('qc-filter-lot')?.value || 'ALL';
-    const from = document.getElementById('qc-filter-from').value;
-    const to = document.getElementById('qc-filter-to').value;
+    const from = document.getElementById('qc-filter-from')?.value || '';
+    const to = document.getElementById('qc-filter-to')?.value || '';
+    const exporter = document.getElementById('qc-filter-exporter')?.value || 'ALL';
+    const year = document.getElementById('qc-filter-year')?.value || 'ALL';
+    const month = document.getElementById('qc-filter-month')?.value || 'ALL';
     if (from && to && from > to) { Toast.show('From date must not be after To date.', 'warning'); return; }
     this.table.setData(this.registerRows(key).filter(row => {
-      const date = key === 'lab-report' ? row.reportDate : row.date || row.rmDate || row.auditDate || row.targetDate || '';
+      const date = ['lab-report', 'external-lab-report'].includes(key) ? row.reportDate : row.date || row.rmDate || row.auditDate || row.targetDate || '';
+      if (key === 'external-lab-report' && ((exporter !== 'ALL' && row.exporter !== exporter) || (year !== 'ALL' && date.slice(0, 4) !== year) || (month !== 'ALL' && date.slice(5, 7) !== month))) return false;
       return (status === 'ALL' || row.status === status) && (lot === 'ALL' || (row.lot || row.internalLotNo) === lot) && (!from || date >= from) && (!to || date <= to);
     }));
+  },
+
+  printExternalReport(row) {
+    const report = { ...row, exporter: this.exporterName(row) };
+    const columns = qcSchemas['external-lab-report'].fields.map(field => ({ field: field.key, header: field.label }));
+    columns.push({ field: 'status', header: 'Status' }, { field: 'coaFileName', header: 'COA Attachment' });
+    new DataTable({ containerId: null, columns, data: [report], tableTitle: `External Lab Report - ${this.escape(row.reportNo || row.id)}` }).exportToPDF();
   },
 
   openRmInspectionModal(row) {
@@ -987,7 +1152,7 @@ export const QCView = {
       size: 'full',
       content: `<form id="qc-record-form" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs">
         ${schema.fields.map(field => {
-          const value = row?.[field.key] ?? (field.type === 'date' ? today : '');
+          const value = row?.[field.key] ?? (field.key === 'exporter' ? this.exporterName(row || {}) : field.type === 'date' ? today : '');
           const options = field.type === 'lot' ? this.state['lots-list'].map(lot => lot.lot) : field.options;
           const numeric = ['number', 'temperature', 'percent', 'score'].includes(field.type);
           const inputType = numeric ? 'number' : ['date', 'time', 'datetime-local'].includes(field.type) ? field.type : 'text';
@@ -1002,7 +1167,27 @@ export const QCView = {
                 : `<input id="${fieldId}" name="${this.escape(field.key)}" type="${inputType}" value="${this.escape(value)}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" ${optional ? '' : 'required'} ${numeric ? `step="any" min="${field.type === 'temperature' ? '-50' : field.type === 'score' ? '1' : '0'}" ${field.type === 'score' ? 'max="5"' : field.type === 'percent' ? 'max="100"' : ''}` : ''} />`}
           </div>`;
         }).join('')}
-        ${key === 'external-lab-report' ? `<div class="sm:col-span-2 lg:col-span-4"><label for="qc-coa-file" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">COA Attachment (PDF / PNG / JPEG, max 2 MB)</label><input id="qc-coa-file" type="file" accept="application/pdf,image/png,image/jpeg" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" />${row?.coaFileName ? `<span class="text-xs text-[#00A4B7] font-semibold mt-1 block">${this.escape(row.coaFileName)}</span><label class="flex items-center gap-2 mt-2 text-xs"><input id="qc-coa-remove" type="checkbox" />Remove attachment</label>` : ''}</div>` : ''}
+        ${key === 'external-lab-report' ? `<div class="sm:col-span-2 lg:col-span-4 min-w-0 space-y-2">
+          <label for="qc-coa-file" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">COA Attachment</label>
+          <div class="flex flex-col sm:flex-row sm:items-center gap-3 border border-[#DFE1E6] rounded-lg bg-[#F8FAFC] p-3">
+            <div class="flex items-start gap-3 flex-1 min-w-0">
+              <span class="text-[#0284C7] shrink-0 mt-0.5" aria-hidden="true">${this.icon('FileText')}</span>
+              <div class="min-w-0 flex-1">
+                <p id="qc-coa-filename" class="font-semibold text-xs text-[#172B4D] break-all">${this.escape(row?.coaFileName || 'No file selected')}</p>
+                <p id="qc-coa-metadata" class="text-[11px] text-[#5E6C84] mt-1">PDF / PNG / JPEG, up to 2 MB</p>
+                <p id="qc-coa-feedback" class="text-[11px] text-[#5E6C84] mt-1 break-words" role="status" aria-live="polite"></p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 shrink-0">
+              <input id="qc-coa-file" type="file" accept="application/pdf,image/png,image/jpeg" class="sr-only peer" aria-describedby="qc-coa-metadata qc-coa-feedback" />
+              <label for="qc-coa-file" class="btn-secondary inline-flex items-center gap-2 px-3 py-2 rounded-full text-xs font-semibold cursor-pointer peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-[#0284C7]">
+                <span aria-hidden="true">${this.icon('Upload')}</span><span id="qc-coa-browse-label">${row?.coaFileName ? 'Replace File' : 'Choose File'}</span>
+              </label>
+              <button type="button" id="qc-coa-clear" class="dt-action-btn inline-flex items-center justify-center bg-white border border-[#CBD5E1] text-[#334155] rounded-full cursor-pointer" title="Remove attachment" aria-label="Remove attachment" style="${row?.coaFileName ? '' : 'display: none !important;'}">${this.icon('X')}</button>
+              <input id="qc-coa-remove" type="checkbox" class="sr-only" tabindex="-1" aria-hidden="true" />
+            </div>
+          </div>
+        </div>` : ''}
       </form>`,
       footerButtons: [
         { label: 'Cancel', type: 'secondary', onClick: modal => modal.close() },
@@ -1011,25 +1196,69 @@ export const QCView = {
     });
     const form = document.getElementById('qc-record-form');
     form.addEventListener('submit', event => { event.preventDefault(); this.saveRecord(key, row, form); });
-    document.getElementById('qc-coa-file')?.addEventListener('change', event => {
-      const file = event.target.files[0];
-      form.qcAttachment = null;
-      if (!file) return;
-      if (!['application/pdf', 'image/png', 'image/jpeg'].includes(file.type) || file.size > 2 * 1024 * 1024) {
-        event.target.value = '';
-        Toast.show('Choose a PDF, PNG, or JPEG file no larger than 2 MB.', 'warning');
-        return;
-      }
-      const reader = new FileReader();
-      form.dataset.attachmentLoading = 'true';
-      reader.onload = () => {
-        if (event.target.files[0] !== file) return;
-        form.qcAttachment = { coaFileName: file.name, coaFileData: reader.result };
-        delete form.dataset.attachmentLoading;
+    const fileInput = document.getElementById('qc-coa-file');
+    if (fileInput) {
+      const removeInput = document.getElementById('qc-coa-remove');
+      const clearButton = document.getElementById('qc-coa-clear');
+      const feedback = document.getElementById('qc-coa-feedback');
+      let activeReader = null;
+      const updateAttachment = (file = null, message = '') => {
+        const name = file?.name || form.qcAttachment?.coaFileName || (!removeInput.checked ? row?.coaFileName : '');
+        const size = file ? file.size < 1024 ? `${file.size} B` : file.size < 1024 * 1024 ? `${(file.size / 1024).toFixed(1)} KB` : `${(file.size / (1024 * 1024)).toFixed(1)} MB` : '';
+        document.getElementById('qc-coa-filename').textContent = name || 'No file selected';
+        document.getElementById('qc-coa-metadata').textContent = file
+          ? `${file.type === 'application/pdf' ? 'PDF' : file.type === 'image/png' ? 'PNG' : 'JPEG'} / ${size}`
+          : 'PDF / PNG / JPEG, up to 2 MB';
+        document.getElementById('qc-coa-browse-label').textContent = name ? 'Replace File' : 'Choose File';
+        clearButton.style.setProperty('display', name ? 'inline-flex' : 'none', 'important');
+        feedback.textContent = message;
+        const invalid = /Invalid file|could not be read/.test(message);
+        feedback.className = `text-[11px] mt-1 break-words ${invalid ? 'text-[#881337]' : 'text-[#5E6C84]'}`;
+        fileInput.setAttribute('aria-invalid', String(invalid));
       };
-      reader.onerror = () => { delete form.dataset.attachmentLoading; Toast.show('The attachment could not be read.', 'error'); };
-      reader.readAsDataURL(file);
-    });
+      clearButton.addEventListener('click', () => {
+        activeReader?.abort();
+        activeReader = null;
+        fileInput.value = '';
+        form.qcAttachment = null;
+        delete form.dataset.attachmentLoading;
+        removeInput.checked = Boolean(row?.coaFileName);
+        updateAttachment(null, 'Attachment removed');
+      });
+      fileInput.addEventListener('change', () => {
+        activeReader?.abort();
+        activeReader = null;
+        delete form.dataset.attachmentLoading;
+        const file = fileInput.files[0];
+        if (!file) { updateAttachment(); return; }
+        if (!['application/pdf', 'image/png', 'image/jpeg'].includes(file.type) || file.size > 2 * 1024 * 1024) {
+          fileInput.value = '';
+          updateAttachment(null, 'Invalid file: PDF, PNG, or JPEG, maximum 2 MB');
+          return;
+        }
+        form.qcAttachment = null;
+        removeInput.checked = false;
+        const reader = new FileReader();
+        activeReader = reader;
+        form.dataset.attachmentLoading = 'true';
+        updateAttachment(file, 'Reading attachment...');
+        reader.onload = () => {
+          if (activeReader !== reader || fileInput.files[0] !== file) return;
+          form.qcAttachment = { coaFileName: file.name, coaFileData: reader.result };
+          activeReader = null;
+          delete form.dataset.attachmentLoading;
+          updateAttachment(file, 'Ready');
+        };
+        reader.onerror = () => {
+          if (activeReader !== reader) return;
+          activeReader = null;
+          fileInput.value = '';
+          delete form.dataset.attachmentLoading;
+          updateAttachment(null, 'The attachment could not be read');
+        };
+        reader.readAsDataURL(file);
+      });
+    }
   },
 
 
@@ -2051,6 +2280,7 @@ export const QCView = {
   },
 
   showDetails(key, row) {
+    if (key === 'external-lab-report') row = { ...row, exporter: this.exporterName(row) };
     const fields = [...qcSchemas[key].fields];
     if (!fields.some(field => field.key === 'status')) fields.push(qcField('status', key === 'lots-list' ? 'Antibiotic Status' : 'Status'));
     const sampleFields = { method: 'Test Method', collectedBy: 'Collected By', lab: 'Laboratory', testTime: 'Sample Time', antibiotics: 'Screening Panel' };

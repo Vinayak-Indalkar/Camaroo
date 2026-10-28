@@ -7,6 +7,10 @@ import { Toast } from '../components/toast.js';
 import { ERP_DATA } from '../data/mockData.js';
 
 export const PreprocessingView = {
+  escape(value) {
+    return String(value ?? '').replace(/[&<>"']/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[character]));
+  },
+
   // State storage for Pre-Processing floor data
   state: {
     deheadingBatches: [
