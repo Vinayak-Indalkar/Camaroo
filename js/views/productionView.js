@@ -537,135 +537,141 @@ export const ProductionView = {
     soakingOperations: [
       {
         sNo: 1,
-        id: 'SOAK-2026-101',
-        soakBatchNo: 'SOAK-2026-101',
-        soakingDate: '2026-10-06',
+        id: 'LOT-SK-2026-101',
+        arrivalDate: '2026-10-06',
+        arrivalLotCode: 'LOT-SK-2026-101',
         productionPlant: 'DFL UNIT-5 (JPT)',
-        tubNumber: 'Tub-01',
-        variety: 'Vannamei (VM)',
-        grade: '31/40',
-        rawInWeight: '500.0 Kgs',
-        chemical: 'Non-Phosphate Moisture Retainer',
-        chemicalQty: '15.0 Kgs',
-        saltQty: '10.0 Kgs',
-        soakDuration: '45 Mins',
-        soakOutWeight: '524.5 Kgs',
-        pickupPct: '4.9%',
-        bathTemp: '1.8°C',
+        sourceStation: 'Receiving Bay #2',
+        transactionDate: '2026-10-06',
         shift: 'Shift A (Day)',
-        supervisor: 'Laxmi Narayana',
-        remarks: 'Uniform uptake, texture firm, zero drip loss',
+        startTime: '08:30',
+        timePeriod: '45 Mins',
+        saltPerKg: '10.0',
+        chemicalQuantity: '15.0',
+        remarks: 'Pre-chill water maintained at 1.8°C, optimal absorption',
+        variety: 'Vannamei (VM)',
+        tubNumber: 'Tub-01',
+        sourceCount: '31/40',
+        inCount: '35',
+        inQuantity: '450.0 Kgs',
+        outCount: '32',
+        outQuantity: '472.5 Kgs',
         status: 'COMPLETED'
       },
       {
         sNo: 2,
-        id: 'SOAK-2026-102',
-        soakBatchNo: 'SOAK-2026-102',
-        soakingDate: '2026-10-06',
+        id: 'LOT-SK-2026-102',
+        arrivalDate: '2026-10-06',
+        arrivalLotCode: 'LOT-SK-2026-102',
         productionPlant: 'DFL UNIT-3 (PSP)',
-        tubNumber: 'Tub-04',
-        variety: 'Black Tiger (BT)',
-        grade: '16/20',
-        rawInWeight: '620.0 Kgs',
-        chemical: 'Food Grade STPP (Sodium Tripolyphosphate)',
-        chemicalQty: '18.5 Kgs',
-        saltQty: '12.0 Kgs',
-        soakDuration: '50 Mins',
-        soakOutWeight: '651.0 Kgs',
-        pickupPct: '5.0%',
-        bathTemp: '1.6°C',
+        sourceStation: 'Dock A Intake',
+        transactionDate: '2026-10-06',
         shift: 'Shift A (Day)',
-        supervisor: 'K. Subba Rao',
+        startTime: '09:15',
+        timePeriod: '50 Mins',
+        saltPerKg: '12.0',
+        chemicalQuantity: '18.5',
         remarks: 'Controlled phosphate soaking for US market compliance',
+        variety: 'Black Tiger (BT)',
+        tubNumber: 'Tub-04',
+        sourceCount: '16/20',
+        inCount: '18',
+        inQuantity: '620.0 Kgs',
+        outCount: '16',
+        outQuantity: '651.0 Kgs',
         status: 'COMPLETED'
       },
       {
         sNo: 3,
-        id: 'SOAK-2026-103',
-        soakBatchNo: 'SOAK-2026-103',
-        soakingDate: '2026-10-07',
+        id: 'LOT-SK-2026-103',
+        arrivalDate: '2026-10-07',
+        arrivalLotCode: 'LOT-SK-2026-103',
         productionPlant: 'DFL UNIT-4 (PND)',
-        tubNumber: 'Tub-07',
-        variety: 'Vannamei (VM)',
-        grade: '21/25',
-        rawInWeight: '450.0 Kgs',
-        chemical: 'Fresh Raw (Chilled Brine)',
-        chemicalQty: '0.0 Kgs',
-        saltQty: '15.0 Kgs',
-        soakDuration: '30 Mins',
-        soakOutWeight: '463.5 Kgs',
-        pickupPct: '3.0%',
-        bathTemp: '1.2°C',
+        sourceStation: 'Bay #1 Chill',
+        transactionDate: '2026-10-07',
         shift: 'Shift B (Evening)',
-        supervisor: 'Ch. Prasad',
+        startTime: '14:00',
+        timePeriod: '30 Mins',
+        saltPerKg: '15.0',
+        chemicalQuantity: '0.0',
         remarks: 'Chemical-free natural chilled brine soak',
+        variety: 'Vannamei (VM)',
+        tubNumber: 'Tub-07',
+        sourceCount: '21/25',
+        inCount: '23',
+        inQuantity: '450.0 Kgs',
+        outCount: '21',
+        outQuantity: '463.5 Kgs',
         status: 'SOAKING'
       },
       {
         sNo: 4,
-        id: 'SOAK-2026-104',
-        soakBatchNo: 'SOAK-2026-104',
-        soakingDate: '2026-10-07',
+        id: 'LOT-SK-2026-104',
+        arrivalDate: '2026-10-07',
+        arrivalLotCode: 'LOT-SK-2026-104',
         productionPlant: 'DFL UNIT-1 (VSP)',
-        tubNumber: 'Tub-02',
-        variety: 'Sea White',
-        grade: '41/50',
-        rawInWeight: '380.0 Kgs',
-        chemical: 'Citric Acid & Salt Blend',
-        chemicalQty: '11.0 Kgs',
-        saltQty: '9.0 Kgs',
-        soakDuration: '40 Mins',
-        soakOutWeight: '395.2 Kgs',
-        pickupPct: '4.0%',
-        bathTemp: '2.0°C',
+        sourceStation: 'Direct Pier Station',
+        transactionDate: '2026-10-07',
         shift: 'Shift A (Day)',
-        supervisor: 'Mallesh',
+        startTime: '10:00',
+        timePeriod: '40 Mins',
+        saltPerKg: '9.0',
+        chemicalQuantity: '11.0',
         remarks: 'EU compliance blend, organoleptic test passed',
+        variety: 'Sea White',
+        tubNumber: 'Tub-02',
+        sourceCount: '41/50',
+        inCount: '45',
+        inQuantity: '380.0 Kgs',
+        outCount: '42',
+        outQuantity: '395.2 Kgs',
         status: 'COMPLETED'
       },
       {
         sNo: 5,
-        id: 'SOAK-2026-105',
-        soakBatchNo: 'SOAK-2026-105',
-        soakingDate: '2026-10-07',
+        id: 'LOT-SK-2026-105',
+        arrivalDate: '2026-10-07',
+        arrivalLotCode: 'LOT-SK-2026-105',
         productionPlant: 'DFL UNIT-6 (JPT-II)',
-        tubNumber: 'Tub-09',
+        sourceStation: 'Station #3 Primary',
+        transactionDate: '2026-10-07',
+        shift: 'Shift B (Evening)',
+        startTime: '16:30',
+        timePeriod: '45 Mins',
+        saltPerKg: '7.5',
+        chemicalQuantity: '9.5',
+        remarks: 'Scampi delicate tail soak, texture monitored',
         variety: 'Scampi',
-        grade: '11/15',
-        rawInWeight: '320.0 Kgs',
-        chemical: 'Non-Phosphate Moisture Retainer',
-        chemicalQty: '9.5 Kgs',
-        saltQty: '7.5 Kgs',
-        soakDuration: '45 Mins',
-        soakOutWeight: '334.4 Kgs',
-        pickupPct: '4.5%',
-        bathTemp: '1.9°C',
-        shift: 'Shift C (Night)',
-        supervisor: 'D. Rambabu',
-        remarks: 'Transferred to Tunnel Freezer #1 staging ante-room',
-        status: 'TRANSFERRED'
+        tubNumber: 'Tub-09',
+        sourceCount: '11/15',
+        inCount: '13',
+        inQuantity: '320.0 Kgs',
+        outCount: '12',
+        outQuantity: '334.4 Kgs',
+        status: 'COMPLETED'
       },
       {
         sNo: 6,
-        id: 'SOAK-2026-106',
-        soakBatchNo: 'SOAK-2026-106',
-        soakingDate: '2026-10-08',
+        id: 'LOT-SK-2026-106',
+        arrivalDate: '2026-10-08',
+        arrivalLotCode: 'LOT-SK-2026-106',
         productionPlant: 'DFL UNIT-2 (KKD)',
-        tubNumber: 'Tub-05',
+        sourceStation: 'Inland Bay #4',
+        transactionDate: '2026-10-08',
+        shift: 'Shift C (Night)',
+        startTime: '22:15',
+        timePeriod: '35 Mins',
+        saltPerKg: '11.0',
+        chemicalQuantity: '14.0',
+        remarks: 'Night shift processing trial run',
         variety: 'Vannamei (VM)',
-        grade: '31/40',
-        rawInWeight: '550.0 Kgs',
-        chemical: 'STPP Controlled Soak',
-        chemicalQty: '16.5 Kgs',
-        saltQty: '11.0 Kgs',
-        soakDuration: '45 Mins',
-        soakOutWeight: '576.4 Kgs',
-        pickupPct: '4.8%',
-        bathTemp: '1.7°C',
-        shift: 'Shift A (Day)',
-        supervisor: 'G. Suribabu',
-        remarks: 'Solution prepared, tub loading in progress',
-        status: 'SOAKING'
+        tubNumber: 'Tub-11',
+        sourceCount: '31/40',
+        inCount: '36',
+        inQuantity: '480.0 Kgs',
+        outCount: '33',
+        outQuantity: '501.6 Kgs',
+        status: 'TRANSFERRED'
       }
     ],
 
@@ -3770,7 +3776,7 @@ export const ProductionView = {
       <div class="space-y-4">
         <div class="flex flex-wrap items-center justify-between gap-3 mb-0">
           <div>
-            <h1 class="text-xl font-extrabold text-[#172B4D]">Soaking Operations Register</h1>
+            <h1 class="text-xl font-extrabold text-[#172B4D]">Soaking Operations Log</h1>
           </div>
           <div>
             <button type="button" id="btn-log-soak-batch" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer border-0">
@@ -3799,6 +3805,16 @@ export const ProductionView = {
 
           <div id="soak-top-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
             <div>
+              <label for="sk-op-arrival-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">ARRIVAL DATE</label>
+              <input type="date" id="sk-op-arrival-date" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" onclick="this.showPicker ? this.showPicker() : this.focus()" />
+            </div>
+
+            <div>
+              <label for="sk-op-lot-code" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">ARRIVAL/LOT CODE</label>
+              <input type="text" id="sk-op-lot-code" placeholder="e.g. LOT-SK-2026" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono focus:outline-none focus:border-[#0284C7]" />
+            </div>
+
+            <div>
               <label for="sk-op-plant" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCTION PLANT</label>
               <select id="sk-op-plant" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]">
                 <option value="ALL">All Production Plants</option>
@@ -3812,28 +3828,17 @@ export const ProductionView = {
             </div>
 
             <div>
-              <label for="sk-op-batch" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">BATCH NO</label>
-              <input type="text" id="sk-op-batch" placeholder="e.g. SOAK-2026" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono focus:outline-none focus:border-[#0284C7]" />
+              <label for="sk-op-source-station" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SOURCE STATION</label>
+              <input type="text" id="sk-op-source-station" placeholder="e.g. Receiving Bay #2" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" />
             </div>
 
             <div>
-              <label for="sk-op-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SOAKING DATE</label>
-              <input type="date" id="sk-op-date" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" onclick="this.showPicker ? this.showPicker() : this.focus()" />
+              <label for="sk-op-tx-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TRANSACTION DATE</label>
+              <input type="date" id="sk-op-tx-date" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" onclick="this.showPicker ? this.showPicker() : this.focus()" />
             </div>
 
             <div>
-              <label for="sk-op-variety" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">VARIETY</label>
-              <select id="sk-op-variety" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]">
-                <option value="ALL">All Varieties</option>
-                <option value="Vannamei (VM)">Vannamei (VM)</option>
-                <option value="Black Tiger (BT)">Black Tiger (BT)</option>
-                <option value="Sea White">Sea White</option>
-                <option value="Scampi">Scampi</option>
-              </select>
-            </div>
-
-            <div>
-              <label for="sk-op-shift" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SHIFT</label>
+              <label for="sk-op-shift" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SELECT SHIFT</label>
               <select id="sk-op-shift" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]">
                 <option value="ALL">All Shifts</option>
                 <option value="Shift A (Day)">Shift A (Day)</option>
@@ -3843,17 +3848,22 @@ export const ProductionView = {
             </div>
 
             <div>
-              <label for="sk-op-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STATUS</label>
-              <select id="sk-op-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]">
-                <option value="ALL">All Statuses</option>
-                <option value="COMPLETED">COMPLETED</option>
-                <option value="SOAKING">SOAKING</option>
-                <option value="TRANSFERRED">TRANSFERRED</option>
-              </select>
+              <label for="sk-op-variety" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">VARIETY</label>
+              <input type="text" id="sk-op-variety" placeholder="e.g. Vannamei, Black Tiger" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" />
+            </div>
+
+            <div>
+              <label for="sk-op-tub" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TUB NUMBER</label>
+              <input type="text" id="sk-op-tub" placeholder="e.g. Tub-01" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" />
+            </div>
+
+            <div>
+              <label for="sk-op-search" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">KEYWORD SEARCH</label>
+              <input type="text" id="sk-op-search" placeholder="Search any column..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" />
             </div>
 
             <!-- Search Button Slot -->
-            <div class="flex items-end sm:col-span-2">
+            <div class="flex items-end sm:col-span-3">
               <button type="button" id="soak-filter-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                 <span>Search</span>
@@ -3883,30 +3893,42 @@ export const ProductionView = {
     });
 
     const applyFilters = () => {
+      const arrDate = document.getElementById('sk-op-arrival-date')?.value || '';
+      const lotCode = (document.getElementById('sk-op-lot-code')?.value || '').trim().toLowerCase();
       const plant = document.getElementById('sk-op-plant')?.value || 'ALL';
-      const bCode = (document.getElementById('sk-op-batch')?.value || '').trim().toLowerCase();
-      const sDate = document.getElementById('sk-op-date')?.value || '';
-      const varVal = document.getElementById('sk-op-variety')?.value || 'ALL';
+      const station = (document.getElementById('sk-op-source-station')?.value || '').trim().toLowerCase();
+      const txDate = document.getElementById('sk-op-tx-date')?.value || '';
       const shift = document.getElementById('sk-op-shift')?.value || 'ALL';
-      const st = document.getElementById('sk-op-status')?.value || 'ALL';
+      const varVal = (document.getElementById('sk-op-variety')?.value || '').trim().toLowerCase();
+      const tubVal = (document.getElementById('sk-op-tub')?.value || '').trim().toLowerCase();
+      const kw = (document.getElementById('sk-op-search')?.value || '').trim().toLowerCase();
 
       const filtered = this.state.soakingOperations.filter(row => {
+        if (arrDate && row.arrivalDate !== arrDate) return false;
+        if (lotCode && !String(row.arrivalLotCode || row.soakBatchNo || '').toLowerCase().includes(lotCode)) return false;
         if (plant !== 'ALL' && row.productionPlant !== plant) return false;
-        if (bCode && !String(row.soakBatchNo || '').toLowerCase().includes(bCode)) return false;
-        if (sDate && row.soakingDate !== sDate) return false;
-        if (varVal !== 'ALL' && row.variety !== varVal) return false;
+        if (station && !String(row.sourceStation || '').toLowerCase().includes(station)) return false;
+        if (txDate && row.transactionDate !== txDate) return false;
         if (shift !== 'ALL' && row.shift !== shift) return false;
-        if (st !== 'ALL' && row.status !== st) return false;
+        if (varVal && !String(row.variety || '').toLowerCase().includes(varVal)) return false;
+        if (tubVal && !String(row.tubNumber || '').toLowerCase().includes(tubVal)) return false;
+        if (kw) {
+          const haystack = `${row.arrivalLotCode || row.soakBatchNo} ${row.productionPlant} ${row.sourceStation} ${row.variety} ${row.tubNumber} ${row.shift} ${row.sourceCount} ${row.inCount} ${row.inQuantity} ${row.outCount} ${row.outQuantity} ${row.remarks}`.toLowerCase();
+          if (!haystack.includes(kw)) return false;
+        }
         return true;
       });
 
       renderTable(filtered);
     };
 
-    ['sk-op-plant', 'sk-op-variety', 'sk-op-shift', 'sk-op-status'].forEach(id => {
+    ['sk-op-plant', 'sk-op-shift'].forEach(id => {
       document.getElementById(id)?.addEventListener('change', applyFilters);
     });
-    ['sk-op-batch', 'sk-op-date'].forEach(id => {
+    ['sk-op-arrival-date', 'sk-op-tx-date'].forEach(id => {
+      document.getElementById(id)?.addEventListener('change', applyFilters);
+    });
+    ['sk-op-lot-code', 'sk-op-source-station', 'sk-op-variety', 'sk-op-tub', 'sk-op-search'].forEach(id => {
       document.getElementById(id)?.addEventListener('input', applyFilters);
       document.getElementById(id)?.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
@@ -3922,12 +3944,15 @@ export const ProductionView = {
     });
 
     document.getElementById('soak-top-reset-btn')?.addEventListener('click', () => {
+      if (document.getElementById('sk-op-arrival-date')) document.getElementById('sk-op-arrival-date').value = '';
+      if (document.getElementById('sk-op-lot-code')) document.getElementById('sk-op-lot-code').value = '';
       if (document.getElementById('sk-op-plant')) document.getElementById('sk-op-plant').value = 'ALL';
-      if (document.getElementById('sk-op-batch')) document.getElementById('sk-op-batch').value = '';
-      if (document.getElementById('sk-op-date')) document.getElementById('sk-op-date').value = '';
-      if (document.getElementById('sk-op-variety')) document.getElementById('sk-op-variety').value = 'ALL';
+      if (document.getElementById('sk-op-source-station')) document.getElementById('sk-op-source-station').value = '';
+      if (document.getElementById('sk-op-tx-date')) document.getElementById('sk-op-tx-date').value = '';
       if (document.getElementById('sk-op-shift')) document.getElementById('sk-op-shift').value = 'ALL';
-      if (document.getElementById('sk-op-status')) document.getElementById('sk-op-status').value = 'ALL';
+      if (document.getElementById('sk-op-variety')) document.getElementById('sk-op-variety').value = '';
+      if (document.getElementById('sk-op-tub')) document.getElementById('sk-op-tub').value = '';
+      if (document.getElementById('sk-op-search')) document.getElementById('sk-op-search').value = '';
       renderTable(this.state.soakingOperations);
       Toast.show('Filters reset', 'info');
     });
@@ -3936,7 +3961,7 @@ export const ProductionView = {
       new DataTable({
         containerId: 'soaking-op-table-container',
         data: data,
-        keyField: 'soakBatchNo',
+        keyField: 'id',
         tableTitle: 'Soaking Operations Log',
         searchable: true,
         exportable: true,
@@ -3948,14 +3973,14 @@ export const ProductionView = {
             render: (v, row, idx) => `<span class="text-[#5E6C84] font-semibold">${v || (idx + 1)}</span>`
           },
           {
-            field: 'soakingDate',
-            header: 'Soaking Date',
+            field: 'arrivalDate',
+            header: 'Arrival Date',
             render: (v) => `<span class="text-[#172B4D] whitespace-nowrap">${v ? String(v).split('-').reverse().join('-') : '-'}</span>`
           },
           {
-            field: 'soakBatchNo',
-            header: 'Batch No',
-            render: (v) => `<span class="font-mono font-bold text-[#0284C7] bg-[#F0F9FF] px-2 py-0.5 rounded border border-[#BAE6FD] whitespace-nowrap cursor-pointer hover:underline">${this.escape(v)}</span>`
+            field: 'arrivalLotCode',
+            header: 'Arrival/Lot Code',
+            render: (v, row) => `<span class="font-mono font-bold text-[#0284C7] bg-[#F0F9FF] px-2 py-0.5 rounded border border-[#BAE6FD] whitespace-nowrap cursor-pointer hover:underline">${this.escape(v || row.soakBatchNo || '')}</span>`
           },
           {
             field: 'productionPlant',
@@ -3963,63 +3988,74 @@ export const ProductionView = {
             render: (v) => `<span class="font-semibold text-[#172B4D] whitespace-nowrap">${this.escape(v)}</span>`
           },
           {
-            field: 'tubNumber',
-            header: 'Tub Number',
-            render: (v) => `<span class="font-mono text-xs font-semibold text-[#00A4B7] whitespace-nowrap">${this.escape(v)}</span>`
+            field: 'sourceStation',
+            header: 'Source Station',
+            render: (v) => `<span class="text-xs text-[#334155] whitespace-nowrap">${this.escape(v || '-')}</span>`
+          },
+          {
+            field: 'transactionDate',
+            header: 'Transaction Date',
+            render: (v) => `<span class="text-[#172B4D] whitespace-nowrap">${v ? String(v).split('-').reverse().join('-') : '-'}</span>`
+          },
+          {
+            field: 'shift',
+            header: 'Shift',
+            render: (v) => `<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#F4F5F7] text-[#42526E] border border-[#DFE1E6] whitespace-nowrap">${this.escape(v || '-')}</span>`
+          },
+          {
+            field: 'startTime',
+            header: 'Start Time',
+            render: (v) => `<span class="font-mono text-xs text-[#172B4D] whitespace-nowrap">${this.escape(v || '-')}</span>`
+          },
+          {
+            field: 'timePeriod',
+            header: 'Time Period',
+            render: (v) => `<span class="font-semibold text-[#172B4D] whitespace-nowrap">${this.escape(v || '-')}</span>`
+          },
+          {
+            field: 'saltPerKg',
+            header: 'Salt/KG',
+            render: (v) => `<span class="font-mono text-xs text-[#172B4D] whitespace-nowrap">${this.escape(v || '-')}</span>`
+          },
+          {
+            field: 'chemicalQuantity',
+            header: 'Chemical Quantity',
+            render: (v) => `<span class="font-mono text-xs text-[#0284C7] whitespace-nowrap">${this.escape(v || '-')}</span>`
           },
           {
             field: 'variety',
             header: 'Variety',
-            render: (v) => `<span class="font-semibold text-[#172B4D] whitespace-nowrap">${this.escape(v)}</span>`
+            render: (v) => `<span class="font-semibold text-[#172B4D] whitespace-nowrap">${this.escape(v || '-')}</span>`
           },
           {
-            field: 'grade',
-            header: 'Grade',
-            render: (v) => `<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#F4F5F7] text-[#42526E] border border-[#DFE1E6] whitespace-nowrap">${this.escape(v)}</span>`
+            field: 'tubNumber',
+            header: 'Tub Number',
+            render: (v) => `<span class="font-mono text-xs font-semibold text-[#00A4B7] whitespace-nowrap">${this.escape(v || '-')}</span>`
           },
           {
-            field: 'rawInWeight',
-            header: 'Raw In Wt (Kg)',
-            render: (v) => `<span class="font-mono font-bold text-[#172B4D] whitespace-nowrap">${this.escape(v)}</span>`
+            field: 'sourceCount',
+            header: 'Source Count',
+            render: (v) => `<span class="font-mono text-xs text-[#172B4D] whitespace-nowrap">${this.escape(v || '-')}</span>`
           },
           {
-            field: 'chemical',
-            header: 'Chemical Formulation',
-            render: (v) => `<span class="text-xs text-[#0284C7] font-medium whitespace-nowrap truncate max-w-[160px] block" title="${this.escape(v)}">${this.escape(v)}</span>`
+            field: 'inCount',
+            header: 'In Count',
+            render: (v) => `<span class="font-mono text-xs text-[#172B4D] whitespace-nowrap">${this.escape(v || '-')}</span>`
           },
           {
-            field: 'chemicalQty',
-            header: 'Chemical Qty (Kg)',
-            render: (v) => `<span class="font-mono text-xs text-[#172B4D] whitespace-nowrap">${this.escape(v)}</span>`
+            field: 'inQuantity',
+            header: 'In Quantity',
+            render: (v) => `<span class="font-mono font-bold text-[#172B4D] whitespace-nowrap">${this.escape(v || '-')}</span>`
           },
           {
-            field: 'soakDuration',
-            header: 'Duration',
-            render: (v) => `<span class="font-semibold text-[#172B4D] whitespace-nowrap">${this.escape(v)}</span>`
+            field: 'outCount',
+            header: 'Out Count',
+            render: (v) => `<span class="font-mono text-xs text-[#172B4D] whitespace-nowrap">${this.escape(v || '-')}</span>`
           },
           {
-            field: 'soakOutWeight',
-            header: 'Soak Out Wt (Kg)',
-            render: (v) => `<span class="font-mono font-bold text-[#0F172A] whitespace-nowrap">${this.escape(v)}</span>`
-          },
-          {
-            field: 'pickupPct',
-            header: 'PickUp (%)',
-            render: (v) => `<span class="font-mono font-extrabold text-[#00875A] text-xs whitespace-nowrap">${this.escape(v)}</span>`
-          },
-          {
-            field: 'shift',
-            header: 'Shift & Supervisor',
-            render: (v, row) => `<span class="text-xs text-[#172B4D] whitespace-nowrap">${this.escape(v)} <span class="text-[#64748B]">(${this.escape(row.supervisor || '-')})</span></span>`
-          },
-          {
-            field: 'status',
-            header: 'Status',
-            render: (v) => `<span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase ${
-              v === 'COMPLETED' ? 'bg-[#DCFCE7] text-[#166534] border border-[#86EFAC]' :
-              v === 'SOAKING' ? 'bg-[#E0F2FE] text-[#0369A1] border border-[#7DD3FC]' :
-              'bg-[#FEF3C7] text-[#92400E] border border-[#FCD34D]'
-            }">${this.escape(v || 'COMPLETED')}</span>`
+            field: 'outQuantity',
+            header: 'Out Quantity',
+            render: (v) => `<span class="font-mono font-bold text-[#00875A] whitespace-nowrap">${this.escape(v || '-')}</span>`
           }
         ],
         actions: [
@@ -4043,17 +4079,22 @@ export const ProductionView = {
 
   showLogSoakingModal(container) {
     const nextSeq = this.state.soakingOperations.length + 1;
-    const defaultBatch = `SOAK-2026-${100 + nextSeq}`;
+    const defaultBatch = `LOT-SK-2026-${100 + nextSeq}`;
     const today = new Date().toISOString().slice(0, 10);
 
     Modal.open({
-      title: 'Log Soaking Operation Batch',
+      title: 'Log Soaking Batch',
       size: 'xl',
       content: `
         <form id="form-log-soaking" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs">
           <div>
-            <label for="sl-batch" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SOAK BATCH NO <span class="text-[#DE350B]">*</span></label>
-            <input id="sl-batch" name="soakBatchNo" type="text" value="${defaultBatch}" class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#0284C7] focus:outline-none" required />
+            <label for="sl-arr-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">ARRIVAL DATE <span class="text-[#DE350B]">*</span></label>
+            <input id="sl-arr-date" name="arrivalDate" type="date" value="${today}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" required onclick="this.showPicker ? this.showPicker() : this.focus()" />
+          </div>
+
+          <div>
+            <label for="sl-lot-code" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">ARRIVAL/LOT CODE <span class="text-[#DE350B]">*</span></label>
+            <input id="sl-lot-code" name="arrivalLotCode" type="text" value="${defaultBatch}" class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#0284C7] focus:outline-none" required />
           </div>
 
           <div>
@@ -4069,67 +4110,17 @@ export const ProductionView = {
           </div>
 
           <div>
-            <label for="sl-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SOAKING DATE <span class="text-[#DE350B]">*</span></label>
-            <input id="sl-date" name="soakingDate" type="date" value="${today}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" required onclick="this.showPicker ? this.showPicker() : this.focus()" />
+            <label for="sl-station" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SOURCE STATION <span class="text-[#DE350B]">*</span></label>
+            <input id="sl-station" name="sourceStation" type="text" value="Receiving Bay #2" placeholder="e.g. Receiving Bay #2" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
           </div>
 
           <div>
-            <label for="sl-tub" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TUB NUMBER <span class="text-[#DE350B]">*</span></label>
-            <input id="sl-tub" name="tubNumber" type="text" value="Tub-01" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
+            <label for="sl-tx-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TRANSACTION DATE <span class="text-[#DE350B]">*</span></label>
+            <input id="sl-tx-date" name="transactionDate" type="date" value="${today}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" required onclick="this.showPicker ? this.showPicker() : this.focus()" />
           </div>
 
           <div>
-            <label for="sl-variety" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">VARIETY <span class="text-[#DE350B]">*</span></label>
-            <select id="sl-variety" name="variety" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
-              <option value="Vannamei (VM)" selected>Vannamei (VM)</option>
-              <option value="Black Tiger (BT)">Black Tiger (BT)</option>
-              <option value="Sea White">Sea White</option>
-              <option value="Scampi">Scampi</option>
-            </select>
-          </div>
-
-          <div>
-            <label for="sl-grade" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">GRADE <span class="text-[#DE350B]">*</span></label>
-            <input id="sl-grade" name="grade" type="text" value="31/40" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
-          </div>
-
-          <div>
-            <label for="sl-in-wt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">RAW IN WEIGHT (KG) <span class="text-[#DE350B]">*</span></label>
-            <input id="sl-in-wt" name="rawInWeight" type="text" value="500.0 Kgs" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
-          </div>
-
-          <div>
-            <label for="sl-chemical" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">CHEMICAL FORMULATION <span class="text-[#DE350B]">*</span></label>
-            <select id="sl-chemical" name="chemical" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
-              <option value="Non-Phosphate Moisture Retainer" selected>Non-Phosphate Moisture Retainer</option>
-              <option value="Food Grade STPP (Sodium Tripolyphosphate)">Food Grade STPP</option>
-              <option value="Citric Acid & Salt Blend">Citric Acid & Salt Blend</option>
-              <option value="Fresh Raw (Chilled Brine)">Fresh Raw (Chilled Brine)</option>
-            </select>
-          </div>
-
-          <div>
-            <label for="sl-chem-qty" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">CHEMICAL QTY (KG) <span class="text-[#DE350B]">*</span></label>
-            <input id="sl-chem-qty" name="chemicalQty" type="text" value="15.0 Kgs" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono focus:outline-none focus:border-[#0284C7]" required />
-          </div>
-
-          <div>
-            <label for="sl-duration" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">DURATION <span class="text-[#DE350B]">*</span></label>
-            <input id="sl-duration" name="soakDuration" type="text" value="45 Mins" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
-          </div>
-
-          <div>
-            <label for="sl-out-wt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SOAK OUT WT (KG) <span class="text-[#DE350B]">*</span></label>
-            <input id="sl-out-wt" name="soakOutWeight" type="text" value="524.0 Kgs" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#0F172A] focus:outline-none focus:border-[#0284C7]" required />
-          </div>
-
-          <div>
-            <label for="sl-pickup" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PICKUP (%) <span class="text-[#DE350B]">*</span></label>
-            <input id="sl-pickup" name="pickupPct" type="text" value="4.8%" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] focus:outline-none focus:border-[#0284C7]" required />
-          </div>
-
-          <div>
-            <label for="sl-shift" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SHIFT <span class="text-[#DE350B]">*</span></label>
+            <label for="sl-shift" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SELECT SHIFT <span class="text-[#DE350B]">*</span></label>
             <select id="sl-shift" name="shift" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
               <option value="Shift A (Day)" selected>Shift A (Day)</option>
               <option value="Shift B (Evening)">Shift B (Evening)</option>
@@ -4138,29 +4129,63 @@ export const ProductionView = {
           </div>
 
           <div>
-            <label for="sl-supervisor" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SUPERVISOR <span class="text-[#DE350B]">*</span></label>
-            <select id="sl-supervisor" name="supervisor" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
-              <option value="Laxmi Narayana" selected>Laxmi Narayana</option>
-              <option value="K. Subba Rao">K. Subba Rao</option>
-              <option value="Ch. Prasad">Ch. Prasad</option>
-              <option value="Mallesh">Mallesh</option>
-              <option value="D. Rambabu">D. Rambabu</option>
-              <option value="G. Suribabu">G. Suribabu</option>
-            </select>
+            <label for="sl-time" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">START TIME <span class="text-[#DE350B]">*</span></label>
+            <input id="sl-time" name="startTime" type="time" value="08:30" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" required />
           </div>
 
           <div>
-            <label for="sl-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STATUS <span class="text-[#DE350B]">*</span></label>
-            <select id="sl-status" name="status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
-              <option value="COMPLETED" selected>COMPLETED</option>
-              <option value="SOAKING">SOAKING</option>
-              <option value="TRANSFERRED">TRANSFERRED</option>
-            </select>
+            <label for="sl-period" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TIME PERIOD <span class="text-[#DE350B]">*</span></label>
+            <input id="sl-period" name="timePeriod" type="text" value="45 Mins" placeholder="e.g. 45 Mins" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
           </div>
 
-          <div class="sm:col-span-2">
+          <div>
+            <label for="sl-salt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SALT/KG <span class="text-[#DE350B]">*</span></label>
+            <input id="sl-salt" name="saltPerKg" type="number" step="0.1" value="10.0" placeholder="e.g. 10.0" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="sl-chem-qty" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">CHEMICAL QUANTITY <span class="text-[#DE350B]">*</span></label>
+            <input id="sl-chem-qty" name="chemicalQuantity" type="number" step="0.1" value="15.0" placeholder="e.g. 15.0" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="sl-variety" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">VARIETY</label>
+            <input id="sl-variety" name="variety" type="text" value="Vannamei (VM)" placeholder="e.g. Vannamei (VM)" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" />
+          </div>
+
+          <div>
+            <label for="sl-tub" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TUB NUMBER</label>
+            <input id="sl-tub" name="tubNumber" type="text" value="Tub-01" placeholder="e.g. Tub-01" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" />
+          </div>
+
+          <div>
+            <label for="sl-src-count" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SOURCE COUNT</label>
+            <input id="sl-src-count" name="sourceCount" type="text" value="31/40" placeholder="e.g. 31/40" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono focus:outline-none focus:border-[#0284C7]" />
+          </div>
+
+          <div>
+            <label for="sl-in-count" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">IN COUNT</label>
+            <input id="sl-in-count" name="inCount" type="number" value="35" placeholder="e.g. 35" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono focus:outline-none focus:border-[#0284C7]" />
+          </div>
+
+          <div>
+            <label for="sl-in-qty" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">IN QUANTITY</label>
+            <input id="sl-in-qty" name="inQuantity" type="text" value="450.0 Kgs" placeholder="e.g. 450.0 Kgs" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" />
+          </div>
+
+          <div>
+            <label for="sl-out-count" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">OUT COUNT</label>
+            <input id="sl-out-count" name="outCount" type="number" value="32" placeholder="e.g. 32" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono focus:outline-none focus:border-[#0284C7]" />
+          </div>
+
+          <div>
+            <label for="sl-out-qty" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">OUT QUANTITY</label>
+            <input id="sl-out-qty" name="outQuantity" type="text" value="472.5 Kgs" placeholder="e.g. 472.5 Kgs" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] focus:outline-none focus:border-[#0284C7]" />
+          </div>
+
+          <div class="sm:col-span-3">
             <label for="sl-remarks" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">REMARKS</label>
-            <input id="sl-remarks" name="remarks" type="text" value="Standard soaking process completed with approved uptake" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" />
+            <input id="sl-remarks" name="remarks" type="text" value="Pre-chill water maintained at 1.8°C, optimal absorption" placeholder="Operational notes..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" />
           </div>
         </form>
       `,
@@ -4176,37 +4201,39 @@ export const ProductionView = {
 
             Modal.confirm({
               title: 'Confirm Soaking Batch Log',
-              message: `Log soaking batch "${values.soakBatchNo}" for ${values.productionPlant}?`,
+              message: `Log soaking batch "${values.arrivalLotCode}" for ${values.productionPlant}?`,
               confirmLabel: 'Confirm & Log',
               type: 'primary',
               onConfirm: () => {
                 const newRow = {
                   sNo: this.state.soakingOperations.length + 1,
-                  id: values.soakBatchNo,
-                  soakBatchNo: values.soakBatchNo,
-                  soakingDate: values.soakingDate,
+                  id: values.arrivalLotCode,
+                  arrivalDate: values.arrivalDate,
+                  arrivalLotCode: values.arrivalLotCode,
+                  soakBatchNo: values.arrivalLotCode,
                   productionPlant: values.productionPlant,
-                  tubNumber: values.tubNumber,
-                  variety: values.variety,
-                  grade: values.grade,
-                  rawInWeight: values.rawInWeight,
-                  chemical: values.chemical,
-                  chemicalQty: values.chemicalQty,
-                  saltQty: '10.0 Kgs',
-                  soakDuration: values.soakDuration,
-                  soakOutWeight: values.soakOutWeight,
-                  pickupPct: values.pickupPct,
-                  bathTemp: '1.8°C',
+                  sourceStation: values.sourceStation,
+                  transactionDate: values.transactionDate,
                   shift: values.shift,
-                  supervisor: values.supervisor,
+                  startTime: values.startTime,
+                  timePeriod: values.timePeriod,
+                  saltPerKg: values.saltPerKg,
+                  chemicalQuantity: values.chemicalQuantity,
                   remarks: values.remarks || 'Standard soaking operation logged',
-                  status: values.status
+                  variety: values.variety || '-',
+                  tubNumber: values.tubNumber || '-',
+                  sourceCount: values.sourceCount || '-',
+                  inCount: values.inCount || '-',
+                  inQuantity: values.inQuantity || '-',
+                  outCount: values.outCount || '-',
+                  outQuantity: values.outQuantity || '-',
+                  status: 'COMPLETED'
                 };
 
                 this.state.soakingOperations.unshift(newRow);
                 Modal.close();
                 this.renderSoakingScreen(container);
-                Toast.show(`Soaking batch ${newRow.soakBatchNo} logged successfully`, 'success');
+                Toast.show(`Soaking batch ${newRow.arrivalLotCode} logged successfully`, 'success');
               }
             });
           }
@@ -4217,13 +4244,18 @@ export const ProductionView = {
 
   showEditSoakingOpModal(row, container) {
     Modal.open({
-      title: `Edit Soaking Batch: ${row.soakBatchNo}`,
+      title: `Edit Soaking Batch: ${row.arrivalLotCode || row.soakBatchNo}`,
       size: 'xl',
       content: `
         <form id="form-edit-soaking-op" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs">
           <div>
-            <label for="esl-batch" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SOAK BATCH NO</label>
-            <input id="esl-batch" name="soakBatchNo" type="text" value="${row.soakBatchNo}" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#0284C7] focus:outline-none" />
+            <label for="esl-arr-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">ARRIVAL DATE <span class="text-[#DE350B]">*</span></label>
+            <input id="esl-arr-date" name="arrivalDate" type="date" value="${row.arrivalDate || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" required onclick="this.showPicker ? this.showPicker() : this.focus()" />
+          </div>
+
+          <div>
+            <label for="esl-lot-code" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">ARRIVAL/LOT CODE <span class="text-[#DE350B]">*</span></label>
+            <input id="esl-lot-code" name="arrivalLotCode" type="text" value="${row.arrivalLotCode || row.soakBatchNo || ''}" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#0284C7] focus:outline-none" required />
           </div>
 
           <div>
@@ -4234,81 +4266,78 @@ export const ProductionView = {
           </div>
 
           <div>
-            <label for="esl-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SOAKING DATE <span class="text-[#DE350B]">*</span></label>
-            <input id="esl-date" name="soakingDate" type="date" value="${row.soakingDate || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" required onclick="this.showPicker ? this.showPicker() : this.focus()" />
+            <label for="esl-station" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SOURCE STATION <span class="text-[#DE350B]">*</span></label>
+            <input id="esl-station" name="sourceStation" type="text" value="${this.escape(row.sourceStation || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
           </div>
 
           <div>
-            <label for="esl-tub" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TUB NUMBER <span class="text-[#DE350B]">*</span></label>
-            <input id="esl-tub" name="tubNumber" type="text" value="${this.escape(row.tubNumber || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
+            <label for="esl-tx-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TRANSACTION DATE <span class="text-[#DE350B]">*</span></label>
+            <input id="esl-tx-date" name="transactionDate" type="date" value="${row.transactionDate || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" required onclick="this.showPicker ? this.showPicker() : this.focus()" />
           </div>
 
           <div>
-            <label for="esl-variety" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">VARIETY <span class="text-[#DE350B]">*</span></label>
-            <select id="esl-variety" name="variety" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
-              ${['Vannamei (VM)', 'Black Tiger (BT)', 'Sea White', 'Scampi'].map(v => `<option value="${v}" ${v === row.variety ? 'selected' : ''}>${v}</option>`).join('')}
-            </select>
-          </div>
-
-          <div>
-            <label for="esl-grade" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">GRADE <span class="text-[#DE350B]">*</span></label>
-            <input id="esl-grade" name="grade" type="text" value="${this.escape(row.grade || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
-          </div>
-
-          <div>
-            <label for="esl-in-wt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">RAW IN WEIGHT <span class="text-[#DE350B]">*</span></label>
-            <input id="esl-in-wt" name="rawInWeight" type="text" value="${this.escape(row.rawInWeight || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
-          </div>
-
-          <div>
-            <label for="esl-chemical" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">CHEMICAL <span class="text-[#DE350B]">*</span></label>
-            <select id="esl-chemical" name="chemical" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
-              ${['Non-Phosphate Moisture Retainer', 'Food Grade STPP (Sodium Tripolyphosphate)', 'Citric Acid & Salt Blend', 'Fresh Raw (Chilled Brine)'].map(c => `<option value="${c}" ${c === row.chemical ? 'selected' : ''}>${c}</option>`).join('')}
-            </select>
-          </div>
-
-          <div>
-            <label for="esl-chem-qty" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">CHEMICAL QTY <span class="text-[#DE350B]">*</span></label>
-            <input id="esl-chem-qty" name="chemicalQty" type="text" value="${this.escape(row.chemicalQty || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono focus:outline-none focus:border-[#0284C7]" required />
-          </div>
-
-          <div>
-            <label for="esl-duration" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">DURATION <span class="text-[#DE350B]">*</span></label>
-            <input id="esl-duration" name="soakDuration" type="text" value="${this.escape(row.soakDuration || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
-          </div>
-
-          <div>
-            <label for="esl-out-wt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SOAK OUT WT <span class="text-[#DE350B]">*</span></label>
-            <input id="esl-out-wt" name="soakOutWeight" type="text" value="${this.escape(row.soakOutWeight || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#0F172A] focus:outline-none focus:border-[#0284C7]" required />
-          </div>
-
-          <div>
-            <label for="esl-pickup" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PICKUP (%) <span class="text-[#DE350B]">*</span></label>
-            <input id="esl-pickup" name="pickupPct" type="text" value="${this.escape(row.pickupPct || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] focus:outline-none focus:border-[#0284C7]" required />
-          </div>
-
-          <div>
-            <label for="esl-shift" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SHIFT <span class="text-[#DE350B]">*</span></label>
+            <label for="esl-shift" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SELECT SHIFT <span class="text-[#DE350B]">*</span></label>
             <select id="esl-shift" name="shift" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
               ${['Shift A (Day)', 'Shift B (Evening)', 'Shift C (Night)'].map(s => `<option value="${s}" ${s === row.shift ? 'selected' : ''}>${s}</option>`).join('')}
             </select>
           </div>
 
           <div>
-            <label for="esl-supervisor" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SUPERVISOR <span class="text-[#DE350B]">*</span></label>
-            <select id="esl-supervisor" name="supervisor" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
-              ${['Laxmi Narayana', 'K. Subba Rao', 'Ch. Prasad', 'Mallesh', 'D. Rambabu', 'G. Suribabu'].map(sup => `<option value="${sup}" ${sup === row.supervisor ? 'selected' : ''}>${sup}</option>`).join('')}
-            </select>
+            <label for="esl-time" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">START TIME <span class="text-[#DE350B]">*</span></label>
+            <input id="esl-time" name="startTime" type="time" value="${row.startTime || '08:30'}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" required />
           </div>
 
           <div>
-            <label for="esl-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STATUS <span class="text-[#DE350B]">*</span></label>
-            <select id="esl-status" name="status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>
-              ${['COMPLETED', 'SOAKING', 'TRANSFERRED'].map(st => `<option value="${st}" ${st === row.status ? 'selected' : ''}>${st}</option>`).join('')}
-            </select>
+            <label for="esl-period" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TIME PERIOD <span class="text-[#DE350B]">*</span></label>
+            <input id="esl-period" name="timePeriod" type="text" value="${this.escape(row.timePeriod || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required />
           </div>
 
-          <div class="sm:col-span-2">
+          <div>
+            <label for="esl-salt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SALT/KG <span class="text-[#DE350B]">*</span></label>
+            <input id="esl-salt" name="saltPerKg" type="number" step="0.1" value="${row.saltPerKg || '10.0'}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="esl-chem-qty" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">CHEMICAL QUANTITY <span class="text-[#DE350B]">*</span></label>
+            <input id="esl-chem-qty" name="chemicalQuantity" type="number" step="0.1" value="${row.chemicalQuantity || '15.0'}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono focus:outline-none focus:border-[#0284C7]" required />
+          </div>
+
+          <div>
+            <label for="esl-variety" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">VARIETY</label>
+            <input id="esl-variety" name="variety" type="text" value="${this.escape(row.variety || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" />
+          </div>
+
+          <div>
+            <label for="esl-tub" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TUB NUMBER</label>
+            <input id="esl-tub" name="tubNumber" type="text" value="${this.escape(row.tubNumber || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" />
+          </div>
+
+          <div>
+            <label for="esl-src-count" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SOURCE COUNT</label>
+            <input id="esl-src-count" name="sourceCount" type="text" value="${this.escape(row.sourceCount || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono focus:outline-none focus:border-[#0284C7]" />
+          </div>
+
+          <div>
+            <label for="esl-in-count" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">IN COUNT</label>
+            <input id="esl-in-count" name="inCount" type="number" value="${row.inCount || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono focus:outline-none focus:border-[#0284C7]" />
+          </div>
+
+          <div>
+            <label for="esl-in-qty" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">IN QUANTITY</label>
+            <input id="esl-in-qty" name="inQuantity" type="text" value="${this.escape(row.inQuantity || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" />
+          </div>
+
+          <div>
+            <label for="esl-out-count" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">OUT COUNT</label>
+            <input id="esl-out-count" name="outCount" type="number" value="${row.outCount || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono focus:outline-none focus:border-[#0284C7]" />
+          </div>
+
+          <div>
+            <label for="esl-out-qty" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">OUT QUANTITY</label>
+            <input id="esl-out-qty" name="outQuantity" type="text" value="${this.escape(row.outQuantity || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] focus:outline-none focus:border-[#0284C7]" />
+          </div>
+
+          <div class="sm:col-span-3">
             <label for="esl-remarks" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">REMARKS</label>
             <input id="esl-remarks" name="remarks" type="text" value="${this.escape(row.remarks || '')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" />
           </div>
@@ -4326,14 +4355,16 @@ export const ProductionView = {
 
             Modal.confirm({
               title: 'Confirm Update',
-              message: `Save changes for Soaking Batch "${row.soakBatchNo}"?`,
-              confirmLabel: 'Save',
+              message: `Save changes for Soaking Batch "${row.arrivalLotCode || row.soakBatchNo}"?`,
+              confirmLabel: 'Save Changes',
               type: 'primary',
               onConfirm: () => {
-                Object.assign(row, values);
+                Object.assign(row, values, {
+                  soakBatchNo: values.arrivalLotCode
+                });
                 Modal.close();
                 this.renderSoakingScreen(container);
-                Toast.show(`Soaking batch ${row.soakBatchNo} updated successfully`, 'success');
+                Toast.show(`Soaking batch ${row.arrivalLotCode} updated successfully`, 'success');
               }
             });
           }
@@ -4343,8 +4374,9 @@ export const ProductionView = {
   },
 
   showSoakingOpDetails(row) {
+    const lotCode = row.arrivalLotCode || row.soakBatchNo || '-';
     Modal.open({
-      title: `Soaking Operation Details: ${row.soakBatchNo}`,
+      title: `Soaking Operation Details: ${lotCode}`,
       size: 'xl',
       content: `
         <div class="space-y-4 text-xs">
@@ -4356,80 +4388,113 @@ export const ProductionView = {
               </div>
               <div>
                 <div class="flex items-center gap-2 flex-wrap">
-                  <span class="font-mono font-extrabold text-[#0F172A] text-base">${this.escape(row.soakBatchNo)}</span>
-                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold tracking-wide uppercase ${
-                    row.status === 'COMPLETED' ? 'bg-[#DCFCE7] text-[#166534] border border-[#86EFAC]' :
-                    row.status === 'SOAKING' ? 'bg-[#E0F2FE] text-[#0369A1] border border-[#7DD3FC]' :
-                    'bg-[#FEF3C7] text-[#92400E] border border-[#FCD34D]'
-                  }">${this.escape(row.status || 'COMPLETED')}</span>
-                  <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">${this.escape(row.variety)}</span>
+                  <span class="font-mono font-extrabold text-[#0F172A] text-base">${this.escape(lotCode)}</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold tracking-wide uppercase bg-[#E0F2FE] text-[#0369A1] border border-[#7DD3FC]">${this.escape(row.shift || 'Shift A')}</span>
+                  <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">${this.escape(row.variety || '-')}</span>
                 </div>
                 <p class="text-[11px] text-[#64748B] mt-0.5 font-medium flex items-center gap-1.5 flex-wrap">
                   <span>Plant: <strong class="text-[#334155]">${this.escape(row.productionPlant)}</strong></span>
                   <span>&bull;</span>
-                  <span>Date: <strong class="text-[#334155]">${this.escape(row.soakingDate)}</strong></span>
+                  <span>Station: <strong class="text-[#334155]">${this.escape(row.sourceStation || '-')}</strong></span>
                   <span>&bull;</span>
-                  <span>Tub: <strong class="text-[#334155]">${this.escape(row.tubNumber)}</strong> (${this.escape(row.shift)})</span>
+                  <span>Tub: <strong class="text-[#334155]">${this.escape(row.tubNumber || '-')}</strong></span>
+                  <span>&bull;</span>
+                  <span>Duration: <strong class="text-[#334155]">${this.escape(row.timePeriod || '-')}</strong></span>
                 </p>
               </div>
             </div>
 
             <div class="flex items-center gap-2">
               <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center">
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">PickUp</span>
-                <span class="font-mono font-extrabold text-sm text-[#00875A]">${this.escape(row.pickupPct || '0%')}</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">In Quantity</span>
+                <span class="font-mono font-bold text-xs text-[#172B4D]">${this.escape(row.inQuantity || '-')}</span>
               </div>
               <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center">
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Raw In</span>
-                <span class="font-mono font-bold text-xs text-[#172B4D]">${this.escape(row.rawInWeight)}</span>
-              </div>
-              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center">
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Soak Out</span>
-                <span class="font-mono font-bold text-xs text-[#0F172A]">${this.escape(row.soakOutWeight)}</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Out Quantity</span>
+                <span class="font-mono font-bold text-xs text-[#00875A]">${this.escape(row.outQuantity || '-')}</span>
               </div>
             </div>
           </div>
 
-          <!-- Section 1: Chemical & Bath Parameters -->
+          <!-- Section 1: Detailed Log Parameters -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider mb-3 pb-2 border-b border-[#F1F5F9]">Chemical &amp; Solution Parameters</h4>
+            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider mb-3 pb-2 border-b border-[#F1F5F9]">Batch &amp; Solution Information</h4>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
               <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Chemical Formulation</span>
-                <span class="font-semibold text-[#0284C7] text-xs block mt-0.5">${this.escape(row.chemical)}</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Arrival Date</span>
+                <span class="text-[#172B4D] text-xs font-medium block mt-0.5">${this.escape(row.arrivalDate || '-')}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Arrival/Lot Code</span>
+                <span class="font-mono font-bold text-[#0284C7] text-xs block mt-0.5">${this.escape(lotCode)}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Production Plant</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.productionPlant)}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Source Station</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.sourceStation || '-')}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Transaction Date</span>
+                <span class="text-[#172B4D] text-xs font-medium block mt-0.5">${this.escape(row.transactionDate || '-')}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Select Shift</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.shift || '-')}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Start Time</span>
+                <span class="font-mono font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.startTime || '-')}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Time Period</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.timePeriod || '-')}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Salt/KG</span>
+                <span class="font-mono font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.saltPerKg || '-')}</span>
               </div>
               <div>
                 <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Chemical Quantity</span>
-                <span class="font-mono font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.chemicalQty)}</span>
+                <span class="font-mono font-semibold text-[#0284C7] text-xs block mt-0.5">${this.escape(row.chemicalQuantity || '-')}</span>
               </div>
               <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Soak Duration</span>
-                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.soakDuration)}</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Variety</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.variety || '-')}</span>
               </div>
               <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Chilled Bath Temp</span>
-                <span class="font-mono font-bold text-[#00875A] text-xs block mt-0.5">${this.escape(row.bathTemp || '1.8°C')}</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Tub Number</span>
+                <span class="font-mono font-semibold text-[#00A4B7] text-xs block mt-0.5">${this.escape(row.tubNumber || '-')}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Source Count</span>
+                <span class="font-mono text-xs block mt-0.5">${this.escape(row.sourceCount || '-')}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">In Count</span>
+                <span class="font-mono text-xs block mt-0.5">${this.escape(row.inCount || '-')}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">In Quantity</span>
+                <span class="font-mono font-bold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.inQuantity || '-')}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Out Count</span>
+                <span class="font-mono text-xs block mt-0.5">${this.escape(row.outCount || '-')}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Out Quantity</span>
+                <span class="font-mono font-bold text-[#00875A] text-xs block mt-0.5">${this.escape(row.outQuantity || '-')}</span>
               </div>
             </div>
           </div>
 
-          <!-- Section 2: Product & Supervision -->
+          <!-- Section 2: Remarks -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider mb-3 pb-2 border-b border-[#F1F5F9]">Product &amp; Supervision</h4>
-            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3.5">
-              <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Grade</span>
-                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.grade)}</span>
-              </div>
-              <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Shift &amp; Supervisor</span>
-                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.shift)} (${this.escape(row.supervisor)})</span>
-              </div>
-              <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Operational Notes</span>
-                <span class="text-xs text-[#334155] block mt-0.5">${this.escape(row.remarks || 'None')}</span>
-              </div>
-            </div>
+            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider mb-2">Remarks</h4>
+            <p class="text-xs text-[#334155] leading-relaxed">${this.escape(row.remarks || 'No remarks recorded.')}</p>
           </div>
         </div>
       `,
@@ -4440,17 +4505,18 @@ export const ProductionView = {
   },
 
   deleteSoakingOpRow(row, container) {
+    const lotCode = row.arrivalLotCode || row.soakBatchNo || 'Batch';
     Modal.confirm({
       title: 'Confirm Deletion',
-      message: `Are you sure you want to delete Soaking Batch "${row.soakBatchNo}"?`,
+      message: `Are you sure you want to delete Soaking Batch "${lotCode}"?`,
       confirmLabel: 'Delete Batch',
       type: 'danger',
       onConfirm: () => {
-        const idx = this.state.soakingOperations.findIndex(item => item.soakBatchNo === row.soakBatchNo);
+        const idx = this.state.soakingOperations.findIndex(item => (item.arrivalLotCode === lotCode || item.soakBatchNo === lotCode || item.id === row.id));
         if (idx !== -1) {
           this.state.soakingOperations.splice(idx, 1);
           this.renderSoakingScreen(container);
-          Toast.show(`Soaking batch ${row.soakBatchNo} deleted successfully`, 'success');
+          Toast.show(`Soaking batch ${lotCode} deleted successfully`, 'success');
         }
       }
     });
