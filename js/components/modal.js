@@ -49,12 +49,17 @@ export const Modal = {
     this.close();
 
     const sizeClasses = {
+      xs: 'max-w-sm',
       sm: 'max-w-md',
       md: 'max-w-xl',
       lg: 'max-w-3xl',
       xl: 'max-w-5xl',
+      '2xl': 'max-w-6xl',
+      '3xl': 'max-w-7xl',
+      '4xl': 'max-w-[90vw]',
       full: 'max-w-[95vw]'
     };
+    const modalWidthClass = sizeClasses[size] || (typeof size === 'string' && size.startsWith('max-w-') ? size : 'max-w-xl');
 
     const modalEl = document.createElement('div');
     modalEl.id = 'erp-modal-root';
@@ -71,7 +76,7 @@ export const Modal = {
     });
 
     modalEl.innerHTML = `
-      <div class="bg-white rounded-lg shadow-2xl border border-[#DFE1E6] w-full ${sizeClasses[size] || 'max-w-xl'} flex flex-col max-h-[90vh] animate-fade-in overflow-hidden">
+      <div class="bg-white rounded-lg shadow-2xl border border-[#DFE1E6] w-full ${modalWidthClass} flex flex-col max-h-[90vh] animate-fade-in overflow-hidden">
         <!-- Modal Header -->
         <div class="px-6 py-4 border-b border-[#DFE1E6] flex items-center justify-between bg-[#FAFBFC]">
           <h3 class="text-base font-semibold text-[#172B4D] flex items-center gap-2">

@@ -1511,7 +1511,7 @@ export const ProductionView = {
 
     Modal.open({
       title: 'Generate Soaking Track ID',
-      size: 'full',
+      size: 'xl',
       content: `
         <form id="form-gen-soaking-track" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs">
           <!-- 1. PRODUCTION PLANT * -->
@@ -1777,7 +1777,7 @@ export const ProductionView = {
   showEditSoakingModal(row, container) {
     Modal.open({
       title: `Edit Soaking Track Code: ${row.trackCode || row.trackId}`,
-      size: 'full',
+      size: 'xl',
       content: `
         <form id="form-edit-soaking-track" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs">
           <div>
@@ -5358,7 +5358,7 @@ export const ProductionView = {
 
     Modal.open({
       title: 'Add IQF / Freezing Report',
-      size: '2xl',
+      size: 'xl',
       content: `
         <form id="form-add-iqf-report" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs">
           <div>
@@ -5573,7 +5573,7 @@ export const ProductionView = {
   showEditIqfReportModal(row, container) {
     Modal.open({
       title: `Edit IQF Freezing Report: ${row.lotNo || row.batchNo}`,
-      size: '2xl',
+      size: 'xl',
       content: `
         <form id="form-edit-iqf-report" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs">
           <div>
