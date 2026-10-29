@@ -9491,9 +9491,7 @@ export const ColdstoreView = {
       </div>
 
       <!-- Data Table Card -->
-      <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
-        <div id="cs-ibt-table"></div>
-      </div>
+      <div id="cs-ibt-table"></div>
     `;
 
     const initTable = (data) => {
