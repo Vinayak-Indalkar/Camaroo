@@ -53218,6 +53218,130 @@ const InventoryView = {
       }
     ],
 
+    // 1c. General Store Goods Receipt Notes (GRN)
+    grnList: [
+      {
+        id: 1,
+        docNo: 'GRN-GS-2026-0041',
+        code: 'COD-GRN-7721',
+        date: '2026-10-28',
+        supplier: 'Devi Safety Aids & Industrial Supplies',
+        invoiceNumber: 'INV-DSA-2026-881',
+        invoiceDate: '2026-10-27',
+        poNo: 'PO-GS-2026-0101',
+        freightType: 'Paid by Supplier',
+        narration: 'Inward verification of Nitrile food-grade gloves for processing lines',
+        status: 'Inward Received',
+        items: [
+          {
+            item: 'Nitrile Food-Grade Gloves (Blue, L)',
+            uom: 'Box',
+            availableQty: 15,
+            poQty: 150,
+            receivedQty: 150,
+            deviationQty: 0,
+            location: 'Main Store Rack A-2',
+            batch: 'BAT-DSA-992',
+            itemPrice: 280.00,
+            baseValue: 42000.00,
+            deviationAmount: 0.00,
+            gstPercent: 18,
+            gstTaxAmount: 7560.00
+          }
+        ]
+      },
+      {
+        id: 2,
+        docNo: 'GRN-GS-2026-0042',
+        code: 'COD-GRN-7722',
+        date: '2026-10-27',
+        supplier: 'Apex Engineering & Spare Parts Ltd',
+        invoiceNumber: 'INV-APX-4412',
+        invoiceDate: '2026-10-26',
+        poNo: 'PO-GS-2026-0102',
+        freightType: 'To Pay (Consignee)',
+        narration: 'Plate freezer silicone gaskets received at Engineering maintenance bay',
+        status: 'QC Verified',
+        items: [
+          {
+            item: 'Plate Freezer Silicone Gaskets (Model PF-40)',
+            uom: 'Sets',
+            availableQty: 2,
+            poQty: 12,
+            receivedQty: 10,
+            deviationQty: -2,
+            location: 'Engineering Bay C',
+            batch: 'BAT-ENG-441',
+            itemPrice: 3200.00,
+            baseValue: 32000.00,
+            deviationAmount: -6400.00,
+            gstPercent: 18,
+            gstTaxAmount: 5760.00
+          }
+        ]
+      },
+      {
+        id: 3,
+        docNo: 'GRN-GS-2026-0043',
+        code: 'COD-GRN-7723',
+        date: '2026-10-26',
+        supplier: 'Sri Venkateswara Packaging Ltd',
+        invoiceNumber: 'INV-SVP-1029',
+        invoiceDate: '2026-10-25',
+        poNo: 'PO-GS-2026-0104',
+        freightType: 'Paid by Supplier',
+        narration: 'Thermal barcode ribbons for coldstore warehouse batch printing',
+        status: 'Stored',
+        items: [
+          {
+            item: 'Thermal Transfer Barcode Ribbon (110mm x 300m)',
+            uom: 'Rolls',
+            availableQty: 4,
+            poQty: 40,
+            receivedQty: 40,
+            deviationQty: 0,
+            location: 'Coldstore Hub B',
+            batch: 'BAT-RIB-802',
+            itemPrice: 420.00,
+            baseValue: 16800.00,
+            deviationAmount: 0.00,
+            gstPercent: 18,
+            gstTaxAmount: 3024.00
+          }
+        ]
+      },
+      {
+        id: 4,
+        docNo: 'GRN-GS-2026-0044',
+        code: 'COD-GRN-7724',
+        date: '2026-10-25',
+        supplier: 'Bio-Chem Scientific Instruments India',
+        invoiceNumber: 'INV-BCS-0941',
+        invoiceDate: '2026-10-24',
+        poNo: 'PO-GS-2026-0103',
+        freightType: 'Paid by Supplier',
+        narration: 'QC lab chlorine test strips and analytical buffer kits',
+        status: 'Inward Received',
+        items: [
+          {
+            item: 'Chlorine Residual Test Strips (0-500 PPM)',
+            uom: 'Kits',
+            availableQty: 10,
+            poQty: 25,
+            receivedQty: 25,
+            deviationQty: 0,
+            location: 'QC Lab Storage',
+            batch: 'BAT-QC-112',
+            itemPrice: 750.00,
+            baseValue: 18750.00,
+            deviationAmount: 0.00,
+            gstPercent: 12,
+            gstTaxAmount: 2250.00
+          }
+        ]
+      }
+    ],
+
     // 2. Packing Material Proforma Invoices
     pmProformaList: [
       {
@@ -55012,7 +55136,16 @@ const InventoryView = {
     });
   },
 
+  // =========================================================================
+  // 1c. GENERAL STORE &rarr; GOODS RECEIPT NOTE (GS)
+  // Form Input Fields: DOC NO, CODE, DATE, SUPPLIER FIRM NAME, INVOICE NUMBER, INVOICE DATE, PO NO., FREIGHT TYPE, NARRATION, STATUS
+  // Work Flow - Item Details Fields: Item, UoM, Available Qty, PO Qty, Received Qty, Deviation Qty, Location, Batch, Item Price, Base Value, Deviation Amount, GST%, GST Tax Amount
+  // Table Columns: S No, Vendor, Date, Po No, Invoice No, Code, Actions
+  // Search & Filter, Confirmation Modal Popup, View & Edit Modals
+  // =========================================================================
   renderGeneralStoreGRN(container) {
+    const todayStr = new Date().toISOString().slice(0, 10);
+
     container.innerHTML = `
       <!-- Page Header -->
       <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-1">
@@ -55026,19 +55159,1000 @@ const InventoryView = {
           </button>
         </div>
       </div>
-      <div class="bg-white border border-[#DFE1E6] rounded-xl p-6 shadow-xs text-center text-xs text-[#5E6C84]">
-        <svg class="w-10 h-10 text-[#00A4B7] mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
-        <p class="font-bold text-[#172B4D] text-sm">Inward GRN Ingestion Form</p>
-        <p class="mt-1 text-[#64748B]">Inward receipts update available stock quantities in the General Store.</p>
+
+      <!-- Search & Filter Card -->
+      <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200">
+        <div class="flex items-center justify-between pb-1">
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+            <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
+          </div>
+          <div class="inline-flex items-center gap-2">
+            <button type="button" id="grn-flt-reset-btn" class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Reset all filters">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+            </button>
+            <button type="button" id="grn-flt-toggle-btn" class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Hide Filter">
+              <svg id="grn-flt-toggle-icon" class="w-3.5 h-3.5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div id="grn-flt-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3 pt-3 border-t border-[#F1F5F9] mt-2 text-xs">
+          <!-- 1. DOC NO / CODE / PO NO / INV NO -->
+          <div>
+            <label for="grn-flt-doc" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SEARCH</label>
+            <input type="text" id="grn-flt-doc" placeholder="Doc / PO / Invoice / Code..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+
+          <!-- 2. VENDOR -->
+          <div>
+            <label for="grn-flt-vendor" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">VENDOR</label>
+            <select id="grn-flt-vendor" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL">All Vendors</option>
+              <option value="Devi Safety Aids & Industrial Supplies">Devi Safety Aids</option>
+              <option value="Apex Engineering & Spare Parts Ltd">Apex Engineering</option>
+              <option value="Sri Venkateswara Packaging Ltd">Sri Venkateswara</option>
+              <option value="Delta Seals & Tapes Corp">Delta Seals &amp; Tapes</option>
+              <option value="Bio-Chem Scientific Instruments India">Bio-Chem Scientific</option>
+            </select>
+          </div>
+
+          <!-- 3. FROM DATE -->
+          <div>
+            <label for="grn-flt-from" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FROM DATE</label>
+            <div class="erp-date-wrapper">
+              <input type="date" id="grn-flt-from" value="2026-10-01" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
+            </div>
+          </div>
+
+          <!-- 4. TO DATE -->
+          <div>
+            <label for="grn-flt-to" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">TO DATE</label>
+            <div class="erp-date-wrapper">
+              <input type="date" id="grn-flt-to" value="${todayStr}" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
+            </div>
+          </div>
+
+          <!-- Search Button -->
+          <div class="flex items-end">
+            <button type="button" id="grn-flt-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+              <span>Search</span>
+            </button>
+          </div>
+        </div>
       </div>
+
+      <!-- Existing Goods Receipt Notes Table Container: S No, Vendor, Date, Po No, Invoice No, Code, Actions -->
+      <div id="gs-grn-table-container"></div>
     `;
 
+    // Direct Click Handler for "Add Goods Receipts Note" Button
     container.querySelector('#gs-grn-add-btn')?.addEventListener('click', () => {
-      if (typeof this.showAddGrnModal === 'function') {
-        this.showAddGrnModal();
-      } else {
-        Toast.show('Add Goods Receipts Note form will open here.', 'info');
+      this.showAddGrnModal(() => {
+        renderTable(this.state.grnList);
+      });
+    });
+
+    // Render GRN DataTable
+    const renderTable = (data) => {
+      new DataTable({
+        containerId: 'gs-grn-table-container',
+        tableTitle: `Goods Receipt Notes (${data.length})`,
+        searchable: true,
+        exportable: true,
+        pageSize: 10,
+        onRowClick: (row) => {
+          this.showGrnDetailModal(row);
+        },
+        columns: [
+          // 1. S No (Clickable)
+          {
+            field: 'sNo',
+            header: 'S No',
+            sortable: true,
+            render: (v, r, idx) => `
+              <span class="text-[#00A4B7] font-semibold hover:underline cursor-pointer select-none" title="Click to view full GRN details">${idx + 1}</span>
+            `
+          },
+          // 2. Vendor (Supplier Firm Name)
+          {
+            field: 'supplier',
+            header: 'Vendor',
+            sortable: true,
+            render: (v, r) => `
+              <div class="flex flex-col">
+                <span class="font-semibold text-xs text-[#172B4D] whitespace-nowrap">${v}</span>
+                <span class="text-[10px] text-[#5E6C84]">${r.freightType || 'Standard'} • ${r.status || 'Received'}</span>
+              </div>
+            `
+          },
+          // 3. Date
+          {
+            field: 'date',
+            header: 'Date',
+            sortable: true,
+            render: v => `<span class="whitespace-nowrap text-xs text-[#172B4D] font-medium font-mono">${v}</span>`
+          },
+          // 4. Po No
+          {
+            field: 'poNo',
+            header: 'Po No',
+            sortable: true,
+            render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] whitespace-nowrap">${v || '-'}</span>`
+          },
+          // 5. Invoice No
+          {
+            field: 'invoiceNumber',
+            header: 'Invoice No',
+            sortable: true,
+            render: (v, r) => `
+              <div class="flex flex-col">
+                <span class="font-mono font-semibold text-xs text-[#172B4D] whitespace-nowrap">${v || '-'}</span>
+                <span class="text-[10px] text-[#5E6C84] font-mono">Inv Dt: ${r.invoiceDate || '-'}</span>
+              </div>
+            `
+          },
+          // 6. Code
+          {
+            field: 'code',
+            header: 'Code',
+            sortable: true,
+            render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer whitespace-nowrap" title="Click to view GRN details">${v || '-'}</span>`
+          }
+        ],
+        actionsTitle: 'Actions',
+        actions: [
+          {
+            label: 'View',
+            title: 'View GRN Details',
+            icon: `<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>`,
+            onClick: (row) => {
+              this.showGrnDetailModal(row);
+            }
+          },
+          {
+            label: 'Edit',
+            title: 'Edit Goods Receipt Note',
+            icon: `<svg class="w-4 h-4 text-[#0284C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>`,
+            onClick: (row) => {
+              this.showEditGrnModal(row, () => {
+                renderTable(this.state.grnList);
+              });
+            }
+          },
+          {
+            label: 'Delete',
+            title: 'Delete Goods Receipt Note',
+            icon: `<svg class="w-4 h-4 text-[#DE350B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>`,
+            onClick: (row) => {
+              Modal.confirm({
+                title: 'Delete Goods Receipt Note',
+                message: `Are you sure you want to delete Goods Receipt Note <strong>${row.docNo}</strong> (${row.supplier})? This action cannot be undone.`,
+                confirmText: 'Delete GRN',
+                isDestructive: true,
+                onConfirm: () => {
+                  const idx = this.state.grnList.findIndex(r => r.id === row.id || r.docNo === row.docNo);
+                  if (idx !== -1) {
+                    this.state.grnList.splice(idx, 1);
+                    renderTable(this.state.grnList);
+                    Toast.show(`Goods Receipt Note ${row.docNo} deleted.`, 'success');
+                  }
+                }
+              });
+            }
+          }
+        ],
+        data: data
+      });
+    };
+
+    renderTable(this.state.grnList);
+
+    // Search & Filter Handlers
+    container.querySelector('#grn-flt-search-btn')?.addEventListener('click', () => {
+      const searchVal = container.querySelector('#grn-flt-doc')?.value?.trim().toLowerCase();
+      const vendorVal = container.querySelector('#grn-flt-vendor')?.value;
+      const fromVal = container.querySelector('#grn-flt-from')?.value;
+      const toVal = container.querySelector('#grn-flt-to')?.value;
+
+      const filtered = this.state.grnList.filter(it => {
+        if (searchVal) {
+          const matchDoc = it.docNo?.toLowerCase().includes(searchVal);
+          const matchCode = it.code?.toLowerCase().includes(searchVal);
+          const matchPo = it.poNo?.toLowerCase().includes(searchVal);
+          const matchInv = it.invoiceNumber?.toLowerCase().includes(searchVal);
+          if (!matchDoc && !matchCode && !matchPo && !matchInv) return false;
+        }
+        if (vendorVal && vendorVal !== 'ALL' && it.supplier !== vendorVal) return false;
+        if (fromVal && it.date < fromVal) return false;
+        if (toVal && it.date > toVal) return false;
+        return true;
+      });
+
+      renderTable(filtered);
+      Toast.show(`Found ${filtered.length} matching Goods Receipt Note(s)`, 'info');
+    });
+
+    // Reset Handler
+    container.querySelector('#grn-flt-reset-btn')?.addEventListener('click', () => {
+      container.querySelector('#grn-flt-doc').value = '';
+      container.querySelector('#grn-flt-vendor').value = 'ALL';
+      container.querySelector('#grn-flt-from').value = '2026-10-01';
+      container.querySelector('#grn-flt-to').value = todayStr;
+      renderTable(this.state.grnList);
+      Toast.show('GRN filters reset to default', 'info');
+    });
+
+    // Toggle Filters Accordion
+    const filterBody = container.querySelector('#grn-flt-body');
+    const toggleIcon = container.querySelector('#grn-flt-toggle-icon');
+    container.querySelector('#grn-flt-toggle-btn')?.addEventListener('click', () => {
+      if (filterBody) {
+        filterBody.classList.toggle('hidden');
+        if (toggleIcon) {
+          toggleIcon.classList.toggle('rotate-180');
+        }
       }
+    });
+  },
+
+  // 1d. ADD GOODS RECEIPT NOTE (GS) MODAL POPUP
+  showAddGrnModal(onSuccess = null) {
+    const todayStr = new Date().toISOString().slice(0, 10);
+    const nextGrnNum = (this.state.grnList?.length || 0) + 1;
+    const defaultDocNo = `GRN-GS-2026-${String(40 + nextGrnNum).padStart(4, '0')}`;
+    const defaultCode = `COD-GRN-${7720 + nextGrnNum}`;
+
+    let modalStagedGrnItems = [
+      {
+        item: 'Nitrile Food-Grade Gloves (Blue, L)',
+        uom: 'Box',
+        availableQty: 15,
+        poQty: 100,
+        receivedQty: 100,
+        deviationQty: 0,
+        location: 'Main Store Rack A-2',
+        batch: `BAT-${new Date().getFullYear()}-09A`,
+        itemPrice: 280.00,
+        baseValue: 28000.00,
+        deviationAmount: 0.00,
+        gstPercent: 18,
+        gstTaxAmount: 5040.00
+      }
+    ];
+
+    Modal.open({
+      title: 'Add Goods Receipt Note (GS)',
+      size: 'full',
+      content: `
+        <form id="modal-add-grn-form" class="space-y-4 text-xs text-[#172B4D]" onsubmit="return false;">
+          <!-- Section 1: Header Information -->
+          <div>
+            <div class="flex items-center justify-between pb-2 mb-3 border-b border-[#DFE1E6]">
+              <div class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">GRN Header Information</h4>
+              </div>
+              <span class="text-[11px] font-semibold text-[#5E6C84]">All fields marked with <span class="text-[#DE350B] font-bold">*</span> are required</span>
+            </div>
+
+            <!-- Form Header Input Fields: DOC NO, CODE, DATE, SUPPLIER FIRM NAME, INVOICE NUMBER, INVOICE DATE, PO NO., FREIGHT TYPE, NARRATION, STATUS -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5">
+              <!-- 1. DOC NO -->
+              <div>
+                <label for="mgrn-docno" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DOC NO <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="mgrn-docno" value="${defaultDocNo}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+
+              <!-- 2. CODE -->
+              <div>
+                <label for="mgrn-code" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CODE <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="mgrn-code" value="${defaultCode}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+
+              <!-- 3. DATE -->
+              <div>
+                <label for="mgrn-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DATE <span class="text-[#DE350B]">*</span></label>
+                <div class="erp-date-wrapper">
+                  <input type="date" id="mgrn-date" value="${todayStr}" required class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
+                </div>
+              </div>
+
+              <!-- 4. SUPPLIER FIRM NAME -->
+              <div>
+                <label for="mgrn-supplier" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SUPPLIER FIRM NAME <span class="text-[#DE350B]">*</span></label>
+                <select id="mgrn-supplier" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="Devi Safety Aids & Industrial Supplies" selected>Devi Safety Aids &amp; Industrial Supplies</option>
+                  <option value="Apex Engineering & Spare Parts Ltd">Apex Engineering &amp; Spare Parts Ltd</option>
+                  <option value="Sri Venkateswara Packaging Ltd">Sri Venkateswara Packaging Ltd</option>
+                  <option value="Delta Seals & Tapes Corp">Delta Seals &amp; Tapes Corp</option>
+                  <option value="Bio-Chem Scientific Instruments India">Bio-Chem Scientific Instruments India</option>
+                </select>
+              </div>
+
+              <!-- 5. INVOICE NUMBER -->
+              <div>
+                <label for="mgrn-inv-no" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">INVOICE NUMBER <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="mgrn-inv-no" value="INV-${Math.floor(10000 + Math.random() * 90000)}" placeholder="Vendor invoice number..." required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+
+              <!-- 6. INVOICE DATE -->
+              <div>
+                <label for="mgrn-inv-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">INVOICE DATE <span class="text-[#DE350B]">*</span></label>
+                <div class="erp-date-wrapper">
+                  <input type="date" id="mgrn-inv-date" value="${todayStr}" required class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
+                </div>
+              </div>
+
+              <!-- 7. PO NO. -->
+              <div>
+                <label for="mgrn-po-no" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PO NO. <span class="text-[#DE350B]">*</span></label>
+                <select id="mgrn-po-no" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="PO-GS-2026-0101" selected>PO-GS-2026-0101 (Nitrile Gloves)</option>
+                  <option value="PO-GS-2026-0102">PO-GS-2026-0102 (Plate Freezer Gaskets)</option>
+                  <option value="PO-GS-2026-0103">PO-GS-2026-0103 (QC Residual Strips)</option>
+                  <option value="PO-GS-2026-0104">PO-GS-2026-0104 (Thermal Barcode Ribbons)</option>
+                  <option value="PO-GS-2026-0105">PO-GS-2026-0105 (PP Strapping Rolls)</option>
+                </select>
+              </div>
+
+              <!-- 8. FREIGHT TYPE -->
+              <div>
+                <label for="mgrn-freight" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FREIGHT TYPE <span class="text-[#DE350B]">*</span></label>
+                <select id="mgrn-freight" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="Paid by Supplier" selected>Paid by Supplier</option>
+                  <option value="To Pay (Consignee)">To Pay (Consignee)</option>
+                  <option value="FOB Ex-Factory">FOB Ex-Factory</option>
+                  <option value="CIF Visakhapatnam">CIF Visakhapatnam</option>
+                </select>
+              </div>
+
+              <!-- 9. STATUS -->
+              <div>
+                <label for="mgrn-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">STATUS <span class="text-[#DE350B]">*</span></label>
+                <select id="mgrn-status" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="Inward Received" selected>Inward Received</option>
+                  <option value="QC Verified">QC Verified</option>
+                  <option value="Stored">Stored</option>
+                  <option value="Pending Inspection">Pending Inspection</option>
+                </select>
+              </div>
+
+              <!-- 10. NARRATION (Takes remaining space) -->
+              <div class="sm:col-span-2 md:col-span-2 lg:col-span-3">
+                <label for="mgrn-narration" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">NARRATION</label>
+                <input type="text" id="mgrn-narration" placeholder="Enter delivery remarks, gate pass no, challan info..." value="Inward goods intake verified against vendor invoice and delivery challan" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Work Flow - Item Details -->
+          <div class="pt-2 border-t border-[#DFE1E6]">
+            <div class="flex items-center justify-between pb-2 mb-3">
+              <div class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+                <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Work Flow - Item Details</h4>
+              </div>
+              <span id="modal-grn-items-count" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#E0F2FE] text-[#0284C7] border border-[#BAE6FD]">
+                ${modalStagedGrnItems.length} Item(s) in GRN
+              </span>
+            </div>
+
+            <!-- Item Input Grid Card -->
+            <div class="bg-[#F8FAFC] border border-[#DFE1E6] rounded-xl p-3.5 space-y-3 shadow-2xs">
+              <!-- Row 1: Item, UoM, Available Qty, PO Qty, Received Qty, Deviation Qty -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 gap-3">
+                <!-- 1. Item -->
+                <div class="md:col-span-2">
+                  <label for="mgrn-item-name" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ITEM <span class="text-[#DE350B]">*</span></label>
+                  <input type="text" id="mgrn-item-name" placeholder="Item name or code..." value="Nitrile Food-Grade Gloves (Blue, L)" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                </div>
+
+                <!-- 2. UoM -->
+                <div>
+                  <label for="mgrn-item-uom" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">UoM</label>
+                  <select id="mgrn-item-uom" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                    <option value="Box" selected>Box</option>
+                    <option value="Nos">Nos</option>
+                    <option value="Rolls">Rolls</option>
+                    <option value="Sets">Sets</option>
+                    <option value="Kits">Kits</option>
+                    <option value="Pairs">Pairs</option>
+                    <option value="Kg">Kg</option>
+                    <option value="Ltr">Ltr</option>
+                    <option value="Bags">Bags</option>
+                  </select>
+                </div>
+
+                <!-- 3. Available Qty -->
+                <div>
+                  <label for="mgrn-avail-qty" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">AVAILABLE QTY</label>
+                  <input type="number" id="mgrn-avail-qty" value="15" min="0" class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] shadow-2xs cursor-not-allowed" readonly />
+                </div>
+
+                <!-- 4. PO Qty -->
+                <div>
+                  <label for="mgrn-po-qty" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PO QTY <span class="text-[#DE350B]">*</span></label>
+                  <input type="number" id="mgrn-po-qty" value="100" min="1" step="1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                </div>
+
+                <!-- 5. Received Qty -->
+                <div>
+                  <label for="mgrn-rcv-qty" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">RECEIVED QTY <span class="text-[#DE350B]">*</span></label>
+                  <input type="number" id="mgrn-rcv-qty" value="100" min="0" step="1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                </div>
+              </div>
+
+              <!-- Row 2: Deviation Qty, Location, Batch, Item Price, Base Value, Deviation Amount, GST%, GST Tax Amount -->
+              <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-7 gap-3">
+                <!-- 6. Deviation Qty (Auto calculated: Received - PO) -->
+                <div>
+                  <label for="mgrn-dev-qty" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DEVIATION QTY</label>
+                  <input type="number" id="mgrn-dev-qty" value="0" class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] shadow-2xs cursor-not-allowed" readonly />
+                </div>
+
+                <!-- 7. Location -->
+                <div>
+                  <label for="mgrn-location" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">LOCATION <span class="text-[#DE350B]">*</span></label>
+                  <select id="mgrn-location" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                    <option value="Main Store Rack A-2" selected>Main Store Rack A-2</option>
+                    <option value="Main Store Rack B-1">Main Store Rack B-1</option>
+                    <option value="Coldstore Hub B">Coldstore Hub B</option>
+                    <option value="Engineering Bay C">Engineering Bay C</option>
+                    <option value="QC Lab Storage">QC Lab Storage</option>
+                    <option value="Packaging Store Bay 1">Packaging Store Bay 1</option>
+                  </select>
+                </div>
+
+                <!-- 8. Batch -->
+                <div>
+                  <label for="mgrn-batch" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BATCH <span class="text-[#DE350B]">*</span></label>
+                  <input type="text" id="mgrn-batch" placeholder="Batch / Lot #" value="BAT-${new Date().getFullYear()}-09A" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                </div>
+
+                <!-- 9. Item Price -->
+                <div>
+                  <label for="mgrn-price" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ITEM PRICE (₹)</label>
+                  <input type="number" id="mgrn-price" value="280.00" min="0" step="0.01" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                </div>
+
+                <!-- 10. Base Value -->
+                <div>
+                  <label for="mgrn-base-val" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BASE VALUE (₹)</label>
+                  <input type="text" id="mgrn-base-val" value="28000.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] shadow-2xs cursor-not-allowed" />
+                </div>
+
+                <!-- 11. Deviation Amount -->
+                <div>
+                  <label for="mgrn-dev-amt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DEV AMOUNT (₹)</label>
+                  <input type="text" id="mgrn-dev-amt" value="0.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#D97706] shadow-2xs cursor-not-allowed" />
+                </div>
+
+                <!-- 12. GST% -->
+                <div>
+                  <label for="mgrn-gst-pct" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">GST %</label>
+                  <select id="mgrn-gst-pct" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                    <option value="0">0%</option>
+                    <option value="5">5%</option>
+                    <option value="12">12%</option>
+                    <option value="18" selected>18%</option>
+                    <option value="28">28%</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Row 3: GST Tax Amount & Add Item Button -->
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-1 border-t border-[#F1F5F9]">
+                <div class="flex items-center gap-3">
+                  <div>
+                    <label for="mgrn-gst-amt" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0.5">GST TAX AMOUNT (₹)</label>
+                    <input type="text" id="mgrn-gst-amt" value="5040.00" readonly class="w-36 text-xs px-2.5 py-1 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] shadow-2xs cursor-not-allowed" />
+                  </div>
+                </div>
+
+                <!-- Add Item Button -->
+                <button type="button" id="modal-grn-btn-add-item" class="btn-primary px-5 py-2 rounded-full text-xs font-semibold inline-flex items-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                  <span>Add Item to GRN</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Staged GRN Items Table -->
+            <div class="mt-3 overflow-x-auto border border-[#DFE1E6] rounded-lg">
+              <table class="w-full text-left text-xs border-collapse">
+                <thead class="bg-[#F8FAFC] border-b border-[#DFE1E6] text-[#475569] font-bold text-[11px] uppercase tracking-wider">
+                  <tr>
+                    <th class="py-2.5 px-3">Item</th>
+                    <th class="py-2.5 px-3">UoM</th>
+                    <th class="py-2.5 px-3 text-right">PO Qty</th>
+                    <th class="py-2.5 px-3 text-right">Received Qty</th>
+                    <th class="py-2.5 px-3 text-right">Dev Qty</th>
+                    <th class="py-2.5 px-3">Location</th>
+                    <th class="py-2.5 px-3">Batch</th>
+                    <th class="py-2.5 px-3 text-right">Item Price</th>
+                    <th class="py-2.5 px-3 text-right">Base Value</th>
+                    <th class="py-2.5 px-3 text-right">Dev Amt</th>
+                    <th class="py-2.5 px-3 text-right">GST%</th>
+                    <th class="py-2.5 px-3 text-right">GST Tax</th>
+                    <th class="py-2.5 px-3 text-center">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="modal-grn-staged-tbody" class="divide-y divide-[#DFE1E6] text-[#1E293B]">
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </form>
+      `,
+      footerButtons: [
+        {
+          label: 'Cancel',
+          type: 'secondary',
+          class: 'btn-secondary border border-[#CBD5E1] px-5 py-2 rounded-full text-xs font-semibold text-[#475569] hover:bg-[#F8FAFC] transition-all cursor-pointer',
+          onClick: () => Modal.close()
+        },
+        {
+          label: 'Save Goods Receipt Note',
+          type: 'primary',
+          class: 'btn-primary border-0 px-6 py-2 rounded-full text-xs font-semibold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all',
+          onClick: () => {
+            const modalRoot = document.getElementById('erp-modal-root');
+            if (!modalRoot) return;
+
+            const docNo = modalRoot.querySelector('#mgrn-docno')?.value?.trim();
+            const code = modalRoot.querySelector('#mgrn-code')?.value?.trim();
+            const date = modalRoot.querySelector('#mgrn-date')?.value;
+            const supplier = modalRoot.querySelector('#mgrn-supplier')?.value;
+            const invoiceNumber = modalRoot.querySelector('#mgrn-inv-no')?.value?.trim();
+            const invoiceDate = modalRoot.querySelector('#mgrn-inv-date')?.value;
+            const poNo = modalRoot.querySelector('#mgrn-po-no')?.value;
+            const freightType = modalRoot.querySelector('#mgrn-freight')?.value;
+            const narration = modalRoot.querySelector('#mgrn-narration')?.value?.trim();
+            const status = modalRoot.querySelector('#mgrn-status')?.value;
+
+            if (!docNo) {
+              Toast.show('Please enter a valid DOC NO.', 'warning');
+              modalRoot.querySelector('#mgrn-docno')?.focus();
+              return;
+            }
+            if (!invoiceNumber) {
+              Toast.show('Please provide Invoice Number.', 'warning');
+              modalRoot.querySelector('#mgrn-inv-no')?.focus();
+              return;
+            }
+            if (modalStagedGrnItems.length === 0) {
+              Toast.show('Please add at least one item to the Goods Receipt Note.', 'warning');
+              return;
+            }
+
+            // Confirmation Popup Modal
+            Modal.confirm({
+              title: 'Confirm Goods Receipt Note',
+              message: `Are you sure you want to save Goods Receipt Note <strong>${docNo}</strong> from <strong>${supplier}</strong> (PO: ${poNo}, Invoice: ${invoiceNumber}) with <strong>${modalStagedGrnItems.length} item(s)</strong>?`,
+              confirmText: 'Save GRN',
+              onConfirm: () => {
+                const newGrn = {
+                  id: (this.state.grnList?.length || 0) + 1,
+                  docNo,
+                  code,
+                  date,
+                  supplier,
+                  invoiceNumber,
+                  invoiceDate,
+                  poNo,
+                  freightType,
+                  narration,
+                  status,
+                  items: [...modalStagedGrnItems]
+                };
+
+                this.state.grnList.unshift(newGrn);
+                Modal.close();
+                Toast.show(`Goods Receipt Note ${docNo} saved successfully!`, 'success');
+
+                if (typeof onSuccess === 'function') {
+                  onSuccess();
+                }
+              }
+            });
+          }
+        }
+      ]
+    });
+
+    const modalRoot = document.getElementById('erp-modal-root');
+    if (!modalRoot) return;
+
+    // Live Calculation Logic for Item Details
+    const recalcGrnItemFields = () => {
+      const poQty = parseInt(modalRoot.querySelector('#mgrn-po-qty')?.value, 10) || 0;
+      const rcvQty = parseInt(modalRoot.querySelector('#mgrn-rcv-qty')?.value, 10) || 0;
+      const price = parseFloat(modalRoot.querySelector('#mgrn-price')?.value) || 0;
+      const gstPct = parseFloat(modalRoot.querySelector('#mgrn-gst-pct')?.value) || 0;
+
+      const devQty = rcvQty - poQty;
+      const baseValue = rcvQty * price;
+      const devAmt = devQty * price;
+      const gstTax = baseValue * (gstPct / 100);
+
+      const devQtyEl = modalRoot.querySelector('#mgrn-dev-qty');
+      const baseValEl = modalRoot.querySelector('#mgrn-base-val');
+      const devAmtEl = modalRoot.querySelector('#mgrn-dev-amt');
+      const gstAmtEl = modalRoot.querySelector('#mgrn-gst-amt');
+
+      if (devQtyEl) {
+        devQtyEl.value = devQty;
+        if (devQty < 0) {
+          devQtyEl.className = 'w-full text-xs px-2.5 py-1.5 bg-[#FFEBE6] border border-[#FFBDAD] rounded font-mono font-bold text-[#DE350B] shadow-2xs cursor-not-allowed';
+        } else {
+          devQtyEl.className = 'w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] shadow-2xs cursor-not-allowed';
+        }
+      }
+      if (baseValEl) baseValEl.value = baseValue.toFixed(2);
+      if (devAmtEl) {
+        devAmtEl.value = devAmt.toFixed(2);
+        devAmtEl.className = devAmt < 0
+          ? 'w-full text-xs px-2.5 py-1.5 bg-[#FFEBE6] border border-[#FFBDAD] rounded font-mono font-bold text-[#DE350B] shadow-2xs cursor-not-allowed'
+          : 'w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] shadow-2xs cursor-not-allowed';
+      }
+      if (gstAmtEl) gstAmtEl.value = gstTax.toFixed(2);
+    };
+
+    ['#mgrn-po-qty', '#mgrn-rcv-qty', '#mgrn-price', '#mgrn-gst-pct'].forEach(sel => {
+      modalRoot.querySelector(sel)?.addEventListener('input', recalcGrnItemFields);
+      modalRoot.querySelector(sel)?.addEventListener('change', recalcGrnItemFields);
+    });
+
+    // Render Staged Items in Modal
+    const renderModalStagedGrnItems = () => {
+      const tbody = modalRoot.querySelector('#modal-grn-staged-tbody');
+      const countBadge = modalRoot.querySelector('#modal-grn-items-count');
+      if (!tbody) return;
+
+      if (countBadge) countBadge.textContent = `${modalStagedGrnItems.length} Item(s) in GRN`;
+
+      if (modalStagedGrnItems.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="13" class="text-center py-4 text-xs text-[#94A3B8] italic">No items staged in this Goods Receipt Note yet. Fill fields above and click "+ Add Item to GRN".</td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = modalStagedGrnItems.map((it, idx) => `
+        <tr class="hover:bg-[#F8FAFC] transition-colors">
+          <td class="py-2.5 px-3 font-semibold text-[#172B4D]">${it.item}</td>
+          <td class="py-2.5 px-3 font-mono text-[#5E6C84]">${it.uom}</td>
+          <td class="py-2.5 px-3 text-right font-mono font-bold text-[#172B4D]">${it.poQty}</td>
+          <td class="py-2.5 px-3 text-right font-mono font-bold text-[#00875A]">${it.receivedQty}</td>
+          <td class="py-2.5 px-3 text-right font-mono font-bold ${it.deviationQty < 0 ? 'text-[#DE350B]' : 'text-[#00875A]'}">${it.deviationQty}</td>
+          <td class="py-2.5 px-3 text-xs text-[#5E6C84]">${it.location}</td>
+          <td class="py-2.5 px-3 font-mono text-xs font-semibold text-[#172B4D]">${it.batch}</td>
+          <td class="py-2.5 px-3 text-right font-mono text-[#5E6C84]">₹${Number(it.itemPrice).toFixed(2)}</td>
+          <td class="py-2.5 px-3 text-right font-mono font-bold text-[#172B4D]">₹${Number(it.baseValue).toFixed(2)}</td>
+          <td class="py-2.5 px-3 text-right font-mono font-semibold ${it.deviationAmount < 0 ? 'text-[#DE350B]' : 'text-[#00875A]'}">₹${Number(it.deviationAmount).toFixed(2)}</td>
+          <td class="py-2.5 px-3 text-right font-mono text-[#00A4B7]">${it.gstPercent}%</td>
+          <td class="py-2.5 px-3 text-right font-mono font-bold text-[#0284C7]">₹${Number(it.gstTaxAmount).toFixed(2)}</td>
+          <td class="py-2.5 px-3 text-center">
+            <button type="button" data-remove-idx="${idx}" class="modal-grn-remove-btn w-6 h-6 rounded-full hover:bg-[#FFEBE6] text-[#DE350B] inline-flex items-center justify-center transition-colors cursor-pointer" title="Remove Item">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+            </button>
+          </td>
+        </tr>
+      `).join('');
+
+      tbody.querySelectorAll('.modal-grn-remove-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const rIdx = parseInt(btn.dataset.removeIdx, 10);
+          modalStagedGrnItems.splice(rIdx, 1);
+          renderModalStagedGrnItems();
+        });
+      });
+    };
+
+    renderModalStagedGrnItems();
+
+    // Add Item click handler
+    modalRoot.querySelector('#modal-grn-btn-add-item')?.addEventListener('click', () => {
+      const item = modalRoot.querySelector('#mgrn-item-name')?.value?.trim();
+      const uom = modalRoot.querySelector('#mgrn-item-uom')?.value || 'Nos';
+      const availableQty = parseInt(modalRoot.querySelector('#mgrn-avail-qty')?.value, 10) || 0;
+      const poQty = parseInt(modalRoot.querySelector('#mgrn-po-qty')?.value, 10) || 0;
+      const receivedQty = parseInt(modalRoot.querySelector('#mgrn-rcv-qty')?.value, 10) || 0;
+      const deviationQty = receivedQty - poQty;
+      const location = modalRoot.querySelector('#mgrn-location')?.value || 'Main Store Rack A-2';
+      const batch = modalRoot.querySelector('#mgrn-batch')?.value?.trim() || `BAT-${new Date().getFullYear()}-01`;
+      const itemPrice = parseFloat(modalRoot.querySelector('#mgrn-price')?.value) || 0;
+      const baseValue = receivedQty * itemPrice;
+      const deviationAmount = deviationQty * itemPrice;
+      const gstPercent = parseFloat(modalRoot.querySelector('#mgrn-gst-pct')?.value) || 0;
+      const gstTaxAmount = baseValue * (gstPercent / 100);
+
+      if (!item) {
+        Toast.show('Please provide Item name before adding.', 'warning');
+        modalRoot.querySelector('#mgrn-item-name')?.focus();
+        return;
+      }
+      if (poQty <= 0) {
+        Toast.show('PO Quantity must be greater than zero.', 'warning');
+        modalRoot.querySelector('#mgrn-po-qty')?.focus();
+        return;
+      }
+
+      modalStagedGrnItems.push({
+        item,
+        uom,
+        availableQty,
+        poQty,
+        receivedQty,
+        deviationQty,
+        location,
+        batch,
+        itemPrice,
+        baseValue,
+        deviationAmount,
+        gstPercent,
+        gstTaxAmount
+      });
+
+      renderModalStagedGrnItems();
+      Toast.show(`Item "${item}" added to GRN.`, 'info');
+    });
+  },
+
+  // 1e. GOODS RECEIPT NOTE (GS) DETAILS MODAL POPUP
+  showGrnDetailModal(row) {
+    if (!row) return;
+
+    const totalBase = (row.items || []).reduce((acc, it) => acc + (it.baseValue || 0), 0);
+    const totalTax = (row.items || []).reduce((acc, it) => acc + (it.gstTaxAmount || 0), 0);
+    const totalDev = (row.items || []).reduce((acc, it) => acc + (it.deviationAmount || 0), 0);
+    const totalQty = (row.items || []).reduce((acc, it) => acc + (it.receivedQty || 0), 0);
+
+    Modal.open({
+      title: `Goods Receipt Note Details: ${row.docNo} (${row.code})`,
+      size: 'full',
+      content: `
+        <div class="space-y-4 text-xs text-[#172B4D]">
+          <!-- Header Information Overview -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-[#F8FAFC] border border-[#DFE1E6] p-3.5 rounded-xl shadow-2xs">
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0.5">DOC NO</span>
+              <span class="font-mono font-bold text-sm text-[#00A4B7]">${row.docNo}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0.5">CODE</span>
+              <span class="font-mono font-semibold text-xs text-[#172B4D]">${row.code}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0.5">DATE</span>
+              <span class="font-mono text-xs text-[#172B4D]">${row.date}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0.5">STATUS</span>
+              <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">
+                <span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${row.status || 'Received'}
+              </span>
+            </div>
+          </div>
+
+          <!-- Vendor & Invoice Overview -->
+          <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 bg-white border border-[#DFE1E6] p-3.5 rounded-xl shadow-2xs">
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0.5">VENDOR</span>
+              <span class="font-semibold text-xs text-[#172B4D]">${row.supplier}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0.5">INVOICE NO / DATE</span>
+              <span class="font-mono font-bold text-xs text-[#172B4D]">${row.invoiceNumber || '-'}</span>
+              <span class="block text-[10px] text-[#5E6C84] font-mono">${row.invoiceDate || '-'}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0.5">PO NO.</span>
+              <span class="font-mono font-bold text-xs text-[#00A4B7]">${row.poNo || '-'}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0.5">FREIGHT TYPE</span>
+              <span class="text-xs text-[#5E6C84]">${row.freightType || '-'}</span>
+            </div>
+          </div>
+
+          ${row.narration ? `
+            <div class="p-3 bg-[#F8FAFC] border border-[#DFE1E6] rounded-xl shadow-2xs">
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0.5">DELIVERY NARRATION</span>
+              <p class="text-xs text-[#172B4D]">${row.narration}</p>
+            </div>
+          ` : ''}
+
+          <!-- Work Flow Item Details Table -->
+          <div>
+            <div class="flex items-center justify-between pb-2 mb-2">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider flex items-center gap-1.5">
+                <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+                Item Details (${row.items?.length || 0})
+              </h4>
+              <div class="flex items-center gap-3">
+                <span class="font-mono text-xs font-semibold text-[#172B4D]">Total Rcv Qty: <strong class="text-[#00875A]">${totalQty}</strong></span>
+                <span class="font-mono text-xs font-bold text-[#00A4B7]">Total Value: ₹${Number(totalBase + totalTax).toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
+              </div>
+            </div>
+
+            <div class="overflow-x-auto border border-[#DFE1E6] rounded-lg">
+              <table class="w-full text-left text-xs border-collapse">
+                <thead class="bg-[#F8FAFC] border-b border-[#DFE1E6] text-[#475569] font-bold text-[11px] uppercase tracking-wider">
+                  <tr>
+                    <th class="py-2.5 px-3">Item</th>
+                    <th class="py-2.5 px-3">UoM</th>
+                    <th class="py-2.5 px-3 text-right">PO Qty</th>
+                    <th class="py-2.5 px-3 text-right">Received Qty</th>
+                    <th class="py-2.5 px-3 text-right">Dev Qty</th>
+                    <th class="py-2.5 px-3">Location</th>
+                    <th class="py-2.5 px-3">Batch</th>
+                    <th class="py-2.5 px-3 text-right">Item Price</th>
+                    <th class="py-2.5 px-3 text-right">Base Value</th>
+                    <th class="py-2.5 px-3 text-right">Dev Amt</th>
+                    <th class="py-2.5 px-3 text-right">GST%</th>
+                    <th class="py-2.5 px-3 text-right">GST Tax</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-[#DFE1E6] text-[#1E293B]">
+                  ${(row.items || []).map(it => `
+                    <tr class="hover:bg-[#F8FAFC] transition-colors">
+                      <td class="py-2.5 px-3 font-semibold text-[#172B4D]">${it.item}</td>
+                      <td class="py-2.5 px-3 font-mono text-[#5E6C84]">${it.uom}</td>
+                      <td class="py-2.5 px-3 text-right font-mono font-bold text-[#172B4D]">${it.poQty}</td>
+                      <td class="py-2.5 px-3 text-right font-mono font-bold text-[#00875A]">${it.receivedQty}</td>
+                      <td class="py-2.5 px-3 text-right font-mono font-bold ${it.deviationQty < 0 ? 'text-[#DE350B]' : 'text-[#00875A]'}">${it.deviationQty}</td>
+                      <td class="py-2.5 px-3 text-xs text-[#5E6C84]">${it.location}</td>
+                      <td class="py-2.5 px-3 font-mono text-xs font-semibold text-[#172B4D]">${it.batch}</td>
+                      <td class="py-2.5 px-3 text-right font-mono text-[#5E6C84]">₹${Number(it.itemPrice).toFixed(2)}</td>
+                      <td class="py-2.5 px-3 text-right font-mono font-bold text-[#172B4D]">₹${Number(it.baseValue).toFixed(2)}</td>
+                      <td class="py-2.5 px-3 text-right font-mono font-semibold ${it.deviationAmount < 0 ? 'text-[#DE350B]' : 'text-[#00875A]'}">₹${Number(it.deviationAmount).toFixed(2)}</td>
+                      <td class="py-2.5 px-3 text-right font-mono text-[#00A4B7]">${it.gstPercent}%</td>
+                      <td class="py-2.5 px-3 text-right font-mono font-bold text-[#0284C7]">₹${Number(it.gstTaxAmount).toFixed(2)}</td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      `,
+      footerButtons: [
+        {
+          label: 'Close',
+          type: 'secondary',
+          class: 'btn-secondary border border-[#CBD5E1] px-5 py-2 rounded-full text-xs font-semibold text-[#475569] hover:bg-[#F8FAFC] transition-all cursor-pointer',
+          onClick: (modal) => modal.close()
+        },
+        {
+          label: 'Print GRN',
+          type: 'primary',
+          class: 'btn-primary border-0 px-6 py-2 rounded-full text-xs font-semibold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all',
+          onClick: () => {
+            Toast.show(`Printing Goods Receipt Note ${row.docNo}...`, 'success');
+          }
+        }
+      ]
+    });
+  },
+
+  // 1f. EDIT GOODS RECEIPT NOTE (GS) MODAL POPUP
+  showEditGrnModal(row, onSuccess) {
+    Modal.open({
+      title: `Edit Goods Receipt Note: ${row.docNo}`,
+      size: 'lg',
+      content: `
+        <form id="form-edit-grn" class="space-y-4 text-xs text-[#172B4D]" onsubmit="return false;">
+          <div class="flex items-center justify-between pb-2 mb-3 border-b border-[#DFE1E6]">
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">GRN Header Information</h4>
+            </div>
+            <span class="text-[11px] font-semibold text-[#5E6C84]">All fields marked with <span class="text-[#DE350B] font-bold">*</span> are required</span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DOC NO</label>
+              <input type="text" name="docNo" value="${row.docNo}" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] cursor-not-allowed">
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CODE <span class="text-[#DE350B]">*</span></label>
+              <input type="text" name="code" value="${row.code}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DATE <span class="text-[#DE350B]">*</span></label>
+              <div class="erp-date-wrapper">
+                <input type="date" name="date" value="${row.date}" required class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()">
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SUPPLIER FIRM NAME <span class="text-[#DE350B]">*</span></label>
+              <input type="text" name="supplier" value="${row.supplier}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PO NO. <span class="text-[#DE350B]">*</span></label>
+              <input type="text" name="poNo" value="${row.poNo || ''}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">INVOICE NUMBER <span class="text-[#DE350B]">*</span></label>
+              <input type="text" name="invoiceNumber" value="${row.invoiceNumber || ''}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">INVOICE DATE <span class="text-[#DE350B]">*</span></label>
+              <div class="erp-date-wrapper">
+                <input type="date" name="invoiceDate" value="${row.invoiceDate || row.date}" required class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()">
+              </div>
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">STATUS</label>
+              <select name="status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="Inward Received" ${row.status === 'Inward Received' ? 'selected' : ''}>Inward Received</option>
+                <option value="QC Verified" ${row.status === 'QC Verified' ? 'selected' : ''}>QC Verified</option>
+                <option value="Stored" ${row.status === 'Stored' ? 'selected' : ''}>Stored</option>
+                <option value="Pending Inspection" ${row.status === 'Pending Inspection' ? 'selected' : ''}>Pending Inspection</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">NARRATION</label>
+            <textarea name="narration" rows="2" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">${row.narration || ''}</textarea>
+          </div>
+        </form>
+      `,
+      footerButtons: [
+        {
+          label: 'Cancel',
+          type: 'secondary',
+          class: 'btn-secondary border border-[#CBD5E1] px-5 py-2 rounded-full text-xs font-semibold text-[#475569] hover:bg-[#F8FAFC] transition-all cursor-pointer',
+          onClick: (modal) => modal.close()
+        },
+        {
+          label: 'Update GRN',
+          type: 'primary',
+          class: 'btn-primary border-0 px-6 py-2 rounded-full text-xs font-semibold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all',
+          onClick: (modal) => {
+            const form = document.getElementById('form-edit-grn');
+            if (!form || !form.checkValidity()) {
+              if (form) form.reportValidity();
+              return;
+            }
+            const fd = new FormData(form);
+
+            Modal.confirm({
+              title: 'Confirm Update Goods Receipt Note',
+              message: `Are you sure you want to update Goods Receipt Note <strong>${row.docNo}</strong>?`,
+              confirmText: 'Update GRN',
+              onConfirm: () => {
+                row.code = fd.get('code');
+                row.date = fd.get('date');
+                row.supplier = fd.get('supplier');
+                row.poNo = fd.get('poNo');
+                row.invoiceNumber = fd.get('invoiceNumber');
+                row.invoiceDate = fd.get('invoiceDate');
+                row.status = fd.get('status');
+                row.narration = fd.get('narration');
+
+                modal.close();
+                Toast.show(`Goods Receipt Note ${row.docNo} updated successfully!`, 'success');
+                if (typeof onSuccess === 'function') onSuccess();
+              }
+            });
+          }
+        }
+      ]
     });
   },
 
