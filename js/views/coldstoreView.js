@@ -1445,192 +1445,264 @@ export const ColdstoreView = {
     floorStockList: [
       {
         sNo: 1,
-        coldStores: 'Chamber #1 (IQF)',
-        stockBelongsTo: 'Devi Fisheries Ltd (DFL)',
-        poNo: 'PO-2026-4401',
-        blocks: 'Block A',
-        species: 'Litopenaeus Vannamei',
-        typeProduct: 'Raw Frozen',
-        freezingType: 'IQF Tunnel',
-        brand: 'Devi Royal',
+        bid: 'BID-2026-901',
+        date: '2026-10-29',
+        trackCode: 'TRK-2026-081',
+        group: 'Group A',
         variety: 'Vannamei (White Shrimp)',
         grade: '31/40',
-        group: 'Group A',
-        packingStyle: '10x1kg Net',
+        soaking: 'Yes (Non-Phosphate)',
+        species: 'Litopenaeus Vannamei',
         packingType: 'Master Cartons',
+        brandName: 'Devi Royal',
+        brand: 'Devi Royal',
+        packingStyle: '10x1kg Net',
+        category: 'Raw Frozen',
         productCategory: 'Raw Frozen',
+        abStatus: 'PASSED (AB Negative)',
+        poNo: 'PO-2026-4401',
+        mcs: 240,
+        loose: 12,
+        looseBags: 12,
+        store: 'Chamber #1 (IQF)',
+        coldStores: 'Chamber #1 (IQF)',
+        stockBelongsTo: 'Devi Fisheries Ltd (DFL)',
+        blocks: 'Block A',
+        typeProduct: 'Raw Frozen',
+        freezingType: 'IQF Tunnel',
         stockType: 'Floor Stock',
         location: 'CH-1 / BAY-A01',
-        mcs: 240,
-        looseBags: 12,
         totalWeight: 2400.0,
         palletTag: 'PAL-2026-0451',
         status: 'Available on Floor'
       },
       {
         sNo: 2,
-        coldStores: 'Chamber #2 (Block)',
-        stockBelongsTo: 'DFL Unit-4 (PND)',
-        poNo: 'PO-2026-4402',
-        blocks: 'Block B',
-        species: 'Penaeus Monodon',
-        typeProduct: 'Raw Frozen',
-        freezingType: 'Contact Plate Freezer',
-        brand: 'Bay Harvest',
+        bid: 'BID-2026-902',
+        date: '2026-10-29',
+        trackCode: 'TRK-2026-082',
+        group: 'Group B',
         variety: 'Black Tiger (Monodon)',
         grade: '16/20',
-        group: 'Group B',
-        packingStyle: '6x2kg Block',
+        soaking: 'No (Unsoaked)',
+        species: 'Penaeus Monodon',
         packingType: 'Export Corrugated',
+        brandName: 'Bay Harvest',
+        brand: 'Bay Harvest',
+        packingStyle: '6x2kg Block',
+        category: 'Raw Frozen',
         productCategory: 'Raw Frozen',
+        abStatus: 'PASSED (AB Negative)',
+        poNo: 'PO-2026-4402',
+        mcs: 180,
+        loose: 8,
+        looseBags: 8,
+        store: 'Chamber #2 (Block)',
+        coldStores: 'Chamber #2 (Block)',
+        stockBelongsTo: 'DFL Unit-4 (PND)',
+        blocks: 'Block B',
+        typeProduct: 'Raw Frozen',
+        freezingType: 'Contact Plate Freezer',
         stockType: 'Floor Stock',
         location: 'CH-2 / BAY-B04',
-        mcs: 180,
-        looseBags: 8,
         totalWeight: 2160.0,
         palletTag: 'PAL-2026-0452',
         status: 'Available on Floor'
       },
       {
         sNo: 3,
-        coldStores: 'Vault #3 Staging',
-        stockBelongsTo: 'DFL Unit-3 (PSP)',
-        poNo: 'PO-2026-4403',
-        blocks: 'Block C',
-        species: 'Litopenaeus Vannamei',
-        typeProduct: 'Cooked Frozen',
-        freezingType: 'IQF Tunnel',
-        brand: 'Ocean Jewel',
+        bid: 'BID-2026-903',
+        date: '2026-10-28',
+        trackCode: 'TRK-2026-083',
+        group: 'Group C',
         variety: 'Vannamei (White Shrimp)',
         grade: '26/30',
-        group: 'Group C',
-        packingStyle: '10x1kg Net',
+        soaking: 'Yes (Non-Phosphate)',
+        species: 'Litopenaeus Vannamei',
         packingType: 'Master Cartons',
+        brandName: 'Ocean Jewel',
+        brand: 'Ocean Jewel',
+        packingStyle: '10x1kg Net',
+        category: 'Cooked Frozen',
         productCategory: 'Cooked Frozen',
+        abStatus: 'PASSED (AB Negative)',
+        poNo: 'PO-2026-4403',
+        mcs: 310,
+        loose: 0,
+        looseBags: 0,
+        store: 'Vault #3 Staging',
+        coldStores: 'Vault #3 Staging',
+        stockBelongsTo: 'DFL Unit-3 (PSP)',
+        blocks: 'Block C',
+        typeProduct: 'Cooked Frozen',
+        freezingType: 'IQF Tunnel',
         stockType: 'Allocated Stock',
         location: 'VAULT-3 / STG-02',
-        mcs: 310,
-        looseBags: 0,
         totalWeight: 3100.0,
         palletTag: 'PAL-2026-0453',
         status: 'Staged for Outward'
       },
       {
         sNo: 4,
-        coldStores: 'Chamber #1 (IQF)',
-        stockBelongsTo: 'DFL Unit-1 (VSP)',
-        poNo: 'PO-2026-4404',
-        blocks: 'Block A',
-        species: 'Litopenaeus Vannamei',
-        typeProduct: 'Value-Added',
-        freezingType: 'Semi-IQF Spiral',
-        brand: 'Sea Pearl',
+        bid: 'BID-2026-904',
+        date: '2026-10-28',
+        trackCode: 'TRK-2026-084',
+        group: 'Group A',
         variety: 'Sea Pearl Cooked PDTO',
         grade: '21/25',
-        group: 'Group A',
-        packingStyle: '5x2kg Net',
+        soaking: 'Yes (STPP Treated)',
+        species: 'Litopenaeus Vannamei',
         packingType: 'Inner Polybag',
+        brandName: 'Sea Pearl',
+        brand: 'Sea Pearl',
+        packingStyle: '5x2kg Net',
+        category: 'Value-Added',
         productCategory: 'Value-Added',
+        abStatus: 'UNDER TEST',
+        poNo: 'PO-2026-4404',
+        mcs: 150,
+        loose: 5,
+        looseBags: 5,
+        store: 'Chamber #1 (IQF)',
+        coldStores: 'Chamber #1 (IQF)',
+        stockBelongsTo: 'DFL Unit-1 (VSP)',
+        blocks: 'Block A',
+        typeProduct: 'Value-Added',
+        freezingType: 'Semi-IQF Spiral',
         stockType: 'Floor Stock',
         location: 'CH-1 / BAY-A09',
-        mcs: 150,
-        looseBags: 5,
         totalWeight: 1500.0,
         palletTag: 'PAL-2026-0454',
         status: 'Available on Floor'
       },
       {
         sNo: 5,
-        coldStores: 'Chamber #3 (Blast)',
-        stockBelongsTo: 'DFL Unit-5 (JPT)',
-        poNo: 'PO-2026-4405',
-        blocks: 'Block D',
-        species: 'Macrobrachium rosenbergii',
-        typeProduct: 'Blanched Frozen',
-        freezingType: 'Blast Freezer',
-        brand: 'Arctic Catch',
+        bid: 'BID-2026-905',
+        date: '2026-10-27',
+        trackCode: 'TRK-2026-085',
+        group: 'Group D',
         variety: 'Scampi (Macrobrachium)',
         grade: '16/20',
-        group: 'Group D',
-        packingStyle: '6x2kg Block',
+        soaking: 'No (Unsoaked)',
+        species: 'Macrobrachium rosenbergii',
         packingType: 'Export Corrugated',
+        brandName: 'Arctic Catch',
+        brand: 'Arctic Catch',
+        packingStyle: '6x2kg Block',
+        category: 'Blanched Frozen',
         productCategory: 'Blanched Frozen',
+        abStatus: 'AWAITING LAB',
+        poNo: 'PO-2026-4405',
+        mcs: 120,
+        loose: 0,
+        looseBags: 0,
+        store: 'Chamber #3 (Blast)',
+        coldStores: 'Chamber #3 (Blast)',
+        stockBelongsTo: 'DFL Unit-5 (JPT)',
+        blocks: 'Block D',
+        typeProduct: 'Blanched Frozen',
+        freezingType: 'Blast Freezer',
         stockType: 'Quarantine Stock',
         location: 'CH-3 / QRT-01',
-        mcs: 120,
-        looseBags: 0,
         totalWeight: 1440.0,
         palletTag: 'PAL-2026-0455',
         status: 'Under Lab Hold'
       },
       {
         sNo: 6,
-        coldStores: 'Chamber #1 (IQF)',
-        stockBelongsTo: 'Devi Fisheries Ltd (DFL)',
-        poNo: 'PO-2026-4406',
-        blocks: 'Block A',
-        species: 'Litopenaeus Vannamei',
-        typeProduct: 'Raw Frozen',
-        freezingType: 'IQF Tunnel',
-        brand: 'Devi Royal',
+        bid: 'BID-2026-906',
+        date: '2026-10-27',
+        trackCode: 'TRK-2026-086',
+        group: 'Group A',
         variety: 'Vannamei (White Shrimp)',
         grade: '41/50',
-        group: 'Group A',
-        packingStyle: '10x1kg Net',
+        soaking: 'Yes (Non-Phosphate)',
+        species: 'Litopenaeus Vannamei',
         packingType: 'Master Cartons',
+        brandName: 'Devi Royal',
+        brand: 'Devi Royal',
+        packingStyle: '10x1kg Net',
+        category: 'Raw Frozen',
         productCategory: 'Raw Frozen',
+        abStatus: 'PASSED (AB Negative)',
+        poNo: 'PO-2026-4406',
+        mcs: 450,
+        loose: 15,
+        looseBags: 15,
+        store: 'Chamber #1 (IQF)',
+        coldStores: 'Chamber #1 (IQF)',
+        stockBelongsTo: 'Devi Fisheries Ltd (DFL)',
+        blocks: 'Block A',
+        typeProduct: 'Raw Frozen',
+        freezingType: 'IQF Tunnel',
         stockType: 'Racked Stock',
         location: 'CH-1 / RACK-03',
-        mcs: 450,
-        looseBags: 15,
         totalWeight: 4500.0,
         palletTag: 'PAL-2026-0456',
         status: 'Racked in Vault'
       },
       {
         sNo: 7,
-        coldStores: 'Chamber #2 (Block)',
-        stockBelongsTo: 'Third-Party Co-Packing',
-        poNo: 'PO-2026-4407',
-        blocks: 'Block B',
-        species: 'Litopenaeus Vannamei',
-        typeProduct: 'Raw Frozen',
-        freezingType: 'IQF Tunnel',
-        brand: 'Bay Harvest',
+        bid: 'BID-2026-907',
+        date: '2026-10-26',
+        trackCode: 'TRK-2026-087',
+        group: 'Group B',
         variety: 'Vannamei (White Shrimp)',
         grade: 'U-15',
-        group: 'Group B',
-        packingStyle: '10x2lb',
+        soaking: 'Yes (Non-Phosphate)',
+        species: 'Litopenaeus Vannamei',
         packingType: 'Outer Shipper',
+        brandName: 'Bay Harvest',
+        brand: 'Bay Harvest',
+        packingStyle: '10x2lb',
+        category: 'Raw Frozen',
         productCategory: 'Raw Frozen',
+        abStatus: 'PASSED (AB Negative)',
+        poNo: 'PO-2026-4407',
+        mcs: 200,
+        loose: 4,
+        looseBags: 4,
+        store: 'Chamber #2 (Block)',
+        coldStores: 'Chamber #2 (Block)',
+        stockBelongsTo: 'Third-Party Co-Packing',
+        blocks: 'Block B',
+        typeProduct: 'Raw Frozen',
+        freezingType: 'IQF Tunnel',
         stockType: 'Floor Stock',
         location: 'CH-2 / BAY-B11',
-        mcs: 200,
-        looseBags: 4,
         totalWeight: 1814.4,
         palletTag: 'PAL-2026-0457',
         status: 'Available on Floor'
       },
       {
         sNo: 8,
-        coldStores: 'Vault #3 Staging',
-        stockBelongsTo: 'Devi Fisheries Ltd (DFL)',
-        poNo: 'PO-2026-4408',
-        blocks: 'Block C',
-        species: 'Litopenaeus Vannamei',
-        typeProduct: 'Cooked Frozen',
-        freezingType: 'IQF Tunnel',
-        brand: 'Ocean Jewel',
+        bid: 'BID-2026-908',
+        date: '2026-10-25',
+        trackCode: 'TRK-2026-088',
+        group: 'Group C',
         variety: 'Vannamei (White Shrimp)',
         grade: '31/40',
-        group: 'Group C',
-        packingStyle: '10x1kg Net',
+        soaking: 'Yes (Non-Phosphate)',
+        species: 'Litopenaeus Vannamei',
         packingType: 'Master Cartons',
+        brandName: 'Ocean Jewel',
+        brand: 'Ocean Jewel',
+        packingStyle: '10x1kg Net',
+        category: 'Cooked Frozen',
         productCategory: 'Cooked Frozen',
+        abStatus: 'PASSED (AB Negative)',
+        poNo: 'PO-2026-4408',
+        mcs: 380,
+        loose: 20,
+        looseBags: 20,
+        store: 'Vault #3 Staging',
+        coldStores: 'Vault #3 Staging',
+        stockBelongsTo: 'Devi Fisheries Ltd (DFL)',
+        blocks: 'Block C',
+        typeProduct: 'Cooked Frozen',
+        freezingType: 'IQF Tunnel',
         stockType: 'Floor Stock',
         location: 'VAULT-3 / FLR-05',
-        mcs: 380,
-        looseBags: 20,
         totalWeight: 3800.0,
         palletTag: 'PAL-2026-0458',
         status: 'Available on Floor'
@@ -6377,7 +6449,60 @@ export const ColdstoreView = {
           </div>
         </div>
 
-        <!-- View Stock Data Table Container -->
+        <!-- Attached Stats Summary Above Data Table (Exact 4 Cards from User Uploaded Image) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 mb-3.5">
+          <!-- Card 1: TOTAL RECORDS -->
+          <div class="bg-gradient-to-r from-[#EFF6FF] to-[#DBEAFE] border border-[#BFDBFE] rounded-xl p-4 shadow-2xs flex items-center justify-between transition-all hover:shadow-xs">
+            <div>
+              <div class="text-[10px] font-bold text-[#0284C7] uppercase tracking-wider">TOTAL RECORDS</div>
+              <div class="text-2xl font-black text-[#172B4D] tracking-tight mt-0.5">15641</div>
+              <div class="text-[11px] text-[#0284C7] font-medium mt-0.5">Active stock entries</div>
+            </div>
+            <div class="w-11 h-11 rounded-full bg-[#D0E2FF] text-[#0F62FE] flex items-center justify-center shadow-xs shrink-0">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+            </div>
+          </div>
+
+          <!-- Card 2: TOTAL -->
+          <div class="bg-gradient-to-r from-[#F0FDF4] to-[#DCFCE7] border border-[#BBF7D0] rounded-xl p-4 shadow-2xs flex items-center justify-between transition-all hover:shadow-xs">
+            <div>
+              <div class="text-[10px] font-bold text-[#0E7A46] uppercase tracking-wider">TOTAL</div>
+              <div class="text-2xl font-black text-[#0E7A46] tracking-tight mt-0.5">0 kgs</div>
+              <div class="text-[11px] text-[#0E7A46] font-medium mt-0.5">stock</div>
+            </div>
+            <div class="w-11 h-11 rounded-full bg-[#D1FADF] text-[#0E7A46] flex items-center justify-center shadow-xs shrink-0">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+            </div>
+          </div>
+
+          <!-- Card 3: TOTAL LOOSE -->
+          <div class="bg-gradient-to-r from-[#FFFBEB] to-[#FEF3C7] border border-[#FDE68A] rounded-xl p-4 shadow-2xs flex items-center justify-between transition-all hover:shadow-xs">
+            <div>
+              <div class="text-[10px] font-bold text-[#B45309] uppercase tracking-wider">TOTAL LOOSE</div>
+              <div class="text-2xl font-black text-[#B45309] tracking-tight mt-0.5">0 kgs</div>
+              <div class="text-[11px] text-[#B45309] font-medium mt-0.5">Loose items</div>
+            </div>
+            <div class="w-11 h-11 rounded-full bg-[#FEDF89] text-[#B45309] flex items-center justify-center shadow-xs shrink-0">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+            </div>
+          </div>
+
+          <!-- Card 4: STOCK STATUS -->
+          <div class="bg-gradient-to-r from-[#FAF5FF] to-[#F3E8FF] border border-[#E9D5FF] rounded-xl p-4 shadow-2xs flex items-center justify-between transition-all hover:shadow-xs">
+            <div>
+              <div class="text-[10px] font-bold text-[#6941C6] uppercase tracking-wider">STOCK STATUS</div>
+              <div class="mt-1 space-y-0.5 text-xs font-semibold text-[#172B4D]">
+                <div>On Floor: <span class="font-bold text-[#6941C6]">222</span></div>
+                <div>On Store: <span class="font-bold text-[#6941C6]">15,419</span></div>
+              </div>
+            </div>
+            <div class="w-11 h-11 rounded-full bg-[#E9D7FE] text-[#6941C6] flex items-center justify-center shadow-xs shrink-0">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- View Stock Data Table Container (Exact 18 User-Specified Columns + Action with Print Icon) -->
         <div id="cs-view-stock-table-container"></div>
       </div>
     `;
@@ -6386,90 +6511,150 @@ export const ColdstoreView = {
     const renderTable = (data) => {
       table = new DataTable({
         containerId: 'cs-view-stock-table-container',
-        tableTitle: 'Store Floor Stock Inventory',
+        tableTitle: 'View Stock Inventory',
         searchable: true,
         exportable: true,
         pageSize: 10,
-        actions: [],
+        actionsTitle: 'ACTIONS',
         onRowClick: (row) => this.showFloorStockDetailModal(row),
+        actions: [
+          {
+            label: 'Print',
+            icon: `<svg class="w-4 h-4 text-[#0284C7] hover:text-[#0052CC]" fill="none" stroke="currentColor" viewBox="0 0 24 24" title="Print Stock Tag"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>`,
+            onClick: (row) => this.showPrintStockTagModal(row)
+          }
+        ],
         columns: [
+          // 1. S.NO
           {
             field: 'sNo',
-            header: 'S.No',
+            header: 'S.NO',
             sortable: true,
             render: (v, r, idx) => `<span class="text-[#5E6C84] font-semibold">${v || (idx + 1)}</span>`
           },
+          // 2. BID
           {
-            field: 'location',
-            header: 'Location',
+            field: 'bid',
+            header: 'BID',
             sortable: true,
-            render: (v, r) => `<div><span class="font-bold text-xs text-[#0284C7] font-mono">${v}</span><div class="text-[10px] text-[#5E6C84]">${r.coldStores || ''}</div></div>`
+            render: v => `<span class="font-mono font-bold text-xs text-[#0284C7] hover:underline cursor-pointer whitespace-nowrap">${v}</span>`
           },
+          // 3. DATE
           {
-            field: 'poNo',
-            header: 'PO.No',
+            field: 'date',
+            header: 'DATE',
             sortable: true,
-            render: v => `<span class="font-mono font-bold text-xs text-[#172B4D] hover:underline cursor-pointer">${v || '-'}</span>`
+            render: v => `<span class="font-mono text-xs text-[#5E6C84] whitespace-nowrap">${v}</span>`
           },
+          // 4. TRACK CODE
           {
-            field: 'stockBelongsTo',
-            header: 'Stock Belongs To',
+            field: 'trackCode',
+            header: 'TRACK CODE',
             sortable: true,
-            render: v => `<span class="font-medium text-xs text-[#172B4D]">${v}</span>`
+            render: v => `<span class="font-mono text-xs font-semibold text-[#172B4D] whitespace-nowrap">${v}</span>`
           },
+          // 5. GROUP
           {
-            field: 'brand',
-            header: 'Brand',
+            field: 'group',
+            header: 'GROUP',
             sortable: true,
-            render: v => `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#EAE6FF] text-[#403294] whitespace-nowrap">${v || '-'}</span>`
+            render: v => `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#EAE6FF] text-[#403294] whitespace-nowrap">${v}</span>`
           },
+          // 6. VARIETY
           {
             field: 'variety',
-            header: 'Variety',
+            header: 'VARIETY',
             sortable: true,
-            render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>`
+            render: v => `<span class="font-semibold text-xs text-[#172B4D] whitespace-nowrap">${v}</span>`
           },
+          // 7. GRADE
           {
             field: 'grade',
-            header: 'Grade',
+            header: 'GRADE',
             sortable: true,
-            render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-bold bg-[#F4F5F7] text-[#172B4D]">${v}</span>`
+            render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-bold bg-[#F4F5F7] text-[#172B4D] whitespace-nowrap">${v}</span>`
           },
+          // 8. SOAKING
           {
-            field: 'stockType',
-            header: 'Stock Type',
+            field: 'soaking',
+            header: 'SOAKING',
+            sortable: true,
+            render: v => `<span class="text-xs text-[#5E6C84] whitespace-nowrap">${v}</span>`
+          },
+          // 9. SPECIES
+          {
+            field: 'species',
+            header: 'SPECIES',
+            sortable: true,
+            render: v => `<span class="text-xs text-[#5E6C84] italic whitespace-nowrap">${v}</span>`
+          },
+          // 10. PACKING TYPE
+          {
+            field: 'packingType',
+            header: 'PACKING TYPE',
+            sortable: true,
+            render: v => `<span class="text-xs text-[#5E6C84] whitespace-nowrap">${v}</span>`
+          },
+          // 11. BRAND NAME
+          {
+            field: 'brandName',
+            header: 'BRAND NAME',
+            sortable: true,
+            render: v => `<span class="font-semibold text-xs text-[#172B4D] whitespace-nowrap">${v}</span>`
+          },
+          // 12. PACKING STYLE
+          {
+            field: 'packingStyle',
+            header: 'PACKING STYLE',
+            sortable: true,
+            render: v => `<span class="text-xs text-[#5E6C84] whitespace-nowrap">${v}</span>`
+          },
+          // 13. CATEGORY
+          {
+            field: 'category',
+            header: 'CATEGORY',
+            sortable: true,
+            render: v => `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#E0F2FE] text-[#0284C7] whitespace-nowrap">${v}</span>`
+          },
+          // 14. AB STATUS
+          {
+            field: 'abStatus',
+            header: 'AB STATUS',
             sortable: true,
             render: v => {
-              let color = 'bg-[#E3FCEF] text-[#006644]';
-              if (v === 'Allocated Stock') color = 'bg-[#DEEBFF] text-[#0747A6]';
-              else if (v === 'Quarantine Stock') color = 'bg-[#FFEBE6] text-[#BF2600]';
-              else if (v === 'Racked Stock') color = 'bg-[#E0F2FE] text-[#0284C7]';
-              return `<span class="px-2 py-0.5 rounded text-[10px] font-bold whitespace-nowrap ${color}">${v}</span>`;
+              let color = 'bg-[#FFF0B3] text-[#172B4D]';
+              if (v && v.includes('PASS')) color = 'bg-[#E3FCEF] text-[#006644]';
+              else if (v && v.includes('UNDER')) color = 'bg-[#DEEBFF] text-[#0747A6]';
+              return `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold whitespace-nowrap ${color}">${v}</span>`;
             }
           },
+          // 15. PO NUMBER
+          {
+            field: 'poNo',
+            header: 'PO NUMBER',
+            sortable: true,
+            render: v => `<span class="font-mono font-bold text-xs text-[#172B4D] whitespace-nowrap">${v || '-'}</span>`
+          },
+          // 16. MCS
           {
             field: 'mcs',
-            header: 'MCs',
+            header: 'MCS',
             sortable: true,
             render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">${Number(v).toLocaleString()}</span>`
           },
+          // 17. LOOSE
           {
-            field: 'looseBags',
-            header: 'Loose Bags',
+            field: 'loose',
+            header: 'LOOSE',
             sortable: true,
-            render: v => `<span class="font-mono text-xs text-[#172B4D]">${v || 0}</span>`
+            render: v => `<span class="font-mono font-semibold text-xs text-[#172B4D]">${v || 0}</span>`
           },
+          // 18. STORE
           {
-            field: 'totalWeight',
-            header: 'Total Wt (Kg)',
+            field: 'store',
+            header: 'STORE',
             sortable: true,
-            render: v => `<span class="font-mono font-bold text-xs text-[#172B4D]">${Number(v).toLocaleString(undefined, { minimumFractionDigits: 1 })}</span>`
-          },
-          {
-            field: 'status',
-            header: 'Status',
-            sortable: true,
-            render: v => `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold whitespace-nowrap bg-[#F4F5F7] text-[#172B4D] border border-[#DFE1E6]">${v}</span>`
+            render: v => `<span class="font-semibold text-xs text-[#172B4D] whitespace-nowrap">${v}</span>`
           }
         ],
         data: data
@@ -6603,21 +6788,21 @@ export const ColdstoreView = {
   // 4a-1. FLOOR STOCK DETAIL MODAL
   showFloorStockDetailModal(row) {
     Modal.open({
-      title: `Stock Details: ${row.palletTag || row.poNo} (${row.location})`,
+      title: `Stock Details: ${row.bid || row.poNo} (${row.trackCode || row.location})`,
       size: 'xl',
       content: `
         <div class="space-y-4 text-xs text-[#172B4D]">
           <!-- Header Banner -->
           <div class="p-3 bg-[#F4F5F7] border border-[#DFE1E6] rounded-lg flex items-center justify-between">
             <div>
-              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">PALLET / SLOT LOCATION</span>
-              <div class="text-base font-extrabold text-[#0284C7] font-mono">${row.location} • ${row.palletTag || 'FLOOR-TAG'}</div>
-              <div class="text-[11px] text-[#6B778C]">Chamber: <span class="font-bold text-[#172B4D]">${row.coldStores}</span> • Block: <span class="font-bold text-[#172B4D]">${row.blocks}</span></div>
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">BATCH / TRACK IDENTIFIER</span>
+              <div class="text-base font-extrabold text-[#0284C7] font-mono">${row.bid} • ${row.trackCode}</div>
+              <div class="text-[11px] text-[#6B778C]">Store: <span class="font-bold text-[#172B4D]">${row.store}</span> • Date: <span class="font-bold text-[#172B4D]">${row.date}</span></div>
             </div>
             <div class="text-right">
-              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">STOCK TYPE</span>
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">AB STATUS</span>
               <div class="mt-0.5">
-                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#E0F2FE] text-[#0284C7]">${row.stockType}</span>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold ${row.abStatus && row.abStatus.includes('PASS') ? 'bg-[#E3FCEF] text-[#006644]' : 'bg-[#FFF0B3] text-[#172B4D]'}">${row.abStatus}</span>
               </div>
             </div>
           </div>
@@ -6625,40 +6810,44 @@ export const ColdstoreView = {
           <!-- Section 1: Storage Quantities -->
           <div class="grid grid-cols-3 gap-3 bg-[#F8FAFC] p-3 border border-[#DFE1E6] rounded-lg text-center">
             <div class="p-2 bg-white rounded border border-[#DFE1E6]">
-              <div class="text-[10px] font-bold text-[#5E6C84] uppercase">MASTER CARTONS</div>
+              <div class="text-[10px] font-bold text-[#5E6C84] uppercase">MASTER CARTONS (MCS)</div>
               <div class="text-base font-black text-[#00875A] font-mono mt-0.5">${Number(row.mcs).toLocaleString()}</div>
             </div>
             <div class="p-2 bg-white rounded border border-[#DFE1E6]">
-              <div class="text-[10px] font-bold text-[#5E6C84] uppercase">LOOSE BAGS</div>
-              <div class="text-base font-black text-[#172B4D] font-mono mt-0.5">${row.looseBags || 0}</div>
+              <div class="text-[10px] font-bold text-[#5E6C84] uppercase">LOOSE ITEMS</div>
+              <div class="text-base font-black text-[#B45309] font-mono mt-0.5">${row.loose || 0}</div>
             </div>
             <div class="p-2 bg-white rounded border border-[#DFE1E6]">
               <div class="text-[10px] font-bold text-[#5E6C84] uppercase">TOTAL WEIGHT</div>
-              <div class="text-base font-black text-[#0284C7] font-mono mt-0.5">${Number(row.totalWeight).toLocaleString(undefined, { minimumFractionDigits: 1 })} kg</div>
+              <div class="text-base font-black text-[#0284C7] font-mono mt-0.5">${Number(row.totalWeight || 0).toLocaleString(undefined, { minimumFractionDigits: 1 })} kg</div>
             </div>
           </div>
 
-          <!-- Section 2: Product & Processing Identifiers (User Filters) -->
+          <!-- Section 2: Product & Processing Identifiers (User Data Table Columns) -->
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-white p-3 border border-[#DFE1E6] rounded-lg">
             <div>
-              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PO NO</span>
-              <span class="font-mono font-bold text-xs text-[#0284C7]">${row.poNo || '-'}</span>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">BID</span>
+              <span class="font-mono font-bold text-xs text-[#0284C7]">${row.bid}</span>
             </div>
             <div>
-              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">STOCK BELONGS TO</span>
-              <span class="font-medium text-xs text-[#172B4D]">${row.stockBelongsTo}</span>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">TRACK CODE</span>
+              <span class="font-mono font-semibold text-xs text-[#172B4D]">${row.trackCode}</span>
             </div>
             <div>
-              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">BRAND</span>
-              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#EAE6FF] text-[#403294]">${row.brand || '-'}</span>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">DATE</span>
+              <span class="font-mono text-xs text-[#5E6C84]">${row.date}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PO NUMBER</span>
+              <span class="font-mono font-bold text-xs text-[#172B4D]">${row.poNo || '-'}</span>
             </div>
             <div>
               <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">GROUP</span>
-              <span class="font-medium text-xs text-[#172B4D]">${row.group}</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#EAE6FF] text-[#403294]">${row.group}</span>
             </div>
             <div>
-              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">SPECIES</span>
-              <span class="text-xs text-[#5E6C84] italic">${row.species}</span>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">BRAND NAME</span>
+              <span class="font-semibold text-xs text-[#172B4D]">${row.brandName}</span>
             </div>
             <div>
               <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">VARIETY</span>
@@ -6669,16 +6858,12 @@ export const ColdstoreView = {
               <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-[#F4F5F7] text-[#172B4D]">${row.grade}</span>
             </div>
             <div>
-              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PRODUCT CATEGORY</span>
-              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#E0F2FE] text-[#0284C7]">${row.productCategory}</span>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">SOAKING</span>
+              <span class="text-xs text-[#172B4D]">${row.soaking}</span>
             </div>
             <div>
-              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">FREEZING TYPE</span>
-              <span class="text-xs text-[#172B4D]">${row.freezingType}</span>
-            </div>
-            <div>
-              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">TYPE PRODUCT</span>
-              <span class="text-xs text-[#172B4D]">${row.typeProduct}</span>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">SPECIES</span>
+              <span class="text-xs text-[#5E6C84] italic">${row.species}</span>
             </div>
             <div>
               <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PACKING STYLE</span>
@@ -6688,11 +6873,132 @@ export const ColdstoreView = {
               <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PACKING TYPE</span>
               <span class="text-xs text-[#172B4D]">${row.packingType}</span>
             </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">CATEGORY</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#E0F2FE] text-[#0284C7]">${row.category}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">STORE</span>
+              <span class="font-semibold text-xs text-[#172B4D]">${row.store}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">STOCK TYPE</span>
+              <span class="text-xs text-[#0284C7] font-semibold">${row.stockType}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">S.NO</span>
+              <span class="font-mono text-xs text-[#5E6C84]">#${row.sNo}</span>
+            </div>
           </div>
         </div>
       `,
       footerButtons: [
-        { label: 'Close', type: 'secondary', onClick: (modal) => modal.close() }
+        { label: 'Close', type: 'secondary', onClick: (modal) => modal.close() },
+        {
+          label: 'Print Tag',
+          type: 'primary',
+          icon: `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>`,
+          onClick: (modal) => {
+            modal.close();
+            this.showPrintStockTagModal(row);
+          }
+        }
+      ]
+    });
+  },
+
+  // 4a-2. PRINT STOCK TAG MODAL (ACTION PRINT ICON)
+  showPrintStockTagModal(row) {
+    Modal.open({
+      title: `Print Stock Tag - ${row.bid} (${row.trackCode})`,
+      size: 'lg',
+      content: `
+        <div class="space-y-4 text-xs text-[#172B4D]">
+          <div class="border-2 border-dashed border-[#0284C7] p-5 rounded-xl bg-white space-y-4">
+            <!-- Tag Header -->
+            <div class="flex items-center justify-between border-b pb-3 border-[#DFE1E6]">
+              <div>
+                <h3 class="text-base font-black text-[#172B4D] tracking-wide">DEVI FISHERIES LIMITED</h3>
+                <span class="text-[11px] font-semibold text-[#5E6C84]">COLDSTORE WAREHOUSE STOCK TAG</span>
+              </div>
+              <div class="text-right">
+                <span class="px-2.5 py-0.5 rounded text-[10px] font-bold bg-[#E0F2FE] text-[#0284C7]">${row.store}</span>
+                <div class="text-[10px] text-[#5E6C84] mt-0.5">${row.date}</div>
+              </div>
+            </div>
+
+            <!-- Barcode Simulation -->
+            <div class="text-center py-2.5 bg-[#F8FAFC] rounded-lg border border-[#DFE1E6]">
+              <div class="font-mono text-xl tracking-[0.25em] font-black text-[#172B4D] select-all">${row.bid}</div>
+              <div class="flex justify-center items-center gap-0.5 my-2 h-10">
+                <div class="w-1 h-full bg-[#172B4D]"></div><div class="w-0.5 h-full bg-[#172B4D]"></div><div class="w-1.5 h-full bg-[#172B4D]"></div><div class="w-0.5 h-full bg-white"></div>
+                <div class="w-2 h-full bg-[#172B4D]"></div><div class="w-1 h-full bg-white"></div><div class="w-1 h-full bg-[#172B4D]"></div><div class="w-0.5 h-full bg-[#172B4D]"></div>
+                <div class="w-2 h-full bg-[#172B4D]"></div><div class="w-1 h-full bg-white"></div><div class="w-1.5 h-full bg-[#172B4D]"></div><div class="w-0.5 h-full bg-[#172B4D]"></div>
+                <div class="w-1 h-full bg-[#172B4D]"></div><div class="w-2 h-full bg-[#172B4D]"></div><div class="w-0.5 h-full bg-white"></div><div class="w-1.5 h-full bg-[#172B4D]"></div>
+                <div class="w-1 h-full bg-[#172B4D]"></div><div class="w-0.5 h-full bg-[#172B4D]"></div><div class="w-2 h-full bg-[#172B4D]"></div><div class="w-1 h-full bg-[#172B4D]"></div>
+              </div>
+              <div class="text-[10px] font-mono font-bold text-[#5E6C84]">TRACK CODE: ${row.trackCode}</div>
+            </div>
+
+            <!-- Stock Details Grid -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs bg-[#F8FAFC] p-3 rounded-lg border border-[#DFE1E6]">
+              <div>
+                <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">VARIETY</span>
+                <span class="font-bold text-[#172B4D]">${row.variety}</span>
+              </div>
+              <div>
+                <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">GRADE</span>
+                <span class="font-bold text-[#0284C7]">${row.grade}</span>
+              </div>
+              <div>
+                <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">BRAND</span>
+                <span class="font-semibold text-[#172B4D]">${row.brandName}</span>
+              </div>
+              <div>
+                <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PO NUMBER</span>
+                <span class="font-mono font-bold text-[#172B4D]">${row.poNo || '-'}</span>
+              </div>
+              <div>
+                <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PACKING STYLE</span>
+                <span class="font-medium text-[#172B4D]">${row.packingStyle}</span>
+              </div>
+              <div>
+                <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PACKING TYPE</span>
+                <span class="font-medium text-[#172B4D]">${row.packingType}</span>
+              </div>
+              <div>
+                <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">MASTER CARTONS</span>
+                <span class="font-black text-base text-[#00875A] font-mono">${row.mcs} MCs</span>
+              </div>
+              <div>
+                <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">LOOSE ITEMS</span>
+                <span class="font-bold text-base text-[#B45309] font-mono">${row.loose} Bags</span>
+              </div>
+            </div>
+
+            <!-- Footer Signoff -->
+            <div class="flex justify-between items-end border-t pt-3 border-[#DFE1E6] text-[10px] text-[#5E6C84]">
+              <div>AB Status: <span class="font-bold text-[#006644]">${row.abStatus}</span> • Group: <span class="font-bold text-[#172B4D]">${row.group}</span></div>
+              <div class="text-right">
+                <div class="h-6 border-b border-[#CBD5E1] w-36 mb-0.5"></div>
+                <div>Authorized Signatory</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `,
+      footerButtons: [
+        { label: 'Cancel', type: 'secondary', onClick: (modal) => modal.close() },
+        {
+          label: 'Print Tag',
+          type: 'primary',
+          icon: `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>`,
+          onClick: (modal) => {
+            window.print();
+            modal.close();
+            Toast.show(`Stock Tag for ${row.bid} sent to printer`, 'success');
+          }
+        }
       ]
     });
   },
