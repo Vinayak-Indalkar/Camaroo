@@ -23,7 +23,8 @@ export class DataTable {
     hideTopFilterBar = true,
     minWidth = null,
     onRowClick = null,
-    onDataChange = null
+    onDataChange = null,
+    toolbarButtons = []
   }) {
     this.container = typeof containerId === 'string' ? document.getElementById(containerId) : containerId;
     this.columns = (columns || []).map(c => ({
@@ -51,6 +52,7 @@ export class DataTable {
     });
     this.actionsTitle = actionsTitle;
     this.bulkActions = bulkActions;
+    this.toolbarButtons = toolbarButtons || [];
     this.exportable = exportable;
     this.showCopy = showCopy;
     const derivedTitle = typeof containerId === 'string' ? containerId.replace(/^[a-z0-9]+-/, '').replace(/-table$/, '').split('-').filter(Boolean).map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ') : '';
@@ -327,6 +329,7 @@ export class DataTable {
             </div>
 
             <div class="flex items-center gap-2 flex-wrap">
+              ${this.renderToolbarButtonsHtml()}
               <!-- Unified Download Button with Dropdown (Excel, CSV, PDF) -->
               <div class="relative">
                 <button type="button" id="dt-download-btn" class="btn-secondary px-3 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5 hover:bg-[#EBECF0] transition-colors cursor-pointer shadow-2xs" title="Download Table Data">
@@ -408,6 +411,25 @@ export class DataTable {
     this.renderTableBody();
     this.renderPagination();
     this.bindEvents();
+  }
+
+  renderToolbarButtonsHtml() {
+    if (!this.toolbarButtons || this.toolbarButtons.length === 0) return '';
+    return this.toolbarButtons.map((btn, idx) => {
+      const btnId = btn.id || `dt-custom-tb-btn-${idx}`;
+      const isReqSel = btn.requiresSelection !== false;
+      const initialDisabled = isReqSel && (!this.selectedKeys || this.selectedKeys.size === 0);
+      const disabledAttrs = initialDisabled ? 'disabled aria-disabled="true"' : '';
+      const disabledClasses = initialDisabled ? 'opacity-40 cursor-not-allowed pointer-events-none' : '';
+      const styleClass = btn.className || (btn.variant === 'primary' ? 'btn-primary' : 'btn-secondary');
+
+      return `
+        <button type="button" id="${btnId}" data-tb-btn-idx="${idx}" class="${styleClass} px-3 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5 transition-all shadow-2xs cursor-pointer ${disabledClasses}" title="${btn.title || btn.label || ''}" ${disabledAttrs}>
+          ${btn.icon || ''}
+          <span>${btn.label || ''}</span>
+        </button>
+      `;
+    }).join('');
   }
 
   renderHeader() {
@@ -928,6 +950,27 @@ export class DataTable {
       copyBtn.addEventListener('click', () => this.copyToClipboard());
     }
 
+    // Toolbar custom buttons binding
+    if (this.toolbarButtons && this.toolbarButtons.length > 0) {
+      this.toolbarButtons.forEach((btn, idx) => {
+        const btnId = btn.id || `dt-custom-tb-btn-${idx}`;
+        const btnEl = this.container.querySelector(`#${btnId}`);
+        if (btnEl) {
+          btnEl.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (btn.requiresSelection !== false && (!this.selectedKeys || this.selectedKeys.size === 0)) {
+              return;
+            }
+            const selectedKeysArr = Array.from(this.selectedKeys);
+            const selectedRows = this.filteredData.filter(r => this.selectedKeys.has(r[this.keyField]));
+            if (btn.onClick) {
+              btn.onClick(selectedKeysArr, selectedRows, this);
+            }
+          });
+        }
+      });
+    }
+
     // Download Dropdown Toggle
     const downloadBtn = this.container.querySelector('#dt-download-btn');
     const downloadDropdown = this.container.querySelector('#dt-download-dropdown');
@@ -1046,15 +1089,36 @@ export class DataTable {
   updateBulkBar() {
     const bulkBar = this.container.querySelector('#dt-bulk-bar');
     const selectedCount = this.container.querySelector('#dt-selected-count');
-    if (!bulkBar) return;
+    if (bulkBar && selectedCount) {
+      if (this.selectedKeys.size > 0) {
+        bulkBar.classList.remove('hidden');
+        bulkBar.classList.add('flex');
+        selectedCount.innerText = `${this.selectedKeys.size} items selected`;
+      } else {
+        bulkBar.classList.add('hidden');
+        bulkBar.classList.remove('flex');
+      }
+    }
 
-    if (this.selectedKeys.size > 0) {
-      bulkBar.classList.remove('hidden');
-      bulkBar.classList.add('flex');
-      selectedCount.innerText = `${this.selectedKeys.size} items selected`;
-    } else {
-      bulkBar.classList.add('hidden');
-      bulkBar.classList.remove('flex');
+    // Update toolbar buttons that require row selection
+    if (this.toolbarButtons && this.toolbarButtons.length > 0) {
+      this.toolbarButtons.forEach((btn, idx) => {
+        if (btn.requiresSelection !== false) {
+          const btnId = btn.id || `dt-custom-tb-btn-${idx}`;
+          const btnEl = this.container.querySelector(`#${btnId}`);
+          if (btnEl) {
+            const hasSel = this.selectedKeys && this.selectedKeys.size > 0;
+            btnEl.disabled = !hasSel;
+            if (!hasSel) {
+              btnEl.classList.add('opacity-40', 'cursor-not-allowed', 'pointer-events-none');
+              btnEl.setAttribute('aria-disabled', 'true');
+            } else {
+              btnEl.classList.remove('opacity-40', 'cursor-not-allowed', 'pointer-events-none');
+              btnEl.removeAttribute('aria-disabled');
+            }
+          }
+        }
+      });
     }
   }
 
