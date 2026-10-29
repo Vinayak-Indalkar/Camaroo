@@ -210,9 +210,10 @@ export const ADMIN_NAV_HIERARCHY = [
       {
         id: "stock",
         title: "Stock",
-        defaultTab: "stock-list",
+        defaultTab: "inward",
         tabs: [
-          { id: "stock-list", label: "Stock", hash: "#/coldstore/stock/stock-list" }
+          { id: "inward", label: "Stock In", hash: "#/coldstore/stock/inward" },
+          { id: "stock-out", label: "Stock Out", hash: "#/coldstore/stock/stock-out" }
         ]
       },
       {

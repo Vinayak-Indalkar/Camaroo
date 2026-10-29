@@ -402,16 +402,252 @@ export const ColdstoreView = {
       }
     ],
 
-    // 3. Stock Inventory
-    stockList: [
-      { id: 1, palletId: 'PAL-2026-0441', chamber: 'Chamber #1 (IQF)', rack: 'RACK-A1-T1', product: 'Vannamei PD IQF', grade: '31/40', cartons: 48, netWeightKg: 480.0, dateInward: '2026-10-28', status: 'Stored' },
-      { id: 2, palletId: 'PAL-2026-0442', chamber: 'Chamber #1 (IQF)', rack: 'RACK-A1-T2', product: 'Vannamei HOSO IQF', grade: '16/20', cartons: 56, netWeightKg: 560.0, dateInward: '2026-10-27', status: 'Stored' },
-      { id: 3, palletId: 'PAL-2026-0443', chamber: 'Chamber #2 (Block)', rack: 'RACK-B1-T1', product: 'Black Tiger Block Frozen', grade: '21/25', cartons: 60, netWeightKg: 600.0, dateInward: '2026-10-26', status: 'Allocated' },
-      { id: 4, palletId: 'PAL-2026-0444', chamber: 'Chamber #2 (Block)', rack: 'RACK-B2-T3', product: 'Vannamei HLSO Block', grade: '26/30', cartons: 72, netWeightKg: 720.0, dateInward: '2026-10-26', status: 'Stored' },
-      { id: 5, palletId: 'PAL-2026-0445', chamber: 'Chamber #3 (Staging)', rack: 'RACK-D1-T1', product: 'Sea Pearl Cooked PDTO', grade: '41/50', cartons: 40, netWeightKg: 400.0, dateInward: '2026-10-25', status: 'Staged for Export' },
-      { id: 6, palletId: 'PAL-2026-0446', chamber: 'Chamber #1 (IQF)', rack: 'RACK-C1-T2', product: 'Vannamei Butterfly IQF', grade: '31/40', cartons: 50, netWeightKg: 500.0, dateInward: '2026-10-25', status: 'Stored' },
-      { id: 7, palletId: 'PAL-2026-0447', chamber: 'Chamber #2 (Block)', rack: 'RACK-B3-T2', product: 'Scampi Headless Block', grade: '11/15', cartons: 36, netWeightKg: 360.0, dateInward: '2026-10-24', status: 'Under QC Hold' }
+    // 3. Stock Inventory & Inward Records
+    stockInList: [
+      {
+        id: 1,
+        sNo: 1,
+        inwardCode: 'INW-CS-2026-441',
+        inwardDate: '2026-10-29',
+        palletId: 'PAL-2026-0441',
+        lotNo: 'LOT-FZ-2026-301',
+        productionPlant: 'DFL UNIT-5 (JPT)',
+        stockBelongsTo: 'Devi Fisheries Ltd (DFL)',
+        product: 'Vannamei PD IQF',
+        grade: '31/40',
+        packingType: 'Master Cartons',
+        packingStyle: '10x1kg Net',
+        chamber: 'Chamber #1 (IQF)',
+        rack: 'RACK-A1-T1',
+        cartons: 48,
+        mcs: 48,
+        bags: 480,
+        netWeightKg: 480.0,
+        temp: -21.8,
+        shift: 'Shift A (Day)',
+        supervisor: 'K. Rama Rao',
+        status: 'Stored'
+      },
+      {
+        id: 2,
+        sNo: 2,
+        inwardCode: 'INW-CS-2026-442',
+        inwardDate: '2026-10-29',
+        palletId: 'PAL-2026-0442',
+        lotNo: 'LOT-FZ-2026-302',
+        productionPlant: 'DFL UNIT-5 (JPT)',
+        stockBelongsTo: 'DFL Unit-5 (JPT)',
+        product: 'Black Tiger Block Frozen',
+        grade: '21/25',
+        packingType: '6x2kg Block',
+        packingStyle: '6x2kg Block',
+        chamber: 'Chamber #2 (Block)',
+        rack: 'RACK-B1-T1',
+        cartons: 60,
+        mcs: 60,
+        bags: 360,
+        netWeightKg: 600.0,
+        temp: -24.2,
+        shift: 'Shift B (Evening)',
+        supervisor: 'P. Satyanarayana',
+        status: 'Stored'
+      },
+      {
+        id: 3,
+        sNo: 3,
+        inwardCode: 'INW-CS-2026-443',
+        inwardDate: '2026-10-28',
+        palletId: 'PAL-2026-0443',
+        lotNo: 'LOT-FZ-2026-299',
+        productionPlant: 'DFL UNIT-4 (PND)',
+        stockBelongsTo: 'DFL Unit-4 (PND)',
+        product: 'Vannamei HOSO IQF',
+        grade: '16/20',
+        packingType: 'Master Cartons',
+        packingStyle: '10x1kg Net',
+        chamber: 'Chamber #1 (IQF)',
+        rack: 'RACK-A1-T2',
+        cartons: 56,
+        mcs: 56,
+        bags: 560,
+        netWeightKg: 560.0,
+        temp: -22.4,
+        shift: 'Shift A (Day)',
+        supervisor: 'Anita P. Rao',
+        status: 'Stored'
+      },
+      {
+        id: 4,
+        sNo: 4,
+        inwardCode: 'INW-CS-2026-444',
+        inwardDate: '2026-10-28',
+        palletId: 'PAL-2026-0444',
+        lotNo: 'LOT-FZ-2026-298',
+        productionPlant: 'DFL UNIT-3 (PSP)',
+        stockBelongsTo: 'DFL Unit-3 (PSP)',
+        product: 'Vannamei HLSO Block',
+        grade: '26/30',
+        packingType: '6x2kg Block',
+        packingStyle: '6x2kg Block',
+        chamber: 'Chamber #2 (Block)',
+        rack: 'RACK-B2-T3',
+        cartons: 72,
+        mcs: 72,
+        bags: 432,
+        netWeightKg: 720.0,
+        temp: -25.0,
+        shift: 'Shift C (Night)',
+        supervisor: 'M. Krishna',
+        status: 'Allocated'
+      },
+      {
+        id: 5,
+        sNo: 5,
+        inwardCode: 'INW-CS-2026-445',
+        inwardDate: '2026-10-27',
+        palletId: 'PAL-2026-0445',
+        lotNo: 'LOT-FZ-2026-295',
+        productionPlant: 'DFL UNIT-5 (JPT)',
+        stockBelongsTo: 'Devi Fisheries Ltd (DFL)',
+        product: 'Sea Pearl Cooked PDTO',
+        grade: '41/50',
+        packingType: '5x2kg IQF Poly',
+        packingStyle: '5x2kg Poly',
+        chamber: 'Vault #3 Staging',
+        rack: 'RACK-D1-T1',
+        cartons: 40,
+        mcs: 40,
+        bags: 200,
+        netWeightKg: 400.0,
+        temp: -26.5,
+        shift: 'Shift A (Day)',
+        supervisor: 'K. Rama Rao',
+        status: 'Staged for Export'
+      },
+      {
+        id: 6,
+        sNo: 6,
+        inwardCode: 'INW-CS-2026-446',
+        inwardDate: '2026-10-27',
+        palletId: 'PAL-2026-0446',
+        lotNo: 'LOT-FZ-2026-291',
+        productionPlant: 'DFL UNIT-1 (VSP)',
+        stockBelongsTo: 'DFL Unit-1 (VSP)',
+        product: 'Scampi Headless Block',
+        grade: '11/15',
+        packingType: 'Dummy Cartons',
+        packingStyle: '6x2kg Block',
+        chamber: 'Chamber #2 (Block)',
+        rack: 'RACK-B3-T2',
+        cartons: 36,
+        mcs: 36,
+        bags: 216,
+        netWeightKg: 360.0,
+        temp: -24.8,
+        shift: 'Shift B (Evening)',
+        supervisor: 'P. Satyanarayana',
+        status: 'Under QC Hold'
+      },
+      {
+        id: 7,
+        sNo: 7,
+        inwardCode: 'INW-CS-2026-447',
+        inwardDate: '2026-10-26',
+        palletId: 'PAL-2026-0447',
+        lotNo: 'LOT-FZ-2026-288',
+        productionPlant: 'DFL UNIT-5 (JPT)',
+        stockBelongsTo: 'Devi Fisheries Ltd (DFL)',
+        product: 'Vannamei Easy Peel IQF',
+        grade: '26/30',
+        packingType: '10x2lb Pouch',
+        packingStyle: '10x2lb Retail Pouch',
+        chamber: 'Chamber #1 (IQF)',
+        rack: 'RACK-A2-T1',
+        cartons: 50,
+        mcs: 50,
+        bags: 500,
+        netWeightKg: 500.0,
+        temp: -22.0,
+        shift: 'Shift A (Day)',
+        supervisor: 'Anita P. Rao',
+        status: 'Stored'
+      },
+      {
+        id: 8,
+        sNo: 8,
+        inwardCode: 'INW-CS-2026-448',
+        inwardDate: '2026-10-26',
+        palletId: 'PAL-2026-0448',
+        lotNo: 'LOT-FZ-2026-285',
+        productionPlant: 'DFL UNIT-4 (PND)',
+        stockBelongsTo: 'Third-Party Co-Packing',
+        product: 'Black Tiger HOSO IQF',
+        grade: '16/20',
+        packingType: 'Master Cartons',
+        packingStyle: '10x1kg Net',
+        chamber: 'Chamber #1 (IQF)',
+        rack: 'RACK-C1-T1',
+        cartons: 45,
+        mcs: 45,
+        bags: 450,
+        netWeightKg: 450.0,
+        temp: -23.0,
+        shift: 'Shift B (Evening)',
+        supervisor: 'M. Krishna',
+        status: 'Stored'
+      },
+      {
+        id: 9,
+        sNo: 9,
+        inwardCode: 'INW-CS-2026-449',
+        inwardDate: '2026-10-25',
+        palletId: 'PAL-2026-0449',
+        lotNo: 'LOT-FZ-2026-280',
+        productionPlant: 'DFL UNIT-5 (JPT)',
+        stockBelongsTo: 'Devi Fisheries Ltd (DFL)',
+        product: 'Vannamei Butterfly IQF',
+        grade: '31/40',
+        packingType: 'Master Cartons',
+        packingStyle: '10x1kg Net',
+        chamber: 'Chamber #1 (IQF)',
+        rack: 'RACK-C1-T2',
+        cartons: 50,
+        mcs: 50,
+        bags: 500,
+        netWeightKg: 500.0,
+        temp: -22.1,
+        shift: 'Shift A (Day)',
+        supervisor: 'K. Rama Rao',
+        status: 'Stored'
+      },
+      {
+        id: 10,
+        sNo: 10,
+        inwardCode: 'INW-CS-2026-450',
+        inwardDate: '2026-10-25',
+        palletId: 'PAL-2026-0450',
+        lotNo: 'LOT-FZ-2026-276',
+        productionPlant: 'DFL UNIT-3 (PSP)',
+        stockBelongsTo: 'DFL Unit-3 (PSP)',
+        product: 'Vannamei PD IQF',
+        grade: '41/50',
+        packingType: 'Master Cartons',
+        packingStyle: '10x1kg Net',
+        chamber: 'Chamber #1 (IQF)',
+        rack: 'RACK-A3-T1',
+        cartons: 64,
+        mcs: 64,
+        bags: 640,
+        netWeightKg: 640.0,
+        temp: -22.3,
+        shift: 'Shift C (Night)',
+        supervisor: 'Anita P. Rao',
+        status: 'Stored'
+      }
     ],
+    get stockList() {
+      return this.stockInList;
+    },
 
     // 3. Orders & Outward Allocations
     orders: [
@@ -479,7 +715,11 @@ export const ColdstoreView = {
         }
         break;
       case 'stock':
-        this.renderStock(contentEl);
+        if (tabId === 'stock-out' || tabId.includes('stock-out') || tabId.includes('stockout') || tabId.includes('outward')) {
+          this.renderStockOut(contentEl);
+        } else {
+          this.renderStockIn(contentEl);
+        }
         break;
       case 'orders':
         this.renderOrders(contentEl);
@@ -979,7 +1219,7 @@ export const ColdstoreView = {
   },
 
   // 2b. PRODUCTION - DAILY STOCKOUT
-  renderDailyStockOut(container) {
+  renderDailyStockOut(container, pageTitle = 'Daily StockOut') {
     const fullList = this.state.dailyStockOutList || [];
 
     // Global helper for link clicks
@@ -993,7 +1233,7 @@ export const ColdstoreView = {
         <!-- Clean Page Header (No extra KPI cards, subheadings or pill badges) -->
         <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
           <div>
-            <h1 class="text-xl font-extrabold text-[#172B4D]">Daily StockOut</h1>
+            <h1 class="text-xl font-extrabold text-[#172B4D]">${pageTitle}</h1>
           </div>
         </div>
 
@@ -1103,7 +1343,7 @@ export const ColdstoreView = {
     const renderTable = (data) => {
       new DataTable({
         containerId: 'cs-daily-stockout-table',
-        tableTitle: 'Daily StockOut',
+        tableTitle: pageTitle,
         keyField: 'stockOutCode',
         searchable: true,
         exportable: true,
@@ -1743,39 +1983,822 @@ export const ColdstoreView = {
     this.renderDailyProduction(container);
   },
 
-  // 3. STOCK
-  renderStock(container) {
+  // 3a. STOCK - STOCK IN (INWARD)
+  renderStockIn(container) {
+    const fullList = this.state.stockInList || this.state.stockList || [];
+
+    // Global helper for link clicks
+    window.__viewStockInDetails = (inwardCode) => {
+      const row = fullList.find(x => x.inwardCode === inwardCode || x.palletId === inwardCode);
+      if (row) this.showStockInDetailModal(row);
+    };
+
     container.innerHTML = `
-      <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
-        <div>
-          <h1 class="text-xl font-extrabold text-[#172B4D]">Coldstore Master Stock</h1>
-          <p class="text-xs text-[#6B778C] mt-0.5">Comprehensive palletized stock inventory, storage racks, and carton lots</p>
+      <div class="space-y-4 animate-fade-in">
+        <!-- Clean Page Header -->
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+          <div>
+            <h1 class="text-xl font-extrabold text-[#172B4D]">Stock In</h1>
+          </div>
+          <button 
+            type="button" 
+            id="cs-add-stock-in-btn" 
+            class="btn-primary px-3.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 shadow-2xs hover:shadow cursor-pointer"
+            title="Add Stock In Record"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+            <span>Add Stock In</span>
+          </button>
         </div>
-      </div>
-      <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
-        <div id="cs-stock-table"></div>
+
+        <!-- Collapsible Top Filter Header Card -->
+        <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200" style="margin-bottom: 12px !important;">
+          <div class="flex items-center justify-between pb-1">
+            <div class="flex items-center gap-2">
+              <svg style="width: 16px; height: 16px; min-width: 16px; min-height: 16px; stroke: #0284C7; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+              <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
+            </div>
+
+            <!-- Filter Controls: Reset & Toggle Open/Close -->
+            <div class="inline-flex items-center" style="gap: 8px; display: inline-flex;">
+              <button 
+                type="button" 
+                id="cs-inward-filter-reset-btn"
+                class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#0284C7] text-[#334155] hover:text-[#0284C7] rounded-full transition-colors cursor-pointer select-none" 
+                style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 9999px; border: 1px solid #CBD5E1; background: #ffffff; color: #334155; display: inline-flex; align-items: center; justify-content: center; padding: 0;"
+                title="Reset All Filters" 
+                aria-label="Reset All Filters"
+              >
+                <svg style="width: 15px; height: 15px; min-width: 15px; min-height: 15px; stroke: #334155; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+              </button>
+
+              <button 
+                type="button" 
+                id="cs-inward-filter-toggle-btn"
+                class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#0284C7] text-[#334155] hover:text-[#0284C7] rounded-full transition-colors cursor-pointer select-none" 
+                style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 9999px; border: 1px solid #CBD5E1; background: #ffffff; color: #334155; display: inline-flex; align-items: center; justify-content: center; padding: 0;"
+                title="Hide Filter" 
+                aria-label="Hide Filter"
+              >
+                <svg id="cs-inward-filter-toggle-icon" style="width: 15px; height: 15px; min-width: 15px; min-height: 15px; stroke: #334155; fill: none; display: inline-block;" class="dt-top-filter-toggle-icon transform transition-transform duration-200" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Collapsible Filter Inputs Grid (4 Columns) -->
+          <div id="cs-inward-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
+            <!-- 1. INWARD DATE -->
+            <div>
+              <label for="cs-inward-filter-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">INWARD DATE <span class="text-red-500 font-black">*</span></label>
+              <input type="date" id="cs-inward-filter-date" value="2026-10-29" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+            </div>
+
+            <!-- 2. STOCK BELONGS TO -->
+            <div>
+              <label for="cs-inward-filter-belongs" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STOCK BELONGS TO</label>
+              <select id="cs-inward-filter-belongs" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="ALL">All Stock Belongs To</option>
+                <option value="Devi Fisheries Ltd (DFL)">Devi Fisheries Ltd (DFL)</option>
+                <option value="DFL Unit-5 (JPT)">DFL Unit-5 (JPT)</option>
+                <option value="DFL Unit-4 (PND)">DFL Unit-4 (PND)</option>
+                <option value="DFL Unit-3 (PSP)">DFL Unit-3 (PSP)</option>
+                <option value="DFL Unit-1 (VSP)">DFL Unit-1 (VSP)</option>
+                <option value="Third-Party Co-Packing">Third-Party Co-Packing</option>
+              </select>
+            </div>
+
+            <!-- 3. PRODUCT -->
+            <div>
+              <label for="cs-inward-filter-product" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCT</label>
+              <select id="cs-inward-filter-product" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="ALL">All Products</option>
+                <option value="Vannamei PD IQF">Vannamei PD IQF</option>
+                <option value="Black Tiger Block Frozen">Black Tiger Block Frozen</option>
+                <option value="Vannamei HOSO IQF">Vannamei HOSO IQF</option>
+                <option value="Vannamei HLSO Block">Vannamei HLSO Block</option>
+                <option value="Sea Pearl Cooked PDTO">Sea Pearl Cooked PDTO</option>
+                <option value="Scampi Headless Block">Scampi Headless Block</option>
+                <option value="Vannamei Easy Peel IQF">Vannamei Easy Peel IQF</option>
+                <option value="Black Tiger HOSO IQF">Black Tiger HOSO IQF</option>
+                <option value="Vannamei Butterfly IQF">Vannamei Butterfly IQF</option>
+              </select>
+            </div>
+
+            <!-- 4. GRADE -->
+            <div>
+              <label for="cs-inward-filter-grade" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">GRADE</label>
+              <select id="cs-inward-filter-grade" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="ALL">All Grades</option>
+                <option value="16/20">16/20</option>
+                <option value="21/25">21/25</option>
+                <option value="26/30">26/30</option>
+                <option value="31/40">31/40</option>
+                <option value="41/50">41/50</option>
+                <option value="11/15">11/15</option>
+              </select>
+            </div>
+
+            <!-- 5. CHAMBER -->
+            <div>
+              <label for="cs-inward-filter-chamber" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STORAGE CHAMBER</label>
+              <select id="cs-inward-filter-chamber" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="ALL">All Chambers</option>
+                <option value="Chamber #1 (IQF)">Chamber #1 (IQF)</option>
+                <option value="Chamber #2 (Block)">Chamber #2 (Block)</option>
+                <option value="Vault #3 Staging">Vault #3 Staging</option>
+              </select>
+            </div>
+
+            <!-- 6. PACKING TYPE -->
+            <div>
+              <label for="cs-inward-filter-packing" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PACKING TYPE</label>
+              <select id="cs-inward-filter-packing" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="ALL">All Packing Types</option>
+                <option value="Master Cartons">Master Cartons</option>
+                <option value="6x2kg Block">6x2kg Block</option>
+                <option value="Dummy Cartons">Dummy Cartons</option>
+                <option value="10x2lb Pouch">10x2lb Pouch</option>
+                <option value="5x2kg IQF Poly">5x2kg IQF Poly</option>
+              </select>
+            </div>
+
+            <!-- 7. STATUS -->
+            <div>
+              <label for="cs-inward-filter-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STOCK STATUS</label>
+              <select id="cs-inward-filter-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="ALL">All Statuses</option>
+                <option value="Stored">Stored</option>
+                <option value="Allocated">Allocated</option>
+                <option value="Staged for Export">Staged for Export</option>
+                <option value="Under QC Hold">Under QC Hold</option>
+              </select>
+            </div>
+
+            <!-- Search Action Button Slot (Width Fitted) -->
+            <div class="flex items-end">
+              <button 
+                type="button" 
+                id="cs-inward-filter-search-btn" 
+                class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]"
+                title="Search Filter Records"
+              >
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                <span>Search</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Data Table Container -->
+        <div id="cs-stock-in-table"></div>
       </div>
     `;
 
-    new DataTable({
-      containerId: 'cs-stock-table',
-      tableTitle: 'Cold Store Stock',
-      searchable: true,
-      exportable: true,
-      pageSize: 10,
-      columns: [
-        { key: 'id', label: 'S.No', render: (v, r, idx) => idx + 1 },
-        { key: 'palletId', label: 'Pallet ID', sortable: true, render: v => `<span class="font-mono font-bold text-[#0284C7]">${v}</span>` },
-        { key: 'chamber', label: 'Storage Chamber' },
-        { key: 'rack', label: 'Rack Slot', render: v => `<span class="font-mono font-semibold">${v}</span>` },
-        { key: 'product', label: 'Product Variety' },
-        { key: 'grade', label: 'Grade' },
-        { key: 'cartons', label: 'Cartons Stored', render: v => `<span class="font-mono font-bold text-[#00875A]">${v}</span>` },
-        { key: 'netWeightKg', label: 'Net Weight (Kg)', render: v => `<span class="font-mono font-bold">${v.toFixed(1)}</span>` },
-        { key: 'dateInward', label: 'Inward Date' },
-        { key: 'status', label: 'Stock Status', render: v => `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold ${v === 'Stored' ? 'bg-[#E3FCEF] text-[#006644]' : v === 'Allocated' ? 'bg-[#DEEBFF] text-[#0747A6]' : 'bg-[#FFF0B3] text-[#172B4D]'}">${v}</span>` }
-      ],
-      data: this.state.stockList
+    // Render Table Function with Strict Rule: NO VIEW EYE ICON
+    const renderTable = (data) => {
+      new DataTable({
+        containerId: 'cs-stock-in-table',
+        tableTitle: 'Stock In',
+        keyField: 'inwardCode',
+        searchable: true,
+        exportable: true,
+        pageSize: 10,
+        columns: [
+          // 1. S.NO
+          {
+            field: 'sNo',
+            header: 'S.NO',
+            render: (v, r, idx) => `<span class="text-[#5E6C84] font-semibold">${v || (idx + 1)}</span>`
+          },
+          // 2. Action (Edit, Delete - STRICTLY NO VIEW EYE ICON)
+          {
+            field: 'action',
+            header: 'Action',
+            sortable: false,
+            render: (v, r) => `
+              <div class="inline-flex items-center gap-1.5" onclick="event.stopPropagation()">
+                <button 
+                  type="button" 
+                  class="dt-action-edit-btn p-1 text-[#00A4B7] hover:text-[#007A87] hover:bg-[#E6F7F9] rounded cursor-pointer transition-colors" 
+                  data-code="${r.inwardCode || r.palletId}" 
+                  title="Edit Record" 
+                  aria-label="Edit Record"
+                >
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+                </button>
+                <button 
+                  type="button" 
+                  class="dt-action-delete-btn p-1 text-[#DE350B] hover:text-[#BF2600] hover:bg-[#FFEBE6] rounded cursor-pointer transition-colors" 
+                  data-code="${r.inwardCode || r.palletId}" 
+                  title="Delete Record" 
+                  aria-label="Delete Record"
+                >
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                </button>
+              </div>
+            `
+          },
+          // 3. Inward Date
+          {
+            field: 'inwardDate',
+            header: 'Inward Date',
+            sortable: true,
+            render: v => `<span class="font-medium text-[#172B4D] whitespace-nowrap">${v || '-'}</span>`
+          },
+          // 4. Inward Code
+          {
+            field: 'inwardCode',
+            header: 'Inward Code',
+            sortable: true,
+            render: (v, r) => `<span class="font-mono text-xs font-bold text-[#0284C7] hover:underline cursor-pointer whitespace-nowrap" onclick="event.stopPropagation(); window.__viewStockInDetails && window.__viewStockInDetails('${r.inwardCode}')" title="Click to view details">${v || '-'}</span>`
+          },
+          // 5. Pallet ID
+          {
+            field: 'palletId',
+            header: 'Pallet ID',
+            sortable: true,
+            render: v => `<span class="font-mono text-xs font-semibold text-[#172B4D] whitespace-nowrap">${v || '-'}</span>`
+          },
+          // 6. Production Plant
+          {
+            field: 'productionPlant',
+            header: 'Production Plant',
+            sortable: true,
+            render: v => `<span class="text-[#172B4D] whitespace-nowrap">${v || '-'}</span>`
+          },
+          // 7. Stock Belongs To
+          {
+            field: 'stockBelongsTo',
+            header: 'Stock Belongs To',
+            sortable: true,
+            render: v => `<span class="font-medium text-[#172B4D] whitespace-nowrap">${v || '-'}</span>`
+          },
+          // 8. Product
+          {
+            field: 'product',
+            header: 'Product',
+            sortable: true,
+            render: v => `<span class="font-semibold text-[#172B4D] whitespace-nowrap">${v}</span>`
+          },
+          // 9. Grade
+          {
+            field: 'grade',
+            header: 'Grade',
+            sortable: true,
+            render: v => `<span class="font-mono font-bold text-[#172B4D] whitespace-nowrap">${v}</span>`
+          },
+          // 10. Packing Style
+          {
+            field: 'packingStyle',
+            header: 'Packing Style',
+            render: v => `<span class="font-medium text-[#172B4D] whitespace-nowrap">${v}</span>`
+          },
+          // 11. Storage Chamber
+          {
+            field: 'chamber',
+            header: 'Chamber',
+            sortable: true,
+            render: v => `<span class="font-medium text-[#0284C7] whitespace-nowrap">${v}</span>`
+          },
+          // 12. Rack Slot
+          {
+            field: 'rack',
+            header: 'Rack Slot',
+            render: v => `<span class="font-mono font-semibold text-[#172B4D] whitespace-nowrap">${v}</span>`
+          },
+          // 13. Cartons / MCs
+          {
+            field: 'cartons',
+            header: 'Cartons (MCs)',
+            sortable: true,
+            render: v => `<span class="font-mono font-bold text-[#00875A]">${Number(v || 0).toLocaleString()}</span>`
+          },
+          // 14. Net Weight Kg
+          {
+            field: 'netWeightKg',
+            header: 'Net Weight (Kg)',
+            sortable: true,
+            render: v => `<span class="font-mono font-bold text-[#172B4D]">${Number(v || 0).toLocaleString(undefined, { minimumFractionDigits: 1, maximumFractionDigits: 1 })}</span>`
+          },
+          // 15. Status
+          {
+            field: 'status',
+            header: 'Status',
+            sortable: true,
+            render: v => {
+              let badge = 'text-[#006644] bg-[#E3FCEF]';
+              if (v === 'Allocated') badge = 'text-[#0747A6] bg-[#DEEBFF]';
+              else if (v === 'Staged for Export') badge = 'text-[#403294] bg-[#EAE6FF]';
+              else if (v === 'Under QC Hold') badge = 'text-[#974F0C] bg-[#FFF0B3]';
+              return `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold ${badge} whitespace-nowrap">${v}</span>`;
+            }
+          }
+        ],
+        data: data
+      });
+
+      // Bind Table Action buttons (Edit & Delete)
+      const tableWrapper = container.querySelector('#cs-stock-in-table');
+      if (tableWrapper) {
+        tableWrapper.querySelectorAll('.dt-action-edit-btn').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const code = btn.getAttribute('data-code');
+            const row = fullList.find(x => x.inwardCode === code || x.palletId === code);
+            if (row) this.showEditStockInModal(row, () => renderTable(this.state.stockInList));
+          });
+        });
+
+        tableWrapper.querySelectorAll('.dt-action-delete-btn').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const code = btn.getAttribute('data-code');
+            if (confirm(`Are you sure you want to remove Stock In intake "${code}"?`)) {
+              this.state.stockInList = this.state.stockInList.filter(x => x.inwardCode !== code && x.palletId !== code);
+              Toast.show(`Stock In record ${code} removed successfully.`, 'success');
+              renderTable(this.state.stockInList);
+            }
+          });
+        });
+      }
+    };
+
+    // Initial render
+    renderTable(fullList);
+
+    // Bind Add Button
+    const addBtn = container.querySelector('#cs-add-stock-in-btn');
+    if (addBtn) {
+      addBtn.addEventListener('click', () => {
+        this.showAddStockInModal(() => renderTable(this.state.stockInList));
+      });
+    }
+
+    // Bind Collapsible Filter Toggle
+    const toggleBtn = container.querySelector('#cs-inward-filter-toggle-btn');
+    const filterBody = container.querySelector('#cs-inward-filter-body');
+    const toggleIcon = container.querySelector('#cs-inward-filter-toggle-icon');
+
+    if (toggleBtn && filterBody && toggleIcon) {
+      let isFilterOpen = true;
+      toggleBtn.addEventListener('click', () => {
+        isFilterOpen = !isFilterOpen;
+        if (isFilterOpen) {
+          filterBody.style.display = 'grid';
+          toggleIcon.classList.remove('rotate-180');
+          toggleBtn.title = 'Hide Filter';
+        } else {
+          filterBody.style.display = 'none';
+          toggleIcon.classList.add('rotate-180');
+          toggleBtn.title = 'Show Filter';
+        }
+      });
+    }
+
+    // Execute Filter Function
+    const executeFilter = () => {
+      const dateVal = container.querySelector('#cs-inward-filter-date')?.value || '';
+      const belongsVal = container.querySelector('#cs-inward-filter-belongs')?.value || 'ALL';
+      const productVal = container.querySelector('#cs-inward-filter-product')?.value || 'ALL';
+      const gradeVal = container.querySelector('#cs-inward-filter-grade')?.value || 'ALL';
+      const chamberVal = container.querySelector('#cs-inward-filter-chamber')?.value || 'ALL';
+      const packingVal = container.querySelector('#cs-inward-filter-packing')?.value || 'ALL';
+      const statusVal = container.querySelector('#cs-inward-filter-status')?.value || 'ALL';
+
+      const filtered = fullList.filter(item => {
+        if (dateVal && item.inwardDate && item.inwardDate !== dateVal) return false;
+        if (belongsVal !== 'ALL' && item.stockBelongsTo !== belongsVal) return false;
+        if (productVal !== 'ALL' && item.product !== productVal) return false;
+        if (gradeVal !== 'ALL' && item.grade !== gradeVal) return false;
+        if (chamberVal !== 'ALL' && item.chamber !== chamberVal) return false;
+        if (packingVal !== 'ALL' && item.packingType !== packingVal) return false;
+        if (statusVal !== 'ALL' && item.status !== statusVal) return false;
+        return true;
+      });
+
+      renderTable(filtered);
+    };
+
+    // Bind Search Button
+    const searchBtn = container.querySelector('#cs-inward-filter-search-btn');
+    if (searchBtn) {
+      searchBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        executeFilter();
+      });
+    }
+
+    // Bind Reset Button
+    const resetBtn = container.querySelector('#cs-inward-filter-reset-btn');
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        const dateInput = container.querySelector('#cs-inward-filter-date');
+        if (dateInput) dateInput.value = '2026-10-29';
+        const belongsInput = container.querySelector('#cs-inward-filter-belongs');
+        if (belongsInput) belongsInput.value = 'ALL';
+        const prodInput = container.querySelector('#cs-inward-filter-product');
+        if (prodInput) prodInput.value = 'ALL';
+        const gradeInput = container.querySelector('#cs-inward-filter-grade');
+        if (gradeInput) gradeInput.value = 'ALL';
+        const chamberInput = container.querySelector('#cs-inward-filter-chamber');
+        if (chamberInput) chamberInput.value = 'ALL';
+        const packingInput = container.querySelector('#cs-inward-filter-packing');
+        if (packingInput) packingInput.value = 'ALL';
+        const statusInput = container.querySelector('#cs-inward-filter-status');
+        if (statusInput) statusInput.value = 'ALL';
+
+        renderTable(fullList);
+        Toast.show('Filters reset to default', 'info');
+      });
+    }
+  },
+
+  // 3b. STOCK - STOCK OUT
+  renderStockOut(container) {
+    this.renderDailyStockOut(container, 'Stock Out');
+  },
+
+  // 3c. STOCK - BACKWARD COMPATIBILITY
+  renderStock(container) {
+    this.renderStockIn(container);
+  },
+
+  // 3d. STOCK IN DETAIL MODAL
+  showStockInDetailModal(row) {
+    Modal.open({
+      title: `Stock In Pallet Intake: ${row.inwardCode || row.palletId}`,
+      size: 'xl',
+      content: `
+        <div class="space-y-4 text-xs text-[#172B4D]">
+          <!-- Header Banner -->
+          <div class="p-3 bg-[#F4F5F7] border border-[#DFE1E6] rounded-lg flex items-center justify-between">
+            <div>
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">INWARD INTAKE CODE</span>
+              <div class="text-base font-extrabold text-[#0284C7] font-mono">${row.inwardCode || row.palletId}</div>
+            </div>
+            <div class="text-right">
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">STORAGE STATUS</span>
+              <div>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold ${row.status === 'Stored' ? 'bg-[#E3FCEF] text-[#006644]' : 'bg-[#FFF0B3] text-[#172B4D]'}">${row.status}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Identifiers & Tracking Grid -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-white p-3 border border-[#DFE1E6] rounded-lg">
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">INWARD DATE</span>
+              <span class="font-semibold text-xs text-[#172B4D]">${row.inwardDate || '-'}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PALLET ID</span>
+              <span class="font-mono font-bold text-xs text-[#0284C7]">${row.palletId}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">FREEZING LOT NO</span>
+              <span class="font-mono font-semibold text-xs text-[#172B4D]">${row.lotNo || '-'}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">SHIFT &amp; SUPERVISOR</span>
+              <span class="font-semibold text-xs text-[#172B4D]">${row.shift || 'Shift A'} • ${row.supervisor || 'K. Rama Rao'}</span>
+            </div>
+          </div>
+
+          <!-- Product & Packaging Specifications -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-white p-3 border border-[#DFE1E6] rounded-lg">
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PRODUCT</span>
+              <span class="font-bold text-xs text-[#172B4D]">${row.product}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">GRADE</span>
+              <span class="font-mono font-bold text-xs text-[#172B4D]">${row.grade}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PACKING TYPE</span>
+              <span class="text-xs text-[#5E6C84]">${row.packingType}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PACKING STYLE</span>
+              <span class="font-medium text-xs text-[#172B4D]">${row.packingStyle}</span>
+            </div>
+          </div>
+
+          <!-- Cold Chain Location & Telemetry -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-white p-3 border border-[#DFE1E6] rounded-lg">
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PRODUCTION PLANT</span>
+              <span class="font-semibold text-xs text-[#172B4D]">${row.productionPlant}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">STOCK BELONGS TO</span>
+              <span class="font-semibold text-xs text-[#172B4D]">${row.stockBelongsTo}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">STORAGE CHAMBER &amp; RACK</span>
+              <span class="font-semibold text-xs text-[#0284C7]">${row.chamber} • <span class="font-mono">${row.rack}</span></span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">CHAMBER TEMP</span>
+              <span class="font-bold font-mono text-xs text-[#00875A]">${row.temp || -22.0}°C (Optimal)</span>
+            </div>
+          </div>
+
+          <!-- Quantity Breakdown -->
+          <div class="bg-[#F8FAFC] p-3 rounded-lg border border-[#DFE1E6]">
+            <h4 class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-2">Stored Quantities</h4>
+            <div class="grid grid-cols-3 gap-3 text-center">
+              <div class="p-2 bg-white rounded border border-[#DFE1E6]">
+                <div class="text-[10px] font-bold text-[#5E6C84] uppercase">CARTONS / MCS</div>
+                <div class="text-base font-extrabold text-[#00875A] font-mono mt-0.5">${Number(row.cartons || row.mcs || 0).toLocaleString()}</div>
+              </div>
+              <div class="p-2 bg-white rounded border border-[#DFE1E6]">
+                <div class="text-[10px] font-bold text-[#5E6C84] uppercase">TOTAL BAGS</div>
+                <div class="text-base font-extrabold text-[#172B4D] font-mono mt-0.5">${Number(row.bags || (row.cartons * 10) || 0).toLocaleString()}</div>
+              </div>
+              <div class="p-2 bg-white rounded border border-[#DFE1E6]">
+                <div class="text-[10px] font-bold text-[#5E6C84] uppercase">NET WEIGHT (KG)</div>
+                <div class="text-base font-extrabold text-[#172B4D] font-mono mt-0.5">${Number(row.netWeightKg || 0).toLocaleString(undefined, { minimumFractionDigits: 1 })}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `,
+      buttons: [
+        { label: 'Close', class: 'btn-secondary', onClick: () => Modal.close() }
+      ]
+    });
+  },
+
+  // 3e. ADD STOCK IN MODAL
+  showAddStockInModal(onSuccess) {
+    const nextId = (this.state.stockInList?.length || 0) + 1;
+    const autoCode = `INW-CS-2026-${440 + nextId}`;
+    const autoPallet = `PAL-2026-${String(440 + nextId).padStart(4, '0')}`;
+
+    Modal.open({
+      title: 'Add Stock In (Inward Intake)',
+      size: 'xl',
+      content: `
+        <form id="form-add-stock-in" class="space-y-4 text-xs text-[#172B4D]">
+          <div class="bg-[#F8FAFC] p-3 rounded-lg border border-[#DFE1E6]">
+            <h4 class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-2.5">1. Tracking &amp; Identification</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">INWARD DATE <span class="text-red-500 font-black">*</span></label>
+                <input type="date" name="inwardDate" value="2026-10-29" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">INWARD CODE</label>
+                <input type="text" name="inwardCode" value="${autoCode}" class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#0284C7]" readonly>
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">PALLET ID <span class="text-red-500 font-black">*</span></label>
+                <input type="text" name="palletId" value="${autoPallet}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-semibold" required>
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">FREEZING LOT NO <span class="text-red-500 font-black">*</span></label>
+                <input type="text" name="lotNo" value="LOT-FZ-2026-310" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-[#F8FAFC] p-3 rounded-lg border border-[#DFE1E6]">
+            <h4 class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-2.5">2. Production &amp; Ownership</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">PRODUCTION PLANT <span class="text-red-500 font-black">*</span></label>
+                <select name="productionPlant" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
+                  <option value="DFL UNIT-5 (JPT)" selected>DFL UNIT-5 (JPT)</option>
+                  <option value="DFL UNIT-4 (PND)">DFL UNIT-4 (PND)</option>
+                  <option value="DFL UNIT-3 (PSP)">DFL UNIT-3 (PSP)</option>
+                  <option value="DFL UNIT-1 (VSP)">DFL UNIT-1 (VSP)</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">STOCK BELONGS TO <span class="text-red-500 font-black">*</span></label>
+                <select name="stockBelongsTo" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
+                  <option value="Devi Fisheries Ltd (DFL)" selected>Devi Fisheries Ltd (DFL)</option>
+                  <option value="DFL Unit-5 (JPT)">DFL Unit-5 (JPT)</option>
+                  <option value="DFL Unit-4 (PND)">DFL Unit-4 (PND)</option>
+                  <option value="DFL Unit-3 (PSP)">DFL Unit-3 (PSP)</option>
+                  <option value="DFL Unit-1 (VSP)">DFL Unit-1 (VSP)</option>
+                  <option value="Third-Party Co-Packing">Third-Party Co-Packing</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">SHIFT</label>
+                <select name="shift" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold">
+                  <option value="Shift A (Day)" selected>Shift A (Day)</option>
+                  <option value="Shift B (Evening)">Shift B (Evening)</option>
+                  <option value="Shift C (Night)">Shift C (Night)</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">SUPERVISOR</label>
+                <input type="text" name="supervisor" value="K. Rama Rao" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold">
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-[#F8FAFC] p-3 rounded-lg border border-[#DFE1E6]">
+            <h4 class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-2.5">3. Product &amp; Packaging</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">PRODUCT <span class="text-red-500 font-black">*</span></label>
+                <select name="product" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
+                  <option value="Vannamei PD IQF" selected>Vannamei PD IQF</option>
+                  <option value="Black Tiger Block Frozen">Black Tiger Block Frozen</option>
+                  <option value="Vannamei HOSO IQF">Vannamei HOSO IQF</option>
+                  <option value="Vannamei HLSO Block">Vannamei HLSO Block</option>
+                  <option value="Sea Pearl Cooked PDTO">Sea Pearl Cooked PDTO</option>
+                  <option value="Scampi Headless Block">Scampi Headless Block</option>
+                  <option value="Vannamei Easy Peel IQF">Vannamei Easy Peel IQF</option>
+                  <option value="Black Tiger HOSO IQF">Black Tiger HOSO IQF</option>
+                  <option value="Vannamei Butterfly IQF">Vannamei Butterfly IQF</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">GRADE <span class="text-red-500 font-black">*</span></label>
+                <select name="grade" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
+                  <option value="16/20">16/20</option>
+                  <option value="21/25">21/25</option>
+                  <option value="26/30">26/30</option>
+                  <option value="31/40" selected>31/40</option>
+                  <option value="41/50">41/50</option>
+                  <option value="11/15">11/15</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">PACKING TYPE <span class="text-red-500 font-black">*</span></label>
+                <select name="packingType" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
+                  <option value="Master Cartons" selected>Master Cartons</option>
+                  <option value="6x2kg Block">6x2kg Block</option>
+                  <option value="Dummy Cartons">Dummy Cartons</option>
+                  <option value="10x2lb Pouch">10x2lb Pouch</option>
+                  <option value="5x2kg IQF Poly">5x2kg IQF Poly</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">PACKING STYLE <span class="text-red-500 font-black">*</span></label>
+                <input type="text" name="packingStyle" value="10x1kg Net" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-[#F8FAFC] p-3 rounded-lg border border-[#DFE1E6]">
+            <h4 class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-2.5">4. Chamber Location &amp; Quantities</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3">
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">CHAMBER <span class="text-red-500 font-black">*</span></label>
+                <select name="chamber" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
+                  <option value="Chamber #1 (IQF)" selected>Chamber #1 (IQF)</option>
+                  <option value="Chamber #2 (Block)">Chamber #2 (Block)</option>
+                  <option value="Vault #3 Staging">Vault #3 Staging</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">RACK SLOT <span class="text-red-500 font-black">*</span></label>
+                <input type="text" name="rack" value="RACK-A1-T3" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-semibold" required>
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">CARTONS (MCS) <span class="text-red-500 font-black">*</span></label>
+                <input type="number" name="cartons" value="50" min="1" step="1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-bold" required>
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">TOTAL BAGS</label>
+                <input type="number" name="bags" value="500" min="1" step="1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-bold">
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">NET WEIGHT (KG) <span class="text-red-500 font-black">*</span></label>
+                <input type="number" name="netWeightKg" value="500.0" min="0.1" step="0.1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-bold" required>
+              </div>
+            </div>
+          </div>
+        </form>
+      `,
+      buttons: [
+        { label: 'Cancel', class: 'btn-secondary', onClick: () => Modal.close() },
+        {
+          label: 'Save Stock In',
+          class: 'btn-primary',
+          onClick: () => {
+            const form = document.getElementById('form-add-stock-in');
+            if (!form || !form.checkValidity()) {
+              if (form) form.reportValidity();
+              return;
+            }
+            const fd = new FormData(form);
+            const newRecord = {
+              id: nextId,
+              sNo: 1,
+              inwardCode: fd.get('inwardCode'),
+              inwardDate: fd.get('inwardDate'),
+              palletId: fd.get('palletId'),
+              lotNo: fd.get('lotNo'),
+              productionPlant: fd.get('productionPlant'),
+              stockBelongsTo: fd.get('stockBelongsTo'),
+              product: fd.get('product'),
+              grade: fd.get('grade'),
+              packingType: fd.get('packingType'),
+              packingStyle: fd.get('packingStyle'),
+              chamber: fd.get('chamber'),
+              rack: fd.get('rack'),
+              cartons: Number(fd.get('cartons') || 0),
+              mcs: Number(fd.get('cartons') || 0),
+              bags: Number(fd.get('bags') || 0),
+              netWeightKg: Number(fd.get('netWeightKg') || 0),
+              temp: -22.0,
+              shift: fd.get('shift'),
+              supervisor: fd.get('supervisor'),
+              status: 'Stored'
+            };
+
+            this.state.stockInList.unshift(newRecord);
+            // Re-index sNo
+            this.state.stockInList.forEach((item, idx) => { item.sNo = idx + 1; });
+            Modal.close();
+            Toast.show(`Stock In record ${newRecord.inwardCode} created successfully!`, 'success');
+            if (typeof onSuccess === 'function') onSuccess();
+          }
+        }
+      ]
+    });
+  },
+
+  // 3f. EDIT STOCK IN MODAL
+  showEditStockInModal(row, onSuccess) {
+    Modal.open({
+      title: `Edit Stock In: ${row.inwardCode || row.palletId}`,
+      size: 'xl',
+      content: `
+        <form id="form-edit-stock-in" class="space-y-4 text-xs text-[#172B4D]">
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 bg-[#F8FAFC] p-3 rounded-lg border border-[#DFE1E6]">
+            <div>
+              <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">INWARD DATE</label>
+              <input type="date" name="inwardDate" value="${row.inwardDate || '2026-10-29'}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold" required>
+            </div>
+            <div>
+              <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">PALLET ID</label>
+              <input type="text" name="palletId" value="${row.palletId}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold" required>
+            </div>
+            <div>
+              <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">CARTONS (MCS)</label>
+              <input type="number" name="cartons" value="${row.cartons || row.mcs || 0}" min="1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold" required>
+            </div>
+            <div>
+              <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">NET WEIGHT (KG)</label>
+              <input type="number" name="netWeightKg" value="${row.netWeightKg || 0}" step="0.1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold" required>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 bg-white p-3 rounded-lg border border-[#DFE1E6]">
+            <div>
+              <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">CHAMBER</label>
+              <input type="text" name="chamber" value="${row.chamber}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold" required>
+            </div>
+            <div>
+              <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">RACK SLOT</label>
+              <input type="text" name="rack" value="${row.rack}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold" required>
+            </div>
+            <div>
+              <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">STATUS</label>
+              <select name="status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold">
+                <option value="Stored" ${row.status === 'Stored' ? 'selected' : ''}>Stored</option>
+                <option value="Allocated" ${row.status === 'Allocated' ? 'selected' : ''}>Allocated</option>
+                <option value="Staged for Export" ${row.status === 'Staged for Export' ? 'selected' : ''}>Staged for Export</option>
+                <option value="Under QC Hold" ${row.status === 'Under QC Hold' ? 'selected' : ''}>Under QC Hold</option>
+              </select>
+            </div>
+          </div>
+        </form>
+      `,
+      buttons: [
+        { label: 'Cancel', class: 'btn-secondary', onClick: () => Modal.close() },
+        {
+          label: 'Update Record',
+          class: 'btn-primary',
+          onClick: () => {
+            const form = document.getElementById('form-edit-stock-in');
+            if (!form || !form.checkValidity()) {
+              if (form) form.reportValidity();
+              return;
+            }
+            const fd = new FormData(form);
+            row.inwardDate = fd.get('inwardDate');
+            row.palletId = fd.get('palletId');
+            row.cartons = Number(fd.get('cartons') || 0);
+            row.mcs = Number(fd.get('cartons') || 0);
+            row.netWeightKg = Number(fd.get('netWeightKg') || 0);
+            row.chamber = fd.get('chamber');
+            row.rack = fd.get('rack');
+            row.status = fd.get('status');
+
+            Modal.close();
+            Toast.show(`Stock In record ${row.inwardCode || row.palletId} updated successfully.`, 'success');
+            if (typeof onSuccess === 'function') onSuccess();
+          }
+        }
+      ]
     });
   },
 
