@@ -1727,14 +1727,14 @@ export const ColdstoreView = {
 
     // 5. IBT (Inter-Branch Transfers)
     ibtTransfers: [
-      { id: 1, ibtCode: 'IBT-2026-088', transferDate: '2026-10-28', coldStore: 'Chamber #1 (IQF)', productCategory: 'Raw Frozen', ibtType: 'Inter-Plant Transfer', sourcePlant: 'DFL UNIT-5 (JPT)', destPlant: 'DFL UNIT-4 (PND)', product: 'Vannamei PD IQF 31/40', pallets: 12, weightMt: 5.76, vehicleNo: 'AP 39 TB 4412', status: 'In Transit' },
-      { id: 2, ibtCode: 'IBT-2026-087', transferDate: '2026-10-27', coldStore: 'Chamber #2 (Plate)', productCategory: 'Raw Frozen', ibtType: 'Inward Transfer', sourcePlant: 'DFL UNIT-3 (PSP)', destPlant: 'DFL UNIT-5 (JPT)', product: 'Black Tiger Block 16/20', pallets: 16, weightMt: 8.96, vehicleNo: 'AP 16 TX 9921', status: 'Received & Stored' },
-      { id: 3, ibtCode: 'IBT-2026-086', transferDate: '2026-10-25', coldStore: 'Chamber #1 (IQF)', productCategory: 'Cooked Frozen', ibtType: 'Outward Transfer', sourcePlant: 'DFL UNIT-1 (VSP)', destPlant: 'DFL UNIT-5 (JPT)', product: 'Sea Pearl Cooked PDTO', pallets: 8, weightMt: 3.20, vehicleNo: 'AP 31 TC 1104', status: 'Received & Stored' },
-      { id: 4, ibtCode: 'IBT-2026-085', transferDate: '2026-10-24', coldStore: 'Chamber #3 (Blast)', productCategory: 'Blanched Frozen', ibtType: 'Intra-Plant Relocation', sourcePlant: 'DFL UNIT-5 (JPT)', destPlant: 'DFL UNIT-6 (JPT-II)', product: 'Vannamei HLSO Block', pallets: 20, weightMt: 12.00, vehicleNo: 'AP 39 TB 5590', status: 'Gate Pass Dispatched' },
-      { id: 5, ibtCode: 'IBT-2026-084', transferDate: '2026-09-18', coldStore: 'Chamber #4 (Deep Freeze)', productCategory: 'Raw Frozen', ibtType: 'Inter-Plant Transfer', sourcePlant: 'DFL UNIT-2 (KKL)', destPlant: 'DFL UNIT-5 (JPT)', product: 'Vannamei Cooked IQF 41/50', pallets: 14, weightMt: 6.72, vehicleNo: 'AP 39 TB 8820', status: 'Received & Stored' },
-      { id: 6, ibtCode: 'IBT-2026-083', transferDate: '2026-08-11', coldStore: 'Main Cold Storage Plant 1', productCategory: 'Value Added', ibtType: 'Inward Transfer', sourcePlant: 'DFL UNIT-4 (PND)', destPlant: 'DFL UNIT-1 (VSP)', product: 'Breaded Torpedo Shrimp', pallets: 10, weightMt: 4.50, vehicleNo: 'AP 16 TX 1102', status: 'Received & Stored' },
-      { id: 7, ibtCode: 'IBT-2025-072', transferDate: '2025-11-15', coldStore: 'Chamber #1 (IQF)', productCategory: 'Raw Frozen', ibtType: 'Inter-Plant Transfer', sourcePlant: 'DFL UNIT-5 (JPT)', destPlant: 'DFL UNIT-3 (PSP)', product: 'Vannamei Easy Peel IQF 26/30', pallets: 15, weightMt: 7.20, vehicleNo: 'AP 39 TB 3319', status: 'Received & Stored' },
-      { id: 8, ibtCode: 'IBT-2025-065', transferDate: '2025-10-04', coldStore: 'Chamber #2 (Plate)', productCategory: 'Cooked Frozen', ibtType: 'Intra-Plant Relocation', sourcePlant: 'DFL UNIT-3 (PSP)', destPlant: 'DFL UNIT-1 (VSP)', product: 'Black Tiger HLSO 21/25', pallets: 18, weightMt: 9.00, vehicleNo: 'AP 16 TX 4402', status: 'Received & Stored' }
+      { id: 1, sNo: 1, orderNumber: 'IBT-2026-088', ibtCode: 'IBT-2026-088', orderDate: '2026-10-28', transferDate: '2026-10-28', fromStore: 'Chamber #1 (IQF)', toStore: 'Chamber #3 (Blast)', coldStore: 'Chamber #1 (IQF)', productCategory: 'Raw Frozen', ibtType: 'Inter-Plant Transfer', sourcePlant: 'DFL UNIT-5 (JPT)', destPlant: 'DFL UNIT-4 (PND)', product: 'Vannamei PD IQF 31/40', totalMcs: 480, totalNoOfBags: 4800, pallets: 12, weightMt: 5.76, vehicleNo: 'AP 39 TB 4412', status: 'In Transit' },
+      { id: 2, sNo: 2, orderNumber: 'IBT-2026-087', ibtCode: 'IBT-2026-087', orderDate: '2026-10-27', transferDate: '2026-10-27', fromStore: 'Chamber #2 (Plate)', toStore: 'Main Cold Storage Plant 1', coldStore: 'Chamber #2 (Plate)', productCategory: 'Raw Frozen', ibtType: 'Inward Transfer', sourcePlant: 'DFL UNIT-3 (PSP)', destPlant: 'DFL UNIT-5 (JPT)', product: 'Black Tiger Block 16/20', totalMcs: 640, totalNoOfBags: 3840, pallets: 16, weightMt: 8.96, vehicleNo: 'AP 16 TX 9921', status: 'Received & Stored' },
+      { id: 3, sNo: 3, orderNumber: 'IBT-2026-086', ibtCode: 'IBT-2026-086', orderDate: '2026-10-25', transferDate: '2026-10-25', fromStore: 'Chamber #1 (IQF)', toStore: 'Chamber #4 (Deep Freeze)', coldStore: 'Chamber #1 (IQF)', productCategory: 'Cooked Frozen', ibtType: 'Outward Transfer', sourcePlant: 'DFL UNIT-1 (VSP)', destPlant: 'DFL UNIT-5 (JPT)', product: 'Sea Pearl Cooked PDTO', totalMcs: 320, totalNoOfBags: 3200, pallets: 8, weightMt: 3.20, vehicleNo: 'AP 31 TC 1104', status: 'Received & Stored' },
+      { id: 4, sNo: 4, orderNumber: 'IBT-2026-085', ibtCode: 'IBT-2026-085', orderDate: '2026-10-24', transferDate: '2026-10-24', fromStore: 'Chamber #3 (Blast)', toStore: 'Chamber #2 (Plate)', coldStore: 'Chamber #3 (Blast)', productCategory: 'Blanched Frozen', ibtType: 'Intra-Plant Relocation', sourcePlant: 'DFL UNIT-5 (JPT)', destPlant: 'DFL UNIT-6 (JPT-II)', product: 'Vannamei HLSO Block', totalMcs: 800, totalNoOfBags: 4800, pallets: 20, weightMt: 12.00, vehicleNo: 'AP 39 TB 5590', status: 'Gate Pass Dispatched' },
+      { id: 5, sNo: 5, orderNumber: 'IBT-2026-084', ibtCode: 'IBT-2026-084', orderDate: '2026-09-18', transferDate: '2026-09-18', fromStore: 'Chamber #4 (Deep Freeze)', toStore: 'Chamber #1 (IQF)', coldStore: 'Chamber #4 (Deep Freeze)', productCategory: 'Raw Frozen', ibtType: 'Inter-Plant Transfer', sourcePlant: 'DFL UNIT-2 (KKL)', destPlant: 'DFL UNIT-5 (JPT)', product: 'Vannamei Cooked IQF 41/50', totalMcs: 560, totalNoOfBags: 5600, pallets: 14, weightMt: 6.72, vehicleNo: 'AP 39 TB 8820', status: 'Received & Stored' },
+      { id: 6, sNo: 6, orderNumber: 'IBT-2026-083', ibtCode: 'IBT-2026-083', orderDate: '2026-08-11', transferDate: '2026-08-11', fromStore: 'Main Cold Storage Plant 1', toStore: 'Chamber #2 (Plate)', coldStore: 'Main Cold Storage Plant 1', productCategory: 'Value Added', ibtType: 'Inward Transfer', sourcePlant: 'DFL UNIT-4 (PND)', destPlant: 'DFL UNIT-1 (VSP)', product: 'Breaded Torpedo Shrimp', totalMcs: 450, totalNoOfBags: 4500, pallets: 10, weightMt: 4.50, vehicleNo: 'AP 16 TX 1102', status: 'Received & Stored' },
+      { id: 7, sNo: 7, orderNumber: 'IBT-2025-072', ibtCode: 'IBT-2025-072', orderDate: '2025-11-15', transferDate: '2025-11-15', fromStore: 'Chamber #1 (IQF)', toStore: 'Main Cold Storage Plant 1', coldStore: 'Chamber #1 (IQF)', productCategory: 'Raw Frozen', ibtType: 'Inter-Plant Transfer', sourcePlant: 'DFL UNIT-5 (JPT)', destPlant: 'DFL UNIT-3 (PSP)', product: 'Vannamei Easy Peel IQF 26/30', totalMcs: 600, totalNoOfBags: 6000, pallets: 15, weightMt: 7.20, vehicleNo: 'AP 39 TB 3319', status: 'Received & Stored' },
+      { id: 8, sNo: 8, orderNumber: 'IBT-2025-065', ibtCode: 'IBT-2025-065', orderDate: '2025-10-04', transferDate: '2025-10-04', fromStore: 'Chamber #2 (Plate)', toStore: 'Chamber #3 (Blast)', coldStore: 'Chamber #2 (Plate)', productCategory: 'Cooked Frozen', ibtType: 'Intra-Plant Relocation', sourcePlant: 'DFL UNIT-3 (PSP)', destPlant: 'DFL UNIT-1 (VSP)', product: 'Black Tiger HLSO 21/25', totalMcs: 720, totalNoOfBags: 4320, pallets: 18, weightMt: 9.00, vehicleNo: 'AP 16 TX 4402', status: 'Received & Stored' }
     ],
 
     // 6. Shipment
@@ -9375,7 +9375,6 @@ export const ColdstoreView = {
       <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
         <div>
           <h1 class="text-xl font-extrabold text-[#172B4D]">Inter-Branch Transfers (IBT)</h1>
-          <p class="text-xs text-[#6B778C] mt-0.5">Inter-plant cold storage product transfers, reefer truck tracking, and receipts</p>
         </div>
       </div>
 
@@ -9495,26 +9494,22 @@ export const ColdstoreView = {
         pageSize: 10,
         columns: [
           { field: 'id', header: 'S.No', render: (v, r, idx) => idx + 1 },
-          { field: 'ibtCode', header: 'IBT Code', sortable: true, render: v => `<span class="font-mono font-bold text-[#0284C7]">${v}</span>` },
-          { field: 'transferDate', header: 'Date', sortable: true },
-          { field: 'coldStore', header: 'Cold Store', sortable: true, render: v => `<span class="font-semibold text-[#172B4D] whitespace-nowrap">${v || 'Chamber #1 (IQF)'}</span>` },
+          { field: 'orderNumber', header: 'Order Number', sortable: true, render: v => `<span class="font-mono font-bold text-[#0284C7]">${v || '-'}</span>` },
+          { field: 'orderDate', header: 'Order Date', sortable: true, render: v => `<span class="whitespace-nowrap">${v || '-'}</span>` },
+          { field: 'fromStore', header: 'From Store', sortable: true, render: v => `<span class="font-medium text-[#172B4D] whitespace-nowrap">${v || '-'}</span>` },
+          { field: 'toStore', header: 'To Store', sortable: true, render: v => `<span class="font-medium text-[#172B4D] whitespace-nowrap">${v || '-'}</span>` },
           { field: 'ibtType', header: 'IBT Type', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-[#F4F5F7] text-[#172B4D] border border-[#DFE1E6] whitespace-nowrap">${v || 'Inter-Plant Transfer'}</span>` },
-          { field: 'productCategory', header: 'Product Category', sortable: true, render: v => `<span class="px-2 py-0.5 rounded-full text-[10px] font-medium bg-[#EBF8FF] text-[#0284C7] whitespace-nowrap">${v || 'Raw Frozen'}</span>` },
-          { field: 'sourcePlant', header: 'Source Plant', sortable: true },
-          { field: 'destPlant', header: 'Destination Plant', sortable: true },
-          { field: 'product', header: 'Product Grade', sortable: true },
-          { field: 'pallets', header: 'Pallets', sortable: true, render: v => `<span class="font-mono font-bold">${v}</span>` },
-          { field: 'weightMt', header: 'Transfer (MT)', sortable: true, render: v => `<span class="font-mono font-bold text-[#00875A]">${Number(v || 0).toFixed(2)}</span>` },
-          { field: 'vehicleNo', header: 'Reefer Truck', render: v => `<span class="font-mono font-semibold">${v}</span>` },
+          { field: 'totalMcs', header: 'Total Mcs', sortable: true, render: v => `<span class="font-mono font-bold text-[#00875A]">${Number(v || 0).toLocaleString()}</span>` },
+          { field: 'totalNoOfBags', header: 'Total NoOf Bags', sortable: true, render: v => `<span class="font-mono font-bold text-[#172B4D]">${Number(v || 0).toLocaleString()}</span>` },
           {
             field: 'status',
             header: 'Status',
             sortable: true,
             render: v => {
               let badgeCls = 'bg-[#DEEBFF] text-[#0747A6] border-[#B3D4FF]';
-              if (v === 'Received & Stored') badgeCls = 'bg-[#E3FCEF] text-[#006644] border-[#ABF5D1]';
-              if (v === 'Gate Pass Dispatched') badgeCls = 'bg-[#FFF0B3] text-[#172B4D] border-[#FFE380]';
-              return `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${badgeCls} whitespace-nowrap">${v}</span>`;
+              if (v === 'Received & Stored' || v === 'Approved' || v === 'Completed') badgeCls = 'bg-[#E3FCEF] text-[#006644] border-[#ABF5D1]';
+              if (v === 'Gate Pass Dispatched' || v === 'In Transit') badgeCls = 'bg-[#FFF0B3] text-[#172B4D] border-[#FFE380]';
+              return `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${badgeCls} whitespace-nowrap">${v || '-'}</span>`;
             }
           }
         ],
@@ -9525,49 +9520,49 @@ export const ColdstoreView = {
             icon: `<svg class="w-4 h-4 text-[#0284C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>`,
             onClick: (row) => {
               Modal.open({
-                title: `IBT Transfer Record: ${row.ibtCode}`,
+                title: `IBT Transfer Record: ${row.orderNumber || row.ibtCode}`,
                 size: 'lg',
                 content: `
                   <div class="space-y-4 text-xs text-[#172B4D]">
                     <div class="p-3 bg-[#F4F5F7] border border-[#DFE1E6] rounded-lg flex items-center justify-between">
                       <div>
-                        <span class="text-[10px] font-bold text-[#5E6C84] uppercase">IBT TRANSFER CODE</span>
-                        <div class="text-base font-extrabold text-[#0284C7] font-mono">${row.ibtCode}</div>
+                        <span class="text-[10px] font-bold text-[#5E6C84] uppercase">ORDER NUMBER</span>
+                        <div class="text-base font-extrabold text-[#0284C7] font-mono">${row.orderNumber || row.ibtCode}</div>
                       </div>
                       <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold ${row.status === 'Received & Stored' ? 'bg-[#E3FCEF] text-[#006644]' : 'bg-[#DEEBFF] text-[#0747A6]'}">${row.status}</span>
                     </div>
                     <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-white p-3 border border-[#DFE1E6] rounded-lg">
                       <div>
-                        <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">DATE</span>
-                        <span class="font-semibold text-xs">${row.transferDate}</span>
+                        <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">ORDER DATE</span>
+                        <span class="font-semibold text-xs">${row.orderDate || row.transferDate}</span>
                       </div>
                       <div>
-                        <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">COLD STORE</span>
-                        <span class="font-semibold text-xs text-[#0284C7]">${row.coldStore || '-'}</span>
+                        <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">FROM STORE</span>
+                        <span class="font-semibold text-xs text-[#0284C7]">${row.fromStore || '-'}</span>
                       </div>
                       <div>
-                        <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">CATEGORY</span>
-                        <span class="font-semibold text-xs">${row.productCategory || '-'}</span>
+                        <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">TO STORE</span>
+                        <span class="font-semibold text-xs text-[#00875A]">${row.toStore || '-'}</span>
                       </div>
                       <div>
                         <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">IBT TYPE</span>
                         <span class="font-semibold text-xs">${row.ibtType || '-'}</span>
                       </div>
                       <div>
-                        <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">SOURCE PLANT</span>
-                        <span class="font-semibold text-xs">${row.sourcePlant}</span>
+                        <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">TOTAL MCS</span>
+                        <span class="font-mono font-bold text-xs text-[#00875A]">${Number(row.totalMcs || 0).toLocaleString()}</span>
                       </div>
                       <div>
-                        <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">DEST PLANT</span>
-                        <span class="font-semibold text-xs">${row.destPlant}</span>
+                        <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">TOTAL NO OF BAGS</span>
+                        <span class="font-mono font-bold text-xs text-[#172B4D]">${Number(row.totalNoOfBags || 0).toLocaleString()}</span>
                       </div>
                       <div>
                         <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">REEFER TRUCK</span>
-                        <span class="font-mono font-semibold text-xs">${row.vehicleNo}</span>
+                        <span class="font-mono font-semibold text-xs">${row.vehicleNo || '-'}</span>
                       </div>
                       <div>
-                        <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">TRANSFER (MT)</span>
-                        <span class="font-mono font-bold text-xs text-[#00875A]">${Number(row.weightMt || 0).toFixed(2)} MT</span>
+                        <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">WEIGHT (MT)</span>
+                        <span class="font-mono font-bold text-xs text-[#0284C7]">${Number(row.weightMt || 0).toFixed(2)} MT</span>
                       </div>
                     </div>
                   </div>
@@ -9579,7 +9574,7 @@ export const ColdstoreView = {
             label: 'Print Gate Pass',
             icon: `<svg class="w-4 h-4 text-[#403294]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>`,
             onClick: (row) => {
-              Toast.show(`Printing IBT Gate Pass document for ${row.ibtCode}...`, 'info');
+              Toast.show(`Printing IBT Gate Pass document for ${row.orderNumber || row.ibtCode}...`, 'info');
             }
           }
         ],
@@ -9620,10 +9615,11 @@ export const ColdstoreView = {
       const typeVal = (container.querySelector('#ibt-filter-type')?.value || '').trim();
 
       const filtered = this.state.ibtTransfers.filter(r => {
-        if (coldStoreVal && (r.coldStore || 'Chamber #1 (IQF)') !== coldStoreVal) return false;
+        if (coldStoreVal && (r.fromStore !== coldStoreVal && r.toStore !== coldStoreVal && r.coldStore !== coldStoreVal)) return false;
         if (categoryVal && (r.productCategory || 'Raw Frozen') !== categoryVal) return false;
-        if (yearVal && r.transferDate && !r.transferDate.startsWith(yearVal)) return false;
-        if (monthVal && r.transferDate && r.transferDate.substring(5, 7) !== monthVal) return false;
+        const d = r.orderDate || r.transferDate;
+        if (yearVal && d && !d.startsWith(yearVal)) return false;
+        if (monthVal && d && d.substring(5, 7) !== monthVal) return false;
         if (typeVal && (r.ibtType || 'Inter-Plant Transfer') !== typeVal) return false;
         return true;
       });
