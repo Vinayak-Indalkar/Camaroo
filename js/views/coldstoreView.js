@@ -8343,8 +8343,8 @@ export const ColdstoreView = {
             </div>
           </div>
 
-          <!-- Form Input Fields (Standard 5-Column Grid: 4 Inputs + Search Button) -->
-          <div id="dpl-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 text-xs transition-all duration-200">
+          <!-- Form Input Fields (Consistent 4-Column Grid) -->
+          <div id="dpl-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
             <!-- 1. PRODUCTION DATE * -->
             <div>
               <label for="dpl-filter-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PRODUCTION DATE <span class="text-[#DE350B] font-bold">*</span></label>
@@ -8373,25 +8373,23 @@ export const ColdstoreView = {
               </select>
             </div>
 
-            <!-- 4. GROUP -->
-            <div>
-              <label for="dpl-filter-group" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">GROUP</label>
-              <select id="dpl-filter-group" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
-                <option value="">All Groups</option>
-                <option value="Vannamei PD">Vannamei PD</option>
-                <option value="Black Tiger Block">Black Tiger Block</option>
-                <option value="Sea Pearl PDTO">Sea Pearl PDTO</option>
-                <option value="Vannamei HLSO">Vannamei HLSO</option>
-                <option value="Scampi Block">Scampi Block</option>
-              </select>
-            </div>
-
-            <!-- Search Action Button Slot (Width Fitted) -->
-            <div class="flex items-end">
+            <!-- 4. GROUP & SEARCH BUTTON -->
+            <div class="flex items-end gap-2">
+              <div class="flex-1 min-w-0">
+                <label for="dpl-filter-group" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">GROUP</label>
+                <select id="dpl-filter-group" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                  <option value="">All Groups</option>
+                  <option value="Vannamei PD">Vannamei PD</option>
+                  <option value="Black Tiger Block">Black Tiger Block</option>
+                  <option value="Sea Pearl PDTO">Sea Pearl PDTO</option>
+                  <option value="Vannamei HLSO">Vannamei HLSO</option>
+                  <option value="Scampi Block">Scampi Block</option>
+                </select>
+              </div>
               <button 
                 type="button" 
                 id="dpl-filter-search-btn" 
-                class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px] w-full sm:w-auto"
+                class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px] shrink-0" 
                 title="Search Filter Records"
               >
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
@@ -8830,8 +8828,8 @@ export const ColdstoreView = {
             </div>
           </div>
 
-          <!-- Form Input Fields (12 Optional Fields Grid) -->
-          <div id="ia-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
+          <!-- Form Input Fields (12 Optional Fields Grid - 4 Columns) -->
+          <div id="ia-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
             <!-- 1. COLD STORES -->
             <div>
               <label for="ia-filter-cold-store" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">COLD STORES</label>
@@ -8954,23 +8952,21 @@ export const ColdstoreView = {
               </select>
             </div>
 
-            <!-- 12. STOCK STATUS -->
-            <div>
-              <label for="ia-filter-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">STOCK STATUS</label>
-              <select id="ia-filter-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
-                <option value="">All Statuses</option>
-                <option value="Pending Approval">Pending Approval</option>
-                <option value="Approved">Approved</option>
-                <option value="Under Inspection">Under Inspection</option>
-              </select>
-            </div>
-
-            <!-- 13. Search Action Slot -->
-            <div class="flex items-end">
+            <!-- 12. STOCK STATUS & SEARCH BUTTON -->
+            <div class="flex items-end gap-2">
+              <div class="flex-1 min-w-0">
+                <label for="ia-filter-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">STOCK STATUS</label>
+                <select id="ia-filter-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                  <option value="">All Statuses</option>
+                  <option value="Pending Approval">Pending Approval</option>
+                  <option value="Approved">Approved</option>
+                  <option value="Under Inspection">Under Inspection</option>
+                </select>
+              </div>
               <button 
                 type="button" 
                 id="ia-filter-search-btn" 
-                class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px] w-full sm:w-auto"
+                class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px] shrink-0"
                 title="Search Filter Records"
               >
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
