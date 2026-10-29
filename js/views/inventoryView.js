@@ -2174,10 +2174,16 @@ export const InventoryView = {
 
   renderGeneralStoreGRN(container) {
     container.innerHTML = `
-      <div class="flex items-center justify-between pb-1">
+      <!-- Page Header -->
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-1">
         <div>
           <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Goods Receipt Note (GS)</h1>
-          <p class="text-xs text-[#5E6C84] mt-0.5">Inward Goods Receipt Note (GRN) verification, store binning, and delivery intake</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button type="button" id="gs-grn-add-btn" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+            <span>Add Goods Receipts Note</span>
+          </button>
         </div>
       </div>
       <div class="bg-white border border-[#DFE1E6] rounded-xl p-6 shadow-xs text-center text-xs text-[#5E6C84]">
@@ -2186,6 +2192,14 @@ export const InventoryView = {
         <p class="mt-1 text-[#64748B]">Inward receipts update available stock quantities in the General Store.</p>
       </div>
     `;
+
+    container.querySelector('#gs-grn-add-btn')?.addEventListener('click', () => {
+      if (typeof this.showAddGrnModal === 'function') {
+        this.showAddGrnModal();
+      } else {
+        Toast.show('Add Goods Receipts Note form will open here.', 'info');
+      }
+    });
   },
 
   renderGeneralStoreMaterialIssue(container) {
