@@ -1005,18 +1005,8 @@ export const ColdstoreView = {
               <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
             </div>
 
-            <!-- Filter Controls: Search, Reset & Toggle Open/Close -->
-            <div class="inline-flex items-center gap-2" style="display: inline-flex; align-items: center; gap: 8px;">
-              <button 
-                type="button" 
-                id="dso-filter-search-btn" 
-                class="dt-top-filter-search-btn btn-primary px-3.5 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5 shadow-2xs hover:shadow cursor-pointer h-[32px]"
-                title="Search Filter Records"
-              >
-                <svg style="width: 13px; height: 13px; min-width: 13px; stroke: #ffffff; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                <span>Search</span>
-              </button>
-
+            <!-- Filter Controls: Reset & Toggle Open/Close -->
+            <div class="inline-flex items-center" style="gap: 8px; display: inline-flex;">
               <button 
                 type="button" 
                 id="dso-filter-reset-btn"
@@ -1041,8 +1031,8 @@ export const ColdstoreView = {
             </div>
           </div>
 
-          <!-- Collapsible Filter Inputs Grid (EXACTLY 4 COLUMNS) -->
-          <div id="dso-filter-body" class="dt-top-filter-body mt-3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-3 text-xs transition-all duration-200" style="margin-top: 12px !important;">
+          <!-- Collapsible Filter Inputs Grid -->
+          <div id="dso-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 text-xs transition-all duration-200">
             <!-- 1. STOCK OUT DATE * -->
             <div>
               <label for="dso-filter-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STOCK OUT DATE <span class="text-red-500 font-black">*</span></label>
@@ -1088,6 +1078,20 @@ export const ColdstoreView = {
                 <option value="Group D">Group D</option>
               </select>
             </div>
+
+            <!-- Search Action Button Slot -->
+            <div class="flex items-end">
+              <button 
+                type="button" 
+                id="dso-filter-search-btn" 
+                class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px] w-full"
+                title="Search Filter Records"
+              >
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                <span>Search</span>
+              </button>
+            </div>
+          </div>
           </div>
         </div>
 
@@ -1355,18 +1359,8 @@ export const ColdstoreView = {
               <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
             </div>
 
-            <!-- Filter Controls: Search, Reset & Toggle Open/Close -->
-            <div class="inline-flex items-center gap-2" style="display: inline-flex; align-items: center; gap: 8px;">
-              <button 
-                type="button" 
-                id="fz-filter-search-btn" 
-                class="dt-top-filter-search-btn btn-primary px-3.5 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5 shadow-2xs hover:shadow cursor-pointer h-[32px]"
-                title="Search Filter Records"
-              >
-                <svg style="width: 13px; height: 13px; min-width: 13px; stroke: #ffffff; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                <span>Search</span>
-              </button>
-
+            <!-- Filter Controls: Reset & Toggle Open/Close -->
+            <div class="inline-flex items-center" style="gap: 8px; display: inline-flex;">
               <button 
                 type="button" 
                 id="fz-filter-reset-btn" 
@@ -1391,15 +1385,28 @@ export const ColdstoreView = {
             </div>
           </div>
 
-          <!-- Collapsible Filter Inputs Grid (EXACTLY 4 COLUMNS) -->
-          <div id="fz-filter-body" class="dt-top-filter-body mt-3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-3 text-xs transition-all duration-200" style="margin-top: 12px !important;">
-            <!-- 1. PRODUCTION DATE * -->
+          <!-- Collapsible Filter Inputs Grid -->
+          <div id="fz-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
+            <!-- 1. PRODUCTION DATE -->
             <div>
-              <label for="fz-filter-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCTION DATE <span class="text-red-500 font-black">*</span></label>
+              <label for="fz-filter-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCTION DATE</label>
               <input type="date" id="fz-filter-date" value="2026-10-29" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
             </div>
 
-            <!-- 2. STOCK BELONGS TO * -->
+            <!-- 2. PRODUCTION PLANT -->
+            <div>
+              <label for="fz-filter-plant" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCTION PLANT</label>
+              <select id="fz-filter-plant" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="ALL">All Production Plants</option>
+                <option value="DFL UNIT-5 (JPT)">DFL UNIT-5 (JPT)</option>
+                <option value="DFL UNIT-3 (PSP)">DFL UNIT-3 (PSP)</option>
+                <option value="DFL UNIT-4 (PND)">DFL UNIT-4 (PND)</option>
+                <option value="DFL UNIT-1 (VSP)">DFL UNIT-1 (VSP)</option>
+                <option value="DFL UNIT-2 (KKD)">DFL UNIT-2 (KKD)</option>
+              </select>
+            </div>
+
+            <!-- 3. STOCK BELONGS TO -->
             <div>
               <label for="fz-filter-stock-belongs" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STOCK BELONGS TO</label>
               <select id="fz-filter-stock-belongs" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
@@ -1413,20 +1420,7 @@ export const ColdstoreView = {
               </select>
             </div>
 
-            <!-- 3. PRODUCTION PLANT * -->
-            <div>
-              <label for="fz-filter-plant" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCTION PLANT</label>
-              <select id="fz-filter-plant" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
-                <option value="ALL">All Production Plants</option>
-                <option value="DFL UNIT-5 (JPT)">DFL UNIT-5 (JPT)</option>
-                <option value="DFL UNIT-3 (PSP)">DFL UNIT-3 (PSP)</option>
-                <option value="DFL UNIT-4 (PND)">DFL UNIT-4 (PND)</option>
-                <option value="DFL UNIT-1 (VSP)">DFL UNIT-1 (VSP)</option>
-                <option value="DFL UNIT-2 (KKD)">DFL UNIT-2 (KKD)</option>
-              </select>
-            </div>
-
-            <!-- 4. GROUP * -->
+            <!-- 4. GROUP -->
             <div>
               <label for="fz-filter-group" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">GROUP</label>
               <select id="fz-filter-group" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
@@ -1437,6 +1431,57 @@ export const ColdstoreView = {
                 <option value="Group D">Group D</option>
               </select>
             </div>
+
+            <!-- 5. FREEZING TYPE -->
+            <div>
+              <label for="fz-filter-freezing-type" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">FREEZING TYPE</label>
+              <select id="fz-filter-freezing-type" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="ALL">All Freezing Types</option>
+                <option value="IQF Tunnel">IQF Tunnel</option>
+                <option value="Contact Plate Freezer">Contact Plate Freezer</option>
+                <option value="Blast Freezer">Blast Freezer</option>
+                <option value="Semi-IQF">Semi-IQF</option>
+              </select>
+            </div>
+
+            <!-- 6. PACKING TYPE -->
+            <div>
+              <label for="fz-filter-packing-type" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PACKING TYPE</label>
+              <select id="fz-filter-packing-type" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="ALL">All Packing Types</option>
+                <option value="Master Cartons">Master Cartons</option>
+                <option value="Dummy Cartons">Dummy Cartons</option>
+                <option value="10x1kg Net">10x1kg Net</option>
+                <option value="6x2kg Block">6x2kg Block</option>
+                <option value="5x2kg IQF Poly">5x2kg IQF Poly</option>
+                <option value="10x2lb Pouch">10x2lb Pouch</option>
+              </select>
+            </div>
+
+            <!-- 7. SHIFT -->
+            <div>
+              <label for="fz-filter-shift" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SHIFT</label>
+              <select id="fz-filter-shift" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="ALL">All Shifts</option>
+                <option value="Shift A (Day)">Shift A (Day)</option>
+                <option value="Shift B (Evening)">Shift B (Evening)</option>
+                <option value="Shift C (Night)">Shift C (Night)</option>
+              </select>
+            </div>
+
+            <!-- 8. Search Action Button Slot -->
+            <div class="flex items-end">
+              <button 
+                type="button" 
+                id="fz-filter-search-btn" 
+                class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px] w-full"
+                title="Search Filter Records"
+              >
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                <span>Search</span>
+              </button>
+            </div>
+          </div>
           </div>
         </div>
 
@@ -1592,6 +1637,9 @@ export const ColdstoreView = {
       const selectedBelongs = container.querySelector('#fz-filter-stock-belongs')?.value;
       const selectedPlant = container.querySelector('#fz-filter-plant')?.value;
       const selectedGroup = container.querySelector('#fz-filter-group')?.value;
+      const selectedFzType = container.querySelector('#fz-filter-freezing-type')?.value;
+      const selectedPkgType = container.querySelector('#fz-filter-packing-type')?.value;
+      const selectedShift = container.querySelector('#fz-filter-shift')?.value;
 
       let filtered = fullList.filter(item => {
         if (selectedDate && selectedDate.trim() !== '') {
@@ -1606,6 +1654,15 @@ export const ColdstoreView = {
         }
         if (selectedGroup && selectedGroup !== 'ALL') {
           if (item.group !== selectedGroup) return false;
+        }
+        if (selectedFzType && selectedFzType !== 'ALL') {
+          if (item.freezingType !== selectedFzType) return false;
+        }
+        if (selectedPkgType && selectedPkgType !== 'ALL') {
+          if (item.packingType !== selectedPkgType) return false;
+        }
+        if (selectedShift && selectedShift !== 'ALL') {
+          if (item.shift !== selectedShift) return false;
         }
         return true;
       });
@@ -1626,11 +1683,17 @@ export const ColdstoreView = {
         const belongsSelect = container.querySelector('#fz-filter-stock-belongs');
         const plantSelect = container.querySelector('#fz-filter-plant');
         const groupSelect = container.querySelector('#fz-filter-group');
+        const fzTypeSelect = container.querySelector('#fz-filter-freezing-type');
+        const pkgTypeSelect = container.querySelector('#fz-filter-packing-type');
+        const shiftSelect = container.querySelector('#fz-filter-shift');
 
         if (dateInput) dateInput.value = '';
         if (belongsSelect) belongsSelect.value = 'ALL';
         if (plantSelect) plantSelect.value = 'ALL';
         if (groupSelect) groupSelect.value = 'ALL';
+        if (fzTypeSelect) fzTypeSelect.value = 'ALL';
+        if (pkgTypeSelect) pkgTypeSelect.value = 'ALL';
+        if (shiftSelect) shiftSelect.value = 'ALL';
 
         renderTable(fullList);
         Toast.show('Freezing filters reset', 'info');
@@ -2103,11 +2166,14 @@ export const ColdstoreView = {
             </div>
           </div>
         </div>
-      `
+      `,
+      footerButtons: [
+        { label: 'Close', type: 'secondary', onClick: (modal) => modal.close() }
+      ]
     });
   },
 
-  // 9. ADD FREEZING MODAL (ALL 25 USER-SPECIFIED FIELDS)
+  // 9. ADD FREEZING MODAL (ALL 25 USER-SPECIFIED FIELDS - FLAT CLEAN STYLE GUIDE)
   showAddFreezingModal(onSuccessCallback) {
     const today = new Date().toISOString().slice(0, 10);
     const nextSeq = (this.state.freezingRunsList?.length || 0) + 1;
@@ -2117,374 +2183,367 @@ export const ColdstoreView = {
       title: 'Add Freezing Run',
       size: '2xl',
       content: `
-        <form id="form-add-freezing" class="space-y-4 text-xs text-[#172B4D]">
-          <!-- Grid 1: Key Tracking & Dates -->
-          <div class="bg-[#F8FAFC] p-3 rounded-lg border border-[#DFE1E6]">
-            <h4 class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-2.5">1. Production & Tracking Identifiers</h4>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
-              <!-- 1. PRODUCTION DATE * -->
-              <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">PRODUCTION DATE <span class="text-red-500 font-black">*</span></label>
-                <input type="date" name="productionDate" value="${today}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
-              </div>
-
-              <!-- 2. TRANSACTION DATE * -->
-              <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">TRANSACTION DATE <span class="text-red-500 font-black">*</span></label>
-                <input type="date" name="transactionDate" value="${today}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
-              </div>
-
-              <!-- 3. ARRIVAL DATE * -->
-              <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">ARRIVAL DATE <span class="text-red-500 font-black">*</span></label>
-                <input type="date" name="arrivalDate" value="${today}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
-              </div>
-
-              <!-- 4. ARRIVAL/LOT CODE * -->
-              <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">ARRIVAL/LOT CODE <span class="text-red-500 font-black">*</span></label>
-                <input type="text" name="arrivalLotCode" value="${defaultLotCode}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-bold text-[#0284C7]" required>
-              </div>
-            </div>
+        <form id="form-add-freezing" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs">
+          <!-- 1. PRODUCTION DATE * -->
+          <div>
+            <label for="fz-add-pdate" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCTION DATE <span class="text-[#DE350B]">*</span></label>
+            <input type="date" id="fz-add-pdate" name="productionDate" value="${today}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]" required onclick="this.showPicker ? this.showPicker() : this.focus()">
           </div>
 
-          <!-- Grid 2: Facility & Ownership -->
-          <div class="bg-[#F8FAFC] p-3 rounded-lg border border-[#DFE1E6]">
-            <h4 class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-2.5">2. Facility, Plant & Organization</h4>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
-              <!-- 5. PRODUCTION PLANT * -->
-              <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">PRODUCTION PLANT <span class="text-red-500 font-black">*</span></label>
-                <select name="productionPlant" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
-                  <option value="DFL UNIT-5 (JPT)" selected>DFL UNIT-5 (JPT)</option>
-                  <option value="DFL UNIT-3 (PSP)">DFL UNIT-3 (PSP)</option>
-                  <option value="DFL UNIT-4 (PND)">DFL UNIT-4 (PND)</option>
-                  <option value="DFL UNIT-1 (VSP)">DFL UNIT-1 (VSP)</option>
-                  <option value="DFL UNIT-2 (KKD)">DFL UNIT-2 (KKD)</option>
-                </select>
-              </div>
-
-              <!-- 6. GROUP * -->
-              <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">GROUP <span class="text-red-500 font-black">*</span></label>
-                <select name="group" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
-                  <option value="Group A" selected>Group A</option>
-                  <option value="Group B">Group B</option>
-                  <option value="Group C">Group C</option>
-                  <option value="Group D">Group D</option>
-                </select>
-              </div>
-
-              <!-- 7. STOCK BELONGS TO * -->
-              <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">STOCK BELONGS TO <span class="text-red-500 font-black">*</span></label>
-                <select name="stockBelongsTo" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
-                  <option value="Devi Fisheries Ltd (DFL)" selected>Devi Fisheries Ltd (DFL)</option>
-                  <option value="DFL Unit-5 (JPT)">DFL Unit-5 (JPT)</option>
-                  <option value="DFL Unit-4 (PND)">DFL Unit-4 (PND)</option>
-                  <option value="DFL Unit-3 (PSP)">DFL Unit-3 (PSP)</option>
-                  <option value="DFL Unit-1 (VSP)">DFL Unit-1 (VSP)</option>
-                  <option value="Third-Party Co-Packing">Third-Party Co-Packing</option>
-                </select>
-              </div>
-
-              <!-- 8. SHIFT * -->
-              <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">SHIFT <span class="text-red-500 font-black">*</span></label>
-                <select name="shift" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
-                  <option value="Shift A (Day)" selected>Shift A (Day)</option>
-                  <option value="Shift B (Evening)">Shift B (Evening)</option>
-                  <option value="Shift C (Night)">Shift C (Night)</option>
-                </select>
-              </div>
-            </div>
+          <!-- 2. BATCH CODES -->
+          <div>
+            <label for="fz-add-batch" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">BATCH CODES</label>
+            <input type="text" id="fz-add-batch" name="batchCodes" placeholder="e.g. BCH-2026-910" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono text-[#172B4D]">
           </div>
 
-          <!-- Grid 3: Order, Batch & Raw Material Specifications -->
-          <div class="bg-[#F8FAFC] p-3 rounded-lg border border-[#DFE1E6]">
-            <h4 class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-2.5">3. Batch, Order & Raw Material Specs</h4>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
-              <!-- 9. PO NUMBER * -->
-              <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">PO NUMBER <span class="text-red-500 font-black">*</span></label>
-                <input type="text" name="poNumber" value="PO-2026-8901" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-semibold" required>
-              </div>
-
-              <!-- 10. BATCH CODES -->
-              <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">BATCH CODES</label>
-                <input type="text" name="batchCodes" placeholder="e.g. BCH-2026-910, BCH-911" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono">
-              </div>
-
-              <!-- 11. VARIETY * -->
-              <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">VARIETY <span class="text-red-500 font-black">*</span></label>
-                <select name="variety" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
-                  <option value="Vannamei (White Shrimp)" selected>Vannamei (White Shrimp)</option>
-                  <option value="Black Tiger (Monodon)">Black Tiger (Monodon)</option>
-                  <option value="Sea Pearl / Pink">Sea Pearl / Pink</option>
-                  <option value="Scampi (Freshwater)">Scampi (Freshwater)</option>
-                </select>
-              </div>
-
-              <!-- 12. GRADE * -->
-              <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">GRADE <span class="text-red-500 font-black">*</span></label>
-                <select name="grade" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
-                  <option value="31/40" selected>31/40</option>
-                  <option value="16/20">16/20</option>
-                  <option value="26/30">26/30</option>
-                  <option value="41/50">41/50</option>
-                  <option value="21/25">21/25</option>
-                  <option value="51/60">51/60</option>
-                  <option value="U/15">U/15</option>
-                </select>
-              </div>
-
-              <!-- 13. HL COUNT * -->
-              <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">HL COUNT <span class="text-red-500 font-black">*</span></label>
-                <input type="number" step="0.1" name="hlCount" value="35.0" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-semibold" required>
-              </div>
-
-              <!-- 14. TUB NO -->
-              <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">TUB NO</label>
-                <input type="text" name="tubNo" value="TUB-401" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-semibold">
-              </div>
-
-              <!-- 15. SOAKING * -->
-              <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">SOAKING <span class="text-red-500 font-black">*</span></label>
-                <select name="soaking" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
-                  <option value="Yes (Non-Phosphate)" selected>Yes (Non-Phosphate)</option>
-                  <option value="Yes (Phosphate Treated)">Yes (Phosphate Treated)</option>
-                  <option value="No (Unsoaked)">No (Unsoaked)</option>
-                </select>
-              </div>
-
-              <!-- 16. PRODUCT CATEGORY * -->
-              <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">PRODUCT CATEGORY <span class="text-red-500 font-black">*</span></label>
-                <select name="productCategory" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
-                  <option value="Raw Frozen" selected>Raw Frozen</option>
-                  <option value="Cooked Frozen">Cooked Frozen</option>
-                  <option value="Value Added">Value Added</option>
-                  <option value="Blanched">Blanched</option>
-                </select>
-              </div>
-            </div>
+          <!-- 3. TRANSACTION DATE * -->
+          <div>
+            <label for="fz-add-tdate" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TRANSACTION DATE <span class="text-[#DE350B]">*</span></label>
+            <input type="date" id="fz-add-tdate" name="transactionDate" value="${today}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]" required onclick="this.showPicker ? this.showPicker() : this.focus()">
           </div>
 
-          <!-- Grid 4: Freezing & Packaging Specifications -->
-          <div class="bg-[#F8FAFC] p-3 rounded-lg border border-[#DFE1E6]">
-            <h4 class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-2.5">4. Freezing, Packaging & QC Status</h4>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
-              <!-- 17. FREEZING TYPE * -->
-              <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">FREEZING TYPE <span class="text-red-500 font-black">*</span></label>
-                <select name="freezingType" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
-                  <option value="IQF Tunnel" selected>IQF Tunnel</option>
-                  <option value="Contact Plate Freezer">Contact Plate Freezer</option>
-                  <option value="Blast Freezer">Blast Freezer</option>
-                  <option value="Semi-IQF">Semi-IQF</option>
-                </select>
-              </div>
-
-              <!-- 18. PACKING TYPE * -->
-              <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">PACKING TYPE <span class="text-red-500 font-black">*</span></label>
-                <select name="packingType" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
-                  <option value="Master Cartons" selected>Master Cartons</option>
-                  <option value="Dummy Cartons">Dummy Cartons</option>
-                  <option value="10x1kg Net">10x1kg Net</option>
-                  <option value="6x2kg Block">6x2kg Block</option>
-                  <option value="5x2kg IQF Poly">5x2kg IQF Poly</option>
-                  <option value="10x2lb Pouch">10x2lb Pouch</option>
-                </select>
-              </div>
-
-              <!-- 19. PACKING STYLE * -->
-              <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">PACKING STYLE <span class="text-red-500 font-black">*</span></label>
-                <input type="text" name="packingStyle" value="10x1kg Net" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
-              </div>
-
-              <!-- 20. ABSTATUS * -->
-              <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">ABSTATUS <span class="text-red-500 font-black">*</span></label>
-                <select name="abStatus" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-bold text-[#006644]" required>
-                  <option value="PASSED (AB Negative)" selected>PASSED (AB Negative)</option>
-                  <option value="UNDER TESTING">UNDER TESTING</option>
-                  <option value="FAILED">FAILED</option>
-                </select>
-              </div>
-            </div>
+          <!-- 4. PRODUCTION PLANT * -->
+          <div>
+            <label for="fz-add-plant" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCTION PLANT <span class="text-[#DE350B]">*</span></label>
+            <select id="fz-add-plant" name="productionPlant" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]" required>
+              <option value="DFL UNIT-5 (JPT)" selected>DFL UNIT-5 (JPT)</option>
+              <option value="DFL UNIT-3 (PSP)">DFL UNIT-3 (PSP)</option>
+              <option value="DFL UNIT-4 (PND)">DFL UNIT-4 (PND)</option>
+              <option value="DFL UNIT-1 (VSP)">DFL UNIT-1 (VSP)</option>
+              <option value="DFL UNIT-2 (KKD)">DFL UNIT-2 (KKD)</option>
+            </select>
           </div>
 
-          <!-- Grid 5: Quantities, Weights & Remarks -->
-          <div class="bg-[#F8FAFC] p-3 rounded-lg border border-[#DFE1E6]">
-            <h4 class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-2.5">5. Quantities, Weights & Remarks</h4>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
-              <!-- 21. MCS -->
-              <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">MCS (MASTER CARTONS)</label>
-                <input type="number" name="mcs" value="400" min="0" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-bold">
-              </div>
-
-              <!-- 22. LOOSE BAGS -->
-              <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">LOOSE BAGS</label>
-                <input type="number" name="looseBags" value="0" min="0" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-semibold">
-              </div>
-
-              <!-- 23. TOTAL WEIGHT -->
-              <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">TOTAL WEIGHT (KG)</label>
-                <input type="number" step="0.1" name="totalWeight" value="4000.0" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-bold text-[#00875A]">
-              </div>
-
-              <!-- 24. BALANCE WEIGHT -->
-              <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">BALANCE WEIGHT (KG)</label>
-                <input type="number" step="0.1" name="balanceWeight" value="4000.0" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-bold text-[#DE350B]">
-              </div>
-            </div>
-
-            <!-- 25. REMARKS -->
-            <div class="mt-3">
-              <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">REMARKS</label>
-              <textarea name="remarks" rows="2" placeholder="Enter process notes, temperature verification, or pallet layout..." class="w-full text-xs p-2 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]"></textarea>
-            </div>
+          <!-- 5. GROUP * -->
+          <div>
+            <label for="fz-add-group" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">GROUP <span class="text-[#DE350B]">*</span></label>
+            <select id="fz-add-group" name="group" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]" required>
+              <option value="Group A" selected>Group A</option>
+              <option value="Group B">Group B</option>
+              <option value="Group C">Group C</option>
+              <option value="Group D">Group D</option>
+            </select>
           </div>
 
-          <!-- Submit Buttons -->
-          <div class="flex justify-end gap-2 pt-2 border-t border-[#DFE1E6]">
-            <button type="button" class="btn-secondary px-4 py-2 rounded text-xs font-semibold cursor-pointer" onclick="Modal.close()">Cancel</button>
-            <button type="submit" class="btn-primary px-5 py-2 rounded text-xs font-semibold cursor-pointer">Save Freezing Run</button>
+          <!-- 6. STOCK BELONGS TO * -->
+          <div>
+            <label for="fz-add-belongs" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STOCK BELONGS TO <span class="text-[#DE350B]">*</span></label>
+            <select id="fz-add-belongs" name="stockBelongsTo" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]" required>
+              <option value="Devi Fisheries Ltd (DFL)" selected>Devi Fisheries Ltd (DFL)</option>
+              <option value="DFL Unit-5 (JPT)">DFL Unit-5 (JPT)</option>
+              <option value="DFL Unit-4 (PND)">DFL Unit-4 (PND)</option>
+              <option value="DFL Unit-3 (PSP)">DFL Unit-3 (PSP)</option>
+              <option value="DFL Unit-1 (VSP)">DFL Unit-1 (VSP)</option>
+              <option value="Third-Party Co-Packing">Third-Party Co-Packing</option>
+            </select>
+          </div>
+
+          <!-- 7. SHIFT * -->
+          <div>
+            <label for="fz-add-shift" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SHIFT <span class="text-[#DE350B]">*</span></label>
+            <select id="fz-add-shift" name="shift" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]" required>
+              <option value="Shift A (Day)" selected>Shift A (Day)</option>
+              <option value="Shift B (Evening)">Shift B (Evening)</option>
+              <option value="Shift C (Night)">Shift C (Night)</option>
+            </select>
+          </div>
+
+          <!-- 8. PO NUMBER * -->
+          <div>
+            <label for="fz-add-po" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PO NUMBER <span class="text-[#DE350B]">*</span></label>
+            <input type="text" id="fz-add-po" name="poNumber" value="PO-2026-8901" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-semibold text-[#172B4D]" required>
+          </div>
+
+          <!-- 9. VARIETY * -->
+          <div>
+            <label for="fz-add-variety" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">VARIETY <span class="text-[#DE350B]">*</span></label>
+            <select id="fz-add-variety" name="variety" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]" required>
+              <option value="Vannamei (White Shrimp)" selected>Vannamei (White Shrimp)</option>
+              <option value="Black Tiger (Monodon)">Black Tiger (Monodon)</option>
+              <option value="Sea Pearl / Pink">Sea Pearl / Pink</option>
+              <option value="Scampi (Freshwater)">Scampi (Freshwater)</option>
+            </select>
+          </div>
+
+          <!-- 10. PACKING STYLE * -->
+          <div>
+            <label for="fz-add-style" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PACKING STYLE <span class="text-[#DE350B]">*</span></label>
+            <select id="fz-add-style" name="packingStyle" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]" required>
+              <option value="10x1kg Net" selected>10x1kg Net</option>
+              <option value="6x2kg Block">6x2kg Block</option>
+              <option value="5x2kg IQF Poly">5x2kg IQF Poly</option>
+              <option value="10x2lb Pouch">10x2lb Pouch</option>
+            </select>
+          </div>
+
+          <!-- 11. GRADE * -->
+          <div>
+            <label for="fz-add-grade" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">GRADE <span class="text-[#DE350B]">*</span></label>
+            <select id="fz-add-grade" name="grade" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]" required>
+              <option value="31/40" selected>31/40</option>
+              <option value="16/20">16/20</option>
+              <option value="21/25">21/25</option>
+              <option value="26/30">26/30</option>
+              <option value="41/50">41/50</option>
+              <option value="51/60">51/60</option>
+              <option value="U/15">U/15</option>
+            </select>
+          </div>
+
+          <!-- 12. PACKING TYPE * -->
+          <div>
+            <label for="fz-add-ptype" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PACKING TYPE <span class="text-[#DE350B]">*</span></label>
+            <select id="fz-add-ptype" name="packingType" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]" required>
+              <option value="Master Cartons" selected>Master Cartons</option>
+              <option value="Dummy Cartons">Dummy Cartons</option>
+              <option value="10x1kg Net">10x1kg Net</option>
+              <option value="6x2kg Block">6x2kg Block</option>
+              <option value="5x2kg IQF Poly">5x2kg IQF Poly</option>
+              <option value="10x2lb Pouch">10x2lb Pouch</option>
+            </select>
+          </div>
+
+          <!-- 13. FREEZING TYPE * -->
+          <div>
+            <label for="fz-add-ftype" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">FREEZING TYPE <span class="text-[#DE350B]">*</span></label>
+            <select id="fz-add-ftype" name="freezingType" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]" required>
+              <option value="IQF Tunnel" selected>IQF Tunnel</option>
+              <option value="Contact Plate Freezer">Contact Plate Freezer</option>
+              <option value="Blast Freezer">Blast Freezer</option>
+              <option value="Semi-IQF">Semi-IQF</option>
+            </select>
+          </div>
+
+          <!-- 14. SOAKING * -->
+          <div>
+            <label for="fz-add-soaking" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SOAKING <span class="text-[#DE350B]">*</span></label>
+            <select id="fz-add-soaking" name="soaking" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]" required>
+              <option value="Yes (Non-Phosphate)" selected>Yes (Non-Phosphate)</option>
+              <option value="Yes (Phosphate Treated)">Yes (Phosphate Treated)</option>
+              <option value="No (Unsoaked)">No (Unsoaked)</option>
+            </select>
+          </div>
+
+          <!-- 15. PRODUCT CATEGORY * -->
+          <div>
+            <label for="fz-add-category" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCT CATEGORY <span class="text-[#DE350B]">*</span></label>
+            <select id="fz-add-category" name="productCategory" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]" required>
+              <option value="Raw Frozen" selected>Raw Frozen</option>
+              <option value="Cooked Frozen">Cooked Frozen</option>
+              <option value="Value Added">Value Added</option>
+              <option value="Blanched">Blanched</option>
+            </select>
+          </div>
+
+          <!-- 16. ABSTATUS * -->
+          <div>
+            <label for="fz-add-abstatus" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">ABSTATUS <span class="text-[#DE350B]">*</span></label>
+            <select id="fz-add-abstatus" name="abStatus" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-bold text-[#006644]" required>
+              <option value="PASSED (AB Negative)" selected>PASSED (AB Negative)</option>
+              <option value="UNDER TESTING">UNDER TESTING</option>
+              <option value="FAILED">FAILED</option>
+            </select>
+          </div>
+
+          <!-- 17. ARRIVAL DATE * -->
+          <div>
+            <label for="fz-add-adate" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">ARRIVAL DATE <span class="text-[#DE350B]">*</span></label>
+            <input type="date" id="fz-add-adate" name="arrivalDate" value="${today}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]" required onclick="this.showPicker ? this.showPicker() : this.focus()">
+          </div>
+
+          <!-- 18. ARRIVAL/LOT CODE * -->
+          <div>
+            <label for="fz-add-lot" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">ARRIVAL/LOT CODE <span class="text-[#DE350B]">*</span></label>
+            <input type="text" id="fz-add-lot" name="arrivalLotCode" value="${defaultLotCode}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-bold text-[#0284C7]" required>
+          </div>
+
+          <!-- 19. HL COUNT * -->
+          <div>
+            <label for="fz-add-hlcount" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">HL COUNT <span class="text-[#DE350B]">*</span></label>
+            <input type="number" step="0.1" id="fz-add-hlcount" name="hlCount" value="35.0" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-semibold text-[#172B4D]" required>
+          </div>
+
+          <!-- 20. TUB NO -->
+          <div>
+            <label for="fz-add-tub" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TUB NO</label>
+            <input type="text" id="fz-add-tub" name="tubNo" value="TUB-401" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-semibold text-[#172B4D]">
+          </div>
+
+          <!-- 21. MCS -->
+          <div>
+            <label for="fz-add-mcs" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">MCS</label>
+            <input type="number" id="fz-add-mcs" name="mcs" value="400" min="0" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-bold text-[#172B4D]">
+          </div>
+
+          <!-- 22. LOOSE BAGS -->
+          <div>
+            <label for="fz-add-bags" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">LOOSE BAGS</label>
+            <input type="number" id="fz-add-bags" name="looseBags" value="0" min="0" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-semibold text-[#172B4D]">
+          </div>
+
+          <!-- 23. TOTAL WEIGHT -->
+          <div>
+            <label for="fz-add-totalwt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TOTAL WEIGHT (KG)</label>
+            <input type="number" step="0.1" id="fz-add-totalwt" name="totalWeight" value="4000.0" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-bold text-[#00875A]">
+          </div>
+
+          <!-- 24. BALANCE WEIGHT -->
+          <div>
+            <label for="fz-add-balwt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">BALANCE WEIGHT (KG)</label>
+            <input type="number" step="0.1" id="fz-add-balwt" name="balanceWeight" value="4000.0" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-bold text-[#DE350B]">
+          </div>
+
+          <!-- 25. REMARKS (Full width) -->
+          <div class="sm:col-span-2 md:col-span-3 lg:col-span-4">
+            <label for="fz-add-remarks" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">REMARKS</label>
+            <input type="text" id="fz-add-remarks" name="remarks" placeholder="Enter process notes, temperature verification, or pallet layout..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] text-[#172B4D]">
           </div>
         </form>
-      `
-    });
+      `,
+      footerButtons: [
+        {
+          label: 'Cancel',
+          type: 'secondary',
+          onClick: (modal) => modal.close()
+        },
+        {
+          label: 'Save Freezing Run',
+          type: 'primary',
+          onClick: (modal) => {
+            const form = document.getElementById('form-add-freezing');
+            if (!form) return;
+            if (!form.checkValidity()) {
+              form.reportValidity();
+              return;
+            }
+            const fd = new FormData(form);
+            const newRecord = {
+              id: Date.now(),
+              sNo: (this.state.freezingRunsList?.length || 0) + 1,
+              productionDate: fd.get('productionDate') || today,
+              transactionDate: fd.get('transactionDate') || today,
+              arrivalDate: fd.get('arrivalDate') || today,
+              arrivalLotCode: fd.get('arrivalLotCode') || defaultLotCode,
+              batchCodes: fd.get('batchCodes') || '-',
+              productionPlant: fd.get('productionPlant'),
+              group: fd.get('group'),
+              stockBelongsTo: fd.get('stockBelongsTo'),
+              shift: fd.get('shift'),
+              poNumber: fd.get('poNumber'),
+              variety: fd.get('variety'),
+              packingStyle: fd.get('packingStyle'),
+              grade: fd.get('grade'),
+              packingType: fd.get('packingType'),
+              freezingType: fd.get('freezingType'),
+              soaking: fd.get('soaking'),
+              productCategory: fd.get('productCategory'),
+              abStatus: fd.get('abStatus'),
+              remarks: fd.get('remarks') || '-',
+              totalWeight: Number(fd.get('totalWeight') || 0),
+              balanceWeight: Number(fd.get('balanceWeight') || 0),
+              hlCount: Number(fd.get('hlCount') || 0),
+              mcs: Number(fd.get('mcs') || 0),
+              looseBags: Number(fd.get('looseBags') || 0),
+              tubNo: fd.get('tubNo') || '-'
+            };
 
-    const form = document.getElementById('form-add-freezing');
-    if (form) {
-      form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const fd = new FormData(form);
-        const newRecord = {
-          id: Date.now(),
-          sNo: (this.state.freezingRunsList?.length || 0) + 1,
-          productionDate: fd.get('productionDate') || today,
-          transactionDate: fd.get('transactionDate') || today,
-          arrivalDate: fd.get('arrivalDate') || today,
-          arrivalLotCode: fd.get('arrivalLotCode') || defaultLotCode,
-          batchCodes: fd.get('batchCodes') || '-',
-          productionPlant: fd.get('productionPlant'),
-          group: fd.get('group'),
-          stockBelongsTo: fd.get('stockBelongsTo'),
-          shift: fd.get('shift'),
-          poNumber: fd.get('poNumber'),
-          variety: fd.get('variety'),
-          packingStyle: fd.get('packingStyle'),
-          grade: fd.get('grade'),
-          packingType: fd.get('packingType'),
-          freezingType: fd.get('freezingType'),
-          soaking: fd.get('soaking'),
-          productCategory: fd.get('productCategory'),
-          abStatus: fd.get('abStatus'),
-          remarks: fd.get('remarks') || '-',
-          totalWeight: Number(fd.get('totalWeight') || 0),
-          balanceWeight: Number(fd.get('balanceWeight') || 0),
-          hlCount: Number(fd.get('hlCount') || 0),
-          mcs: Number(fd.get('mcs') || 0),
-          looseBags: Number(fd.get('looseBags') || 0),
-          tubNo: fd.get('tubNo') || '-'
-        };
-
-        this.state.freezingRunsList.unshift(newRecord);
-        Modal.close();
-        if (typeof onSuccessCallback === 'function') {
-          onSuccessCallback(this.state.freezingRunsList);
+            this.state.freezingRunsList.unshift(newRecord);
+            modal.close();
+            if (typeof onSuccessCallback === 'function') {
+              onSuccessCallback(this.state.freezingRunsList);
+            }
+            Toast.show(`Freezing run ${newRecord.arrivalLotCode} added successfully`, 'success');
+          }
         }
-        Toast.show(`Freezing run ${newRecord.arrivalLotCode} added successfully`, 'success');
-      });
-    }
+      ]
+    });
   },
 
-  // 10. EDIT FREEZING MODAL
+  // 10. EDIT FREEZING MODAL (FLAT CLEAN STYLE GUIDE)
   showEditFreezingModal(row, onSuccessCallback) {
     Modal.open({
       title: `Edit Freezing Run: ${row.arrivalLotCode || row.runCode}`,
       size: '2xl',
       content: `
-        <form id="form-edit-freezing" class="space-y-4 text-xs text-[#172B4D]">
-          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 bg-[#F8FAFC] p-3 rounded-lg border border-[#DFE1E6]">
-            <div>
-              <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">PRODUCTION DATE</label>
-              <input type="date" name="productionDate" value="${row.productionDate || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold" required>
-            </div>
-            <div>
-              <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">PLANT</label>
-              <input type="text" name="productionPlant" value="${row.productionPlant || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold">
-            </div>
-            <div>
-              <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">GRADE</label>
-              <input type="text" name="grade" value="${row.grade || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold">
-            </div>
-            <div>
-              <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">AB STATUS</label>
-              <select name="abStatus" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-bold">
-                <option value="PASSED (AB Negative)" ${row.abStatus === 'PASSED (AB Negative)' ? 'selected' : ''}>PASSED (AB Negative)</option>
-                <option value="UNDER TESTING" ${row.abStatus === 'UNDER TESTING' ? 'selected' : ''}>UNDER TESTING</option>
-                <option value="FAILED" ${row.abStatus === 'FAILED' ? 'selected' : ''}>FAILED</option>
-              </select>
-            </div>
+        <form id="form-edit-freezing" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs">
+          <div>
+            <label for="fz-edit-pdate" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCTION DATE</label>
+            <input type="date" id="fz-edit-pdate" name="productionDate" value="${row.productionDate || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]" required>
           </div>
-
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-white p-3 rounded-lg border border-[#DFE1E6]">
-            <div>
-              <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">MCS</label>
-              <input type="number" name="mcs" value="${row.mcs || 0}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold">
-            </div>
-            <div>
-              <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">TOTAL WT (KG)</label>
-              <input type="number" step="0.1" name="totalWeight" value="${row.totalWeight || row.netWeightKg || 0}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A]">
-            </div>
-            <div>
-              <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">BALANCE WT (KG)</label>
-              <input type="number" step="0.1" name="balanceWeight" value="${row.balanceWeight || 0}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#DE350B]">
-            </div>
+          <div>
+            <label for="fz-edit-plant" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCTION PLANT</label>
+            <input type="text" id="fz-edit-plant" name="productionPlant" value="${row.productionPlant || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
           </div>
-
-          <div class="flex justify-end gap-2 pt-2 border-t border-[#DFE1E6]">
-            <button type="button" class="btn-secondary px-4 py-2 rounded text-xs font-semibold cursor-pointer" onclick="Modal.close()">Cancel</button>
-            <button type="submit" class="btn-primary px-5 py-2 rounded text-xs font-semibold cursor-pointer">Update Freezing Run</button>
+          <div>
+            <label for="fz-edit-grade" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">GRADE</label>
+            <input type="text" id="fz-edit-grade" name="grade" value="${row.grade || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+          </div>
+          <div>
+            <label for="fz-edit-abstatus" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">AB STATUS</label>
+            <select id="fz-edit-abstatus" name="abStatus" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-bold text-[#006644]">
+              <option value="PASSED (AB Negative)" ${row.abStatus === 'PASSED (AB Negative)' ? 'selected' : ''}>PASSED (AB Negative)</option>
+              <option value="UNDER TESTING" ${row.abStatus === 'UNDER TESTING' ? 'selected' : ''}>UNDER TESTING</option>
+              <option value="FAILED" ${row.abStatus === 'FAILED' ? 'selected' : ''}>FAILED</option>
+            </select>
+          </div>
+          <div>
+            <label for="fz-edit-mcs" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">MCS</label>
+            <input type="number" id="fz-edit-mcs" name="mcs" value="${row.mcs || 0}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-bold text-[#172B4D]">
+          </div>
+          <div>
+            <label for="fz-edit-loose" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">LOOSE BAGS</label>
+            <input type="number" id="fz-edit-loose" name="looseBags" value="${row.looseBags || 0}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono text-[#172B4D]">
+          </div>
+          <div>
+            <label for="fz-edit-totalwt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TOTAL WT (KG)</label>
+            <input type="number" step="0.1" id="fz-edit-totalwt" name="totalWeight" value="${row.totalWeight || row.netWeightKg || 0}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-bold text-[#00875A]">
+          </div>
+          <div>
+            <label for="fz-edit-balwt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">BALANCE WT (KG)</label>
+            <input type="number" step="0.1" id="fz-edit-balwt" name="balanceWeight" value="${row.balanceWeight || 0}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-bold text-[#DE350B]">
+          </div>
+          <div class="sm:col-span-2 md:col-span-3 lg:col-span-4">
+            <label for="fz-edit-remarks" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">REMARKS</label>
+            <input type="text" id="fz-edit-remarks" name="remarks" value="${row.remarks || ''}" placeholder="Remarks..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] text-[#172B4D]">
           </div>
         </form>
-      `
-    });
+      `,
+      footerButtons: [
+        {
+          label: 'Cancel',
+          type: 'secondary',
+          onClick: (modal) => modal.close()
+        },
+        {
+          label: 'Update Freezing Run',
+          type: 'primary',
+          onClick: (modal) => {
+            const form = document.getElementById('form-edit-freezing');
+            if (!form) return;
+            if (!form.checkValidity()) {
+              form.reportValidity();
+              return;
+            }
+            const fd = new FormData(form);
+            row.productionDate = fd.get('productionDate');
+            row.productionPlant = fd.get('productionPlant');
+            row.grade = fd.get('grade');
+            row.abStatus = fd.get('abStatus');
+            row.mcs = Number(fd.get('mcs') || 0);
+            row.looseBags = Number(fd.get('looseBags') || 0);
+            row.totalWeight = Number(fd.get('totalWeight') || 0);
+            row.balanceWeight = Number(fd.get('balanceWeight') || 0);
+            row.remarks = fd.get('remarks');
 
-    const form = document.getElementById('form-edit-freezing');
-    if (form) {
-      form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const fd = new FormData(form);
-        row.productionDate = fd.get('productionDate');
-        row.productionPlant = fd.get('productionPlant');
-        row.grade = fd.get('grade');
-        row.abStatus = fd.get('abStatus');
-        row.mcs = Number(fd.get('mcs') || 0);
-        row.totalWeight = Number(fd.get('totalWeight') || 0);
-        row.balanceWeight = Number(fd.get('balanceWeight') || 0);
-
-        Modal.close();
-        if (typeof onSuccessCallback === 'function') {
-          onSuccessCallback(this.state.freezingRunsList);
+            modal.close();
+            if (typeof onSuccessCallback === 'function') {
+              onSuccessCallback(this.state.freezingRunsList);
+            }
+            Toast.show(`Freezing run ${row.arrivalLotCode} updated`, 'success');
+          }
         }
-        Toast.show(`Freezing run ${row.arrivalLotCode} updated`, 'success');
-      });
-    }
+      ]
+    });
   },
 
   // 11. FREEZING DETAILS MODAL (EXACT 25 FIELDS DISPLAY)
@@ -2616,7 +2675,10 @@ export const ColdstoreView = {
             <p class="text-xs text-[#5E6C84] leading-relaxed">${row.remarks || 'No remarks provided for this freezing run.'}</p>
           </div>
         </div>
-      `
+      `,
+      footerButtons: [
+        { label: 'Close', type: 'secondary', onClick: (modal) => modal.close() }
+      ]
     });
   }
 
