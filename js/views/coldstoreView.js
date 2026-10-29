@@ -9817,7 +9817,7 @@ export const ColdstoreView = {
       content: `
         <div class="space-y-4 text-xs text-[#172B4D]">
           <!-- Filter Card (13 Input Fields + Search Button) -->
-          <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs transition-all duration-200">
+          <div class="dt-top-filter-card transition-all duration-200">
             <div class="flex items-center justify-between pb-1">
               <div class="flex items-center gap-2">
                 <svg style="width: 16px; height: 16px; min-width: 16px; min-height: 16px; stroke: #0284C7; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
