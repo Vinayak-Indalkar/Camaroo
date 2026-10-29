@@ -8314,7 +8314,7 @@ export const ColdstoreView = {
           <div class="flex items-center justify-between pb-1">
             <div class="flex items-center gap-2">
               <svg style="width: 16px; height: 16px; min-width: 16px; min-height: 16px; stroke: #0284C7; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
-              <h3 class="text-xs font-bold text-[#172B4D]">Daily Production Search Filters</h3>
+              <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
             </div>
 
             <!-- Filter Controls: Reset & Toggle Open/Close -->
@@ -8343,17 +8343,17 @@ export const ColdstoreView = {
             </div>
           </div>
 
-          <!-- Form Input Fields (Consistent 4 Columns Grid) -->
-          <div id="dpl-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs transition-all duration-200">
+          <!-- Form Input Fields (Standard 5-Column Grid: 4 Inputs + Search Button) -->
+          <div id="dpl-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 text-xs transition-all duration-200">
             <!-- 1. PRODUCTION DATE * -->
             <div>
-              <label for="dpl-filter-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCTION DATE <span class="text-[#DE350B] font-bold">*</span></label>
+              <label for="dpl-filter-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PRODUCTION DATE <span class="text-[#DE350B] font-bold">*</span></label>
               <input type="date" id="dpl-filter-date" value="2026-10-29" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]" required>
             </div>
 
             <!-- 2. STOCK BELONGS TO -->
             <div>
-              <label for="dpl-filter-stock-belongs" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STOCK BELONGS TO</label>
+              <label for="dpl-filter-stock-belongs" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">STOCK BELONGS TO</label>
               <select id="dpl-filter-stock-belongs" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
                 <option value="">All Stock</option>
                 <option value="Own Stock (Devi Fisheries)" selected>Own Stock (Devi Fisheries)</option>
@@ -8364,7 +8364,7 @@ export const ColdstoreView = {
 
             <!-- 3. PACKING TYPE -->
             <div>
-              <label for="dpl-filter-packing-type" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PACKING TYPE</label>
+              <label for="dpl-filter-packing-type" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PACKING TYPE</label>
               <select id="dpl-filter-packing-type" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
                 <option value="">All Packing Types</option>
                 <option value="DUMMY">DUMMY</option>
@@ -8375,7 +8375,7 @@ export const ColdstoreView = {
 
             <!-- 4. GROUP -->
             <div>
-              <label for="dpl-filter-group" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">GROUP</label>
+              <label for="dpl-filter-group" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">GROUP</label>
               <select id="dpl-filter-group" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
                 <option value="">All Groups</option>
                 <option value="Vannamei PD">Vannamei PD</option>
@@ -8385,29 +8385,28 @@ export const ColdstoreView = {
                 <option value="Scampi Block">Scampi Block</option>
               </select>
             </div>
+
+            <!-- Search Action Button Slot (Width Fitted) -->
+            <div class="flex items-end">
+              <button 
+                type="button" 
+                id="dpl-filter-search-btn" 
+                class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px] w-full sm:w-auto"
+                title="Search Filter Records"
+              >
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                <span>Search</span>
+              </button>
+            </div>
           </div>
 
-          <!-- Bottom Action Bar with Search Button & Note -->
-          <div class="flex flex-wrap items-center justify-between gap-3 pt-3 mt-3 border-t border-[#EBECF0]">
-            <p class="text-[11px] text-[#6B778C] italic">
-              <span class="text-[#DE350B] font-bold">*</span> Note: The asterisk * indicates a required field
-            </p>
-            <button 
-              type="button" 
-              id="dpl-filter-search-btn" 
-              class="dt-top-filter-search-btn btn-primary px-6 py-1.5 rounded-full text-xs font-bold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]"
-              title="Search Daily Production Lots"
-            >
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-              <span>Search</span>
-            </button>
+          <div class="mt-2 text-[11px] text-[#6B778C]">
+            <span class="text-[#DE350B] font-bold">*</span> (Note: The asterisk * indicates a required field)
           </div>
         </div>
 
         <!-- Data Table Container -->
-        <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
-          <div id="cs-daily-prod-table"></div>
-        </div>
+        <div id="cs-daily-prod-table"></div>
       </div>
     `;
 
@@ -8421,160 +8420,158 @@ export const ColdstoreView = {
 
       dataTableInstance = new DataTable({
         containerId: 'cs-daily-prod-table',
-        tableTitle: 'Daily Production Intake Lots',
+        tableTitle: 'Daily Production List',
+        keyField: 'id',
         searchable: true,
         exportable: true,
         pageSize: 10,
+        onRowClick: (row) => this.showDailyProductionDetailModal(row),
         columns: [
           // 1. S.NO
-          { key: 'id', label: 'S.NO', render: (v, r, idx) => `<span class="font-mono text-xs text-[#5E6C84]">${idx + 1}</span>` },
+          {
+            field: 'id',
+            header: 'S.NO',
+            render: (v, r, idx) => `<span class="text-[#5E6C84] font-semibold">${idx + 1}</span>`
+          },
 
           // 2. Group
-          { key: 'group', label: 'Group', sortable: true, render: (v) => `<span class="font-bold text-xs text-[#172B4D]">${v}</span>` },
+          {
+            field: 'group',
+            header: 'Group',
+            sortable: true,
+            render: (v) => `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#EAE6FF] text-[#403294] whitespace-nowrap">${v}</span>`
+          },
 
           // 3. SUPC
-          { key: 'supc', label: 'SUPC', sortable: true, render: (v) => `<span class="font-mono font-bold text-xs text-[#0284C7] bg-[#F0F9FF] px-2 py-0.5 rounded border border-[#BEE3F8]">${v}</span>` },
+          {
+            field: 'supc',
+            header: 'SUPC',
+            sortable: true,
+            render: (v) => `<span class="font-mono font-bold text-xs text-[#0284C7] bg-[#F0F9FF] px-2 py-0.5 rounded border border-[#BEE3F8] whitespace-nowrap">${v}</span>`
+          },
 
           // 4. Product
-          { key: 'product', label: 'Product', sortable: true, render: (v) => `<span class="text-xs text-[#172B4D] font-medium">${v}</span>` },
+          {
+            field: 'product',
+            header: 'Product',
+            sortable: true,
+            render: (v) => `<span class="font-medium text-xs text-[#172B4D] whitespace-nowrap">${v}</span>`
+          },
 
           // 5. Grade
-          { key: 'grade', label: 'Grade', sortable: true, render: (v) => `<span class="font-mono font-bold text-xs text-[#0F62FE]">${v}</span>` },
+          {
+            field: 'grade',
+            header: 'Grade',
+            sortable: true,
+            render: (v) => `<span class="font-mono font-bold text-xs text-[#0284C7] whitespace-nowrap">${v}</span>`
+          },
 
           // 6. Packing Type
-          { key: 'packingType', label: 'Packing Type', sortable: true, render: (v) => `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#EAE6FF] text-[#403294]">${v}</span>` },
+          {
+            field: 'packingType',
+            header: 'Packing Type',
+            sortable: true,
+            render: (v) => `<span class="whitespace-nowrap text-xs text-[#172B4D]">${v}</span>`
+          },
 
           // 7. Packing Style
-          { key: 'packingStyle', label: 'Packing Style', render: (v) => `<span class="font-mono text-xs text-[#5E6C84]">${v}</span>` },
+          {
+            field: 'packingStyle',
+            header: 'Packing Style',
+            render: (v) => `<span class="whitespace-nowrap font-medium text-xs text-[#172B4D]">${v}</span>`
+          },
 
           // 8. Mcs
-          { key: 'mcs', label: 'Mcs', sortable: true, render: (v) => `<span class="font-mono font-bold text-xs text-[#172B4D]">${v.toLocaleString()}</span>` },
+          {
+            field: 'mcs',
+            header: 'Mcs',
+            sortable: true,
+            render: (v) => `<span class="font-mono font-bold text-xs text-[#00875A]">${Number(v).toLocaleString()}</span>`
+          },
 
           // 9. Balance Mcs
-          { key: 'balanceMcs', label: 'Balance Mcs', sortable: true, render: (v) => `<span class="font-mono font-bold text-xs ${v > 0 ? 'text-[#D97706]' : 'text-[#00875A]'}">${v.toLocaleString()}</span>` },
+          {
+            field: 'balanceMcs',
+            header: 'Balance Mcs',
+            sortable: true,
+            render: (v) => `<span class="font-mono font-bold text-xs ${v > 0 ? 'text-[#172B4D]' : 'text-[#A5ADBA]'}">${Number(v).toLocaleString()}</span>`
+          },
 
           // 10. Bags
-          { key: 'bags', label: 'Bags', sortable: true, render: (v) => `<span class="font-mono font-bold text-xs text-[#172B4D]">${v.toLocaleString()}</span>` },
+          {
+            field: 'bags',
+            header: 'Bags',
+            sortable: true,
+            render: (v) => `<span class="font-mono font-semibold text-xs text-[#172B4D]">${Number(v).toLocaleString()}</span>`
+          },
 
           // 11. Balance Bags
-          { key: 'balanceBags', label: 'Balance Bags', sortable: true, render: (v) => `<span class="font-mono font-bold text-xs ${v > 0 ? 'text-[#D97706]' : 'text-[#00875A]'}">${v.toLocaleString()}</span>` },
+          {
+            field: 'balanceBags',
+            header: 'Balance Bags',
+            sortable: true,
+            render: (v) => `<span class="font-mono font-semibold text-xs ${v > 0 ? 'text-[#172B4D]' : 'text-[#A5ADBA]'}">${Number(v).toLocaleString()}</span>`
+          },
 
           // 12. Kgs
-          { key: 'kgs', label: 'Kgs', sortable: true, render: (v) => `<span class="font-mono font-bold text-xs text-[#172B4D]">${Number(v).toFixed(1)}</span>` },
+          {
+            field: 'kgs',
+            header: 'Kgs',
+            sortable: true,
+            render: (v) => `<span class="font-mono font-bold text-xs text-[#172B4D]">${Number(v).toFixed(1)}</span>`
+          },
 
           // 13. Balance Kgs
-          { key: 'balanceKgs', label: 'Balance Kgs', sortable: true, render: (v) => `<span class="font-mono font-bold text-xs ${v > 0 ? 'text-[#D97706]' : 'text-[#00875A]'}">${Number(v).toFixed(1)}</span>` },
+          {
+            field: 'balanceKgs',
+            header: 'Balance Kgs',
+            sortable: true,
+            render: (v) => `<span class="font-mono font-bold text-xs ${v > 0 ? 'text-[#00875A]' : 'text-[#A5ADBA]'}">${Number(v).toFixed(1)}</span>`
+          },
 
           // 14. Status
           {
-            key: 'status',
-            label: 'Status',
+            field: 'status',
+            header: 'Status',
             sortable: true,
             render: (v) => {
               let badgeCls = 'bg-[#FFF0B3] text-[#172B4D] border-[#FFE380]';
               if (v === 'Approved') badgeCls = 'bg-[#E3FCEF] text-[#006644] border-[#ABF5D1]';
               if (v === 'Partially Stored') badgeCls = 'bg-[#E0F2FE] text-[#0284C7] border-[#B3D4FF]';
-              return `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${badgeCls}">${v}</span>`;
+              return `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${badgeCls} whitespace-nowrap">${v}</span>`;
+            }
+          }
+        ],
+        actionsTitle: 'Actions',
+        actions: [
+          {
+            label: 'Inward / Approve',
+            icon: `<svg class="w-4 h-4 text-[#00875A]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>`,
+            onClick: (row) => {
+              Modal.confirm({
+                title: 'Approve Inward Production Lot',
+                message: `Confirm inward intake approval for production lot <strong>${row.supc}</strong> (${row.product}, Grade: ${row.grade}, Mcs: ${row.mcs})?`,
+                confirmText: 'Approve Inward',
+                onConfirm: () => {
+                  row.status = 'Approved';
+                  row.balanceMcs = 0;
+                  row.balanceBags = 0;
+                  row.balanceKgs = 0.0;
+                  initTable(data);
+                  Toast.show(`Production lot ${row.supc} successfully approved and slotted!`, 'success');
+                }
+              });
             }
           },
-
-          // 15. Actions
           {
-            key: 'actions',
-            label: 'Actions',
-            render: (v, row) => `
-              <div class="flex items-center gap-1.5">
-                <button 
-                  type="button" 
-                  class="dpl-action-view p-1.5 text-[#5E6C84] hover:text-[#0284C7] hover:bg-[#F0F9FF] rounded transition-colors cursor-pointer"
-                  title="View Production Lot"
-                  data-row-id="${row.id}"
-                >
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-                </button>
-                <button 
-                  type="button" 
-                  class="dpl-action-approve p-1.5 text-[#00875A] hover:bg-[#E3FCEF] rounded transition-colors cursor-pointer"
-                  title="Inward / Approve Lot"
-                  data-row-id="${row.id}"
-                >
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                </button>
-                <button 
-                  type="button" 
-                  class="dpl-action-print p-1.5 text-[#403294] hover:bg-[#EAE6FF] rounded transition-colors cursor-pointer"
-                  title="Print Pallet Labels"
-                  data-row-id="${row.id}"
-                >
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
-                </button>
-              </div>
-            `
+            label: 'Print Pallet Labels',
+            icon: `<svg class="w-4 h-4 text-[#403294]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>`,
+            onClick: (row) => {
+              Toast.show(`Printing pallet label barcode stickers for ${row.supc}...`, 'info');
+            }
           }
         ],
         data
-      });
-
-      // Bind Action Clicks
-      tableWrapper.querySelectorAll('.dpl-action-view').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          const rId = parseInt(btn.getAttribute('data-row-id'), 10);
-          const found = data.find(r => r.id === rId);
-          if (found) {
-            Modal.open({
-              title: `Production Lot Details - ${found.supc}`,
-              size: 'lg',
-              content: `
-                <div class="space-y-4 text-xs text-[#172B4D]">
-                  <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-[#F8FAFC] p-3 rounded-lg border border-[#DFE1E6]">
-                    <div><span class="block text-[10px] font-bold text-[#5E6C84]">PRODUCT</span><span class="font-bold text-xs">${found.product}</span></div>
-                    <div><span class="block text-[10px] font-bold text-[#5E6C84]">GRADE</span><span class="font-mono font-bold text-xs text-[#0284C7]">${found.grade}</span></div>
-                    <div><span class="block text-[10px] font-bold text-[#5E6C84]">PACKING STYLE</span><span class="font-bold text-xs">${found.packingStyle}</span></div>
-                    <div><span class="block text-[10px] font-bold text-[#5E6C84]">STOCK BELONGS TO</span><span class="font-bold text-xs">${found.stockBelongsTo}</span></div>
-                  </div>
-                  <div class="grid grid-cols-3 gap-3 text-center">
-                    <div class="p-3 bg-white border border-[#DFE1E6] rounded-lg"><div class="text-[10px] font-bold text-[#5E6C84]">TOTAL MCS</div><div class="text-lg font-black text-[#172B4D] font-mono">${found.mcs}</div></div>
-                    <div class="p-3 bg-white border border-[#DFE1E6] rounded-lg"><div class="text-[10px] font-bold text-[#5E6C84]">BALANCE MCS</div><div class="text-lg font-black text-[#D97706] font-mono">${found.balanceMcs}</div></div>
-                    <div class="p-3 bg-white border border-[#DFE1E6] rounded-lg"><div class="text-[10px] font-bold text-[#5E6C84]">TOTAL KGS</div><div class="text-lg font-black text-[#00875A] font-mono">${found.kgs}</div></div>
-                  </div>
-                </div>
-              `,
-              footerButtons: [{ label: 'Close', type: 'secondary', onClick: (modal) => modal.close() }]
-            });
-          }
-        });
-      });
-
-      tableWrapper.querySelectorAll('.dpl-action-approve').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const rId = parseInt(btn.getAttribute('data-row-id'), 10);
-          const found = data.find(r => r.id === rId);
-          if (found) {
-            Modal.confirm({
-              title: 'Approve Inward Production Lot',
-              message: `Confirm inward intake approval for production lot <strong>${found.supc}</strong> (${found.product}, Grade: ${found.grade}, Mcs: ${found.mcs})?`,
-              confirmText: 'Approve Inward',
-              onConfirm: () => {
-                found.status = 'Approved';
-                found.balanceMcs = 0;
-                found.balanceBags = 0;
-                found.balanceKgs = 0.0;
-                initTable(data);
-                Toast.show(`Production lot ${found.supc} successfully approved and slotted!`, 'success');
-              }
-            });
-          }
-        });
-      });
-
-      tableWrapper.querySelectorAll('.dpl-action-print').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const rId = parseInt(btn.getAttribute('data-row-id'), 10);
-          const found = data.find(r => r.id === rId);
-          if (found) {
-            Toast.show(`Printing pallet label barcode stickers for ${found.supc}...`, 'info');
-          }
-        });
       });
     };
 
@@ -8747,21 +8744,22 @@ export const ColdstoreView = {
 
   // 7. DAILY PRODUCTION DETAIL MODAL
   showDailyProductionDetailModal(row) {
+    const code = row.trackCode || row.intakeCode || row.supc || ('LOT-' + row.id);
     Modal.open({
-      title: `Daily Production Batch Details: ${row.trackCode || row.intakeCode}`,
+      title: `Daily Production Batch Details: ${code}`,
       size: 'xl',
       content: `
         <div class="space-y-4 text-xs text-[#172B4D]">
           <!-- Header Banner -->
           <div class="p-3 bg-[#F4F5F7] border border-[#DFE1E6] rounded-lg flex items-center justify-between">
             <div>
-              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">TRACK CODE</span>
-              <div class="text-base font-extrabold text-[#0284C7] font-mono">${row.trackCode}</div>
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">${row.trackCode ? 'TRACK CODE' : 'LOT / SUPC CODE'}</span>
+              <div class="text-base font-extrabold text-[#0284C7] font-mono">${code}</div>
             </div>
             <div class="text-right">
               <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">INVENTORY STATUS</span>
               <div>
-                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#E3FCEF] text-[#006644]">${row.status}</span>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#E3FCEF] text-[#006644]">${row.status || 'Active'}</span>
               </div>
             </div>
           </div>
@@ -8770,7 +8768,7 @@ export const ColdstoreView = {
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-white p-3 border border-[#DFE1E6] rounded-lg">
             <div>
               <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PRODUCTION DATE</span>
-              <span class="font-semibold text-xs text-[#172B4D]">${row.productionDate || row.intakeDate}</span>
+              <span class="font-semibold text-xs text-[#172B4D]">${row.productionDate || row.date || row.intakeDate || '-'}</span>
             </div>
             <div>
               <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PO NUMBER</span>
