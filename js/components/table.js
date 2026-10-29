@@ -39,7 +39,16 @@ export class DataTable {
     this.searchable = searchable;
     this.filterable = filterable;
     this.selectable = false;
-    this.actions = actions;
+    // Global safeguard: Never add a view eye icon in actions column anywhere in the application
+    this.actions = (actions || []).filter(act => {
+      const label = String(act.label || '').toLowerCase().trim();
+      const iconStr = typeof act.icon === 'string' ? act.icon : '';
+      const isEyeIcon = iconStr.includes('M15 12a3 3 0 11-6 0') || iconStr.includes('M2.458 12C3.732 7.943');
+      if (isEyeIcon && (label === 'view' || label === 'view details' || label.startsWith('view '))) {
+        return false;
+      }
+      return true;
+    });
     this.actionsTitle = actionsTitle;
     this.bulkActions = bulkActions;
     this.exportable = exportable;

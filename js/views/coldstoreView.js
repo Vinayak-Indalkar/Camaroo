@@ -226,10 +226,180 @@ export const ColdstoreView = {
 
     // 2c. Production - Freezing Runs
     freezingRunsList: [
-      { id: 1, runCode: 'FZ-CS-2026-081', date: '2026-10-29', freezerLine: 'Line #1 — IQF Tunnel 1', trackCode: 'TRK-FZ-2026-701', product: 'Vannamei PD IQF', grade: '31/40', glazePct: '10%', exitTemp: -22.5, cartons: 400, netWeightKg: 4000.0, stagedChamber: 'Chamber #1 (IQF)', qcStatus: 'PASSED', status: 'Stored in Coldstore' },
-      { id: 2, runCode: 'FZ-CS-2026-082', date: '2026-10-29', freezerLine: 'Line #2 — IQF Tunnel 2', trackCode: 'TRK-FZ-2026-702', product: 'Black Tiger HOSO IQF', grade: '16/20', glazePct: '12%', exitTemp: -23.1, cartons: 350, netWeightKg: 3500.0, stagedChamber: 'Chamber #1 (IQF)', qcStatus: 'PASSED', status: 'Stored in Coldstore' },
-      { id: 3, runCode: 'FZ-CS-2026-083', date: '2026-10-28', freezerLine: 'Line #3 — Plate Freezer', trackCode: 'TRK-FZ-2026-699', product: 'Vannamei HLSO Block', grade: '26/30', glazePct: 'None', exitTemp: -26.0, cartons: 410, netWeightKg: 8200.0, stagedChamber: 'Chamber #2 (Block)', qcStatus: 'PASSED', status: 'Stored in Coldstore' },
-      { id: 4, runCode: 'FZ-CS-2026-084', date: '2026-10-27', freezerLine: 'Line #4 — Blast Freezer', trackCode: 'TRK-FZ-2026-695', product: 'Sea Pearl Cooked PDTO', grade: '41/50', glazePct: '5%', exitTemp: -24.8, cartons: 120, netWeightKg: 1200.0, stagedChamber: 'Vault #3 Staging', qcStatus: 'PASSED', status: 'Staged for Export' }
+      {
+        id: 1,
+        sNo: 1,
+        productionDate: '2026-10-29',
+        transactionDate: '2026-10-29',
+        arrivalDate: '2026-10-28',
+        arrivalLotCode: 'LOT-ARR-2026-891',
+        batchCodes: 'BCH-2026-901, BCH-2026-902',
+        productionPlant: 'DFL UNIT-5 (JPT)',
+        group: 'Group A',
+        stockBelongsTo: 'Devi Fisheries Ltd (DFL)',
+        shift: 'Shift A (Day)',
+        poNumber: 'PO-2026-8819',
+        variety: 'Vannamei (White Shrimp)',
+        packingStyle: '10x1kg Net',
+        grade: '31/40',
+        packingType: 'Master Cartons',
+        freezingType: 'IQF Tunnel',
+        soaking: 'Yes (Non-Phosphate)',
+        productCategory: 'Raw Frozen',
+        abStatus: 'PASSED (AB Negative)',
+        remarks: 'Core temp -22.5°C verified, glaze optimal at 10%',
+        totalWeight: 4000.0,
+        balanceWeight: 3200.0,
+        hlCount: 35.2,
+        mcs: 400,
+        looseBags: 0,
+        tubNo: 'TUB-401'
+      },
+      {
+        id: 2,
+        sNo: 2,
+        productionDate: '2026-10-29',
+        transactionDate: '2026-10-29',
+        arrivalDate: '2026-10-28',
+        arrivalLotCode: 'LOT-ARR-2026-892',
+        batchCodes: 'BCH-2026-903',
+        productionPlant: 'DFL UNIT-5 (JPT)',
+        group: 'Group B',
+        stockBelongsTo: 'DFL Unit-5 (JPT)',
+        shift: 'Shift B (Evening)',
+        poNumber: 'PO-2026-8822',
+        variety: 'Black Tiger (Monodon)',
+        packingStyle: '6x2kg Block',
+        grade: '16/20',
+        packingType: '6x2kg Block',
+        freezingType: 'Contact Plate Freezer',
+        soaking: 'No (Unsoaked)',
+        productCategory: 'Raw Frozen',
+        abStatus: 'PASSED (AB Negative)',
+        remarks: 'Target slab hardness reached at -26°C',
+        totalWeight: 3500.0,
+        balanceWeight: 3500.0,
+        hlCount: 18.5,
+        mcs: 290,
+        looseBags: 12,
+        tubNo: 'TUB-404'
+      },
+      {
+        id: 3,
+        sNo: 3,
+        productionDate: '2026-10-28',
+        transactionDate: '2026-10-28',
+        arrivalDate: '2026-10-27',
+        arrivalLotCode: 'LOT-ARR-2026-884',
+        batchCodes: 'BCH-2026-889, BCH-2026-890',
+        productionPlant: 'DFL UNIT-3 (PSP)',
+        group: 'Group A',
+        stockBelongsTo: 'DFL Unit-3 (PSP)',
+        shift: 'Shift A (Day)',
+        poNumber: 'PO-2026-8790',
+        variety: 'Vannamei (White Shrimp)',
+        packingStyle: '5x2kg IQF Poly',
+        grade: '26/30',
+        packingType: '5x2kg IQF Poly',
+        freezingType: 'IQF Tunnel',
+        soaking: 'Yes (Phosphate Treated)',
+        productCategory: 'Raw Frozen',
+        abStatus: 'PASSED (AB Negative)',
+        remarks: 'Full visual QC passed; net glaze standard 12%',
+        totalWeight: 5200.0,
+        balanceWeight: 1400.0,
+        hlCount: 28.1,
+        mcs: 520,
+        looseBags: 0,
+        tubNo: 'TUB-312'
+      },
+      {
+        id: 4,
+        sNo: 4,
+        productionDate: '2026-10-28',
+        transactionDate: '2026-10-28',
+        arrivalDate: '2026-10-27',
+        arrivalLotCode: 'LOT-ARR-2026-885',
+        batchCodes: 'BCH-2026-894',
+        productionPlant: 'DFL UNIT-4 (PND)',
+        group: 'Group C',
+        stockBelongsTo: 'DFL Unit-4 (PND)',
+        shift: 'Shift C (Night)',
+        poNumber: 'PO-2026-8798',
+        variety: 'Sea Pearl / Pink',
+        packingStyle: '10x1kg Net',
+        grade: '41/50',
+        packingType: 'Master Cartons',
+        freezingType: 'Blast Freezer',
+        soaking: 'Yes (Non-Phosphate)',
+        productCategory: 'Cooked Frozen',
+        abStatus: 'UNDER TESTING',
+        remarks: 'Sample forwarded to Micro lab; awaiting final clearance',
+        totalWeight: 2100.0,
+        balanceWeight: 2100.0,
+        hlCount: 46.0,
+        mcs: 210,
+        looseBags: 0,
+        tubNo: 'TUB-208'
+      },
+      {
+        id: 5,
+        sNo: 5,
+        productionDate: '2026-10-27',
+        transactionDate: '2026-10-27',
+        arrivalDate: '2026-10-26',
+        arrivalLotCode: 'LOT-ARR-2026-872',
+        batchCodes: 'BCH-2026-865',
+        productionPlant: 'DFL UNIT-1 (VSP)',
+        group: 'Group B',
+        stockBelongsTo: 'Third-Party Co-Packing',
+        shift: 'Shift A (Day)',
+        poNumber: 'PO-2026-8742',
+        variety: 'Vannamei (White Shrimp)',
+        packingStyle: '10x2lb Pouch',
+        grade: '21/25',
+        packingType: '10x2lb Pouch',
+        freezingType: 'IQF Tunnel',
+        soaking: 'No (Unsoaked)',
+        productCategory: 'Value Added',
+        abStatus: 'PASSED (AB Negative)',
+        remarks: 'Easy Peel IQF, bagged and packed for export retail PI',
+        totalWeight: 3800.0,
+        balanceWeight: 600.0,
+        hlCount: 23.4,
+        mcs: 380,
+        looseBags: 8,
+        tubNo: 'TUB-119'
+      },
+      {
+        id: 6,
+        sNo: 6,
+        productionDate: '2026-10-26',
+        transactionDate: '2026-10-26',
+        arrivalDate: '2026-10-25',
+        arrivalLotCode: 'LOT-ARR-2026-860',
+        batchCodes: 'BCH-2026-848',
+        productionPlant: 'DFL UNIT-5 (JPT)',
+        group: 'Group D',
+        stockBelongsTo: 'Devi Fisheries Ltd (DFL)',
+        shift: 'Shift B (Evening)',
+        poNumber: 'PO-2026-8710',
+        variety: 'Black Tiger (Monodon)',
+        packingStyle: '6x2kg Block',
+        grade: 'U/15',
+        packingType: '6x2kg Block',
+        freezingType: 'Contact Plate Freezer',
+        soaking: 'No (Unsoaked)',
+        productCategory: 'Raw Frozen',
+        abStatus: 'PASSED (AB Negative)',
+        remarks: 'Jumbo monodon blocks frozen for Japan consignment',
+        totalWeight: 1800.0,
+        balanceWeight: 0.0,
+        hlCount: 12.0,
+        mcs: 150,
+        looseBags: 0,
+        tubNo: 'TUB-502'
+      }
     ],
 
     // 3. Stock Inventory
@@ -465,11 +635,11 @@ export const ColdstoreView = {
           <!-- Filter Controls: Reset & Toggle Open/Close -->
           <div class="inline-flex items-center" style="gap: 8px; display: inline-flex;">
             <button type="button" id="dp-filter-reset-btn" class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#0284C7] text-[#334155] hover:text-[#0284C7] rounded-full transition-colors cursor-pointer select-none" style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 9999px; border: 1px solid #CBD5E1; background: #ffffff; color: #334155; display: inline-flex; align-items: center; justify-content: center; padding: 0;" title="Reset all filters" aria-label="Reset all filters">
-              <svg class="w-4 h-4 text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+              <svg style="width: 15px; height: 15px; min-width: 15px; min-height: 15px; stroke: currentColor; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
             </button>
 
             <button type="button" id="dp-filter-toggle-btn" class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#0284C7] text-[#334155] hover:text-[#0284C7] rounded-full transition-colors cursor-pointer select-none" style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 9999px; border: 1px solid #CBD5E1; background: #ffffff; color: #334155; display: inline-flex; align-items: center; justify-content: center; padding: 0;" title="Hide Filter" aria-label="Hide Filter">
-              <svg class="w-4 h-4 text-current dt-top-filter-toggle-icon transform transition-transform duration-200" id="dp-filter-toggle-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+              <svg style="width: 15px; height: 15px; min-width: 15px; min-height: 15px; stroke: currentColor; fill: none; display: inline-block;" class="dt-top-filter-toggle-icon transform transition-transform duration-200" id="dp-filter-toggle-icon" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
             </button>
           </div>
         </div>
@@ -591,7 +761,7 @@ export const ColdstoreView = {
             field: 'trackCode',
             header: 'Track Code',
             sortable: true,
-            render: v => `<span class="font-mono font-bold text-[#0284C7] whitespace-nowrap">${v}</span>`
+            render: (v, r) => `<span class="font-mono font-bold text-[#0284C7] hover:underline cursor-pointer whitespace-nowrap" onclick="event.stopPropagation(); window.__viewDailyProductionDetails && window.__viewDailyProductionDetails('${r.trackCode}')" title="Click to view batch details">${v}</span>`
           },
           // 4. Group
           {
@@ -688,12 +858,8 @@ export const ColdstoreView = {
         ],
         // 18. Actions Column
         actionsTitle: 'Actions',
+        onRowClick: (row) => this.showDailyProductionDetailModal(row),
         actions: [
-          {
-            label: 'View Batch Details',
-            icon: `<svg class="w-4 h-4 text-[#0284C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>`,
-            onClick: (row) => this.showDailyProductionDetailModal(row)
-          },
           {
             label: 'Print Barcode Label',
             icon: `<svg class="w-4 h-4 text-[#00875A]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>`,
@@ -816,6 +982,12 @@ export const ColdstoreView = {
   renderDailyStockOut(container) {
     const fullList = this.state.dailyStockOutList || [];
 
+    // Global helper for link clicks
+    window.__viewDailyStockOutDetails = (stockOutCode) => {
+      const row = fullList.find(x => x.stockOutCode === stockOutCode);
+      if (row) this.showDailyStockOutDetailModal(row);
+    };
+
     container.innerHTML = `
       <div class="space-y-4 animate-fade-in">
         <!-- Clean Page Header (No extra KPI cards, subheadings or pill badges) -->
@@ -826,41 +998,51 @@ export const ColdstoreView = {
         </div>
 
         <!-- Collapsible Top Filter Header Card -->
-        <div class="dso-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200" style="margin-bottom: 12px !important;">
+        <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200" style="margin-bottom: 12px !important;">
           <div class="flex items-center justify-between pb-1">
             <div class="flex items-center gap-2">
-              <svg class="w-4 h-4 text-[#0284C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+              <svg style="width: 16px; height: 16px; min-width: 16px; min-height: 16px; stroke: #0284C7; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
               <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
             </div>
 
-            <!-- Filter Controls: Reset & Toggle Open/Close -->
-            <div class="inline-flex items-center" style="gap: 8px; display: inline-flex;">
+            <!-- Filter Controls: Search, Reset & Toggle Open/Close -->
+            <div class="inline-flex items-center gap-2" style="display: inline-flex; align-items: center; gap: 8px;">
+              <button 
+                type="button" 
+                id="dso-filter-search-btn" 
+                class="dt-top-filter-search-btn btn-primary px-3.5 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5 shadow-2xs hover:shadow cursor-pointer h-[32px]"
+                title="Search Filter Records"
+              >
+                <svg style="width: 13px; height: 13px; min-width: 13px; stroke: #ffffff; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                <span>Search</span>
+              </button>
+
               <button 
                 type="button" 
                 id="dso-filter-reset-btn"
-                class="dso-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#0284C7] text-[#334155] hover:text-[#0284C7] rounded-full transition-colors cursor-pointer select-none" 
+                class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#0284C7] text-[#334155] hover:text-[#0284C7] rounded-full transition-colors cursor-pointer select-none" 
                 style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 9999px; border: 1px solid #CBD5E1; background: #ffffff; color: #334155; display: inline-flex; align-items: center; justify-content: center; padding: 0;"
                 title="Reset All Filters" 
                 aria-label="Reset All Filters"
               >
-                <svg class="w-4 h-4 text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                <svg style="width: 15px; height: 15px; min-width: 15px; min-height: 15px; stroke: #334155; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
               </button>
 
               <button 
                 type="button" 
                 id="dso-filter-toggle-btn"
-                class="dso-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#0284C7] text-[#334155] hover:text-[#0284C7] rounded-full transition-colors cursor-pointer select-none" 
+                class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#0284C7] text-[#334155] hover:text-[#0284C7] rounded-full transition-colors cursor-pointer select-none" 
                 style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 9999px; border: 1px solid #CBD5E1; background: #ffffff; color: #334155; display: inline-flex; align-items: center; justify-content: center; padding: 0;"
                 title="Hide Filter" 
                 aria-label="Hide Filter"
               >
-                <svg id="dso-filter-toggle-icon" class="w-4 h-4 text-current transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                <svg id="dso-filter-toggle-icon" style="width: 15px; height: 15px; min-width: 15px; min-height: 15px; stroke: #334155; fill: none; display: inline-block;" class="dt-top-filter-toggle-icon transform transition-transform duration-200" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
               </button>
             </div>
           </div>
 
-          <!-- Collapsible Filter Inputs Grid -->
-          <div id="dso-filter-body" class="dso-top-filter-body mt-3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 text-xs transition-all duration-200" style="margin-top: 12px !important;">
+          <!-- Collapsible Filter Inputs Grid (EXACTLY 4 COLUMNS) -->
+          <div id="dso-filter-body" class="dt-top-filter-body mt-3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-3 text-xs transition-all duration-200" style="margin-top: 12px !important;">
             <!-- 1. STOCK OUT DATE * -->
             <div>
               <label for="dso-filter-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STOCK OUT DATE <span class="text-red-500 font-black">*</span></label>
@@ -906,14 +1088,6 @@ export const ColdstoreView = {
                 <option value="Group D">Group D</option>
               </select>
             </div>
-
-            <!-- Search Button Slot -->
-            <div class="flex items-end gap-2">
-              <button type="button" id="dso-filter-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                <span>Search</span>
-              </button>
-            </div>
           </div>
         </div>
 
@@ -922,7 +1096,7 @@ export const ColdstoreView = {
       </div>
     `;
 
-    // Render Table Function with Exact User-Requested Columns
+    // Render Table Function with Exact User-Requested Columns (NO VIEW EYE ICON)
     const renderTable = (data) => {
       new DataTable({
         containerId: 'cs-daily-stockout-table',
@@ -931,6 +1105,7 @@ export const ColdstoreView = {
         searchable: true,
         exportable: true,
         pageSize: 10,
+        onRowClick: (row) => this.showDailyStockOutDetailModal(row),
         columns: [
           // 1. S.NO
           {
@@ -956,7 +1131,7 @@ export const ColdstoreView = {
             field: 'supc',
             header: 'Supc',
             sortable: true,
-            render: v => `<span class="font-mono text-xs font-semibold text-[#0284C7] whitespace-nowrap">${v || '-'}</span>`
+            render: (v, r) => `<span class="font-mono text-xs font-semibold text-[#0284C7] hover:underline cursor-pointer whitespace-nowrap" onclick="event.stopPropagation(); window.__viewDailyStockOutDetails && window.__viewDailyStockOutDetails('${r.stockOutCode}')" title="Click to view details">${v || '-'}</span>`
           },
           // 4. Product
           {
@@ -1025,17 +1200,20 @@ export const ColdstoreView = {
             }
           }
         ],
+        // Actions column contains NO view eye icon
         actions: [
-          {
-            label: 'View Details',
-            icon: `<svg class="w-4 h-4 text-[#0284C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>`,
-            onClick: (row) => this.showDailyStockOutDetailModal(row)
-          },
           {
             label: 'Print Gate Pass',
             icon: `<svg class="w-4 h-4 text-[#00875A]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>`,
             onClick: (row) => {
               Toast.show(`Printing Gate Pass for ${row.stockOutCode || row.id}...`, 'success');
+            }
+          },
+          {
+            label: 'Download Dispatch Note',
+            icon: `<svg class="w-4 h-4 text-[#0284C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>`,
+            onClick: (row) => {
+              Toast.show(`Downloading Dispatch Note for ${row.stockOutCode || row.id}...`, 'info');
             }
           }
         ],
@@ -1074,6 +1252,7 @@ export const ColdstoreView = {
       });
 
       renderTable(filtered);
+      Toast.show(`Found ${filtered.length} matching daily stockout record(s)`, 'info');
     };
 
     // Attach Event Listeners
@@ -1095,6 +1274,7 @@ export const ColdstoreView = {
         if (groupSelect) groupSelect.value = 'ALL';
 
         renderTable(fullList);
+        Toast.show('Stockout filters reset', 'info');
       });
     }
 
@@ -1121,54 +1301,380 @@ export const ColdstoreView = {
       });
     }
 
-    // Auto-filter on select dropdown changes
+    // Auto-filter on select dropdown changes & Enter key
     ['#dso-filter-stock-belongs', '#dso-filter-packing-type', '#dso-filter-group'].forEach(sel => {
       const el = container.querySelector(sel);
       if (el) el.addEventListener('change', executeFilter);
     });
+
+    const dateEl = container.querySelector('#dso-filter-date');
+    if (dateEl) {
+      dateEl.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          executeFilter();
+        }
+      });
+    }
   },
 
   // 2c. PRODUCTION - FREEZING
   renderFreezing(container) {
-    const list = this.state.freezingRunsList || [];
+    const fullList = this.state.freezingRunsList || [];
+
+    // Global helper for link clicks
+    window.__viewFreezingDetails = (lotCode) => {
+      const row = fullList.find(x => (x.arrivalLotCode === lotCode || x.runCode === lotCode));
+      if (row) this.showFreezingDetailModal(row);
+    };
 
     container.innerHTML = `
       <div class="space-y-4 animate-fade-in">
+        <!-- Clean Page Header with Add Freezing Button -->
         <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
           <div>
             <h1 class="text-xl font-extrabold text-[#172B4D]">Freezing</h1>
           </div>
+          <div>
+            <button 
+              type="button" 
+              id="btn-add-freezing" 
+              class="btn-primary px-4 py-2 rounded-full text-xs font-semibold flex items-center gap-1.5 shadow-xs hover:shadow cursor-pointer transition-colors"
+            >
+              <svg style="width: 14px; height: 14px; min-width: 14px; stroke: currentColor; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+              <span>Add Freezing</span>
+            </button>
+          </div>
         </div>
 
+        <!-- Collapsible Top Filter Header Card -->
+        <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200" style="margin-bottom: 12px !important;">
+          <div class="flex items-center justify-between pb-1">
+            <div class="flex items-center gap-2">
+              <svg style="width: 16px; height: 16px; min-width: 16px; min-height: 16px; stroke: #0284C7; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+              <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
+            </div>
+
+            <!-- Filter Controls: Search, Reset & Toggle Open/Close -->
+            <div class="inline-flex items-center gap-2" style="display: inline-flex; align-items: center; gap: 8px;">
+              <button 
+                type="button" 
+                id="fz-filter-search-btn" 
+                class="dt-top-filter-search-btn btn-primary px-3.5 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5 shadow-2xs hover:shadow cursor-pointer h-[32px]"
+                title="Search Filter Records"
+              >
+                <svg style="width: 13px; height: 13px; min-width: 13px; stroke: #ffffff; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                <span>Search</span>
+              </button>
+
+              <button 
+                type="button" 
+                id="fz-filter-reset-btn" 
+                class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#0284C7] text-[#334155] hover:text-[#0284C7] rounded-full transition-colors cursor-pointer select-none" 
+                style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 9999px; border: 1px solid #CBD5E1; background: #ffffff; color: #334155; display: inline-flex; align-items: center; justify-content: center; padding: 0;"
+                title="Reset All Filters" 
+                aria-label="Reset All Filters"
+              >
+                <svg style="width: 15px; height: 15px; min-width: 15px; min-height: 15px; stroke: #334155; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+              </button>
+
+              <button 
+                type="button" 
+                id="fz-filter-toggle-btn" 
+                class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#0284C7] text-[#334155] hover:text-[#0284C7] rounded-full transition-colors cursor-pointer select-none" 
+                style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 9999px; border: 1px solid #CBD5E1; background: #ffffff; color: #334155; display: inline-flex; align-items: center; justify-content: center; padding: 0;"
+                title="Hide Filter" 
+                aria-label="Hide Filter"
+              >
+                <svg id="fz-filter-toggle-icon" style="width: 15px; height: 15px; min-width: 15px; min-height: 15px; stroke: #334155; fill: none; display: inline-block;" class="dt-top-filter-toggle-icon transform transition-transform duration-200" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Collapsible Filter Inputs Grid (EXACTLY 4 COLUMNS) -->
+          <div id="fz-filter-body" class="dt-top-filter-body mt-3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-3 text-xs transition-all duration-200" style="margin-top: 12px !important;">
+            <!-- 1. PRODUCTION DATE * -->
+            <div>
+              <label for="fz-filter-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCTION DATE <span class="text-red-500 font-black">*</span></label>
+              <input type="date" id="fz-filter-date" value="2026-10-29" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+            </div>
+
+            <!-- 2. STOCK BELONGS TO * -->
+            <div>
+              <label for="fz-filter-stock-belongs" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STOCK BELONGS TO</label>
+              <select id="fz-filter-stock-belongs" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="ALL">All Stock Belongs To</option>
+                <option value="Devi Fisheries Ltd (DFL)">Devi Fisheries Ltd (DFL)</option>
+                <option value="DFL Unit-5 (JPT)">DFL Unit-5 (JPT)</option>
+                <option value="DFL Unit-4 (PND)">DFL Unit-4 (PND)</option>
+                <option value="DFL Unit-3 (PSP)">DFL Unit-3 (PSP)</option>
+                <option value="DFL Unit-1 (VSP)">DFL Unit-1 (VSP)</option>
+                <option value="Third-Party Co-Packing">Third-Party Co-Packing</option>
+              </select>
+            </div>
+
+            <!-- 3. PRODUCTION PLANT * -->
+            <div>
+              <label for="fz-filter-plant" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCTION PLANT</label>
+              <select id="fz-filter-plant" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="ALL">All Production Plants</option>
+                <option value="DFL UNIT-5 (JPT)">DFL UNIT-5 (JPT)</option>
+                <option value="DFL UNIT-3 (PSP)">DFL UNIT-3 (PSP)</option>
+                <option value="DFL UNIT-4 (PND)">DFL UNIT-4 (PND)</option>
+                <option value="DFL UNIT-1 (VSP)">DFL UNIT-1 (VSP)</option>
+                <option value="DFL UNIT-2 (KKD)">DFL UNIT-2 (KKD)</option>
+              </select>
+            </div>
+
+            <!-- 4. GROUP * -->
+            <div>
+              <label for="fz-filter-group" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">GROUP</label>
+              <select id="fz-filter-group" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="ALL">All Groups</option>
+                <option value="Group A">Group A</option>
+                <option value="Group B">Group B</option>
+                <option value="Group C">Group C</option>
+                <option value="Group D">Group D</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Data Table Container -->
         <div id="cs-freezing-runs-table"></div>
       </div>
     `;
 
-    new DataTable({
-      containerId: 'cs-freezing-runs-table',
-      tableTitle: 'Freezing Runs',
-      keyField: 'runCode',
-      searchable: true,
-      exportable: true,
-      pageSize: 10,
-      columns: [
-        { field: 'id', header: 'S.No', render: (v, r, idx) => idx + 1 },
-        { field: 'runCode', header: 'Run Code', sortable: true, render: v => `<span class="font-mono font-bold text-[#0284C7]">${v}</span>` },
-        { field: 'date', header: 'Date' },
-        { field: 'freezerLine', header: 'Freezer Line', render: v => `<span class="font-medium text-[#172B4D]">${v}</span>` },
-        { field: 'trackCode', header: 'Track Code', render: v => `<span class="font-mono font-bold">${v}</span>` },
-        { field: 'product', header: 'Product Variety' },
-        { field: 'grade', header: 'Grade' },
-        { field: 'glazePct', header: 'Glaze %', render: v => `<span class="font-bold text-[#0284C7]">${v}</span>` },
-        { field: 'exitTemp', header: 'Exit Temp (°C)', render: v => `<span class="font-mono font-bold text-[#00875A]">${v} °C</span>` },
-        { field: 'cartons', header: 'Cartons / Slabs', render: v => `<span class="font-mono font-bold">${v}</span>` },
-        { field: 'netWeightKg', header: 'Net Wt (Kg)', render: v => `<span class="font-mono font-bold">${Number(v).toFixed(1)}</span>` },
-        { field: 'stagedChamber', header: 'Staged Vault' },
-        { field: 'qcStatus', header: 'QC Status', render: v => `<span class="px-2 py-0.5 rounded text-[10px] font-extrabold bg-[#E3FCEF] text-[#006644]">${v}</span>` },
-        { field: 'status', header: 'Status', render: v => `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#E3FCEF] text-[#006644]">${v}</span>` }
-      ],
-      data: list
+    // Render Table Function matching fields (NO VIEW EYE ICON)
+    const renderTable = (data) => {
+      new DataTable({
+        containerId: 'cs-freezing-runs-table',
+        tableTitle: 'Freezing Runs',
+        keyField: 'arrivalLotCode',
+        searchable: true,
+        exportable: true,
+        pageSize: 10,
+        onRowClick: (row) => this.showFreezingDetailModal(row),
+        columns: [
+          // 1. S.NO
+          {
+            field: 'sNo',
+            header: 'S.NO',
+            render: (v, r, idx) => `<span class="text-[#5E6C84] font-semibold">${v || (idx + 1)}</span>`
+          },
+          // 2. Production Date
+          {
+            field: 'productionDate',
+            header: 'Production Date',
+            sortable: true,
+            render: v => `<span class="whitespace-nowrap font-medium text-[#172B4D]">${v || '-'}</span>`
+          },
+          // 3. Arrival/Lot Code
+          {
+            field: 'arrivalLotCode',
+            header: 'Arrival/Lot Code',
+            sortable: true,
+            render: (v, r) => `<span class="font-mono font-bold text-[#0284C7] hover:underline cursor-pointer whitespace-nowrap" onclick="event.stopPropagation(); window.__viewFreezingDetails && window.__viewFreezingDetails('${v}')" title="Click to view details">${v || r.runCode || '-'}</span>`
+          },
+          // 4. Plant
+          {
+            field: 'productionPlant',
+            header: 'Plant',
+            sortable: true,
+            render: v => `<span class="font-semibold text-xs text-[#172B4D] whitespace-nowrap">${v || '-'}</span>`
+          },
+          // 5. Group
+          {
+            field: 'group',
+            header: 'Group',
+            render: v => `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#EAE6FF] text-[#403294] whitespace-nowrap">${v || 'Group A'}</span>`
+          },
+          // 6. Variety
+          {
+            field: 'variety',
+            header: 'Variety',
+            sortable: true,
+            render: v => `<span class="font-medium text-[#172B4D] whitespace-nowrap">${v || '-'}</span>`
+          },
+          // 7. Grade
+          {
+            field: 'grade',
+            header: 'Grade',
+            sortable: true,
+            render: v => `<span class="font-mono font-bold text-[#172B4D] whitespace-nowrap">${v || '-'}</span>`
+          },
+          // 8. Freezing Type
+          {
+            field: 'freezingType',
+            header: 'Freezing Type',
+            render: v => `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#E0F2FE] text-[#0284C7] whitespace-nowrap">${v || 'IQF'}</span>`
+          },
+          // 9. Packing Style
+          {
+            field: 'packingStyle',
+            header: 'Packing Style',
+            render: v => `<span class="text-xs text-[#5E6C84] whitespace-nowrap">${v || '-'}</span>`
+          },
+          // 10. Mcs
+          {
+            field: 'mcs',
+            header: 'Mcs',
+            sortable: true,
+            render: v => `<span class="font-mono font-bold text-[#172B4D]">${Number(v || 0).toLocaleString()}</span>`
+          },
+          // 11. Loose Bags
+          {
+            field: 'looseBags',
+            header: 'Loose Bags',
+            sortable: true,
+            render: v => `<span class="font-mono font-semibold text-[#5E6C84]">${Number(v || 0).toLocaleString()}</span>`
+          },
+          // 12. Total Wt (Kg)
+          {
+            field: 'totalWeight',
+            header: 'Total Wt (Kg)',
+            sortable: true,
+            render: (v, r) => `<span class="font-mono font-bold text-[#00875A]">${Number(v || r.netWeightKg || 0).toFixed(1)}</span>`
+          },
+          // 13. Balance Wt (Kg)
+          {
+            field: 'balanceWeight',
+            header: 'Balance Wt (Kg)',
+            sortable: true,
+            render: v => `<span class="font-mono font-bold text-[#DE350B]">${Number(v || 0).toFixed(1)}</span>`
+          },
+          // 14. AB Status
+          {
+            field: 'abStatus',
+            header: 'AB Status',
+            render: (v, r) => {
+              const statusVal = v || r.qcStatus || 'PASSED (AB Negative)';
+              let cls = 'bg-[#E3FCEF] text-[#006644]';
+              if (statusVal.includes('UNDER')) cls = 'bg-[#FFF0B3] text-[#172B4D]';
+              else if (statusVal.includes('FAIL')) cls = 'bg-[#FFEBE6] text-[#DE350B]';
+              return `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold ${cls} whitespace-nowrap">${statusVal}</span>`;
+            }
+          }
+        ],
+        // Actions column contains NO view eye icon
+        actions: [
+          {
+            label: 'Edit Freezing',
+            icon: `<svg class="w-4 h-4 text-[#0284C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>`,
+            onClick: (row) => this.showEditFreezingModal(row, renderTable)
+          },
+          {
+            label: 'Print Freezing Tag',
+            icon: `<svg class="w-4 h-4 text-[#00875A]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>`,
+            onClick: (row) => {
+              Toast.show(`Printing Freezing Tag for ${row.arrivalLotCode || row.runCode}...`, 'success');
+            }
+          }
+        ],
+        data: data
+      });
+    };
+
+    // Initial table render
+    renderTable(fullList);
+
+    // Add Freezing Button Click Handler
+    const addBtn = container.querySelector('#btn-add-freezing');
+    if (addBtn) {
+      addBtn.addEventListener('click', () => {
+        this.showAddFreezingModal(renderTable);
+      });
+    }
+
+    // Filter Logic
+    const executeFilter = () => {
+      const selectedDate = container.querySelector('#fz-filter-date')?.value;
+      const selectedBelongs = container.querySelector('#fz-filter-stock-belongs')?.value;
+      const selectedPlant = container.querySelector('#fz-filter-plant')?.value;
+      const selectedGroup = container.querySelector('#fz-filter-group')?.value;
+
+      let filtered = fullList.filter(item => {
+        if (selectedDate && selectedDate.trim() !== '') {
+          const itemDate = item.productionDate || item.date;
+          if (itemDate && itemDate !== selectedDate) return false;
+        }
+        if (selectedBelongs && selectedBelongs !== 'ALL') {
+          if (item.stockBelongsTo !== selectedBelongs) return false;
+        }
+        if (selectedPlant && selectedPlant !== 'ALL') {
+          if (item.productionPlant !== selectedPlant) return false;
+        }
+        if (selectedGroup && selectedGroup !== 'ALL') {
+          if (item.group !== selectedGroup) return false;
+        }
+        return true;
+      });
+
+      renderTable(filtered);
+      Toast.show(`Found ${filtered.length} matching freezing run(s)`, 'info');
+    };
+
+    // Attach Event Listeners
+    const searchBtn = container.querySelector('#fz-filter-search-btn');
+    if (searchBtn) searchBtn.addEventListener('click', executeFilter);
+
+    // Reset button
+    const resetBtn = container.querySelector('#fz-filter-reset-btn');
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        const dateInput = container.querySelector('#fz-filter-date');
+        const belongsSelect = container.querySelector('#fz-filter-stock-belongs');
+        const plantSelect = container.querySelector('#fz-filter-plant');
+        const groupSelect = container.querySelector('#fz-filter-group');
+
+        if (dateInput) dateInput.value = '';
+        if (belongsSelect) belongsSelect.value = 'ALL';
+        if (plantSelect) plantSelect.value = 'ALL';
+        if (groupSelect) groupSelect.value = 'ALL';
+
+        renderTable(fullList);
+        Toast.show('Freezing filters reset', 'info');
+      });
+    }
+
+    // Toggle Collapse Button
+    const toggleBtn = container.querySelector('#fz-filter-toggle-btn');
+    const filterBody = container.querySelector('#fz-filter-body');
+    const toggleIcon = container.querySelector('#fz-filter-toggle-icon');
+    let isCollapsed = false;
+
+    if (toggleBtn && filterBody) {
+      toggleBtn.addEventListener('click', () => {
+        isCollapsed = !isCollapsed;
+        if (isCollapsed) {
+          filterBody.classList.add('hidden');
+          toggleBtn.title = 'Show Filter';
+          toggleBtn.setAttribute('aria-label', 'Show Filter');
+          if (toggleIcon) toggleIcon.classList.add('rotate-180');
+        } else {
+          filterBody.classList.remove('hidden');
+          toggleBtn.title = 'Hide Filter';
+          toggleBtn.setAttribute('aria-label', 'Hide Filter');
+          if (toggleIcon) toggleIcon.classList.remove('rotate-180');
+        }
+      });
+    }
+
+    // Auto-filter on select dropdown changes & Enter key
+    ['#fz-filter-stock-belongs', '#fz-filter-plant', '#fz-filter-group'].forEach(sel => {
+      const el = container.querySelector(sel);
+      if (el) el.addEventListener('change', executeFilter);
     });
+
+    const dateEl = container.querySelector('#fz-filter-date');
+    if (dateEl) {
+      dateEl.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          executeFilter();
+        }
+      });
+    }
   },
 
   // Backward compatibility alias
@@ -1599,5 +2105,519 @@ export const ColdstoreView = {
         </div>
       `
     });
+  },
+
+  // 9. ADD FREEZING MODAL (ALL 25 USER-SPECIFIED FIELDS)
+  showAddFreezingModal(onSuccessCallback) {
+    const today = new Date().toISOString().slice(0, 10);
+    const nextSeq = (this.state.freezingRunsList?.length || 0) + 1;
+    const defaultLotCode = `LOT-ARR-2026-${890 + nextSeq}`;
+
+    Modal.open({
+      title: 'Add Freezing Run',
+      size: '2xl',
+      content: `
+        <form id="form-add-freezing" class="space-y-4 text-xs text-[#172B4D]">
+          <!-- Grid 1: Key Tracking & Dates -->
+          <div class="bg-[#F8FAFC] p-3 rounded-lg border border-[#DFE1E6]">
+            <h4 class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-2.5">1. Production & Tracking Identifiers</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+              <!-- 1. PRODUCTION DATE * -->
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">PRODUCTION DATE <span class="text-red-500 font-black">*</span></label>
+                <input type="date" name="productionDate" value="${today}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
+              </div>
+
+              <!-- 2. TRANSACTION DATE * -->
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">TRANSACTION DATE <span class="text-red-500 font-black">*</span></label>
+                <input type="date" name="transactionDate" value="${today}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
+              </div>
+
+              <!-- 3. ARRIVAL DATE * -->
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">ARRIVAL DATE <span class="text-red-500 font-black">*</span></label>
+                <input type="date" name="arrivalDate" value="${today}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
+              </div>
+
+              <!-- 4. ARRIVAL/LOT CODE * -->
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">ARRIVAL/LOT CODE <span class="text-red-500 font-black">*</span></label>
+                <input type="text" name="arrivalLotCode" value="${defaultLotCode}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-bold text-[#0284C7]" required>
+              </div>
+            </div>
+          </div>
+
+          <!-- Grid 2: Facility & Ownership -->
+          <div class="bg-[#F8FAFC] p-3 rounded-lg border border-[#DFE1E6]">
+            <h4 class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-2.5">2. Facility, Plant & Organization</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+              <!-- 5. PRODUCTION PLANT * -->
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">PRODUCTION PLANT <span class="text-red-500 font-black">*</span></label>
+                <select name="productionPlant" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
+                  <option value="DFL UNIT-5 (JPT)" selected>DFL UNIT-5 (JPT)</option>
+                  <option value="DFL UNIT-3 (PSP)">DFL UNIT-3 (PSP)</option>
+                  <option value="DFL UNIT-4 (PND)">DFL UNIT-4 (PND)</option>
+                  <option value="DFL UNIT-1 (VSP)">DFL UNIT-1 (VSP)</option>
+                  <option value="DFL UNIT-2 (KKD)">DFL UNIT-2 (KKD)</option>
+                </select>
+              </div>
+
+              <!-- 6. GROUP * -->
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">GROUP <span class="text-red-500 font-black">*</span></label>
+                <select name="group" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
+                  <option value="Group A" selected>Group A</option>
+                  <option value="Group B">Group B</option>
+                  <option value="Group C">Group C</option>
+                  <option value="Group D">Group D</option>
+                </select>
+              </div>
+
+              <!-- 7. STOCK BELONGS TO * -->
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">STOCK BELONGS TO <span class="text-red-500 font-black">*</span></label>
+                <select name="stockBelongsTo" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
+                  <option value="Devi Fisheries Ltd (DFL)" selected>Devi Fisheries Ltd (DFL)</option>
+                  <option value="DFL Unit-5 (JPT)">DFL Unit-5 (JPT)</option>
+                  <option value="DFL Unit-4 (PND)">DFL Unit-4 (PND)</option>
+                  <option value="DFL Unit-3 (PSP)">DFL Unit-3 (PSP)</option>
+                  <option value="DFL Unit-1 (VSP)">DFL Unit-1 (VSP)</option>
+                  <option value="Third-Party Co-Packing">Third-Party Co-Packing</option>
+                </select>
+              </div>
+
+              <!-- 8. SHIFT * -->
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">SHIFT <span class="text-red-500 font-black">*</span></label>
+                <select name="shift" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
+                  <option value="Shift A (Day)" selected>Shift A (Day)</option>
+                  <option value="Shift B (Evening)">Shift B (Evening)</option>
+                  <option value="Shift C (Night)">Shift C (Night)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Grid 3: Order, Batch & Raw Material Specifications -->
+          <div class="bg-[#F8FAFC] p-3 rounded-lg border border-[#DFE1E6]">
+            <h4 class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-2.5">3. Batch, Order & Raw Material Specs</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+              <!-- 9. PO NUMBER * -->
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">PO NUMBER <span class="text-red-500 font-black">*</span></label>
+                <input type="text" name="poNumber" value="PO-2026-8901" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-semibold" required>
+              </div>
+
+              <!-- 10. BATCH CODES -->
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">BATCH CODES</label>
+                <input type="text" name="batchCodes" placeholder="e.g. BCH-2026-910, BCH-911" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono">
+              </div>
+
+              <!-- 11. VARIETY * -->
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">VARIETY <span class="text-red-500 font-black">*</span></label>
+                <select name="variety" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
+                  <option value="Vannamei (White Shrimp)" selected>Vannamei (White Shrimp)</option>
+                  <option value="Black Tiger (Monodon)">Black Tiger (Monodon)</option>
+                  <option value="Sea Pearl / Pink">Sea Pearl / Pink</option>
+                  <option value="Scampi (Freshwater)">Scampi (Freshwater)</option>
+                </select>
+              </div>
+
+              <!-- 12. GRADE * -->
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">GRADE <span class="text-red-500 font-black">*</span></label>
+                <select name="grade" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
+                  <option value="31/40" selected>31/40</option>
+                  <option value="16/20">16/20</option>
+                  <option value="26/30">26/30</option>
+                  <option value="41/50">41/50</option>
+                  <option value="21/25">21/25</option>
+                  <option value="51/60">51/60</option>
+                  <option value="U/15">U/15</option>
+                </select>
+              </div>
+
+              <!-- 13. HL COUNT * -->
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">HL COUNT <span class="text-red-500 font-black">*</span></label>
+                <input type="number" step="0.1" name="hlCount" value="35.0" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-semibold" required>
+              </div>
+
+              <!-- 14. TUB NO -->
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">TUB NO</label>
+                <input type="text" name="tubNo" value="TUB-401" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-semibold">
+              </div>
+
+              <!-- 15. SOAKING * -->
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">SOAKING <span class="text-red-500 font-black">*</span></label>
+                <select name="soaking" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
+                  <option value="Yes (Non-Phosphate)" selected>Yes (Non-Phosphate)</option>
+                  <option value="Yes (Phosphate Treated)">Yes (Phosphate Treated)</option>
+                  <option value="No (Unsoaked)">No (Unsoaked)</option>
+                </select>
+              </div>
+
+              <!-- 16. PRODUCT CATEGORY * -->
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">PRODUCT CATEGORY <span class="text-red-500 font-black">*</span></label>
+                <select name="productCategory" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
+                  <option value="Raw Frozen" selected>Raw Frozen</option>
+                  <option value="Cooked Frozen">Cooked Frozen</option>
+                  <option value="Value Added">Value Added</option>
+                  <option value="Blanched">Blanched</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Grid 4: Freezing & Packaging Specifications -->
+          <div class="bg-[#F8FAFC] p-3 rounded-lg border border-[#DFE1E6]">
+            <h4 class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-2.5">4. Freezing, Packaging & QC Status</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+              <!-- 17. FREEZING TYPE * -->
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">FREEZING TYPE <span class="text-red-500 font-black">*</span></label>
+                <select name="freezingType" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
+                  <option value="IQF Tunnel" selected>IQF Tunnel</option>
+                  <option value="Contact Plate Freezer">Contact Plate Freezer</option>
+                  <option value="Blast Freezer">Blast Freezer</option>
+                  <option value="Semi-IQF">Semi-IQF</option>
+                </select>
+              </div>
+
+              <!-- 18. PACKING TYPE * -->
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">PACKING TYPE <span class="text-red-500 font-black">*</span></label>
+                <select name="packingType" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
+                  <option value="Master Cartons" selected>Master Cartons</option>
+                  <option value="Dummy Cartons">Dummy Cartons</option>
+                  <option value="10x1kg Net">10x1kg Net</option>
+                  <option value="6x2kg Block">6x2kg Block</option>
+                  <option value="5x2kg IQF Poly">5x2kg IQF Poly</option>
+                  <option value="10x2lb Pouch">10x2lb Pouch</option>
+                </select>
+              </div>
+
+              <!-- 19. PACKING STYLE * -->
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">PACKING STYLE <span class="text-red-500 font-black">*</span></label>
+                <input type="text" name="packingStyle" value="10x1kg Net" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
+              </div>
+
+              <!-- 20. ABSTATUS * -->
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">ABSTATUS <span class="text-red-500 font-black">*</span></label>
+                <select name="abStatus" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-bold text-[#006644]" required>
+                  <option value="PASSED (AB Negative)" selected>PASSED (AB Negative)</option>
+                  <option value="UNDER TESTING">UNDER TESTING</option>
+                  <option value="FAILED">FAILED</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Grid 5: Quantities, Weights & Remarks -->
+          <div class="bg-[#F8FAFC] p-3 rounded-lg border border-[#DFE1E6]">
+            <h4 class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-2.5">5. Quantities, Weights & Remarks</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+              <!-- 21. MCS -->
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">MCS (MASTER CARTONS)</label>
+                <input type="number" name="mcs" value="400" min="0" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-bold">
+              </div>
+
+              <!-- 22. LOOSE BAGS -->
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">LOOSE BAGS</label>
+                <input type="number" name="looseBags" value="0" min="0" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-semibold">
+              </div>
+
+              <!-- 23. TOTAL WEIGHT -->
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">TOTAL WEIGHT (KG)</label>
+                <input type="number" step="0.1" name="totalWeight" value="4000.0" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-bold text-[#00875A]">
+              </div>
+
+              <!-- 24. BALANCE WEIGHT -->
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">BALANCE WEIGHT (KG)</label>
+                <input type="number" step="0.1" name="balanceWeight" value="4000.0" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-bold text-[#DE350B]">
+              </div>
+            </div>
+
+            <!-- 25. REMARKS -->
+            <div class="mt-3">
+              <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">REMARKS</label>
+              <textarea name="remarks" rows="2" placeholder="Enter process notes, temperature verification, or pallet layout..." class="w-full text-xs p-2 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]"></textarea>
+            </div>
+          </div>
+
+          <!-- Submit Buttons -->
+          <div class="flex justify-end gap-2 pt-2 border-t border-[#DFE1E6]">
+            <button type="button" class="btn-secondary px-4 py-2 rounded text-xs font-semibold cursor-pointer" onclick="Modal.close()">Cancel</button>
+            <button type="submit" class="btn-primary px-5 py-2 rounded text-xs font-semibold cursor-pointer">Save Freezing Run</button>
+          </div>
+        </form>
+      `
+    });
+
+    const form = document.getElementById('form-add-freezing');
+    if (form) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const fd = new FormData(form);
+        const newRecord = {
+          id: Date.now(),
+          sNo: (this.state.freezingRunsList?.length || 0) + 1,
+          productionDate: fd.get('productionDate') || today,
+          transactionDate: fd.get('transactionDate') || today,
+          arrivalDate: fd.get('arrivalDate') || today,
+          arrivalLotCode: fd.get('arrivalLotCode') || defaultLotCode,
+          batchCodes: fd.get('batchCodes') || '-',
+          productionPlant: fd.get('productionPlant'),
+          group: fd.get('group'),
+          stockBelongsTo: fd.get('stockBelongsTo'),
+          shift: fd.get('shift'),
+          poNumber: fd.get('poNumber'),
+          variety: fd.get('variety'),
+          packingStyle: fd.get('packingStyle'),
+          grade: fd.get('grade'),
+          packingType: fd.get('packingType'),
+          freezingType: fd.get('freezingType'),
+          soaking: fd.get('soaking'),
+          productCategory: fd.get('productCategory'),
+          abStatus: fd.get('abStatus'),
+          remarks: fd.get('remarks') || '-',
+          totalWeight: Number(fd.get('totalWeight') || 0),
+          balanceWeight: Number(fd.get('balanceWeight') || 0),
+          hlCount: Number(fd.get('hlCount') || 0),
+          mcs: Number(fd.get('mcs') || 0),
+          looseBags: Number(fd.get('looseBags') || 0),
+          tubNo: fd.get('tubNo') || '-'
+        };
+
+        this.state.freezingRunsList.unshift(newRecord);
+        Modal.close();
+        if (typeof onSuccessCallback === 'function') {
+          onSuccessCallback(this.state.freezingRunsList);
+        }
+        Toast.show(`Freezing run ${newRecord.arrivalLotCode} added successfully`, 'success');
+      });
+    }
+  },
+
+  // 10. EDIT FREEZING MODAL
+  showEditFreezingModal(row, onSuccessCallback) {
+    Modal.open({
+      title: `Edit Freezing Run: ${row.arrivalLotCode || row.runCode}`,
+      size: '2xl',
+      content: `
+        <form id="form-edit-freezing" class="space-y-4 text-xs text-[#172B4D]">
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 bg-[#F8FAFC] p-3 rounded-lg border border-[#DFE1E6]">
+            <div>
+              <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">PRODUCTION DATE</label>
+              <input type="date" name="productionDate" value="${row.productionDate || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold" required>
+            </div>
+            <div>
+              <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">PLANT</label>
+              <input type="text" name="productionPlant" value="${row.productionPlant || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold">
+            </div>
+            <div>
+              <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">GRADE</label>
+              <input type="text" name="grade" value="${row.grade || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold">
+            </div>
+            <div>
+              <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">AB STATUS</label>
+              <select name="abStatus" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-bold">
+                <option value="PASSED (AB Negative)" ${row.abStatus === 'PASSED (AB Negative)' ? 'selected' : ''}>PASSED (AB Negative)</option>
+                <option value="UNDER TESTING" ${row.abStatus === 'UNDER TESTING' ? 'selected' : ''}>UNDER TESTING</option>
+                <option value="FAILED" ${row.abStatus === 'FAILED' ? 'selected' : ''}>FAILED</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-white p-3 rounded-lg border border-[#DFE1E6]">
+            <div>
+              <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">MCS</label>
+              <input type="number" name="mcs" value="${row.mcs || 0}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold">
+            </div>
+            <div>
+              <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">TOTAL WT (KG)</label>
+              <input type="number" step="0.1" name="totalWeight" value="${row.totalWeight || row.netWeightKg || 0}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A]">
+            </div>
+            <div>
+              <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">BALANCE WT (KG)</label>
+              <input type="number" step="0.1" name="balanceWeight" value="${row.balanceWeight || 0}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#DE350B]">
+            </div>
+          </div>
+
+          <div class="flex justify-end gap-2 pt-2 border-t border-[#DFE1E6]">
+            <button type="button" class="btn-secondary px-4 py-2 rounded text-xs font-semibold cursor-pointer" onclick="Modal.close()">Cancel</button>
+            <button type="submit" class="btn-primary px-5 py-2 rounded text-xs font-semibold cursor-pointer">Update Freezing Run</button>
+          </div>
+        </form>
+      `
+    });
+
+    const form = document.getElementById('form-edit-freezing');
+    if (form) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const fd = new FormData(form);
+        row.productionDate = fd.get('productionDate');
+        row.productionPlant = fd.get('productionPlant');
+        row.grade = fd.get('grade');
+        row.abStatus = fd.get('abStatus');
+        row.mcs = Number(fd.get('mcs') || 0);
+        row.totalWeight = Number(fd.get('totalWeight') || 0);
+        row.balanceWeight = Number(fd.get('balanceWeight') || 0);
+
+        Modal.close();
+        if (typeof onSuccessCallback === 'function') {
+          onSuccessCallback(this.state.freezingRunsList);
+        }
+        Toast.show(`Freezing run ${row.arrivalLotCode} updated`, 'success');
+      });
+    }
+  },
+
+  // 11. FREEZING DETAILS MODAL (EXACT 25 FIELDS DISPLAY)
+  showFreezingDetailModal(row) {
+    Modal.open({
+      title: `Freezing Run Details: ${row.arrivalLotCode || row.runCode}`,
+      size: '2xl',
+      content: `
+        <div class="space-y-4 text-xs text-[#172B4D]">
+          <!-- Hero Header Banner -->
+          <div class="p-3 bg-[#F4F5F7] border border-[#DFE1E6] rounded-lg flex items-center justify-between">
+            <div>
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">ARRIVAL / LOT CODE</span>
+              <div class="text-base font-extrabold text-[#0284C7] font-mono">${row.arrivalLotCode || row.runCode}</div>
+            </div>
+            <div class="text-right">
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">AB STATUS</span>
+              <div>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
+                  (row.abStatus || '').includes('UNDER') ? 'bg-[#FFF0B3] text-[#172B4D]' : 'bg-[#E3FCEF] text-[#006644]'
+                }">${row.abStatus || row.qcStatus || 'PASSED (AB Negative)'}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 1: Dates & Organization -->
+          <div class="bg-white p-3 border border-[#DFE1E6] rounded-lg">
+            <h4 class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-2">PRODUCTION & FACILITY SPECS</h4>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <div>
+                <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PRODUCTION DATE</span>
+                <span class="font-semibold text-xs text-[#172B4D]">${row.productionDate || row.date}</span>
+              </div>
+              <div>
+                <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">TRANSACTION DATE</span>
+                <span class="font-semibold text-xs text-[#172B4D]">${row.transactionDate || row.productionDate || '-'}</span>
+              </div>
+              <div>
+                <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">ARRIVAL DATE</span>
+                <span class="font-semibold text-xs text-[#172B4D]">${row.arrivalDate || '-'}</span>
+              </div>
+              <div>
+                <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PRODUCTION PLANT</span>
+                <span class="font-bold text-xs text-[#172B4D]">${row.productionPlant || row.plant || '-'}</span>
+              </div>
+              <div>
+                <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">GROUP</span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#EAE6FF] text-[#403294]">${row.group || 'Group A'}</span>
+              </div>
+              <div>
+                <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">STOCK BELONGS TO</span>
+                <span class="font-semibold text-xs text-[#172B4D]">${row.stockBelongsTo || 'Devi Fisheries Ltd (DFL)'}</span>
+              </div>
+              <div>
+                <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">SHIFT</span>
+                <span class="font-semibold text-xs text-[#172B4D]">${row.shift || 'Shift A (Day)'}</span>
+              </div>
+              <div>
+                <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PO NUMBER</span>
+                <span class="font-mono font-bold text-xs text-[#0284C7]">${row.poNumber || '-'}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Raw Material, Soaking & Freezing -->
+          <div class="bg-white p-3 border border-[#DFE1E6] rounded-lg">
+            <h4 class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-2">RAW MATERIAL & PROCESSING</h4>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <div>
+                <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">VARIETY</span>
+                <span class="font-bold text-xs text-[#172B4D]">${row.variety || row.product || '-'}</span>
+              </div>
+              <div>
+                <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">GRADE</span>
+                <span class="font-mono font-bold text-xs text-[#172B4D]">${row.grade || '-'}</span>
+              </div>
+              <div>
+                <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">FREEZING TYPE</span>
+                <span class="font-semibold text-xs text-[#0284C7]">${row.freezingType || 'IQF'}</span>
+              </div>
+              <div>
+                <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">SOAKING</span>
+                <span class="font-semibold text-xs text-[#172B4D]">${row.soaking || 'No (Unsoaked)'}</span>
+              </div>
+              <div>
+                <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PRODUCT CATEGORY</span>
+                <span class="font-semibold text-xs text-[#172B4D]">${row.productCategory || 'Raw Frozen'}</span>
+              </div>
+              <div>
+                <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">BATCH CODES</span>
+                <span class="font-mono text-xs font-semibold text-[#5E6C84]">${row.batchCodes || '-'}</span>
+              </div>
+              <div>
+                <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">HL COUNT</span>
+                <span class="font-mono font-bold text-xs">${row.hlCount || '-'}</span>
+              </div>
+              <div>
+                <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">TUB NO</span>
+                <span class="font-mono font-bold text-xs text-[#0284C7]">${row.tubNo || '-'}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 3: Packaging & Weight Balances -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-[#FAFBFC] p-3 border border-[#DFE1E6] rounded-lg">
+            <div class="bg-white p-2.5 rounded border border-[#EBECF0]">
+              <div class="text-[10px] font-bold text-[#5E6C84] uppercase">PACKING STYLE</div>
+              <div class="text-sm font-bold text-[#172B4D] mt-0.5">${row.packingStyle || '-'}</div>
+              <div class="text-[11px] text-[#5E6C84] mt-0.5">Type: ${row.packingType || 'Cartons'}</div>
+            </div>
+            <div class="bg-white p-2.5 rounded border border-[#EBECF0]">
+              <div class="text-[10px] font-bold text-[#5E6C84] uppercase">MASTER CARTONS (MCS)</div>
+              <div class="text-lg font-black text-[#172B4D] font-mono mt-0.5">${Number(row.mcs || row.cartons || 0).toLocaleString()}</div>
+              <div class="text-[11px] text-[#5E6C84] mt-0.5">Loose Bags: ${row.looseBags || 0}</div>
+            </div>
+            <div class="bg-white p-2.5 rounded border border-[#EBECF0]">
+              <div class="text-[10px] font-bold text-[#5E6C84] uppercase">TOTAL WEIGHT</div>
+              <div class="text-lg font-black text-[#00875A] font-mono mt-0.5">${Number(row.totalWeight || row.netWeightKg || 0).toFixed(1)} <span class="text-xs font-semibold text-[#6B778C]">Kg</span></div>
+            </div>
+            <div class="bg-white p-2.5 rounded border border-[#EBECF0]">
+              <div class="text-[10px] font-bold text-[#5E6C84] uppercase">BALANCE WEIGHT</div>
+              <div class="text-lg font-black text-[#DE350B] font-mono mt-0.5">${Number(row.balanceWeight || 0).toFixed(1)} <span class="text-xs font-semibold text-[#6B778C]">Kg</span></div>
+            </div>
+          </div>
+
+          <!-- Section 4: Remarks -->
+          <div class="bg-white p-3 border border-[#DFE1E6] rounded-lg">
+            <span class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">REMARKS / PROCESS NOTES</span>
+            <p class="text-xs text-[#5E6C84] leading-relaxed">${row.remarks || 'No remarks provided for this freezing run.'}</p>
+          </div>
+        </div>
+      `
+    });
   }
+
 };
