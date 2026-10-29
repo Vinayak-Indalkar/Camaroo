@@ -55539,17 +55539,17 @@ const InventoryView = {
               </span>
             </div>
 
-            <!-- Item Input Grid Card -->
-            <div class="bg-[#F8FAFC] border border-[#DFE1E6] rounded-xl p-3.5 space-y-3 shadow-2xs">
-              <!-- Row 1: Item, UoM, Available Qty, PO Qty, Received Qty, Deviation Qty -->
-              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 gap-3">
-                <!-- 1. Item -->
-                <div class="md:col-span-2">
+            <!-- Item Input Grid Card (4-Column Layout) -->
+            <div class="bg-[#F8FAFC] border border-[#DFE1E6] rounded-xl p-3.5 shadow-2xs">
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3.5">
+                <!-- Row 1 -->
+                <!-- 1. Item (Span 2) -->
+                <div class="sm:col-span-2 md:col-span-2">
                   <label for="mgrn-item-name" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ITEM <span class="text-[#DE350B]">*</span></label>
                   <input type="text" id="mgrn-item-name" placeholder="Item name or code..." value="Nitrile Food-Grade Gloves (Blue, L)" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
                 </div>
 
-                <!-- 2. UoM -->
+                <!-- 2. UoM (Col 3) -->
                 <div>
                   <label for="mgrn-item-uom" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">UoM</label>
                   <select id="mgrn-item-uom" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
@@ -55565,34 +55565,32 @@ const InventoryView = {
                   </select>
                 </div>
 
-                <!-- 3. Available Qty -->
+                <!-- 3. Available Qty (Col 4) -->
                 <div>
                   <label for="mgrn-avail-qty" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">AVAILABLE QTY</label>
                   <input type="number" id="mgrn-avail-qty" value="15" min="0" class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] shadow-2xs cursor-not-allowed" readonly />
                 </div>
 
-                <!-- 4. PO Qty -->
+                <!-- Row 2 -->
+                <!-- 4. PO Qty (Col 1) -->
                 <div>
                   <label for="mgrn-po-qty" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PO QTY <span class="text-[#DE350B]">*</span></label>
                   <input type="number" id="mgrn-po-qty" value="100" min="1" step="1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
                 </div>
 
-                <!-- 5. Received Qty -->
+                <!-- 5. Received Qty (Col 2) -->
                 <div>
                   <label for="mgrn-rcv-qty" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">RECEIVED QTY <span class="text-[#DE350B]">*</span></label>
                   <input type="number" id="mgrn-rcv-qty" value="100" min="0" step="1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
                 </div>
-              </div>
 
-              <!-- Row 2: Deviation Qty, Location, Batch, Item Price, Base Value, Deviation Amount, GST%, GST Tax Amount -->
-              <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-7 gap-3">
-                <!-- 6. Deviation Qty (Auto calculated: Received - PO) -->
+                <!-- 6. Deviation Qty (Col 3, Auto calculated) -->
                 <div>
                   <label for="mgrn-dev-qty" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DEVIATION QTY</label>
                   <input type="number" id="mgrn-dev-qty" value="0" class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] shadow-2xs cursor-not-allowed" readonly />
                 </div>
 
-                <!-- 7. Location -->
+                <!-- 7. Location (Col 4) -->
                 <div>
                   <label for="mgrn-location" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">LOCATION <span class="text-[#DE350B]">*</span></label>
                   <select id="mgrn-location" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
@@ -55605,31 +55603,33 @@ const InventoryView = {
                   </select>
                 </div>
 
-                <!-- 8. Batch -->
+                <!-- Row 3 -->
+                <!-- 8. Batch (Col 1) -->
                 <div>
                   <label for="mgrn-batch" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BATCH <span class="text-[#DE350B]">*</span></label>
                   <input type="text" id="mgrn-batch" placeholder="Batch / Lot #" value="BAT-${new Date().getFullYear()}-09A" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
                 </div>
 
-                <!-- 9. Item Price -->
+                <!-- 9. Item Price (Col 2) -->
                 <div>
                   <label for="mgrn-price" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ITEM PRICE (₹)</label>
                   <input type="number" id="mgrn-price" value="280.00" min="0" step="0.01" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
                 </div>
 
-                <!-- 10. Base Value -->
+                <!-- 10. Base Value (Col 3) -->
                 <div>
                   <label for="mgrn-base-val" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BASE VALUE (₹)</label>
                   <input type="text" id="mgrn-base-val" value="28000.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] shadow-2xs cursor-not-allowed" />
                 </div>
 
-                <!-- 11. Deviation Amount -->
+                <!-- 11. Deviation Amount (Col 4) -->
                 <div>
                   <label for="mgrn-dev-amt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DEV AMOUNT (₹)</label>
                   <input type="text" id="mgrn-dev-amt" value="0.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#D97706] shadow-2xs cursor-not-allowed" />
                 </div>
 
-                <!-- 12. GST% -->
+                <!-- Row 4 -->
+                <!-- 12. GST% (Col 1) -->
                 <div>
                   <label for="mgrn-gst-pct" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">GST %</label>
                   <select id="mgrn-gst-pct" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
@@ -55640,22 +55640,20 @@ const InventoryView = {
                     <option value="28">28%</option>
                   </select>
                 </div>
-              </div>
 
-              <!-- Row 3: GST Tax Amount & Add Item Button -->
-              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-1 border-t border-[#F1F5F9]">
-                <div class="flex items-center gap-3">
-                  <div>
-                    <label for="mgrn-gst-amt" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0.5">GST TAX AMOUNT (₹)</label>
-                    <input type="text" id="mgrn-gst-amt" value="5040.00" readonly class="w-36 text-xs px-2.5 py-1 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] shadow-2xs cursor-not-allowed" />
-                  </div>
+                <!-- 13. GST Tax Amount (Col 2) -->
+                <div>
+                  <label for="mgrn-gst-amt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">GST TAX AMOUNT (₹)</label>
+                  <input type="text" id="mgrn-gst-amt" value="5040.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] shadow-2xs cursor-not-allowed" />
                 </div>
 
-                <!-- Add Item Button -->
-                <button type="button" id="modal-grn-btn-add-item" class="btn-primary px-5 py-2 rounded-full text-xs font-semibold inline-flex items-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer">
-                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                  <span>Add Item to GRN</span>
-                </button>
+                <!-- Add Item Button (Span 2, right-aligned) -->
+                <div class="sm:col-span-2 md:col-span-2 flex items-end justify-end pt-1">
+                  <button type="button" id="modal-grn-btn-add-item" class="btn-primary px-5 py-2 rounded-full text-xs font-semibold inline-flex items-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px]">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                    <span>Add Item to GRN</span>
+                  </button>
+                </div>
               </div>
             </div>
 
