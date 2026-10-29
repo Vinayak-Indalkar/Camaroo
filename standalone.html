@@ -48193,82 +48193,261 @@ const ColdstoreView = {
     }
   },
 
-  // 4b-1. RACK DETAIL MODAL
+  // 4b-1. PALLET DETAILS MODAL (EXACT SPEC MATCH)
   showRackDetailModal(rack) {
+    // Realistic Barcode SVG
+    const barcodeSvg = `
+      <svg class="h-6 sm:h-7 w-16 sm:w-20" viewBox="0 0 100 32" fill="#0F172A">
+        <rect x="0" y="0" width="3" height="32"/>
+        <rect x="5" y="0" width="1.5" height="32"/>
+        <rect x="8" y="0" width="4" height="32"/>
+        <rect x="14" y="0" width="2" height="32"/>
+        <rect x="18" y="0" width="5" height="32"/>
+        <rect x="25" y="0" width="1.5" height="32"/>
+        <rect x="28" y="0" width="3" height="32"/>
+        <rect x="33" y="0" width="4" height="32"/>
+        <rect x="39" y="0" width="2" height="32"/>
+        <rect x="43" y="0" width="1.5" height="32"/>
+        <rect x="47" y="0" width="5" height="32"/>
+        <rect x="54" y="0" width="3" height="32"/>
+        <rect x="59" y="0" width="1.5" height="32"/>
+        <rect x="63" y="0" width="4" height="32"/>
+        <rect x="69" y="0" width="2" height="32"/>
+        <rect x="73" y="0" width="4" height="32"/>
+        <rect x="79" y="0" width="2" height="32"/>
+        <rect x="83" y="0" width="3.5" height="32"/>
+        <rect x="89" y="0" width="1.5" height="32"/>
+        <rect x="93" y="0" width="4" height="32"/>
+      </svg>
+    `;
+
+    // 6 Pallet Boxes (Matching Spec: 3 Upper Tier, 3 Lower Tier)
+    const palletBoxes = [
+      // Upper Tier
+      {
+        tier: 'upper',
+        variety: 'VM RAW',
+        type: 'HLSO',
+        shift: 'B SHIFT',
+        grade: '26/30',
+        po: rack.poNumber || '',
+        freezing: 'BLOCK',
+        mcs: 16,
+        loose: 1,
+        packing: 'DUMMY',
+        style: '6 X 1.8 KGS',
+        kgs: 174.6
+      },
+      {
+        tier: 'upper',
+        variety: 'VM RAW',
+        type: 'HLSO',
+        shift: 'B SHIFT',
+        grade: '26/30',
+        po: rack.poNumber || '',
+        freezing: 'BLOCK',
+        mcs: 28,
+        loose: 2,
+        packing: 'DUMMY',
+        style: '6 X 1.8 KGS',
+        kgs: 306
+      },
+      {
+        tier: 'upper',
+        variety: 'VM RAW',
+        type: 'HLSO',
+        shift: 'B SHIFT',
+        grade: '26/30',
+        po: rack.poNumber || '',
+        freezing: 'BLOCK',
+        mcs: 28,
+        loose: 2,
+        packing: 'DUMMY',
+        style: '6 X 1.8 KGS',
+        kgs: 306
+      },
+      // Lower Tier
+      {
+        tier: 'lower',
+        variety: 'VM RAW',
+        type: 'HLSO',
+        shift: 'B SHIFT',
+        grade: '26/30',
+        po: rack.poNumber || '',
+        freezing: 'BLOCK',
+        mcs: 32,
+        loose: 1,
+        packing: 'DUMMY',
+        style: '6 X 1.8 KGS',
+        kgs: 350
+      },
+      {
+        tier: 'lower',
+        variety: 'VM RAW',
+        type: 'HLSO',
+        shift: 'B SHIFT',
+        grade: (rack.grade && rack.grade !== '-') ? rack.grade : '21/25',
+        po: rack.poNumber || '',
+        freezing: 'BLOCK',
+        mcs: 34,
+        loose: 1,
+        packing: 'DUMMY',
+        style: '6 X 1.8 KGS',
+        kgs: 372
+      },
+      {
+        tier: 'lower',
+        variety: 'VM RAW',
+        type: 'HLSO',
+        shift: 'B SHIFT',
+        grade: '26/30',
+        po: rack.poNumber || '',
+        freezing: 'BLOCK',
+        mcs: 34,
+        loose: 1,
+        packing: 'DUMMY',
+        style: '6 X 1.8 KGS',
+        kgs: 372
+      }
+    ];
+
+    const renderPalletBox = (box) => `
+      <div class="flex-1 min-w-[200px] flex flex-col shadow-sm rounded-lg overflow-hidden group hover:shadow-md transition-all">
+        <!-- Top Folded Flaps -->
+        <div class="h-6 bg-[#E0B07D] border-t-2 border-l-2 border-r-2 border-[#BC824D] rounded-t-lg relative flex items-center justify-center overflow-hidden">
+          <div class="w-full h-[1px] bg-[#C5925A] absolute top-2.5"></div>
+          <div class="w-[1px] h-full bg-[#C5925A] absolute left-1/2"></div>
+        </div>
+
+        <!-- Box Body -->
+        <div class="p-3 bg-[#D4A373] border-b-2 border-l-2 border-r-2 border-[#BC824D] rounded-b-lg space-y-2.5">
+          <!-- Cyan Shipping Label -->
+          <div class="bg-[#99D5DC] border border-[#72B9C3] rounded-lg p-2.5 shadow-2xs">
+            <!-- Label Header -->
+            <div class="flex items-start justify-between">
+              <div>
+                <div class="text-xs sm:text-sm font-black text-[#0F172A] tracking-tight leading-tight">${box.variety}</div>
+                <div class="text-[10px] font-bold text-[#334155] leading-none mt-0.5">${box.type}</div>
+              </div>
+              <span class="bg-[#2563EB] text-white text-[9px] font-black px-2 py-0.5 rounded-full shadow-2xs tracking-wider">${box.shift}</span>
+            </div>
+
+            <!-- Grade & Barcode -->
+            <div class="mt-2 bg-[#BFE9EF] border border-[#6BBECB] rounded p-1.5 flex items-center justify-between">
+              <div class="text-xl sm:text-2xl font-black font-mono text-[#0F172A] tracking-tight pl-1">${box.grade}</div>
+              <div class="pr-1 flex items-center">
+                ${barcodeSvg}
+              </div>
+            </div>
+          </div>
+
+          <!-- Specs List on Kraft Cardboard -->
+          <div class="space-y-1 text-[11px] font-semibold text-[#1F2937] pt-1">
+            <div class="flex items-center justify-between border-b border-[#C5925A]/40 pb-0.5">
+              <span class="text-[#374151] font-bold">PO</span>
+              <span class="font-mono font-bold text-[#111827]">${box.po || '-'}</span>
+            </div>
+            <div class="flex items-center justify-between border-b border-[#C5925A]/40 pb-0.5">
+              <span class="text-[#374151] font-bold">Freezing</span>
+              <span class="font-bold text-[#111827]">${box.freezing}</span>
+            </div>
+            <div class="flex items-center justify-between border-b border-[#C5925A]/40 pb-0.5">
+              <span class="text-[#374151] font-bold">MCS</span>
+              <span class="font-mono font-black text-[#111827]">${box.mcs}</span>
+            </div>
+            <div class="flex items-center justify-between border-b border-[#C5925A]/40 pb-0.5">
+              <span class="text-[#374151] font-bold">Loose</span>
+              <span class="font-mono font-black text-[#111827]">${box.loose}</span>
+            </div>
+            <div class="flex items-center justify-between border-b border-[#C5925A]/40 pb-0.5">
+              <span class="text-[#374151] font-bold">Packing</span>
+              <span class="font-bold text-[#111827]">${box.packing}</span>
+            </div>
+            <div class="flex items-center justify-between border-b border-[#C5925A]/40 pb-0.5">
+              <span class="text-[#374151] font-bold">Style</span>
+              <span class="font-mono font-bold text-[#111827]">${box.style}</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-[#374151] font-bold">Kgs</span>
+              <span class="font-mono font-black text-[#111827]">${box.kgs}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    const upperBoxes = palletBoxes.filter(b => b.tier === 'upper');
+    const lowerBoxes = palletBoxes.filter(b => b.tier === 'lower');
+
+    // Upright post hole column generator
+    const postHoles = Array.from({ length: 18 }).map(() => `<div class="w-1.5 h-1.5 rounded-full bg-[#CBD5E1] mx-auto my-2"></div>`).join('');
+
     Modal.open({
-      title: `Rack Slot Details - ${rack.name} (${rack.bay})`,
+      title: 'Pallet Details',
       size: 'xl',
       content: `
-        <div class="space-y-4 text-xs text-[#172B4D]">
-          <!-- Header Banner -->
-          <div class="p-3 bg-[#F4F5F7] border border-[#DFE1E6] rounded-lg flex items-center justify-between">
-            <div>
-              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">RACK BAY IDENTIFIER</span>
-              <div class="text-base font-extrabold text-[#0284C7] font-mono">${rack.name} • ${rack.tier}</div>
-              <div class="text-[11px] text-[#6B778C]">Store: <span class="font-bold text-[#172B4D]">${rack.storeId}</span> • Block: <span class="font-bold text-[#172B4D]">${rack.blockId}</span></div>
+        <div class="space-y-4">
+          <!-- Top Stat Badges (Exact Match) -->
+          <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-5">
+            <!-- Badge 1: TOTAL MCS -->
+            <div class="bg-white border border-[#DFE1E6] rounded-xl px-4 py-2 flex items-center gap-2.5 shadow-2xs">
+              <svg class="w-4 h-4 text-[#2563EB]" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm4 12H8v-2h8v2zm0-4H8v-2h8v2z"/></svg>
+              <div class="text-xs">
+                <span class="font-bold text-[#64748B]">TOTAL MCS:</span> <span class="font-black text-[#0F172A] font-mono text-sm ml-1">172</span>
+              </div>
             </div>
-            <div class="text-right">
-              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">OCCUPANCY</span>
-              <div class="text-lg font-black text-[#00875A] font-mono">${rack.occupancy}%</div>
+
+            <!-- Badge 2: TOTAL LOOSE -->
+            <div class="bg-white border border-[#DFE1E6] rounded-xl px-4 py-2 flex items-center gap-2.5 shadow-2xs">
+              <svg class="w-4 h-4 text-[#2563EB]" fill="currentColor" viewBox="0 0 24 24"><path d="M18 6h-2c0-2.21-1.79-4-4-4S8 3.79 8 6H6c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-6-2c1.1 0 2 .9 2 2h-4c0-1.1.9-2 2-2zm6 16H6V8h2v2c0 .55.45 1 1 1s1-.45 1-1V8h4v2c0 .55.45 1 1 1s1-.45 1-1V8h2v12z"/></svg>
+              <div class="text-xs">
+                <span class="font-bold text-[#64748B]">TOTAL LOOSE:</span> <span class="font-black text-[#0F172A] font-mono text-sm ml-1">8</span>
+              </div>
+            </div>
+
+            <!-- Badge 3: TOTAL KGS -->
+            <div class="bg-white border border-[#DFE1E6] rounded-xl px-4 py-2 flex items-center gap-2.5 shadow-2xs">
+              <svg class="w-4 h-4 text-[#2563EB]" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3a4 4 0 00-4 4c0 .73.19 1.41.53 2H5a2 2 0 00-2 2v2a2 2 0 001.6 1.96L3 21h18l-1.6-6.04A2 2 0 0021 13v-2a2 2 0 00-2-2h-3.53c.34-.59.53-1.27.53-2a4 4 0 00-4-4zm0 2a2 2 0 012 2c0 .5-.18.95-.5 1.3L12 9.7l-1.5-1.4A1.98 1.98 0 0110 7a2 2 0 012-2z"/></svg>
+              <div class="text-xs">
+                <span class="font-bold text-[#64748B]">TOTAL KGS:</span> <span class="font-black text-[#0F172A] font-mono text-sm ml-1">1872</span>
+              </div>
             </div>
           </div>
 
-          <!-- Section 1: Storage Quantities -->
-          <div class="grid grid-cols-3 gap-3 bg-[#F8FAFC] p-3 border border-[#DFE1E6] rounded-lg text-center">
-            <div class="p-2 bg-white rounded border border-[#DFE1E6]">
-              <div class="text-[10px] font-bold text-[#5E6C84] uppercase">STORED MCS</div>
-              <div class="text-base font-black text-[#00875A] font-mono mt-0.5">${rack.mcs}</div>
+          <!-- Realistic Warehouse Pallet Rack Bay Graphic Container -->
+          <div class="bg-[#FAF7F2] border border-[#E5E7EB] rounded-2xl p-4 sm:p-6 relative shadow-inner overflow-hidden">
+            <!-- Left Perforated Metal Post -->
+            <div class="w-5 sm:w-6 bg-[#94A3B8] border-r border-[#64748B] absolute left-3 sm:left-4 top-0 bottom-0 flex flex-col justify-around py-3 z-20 shadow-sm">
+              ${postHoles}
             </div>
-            <div class="p-2 bg-white rounded border border-[#DFE1E6]">
-              <div class="text-[10px] font-bold text-[#5E6C84] uppercase">TOTAL WEIGHT</div>
-              <div class="text-base font-black text-[#0284C7] font-mono mt-0.5">${Number(rack.weightKg).toLocaleString()} kg</div>
-            </div>
-            <div class="p-2 bg-white rounded border border-[#DFE1E6]">
-              <div class="text-[10px] font-bold text-[#5E6C84] uppercase">PALLET SLOTS</div>
-              <div class="text-base font-black text-[#172B4D] font-mono mt-0.5">4 Slots Active</div>
-            </div>
-          </div>
 
-          <!-- Section 2: Stored Product Details -->
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-white p-3 border border-[#DFE1E6] rounded-lg">
-            <div>
-              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">VARIETY</span>
-              <span class="font-bold text-xs text-[#172B4D]">${rack.variety}</span>
+            <!-- Right Perforated Metal Post -->
+            <div class="w-5 sm:w-6 bg-[#94A3B8] border-l border-[#64748B] absolute right-3 sm:right-4 top-0 bottom-0 flex flex-col justify-around py-3 z-20 shadow-sm">
+              ${postHoles}
             </div>
-            <div>
-              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">GRADE</span>
-              <span class="font-bold text-xs text-[#0284C7]">${rack.grade}</span>
-            </div>
-            <div>
-              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">BRAND</span>
-              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#EAE6FF] text-[#403294]">${rack.brand}</span>
-            </div>
-            <div>
-              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">STATUS</span>
-              <span class="font-semibold text-xs text-[#00875A]">${rack.status}</span>
-            </div>
-            <div>
-              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">STORAGE TEMPERATURE</span>
-              <span class="font-mono text-xs font-bold text-[#00875A]">-22.4°C</span>
-            </div>
-            <div>
-              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">HUMIDITY</span>
-              <span class="font-mono text-xs font-bold text-[#0284C7]">88% RH</span>
-            </div>
-            <div>
-              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">FORKLIFT ACCESS</span>
-              <span class="text-xs text-[#172B4D]">Aisle A - Clear</span>
-            </div>
-            <div>
-              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">LAST AUDITED</span>
-              <span class="font-mono text-xs text-[#5E6C84]">2026-10-29</span>
+
+            <!-- Pallet Storage Area -->
+            <div class="px-6 sm:px-8 py-2 relative z-10">
+              <!-- Upper Tier Boxes -->
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+                ${upperBoxes.map(renderPalletBox).join('')}
+              </div>
+
+              <!-- Strong Red Metal Cross Beam -->
+              <div class="relative w-full h-5 sm:h-6 bg-[#990000] border-t border-b border-[#7F0000] shadow-md flex items-center justify-between my-4 sm:my-5 z-20">
+                <div class="w-3.5 h-8 bg-[#800000] rounded-sm -ml-2.5 border border-[#550000] shadow"></div>
+                <div class="w-3.5 h-8 bg-[#800000] rounded-sm -mr-2.5 border border-[#550000] shadow"></div>
+              </div>
+
+              <!-- Lower Tier Boxes -->
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+                ${lowerBoxes.map(renderPalletBox).join('')}
+              </div>
             </div>
           </div>
         </div>
       `,
-      footerButtons: [
-        { label: 'Close', type: 'secondary', onClick: (modal) => modal.close() }
-      ]
+      footerButtons: []
     });
   },
 
