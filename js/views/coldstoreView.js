@@ -7713,8 +7713,8 @@ export const ColdstoreView = {
             <div>
               <label for="rn-filter-floor" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">FLOORS <span class="text-[#DE350B] font-bold">*</span></label>
               <select id="rn-filter-floor" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]" required>
-                <option value="FL-1" selected>Floor 1 (Ground Level)</option>
-                <option value="FL-2">Floor 2 (Tier 2)</option>
+                <option value="FL-1">Floor 1 (Ground Level)</option>
+                <option value="FL-2" selected>Floor 2 (Tier 2)</option>
                 <option value="FL-3">Floor 3 (High Bay)</option>
               </select>
             </div>
@@ -7722,13 +7722,13 @@ export const ColdstoreView = {
             <!-- 4. NO. OF ROWS * -->
             <div>
               <label for="rn-filter-rows" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">NO. OF ROWS <span class="text-[#DE350B] font-bold">*</span></label>
-              <input type="number" id="rn-filter-rows" min="1" max="50" value="4" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]" required>
+              <input type="number" id="rn-filter-rows" min="1" max="50" value="13" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]" required>
             </div>
 
             <!-- 5. NO. OF COLUMNS * -->
             <div>
               <label for="rn-filter-cols" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">NO. OF COLUMNS <span class="text-[#DE350B] font-bold">*</span></label>
-              <input type="number" id="rn-filter-cols" min="1" max="50" value="14" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]" required>
+              <input type="number" id="rn-filter-cols" min="1" max="50" value="17" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]" required>
             </div>
 
             <!-- 6. Action Slot: Search Button -->
@@ -7746,162 +7746,190 @@ export const ColdstoreView = {
           </div>
         </div>
 
-        <!-- Summary & Stats Bar -->
-        <div id="rn-summary-bar" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 mb-3.5">
-          <!-- Summary card will be dynamically populated -->
-        </div>
-
-        <!-- Data Table Container -->
-        <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
-          <div id="rn-rack-names-table"></div>
+        <!-- Interactive Store Rack Layout Matrix Canvas (Matching Spec) -->
+        <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 sm:p-5 shadow-xs overflow-x-auto">
+          <div id="rn-matrix-wrapper" class="min-w-[1350px]">
+            <!-- Matrix table generated dynamically -->
+          </div>
+          <!-- Centered Save Button -->
+          <div class="flex justify-center mt-5 mb-2">
+            <button 
+              type="button" 
+              id="rn-save-layout-btn" 
+              class="bg-[#4F46E5] hover:bg-[#4338CA] text-white font-bold text-xs px-9 py-2 rounded-lg shadow transition-all cursor-pointer"
+            >
+              Save
+            </button>
+          </div>
         </div>
       </div>
     `;
 
-    // Rack Names Generator Helper
-    const generateRackNames = (storeId, blockId, floorId, rows, cols) => {
-      const list = [];
-      let sNo = 1;
-      const floorNum = (floorId || 'FL-1').replace(/[^0-9]/g, '') || '1';
+    // Walking Person Icon SVG
+    const walkIconSvg = `
+      <svg class="w-3.5 h-3.5 text-[#374151]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="4" r="1.5" fill="currentColor"/>
+        <path d="M9 19l2-5 2-2 3 1v4"/>
+        <path d="M10 11l-2 3-2-1"/>
+        <path d="M13 8l-2 3v3l-2 5"/>
+      </svg>
+    `;
 
-      for (let r = 1; r <= rows; r++) {
-        for (let c = 1; c <= cols; c++) {
-          const colFormatted = c < 10 ? `0${c}` : `${c}`;
-          // Base Bay
-          const baseCode = `${floorNum}-${r}${colFormatted}`;
-          list.push({
-            id: sNo++,
-            rackName: baseCode,
-            rowNo: `Row ${r}`,
-            colNo: `Col ${c}`,
-            floor: floorId,
-            blockId: blockId,
-            storeId: storeId,
-            positionType: 'Base Bay',
-            status: 'Active'
-          });
+    // White Checkmark SVG
+    const whiteCheckSvg = `
+      <svg class="w-3 h-3 text-white shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
+      </svg>
+    `;
 
-          // Upper Tier R
-          const rCode = `${baseCode} R`;
-          list.push({
-            id: sNo++,
-            rackName: rCode,
-            rowNo: `Row ${r}`,
-            colNo: `Col ${c}`,
-            floor: floorId,
-            blockId: blockId,
-            storeId: storeId,
-            positionType: 'Upper Tier R',
-            status: 'Active'
-          });
-        }
-      }
-      return list;
-    };
+    // Render Matrix Layout
+    const renderMatrix = (floorId, rows, cols) => {
+      const matrixWrapper = container.querySelector('#rn-matrix-wrapper');
+      if (!matrixWrapper) return;
 
-    // Render Table and Summary
-    let currentDataTable = null;
+      const numRows = parseInt(rows, 10) || 13;
+      const numCols = parseInt(cols, 10) || 17;
+      const floorPrefix = (floorId || 'FL-2').replace(/[^0-9]/g, '') || '2';
 
-    const renderLayoutData = (storeId, blockId, floorId, rows, cols) => {
-      const numRows = parseInt(rows, 10) || 4;
-      const numCols = parseInt(cols, 10) || 14;
-      const rackList = generateRackNames(storeId, blockId, floorId, numRows, numCols);
+      // Table Header Row: # and Col-1 to Col-N
+      let theadHtml = `
+        <thead class="bg-[#F8FAFC]">
+          <tr>
+            <th class="p-2 border border-[#E2E8F0] text-center font-bold text-[#5E6C84] w-24">#</th>
+      `;
 
-      // Update Summary Bar
-      const summaryBar = container.querySelector('#rn-summary-bar');
-      if (summaryBar) {
-        summaryBar.innerHTML = `
-          <!-- Card 1: TOTAL RACK BAYS -->
-          <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-2xs flex items-center justify-between">
-            <div>
-              <div class="text-[10px] font-bold text-[#0284C7] uppercase tracking-wider">TOTAL RACK BAYS</div>
-              <div class="text-2xl font-black text-[#172B4D] tracking-tight mt-0.5">${numRows * numCols}</div>
-              <div class="text-[11px] text-[#0284C7] font-medium mt-0.5">${numRows} Rows × ${numCols} Columns</div>
+      for (let c = 1; c <= numCols; c++) {
+        theadHtml += `
+          <th class="p-1.5 border border-[#E2E8F0] text-center bg-white">
+            <div class="inline-flex items-center justify-center gap-1.5">
+              <input type="checkbox" checked class="w-3.5 h-3.5 accent-[#0E7A46] rounded cursor-pointer">
+              <span class="font-bold text-[11px] text-[#172B4D]">Col-${c}</span>
             </div>
-            <div class="w-11 h-11 rounded-full bg-[#D0E2FF] text-[#0F62FE] flex items-center justify-center shadow-xs shrink-0">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
-            </div>
-          </div>
-
-          <!-- Card 2: TOTAL PALLET POSITIONS -->
-          <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-2xs flex items-center justify-between">
-            <div>
-              <div class="text-[10px] font-bold text-[#0E7A46] uppercase tracking-wider">TOTAL SLOTS / TIERS</div>
-              <div class="text-2xl font-black text-[#0E7A46] tracking-tight mt-0.5">${rackList.length}</div>
-              <div class="text-[11px] text-[#0E7A46] font-medium mt-0.5">Base &amp; Tier R positions</div>
-            </div>
-            <div class="w-11 h-11 rounded-full bg-[#D1FADF] text-[#0E7A46] flex items-center justify-center shadow-xs shrink-0">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
-            </div>
-          </div>
-
-          <!-- Card 3: ACTIVE STORE & BLOCK -->
-          <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-2xs flex items-center justify-between">
-            <div>
-              <div class="text-[10px] font-bold text-[#B45309] uppercase tracking-wider">STORE &amp; BLOCK</div>
-              <div class="text-lg font-black text-[#78350F] tracking-tight mt-0.5">${storeId}</div>
-              <div class="text-[11px] text-[#B45309] font-medium mt-0.5">${blockId} • ${floorId}</div>
-            </div>
-            <div class="w-11 h-11 rounded-full bg-[#FEDF89] text-[#B45309] flex items-center justify-center shadow-xs shrink-0">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
-            </div>
-          </div>
-
-          <!-- Card 4: STATUS -->
-          <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-2xs flex items-center justify-between">
-            <div>
-              <div class="text-[10px] font-bold text-[#6941C6] uppercase tracking-wider">GRID STATUS</div>
-              <div class="text-lg font-black text-[#5829BB] tracking-tight mt-0.5">Configured</div>
-              <div class="text-[11px] text-[#6941C6] font-medium mt-0.5">Ready for Slotting</div>
-            </div>
-            <div class="w-11 h-11 rounded-full bg-[#F3E8FF] text-[#6941C6] flex items-center justify-center shadow-xs shrink-0">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-            </div>
-          </div>
+          </th>
         `;
       }
+      theadHtml += `</tr></thead>`;
 
-      // Reinitialize DataTable
-      const tableWrapper = container.querySelector('#rn-rack-names-table');
-      if (tableWrapper) {
-        tableWrapper.innerHTML = '';
-        currentDataTable = new DataTable({
-          containerId: 'rn-rack-names-table',
-          tableTitle: `Rack Names Matrix - ${blockId} (${floorId})`,
-          searchable: true,
-          exportable: true,
-          pageSize: 15,
-          columns: [
-            { key: 'id', label: 'S.No', render: (v) => `<span class="font-mono text-xs text-[#5E6C84]">${v}</span>` },
-            { 
-              key: 'rackName', 
-              label: 'Rack Code / Name', 
-              sortable: true, 
-              render: (v) => `<span class="font-mono font-bold text-xs text-[#0284C7] bg-[#F0F9FF] px-2 py-0.5 rounded border border-[#BEE3F8]">${v}</span>` 
-            },
-            { key: 'rowNo', label: 'Row No', sortable: true },
-            { key: 'colNo', label: 'Column No', sortable: true },
-            { key: 'floor', label: 'Floor' },
-            { key: 'blockId', label: 'Block ID' },
-            { key: 'storeId', label: 'Store ID' },
-            { 
-              key: 'positionType', 
-              label: 'Position Type', 
-              render: (v) => `<span class="px-2 py-0.5 rounded text-[10px] font-bold ${v === 'Upper Tier R' ? 'bg-[#EAE6FF] text-[#403294]' : 'bg-[#E3FCEF] text-[#006644]'}">${v}</span>` 
-            },
-            { 
-              key: 'status', 
-              label: 'Status', 
-              render: (v) => `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">${v}</span>` 
-            }
-          ],
-          data: rackList
-        });
+      // Helper to generate code based on row & col
+      const getRackCode = (r, c) => {
+        let tierPrefix = '1';
+        let suffix = '';
+
+        if (r === 1) {
+          tierPrefix = '1';
+        } else if (r === 3) {
+          tierPrefix = '2';
+        } else if (r === 4) {
+          tierPrefix = '3';
+          suffix = 'F';
+        } else if (r === 5) {
+          tierPrefix = '3';
+        } else if (r === 7) {
+          tierPrefix = '4';
+        } else if (r === 8) {
+          tierPrefix = '4';
+          suffix = 'F';
+        } else if (r === 9) {
+          tierPrefix = '5';
+          suffix = 'F';
+        } else if (r === 10) {
+          tierPrefix = '5';
+        } else if (r === 12) {
+          tierPrefix = '6';
+        } else if (r === 13) {
+          tierPrefix = '6';
+          suffix = 'F';
+        } else {
+          tierPrefix = `${r}`;
+        }
+
+        const colStr = c < 10 ? `0${c}` : `${c}`;
+        return `${floorPrefix}-${tierPrefix}${colStr}${suffix}`;
+      };
+
+      // Table Body Rows
+      let tbodyHtml = `<tbody>`;
+
+      for (let r = 1; r <= numRows; r++) {
+        // Determine if entire row is a horizontal walk path
+        const isHorizontalWalkRow = (numRows === 13) 
+          ? (r === 2 || r === 6 || r === 11)
+          : (r % 5 === 0);
+
+        tbodyHtml += `
+          <tr>
+            <!-- Row Header -->
+            <td class="p-1.5 border border-[#E2E8F0] bg-white whitespace-nowrap">
+              <div class="flex items-center gap-2 pr-1">
+                <input type="checkbox" checked class="w-3.5 h-3.5 accent-[#0E7A46] rounded cursor-pointer">
+                <span class="font-bold text-[11px] text-[#172B4D]">Row-${r}</span>
+                <div class="w-7 h-7 rounded-lg border-2 border-[#60A5FA] bg-white flex items-center justify-center shadow-2xs"></div>
+              </div>
+            </td>
+        `;
+
+        for (let c = 1; c <= numCols; c++) {
+          // Determine if this cell is a walkway
+          const isVerticalAisleCol = (numCols === 17) 
+            ? (c === 11 || c === 12) 
+            : (c === Math.floor(numCols * 0.65) || c === Math.floor(numCols * 0.65) + 1);
+
+          const isWalkwayCell = isHorizontalWalkRow || isVerticalAisleCol;
+
+          if (isWalkwayCell) {
+            // Walkway Cell (White with Checkbox and Pedestrian 🚶)
+            tbodyHtml += `
+              <td class="p-1 border border-[#E2E8F0] bg-white text-center">
+                <div class="flex items-center justify-center gap-2 py-0.5">
+                  <input type="checkbox" class="w-3.5 h-3.5 rounded border-[#CBD5E1] text-[#64748B] cursor-pointer">
+                  ${walkIconSvg}
+                </div>
+              </td>
+            `;
+          } else {
+            // Rack Bay Cell (Green with Checkmark and Blue-bordered White Input Box)
+            const rackCode = getRackCode(r, c);
+            tbodyHtml += `
+              <td class="p-1 border border-[#0A5C34] bg-[#0E7A46] text-center">
+                <div class="flex items-center justify-center gap-1.5 py-0.5">
+                  ${whiteCheckSvg}
+                  <input 
+                    type="text" 
+                    value="${rackCode}" 
+                    data-row="${r}" 
+                    data-col="${c}" 
+                    class="rn-rack-code-input w-[56px] sm:w-[62px] text-[10px] sm:text-[11px] font-bold font-mono text-[#172B4D] text-center bg-white border border-[#3B82F6] rounded px-1 py-0.5 shadow-2xs focus:outline-none focus:ring-2 focus:ring-[#2563EB]"
+                  >
+                </div>
+              </td>
+            `;
+          }
+        }
+
+        tbodyHtml += `</tr>`;
+      }
+
+      tbodyHtml += `</tbody>`;
+
+      matrixWrapper.innerHTML = `
+        <table class="w-full border-collapse border border-[#E2E8F0] text-xs">
+          ${theadHtml}
+          ${tbodyHtml}
+        </table>
+      `;
+
+      // Bind Save Button Action
+      const saveBtn = container.querySelector('#rn-save-layout-btn');
+      if (saveBtn) {
+        saveBtn.onclick = () => {
+          const rackInputs = matrixWrapper.querySelectorAll('.rn-rack-code-input');
+          Toast.show(`Store layout configuration saved successfully! Generated ${rackInputs.length} rack bays.`, 'success');
+        };
       }
     };
 
-    // Initial Table Load
-    renderLayoutData('CS-CH-01', 'BLK-A', 'FL-1', 4, 14);
+    // Initial Layout Render
+    renderMatrix('FL-2', 13, 17);
 
     // Bind Collapsible Filter Toggle
     const toggleBtn = container.querySelector('#rn-filter-toggle-btn');
@@ -7928,12 +7956,12 @@ export const ColdstoreView = {
     const executeFilter = () => {
       const storeVal = container.querySelector('#rn-filter-store')?.value || 'CS-CH-01';
       const blockVal = container.querySelector('#rn-filter-block')?.value || 'BLK-A';
-      const floorVal = container.querySelector('#rn-filter-floor')?.value || 'FL-1';
-      const rowsVal = container.querySelector('#rn-filter-rows')?.value || '4';
-      const colsVal = container.querySelector('#rn-filter-cols')?.value || '14';
+      const floorVal = container.querySelector('#rn-filter-floor')?.value || 'FL-2';
+      const rowsVal = container.querySelector('#rn-filter-rows')?.value || '13';
+      const colsVal = container.querySelector('#rn-filter-cols')?.value || '17';
 
-      renderLayoutData(storeVal, blockVal, floorVal, rowsVal, colsVal);
-      Toast.show(`Loaded ${parseInt(rowsVal, 10) * parseInt(colsVal, 10)} rack bays for ${blockVal} on ${floorVal}`, 'success');
+      renderMatrix(floorVal, rowsVal, colsVal);
+      Toast.show(`Loaded store layout matrix (${rowsVal} rows × ${colsVal} cols) for ${blockVal} on ${floorVal}`, 'success');
     };
 
     // Bind Search Button
@@ -7954,11 +7982,11 @@ export const ColdstoreView = {
 
         if (st) st.value = 'CS-CH-01';
         if (bk) bk.value = 'BLK-A';
-        if (fl) fl.value = 'FL-1';
-        if (rw) rw.value = '4';
-        if (cl) cl.value = '14';
+        if (fl) fl.value = 'FL-2';
+        if (rw) rw.value = '13';
+        if (cl) cl.value = '17';
 
-        renderLayoutData('CS-CH-01', 'BLK-A', 'FL-1', 4, 14);
+        renderMatrix('FL-2', 13, 17);
         Toast.show('Rack names search filters reset to default', 'info');
       });
     }
