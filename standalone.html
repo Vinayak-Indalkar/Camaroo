@@ -48454,12 +48454,11 @@ const ColdstoreView = {
   // 4c. STORE - RACK NAMES (create-store-layout)
   renderRackNames(container) {
     container.innerHTML = `
-      <div class="space-y-4 animate-fade-in">
+      <div class="space-y-4 animate-fade-in relative pb-16">
         <!-- Clean Page Header -->
         <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
           <div>
             <h1 class="text-xl font-extrabold text-[#172B4D]">Rack names</h1>
-            <p class="text-xs text-[#6B778C] mt-0.5">Store layout bay generation, rack row and column configurations</p>
           </div>
         </div>
 
@@ -48497,8 +48496,8 @@ const ColdstoreView = {
             </div>
           </div>
 
-          <!-- Collapsible Filter Inputs Grid (5 User-Requested Fields + Search Action) -->
-          <div id="rn-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 text-xs transition-all duration-200">
+          <!-- Collapsible Filter Inputs Grid (Consistent 4 Columns Grid) -->
+          <div id="rn-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
             <!-- 1. STORE ID * -->
             <div>
               <label for="rn-filter-store" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STORE ID <span class="text-[#DE350B] font-bold">*</span></label>
@@ -48548,7 +48547,7 @@ const ColdstoreView = {
               <button 
                 type="button" 
                 id="rn-filter-search-btn" 
-                class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px] w-full"
+                class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]"
                 title="Search &amp; Configure Rack Names"
               >
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
@@ -48563,16 +48562,19 @@ const ColdstoreView = {
           <div id="rn-matrix-wrapper" class="min-w-[1350px]">
             <!-- Matrix table generated dynamically -->
           </div>
-          <!-- Centered Save Button -->
-          <div class="flex justify-center mt-5 mb-2">
-            <button 
-              type="button" 
-              id="rn-save-layout-btn" 
-              class="bg-[#4F46E5] hover:bg-[#4338CA] text-white font-bold text-xs px-9 py-2 rounded-lg shadow transition-all cursor-pointer"
-            >
-              Save
-            </button>
-          </div>
+        </div>
+
+        <!-- Fixed Save Button in Bottom Right -->
+        <div class="fixed bottom-6 right-8 z-30">
+          <button 
+            type="button" 
+            id="rn-save-layout-btn" 
+            class="bg-[#4F46E5] hover:bg-[#4338CA] text-white font-bold text-xs px-8 py-2.5 rounded-lg shadow-xl hover:shadow-2xl transition-all cursor-pointer flex items-center gap-2 border border-[#4338CA]"
+            title="Save Rack Names &amp; Store Layout"
+          >
+            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/></svg>
+            <span>Save</span>
+          </button>
         </div>
       </div>
     `;
@@ -48730,12 +48732,20 @@ const ColdstoreView = {
         </table>
       `;
 
-      // Bind Save Button Action
+      // Bind Save Button Action (With Confirmation Dialog)
       const saveBtn = container.querySelector('#rn-save-layout-btn');
       if (saveBtn) {
         saveBtn.onclick = () => {
-          const rackInputs = matrixWrapper.querySelectorAll('.rn-rack-code-input');
-          Toast.show(`Store layout configuration saved successfully! Generated ${rackInputs.length} rack bays.`, 'success');
+          Modal.confirm({
+            title: 'Confirm Save Layout',
+            message: 'Are you sure you want to save the current rack names and store layout configuration?',
+            confirmText: 'Yes, Save',
+            cancelText: 'Cancel',
+            onConfirm: () => {
+              const rackInputs = matrixWrapper.querySelectorAll('.rn-rack-code-input');
+              Toast.show(`Rack names and store layout configuration saved successfully! (${rackInputs.length} rack bays configured)`, 'success');
+            }
+          });
         };
       }
     };
