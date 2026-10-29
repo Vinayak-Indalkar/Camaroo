@@ -39881,14 +39881,14 @@ const ColdstoreView = {
 
     // 2. Production - Daily Production Intake
     dailyProductionList: [
-      { id: 1, intakeCode: 'IN-PRD-2026-501', intakeDate: '2026-10-29', productionDate: '2026-10-29', plant: 'DFL UNIT-5 (JPT)', stockBelongsTo: 'Devi Fisheries Ltd (DFL)', lotNo: 'LOT-FZ-2026-301', product: 'Vannamei PD IQF 31/40', freezingType: 'IQF', packingType: '10x1kg Net', group: 'Group A', cartons: 48, netWeightKg: 480.0, chamber: 'Chamber #1 (IQF)', rack: 'RACK-A1-T1', temp: -21.8, shift: 'Shift A (Day)', status: 'Stored in Coldstore' },
-      { id: 2, intakeCode: 'IN-PRD-2026-502', intakeDate: '2026-10-29', productionDate: '2026-10-29', plant: 'DFL UNIT-5 (JPT)', stockBelongsTo: 'DFL Unit-5 (JPT)', lotNo: 'LOT-FZ-2026-302', product: 'Black Tiger Block 21/25', freezingType: 'Block Frozen', packingType: '6x2kg Block', group: 'Group B', cartons: 60, netWeightKg: 600.0, chamber: 'Chamber #2 (Block)', rack: 'RACK-B1-T1', temp: -24.2, shift: 'Shift B (Evening)', status: 'Stored in Coldstore' },
-      { id: 3, intakeCode: 'IN-PRD-2026-503', intakeDate: '2026-10-28', productionDate: '2026-10-28', plant: 'DFL UNIT-4 (PND)', stockBelongsTo: 'DFL Unit-4 (PND)', lotNo: 'LOT-FZ-2026-299', product: 'Vannamei HOSO IQF 16/20', freezingType: 'IQF', packingType: 'Master Cartons', group: 'Group A', cartons: 56, netWeightKg: 560.0, chamber: 'Chamber #1 (IQF)', rack: 'RACK-A1-T2', temp: -22.4, shift: 'Shift A (Day)', status: 'Stored in Coldstore' },
-      { id: 4, intakeCode: 'IN-PRD-2026-504', intakeDate: '2026-10-28', productionDate: '2026-10-28', plant: 'DFL UNIT-3 (PSP)', stockBelongsTo: 'DFL Unit-3 (PSP)', lotNo: 'LOT-FZ-2026-298', product: 'Vannamei HLSO Block 26/30', freezingType: 'Block Frozen', packingType: '6x2kg Block', group: 'Group C', cartons: 72, netWeightKg: 720.0, chamber: 'Chamber #2 (Block)', rack: 'RACK-B2-T3', temp: -25.0, shift: 'Shift C (Night)', status: 'Stored in Coldstore' },
-      { id: 5, intakeCode: 'IN-PRD-2026-505', intakeDate: '2026-10-27', productionDate: '2026-10-27', plant: 'DFL UNIT-5 (JPT)', stockBelongsTo: 'Devi Fisheries Ltd (DFL)', lotNo: 'LOT-FZ-2026-295', product: 'Sea Pearl Cooked PDTO 41/50', freezingType: 'Blast Frozen', packingType: '5x2kg IQF Poly', group: 'Group D', cartons: 40, netWeightKg: 400.0, chamber: 'Vault #3 Staging', rack: 'RACK-D1-T1', temp: -26.5, shift: 'Shift A (Day)', status: 'Staged for Export' },
-      { id: 6, intakeCode: 'IN-PRD-2026-506', intakeDate: '2026-10-27', productionDate: '2026-10-27', plant: 'DFL UNIT-1 (VSP)', stockBelongsTo: 'DFL Unit-1 (VSP)', lotNo: 'LOT-FZ-2026-291', product: 'Scampi Headless Block 11/15', freezingType: 'Block Frozen', packingType: 'Dummy Cartons', group: 'Group B', cartons: 36, netWeightKg: 360.0, chamber: 'Chamber #2 (Block)', rack: 'RACK-B3-T2', temp: -24.8, shift: 'Shift B (Evening)', status: 'Under QC Hold' },
-      { id: 7, intakeCode: 'IN-PRD-2026-507', intakeDate: '2026-10-26', productionDate: '2026-10-26', plant: 'DFL UNIT-5 (JPT)', stockBelongsTo: 'Devi Fisheries Ltd (DFL)', lotNo: 'LOT-FZ-2026-288', product: 'Vannamei Easy Peel IQF 26/30', freezingType: 'IQF', packingType: '10x2lb Pouch', group: 'Group A', cartons: 50, netWeightKg: 500.0, chamber: 'Chamber #1 (IQF)', rack: 'RACK-A2-T1', temp: -22.0, shift: 'Shift A (Day)', status: 'Stored in Coldstore' },
-      { id: 8, intakeCode: 'IN-PRD-2026-508', intakeDate: '2026-10-26', productionDate: '2026-10-26', plant: 'DFL UNIT-4 (PND)', stockBelongsTo: 'Third-Party Co-Packing', lotNo: 'LOT-FZ-2026-285', product: 'Black Tiger HOSO IQF 16/20', freezingType: 'IQF', packingType: 'Master Cartons', group: 'Group C', cartons: 45, netWeightKg: 450.0, chamber: 'Chamber #1 (IQF)', rack: 'RACK-C1-T1', temp: -23.0, shift: 'Shift B (Evening)', status: 'Allocated' }
+      { id: 1, sNo: 1, productionDate: '2026-10-29', trackCode: 'TRK-PRD-2026-501', group: 'Group A', poNumber: 'PO-2026-4407', supc: 'SUPC-VM-3140-IQF', product: 'Vannamei PD IQF', grade: '31/40', packingType: 'Master Cartons', packingStyle: '10x1kg Net', mcs: 48, balanceMcs: 48, bags: 480, balanceBags: 480, kgs: 480.0, balanceKgs: 480.0, status: 'Stored in Coldstore', stockBelongsTo: 'Devi Fisheries Ltd (DFL)', intakeCode: 'IN-PRD-2026-501', intakeDate: '2026-10-29', plant: 'DFL UNIT-5 (JPT)', lotNo: 'LOT-FZ-2026-301', freezingType: 'IQF', cartons: 48, netWeightKg: 480.0, chamber: 'Chamber #1 (IQF)', rack: 'RACK-A1-T1', temp: -21.8, shift: 'Shift A (Day)' },
+      { id: 2, sNo: 2, productionDate: '2026-10-29', trackCode: 'TRK-PRD-2026-502', group: 'Group B', poNumber: 'PO-2026-4408', supc: 'SUPC-BT-2125-BLK', product: 'Black Tiger Block', grade: '21/25', packingType: 'Master Cartons', packingStyle: '6x2kg Block', mcs: 60, balanceMcs: 40, bags: 360, balanceBags: 240, kgs: 600.0, balanceKgs: 400.0, status: 'Stored in Coldstore', stockBelongsTo: 'DFL Unit-5 (JPT)', intakeCode: 'IN-PRD-2026-502', intakeDate: '2026-10-29', plant: 'DFL UNIT-5 (JPT)', lotNo: 'LOT-FZ-2026-302', freezingType: 'Block Frozen', cartons: 60, netWeightKg: 600.0, chamber: 'Chamber #2 (Block)', rack: 'RACK-B1-T1', temp: -24.2, shift: 'Shift B (Evening)' },
+      { id: 3, sNo: 3, productionDate: '2026-10-28', trackCode: 'TRK-PRD-2026-503', group: 'Group A', poNumber: 'PO-2026-4412', supc: 'SUPC-VM-1620-IQF', product: 'Vannamei HOSO IQF', grade: '16/20', packingType: 'Master Cartons', packingStyle: '10x1kg Net', mcs: 56, balanceMcs: 56, bags: 560, balanceBags: 560, kgs: 560.0, balanceKgs: 560.0, status: 'Stored in Coldstore', stockBelongsTo: 'DFL Unit-4 (PND)', intakeCode: 'IN-PRD-2026-503', intakeDate: '2026-10-28', plant: 'DFL UNIT-4 (PND)', lotNo: 'LOT-FZ-2026-299', freezingType: 'IQF', cartons: 56, netWeightKg: 560.0, chamber: 'Chamber #1 (IQF)', rack: 'RACK-A1-T2', temp: -22.4, shift: 'Shift A (Day)' },
+      { id: 4, sNo: 4, productionDate: '2026-10-28', trackCode: 'TRK-PRD-2026-504', group: 'Group C', poNumber: 'PO-2026-4415', supc: 'SUPC-VM-2630-BLK', product: 'Vannamei HLSO Block', grade: '26/30', packingType: 'Master Cartons', packingStyle: '6x2kg Block', mcs: 72, balanceMcs: 0, bags: 432, balanceBags: 0, kgs: 720.0, balanceKgs: 0.0, status: 'Allocated', stockBelongsTo: 'DFL Unit-3 (PSP)', intakeCode: 'IN-PRD-2026-504', intakeDate: '2026-10-28', plant: 'DFL UNIT-3 (PSP)', lotNo: 'LOT-FZ-2026-298', freezingType: 'Block Frozen', cartons: 72, netWeightKg: 720.0, chamber: 'Chamber #2 (Block)', rack: 'RACK-B2-T3', temp: -25.0, shift: 'Shift C (Night)' },
+      { id: 5, sNo: 5, productionDate: '2026-10-27', trackCode: 'TRK-PRD-2026-505', group: 'Group D', poNumber: 'PO-2026-4419', supc: 'SUPC-CK-4150-BLS', product: 'Sea Pearl Cooked PDTO', grade: '41/50', packingType: 'Master Cartons', packingStyle: '5x2kg IQF Poly', mcs: 40, balanceMcs: 40, bags: 200, balanceBags: 200, kgs: 400.0, balanceKgs: 400.0, status: 'Staged for Export', stockBelongsTo: 'Devi Fisheries Ltd (DFL)', intakeCode: 'IN-PRD-2026-505', intakeDate: '2026-10-27', plant: 'DFL UNIT-5 (JPT)', lotNo: 'LOT-FZ-2026-295', freezingType: 'Blast Frozen', cartons: 40, netWeightKg: 400.0, chamber: 'Vault #3 Staging', rack: 'RACK-D1-T1', temp: -26.5, shift: 'Shift A (Day)' },
+      { id: 6, sNo: 6, productionDate: '2026-10-27', trackCode: 'TRK-PRD-2026-506', group: 'Group B', poNumber: 'PO-2026-4422', supc: 'SUPC-SC-1115-BLK', product: 'Scampi Headless Block', grade: '11/15', packingType: 'Dummy Cartons', packingStyle: '6x2kg Block', mcs: 36, balanceMcs: 36, bags: 216, balanceBags: 216, kgs: 360.0, balanceKgs: 360.0, status: 'Under QC Hold', stockBelongsTo: 'DFL Unit-1 (VSP)', intakeCode: 'IN-PRD-2026-506', intakeDate: '2026-10-27', plant: 'DFL UNIT-1 (VSP)', lotNo: 'LOT-FZ-2026-291', freezingType: 'Block Frozen', cartons: 36, netWeightKg: 360.0, chamber: 'Chamber #2 (Block)', rack: 'RACK-B3-T2', temp: -24.8, shift: 'Shift B (Evening)' },
+      { id: 7, sNo: 7, productionDate: '2026-10-26', trackCode: 'TRK-PRD-2026-507', group: 'Group A', poNumber: 'PO-2026-4428', supc: 'SUPC-VM-2630-EZP', product: 'Vannamei Easy Peel IQF', grade: '26/30', packingType: 'Master Cartons', packingStyle: '10x2lb Pouch', mcs: 50, balanceMcs: 25, bags: 500, balanceBags: 250, kgs: 500.0, balanceKgs: 250.0, status: 'Partially Dispatched', stockBelongsTo: 'Devi Fisheries Ltd (DFL)', intakeCode: 'IN-PRD-2026-507', intakeDate: '2026-10-26', plant: 'DFL UNIT-5 (JPT)', lotNo: 'LOT-FZ-2026-288', freezingType: 'IQF', cartons: 50, netWeightKg: 500.0, chamber: 'Chamber #1 (IQF)', rack: 'RACK-A2-T1', temp: -22.0, shift: 'Shift A (Day)' },
+      { id: 8, sNo: 8, productionDate: '2026-10-26', trackCode: 'TRK-PRD-2026-508', group: 'Group C', poNumber: 'PO-2026-4431', supc: 'SUPC-BT-1620-IQF', product: 'Black Tiger HOSO IQF', grade: '16/20', packingType: 'Master Cartons', packingStyle: '10x1kg Net', mcs: 45, balanceMcs: 45, bags: 450, balanceBags: 450, kgs: 450.0, balanceKgs: 450.0, status: 'Stored in Coldstore', stockBelongsTo: 'Third-Party Co-Packing', intakeCode: 'IN-PRD-2026-508', intakeDate: '2026-10-26', plant: 'DFL UNIT-4 (PND)', lotNo: 'LOT-FZ-2026-285', freezingType: 'IQF', cartons: 45, netWeightKg: 450.0, chamber: 'Chamber #1 (IQF)', rack: 'RACK-C1-T1', temp: -23.0, shift: 'Shift B (Evening)' }
     ],
 
     // 2b. Production - Daily StockOut
@@ -40275,38 +40275,143 @@ const ColdstoreView = {
       </div>
     `;
 
-    // Render Table Function
+    // Render Table Function with Exact 18 User-Requested Columns
     const renderTable = (data) => {
       new DataTable({
         containerId: 'cs-daily-production-table',
-        keyField: 'intakeCode',
+        keyField: 'trackCode',
         searchable: true,
         exportable: true,
         pageSize: 10,
         columns: [
-          { field: 'id', header: 'S.No', render: (v, r, idx) => idx + 1 },
-          { field: 'intakeCode', header: 'Intake Code', sortable: true, render: v => `<span class="font-mono font-bold text-[#0284C7]">${v}</span>` },
-          { field: 'productionDate', header: 'Date', render: (v, r) => v || r.intakeDate },
-          { field: 'stockBelongsTo', header: 'Stock Belongs To', render: v => `<span class="font-semibold text-[#172B4D] whitespace-nowrap">${v || 'DFL'}</span>` },
-          { field: 'plant', header: 'Production Plant' },
-          { field: 'lotNo', header: 'Lot Number', render: v => `<span class="font-mono font-bold">${v}</span>` },
-          { field: 'product', header: 'Product Description' },
-          { field: 'packingType', header: 'Packing Type', render: v => `<span class="font-medium text-[#172B4D]">${v || 'Master Cartons'}</span>` },
-          { field: 'group', header: 'Group', render: v => `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#EAE6FF] text-[#403294]">${v || 'Group A'}</span>` },
-          { field: 'freezingType', header: 'Freezing Type' },
-          { field: 'cartons', header: 'Cartons', render: v => `<span class="font-mono font-bold text-[#00875A]">${v}</span>` },
-          { field: 'netWeightKg', header: 'Net Wt (Kg)', render: v => `<span class="font-mono font-bold">${Number(v).toFixed(1)}</span>` },
-          { field: 'chamber', header: 'Chamber' },
-          { field: 'rack', header: 'Rack Slot', render: v => `<span class="font-mono font-semibold">${v}</span>` },
-          { field: 'temp', header: 'Temp (°C)', render: v => `<span class="font-mono font-bold text-[#0284C7]">${v} °C</span>` },
-          { field: 'shift', header: 'Shift' },
-          { field: 'status', header: 'Status', render: v => {
-            let badgeClass = 'bg-[#E3FCEF] text-[#006644]';
-            if (v === 'Under QC Hold') badgeClass = 'bg-[#FFEBE6] text-[#BF2600]';
-            else if (v === 'Staged for Export') badgeClass = 'bg-[#DEEBFF] text-[#0747A6]';
-            else if (v === 'Allocated') badgeClass = 'bg-[#FFF0B3] text-[#172B4D]';
-            return `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold ${badgeClass}">${v}</span>`;
-          }}
+          // 1. S.NO
+          {
+            field: 'sNo',
+            header: 'S.NO',
+            render: (v, r, idx) => `<span class="text-[#5E6C84] font-semibold">${v || (idx + 1)}</span>`
+          },
+          // 2. Production Date
+          {
+            field: 'productionDate',
+            header: 'Production Date',
+            sortable: true,
+            render: (v, r) => `<span class="whitespace-nowrap font-medium text-[#172B4D]">${v || r.intakeDate}</span>`
+          },
+          // 3. Track Code
+          {
+            field: 'trackCode',
+            header: 'Track Code',
+            sortable: true,
+            render: v => `<span class="font-mono font-bold text-[#0284C7] whitespace-nowrap">${v}</span>`
+          },
+          // 4. Group
+          {
+            field: 'group',
+            header: 'Group',
+            render: v => `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#EAE6FF] text-[#403294] whitespace-nowrap">${v || 'Group A'}</span>`
+          },
+          // 5. PO Number
+          {
+            field: 'poNumber',
+            header: 'PO Number',
+            sortable: true,
+            render: v => `<span class="font-mono font-semibold text-[#172B4D] whitespace-nowrap">${v}</span>`
+          },
+          // 6. SUPC
+          {
+            field: 'supc',
+            header: 'SUPC',
+            render: v => `<span class="font-mono text-xs font-semibold text-[#5E6C84] whitespace-nowrap">${v || '-'}</span>`
+          },
+          // 7. Product
+          {
+            field: 'product',
+            header: 'Product',
+            render: v => `<span class="font-medium text-[#172B4D] whitespace-nowrap">${v}</span>`
+          },
+          // 8. Grade
+          {
+            field: 'grade',
+            header: 'Grade',
+            render: v => `<span class="font-mono font-bold text-[#0284C7] whitespace-nowrap">${v}</span>`
+          },
+          // 9. Packing Type
+          {
+            field: 'packingType',
+            header: 'Packing Type',
+            render: v => `<span class="whitespace-nowrap text-[#172B4D]">${v}</span>`
+          },
+          // 10. Packing Style
+          {
+            field: 'packingStyle',
+            header: 'Packing Style',
+            render: v => `<span class="whitespace-nowrap font-medium text-[#172B4D]">${v}</span>`
+          },
+          // 11. Mcs
+          {
+            field: 'mcs',
+            header: 'Mcs',
+            render: v => `<span class="font-mono font-bold text-[#00875A]">${v}</span>`
+          },
+          // 12. Balance Mcs
+          {
+            field: 'balanceMcs',
+            header: 'Balance Mcs',
+            render: v => `<span class="font-mono font-bold ${v > 0 ? 'text-[#172B4D]' : 'text-[#A5ADBA]'}">${v}</span>`
+          },
+          // 13. Bags
+          {
+            field: 'bags',
+            header: 'Bags',
+            render: v => `<span class="font-mono font-semibold text-[#172B4D]">${v}</span>`
+          },
+          // 14. Balance Bags
+          {
+            field: 'balanceBags',
+            header: 'Balance Bags',
+            render: v => `<span class="font-mono font-semibold ${v > 0 ? 'text-[#172B4D]' : 'text-[#A5ADBA]'}">${v}</span>`
+          },
+          // 15. Kgs
+          {
+            field: 'kgs',
+            header: 'Kgs',
+            render: v => `<span class="font-mono font-bold text-[#172B4D] whitespace-nowrap">${Number(v).toFixed(1)}</span>`
+          },
+          // 16. Balance Kgs
+          {
+            field: 'balanceKgs',
+            header: 'Balance Kgs',
+            render: v => `<span class="font-mono font-bold ${v > 0 ? 'text-[#00875A]' : 'text-[#A5ADBA]'} whitespace-nowrap">${Number(v).toFixed(1)}</span>`
+          },
+          // 17. Status
+          {
+            field: 'status',
+            header: 'Status',
+            render: v => {
+              let badgeClass = 'bg-[#E3FCEF] text-[#006644]';
+              if (v === 'Under QC Hold') badgeClass = 'bg-[#FFEBE6] text-[#BF2600]';
+              else if (v === 'Staged for Export') badgeClass = 'bg-[#DEEBFF] text-[#0747A6]';
+              else if (v === 'Allocated') badgeClass = 'bg-[#FFF0B3] text-[#172B4D]';
+              else if (v === 'Partially Dispatched') badgeClass = 'bg-[#EAE6FF] text-[#403294]';
+              return `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold whitespace-nowrap ${badgeClass}">${v}</span>`;
+            }
+          }
+        ],
+        // 18. Actions Column
+        actionsTitle: 'Actions',
+        actions: [
+          {
+            label: 'View Batch Details',
+            icon: `<svg class="w-4 h-4 text-[#0284C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>`,
+            onClick: (row) => this.showDailyProductionDetailModal(row)
+          },
+          {
+            label: 'Print Barcode Label',
+            icon: `<svg class="w-4 h-4 text-[#00875A]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>`,
+            onClick: (row) => {
+              Toast.show(`Printing Barcode Tag for ${row.trackCode}...`, 'success');
+            }
+          }
         ],
         data: data
       });
@@ -40797,6 +40902,110 @@ const ColdstoreView = {
         { key: 'status', label: 'Status', render: v => `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold ${v === 'Loaded & Sealed' ? 'bg-[#E3FCEF] text-[#006644]' : 'bg-[#FFF0B3] text-[#172B4D]'}">${v}</span>` }
       ],
       data: this.state.shipments
+    });
+  },
+
+  // 7. DAILY PRODUCTION DETAIL MODAL
+  showDailyProductionDetailModal(row) {
+    Modal.open({
+      title: `Daily Production Batch Details: ${row.trackCode || row.intakeCode}`,
+      size: 'xl',
+      content: `
+        <div class="space-y-4 text-xs text-[#172B4D]">
+          <!-- Header Banner -->
+          <div class="p-3 bg-[#F4F5F7] border border-[#DFE1E6] rounded-lg flex items-center justify-between">
+            <div>
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">TRACK CODE</span>
+              <div class="text-base font-extrabold text-[#0284C7] font-mono">${row.trackCode}</div>
+            </div>
+            <div class="text-right">
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">INVENTORY STATUS</span>
+              <div>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#E3FCEF] text-[#006644]">${row.status}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Production & PO Information Grid -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-white p-3 border border-[#DFE1E6] rounded-lg">
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PRODUCTION DATE</span>
+              <span class="font-semibold text-xs text-[#172B4D]">${row.productionDate || row.intakeDate}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PO NUMBER</span>
+              <span class="font-mono font-bold text-xs text-[#172B4D]">${row.poNumber || '-'}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">SUPC CODE</span>
+              <span class="font-mono font-semibold text-xs text-[#5E6C84]">${row.supc || '-'}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">GROUP</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#EAE6FF] text-[#403294]">${row.group || 'Group A'}</span>
+            </div>
+          </div>
+
+          <!-- Product & Packing Specifications -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-white p-3 border border-[#DFE1E6] rounded-lg">
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PRODUCT</span>
+              <span class="font-bold text-xs text-[#172B4D]">${row.product}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">GRADE</span>
+              <span class="font-mono font-bold text-xs text-[#0284C7]">${row.grade}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PACKING TYPE</span>
+              <span class="font-semibold text-xs text-[#172B4D]">${row.packingType}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PACKING STYLE</span>
+              <span class="font-semibold text-xs text-[#172B4D]">${row.packingStyle}</span>
+            </div>
+          </div>
+
+          <!-- Quantity, Slabs & Balances Grid -->
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 bg-[#FAFBFC] p-3 border border-[#DFE1E6] rounded-lg">
+            <div class="bg-white p-2.5 rounded border border-[#EBECF0]">
+              <div class="text-[10px] font-bold text-[#5E6C84] uppercase">MASTER CARTONS (MCS)</div>
+              <div class="text-lg font-black text-[#00875A] font-mono mt-0.5">${row.mcs}</div>
+              <div class="text-[11px] font-semibold text-[#5E6C84] mt-0.5">Balance: <span class="font-bold text-[#172B4D]">${row.balanceMcs} Mcs</span></div>
+            </div>
+            <div class="bg-white p-2.5 rounded border border-[#EBECF0]">
+              <div class="text-[10px] font-bold text-[#5E6C84] uppercase">TOTAL BAGS / UNITS</div>
+              <div class="text-lg font-black text-[#0284C7] font-mono mt-0.5">${row.bags}</div>
+              <div class="text-[11px] font-semibold text-[#5E6C84] mt-0.5">Balance: <span class="font-bold text-[#172B4D]">${row.balanceBags} Bags</span></div>
+            </div>
+            <div class="bg-white p-2.5 rounded border border-[#EBECF0]">
+              <div class="text-[10px] font-bold text-[#5E6C84] uppercase">TOTAL NET WEIGHT</div>
+              <div class="text-lg font-black text-[#172B4D] font-mono mt-0.5">${Number(row.kgs).toFixed(1)} <span class="text-xs font-semibold text-[#6B778C]">Kgs</span></div>
+              <div class="text-[11px] font-semibold text-[#00875A] mt-0.5">Balance: <span class="font-bold">${Number(row.balanceKgs).toFixed(1)} Kgs</span></div>
+            </div>
+          </div>
+
+          <!-- Storage Vault Location -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-white p-3 border border-[#DFE1E6] rounded-lg">
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PLANT FACILITY</span>
+              <span class="font-semibold text-xs">${row.plant || 'DFL UNIT-5 (JPT)'}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">STORAGE CHAMBER</span>
+              <span class="font-semibold text-xs text-[#0284C7]">${row.chamber || 'Chamber #1 (IQF)'}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">RACK LOCATION</span>
+              <span class="font-mono font-bold text-xs">${row.rack || 'RACK-A1-T1'}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">CORE TEMP</span>
+              <span class="font-mono font-bold text-xs text-[#00875A]">${row.temp || '-22.0'} °C</span>
+            </div>
+          </div>
+        </div>
+      `
     });
   }
 };
