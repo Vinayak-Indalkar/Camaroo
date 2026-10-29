@@ -1378,7 +1378,7 @@ export const ERP_DATA = {
     { category: "Dashboards", module: "Commercial & Financial Dashboard", code: "dash_comm", read: true, create: true, edit: true, delete: false, export: true, approve: true },
     { category: "Dashboards", module: "Production & Floor Dashboard", code: "dash_prod", read: true, create: true, edit: true, delete: false, export: true, approve: true },
     { category: "Dashboards", module: "Coldstore & Storage Dashboard (CS New)", code: "dash_cs", read: true, create: true, edit: true, delete: false, export: true, approve: true },
-    { category: "Dashboards", module: "Quality Control (QC) Dashboard New", code: "dash_qc", read: true, create: true, edit: true, delete: false, export: true, approve: true },
+    { category: "Dashboards", module: "Quality Control Dashboard New", code: "dash_qc", read: true, create: true, edit: true, delete: false, export: true, approve: true },
 
     // 2. PURCHASE & RAW MATERIAL
     { category: "RM Purchase", module: "Farm Bookings & Procurement", code: "pur_bookings", read: true, create: true, edit: true, delete: true, export: true, approve: true },
