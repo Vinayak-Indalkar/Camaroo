@@ -53762,6 +53762,18 @@ const InventoryView = {
       renderTable(this.state.indentPageRecords);
       Toast.show('Indent filters reset', 'info');
     });
+
+    // Toggle Filters Accordion
+    const filterBody = container.querySelector('#gs-filter-body');
+    const toggleIcon = container.querySelector('#gs-filter-toggle-icon');
+    container.querySelector('#gs-filter-toggle-btn')?.addEventListener('click', () => {
+      if (filterBody) {
+        filterBody.classList.toggle('hidden');
+        if (toggleIcon) {
+          toggleIcon.classList.toggle('rotate-180');
+        }
+      }
+    });
   },
 
   // Edit Indent Modal (with Modal.confirm on save)
@@ -54535,6 +54547,18 @@ const InventoryView = {
       container.querySelector('#po-flt-sup').value = 'ALL';
       renderTable(this.state.proformaOrderList);
       Toast.show('PO filters reset to default', 'info');
+    });
+
+    // Toggle Filters Accordion
+    const poFilterBody = container.querySelector('#gs-po-filter-body');
+    const poToggleIcon = container.querySelector('#gs-po-filter-toggle-icon');
+    container.querySelector('#gs-po-filter-toggle-btn')?.addEventListener('click', () => {
+      if (poFilterBody) {
+        poFilterBody.classList.toggle('hidden');
+        if (poToggleIcon) {
+          poToggleIcon.classList.toggle('rotate-180');
+        }
+      }
     });
   },
 
