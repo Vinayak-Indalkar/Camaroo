@@ -43253,7 +43253,7 @@ const ColdstoreView = {
   },
 
   // 3b. STOCK - STOCK OUT (14 FILTER FIELDS & 16 TABLE COLUMNS WITH OUT STOCK ACTION)
-  renderStockOut(container) {
+  renderStockOut(container, pageTitle = 'Stock Out') {
     const fullList = this.state.stockOutList || [];
     let table = null;
 
@@ -43262,7 +43262,7 @@ const ColdstoreView = {
         <!-- Clean Page Header -->
         <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
           <div>
-            <h1 class="text-xl font-extrabold text-[#172B4D]">Stock Out</h1>
+            <h1 class="text-xl font-extrabold text-[#172B4D]">${pageTitle}</h1>
           </div>
         </div>
 
@@ -44529,24 +44529,7 @@ const ColdstoreView = {
 
   // 3a. ORDERS - RUNNING ORDERS
   renderRunningOrders(container) {
-    container.innerHTML = `
-      <div class="space-y-4 animate-fade-in">
-        <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
-          <div>
-            <h1 class="text-xl font-extrabold text-[#172B4D]">Running Orders</h1>
-          </div>
-        </div>
-        <div class="bg-white border border-[#DFE1E6] rounded-xl p-8 shadow-xs text-center">
-          <div class="max-w-md mx-auto py-8">
-            <div class="w-12 h-12 rounded-full bg-[#E0F2FE] text-[#0284C7] flex items-center justify-center mx-auto mb-3">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
-            </div>
-            <h3 class="text-base font-bold text-[#172B4D]">Running Orders</h3>
-            <p class="text-xs text-[#6B778C] mt-1">Tab configured. Ready for form fields and table specifications.</p>
-          </div>
-        </div>
-      </div>
-    `;
+    this.renderStockOut(container, 'Running Orders');
   },
 
   // 3b. ORDERS - ORDERS STATUS
