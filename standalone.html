@@ -7122,9 +7122,11 @@ const ADMIN_NAV_HIERARCHY = [
       {
         id: "orders",
         title: "Orders",
-        defaultTab: "orders-list",
+        defaultTab: "running-orders",
         tabs: [
-          { id: "orders-list", label: "Orders", hash: "#/coldstore/orders/orders-list" }
+          { id: "running-orders", label: "Running Orders", hash: "#/coldstore/orders/running-orders" },
+          { id: "po-status-reports", label: "Orders Status", hash: "#/coldstore/orders/po-status-reports" },
+          { id: "shipped-po-list", label: "Shipments List", hash: "#/coldstore/orders/shipped-po-list" }
         ]
       },
       {
@@ -41539,7 +41541,13 @@ const ColdstoreView = {
         }
         break;
       case 'orders':
-        this.renderOrders(contentEl);
+        if (tabId === 'po-status-reports' || tabId.includes('status')) {
+          this.renderOrdersStatus(contentEl);
+        } else if (tabId === 'shipped-po-list' || tabId.includes('shipped') || tabId.includes('shipment')) {
+          this.renderShipmentsList(contentEl);
+        } else {
+          this.renderRunningOrders(contentEl);
+        }
         break;
       case 'store':
         this.renderStore(contentEl);
@@ -44519,40 +44527,75 @@ const ColdstoreView = {
     });
   },
 
-  // 3. ORDERS
-  renderOrders(container) {
+  // 3a. ORDERS - RUNNING ORDERS
+  renderRunningOrders(container) {
     container.innerHTML = `
-      <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
-        <div>
-          <h1 class="text-xl font-extrabold text-[#172B4D]">Outward Orders & Allocations</h1>
-          <p class="text-xs text-[#6B778C] mt-0.5">Allocation of coldstore finished stock against export orders and customer PI</p>
+      <div class="space-y-4 animate-fade-in">
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+          <div>
+            <h1 class="text-xl font-extrabold text-[#172B4D]">Running Orders</h1>
+          </div>
+        </div>
+        <div class="bg-white border border-[#DFE1E6] rounded-xl p-8 shadow-xs text-center">
+          <div class="max-w-md mx-auto py-8">
+            <div class="w-12 h-12 rounded-full bg-[#E0F2FE] text-[#0284C7] flex items-center justify-center mx-auto mb-3">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+            </div>
+            <h3 class="text-base font-bold text-[#172B4D]">Running Orders</h3>
+            <p class="text-xs text-[#6B778C] mt-1">Tab configured. Ready for form fields and table specifications.</p>
+          </div>
         </div>
       </div>
-      <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
-        <div id="cs-orders-table"></div>
+    `;
+  },
+
+  // 3b. ORDERS - ORDERS STATUS
+  renderOrdersStatus(container) {
+    container.innerHTML = `
+      <div class="space-y-4 animate-fade-in">
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+          <div>
+            <h1 class="text-xl font-extrabold text-[#172B4D]">Orders Status</h1>
+          </div>
+        </div>
+        <div class="bg-white border border-[#DFE1E6] rounded-xl p-8 shadow-xs text-center">
+          <div class="max-w-md mx-auto py-8">
+            <div class="w-12 h-12 rounded-full bg-[#EAE6FF] text-[#403294] flex items-center justify-center mx-auto mb-3">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+            </div>
+            <h3 class="text-base font-bold text-[#172B4D]">Orders Status</h3>
+            <p class="text-xs text-[#6B778C] mt-1">Tab configured. Ready for form fields and table specifications.</p>
+          </div>
+        </div>
       </div>
     `;
+  },
 
-    new DataTable({
-      containerId: 'cs-orders-table',
-      tableTitle: 'Outward Orders',
-      searchable: true,
-      exportable: true,
-      pageSize: 10,
-      columns: [
-        { key: 'id', label: 'S.No', render: (v, r, idx) => idx + 1 },
-        { key: 'orderNo', label: 'Order No', sortable: true, render: v => `<span class="font-mono font-bold text-[#0284C7]">${v}</span>` },
-        { key: 'buyer', label: 'Buyer / Customer' },
-        { key: 'country', label: 'Destination' },
-        { key: 'product', label: 'Product' },
-        { key: 'orderedMt', label: 'Ordered MT', render: v => `<span class="font-mono font-bold">${v}</span>` },
-        { key: 'allocatedMt', label: 'Allocated MT', render: v => `<span class="font-mono font-bold text-[#00875A]">${v}</span>` },
-        { key: 'chamber', label: 'Staging Vault' },
-        { key: 'shipDate', label: 'Target Ship Date' },
-        { key: 'status', label: 'Status', render: v => `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold ${v === 'Ready for Stuffing' ? 'bg-[#E3FCEF] text-[#006644]' : 'bg-[#FFF0B3] text-[#172B4D]'}">${v}</span>` }
-      ],
-      data: this.state.orders
-    });
+  // 3c. ORDERS - SHIPMENTS LIST
+  renderShipmentsList(container) {
+    container.innerHTML = `
+      <div class="space-y-4 animate-fade-in">
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+          <div>
+            <h1 class="text-xl font-extrabold text-[#172B4D]">Shipments List</h1>
+          </div>
+        </div>
+        <div class="bg-white border border-[#DFE1E6] rounded-xl p-8 shadow-xs text-center">
+          <div class="max-w-md mx-auto py-8">
+            <div class="w-12 h-12 rounded-full bg-[#E3FCEF] text-[#006644] flex items-center justify-center mx-auto mb-3">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/></svg>
+            </div>
+            <h3 class="text-base font-bold text-[#172B4D]">Shipments List</h3>
+            <p class="text-xs text-[#6B778C] mt-1">Tab configured. Ready for form fields and table specifications.</p>
+          </div>
+        </div>
+      </div>
+    `;
+  },
+
+  // 3d. ORDERS - BACKWARD COMPATIBILITY
+  renderOrders(container) {
+    this.renderRunningOrders(container);
   },
 
   // 4. STORE

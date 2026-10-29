@@ -219,9 +219,11 @@ export const ADMIN_NAV_HIERARCHY = [
       {
         id: "orders",
         title: "Orders",
-        defaultTab: "orders-list",
+        defaultTab: "running-orders",
         tabs: [
-          { id: "orders-list", label: "Orders", hash: "#/coldstore/orders/orders-list" }
+          { id: "running-orders", label: "Running Orders", hash: "#/coldstore/orders/running-orders" },
+          { id: "po-status-reports", label: "Orders Status", hash: "#/coldstore/orders/po-status-reports" },
+          { id: "shipped-po-list", label: "Shipments List", hash: "#/coldstore/orders/shipped-po-list" }
         ]
       },
       {
