@@ -53848,9 +53848,9 @@ const InventoryView = {
             <div class="bg-[#F8FAFC] border border-[#DFE1E6] rounded-xl p-3.5 space-y-3 shadow-2xs">
               <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
                 <!-- 1. Item -->
-                <div class="md:col-span-2">
+                <div>
                   <label for="modal-item-name" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ITEM <span class="text-[#DE350B]">*</span></label>
-                  <input type="text" id="modal-item-name" placeholder="Item name, specification, make or code..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                  <input type="text" id="modal-item-name" placeholder="Item name, specification..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
                 </div>
 
                 <!-- 2. UoM -->
@@ -53874,15 +53874,15 @@ const InventoryView = {
                   <label for="modal-item-avail" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">AVAILABLE QTY</label>
                   <input type="number" id="modal-item-avail" value="10" min="0" step="1" class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] shadow-2xs cursor-not-allowed" readonly />
                 </div>
-              </div>
 
-              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
                 <!-- 4. Requested Qty -->
                 <div>
                   <label for="modal-item-req" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">REQUESTED QTY <span class="text-[#DE350B]">*</span></label>
                   <input type="number" id="modal-item-req" value="50" min="1" step="1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
                 </div>
+              </div>
 
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
                 <!-- 5. Purpose -->
                 <div>
                   <label for="modal-item-purpose" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PURPOSE</label>
@@ -53900,14 +53900,15 @@ const InventoryView = {
                   <label for="modal-item-remarks" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">REMARKS</label>
                   <input type="text" id="modal-item-remarks" placeholder="Optional notes / remarks..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
                 </div>
-              </div>
 
-              <!-- 8. Action (Add Item Button) -->
-              <div class="flex items-center justify-end pt-1">
-                <button type="button" id="modal-btn-add-item" class="btn-primary px-4 py-1.5 rounded-full text-xs font-semibold inline-flex items-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer">
-                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                  <span>Add Item</span>
-                </button>
+                <!-- 8. Action (Add Item Button - placed right after Remarks with same width) -->
+                <div>
+                  <label class="block text-[11px] font-bold text-transparent uppercase tracking-wider mb-1 select-none">&nbsp;</label>
+                  <button type="button" id="modal-btn-add-item" class="btn-primary w-full h-[31px] px-4 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                    <span>Add Item</span>
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -54674,12 +54675,14 @@ const InventoryView = {
 
             <!-- Item Input Grid Card -->
             <div class="bg-[#F8FAFC] border border-[#DFE1E6] rounded-xl p-3.5 space-y-3 shadow-2xs">
-              <!-- Row 1: Item Requisition Details -->
-              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 gap-3">
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+                <!-- 1. Item -->
                 <div class="md:col-span-2">
                   <label for="mpoi-item" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ITEM <span class="text-[#DE350B]">*</span></label>
                   <input type="text" id="mpoi-item" placeholder="Item name or code..." value="Nitrile Food-Grade Gloves (Blue, L)" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
                 </div>
+
+                <!-- 2. Unit -->
                 <div>
                   <label for="mpoi-unit" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">UNIT</label>
                   <select id="mpoi-unit" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
@@ -54693,38 +54696,52 @@ const InventoryView = {
                     <option value="Ltr">Ltr</option>
                   </select>
                 </div>
+
+                <!-- 3. Available Qty -->
                 <div>
                   <label for="mpoi-avail-qty" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">AVAIL QTY</label>
                   <input type="number" id="mpoi-avail-qty" value="15" min="0" class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] shadow-2xs cursor-not-allowed" readonly />
                 </div>
+
+                <!-- Row 2 -->
+                <!-- 4. Unit Price -->
                 <div>
                   <label for="mpoi-unit-price" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">UNIT PRICE (₹)</label>
                   <input type="number" id="mpoi-unit-price" value="280.00" min="0.01" step="0.01" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
                 </div>
+
+                <!-- 5. Quantity -->
                 <div>
                   <label for="mpoi-qty" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">QUANTITY <span class="text-[#DE350B]">*</span></label>
                   <input type="number" id="mpoi-qty" value="100" min="1" step="1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
                 </div>
-              </div>
 
-              <!-- Row 2: Pricing, Discount, GST & Dispatch -->
-              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 gap-3">
+                <!-- 6. Supplier Rate -->
                 <div>
                   <label for="mpoi-supplier-rate" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SUPPLIER RATE (₹)</label>
                   <input type="number" id="mpoi-supplier-rate" value="280.00" min="0.01" step="0.01" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
                 </div>
+
+                <!-- 7. Total Value -->
                 <div>
                   <label for="mpoi-total-value" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">TOTAL VALUE (₹)</label>
                   <input type="number" id="mpoi-total-value" value="28000.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] shadow-2xs cursor-not-allowed" />
                 </div>
+
+                <!-- Row 3 -->
+                <!-- 8. Discount% -->
                 <div>
                   <label for="mpoi-disc-pct" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DISCOUNT%</label>
                   <input type="number" id="mpoi-disc-pct" value="5" min="0" max="100" step="0.5" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
                 </div>
+
+                <!-- 9. Discount Amount -->
                 <div>
                   <label for="mpoi-disc-amt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DISCOUNT (₹)</label>
                   <input type="number" id="mpoi-disc-amt" value="1400.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-semibold text-[#D97706] shadow-2xs cursor-not-allowed" />
                 </div>
+
+                <!-- 10. GST% -->
                 <div>
                   <label for="mpoi-gst-pct" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">GST%</label>
                   <select id="mpoi-gst-pct" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
@@ -54734,38 +54751,50 @@ const InventoryView = {
                     <option value="0">0% GST</option>
                   </select>
                 </div>
+
+                <!-- 11. Dispatched Date -->
                 <div>
                   <label for="mpoi-dispatch-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DISPATCHED DATE</label>
                   <div class="erp-date-wrapper">
                     <input type="date" id="mpoi-dispatch-date" value="${todayStr}" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
                   </div>
                 </div>
-              </div>
 
-              <!-- Row 3: Tax Breakups (SGST, CGST, IGST, Tax Amount, Invoice Amt) & Action Button -->
-              <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 items-end pt-1">
+                <!-- Row 4 -->
+                <!-- 12. SGST Amt -->
                 <div>
                   <label for="mpoi-sgst" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SGST AMT (₹)</label>
                   <input type="number" id="mpoi-sgst" value="2394.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono text-xs text-[#5E6C84] shadow-2xs cursor-not-allowed" />
                 </div>
+
+                <!-- 13. CGST Amt -->
                 <div>
                   <label for="mpoi-cgst" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CGST AMT (₹)</label>
                   <input type="number" id="mpoi-cgst" value="2394.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono text-xs text-[#5E6C84] shadow-2xs cursor-not-allowed" />
                 </div>
+
+                <!-- 14. IGST Amt -->
                 <div>
                   <label for="mpoi-igst" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">IGST AMT (₹)</label>
                   <input type="number" id="mpoi-igst" value="0.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono text-xs text-[#5E6C84] shadow-2xs cursor-not-allowed" />
                 </div>
+
+                <!-- 15. Tax Amount -->
                 <div>
                   <label for="mpoi-tax-amt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">TAX AMOUNT (₹)</label>
                   <input type="number" id="mpoi-tax-amt" value="4788.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#0284C7] shadow-2xs cursor-not-allowed" />
                 </div>
-                <div>
+
+                <!-- Row 5 -->
+                <!-- 16. Invoice Amount (Col 1-2) -->
+                <div class="sm:col-span-2 md:col-span-2">
                   <label for="mpoi-inv-amt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">INVOICE AMT (₹)</label>
-                  <input type="number" id="mpoi-inv-amt" value="31388.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F0FDF4] border border-[#BBF7D0] rounded-lg font-mono font-bold text-[#00875A] shadow-2xs cursor-not-allowed" />
+                  <input type="number" id="mpoi-inv-amt" value="31388.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F0FDF4] border border-[#BBF7D0] rounded font-mono font-bold text-[#00875A] shadow-2xs cursor-not-allowed" />
                 </div>
-                <div>
-                  <button type="button" id="modal-po-btn-add-item" class="w-full btn-primary border-0 px-4 py-1.5 rounded-full text-xs font-bold inline-flex items-center justify-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all h-[32px]">
+
+                <!-- 17. Action Button (Col 3-4) -->
+                <div class="sm:col-span-2 md:col-span-2 flex items-end justify-end">
+                  <button type="button" id="modal-po-btn-add-item" class="btn-primary border-0 px-5 py-2 rounded-full text-xs font-bold inline-flex items-center justify-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all h-[32px]">
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
                     <span>Add Item</span>
                   </button>
