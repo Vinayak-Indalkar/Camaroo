@@ -50625,8 +50625,8 @@ const ColdstoreView = {
                 </select>
               </div>
 
-              <!-- 14. Action Slot: Search Button -->
-              <div class="flex items-end">
+              <!-- 14. Action Slot: Search & IBT OUT Buttons -->
+              <div class="flex items-end gap-2 flex-wrap">
                 <button 
                   type="button" 
                   id="ibt-cr-search-btn" 
@@ -50636,14 +50636,21 @@ const ColdstoreView = {
                   <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                   <span>Search</span>
                 </button>
+                <button 
+                  type="button" 
+                  id="ibt-cr-out-btn" 
+                  class="btn-primary px-4 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px] bg-[#00875A] hover:bg-[#006644] text-white border-0"
+                  title="Initiate IBT OUT Transfer"
+                >
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                  <span>IBT OUT</span>
+                </button>
               </div>
             </div>
           </div>
 
           <!-- Stock Results Data Table Container -->
-          <div class="bg-white border border-[#DFE1E6] rounded-xl p-3 shadow-xs">
-            <div id="cs-ibt-create-req-table"></div>
-          </div>
+          <div id="cs-ibt-create-req-table"></div>
         </div>
       `
     });
@@ -50672,8 +50679,11 @@ const ColdstoreView = {
       });
     }
 
+    let lastSearchResults = [];
+
     // Table render function with all 21 user-specified columns
     const renderReqTable = (data, hasSearched = false) => {
+      lastSearchResults = data;
       new DataTable({
         containerId: 'cs-ibt-create-req-table',
         tableTitle: hasSearched ? `Available Stock Records (${data.length})` : 'Available Stock Records',
@@ -50840,6 +50850,72 @@ const ColdstoreView = {
 
         renderReqTable(results, true);
         Toast.show(`Found ${results.length} stock lot(s) matching criteria`, 'info');
+      });
+    }
+
+    // IBT OUT button click handler
+    const outBtn = modalRoot.querySelector('#ibt-cr-out-btn');
+    if (outBtn) {
+      outBtn.addEventListener('click', () => {
+        if (!lastSearchResults || lastSearchResults.length === 0) {
+          Toast.show('Please search and view available stock lots before initiating IBT OUT.', 'warning');
+          return;
+        }
+
+        const firstItem = lastSearchResults[0];
+        Modal.confirm({
+          title: 'Confirm IBT OUT Dispatch',
+          message: `Process IBT OUT transfer for <strong>${lastSearchResults.length} available stock lot(s)</strong> (Primary: ${firstItem.poNo}, Total Mcs: ${lastSearchResults.reduce((acc, x) => acc + (x.mcs || 0), 0)})?`,
+          confirmText: 'Dispatch IBT OUT',
+          onConfirm: () => {
+            const nextId = (this.state.ibtTransfers?.length || 0) + 1;
+            const todayStr = new Date().toISOString().slice(0, 10);
+            const totalMcs = lastSearchResults.reduce((acc, x) => acc + (x.mcs || 0), 0);
+            const newTransfer = {
+              id: nextId,
+              sNo: nextId,
+              orderNumber: `IBT-OUT-2026-${100 + nextId}`,
+              ibtCode: `IBT-OUT-2026-${100 + nextId}`,
+              orderDate: todayStr,
+              transferDate: todayStr,
+              fromStore: firstItem.storeName || firstItem.coldStores || 'Chamber #1 (IQF)',
+              toStore: 'Chamber #3 (Blast)',
+              coldStore: firstItem.storeName || firstItem.coldStores || 'Chamber #1 (IQF)',
+              productCategory: firstItem.productCategory || 'Raw Frozen',
+              ibtType: 'Outward Transfer',
+              sourcePlant: 'DFL UNIT-5 (JPT)',
+              destPlant: 'DFL UNIT-4 (PND)',
+              product: `${firstItem.variety || firstItem.product} ${firstItem.grade}`,
+              totalMcs: totalMcs,
+              totalNoOfBags: totalMcs * 10,
+              pallets: Math.ceil(totalMcs / 40),
+              weightMt: (totalMcs * 10) / 1000,
+              vehicleNo: 'AP 39 TB 5590',
+              status: 'Gate Pass Dispatched',
+              items: lastSearchResults.map((item, idx) => ({
+                id: idx + 1,
+                sNo: idx + 1,
+                poNo: item.poNo,
+                transferDate: todayStr,
+                variety: item.variety || item.product,
+                grades: item.grade,
+                mcs: item.mcs,
+                looseBags: item.looseBags || 0,
+                packingStyle: item.packingStyle,
+                packingType: item.packingType,
+                category: item.productCategory,
+                storeName: item.storeName,
+                rackName: 'Rack A-04',
+                kgs: item.storeKgs,
+                reason: 'IBT OUT Stock Transfer'
+              }))
+            };
+            this.state.ibtTransfers.unshift(newTransfer);
+            Modal.close();
+            if (onSuccessCallback) onSuccessCallback();
+            Toast.show(`IBT OUT Order ${newTransfer.orderNumber} dispatched successfully!`, 'success');
+          }
+        });
       });
     }
 
