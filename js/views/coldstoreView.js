@@ -256,51 +256,14 @@ export const ColdstoreView = {
   renderDailyProduction(container) {
     const fullList = this.state.dailyProductionList || this.state.productionIntakeList || [];
 
-    const getKPIs = (data) => {
-      const totalKg = data.reduce((acc, r) => acc + (r.netWeightKg || 0), 0);
-      const totalBoxes = data.reduce((acc, r) => acc + (r.cartons || 0), 0);
-      return { totalKg, totalBoxes, count: data.length };
-    };
-
-    const initialKPIs = getKPIs(fullList);
-
     container.innerHTML = `
-      <div class="flex flex-wrap items-center justify-between gap-3 mb-2">
-        <div>
-          <h1 class="text-xl font-extrabold text-[#172B4D]">Daily Production Intake Registry</h1>
-          <p class="text-xs text-[#6B778C] mt-0.5">Receipt of finished goods cartons, plate freezer slabs & tunnel IQF batches from plant floors</p>
+      <div class="space-y-4 animate-fade-in">
+        <!-- Page Title Header (Clean application standard: no extra stats or subheadings) -->
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+          <div>
+            <h1 class="text-xl font-extrabold text-[#172B4D]">Daily Production</h1>
+          </div>
         </div>
-        <div class="flex items-center gap-2">
-          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E3FCEF] text-[#006644] text-xs font-bold border border-[#ABF5D1]">
-            <span class="w-2 h-2 rounded-full bg-[#00875A] animate-pulse"></span>
-            Receiving Dock Online
-          </span>
-        </div>
-      </div>
-
-      <!-- Key KPI Cards -->
-      <div id="dp-kpi-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 mb-3.5">
-        <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
-          <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Today's Received Stock</div>
-          <div class="text-2xl font-black text-[#172B4D] mt-1.5"><span id="dp-kpi-weight">${initialKPIs.totalKg.toLocaleString()}</span> <span class="text-xs font-bold text-[#6B778C]">Kgs</span></div>
-          <div class="text-[11px] font-semibold text-[#00875A] mt-1"><span id="dp-kpi-count">${initialKPIs.count}</span> Batches Recorded</div>
-        </div>
-        <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
-          <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Total Received Cartons</div>
-          <div class="text-2xl font-black text-[#0284C7] mt-1.5"><span id="dp-kpi-boxes">${initialKPIs.totalBoxes.toLocaleString()}</span> <span class="text-xs font-bold text-[#6B778C]">Boxes</span></div>
-          <div class="text-[11px] font-semibold text-[#5E6C84] mt-1">100% Barcode Scanned</div>
-        </div>
-        <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
-          <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Average Receipt Core Temp</div>
-          <div class="text-2xl font-black text-[#00875A] mt-1.5">-23.6 <span class="text-xs font-bold text-[#6B778C]">°C</span></div>
-          <div class="text-[11px] font-semibold text-[#00875A] mt-1">Compliant (Below -18.0°C)</div>
-        </div>
-        <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
-          <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Chamber Slotting Status</div>
-          <div class="text-2xl font-black text-[#6554C0] mt-1.5">100% <span class="text-xs font-bold text-[#6B778C]">Slotted</span></div>
-          <div class="text-[11px] font-semibold text-[#6554C0] mt-1">0 Pending Staging Lots</div>
-        </div>
-      </div>
 
       <!-- Search & Filters Card (Exact Devi Fisheries ERP Standard) -->
       <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200" style="margin-bottom: 12px !important;">
@@ -406,8 +369,7 @@ export const ColdstoreView = {
         </div>
       </div>
 
-      <!-- Data Table Card -->
-      <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
+        <!-- Data Table Container -->
         <div id="cs-daily-production-table"></div>
       </div>
     `;
@@ -554,17 +516,6 @@ export const ColdstoreView = {
       });
     };
 
-    // Update KPI indicators dynamically on filter
-    const updateKPIs = (data) => {
-      const kpis = getKPIs(data);
-      const weightEl = document.getElementById('dp-kpi-weight');
-      const boxesEl = document.getElementById('dp-kpi-boxes');
-      const countEl = document.getElementById('dp-kpi-count');
-      if (weightEl) weightEl.textContent = kpis.totalKg.toLocaleString();
-      if (boxesEl) boxesEl.textContent = kpis.totalBoxes.toLocaleString();
-      if (countEl) countEl.textContent = kpis.count.toString();
-    };
-
     // Initial table render
     renderTable(fullList);
 
@@ -603,7 +554,6 @@ export const ColdstoreView = {
       if (dateTypeSelect) dateTypeSelect.value = 'Production Date';
 
       renderTable(fullList);
-      updateKPIs(fullList);
       Toast.show('Filters reset to default', 'info');
     });
 
@@ -652,7 +602,6 @@ export const ColdstoreView = {
       });
 
       renderTable(filtered);
-      updateKPIs(filtered);
       Toast.show(`Found ${filtered.length} matching daily production batch(es)`, 'info');
     };
 
@@ -676,49 +625,15 @@ export const ColdstoreView = {
   // 2b. PRODUCTION - DAILY STOCKOUT
   renderDailyStockOut(container) {
     const list = this.state.dailyStockOutList || [];
-    const totalWeightKg = list.reduce((acc, r) => acc + (r.netWeightKg || 0), 0);
-    const totalWeightMt = (totalWeightKg / 1000).toFixed(2);
-    const totalCartons = list.reduce((acc, r) => acc + (r.cartons || 0), 0);
 
     container.innerHTML = `
-      <div class="flex flex-wrap items-center justify-between gap-3 mb-2">
-        <div>
-          <h1 class="text-xl font-extrabold text-[#172B4D]">Daily StockOut & Dispatch Registry</h1>
-          <p class="text-xs text-[#6B778C] mt-0.5">Outward shipments, container stuffing, inter-plant transfers, and repacking dispatches</p>
+      <div class="space-y-4 animate-fade-in">
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+          <div>
+            <h1 class="text-xl font-extrabold text-[#172B4D]">Daily StockOut</h1>
+          </div>
         </div>
-        <div class="flex items-center gap-2">
-          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E3FCEF] text-[#006644] text-xs font-bold border border-[#ABF5D1]">
-            <span class="w-2 h-2 rounded-full bg-[#00875A] animate-pulse"></span>
-            Cold Chain Outward Active
-          </span>
-        </div>
-      </div>
 
-      <!-- Key KPI Cards -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 mb-4">
-        <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
-          <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Total Dispatched Stock</div>
-          <div class="text-2xl font-black text-[#172B4D] mt-1.5">${totalWeightMt} <span class="text-xs font-bold text-[#6B778C]">MT</span></div>
-          <div class="text-[11px] font-semibold text-[#00875A] mt-1">${totalWeightKg.toLocaleString()} Kgs Dispatched</div>
-        </div>
-        <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
-          <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Total Dispatched Cartons</div>
-          <div class="text-2xl font-black text-[#0284C7] mt-1.5">${totalCartons.toLocaleString()} <span class="text-xs font-bold text-[#6B778C]">Boxes</span></div>
-          <div class="text-[11px] font-semibold text-[#5E6C84] mt-1">Verified Gate Outward</div>
-        </div>
-        <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
-          <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Active Dispatch Orders</div>
-          <div class="text-2xl font-black text-[#00875A] mt-1.5">${list.length} <span class="text-xs font-bold text-[#6B778C]">Shipments</span></div>
-          <div class="text-[11px] font-semibold text-[#00875A] mt-1">Export, IBT & Floor Repack</div>
-        </div>
-        <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
-          <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Reefer Container Pre-Cool</div>
-          <div class="text-2xl font-black text-[#6554C0] mt-1.5">100% <span class="text-xs font-bold text-[#6B778C]">Verified</span></div>
-          <div class="text-[11px] font-semibold text-[#6554C0] mt-1">Below -18°C Core Set Temp</div>
-        </div>
-      </div>
-
-      <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
         <div id="cs-daily-stockout-table"></div>
       </div>
     `;
@@ -755,48 +670,15 @@ export const ColdstoreView = {
   // 2c. PRODUCTION - FREEZING
   renderFreezing(container) {
     const list = this.state.freezingRunsList || [];
-    const totalWeightKg = list.reduce((acc, r) => acc + (r.netWeightKg || 0), 0);
-    const totalCartons = list.reduce((acc, r) => acc + (r.cartons || 0), 0);
 
     container.innerHTML = `
-      <div class="flex flex-wrap items-center justify-between gap-3 mb-2">
-        <div>
-          <h1 class="text-xl font-extrabold text-[#172B4D]">Freezing Operations & Core Tunnel Registry</h1>
-          <p class="text-xs text-[#6B778C] mt-0.5">Continuous tracking of IQF tunnels, contact plate freezers, core exit temperatures & glaze verification</p>
+      <div class="space-y-4 animate-fade-in">
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+          <div>
+            <h1 class="text-xl font-extrabold text-[#172B4D]">Freezing</h1>
+          </div>
         </div>
-        <div class="flex items-center gap-2">
-          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E3FCEF] text-[#006644] text-xs font-bold border border-[#ABF5D1]">
-            <span class="w-2 h-2 rounded-full bg-[#00875A] animate-pulse"></span>
-            Freezer Tunnels Online
-          </span>
-        </div>
-      </div>
 
-      <!-- Key KPI Cards -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 mb-4">
-        <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
-          <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Today's Freezing Volume</div>
-          <div class="text-2xl font-black text-[#172B4D] mt-1.5">${totalWeightKg.toLocaleString()} <span class="text-xs font-bold text-[#6B778C]">Kgs</span></div>
-          <div class="text-[11px] font-semibold text-[#00875A] mt-1">${(totalWeightKg / 1000).toFixed(2)} MT Processed</div>
-        </div>
-        <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
-          <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Active Freezer Lines</div>
-          <div class="text-2xl font-black text-[#0284C7] mt-1.5">4 <span class="text-xs font-bold text-[#6B778C]">Lines</span></div>
-          <div class="text-[11px] font-semibold text-[#5E6C84] mt-1">IQF Tunnels & Plate Freezers</div>
-        </div>
-        <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
-          <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Average Core Exit Temp</div>
-          <div class="text-2xl font-black text-[#00875A] mt-1.5">-24.1 <span class="text-xs font-bold text-[#6B778C]">°C</span></div>
-          <div class="text-[11px] font-semibold text-[#00875A] mt-1">Optimal Deep Freeze Threshold</div>
-        </div>
-        <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
-          <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">QC Glaze Compliance</div>
-          <div class="text-2xl font-black text-[#6554C0] mt-1.5">100% <span class="text-xs font-bold text-[#6B778C]">Passed</span></div>
-          <div class="text-[11px] font-semibold text-[#6554C0] mt-1">Standard Uniform Glazing</div>
-        </div>
-      </div>
-
-      <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
         <div id="cs-freezing-runs-table"></div>
       </div>
     `;
