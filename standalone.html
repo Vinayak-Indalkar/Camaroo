@@ -48276,22 +48276,325 @@ const ColdstoreView = {
   renderRackNames(container) {
     container.innerHTML = `
       <div class="space-y-4 animate-fade-in">
+        <!-- Clean Page Header -->
         <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
           <div>
             <h1 class="text-xl font-extrabold text-[#172B4D]">Rack names</h1>
+            <p class="text-xs text-[#6B778C] mt-0.5">Store layout bay generation, rack row and column configurations</p>
           </div>
         </div>
-        <div class="bg-white border border-[#DFE1E6] rounded-xl p-8 shadow-xs text-center">
-          <div class="max-w-md mx-auto py-8">
-            <div class="w-12 h-12 rounded-full bg-[#E3FCEF] text-[#006644] flex items-center justify-center mx-auto mb-3">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+
+        <!-- Collapsible Search & Filter Header Card -->
+        <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200" style="margin-bottom: 12px !important;">
+          <div class="flex items-center justify-between pb-1">
+            <div class="flex items-center gap-2">
+              <svg style="width: 16px; height: 16px; min-width: 16px; min-height: 16px; stroke: #0284C7; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+              <h3 class="text-xs font-bold text-[#172B4D]">Store &amp; Rack Configuration Search Filters</h3>
             </div>
-            <h3 class="text-base font-bold text-[#172B4D]">Rack Names &amp; Store Layout Creation</h3>
-            <p class="text-xs text-[#6B778C] mt-1">Tab configured. Ready for form fields and table specifications.</p>
+
+            <!-- Filter Controls: Reset & Toggle Open/Close -->
+            <div class="inline-flex items-center" style="gap: 8px; display: inline-flex;">
+              <button 
+                type="button" 
+                id="rn-filter-reset-btn" 
+                class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#0284C7] text-[#334155] hover:text-[#0284C7] rounded-full transition-colors cursor-pointer select-none" 
+                style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 9999px; border: 1px solid #CBD5E1; background: #ffffff; color: #334155; display: inline-flex; align-items: center; justify-content: center; padding: 0;"
+                title="Reset All Filters" 
+                aria-label="Reset All Filters"
+              >
+                <svg style="width: 15px; height: 15px; min-width: 15px; min-height: 15px; stroke: #334155; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+              </button>
+
+              <button 
+                type="button" 
+                id="rn-filter-toggle-btn" 
+                class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#0284C7] text-[#334155] hover:text-[#0284C7] rounded-full transition-colors cursor-pointer select-none" 
+                style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 9999px; border: 1px solid #CBD5E1; background: #ffffff; color: #334155; display: inline-flex; align-items: center; justify-content: center; padding: 0;"
+                title="Hide Filter" 
+                aria-label="Hide Filter"
+              >
+                <svg id="rn-filter-toggle-icon" style="width: 15px; height: 15px; min-width: 15px; min-height: 15px; stroke: #334155; fill: none; display: inline-block;" class="dt-top-filter-toggle-icon transform transition-transform duration-200" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+              </button>
+            </div>
           </div>
+
+          <!-- Collapsible Filter Inputs Grid (5 User-Requested Fields + Search Action) -->
+          <div id="rn-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 text-xs transition-all duration-200">
+            <!-- 1. STORE ID * -->
+            <div>
+              <label for="rn-filter-store" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STORE ID <span class="text-[#DE350B] font-bold">*</span></label>
+              <select id="rn-filter-store" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]" required>
+                <option value="CS-CH-01" selected>CS-CH-01 (Chamber #1 IQF)</option>
+                <option value="CS-CH-02">CS-CH-02 (Chamber #2 Block)</option>
+                <option value="CS-VLT-03">CS-VLT-03 (Vault #3 Staging)</option>
+                <option value="CS-CH-03">CS-CH-03 (Chamber #3 Blast)</option>
+              </select>
+            </div>
+
+            <!-- 2. BLOCK ID * -->
+            <div>
+              <label for="rn-filter-block" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">BLOCK ID <span class="text-[#DE350B] font-bold">*</span></label>
+              <select id="rn-filter-block" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]" required>
+                <option value="BLK-A" selected>BLK-A (Block A - Primary)</option>
+                <option value="BLK-B">BLK-B (Block B - Secondary)</option>
+                <option value="BLK-C">BLK-C (Block C - Staging)</option>
+                <option value="BLK-D">BLK-D (Block D - Blast)</option>
+              </select>
+            </div>
+
+            <!-- 3. FLOORS * -->
+            <div>
+              <label for="rn-filter-floor" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">FLOORS <span class="text-[#DE350B] font-bold">*</span></label>
+              <select id="rn-filter-floor" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]" required>
+                <option value="FL-1" selected>Floor 1 (Ground Level)</option>
+                <option value="FL-2">Floor 2 (Tier 2)</option>
+                <option value="FL-3">Floor 3 (High Bay)</option>
+              </select>
+            </div>
+
+            <!-- 4. NO. OF ROWS * -->
+            <div>
+              <label for="rn-filter-rows" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">NO. OF ROWS <span class="text-[#DE350B] font-bold">*</span></label>
+              <input type="number" id="rn-filter-rows" min="1" max="50" value="4" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]" required>
+            </div>
+
+            <!-- 5. NO. OF COLUMNS * -->
+            <div>
+              <label for="rn-filter-cols" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">NO. OF COLUMNS <span class="text-[#DE350B] font-bold">*</span></label>
+              <input type="number" id="rn-filter-cols" min="1" max="50" value="14" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]" required>
+            </div>
+
+            <!-- 6. Action Slot: Search Button -->
+            <div class="flex items-end">
+              <button 
+                type="button" 
+                id="rn-filter-search-btn" 
+                class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px] w-full"
+                title="Search &amp; Configure Rack Names"
+              >
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                <span>Search</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Summary & Stats Bar -->
+        <div id="rn-summary-bar" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 mb-3.5">
+          <!-- Summary card will be dynamically populated -->
+        </div>
+
+        <!-- Data Table Container -->
+        <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
+          <div id="rn-rack-names-table"></div>
         </div>
       </div>
     `;
+
+    // Rack Names Generator Helper
+    const generateRackNames = (storeId, blockId, floorId, rows, cols) => {
+      const list = [];
+      let sNo = 1;
+      const floorNum = (floorId || 'FL-1').replace(/[^0-9]/g, '') || '1';
+
+      for (let r = 1; r <= rows; r++) {
+        for (let c = 1; c <= cols; c++) {
+          const colFormatted = c < 10 ? `0${c}` : `${c}`;
+          // Base Bay
+          const baseCode = `${floorNum}-${r}${colFormatted}`;
+          list.push({
+            id: sNo++,
+            rackName: baseCode,
+            rowNo: `Row ${r}`,
+            colNo: `Col ${c}`,
+            floor: floorId,
+            blockId: blockId,
+            storeId: storeId,
+            positionType: 'Base Bay',
+            status: 'Active'
+          });
+
+          // Upper Tier R
+          const rCode = `${baseCode} R`;
+          list.push({
+            id: sNo++,
+            rackName: rCode,
+            rowNo: `Row ${r}`,
+            colNo: `Col ${c}`,
+            floor: floorId,
+            blockId: blockId,
+            storeId: storeId,
+            positionType: 'Upper Tier R',
+            status: 'Active'
+          });
+        }
+      }
+      return list;
+    };
+
+    // Render Table and Summary
+    let currentDataTable = null;
+
+    const renderLayoutData = (storeId, blockId, floorId, rows, cols) => {
+      const numRows = parseInt(rows, 10) || 4;
+      const numCols = parseInt(cols, 10) || 14;
+      const rackList = generateRackNames(storeId, blockId, floorId, numRows, numCols);
+
+      // Update Summary Bar
+      const summaryBar = container.querySelector('#rn-summary-bar');
+      if (summaryBar) {
+        summaryBar.innerHTML = `
+          <!-- Card 1: TOTAL RACK BAYS -->
+          <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-2xs flex items-center justify-between">
+            <div>
+              <div class="text-[10px] font-bold text-[#0284C7] uppercase tracking-wider">TOTAL RACK BAYS</div>
+              <div class="text-2xl font-black text-[#172B4D] tracking-tight mt-0.5">${numRows * numCols}</div>
+              <div class="text-[11px] text-[#0284C7] font-medium mt-0.5">${numRows} Rows × ${numCols} Columns</div>
+            </div>
+            <div class="w-11 h-11 rounded-full bg-[#D0E2FF] text-[#0F62FE] flex items-center justify-center shadow-xs shrink-0">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+            </div>
+          </div>
+
+          <!-- Card 2: TOTAL PALLET POSITIONS -->
+          <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-2xs flex items-center justify-between">
+            <div>
+              <div class="text-[10px] font-bold text-[#0E7A46] uppercase tracking-wider">TOTAL SLOTS / TIERS</div>
+              <div class="text-2xl font-black text-[#0E7A46] tracking-tight mt-0.5">${rackList.length}</div>
+              <div class="text-[11px] text-[#0E7A46] font-medium mt-0.5">Base &amp; Tier R positions</div>
+            </div>
+            <div class="w-11 h-11 rounded-full bg-[#D1FADF] text-[#0E7A46] flex items-center justify-center shadow-xs shrink-0">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+            </div>
+          </div>
+
+          <!-- Card 3: ACTIVE STORE & BLOCK -->
+          <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-2xs flex items-center justify-between">
+            <div>
+              <div class="text-[10px] font-bold text-[#B45309] uppercase tracking-wider">STORE &amp; BLOCK</div>
+              <div class="text-lg font-black text-[#78350F] tracking-tight mt-0.5">${storeId}</div>
+              <div class="text-[11px] text-[#B45309] font-medium mt-0.5">${blockId} • ${floorId}</div>
+            </div>
+            <div class="w-11 h-11 rounded-full bg-[#FEDF89] text-[#B45309] flex items-center justify-center shadow-xs shrink-0">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+            </div>
+          </div>
+
+          <!-- Card 4: STATUS -->
+          <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-2xs flex items-center justify-between">
+            <div>
+              <div class="text-[10px] font-bold text-[#6941C6] uppercase tracking-wider">GRID STATUS</div>
+              <div class="text-lg font-black text-[#5829BB] tracking-tight mt-0.5">Configured</div>
+              <div class="text-[11px] text-[#6941C6] font-medium mt-0.5">Ready for Slotting</div>
+            </div>
+            <div class="w-11 h-11 rounded-full bg-[#F3E8FF] text-[#6941C6] flex items-center justify-center shadow-xs shrink-0">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+          </div>
+        `;
+      }
+
+      // Reinitialize DataTable
+      const tableWrapper = container.querySelector('#rn-rack-names-table');
+      if (tableWrapper) {
+        tableWrapper.innerHTML = '';
+        currentDataTable = new DataTable({
+          containerId: 'rn-rack-names-table',
+          tableTitle: `Rack Names Matrix - ${blockId} (${floorId})`,
+          searchable: true,
+          exportable: true,
+          pageSize: 15,
+          columns: [
+            { key: 'id', label: 'S.No', render: (v) => `<span class="font-mono text-xs text-[#5E6C84]">${v}</span>` },
+            { 
+              key: 'rackName', 
+              label: 'Rack Code / Name', 
+              sortable: true, 
+              render: (v) => `<span class="font-mono font-bold text-xs text-[#0284C7] bg-[#F0F9FF] px-2 py-0.5 rounded border border-[#BEE3F8]">${v}</span>` 
+            },
+            { key: 'rowNo', label: 'Row No', sortable: true },
+            { key: 'colNo', label: 'Column No', sortable: true },
+            { key: 'floor', label: 'Floor' },
+            { key: 'blockId', label: 'Block ID' },
+            { key: 'storeId', label: 'Store ID' },
+            { 
+              key: 'positionType', 
+              label: 'Position Type', 
+              render: (v) => `<span class="px-2 py-0.5 rounded text-[10px] font-bold ${v === 'Upper Tier R' ? 'bg-[#EAE6FF] text-[#403294]' : 'bg-[#E3FCEF] text-[#006644]'}">${v}</span>` 
+            },
+            { 
+              key: 'status', 
+              label: 'Status', 
+              render: (v) => `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">${v}</span>` 
+            }
+          ],
+          data: rackList
+        });
+      }
+    };
+
+    // Initial Table Load
+    renderLayoutData('CS-CH-01', 'BLK-A', 'FL-1', 4, 14);
+
+    // Bind Collapsible Filter Toggle
+    const toggleBtn = container.querySelector('#rn-filter-toggle-btn');
+    const filterBody = container.querySelector('#rn-filter-body');
+    const toggleIcon = container.querySelector('#rn-filter-toggle-icon');
+
+    if (toggleBtn && filterBody && toggleIcon) {
+      let isFilterOpen = true;
+      toggleBtn.addEventListener('click', () => {
+        isFilterOpen = !isFilterOpen;
+        if (isFilterOpen) {
+          filterBody.style.display = 'grid';
+          toggleIcon.classList.remove('rotate-180');
+          toggleBtn.title = 'Hide Filter';
+        } else {
+          filterBody.style.display = 'none';
+          toggleIcon.classList.add('rotate-180');
+          toggleBtn.title = 'Show Filter';
+        }
+      });
+    }
+
+    // Execute Filter Function
+    const executeFilter = () => {
+      const storeVal = container.querySelector('#rn-filter-store')?.value || 'CS-CH-01';
+      const blockVal = container.querySelector('#rn-filter-block')?.value || 'BLK-A';
+      const floorVal = container.querySelector('#rn-filter-floor')?.value || 'FL-1';
+      const rowsVal = container.querySelector('#rn-filter-rows')?.value || '4';
+      const colsVal = container.querySelector('#rn-filter-cols')?.value || '14';
+
+      renderLayoutData(storeVal, blockVal, floorVal, rowsVal, colsVal);
+      Toast.show(`Loaded ${parseInt(rowsVal, 10) * parseInt(colsVal, 10)} rack bays for ${blockVal} on ${floorVal}`, 'success');
+    };
+
+    // Bind Search Button
+    const searchBtn = container.querySelector('#rn-filter-search-btn');
+    if (searchBtn) {
+      searchBtn.addEventListener('click', executeFilter);
+    }
+
+    // Bind Reset Button
+    const resetBtn = container.querySelector('#rn-filter-reset-btn');
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        const st = container.querySelector('#rn-filter-store');
+        const bk = container.querySelector('#rn-filter-block');
+        const fl = container.querySelector('#rn-filter-floor');
+        const rw = container.querySelector('#rn-filter-rows');
+        const cl = container.querySelector('#rn-filter-cols');
+
+        if (st) st.value = 'CS-CH-01';
+        if (bk) bk.value = 'BLK-A';
+        if (fl) fl.value = 'FL-1';
+        if (rw) rw.value = '4';
+        if (cl) cl.value = '14';
+
+        renderLayoutData('CS-CH-01', 'BLK-A', 'FL-1', 4, 14);
+        Toast.show('Rack names search filters reset to default', 'info');
+      });
+    }
   },
 
   // 4d. STORE - BACKWARD COMPATIBILITY
