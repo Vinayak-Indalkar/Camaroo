@@ -266,41 +266,30 @@ export const ADMIN_NAV_HIERARCHY = [
   {
     id: "inventory",
     title: "Inventory",
-    icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>`,
+    icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>`,
     submenus: [
       {
-        id: "dashboard",
-        title: "Dashboard",
-        defaultTab: "overview",
+        id: "general-store",
+        title: "General Store",
+        defaultTab: "indent-page",
         tabs: [
-          { id: "overview", label: "Overview", hash: "#/inventory/dashboard/overview" }
+          { id: "indent-page", label: "Indent Page", hash: "#/inventory/general-store/indent-page" }
         ]
       },
       {
-        id: "requisitions",
-        title: "Requisitions",
-        defaultTab: "indents",
+        id: "packing-material",
+        title: "Packing Material",
+        defaultTab: "pm-proforma-invoice",
         tabs: [
-          { id: "indents", label: "Indents", hash: "#/inventory/requisitions/indents" }
+          { id: "pm-proforma-invoice", label: "PM Proforma Invoice", hash: "#/inventory/packing-material/pm-proforma-invoice" }
         ]
       },
       {
-        id: "procurement",
-        title: "Procurement",
-        defaultTab: "proforma-invoices",
+        id: "inventory",
+        title: "Inventory",
+        defaultTab: "proforma-register",
         tabs: [
-          { id: "proforma-invoices", label: "Proforma Invoices", hash: "#/inventory/procurement/proforma-invoices" },
-          { id: "purchase-orders", label: "Purchase Orders", hash: "#/inventory/procurement/purchase-orders" },
-          { id: "proforma-register", label: "Proforma Register", hash: "#/inventory/procurement/proforma-register" }
-        ]
-      },
-      {
-        id: "store-operations",
-        title: "Store Operations",
-        defaultTab: "grn",
-        tabs: [
-          { id: "grn", label: "Goods Receipt (GRN)", hash: "#/inventory/store-operations/grn" },
-          { id: "material-issues", label: "Material Issues", hash: "#/inventory/store-operations/material-issues" }
+          { id: "proforma-register", label: "Proforma Register", hash: "#/inventory/inventory/proforma-register" }
         ]
       }
     ]
