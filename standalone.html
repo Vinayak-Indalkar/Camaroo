@@ -50126,6 +50126,7 @@ const ColdstoreView = {
         searchable: true,
         exportable: true,
         pageSize: 10,
+        onRowClick: (row) => this.showIbtDetailModal(row),
         columns: [
           { field: 'id', header: 'S.No', render: (v, r, idx) => idx + 1 },
           { field: 'orderNumber', header: 'Order Number', sortable: true, render: v => `<span class="font-mono font-bold text-[#0284C7]">${v || '-'}</span>` },
@@ -50152,57 +50153,7 @@ const ColdstoreView = {
           {
             label: 'View Details',
             icon: `<svg class="w-4 h-4 text-[#0284C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>`,
-            onClick: (row) => {
-              Modal.open({
-                title: `IBT Transfer Record: ${row.orderNumber || row.ibtCode}`,
-                size: 'lg',
-                content: `
-                  <div class="space-y-4 text-xs text-[#172B4D]">
-                    <div class="p-3 bg-[#F4F5F7] border border-[#DFE1E6] rounded-lg flex items-center justify-between">
-                      <div>
-                        <span class="text-[10px] font-bold text-[#5E6C84] uppercase">ORDER NUMBER</span>
-                        <div class="text-base font-extrabold text-[#0284C7] font-mono">${row.orderNumber || row.ibtCode}</div>
-                      </div>
-                      <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold ${row.status === 'Received & Stored' ? 'bg-[#E3FCEF] text-[#006644]' : 'bg-[#DEEBFF] text-[#0747A6]'}">${row.status}</span>
-                    </div>
-                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-white p-3 border border-[#DFE1E6] rounded-lg">
-                      <div>
-                        <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">ORDER DATE</span>
-                        <span class="font-semibold text-xs">${row.orderDate || row.transferDate}</span>
-                      </div>
-                      <div>
-                        <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">FROM STORE</span>
-                        <span class="font-semibold text-xs text-[#0284C7]">${row.fromStore || '-'}</span>
-                      </div>
-                      <div>
-                        <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">TO STORE</span>
-                        <span class="font-semibold text-xs text-[#00875A]">${row.toStore || '-'}</span>
-                      </div>
-                      <div>
-                        <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">IBT TYPE</span>
-                        <span class="font-semibold text-xs">${row.ibtType || '-'}</span>
-                      </div>
-                      <div>
-                        <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">TOTAL MCS</span>
-                        <span class="font-mono font-bold text-xs text-[#00875A]">${Number(row.totalMcs || 0).toLocaleString()}</span>
-                      </div>
-                      <div>
-                        <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">TOTAL NO OF BAGS</span>
-                        <span class="font-mono font-bold text-xs text-[#172B4D]">${Number(row.totalNoOfBags || 0).toLocaleString()}</span>
-                      </div>
-                      <div>
-                        <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">REEFER TRUCK</span>
-                        <span class="font-mono font-semibold text-xs">${row.vehicleNo || '-'}</span>
-                      </div>
-                      <div>
-                        <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">WEIGHT (MT)</span>
-                        <span class="font-mono font-bold text-xs text-[#0284C7]">${Number(row.weightMt || 0).toFixed(2)} MT</span>
-                      </div>
-                    </div>
-                  </div>
-                `
-              });
-            }
+            onClick: (row) => this.showIbtDetailModal(row)
           },
           {
             label: 'Print Gate Pass',
@@ -50288,6 +50239,189 @@ const ColdstoreView = {
         Toast.show('IBT filters reset to default', 'info');
       });
     }
+  },
+
+  // 6b. IBT DETAIL MODAL WITH ITEM DATA TABLE
+  showIbtDetailModal(row) {
+    const orderNo = row.orderNumber || row.ibtCode || ('IBT-' + row.id);
+    const dateVal = row.orderDate || row.transferDate || '2026-10-28';
+    const fromStore = row.fromStore || 'Chamber #1 (IQF)';
+    const toStore = row.toStore || 'Chamber #2 (Plate)';
+    const category = row.productCategory || 'Raw Frozen';
+
+    const items = row.items || [
+      {
+        id: 1,
+        sNo: 1,
+        poNo: 'PO-2026-8819',
+        transferDate: dateVal,
+        variety: 'Vannamei (White Shrimp)',
+        grades: '31/40',
+        mcs: Math.round((row.totalMcs || 480) * 0.55),
+        looseBags: 0,
+        packingStyle: '10x1kg Net',
+        packingType: 'Master Cartons',
+        category: category,
+        storeName: fromStore,
+        rackName: 'Rack A-04',
+        kgs: ((row.totalMcs || 480) * 0.55 * 10),
+        reason: 'Stock Relocation for Order Dispatch'
+      },
+      {
+        id: 2,
+        sNo: 2,
+        poNo: 'PO-2026-8820',
+        transferDate: dateVal,
+        variety: 'Black Tiger Block',
+        grades: '16/20',
+        mcs: Math.round((row.totalMcs || 480) * 0.45),
+        looseBags: 14,
+        packingStyle: '6x2kg Block',
+        packingType: 'Block Cartons',
+        category: category,
+        storeName: toStore,
+        rackName: 'Rack B-12',
+        kgs: ((row.totalMcs || 480) * 0.45 * 12),
+        reason: 'Chamber Balancing & Pre-cooling'
+      },
+      {
+        id: 3,
+        sNo: 3,
+        poNo: 'PO-2026-8824',
+        transferDate: dateVal,
+        variety: 'Sea Pearl Cooked PDTO',
+        grades: '26/30',
+        mcs: 80,
+        looseBags: 6,
+        packingStyle: '5x2lb Pouch',
+        packingType: 'Retail Bags',
+        category: 'Cooked Frozen',
+        storeName: fromStore,
+        rackName: 'Rack C-02',
+        kgs: 800.0,
+        reason: 'Export Buffer Staging'
+      }
+    ];
+
+    Modal.open({
+      title: `Inter-Branch Transfer Details: ${orderNo}`,
+      size: 'full',
+      content: `
+        <div class="space-y-4 text-xs text-[#172B4D]">
+          <!-- Header Banner -->
+          <div class="p-3 bg-[#F4F5F7] border border-[#DFE1E6] rounded-lg flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">ORDER NUMBER</span>
+              <div class="text-base font-extrabold text-[#0284C7] font-mono">${orderNo}</div>
+            </div>
+            <div class="flex items-center gap-4">
+              <div>
+                <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">IBT TYPE</span>
+                <div>
+                  <span class="px-2.5 py-0.5 rounded text-[10px] font-bold bg-[#EAE6FF] text-[#403294] border border-[#D3C5FF]">${row.ibtType || 'Inter-Plant Transfer'}</span>
+                </div>
+              </div>
+              <div class="text-right">
+                <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">STATUS</span>
+                <div>
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold ${row.status === 'Received & Stored' ? 'bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]' : 'bg-[#DEEBFF] text-[#0747A6] border border-[#B3D4FF]'}">${row.status || 'In Transit'}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Order Summary Meta Grid -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-white p-3 border border-[#DFE1E6] rounded-lg">
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">ORDER DATE</span>
+              <span class="font-semibold text-xs text-[#172B4D]">${dateVal}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">FROM STORE</span>
+              <span class="font-semibold text-xs text-[#0284C7]">${fromStore}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">TO STORE</span>
+              <span class="font-semibold text-xs text-[#00875A]">${toStore}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">TOTAL MCS / BAGS</span>
+              <span class="font-mono font-bold text-xs text-[#172B4D]">${Number(row.totalMcs || 0).toLocaleString()} Mcs / ${Number(row.totalNoOfBags || 0).toLocaleString()} Bags</span>
+            </div>
+          </div>
+
+          <!-- Line Items Section Heading -->
+          <div class="flex items-center justify-between pt-1">
+            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5 text-[#0284C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+              <span>Transferred Stock Items (${items.length})</span>
+            </h4>
+          </div>
+
+          <!-- Itemized Table Container -->
+          <div class="bg-white border border-[#DFE1E6] rounded-xl p-3 shadow-xs">
+            <div id="cs-ibt-detail-table"></div>
+          </div>
+        </div>
+      `
+    });
+
+    // Mount DataTable for Line Items with the exact 15 columns
+    new DataTable({
+      containerId: 'cs-ibt-detail-table',
+      tableTitle: 'Transferred Stock Items',
+      searchable: true,
+      exportable: true,
+      pageSize: 5,
+      columns: [
+        // 1. S.NO
+        { field: 'sNo', header: 'S.NO', render: (v, r, idx) => `<span class="text-[#5E6C84] font-semibold">${idx + 1}</span>` },
+        // 2. PoNo
+        { field: 'poNo', header: 'PoNo', sortable: true, render: v => `<span class="font-mono font-bold text-[#0284C7] whitespace-nowrap">${v || '-'}</span>` },
+        // 3. Transfer Date
+        { field: 'transferDate', header: 'Transfer Date', sortable: true, render: v => `<span class="whitespace-nowrap">${v || '-'}</span>` },
+        // 4. Variety
+        { field: 'variety', header: 'Variety', sortable: true, render: v => `<span class="font-semibold text-[#172B4D] whitespace-nowrap">${v || '-'}</span>` },
+        // 5. Grades
+        { field: 'grades', header: 'Grades', sortable: true, render: v => `<span class="font-mono font-bold text-[#0284C7] whitespace-nowrap">${v || '-'}</span>` },
+        // 6. Mcs
+        { field: 'mcs', header: 'Mcs', sortable: true, render: v => `<span class="font-mono font-bold text-[#00875A]">${Number(v || 0).toLocaleString()}</span>` },
+        // 7. Loose Bags
+        { field: 'looseBags', header: 'Loose Bags', sortable: true, render: v => `<span class="font-mono font-bold text-[#D97706]">${Number(v || 0).toLocaleString()}</span>` },
+        // 8. Packing Style
+        { field: 'packingStyle', header: 'Packing Style', sortable: true, render: v => `<span class="whitespace-nowrap">${v || '-'}</span>` },
+        // 9. Packing Type
+        { field: 'packingType', header: 'Packing Type', sortable: true, render: v => `<span class="whitespace-nowrap">${v || '-'}</span>` },
+        // 10. Category
+        { field: 'category', header: 'Category', sortable: true, render: v => `<span class="px-2 py-0.5 rounded-full text-[10px] font-medium bg-[#EBF8FF] text-[#0284C7] whitespace-nowrap">${v || '-'}</span>` },
+        // 11. Store Name
+        { field: 'storeName', header: 'Store Name', sortable: true, render: v => `<span class="font-semibold text-[#172B4D] whitespace-nowrap">${v || '-'}</span>` },
+        // 12. Rack Name
+        { field: 'rackName', header: 'Rack Name', sortable: true, render: v => `<span class="font-mono font-bold text-[#5E6C84] whitespace-nowrap">${v || '-'}</span>` },
+        // 13. Kgs
+        { field: 'kgs', header: 'Kgs', sortable: true, render: v => `<span class="font-mono font-bold text-[#00875A] whitespace-nowrap">${Number(v || 0).toFixed(2)}</span>` },
+        // 14. Reason
+        { field: 'reason', header: 'Reason', sortable: true, render: v => `<span class="text-[#5E6C84] text-[11px] whitespace-nowrap">${v || 'Inter-Branch Stock Balancing'}</span>` }
+      ],
+      actionsTitle: 'Actions',
+      actions: [
+        {
+          label: 'Print Pallet Tag',
+          icon: `<svg class="w-4 h-4 text-[#403294]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>`,
+          onClick: (item) => {
+            Toast.show(`Printing barcode tag for PO ${item.poNo} (${item.grades})...`, 'info');
+          }
+        },
+        {
+          label: 'Verify Location',
+          icon: `<svg class="w-4 h-4 text-[#00875A]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`,
+          onClick: (item) => {
+            Toast.show(`Verified: ${item.storeName} - ${item.rackName}`, 'success');
+          }
+        }
+      ],
+      data: items
+    });
   },
 
   // 7. SHIPMENT
