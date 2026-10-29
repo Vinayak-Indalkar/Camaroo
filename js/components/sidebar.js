@@ -199,6 +199,14 @@ export const ADMIN_NAV_HIERARCHY = [
         ]
       },
       {
+        id: "production",
+        title: "Production",
+        defaultTab: "production-intake",
+        tabs: [
+          { id: "production-intake", label: "Production", hash: "#/coldstore/production/production-intake" }
+        ]
+      },
+      {
         id: "stock",
         title: "Stock",
         defaultTab: "stock-list",
