@@ -3319,7 +3319,6 @@ export const InventoryView = {
       <div class="flex items-center justify-between pb-1">
         <div>
           <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Material Issue (GS)</h1>
-          <p class="text-xs text-[#5E6C84] mt-0.5">Issue store materials against approved indents and departmental consumption slips</p>
         </div>
       </div>
       <div class="bg-white border border-[#DFE1E6] rounded-xl p-6 shadow-xs text-center text-xs text-[#5E6C84]">
