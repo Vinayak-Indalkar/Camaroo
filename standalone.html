@@ -53342,6 +53342,82 @@ const InventoryView = {
       }
     ],
 
+    // 1d. General Store Material Issues
+    materialIssueList: [
+      {
+        id: 1,
+        docNo: 'ISS-GS-2026-0031',
+        date: '2026-10-28',
+        location: 'Main Store Rack A-2',
+        department: 'Processing Unit-5',
+        narration: 'Store issue for Shift A processing line consumables and daily PPE',
+        items: [
+          {
+            item: 'Nitrile Food-Grade Gloves (Blue, L)',
+            uom: 'Box',
+            availableQty: 15,
+            itemPrice: 280.00,
+            batch: 'BAT-2026-09A',
+            quantity: 50,
+            baseValue: 14000.00,
+            gstPercent: 18,
+            invoiceAmount: 16520.00,
+            purpose: 'Shrimp peeling table crew hygiene',
+            attachment: '',
+            remarks: 'Shift Incharge indent'
+          }
+        ]
+      },
+      {
+        id: 2,
+        docNo: 'ISS-GS-2026-0032',
+        date: '2026-10-27',
+        location: 'Coldstore Hub B',
+        department: 'Coldstore Hub',
+        narration: 'Thermal printer barcode ribbons issued for plate freezer lot tagging',
+        items: [
+          {
+            item: 'Thermal Transfer Barcode Ribbon (110mm x 300m)',
+            uom: 'Rolls',
+            availableQty: 4,
+            itemPrice: 420.00,
+            batch: 'BAT-RIB-802',
+            quantity: 10,
+            baseValue: 4200.00,
+            gstPercent: 18,
+            invoiceAmount: 4956.00,
+            purpose: 'Freezer export pallet labeling',
+            attachment: '',
+            remarks: 'Approved by CS Manager'
+          }
+        ]
+      },
+      {
+        id: 3,
+        docNo: 'ISS-GS-2026-0033',
+        date: '2026-10-26',
+        location: 'Engineering Bay C',
+        department: 'Engineering & Maintenance',
+        narration: 'Replacement valve packing kits for ammonia refrigeration maintenance',
+        items: [
+          {
+            item: 'Danfoss Ammonia Valve Packing Kits',
+            uom: 'Sets',
+            availableQty: 2,
+            itemPrice: 1850.00,
+            batch: 'BAT-ENG-441',
+            quantity: 2,
+            baseValue: 3700.00,
+            gstPercent: 18,
+            invoiceAmount: 4366.00,
+            purpose: 'Refrigeration unit overhaul',
+            attachment: '',
+            remarks: 'Routine preventive schedule'
+          }
+        ]
+      }
+    ],
+
     // 2. Packing Material Proforma Invoices
     pmProformaList: [
       {
@@ -56154,19 +56230,903 @@ const InventoryView = {
     });
   },
 
+  // =========================================================================
+  // 1d. GENERAL STORE &rarr; MATERIAL ISSUE (GS)
+  // Form Input Fields: DOC NO, DATE, LOCATION, DEPARTMENT, NARRATION
+  // Item Details Fields: Item, UoM, Available Qty, Item Price, Batch, Quantity, Base Value, GST%, Invoice Amount, Purpose, Attachment, Remarks, Action
+  // Search & Filter, Data Table (S No, Date, Actions), Modal Popups & Confirmations
+  // =========================================================================
   renderGeneralStoreMaterialIssue(container) {
+    const todayStr = new Date().toISOString().slice(0, 10);
+
     container.innerHTML = `
-      <div class="flex items-center justify-between pb-1">
+      <!-- Page Header -->
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-1">
         <div>
           <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Material Issue (GS)</h1>
         </div>
+        <div class="flex items-center gap-2">
+          <button type="button" id="gs-issue-add-btn" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+            <span>Add Material Issue</span>
+          </button>
+        </div>
       </div>
-      <div class="bg-white border border-[#DFE1E6] rounded-xl p-6 shadow-xs text-center text-xs text-[#5E6C84]">
-        <svg class="w-10 h-10 text-[#00A4B7] mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
-        <p class="font-bold text-[#172B4D] text-sm">Store Material Issue Ledger</p>
-        <p class="mt-1 text-[#64748B]">Issue store items directly to processing units with real-time balance deductions.</p>
+
+      <!-- Search & Filter Card -->
+      <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200">
+        <div class="flex items-center justify-between pb-1">
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+            <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
+          </div>
+          <div class="inline-flex items-center gap-2">
+            <button type="button" id="issue-flt-reset-btn" class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Reset all filters">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+            </button>
+            <button type="button" id="issue-flt-toggle-btn" class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Hide Filter">
+              <svg id="issue-flt-toggle-icon" class="w-3.5 h-3.5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div id="issue-flt-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3 pt-3 border-t border-[#F1F5F9] mt-2 text-xs">
+          <!-- 1. Search Query -->
+          <div>
+            <label for="issue-flt-search" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SEARCH</label>
+            <input type="text" id="issue-flt-search" placeholder="Doc No / Item / Narration..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+
+          <!-- 2. Department -->
+          <div>
+            <label for="issue-flt-dept" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DEPARTMENT</label>
+            <select id="issue-flt-dept" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL">All Departments</option>
+              <option value="Processing Unit-5">Processing Unit-5</option>
+              <option value="Coldstore Hub">Coldstore Hub</option>
+              <option value="Engineering & Maintenance">Engineering &amp; Maintenance</option>
+              <option value="Quality Control Lab">Quality Control Lab</option>
+              <option value="Pre-Processing Unit">Pre-Processing Unit</option>
+              <option value="Administration & Safety">Administration &amp; Safety</option>
+            </select>
+          </div>
+
+          <!-- 3. From Date -->
+          <div>
+            <label for="issue-flt-from" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FROM DATE</label>
+            <div class="erp-date-wrapper">
+              <input type="date" id="issue-flt-from" value="2026-10-01" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
+            </div>
+          </div>
+
+          <!-- 4. To Date -->
+          <div>
+            <label for="issue-flt-to" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">TO DATE</label>
+            <div class="erp-date-wrapper">
+              <input type="date" id="issue-flt-to" value="${todayStr}" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
+            </div>
+          </div>
+
+          <!-- Search Button -->
+          <div class="flex items-end">
+            <button type="button" id="issue-flt-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+              <span>Search</span>
+            </button>
+          </div>
+        </div>
       </div>
+
+      <!-- Material Issue Records Table: S No, Date, Actions (plus Doc No, Dept, Location, Amount) -->
+      <div id="gs-material-issue-table-container"></div>
     `;
+
+    // Click handler for Add Button
+    container.querySelector('#gs-issue-add-btn')?.addEventListener('click', () => {
+      this.showAddMaterialIssueModal(() => {
+        renderTable(this.state.materialIssueList);
+      });
+    });
+
+    // Render Material Issue DataTable
+    const renderTable = (data) => {
+      new DataTable({
+        containerId: 'gs-material-issue-table-container',
+        tableTitle: `Material Issue Records (${data.length})`,
+        searchable: true,
+        exportable: true,
+        pageSize: 10,
+        onRowClick: (row) => {
+          this.showMaterialIssueDetailModal(row);
+        },
+        columns: [
+          // 1. S No (Clickable)
+          {
+            field: 'sNo',
+            header: 'S No',
+            sortable: true,
+            render: (v, r, idx) => `
+              <span class="text-[#00A4B7] font-semibold hover:underline cursor-pointer select-none" title="Click to view Material Issue details">${idx + 1}</span>
+            `
+          },
+          // 2. Doc No
+          {
+            field: 'docNo',
+            header: 'Doc No',
+            sortable: true,
+            render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer whitespace-nowrap" title="Click to view details">${v}</span>`
+          },
+          // 3. Date
+          {
+            field: 'date',
+            header: 'Date',
+            sortable: true,
+            render: v => `<span class="whitespace-nowrap text-xs text-[#172B4D] font-medium font-mono">${v}</span>`
+          },
+          // 4. Department
+          {
+            field: 'department',
+            header: 'Department',
+            sortable: true,
+            render: v => `<span class="font-semibold text-xs text-[#172B4D] whitespace-nowrap">${v}</span>`
+          },
+          // 5. Location
+          {
+            field: 'location',
+            header: 'Location',
+            sortable: true,
+            render: v => `<span class="text-xs text-[#5E6C84] whitespace-nowrap">${v || '-'}</span>`
+          },
+          // 6. Items Issued
+          {
+            field: 'items',
+            header: 'Items',
+            sortable: false,
+            render: (v, r) => {
+              const count = r.items?.length || 0;
+              return `<span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-[#E0F2FE] text-[#0284C7] border border-[#BAE6FD] whitespace-nowrap">${count} Item(s)</span>`;
+            }
+          },
+          // 7. Total Value
+          {
+            field: 'totalValue',
+            header: 'Total Value',
+            sortable: true,
+            render: (v, r) => {
+              const total = (r.items || []).reduce((acc, it) => acc + (it.invoiceAmount || it.baseValue || 0), 0);
+              return `<span class="font-mono font-bold text-xs text-[#00875A] whitespace-nowrap">₹${total.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>`;
+            }
+          }
+        ],
+        actionsTitle: 'Actions',
+        actions: [
+          {
+            label: 'View',
+            title: 'View Issue Details',
+            icon: `<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>`,
+            onClick: (row) => {
+              this.showMaterialIssueDetailModal(row);
+            }
+          },
+          {
+            label: 'Edit',
+            title: 'Edit Material Issue',
+            icon: `<svg class="w-4 h-4 text-[#0284C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>`,
+            onClick: (row) => {
+              this.showEditMaterialIssueModal(row, () => {
+                renderTable(this.state.materialIssueList);
+              });
+            }
+          },
+          {
+            label: 'Delete',
+            title: 'Delete Material Issue',
+            icon: `<svg class="w-4 h-4 text-[#DE350B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>`,
+            onClick: (row) => {
+              Modal.confirm({
+                title: 'Delete Material Issue',
+                message: `Are you sure you want to delete Material Issue <strong>${row.docNo}</strong> for <strong>${row.department}</strong>? This action cannot be undone.`,
+                confirmText: 'Delete Issue',
+                isDestructive: true,
+                onConfirm: () => {
+                  const idx = this.state.materialIssueList.findIndex(r => r.id === row.id || r.docNo === row.docNo);
+                  if (idx !== -1) {
+                    this.state.materialIssueList.splice(idx, 1);
+                    renderTable(this.state.materialIssueList);
+                    Toast.show(`Material Issue ${row.docNo} deleted.`, 'success');
+                  }
+                }
+              });
+            }
+          }
+        ],
+        data: data
+      });
+    };
+
+    renderTable(this.state.materialIssueList);
+
+    // Search & Filter Handlers
+    container.querySelector('#issue-flt-search-btn')?.addEventListener('click', () => {
+      const q = container.querySelector('#issue-flt-search')?.value?.trim().toLowerCase();
+      const dept = container.querySelector('#issue-flt-dept')?.value;
+      const fromVal = container.querySelector('#issue-flt-from')?.value;
+      const toVal = container.querySelector('#issue-flt-to')?.value;
+
+      const filtered = this.state.materialIssueList.filter(it => {
+        if (q) {
+          const matchDoc = it.docNo?.toLowerCase().includes(q);
+          const matchNarr = it.narration?.toLowerCase().includes(q);
+          const matchItem = (it.items || []).some(x => x.item?.toLowerCase().includes(q));
+          if (!matchDoc && !matchNarr && !matchItem) return false;
+        }
+        if (dept && dept !== 'ALL' && it.department !== dept) return false;
+        if (fromVal && it.date < fromVal) return false;
+        if (toVal && it.date > toVal) return false;
+        return true;
+      });
+
+      renderTable(filtered);
+      Toast.show(`Found ${filtered.length} matching Material Issue(s)`, 'info');
+    });
+
+    // Reset Handler
+    container.querySelector('#issue-flt-reset-btn')?.addEventListener('click', () => {
+      container.querySelector('#issue-flt-search').value = '';
+      container.querySelector('#issue-flt-dept').value = 'ALL';
+      container.querySelector('#issue-flt-from').value = '2026-10-01';
+      container.querySelector('#issue-flt-to').value = todayStr;
+      renderTable(this.state.materialIssueList);
+      Toast.show('Material Issue filters reset to default', 'info');
+    });
+
+    // Toggle Filters Accordion
+    const filterBody = container.querySelector('#issue-flt-body');
+    const toggleIcon = container.querySelector('#issue-flt-toggle-icon');
+    container.querySelector('#issue-flt-toggle-btn')?.addEventListener('click', () => {
+      if (filterBody) {
+        filterBody.classList.toggle('hidden');
+        if (toggleIcon) {
+          toggleIcon.classList.toggle('rotate-180');
+        }
+      }
+    });
+  },
+
+  // 1e. ADD MATERIAL ISSUE (GS) MODAL POPUP
+  showAddMaterialIssueModal(onSuccess = null) {
+    const todayStr = new Date().toISOString().slice(0, 10);
+    const nextNum = (this.state.materialIssueList?.length || 0) + 1;
+    const defaultDocNo = `ISS-GS-2026-${String(30 + nextNum).padStart(4, '0')}`;
+
+    let modalStagedIssueItems = [
+      {
+        item: 'Nitrile Food-Grade Gloves (Blue, L)',
+        uom: 'Box',
+        availableQty: 15,
+        itemPrice: 280.00,
+        batch: `BAT-${new Date().getFullYear()}-09A`,
+        quantity: 50,
+        baseValue: 14000.00,
+        gstPercent: 18,
+        invoiceAmount: 16520.00,
+        purpose: 'Shrimp peeling table crew hygiene',
+        attachment: '',
+        remarks: 'Shift Incharge indent'
+      }
+    ];
+
+    Modal.open({
+      title: 'Add Material Issue (GS)',
+      size: 'full',
+      content: `
+        <form id="modal-add-issue-form" class="space-y-4 text-xs text-[#172B4D]" onsubmit="return false;">
+          <!-- Section 1: Header Information -->
+          <div>
+            <div class="flex items-center justify-between pb-2 mb-3 border-b border-[#DFE1E6]">
+              <div class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Issue Header Information</h4>
+              </div>
+              <span class="text-[11px] font-semibold text-[#5E6C84]">All fields marked with <span class="text-[#DE350B] font-bold">*</span> are required</span>
+            </div>
+
+            <!-- Form Input Fields: DOC NO, DATE, LOCATION, DEPARTMENT, NARRATION -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3.5">
+              <!-- 1. DOC NO -->
+              <div>
+                <label for="missue-docno" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DOC NO <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="missue-docno" value="${defaultDocNo}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+
+              <!-- 2. DATE -->
+              <div>
+                <label for="missue-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DATE <span class="text-[#DE350B]">*</span></label>
+                <div class="erp-date-wrapper">
+                  <input type="date" id="missue-date" value="${todayStr}" required class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
+                </div>
+              </div>
+
+              <!-- 3. LOCATION -->
+              <div>
+                <label for="missue-loc" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">LOCATION <span class="text-[#DE350B]">*</span></label>
+                <select id="missue-loc" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="Main Store Rack A-2" selected>Main Store Rack A-2</option>
+                  <option value="Main Store Rack B-1">Main Store Rack B-1</option>
+                  <option value="Coldstore Hub B">Coldstore Hub B</option>
+                  <option value="Engineering Bay C">Engineering Bay C</option>
+                  <option value="QC Lab Storage">QC Lab Storage</option>
+                  <option value="Packaging Store Bay 1">Packaging Store Bay 1</option>
+                </select>
+              </div>
+
+              <!-- 4. DEPARTMENT -->
+              <div>
+                <label for="missue-dept" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DEPARTMENT <span class="text-[#DE350B]">*</span></label>
+                <select id="missue-dept" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="Processing Unit-5" selected>Processing Unit-5</option>
+                  <option value="Coldstore Hub">Coldstore Hub</option>
+                  <option value="Engineering & Maintenance">Engineering &amp; Maintenance</option>
+                  <option value="Quality Control Lab">Quality Control Lab</option>
+                  <option value="Pre-Processing Unit">Pre-Processing Unit</option>
+                  <option value="Administration & Safety">Administration &amp; Safety</option>
+                </select>
+              </div>
+
+              <!-- 5. NARRATION (Takes full 4 columns) -->
+              <div class="sm:col-span-2 md:col-span-4">
+                <label for="missue-narration" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">NARRATION</label>
+                <input type="text" id="missue-narration" placeholder="Enter material issue purpose / requisition notes..." value="Store material consumption issue against approved departmental indent" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Work Flow - Item Details -->
+          <div class="pt-2 border-t border-[#DFE1E6]">
+            <div class="flex items-center justify-between pb-2 mb-3">
+              <div class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+                <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Work Flow - Item Details</h4>
+              </div>
+              <span id="modal-issue-items-count" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#E0F2FE] text-[#0284C7] border border-[#BAE6FD]">
+                ${modalStagedIssueItems.length} Item(s) in Issue
+              </span>
+            </div>
+
+            <!-- Item Input Grid Card (4-Column Layout) -->
+            <div class="bg-[#F8FAFC] border border-[#DFE1E6] rounded-xl p-3.5 shadow-2xs">
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3.5">
+                <!-- Row 1 -->
+                <!-- 1. Item (Span 2) -->
+                <div class="sm:col-span-2 md:col-span-2">
+                  <label for="missue-item-name" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ITEM <span class="text-[#DE350B]">*</span></label>
+                  <input type="text" id="missue-item-name" placeholder="Item name or specification..." value="Nitrile Food-Grade Gloves (Blue, L)" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                </div>
+
+                <!-- 2. UoM (Col 3) -->
+                <div>
+                  <label for="missue-item-uom" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">UoM <span class="text-[#DE350B]">*</span></label>
+                  <select id="missue-item-uom" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                    <option value="Box" selected>Box</option>
+                    <option value="Nos">Nos</option>
+                    <option value="Rolls">Rolls</option>
+                    <option value="Sets">Sets</option>
+                    <option value="Kits">Kits</option>
+                    <option value="Pairs">Pairs</option>
+                    <option value="Kg">Kg</option>
+                    <option value="Ltr">Ltr</option>
+                    <option value="Bags">Bags</option>
+                  </select>
+                </div>
+
+                <!-- 3. Available Qty (Col 4) -->
+                <div>
+                  <label for="missue-avail-qty" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">AVAILABLE QTY</label>
+                  <input type="number" id="missue-avail-qty" value="15" min="0" class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] shadow-2xs cursor-not-allowed" readonly />
+                </div>
+
+                <!-- Row 2 -->
+                <!-- 4. Batch (Col 1) -->
+                <div>
+                  <label for="missue-batch" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BATCH <span class="text-[#DE350B]">*</span></label>
+                  <input type="text" id="missue-batch" placeholder="Batch / Lot #" value="BAT-${new Date().getFullYear()}-09A" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                </div>
+
+                <!-- 5. Quantity (Col 2) -->
+                <div>
+                  <label for="missue-qty" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">QUANTITY <span class="text-[#DE350B]">*</span></label>
+                  <input type="number" id="missue-qty" value="50" min="1" step="1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                </div>
+
+                <!-- 6. Item Price (Col 3) -->
+                <div>
+                  <label for="missue-price" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ITEM PRICE (₹)</label>
+                  <input type="number" id="missue-price" value="280.00" min="0" step="0.01" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                </div>
+
+                <!-- 7. Base Value (Col 4, Auto calculated: Quantity * Price) -->
+                <div>
+                  <label for="missue-base-val" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BASE VALUE (₹)</label>
+                  <input type="text" id="missue-base-val" value="14000.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] shadow-2xs cursor-not-allowed" />
+                </div>
+
+                <!-- Row 3 -->
+                <!-- 8. GST% (Col 1) -->
+                <div>
+                  <label for="missue-gst-pct" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">GST %</label>
+                  <select id="missue-gst-pct" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                    <option value="0">0%</option>
+                    <option value="5">5%</option>
+                    <option value="12">12%</option>
+                    <option value="18" selected>18%</option>
+                    <option value="28">28%</option>
+                  </select>
+                </div>
+
+                <!-- 9. Invoice Amount (Col 2, Auto calculated: Base Value + Tax) -->
+                <div>
+                  <label for="missue-inv-amt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">INVOICE AMOUNT (₹)</label>
+                  <input type="text" id="missue-inv-amt" value="16520.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] shadow-2xs cursor-not-allowed" />
+                </div>
+
+                <!-- 10. Purpose (Span 2) -->
+                <div class="sm:col-span-2 md:col-span-2">
+                  <label for="missue-purpose" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PURPOSE</label>
+                  <input type="text" id="missue-purpose" placeholder="Operational purpose..." value="Shrimp peeling table crew hygiene" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                </div>
+
+                <!-- Row 4 -->
+                <!-- 11. Attachment (Col 1) -->
+                <div>
+                  <label for="missue-attach" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ATTACHMENT</label>
+                  <input type="file" id="missue-attach" class="w-full text-[11px] px-2 py-1 bg-white border border-[#DFE1E6] rounded text-[#5E6C84] focus:outline-none focus:border-[#00A4B7] file:mr-2 file:py-0.5 file:px-2 file:rounded file:border-0 file:text-[10px] file:font-semibold file:bg-[#E0F2FE] file:text-[#0284C7] cursor-pointer" />
+                </div>
+
+                <!-- 12. Remarks (Span 2) -->
+                <div class="sm:col-span-2 md:col-span-2">
+                  <label for="missue-remarks" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">REMARKS</label>
+                  <input type="text" id="missue-remarks" placeholder="Optional notes / issue remarks..." value="Shift Incharge indent" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                </div>
+
+                <!-- 13. Action: Add Item Button (Col 4, aligned to bottom) -->
+                <div class="flex items-end justify-end pt-1">
+                  <button type="button" id="modal-issue-btn-add-item" class="w-full btn-primary px-5 py-2 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px]">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                    <span>Add Item</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Staged Material Issue Items Table -->
+            <div class="mt-3 overflow-x-auto border border-[#DFE1E6] rounded-lg">
+              <table class="w-full text-left text-xs border-collapse">
+                <thead class="bg-[#F8FAFC] border-b border-[#DFE1E6] text-[#475569] font-bold text-[11px] uppercase tracking-wider">
+                  <tr>
+                    <th class="py-2.5 px-3">Item</th>
+                    <th class="py-2.5 px-3">UoM</th>
+                    <th class="py-2.5 px-3">Batch</th>
+                    <th class="py-2.5 px-3 text-right">Quantity</th>
+                    <th class="py-2.5 px-3 text-right">Item Price</th>
+                    <th class="py-2.5 px-3 text-right">Base Value</th>
+                    <th class="py-2.5 px-3 text-right">GST%</th>
+                    <th class="py-2.5 px-3 text-right">Invoice Amount</th>
+                    <th class="py-2.5 px-3">Purpose</th>
+                    <th class="py-2.5 px-3">Attachment</th>
+                    <th class="py-2.5 px-3">Remarks</th>
+                    <th class="py-2.5 px-3 text-center">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="modal-issue-staged-tbody" class="divide-y divide-[#DFE1E6] text-[#1E293B]">
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </form>
+      `,
+      footerButtons: [
+        {
+          label: 'Cancel',
+          type: 'secondary',
+          class: 'btn-secondary border border-[#CBD5E1] px-5 py-2 rounded-full text-xs font-semibold text-[#475569] hover:bg-[#F8FAFC] transition-all cursor-pointer',
+          onClick: () => Modal.close()
+        },
+        {
+          label: 'Save Material Issue',
+          type: 'primary',
+          class: 'btn-primary border-0 px-6 py-2 rounded-full text-xs font-semibold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all',
+          onClick: () => {
+            const modalRoot = document.getElementById('erp-modal-root');
+            if (!modalRoot) return;
+
+            const docNo = modalRoot.querySelector('#missue-docno')?.value?.trim();
+            const date = modalRoot.querySelector('#missue-date')?.value;
+            const location = modalRoot.querySelector('#missue-loc')?.value;
+            const department = modalRoot.querySelector('#missue-dept')?.value;
+            const narration = modalRoot.querySelector('#missue-narration')?.value?.trim();
+
+            if (!docNo) {
+              Toast.show('Please enter a valid DOC NO.', 'warning');
+              modalRoot.querySelector('#missue-docno')?.focus();
+              return;
+            }
+            if (modalStagedIssueItems.length === 0) {
+              Toast.show('Please add at least one item to the Material Issue.', 'warning');
+              return;
+            }
+
+            // Confirmation Modal Popup
+            Modal.confirm({
+              title: 'Confirm Save Material Issue',
+              message: `Are you sure you want to save Material Issue <strong>${docNo}</strong> for <strong>${department}</strong> (${location}) with <strong>${modalStagedIssueItems.length} item(s)</strong>?`,
+              confirmText: 'Save Material Issue',
+              onConfirm: () => {
+                const newIssue = {
+                  id: (this.state.materialIssueList?.length || 0) + 1,
+                  docNo,
+                  date,
+                  location,
+                  department,
+                  narration,
+                  items: [...modalStagedIssueItems]
+                };
+
+                this.state.materialIssueList.unshift(newIssue);
+                Modal.close();
+                Toast.show(`Material Issue ${docNo} saved successfully!`, 'success');
+
+                if (typeof onSuccess === 'function') {
+                  onSuccess();
+                }
+              }
+            });
+          }
+        }
+      ]
+    });
+
+    const modalRoot = document.getElementById('erp-modal-root');
+    if (!modalRoot) return;
+
+    // Calculation logic
+    const recalcIssueItemInputs = () => {
+      const qty = parseInt(modalRoot.querySelector('#missue-qty')?.value, 10) || 0;
+      const price = parseFloat(modalRoot.querySelector('#missue-price')?.value) || 0;
+      const gstPct = parseFloat(modalRoot.querySelector('#missue-gst-pct')?.value) || 0;
+
+      const baseVal = qty * price;
+      const invAmt = baseVal + (baseVal * (gstPct / 100));
+
+      const baseValEl = modalRoot.querySelector('#missue-base-val');
+      const invAmtEl = modalRoot.querySelector('#missue-inv-amt');
+
+      if (baseValEl) baseValEl.value = baseVal.toFixed(2);
+      if (invAmtEl) invAmtEl.value = invAmt.toFixed(2);
+    };
+
+    ['#missue-qty', '#missue-price', '#missue-gst-pct'].forEach(sel => {
+      modalRoot.querySelector(sel)?.addEventListener('input', recalcIssueItemInputs);
+      modalRoot.querySelector(sel)?.addEventListener('change', recalcIssueItemInputs);
+    });
+
+    // Render Staged Items in Modal
+    const renderModalStagedIssueItems = () => {
+      const tbody = modalRoot.querySelector('#modal-issue-staged-tbody');
+      const countBadge = modalRoot.querySelector('#modal-issue-items-count');
+      if (!tbody) return;
+
+      if (countBadge) countBadge.textContent = `${modalStagedIssueItems.length} Item(s) in Issue`;
+
+      if (modalStagedIssueItems.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="12" class="text-center py-4 text-xs text-[#94A3B8] italic">No items staged yet. Fill fields above and click "Add Item".</td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = modalStagedIssueItems.map((it, idx) => `
+        <tr class="hover:bg-[#F8FAFC] transition-colors">
+          <td class="py-2.5 px-3 font-semibold text-[#172B4D]">${it.item}</td>
+          <td class="py-2.5 px-3 font-mono text-[#5E6C84]">${it.uom}</td>
+          <td class="py-2.5 px-3 font-mono text-xs font-semibold text-[#172B4D]">${it.batch}</td>
+          <td class="py-2.5 px-3 text-right font-mono font-bold text-[#172B4D]">${it.quantity}</td>
+          <td class="py-2.5 px-3 text-right font-mono text-[#5E6C84]">₹${Number(it.itemPrice).toFixed(2)}</td>
+          <td class="py-2.5 px-3 text-right font-mono font-bold text-[#172B4D]">₹${Number(it.baseValue).toFixed(2)}</td>
+          <td class="py-2.5 px-3 text-right font-mono text-[#00A4B7]">${it.gstPercent}%</td>
+          <td class="py-2.5 px-3 text-right font-mono font-bold text-[#00875A]">₹${Number(it.invoiceAmount).toFixed(2)}</td>
+          <td class="py-2.5 px-3 text-xs text-[#5E6C84]">${it.purpose || '-'}</td>
+          <td class="py-2.5 px-3">
+            ${it.attachment ? `
+              <span class="inline-flex items-center gap-1 text-[11px] font-mono text-[#00A4B7] bg-[#E0F2FE] px-2 py-0.5 rounded border border-[#BAE6FD]">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/></svg>
+                ${it.attachment}
+              </span>
+            ` : '<span class="text-[#94A3B8] italic">None</span>'}
+          </td>
+          <td class="py-2.5 px-3 text-xs text-[#5E6C84]">${it.remarks || '-'}</td>
+          <td class="py-2.5 px-3 text-center">
+            <button type="button" data-remove-idx="${idx}" class="modal-issue-remove-btn w-6 h-6 rounded-full hover:bg-[#FFEBE6] text-[#DE350B] inline-flex items-center justify-center transition-colors cursor-pointer" title="Remove Item">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+            </button>
+          </td>
+        </tr>
+      `).join('');
+
+      tbody.querySelectorAll('.modal-issue-remove-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const rIdx = parseInt(btn.dataset.removeIdx, 10);
+          modalStagedIssueItems.splice(rIdx, 1);
+          renderModalStagedIssueItems();
+        });
+      });
+    };
+
+    renderModalStagedIssueItems();
+
+    // Add item click handler
+    modalRoot.querySelector('#modal-issue-btn-add-item')?.addEventListener('click', () => {
+      const item = modalRoot.querySelector('#missue-item-name')?.value?.trim();
+      const uom = modalRoot.querySelector('#missue-item-uom')?.value || 'Nos';
+      const availableQty = parseInt(modalRoot.querySelector('#missue-avail-qty')?.value, 10) || 0;
+      const batch = modalRoot.querySelector('#missue-batch')?.value?.trim() || `BAT-${new Date().getFullYear()}-01`;
+      const quantity = parseInt(modalRoot.querySelector('#missue-qty')?.value, 10) || 0;
+      const itemPrice = parseFloat(modalRoot.querySelector('#missue-price')?.value) || 0;
+      const baseValue = quantity * itemPrice;
+      const gstPercent = parseFloat(modalRoot.querySelector('#missue-gst-pct')?.value) || 0;
+      const invoiceAmount = baseValue + (baseValue * (gstPercent / 100));
+      const purpose = modalRoot.querySelector('#missue-purpose')?.value?.trim() || '';
+      const attachInput = modalRoot.querySelector('#missue-attach');
+      const attachment = attachInput?.files && attachInput.files.length > 0 ? attachInput.files[0].name : '';
+      const remarks = modalRoot.querySelector('#missue-remarks')?.value?.trim() || '';
+
+      if (!item) {
+        Toast.show('Please provide Item name before adding.', 'warning');
+        modalRoot.querySelector('#missue-item-name')?.focus();
+        return;
+      }
+      if (quantity <= 0) {
+        Toast.show('Issue Quantity must be greater than zero.', 'warning');
+        modalRoot.querySelector('#missue-qty')?.focus();
+        return;
+      }
+
+      modalStagedIssueItems.push({
+        item,
+        uom,
+        availableQty,
+        itemPrice,
+        batch,
+        quantity,
+        baseValue,
+        gstPercent,
+        invoiceAmount,
+        purpose,
+        attachment,
+        remarks
+      });
+
+      renderModalStagedIssueItems();
+      Toast.show(`Item "${item}" added to Material Issue.`, 'info');
+    });
+  },
+
+  // 1f. MATERIAL ISSUE (GS) DETAILS MODAL POPUP
+  showMaterialIssueDetailModal(row) {
+    if (!row) return;
+
+    const totalBase = (row.items || []).reduce((acc, it) => acc + (it.baseValue || 0), 0);
+    const totalInv = (row.items || []).reduce((acc, it) => acc + (it.invoiceAmount || it.baseValue || 0), 0);
+    const totalQty = (row.items || []).reduce((acc, it) => acc + (it.quantity || 0), 0);
+
+    Modal.open({
+      title: `Material Issue Details: ${row.docNo}`,
+      size: 'full',
+      content: `
+        <div class="space-y-4 text-xs text-[#172B4D]">
+          <!-- Overview Cards -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5 bg-[#F8FAFC] border border-[#DFE1E6] p-3.5 rounded-xl shadow-2xs">
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0.5">DOC NO</span>
+              <span class="font-mono font-bold text-sm text-[#00A4B7]">${row.docNo}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0.5">DATE</span>
+              <span class="font-mono text-xs text-[#172B4D]">${row.date}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0.5">LOCATION</span>
+              <span class="font-semibold text-xs text-[#172B4D]">${row.location}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0.5">DEPARTMENT</span>
+              <span class="font-semibold text-xs text-[#00A4B7]">${row.department}</span>
+            </div>
+          </div>
+
+          ${row.narration ? `
+            <div class="p-3 bg-white border border-[#DFE1E6] rounded-xl shadow-2xs">
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0.5">NARRATION</span>
+              <p class="text-xs text-[#172B4D]">${row.narration}</p>
+            </div>
+          ` : ''}
+
+          <!-- Items Table -->
+          <div>
+            <div class="flex items-center justify-between pb-2 mb-2">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider flex items-center gap-1.5">
+                <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+                Issued Items (${row.items?.length || 0})
+              </h4>
+              <div class="flex items-center gap-3">
+                <span class="font-mono text-xs font-semibold text-[#172B4D]">Total Issued Qty: <strong class="text-[#00875A]">${totalQty}</strong></span>
+                <span class="font-mono text-xs font-bold text-[#00A4B7]">Total Value: ₹${Number(totalInv).toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
+              </div>
+            </div>
+
+            <div class="overflow-x-auto border border-[#DFE1E6] rounded-lg">
+              <table class="w-full text-left text-xs border-collapse">
+                <thead class="bg-[#F8FAFC] border-b border-[#DFE1E6] text-[#475569] font-bold text-[11px] uppercase tracking-wider">
+                  <tr>
+                    <th class="py-2.5 px-3">Item</th>
+                    <th class="py-2.5 px-3">UoM</th>
+                    <th class="py-2.5 px-3">Batch</th>
+                    <th class="py-2.5 px-3 text-right">Quantity</th>
+                    <th class="py-2.5 px-3 text-right">Item Price</th>
+                    <th class="py-2.5 px-3 text-right">Base Value</th>
+                    <th class="py-2.5 px-3 text-right">GST%</th>
+                    <th class="py-2.5 px-3 text-right">Invoice Amount</th>
+                    <th class="py-2.5 px-3">Purpose</th>
+                    <th class="py-2.5 px-3">Attachment</th>
+                    <th class="py-2.5 px-3">Remarks</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-[#DFE1E6] text-[#1E293B]">
+                  ${(row.items || []).map(it => `
+                    <tr class="hover:bg-[#F8FAFC] transition-colors">
+                      <td class="py-2.5 px-3 font-semibold text-[#172B4D]">${it.item}</td>
+                      <td class="py-2.5 px-3 font-mono text-[#5E6C84]">${it.uom}</td>
+                      <td class="py-2.5 px-3 font-mono text-xs font-semibold text-[#172B4D]">${it.batch}</td>
+                      <td class="py-2.5 px-3 text-right font-mono font-bold text-[#172B4D]">${it.quantity}</td>
+                      <td class="py-2.5 px-3 text-right font-mono text-[#5E6C84]">₹${Number(it.itemPrice).toFixed(2)}</td>
+                      <td class="py-2.5 px-3 text-right font-mono font-bold text-[#172B4D]">₹${Number(it.baseValue).toFixed(2)}</td>
+                      <td class="py-2.5 px-3 text-right font-mono text-[#00A4B7]">${it.gstPercent}%</td>
+                      <td class="py-2.5 px-3 text-right font-mono font-bold text-[#00875A]">₹${Number(it.invoiceAmount).toFixed(2)}</td>
+                      <td class="py-2.5 px-3 text-xs text-[#5E6C84]">${it.purpose || '-'}</td>
+                      <td class="py-2.5 px-3">
+                        ${it.attachment ? `
+                          <span class="inline-flex items-center gap-1 text-[11px] font-mono text-[#00A4B7] bg-[#E0F2FE] px-2 py-0.5 rounded border border-[#BAE6FD]">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/></svg>
+                            ${it.attachment}
+                          </span>
+                        ` : '<span class="text-[#94A3B8] italic">None</span>'}
+                      </td>
+                      <td class="py-2.5 px-3 text-xs text-[#5E6C84]">${it.remarks || '-'}</td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      `,
+      footerButtons: [
+        {
+          label: 'Close',
+          type: 'secondary',
+          class: 'btn-secondary border border-[#CBD5E1] px-5 py-2 rounded-full text-xs font-semibold text-[#475569] hover:bg-[#F8FAFC] transition-all cursor-pointer',
+          onClick: (modal) => modal.close()
+        },
+        {
+          label: 'Print Issue Slip',
+          type: 'primary',
+          class: 'btn-primary border-0 px-6 py-2 rounded-full text-xs font-semibold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all',
+          onClick: () => {
+            Toast.show(`Printing Material Issue Slip ${row.docNo}...`, 'success');
+          }
+        }
+      ]
+    });
+  },
+
+  // 1g. EDIT MATERIAL ISSUE (GS) MODAL POPUP
+  showEditMaterialIssueModal(row, onSuccess) {
+    Modal.open({
+      title: `Edit Material Issue: ${row.docNo}`,
+      size: 'lg',
+      content: `
+        <form id="form-edit-issue" class="space-y-4 text-xs text-[#172B4D]" onsubmit="return false;">
+          <div class="flex items-center justify-between pb-2 mb-3 border-b border-[#DFE1E6]">
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Issue Header Information</h4>
+            </div>
+            <span class="text-[11px] font-semibold text-[#5E6C84]">All fields marked with <span class="text-[#DE350B] font-bold">*</span> are required</span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DOC NO</label>
+              <input type="text" name="docNo" value="${row.docNo}" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] cursor-not-allowed">
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DATE <span class="text-[#DE350B]">*</span></label>
+              <div class="erp-date-wrapper">
+                <input type="date" name="date" value="${row.date}" required class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()">
+              </div>
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">LOCATION <span class="text-[#DE350B]">*</span></label>
+              <select name="location" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="Main Store Rack A-2" ${row.location === 'Main Store Rack A-2' ? 'selected' : ''}>Main Store Rack A-2</option>
+                <option value="Main Store Rack B-1" ${row.location === 'Main Store Rack B-1' ? 'selected' : ''}>Main Store Rack B-1</option>
+                <option value="Coldstore Hub B" ${row.location === 'Coldstore Hub B' ? 'selected' : ''}>Coldstore Hub B</option>
+                <option value="Engineering Bay C" ${row.location === 'Engineering Bay C' ? 'selected' : ''}>Engineering Bay C</option>
+                <option value="QC Lab Storage" ${row.location === 'QC Lab Storage' ? 'selected' : ''}>QC Lab Storage</option>
+                <option value="Packaging Store Bay 1" ${row.location === 'Packaging Store Bay 1' ? 'selected' : ''}>Packaging Store Bay 1</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DEPARTMENT <span class="text-[#DE350B]">*</span></label>
+              <select name="department" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="Processing Unit-5" ${row.department === 'Processing Unit-5' ? 'selected' : ''}>Processing Unit-5</option>
+                <option value="Coldstore Hub" ${row.department === 'Coldstore Hub' ? 'selected' : ''}>Coldstore Hub</option>
+                <option value="Engineering & Maintenance" ${row.department === 'Engineering & Maintenance' ? 'selected' : ''}>Engineering &amp; Maintenance</option>
+                <option value="Quality Control Lab" ${row.department === 'Quality Control Lab' ? 'selected' : ''}>Quality Control Lab</option>
+                <option value="Pre-Processing Unit" ${row.department === 'Pre-Processing Unit' ? 'selected' : ''}>Pre-Processing Unit</option>
+                <option value="Administration & Safety" ${row.department === 'Administration & Safety' ? 'selected' : ''}>Administration &amp; Safety</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">NARRATION</label>
+              <textarea name="narration" rows="2" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">${row.narration || ''}</textarea>
+            </div>
+          </div>
+        </form>
+      `,
+      footerButtons: [
+        {
+          label: 'Cancel',
+          type: 'secondary',
+          class: 'btn-secondary border border-[#CBD5E1] px-5 py-2 rounded-full text-xs font-semibold text-[#475569] hover:bg-[#F8FAFC] transition-all cursor-pointer',
+          onClick: (modal) => modal.close()
+        },
+        {
+          label: 'Update Material Issue',
+          type: 'primary',
+          class: 'btn-primary border-0 px-6 py-2 rounded-full text-xs font-semibold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all',
+          onClick: (modal) => {
+            const form = document.getElementById('form-edit-issue');
+            if (!form || !form.checkValidity()) {
+              if (form) form.reportValidity();
+              return;
+            }
+            const fd = new FormData(form);
+
+            Modal.confirm({
+              title: 'Confirm Update Material Issue',
+              message: `Are you sure you want to update Material Issue <strong>${row.docNo}</strong>?`,
+              confirmText: 'Update Issue',
+              onConfirm: () => {
+                row.date = fd.get('date');
+                row.location = fd.get('location');
+                row.department = fd.get('department');
+                row.narration = fd.get('narration');
+
+                modal.close();
+                Toast.show(`Material Issue ${row.docNo} updated successfully!`, 'success');
+                if (typeof onSuccess === 'function') onSuccess();
+              }
+            });
+          }
+        }
+      ]
+    });
   },
 
   // =========================================================================
