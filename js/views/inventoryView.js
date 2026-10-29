@@ -214,6 +214,170 @@ export const InventoryView = {
       }
     ],
 
+    // 1b. General Store Proforma Orders
+    proformaOrderList: [
+      {
+        id: 1,
+        docNo: 'PO-GS-2026-0101',
+        code: 'COD-GS-8812',
+        date: '2026-10-28',
+        supplier: 'Devi Safety Aids & Industrial Supplies',
+        paymentTerms: '30 Days from Inward',
+        freightType: 'Paid by Supplier',
+        subDeliveryDate: '2026-11-04',
+        narration: 'Procurement of nitrile gloves and hygiene protective gear for Unit-5 processing shifts',
+        status: 'Approved',
+        items: [
+          {
+            item: 'Nitrile Food-Grade Gloves (Blue, L)',
+            unit: 'Box',
+            availQty: 15,
+            unitPrice: 280.00,
+            quantity: 150,
+            supplierRate: 280.00,
+            totalValue: 42000.00,
+            discountPercent: 5,
+            discountAmt: 2100.00,
+            gstPercent: 18,
+            sgstAmt: 3591.00,
+            cgstAmt: 3591.00,
+            igstAmt: 0.00,
+            taxAmount: 7182.00,
+            invoiceAmt: 47082.00,
+            dispatchedDate: '2026-10-29'
+          }
+        ]
+      },
+      {
+        id: 2,
+        docNo: 'PO-GS-2026-0102',
+        code: 'COD-GS-8813',
+        date: '2026-10-27',
+        supplier: 'Apex Engineering & Spare Parts Ltd',
+        paymentTerms: '50% Advance / 50% Delivery',
+        freightType: 'To Pay (Consignee)',
+        subDeliveryDate: '2026-11-06',
+        narration: 'Plate freezer overhaul replacement gaskets and neoprene refrigeration seals',
+        status: 'Issued to Vendor',
+        items: [
+          {
+            item: 'Neoprene Plate Freezer Door Gaskets (8m)',
+            unit: 'Sets',
+            availQty: 1,
+            unitPrice: 3200.00,
+            quantity: 12,
+            supplierRate: 3200.00,
+            totalValue: 38400.00,
+            discountPercent: 0,
+            discountAmt: 0.00,
+            gstPercent: 18,
+            sgstAmt: 3456.00,
+            cgstAmt: 3456.00,
+            igstAmt: 0.00,
+            taxAmount: 6912.00,
+            invoiceAmt: 45312.00,
+            dispatchedDate: '2026-10-30'
+          }
+        ]
+      },
+      {
+        id: 3,
+        docNo: 'PO-GS-2026-0103',
+        code: 'COD-GS-8814',
+        date: '2026-10-26',
+        supplier: 'Bio-Chem Scientific Instruments India',
+        paymentTerms: 'Immediate against Inward',
+        freightType: 'CIF Visakhapatnam',
+        subDeliveryDate: '2026-11-02',
+        narration: 'HACCP water chlorine residual screening test kits and laboratory consumables',
+        status: 'Pending Delivery',
+        items: [
+          {
+            item: 'Chlorine Residual & Ozone Test Kits',
+            unit: 'Kits',
+            availQty: 2,
+            unitPrice: 1450.00,
+            quantity: 25,
+            supplierRate: 1450.00,
+            totalValue: 36250.00,
+            discountPercent: 2,
+            discountAmt: 725.00,
+            gstPercent: 12,
+            sgstAmt: 0.00,
+            cgstAmt: 0.00,
+            igstAmt: 4263.00,
+            taxAmount: 4263.00,
+            invoiceAmt: 39788.00,
+            dispatchedDate: '2026-10-28'
+          }
+        ]
+      },
+      {
+        id: 4,
+        docNo: 'PO-GS-2026-0104',
+        code: 'COD-GS-8815',
+        date: '2026-10-24',
+        supplier: 'Sri Venkateswara Packaging Ltd',
+        paymentTerms: '30 Days from Inward',
+        freightType: 'Paid by Supplier',
+        subDeliveryDate: '2026-10-31',
+        narration: 'Thermal barcode printer ribbons for coldstore pallet tracking and tagging',
+        status: 'Completed',
+        items: [
+          {
+            item: 'Thermal Transfer Barcode Ribbon (110mm x 300m)',
+            unit: 'Rolls',
+            availQty: 4,
+            unitPrice: 420.00,
+            quantity: 40,
+            supplierRate: 420.00,
+            totalValue: 16800.00,
+            discountPercent: 0,
+            discountAmt: 0.00,
+            gstPercent: 18,
+            sgstAmt: 1512.00,
+            cgstAmt: 1512.00,
+            igstAmt: 0.00,
+            taxAmount: 3024.00,
+            invoiceAmt: 19824.00,
+            dispatchedDate: '2026-10-26'
+          }
+        ]
+      },
+      {
+        id: 5,
+        docNo: 'PO-GS-2026-0105',
+        code: 'COD-GS-8816',
+        date: '2026-10-22',
+        supplier: 'Delta Seals & Tapes Corp',
+        paymentTerms: 'Net 15 Days',
+        freightType: 'FOB Ex-Factory',
+        subDeliveryDate: '2026-11-01',
+        narration: 'High-tensile PP strapping rolls and carton sealing tape for packaging department',
+        status: 'Approved',
+        items: [
+          {
+            item: 'Heat-Sealing PP Strapping Rolls (12mm x 3000m)',
+            unit: 'Rolls',
+            availQty: 8,
+            unitPrice: 1650.00,
+            quantity: 30,
+            supplierRate: 1650.00,
+            totalValue: 49500.00,
+            discountPercent: 4,
+            discountAmt: 1980.00,
+            gstPercent: 18,
+            sgstAmt: 4276.80,
+            cgstAmt: 4276.80,
+            igstAmt: 0.00,
+            taxAmount: 8553.60,
+            invoiceAmt: 56073.60,
+            dispatchedDate: '2026-10-25'
+          }
+        ]
+      }
+    ],
+
     // 2. Packing Material Proforma Invoices
     pmProformaList: [
       {
@@ -1175,19 +1339,878 @@ export const InventoryView = {
   },
 
   renderGeneralStoreProformaOrder(container) {
+    const todayStr = new Date().toISOString().slice(0, 10);
+    const nextPoNum = (this.state.proformaOrderList?.length || 0) + 1;
+    const defaultDocNo = `PO-GS-2026-${String(100 + nextPoNum).padStart(4, '0')}`;
+    const defaultCode = `COD-GS-${8810 + nextPoNum}`;
+
+    // Staged items list for the PO form
+    let stagedPoItems = [
+      {
+        item: 'Nitrile Food-Grade Gloves (Blue, L)',
+        unit: 'Box',
+        availQty: 15,
+        unitPrice: 280.00,
+        quantity: 100,
+        supplierRate: 280.00,
+        totalValue: 28000.00,
+        discountPercent: 5,
+        discountAmt: 1400.00,
+        gstPercent: 18,
+        sgstAmt: 2394.00,
+        cgstAmt: 2394.00,
+        igstAmt: 0.00,
+        taxAmount: 4788.00,
+        invoiceAmt: 31388.00,
+        dispatchedDate: todayStr
+      }
+    ];
+
     container.innerHTML = `
-      <div class="flex items-center justify-between pb-1">
+      <!-- Page Header -->
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-1">
         <div>
           <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Proforma Order (GS)</h1>
-          <p class="text-xs text-[#5E6C84] mt-0.5">Generate purchase proforma orders for general consumables and engineering spares</p>
+          <p class="text-xs text-[#5E6C84] mt-0.5">Generate, issue, and manage General Store purchase proforma orders from approved indents</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button type="button" id="gs-po-toggle-form-btn" class="btn-secondary border border-[#CBD5E1] px-4 py-2 rounded-full text-xs font-semibold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-white text-[#475569] hover:bg-[#F8FAFC] transition-all">
+            <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            <span id="gs-po-toggle-text">Collapse Form</span>
+          </button>
         </div>
       </div>
-      <div class="bg-white border border-[#DFE1E6] rounded-xl p-6 shadow-xs text-center text-xs text-[#5E6C84]">
-        <svg class="w-10 h-10 text-[#00A4B7] mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
-        <p class="font-bold text-[#172B4D] text-sm">General Store PO Entry Active</p>
-        <p class="mt-1 text-[#64748B]">All approved indents from the Indent Page can be converted into Supplier Proforma Orders.</p>
+
+      <!-- Add Proforma Order (GS) Form Card -->
+      <div id="gs-po-form-card" class="bg-white rounded-xl border border-[#DFE1E6] p-4 sm:p-5 shadow-xs transition-all">
+        <div class="flex items-center justify-between pb-3 mb-4 border-b border-[#F1F5F9]">
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            <h2 class="text-sm font-bold text-[#172B4D]">Add Proforma Order (GS)</h2>
+          </div>
+          <span class="text-[11px] font-semibold text-[#5E6C84]">All fields marked with <span class="text-red-500 font-bold">*</span> are required</span>
+        </div>
+
+        <form id="gs-add-po-form" class="space-y-4 text-xs text-[#172B4D]">
+          <!-- Header Form Input Fields: DOC NO, CODE, DATE, SUPPLIER FIRM NAME, PAYMENT & TERMS, FREIGHT TYPE, SUB DELIVERY DATE, NARRATION, STATUS -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+            <!-- 1. DOC NO -->
+            <div>
+              <label for="po-form-docno" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DOC NO <span class="text-red-500">*</span></label>
+              <input type="text" id="po-form-docno" name="docNo" value="${defaultDocNo}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            </div>
+
+            <!-- 2. CODE -->
+            <div>
+              <label for="po-form-code" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CODE <span class="text-red-500">*</span></label>
+              <input type="text" id="po-form-code" name="code" value="${defaultCode}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            </div>
+
+            <!-- 3. DATE -->
+            <div>
+              <label for="po-form-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DATE <span class="text-red-500">*</span></label>
+              <input type="date" id="po-form-date" name="date" value="${todayStr}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            </div>
+
+            <!-- 4. SUPPLIER FIRM NAME -->
+            <div>
+              <label for="po-form-supplier" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SUPPLIER FIRM NAME <span class="text-red-500">*</span></label>
+              <select id="po-form-supplier" name="supplier" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="Devi Safety Aids & Industrial Supplies" selected>Devi Safety Aids &amp; Industrial Supplies</option>
+                <option value="Sri Venkateswara Packaging Ltd">Sri Venkateswara Packaging Ltd</option>
+                <option value="Apex Engineering & Spare Parts Ltd">Apex Engineering &amp; Spare Parts Ltd</option>
+                <option value="Bio-Chem Scientific Instruments India">Bio-Chem Scientific Instruments India</option>
+                <option value="Delta Seals & Tapes Corp">Delta Seals &amp; Tapes Corp</option>
+              </select>
+            </div>
+
+            <!-- 5. PAYMENT & TERMS -->
+            <div>
+              <label for="po-form-terms" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PAYMENT &amp; TERMS <span class="text-red-500">*</span></label>
+              <select id="po-form-terms" name="paymentTerms" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="30 Days from Inward" selected>30 Days from Inward</option>
+                <option value="Immediate against Inward">Immediate against Inward</option>
+                <option value="50% Advance / 50% Delivery">50% Advance / 50% Delivery</option>
+                <option value="Net 15 Days">Net 15 Days</option>
+              </select>
+            </div>
+
+            <!-- 6. FREIGHT TYPE -->
+            <div>
+              <label for="po-form-freight" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FREIGHT TYPE <span class="text-red-500">*</span></label>
+              <select id="po-form-freight" name="freightType" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="Paid by Supplier" selected>Paid by Supplier</option>
+                <option value="To Pay (Consignee)">To Pay (Consignee)</option>
+                <option value="FOB Ex-Factory">FOB Ex-Factory</option>
+                <option value="CIF Visakhapatnam">CIF Visakhapatnam</option>
+              </select>
+            </div>
+
+            <!-- 7. SUB DELIVERY DATE -->
+            <div>
+              <label for="po-form-del-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SUB DELIVERY DATE <span class="text-red-500">*</span></label>
+              <input type="date" id="po-form-del-date" name="subDeliveryDate" value="2026-11-04" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            </div>
+
+            <!-- 8. NARRATION -->
+            <div>
+              <label for="po-form-narration" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">NARRATION</label>
+              <input type="text" id="po-form-narration" name="narration" placeholder="Proforma order purpose / notes..." value="General Store approved indent procurement order" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            </div>
+
+            <!-- 9. STATUS -->
+            <div>
+              <label for="po-form-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">STATUS <span class="text-red-500">*</span></label>
+              <select id="po-form-status" name="status" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="Approved" selected>Approved</option>
+                <option value="Issued to Vendor">Issued to Vendor</option>
+                <option value="Pending Delivery">Pending Delivery</option>
+                <option value="Draft">Draft</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Work Flow (From Indent) - Item Details Fields Section -->
+          <div class="mt-4 pt-4 border-t border-[#F1F5F9]">
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider flex items-center gap-1.5">
+                <svg class="w-3.5 h-3.5 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+                Work Flow (From Indent) - Item Details
+              </h3>
+              <span id="gs-po-items-count" class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-[#E0F2FE] text-[#0284C7]">${stagedPoItems.length} Item(s) in Order</span>
+            </div>
+
+            <!-- Item Input Grid: Item, Unit, Available Qty, Unit Price, Quantity, Supplier Rate, Total Value, Discount%, Discount, GST%, SGST Amt, CGST Amt, IGST Amt, Tax Amount, Invoice Amt, Dispatched Date -->
+            <div class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl p-3.5 space-y-3">
+              <!-- Row 1: Item, Unit, Available Qty, Unit Price, Quantity, Supplier Rate -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 gap-2.5">
+                <div class="md:col-span-2">
+                  <label for="poi-item" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ITEM <span class="text-red-500">*</span></label>
+                  <input type="text" id="poi-item" placeholder="Item name or code..." value="Nitrile Food-Grade Gloves (Blue, L)" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                </div>
+                <div>
+                  <label for="poi-unit" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">UNIT</label>
+                  <select id="poi-unit" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                    <option value="Box" selected>Box</option>
+                    <option value="Nos">Nos</option>
+                    <option value="Rolls">Rolls</option>
+                    <option value="Sets">Sets</option>
+                    <option value="Kits">Kits</option>
+                    <option value="Pairs">Pairs</option>
+                    <option value="Kg">Kg</option>
+                    <option value="Ltr">Ltr</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="poi-avail-qty" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">AVAIL QTY</label>
+                  <input type="number" id="poi-avail-qty" value="15" min="0" class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#CBD5E1] rounded-lg font-mono font-bold text-[#00875A] shadow-2xs" readonly />
+                </div>
+                <div>
+                  <label for="poi-unit-price" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">UNIT PRICE (₹)</label>
+                  <input type="number" id="poi-unit-price" value="280.00" min="0.01" step="0.01" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                </div>
+                <div>
+                  <label for="poi-qty" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">QUANTITY <span class="text-red-500">*</span></label>
+                  <input type="number" id="poi-qty" value="100" min="1" step="1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                </div>
+              </div>
+
+              <!-- Row 2: Supplier Rate, Total Value, Discount%, Discount, GST%, Dispatched Date -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 gap-2.5">
+                <div>
+                  <label for="poi-supplier-rate" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SUPPLIER RATE (₹)</label>
+                  <input type="number" id="poi-supplier-rate" value="280.00" min="0.01" step="0.01" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                </div>
+                <div>
+                  <label for="poi-total-value" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">TOTAL VALUE (₹)</label>
+                  <input type="number" id="poi-total-value" value="28000.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#CBD5E1] rounded-lg font-mono font-bold text-[#172B4D] shadow-2xs" />
+                </div>
+                <div>
+                  <label for="poi-disc-pct" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DISCOUNT%</label>
+                  <input type="number" id="poi-disc-pct" value="5" min="0" max="100" step="0.5" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                </div>
+                <div>
+                  <label for="poi-disc-amt" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DISCOUNT (₹)</label>
+                  <input type="number" id="poi-disc-amt" value="1400.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#CBD5E1] rounded-lg font-mono font-semibold text-[#D97706] shadow-2xs" />
+                </div>
+                <div>
+                  <label for="poi-gst-pct" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">GST%</label>
+                  <select id="poi-gst-pct" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                    <option value="18" selected>18%</option>
+                    <option value="12">12%</option>
+                    <option value="5">5%</option>
+                    <option value="0">0%</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="poi-dispatch-date" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DISPATCHED DATE</label>
+                  <input type="date" id="poi-dispatch-date" value="${todayStr}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                </div>
+              </div>
+
+              <!-- Row 3: Tax Breakups (SGST Amt, CGST Amt, IGST Amt, Tax Amount, Invoice Amt) & Action Button -->
+              <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2.5 items-end">
+                <div>
+                  <label for="poi-sgst" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SGST AMT (₹)</label>
+                  <input type="number" id="poi-sgst" value="2394.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#CBD5E1] rounded-lg font-mono text-xs text-[#5E6C84] shadow-2xs" />
+                </div>
+                <div>
+                  <label for="poi-cgst" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CGST AMT (₹)</label>
+                  <input type="number" id="poi-cgst" value="2394.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#CBD5E1] rounded-lg font-mono text-xs text-[#5E6C84] shadow-2xs" />
+                </div>
+                <div>
+                  <label for="poi-igst" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">IGST AMT (₹)</label>
+                  <input type="number" id="poi-igst" value="0.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#CBD5E1] rounded-lg font-mono text-xs text-[#5E6C84] shadow-2xs" />
+                </div>
+                <div>
+                  <label for="poi-tax-amt" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">TAX AMOUNT (₹)</label>
+                  <input type="number" id="poi-tax-amt" value="4788.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#CBD5E1] rounded-lg font-mono font-bold text-[#0284C7] shadow-2xs" />
+                </div>
+                <div>
+                  <label for="poi-inv-amt" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">INVOICE AMT (₹)</label>
+                  <input type="number" id="poi-inv-amt" value="31388.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F0FDF4] border border-[#BBF7D0] rounded-lg font-mono font-bold text-[#00875A] shadow-2xs" />
+                </div>
+                <div>
+                  <button type="button" id="gs-po-btn-add-item" class="w-full btn-secondary border border-[#00A4B7] px-4 py-1.5 rounded-full text-xs font-bold text-[#00A4B7] hover:bg-[#E0F2FE] transition-colors cursor-pointer inline-flex items-center justify-center gap-1.5 h-[32px]">
+                    <svg class="w-3.5 h-3.5 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                    <span>Add Item</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Staged Order Items Table -->
+            <div class="mt-3 overflow-x-auto border border-[#E2E8F0] rounded-lg">
+              <table class="w-full text-left text-xs border-collapse">
+                <thead class="bg-[#F8FAFC] border-b border-[#E2E8F0] text-[#475569] font-bold text-[11px] uppercase tracking-wider">
+                  <tr>
+                    <th class="py-2 px-3">Item</th>
+                    <th class="py-2 px-3">Unit</th>
+                    <th class="py-2 px-3 text-right">Qty</th>
+                    <th class="py-2 px-3 text-right">Unit Price</th>
+                    <th class="py-2 px-3 text-right">Total Val</th>
+                    <th class="py-2 px-3 text-right">Disc%</th>
+                    <th class="py-2 px-3 text-right">GST%</th>
+                    <th class="py-2 px-3 text-right">Tax Amt</th>
+                    <th class="py-2 px-3 text-right">Invoice Amt</th>
+                    <th class="py-2 px-3">Dispatch Date</th>
+                    <th class="py-2 px-3 text-center">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="gs-po-staged-tbody" class="divide-y divide-[#E2E8F0] text-[#1E293B]">
+                  <!-- Rendered dynamically -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Bottom Form Actions: Save Proforma Order & Reset -->
+          <div class="flex items-center justify-end gap-3 pt-3 border-t border-[#F1F5F9]">
+            <button type="button" id="gs-po-btn-reset-form" class="btn-secondary border border-[#CBD5E1] px-5 py-2 rounded-full text-xs font-semibold text-[#475569] hover:bg-[#F8FAFC] transition-all cursor-pointer">
+              <span>Reset</span>
+            </button>
+            <button type="submit" id="gs-po-btn-save" class="btn-primary border-0 px-6 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <span>Save Proforma Order</span>
+            </button>
+          </div>
+        </form>
       </div>
+
+      <!-- Search & Filter Card (according to this create search & filter also) -->
+      <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs">
+        <div class="flex items-center justify-between pb-2 mb-3 border-b border-[#F1F5F9]">
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+            <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filter Existing POs</h3>
+          </div>
+          <button type="button" id="gs-po-filter-reset-btn" class="w-7 h-7 rounded-full border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#475569] flex items-center justify-center transition-colors cursor-pointer" title="Reset Filters">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3">
+          <!-- Filter: DOC NO / CODE -->
+          <div>
+            <label for="po-flt-doc" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DOC NO / CODE</label>
+            <input type="text" id="po-flt-doc" placeholder="Search Doc No or Code..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+
+          <!-- Filter: FROM DATE -->
+          <div>
+            <label for="po-flt-from" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FROM DATE</label>
+            <input type="date" id="po-flt-from" value="2026-10-01" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+
+          <!-- Filter: TO DATE -->
+          <div>
+            <label for="po-flt-to" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">TO DATE</label>
+            <input type="date" id="po-flt-to" value="${todayStr}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+
+          <!-- Filter: SUPPLIER -->
+          <div>
+            <label for="po-flt-sup" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SUPPLIER</label>
+            <select id="po-flt-sup" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL">All Suppliers</option>
+              <option value="Devi Safety Aids & Industrial Supplies">Devi Safety Aids</option>
+              <option value="Sri Venkateswara Packaging Ltd">Sri Venkateswara</option>
+              <option value="Apex Engineering & Spare Parts Ltd">Apex Engineering</option>
+              <option value="Bio-Chem Scientific Instruments India">Bio-Chem Scientific</option>
+              <option value="Delta Seals & Tapes Corp">Delta Seals &amp; Tapes</option>
+            </select>
+          </div>
+
+          <!-- Search Button -->
+          <div class="flex items-end">
+            <button type="button" id="po-flt-search-btn" class="w-full btn-primary px-4 py-1.5 rounded-full text-xs font-bold flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px]">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+              <span>Search POs</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Existing POs Table Card: S No, Doc No, Code, Date, Supplier, Actions -->
+      <div id="gs-po-table-container"></div>
     `;
+
+    // 1. Live Calculation Function for Item Input
+    const recalcItemInputs = () => {
+      const price = parseFloat(container.querySelector('#poi-unit-price')?.value) || 0;
+      const qty = parseInt(container.querySelector('#poi-qty')?.value, 10) || 0;
+      const rateInput = container.querySelector('#poi-supplier-rate');
+      if (rateInput && !rateInput.matches(':focus')) {
+        rateInput.value = price.toFixed(2);
+      }
+      const actualRate = parseFloat(rateInput?.value) || price;
+      const totalVal = qty * actualRate;
+
+      const discPct = parseFloat(container.querySelector('#poi-disc-pct')?.value) || 0;
+      const discAmt = totalVal * (discPct / 100);
+      const taxable = Math.max(0, totalVal - discAmt);
+
+      const gstPct = parseFloat(container.querySelector('#poi-gst-pct')?.value) || 18;
+      const taxAmt = taxable * (gstPct / 100);
+      const sgst = taxAmt / 2;
+      const cgst = taxAmt / 2;
+      const igst = 0;
+      const invAmt = taxable + taxAmt;
+
+      const totalValEl = container.querySelector('#poi-total-value');
+      const discAmtEl = container.querySelector('#poi-disc-amt');
+      const sgstEl = container.querySelector('#poi-sgst');
+      const cgstEl = container.querySelector('#poi-cgst');
+      const igstEl = container.querySelector('#poi-igst');
+      const taxAmtEl = container.querySelector('#poi-tax-amt');
+      const invAmtEl = container.querySelector('#poi-inv-amt');
+
+      if (totalValEl) totalValEl.value = totalVal.toFixed(2);
+      if (discAmtEl) discAmtEl.value = discAmt.toFixed(2);
+      if (sgstEl) sgstEl.value = sgst.toFixed(2);
+      if (cgstEl) cgstEl.value = cgst.toFixed(2);
+      if (igstEl) igstEl.value = igst.toFixed(2);
+      if (taxAmtEl) taxAmtEl.value = taxAmt.toFixed(2);
+      if (invAmtEl) invAmtEl.value = invAmt.toFixed(2);
+    };
+
+    ['#poi-unit-price', '#poi-qty', '#poi-supplier-rate', '#poi-disc-pct', '#poi-gst-pct'].forEach(sel => {
+      container.querySelector(sel)?.addEventListener('input', recalcItemInputs);
+    });
+
+    // 2. Render Staged PO Items Table
+    const renderStagedPoItems = () => {
+      const tbody = container.querySelector('#gs-po-staged-tbody');
+      const countBadge = container.querySelector('#gs-po-items-count');
+      if (!tbody) return;
+
+      if (countBadge) countBadge.textContent = `${stagedPoItems.length} Item(s) in Order`;
+
+      if (stagedPoItems.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="11" class="text-center py-4 text-xs text-[#94A3B8] italic">No items added to this proforma order yet. Fill fields above and click "+ Add Item".</td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = stagedPoItems.map((it, idx) => `
+        <tr class="hover:bg-[#F8FAFC] transition-colors">
+          <td class="py-2.5 px-3 font-semibold text-[#172B4D]">${it.item}</td>
+          <td class="py-2.5 px-3 font-mono text-[#5E6C84]">${it.unit}</td>
+          <td class="py-2.5 px-3 text-right font-mono font-bold text-[#172B4D]">${it.quantity}</td>
+          <td class="py-2.5 px-3 text-right font-mono text-[#5E6C84]">₹${Number(it.unitPrice).toFixed(2)}</td>
+          <td class="py-2.5 px-3 text-right font-mono font-semibold text-[#172B4D]">₹${Number(it.totalValue).toFixed(2)}</td>
+          <td class="py-2.5 px-3 text-right font-mono text-[#D97706]">${it.discountPercent}%</td>
+          <td class="py-2.5 px-3 text-right font-mono text-[#00A4B7]">${it.gstPercent}%</td>
+          <td class="py-2.5 px-3 text-right font-mono text-[#0284C7]">₹${Number(it.taxAmount).toFixed(2)}</td>
+          <td class="py-2.5 px-3 text-right font-mono font-bold text-[#00875A]">₹${Number(it.invoiceAmt).toFixed(2)}</td>
+          <td class="py-2.5 px-3 font-mono text-xs text-[#5E6C84]">${it.dispatchedDate || '-'}</td>
+          <td class="py-2.5 px-3 text-center">
+            <button type="button" data-remove-idx="${idx}" class="gs-po-btn-remove-item w-6 h-6 rounded-full hover:bg-[#FFEBE6] text-[#DE350B] inline-flex items-center justify-center transition-colors cursor-pointer" title="Remove Item">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+            </button>
+          </td>
+        </tr>
+      `).join('');
+
+      tbody.querySelectorAll('.gs-po-btn-remove-item').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const rIdx = parseInt(btn.dataset.removeIdx, 10);
+          stagedPoItems.splice(rIdx, 1);
+          renderStagedPoItems();
+        });
+      });
+    };
+
+    renderStagedPoItems();
+
+    // 3. Add Item to Staged List
+    container.querySelector('#gs-po-btn-add-item')?.addEventListener('click', () => {
+      const item = container.querySelector('#poi-item')?.value?.trim();
+      const unit = container.querySelector('#poi-unit')?.value || 'Nos';
+      const availQty = parseInt(container.querySelector('#poi-avail-qty')?.value, 10) || 0;
+      const unitPrice = parseFloat(container.querySelector('#poi-unit-price')?.value) || 0;
+      const quantity = parseInt(container.querySelector('#poi-qty')?.value, 10) || 0;
+      const supplierRate = parseFloat(container.querySelector('#poi-supplier-rate')?.value) || unitPrice;
+      const totalValue = parseFloat(container.querySelector('#poi-total-value')?.value) || (quantity * supplierRate);
+      const discountPercent = parseFloat(container.querySelector('#poi-disc-pct')?.value) || 0;
+      const discountAmt = parseFloat(container.querySelector('#poi-disc-amt')?.value) || 0;
+      const gstPercent = parseFloat(container.querySelector('#poi-gst-pct')?.value) || 18;
+      const sgstAmt = parseFloat(container.querySelector('#poi-sgst')?.value) || 0;
+      const cgstAmt = parseFloat(container.querySelector('#poi-cgst')?.value) || 0;
+      const igstAmt = parseFloat(container.querySelector('#poi-igst')?.value) || 0;
+      const taxAmount = parseFloat(container.querySelector('#poi-tax-amt')?.value) || 0;
+      const invoiceAmt = parseFloat(container.querySelector('#poi-inv-amt')?.value) || 0;
+      const dispatchedDate = container.querySelector('#poi-dispatch-date')?.value || todayStr;
+
+      if (!item) {
+        Toast.show('Please provide Item name before adding.', 'warning');
+        container.querySelector('#poi-item')?.focus();
+        return;
+      }
+      if (quantity <= 0) {
+        Toast.show('Quantity must be greater than zero.', 'warning');
+        container.querySelector('#poi-qty')?.focus();
+        return;
+      }
+
+      stagedPoItems.push({
+        item,
+        unit,
+        availQty,
+        unitPrice,
+        quantity,
+        supplierRate,
+        totalValue,
+        discountPercent,
+        discountAmt,
+        gstPercent,
+        sgstAmt,
+        cgstAmt,
+        igstAmt,
+        taxAmount,
+        invoiceAmt,
+        dispatchedDate
+      });
+
+      renderStagedPoItems();
+      Toast.show(`Item "${item}" added to Proforma Order.`, 'info');
+    });
+
+    // 4. Toggle Form Collapse
+    const toggleBtn = container.querySelector('#gs-po-toggle-form-btn');
+    const formCard = container.querySelector('#gs-po-form-card');
+    const toggleText = container.querySelector('#gs-po-toggle-text');
+    let isFormOpen = true;
+
+    toggleBtn?.addEventListener('click', () => {
+      isFormOpen = !isFormOpen;
+      if (formCard) formCard.style.display = isFormOpen ? 'block' : 'none';
+      if (toggleText) toggleText.textContent = isFormOpen ? 'Collapse Form' : 'Show Add Proforma Order Form';
+    });
+
+    // 5. Reset Form Handler
+    container.querySelector('#gs-po-btn-reset-form')?.addEventListener('click', () => {
+      container.querySelector('#gs-add-po-form').reset();
+      stagedPoItems = [];
+      renderStagedPoItems();
+      Toast.show('Proforma Order form reset', 'info');
+    });
+
+    // 6. Submit PO Handler (with Modal.confirm!)
+    container.querySelector('#gs-add-po-form')?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const docNo = container.querySelector('#po-form-docno')?.value?.trim();
+      const code = container.querySelector('#po-form-code')?.value?.trim();
+      const date = container.querySelector('#po-form-date')?.value;
+      const supplier = container.querySelector('#po-form-supplier')?.value;
+      const paymentTerms = container.querySelector('#po-form-terms')?.value;
+      const freightType = container.querySelector('#po-form-freight')?.value;
+      const subDeliveryDate = container.querySelector('#po-form-del-date')?.value;
+      const narration = container.querySelector('#po-form-narration')?.value?.trim();
+      const status = container.querySelector('#po-form-status')?.value;
+
+      if (!docNo || !code) {
+        Toast.show('DOC NO and CODE are required.', 'warning');
+        return;
+      }
+      if (stagedPoItems.length === 0) {
+        Toast.show('Please add at least one item to this Proforma Order.', 'warning');
+        return;
+      }
+
+      const totalOrderVal = stagedPoItems.reduce((acc, it) => acc + (it.invoiceAmt || 0), 0);
+
+      Modal.confirm({
+        title: 'Confirm Save Proforma Order',
+        message: `Are you sure you want to save General Store Proforma Order <strong>${docNo}</strong> (Code: ${code}) for <strong>${supplier}</strong> totalling <strong>₹${totalOrderVal.toLocaleString()}</strong>?`,
+        confirmText: 'Save Proforma Order',
+        onConfirm: () => {
+          const newPo = {
+            id: (this.state.proformaOrderList?.length || 0) + 1,
+            docNo,
+            code,
+            date,
+            supplier,
+            paymentTerms,
+            freightType,
+            subDeliveryDate,
+            narration,
+            status,
+            items: [...stagedPoItems]
+          };
+
+          this.state.proformaOrderList.unshift(newPo);
+          renderTable(this.state.proformaOrderList);
+
+          // Reset docNo and items
+          const nextSeq = this.state.proformaOrderList.length + 1;
+          container.querySelector('#po-form-docno').value = `PO-GS-2026-${String(100 + nextSeq).padStart(4, '0')}`;
+          container.querySelector('#po-form-code').value = `COD-GS-${8810 + nextSeq}`;
+          stagedPoItems = [];
+          renderStagedPoItems();
+
+          Toast.show(`Proforma Order ${docNo} created successfully!`, 'success');
+        }
+      });
+    });
+
+    // 7. Render Existing POs Table: S No, Doc No, Code, Date, Supplier, Actions
+    const renderTable = (data) => {
+      new DataTable({
+        containerId: 'gs-po-table-container',
+        tableTitle: `Existing General Store Proforma Orders (${data.length})`,
+        searchable: true,
+        exportable: true,
+        pageSize: 10,
+        columns: [
+          // 1. S No
+          {
+            field: 'sNo',
+            header: 'S No',
+            sortable: true,
+            render: (v, r, idx) => `<span class="text-[#5E6C84] font-semibold">${idx + 1}</span>`
+          },
+          // 2. Doc No
+          {
+            field: 'docNo',
+            header: 'Doc No',
+            sortable: true,
+            render: (v, r) => `
+              <span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer whitespace-nowrap">${v}</span>
+            `
+          },
+          // 3. Code
+          {
+            field: 'code',
+            header: 'Code',
+            sortable: true,
+            render: v => `<span class="font-mono font-semibold text-xs text-[#172B4D] whitespace-nowrap">${v || '-'}</span>`
+          },
+          // 4. Date
+          {
+            field: 'date',
+            header: 'Date',
+            sortable: true,
+            render: v => `<span class="whitespace-nowrap text-xs text-[#172B4D] font-medium font-mono">${v}</span>`
+          },
+          // 5. Supplier
+          {
+            field: 'supplier',
+            header: 'Supplier',
+            sortable: true,
+            render: (v, r) => `
+              <div class="flex flex-col">
+                <span class="font-semibold text-xs text-[#172B4D] whitespace-nowrap">${v}</span>
+                <span class="text-[10px] text-[#5E6C84]">${r.paymentTerms} • ${r.freightType}</span>
+              </div>
+            `
+          }
+        ],
+        actionsTitle: 'Actions',
+        actions: [
+          {
+            label: 'View',
+            title: 'View PO Details',
+            icon: `<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>`,
+            onClick: (row) => {
+              this.showProformaOrderDetailModal(row);
+            }
+          },
+          {
+            label: 'Edit',
+            title: 'Edit Proforma Order',
+            icon: `<svg class="w-4 h-4 text-[#0284C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>`,
+            onClick: (row) => {
+              this.showEditProformaOrderModal(row, () => {
+                renderTable(this.state.proformaOrderList);
+              });
+            }
+          },
+          {
+            label: 'Delete',
+            title: 'Delete Proforma Order',
+            icon: `<svg class="w-4 h-4 text-[#DE350B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>`,
+            onClick: (row) => {
+              Modal.confirm({
+                title: 'Delete Proforma Order',
+                message: `Are you sure you want to delete Proforma Order <strong>${row.docNo}</strong> (${row.supplier})? This action cannot be undone.`,
+                confirmText: 'Delete Order',
+                isDestructive: true,
+                onConfirm: () => {
+                  const idx = this.state.proformaOrderList.findIndex(r => r.id === row.id || r.docNo === row.docNo);
+                  if (idx !== -1) {
+                    this.state.proformaOrderList.splice(idx, 1);
+                    renderTable(this.state.proformaOrderList);
+                    Toast.show(`Proforma Order ${row.docNo} deleted.`, 'success');
+                  }
+                }
+              });
+            }
+          }
+        ],
+        data: data
+      });
+    };
+
+    renderTable(this.state.proformaOrderList);
+
+    // 8. Search & Filter Handlers
+    container.querySelector('#po-flt-search-btn')?.addEventListener('click', () => {
+      const docVal = container.querySelector('#po-flt-doc')?.value?.trim().toLowerCase();
+      const fromVal = container.querySelector('#po-flt-from')?.value;
+      const toVal = container.querySelector('#po-flt-to')?.value;
+      const supVal = container.querySelector('#po-flt-sup')?.value;
+
+      const filtered = this.state.proformaOrderList.filter(it => {
+        if (docVal) {
+          const matchDoc = it.docNo.toLowerCase().includes(docVal);
+          const matchCode = it.code?.toLowerCase().includes(docVal);
+          if (!matchDoc && !matchCode) return false;
+        }
+        if (fromVal && it.date < fromVal) return false;
+        if (toVal && it.date > toVal) return false;
+        if (supVal && supVal !== 'ALL' && it.supplier !== supVal) return false;
+        return true;
+      });
+
+      renderTable(filtered);
+      Toast.show(`Found ${filtered.length} matching proforma order(s)`, 'info');
+    });
+
+    container.querySelector('#gs-po-filter-reset-btn')?.addEventListener('click', () => {
+      container.querySelector('#po-flt-doc').value = '';
+      container.querySelector('#po-flt-from').value = '2026-10-01';
+      container.querySelector('#po-flt-to').value = todayStr;
+      container.querySelector('#po-flt-sup').value = 'ALL';
+      renderTable(this.state.proformaOrderList);
+      Toast.show('PO filters reset to default', 'info');
+    });
+  },
+
+  // View PO Detail Modal
+  showProformaOrderDetailModal(row) {
+    const totalVal = (row.items || []).reduce((acc, it) => acc + (it.invoiceAmt || 0), 0);
+
+    Modal.open({
+      title: `Proforma Order Details: ${row.docNo} (${row.code})`,
+      size: 'xl',
+      content: `
+        <div class="space-y-4 text-xs text-[#172B4D]">
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-[#F8FAFC] border border-[#E2E8F0] p-3 rounded-xl">
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">DOC NO</span>
+              <span class="font-mono font-bold text-xs text-[#00A4B7]">${row.docNo}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">CODE</span>
+              <span class="font-mono font-semibold text-xs text-[#172B4D]">${row.code}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">DATE</span>
+              <span class="font-mono text-xs text-[#172B4D]">${row.date}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">STATUS</span>
+              <span class="font-bold text-xs text-[#00875A]">${row.status}</span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-white border border-[#E2E8F0] p-3 rounded-xl">
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">SUPPLIER</span>
+              <span class="font-semibold text-xs text-[#172B4D]">${row.supplier}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PAYMENT TERMS</span>
+              <span class="text-xs text-[#5E6C84]">${row.paymentTerms}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">FREIGHT TYPE</span>
+              <span class="text-xs text-[#5E6C84]">${row.freightType}</span>
+            </div>
+          </div>
+
+          ${row.narration ? `
+            <div class="p-2.5 bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg">
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-0.5">NARRATION</span>
+              <p class="text-xs text-[#172B4D]">${row.narration}</p>
+            </div>
+          ` : ''}
+
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Item Details (${row.items?.length || 0})</h4>
+              <span class="font-mono font-bold text-xs text-[#00875A]">Total PO Value: ₹${Number(totalVal).toLocaleString()}</span>
+            </div>
+            <div class="overflow-x-auto border border-[#E2E8F0] rounded-lg">
+              <table class="w-full text-left text-xs border-collapse">
+                <thead class="bg-[#F8FAFC] border-b border-[#E2E8F0] text-[#475569] font-bold text-[11px] uppercase">
+                  <tr>
+                    <th class="py-2 px-3">Item</th>
+                    <th class="py-2 px-3">Unit</th>
+                    <th class="py-2 px-3 text-right">Qty</th>
+                    <th class="py-2 px-3 text-right">Unit Price</th>
+                    <th class="py-2 px-3 text-right">Disc%</th>
+                    <th class="py-2 px-3 text-right">GST%</th>
+                    <th class="py-2 px-3 text-right">Tax Amt</th>
+                    <th class="py-2 px-3 text-right">Invoice Amt</th>
+                    <th class="py-2 px-3">Dispatched</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-[#E2E8F0] text-[#1E293B]">
+                  ${(row.items || []).map(it => `
+                    <tr class="hover:bg-[#F8FAFC]">
+                      <td class="py-2 px-3 font-semibold text-[#172B4D]">${it.item}</td>
+                      <td class="py-2 px-3 font-mono text-[#5E6C84]">${it.unit}</td>
+                      <td class="py-2 px-3 text-right font-mono font-bold text-[#172B4D]">${it.quantity}</td>
+                      <td class="py-2 px-3 text-right font-mono text-[#5E6C84]">₹${Number(it.unitPrice).toFixed(2)}</td>
+                      <td class="py-2 px-3 text-right font-mono text-[#D97706]">${it.discountPercent}%</td>
+                      <td class="py-2 px-3 text-right font-mono text-[#00A4B7]">${it.gstPercent}%</td>
+                      <td class="py-2 px-3 text-right font-mono text-[#0284C7]">₹${Number(it.taxAmount).toFixed(2)}</td>
+                      <td class="py-2 px-3 text-right font-mono font-bold text-[#00875A]">₹${Number(it.invoiceAmt).toFixed(2)}</td>
+                      <td class="py-2 px-3 font-mono text-xs text-[#5E6C84]">${it.dispatchedDate || '-'}</td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      `,
+      footerButtons: [
+        { label: 'Close', type: 'secondary', onClick: (modal) => modal.close() },
+        {
+          label: 'Print Order',
+          type: 'primary',
+          onClick: () => {
+            Toast.show(`Printing Proforma Order ${row.docNo}...`, 'success');
+          }
+        }
+      ]
+    });
+  },
+
+  // Edit PO Modal
+  showEditProformaOrderModal(row, onSuccess) {
+    Modal.open({
+      title: `Edit Proforma Order: ${row.docNo}`,
+      size: 'lg',
+      content: `
+        <form id="form-edit-po" class="space-y-4 text-xs text-[#172B4D]">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DOC NO</label>
+              <input type="text" name="docNo" value="${row.docNo}" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#CBD5E1] rounded-lg font-mono font-bold text-[#00A4B7] cursor-not-allowed">
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CODE</label>
+              <input type="text" name="code" value="${row.code}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg font-mono font-semibold focus:outline-none focus:border-[#00A4B7]">
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DATE <span class="text-red-500">*</span></label>
+              <input type="date" name="date" value="${row.date}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg font-semibold focus:outline-none focus:border-[#00A4B7]">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SUPPLIER FIRM NAME <span class="text-red-500">*</span></label>
+              <input type="text" name="supplier" value="${row.supplier}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg font-semibold focus:outline-none focus:border-[#00A4B7]">
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">STATUS</label>
+              <select name="status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg font-semibold focus:outline-none focus:border-[#00A4B7]">
+                <option value="Approved" ${row.status === 'Approved' ? 'selected' : ''}>Approved</option>
+                <option value="Issued to Vendor" ${row.status === 'Issued to Vendor' ? 'selected' : ''}>Issued to Vendor</option>
+                <option value="Pending Delivery" ${row.status === 'Pending Delivery' ? 'selected' : ''}>Pending Delivery</option>
+                <option value="Completed" ${row.status === 'Completed' ? 'selected' : ''}>Completed</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">NARRATION</label>
+            <textarea name="narration" rows="2" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg focus:outline-none focus:border-[#00A4B7]">${row.narration || ''}</textarea>
+          </div>
+        </form>
+      `,
+      footerButtons: [
+        { label: 'Cancel', type: 'secondary', onClick: (modal) => modal.close() },
+        {
+          label: 'Update Order',
+          type: 'primary',
+          onClick: (modal) => {
+            const form = document.getElementById('form-edit-po');
+            if (!form || !form.checkValidity()) {
+              if (form) form.reportValidity();
+              return;
+            }
+            const fd = new FormData(form);
+
+            Modal.confirm({
+              title: 'Confirm Update Proforma Order',
+              message: `Are you sure you want to update Proforma Order <strong>${row.docNo}</strong>?`,
+              confirmText: 'Update Order',
+              onConfirm: () => {
+                row.code = fd.get('code');
+                row.date = fd.get('date');
+                row.supplier = fd.get('supplier');
+                row.status = fd.get('status');
+                row.narration = fd.get('narration');
+
+                modal.close();
+                Toast.show(`Proforma Order ${row.docNo} updated successfully!`, 'success');
+                if (typeof onSuccess === 'function') onSuccess();
+              }
+            });
+          }
+        }
+      ]
+    });
   },
 
   renderGeneralStoreProformaList(container) {
