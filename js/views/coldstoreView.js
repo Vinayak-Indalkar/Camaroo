@@ -402,247 +402,247 @@ export const ColdstoreView = {
       }
     ],
 
-    // 3. Stock Inventory & Inward Records
+    // 3. Stock Inventory & Inward Records (Devi Fisheries Standard)
     stockInList: [
       {
         id: 1,
         sNo: 1,
-        inwardCode: 'INW-CS-2026-441',
-        inwardDate: '2026-10-29',
-        palletId: 'PAL-2026-0441',
-        lotNo: 'LOT-FZ-2026-301',
         productionPlant: 'DFL UNIT-5 (JPT)',
+        productionDate: '2026-10-29',
+        batchCodes: 'BCH-2026-901, BCH-2026-902',
+        transactionDate: '2026-10-29',
+        group: 'Group A',
         stockBelongsTo: 'Devi Fisheries Ltd (DFL)',
-        product: 'Vannamei PD IQF',
+        shift: 'Shift A (Day)',
+        poNo: 'PO-2026-4407',
+        variety: 'Vannamei (White Shrimp)',
+        packingStyle: '10x1kg Net',
         grade: '31/40',
         packingType: 'Master Cartons',
-        packingStyle: '10x1kg Net',
-        chamber: 'Chamber #1 (IQF)',
+        freezingType: 'IQF Tunnel',
+        soaking: 'Yes (Non-Phosphate)',
+        productCategory: 'Raw Frozen',
+        abStatus: 'PASSED (AB Negative)',
+        remarks: 'Core temp -22.5°C verified, glaze optimal at 10%',
+        totalWeight: 1800.0,
+        balanceWeight: 1800.0,
+        coldStores: 'Chamber #1 (IQF)',
+        mcs: 180,
+        balanceMcs: 180,
+        looseBags: 18,
+        palletId: 'PAL-2026-0441',
         rack: 'RACK-A1-T1',
-        cartons: 48,
-        mcs: 48,
-        bags: 480,
-        netWeightKg: 480.0,
-        temp: -21.8,
-        shift: 'Shift A (Day)',
-        supervisor: 'K. Rama Rao',
-        status: 'Stored'
+        palletStatus: 'Placed in Store'
       },
       {
         id: 2,
         sNo: 2,
-        inwardCode: 'INW-CS-2026-442',
-        inwardDate: '2026-10-29',
-        palletId: 'PAL-2026-0442',
-        lotNo: 'LOT-FZ-2026-302',
         productionPlant: 'DFL UNIT-5 (JPT)',
+        productionDate: '2026-10-29',
+        batchCodes: 'BCH-2026-903',
+        transactionDate: '2026-10-29',
+        group: 'Group B',
         stockBelongsTo: 'DFL Unit-5 (JPT)',
-        product: 'Black Tiger Block Frozen',
+        shift: 'Shift B (Evening)',
+        poNo: 'PO-2026-4408',
+        variety: 'Black Tiger (Monodon)',
+        packingStyle: '6x2kg Block',
         grade: '21/25',
         packingType: '6x2kg Block',
-        packingStyle: '6x2kg Block',
-        chamber: 'Chamber #2 (Block)',
+        freezingType: 'Contact Plate Freezer',
+        soaking: 'No (Unsoaked)',
+        productCategory: 'Raw Frozen',
+        abStatus: 'PASSED (AB Negative)',
+        remarks: 'Jumbo monodon plate frozen blocks, pristine quality',
+        totalWeight: 2400.0,
+        balanceWeight: 1600.0,
+        coldStores: 'Chamber #2 (Block)',
+        mcs: 200,
+        balanceMcs: 133,
+        looseBags: 12,
+        palletId: 'PAL-2026-0442',
         rack: 'RACK-B1-T1',
-        cartons: 60,
-        mcs: 60,
-        bags: 360,
-        netWeightKg: 600.0,
-        temp: -24.2,
-        shift: 'Shift B (Evening)',
-        supervisor: 'P. Satyanarayana',
-        status: 'Stored'
+        palletStatus: 'Placed in Store'
       },
       {
         id: 3,
         sNo: 3,
-        inwardCode: 'INW-CS-2026-443',
-        inwardDate: '2026-10-28',
-        palletId: 'PAL-2026-0443',
-        lotNo: 'LOT-FZ-2026-299',
         productionPlant: 'DFL UNIT-4 (PND)',
+        productionDate: '2026-10-28',
+        batchCodes: 'BCH-2026-895',
+        transactionDate: '2026-10-28',
+        group: 'Group A',
         stockBelongsTo: 'DFL Unit-4 (PND)',
-        product: 'Vannamei HOSO IQF',
+        shift: 'Shift A (Day)',
+        poNo: 'PO-2026-4412',
+        variety: 'Vannamei (White Shrimp)',
+        packingStyle: '10x1kg Net',
         grade: '16/20',
         packingType: 'Master Cartons',
-        packingStyle: '10x1kg Net',
-        chamber: 'Chamber #1 (IQF)',
+        freezingType: 'IQF Tunnel',
+        soaking: 'Yes (Non-Phosphate)',
+        productCategory: 'Raw Frozen',
+        abStatus: 'PASSED (AB Negative)',
+        remarks: 'Direct farm lot from Kakinada cluster',
+        totalWeight: 2240.0,
+        balanceWeight: 2240.0,
+        coldStores: 'Chamber #1 (IQF)',
+        mcs: 224,
+        balanceMcs: 224,
+        looseBags: 20,
+        palletId: 'PAL-2026-0443',
         rack: 'RACK-A1-T2',
-        cartons: 56,
-        mcs: 56,
-        bags: 560,
-        netWeightKg: 560.0,
-        temp: -22.4,
-        shift: 'Shift A (Day)',
-        supervisor: 'Anita P. Rao',
-        status: 'Stored'
+        palletStatus: 'Placed in Store'
       },
       {
         id: 4,
         sNo: 4,
-        inwardCode: 'INW-CS-2026-444',
-        inwardDate: '2026-10-28',
-        palletId: 'PAL-2026-0444',
-        lotNo: 'LOT-FZ-2026-298',
         productionPlant: 'DFL UNIT-3 (PSP)',
+        productionDate: '2026-10-28',
+        batchCodes: 'BCH-2026-892',
+        transactionDate: '2026-10-28',
+        group: 'Group C',
         stockBelongsTo: 'DFL Unit-3 (PSP)',
-        product: 'Vannamei HLSO Block',
+        shift: 'Shift C (Night)',
+        poNo: 'PO-2026-4415',
+        variety: 'Vannamei (White Shrimp)',
+        packingStyle: '6x2kg Block',
         grade: '26/30',
         packingType: '6x2kg Block',
-        packingStyle: '6x2kg Block',
-        chamber: 'Chamber #2 (Block)',
+        freezingType: 'Contact Plate Freezer',
+        soaking: 'No (Unsoaked)',
+        productCategory: 'Raw Frozen',
+        abStatus: 'PASSED (AB Negative)',
+        remarks: 'Allocated for domestic contract packaging',
+        totalWeight: 1440.0,
+        balanceWeight: 720.0,
+        coldStores: 'Chamber #2 (Block)',
+        mcs: 120,
+        balanceMcs: 60,
+        looseBags: 8,
+        palletId: 'PAL-2026-0444',
         rack: 'RACK-B2-T3',
-        cartons: 72,
-        mcs: 72,
-        bags: 432,
-        netWeightKg: 720.0,
-        temp: -25.0,
-        shift: 'Shift C (Night)',
-        supervisor: 'M. Krishna',
-        status: 'Allocated'
+        palletStatus: 'Placed in Store'
       },
       {
         id: 5,
         sNo: 5,
-        inwardCode: 'INW-CS-2026-445',
-        inwardDate: '2026-10-27',
-        palletId: 'PAL-2026-0445',
-        lotNo: 'LOT-FZ-2026-295',
         productionPlant: 'DFL UNIT-5 (JPT)',
+        productionDate: '2026-10-27',
+        batchCodes: 'BCH-2026-880',
+        transactionDate: '2026-10-27',
+        group: 'Group D',
         stockBelongsTo: 'Devi Fisheries Ltd (DFL)',
-        product: 'Sea Pearl Cooked PDTO',
+        shift: 'Shift A (Day)',
+        poNo: 'PO-2026-4419',
+        variety: 'Sea Pearl Cooked PDTO',
+        packingStyle: '5x2kg Poly',
         grade: '41/50',
         packingType: '5x2kg IQF Poly',
-        packingStyle: '5x2kg Poly',
-        chamber: 'Vault #3 Staging',
+        freezingType: 'Blast Freezer',
+        soaking: 'Yes (STPP Treated)',
+        productCategory: 'Cooked Frozen',
+        abStatus: 'PASSED (AB Negative)',
+        remarks: 'Cooked export staging for USA shipment',
+        totalWeight: 1600.0,
+        balanceWeight: 1600.0,
+        coldStores: 'Vault #3 Staging',
+        mcs: 160,
+        balanceMcs: 160,
+        looseBags: 16,
+        palletId: 'PAL-2026-0445',
         rack: 'RACK-D1-T1',
-        cartons: 40,
-        mcs: 40,
-        bags: 200,
-        netWeightKg: 400.0,
-        temp: -26.5,
-        shift: 'Shift A (Day)',
-        supervisor: 'K. Rama Rao',
-        status: 'Staged for Export'
+        palletStatus: 'Placed in Store'
       },
       {
         id: 6,
         sNo: 6,
-        inwardCode: 'INW-CS-2026-446',
-        inwardDate: '2026-10-27',
-        palletId: 'PAL-2026-0446',
-        lotNo: 'LOT-FZ-2026-291',
         productionPlant: 'DFL UNIT-1 (VSP)',
+        productionDate: '2026-10-27',
+        batchCodes: 'BCH-2026-874',
+        transactionDate: '2026-10-27',
+        group: 'Group B',
         stockBelongsTo: 'DFL Unit-1 (VSP)',
-        product: 'Scampi Headless Block',
+        shift: 'Shift B (Evening)',
+        poNo: 'PO-2026-4422',
+        variety: 'Scampi Headless Block',
+        packingStyle: '6x2kg Block',
         grade: '11/15',
         packingType: 'Dummy Cartons',
-        packingStyle: '6x2kg Block',
-        chamber: 'Chamber #2 (Block)',
+        freezingType: 'Contact Plate Freezer',
+        soaking: 'No (Unsoaked)',
+        productCategory: 'Raw Frozen',
+        abStatus: 'UNDER TEST',
+        remarks: 'Awaiting final microbiological verification report',
+        totalWeight: 1200.0,
+        balanceWeight: 1200.0,
+        coldStores: 'Chamber #2 (Block)',
+        mcs: 100,
+        balanceMcs: 100,
+        looseBags: 6,
+        palletId: 'PAL-2026-0446',
         rack: 'RACK-B3-T2',
-        cartons: 36,
-        mcs: 36,
-        bags: 216,
-        netWeightKg: 360.0,
-        temp: -24.8,
-        shift: 'Shift B (Evening)',
-        supervisor: 'P. Satyanarayana',
-        status: 'Under QC Hold'
+        palletStatus: 'Pending Placement'
       },
       {
         id: 7,
         sNo: 7,
-        inwardCode: 'INW-CS-2026-447',
-        inwardDate: '2026-10-26',
-        palletId: 'PAL-2026-0447',
-        lotNo: 'LOT-FZ-2026-288',
         productionPlant: 'DFL UNIT-5 (JPT)',
+        productionDate: '2026-10-26',
+        batchCodes: 'BCH-2026-869',
+        transactionDate: '2026-10-26',
+        group: 'Group A',
         stockBelongsTo: 'Devi Fisheries Ltd (DFL)',
-        product: 'Vannamei Easy Peel IQF',
+        shift: 'Shift A (Day)',
+        poNo: 'PO-2026-4428',
+        variety: 'Vannamei Easy Peel IQF',
+        packingStyle: '10x2lb Retail Pouch',
         grade: '26/30',
         packingType: '10x2lb Pouch',
-        packingStyle: '10x2lb Retail Pouch',
-        chamber: 'Chamber #1 (IQF)',
+        freezingType: 'IQF Tunnel',
+        soaking: 'Yes (Non-Phosphate)',
+        productCategory: 'Raw Frozen',
+        abStatus: 'PASSED (AB Negative)',
+        remarks: 'Retail supermarket barcode labels applied',
+        totalWeight: 2000.0,
+        balanceWeight: 1000.0,
+        coldStores: 'Chamber #1 (IQF)',
+        mcs: 200,
+        balanceMcs: 100,
+        looseBags: 15,
+        palletId: 'PAL-2026-0447',
         rack: 'RACK-A2-T1',
-        cartons: 50,
-        mcs: 50,
-        bags: 500,
-        netWeightKg: 500.0,
-        temp: -22.0,
-        shift: 'Shift A (Day)',
-        supervisor: 'Anita P. Rao',
-        status: 'Stored'
+        palletStatus: 'Placed in Store'
       },
       {
         id: 8,
         sNo: 8,
-        inwardCode: 'INW-CS-2026-448',
-        inwardDate: '2026-10-26',
-        palletId: 'PAL-2026-0448',
-        lotNo: 'LOT-FZ-2026-285',
         productionPlant: 'DFL UNIT-4 (PND)',
+        productionDate: '2026-10-26',
+        batchCodes: 'BCH-2026-861',
+        transactionDate: '2026-10-26',
+        group: 'Group C',
         stockBelongsTo: 'Third-Party Co-Packing',
-        product: 'Black Tiger HOSO IQF',
+        shift: 'Shift B (Evening)',
+        poNo: 'PO-2026-4431',
+        variety: 'Black Tiger HOSO IQF',
+        packingStyle: '10x1kg Net',
         grade: '16/20',
         packingType: 'Master Cartons',
-        packingStyle: '10x1kg Net',
-        chamber: 'Chamber #1 (IQF)',
+        freezingType: 'IQF Tunnel',
+        soaking: 'No (Unsoaked)',
+        productCategory: 'Raw Frozen',
+        abStatus: 'PASSED (AB Negative)',
+        remarks: 'Third party inventory held under contract',
+        totalWeight: 1500.0,
+        balanceWeight: 1500.0,
+        coldStores: 'Chamber #1 (IQF)',
+        mcs: 150,
+        balanceMcs: 150,
+        looseBags: 10,
+        palletId: 'PAL-2026-0448',
         rack: 'RACK-C1-T1',
-        cartons: 45,
-        mcs: 45,
-        bags: 450,
-        netWeightKg: 450.0,
-        temp: -23.0,
-        shift: 'Shift B (Evening)',
-        supervisor: 'M. Krishna',
-        status: 'Stored'
-      },
-      {
-        id: 9,
-        sNo: 9,
-        inwardCode: 'INW-CS-2026-449',
-        inwardDate: '2026-10-25',
-        palletId: 'PAL-2026-0449',
-        lotNo: 'LOT-FZ-2026-280',
-        productionPlant: 'DFL UNIT-5 (JPT)',
-        stockBelongsTo: 'Devi Fisheries Ltd (DFL)',
-        product: 'Vannamei Butterfly IQF',
-        grade: '31/40',
-        packingType: 'Master Cartons',
-        packingStyle: '10x1kg Net',
-        chamber: 'Chamber #1 (IQF)',
-        rack: 'RACK-C1-T2',
-        cartons: 50,
-        mcs: 50,
-        bags: 500,
-        netWeightKg: 500.0,
-        temp: -22.1,
-        shift: 'Shift A (Day)',
-        supervisor: 'K. Rama Rao',
-        status: 'Stored'
-      },
-      {
-        id: 10,
-        sNo: 10,
-        inwardCode: 'INW-CS-2026-450',
-        inwardDate: '2026-10-25',
-        palletId: 'PAL-2026-0450',
-        lotNo: 'LOT-FZ-2026-276',
-        productionPlant: 'DFL UNIT-3 (PSP)',
-        stockBelongsTo: 'DFL Unit-3 (PSP)',
-        product: 'Vannamei PD IQF',
-        grade: '41/50',
-        packingType: 'Master Cartons',
-        packingStyle: '10x1kg Net',
-        chamber: 'Chamber #1 (IQF)',
-        rack: 'RACK-A3-T1',
-        cartons: 64,
-        mcs: 64,
-        bags: 640,
-        netWeightKg: 640.0,
-        temp: -22.3,
-        shift: 'Shift C (Night)',
-        supervisor: 'Anita P. Rao',
-        status: 'Stored'
+        palletStatus: 'Placed in Store'
       }
     ],
     get stockList() {
@@ -1988,8 +1988,8 @@ export const ColdstoreView = {
     const fullList = this.state.stockInList || this.state.stockList || [];
 
     // Global helper for link clicks
-    window.__viewStockInDetails = (inwardCode) => {
-      const row = fullList.find(x => x.inwardCode === inwardCode || x.palletId === inwardCode);
+    window.__viewStockInDetails = (batchCode) => {
+      const row = fullList.find(x => x.batchCodes === batchCode || x.palletId === batchCode || x.poNo === batchCode);
       if (row) this.showStockInDetailModal(row);
     };
 
@@ -2002,12 +2002,12 @@ export const ColdstoreView = {
           </div>
           <button 
             type="button" 
-            id="cs-add-stock-in-btn" 
+            id="cs-add-stock-btn" 
             class="btn-primary px-3.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 shadow-2xs hover:shadow cursor-pointer"
-            title="Add Stock In Record"
+            title="Add Stock Record"
           >
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-            <span>Add Stock In</span>
+            <span>Add Stock</span>
           </button>
         </div>
 
@@ -2047,13 +2047,54 @@ export const ColdstoreView = {
 
           <!-- Collapsible Filter Inputs Grid (4 Columns) -->
           <div id="cs-inward-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
-            <!-- 1. INWARD DATE -->
+            <!-- 1. PRODUCTION DATE -->
             <div>
-              <label for="cs-inward-filter-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">INWARD DATE <span class="text-red-500 font-black">*</span></label>
+              <label for="cs-inward-filter-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCTION DATE</label>
               <input type="date" id="cs-inward-filter-date" value="2026-10-29" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
             </div>
 
-            <!-- 2. STOCK BELONGS TO -->
+            <!-- 2. PRODUCTION PLANT -->
+            <div>
+              <label for="cs-inward-filter-plant" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCTION PLANT</label>
+              <select id="cs-inward-filter-plant" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="ALL">All Plants</option>
+                <option value="DFL UNIT-5 (JPT)">DFL UNIT-5 (JPT)</option>
+                <option value="DFL UNIT-4 (PND)">DFL UNIT-4 (PND)</option>
+                <option value="DFL UNIT-3 (PSP)">DFL UNIT-3 (PSP)</option>
+                <option value="DFL UNIT-1 (VSP)">DFL UNIT-1 (VSP)</option>
+              </select>
+            </div>
+
+            <!-- 3. BATCH CODES / PO NO -->
+            <div>
+              <label for="cs-inward-filter-batch" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">BATCH CODE / PO NO</label>
+              <input type="text" id="cs-inward-filter-batch" placeholder="e.g. BCH-2026-901 or PO" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+            </div>
+
+            <!-- 4. COLD STORES -->
+            <div>
+              <label for="cs-inward-filter-chamber" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">COLD STORES</label>
+              <select id="cs-inward-filter-chamber" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="ALL">All Cold Stores</option>
+                <option value="Chamber #1 (IQF)">Chamber #1 (IQF)</option>
+                <option value="Chamber #2 (Block)">Chamber #2 (Block)</option>
+                <option value="Vault #3 Staging">Vault #3 Staging</option>
+              </select>
+            </div>
+
+            <!-- 5. GROUP -->
+            <div>
+              <label for="cs-inward-filter-group" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">GROUP</label>
+              <select id="cs-inward-filter-group" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="ALL">All Groups</option>
+                <option value="Group A">Group A</option>
+                <option value="Group B">Group B</option>
+                <option value="Group C">Group C</option>
+                <option value="Group D">Group D</option>
+              </select>
+            </div>
+
+            <!-- 6. STOCK BELONGS TO -->
             <div>
               <label for="cs-inward-filter-belongs" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STOCK BELONGS TO</label>
               <select id="cs-inward-filter-belongs" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
@@ -2067,74 +2108,21 @@ export const ColdstoreView = {
               </select>
             </div>
 
-            <!-- 3. PRODUCT -->
+            <!-- 7. VARIETY -->
             <div>
-              <label for="cs-inward-filter-product" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCT</label>
-              <select id="cs-inward-filter-product" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
-                <option value="ALL">All Products</option>
-                <option value="Vannamei PD IQF">Vannamei PD IQF</option>
-                <option value="Black Tiger Block Frozen">Black Tiger Block Frozen</option>
-                <option value="Vannamei HOSO IQF">Vannamei HOSO IQF</option>
-                <option value="Vannamei HLSO Block">Vannamei HLSO Block</option>
+              <label for="cs-inward-filter-variety" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">VARIETY</label>
+              <select id="cs-inward-filter-variety" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="ALL">All Varieties</option>
+                <option value="Vannamei (White Shrimp)">Vannamei (White Shrimp)</option>
+                <option value="Black Tiger (Monodon)">Black Tiger (Monodon)</option>
                 <option value="Sea Pearl Cooked PDTO">Sea Pearl Cooked PDTO</option>
                 <option value="Scampi Headless Block">Scampi Headless Block</option>
                 <option value="Vannamei Easy Peel IQF">Vannamei Easy Peel IQF</option>
                 <option value="Black Tiger HOSO IQF">Black Tiger HOSO IQF</option>
-                <option value="Vannamei Butterfly IQF">Vannamei Butterfly IQF</option>
               </select>
             </div>
 
-            <!-- 4. GRADE -->
-            <div>
-              <label for="cs-inward-filter-grade" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">GRADE</label>
-              <select id="cs-inward-filter-grade" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
-                <option value="ALL">All Grades</option>
-                <option value="16/20">16/20</option>
-                <option value="21/25">21/25</option>
-                <option value="26/30">26/30</option>
-                <option value="31/40">31/40</option>
-                <option value="41/50">41/50</option>
-                <option value="11/15">11/15</option>
-              </select>
-            </div>
-
-            <!-- 5. CHAMBER -->
-            <div>
-              <label for="cs-inward-filter-chamber" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STORAGE CHAMBER</label>
-              <select id="cs-inward-filter-chamber" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
-                <option value="ALL">All Chambers</option>
-                <option value="Chamber #1 (IQF)">Chamber #1 (IQF)</option>
-                <option value="Chamber #2 (Block)">Chamber #2 (Block)</option>
-                <option value="Vault #3 Staging">Vault #3 Staging</option>
-              </select>
-            </div>
-
-            <!-- 6. PACKING TYPE -->
-            <div>
-              <label for="cs-inward-filter-packing" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PACKING TYPE</label>
-              <select id="cs-inward-filter-packing" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
-                <option value="ALL">All Packing Types</option>
-                <option value="Master Cartons">Master Cartons</option>
-                <option value="6x2kg Block">6x2kg Block</option>
-                <option value="Dummy Cartons">Dummy Cartons</option>
-                <option value="10x2lb Pouch">10x2lb Pouch</option>
-                <option value="5x2kg IQF Poly">5x2kg IQF Poly</option>
-              </select>
-            </div>
-
-            <!-- 7. STATUS -->
-            <div>
-              <label for="cs-inward-filter-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STOCK STATUS</label>
-              <select id="cs-inward-filter-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
-                <option value="ALL">All Statuses</option>
-                <option value="Stored">Stored</option>
-                <option value="Allocated">Allocated</option>
-                <option value="Staged for Export">Staged for Export</option>
-                <option value="Under QC Hold">Under QC Hold</option>
-              </select>
-            </div>
-
-            <!-- Search Action Button Slot (Width Fitted) -->
+            <!-- 8. Search Action Button Slot (Width Fitted) -->
             <div class="flex items-end">
               <button 
                 type="button" 
@@ -2154,15 +2142,39 @@ export const ColdstoreView = {
       </div>
     `;
 
-    // Render Table Function with Strict Rule: NO VIEW EYE ICON
+    // Render Table Function with 3 Actions: New Palette, Place Palette, View Store
     const renderTable = (data) => {
       new DataTable({
         containerId: 'cs-stock-in-table',
         tableTitle: 'Stock In',
-        keyField: 'inwardCode',
+        keyField: 'batchCodes',
         searchable: true,
         exportable: true,
         pageSize: 10,
+        actionsTitle: 'Actions',
+        actions: [
+          {
+            label: 'New Palette',
+            icon: `<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v6m-3-3h6"/></svg>`,
+            onClick: (row) => {
+              this.showNewPaletteModal(row, () => renderTable(this.state.stockInList));
+            }
+          },
+          {
+            label: 'Place Palette',
+            icon: `<svg class="w-4 h-4 text-[#0284C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14v4m0 0l-2-2m2 2l2-2"/></svg>`,
+            onClick: (row) => {
+              this.showPlacePaletteModal(row, () => renderTable(this.state.stockInList));
+            }
+          },
+          {
+            label: 'View Store',
+            icon: `<svg class="w-4 h-4 text-[#403294]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 21h18M3 7v14M21 7v14M6 21V11m4 10V11m4 10V11M3 7l9-4 9 4M9 21v-4a2 2 0 012-2h2a2 2 0 012 2v4"/></svg>`,
+            onClick: (row) => {
+              this.showViewStoreModal(row);
+            }
+          }
+        ],
         columns: [
           // 1. S.NO
           {
@@ -2170,61 +2182,40 @@ export const ColdstoreView = {
             header: 'S.NO',
             render: (v, r, idx) => `<span class="text-[#5E6C84] font-semibold">${v || (idx + 1)}</span>`
           },
-          // 2. Action (Edit, Delete - STRICTLY NO VIEW EYE ICON)
-          {
-            field: 'action',
-            header: 'Action',
-            sortable: false,
-            render: (v, r) => `
-              <div class="inline-flex items-center gap-1.5" onclick="event.stopPropagation()">
-                <button 
-                  type="button" 
-                  class="dt-action-edit-btn p-1 text-[#00A4B7] hover:text-[#007A87] hover:bg-[#E6F7F9] rounded cursor-pointer transition-colors" 
-                  data-code="${r.inwardCode || r.palletId}" 
-                  title="Edit Record" 
-                  aria-label="Edit Record"
-                >
-                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
-                </button>
-                <button 
-                  type="button" 
-                  class="dt-action-delete-btn p-1 text-[#DE350B] hover:text-[#BF2600] hover:bg-[#FFEBE6] rounded cursor-pointer transition-colors" 
-                  data-code="${r.inwardCode || r.palletId}" 
-                  title="Delete Record" 
-                  aria-label="Delete Record"
-                >
-                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-                </button>
-              </div>
-            `
-          },
-          // 3. Inward Date
-          {
-            field: 'inwardDate',
-            header: 'Inward Date',
-            sortable: true,
-            render: v => `<span class="font-medium text-[#172B4D] whitespace-nowrap">${v || '-'}</span>`
-          },
-          // 4. Inward Code
-          {
-            field: 'inwardCode',
-            header: 'Inward Code',
-            sortable: true,
-            render: (v, r) => `<span class="font-mono text-xs font-bold text-[#0284C7] hover:underline cursor-pointer whitespace-nowrap" onclick="event.stopPropagation(); window.__viewStockInDetails && window.__viewStockInDetails('${r.inwardCode}')" title="Click to view details">${v || '-'}</span>`
-          },
-          // 5. Pallet ID
-          {
-            field: 'palletId',
-            header: 'Pallet ID',
-            sortable: true,
-            render: v => `<span class="font-mono text-xs font-semibold text-[#172B4D] whitespace-nowrap">${v || '-'}</span>`
-          },
-          // 6. Production Plant
+          // 2. Production Plant
           {
             field: 'productionPlant',
             header: 'Production Plant',
             sortable: true,
-            render: v => `<span class="text-[#172B4D] whitespace-nowrap">${v || '-'}</span>`
+            render: v => `<span class="font-medium text-[#172B4D] whitespace-nowrap">${v || '-'}</span>`
+          },
+          // 3. Production Date
+          {
+            field: 'productionDate',
+            header: 'Production Date',
+            sortable: true,
+            render: v => `<span class="font-semibold text-[#172B4D] whitespace-nowrap">${v || '-'}</span>`
+          },
+          // 4. Batch Codes
+          {
+            field: 'batchCodes',
+            header: 'Batch Codes',
+            sortable: true,
+            render: (v, r) => `<span class="font-mono text-xs font-bold text-[#0284C7] hover:underline cursor-pointer whitespace-nowrap" onclick="event.stopPropagation(); window.__viewStockInDetails && window.__viewStockInDetails('${v}')" title="Click to view full batch details">${v || '-'}</span>`
+          },
+          // 5. Transaction Date
+          {
+            field: 'transactionDate',
+            header: 'Transaction Date',
+            sortable: true,
+            render: v => `<span class="text-[#5E6C84] whitespace-nowrap">${v || '-'}</span>`
+          },
+          // 6. Group
+          {
+            field: 'group',
+            header: 'Group',
+            sortable: true,
+            render: v => `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#EAE6FF] text-[#403294] whitespace-nowrap">${v || '-'}</span>`
           },
           // 7. Stock Belongs To
           {
@@ -2233,104 +2224,123 @@ export const ColdstoreView = {
             sortable: true,
             render: v => `<span class="font-medium text-[#172B4D] whitespace-nowrap">${v || '-'}</span>`
           },
-          // 8. Product
+          // 8. Shift
           {
-            field: 'product',
-            header: 'Product',
-            sortable: true,
-            render: v => `<span class="font-semibold text-[#172B4D] whitespace-nowrap">${v}</span>`
+            field: 'shift',
+            header: 'Shift',
+            render: v => `<span class="text-[#5E6C84] whitespace-nowrap">${v || '-'}</span>`
           },
-          // 9. Grade
+          // 9. PO No
+          {
+            field: 'poNo',
+            header: 'PO No',
+            sortable: true,
+            render: v => `<span class="font-mono font-semibold text-[#172B4D] whitespace-nowrap">${v || '-'}</span>`
+          },
+          // 10. Variety
+          {
+            field: 'variety',
+            header: 'Variety',
+            sortable: true,
+            render: v => `<span class="font-semibold text-[#172B4D] whitespace-nowrap">${v || '-'}</span>`
+          },
+          // 11. Packing Style
+          {
+            field: 'packingStyle',
+            header: 'Packing Style',
+            render: v => `<span class="font-medium text-[#172B4D] whitespace-nowrap">${v || '-'}</span>`
+          },
+          // 12. Grade
           {
             field: 'grade',
             header: 'Grade',
             sortable: true,
-            render: v => `<span class="font-mono font-bold text-[#172B4D] whitespace-nowrap">${v}</span>`
+            render: v => `<span class="font-mono font-bold text-[#172B4D] whitespace-nowrap">${v || '-'}</span>`
           },
-          // 10. Packing Style
+          // 13. Packing Type
           {
-            field: 'packingStyle',
-            header: 'Packing Style',
-            render: v => `<span class="font-medium text-[#172B4D] whitespace-nowrap">${v}</span>`
+            field: 'packingType',
+            header: 'Packing Type',
+            render: v => `<span class="text-xs text-[#5E6C84] whitespace-nowrap">${v || '-'}</span>`
           },
-          // 11. Storage Chamber
+          // 14. Freezing Type
           {
-            field: 'chamber',
-            header: 'Chamber',
+            field: 'freezingType',
+            header: 'Freezing Type',
+            render: v => `<span class="text-xs text-[#172B4D] whitespace-nowrap">${v || '-'}</span>`
+          },
+          // 15. Soaking
+          {
+            field: 'soaking',
+            header: 'Soaking',
+            render: v => `<span class="text-xs ${v && v.toLowerCase().includes('yes') ? 'text-[#00875A] font-semibold' : 'text-[#6B778C]'} whitespace-nowrap">${v || '-'}</span>`
+          },
+          // 16. Product Category
+          {
+            field: 'productCategory',
+            header: 'Product Category',
+            render: v => `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#E0F2FE] text-[#0284C7] whitespace-nowrap">${v || '-'}</span>`
+          },
+          // 17. AB Status
+          {
+            field: 'abStatus',
+            header: 'AB Status',
+            render: v => `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${v && v.includes('PASS') ? 'bg-[#E3FCEF] text-[#006644]' : 'bg-[#FFF0B3] text-[#172B4D]'} whitespace-nowrap">${v || '-'}</span>`
+          },
+          // 18. Remarks
+          {
+            field: 'remarks',
+            header: 'Remarks',
+            render: v => `<span class="text-xs text-[#6B778C] truncate max-w-[150px] inline-block" title="${v || ''}">${v || '-'}</span>`
+          },
+          // 19. Total Weight (MCs :)
+          {
+            field: 'totalWeight',
+            header: 'Total Weight (MCs)',
             sortable: true,
-            render: v => `<span class="font-medium text-[#0284C7] whitespace-nowrap">${v}</span>`
+            render: (v, r) => `<span class="font-mono font-bold text-[#172B4D] whitespace-nowrap">${Number(v || 0).toLocaleString(undefined, { minimumFractionDigits: 1, maximumFractionDigits: 1 })} <span class="text-[10px] font-normal text-[#6B778C]">(${r.mcs || 0} MCs)</span></span>`
           },
-          // 12. Rack Slot
+          // 20. Balance Weight (MCs :, LooseBags :)
           {
-            field: 'rack',
-            header: 'Rack Slot',
-            render: v => `<span class="font-mono font-semibold text-[#172B4D] whitespace-nowrap">${v}</span>`
+            field: 'balanceWeight',
+            header: 'Balance Weight',
+            sortable: true,
+            render: (v, r) => `<span class="font-mono font-bold text-[#00875A] whitespace-nowrap">${Number(v || 0).toLocaleString(undefined, { minimumFractionDigits: 1, maximumFractionDigits: 1 })} <span class="text-[10px] font-normal text-[#6B778C]">(${r.balanceMcs || r.mcs || 0} MCs, ${r.looseBags || 0} Bags)</span></span>`
           },
-          // 13. Cartons / MCs
+          // 21. Cold Stores
           {
-            field: 'cartons',
-            header: 'Cartons (MCs)',
+            field: 'coldStores',
+            header: 'Cold Stores',
+            sortable: true,
+            render: v => `<span class="font-semibold text-[#0284C7] whitespace-nowrap">${v || '-'}</span>`
+          },
+          // 22. MCs
+          {
+            field: 'mcs',
+            header: 'MCs',
             sortable: true,
             render: v => `<span class="font-mono font-bold text-[#00875A]">${Number(v || 0).toLocaleString()}</span>`
           },
-          // 14. Net Weight Kg
+          // 23. Loose Bags
           {
-            field: 'netWeightKg',
-            header: 'Net Weight (Kg)',
+            field: 'looseBags',
+            header: 'Loose Bags',
             sortable: true,
-            render: v => `<span class="font-mono font-bold text-[#172B4D]">${Number(v || 0).toLocaleString(undefined, { minimumFractionDigits: 1, maximumFractionDigits: 1 })}</span>`
-          },
-          // 15. Status
-          {
-            field: 'status',
-            header: 'Status',
-            sortable: true,
-            render: v => {
-              let badge = 'text-[#006644] bg-[#E3FCEF]';
-              if (v === 'Allocated') badge = 'text-[#0747A6] bg-[#DEEBFF]';
-              else if (v === 'Staged for Export') badge = 'text-[#403294] bg-[#EAE6FF]';
-              else if (v === 'Under QC Hold') badge = 'text-[#974F0C] bg-[#FFF0B3]';
-              return `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold ${badge} whitespace-nowrap">${v}</span>`;
-            }
+            render: v => `<span class="font-mono font-semibold text-[#172B4D]">${Number(v || 0).toLocaleString()}</span>`
           }
         ],
         data: data
       });
-
-      // Bind Table Action buttons (Edit & Delete)
-      const tableWrapper = container.querySelector('#cs-stock-in-table');
-      if (tableWrapper) {
-        tableWrapper.querySelectorAll('.dt-action-edit-btn').forEach(btn => {
-          btn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const code = btn.getAttribute('data-code');
-            const row = fullList.find(x => x.inwardCode === code || x.palletId === code);
-            if (row) this.showEditStockInModal(row, () => renderTable(this.state.stockInList));
-          });
-        });
-
-        tableWrapper.querySelectorAll('.dt-action-delete-btn').forEach(btn => {
-          btn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const code = btn.getAttribute('data-code');
-            if (confirm(`Are you sure you want to remove Stock In intake "${code}"?`)) {
-              this.state.stockInList = this.state.stockInList.filter(x => x.inwardCode !== code && x.palletId !== code);
-              Toast.show(`Stock In record ${code} removed successfully.`, 'success');
-              renderTable(this.state.stockInList);
-            }
-          });
-        });
-      }
     };
 
     // Initial render
     renderTable(fullList);
 
-    // Bind Add Button
-    const addBtn = container.querySelector('#cs-add-stock-in-btn');
+    // Bind Add Stock Button
+    const addBtn = container.querySelector('#cs-add-stock-btn');
     if (addBtn) {
       addBtn.addEventListener('click', () => {
-        this.showAddStockInModal(() => renderTable(this.state.stockInList));
+        this.showAddStockModal(() => renderTable(this.state.stockInList));
       });
     }
 
@@ -2358,21 +2368,25 @@ export const ColdstoreView = {
     // Execute Filter Function
     const executeFilter = () => {
       const dateVal = container.querySelector('#cs-inward-filter-date')?.value || '';
-      const belongsVal = container.querySelector('#cs-inward-filter-belongs')?.value || 'ALL';
-      const productVal = container.querySelector('#cs-inward-filter-product')?.value || 'ALL';
-      const gradeVal = container.querySelector('#cs-inward-filter-grade')?.value || 'ALL';
+      const plantVal = container.querySelector('#cs-inward-filter-plant')?.value || 'ALL';
+      const batchVal = (container.querySelector('#cs-inward-filter-batch')?.value || '').trim().toLowerCase();
       const chamberVal = container.querySelector('#cs-inward-filter-chamber')?.value || 'ALL';
-      const packingVal = container.querySelector('#cs-inward-filter-packing')?.value || 'ALL';
-      const statusVal = container.querySelector('#cs-inward-filter-status')?.value || 'ALL';
+      const groupVal = container.querySelector('#cs-inward-filter-group')?.value || 'ALL';
+      const belongsVal = container.querySelector('#cs-inward-filter-belongs')?.value || 'ALL';
+      const varietyVal = container.querySelector('#cs-inward-filter-variety')?.value || 'ALL';
 
       const filtered = fullList.filter(item => {
-        if (dateVal && item.inwardDate && item.inwardDate !== dateVal) return false;
+        if (dateVal && item.productionDate && item.productionDate !== dateVal) return false;
+        if (plantVal !== 'ALL' && item.productionPlant !== plantVal) return false;
+        if (chamberVal !== 'ALL' && item.coldStores !== chamberVal) return false;
+        if (groupVal !== 'ALL' && item.group !== groupVal) return false;
         if (belongsVal !== 'ALL' && item.stockBelongsTo !== belongsVal) return false;
-        if (productVal !== 'ALL' && item.product !== productVal) return false;
-        if (gradeVal !== 'ALL' && item.grade !== gradeVal) return false;
-        if (chamberVal !== 'ALL' && item.chamber !== chamberVal) return false;
-        if (packingVal !== 'ALL' && item.packingType !== packingVal) return false;
-        if (statusVal !== 'ALL' && item.status !== statusVal) return false;
+        if (varietyVal !== 'ALL' && item.variety !== varietyVal) return false;
+        if (batchVal) {
+          const matchBatch = String(item.batchCodes || '').toLowerCase().includes(batchVal);
+          const matchPo = String(item.poNo || '').toLowerCase().includes(batchVal);
+          if (!matchBatch && !matchPo) return false;
+        }
         return true;
       });
 
@@ -2394,18 +2408,18 @@ export const ColdstoreView = {
       resetBtn.addEventListener('click', () => {
         const dateInput = container.querySelector('#cs-inward-filter-date');
         if (dateInput) dateInput.value = '2026-10-29';
-        const belongsInput = container.querySelector('#cs-inward-filter-belongs');
-        if (belongsInput) belongsInput.value = 'ALL';
-        const prodInput = container.querySelector('#cs-inward-filter-product');
-        if (prodInput) prodInput.value = 'ALL';
-        const gradeInput = container.querySelector('#cs-inward-filter-grade');
-        if (gradeInput) gradeInput.value = 'ALL';
+        const plantInput = container.querySelector('#cs-inward-filter-plant');
+        if (plantInput) plantInput.value = 'ALL';
+        const batchInput = container.querySelector('#cs-inward-filter-batch');
+        if (batchInput) batchInput.value = '';
         const chamberInput = container.querySelector('#cs-inward-filter-chamber');
         if (chamberInput) chamberInput.value = 'ALL';
-        const packingInput = container.querySelector('#cs-inward-filter-packing');
-        if (packingInput) packingInput.value = 'ALL';
-        const statusInput = container.querySelector('#cs-inward-filter-status');
-        if (statusInput) statusInput.value = 'ALL';
+        const groupInput = container.querySelector('#cs-inward-filter-group');
+        if (groupInput) groupInput.value = 'ALL';
+        const belongsInput = container.querySelector('#cs-inward-filter-belongs');
+        if (belongsInput) belongsInput.value = 'ALL';
+        const varietyInput = container.querySelector('#cs-inward-filter-variety');
+        if (varietyInput) varietyInput.value = 'ALL';
 
         renderTable(fullList);
         Toast.show('Filters reset to default', 'info');
@@ -2423,102 +2437,217 @@ export const ColdstoreView = {
     this.renderStockIn(container);
   },
 
-  // 3d. STOCK IN DETAIL MODAL
-  showStockInDetailModal(row) {
+  // 3d. ACTION: NEW PALETTE MODAL
+  showNewPaletteModal(row, onSuccess) {
+    const nextPalletNo = 500 + Math.floor(Math.random() * 500);
+    const generatedPalletTag = `PAL-2026-${nextPalletNo}`;
+
     Modal.open({
-      title: `Stock In Pallet Intake: ${row.inwardCode || row.palletId}`,
+      title: `New Palette Assignment - ${row.batchCodes || row.poNo}`,
+      size: 'xl',
+      content: `
+        <form id="form-new-palette" class="space-y-4 text-xs text-[#172B4D]">
+          <div class="p-3 bg-[#F4F5F7] border border-[#DFE1E6] rounded-lg flex items-center justify-between">
+            <div>
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">BATCH CODE</span>
+              <div class="text-base font-extrabold text-[#0284C7] font-mono">${row.batchCodes}</div>
+              <div class="text-[11px] text-[#6B778C]">${row.variety} • Grade: <span class="font-bold text-[#172B4D]">${row.grade}</span></div>
+            </div>
+            <div class="text-right">
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">AVAILABLE MCS</span>
+              <div class="text-base font-extrabold text-[#00875A] font-mono">${row.balanceMcs || row.mcs} MCs</div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 bg-[#F8FAFC] p-3 rounded-lg border border-[#DFE1E6]">
+            <div>
+              <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">PALLET TAG <span class="text-red-500 font-black">*</span></label>
+              <input type="text" name="palletTag" value="${generatedPalletTag}" class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#0284C7]" readonly>
+            </div>
+            <div>
+              <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">PALLET TYPE <span class="text-red-500 font-black">*</span></label>
+              <select name="palletType" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
+                <option value="Standard Wooden Euro (1200x800)" selected>Standard Wooden Euro (1200x800)</option>
+                <option value="Heavy-Duty Plastic Food Grade">Heavy-Duty Plastic Food Grade</option>
+                <option value="Aluminum Blast Vault Skid">Aluminum Blast Vault Skid</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">MCS TO LOAD <span class="text-red-500 font-black">*</span></label>
+              <input type="number" name="palletMcs" value="${Math.min(48, row.balanceMcs || row.mcs)}" min="1" max="${row.balanceMcs || row.mcs}" step="1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-bold" required>
+            </div>
+            <div>
+              <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">LOOSE BAGS</label>
+              <input type="number" name="palletLooseBags" value="${row.looseBags || 0}" min="0" step="1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-semibold">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-white p-3 rounded-lg border border-[#DFE1E6]">
+            <div>
+              <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">TARGET COLD STORE <span class="text-red-500 font-black">*</span></label>
+              <select name="coldStore" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
+                <option value="Chamber #1 (IQF)" ${row.coldStores === 'Chamber #1 (IQF)' ? 'selected' : ''}>Chamber #1 (IQF)</option>
+                <option value="Chamber #2 (Block)" ${row.coldStores === 'Chamber #2 (Block)' ? 'selected' : ''}>Chamber #2 (Block)</option>
+                <option value="Vault #3 Staging" ${row.coldStores === 'Vault #3 Staging' ? 'selected' : ''}>Vault #3 Staging</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">OPERATOR NOTES</label>
+              <input type="text" name="notes" placeholder="e.g. Shrink-wrapped, corner protectors added" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]">
+            </div>
+          </div>
+        </form>
+      `,
+      buttons: [
+        { label: 'Cancel', class: 'btn-secondary', onClick: () => Modal.close() },
+        {
+          label: 'Create Palette',
+          class: 'btn-primary',
+          onClick: () => {
+            const form = document.getElementById('form-new-palette');
+            if (!form || !form.checkValidity()) {
+              if (form) form.reportValidity();
+              return;
+            }
+            const fd = new FormData(form);
+            row.palletId = fd.get('palletTag');
+            row.palletStatus = 'Palletized (Pending Slotting)';
+            Modal.close();
+            Toast.show(`New Palette ${row.palletId} generated for batch ${row.batchCodes}.`, 'success');
+            if (typeof onSuccess === 'function') onSuccess();
+          }
+        }
+      ]
+    });
+  },
+
+  // 3e. ACTION: PLACE PALETTE MODAL
+  showPlacePaletteModal(row, onSuccess) {
+    Modal.open({
+      title: `Place Palette into Storage: ${row.palletId || row.batchCodes}`,
+      size: 'xl',
+      content: `
+        <form id="form-place-palette" class="space-y-4 text-xs text-[#172B4D]">
+          <div class="p-3 bg-[#F4F5F7] border border-[#DFE1E6] rounded-lg flex items-center justify-between">
+            <div>
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">PALLET IDENTIFIER</span>
+              <div class="text-base font-extrabold text-[#0284C7] font-mono">${row.palletId || 'PAL-PENDING'}</div>
+              <div class="text-[11px] text-[#6B778C]">Batch: <span class="font-bold text-[#172B4D]">${row.batchCodes}</span> • ${row.variety}</div>
+            </div>
+            <div class="text-right">
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">QUANTITY</span>
+              <div class="text-base font-extrabold text-[#00875A] font-mono">${row.mcs} MCs (${row.looseBags} Bags)</div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 bg-[#F8FAFC] p-3 rounded-lg border border-[#DFE1E6]">
+            <div>
+              <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">COLD STORE CHAMBER <span class="text-red-500 font-black">*</span></label>
+              <select name="chamber" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
+                <option value="Chamber #1 (IQF)" ${row.coldStores === 'Chamber #1 (IQF)' ? 'selected' : ''}>Chamber #1 (IQF)</option>
+                <option value="Chamber #2 (Block)" ${row.coldStores === 'Chamber #2 (Block)' ? 'selected' : ''}>Chamber #2 (Block)</option>
+                <option value="Vault #3 Staging" ${row.coldStores === 'Vault #3 Staging' ? 'selected' : ''}>Vault #3 Staging</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">RACK AISLE &amp; BAY <span class="text-red-500 font-black">*</span></label>
+              <input type="text" name="rack" value="${row.rack || 'RACK-A1-T1'}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-bold" required>
+            </div>
+            <div>
+              <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">FORKLIFT OPERATOR</label>
+              <input type="text" name="operator" value="V. Satish" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold">
+            </div>
+            <div>
+              <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">PLACEMENT STATUS</label>
+              <select name="status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold">
+                <option value="Placed in Store" selected>Placed in Store</option>
+                <option value="Staged for Stuffing">Staged for Stuffing</option>
+                <option value="Quarantine Hold">Quarantine Hold</option>
+              </select>
+            </div>
+          </div>
+        </form>
+      `,
+      buttons: [
+        { label: 'Cancel', class: 'btn-secondary', onClick: () => Modal.close() },
+        {
+          label: 'Confirm Slotting',
+          class: 'btn-primary',
+          onClick: () => {
+            const form = document.getElementById('form-place-palette');
+            if (!form || !form.checkValidity()) {
+              if (form) form.reportValidity();
+              return;
+            }
+            const fd = new FormData(form);
+            row.coldStores = fd.get('chamber');
+            row.rack = fd.get('rack');
+            row.palletStatus = fd.get('status');
+            Modal.close();
+            Toast.show(`Palette ${row.palletId || row.batchCodes} placed into ${row.coldStores} at ${row.rack}.`, 'success');
+            if (typeof onSuccess === 'function') onSuccess();
+          }
+        }
+      ]
+    });
+  },
+
+  // 3f. ACTION: VIEW STORE MODAL
+  showViewStoreModal(row) {
+    Modal.open({
+      title: `Store & Chamber Slotting - ${row.coldStores || 'Chamber'}`,
       size: 'xl',
       content: `
         <div class="space-y-4 text-xs text-[#172B4D]">
-          <!-- Header Banner -->
+          <!-- Storage Facility Header -->
           <div class="p-3 bg-[#F4F5F7] border border-[#DFE1E6] rounded-lg flex items-center justify-between">
             <div>
-              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">INWARD INTAKE CODE</span>
-              <div class="text-base font-extrabold text-[#0284C7] font-mono">${row.inwardCode || row.palletId}</div>
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">COLD STORE CHAMBER</span>
+              <div class="text-base font-extrabold text-[#0284C7]">${row.coldStores || 'Chamber #1 (IQF)'}</div>
+              <div class="text-[11px] text-[#6B778C]">Slotting Location: <span class="font-mono font-bold text-[#172B4D]">${row.rack || 'RACK-A1-T1'}</span></div>
             </div>
             <div class="text-right">
-              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">STORAGE STATUS</span>
-              <div>
-                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold ${row.status === 'Stored' ? 'bg-[#E3FCEF] text-[#006644]' : 'bg-[#FFF0B3] text-[#172B4D]'}">${row.status}</span>
-              </div>
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">CHAMBER TELEMETRY</span>
+              <div class="text-base font-extrabold text-[#00875A] font-mono">-22.4°C <span class="text-xs text-[#6B778C] font-normal">(Optimal)</span></div>
+              <div class="text-[10px] text-[#5E6C84]">Humidity: 88% RH</div>
             </div>
           </div>
 
-          <!-- Identifiers & Tracking Grid -->
+          <!-- Stored Lot Information -->
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-white p-3 border border-[#DFE1E6] rounded-lg">
             <div>
-              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">INWARD DATE</span>
-              <span class="font-semibold text-xs text-[#172B4D]">${row.inwardDate || '-'}</span>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">BATCH CODES</span>
+              <span class="font-mono font-bold text-xs text-[#0284C7]">${row.batchCodes}</span>
             </div>
             <div>
-              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PALLET ID</span>
-              <span class="font-mono font-bold text-xs text-[#0284C7]">${row.palletId}</span>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PO NUMBER</span>
+              <span class="font-mono font-bold text-xs text-[#172B4D]">${row.poNo || '-'}</span>
             </div>
             <div>
-              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">FREEZING LOT NO</span>
-              <span class="font-mono font-semibold text-xs text-[#172B4D]">${row.lotNo || '-'}</span>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">VARIETY &amp; GRADE</span>
+              <span class="font-semibold text-xs text-[#172B4D]">${row.variety} • ${row.grade}</span>
             </div>
             <div>
-              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">SHIFT &amp; SUPERVISOR</span>
-              <span class="font-semibold text-xs text-[#172B4D]">${row.shift || 'Shift A'} • ${row.supervisor || 'K. Rama Rao'}</span>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PALLET TAG</span>
+              <span class="font-mono font-bold text-xs text-[#00875A]">${row.palletId || 'Unassigned'}</span>
             </div>
           </div>
 
-          <!-- Product & Packaging Specifications -->
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-white p-3 border border-[#DFE1E6] rounded-lg">
-            <div>
-              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PRODUCT</span>
-              <span class="font-bold text-xs text-[#172B4D]">${row.product}</span>
-            </div>
-            <div>
-              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">GRADE</span>
-              <span class="font-mono font-bold text-xs text-[#172B4D]">${row.grade}</span>
-            </div>
-            <div>
-              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PACKING TYPE</span>
-              <span class="text-xs text-[#5E6C84]">${row.packingType}</span>
-            </div>
-            <div>
-              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PACKING STYLE</span>
-              <span class="font-medium text-xs text-[#172B4D]">${row.packingStyle}</span>
-            </div>
-          </div>
-
-          <!-- Cold Chain Location & Telemetry -->
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-white p-3 border border-[#DFE1E6] rounded-lg">
-            <div>
-              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PRODUCTION PLANT</span>
-              <span class="font-semibold text-xs text-[#172B4D]">${row.productionPlant}</span>
-            </div>
-            <div>
-              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">STOCK BELONGS TO</span>
-              <span class="font-semibold text-xs text-[#172B4D]">${row.stockBelongsTo}</span>
-            </div>
-            <div>
-              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">STORAGE CHAMBER &amp; RACK</span>
-              <span class="font-semibold text-xs text-[#0284C7]">${row.chamber} • <span class="font-mono">${row.rack}</span></span>
-            </div>
-            <div>
-              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">CHAMBER TEMP</span>
-              <span class="font-bold font-mono text-xs text-[#00875A]">${row.temp || -22.0}°C (Optimal)</span>
-            </div>
-          </div>
-
-          <!-- Quantity Breakdown -->
+          <!-- Visual Slotting Status Card -->
           <div class="bg-[#F8FAFC] p-3 rounded-lg border border-[#DFE1E6]">
-            <h4 class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-2">Stored Quantities</h4>
+            <h4 class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-2">Chamber Stock Allocation Summary</h4>
             <div class="grid grid-cols-3 gap-3 text-center">
-              <div class="p-2 bg-white rounded border border-[#DFE1E6]">
-                <div class="text-[10px] font-bold text-[#5E6C84] uppercase">CARTONS / MCS</div>
-                <div class="text-base font-extrabold text-[#00875A] font-mono mt-0.5">${Number(row.cartons || row.mcs || 0).toLocaleString()}</div>
+              <div class="p-2.5 bg-white rounded border border-[#DFE1E6]">
+                <div class="text-[10px] font-bold text-[#5E6C84] uppercase">STORED MCS</div>
+                <div class="text-lg font-black text-[#00875A] font-mono mt-0.5">${row.mcs}</div>
               </div>
-              <div class="p-2 bg-white rounded border border-[#DFE1E6]">
-                <div class="text-[10px] font-bold text-[#5E6C84] uppercase">TOTAL BAGS</div>
-                <div class="text-base font-extrabold text-[#172B4D] font-mono mt-0.5">${Number(row.bags || (row.cartons * 10) || 0).toLocaleString()}</div>
+              <div class="p-2.5 bg-white rounded border border-[#DFE1E6]">
+                <div class="text-[10px] font-bold text-[#5E6C84] uppercase">LOOSE BAGS</div>
+                <div class="text-lg font-black text-[#0284C7] font-mono mt-0.5">${row.looseBags}</div>
               </div>
-              <div class="p-2 bg-white rounded border border-[#DFE1E6]">
-                <div class="text-[10px] font-bold text-[#5E6C84] uppercase">NET WEIGHT (KG)</div>
-                <div class="text-base font-extrabold text-[#172B4D] font-mono mt-0.5">${Number(row.netWeightKg || 0).toLocaleString(undefined, { minimumFractionDigits: 1 })}</div>
+              <div class="p-2.5 bg-white rounded border border-[#DFE1E6]">
+                <div class="text-[10px] font-bold text-[#5E6C84] uppercase">TOTAL WEIGHT (KG)</div>
+                <div class="text-lg font-black text-[#172B4D] font-mono mt-0.5">${Number(row.totalWeight || 0).toLocaleString(undefined, { minimumFractionDigits: 1 })}</div>
               </div>
             </div>
           </div>
@@ -2530,42 +2659,21 @@ export const ColdstoreView = {
     });
   },
 
-  // 3e. ADD STOCK IN MODAL
-  showAddStockInModal(onSuccess) {
+  // 3g. ADD STOCK MODAL (EXACT 22 USER-SPECIFIED FORM FIELDS)
+  showAddStockModal(onSuccess) {
     const nextId = (this.state.stockInList?.length || 0) + 1;
-    const autoCode = `INW-CS-2026-${440 + nextId}`;
-    const autoPallet = `PAL-2026-${String(440 + nextId).padStart(4, '0')}`;
+    const generatedBatchCode = `BCH-2026-${910 + nextId}`;
 
     Modal.open({
-      title: 'Add Stock In (Inward Intake)',
-      size: 'xl',
+      title: 'Add Stock (Coldstore Inward)',
+      size: '2xl',
       content: `
-        <form id="form-add-stock-in" class="space-y-4 text-xs text-[#172B4D]">
+        <form id="form-add-stock" class="space-y-4 text-xs text-[#172B4D]">
+          <!-- 1. Production & Tracking Identifiers -->
           <div class="bg-[#F8FAFC] p-3 rounded-lg border border-[#DFE1E6]">
-            <h4 class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-2.5">1. Tracking &amp; Identification</h4>
+            <h4 class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-2.5">1. Production &amp; Tracking Identifiers</h4>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
-              <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">INWARD DATE <span class="text-red-500 font-black">*</span></label>
-                <input type="date" name="inwardDate" value="2026-10-29" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
-              </div>
-              <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">INWARD CODE</label>
-                <input type="text" name="inwardCode" value="${autoCode}" class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#0284C7]" readonly>
-              </div>
-              <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">PALLET ID <span class="text-red-500 font-black">*</span></label>
-                <input type="text" name="palletId" value="${autoPallet}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-semibold" required>
-              </div>
-              <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">FREEZING LOT NO <span class="text-red-500 font-black">*</span></label>
-                <input type="text" name="lotNo" value="LOT-FZ-2026-310" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
-              </div>
-            </div>
-          </div>
-
-          <div class="bg-[#F8FAFC] p-3 rounded-lg border border-[#DFE1E6]">
-            <h4 class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-2.5">2. Production &amp; Ownership</h4>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+              <!-- PRODUCTION PLANT * -->
               <div>
                 <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">PRODUCTION PLANT <span class="text-red-500 font-black">*</span></label>
                 <select name="productionPlant" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
@@ -2575,6 +2683,37 @@ export const ColdstoreView = {
                   <option value="DFL UNIT-1 (VSP)">DFL UNIT-1 (VSP)</option>
                 </select>
               </div>
+
+              <!-- PRODUCTION DATE * -->
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">PRODUCTION DATE <span class="text-red-500 font-black">*</span></label>
+                <input type="date" name="productionDate" value="2026-10-29" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
+              </div>
+
+              <!-- BATCH CODES * -->
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">BATCH CODES <span class="text-red-500 font-black">*</span></label>
+                <input type="text" name="batchCodes" value="${generatedBatchCode}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-bold text-[#0284C7]" required>
+              </div>
+
+              <!-- TRANSACTION DATE * -->
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">TRANSACTION DATE <span class="text-red-500 font-black">*</span></label>
+                <input type="date" name="transactionDate" value="2026-10-29" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
+              </div>
+
+              <!-- GROUP * -->
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">GROUP <span class="text-red-500 font-black">*</span></label>
+                <select name="group" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
+                  <option value="Group A" selected>Group A</option>
+                  <option value="Group B">Group B</option>
+                  <option value="Group C">Group C</option>
+                  <option value="Group D">Group D</option>
+                </select>
+              </div>
+
+              <!-- STOCK BELONGS TO * -->
               <div>
                 <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">STOCK BELONGS TO <span class="text-red-500 font-black">*</span></label>
                 <select name="stockBelongsTo" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
@@ -2586,6 +2725,8 @@ export const ColdstoreView = {
                   <option value="Third-Party Co-Packing">Third-Party Co-Packing</option>
                 </select>
               </div>
+
+              <!-- SHIFT -->
               <div>
                 <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">SHIFT</label>
                 <select name="shift" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold">
@@ -2594,33 +2735,40 @@ export const ColdstoreView = {
                   <option value="Shift C (Night)">Shift C (Night)</option>
                 </select>
               </div>
+
+              <!-- PO NO -->
               <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">SUPERVISOR</label>
-                <input type="text" name="supervisor" value="K. Rama Rao" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold">
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">PO NO</label>
+                <input type="text" name="poNo" value="PO-2026-4445" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-semibold">
               </div>
             </div>
           </div>
 
+          <!-- 2. Product & Processing Specifications -->
           <div class="bg-[#F8FAFC] p-3 rounded-lg border border-[#DFE1E6]">
-            <h4 class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-2.5">3. Product &amp; Packaging</h4>
+            <h4 class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-2.5">2. Product &amp; Processing Specifications</h4>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+              <!-- VARIETY * -->
               <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">PRODUCT <span class="text-red-500 font-black">*</span></label>
-                <select name="product" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
-                  <option value="Vannamei PD IQF" selected>Vannamei PD IQF</option>
-                  <option value="Black Tiger Block Frozen">Black Tiger Block Frozen</option>
-                  <option value="Vannamei HOSO IQF">Vannamei HOSO IQF</option>
-                  <option value="Vannamei HLSO Block">Vannamei HLSO Block</option>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">VARIETY <span class="text-red-500 font-black">*</span></label>
+                <select name="variety" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
+                  <option value="Vannamei (White Shrimp)" selected>Vannamei (White Shrimp)</option>
+                  <option value="Black Tiger (Monodon)">Black Tiger (Monodon)</option>
+                  <option value="Scampi (Macrobrachium)">Scampi (Macrobrachium)</option>
                   <option value="Sea Pearl Cooked PDTO">Sea Pearl Cooked PDTO</option>
-                  <option value="Scampi Headless Block">Scampi Headless Block</option>
-                  <option value="Vannamei Easy Peel IQF">Vannamei Easy Peel IQF</option>
-                  <option value="Black Tiger HOSO IQF">Black Tiger HOSO IQF</option>
-                  <option value="Vannamei Butterfly IQF">Vannamei Butterfly IQF</option>
                 </select>
               </div>
+
+              <!-- PACKING STYLE -->
               <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">GRADE <span class="text-red-500 font-black">*</span></label>
-                <select name="grade" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">PACKING STYLE</label>
+                <input type="text" name="packingStyle" value="10x1kg Net" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold">
+              </div>
+
+              <!-- GRADE -->
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">GRADE</label>
+                <select name="grade" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold">
                   <option value="16/20">16/20</option>
                   <option value="21/25">21/25</option>
                   <option value="26/30">26/30</option>
@@ -2629,9 +2777,11 @@ export const ColdstoreView = {
                   <option value="11/15">11/15</option>
                 </select>
               </div>
+
+              <!-- PACKING TYPE -->
               <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">PACKING TYPE <span class="text-red-500 font-black">*</span></label>
-                <select name="packingType" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">PACKING TYPE</label>
+                <select name="packingType" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold">
                   <option value="Master Cartons" selected>Master Cartons</option>
                   <option value="6x2kg Block">6x2kg Block</option>
                   <option value="Dummy Cartons">Dummy Cartons</option>
@@ -2639,40 +2789,94 @@ export const ColdstoreView = {
                   <option value="5x2kg IQF Poly">5x2kg IQF Poly</option>
                 </select>
               </div>
+
+              <!-- FREEZING TYPE -->
               <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">PACKING STYLE <span class="text-red-500 font-black">*</span></label>
-                <input type="text" name="packingStyle" value="10x1kg Net" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">FREEZING TYPE</label>
+                <select name="freezingType" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold">
+                  <option value="IQF Tunnel" selected>IQF Tunnel</option>
+                  <option value="Contact Plate Freezer">Contact Plate Freezer</option>
+                  <option value="Blast Freezer">Blast Freezer</option>
+                  <option value="Semi-IQF Spiral">Semi-IQF Spiral</option>
+                </select>
+              </div>
+
+              <!-- SOAKING -->
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">SOAKING</label>
+                <select name="soaking" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold">
+                  <option value="Yes (Non-Phosphate)" selected>Yes (Non-Phosphate)</option>
+                  <option value="No (Unsoaked)">No (Unsoaked)</option>
+                  <option value="Yes (STPP Treated)">Yes (STPP Treated)</option>
+                </select>
+              </div>
+
+              <!-- PRODUCT CATEGORY * -->
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">PRODUCT CATEGORY <span class="text-red-500 font-black">*</span></label>
+                <select name="productCategory" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
+                  <option value="Raw Frozen" selected>Raw Frozen</option>
+                  <option value="Cooked Frozen">Cooked Frozen</option>
+                  <option value="Blanched Frozen">Blanched Frozen</option>
+                  <option value="Value-Added">Value-Added</option>
+                </select>
+              </div>
+
+              <!-- ABSTATUS -->
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">ABSTATUS</label>
+                <select name="abStatus" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold">
+                  <option value="PASSED (AB Negative)" selected>PASSED (AB Negative)</option>
+                  <option value="UNDER TEST">UNDER TEST</option>
+                  <option value="AWAITING LAB">AWAITING LAB</option>
+                </select>
               </div>
             </div>
           </div>
 
+          <!-- 3. Coldstore & Quantities Details -->
           <div class="bg-[#F8FAFC] p-3 rounded-lg border border-[#DFE1E6]">
-            <h4 class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-2.5">4. Chamber Location &amp; Quantities</h4>
+            <h4 class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-2.5">3. Cold Store &amp; Weight Specifications</h4>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3">
+              <!-- COLD STORES * -->
               <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">CHAMBER <span class="text-red-500 font-black">*</span></label>
-                <select name="chamber" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">COLD STORES <span class="text-red-500 font-black">*</span></label>
+                <select name="coldStores" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
                   <option value="Chamber #1 (IQF)" selected>Chamber #1 (IQF)</option>
                   <option value="Chamber #2 (Block)">Chamber #2 (Block)</option>
                   <option value="Vault #3 Staging">Vault #3 Staging</option>
                 </select>
               </div>
+
+              <!-- MCS * -->
               <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">RACK SLOT <span class="text-red-500 font-black">*</span></label>
-                <input type="text" name="rack" value="RACK-A1-T3" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-semibold" required>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">MCS <span class="text-red-500 font-black">*</span></label>
+                <input type="number" name="mcs" value="150" min="1" step="1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-bold" required>
               </div>
+
+              <!-- LOOSE BAGS * -->
               <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">CARTONS (MCS) <span class="text-red-500 font-black">*</span></label>
-                <input type="number" name="cartons" value="50" min="1" step="1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-bold" required>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">LOOSE BAGS <span class="text-red-500 font-black">*</span></label>
+                <input type="number" name="looseBags" value="10" min="0" step="1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-bold" required>
               </div>
+
+              <!-- TOTAL WEIGHT (MCS :) -->
               <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">TOTAL BAGS</label>
-                <input type="number" name="bags" value="500" min="1" step="1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-bold">
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">TOTAL WEIGHT (MCS :)</label>
+                <input type="number" name="totalWeight" value="1500.0" min="0.1" step="0.1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-bold">
               </div>
+
+              <!-- BALANCE WEIGHT (MCS :, LOOSEBAGS :) -->
               <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">NET WEIGHT (KG) <span class="text-red-500 font-black">*</span></label>
-                <input type="number" name="netWeightKg" value="500.0" min="0.1" step="0.1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-bold" required>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">BALANCE WEIGHT</label>
+                <input type="number" name="balanceWeight" value="1500.0" min="0.1" step="0.1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-bold">
               </div>
+            </div>
+
+            <!-- REMARKS -->
+            <div class="mt-3">
+              <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">REMARKS</label>
+              <input type="text" name="remarks" placeholder="Enter remarks or storage notes" value="Coldstore intake verified, core temperature compliant" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]">
             </div>
           </div>
         </form>
@@ -2680,45 +2884,55 @@ export const ColdstoreView = {
       buttons: [
         { label: 'Cancel', class: 'btn-secondary', onClick: () => Modal.close() },
         {
-          label: 'Save Stock In',
+          label: 'Save Stock',
           class: 'btn-primary',
           onClick: () => {
-            const form = document.getElementById('form-add-stock-in');
+            const form = document.getElementById('form-add-stock');
             if (!form || !form.checkValidity()) {
               if (form) form.reportValidity();
               return;
             }
             const fd = new FormData(form);
+            const mcsNum = Number(fd.get('mcs') || 0);
+            const looseBagsNum = Number(fd.get('looseBags') || 0);
+            const totalWeightNum = Number(fd.get('totalWeight') || (mcsNum * 10));
+            const balanceWeightNum = Number(fd.get('balanceWeight') || totalWeightNum);
+
             const newRecord = {
               id: nextId,
               sNo: 1,
-              inwardCode: fd.get('inwardCode'),
-              inwardDate: fd.get('inwardDate'),
-              palletId: fd.get('palletId'),
-              lotNo: fd.get('lotNo'),
               productionPlant: fd.get('productionPlant'),
+              productionDate: fd.get('productionDate'),
+              batchCodes: fd.get('batchCodes'),
+              transactionDate: fd.get('transactionDate'),
+              group: fd.get('group'),
               stockBelongsTo: fd.get('stockBelongsTo'),
-              product: fd.get('product'),
+              shift: fd.get('shift'),
+              poNo: fd.get('poNo'),
+              variety: fd.get('variety'),
+              packingStyle: fd.get('packingStyle'),
               grade: fd.get('grade'),
               packingType: fd.get('packingType'),
-              packingStyle: fd.get('packingStyle'),
-              chamber: fd.get('chamber'),
-              rack: fd.get('rack'),
-              cartons: Number(fd.get('cartons') || 0),
-              mcs: Number(fd.get('cartons') || 0),
-              bags: Number(fd.get('bags') || 0),
-              netWeightKg: Number(fd.get('netWeightKg') || 0),
-              temp: -22.0,
-              shift: fd.get('shift'),
-              supervisor: fd.get('supervisor'),
-              status: 'Stored'
+              freezingType: fd.get('freezingType'),
+              soaking: fd.get('soaking'),
+              productCategory: fd.get('productCategory'),
+              abStatus: fd.get('abStatus'),
+              remarks: fd.get('remarks'),
+              totalWeight: totalWeightNum,
+              balanceWeight: balanceWeightNum,
+              coldStores: fd.get('coldStores'),
+              mcs: mcsNum,
+              balanceMcs: mcsNum,
+              looseBags: looseBagsNum,
+              palletId: `PAL-2026-${String(450 + nextId).padStart(4, '0')}`,
+              rack: 'RACK-A1-T1',
+              palletStatus: 'Placed in Store'
             };
 
             this.state.stockInList.unshift(newRecord);
-            // Re-index sNo
-            this.state.stockInList.forEach((item, idx) => { item.sNo = idx + 1; });
+            this.state.stockInList.forEach((it, idx) => { it.sNo = idx + 1; });
             Modal.close();
-            Toast.show(`Stock In record ${newRecord.inwardCode} created successfully!`, 'success');
+            Toast.show(`Stock record for ${newRecord.batchCodes} created successfully!`, 'success');
             if (typeof onSuccess === 'function') onSuccess();
           }
         }
@@ -2726,78 +2940,116 @@ export const ColdstoreView = {
     });
   },
 
-  // 3f. EDIT STOCK IN MODAL
-  showEditStockInModal(row, onSuccess) {
+  // 3h. STOCK IN DETAIL MODAL
+  showStockInDetailModal(row) {
     Modal.open({
-      title: `Edit Stock In: ${row.inwardCode || row.palletId}`,
+      title: `Stock Details: ${row.batchCodes || row.poNo}`,
       size: 'xl',
       content: `
-        <form id="form-edit-stock-in" class="space-y-4 text-xs text-[#172B4D]">
-          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 bg-[#F8FAFC] p-3 rounded-lg border border-[#DFE1E6]">
+        <div class="space-y-4 text-xs text-[#172B4D]">
+          <!-- Header Banner -->
+          <div class="p-3 bg-[#F4F5F7] border border-[#DFE1E6] rounded-lg flex items-center justify-between">
             <div>
-              <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">INWARD DATE</label>
-              <input type="date" name="inwardDate" value="${row.inwardDate || '2026-10-29'}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold" required>
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">BATCH CODE</span>
+              <div class="text-base font-extrabold text-[#0284C7] font-mono">${row.batchCodes}</div>
+              <div class="text-[11px] text-[#6B778C]">${row.variety} • Grade: <span class="font-bold text-[#172B4D]">${row.grade}</span></div>
             </div>
-            <div>
-              <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">PALLET ID</label>
-              <input type="text" name="palletId" value="${row.palletId}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold" required>
-            </div>
-            <div>
-              <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">CARTONS (MCS)</label>
-              <input type="number" name="cartons" value="${row.cartons || row.mcs || 0}" min="1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold" required>
-            </div>
-            <div>
-              <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">NET WEIGHT (KG)</label>
-              <input type="number" name="netWeightKg" value="${row.netWeightKg || 0}" step="0.1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold" required>
+            <div class="text-right">
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">AB STATUS</span>
+              <div>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold ${row.abStatus && row.abStatus.includes('PASS') ? 'bg-[#E3FCEF] text-[#006644]' : 'bg-[#FFF0B3] text-[#172B4D]'}">${row.abStatus}</span>
+              </div>
             </div>
           </div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 bg-white p-3 rounded-lg border border-[#DFE1E6]">
+
+          <!-- Section 1: Production Identifiers -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-white p-3 border border-[#DFE1E6] rounded-lg">
             <div>
-              <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">CHAMBER</label>
-              <input type="text" name="chamber" value="${row.chamber}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold" required>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PRODUCTION PLANT</span>
+              <span class="font-semibold text-xs text-[#172B4D]">${row.productionPlant}</span>
             </div>
             <div>
-              <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">RACK SLOT</label>
-              <input type="text" name="rack" value="${row.rack}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold" required>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PRODUCTION DATE</span>
+              <span class="font-semibold text-xs text-[#172B4D]">${row.productionDate}</span>
             </div>
             <div>
-              <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">STATUS</label>
-              <select name="status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold">
-                <option value="Stored" ${row.status === 'Stored' ? 'selected' : ''}>Stored</option>
-                <option value="Allocated" ${row.status === 'Allocated' ? 'selected' : ''}>Allocated</option>
-                <option value="Staged for Export" ${row.status === 'Staged for Export' ? 'selected' : ''}>Staged for Export</option>
-                <option value="Under QC Hold" ${row.status === 'Under QC Hold' ? 'selected' : ''}>Under QC Hold</option>
-              </select>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">TRANSACTION DATE</span>
+              <span class="font-semibold text-xs text-[#172B4D]">${row.transactionDate}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PO NUMBER</span>
+              <span class="font-mono font-bold text-xs text-[#172B4D]">${row.poNo || '-'}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">GROUP</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#EAE6FF] text-[#403294]">${row.group}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">STOCK BELONGS TO</span>
+              <span class="font-medium text-xs text-[#172B4D]">${row.stockBelongsTo}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">SHIFT</span>
+              <span class="text-xs text-[#172B4D]">${row.shift || '-'}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PRODUCT CATEGORY</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#E0F2FE] text-[#0284C7]">${row.productCategory}</span>
             </div>
           </div>
-        </form>
+
+          <!-- Section 2: Processing Specs -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-white p-3 border border-[#DFE1E6] rounded-lg">
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PACKING STYLE</span>
+              <span class="font-medium text-xs text-[#172B4D]">${row.packingStyle}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PACKING TYPE</span>
+              <span class="text-xs text-[#5E6C84]">${row.packingType}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">FREEZING TYPE</span>
+              <span class="text-xs text-[#172B4D]">${row.freezingType}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">SOAKING</span>
+              <span class="text-xs text-[#172B4D]">${row.soaking}</span>
+            </div>
+          </div>
+
+          <!-- Section 3: Coldstore & Weight Breakdown -->
+          <div class="bg-[#F8FAFC] p-3 rounded-lg border border-[#DFE1E6]">
+            <div class="flex items-center justify-between mb-2">
+              <h4 class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Coldstore Chamber &amp; Weights</h4>
+              <span class="text-[11px] font-semibold text-[#0284C7]">${row.coldStores} • <span class="font-mono">${row.rack || 'RACK-A1-T1'}</span></span>
+            </div>
+            <div class="grid grid-cols-4 gap-3 text-center">
+              <div class="p-2 bg-white rounded border border-[#DFE1E6]">
+                <div class="text-[10px] font-bold text-[#5E6C84] uppercase">MCS</div>
+                <div class="text-base font-extrabold text-[#00875A] font-mono mt-0.5">${row.mcs}</div>
+              </div>
+              <div class="p-2 bg-white rounded border border-[#DFE1E6]">
+                <div class="text-[10px] font-bold text-[#5E6C84] uppercase">LOOSE BAGS</div>
+                <div class="text-base font-extrabold text-[#172B4D] font-mono mt-0.5">${row.looseBags}</div>
+              </div>
+              <div class="p-2 bg-white rounded border border-[#DFE1E6]">
+                <div class="text-[10px] font-bold text-[#5E6C84] uppercase">TOTAL WEIGHT</div>
+                <div class="text-base font-extrabold text-[#172B4D] font-mono mt-0.5">${Number(row.totalWeight || 0).toLocaleString(undefined, { minimumFractionDigits: 1 })} <span class="text-xs text-[#6B778C]">Kg</span></div>
+              </div>
+              <div class="p-2 bg-white rounded border border-[#DFE1E6]">
+                <div class="text-[10px] font-bold text-[#5E6C84] uppercase">BALANCE WEIGHT</div>
+                <div class="text-base font-extrabold text-[#00875A] font-mono mt-0.5">${Number(row.balanceWeight || 0).toLocaleString(undefined, { minimumFractionDigits: 1 })} <span class="text-xs text-[#6B778C]">Kg</span></div>
+              </div>
+            </div>
+            <div class="mt-2.5 text-[11px] text-[#6B778C]">
+              <span class="font-bold text-[#5E6C84]">Remarks:</span> ${row.remarks || 'N/A'}
+            </div>
+          </div>
+        </div>
       `,
       buttons: [
-        { label: 'Cancel', class: 'btn-secondary', onClick: () => Modal.close() },
-        {
-          label: 'Update Record',
-          class: 'btn-primary',
-          onClick: () => {
-            const form = document.getElementById('form-edit-stock-in');
-            if (!form || !form.checkValidity()) {
-              if (form) form.reportValidity();
-              return;
-            }
-            const fd = new FormData(form);
-            row.inwardDate = fd.get('inwardDate');
-            row.palletId = fd.get('palletId');
-            row.cartons = Number(fd.get('cartons') || 0);
-            row.mcs = Number(fd.get('cartons') || 0);
-            row.netWeightKg = Number(fd.get('netWeightKg') || 0);
-            row.chamber = fd.get('chamber');
-            row.rack = fd.get('rack');
-            row.status = fd.get('status');
-
-            Modal.close();
-            Toast.show(`Stock In record ${row.inwardCode || row.palletId} updated successfully.`, 'success');
-            if (typeof onSuccess === 'function') onSuccess();
-          }
-        }
+        { label: 'Close', class: 'btn-secondary', onClick: () => Modal.close() }
       ]
     });
   },
