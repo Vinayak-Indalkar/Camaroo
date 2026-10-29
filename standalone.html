@@ -5551,8 +5551,9 @@ class DataTable {
     this.bulkActions = bulkActions;
     this.exportable = exportable;
     this.showCopy = showCopy;
-    this.tableTitle = tableTitle;
-    this.topFilterTitle = topFilterTitle || tableTitle || 'DATA EXPLORER & RECORDS';
+    const derivedTitle = typeof containerId === 'string' ? containerId.replace(/^[a-z0-9]+-/, '').replace(/-table$/, '').split('-').filter(Boolean).map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ') : '';
+    this.tableTitle = tableTitle || derivedTitle;
+    this.topFilterTitle = topFilterTitle || this.tableTitle || 'DATA EXPLORER & RECORDS';
     this.hideTopFilterBar = hideTopFilterBar;
     this.isFilterCollapsed = false;
     this.minWidth = minWidth;
@@ -40098,6 +40099,7 @@ const ColdstoreView = {
 
     new DataTable({
       containerId: 'cs-dashboard-table',
+      tableTitle: 'Chamber Stock Summary',
       searchable: true,
       exportable: true,
       pageSize: 5,
@@ -40241,6 +40243,7 @@ const ColdstoreView = {
     const renderTable = (data) => {
       new DataTable({
         containerId: 'cs-daily-production-table',
+        tableTitle: 'Daily Production',
         keyField: 'trackCode',
         searchable: true,
         exportable: true,
@@ -40503,6 +40506,7 @@ const ColdstoreView = {
 
     new DataTable({
       containerId: 'cs-daily-stockout-table',
+      tableTitle: 'Daily StockOut',
       keyField: 'stockOutCode',
       searchable: true,
       exportable: true,
@@ -40548,6 +40552,7 @@ const ColdstoreView = {
 
     new DataTable({
       containerId: 'cs-freezing-runs-table',
+      tableTitle: 'Freezing Runs',
       keyField: 'runCode',
       searchable: true,
       exportable: true,
@@ -40593,6 +40598,7 @@ const ColdstoreView = {
 
     new DataTable({
       containerId: 'cs-stock-table',
+      tableTitle: 'Cold Store Stock',
       searchable: true,
       exportable: true,
       pageSize: 10,
@@ -40628,6 +40634,7 @@ const ColdstoreView = {
 
     new DataTable({
       containerId: 'cs-orders-table',
+      tableTitle: 'Outward Orders',
       searchable: true,
       exportable: true,
       pageSize: 10,
@@ -40663,6 +40670,7 @@ const ColdstoreView = {
 
     new DataTable({
       containerId: 'cs-store-table',
+      tableTitle: 'Chamber Storage Locations',
       searchable: true,
       exportable: true,
       pageSize: 10,
@@ -40697,6 +40705,7 @@ const ColdstoreView = {
 
     new DataTable({
       containerId: 'cs-approvals-table',
+      tableTitle: 'Pending Approvals',
       searchable: true,
       exportable: true,
       pageSize: 10,
@@ -40732,6 +40741,7 @@ const ColdstoreView = {
 
     new DataTable({
       containerId: 'cs-ibt-table',
+      tableTitle: 'Inter-Branch Stock Transfers',
       searchable: true,
       exportable: true,
       pageSize: 10,
@@ -40767,6 +40777,7 @@ const ColdstoreView = {
 
     new DataTable({
       containerId: 'cs-shipments-table',
+      tableTitle: 'Finished Goods Shipments',
       searchable: true,
       exportable: true,
       pageSize: 10,

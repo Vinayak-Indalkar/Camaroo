@@ -235,6 +235,7 @@ export const ColdstoreView = {
 
     new DataTable({
       containerId: 'cs-dashboard-table',
+      tableTitle: 'Chamber Stock Summary',
       searchable: true,
       exportable: true,
       pageSize: 5,
@@ -378,6 +379,7 @@ export const ColdstoreView = {
     const renderTable = (data) => {
       new DataTable({
         containerId: 'cs-daily-production-table',
+        tableTitle: 'Daily Production',
         keyField: 'trackCode',
         searchable: true,
         exportable: true,
@@ -640,6 +642,7 @@ export const ColdstoreView = {
 
     new DataTable({
       containerId: 'cs-daily-stockout-table',
+      tableTitle: 'Daily StockOut',
       keyField: 'stockOutCode',
       searchable: true,
       exportable: true,
@@ -685,6 +688,7 @@ export const ColdstoreView = {
 
     new DataTable({
       containerId: 'cs-freezing-runs-table',
+      tableTitle: 'Freezing Runs',
       keyField: 'runCode',
       searchable: true,
       exportable: true,
@@ -730,6 +734,7 @@ export const ColdstoreView = {
 
     new DataTable({
       containerId: 'cs-stock-table',
+      tableTitle: 'Cold Store Stock',
       searchable: true,
       exportable: true,
       pageSize: 10,
@@ -765,6 +770,7 @@ export const ColdstoreView = {
 
     new DataTable({
       containerId: 'cs-orders-table',
+      tableTitle: 'Outward Orders',
       searchable: true,
       exportable: true,
       pageSize: 10,
@@ -800,6 +806,7 @@ export const ColdstoreView = {
 
     new DataTable({
       containerId: 'cs-store-table',
+      tableTitle: 'Chamber Storage Locations',
       searchable: true,
       exportable: true,
       pageSize: 10,
@@ -834,6 +841,7 @@ export const ColdstoreView = {
 
     new DataTable({
       containerId: 'cs-approvals-table',
+      tableTitle: 'Pending Approvals',
       searchable: true,
       exportable: true,
       pageSize: 10,
@@ -869,6 +877,7 @@ export const ColdstoreView = {
 
     new DataTable({
       containerId: 'cs-ibt-table',
+      tableTitle: 'Inter-Branch Stock Transfers',
       searchable: true,
       exportable: true,
       pageSize: 10,
@@ -904,6 +913,7 @@ export const ColdstoreView = {
 
     new DataTable({
       containerId: 'cs-shipments-table',
+      tableTitle: 'Finished Goods Shipments',
       searchable: true,
       exportable: true,
       pageSize: 10,

@@ -44,8 +44,9 @@ export class DataTable {
     this.bulkActions = bulkActions;
     this.exportable = exportable;
     this.showCopy = showCopy;
-    this.tableTitle = tableTitle;
-    this.topFilterTitle = topFilterTitle || tableTitle || 'DATA EXPLORER & RECORDS';
+    const derivedTitle = typeof containerId === 'string' ? containerId.replace(/^[a-z0-9]+-/, '').replace(/-table$/, '').split('-').filter(Boolean).map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ') : '';
+    this.tableTitle = tableTitle || derivedTitle;
+    this.topFilterTitle = topFilterTitle || this.tableTitle || 'DATA EXPLORER & RECORDS';
     this.hideTopFilterBar = hideTopFilterBar;
     this.isFilterCollapsed = false;
     this.minWidth = minWidth;
