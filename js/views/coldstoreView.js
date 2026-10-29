@@ -9376,6 +9376,17 @@ export const ColdstoreView = {
         <div>
           <h1 class="text-xl font-extrabold text-[#172B4D]">Inter-Branch Transfers (IBT)</h1>
         </div>
+        <div>
+          <button
+            type="button"
+            id="ibt-btn-create-request"
+            class="btn-primary px-4 py-2 rounded-lg text-xs font-semibold flex items-center gap-1.5 shadow-xs hover:shadow cursor-pointer"
+            title="Create IBT Transfer Request"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+            <span>Create Request</span>
+          </button>
+        </div>
       </div>
 
       <!-- Search & Filters Card -->
@@ -9605,6 +9616,14 @@ export const ColdstoreView = {
         Toast.show('IBT filters reset to default', 'info');
       });
     }
+
+    // Create Request Button Click Handler
+    const createReqBtn = container.querySelector('#ibt-btn-create-request');
+    if (createReqBtn) {
+      createReqBtn.addEventListener('click', () => {
+        this.showCreateIbtRequestModal(() => initTable(this.state.ibtTransfers));
+      });
+    }
   },
 
   // 6b. IBT DETAIL MODAL WITH ITEM DATA TABLE
@@ -9788,6 +9807,421 @@ export const ColdstoreView = {
       ],
       data: items
     });
+  },
+
+  // 6c. CREATE IBT REQUEST MODAL WITH FILTER FORM & RESULTS TABLE
+  showCreateIbtRequestModal(onSuccessCallback) {
+    Modal.open({
+      title: 'Create Inter-Branch Transfer Request',
+      size: 'full',
+      content: `
+        <div class="space-y-4 text-xs text-[#172B4D]">
+          <!-- Filter Card (13 Input Fields + Search Button) -->
+          <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs transition-all duration-200">
+            <div class="flex items-center justify-between pb-1">
+              <div class="flex items-center gap-2">
+                <svg style="width: 16px; height: 16px; min-width: 16px; min-height: 16px; stroke: #0284C7; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+                <h3 class="text-xs font-bold text-[#172B4D]">Search Available Stock for Transfer</h3>
+              </div>
+              <div class="inline-flex items-center" style="gap: 8px; display: inline-flex;">
+                <button type="button" id="ibt-cr-reset-btn" class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#0284C7] text-[#334155] hover:text-[#0284C7] rounded-full transition-colors cursor-pointer select-none" style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 9999px; border: 1px solid #CBD5E1; background: #ffffff; color: #334155; display: inline-flex; align-items: center; justify-content: center; padding: 0;" title="Reset All Filters" aria-label="Reset All Filters">
+                  <svg style="width: 15px; height: 15px; min-width: 15px; min-height: 15px; stroke: #334155; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                </button>
+                <button type="button" id="ibt-cr-toggle-btn" class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#0284C7] text-[#334155] hover:text-[#0284C7] rounded-full transition-colors cursor-pointer select-none" style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 9999px; border: 1px solid #CBD5E1; background: #ffffff; color: #334155; display: inline-flex; align-items: center; justify-content: center; padding: 0;" title="Hide Filter" aria-label="Hide Filter">
+                  <svg id="ibt-cr-toggle-icon" style="width: 15px; height: 15px; min-width: 15px; min-height: 15px; stroke: #334155; fill: none; display: inline-block;" class="dt-top-filter-toggle-icon transform transition-transform duration-200" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Form Fields Grid (13 User-Specified Inputs + Search Button) -->
+            <div id="ibt-cr-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
+              <!-- 1. COLD STORES -->
+              <div>
+                <label for="ibt-cr-coldstore" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">COLD STORES</label>
+                <select id="ibt-cr-coldstore" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                  <option value="ALL">All Cold Stores</option>
+                  <option value="Chamber #1 (IQF)">Chamber #1 (IQF)</option>
+                  <option value="Chamber #2 (Block)">Chamber #2 (Block)</option>
+                  <option value="Vault #3 Staging">Vault #3 Staging</option>
+                  <option value="Chamber #3 (Blast)">Chamber #3 (Blast)</option>
+                  <option value="Main Cold Storage Plant 1">Main Cold Storage Plant 1</option>
+                </select>
+              </div>
+
+              <!-- 2. BLOCKS -->
+              <div>
+                <label for="ibt-cr-blocks" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">BLOCKS</label>
+                <select id="ibt-cr-blocks" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                  <option value="ALL">All Blocks</option>
+                  <option value="Block A">Block A</option>
+                  <option value="Block B">Block B</option>
+                  <option value="Block C">Block C</option>
+                  <option value="Block D">Block D</option>
+                </select>
+              </div>
+
+              <!-- 3. PO NUMBER -->
+              <div>
+                <label for="ibt-cr-pono" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PO NUMBER</label>
+                <input type="text" id="ibt-cr-pono" placeholder="Enter PO Number..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono text-[#172B4D]">
+              </div>
+
+              <!-- 4. PRODUCT * -->
+              <div>
+                <label for="ibt-cr-product" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCT <span class="text-[#DE350B] font-bold">*</span></label>
+                <select id="ibt-cr-product" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]" required>
+                  <option value="ALL">All Products</option>
+                  <option value="Vannamei PD IQF">Vannamei PD IQF</option>
+                  <option value="Black Tiger Block Frozen">Black Tiger Block Frozen</option>
+                  <option value="Sea Pearl Cooked PDTO">Sea Pearl Cooked PDTO</option>
+                  <option value="Scampi Headless Block">Scampi Headless Block</option>
+                  <option value="Vannamei Easy Peel Blanched">Vannamei Easy Peel Blanched</option>
+                  <option value="Black Tiger HOSO IQF">Black Tiger HOSO IQF</option>
+                  <option value="Cooked Tail-On Butterfly">Cooked Tail-On Butterfly</option>
+                  <option value="Vannamei HLSO IQF">Vannamei HLSO IQF</option>
+                </select>
+              </div>
+
+              <!-- 5. GRADE -->
+              <div>
+                <label for="ibt-cr-grade" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">GRADE</label>
+                <select id="ibt-cr-grade" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                  <option value="ALL">All Grades</option>
+                  <option value="16/20">16/20</option>
+                  <option value="21/25">21/25</option>
+                  <option value="26/30">26/30</option>
+                  <option value="31/40">31/40</option>
+                  <option value="41/50">41/50</option>
+                  <option value="11/15">11/15</option>
+                </select>
+              </div>
+
+              <!-- 6. VARIETY -->
+              <div>
+                <label for="ibt-cr-variety" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">VARIETY</label>
+                <select id="ibt-cr-variety" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                  <option value="ALL">All Varieties</option>
+                  <option value="Vannamei (White Shrimp)">Vannamei (White Shrimp)</option>
+                  <option value="Black Tiger (Monodon)">Black Tiger (Monodon)</option>
+                  <option value="Scampi (Macrobrachium)">Scampi (Macrobrachium)</option>
+                  <option value="Sea Pearl Cooked PDTO">Sea Pearl Cooked PDTO</option>
+                </select>
+              </div>
+
+              <!-- 7. PACKING STYLE -->
+              <div>
+                <label for="ibt-cr-packingstyle" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PACKING STYLE</label>
+                <select id="ibt-cr-packingstyle" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                  <option value="ALL">All Packing Styles</option>
+                  <option value="10x1kg Net">10x1kg Net</option>
+                  <option value="6x2kg Block">6x2kg Block</option>
+                  <option value="5x2kg IQF Poly">5x2kg IQF Poly</option>
+                  <option value="10x2lb Pouch">10x2lb Pouch</option>
+                </select>
+              </div>
+
+              <!-- 8. PACKING TYPE -->
+              <div>
+                <label for="ibt-cr-packingtype" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PACKING TYPE</label>
+                <select id="ibt-cr-packingtype" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                  <option value="ALL">All Packing Types</option>
+                  <option value="Master Cartons">Master Cartons</option>
+                  <option value="6x2kg Block">6x2kg Block</option>
+                  <option value="Dummy Cartons">Dummy Cartons</option>
+                  <option value="10x2lb Pouch">10x2lb Pouch</option>
+                  <option value="5x2kg IQF Poly">5x2kg IQF Poly</option>
+                </select>
+              </div>
+
+              <!-- 9. SPECIES -->
+              <div>
+                <label for="ibt-cr-species" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SPECIES</label>
+                <select id="ibt-cr-species" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                  <option value="ALL">All Species</option>
+                  <option value="Litopenaeus Vannamei">Litopenaeus Vannamei</option>
+                  <option value="Penaeus Monodon">Penaeus Monodon</option>
+                  <option value="Macrobrachium rosenbergii">Macrobrachium rosenbergii</option>
+                </select>
+              </div>
+
+              <!-- 10. FREEZING TYPE -->
+              <div>
+                <label for="ibt-cr-freezingtype" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">FREEZING TYPE</label>
+                <select id="ibt-cr-freezingtype" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                  <option value="ALL">All Freezing Types</option>
+                  <option value="IQF Tunnel">IQF Tunnel</option>
+                  <option value="Contact Plate Freezer">Contact Plate Freezer</option>
+                  <option value="Blast Freezer">Blast Freezer</option>
+                  <option value="Semi-IQF Spiral">Semi-IQF Spiral</option>
+                </select>
+              </div>
+
+              <!-- 11. TYPE OF PRODUCT -->
+              <div>
+                <label for="ibt-cr-typeofproduct" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TYPE OF PRODUCT</label>
+                <select id="ibt-cr-typeofproduct" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                  <option value="ALL">All Types</option>
+                  <option value="Raw Frozen">Raw Frozen</option>
+                  <option value="Cooked Frozen">Cooked Frozen</option>
+                  <option value="Blanched Frozen">Blanched Frozen</option>
+                  <option value="Value-Added">Value-Added</option>
+                </select>
+              </div>
+
+              <!-- 12. ABSTATUS -->
+              <div>
+                <label for="ibt-cr-abstatus" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">ABSTATUS</label>
+                <select id="ibt-cr-abstatus" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                  <option value="ALL">All AB Status</option>
+                  <option value="PASSED (AB Negative)">PASSED (AB Negative)</option>
+                  <option value="UNDER TEST">UNDER TEST</option>
+                  <option value="AWAITING LAB">AWAITING LAB</option>
+                </select>
+              </div>
+
+              <!-- 13. PRODUCT CATEGORY -->
+              <div>
+                <label for="ibt-cr-productcategory" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCT CATEGORY</label>
+                <select id="ibt-cr-productcategory" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                  <option value="ALL">All Categories</option>
+                  <option value="Raw Frozen">Raw Frozen</option>
+                  <option value="Cooked Frozen">Cooked Frozen</option>
+                  <option value="Blanched Frozen">Blanched Frozen</option>
+                  <option value="Value-Added">Value-Added</option>
+                </select>
+              </div>
+
+              <!-- 14. Action Slot: Search Button -->
+              <div class="flex items-end">
+                <button 
+                  type="button" 
+                  id="ibt-cr-search-btn" 
+                  class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]"
+                  title="Search Filter Records"
+                >
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                  <span>Search</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stock Results Data Table Container -->
+          <div class="bg-white border border-[#DFE1E6] rounded-xl p-3 shadow-xs">
+            <div id="cs-ibt-create-req-table"></div>
+          </div>
+        </div>
+      `
+    });
+
+    const modalRoot = document.getElementById('erp-modal-root');
+    if (!modalRoot) return;
+
+    // Collapsible Filter Toggle inside modal
+    const toggleBtn = modalRoot.querySelector('#ibt-cr-toggle-btn');
+    const filterBody = modalRoot.querySelector('#ibt-cr-filter-body');
+    const toggleIcon = modalRoot.querySelector('#ibt-cr-toggle-icon');
+
+    if (toggleBtn && filterBody && toggleIcon) {
+      let isOpen = true;
+      toggleBtn.addEventListener('click', () => {
+        isOpen = !isOpen;
+        if (isOpen) {
+          filterBody.style.display = 'grid';
+          toggleIcon.classList.remove('rotate-180');
+          toggleBtn.title = 'Hide Filter';
+        } else {
+          filterBody.style.display = 'none';
+          toggleIcon.classList.add('rotate-180');
+          toggleBtn.title = 'Show Filter';
+        }
+      });
+    }
+
+    // Table render function with all 21 user-specified columns
+    const renderReqTable = (data, hasSearched = false) => {
+      new DataTable({
+        containerId: 'cs-ibt-create-req-table',
+        tableTitle: hasSearched ? `Available Stock Records (${data.length})` : 'Available Stock Records',
+        searchable: true,
+        exportable: true,
+        pageSize: 5,
+        columns: [
+          // 1. S.No
+          { field: 'sNo', header: 'S.No', sortable: true, render: (v, r, idx) => `<span class="text-[#5E6C84] font-semibold">${idx + 1}</span>` },
+          // 2. Location
+          { field: 'location', header: 'Location', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D] whitespace-nowrap">${v || '-'}</span>` },
+          // 3. PO.No
+          { field: 'poNo', header: 'PO.No', sortable: true, render: v => `<span class="font-mono font-bold text-[#0284C7] whitespace-nowrap">${v || '-'}</span>` },
+          // 4. Production Date
+          { field: 'productionDate', header: 'Production Date', sortable: true, render: v => `<span class="font-mono text-xs text-[#5E6C84] whitespace-nowrap">${v || '-'}</span>` },
+          // 5. Transaction Date
+          { field: 'transactionDate', header: 'Transaction Date', sortable: true, render: v => `<span class="font-mono text-xs text-[#5E6C84] whitespace-nowrap">${v || '-'}</span>` },
+          // 6. Variety
+          { field: 'variety', header: 'Variety', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D] whitespace-nowrap">${v || '-'}</span>` },
+          // 7. Grade
+          { field: 'grade', header: 'Grade', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-bold bg-[#F4F5F7] text-[#172B4D] whitespace-nowrap">${v || '-'}</span>` },
+          // 8. Species
+          { field: 'species', header: 'Species', sortable: true, render: v => `<span class="text-xs text-[#5E6C84] italic whitespace-nowrap">${v || '-'}</span>` },
+          // 9. FreezingType
+          { field: 'freezingType', header: 'FreezingType', sortable: true, render: v => `<span class="text-xs text-[#172B4D] font-medium whitespace-nowrap">${v || '-'}</span>` },
+          // 10. Soaking
+          { field: 'soaking', header: 'Soaking', sortable: true, render: v => `<span class="text-xs text-[#5E6C84] whitespace-nowrap">${v || '-'}</span>` },
+          // 11. TypeofProduct
+          { field: 'typeOfProduct', header: 'TypeofProduct', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#E0F2FE] text-[#0284C7] whitespace-nowrap">${v || '-'}</span>` },
+          // 12. Total Mcs
+          { field: 'totalMcs', header: 'Total Mcs', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">${Number(v || 0).toLocaleString()}</span>` },
+          // 13. Total Loose Bags
+          { field: 'totalLooseBags', header: 'Total Loose Bags', sortable: true, render: v => `<span class="font-mono font-semibold text-xs text-[#D97706]">${Number(v || 0).toLocaleString()}</span>` },
+          // 14. Mcs
+          { field: 'mcs', header: 'Mcs', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">${Number(v || 0).toLocaleString()}</span>` },
+          // 15. Loose Bags
+          { field: 'looseBags', header: 'Loose Bags', sortable: true, render: v => `<span class="font-mono font-semibold text-xs text-[#172B4D]">${Number(v || 0).toLocaleString()}</span>` },
+          // 16. Packing Style
+          { field: 'packingStyle', header: 'Packing Style', sortable: true, render: v => `<span class="text-xs text-[#5E6C84] whitespace-nowrap">${v || '-'}</span>` },
+          // 17. Packing Type
+          { field: 'packingType', header: 'Packing Type', sortable: true, render: v => `<span class="text-xs text-[#5E6C84] whitespace-nowrap">${v || '-'}</span>` },
+          // 18. Category
+          { field: 'productCategory', header: 'Category', sortable: true, render: v => `<span class="px-2 py-0.5 rounded-full text-[10px] font-medium bg-[#EBF8FF] text-[#0284C7] whitespace-nowrap">${v || '-'}</span>` },
+          // 19. AB Status
+          { field: 'abStatus', header: 'AB Status', sortable: true, render: v => `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold ${v && v.includes('PASS') ? 'bg-[#E3FCEF] text-[#006644]' : 'bg-[#FFF0B3] text-[#172B4D]'} whitespace-nowrap">${v || 'PASSED'}</span>` },
+          // 20. Store Name
+          { field: 'storeName', header: 'Store Name', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D] whitespace-nowrap">${v || '-'}</span>` },
+          // 21. Store Kgs
+          { field: 'storeKgs', header: 'Store Kgs', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A] whitespace-nowrap">${Number(v || 0).toFixed(2)}</span>` }
+        ],
+        actionsTitle: 'Actions',
+        actions: [
+          {
+            label: 'Request Transfer',
+            icon: `<svg class="w-4 h-4 text-[#00875A]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>`,
+            onClick: (row) => {
+              Modal.confirm({
+                title: 'Initiate Inter-Branch Transfer',
+                message: `Create IBT transfer request for PO <strong>${row.poNo}</strong> (${row.variety || row.product}, Grade: ${row.grade}, Quantity: ${row.mcs} Mcs)?`,
+                confirmText: 'Generate IBT Request',
+                onConfirm: () => {
+                  const nextId = (this.state.ibtTransfers?.length || 0) + 1;
+                  const todayStr = new Date().toISOString().slice(0, 10);
+                  const newTransfer = {
+                    id: nextId,
+                    sNo: nextId,
+                    orderNumber: `IBT-2026-0${88 + nextId}`,
+                    ibtCode: `IBT-2026-0${88 + nextId}`,
+                    orderDate: todayStr,
+                    transferDate: todayStr,
+                    fromStore: row.storeName || row.coldStores || 'Chamber #1 (IQF)',
+                    toStore: 'Chamber #3 (Blast)',
+                    coldStore: row.storeName || row.coldStores || 'Chamber #1 (IQF)',
+                    productCategory: row.productCategory || 'Raw Frozen',
+                    ibtType: 'Inter-Plant Transfer',
+                    sourcePlant: 'DFL UNIT-5 (JPT)',
+                    destPlant: 'DFL UNIT-4 (PND)',
+                    product: `${row.variety || row.product} ${row.grade}`,
+                    totalMcs: row.mcs || 180,
+                    totalNoOfBags: (row.mcs || 180) * 10,
+                    pallets: Math.ceil((row.mcs || 180) / 40),
+                    weightMt: ((row.mcs || 180) * 10) / 1000,
+                    vehicleNo: 'AP 39 TB 5590',
+                    status: 'In Transit',
+                    items: [
+                      {
+                        id: 1,
+                        sNo: 1,
+                        poNo: row.poNo,
+                        transferDate: todayStr,
+                        variety: row.variety || row.product,
+                        grades: row.grade,
+                        mcs: row.mcs,
+                        looseBags: row.looseBags || 0,
+                        packingStyle: row.packingStyle,
+                        packingType: row.packingType,
+                        category: row.productCategory,
+                        storeName: row.storeName,
+                        rackName: 'Rack A-04',
+                        kgs: row.storeKgs,
+                        reason: 'Inter-Branch Stock Transfer Request'
+                      }
+                    ]
+                  };
+                  this.state.ibtTransfers.unshift(newTransfer);
+                  Modal.close();
+                  if (onSuccessCallback) onSuccessCallback();
+                  Toast.show(`IBT Transfer Request ${newTransfer.orderNumber} created successfully!`, 'success');
+                }
+              });
+            }
+          }
+        ],
+        data
+      });
+    };
+
+    // Initially render empty table per user request
+    renderReqTable([], false);
+
+    // Search button click handler
+    const searchBtn = modalRoot.querySelector('#ibt-cr-search-btn');
+    if (searchBtn) {
+      searchBtn.addEventListener('click', () => {
+        const coldStoreVal = modalRoot.querySelector('#ibt-cr-coldstore')?.value || 'ALL';
+        const blocksVal = modalRoot.querySelector('#ibt-cr-blocks')?.value || 'ALL';
+        const poVal = (modalRoot.querySelector('#ibt-cr-pono')?.value || '').trim().toLowerCase();
+        const productVal = modalRoot.querySelector('#ibt-cr-product')?.value || 'ALL';
+        const gradeVal = modalRoot.querySelector('#ibt-cr-grade')?.value || 'ALL';
+        const varietyVal = modalRoot.querySelector('#ibt-cr-variety')?.value || 'ALL';
+        const packingStyleVal = modalRoot.querySelector('#ibt-cr-packingstyle')?.value || 'ALL';
+        const packingTypeVal = modalRoot.querySelector('#ibt-cr-packingtype')?.value || 'ALL';
+        const speciesVal = modalRoot.querySelector('#ibt-cr-species')?.value || 'ALL';
+        const freezingVal = modalRoot.querySelector('#ibt-cr-freezingtype')?.value || 'ALL';
+        const typeProductVal = modalRoot.querySelector('#ibt-cr-typeofproduct')?.value || 'ALL';
+        const abStatusVal = modalRoot.querySelector('#ibt-cr-abstatus')?.value || 'ALL';
+        const categoryVal = modalRoot.querySelector('#ibt-cr-productcategory')?.value || 'ALL';
+
+        const pool = (this.state.stockOutList || []).map((r, i) => ({
+          ...r,
+          sNo: i + 1,
+          totalMcs: r.totalMcs || r.mcs || 180,
+          totalLooseBags: r.totalLooseBags || r.looseBags || 12,
+          storeName: r.storeName || r.coldStores || 'Chamber #1 (IQF)',
+          storeKgs: r.storeKgs || ((r.mcs || 180) * 10.0)
+        }));
+
+        const results = pool.filter(item => {
+          if (coldStoreVal !== 'ALL' && item.coldStores !== coldStoreVal) return false;
+          if (blocksVal !== 'ALL' && item.blocks !== blocksVal) return false;
+          if (poVal && !(item.poNo || '').toLowerCase().includes(poVal)) return false;
+          if (productVal !== 'ALL' && item.product !== productVal) return false;
+          if (gradeVal !== 'ALL' && item.grade !== gradeVal) return false;
+          if (varietyVal !== 'ALL' && item.variety !== varietyVal) return false;
+          if (packingStyleVal !== 'ALL' && item.packingStyle !== packingStyleVal) return false;
+          if (packingTypeVal !== 'ALL' && item.packingType !== packingTypeVal) return false;
+          if (speciesVal !== 'ALL' && item.species !== speciesVal) return false;
+          if (freezingVal !== 'ALL' && item.freezingType !== freezingVal) return false;
+          if (typeProductVal !== 'ALL' && item.typeOfProduct !== typeProductVal) return false;
+          if (abStatusVal !== 'ALL' && item.abStatus !== abStatusVal) return false;
+          if (categoryVal !== 'ALL' && item.productCategory !== categoryVal) return false;
+          return true;
+        });
+
+        renderReqTable(results, true);
+        Toast.show(`Found ${results.length} stock lot(s) matching criteria`, 'info');
+      });
+    }
+
+    // Reset button click handler
+    const resetBtn = modalRoot.querySelector('#ibt-cr-reset-btn');
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        const selects = modalRoot.querySelectorAll('#ibt-cr-filter-body select');
+        selects.forEach(s => s.value = 'ALL');
+        const textInputs = modalRoot.querySelectorAll('#ibt-cr-filter-body input');
+        textInputs.forEach(i => i.value = '');
+
+        renderReqTable([], false);
+        Toast.show('Search filters reset to default', 'info');
+      });
+    }
   },
 
   // 7. SHIPMENT
