@@ -10957,24 +10957,24 @@ export const ColdstoreView = {
     const sumInitialBalance = rowItems.reduce((acc, it) => acc + it.initialBalance, 0);
 
     const tbodyHtml = rowItems.map(it => `
-      <tr class="hover:bg-[#FAFBFC] transition-colors border-b border-[#EBECF0]" data-row-idx="${it.idx}">
-        <!-- 1. Variety: Truncated with ellipsis and full text shown on hover -->
-        <td class="px-2.5 py-2.5 text-xs text-[#172B4D] max-w-[150px]">
-          <div class="truncate max-w-[150px] font-semibold text-[#172B4D] cursor-help" title="${it.varietyDesc}">
+      <tr class="hover:bg-[#FAFBFC] transition-colors" data-row-idx="${it.idx}">
+        <!-- 1. Variety: Full multi-line text break so no horizontal scrolling occurs -->
+        <td class="border border-[#DFE1E6] px-2.5 py-2 text-xs text-[#172B4D] align-top min-w-[200px]">
+          <div class="font-normal text-xs text-[#172B4D] leading-tight break-words select-text" title="${it.varietyDesc}">
             ${it.varietyDesc}
           </div>
         </td>
         <!-- 2. Grade -->
-        <td class="px-2 py-2.5 whitespace-nowrap font-mono text-xs font-semibold text-[#172B4D]">${it.grade}</td>
+        <td class="border border-[#DFE1E6] px-2 py-2 text-left font-mono text-xs text-[#172B4D] align-top whitespace-nowrap">${it.grade}</td>
         <!-- 3. PackingStyle Style -->
-        <td class="px-2 py-2.5 whitespace-nowrap font-medium text-xs text-[#172B4D]">${it.packingStyle}</td>
+        <td class="border border-[#DFE1E6] px-2 py-2 text-left text-xs text-[#172B4D] align-top whitespace-nowrap">${it.packingStyle}</td>
         <!-- 4. FreezingType Type -->
-        <td class="px-2 py-2.5 whitespace-nowrap font-medium text-xs text-[#172B4D]">${it.freezingType}</td>
+        <td class="border border-[#DFE1E6] px-2 py-2 text-left text-xs text-[#172B4D] align-top whitespace-nowrap">${it.freezingType}</td>
         <!-- 5. Glaze -->
-        <td class="px-2 py-2.5 whitespace-nowrap text-center font-mono text-xs text-[#172B4D]">${it.glaze}</td>
+        <td class="border border-[#DFE1E6] px-2 py-2 text-left font-mono text-xs text-[#172B4D] align-top whitespace-nowrap">${it.glaze}</td>
         <!-- 6. Reason -->
-        <td class="px-2 py-2.5 whitespace-nowrap">
-          <select class="load-modal-reason w-28 text-xs px-2 py-1 bg-white border border-[#0284C7] rounded-lg focus:outline-none focus:ring-1 focus:ring-[#0284C7] font-semibold text-[#172B4D] shadow-2xs">
+        <td class="border border-[#DFE1E6] px-2 py-2 text-left align-top whitespace-nowrap">
+          <select class="load-modal-reason text-xs px-2.5 py-1.5 bg-white border border-[#3B82F6] rounded-lg focus:outline-none focus:ring-1 focus:ring-[#3B82F6] font-semibold text-[#172B4D] shadow-2xs">
             <option value="Shipment Out" selected>Shipment Out</option>
             <option value="Export Dispatch">Export Dispatch</option>
             <option value="Sample Dispatch">Sample Dispatch</option>
@@ -10983,21 +10983,21 @@ export const ColdstoreView = {
           </select>
         </td>
         <!-- 7. Total Mcs -->
-        <td class="px-2 py-2.5 whitespace-nowrap text-right font-mono font-bold text-xs text-[#172B4D]">${it.totalMcs}</td>
+        <td class="border border-[#DFE1E6] px-2 py-2 text-left font-mono text-xs text-[#172B4D] align-top whitespace-nowrap">${it.totalMcs}</td>
         <!-- 8. Aval Mcs -->
-        <td class="px-2 py-2.5 whitespace-nowrap text-right font-mono font-bold text-xs text-[#00875A]">${it.avalMcs}</td>
+        <td class="border border-[#DFE1E6] px-2 py-2 text-left font-mono text-xs text-[#172B4D] align-top whitespace-nowrap">${it.avalMcs}</td>
         <!-- 9. Aval Loose Mcs -->
-        <td class="px-2 py-2.5 whitespace-nowrap text-right font-mono font-bold text-xs text-[#172B4D]">${it.avalLooseMcs}</td>
+        <td class="border border-[#DFE1E6] px-2 py-2 text-left font-mono text-xs text-[#172B4D] align-top whitespace-nowrap">${it.avalLooseMcs}</td>
         <!-- 10. Select Loose Mcs -->
-        <td class="px-2 py-2.5 whitespace-nowrap text-center">
-          <input type="number" data-row-idx="${it.idx}" value="0" min="0" max="${it.totalMcs}" class="load-modal-select-loose-mcs w-16 text-center font-mono font-bold text-xs px-1.5 py-1 bg-white border border-[#0284C7] rounded-lg focus:outline-none focus:ring-1 focus:ring-[#0284C7] text-[#172B4D] shadow-2xs" />
+        <td class="border border-[#DFE1E6] px-2 py-2 text-center align-top whitespace-nowrap">
+          <input type="number" data-row-idx="${it.idx}" value="0" min="0" max="${it.totalMcs}" class="load-modal-select-loose-mcs w-16 text-center font-mono font-bold text-xs px-1.5 py-1 bg-white border border-[#3B82F6] rounded-lg focus:outline-none focus:ring-1 focus:ring-[#3B82F6] text-[#172B4D] shadow-2xs" />
         </td>
         <!-- 11. Total Aval Mcs -->
-        <td class="px-2 py-2.5 whitespace-nowrap text-right font-mono font-bold text-xs text-[#0284C7] load-modal-total-aval" data-row-idx="${it.idx}">${it.initialTotalAval}</td>
+        <td class="border border-[#DFE1E6] px-2 py-2 text-left font-mono text-xs text-[#172B4D] align-top whitespace-nowrap load-modal-total-aval" data-row-idx="${it.idx}">${it.initialTotalAval}</td>
         <!-- 12. Remaining Loose Bags -->
-        <td class="px-2 py-2.5 whitespace-nowrap text-right font-mono text-xs text-[#5E6C84] load-modal-rem-loose" data-row-idx="${it.idx}">0</td>
+        <td class="border border-[#DFE1E6] px-2 py-2 text-left font-mono text-xs text-[#172B4D] align-top whitespace-nowrap load-modal-rem-loose" data-row-idx="${it.idx}">0</td>
         <!-- 13. Balance Mcs -->
-        <td class="px-2.5 py-2.5 whitespace-nowrap text-right font-mono font-bold text-xs text-[#172B4D] load-modal-balance" data-row-idx="${it.idx}">${it.initialBalance}</td>
+        <td class="border border-[#DFE1E6] px-2 py-2 text-left font-mono text-xs text-[#172B4D] align-top whitespace-nowrap load-modal-balance" data-row-idx="${it.idx}">${it.initialBalance}</td>
       </tr>
     `).join('');
 
@@ -11009,55 +11009,72 @@ export const ColdstoreView = {
           <!-- Consolidated Table Card (Table + Bottom Footer Bar All in One Unit) -->
           <div class="bg-white border border-[#DFE1E6] rounded-xl overflow-hidden shadow-xs">
             <div class="overflow-x-auto w-full">
-              <table class="erp-table w-full text-left border-collapse">
+              <table class="w-full text-left border-collapse border border-[#DFE1E6]">
                 <thead>
-                  <tr class="bg-[#FAFBFC] border-b border-[#DFE1E6] text-[11px] font-bold text-[#5E6C84] leading-tight select-none">
-                    <th class="px-2.5 py-2.5 font-semibold text-[#172B4D] text-left">Variety</th>
-                    <th class="px-2 py-2.5 font-semibold text-[#172B4D] text-left whitespace-nowrap">Grade</th>
-                    <th class="px-2 py-2.5 font-semibold text-[#172B4D] text-left whitespace-nowrap">PackingStyle<br><span class="text-[10px] font-normal text-[#5E6C84]">Style</span></th>
-                    <th class="px-2 py-2.5 font-semibold text-[#172B4D] text-left whitespace-nowrap">FreezingType<br><span class="text-[10px] font-normal text-[#5E6C84]">Type</span></th>
-                    <th class="px-2 py-2.5 font-semibold text-[#172B4D] text-center whitespace-nowrap">Glaze</th>
-                    <th class="px-2 py-2.5 font-semibold text-[#172B4D] text-left whitespace-nowrap">Reason</th>
-                    <th class="px-2 py-2.5 font-semibold text-[#172B4D] text-right whitespace-nowrap">Total<br><span class="text-[10px] font-normal text-[#5E6C84]">Mcs</span></th>
-                    <th class="px-2 py-2.5 font-semibold text-[#172B4D] text-right whitespace-nowrap">Aval<br><span class="text-[10px] font-normal text-[#5E6C84]">Mcs</span></th>
-                    <th class="px-2 py-2.5 font-semibold text-[#172B4D] text-right whitespace-nowrap">Aval Loose<br><span class="text-[10px] font-normal text-[#5E6C84]">Mcs</span></th>
-                    <th class="px-2 py-2.5 font-semibold text-[#172B4D] text-center whitespace-nowrap">Select Loose<br><span class="text-[10px] font-normal text-[#5E6C84]">Mcs</span></th>
-                    <th class="px-2 py-2.5 font-semibold text-[#172B4D] text-right whitespace-nowrap">Total Aval<br><span class="text-[10px] font-normal text-[#5E6C84]">Mcs</span></th>
-                    <th class="px-2 py-2.5 font-semibold text-[#172B4D] text-right whitespace-nowrap">Remaining<br><span class="text-[10px] font-normal text-[#5E6C84]">Loose Bags</span></th>
-                    <th class="px-2.5 py-2.5 font-semibold text-[#172B4D] text-right whitespace-nowrap">Balance<br><span class="text-[10px] font-normal text-[#5E6C84]">Mcs</span></th>
+                  <tr class="bg-[#FAFBFC] text-xs font-semibold text-[#172B4D] leading-tight select-none">
+                    <th class="border border-[#DFE1E6] px-2.5 py-2.5 text-left font-semibold text-[#172B4D]">Variety</th>
+                    <th class="border border-[#DFE1E6] px-2 py-2.5 text-left font-semibold text-[#172B4D] whitespace-nowrap">Grade</th>
+                    <th class="border border-[#DFE1E6] px-2 py-2.5 text-left font-semibold text-[#172B4D] whitespace-nowrap">PackingStyle Style</th>
+                    <th class="border border-[#DFE1E6] px-2 py-2.5 text-left font-semibold text-[#172B4D] whitespace-nowrap">FreezingType Type</th>
+                    <th class="border border-[#DFE1E6] px-2 py-2.5 text-left font-semibold text-[#172B4D] whitespace-nowrap">Glaze</th>
+                    <th class="border border-[#DFE1E6] px-2 py-2.5 text-left font-semibold text-[#172B4D] whitespace-nowrap">Reason</th>
+                    <th class="border border-[#DFE1E6] px-2 py-2.5 text-left font-semibold text-[#172B4D] whitespace-nowrap">Total Mcs</th>
+                    <th class="border border-[#DFE1E6] px-2 py-2.5 text-left font-semibold text-[#172B4D] whitespace-nowrap">Aval Mcs</th>
+                    <th class="border border-[#DFE1E6] px-2 py-2.5 text-left font-semibold text-[#172B4D] whitespace-nowrap">Aval Loose Mcs</th>
+                    <th class="border border-[#DFE1E6] px-2 py-2.5 text-center font-semibold text-[#172B4D] whitespace-nowrap">Select Loose Mcs</th>
+                    <th class="border border-[#DFE1E6] px-2 py-2.5 text-left font-semibold text-[#172B4D] whitespace-nowrap">Total Aval Mcs</th>
+                    <th class="border border-[#DFE1E6] px-2 py-2.5 text-left font-semibold text-[#172B4D] whitespace-nowrap">Remaining Loose Bags</th>
+                    <th class="border border-[#DFE1E6] px-2 py-2.5 text-left font-semibold text-[#172B4D] whitespace-nowrap">Balance Mcs</th>
                   </tr>
                 </thead>
                 <tbody>
                   ${tbodyHtml}
-                  <!-- Balance Mcs Summary Row -->
-                  <tr class="bg-[#FAFBFC] border-t border-[#DFE1E6]">
-                    <td class="px-2.5 py-2.5 font-bold text-xs text-[#172B4D]">Balance Mcs</td>
-                    <td colspan="11"></td>
-                    <td class="px-2.5 py-2.5 text-right font-mono font-bold text-xs text-[#172B4D]" id="load-modal-summary-balance-mcs">${sumInitialBalance}</td>
+
+                  <!-- Row 3: Balance Mcs Summary Row -->
+                  <tr class="bg-white">
+                    <td class="border border-[#DFE1E6] px-2.5 py-2 font-normal text-xs text-[#172B4D]">Balance Mcs</td>
+                    <td class="border border-[#DFE1E6] px-2 py-2"></td>
+                    <td class="border border-[#DFE1E6] px-2 py-2"></td>
+                    <td class="border border-[#DFE1E6] px-2 py-2"></td>
+                    <td class="border border-[#DFE1E6] px-2 py-2"></td>
+                    <td class="border border-[#DFE1E6] px-2 py-2"></td>
+                    <td class="border border-[#DFE1E6] px-2 py-2"></td>
+                    <td class="border border-[#DFE1E6] px-2 py-2"></td>
+                    <td class="border border-[#DFE1E6] px-2 py-2"></td>
+                    <td class="border border-[#DFE1E6] px-2 py-2"></td>
+                    <td class="border border-[#DFE1E6] px-2 py-2"></td>
+                    <td class="border border-[#DFE1E6] px-2 py-2"></td>
+                    <td class="border border-[#DFE1E6] px-2 py-2 text-left font-mono font-normal text-xs text-[#172B4D]" id="load-modal-summary-balance-mcs">${sumInitialBalance}</td>
+                  </tr>
+
+                  <!-- Row 4: Action & Stock Out Row (Directly Inside Table Structure) -->
+                  <tr class="bg-white">
+                    <td class="border border-[#DFE1E6] px-2.5 py-3"></td>
+                    <td class="border border-[#DFE1E6] px-2 py-3"></td>
+                    <td class="border border-[#DFE1E6] px-2 py-3"></td>
+                    <td class="border border-[#DFE1E6] px-2 py-3"></td>
+                    <!-- Stock Out Date centered under Glaze & Reason -->
+                    <td colspan="2" class="border border-[#DFE1E6] px-2 py-3 text-center align-middle">
+                      <div class="flex flex-col items-center justify-center">
+                        <label for="load-modal-stock-out-date" class="block text-xs font-bold text-[#172B4D] mb-1">Stock Out Date</label>
+                        <input type="date" id="load-modal-stock-out-date" value="${todayStr}" class="text-xs px-3 py-1.5 bg-white border border-[#DFE1E6] rounded-xl focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D] shadow-2xs cursor-pointer hover:border-[#CBD5E1] transition-colors" />
+                      </div>
+                    </td>
+                    <td class="border border-[#DFE1E6] px-2 py-3"></td>
+                    <td class="border border-[#DFE1E6] px-2 py-3"></td>
+                    <td class="border border-[#DFE1E6] px-2 py-3"></td>
+                    <td class="border border-[#DFE1E6] px-2 py-3"></td>
+                    <td class="border border-[#DFE1E6] px-2 py-3"></td>
+                    <td class="border border-[#DFE1E6] px-2 py-3"></td>
+                    <!-- Stock Out Button under Balance Mcs -->
+                    <td class="border border-[#DFE1E6] px-2 py-3 text-right align-middle">
+                      <button type="button" id="load-modal-submit-stockout-btn" class="px-5 py-2 rounded-full text-xs font-bold flex items-center justify-center gap-1.5 shadow-xs hover:shadow transition-all cursor-pointer text-white hover:opacity-90 ml-auto whitespace-nowrap" style="background-color: #F43F5E; border: none;">
+                        <span>Stock Out</span>
+                      </button>
+                    </td>
                   </tr>
                 </tbody>
               </table>
-            </div>
-
-            <!-- Integrated Bottom Action Controls Bar (Directly Part of Table Container) -->
-            <div class="px-4 py-3 border-t border-[#DFE1E6] bg-[#FAFBFC] flex flex-col sm:flex-row items-center justify-between gap-4">
-              <div></div>
-
-              <!-- Stock Out Date (Centered) -->
-              <div class="flex flex-col items-center">
-                <label for="load-modal-stock-out-date" class="block text-xs font-bold text-[#172B4D] mb-1">Stock Out Date</label>
-                <div class="relative">
-                  <input type="date" id="load-modal-stock-out-date" value="${todayStr}" class="text-xs px-3.5 py-1.5 bg-white border border-[#DFE1E6] rounded-xl focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D] shadow-2xs cursor-pointer hover:border-[#CBD5E1] transition-colors" />
-                </div>
-              </div>
-
-              <!-- Stock Out Button (Right Aligned) -->
-              <div class="flex items-center justify-end">
-                <button type="button" id="load-modal-submit-stockout-btn" class="px-6 py-2 rounded-full text-xs font-bold flex items-center justify-center gap-2 shadow-xs hover:shadow transition-all cursor-pointer text-white hover:opacity-90" style="background-color: #F43F5E; border: none;">
-                  <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"></path></svg>
-                  <span>Stock Out</span>
-                </button>
-              </div>
             </div>
           </div>
         </div>

@@ -51650,24 +51650,24 @@ const ColdstoreView = {
     const sumInitialBalance = rowItems.reduce((acc, it) => acc + it.initialBalance, 0);
 
     const tbodyHtml = rowItems.map(it => `
-      <tr class="hover:bg-[#FAFBFC] transition-colors border-b border-[#EBECF0]" data-row-idx="${it.idx}">
-        <!-- 1. Variety: Truncated with ellipsis and full text shown on hover -->
-        <td class="px-2.5 py-2.5 text-xs text-[#172B4D] max-w-[150px]">
-          <div class="truncate max-w-[150px] font-semibold text-[#172B4D] cursor-help" title="${it.varietyDesc}">
+      <tr class="hover:bg-[#FAFBFC] transition-colors" data-row-idx="${it.idx}">
+        <!-- 1. Variety: Full multi-line text break so no horizontal scrolling occurs -->
+        <td class="border border-[#DFE1E6] px-2.5 py-2 text-xs text-[#172B4D] align-top min-w-[200px]">
+          <div class="font-normal text-xs text-[#172B4D] leading-tight break-words select-text" title="${it.varietyDesc}">
             ${it.varietyDesc}
           </div>
         </td>
         <!-- 2. Grade -->
-        <td class="px-2 py-2.5 whitespace-nowrap font-mono text-xs font-semibold text-[#172B4D]">${it.grade}</td>
+        <td class="border border-[#DFE1E6] px-2 py-2 text-left font-mono text-xs text-[#172B4D] align-top whitespace-nowrap">${it.grade}</td>
         <!-- 3. PackingStyle Style -->
-        <td class="px-2 py-2.5 whitespace-nowrap font-medium text-xs text-[#172B4D]">${it.packingStyle}</td>
+        <td class="border border-[#DFE1E6] px-2 py-2 text-left text-xs text-[#172B4D] align-top whitespace-nowrap">${it.packingStyle}</td>
         <!-- 4. FreezingType Type -->
-        <td class="px-2 py-2.5 whitespace-nowrap font-medium text-xs text-[#172B4D]">${it.freezingType}</td>
+        <td class="border border-[#DFE1E6] px-2 py-2 text-left text-xs text-[#172B4D] align-top whitespace-nowrap">${it.freezingType}</td>
         <!-- 5. Glaze -->
-        <td class="px-2 py-2.5 whitespace-nowrap text-center font-mono text-xs text-[#172B4D]">${it.glaze}</td>
+        <td class="border border-[#DFE1E6] px-2 py-2 text-left font-mono text-xs text-[#172B4D] align-top whitespace-nowrap">${it.glaze}</td>
         <!-- 6. Reason -->
-        <td class="px-2 py-2.5 whitespace-nowrap">
-          <select class="load-modal-reason w-28 text-xs px-2 py-1 bg-white border border-[#0284C7] rounded-lg focus:outline-none focus:ring-1 focus:ring-[#0284C7] font-semibold text-[#172B4D] shadow-2xs">
+        <td class="border border-[#DFE1E6] px-2 py-2 text-left align-top whitespace-nowrap">
+          <select class="load-modal-reason text-xs px-2.5 py-1.5 bg-white border border-[#3B82F6] rounded-lg focus:outline-none focus:ring-1 focus:ring-[#3B82F6] font-semibold text-[#172B4D] shadow-2xs">
             <option value="Shipment Out" selected>Shipment Out</option>
             <option value="Export Dispatch">Export Dispatch</option>
             <option value="Sample Dispatch">Sample Dispatch</option>
@@ -51676,21 +51676,21 @@ const ColdstoreView = {
           </select>
         </td>
         <!-- 7. Total Mcs -->
-        <td class="px-2 py-2.5 whitespace-nowrap text-right font-mono font-bold text-xs text-[#172B4D]">${it.totalMcs}</td>
+        <td class="border border-[#DFE1E6] px-2 py-2 text-left font-mono text-xs text-[#172B4D] align-top whitespace-nowrap">${it.totalMcs}</td>
         <!-- 8. Aval Mcs -->
-        <td class="px-2 py-2.5 whitespace-nowrap text-right font-mono font-bold text-xs text-[#00875A]">${it.avalMcs}</td>
+        <td class="border border-[#DFE1E6] px-2 py-2 text-left font-mono text-xs text-[#172B4D] align-top whitespace-nowrap">${it.avalMcs}</td>
         <!-- 9. Aval Loose Mcs -->
-        <td class="px-2 py-2.5 whitespace-nowrap text-right font-mono font-bold text-xs text-[#172B4D]">${it.avalLooseMcs}</td>
+        <td class="border border-[#DFE1E6] px-2 py-2 text-left font-mono text-xs text-[#172B4D] align-top whitespace-nowrap">${it.avalLooseMcs}</td>
         <!-- 10. Select Loose Mcs -->
-        <td class="px-2 py-2.5 whitespace-nowrap text-center">
-          <input type="number" data-row-idx="${it.idx}" value="0" min="0" max="${it.totalMcs}" class="load-modal-select-loose-mcs w-16 text-center font-mono font-bold text-xs px-1.5 py-1 bg-white border border-[#0284C7] rounded-lg focus:outline-none focus:ring-1 focus:ring-[#0284C7] text-[#172B4D] shadow-2xs" />
+        <td class="border border-[#DFE1E6] px-2 py-2 text-center align-top whitespace-nowrap">
+          <input type="number" data-row-idx="${it.idx}" value="0" min="0" max="${it.totalMcs}" class="load-modal-select-loose-mcs w-16 text-center font-mono font-bold text-xs px-1.5 py-1 bg-white border border-[#3B82F6] rounded-lg focus:outline-none focus:ring-1 focus:ring-[#3B82F6] text-[#172B4D] shadow-2xs" />
         </td>
         <!-- 11. Total Aval Mcs -->
-        <td class="px-2 py-2.5 whitespace-nowrap text-right font-mono font-bold text-xs text-[#0284C7] load-modal-total-aval" data-row-idx="${it.idx}">${it.initialTotalAval}</td>
+        <td class="border border-[#DFE1E6] px-2 py-2 text-left font-mono text-xs text-[#172B4D] align-top whitespace-nowrap load-modal-total-aval" data-row-idx="${it.idx}">${it.initialTotalAval}</td>
         <!-- 12. Remaining Loose Bags -->
-        <td class="px-2 py-2.5 whitespace-nowrap text-right font-mono text-xs text-[#5E6C84] load-modal-rem-loose" data-row-idx="${it.idx}">0</td>
+        <td class="border border-[#DFE1E6] px-2 py-2 text-left font-mono text-xs text-[#172B4D] align-top whitespace-nowrap load-modal-rem-loose" data-row-idx="${it.idx}">0</td>
         <!-- 13. Balance Mcs -->
-        <td class="px-2.5 py-2.5 whitespace-nowrap text-right font-mono font-bold text-xs text-[#172B4D] load-modal-balance" data-row-idx="${it.idx}">${it.initialBalance}</td>
+        <td class="border border-[#DFE1E6] px-2 py-2 text-left font-mono text-xs text-[#172B4D] align-top whitespace-nowrap load-modal-balance" data-row-idx="${it.idx}">${it.initialBalance}</td>
       </tr>
     `).join('');
 
@@ -51702,55 +51702,72 @@ const ColdstoreView = {
           <!-- Consolidated Table Card (Table + Bottom Footer Bar All in One Unit) -->
           <div class="bg-white border border-[#DFE1E6] rounded-xl overflow-hidden shadow-xs">
             <div class="overflow-x-auto w-full">
-              <table class="erp-table w-full text-left border-collapse">
+              <table class="w-full text-left border-collapse border border-[#DFE1E6]">
                 <thead>
-                  <tr class="bg-[#FAFBFC] border-b border-[#DFE1E6] text-[11px] font-bold text-[#5E6C84] leading-tight select-none">
-                    <th class="px-2.5 py-2.5 font-semibold text-[#172B4D] text-left">Variety</th>
-                    <th class="px-2 py-2.5 font-semibold text-[#172B4D] text-left whitespace-nowrap">Grade</th>
-                    <th class="px-2 py-2.5 font-semibold text-[#172B4D] text-left whitespace-nowrap">PackingStyle<br><span class="text-[10px] font-normal text-[#5E6C84]">Style</span></th>
-                    <th class="px-2 py-2.5 font-semibold text-[#172B4D] text-left whitespace-nowrap">FreezingType<br><span class="text-[10px] font-normal text-[#5E6C84]">Type</span></th>
-                    <th class="px-2 py-2.5 font-semibold text-[#172B4D] text-center whitespace-nowrap">Glaze</th>
-                    <th class="px-2 py-2.5 font-semibold text-[#172B4D] text-left whitespace-nowrap">Reason</th>
-                    <th class="px-2 py-2.5 font-semibold text-[#172B4D] text-right whitespace-nowrap">Total<br><span class="text-[10px] font-normal text-[#5E6C84]">Mcs</span></th>
-                    <th class="px-2 py-2.5 font-semibold text-[#172B4D] text-right whitespace-nowrap">Aval<br><span class="text-[10px] font-normal text-[#5E6C84]">Mcs</span></th>
-                    <th class="px-2 py-2.5 font-semibold text-[#172B4D] text-right whitespace-nowrap">Aval Loose<br><span class="text-[10px] font-normal text-[#5E6C84]">Mcs</span></th>
-                    <th class="px-2 py-2.5 font-semibold text-[#172B4D] text-center whitespace-nowrap">Select Loose<br><span class="text-[10px] font-normal text-[#5E6C84]">Mcs</span></th>
-                    <th class="px-2 py-2.5 font-semibold text-[#172B4D] text-right whitespace-nowrap">Total Aval<br><span class="text-[10px] font-normal text-[#5E6C84]">Mcs</span></th>
-                    <th class="px-2 py-2.5 font-semibold text-[#172B4D] text-right whitespace-nowrap">Remaining<br><span class="text-[10px] font-normal text-[#5E6C84]">Loose Bags</span></th>
-                    <th class="px-2.5 py-2.5 font-semibold text-[#172B4D] text-right whitespace-nowrap">Balance<br><span class="text-[10px] font-normal text-[#5E6C84]">Mcs</span></th>
+                  <tr class="bg-[#FAFBFC] text-xs font-semibold text-[#172B4D] leading-tight select-none">
+                    <th class="border border-[#DFE1E6] px-2.5 py-2.5 text-left font-semibold text-[#172B4D]">Variety</th>
+                    <th class="border border-[#DFE1E6] px-2 py-2.5 text-left font-semibold text-[#172B4D] whitespace-nowrap">Grade</th>
+                    <th class="border border-[#DFE1E6] px-2 py-2.5 text-left font-semibold text-[#172B4D] whitespace-nowrap">PackingStyle Style</th>
+                    <th class="border border-[#DFE1E6] px-2 py-2.5 text-left font-semibold text-[#172B4D] whitespace-nowrap">FreezingType Type</th>
+                    <th class="border border-[#DFE1E6] px-2 py-2.5 text-left font-semibold text-[#172B4D] whitespace-nowrap">Glaze</th>
+                    <th class="border border-[#DFE1E6] px-2 py-2.5 text-left font-semibold text-[#172B4D] whitespace-nowrap">Reason</th>
+                    <th class="border border-[#DFE1E6] px-2 py-2.5 text-left font-semibold text-[#172B4D] whitespace-nowrap">Total Mcs</th>
+                    <th class="border border-[#DFE1E6] px-2 py-2.5 text-left font-semibold text-[#172B4D] whitespace-nowrap">Aval Mcs</th>
+                    <th class="border border-[#DFE1E6] px-2 py-2.5 text-left font-semibold text-[#172B4D] whitespace-nowrap">Aval Loose Mcs</th>
+                    <th class="border border-[#DFE1E6] px-2 py-2.5 text-center font-semibold text-[#172B4D] whitespace-nowrap">Select Loose Mcs</th>
+                    <th class="border border-[#DFE1E6] px-2 py-2.5 text-left font-semibold text-[#172B4D] whitespace-nowrap">Total Aval Mcs</th>
+                    <th class="border border-[#DFE1E6] px-2 py-2.5 text-left font-semibold text-[#172B4D] whitespace-nowrap">Remaining Loose Bags</th>
+                    <th class="border border-[#DFE1E6] px-2 py-2.5 text-left font-semibold text-[#172B4D] whitespace-nowrap">Balance Mcs</th>
                   </tr>
                 </thead>
                 <tbody>
                   ${tbodyHtml}
-                  <!-- Balance Mcs Summary Row -->
-                  <tr class="bg-[#FAFBFC] border-t border-[#DFE1E6]">
-                    <td class="px-2.5 py-2.5 font-bold text-xs text-[#172B4D]">Balance Mcs</td>
-                    <td colspan="11"></td>
-                    <td class="px-2.5 py-2.5 text-right font-mono font-bold text-xs text-[#172B4D]" id="load-modal-summary-balance-mcs">${sumInitialBalance}</td>
+
+                  <!-- Row 3: Balance Mcs Summary Row -->
+                  <tr class="bg-white">
+                    <td class="border border-[#DFE1E6] px-2.5 py-2 font-normal text-xs text-[#172B4D]">Balance Mcs</td>
+                    <td class="border border-[#DFE1E6] px-2 py-2"></td>
+                    <td class="border border-[#DFE1E6] px-2 py-2"></td>
+                    <td class="border border-[#DFE1E6] px-2 py-2"></td>
+                    <td class="border border-[#DFE1E6] px-2 py-2"></td>
+                    <td class="border border-[#DFE1E6] px-2 py-2"></td>
+                    <td class="border border-[#DFE1E6] px-2 py-2"></td>
+                    <td class="border border-[#DFE1E6] px-2 py-2"></td>
+                    <td class="border border-[#DFE1E6] px-2 py-2"></td>
+                    <td class="border border-[#DFE1E6] px-2 py-2"></td>
+                    <td class="border border-[#DFE1E6] px-2 py-2"></td>
+                    <td class="border border-[#DFE1E6] px-2 py-2"></td>
+                    <td class="border border-[#DFE1E6] px-2 py-2 text-left font-mono font-normal text-xs text-[#172B4D]" id="load-modal-summary-balance-mcs">${sumInitialBalance}</td>
+                  </tr>
+
+                  <!-- Row 4: Action & Stock Out Row (Directly Inside Table Structure) -->
+                  <tr class="bg-white">
+                    <td class="border border-[#DFE1E6] px-2.5 py-3"></td>
+                    <td class="border border-[#DFE1E6] px-2 py-3"></td>
+                    <td class="border border-[#DFE1E6] px-2 py-3"></td>
+                    <td class="border border-[#DFE1E6] px-2 py-3"></td>
+                    <!-- Stock Out Date centered under Glaze & Reason -->
+                    <td colspan="2" class="border border-[#DFE1E6] px-2 py-3 text-center align-middle">
+                      <div class="flex flex-col items-center justify-center">
+                        <label for="load-modal-stock-out-date" class="block text-xs font-bold text-[#172B4D] mb-1">Stock Out Date</label>
+                        <input type="date" id="load-modal-stock-out-date" value="${todayStr}" class="text-xs px-3 py-1.5 bg-white border border-[#DFE1E6] rounded-xl focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D] shadow-2xs cursor-pointer hover:border-[#CBD5E1] transition-colors" />
+                      </div>
+                    </td>
+                    <td class="border border-[#DFE1E6] px-2 py-3"></td>
+                    <td class="border border-[#DFE1E6] px-2 py-3"></td>
+                    <td class="border border-[#DFE1E6] px-2 py-3"></td>
+                    <td class="border border-[#DFE1E6] px-2 py-3"></td>
+                    <td class="border border-[#DFE1E6] px-2 py-3"></td>
+                    <td class="border border-[#DFE1E6] px-2 py-3"></td>
+                    <!-- Stock Out Button under Balance Mcs -->
+                    <td class="border border-[#DFE1E6] px-2 py-3 text-right align-middle">
+                      <button type="button" id="load-modal-submit-stockout-btn" class="px-5 py-2 rounded-full text-xs font-bold flex items-center justify-center gap-1.5 shadow-xs hover:shadow transition-all cursor-pointer text-white hover:opacity-90 ml-auto whitespace-nowrap" style="background-color: #F43F5E; border: none;">
+                        <span>Stock Out</span>
+                      </button>
+                    </td>
                   </tr>
                 </tbody>
               </table>
-            </div>
-
-            <!-- Integrated Bottom Action Controls Bar (Directly Part of Table Container) -->
-            <div class="px-4 py-3 border-t border-[#DFE1E6] bg-[#FAFBFC] flex flex-col sm:flex-row items-center justify-between gap-4">
-              <div></div>
-
-              <!-- Stock Out Date (Centered) -->
-              <div class="flex flex-col items-center">
-                <label for="load-modal-stock-out-date" class="block text-xs font-bold text-[#172B4D] mb-1">Stock Out Date</label>
-                <div class="relative">
-                  <input type="date" id="load-modal-stock-out-date" value="${todayStr}" class="text-xs px-3.5 py-1.5 bg-white border border-[#DFE1E6] rounded-xl focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D] shadow-2xs cursor-pointer hover:border-[#CBD5E1] transition-colors" />
-                </div>
-              </div>
-
-              <!-- Stock Out Button (Right Aligned) -->
-              <div class="flex items-center justify-end">
-                <button type="button" id="load-modal-submit-stockout-btn" class="px-6 py-2 rounded-full text-xs font-bold flex items-center justify-center gap-2 shadow-xs hover:shadow transition-all cursor-pointer text-white hover:opacity-90" style="background-color: #F43F5E; border: none;">
-                  <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"></path></svg>
-                  <span>Stock Out</span>
-                </button>
-              </div>
             </div>
           </div>
         </div>
@@ -53538,34 +53555,39 @@ const InventoryView = {
       </div>
 
       <!-- Search & Filter Card (calibrated as per the form data) -->
-      <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs">
-        <div class="flex items-center justify-between pb-2 mb-3 border-b border-[#F1F5F9]">
+      <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200">
+        <div class="flex items-center justify-between pb-1">
           <div class="flex items-center gap-2">
             <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
-            <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filter Indent Records</h3>
+            <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
           </div>
-          <button type="button" id="gs-search-reset-btn" class="w-7 h-7 rounded-full border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#475569] flex items-center justify-center transition-colors cursor-pointer" title="Reset Filters">
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-          </button>
+          <div class="inline-flex items-center gap-2">
+            <button type="button" id="gs-search-reset-btn" class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Reset all filters">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+            </button>
+            <button type="button" id="gs-filter-toggle-btn" class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Hide Filter">
+              <svg id="gs-filter-toggle-icon" class="w-3.5 h-3.5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+          </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+        <div id="gs-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-3 border-t border-[#F1F5F9] mt-2 text-xs">
           <!-- Filter: DOC NO -->
           <div>
             <label for="gs-filter-docno" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DOC NO</label>
-            <input type="text" id="gs-filter-docno" placeholder="Search by Doc No..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            <input type="text" id="gs-filter-docno" placeholder="Search by Doc No..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
           </div>
 
           <!-- Filter: DATE -->
           <div>
             <label for="gs-filter-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DATE</label>
-            <input type="date" id="gs-filter-date" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            <input type="date" id="gs-filter-date" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
           </div>
 
           <!-- Filter: DEPARTMENT -->
           <div>
             <label for="gs-filter-dept" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DEPARTMENT</label>
-            <select id="gs-filter-dept" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+            <select id="gs-filter-dept" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
               <option value="ALL">All Departments</option>
               <option value="Processing Unit-5">Processing Unit-5</option>
               <option value="Coldstore Hub">Coldstore Hub</option>
@@ -53578,9 +53600,9 @@ const InventoryView = {
 
           <!-- Search Button -->
           <div class="flex items-end">
-            <button type="button" id="gs-search-btn" class="w-full btn-primary px-4 py-1.5 rounded-full text-xs font-bold flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px]">
+            <button type="button" id="gs-search-btn" class="w-full dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px]">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-              <span>Search Indents</span>
+              <span>Search</span>
             </button>
           </div>
         </div>
@@ -53955,34 +53977,39 @@ const InventoryView = {
       </div>
 
       <!-- Search & Filter Card -->
-      <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs">
-        <div class="flex items-center justify-between pb-2 mb-3 border-b border-[#F1F5F9]">
+      <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200">
+        <div class="flex items-center justify-between pb-1">
           <div class="flex items-center gap-2">
             <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
-            <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filter</h3>
+            <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
           </div>
-          <button type="button" id="gs-list-filter-reset-btn" class="w-7 h-7 rounded-full border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#475569] flex items-center justify-center transition-colors cursor-pointer" title="Reset Filters">
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-          </button>
+          <div class="inline-flex items-center gap-2">
+            <button type="button" id="gs-list-filter-reset-btn" class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Reset all filters">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+            </button>
+            <button type="button" id="gs-list-filter-toggle-btn" class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Hide Filter">
+              <svg id="gs-list-filter-toggle-icon" class="w-3.5 h-3.5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+          </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+        <div id="gs-list-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-3 border-t border-[#F1F5F9] mt-2 text-xs">
           <!-- 1. FROM DATE -->
           <div>
             <label for="gs-list-filter-from-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FROM DATE</label>
-            <input type="date" id="gs-list-filter-from-date" value="2026-10-01" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            <input type="date" id="gs-list-filter-from-date" value="2026-10-01" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
           </div>
 
           <!-- 2. TO DATE -->
           <div>
             <label for="gs-list-filter-to-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">TO DATE</label>
-            <input type="date" id="gs-list-filter-to-date" value="2026-10-29" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            <input type="date" id="gs-list-filter-to-date" value="2026-10-29" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
           </div>
 
           <!-- 3. STATUS -->
           <div>
             <label for="gs-list-filter-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">STATUS</label>
-            <select id="gs-list-filter-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+            <select id="gs-list-filter-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
               <option value="ALL">All Statuses</option>
               <option value="Approved">Approved</option>
               <option value="Pending">Pending</option>
@@ -53993,7 +54020,7 @@ const InventoryView = {
 
           <!-- Search Button -->
           <div class="flex items-end">
-            <button type="button" id="gs-list-filter-search-btn" class="w-full btn-primary px-4 py-1.5 rounded-full text-xs font-bold flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px]">
+            <button type="button" id="gs-list-filter-search-btn" class="w-full dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px]">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
               <span>Search</span>
             </button>
@@ -54444,40 +54471,45 @@ const InventoryView = {
       </div>
 
       <!-- Search & Filter Card (according to this create search & filter also) -->
-      <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs">
-        <div class="flex items-center justify-between pb-2 mb-3 border-b border-[#F1F5F9]">
+      <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200">
+        <div class="flex items-center justify-between pb-1">
           <div class="flex items-center gap-2">
             <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
-            <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filter Existing POs</h3>
+            <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
           </div>
-          <button type="button" id="gs-po-filter-reset-btn" class="w-7 h-7 rounded-full border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#475569] flex items-center justify-center transition-colors cursor-pointer" title="Reset Filters">
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-          </button>
+          <div class="inline-flex items-center gap-2">
+            <button type="button" id="gs-po-filter-reset-btn" class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Reset all filters">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+            </button>
+            <button type="button" id="gs-po-filter-toggle-btn" class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Hide Filter">
+              <svg id="gs-po-filter-toggle-icon" class="w-3.5 h-3.5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+          </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3">
+        <div id="gs-po-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3 pt-3 border-t border-[#F1F5F9] mt-2 text-xs">
           <!-- Filter: DOC NO / CODE -->
           <div>
             <label for="po-flt-doc" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DOC NO / CODE</label>
-            <input type="text" id="po-flt-doc" placeholder="Search Doc No or Code..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            <input type="text" id="po-flt-doc" placeholder="Search Doc No or Code..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
           </div>
 
           <!-- Filter: FROM DATE -->
           <div>
             <label for="po-flt-from" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FROM DATE</label>
-            <input type="date" id="po-flt-from" value="2026-10-01" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            <input type="date" id="po-flt-from" value="2026-10-01" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
           </div>
 
           <!-- Filter: TO DATE -->
           <div>
             <label for="po-flt-to" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">TO DATE</label>
-            <input type="date" id="po-flt-to" value="${todayStr}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            <input type="date" id="po-flt-to" value="${todayStr}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
           </div>
 
           <!-- Filter: SUPPLIER -->
           <div>
             <label for="po-flt-sup" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SUPPLIER</label>
-            <select id="po-flt-sup" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+            <select id="po-flt-sup" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
               <option value="ALL">All Suppliers</option>
               <option value="Devi Safety Aids & Industrial Supplies">Devi Safety Aids</option>
               <option value="Sri Venkateswara Packaging Ltd">Sri Venkateswara</option>
@@ -54489,9 +54521,9 @@ const InventoryView = {
 
           <!-- Search Button -->
           <div class="flex items-end">
-            <button type="button" id="po-flt-search-btn" class="w-full btn-primary px-4 py-1.5 rounded-full text-xs font-bold flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px]">
+            <button type="button" id="po-flt-search-btn" class="w-full dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px]">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-              <span>Search POs</span>
+              <span>Search</span>
             </button>
           </div>
         </div>
