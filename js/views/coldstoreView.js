@@ -7931,17 +7931,15 @@ export const ColdstoreView = {
           </div>
         </div>
 
-        <!-- Fixed Save Button in Bottom Right -->
+        <!-- Fixed Save Button in Bottom Right (Matching Spec Style) -->
         <div class="fixed bottom-6 right-8 z-30">
           <button 
             type="button" 
             id="rn-save-layout-btn" 
-            class="bg-[#4F46E5] hover:bg-[#4338CA] text-white font-bold text-xs px-8 py-2.5 rounded-lg shadow-xl hover:shadow-2xl transition-all cursor-pointer flex items-center gap-2 border border-[#4338CA]"
+            class="text-white font-semibold text-xs px-7 py-2 rounded-md shadow-md hover:shadow-lg transition-all cursor-pointer select-none"
+            style="background-color: #5071F2 !important; color: #ffffff !important; border: 1px solid #4364E8 !important; border-radius: 6px !important; font-weight: 600 !important; font-size: 13px !important; padding: 7px 26px !important;"
             title="Save Rack Names &amp; Store Layout"
-          >
-            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/></svg>
-            <span>Save</span>
-          </button>
+          >Save</button>
         </div>
       </div>
     `;
