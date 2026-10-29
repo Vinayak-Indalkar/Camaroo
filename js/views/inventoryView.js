@@ -553,168 +553,6 @@ export const InventoryView = {
         </div>
       </div>
 
-      <!-- Add Indent Form Card (Shown on click "Indent Page" button) -->
-      <div id="gs-indent-form-card" class="hidden bg-white rounded-xl border border-[#DFE1E6] p-4 sm:p-5 shadow-xs mb-3 transition-all">
-        <div class="flex items-center justify-between pb-3 mb-4 border-b border-[#F1F5F9]">
-          <div class="flex items-center gap-2">
-            <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-            <h2 class="text-sm font-bold text-[#172B4D]">Indent Header Information</h2>
-          </div>
-          <div class="flex items-center gap-3">
-            <span class="text-[11px] font-semibold text-[#5E6C84]">All fields marked with <span class="text-red-500 font-bold">*</span> are required</span>
-            <button type="button" id="gs-btn-close-form" class="w-7 h-7 rounded-full bg-[#F4F5F7] hover:bg-[#EBECF0] text-[#5E6C84] hover:text-[#172B4D] flex items-center justify-center transition-colors cursor-pointer" title="Close Indent Form">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-            </button>
-          </div>
-        </div>
-
-        <form id="gs-add-indent-form" class="space-y-4 text-xs text-[#172B4D]">
-          <!-- Form Header Input Fields: DOC NO, DATE, DEPARTMENT, NARRATION -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
-            <!-- 1. DOC NO -->
-            <div>
-              <label for="gs-form-docno" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DOC NO <span class="text-red-500">*</span></label>
-              <input type="text" id="gs-form-docno" name="docNo" value="${defaultDocNo}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
-            </div>
-
-            <!-- 2. DATE -->
-            <div>
-              <label for="gs-form-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DATE <span class="text-red-500">*</span></label>
-              <input type="date" id="gs-form-date" name="date" value="${todayStr}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
-            </div>
-
-            <!-- 3. DEPARTMENT -->
-            <div>
-              <label for="gs-form-dept" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DEPARTMENT <span class="text-red-500">*</span></label>
-              <select id="gs-form-dept" name="department" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                <option value="Processing Unit-5" selected>Processing Unit-5</option>
-                <option value="Coldstore Hub">Coldstore Hub</option>
-                <option value="Quality Control Lab">Quality Control Lab</option>
-                <option value="Engineering & Maintenance">Engineering & Maintenance</option>
-                <option value="Pre-Processing Unit">Pre-Processing Unit</option>
-                <option value="Administration & Safety">Administration & Safety</option>
-              </select>
-            </div>
-
-            <!-- 4. NARRATION -->
-            <div>
-              <label for="gs-form-narration" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">NARRATION</label>
-              <input type="text" id="gs-form-narration" name="narration" placeholder="Enter indent purpose / narration..." value="Monthly store requisition for seafood processing shift consumables" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
-            </div>
-          </div>
-
-          <!-- Item Details Fields Section -->
-          <div class="mt-4 pt-4 border-t border-[#F1F5F9]">
-            <div class="flex items-center justify-between mb-3">
-              <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider flex items-center gap-1.5">
-                <svg class="w-3.5 h-3.5 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
-                Item Details
-              </h3>
-              <span id="gs-staged-items-count" class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-[#E0F2FE] text-[#0284C7]">${stagedItems.length} Item(s) Added</span>
-            </div>
-
-            <!-- Item Input Grid: Item, UoM, Available Qty, Requested Qty, Purpose, Attachment, Remarks, Action -->
-            <div class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl p-3.5 space-y-3">
-              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
-                <!-- 1. Item -->
-                <div class="md:col-span-2">
-                  <label for="gs-item-name" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ITEM <span class="text-red-500">*</span></label>
-                  <input type="text" id="gs-item-name" placeholder="Item name, specification, make or code..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
-                </div>
-
-                <!-- 2. UoM -->
-                <div>
-                  <label for="gs-item-uom" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">UoM <span class="text-red-500">*</span></label>
-                  <select id="gs-item-uom" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                    <option value="Box" selected>Box</option>
-                    <option value="Nos">Nos</option>
-                    <option value="Rolls">Rolls</option>
-                    <option value="Sets">Sets</option>
-                    <option value="Kits">Kits</option>
-                    <option value="Pairs">Pairs</option>
-                    <option value="Kg">Kg</option>
-                    <option value="Ltr">Ltr</option>
-                    <option value="Bags">Bags</option>
-                  </select>
-                </div>
-
-                <!-- 3. Available Qty -->
-                <div>
-                  <label for="gs-item-avail-qty" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">AVAILABLE QTY</label>
-                  <input type="number" id="gs-item-avail-qty" value="10" min="0" step="1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
-                </div>
-              </div>
-
-              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
-                <!-- 4. Requested Qty -->
-                <div>
-                  <label for="gs-item-req-qty" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">REQUESTED QTY <span class="text-red-500">*</span></label>
-                  <input type="number" id="gs-item-req-qty" value="50" min="1" step="1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
-                </div>
-
-                <!-- 5. Purpose -->
-                <div>
-                  <label for="gs-item-purpose" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PURPOSE</label>
-                  <input type="text" id="gs-item-purpose" placeholder="Operational purpose..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
-                </div>
-
-                <!-- 6. Attachment -->
-                <div>
-                  <label for="gs-item-attachment" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ATTACHMENT</label>
-                  <input type="file" id="gs-item-attachment" class="w-full text-[11px] px-2 py-1 bg-white border border-[#DFE1E6] rounded text-[#5E6C84] focus:outline-none focus:border-[#00A4B7] file:mr-2 file:py-0.5 file:px-2 file:rounded file:border-0 file:text-[10px] file:font-semibold file:bg-[#E0F2FE] file:text-[#0284C7] cursor-pointer" />
-                </div>
-
-                <!-- 7. Remarks -->
-                <div>
-                  <label for="gs-item-remarks" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">REMARKS</label>
-                  <input type="text" id="gs-item-remarks" placeholder="Optional notes / remarks..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
-                </div>
-              </div>
-
-              <!-- 8. Action (Add Item Button) -->
-              <div class="flex items-center justify-end pt-1">
-                <button type="button" id="gs-btn-add-item" class="btn-secondary border border-[#00A4B7] px-4 py-1.5 rounded-full text-xs font-bold text-[#00A4B7] hover:bg-[#E0F2FE] transition-colors cursor-pointer inline-flex items-center gap-1.5">
-                  <svg class="w-3.5 h-3.5 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                  <span>Add Item</span>
-                </button>
-              </div>
-            </div>
-
-            <!-- Staged Items Preview Table -->
-            <div class="mt-3 overflow-x-auto border border-[#E2E8F0] rounded-lg">
-              <table class="w-full text-left text-xs border-collapse">
-                <thead class="bg-[#F8FAFC] border-b border-[#E2E8F0] text-[#475569] font-bold text-[11px] uppercase tracking-wider">
-                  <tr>
-                    <th class="py-2 px-3">Item</th>
-                    <th class="py-2 px-3">UoM</th>
-                    <th class="py-2 px-3 text-right">Available Qty</th>
-                    <th class="py-2 px-3 text-right">Requested Qty</th>
-                    <th class="py-2 px-3">Purpose</th>
-                    <th class="py-2 px-3">Attachment</th>
-                    <th class="py-2 px-3">Remarks</th>
-                    <th class="py-2 px-3 text-center">Action</th>
-                  </tr>
-                </thead>
-                <tbody id="gs-staged-items-tbody" class="divide-y divide-[#E2E8F0] text-[#1E293B]">
-                  <!-- Rendered dynamically -->
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <!-- Bottom Form Actions: Save Indent & Clear Form -->
-          <div class="flex items-center justify-end gap-3 pt-3 border-t border-[#F1F5F9]">
-            <button type="button" id="gs-btn-reset-form" class="btn-secondary border border-[#CBD5E1] px-5 py-2 rounded-full text-xs font-semibold text-[#475569] hover:bg-[#F8FAFC] transition-all cursor-pointer">
-              <span>Reset</span>
-            </button>
-            <button type="submit" id="gs-btn-save-indent" class="btn-primary border-0 px-6 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-              <span>Save Indent</span>
-            </button>
-          </div>
-        </form>
-      </div>
-
       <!-- Search & Filter Card (calibrated as per the form data) -->
       <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200">
         <div class="flex items-center justify-between pb-1">
@@ -1063,6 +901,455 @@ export const InventoryView = {
   },
 
   // Edit Indent Modal (with Modal.confirm on save)
+  // 1b. ADD INDENT MODAL POPUP
+  showAddIndentModal(onSuccess = null) {
+    const todayStr = new Date().toISOString().slice(0, 10);
+    const nextDocNum = (this.state.indentPageRecords?.length || 0) + 1;
+    const defaultDocNo = `DOC-GS-2026-${String(nextDocNum).padStart(4, '0')}`;
+
+    let modalStagedItems = [
+      {
+        item: 'Nitrile Food-Grade Gloves (Blue, L)',
+        uom: 'Box',
+        availableQty: 25,
+        requestedQty: 100,
+        purpose: 'Daily processing line hygiene requirement',
+        attachment: 'gloves_cert.pdf',
+        remarks: 'Urgent for Shift A'
+      }
+    ];
+
+    Modal.open({
+      title: 'Add General Store Indent',
+      size: '2xl',
+      content: `
+        <form id="modal-add-indent-form" class="space-y-4 text-xs text-[#172B4D]">
+          <!-- Form Header Input Fields: DOC NO, DATE, DEPARTMENT, NARRATION -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 bg-[#F8FAFC] border border-[#DFE1E6] p-3.5 rounded-xl">
+            <!-- 1. DOC NO -->
+            <div>
+              <label for="modal-indent-docno" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DOC NO <span class="text-red-500">*</span></label>
+              <input type="text" id="modal-indent-docno" value="${defaultDocNo}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            </div>
+
+            <!-- 2. DATE -->
+            <div>
+              <label for="modal-indent-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DATE <span class="text-red-500">*</span></label>
+              <input type="date" id="modal-indent-date" value="${todayStr}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            </div>
+
+            <!-- 3. DEPARTMENT -->
+            <div>
+              <label for="modal-indent-dept" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DEPARTMENT <span class="text-red-500">*</span></label>
+              <select id="modal-indent-dept" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="Processing Unit-5" selected>Processing Unit-5</option>
+                <option value="Coldstore Hub">Coldstore Hub</option>
+                <option value="Quality Control Lab">Quality Control Lab</option>
+                <option value="Engineering & Maintenance">Engineering & Maintenance</option>
+                <option value="Pre-Processing Unit">Pre-Processing Unit</option>
+                <option value="Administration & Safety">Administration & Safety</option>
+              </select>
+            </div>
+
+            <!-- 4. NARRATION -->
+            <div>
+              <label for="modal-indent-narration" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">NARRATION</label>
+              <input type="text" id="modal-indent-narration" placeholder="Enter indent purpose / narration..." value="Monthly store requisition for seafood processing shift consumables" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            </div>
+          </div>
+
+          <!-- Item Details Fields Section -->
+          <div class="mt-4 pt-4 border-t border-[#F1F5F9]">
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider flex items-center gap-1.5">
+                <svg class="w-3.5 h-3.5 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+                Item Details
+              </h3>
+              <span id="modal-staged-count" class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-[#E0F2FE] text-[#0284C7]">${modalStagedItems.length} Item(s) Added</span>
+            </div>
+
+            <!-- Item Input Grid -->
+            <div class="bg-[#F8FAFC] border border-[#DFE1E6] rounded-xl p-3.5 space-y-3">
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+                <!-- 1. Item -->
+                <div class="md:col-span-2">
+                  <label for="modal-item-name" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ITEM <span class="text-red-500">*</span></label>
+                  <input type="text" id="modal-item-name" placeholder="Item name, specification, make or code..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                </div>
+
+                <!-- 2. UoM -->
+                <div>
+                  <label for="modal-item-uom" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">UoM <span class="text-red-500">*</span></label>
+                  <select id="modal-item-uom" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                    <option value="Box" selected>Box</option>
+                    <option value="Nos">Nos</option>
+                    <option value="Rolls">Rolls</option>
+                    <option value="Sets">Sets</option>
+                    <option value="Kits">Kits</option>
+                    <option value="Pairs">Pairs</option>
+                    <option value="Kg">Kg</option>
+                    <option value="Ltr">Ltr</option>
+                    <option value="Bags">Bags</option>
+                  </select>
+                </div>
+
+                <!-- 3. Available Qty -->
+                <div>
+                  <label for="modal-item-avail" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">AVAILABLE QTY</label>
+                  <input type="number" id="modal-item-avail" value="10" min="0" step="1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+                <!-- 4. Requested Qty -->
+                <div>
+                  <label for="modal-item-req" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">REQUESTED QTY <span class="text-red-500">*</span></label>
+                  <input type="number" id="modal-item-req" value="50" min="1" step="1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                </div>
+
+                <!-- 5. Purpose -->
+                <div>
+                  <label for="modal-item-purpose" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PURPOSE</label>
+                  <input type="text" id="modal-item-purpose" placeholder="Operational purpose..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                </div>
+
+                <!-- 6. Attachment -->
+                <div>
+                  <label for="modal-item-attach" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ATTACHMENT</label>
+                  <input type="file" id="modal-item-attach" class="w-full text-[11px] px-2 py-1 bg-white border border-[#DFE1E6] rounded text-[#5E6C84] focus:outline-none focus:border-[#00A4B7] file:mr-2 file:py-0.5 file:px-2 file:rounded file:border-0 file:text-[10px] file:font-semibold file:bg-[#E0F2FE] file:text-[#0284C7] cursor-pointer" />
+                </div>
+
+                <!-- 7. Remarks -->
+                <div>
+                  <label for="modal-item-remarks" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">REMARKS</label>
+                  <input type="text" id="modal-item-remarks" placeholder="Optional notes / remarks..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                </div>
+              </div>
+
+              <!-- 8. Action (Add Item Button) -->
+              <div class="flex items-center justify-end pt-1">
+                <button type="button" id="modal-btn-add-item" class="btn-secondary border border-[#00A4B7] px-4 py-1.5 rounded-full text-xs font-bold text-[#00A4B7] hover:bg-[#E0F2FE] transition-colors cursor-pointer inline-flex items-center gap-1.5">
+                  <svg class="w-3.5 h-3.5 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                  <span>Add Item</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Staged Items Preview Table -->
+            <div class="mt-3 overflow-x-auto border border-[#DFE1E6] rounded-lg">
+              <table class="w-full text-left text-xs border-collapse">
+                <thead class="bg-[#F8FAFC] border-b border-[#DFE1E6] text-[#475569] font-bold text-[11px] uppercase tracking-wider">
+                  <tr>
+                    <th class="py-2 px-3">Item</th>
+                    <th class="py-2 px-3">UoM</th>
+                    <th class="py-2 px-3 text-right">Available Qty</th>
+                    <th class="py-2 px-3 text-right">Requested Qty</th>
+                    <th class="py-2 px-3">Purpose</th>
+                    <th class="py-2 px-3">Attachment</th>
+                    <th class="py-2 px-3">Remarks</th>
+                    <th class="py-2 px-3 text-center">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="modal-staged-tbody" class="divide-y divide-[#DFE1E6] text-[#1E293B]">
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </form>
+      `,
+      footerButtons: [
+        {
+          label: 'Cancel',
+          type: 'secondary',
+          onClick: () => Modal.close()
+        },
+        {
+          label: 'Save Indent',
+          type: 'primary',
+          class: 'btn-primary border-0 px-6 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all',
+          onClick: () => {
+            const modalRoot = document.getElementById('erp-modal-root');
+            if (!modalRoot) return;
+
+            const docNo = modalRoot.querySelector('#modal-indent-docno')?.value?.trim();
+            const date = modalRoot.querySelector('#modal-indent-date')?.value;
+            const department = modalRoot.querySelector('#modal-indent-dept')?.value;
+            const narration = modalRoot.querySelector('#modal-indent-narration')?.value?.trim();
+
+            if (!docNo) {
+              Toast.show('Please enter a valid DOC NO.', 'warning');
+              return;
+            }
+            if (modalStagedItems.length === 0) {
+              Toast.show('Please add at least one item before saving.', 'warning');
+              return;
+            }
+
+            Modal.confirm({
+              title: 'Confirm Save Indent',
+              message: `Are you sure you want to save General Store Indent <strong>${docNo}</strong> for <strong>${department}</strong> with <strong>${modalStagedItems.length} item(s)</strong>?`,
+              confirmText: 'Save Indent',
+              onConfirm: () => {
+                const newRecord = {
+                  id: Date.now(),
+                  docNo,
+                  date,
+                  department,
+                  status: 'Approved',
+                  narration,
+                  items: [...modalStagedItems]
+                };
+
+                this.state.indentPageRecords.unshift(newRecord);
+                Modal.close();
+                Toast.show(`Indent ${docNo} successfully saved!`, 'success');
+
+                if (typeof onSuccess === 'function') {
+                  onSuccess();
+                }
+              }
+            });
+          }
+        }
+      ]
+    });
+
+    const modalRoot = document.getElementById('erp-modal-root');
+    if (!modalRoot) return;
+
+    const renderModalStagedItems = () => {
+      const tbody = modalRoot.querySelector('#modal-staged-tbody');
+      const countEl = modalRoot.querySelector('#modal-staged-count');
+      if (!tbody) return;
+
+      if (countEl) countEl.textContent = `${modalStagedItems.length} Item(s) Added`;
+
+      if (modalStagedItems.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="8" class="text-center py-4 text-xs text-[#94A3B8] italic">No items staged yet. Fill fields above and click "+ Add Item".</td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = modalStagedItems.map((it, idx) => `
+        <tr class="hover:bg-[#F8FAFC] transition-colors">
+          <td class="py-2 px-3 font-semibold text-[#172B4D]">${it.item}</td>
+          <td class="py-2 px-3 font-mono text-[#5E6C84]">${it.uom}</td>
+          <td class="py-2 px-3 text-right font-mono font-bold text-[#00875A]">${it.availableQty}</td>
+          <td class="py-2 px-3 text-right font-mono font-bold text-[#172B4D]">${it.requestedQty}</td>
+          <td class="py-2 px-3 text-[#5E6C84]">${it.purpose || '-'}</td>
+          <td class="py-2 px-3">
+            ${it.attachment ? `
+              <span class="inline-flex items-center gap-1 text-[11px] font-mono text-[#00A4B7] bg-[#E0F2FE] px-2 py-0.5 rounded border border-[#BAE6FD]">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/></svg>
+                ${it.attachment}
+              </span>
+            ` : '<span class="text-[#94A3B8] italic">None</span>'}
+          </td>
+          <td class="py-2 px-3 text-[#5E6C84]">${it.remarks || '-'}</td>
+          <td class="py-2 px-3 text-center">
+            <button type="button" data-remove-idx="${idx}" class="modal-remove-item-btn w-6 h-6 rounded-full hover:bg-[#FFEBE6] text-[#DE350B] inline-flex items-center justify-center transition-colors cursor-pointer" title="Remove Item">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+            </button>
+          </td>
+        </tr>
+      `).join('');
+
+      tbody.querySelectorAll('.modal-remove-item-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const rIdx = parseInt(btn.dataset.removeIdx, 10);
+          modalStagedItems.splice(rIdx, 1);
+          renderModalStagedItems();
+        });
+      });
+    };
+
+    renderModalStagedItems();
+
+    modalRoot.querySelector('#modal-btn-add-item')?.addEventListener('click', () => {
+      const itemNameInput = modalRoot.querySelector('#modal-item-name');
+      const uomInput = modalRoot.querySelector('#modal-item-uom');
+      const availInput = modalRoot.querySelector('#modal-item-avail');
+      const reqInput = modalRoot.querySelector('#modal-item-req');
+      const purposeInput = modalRoot.querySelector('#modal-item-purpose');
+      const attachInput = modalRoot.querySelector('#modal-item-attach');
+      const remarksInput = modalRoot.querySelector('#modal-item-remarks');
+
+      const itemName = itemNameInput?.value?.trim();
+      const reqQty = parseInt(reqInput?.value, 10);
+
+      if (!itemName) {
+        Toast.show('Please enter Item description before adding.', 'warning');
+        itemNameInput?.focus();
+        return;
+      }
+      if (!reqQty || reqQty <= 0) {
+        Toast.show('Please enter a valid Requested Quantity (> 0).', 'warning');
+        reqInput?.focus();
+        return;
+      }
+
+      const fileAttached = attachInput?.files && attachInput.files.length > 0 ? attachInput.files[0].name : '';
+
+      modalStagedItems.push({
+        item: itemName,
+        uom: uomInput?.value || 'Nos',
+        availableQty: parseInt(availInput?.value, 10) || 0,
+        requestedQty: reqQty,
+        purpose: purposeInput?.value?.trim() || '',
+        attachment: fileAttached,
+        remarks: remarksInput?.value?.trim() || ''
+      });
+
+      itemNameInput.value = '';
+      reqInput.value = '50';
+      if (purposeInput) purposeInput.value = '';
+      if (remarksInput) remarksInput.value = '';
+      if (attachInput) attachInput.value = '';
+
+      renderModalStagedItems();
+      Toast.show(`Item "${itemName}" added to indent.`, 'info');
+    });
+  },
+
+  // 1c. INDENT WHOLE DETAILS MODAL POPUP (Triggered on click S No / row)
+  showIndentDetailsModal(record) {
+    if (!record) return;
+
+    const items = record.items || [];
+    const statusCls = record.status === 'Approved'
+      ? 'bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]'
+      : record.status === 'In Procurement'
+      ? 'bg-[#E0F2FE] text-[#0284C7] border border-[#BAE6FD]'
+      : record.status === 'Pending'
+      ? 'bg-[#FFF0B3] text-[#172B4D] border border-[#FFE380]'
+      : 'bg-[#F4F5F7] text-[#42526E] border border-[#DFE1E6]';
+
+    const itemsRows = items.length > 0 ? items.map((it, idx) => `
+      <tr class="hover:bg-[#F8FAFC] transition-colors border-b border-[#DFE1E6]">
+        <td class="py-2.5 px-3 text-[#5E6C84] font-semibold text-center">${idx + 1}</td>
+        <td class="py-2.5 px-3 font-semibold text-[#172B4D]">${it.item}</td>
+        <td class="py-2.5 px-3 font-mono text-[#5E6C84]">${it.uom || 'Nos'}</td>
+        <td class="py-2.5 px-3 text-right font-mono font-bold text-[#00875A]">${it.availableQty ?? 0}</td>
+        <td class="py-2.5 px-3 text-right font-mono font-bold text-[#172B4D]">${it.requestedQty ?? 0}</td>
+        <td class="py-2.5 px-3 text-[#5E6C84]">${it.purpose || '-'}</td>
+        <td class="py-2.5 px-3">
+          ${it.attachment ? `
+            <span class="inline-flex items-center gap-1 text-[11px] font-mono text-[#00A4B7] bg-[#E0F2FE] px-2 py-0.5 rounded border border-[#BAE6FD]">
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/></svg>
+              ${it.attachment}
+            </span>
+          ` : '<span class="text-[#94A3B8] italic">None</span>'}
+        </td>
+        <td class="py-2.5 px-3 text-[#5E6C84]">${it.remarks || '-'}</td>
+      </tr>
+    `).join('') : `
+      <tr>
+        <td colspan="8" class="text-center py-4 text-xs text-[#94A3B8] italic">No items listed in this indent requisition.</td>
+      </tr>
+    `;
+
+    Modal.open({
+      title: `Indent Requisition Details - ${record.docNo}`,
+      size: '2xl',
+      content: `
+        <div class="space-y-4 text-xs text-[#172B4D]">
+          <!-- Overview Header Card -->
+          <div class="bg-[#F8FAFC] border border-[#DFE1E6] rounded-xl p-4">
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              <div>
+                <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0.5">DOC NO</span>
+                <span class="font-mono font-bold text-sm text-[#00A4B7]">${record.docNo}</span>
+              </div>
+              <div>
+                <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0.5">DATE</span>
+                <span class="font-semibold text-xs text-[#172B4D] flex items-center gap-1">
+                  <svg class="w-3.5 h-3.5 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                  ${record.date}
+                </span>
+              </div>
+              <div>
+                <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0.5">DEPARTMENT</span>
+                <span class="font-semibold text-xs text-[#172B4D] flex items-center gap-1">
+                  <svg class="w-3.5 h-3.5 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                  ${record.department}
+                </span>
+              </div>
+              <div>
+                <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0.5">STATUS</span>
+                <span class="inline-flex px-2.5 py-0.5 rounded-full text-xs font-semibold ${statusCls}">
+                  ${record.status || 'Approved'}
+                </span>
+              </div>
+            </div>
+
+            ${record.narration ? `
+              <div class="mt-3 pt-3 border-t border-[#E2E8F0]">
+                <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0.5">NARRATION / PURPOSE</span>
+                <p class="text-xs text-[#172B4D] font-medium leading-relaxed">${record.narration}</p>
+              </div>
+            ` : ''}
+          </div>
+
+          <!-- Requisitioned Items Table Card -->
+          <div class="bg-white border border-[#DFE1E6] rounded-xl overflow-hidden shadow-2xs">
+            <div class="px-4 py-2.5 bg-[#FAFBFC] border-b border-[#DFE1E6] flex items-center justify-between">
+              <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider flex items-center gap-1.5">
+                <svg class="w-3.5 h-3.5 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+                Requisitioned Items (${items.length})
+              </h3>
+              <span class="text-[11px] font-semibold text-[#5E6C84]">Total Requested: <strong>${items.reduce((acc, it) => acc + (it.requestedQty || 0), 0)} units</strong></span>
+            </div>
+
+            <div class="overflow-x-auto w-full">
+              <table class="w-full text-left text-xs border-collapse">
+                <thead class="bg-[#F8FAFC] border-b border-[#DFE1E6] text-[#475569] font-bold text-[11px] uppercase tracking-wider">
+                  <tr>
+                    <th class="py-2.5 px-3 text-center w-12">S.No</th>
+                    <th class="py-2.5 px-3">Item</th>
+                    <th class="py-2.5 px-3">UoM</th>
+                    <th class="py-2.5 px-3 text-right">Available Qty</th>
+                    <th class="py-2.5 px-3 text-right">Requested Qty</th>
+                    <th class="py-2.5 px-3">Purpose</th>
+                    <th class="py-2.5 px-3">Attachment</th>
+                    <th class="py-2.5 px-3">Remarks</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-[#DFE1E6] text-[#1E293B]">
+                  ${itemsRows}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      `,
+      footerButtons: [
+        {
+          label: 'Close',
+          type: 'secondary',
+          onClick: () => Modal.close()
+        },
+        {
+          label: 'Edit Indent',
+          type: 'primary',
+          class: 'btn-primary border-0 px-5 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all',
+          onClick: () => {
+            Modal.close();
+            this.showEditIndentModal(record, () => {
+              const currentTableContainer = document.getElementById('gs-indent-table-container');
+              if (currentTableContainer) {
+                this.renderGeneralStoreIndentPage(currentTableContainer.parentElement);
+              }
+            });
+          }
+        }
+      ]
+    });
+  },
+
   showEditIndentModal(row, onSuccess) {
     Modal.open({
       title: `Edit Indent: ${row.docNo}`,
