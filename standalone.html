@@ -39881,12 +39881,14 @@ const ColdstoreView = {
 
     // 2. Production - Daily Production Intake
     dailyProductionList: [
-      { id: 1, intakeCode: 'IN-PRD-2026-501', intakeDate: '2026-10-29', plant: 'DFL UNIT-5 (JPT)', lotNo: 'LOT-FZ-2026-301', product: 'Vannamei PD IQF 31/40', freezingType: 'IQF', cartons: 48, netWeightKg: 480.0, chamber: 'Chamber #1 (IQF)', rack: 'RACK-A1-T1', temp: -21.8, shift: 'Shift A (Day)', status: 'Stored in Coldstore' },
-      { id: 2, intakeCode: 'IN-PRD-2026-502', intakeDate: '2026-10-29', plant: 'DFL UNIT-5 (JPT)', lotNo: 'LOT-FZ-2026-302', product: 'Black Tiger Block 21/25', freezingType: 'Block Frozen', cartons: 60, netWeightKg: 600.0, chamber: 'Chamber #2 (Block)', rack: 'RACK-B1-T1', temp: -24.2, shift: 'Shift B (Evening)', status: 'Stored in Coldstore' },
-      { id: 3, intakeCode: 'IN-PRD-2026-503', intakeDate: '2026-10-28', plant: 'DFL UNIT-4 (PND)', lotNo: 'LOT-FZ-2026-299', product: 'Vannamei HOSO IQF 16/20', freezingType: 'IQF', cartons: 56, netWeightKg: 560.0, chamber: 'Chamber #1 (IQF)', rack: 'RACK-A1-T2', temp: -22.4, shift: 'Shift A (Day)', status: 'Stored in Coldstore' },
-      { id: 4, intakeCode: 'IN-PRD-2026-504', intakeDate: '2026-10-28', plant: 'DFL UNIT-3 (PSP)', lotNo: 'LOT-FZ-2026-298', product: 'Vannamei HLSO Block 26/30', freezingType: 'Block Frozen', cartons: 72, netWeightKg: 720.0, chamber: 'Chamber #2 (Block)', rack: 'RACK-B2-T3', temp: -25.0, shift: 'Shift C (Night)', status: 'Stored in Coldstore' },
-      { id: 5, intakeCode: 'IN-PRD-2026-505', intakeDate: '2026-10-27', plant: 'DFL UNIT-5 (JPT)', lotNo: 'LOT-FZ-2026-295', product: 'Sea Pearl Cooked PDTO 41/50', freezingType: 'Blast Frozen', cartons: 40, netWeightKg: 400.0, chamber: 'Vault #3 Staging', rack: 'RACK-D1-T1', temp: -26.5, shift: 'Shift A (Day)', status: 'Stored in Coldstore' },
-      { id: 6, intakeCode: 'IN-PRD-2026-506', intakeDate: '2026-10-27', plant: 'DFL UNIT-1 (VSP)', lotNo: 'LOT-FZ-2026-291', product: 'Scampi Headless Block 11/15', freezingType: 'Block Frozen', cartons: 36, netWeightKg: 360.0, chamber: 'Chamber #2 (Block)', rack: 'RACK-B3-T2', temp: -24.8, shift: 'Shift B (Evening)', status: 'Stored in Coldstore' }
+      { id: 1, intakeCode: 'IN-PRD-2026-501', intakeDate: '2026-10-29', productionDate: '2026-10-29', plant: 'DFL UNIT-5 (JPT)', stockBelongsTo: 'Devi Fisheries Ltd (DFL)', lotNo: 'LOT-FZ-2026-301', product: 'Vannamei PD IQF 31/40', freezingType: 'IQF', packingType: '10x1kg Net', group: 'Group A', cartons: 48, netWeightKg: 480.0, chamber: 'Chamber #1 (IQF)', rack: 'RACK-A1-T1', temp: -21.8, shift: 'Shift A (Day)', status: 'Stored in Coldstore' },
+      { id: 2, intakeCode: 'IN-PRD-2026-502', intakeDate: '2026-10-29', productionDate: '2026-10-29', plant: 'DFL UNIT-5 (JPT)', stockBelongsTo: 'DFL Unit-5 (JPT)', lotNo: 'LOT-FZ-2026-302', product: 'Black Tiger Block 21/25', freezingType: 'Block Frozen', packingType: '6x2kg Block', group: 'Group B', cartons: 60, netWeightKg: 600.0, chamber: 'Chamber #2 (Block)', rack: 'RACK-B1-T1', temp: -24.2, shift: 'Shift B (Evening)', status: 'Stored in Coldstore' },
+      { id: 3, intakeCode: 'IN-PRD-2026-503', intakeDate: '2026-10-28', productionDate: '2026-10-28', plant: 'DFL UNIT-4 (PND)', stockBelongsTo: 'DFL Unit-4 (PND)', lotNo: 'LOT-FZ-2026-299', product: 'Vannamei HOSO IQF 16/20', freezingType: 'IQF', packingType: 'Master Cartons', group: 'Group A', cartons: 56, netWeightKg: 560.0, chamber: 'Chamber #1 (IQF)', rack: 'RACK-A1-T2', temp: -22.4, shift: 'Shift A (Day)', status: 'Stored in Coldstore' },
+      { id: 4, intakeCode: 'IN-PRD-2026-504', intakeDate: '2026-10-28', productionDate: '2026-10-28', plant: 'DFL UNIT-3 (PSP)', stockBelongsTo: 'DFL Unit-3 (PSP)', lotNo: 'LOT-FZ-2026-298', product: 'Vannamei HLSO Block 26/30', freezingType: 'Block Frozen', packingType: '6x2kg Block', group: 'Group C', cartons: 72, netWeightKg: 720.0, chamber: 'Chamber #2 (Block)', rack: 'RACK-B2-T3', temp: -25.0, shift: 'Shift C (Night)', status: 'Stored in Coldstore' },
+      { id: 5, intakeCode: 'IN-PRD-2026-505', intakeDate: '2026-10-27', productionDate: '2026-10-27', plant: 'DFL UNIT-5 (JPT)', stockBelongsTo: 'Devi Fisheries Ltd (DFL)', lotNo: 'LOT-FZ-2026-295', product: 'Sea Pearl Cooked PDTO 41/50', freezingType: 'Blast Frozen', packingType: '5x2kg IQF Poly', group: 'Group D', cartons: 40, netWeightKg: 400.0, chamber: 'Vault #3 Staging', rack: 'RACK-D1-T1', temp: -26.5, shift: 'Shift A (Day)', status: 'Staged for Export' },
+      { id: 6, intakeCode: 'IN-PRD-2026-506', intakeDate: '2026-10-27', productionDate: '2026-10-27', plant: 'DFL UNIT-1 (VSP)', stockBelongsTo: 'DFL Unit-1 (VSP)', lotNo: 'LOT-FZ-2026-291', product: 'Scampi Headless Block 11/15', freezingType: 'Block Frozen', packingType: 'Dummy Cartons', group: 'Group B', cartons: 36, netWeightKg: 360.0, chamber: 'Chamber #2 (Block)', rack: 'RACK-B3-T2', temp: -24.8, shift: 'Shift B (Evening)', status: 'Under QC Hold' },
+      { id: 7, intakeCode: 'IN-PRD-2026-507', intakeDate: '2026-10-26', productionDate: '2026-10-26', plant: 'DFL UNIT-5 (JPT)', stockBelongsTo: 'Devi Fisheries Ltd (DFL)', lotNo: 'LOT-FZ-2026-288', product: 'Vannamei Easy Peel IQF 26/30', freezingType: 'IQF', packingType: '10x2lb Pouch', group: 'Group A', cartons: 50, netWeightKg: 500.0, chamber: 'Chamber #1 (IQF)', rack: 'RACK-A2-T1', temp: -22.0, shift: 'Shift A (Day)', status: 'Stored in Coldstore' },
+      { id: 8, intakeCode: 'IN-PRD-2026-508', intakeDate: '2026-10-26', productionDate: '2026-10-26', plant: 'DFL UNIT-4 (PND)', stockBelongsTo: 'Third-Party Co-Packing', lotNo: 'LOT-FZ-2026-285', product: 'Black Tiger HOSO IQF 16/20', freezingType: 'IQF', packingType: 'Master Cartons', group: 'Group C', cartons: 45, netWeightKg: 450.0, chamber: 'Chamber #1 (IQF)', rack: 'RACK-C1-T1', temp: -23.0, shift: 'Shift B (Evening)', status: 'Allocated' }
     ],
 
     // 2b. Production - Daily StockOut
@@ -40115,9 +40117,15 @@ const ColdstoreView = {
 
   // 2. PRODUCTION - DAILY PRODUCTION
   renderDailyProduction(container) {
-    const list = this.state.dailyProductionList || this.state.productionIntakeList || [];
-    const totalIntakeKg = list.reduce((acc, r) => acc + (r.netWeightKg || 0), 0).toFixed(1);
-    const totalCartons = list.reduce((acc, r) => acc + (r.cartons || 0), 0);
+    const fullList = this.state.dailyProductionList || this.state.productionIntakeList || [];
+
+    const getKPIs = (data) => {
+      const totalKg = data.reduce((acc, r) => acc + (r.netWeightKg || 0), 0);
+      const totalBoxes = data.reduce((acc, r) => acc + (r.cartons || 0), 0);
+      return { totalKg, totalBoxes, count: data.length };
+    };
+
+    const initialKPIs = getKPIs(fullList);
 
     container.innerHTML = `
       <div class="flex flex-wrap items-center justify-between gap-3 mb-2">
@@ -40134,15 +40142,15 @@ const ColdstoreView = {
       </div>
 
       <!-- Key KPI Cards -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 mb-4">
+      <div id="dp-kpi-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 mb-3.5">
         <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
           <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Today's Received Stock</div>
-          <div class="text-2xl font-black text-[#172B4D] mt-1.5">${Number(totalIntakeKg).toLocaleString()} <span class="text-xs font-bold text-[#6B778C]">Kgs</span></div>
-          <div class="text-[11px] font-semibold text-[#00875A] mt-1">${list.length} Batches Processed</div>
+          <div class="text-2xl font-black text-[#172B4D] mt-1.5"><span id="dp-kpi-weight">${initialKPIs.totalKg.toLocaleString()}</span> <span class="text-xs font-bold text-[#6B778C]">Kgs</span></div>
+          <div class="text-[11px] font-semibold text-[#00875A] mt-1"><span id="dp-kpi-count">${initialKPIs.count}</span> Batches Recorded</div>
         </div>
         <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
           <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Total Received Cartons</div>
-          <div class="text-2xl font-black text-[#0284C7] mt-1.5">${totalCartons.toLocaleString()} <span class="text-xs font-bold text-[#6B778C]">Boxes</span></div>
+          <div class="text-2xl font-black text-[#0284C7] mt-1.5"><span id="dp-kpi-boxes">${initialKPIs.totalBoxes.toLocaleString()}</span> <span class="text-xs font-bold text-[#6B778C]">Boxes</span></div>
           <div class="text-[11px] font-semibold text-[#5E6C84] mt-1">100% Barcode Scanned</div>
         </div>
         <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
@@ -40157,34 +40165,269 @@ const ColdstoreView = {
         </div>
       </div>
 
+      <!-- Search & Filters Card (Exact Devi Fisheries ERP Standard) -->
+      <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200" style="margin-bottom: 12px !important;">
+        <div class="flex items-center justify-between pb-1">
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-[#0284C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+            <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
+          </div>
+
+          <!-- Filter Controls: Reset & Toggle Open/Close -->
+          <div class="inline-flex items-center" style="gap: 8px; display: inline-flex;">
+            <button type="button" id="dp-filter-reset-btn" class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#0284C7] text-[#334155] hover:text-[#0284C7] rounded-full transition-colors cursor-pointer select-none" style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 9999px; border: 1px solid #CBD5E1; background: #ffffff; color: #334155; display: inline-flex; align-items: center; justify-content: center; padding: 0;" title="Reset all filters" aria-label="Reset all filters">
+              <svg class="w-4 h-4 text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+            </button>
+
+            <button type="button" id="dp-filter-toggle-btn" class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#0284C7] text-[#334155] hover:text-[#0284C7] rounded-full transition-colors cursor-pointer select-none" style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 9999px; border: 1px solid #CBD5E1; background: #ffffff; color: #334155; display: inline-flex; align-items: center; justify-content: center; padding: 0;" title="Hide Filter" aria-label="Hide Filter">
+              <svg class="w-4 h-4 text-current dt-top-filter-toggle-icon transform transition-transform duration-200" id="dp-filter-toggle-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Filter Inputs Grid: 6 Requested Fields + Action Slot -->
+        <div id="dp-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
+          
+          <!-- 1. START DATE * -->
+          <div>
+            <label for="dp-filter-start-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">START DATE <span class="text-[#DE350B]">*</span></label>
+            <div class="erp-date-wrapper">
+              <input type="date" id="dp-filter-start-date" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]" value="2026-10-26" required onclick="this.showPicker ? this.showPicker() : this.focus()" />
+            </div>
+          </div>
+
+          <!-- 2. STOCK BELONGS TO -->
+          <div>
+            <label for="dp-filter-stock-belongs" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STOCK BELONGS TO</label>
+            <select id="dp-filter-stock-belongs" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+              <option value="ALL">All Stock Belongs To</option>
+              <option value="Devi Fisheries Ltd (DFL)">Devi Fisheries Ltd (DFL)</option>
+              <option value="DFL Unit-5 (JPT)">DFL Unit-5 (JPT)</option>
+              <option value="DFL Unit-4 (PND)">DFL Unit-4 (PND)</option>
+              <option value="DFL Unit-3 (PSP)">DFL Unit-3 (PSP)</option>
+              <option value="DFL Unit-1 (VSP)">DFL Unit-1 (VSP)</option>
+              <option value="Third-Party Co-Packing">Third-Party Co-Packing</option>
+            </select>
+          </div>
+
+          <!-- 3. PACKING TYPE -->
+          <div>
+            <label for="dp-filter-packing-type" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PACKING TYPE</label>
+            <select id="dp-filter-packing-type" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+              <option value="ALL">All Packing Types</option>
+              <option value="Master Cartons">Master Cartons</option>
+              <option value="Dummy Cartons">Dummy Cartons</option>
+              <option value="10x1kg Net">10x1kg Net</option>
+              <option value="6x2kg Block">6x2kg Block</option>
+              <option value="5x2kg IQF Poly">5x2kg IQF Poly</option>
+              <option value="10x2lb Pouch">10x2lb Pouch</option>
+            </select>
+          </div>
+
+          <!-- 4. GROUP -->
+          <div>
+            <label for="dp-filter-group" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">GROUP</label>
+            <select id="dp-filter-group" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+              <option value="ALL">All Groups</option>
+              <option value="Group A">Group A</option>
+              <option value="Group B">Group B</option>
+              <option value="Group C">Group C</option>
+              <option value="Group D">Group D</option>
+            </select>
+          </div>
+
+          <!-- 5. STATUS -->
+          <div>
+            <label for="dp-filter-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STATUS</label>
+            <select id="dp-filter-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+              <option value="ALL">All Statuses</option>
+              <option value="Stored in Coldstore">Stored in Coldstore</option>
+              <option value="Under QC Hold">Under QC Hold</option>
+              <option value="Staged for Export">Staged for Export</option>
+              <option value="Allocated">Allocated</option>
+            </select>
+          </div>
+
+          <!-- 6. DATE TYPE -->
+          <div>
+            <label for="dp-filter-date-type" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">DATE TYPE</label>
+            <select id="dp-filter-date-type" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+              <option value="Production Date" selected>Production Date</option>
+              <option value="Coldstore Inward Date">Coldstore Inward Date</option>
+              <option value="Freezing Date">Freezing Date</option>
+              <option value="QC Approval Date">QC Approval Date</option>
+            </select>
+          </div>
+
+          <!-- Search Button Slot -->
+          <div class="flex items-end gap-2">
+            <button type="button" id="dp-filter-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+              <span>Search</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Data Table Card -->
       <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
         <div id="cs-daily-production-table"></div>
       </div>
     `;
 
-    new DataTable({
-      containerId: 'cs-daily-production-table',
-      keyField: 'intakeCode',
-      searchable: true,
-      exportable: true,
-      pageSize: 10,
-      columns: [
-        { field: 'id', header: 'S.No', render: (v, r, idx) => idx + 1 },
-        { field: 'intakeCode', header: 'Intake Code', sortable: true, render: v => `<span class="font-mono font-bold text-[#0284C7]">${v}</span>` },
-        { field: 'intakeDate', header: 'Date' },
-        { field: 'plant', header: 'Production Plant' },
-        { field: 'lotNo', header: 'Lot Number', render: v => `<span class="font-mono font-bold">${v}</span>` },
-        { field: 'product', header: 'Product Description' },
-        { field: 'freezingType', header: 'Freezing Type', render: v => `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#EAE6FF] text-[#403294]">${v || 'IQF'}</span>` },
-        { field: 'cartons', header: 'Cartons', render: v => `<span class="font-mono font-bold text-[#00875A]">${v}</span>` },
-        { field: 'netWeightKg', header: 'Net Wt (Kg)', render: v => `<span class="font-mono font-bold">${Number(v).toFixed(1)}</span>` },
-        { field: 'chamber', header: 'Assigned Chamber' },
-        { field: 'rack', header: 'Rack Slot', render: v => `<span class="font-mono font-semibold">${v}</span>` },
-        { field: 'temp', header: 'Temp (°C)', render: v => `<span class="font-mono font-bold text-[#0284C7]">${v} °C</span>` },
-        { field: 'shift', header: 'Shift' },
-        { field: 'status', header: 'Status', render: v => `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#E3FCEF] text-[#006644]">${v}</span>` }
-      ],
-      data: list
+    // Render Table Function
+    const renderTable = (data) => {
+      new DataTable({
+        containerId: 'cs-daily-production-table',
+        keyField: 'intakeCode',
+        searchable: true,
+        exportable: true,
+        pageSize: 10,
+        columns: [
+          { field: 'id', header: 'S.No', render: (v, r, idx) => idx + 1 },
+          { field: 'intakeCode', header: 'Intake Code', sortable: true, render: v => `<span class="font-mono font-bold text-[#0284C7]">${v}</span>` },
+          { field: 'productionDate', header: 'Date', render: (v, r) => v || r.intakeDate },
+          { field: 'stockBelongsTo', header: 'Stock Belongs To', render: v => `<span class="font-semibold text-[#172B4D] whitespace-nowrap">${v || 'DFL'}</span>` },
+          { field: 'plant', header: 'Production Plant' },
+          { field: 'lotNo', header: 'Lot Number', render: v => `<span class="font-mono font-bold">${v}</span>` },
+          { field: 'product', header: 'Product Description' },
+          { field: 'packingType', header: 'Packing Type', render: v => `<span class="font-medium text-[#172B4D]">${v || 'Master Cartons'}</span>` },
+          { field: 'group', header: 'Group', render: v => `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#EAE6FF] text-[#403294]">${v || 'Group A'}</span>` },
+          { field: 'freezingType', header: 'Freezing Type' },
+          { field: 'cartons', header: 'Cartons', render: v => `<span class="font-mono font-bold text-[#00875A]">${v}</span>` },
+          { field: 'netWeightKg', header: 'Net Wt (Kg)', render: v => `<span class="font-mono font-bold">${Number(v).toFixed(1)}</span>` },
+          { field: 'chamber', header: 'Chamber' },
+          { field: 'rack', header: 'Rack Slot', render: v => `<span class="font-mono font-semibold">${v}</span>` },
+          { field: 'temp', header: 'Temp (°C)', render: v => `<span class="font-mono font-bold text-[#0284C7]">${v} °C</span>` },
+          { field: 'shift', header: 'Shift' },
+          { field: 'status', header: 'Status', render: v => {
+            let badgeClass = 'bg-[#E3FCEF] text-[#006644]';
+            if (v === 'Under QC Hold') badgeClass = 'bg-[#FFEBE6] text-[#BF2600]';
+            else if (v === 'Staged for Export') badgeClass = 'bg-[#DEEBFF] text-[#0747A6]';
+            else if (v === 'Allocated') badgeClass = 'bg-[#FFF0B3] text-[#172B4D]';
+            return `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold ${badgeClass}">${v}</span>`;
+          }}
+        ],
+        data: data
+      });
+    };
+
+    // Update KPI indicators dynamically on filter
+    const updateKPIs = (data) => {
+      const kpis = getKPIs(data);
+      const weightEl = document.getElementById('dp-kpi-weight');
+      const boxesEl = document.getElementById('dp-kpi-boxes');
+      const countEl = document.getElementById('dp-kpi-count');
+      if (weightEl) weightEl.textContent = kpis.totalKg.toLocaleString();
+      if (boxesEl) boxesEl.textContent = kpis.totalBoxes.toLocaleString();
+      if (countEl) countEl.textContent = kpis.count.toString();
+    };
+
+    // Initial table render
+    renderTable(fullList);
+
+    // Toggle filter open/close handler
+    const toggleBtn = document.getElementById('dp-filter-toggle-btn');
+    toggleBtn?.addEventListener('click', () => {
+      const body = document.getElementById('dp-filter-body');
+      const icon = document.getElementById('dp-filter-toggle-icon');
+      if (body) {
+        body.classList.toggle('hidden');
+        if (body.classList.contains('hidden')) {
+          toggleBtn.title = 'Show Filter';
+          icon?.classList.add('-rotate-90');
+        } else {
+          toggleBtn.title = 'Hide Filter';
+          icon?.classList.remove('-rotate-90');
+        }
+      }
+    });
+
+    // Reset filter handler
+    const resetBtn = document.getElementById('dp-filter-reset-btn');
+    resetBtn?.addEventListener('click', () => {
+      const startDateInput = document.getElementById('dp-filter-start-date');
+      const stockBelongsSelect = document.getElementById('dp-filter-stock-belongs');
+      const packingTypeSelect = document.getElementById('dp-filter-packing-type');
+      const groupSelect = document.getElementById('dp-filter-group');
+      const statusSelect = document.getElementById('dp-filter-status');
+      const dateTypeSelect = document.getElementById('dp-filter-date-type');
+
+      if (startDateInput) startDateInput.value = '2026-10-26';
+      if (stockBelongsSelect) stockBelongsSelect.value = 'ALL';
+      if (packingTypeSelect) packingTypeSelect.value = 'ALL';
+      if (groupSelect) groupSelect.value = 'ALL';
+      if (statusSelect) statusSelect.value = 'ALL';
+      if (dateTypeSelect) dateTypeSelect.value = 'Production Date';
+
+      renderTable(fullList);
+      updateKPIs(fullList);
+      Toast.show('Filters reset to default', 'info');
+    });
+
+    // Execute Search Filter
+    const searchBtn = document.getElementById('dp-filter-search-btn');
+    const executeFilter = () => {
+      const startDateVal = document.getElementById('dp-filter-start-date')?.value || '';
+      const stockBelongsVal = document.getElementById('dp-filter-stock-belongs')?.value || 'ALL';
+      const packingTypeVal = document.getElementById('dp-filter-packing-type')?.value || 'ALL';
+      const groupVal = document.getElementById('dp-filter-group')?.value || 'ALL';
+      const statusVal = document.getElementById('dp-filter-status')?.value || 'ALL';
+      const dateTypeVal = document.getElementById('dp-filter-date-type')?.value || 'Production Date';
+
+      const filtered = fullList.filter(row => {
+        // 1. START DATE *
+        if (startDateVal) {
+          const rowDate = (dateTypeVal === 'Coldstore Inward Date' ? row.intakeDate : row.productionDate) || row.intakeDate;
+          if (rowDate && rowDate < startDateVal) return false;
+        }
+
+        // 2. STOCK BELONGS TO
+        if (stockBelongsVal !== 'ALL') {
+          if (!row.stockBelongsTo || !row.stockBelongsTo.toLowerCase().includes(stockBelongsVal.toLowerCase())) {
+            return false;
+          }
+        }
+
+        // 3. PACKING TYPE
+        if (packingTypeVal !== 'ALL') {
+          if (!row.packingType || !row.packingType.toLowerCase().includes(packingTypeVal.toLowerCase())) {
+            return false;
+          }
+        }
+
+        // 4. GROUP
+        if (groupVal !== 'ALL' && row.group !== groupVal) {
+          return false;
+        }
+
+        // 5. STATUS
+        if (statusVal !== 'ALL' && row.status !== statusVal) {
+          return false;
+        }
+
+        return true;
+      });
+
+      renderTable(filtered);
+      updateKPIs(filtered);
+      Toast.show(`Found ${filtered.length} matching daily production batch(es)`, 'info');
+    };
+
+    searchBtn?.addEventListener('click', executeFilter);
+
+    // Enter key submits filter on inputs
+    ['dp-filter-start-date', 'dp-filter-stock-belongs', 'dp-filter-packing-type', 'dp-filter-group', 'dp-filter-status', 'dp-filter-date-type'].forEach(id => {
+      const el = document.getElementById(id);
+      el?.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          executeFilter();
+        }
+      });
+      if (el?.tagName === 'SELECT') {
+        el.addEventListener('change', executeFilter);
+      }
     });
   },
 
