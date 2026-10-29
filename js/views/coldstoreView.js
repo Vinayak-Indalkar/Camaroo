@@ -8343,17 +8343,17 @@ export const ColdstoreView = {
             </div>
           </div>
 
-          <!-- Form Input Fields (Consistent 4-Column Grid) -->
-          <div id="dpl-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
+          <!-- Form Input Fields (Standard ERP 4-Column Grid) -->
+          <div id="dpl-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
             <!-- 1. PRODUCTION DATE * -->
             <div>
-              <label for="dpl-filter-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PRODUCTION DATE <span class="text-[#DE350B] font-bold">*</span></label>
+              <label for="dpl-filter-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCTION DATE <span class="text-[#DE350B] font-bold">*</span></label>
               <input type="date" id="dpl-filter-date" value="2026-10-29" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]" required>
             </div>
 
             <!-- 2. STOCK BELONGS TO -->
             <div>
-              <label for="dpl-filter-stock-belongs" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">STOCK BELONGS TO</label>
+              <label for="dpl-filter-stock-belongs" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STOCK BELONGS TO</label>
               <select id="dpl-filter-stock-belongs" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
                 <option value="">All Stock</option>
                 <option value="Own Stock (Devi Fisheries)" selected>Own Stock (Devi Fisheries)</option>
@@ -8364,7 +8364,7 @@ export const ColdstoreView = {
 
             <!-- 3. PACKING TYPE -->
             <div>
-              <label for="dpl-filter-packing-type" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PACKING TYPE</label>
+              <label for="dpl-filter-packing-type" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PACKING TYPE</label>
               <select id="dpl-filter-packing-type" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
                 <option value="">All Packing Types</option>
                 <option value="DUMMY">DUMMY</option>
@@ -8375,7 +8375,7 @@ export const ColdstoreView = {
 
             <!-- 4. GROUP -->
             <div>
-              <label for="dpl-filter-group" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">GROUP</label>
+              <label for="dpl-filter-group" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">GROUP</label>
               <select id="dpl-filter-group" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
                 <option value="">All Groups</option>
                 <option value="Vannamei PD">Vannamei PD</option>
@@ -8386,12 +8386,12 @@ export const ColdstoreView = {
               </select>
             </div>
 
-            <!-- Row 2: Search Action Button Slot (Aligned directly beneath Column 4) -->
-            <div class="col-start-1 sm:col-start-2 md:col-start-4 flex items-end">
+            <!-- 5. Search Action Slot (Standard ERP Position) -->
+            <div class="flex items-end">
               <button 
                 type="button" 
                 id="dpl-filter-search-btn" 
-                class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px] w-full" 
+                class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]" 
                 title="Search Filter Records"
               >
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
@@ -8830,11 +8830,11 @@ export const ColdstoreView = {
             </div>
           </div>
 
-          <!-- Form Input Fields (12 Optional Fields Grid - 4 Columns) -->
-          <div id="ia-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
+          <!-- Form Input Fields (Standard ERP 4-Column Grid) -->
+          <div id="ia-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
             <!-- 1. COLD STORES -->
             <div>
-              <label for="ia-filter-cold-store" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">COLD STORES</label>
+              <label for="ia-filter-cold-store" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">COLD STORES</label>
               <select id="ia-filter-cold-store" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
                 <option value="">All Cold Stores</option>
                 <option value="Chamber #1 (IQF)">Chamber #1 (IQF)</option>
@@ -8847,7 +8847,7 @@ export const ColdstoreView = {
 
             <!-- 2. STOCK BELONGS TO -->
             <div>
-              <label for="ia-filter-stock-belongs" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">STOCK BELONGS TO</label>
+              <label for="ia-filter-stock-belongs" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STOCK BELONGS TO</label>
               <select id="ia-filter-stock-belongs" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
                 <option value="">All Stock</option>
                 <option value="Own Stock (Devi Fisheries)">Own Stock (Devi Fisheries)</option>
@@ -8859,19 +8859,19 @@ export const ColdstoreView = {
 
             <!-- 3. PRODUCTION DATE -->
             <div>
-              <label for="ia-filter-prod-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PRODUCTION DATE</label>
+              <label for="ia-filter-prod-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCTION DATE</label>
               <input type="date" id="ia-filter-prod-date" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
             </div>
 
             <!-- 4. PO NO -->
             <div>
-              <label for="ia-filter-po-no" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PO NO</label>
+              <label for="ia-filter-po-no" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PO NO</label>
               <input type="text" id="ia-filter-po-no" placeholder="Search PO Number" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
             </div>
 
             <!-- 5. SPECIES -->
             <div>
-              <label for="ia-filter-species" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SPECIES</label>
+              <label for="ia-filter-species" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SPECIES</label>
               <select id="ia-filter-species" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
                 <option value="">All Species</option>
                 <option value="Vannamei (Litopenaeus vannamei)">Vannamei (Litopenaeus vannamei)</option>
@@ -8883,7 +8883,7 @@ export const ColdstoreView = {
 
             <!-- 6. TYPE PRODUCT -->
             <div>
-              <label for="ia-filter-type-product" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">TYPE PRODUCT</label>
+              <label for="ia-filter-type-product" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TYPE PRODUCT</label>
               <select id="ia-filter-type-product" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
                 <option value="">All Product Types</option>
                 <option value="Head Less Shell On (HLSO)">Head Less Shell On (HLSO)</option>
@@ -8895,7 +8895,7 @@ export const ColdstoreView = {
 
             <!-- 7. FREEZING TYPE -->
             <div>
-              <label for="ia-filter-freezing-type" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FREEZING TYPE</label>
+              <label for="ia-filter-freezing-type" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">FREEZING TYPE</label>
               <select id="ia-filter-freezing-type" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
                 <option value="">All Freezing Types</option>
                 <option value="IQF (Individually Quick Frozen)">IQF (Individually Quick Frozen)</option>
@@ -8906,7 +8906,7 @@ export const ColdstoreView = {
 
             <!-- 8. VARIETY -->
             <div>
-              <label for="ia-filter-variety" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">VARIETY</label>
+              <label for="ia-filter-variety" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">VARIETY</label>
               <select id="ia-filter-variety" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
                 <option value="">All Varieties</option>
                 <option value="Vannamei PD IQF">Vannamei PD IQF</option>
@@ -8919,7 +8919,7 @@ export const ColdstoreView = {
 
             <!-- 9. GRADE -->
             <div>
-              <label for="ia-filter-grade" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">GRADE</label>
+              <label for="ia-filter-grade" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">GRADE</label>
               <select id="ia-filter-grade" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
                 <option value="">All Grades</option>
                 <option value="16/20">16/20</option>
@@ -8933,7 +8933,7 @@ export const ColdstoreView = {
 
             <!-- 10. PACKING STYLE -->
             <div>
-              <label for="ia-filter-packing-style" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PACKING STYLE</label>
+              <label for="ia-filter-packing-style" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PACKING STYLE</label>
               <select id="ia-filter-packing-style" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
                 <option value="">All Packing Styles</option>
                 <option value="6 X 1.8 KGS">6 X 1.8 KGS</option>
@@ -8945,7 +8945,7 @@ export const ColdstoreView = {
 
             <!-- 11. PRODUCT CATEGORY -->
             <div>
-              <label for="ia-filter-category" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PRODUCT CATEGORY</label>
+              <label for="ia-filter-category" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCT CATEGORY</label>
               <select id="ia-filter-category" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
                 <option value="">All Categories</option>
                 <option value="Raw Frozen">Raw Frozen</option>
@@ -8956,7 +8956,7 @@ export const ColdstoreView = {
 
             <!-- 12. STOCK STATUS -->
             <div>
-              <label for="ia-filter-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">STOCK STATUS</label>
+              <label for="ia-filter-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STOCK STATUS</label>
               <select id="ia-filter-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
                 <option value="">All Statuses</option>
                 <option value="Pending Approval">Pending Approval</option>
@@ -8965,12 +8965,12 @@ export const ColdstoreView = {
               </select>
             </div>
 
-            <!-- Row 4: Search Action Button Slot (Aligned directly beneath Column 4) -->
-            <div class="col-start-1 sm:col-start-2 md:col-start-4 flex items-end">
+            <!-- 13. Search Action Slot (Standard ERP Position) -->
+            <div class="flex items-end">
               <button 
                 type="button" 
                 id="ia-filter-search-btn" 
-                class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px] w-full"
+                class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]"
                 title="Search Filter Records"
               >
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
