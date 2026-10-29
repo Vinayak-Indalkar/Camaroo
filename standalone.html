@@ -5546,7 +5546,7 @@ class DataTable {
     this.currentPage = 1;
     this.searchable = searchable;
     this.filterable = filterable;
-    this.selectable = false;
+    this.selectable = Boolean(selectable);
     // Global safeguard: Never add a view eye icon in actions column anywhere in the application
     this.actions = (actions || []).filter(act => {
       const label = String(act.label || '').toLowerCase().trim();
@@ -50934,38 +50934,608 @@ const ColdstoreView = {
 
   // 7. SHIPMENT
   renderShipment(container) {
+    if (!this.state.shipmentStockList) {
+      this.state.shipmentStockList = [
+        {
+          id: 1,
+          lotId: 'LOT-SHP-2026-001',
+          barCode: 'BC-890123-01',
+          poNumber: 'PO-2026-4401',
+          productionPlant: 'DFL UNIT-5 (JPT)',
+          group: 'Group A',
+          variety: 'Vannamei (White Shrimp)',
+          grade: '16/20',
+          mcs: 240,
+          bags: 2400,
+          packingStyle: '10x1kg Net',
+          packingType: 'Master Cartons',
+          store: 'Chamber #1 (IQF)',
+          location: 'RACK-A-01-B',
+          slabs: 0,
+          kgs: 2400.0,
+          stockBelongsTo: 'Own Production (Devi Fisheries)',
+          orderStatus: 'Ready for Dispatch',
+          year: '2026',
+          productCategory: 'Raw Frozen'
+        },
+        {
+          id: 2,
+          lotId: 'LOT-SHP-2026-002',
+          barCode: 'BC-890123-02',
+          poNumber: 'PO-2026-4402',
+          productionPlant: 'DFL UNIT-5 (JPT)',
+          group: 'Group B',
+          variety: 'Black Tiger (Monodon)',
+          grade: '21/25',
+          mcs: 180,
+          bags: 1080,
+          packingStyle: '6x2kg Block',
+          packingType: '6x2kg Block',
+          store: 'Chamber #2 (Block)',
+          location: 'RACK-B-03-A',
+          slabs: 36,
+          kgs: 2160.0,
+          stockBelongsTo: 'Own Production (Devi Fisheries)',
+          orderStatus: 'Allocated for Shipment',
+          year: '2026',
+          productCategory: 'Block Frozen'
+        },
+        {
+          id: 3,
+          lotId: 'LOT-SHP-2026-003',
+          barCode: 'BC-890123-03',
+          poNumber: 'PO-2026-4403',
+          productionPlant: 'DFL UNIT-4 (PND)',
+          group: 'Group C',
+          variety: 'Sea Pearl Cooked PDTO',
+          grade: '31/40',
+          mcs: 320,
+          bags: 1600,
+          packingStyle: '5x2kg IQF Poly',
+          packingType: '5x2kg IQF Poly',
+          store: 'Vault #3 Staging',
+          location: 'STAGE-V3-BAY2',
+          slabs: 0,
+          kgs: 3200.0,
+          stockBelongsTo: 'Contract Processing',
+          orderStatus: 'Under Loading',
+          year: '2026',
+          productCategory: 'Cooked Frozen'
+        },
+        {
+          id: 4,
+          lotId: 'LOT-SHP-2026-004',
+          barCode: 'BC-890123-04',
+          poNumber: 'PO-2026-4404',
+          productionPlant: 'DFL UNIT-5 (JPT)',
+          group: 'Group A',
+          variety: 'Scampi (Macrobrachium)',
+          grade: 'U/5',
+          mcs: 150,
+          bags: 1500,
+          packingStyle: '10x1kg Net',
+          packingType: 'Master Cartons',
+          store: 'Chamber #3 (Blast)',
+          location: 'RACK-C-02-C',
+          slabs: 15,
+          kgs: 1500.0,
+          stockBelongsTo: 'Job Work (External)',
+          orderStatus: 'Ready for Dispatch',
+          year: '2026',
+          productCategory: 'Raw Frozen'
+        },
+        {
+          id: 5,
+          lotId: 'LOT-SHP-2026-005',
+          barCode: 'BC-890123-05',
+          poNumber: 'PO-2026-4405',
+          productionPlant: 'DFL UNIT-3 (VIZ)',
+          group: 'Group A',
+          variety: 'Vannamei (White Shrimp)',
+          grade: '26/30',
+          mcs: 400,
+          bags: 4000,
+          packingStyle: '10x2lb Pouch',
+          packingType: 'Master Cartons',
+          store: 'Chamber #4 (Deep Freeze)',
+          location: 'RACK-D-01-A',
+          slabs: 0,
+          kgs: 3628.7,
+          stockBelongsTo: 'Trading Division',
+          orderStatus: 'Allocated for Shipment',
+          year: '2026',
+          productCategory: 'Value-Added'
+        },
+        {
+          id: 6,
+          lotId: 'LOT-SHP-2026-006',
+          barCode: 'BC-890123-06',
+          poNumber: 'PO-2026-4406',
+          productionPlant: 'DFL UNIT-5 (JPT)',
+          group: 'Group B',
+          variety: 'Vannamei (White Shrimp)',
+          grade: '31/40',
+          mcs: 260,
+          bags: 2600,
+          packingStyle: '10x1kg Net',
+          packingType: 'Master Cartons',
+          store: 'Chamber #1 (IQF)',
+          location: 'RACK-A-04-A',
+          slabs: 0,
+          kgs: 2600.0,
+          stockBelongsTo: 'Farmer Direct Purchase',
+          orderStatus: 'Loaded & Sealed',
+          year: '2026',
+          productCategory: 'Raw Frozen'
+        },
+        {
+          id: 7,
+          lotId: 'LOT-SHP-2026-007',
+          barCode: 'BC-890123-07',
+          poNumber: 'PO-2026-4407',
+          productionPlant: 'DFL UNIT-5 (JPT)',
+          group: 'Group C',
+          variety: 'Black Tiger (Monodon)',
+          grade: '13/15',
+          mcs: 210,
+          bags: 1260,
+          packingStyle: '6x2kg Block',
+          packingType: '6x2kg Block',
+          store: 'Chamber #2 (Block)',
+          location: 'RACK-B-01-D',
+          slabs: 42,
+          kgs: 2520.0,
+          stockBelongsTo: 'Own Production (Devi Fisheries)',
+          orderStatus: 'Ready for Dispatch',
+          year: '2026',
+          productCategory: 'Block Frozen'
+        },
+        {
+          id: 8,
+          lotId: 'LOT-SHP-2026-008',
+          barCode: 'BC-890123-08',
+          poNumber: 'PO-2026-4408',
+          productionPlant: 'DFL UNIT-4 (PND)',
+          group: 'Group A',
+          variety: 'Sea Pearl Cooked PDTO',
+          grade: '41/50',
+          mcs: 350,
+          bags: 1750,
+          packingStyle: '5x2kg IQF Poly',
+          packingType: '5x2kg IQF Poly',
+          store: 'Main Cold Storage Plant 1',
+          location: 'RACK-M-02-B',
+          slabs: 0,
+          kgs: 3500.0,
+          stockBelongsTo: 'Contract Processing',
+          orderStatus: 'Under Loading',
+          year: '2025',
+          productCategory: 'Cooked Frozen'
+        },
+        {
+          id: 9,
+          lotId: 'LOT-SHP-2026-009',
+          barCode: 'BC-890123-09',
+          poNumber: 'PO-2025-3310',
+          productionPlant: 'DFL UNIT-5 (JPT)',
+          group: 'Group B',
+          variety: 'Vannamei (White Shrimp)',
+          grade: '51/60',
+          mcs: 300,
+          bags: 3000,
+          packingStyle: '10x1kg Net',
+          packingType: 'Master Cartons',
+          store: 'Chamber #1 (IQF)',
+          location: 'RACK-A-02-C',
+          slabs: 0,
+          kgs: 3000.0,
+          stockBelongsTo: 'Own Production (Devi Fisheries)',
+          orderStatus: 'In Transit',
+          year: '2025',
+          productCategory: 'Raw Frozen'
+        },
+        {
+          id: 10,
+          lotId: 'LOT-SHP-2026-010',
+          barCode: 'BC-890123-10',
+          poNumber: 'PO-2025-3325',
+          productionPlant: 'DFL UNIT-3 (VIZ)',
+          group: 'Group A',
+          variety: 'Vannamei (White Shrimp)',
+          grade: '16/20',
+          mcs: 190,
+          bags: 1900,
+          packingStyle: '10x1kg Net',
+          packingType: 'Master Cartons',
+          store: 'Vault #3 Staging',
+          location: 'STAGE-V3-BAY4',
+          slabs: 0,
+          kgs: 1900.0,
+          stockBelongsTo: 'Trading Division',
+          orderStatus: 'Staged in Coldstore',
+          year: '2025',
+          productCategory: 'Blanched Frozen'
+        },
+        {
+          id: 11,
+          lotId: 'LOT-SHP-2026-011',
+          barCode: 'BC-890123-11',
+          poNumber: 'PO-2026-4411',
+          productionPlant: 'DFL UNIT-5 (JPT)',
+          group: 'Group B',
+          variety: 'Black Tiger (Monodon)',
+          grade: '26/30',
+          mcs: 275,
+          bags: 1650,
+          packingStyle: '6x2kg Block',
+          packingType: '6x2kg Block',
+          store: 'Chamber #2 (Block)',
+          location: 'RACK-B-04-C',
+          slabs: 30,
+          kgs: 3300.0,
+          stockBelongsTo: 'Own Production (Devi Fisheries)',
+          orderStatus: 'Ready for Dispatch',
+          year: '2026',
+          productCategory: 'Block Frozen'
+        },
+        {
+          id: 12,
+          lotId: 'LOT-SHP-2026-012',
+          barCode: 'BC-890123-12',
+          poNumber: 'PO-2026-4412',
+          productionPlant: 'DFL UNIT-1 (VSP)',
+          group: 'Group C',
+          variety: 'Vannamei (White Shrimp)',
+          grade: '31/40',
+          mcs: 220,
+          bags: 2200,
+          packingStyle: '10x1kg Net',
+          packingType: 'Master Cartons',
+          store: 'Chamber #1 (IQF)',
+          location: 'RACK-A-03-B',
+          slabs: 0,
+          kgs: 2200.0,
+          stockBelongsTo: 'Farmer Direct Purchase',
+          orderStatus: 'Allocated for Shipment',
+          year: '2026',
+          productCategory: 'Raw Frozen'
+        }
+      ];
+    }
+
     container.innerHTML = `
       <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
         <div>
-          <h1 class="text-xl font-extrabold text-[#172B4D]">Coldstore Shipments & Reefer Dispatch</h1>
-          <p class="text-xs text-[#6B778C] mt-0.5">Export container stuffing, reefer temperature monitoring, and dispatch seals</p>
+          <h1 class="text-xl font-extrabold text-[#172B4D]">Shipment</h1>
         </div>
       </div>
-      <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
-        <div id="cs-shipments-table"></div>
+
+      <!-- Search & Filter Card (6 User-Specified Form Fields + Search Button) -->
+      <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200" style="margin-bottom: 12px !important;">
+        <div class="flex items-center justify-between pb-1">
+          <div class="flex items-center gap-2">
+            <svg style="width: 16px; height: 16px; min-width: 16px; min-height: 16px; stroke: #0284C7; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+            <h3 class="text-xs font-bold text-[#172B4D]">Search & Filter</h3>
+          </div>
+          <div class="inline-flex items-center" style="gap: 8px; display: inline-flex;">
+            <button type="button" id="cs-shp-reset-btn" class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#0284C7] text-[#334155] hover:text-[#0284C7] rounded-full transition-colors cursor-pointer select-none" style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 9999px; border: 1px solid #CBD5E1; background: #ffffff; color: #334155; display: inline-flex; align-items: center; justify-content: center; padding: 0;" title="Reset All Filters" aria-label="Reset All Filters">
+              <svg style="width: 15px; height: 15px; min-width: 15px; min-height: 15px; stroke: #334155; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+            </button>
+            <button type="button" id="cs-shp-toggle-btn" class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#0284C7] text-[#334155] hover:text-[#0284C7] rounded-full transition-colors cursor-pointer select-none" style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 9999px; border: 1px solid #CBD5E1; background: #ffffff; color: #334155; display: inline-flex; align-items: center; justify-content: center; padding: 0;" title="Hide Filter" aria-label="Hide Filter">
+              <svg id="cs-shp-toggle-icon" style="width: 15px; height: 15px; min-width: 15px; min-height: 15px; stroke: #334155; fill: none; display: inline-block;" class="dt-top-filter-toggle-icon transform transition-transform duration-200" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- 6 User-Specified Form Fields Grid -->
+        <div id="cs-shp-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
+          <!-- 1. COLD STORES -->
+          <div>
+            <label for="cs-shp-coldstore" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">COLD STORES</label>
+            <select id="cs-shp-coldstore" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+              <option value="ALL">All Cold Stores</option>
+              <option value="Chamber #1 (IQF)">Chamber #1 (IQF)</option>
+              <option value="Chamber #2 (Block)">Chamber #2 (Block)</option>
+              <option value="Chamber #3 (Blast)">Chamber #3 (Blast)</option>
+              <option value="Chamber #4 (Deep Freeze)">Chamber #4 (Deep Freeze)</option>
+              <option value="Vault #3 Staging">Vault #3 Staging</option>
+              <option value="Main Cold Storage Plant 1">Main Cold Storage Plant 1</option>
+            </select>
+          </div>
+
+          <!-- 2. STOCK BELONGS TO -->
+          <div>
+            <label for="cs-shp-stockbelongs" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">STOCK BELONGS TO</label>
+            <select id="cs-shp-stockbelongs" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+              <option value="ALL">All Stock Owners</option>
+              <option value="Own Production (Devi Fisheries)">Own Production (Devi Fisheries)</option>
+              <option value="Job Work (External)">Job Work (External)</option>
+              <option value="Contract Processing">Contract Processing</option>
+              <option value="Trading Division">Trading Division</option>
+              <option value="Farmer Direct Purchase">Farmer Direct Purchase</option>
+            </select>
+          </div>
+
+          <!-- 3. ORDER STATUS -->
+          <div>
+            <label for="cs-shp-orderstatus" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ORDER STATUS</label>
+            <select id="cs-shp-orderstatus" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+              <option value="ALL">All Order Status</option>
+              <option value="Ready for Dispatch">Ready for Dispatch</option>
+              <option value="Allocated for Shipment">Allocated for Shipment</option>
+              <option value="Under Loading">Under Loading</option>
+              <option value="Loaded & Sealed">Loaded & Sealed</option>
+              <option value="In Transit">In Transit</option>
+              <option value="Staged in Coldstore">Staged in Coldstore</option>
+            </select>
+          </div>
+
+          <!-- 4. YEAR -->
+          <div>
+            <label for="cs-shp-year" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">YEAR</label>
+            <select id="cs-shp-year" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+              <option value="ALL">All Years</option>
+              <option value="2026">2026</option>
+              <option value="2025">2025</option>
+              <option value="2024">2024</option>
+              <option value="2023">2023</option>
+            </select>
+          </div>
+
+          <!-- 5. PO NO -->
+          <div>
+            <label for="cs-shp-pono" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PO NO</label>
+            <input type="text" id="cs-shp-pono" placeholder="Enter PO No..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-medium text-[#172B4D]" />
+          </div>
+
+          <!-- 6. PRODUCT CATEGORY -->
+          <div>
+            <label for="cs-shp-productcategory" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PRODUCT CATEGORY</label>
+            <select id="cs-shp-productcategory" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+              <option value="ALL">All Categories</option>
+              <option value="Raw Frozen">Raw Frozen</option>
+              <option value="Cooked Frozen">Cooked Frozen</option>
+              <option value="Blanched Frozen">Blanched Frozen</option>
+              <option value="Value-Added">Value-Added</option>
+              <option value="Block Frozen">Block Frozen</option>
+            </select>
+          </div>
+
+          <!-- Search Button Slot in 2nd row -->
+          <div class="flex items-end">
+            <button type="button" id="cs-shp-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]" title="Search Filter Records">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+              <span>Search</span>
+            </button>
+          </div>
+        </div>
       </div>
+
+      <!-- Data Table Container -->
+      <div id="cs-shipments-table"></div>
     `;
 
-    new DataTable({
-      containerId: 'cs-shipments-table',
-      tableTitle: 'Finished Goods Shipments',
-      searchable: true,
-      exportable: true,
-      pageSize: 10,
-      columns: [
-        { key: 'id', label: 'S.No', render: (v, r, idx) => idx + 1 },
-        { key: 'shipmentNo', label: 'Shipment No', sortable: true, render: v => `<span class="font-mono font-bold text-[#0284C7]">${v}</span>` },
-        { key: 'containerNo', label: 'Container No', render: v => `<span class="font-mono font-bold">${v}</span>` },
-        { key: 'sealNo', label: 'Seal No', render: v => `<span class="font-mono font-semibold text-[#5E6C84]">${v}</span>` },
-        { key: 'bookingRef', label: 'Booking Ref' },
-        { key: 'port', label: 'Destination Port' },
-        { key: 'line', label: 'Shipping Line' },
-        { key: 'setTemp', label: 'Temp Set (°C)', render: v => `<span class="font-mono font-bold text-[#0284C7]">${v}</span>` },
-        { key: 'cartons', label: 'Cartons', render: v => `<span class="font-mono font-bold">${v}</span>` },
-        { key: 'netWeightMt', label: 'Net (MT)', render: v => `<span class="font-mono font-bold text-[#00875A]">${v.toFixed(1)}</span>` },
-        { key: 'status', label: 'Status', render: v => `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold ${v === 'Loaded & Sealed' ? 'bg-[#E3FCEF] text-[#006644]' : 'bg-[#FFF0B3] text-[#172B4D]'}">${v}</span>` }
-      ],
-      data: this.state.shipments
+    const renderTable = (data, hasSearched = false) => {
+      new DataTable({
+        containerId: 'cs-shipments-table',
+        tableTitle: hasSearched ? `Shipment Cargo Lots (${data.length})` : 'Shipment Cargo Lots',
+        searchable: true,
+        exportable: true,
+        selectable: true,
+        pageSize: 10,
+        onRowClick: (row) => this.showShipmentLotDetailModal(row),
+        actions: [
+          {
+            label: 'Load',
+            title: 'Load Cargo Lot',
+            icon: `<svg class="w-4 h-4 text-[#0284C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"></path></svg>`,
+            onClick: (row) => {
+              Modal.confirm({
+                title: 'Load Cargo Lot',
+                message: `Confirm loading cargo lot <strong>${row.poNumber || row.barCode}</strong> (${row.variety || ''} ${row.grade || ''}, ${row.mcs || 0} Mcs / ${row.kgs || 0} Kgs) into reefer shipment container?`,
+                confirmText: 'Load Lot',
+                onConfirm: () => {
+                  row.orderStatus = 'Loaded & Sealed';
+                  Toast.show(`Lot ${row.poNumber || row.barCode} marked as Loaded & Sealed!`, 'success');
+                }
+              });
+            }
+          }
+        ],
+        bulkActions: [
+          {
+            label: 'Load Selected Lots',
+            onClick: (selectedKeys) => {
+              Modal.confirm({
+                title: 'Load Selected Cargo Lots',
+                message: `Load <strong>${selectedKeys.length} selected cargo lot(s)</strong> into export container?`,
+                confirmText: 'Load Selected',
+                onConfirm: () => {
+                  Toast.show(`${selectedKeys.length} cargo lot(s) marked as Loaded & Sealed!`, 'success');
+                }
+              });
+            }
+          }
+        ],
+        columns: [
+          { field: 'sNo', header: 'SNO', sortable: true, render: (v, r, idx) => `<span class="text-[#5E6C84] font-semibold">${idx + 1}</span>` },
+          { field: 'id', header: 'ID', sortable: true, render: (v, r) => `<span class="font-mono font-bold text-[#0284C7]">${r.lotId || v || '-'}</span>` },
+          { field: 'barCode', header: 'Bar Code', sortable: true, render: v => `<span class="font-mono font-semibold text-[#172B4D] whitespace-nowrap">${v || '-'}</span>` },
+          { field: 'poNumber', header: 'Po Number', sortable: true, render: v => `<span class="font-mono font-bold text-[#0284C7] whitespace-nowrap">${v || '-'}</span>` },
+          { field: 'productionPlant', header: 'Production Plant', sortable: true, render: v => `<span class="font-medium text-[#172B4D] whitespace-nowrap">${v || '-'}</span>` },
+          { field: 'group', header: 'Group', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#F4F5F7] text-[#172B4D] border border-[#DFE1E6] whitespace-nowrap">${v || '-'}</span>` },
+          { field: 'variety', header: 'Variety', sortable: true, render: v => `<span class="font-medium text-[#172B4D] whitespace-nowrap">${v || '-'}</span>` },
+          { field: 'grade', header: 'Grade', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-bold bg-[#E0F2FE] text-[#0284C7] whitespace-nowrap">${v || '-'}</span>` },
+          { field: 'mcs', header: 'Mcs', sortable: true, render: v => `<span class="font-mono font-bold text-[#00875A]">${Number(v || 0).toLocaleString()}</span>` },
+          { field: 'bags', header: 'Bags', sortable: true, render: v => `<span class="font-mono font-bold text-[#172B4D]">${Number(v || 0).toLocaleString()}</span>` },
+          { field: 'packingStyle', header: 'Packing Style', sortable: true, render: v => `<span class="whitespace-nowrap font-medium text-[#172B4D]">${v || '-'}</span>` },
+          { field: 'packingType', header: 'Packing Type', sortable: true, render: v => `<span class="whitespace-nowrap text-[#5E6C84]">${v || '-'}</span>` },
+          { field: 'store', header: 'Store', sortable: true, render: v => `<span class="font-medium text-[#172B4D] whitespace-nowrap">${v || '-'}</span>` },
+          { field: 'location', header: 'Location', sortable: true, render: v => `<span class="font-mono text-xs text-[#5E6C84] whitespace-nowrap">${v || '-'}</span>` },
+          { field: 'slabs', header: 'Slabs', sortable: true, render: v => `<span class="font-mono font-semibold text-[#172B4D]">${v !== undefined ? v : 0}</span>` },
+          { field: 'kgs', header: 'KGS', sortable: true, render: v => `<span class="font-mono font-bold text-[#00875A]">${Number(v || 0).toLocaleString(undefined, { minimumFractionDigits: 1, maximumFractionDigits: 1 })}</span>` }
+        ],
+        data: data
+      });
+    };
+
+    // Initially render empty table per user requirement:
+    // "dont show dat ain data table when user click on sech button ffrom serch & filter thant time shoe the dat ain that table till sho w no data empty statn"
+    renderTable([], false);
+
+    // Filter toggle
+    const toggleBtn = container.querySelector('#cs-shp-toggle-btn');
+    const filterBody = container.querySelector('#cs-shp-filter-body');
+    const toggleIcon = container.querySelector('#cs-shp-toggle-icon');
+    if (toggleBtn && filterBody && toggleIcon) {
+      let isOpen = true;
+      toggleBtn.addEventListener('click', () => {
+        isOpen = !isOpen;
+        if (isOpen) {
+          filterBody.style.display = 'grid';
+          toggleIcon.classList.remove('rotate-180');
+          toggleBtn.title = 'Hide Filter';
+        } else {
+          filterBody.style.display = 'none';
+          toggleIcon.classList.add('rotate-180');
+          toggleBtn.title = 'Show Filter';
+        }
+      });
+    }
+
+    // Search button handler
+    const searchBtn = container.querySelector('#cs-shp-search-btn');
+    if (searchBtn) {
+      searchBtn.addEventListener('click', () => {
+        const coldStoreVal = container.querySelector('#cs-shp-coldstore')?.value || 'ALL';
+        const stockBelongsVal = container.querySelector('#cs-shp-stockbelongs')?.value || 'ALL';
+        const orderStatusVal = container.querySelector('#cs-shp-orderstatus')?.value || 'ALL';
+        const yearVal = container.querySelector('#cs-shp-year')?.value || 'ALL';
+        const poVal = (container.querySelector('#cs-shp-pono')?.value || '').trim().toLowerCase();
+        const categoryVal = container.querySelector('#cs-shp-productcategory')?.value || 'ALL';
+
+        const pool = this.state.shipmentStockList || [];
+        const results = pool.filter(item => {
+          if (coldStoreVal !== 'ALL' && item.store !== coldStoreVal) return false;
+          if (stockBelongsVal !== 'ALL' && item.stockBelongsTo !== stockBelongsVal) return false;
+          if (orderStatusVal !== 'ALL' && item.orderStatus !== orderStatusVal) return false;
+          if (yearVal !== 'ALL' && String(item.year) !== yearVal) return false;
+          if (poVal && !(item.poNumber || '').toLowerCase().includes(poVal)) return false;
+          if (categoryVal !== 'ALL' && item.productCategory !== categoryVal) return false;
+          return true;
+        });
+
+        renderTable(results, true);
+        Toast.show(`Showing ${results.length} matching Shipment lot(s)`, 'info');
+      });
+    }
+
+    // Reset button handler
+    const resetBtn = container.querySelector('#cs-shp-reset-btn');
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        const selects = container.querySelectorAll('#cs-shp-filter-body select');
+        selects.forEach(s => s.value = 'ALL');
+        const textInputs = container.querySelectorAll('#cs-shp-filter-body input');
+        textInputs.forEach(i => i.value = '');
+
+        renderTable([], false);
+        Toast.show('Shipment search & filters reset', 'info');
+      });
+    }
+  },
+
+  // 7b. SHIPMENT LOT DETAIL MODAL
+  showShipmentLotDetailModal(row) {
+    Modal.open({
+      title: `Shipment Lot Details: ${row.poNumber || row.lotId} (${row.barCode || ''})`,
+      size: 'lg',
+      content: `
+        <div class="space-y-4 text-xs text-[#172B4D]">
+          <div class="p-3 bg-[#F4F5F7] border border-[#DFE1E6] rounded-lg flex items-center justify-between">
+            <div>
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">BAR CODE & PO NUMBER</span>
+              <div class="text-base font-extrabold text-[#0284C7] font-mono">${row.barCode} | ${row.poNumber}</div>
+            </div>
+            <div class="text-right">
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">STATUS</span>
+              <div><span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold border bg-[#E0F2FE] text-[#0284C7] border-[#BAE6FD]">${row.orderStatus || 'Ready for Dispatch'}</span></div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-white p-3 border border-[#DFE1E6] rounded-lg">
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PRODUCTION PLANT</span>
+              <span class="font-semibold text-xs text-[#172B4D]">${row.productionPlant || '-'}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">GROUP</span>
+              <span class="font-semibold text-xs text-[#172B4D]">${row.group || '-'}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">VARIETY</span>
+              <span class="font-semibold text-xs text-[#172B4D]">${row.variety || '-'}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">GRADE</span>
+              <span class="font-bold text-xs text-[#0284C7] font-mono">${row.grade || '-'}</span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-white p-3 border border-[#DFE1E6] rounded-lg">
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">MASTER CARTONS (MCS)</span>
+              <span class="font-mono font-bold text-[#00875A] text-sm">${Number(row.mcs || 0).toLocaleString()}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">TOTAL BAGS</span>
+              <span class="font-mono font-bold text-[#172B4D] text-sm">${Number(row.bags || 0).toLocaleString()}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">SLABS</span>
+              <span class="font-mono font-bold text-[#172B4D] text-sm">${row.slabs || 0}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">TOTAL WEIGHT (KGS)</span>
+              <span class="font-mono font-bold text-[#00875A] text-sm">${Number(row.kgs || 0).toLocaleString(undefined, { minimumFractionDigits: 1, maximumFractionDigits: 1 })}</span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-white p-3 border border-[#DFE1E6] rounded-lg">
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PACKING STYLE</span>
+              <span class="font-medium text-xs text-[#172B4D]">${row.packingStyle || '-'}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PACKING TYPE</span>
+              <span class="font-medium text-xs text-[#172B4D]">${row.packingType || '-'}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">STORE</span>
+              <span class="font-medium text-xs text-[#172B4D]">${row.store || '-'}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">RACK LOCATION</span>
+              <span class="font-mono font-semibold text-xs text-[#0284C7]">${row.location || '-'}</span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 bg-[#FAFBFC] p-3 border border-[#DFE1E6] rounded-lg">
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">STOCK BELONGS TO</span>
+              <span class="font-semibold text-xs text-[#172B4D]">${row.stockBelongsTo || '-'}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PRODUCT CATEGORY</span>
+              <span class="font-semibold text-xs text-[#172B4D]">${row.productCategory || '-'}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">YEAR</span>
+              <span class="font-semibold text-xs text-[#172B4D]">${row.year || '2026'}</span>
+            </div>
+          </div>
+        </div>
+      `
     });
   },
 

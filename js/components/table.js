@@ -38,7 +38,7 @@ export class DataTable {
     this.currentPage = 1;
     this.searchable = searchable;
     this.filterable = filterable;
-    this.selectable = false;
+    this.selectable = Boolean(selectable);
     // Global safeguard: Never add a view eye icon in actions column anywhere in the application
     this.actions = (actions || []).filter(act => {
       const label = String(act.label || '').toLowerCase().trim();
