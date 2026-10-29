@@ -273,7 +273,13 @@ export const ADMIN_NAV_HIERARCHY = [
         title: "General Store",
         defaultTab: "indent-page",
         tabs: [
-          { id: "indent-page", label: "Indent Page", hash: "#/inventory/general-store/indent-page" }
+          { id: "indent-page", label: "Indent Page (GS)", hash: "#/inventory/general-store/indent-page" },
+          { id: "indent-list", label: "Indent List (GS)", hash: "#/inventory/general-store/indent-list" },
+          { id: "proforma-order", label: "Proforma Order (GS)", hash: "#/inventory/general-store/proforma-order" },
+          { id: "proforma-list", label: "Proforma List (GS)", hash: "#/inventory/general-store/proforma-list" },
+          { id: "goods-receipt-note", label: "Goods Receipt Note (GS)", hash: "#/inventory/general-store/goods-receipt-note" },
+          { id: "grn-list", label: "Goods Receipt Note List (GS)", hash: "#/inventory/general-store/grn-list" },
+          { id: "material-issue", label: "Material Issue (GS)", hash: "#/inventory/general-store/material-issue" }
         ]
       },
       {
