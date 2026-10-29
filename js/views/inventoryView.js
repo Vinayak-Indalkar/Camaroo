@@ -1061,10 +1061,10 @@ export const InventoryView = {
                   <input type="text" id="modal-item-remarks" placeholder="Optional notes / remarks..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
                 </div>
 
-                <!-- 8. Action (Add Item Button - placed right after Remarks with same width) -->
+                <!-- 8. Action (Add Item Button - placed right after Remarks with max width) -->
                 <div>
                   <label class="block text-[11px] font-bold text-transparent uppercase tracking-wider mb-1 select-none">&nbsp;</label>
-                  <button type="button" id="modal-btn-add-item" class="btn-primary w-full h-[32px] px-4 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer">
+                  <button type="button" id="modal-btn-add-item" class="btn-primary w-full max-w-[150px] h-[32px] px-4 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer">
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
                     <span>Add Item</span>
                   </button>
@@ -1952,13 +1952,10 @@ export const InventoryView = {
                   <input type="number" id="mpoi-inv-amt" value="31388.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F0FDF4] border border-[#BBF7D0] rounded font-mono font-bold text-[#00875A] shadow-2xs cursor-not-allowed" />
                 </div>
 
-                <div class="hidden md:block"></div>
-                <div class="hidden md:block"></div>
-
-                <!-- 17. Action Button (Col 4) -->
+                <!-- 17. Action Button (Col 2 - directly after Invoice Amt) -->
                 <div>
                   <label class="block text-[11px] font-bold text-transparent uppercase tracking-wider mb-1 select-none">&nbsp;</label>
-                  <button type="button" id="modal-po-btn-add-item" class="btn-primary w-full h-[32px] px-4 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer">
+                  <button type="button" id="modal-po-btn-add-item" class="btn-primary w-full max-w-[150px] h-[32px] px-4 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer">
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
                     <span>Add Item</span>
                   </button>
@@ -2916,12 +2913,10 @@ export const InventoryView = {
                   <input type="text" id="mgrn-gst-amt" value="5040.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] shadow-2xs cursor-not-allowed" />
                 </div>
 
-                <div class="hidden md:block"></div>
-
-                <!-- 14. Action Button (Col 4) -->
+                <!-- 14. Action Button (Col 3 - directly after GST Tax Amount) -->
                 <div>
                   <label class="block text-[11px] font-bold text-transparent uppercase tracking-wider mb-1 select-none">&nbsp;</label>
-                  <button type="button" id="modal-grn-btn-add-item" class="btn-primary w-full h-[32px] px-4 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer">
+                  <button type="button" id="modal-grn-btn-add-item" class="btn-primary w-full max-w-[150px] h-[32px] px-4 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer">
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
                     <span>Add Item</span>
                   </button>
@@ -3887,7 +3882,7 @@ export const InventoryView = {
                 <!-- 13. Action: Add Item Button (Col 4) -->
                 <div>
                   <label class="block text-[11px] font-bold text-transparent uppercase tracking-wider mb-1 select-none">&nbsp;</label>
-                  <button type="button" id="modal-issue-btn-add-item" class="btn-primary w-full h-[32px] px-4 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer">
+                  <button type="button" id="modal-issue-btn-add-item" class="btn-primary w-full max-w-[150px] h-[32px] px-4 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer">
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
                     <span>Add Item</span>
                   </button>
