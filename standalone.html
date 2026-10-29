@@ -53387,24 +53387,28 @@ const InventoryView = {
       <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-1">
         <div>
           <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Indent Page (GS)</h1>
-          <p class="text-xs text-[#5E6C84] mt-0.5">Create and manage General Store material requisitions and departmental indent documentation</p>
         </div>
         <div class="flex items-center gap-2">
-          <button type="button" id="gs-btn-toggle-form" class="btn-secondary border border-[#CBD5E1] px-4 py-2 rounded-full text-xs font-semibold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-white text-[#475569] hover:bg-[#F8FAFC] transition-all">
-            <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-            <span id="gs-form-toggle-text">Collapse Form</span>
+          <button type="button" id="gs-btn-toggle-form" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+            <span id="gs-form-toggle-text">Indent Page</span>
           </button>
         </div>
       </div>
 
-      <!-- Add Indent Form Card -->
-      <div id="gs-indent-form-card" class="bg-white rounded-xl border border-[#DFE1E6] p-4 sm:p-5 shadow-xs transition-all">
+      <!-- Add Indent Form Card (Shown on click "Indent Page" button) -->
+      <div id="gs-indent-form-card" class="hidden bg-white rounded-xl border border-[#DFE1E6] p-4 sm:p-5 shadow-xs mb-3 transition-all">
         <div class="flex items-center justify-between pb-3 mb-4 border-b border-[#F1F5F9]">
           <div class="flex items-center gap-2">
             <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
             <h2 class="text-sm font-bold text-[#172B4D]">Indent Header Information</h2>
           </div>
-          <span class="text-[11px] font-semibold text-[#5E6C84]">All fields marked with <span class="text-red-500 font-bold">*</span> are required</span>
+          <div class="flex items-center gap-3">
+            <span class="text-[11px] font-semibold text-[#5E6C84]">All fields marked with <span class="text-red-500 font-bold">*</span> are required</span>
+            <button type="button" id="gs-btn-close-form" class="w-7 h-7 rounded-full bg-[#F4F5F7] hover:bg-[#EBECF0] text-[#5E6C84] hover:text-[#172B4D] flex items-center justify-center transition-colors cursor-pointer" title="Close Indent Form">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+          </div>
         </div>
 
         <form id="gs-add-indent-form" class="space-y-4 text-xs text-[#172B4D]">
@@ -53413,19 +53417,19 @@ const InventoryView = {
             <!-- 1. DOC NO -->
             <div>
               <label for="gs-form-docno" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DOC NO <span class="text-red-500">*</span></label>
-              <input type="text" id="gs-form-docno" name="docNo" value="${defaultDocNo}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              <input type="text" id="gs-form-docno" name="docNo" value="${defaultDocNo}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
             </div>
 
             <!-- 2. DATE -->
             <div>
               <label for="gs-form-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DATE <span class="text-red-500">*</span></label>
-              <input type="date" id="gs-form-date" name="date" value="${todayStr}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              <input type="date" id="gs-form-date" name="date" value="${todayStr}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
             </div>
 
             <!-- 3. DEPARTMENT -->
             <div>
               <label for="gs-form-dept" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DEPARTMENT <span class="text-red-500">*</span></label>
-              <select id="gs-form-dept" name="department" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <select id="gs-form-dept" name="department" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
                 <option value="Processing Unit-5" selected>Processing Unit-5</option>
                 <option value="Coldstore Hub">Coldstore Hub</option>
                 <option value="Quality Control Lab">Quality Control Lab</option>
@@ -53438,7 +53442,7 @@ const InventoryView = {
             <!-- 4. NARRATION -->
             <div>
               <label for="gs-form-narration" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">NARRATION</label>
-              <input type="text" id="gs-form-narration" name="narration" placeholder="Enter indent purpose / narration..." value="Monthly store requisition for seafood processing shift consumables" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              <input type="text" id="gs-form-narration" name="narration" placeholder="Enter indent purpose / narration..." value="Monthly store requisition for seafood processing shift consumables" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
             </div>
           </div>
 
@@ -53458,13 +53462,13 @@ const InventoryView = {
                 <!-- 1. Item -->
                 <div class="md:col-span-2">
                   <label for="gs-item-name" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ITEM <span class="text-red-500">*</span></label>
-                  <input type="text" id="gs-item-name" placeholder="Item name, specification, make or code..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                  <input type="text" id="gs-item-name" placeholder="Item name, specification, make or code..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
                 </div>
 
                 <!-- 2. UoM -->
                 <div>
                   <label for="gs-item-uom" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">UoM <span class="text-red-500">*</span></label>
-                  <select id="gs-item-uom" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <select id="gs-item-uom" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
                     <option value="Box" selected>Box</option>
                     <option value="Nos">Nos</option>
                     <option value="Rolls">Rolls</option>
@@ -53480,7 +53484,7 @@ const InventoryView = {
                 <!-- 3. Available Qty -->
                 <div>
                   <label for="gs-item-avail-qty" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">AVAILABLE QTY</label>
-                  <input type="number" id="gs-item-avail-qty" value="10" min="0" step="1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg font-mono font-bold text-[#00875A] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                  <input type="number" id="gs-item-avail-qty" value="10" min="0" step="1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
                 </div>
               </div>
 
@@ -53488,25 +53492,25 @@ const InventoryView = {
                 <!-- 4. Requested Qty -->
                 <div>
                   <label for="gs-item-req-qty" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">REQUESTED QTY <span class="text-red-500">*</span></label>
-                  <input type="number" id="gs-item-req-qty" value="50" min="1" step="1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                  <input type="number" id="gs-item-req-qty" value="50" min="1" step="1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
                 </div>
 
                 <!-- 5. Purpose -->
                 <div>
                   <label for="gs-item-purpose" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PURPOSE</label>
-                  <input type="text" id="gs-item-purpose" placeholder="Operational purpose..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                  <input type="text" id="gs-item-purpose" placeholder="Operational purpose..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
                 </div>
 
                 <!-- 6. Attachment -->
                 <div>
                   <label for="gs-item-attachment" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ATTACHMENT</label>
-                  <input type="file" id="gs-item-attachment" class="w-full text-[11px] px-2 py-1 bg-white border border-[#CBD5E1] rounded-lg text-[#5E6C84] focus:outline-none focus:border-[#00A4B7] file:mr-2 file:py-0.5 file:px-2 file:rounded file:border-0 file:text-[10px] file:font-semibold file:bg-[#E0F2FE] file:text-[#0284C7] cursor-pointer" />
+                  <input type="file" id="gs-item-attachment" class="w-full text-[11px] px-2 py-1 bg-white border border-[#DFE1E6] rounded text-[#5E6C84] focus:outline-none focus:border-[#00A4B7] file:mr-2 file:py-0.5 file:px-2 file:rounded file:border-0 file:text-[10px] file:font-semibold file:bg-[#E0F2FE] file:text-[#0284C7] cursor-pointer" />
                 </div>
 
                 <!-- 7. Remarks -->
                 <div>
                   <label for="gs-item-remarks" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">REMARKS</label>
-                  <input type="text" id="gs-item-remarks" placeholder="Optional notes / remarks..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                  <input type="text" id="gs-item-remarks" placeholder="Optional notes / remarks..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
                 </div>
               </div>
 
@@ -53600,7 +53604,7 @@ const InventoryView = {
 
           <!-- Search Button -->
           <div class="flex items-end">
-            <button type="button" id="gs-search-btn" class="w-full dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px]">
+            <button type="button" id="gs-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
               <span>Search</span>
             </button>
@@ -53708,17 +53712,37 @@ const InventoryView = {
       Toast.show(`Item "${itemName}" added to indent.`, 'info');
     });
 
-    // 3. Form Toggle Collapse/Expand
+    // 3. Form Toggle Collapse/Expand (Shown on click "Indent Page" button)
     const toggleBtn = container.querySelector('#gs-btn-toggle-form');
     const formCard = container.querySelector('#gs-indent-form-card');
-    const toggleText = container.querySelector('#gs-form-toggle-text');
-    let isFormVisible = true;
+    const closeFormBtn = container.querySelector('#gs-btn-close-form');
+    let isFormVisible = false;
+
+    const showForm = () => {
+      isFormVisible = true;
+      if (formCard) {
+        formCard.classList.remove('hidden');
+        formCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+      container.querySelector('#gs-form-docno')?.focus();
+    };
+
+    const hideForm = () => {
+      isFormVisible = false;
+      if (formCard) {
+        formCard.classList.add('hidden');
+      }
+    };
 
     toggleBtn?.addEventListener('click', () => {
-      isFormVisible = !isFormVisible;
-      if (formCard) formCard.style.display = isFormVisible ? 'block' : 'none';
-      if (toggleText) toggleText.textContent = isFormVisible ? 'Collapse Form' : 'Show Add Indent Form';
+      if (isFormVisible) {
+        hideForm();
+      } else {
+        showForm();
+      }
     });
+
+    closeFormBtn?.addEventListener('click', hideForm);
 
     // 4. Reset Form Button
     container.querySelector('#gs-btn-reset-form')?.addEventListener('click', () => {
@@ -53841,6 +53865,7 @@ const InventoryView = {
                   if (idx !== -1) {
                     this.state.indentPageRecords.splice(idx, 1);
                     renderTable(this.state.indentPageRecords);
+                    hideForm();
                     Toast.show(`Indent ${row.docNo} permanently deleted.`, 'success');
                   }
                 }
@@ -54020,7 +54045,7 @@ const InventoryView = {
 
           <!-- Search Button -->
           <div class="flex items-end">
-            <button type="button" id="gs-list-filter-search-btn" class="w-full dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px]">
+            <button type="button" id="gs-list-filter-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
               <span>Search</span>
             </button>
@@ -54521,7 +54546,7 @@ const InventoryView = {
 
           <!-- Search Button -->
           <div class="flex items-end">
-            <button type="button" id="po-flt-search-btn" class="w-full dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px]">
+            <button type="button" id="po-flt-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
               <span>Search</span>
             </button>
