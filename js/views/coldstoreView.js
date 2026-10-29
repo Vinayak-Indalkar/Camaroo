@@ -7931,13 +7931,12 @@ export const ColdstoreView = {
           </div>
         </div>
 
-        <!-- Fixed Save Button in Bottom Right (Matching Spec Style) -->
+        <!-- Fixed Save Button in Bottom Right (Matching ERP Design Style) -->
         <div class="fixed bottom-6 right-8 z-30">
           <button 
             type="button" 
             id="rn-save-layout-btn" 
-            class="text-white font-semibold text-xs px-7 py-2 rounded-md shadow-md hover:shadow-lg transition-all cursor-pointer select-none"
-            style="background-color: #5071F2 !important; color: #ffffff !important; border: 1px solid #4364E8 !important; border-radius: 6px !important; font-weight: 600 !important; font-size: 13px !important; padding: 7px 26px !important;"
+            class="btn-primary rounded-full px-8 py-2.5 text-xs font-bold shadow-lg hover:shadow-xl transition-all cursor-pointer inline-flex items-center justify-center border-0"
             title="Save Rack Names &amp; Store Layout"
           >Save</button>
         </div>
