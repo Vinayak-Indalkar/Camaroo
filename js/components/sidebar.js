@@ -229,9 +229,11 @@ export const ADMIN_NAV_HIERARCHY = [
       {
         id: "store",
         title: "Store",
-        defaultTab: "store-operations",
+        defaultTab: "store-on-floor-stock",
         tabs: [
-          { id: "store-operations", label: "Store", hash: "#/coldstore/store/store-operations" }
+          { id: "store-on-floor-stock", label: "View Stock", hash: "#/coldstore/store/store-on-floor-stock" },
+          { id: "view-store-layout", label: "View Store", hash: "#/coldstore/store/view-store-layout" },
+          { id: "create-store-layout", label: "Rack names", hash: "#/coldstore/store/create-store-layout" }
         ]
       },
       {

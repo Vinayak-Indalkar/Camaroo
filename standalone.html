@@ -7132,9 +7132,11 @@ const ADMIN_NAV_HIERARCHY = [
       {
         id: "store",
         title: "Store",
-        defaultTab: "store-operations",
+        defaultTab: "store-on-floor-stock",
         tabs: [
-          { id: "store-operations", label: "Store", hash: "#/coldstore/store/store-operations" }
+          { id: "store-on-floor-stock", label: "View Stock", hash: "#/coldstore/store/store-on-floor-stock" },
+          { id: "view-store-layout", label: "View Store", hash: "#/coldstore/store/view-store-layout" },
+          { id: "create-store-layout", label: "Rack names", hash: "#/coldstore/store/create-store-layout" }
         ]
       },
       {
@@ -42154,7 +42156,13 @@ const ColdstoreView = {
         }
         break;
       case 'store':
-        this.renderStore(contentEl);
+        if (tabId === 'view-store-layout' || tabId.includes('view-store')) {
+          this.renderViewStore(contentEl);
+        } else if (tabId === 'create-store-layout' || tabId.includes('rack') || tabId.includes('create-store')) {
+          this.renderRackNames(contentEl);
+        } else {
+          this.renderViewStock(contentEl);
+        }
         break;
       case 'stock-approvals':
         this.renderStockApprovals(contentEl);
@@ -46563,39 +46571,75 @@ const ColdstoreView = {
     this.renderRunningOrders(container);
   },
 
-  // 4. STORE
-  renderStore(container) {
+  // 4a. STORE - VIEW STOCK (store-on-floor-stock)
+  renderViewStock(container) {
     container.innerHTML = `
-      <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
-        <div>
-          <h1 class="text-xl font-extrabold text-[#172B4D]">Coldstore Chambers & Storage Layout</h1>
-          <p class="text-xs text-[#6B778C] mt-0.5">Warehouse vault environmental status, temperature setpoints, and capacities</p>
+      <div class="space-y-4 animate-fade-in">
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+          <div>
+            <h1 class="text-xl font-extrabold text-[#172B4D]">View Stock</h1>
+          </div>
+        </div>
+        <div class="bg-white border border-[#DFE1E6] rounded-xl p-8 shadow-xs text-center">
+          <div class="max-w-md mx-auto py-8">
+            <div class="w-12 h-12 rounded-full bg-[#E0F2FE] text-[#0284C7] flex items-center justify-center mx-auto mb-3">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+            </div>
+            <h3 class="text-base font-bold text-[#172B4D]">View Stock (Floor Stock)</h3>
+            <p class="text-xs text-[#6B778C] mt-1">Tab configured. Ready for form fields and table specifications.</p>
+          </div>
         </div>
       </div>
-      <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
-        <div id="cs-store-table"></div>
+    `;
+  },
+
+  // 4b. STORE - VIEW STORE (view-store-layout)
+  renderViewStore(container) {
+    container.innerHTML = `
+      <div class="space-y-4 animate-fade-in">
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+          <div>
+            <h1 class="text-xl font-extrabold text-[#172B4D]">View Store</h1>
+          </div>
+        </div>
+        <div class="bg-white border border-[#DFE1E6] rounded-xl p-8 shadow-xs text-center">
+          <div class="max-w-md mx-auto py-8">
+            <div class="w-12 h-12 rounded-full bg-[#EAE6FF] text-[#403294] flex items-center justify-center mx-auto mb-3">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/></svg>
+            </div>
+            <h3 class="text-base font-bold text-[#172B4D]">View Store Layout</h3>
+            <p class="text-xs text-[#6B778C] mt-1">Tab configured. Ready for layout visualization and chamber telemetry specifications.</p>
+          </div>
+        </div>
       </div>
     `;
+  },
 
-    new DataTable({
-      containerId: 'cs-store-table',
-      tableTitle: 'Chamber Storage Locations',
-      searchable: true,
-      exportable: true,
-      pageSize: 10,
-      columns: [
-        { key: 'id', label: 'Chamber ID', sortable: true, render: v => `<span class="font-mono font-bold text-[#0284C7]">${v}</span>` },
-        { key: 'name', label: 'Chamber Name' },
-        { key: 'targetTemp', label: 'Target Temp (°C)', render: v => `<span class="font-mono">${v}</span>` },
-        { key: 'temp', label: 'Live Temp (°C)', render: v => `<span class="font-mono font-bold text-[#0284C7]">${v}</span>` },
-        { key: 'totalCapacityMt', label: 'Capacity (MT)', render: v => `<span class="font-mono font-bold">${v}</span>` },
-        { key: 'currentStockMt', label: 'Stored (MT)', render: v => `<span class="font-mono font-bold text-[#00875A]">${v}</span>` },
-        { key: 'utilizationPct', label: 'Occupancy', render: v => `<div class="flex items-center gap-2 font-mono font-bold"><div class="w-16 h-2 bg-[#EBECF0] rounded-full overflow-hidden"><div class="h-full bg-[#0284C7]" style="width:${v}%"></div></div><span>${v}%</span></div>` },
-        { key: 'humidityPct', label: 'Humidity', render: v => `<span class="font-mono">${v}%</span>` },
-        { key: 'status', label: 'Status', render: v => `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#E3FCEF] text-[#006644]">${v}</span>` }
-      ],
-      data: this.state.chambers
-    });
+  // 4c. STORE - RACK NAMES (create-store-layout)
+  renderRackNames(container) {
+    container.innerHTML = `
+      <div class="space-y-4 animate-fade-in">
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+          <div>
+            <h1 class="text-xl font-extrabold text-[#172B4D]">Rack names</h1>
+          </div>
+        </div>
+        <div class="bg-white border border-[#DFE1E6] rounded-xl p-8 shadow-xs text-center">
+          <div class="max-w-md mx-auto py-8">
+            <div class="w-12 h-12 rounded-full bg-[#E3FCEF] text-[#006644] flex items-center justify-center mx-auto mb-3">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+            </div>
+            <h3 class="text-base font-bold text-[#172B4D]">Rack Names &amp; Store Layout Creation</h3>
+            <p class="text-xs text-[#6B778C] mt-1">Tab configured. Ready for form fields and table specifications.</p>
+          </div>
+        </div>
+      </div>
+    `;
+  },
+
+  // 4d. STORE - BACKWARD COMPATIBILITY
+  renderStore(container) {
+    this.renderViewStock(container);
   },
 
   // 5. STOCK APPROVALS
