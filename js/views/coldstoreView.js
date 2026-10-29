@@ -16,14 +16,30 @@ export const ColdstoreView = {
       { id: 'CS-03', name: 'Deep Freeze Vault #3 (Export Staging)', temp: -28.2, targetTemp: -28.0, totalCapacityMt: 200, currentStockMt: 84.5, utilizationPct: 42.2, humidityPct: 90, status: 'OPTIMAL' }
     ],
 
-    // 2. Production Intake
-    productionIntakeList: [
-      { id: 1, intakeCode: 'IN-PRD-2026-501', intakeDate: '2026-10-28', plant: 'DFL UNIT-5 (JPT)', lotNo: 'LOT-FZ-2026-301', product: 'Vannamei PD IQF 31/40', cartons: 48, netWeightKg: 480.0, chamber: 'Chamber #1 (IQF)', rack: 'RACK-A1-T1', temp: -21.8, shift: 'Shift A (Day)', status: 'Stored in Coldstore' },
-      { id: 2, intakeCode: 'IN-PRD-2026-502', intakeDate: '2026-10-28', plant: 'DFL UNIT-5 (JPT)', lotNo: 'LOT-FZ-2026-302', product: 'Black Tiger Block 21/25', cartons: 60, netWeightKg: 600.0, chamber: 'Chamber #2 (Block)', rack: 'RACK-B1-T1', temp: -24.2, shift: 'Shift B (Evening)', status: 'Stored in Coldstore' },
-      { id: 3, intakeCode: 'IN-PRD-2026-503', intakeDate: '2026-10-27', plant: 'DFL UNIT-4 (PND)', lotNo: 'LOT-FZ-2026-299', product: 'Vannamei HOSO IQF 16/20', cartons: 56, netWeightKg: 560.0, chamber: 'Chamber #1 (IQF)', rack: 'RACK-A1-T2', temp: -22.4, shift: 'Shift A (Day)', status: 'Stored in Coldstore' },
-      { id: 4, intakeCode: 'IN-PRD-2026-504', intakeDate: '2026-10-27', plant: 'DFL UNIT-3 (PSP)', lotNo: 'LOT-FZ-2026-298', product: 'Vannamei HLSO Block 26/30', cartons: 72, netWeightKg: 720.0, chamber: 'Chamber #2 (Block)', rack: 'RACK-B2-T3', temp: -25.0, shift: 'Shift C (Night)', status: 'Stored in Coldstore' },
-      { id: 5, intakeCode: 'IN-PRD-2026-505', intakeDate: '2026-10-26', plant: 'DFL UNIT-5 (JPT)', lotNo: 'LOT-FZ-2026-295', product: 'Sea Pearl Cooked PDTO 41/50', cartons: 40, netWeightKg: 400.0, chamber: 'Vault #3 Staging', rack: 'RACK-D1-T1', temp: -26.5, shift: 'Shift A (Day)', status: 'Stored in Coldstore' },
-      { id: 6, intakeCode: 'IN-PRD-2026-506', intakeDate: '2026-10-25', plant: 'DFL UNIT-1 (VSP)', lotNo: 'LOT-FZ-2026-291', product: 'Scampi Headless Block 11/15', cartons: 36, netWeightKg: 360.0, chamber: 'Chamber #2 (Block)', rack: 'RACK-B3-T2', temp: -24.8, shift: 'Shift B (Evening)', status: 'Stored in Coldstore' }
+    // 2. Production - Daily Production Intake
+    dailyProductionList: [
+      { id: 1, intakeCode: 'IN-PRD-2026-501', intakeDate: '2026-10-29', plant: 'DFL UNIT-5 (JPT)', lotNo: 'LOT-FZ-2026-301', product: 'Vannamei PD IQF 31/40', freezingType: 'IQF', cartons: 48, netWeightKg: 480.0, chamber: 'Chamber #1 (IQF)', rack: 'RACK-A1-T1', temp: -21.8, shift: 'Shift A (Day)', status: 'Stored in Coldstore' },
+      { id: 2, intakeCode: 'IN-PRD-2026-502', intakeDate: '2026-10-29', plant: 'DFL UNIT-5 (JPT)', lotNo: 'LOT-FZ-2026-302', product: 'Black Tiger Block 21/25', freezingType: 'Block Frozen', cartons: 60, netWeightKg: 600.0, chamber: 'Chamber #2 (Block)', rack: 'RACK-B1-T1', temp: -24.2, shift: 'Shift B (Evening)', status: 'Stored in Coldstore' },
+      { id: 3, intakeCode: 'IN-PRD-2026-503', intakeDate: '2026-10-28', plant: 'DFL UNIT-4 (PND)', lotNo: 'LOT-FZ-2026-299', product: 'Vannamei HOSO IQF 16/20', freezingType: 'IQF', cartons: 56, netWeightKg: 560.0, chamber: 'Chamber #1 (IQF)', rack: 'RACK-A1-T2', temp: -22.4, shift: 'Shift A (Day)', status: 'Stored in Coldstore' },
+      { id: 4, intakeCode: 'IN-PRD-2026-504', intakeDate: '2026-10-28', plant: 'DFL UNIT-3 (PSP)', lotNo: 'LOT-FZ-2026-298', product: 'Vannamei HLSO Block 26/30', freezingType: 'Block Frozen', cartons: 72, netWeightKg: 720.0, chamber: 'Chamber #2 (Block)', rack: 'RACK-B2-T3', temp: -25.0, shift: 'Shift C (Night)', status: 'Stored in Coldstore' },
+      { id: 5, intakeCode: 'IN-PRD-2026-505', intakeDate: '2026-10-27', plant: 'DFL UNIT-5 (JPT)', lotNo: 'LOT-FZ-2026-295', product: 'Sea Pearl Cooked PDTO 41/50', freezingType: 'Blast Frozen', cartons: 40, netWeightKg: 400.0, chamber: 'Vault #3 Staging', rack: 'RACK-D1-T1', temp: -26.5, shift: 'Shift A (Day)', status: 'Stored in Coldstore' },
+      { id: 6, intakeCode: 'IN-PRD-2026-506', intakeDate: '2026-10-27', plant: 'DFL UNIT-1 (VSP)', lotNo: 'LOT-FZ-2026-291', product: 'Scampi Headless Block 11/15', freezingType: 'Block Frozen', cartons: 36, netWeightKg: 360.0, chamber: 'Chamber #2 (Block)', rack: 'RACK-B3-T2', temp: -24.8, shift: 'Shift B (Evening)', status: 'Stored in Coldstore' }
+    ],
+
+    // 2b. Production - Daily StockOut
+    dailyStockOutList: [
+      { id: 1, stockOutCode: 'SO-CS-2026-101', date: '2026-10-29', orderNo: 'ORD-US-2026-891', reason: 'Export Shipment (Rotterdam)', product: 'Vannamei PD IQF 31/40', cartons: 900, netWeightKg: 9000.0, chamber: 'Vault #3 Staging', vehicleNo: 'MSKU-982104-2', issuedBy: 'Anita P. Rao', status: 'Dispatched' },
+      { id: 2, stockOutCode: 'SO-CS-2026-102', date: '2026-10-29', orderNo: 'ORD-JPN-2026-442', reason: 'Export Shipment (Tokyo)', product: 'Black Tiger Block 16/20', cartons: 750, netWeightKg: 7500.0, chamber: 'Chamber #2 (Block)', vehicleNo: 'ONEU-771239-0', issuedBy: 'Anita P. Rao', status: 'Gate Pass Issued' },
+      { id: 3, stockOutCode: 'SO-CS-2026-103', date: '2026-10-28', orderNo: 'IBT-2026-088', reason: 'Inter-Branch Transfer (Unit-4)', product: 'Vannamei PD IQF 31/40', cartons: 576, netWeightKg: 5760.0, chamber: 'Chamber #1 (IQF)', vehicleNo: 'AP 39 TB 4412', issuedBy: 'M. Krishna', status: 'In Transit' },
+      { id: 4, stockOutCode: 'SO-CS-2026-104', date: '2026-10-27', orderNo: 'REP-2026-042', reason: 'Thawing & Value Repacking', product: 'Vannamei HLSO Block 26/30', cartons: 200, netWeightKg: 2000.0, chamber: 'Chamber #2 (Block)', vehicleNo: 'Internal Floor', issuedBy: 'P. Satyanarayana', status: 'Completed' }
+    ],
+
+    // 2c. Production - Freezing Runs
+    freezingRunsList: [
+      { id: 1, runCode: 'FZ-CS-2026-081', date: '2026-10-29', freezerLine: 'Line #1 — IQF Tunnel 1', trackCode: 'TRK-FZ-2026-701', product: 'Vannamei PD IQF', grade: '31/40', glazePct: '10%', exitTemp: -22.5, cartons: 400, netWeightKg: 4000.0, stagedChamber: 'Chamber #1 (IQF)', qcStatus: 'PASSED', status: 'Stored in Coldstore' },
+      { id: 2, runCode: 'FZ-CS-2026-082', date: '2026-10-29', freezerLine: 'Line #2 — IQF Tunnel 2', trackCode: 'TRK-FZ-2026-702', product: 'Black Tiger HOSO IQF', grade: '16/20', glazePct: '12%', exitTemp: -23.1, cartons: 350, netWeightKg: 3500.0, stagedChamber: 'Chamber #1 (IQF)', qcStatus: 'PASSED', status: 'Stored in Coldstore' },
+      { id: 3, runCode: 'FZ-CS-2026-083', date: '2026-10-28', freezerLine: 'Line #3 — Plate Freezer', trackCode: 'TRK-FZ-2026-699', product: 'Vannamei HLSO Block', grade: '26/30', glazePct: 'None', exitTemp: -26.0, cartons: 410, netWeightKg: 8200.0, stagedChamber: 'Chamber #2 (Block)', qcStatus: 'PASSED', status: 'Stored in Coldstore' },
+      { id: 4, runCode: 'FZ-CS-2026-084', date: '2026-10-27', freezerLine: 'Line #4 — Blast Freezer', trackCode: 'TRK-FZ-2026-695', product: 'Sea Pearl Cooked PDTO', grade: '41/50', glazePct: '5%', exitTemp: -24.8, cartons: 120, netWeightKg: 1200.0, stagedChamber: 'Vault #3 Staging', qcStatus: 'PASSED', status: 'Staged for Export' }
     ],
 
     // 3. Stock Inventory
@@ -78,6 +94,7 @@ export const ColdstoreView = {
     const parts = clean.split('/');
     const modId = parts[0] || 'coldstore';
     const subId = parts[1] || 'dashboard';
+    const tabId = parts[2] || '';
 
     container.innerHTML = `
       <div id="coldstore-tab-bar-container"></div>
@@ -93,7 +110,13 @@ export const ColdstoreView = {
         this.renderDashboard(contentEl);
         break;
       case 'production':
-        this.renderProductionIntake(contentEl);
+        if (tabId.includes('stockout')) {
+          this.renderDailyStockOut(contentEl);
+        } else if (tabId.includes('freezing')) {
+          this.renderFreezing(contentEl);
+        } else {
+          this.renderDailyProduction(contentEl);
+        }
         break;
       case 'stock':
         this.renderStock(contentEl);
@@ -227,15 +250,16 @@ export const ColdstoreView = {
     });
   },
 
-  // 2. PRODUCTION INTAKE
-  renderProductionIntake(container) {
-    const totalIntakeKg = (this.state.productionIntakeList || []).reduce((acc, r) => acc + r.netWeightKg, 0).toFixed(1);
-    const totalCartons = (this.state.productionIntakeList || []).reduce((acc, r) => acc + r.cartons, 0);
+  // 2. PRODUCTION - DAILY PRODUCTION
+  renderDailyProduction(container) {
+    const list = this.state.dailyProductionList || this.state.productionIntakeList || [];
+    const totalIntakeKg = list.reduce((acc, r) => acc + (r.netWeightKg || 0), 0).toFixed(1);
+    const totalCartons = list.reduce((acc, r) => acc + (r.cartons || 0), 0);
 
     container.innerHTML = `
       <div class="flex flex-wrap items-center justify-between gap-3 mb-2">
         <div>
-          <h1 class="text-xl font-extrabold text-[#172B4D]">Coldstore Production Intake Registry</h1>
+          <h1 class="text-xl font-extrabold text-[#172B4D]">Daily Production Intake Registry</h1>
           <p class="text-xs text-[#6B778C] mt-0.5">Receipt of finished goods cartons, plate freezer slabs & tunnel IQF batches from plant floors</p>
         </div>
         <div class="flex items-center gap-2">
@@ -250,12 +274,12 @@ export const ColdstoreView = {
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 mb-4">
         <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
           <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Today's Received Stock</div>
-          <div class="text-2xl font-black text-[#172B4D] mt-1.5">${totalIntakeKg} <span class="text-xs font-bold text-[#6B778C]">Kgs</span></div>
-          <div class="text-[11px] font-semibold text-[#00875A] mt-1">${(this.state.productionIntakeList || []).length} Batches Processed</div>
+          <div class="text-2xl font-black text-[#172B4D] mt-1.5">${Number(totalIntakeKg).toLocaleString()} <span class="text-xs font-bold text-[#6B778C]">Kgs</span></div>
+          <div class="text-[11px] font-semibold text-[#00875A] mt-1">${list.length} Batches Processed</div>
         </div>
         <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
           <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Total Received Cartons</div>
-          <div class="text-2xl font-black text-[#0284C7] mt-1.5">${totalCartons} <span class="text-xs font-bold text-[#6B778C]">Boxes</span></div>
+          <div class="text-2xl font-black text-[#0284C7] mt-1.5">${totalCartons.toLocaleString()} <span class="text-xs font-bold text-[#6B778C]">Boxes</span></div>
           <div class="text-[11px] font-semibold text-[#5E6C84] mt-1">100% Barcode Scanned</div>
         </div>
         <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
@@ -271,12 +295,12 @@ export const ColdstoreView = {
       </div>
 
       <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
-        <div id="cs-production-table"></div>
+        <div id="cs-daily-production-table"></div>
       </div>
     `;
 
     new DataTable({
-      containerId: 'cs-production-table',
+      containerId: 'cs-daily-production-table',
       keyField: 'intakeCode',
       searchable: true,
       exportable: true,
@@ -288,15 +312,176 @@ export const ColdstoreView = {
         { field: 'plant', header: 'Production Plant' },
         { field: 'lotNo', header: 'Lot Number', render: v => `<span class="font-mono font-bold">${v}</span>` },
         { field: 'product', header: 'Product Description' },
+        { field: 'freezingType', header: 'Freezing Type', render: v => `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#EAE6FF] text-[#403294]">${v || 'IQF'}</span>` },
         { field: 'cartons', header: 'Cartons', render: v => `<span class="font-mono font-bold text-[#00875A]">${v}</span>` },
-        { field: 'netWeightKg', header: 'Net Wt (Kg)', render: v => `<span class="font-mono font-bold">${v.toFixed(1)}</span>` },
+        { field: 'netWeightKg', header: 'Net Wt (Kg)', render: v => `<span class="font-mono font-bold">${Number(v).toFixed(1)}</span>` },
         { field: 'chamber', header: 'Assigned Chamber' },
         { field: 'rack', header: 'Rack Slot', render: v => `<span class="font-mono font-semibold">${v}</span>` },
-        { field: 'temp', header: 'Temp (°C)', render: v => `<span class="font-mono font-bold text-[#0284C7]">${v}</span>` },
+        { field: 'temp', header: 'Temp (°C)', render: v => `<span class="font-mono font-bold text-[#0284C7]">${v} °C</span>` },
+        { field: 'shift', header: 'Shift' },
         { field: 'status', header: 'Status', render: v => `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#E3FCEF] text-[#006644]">${v}</span>` }
       ],
-      data: this.state.productionIntakeList || []
+      data: list
     });
+  },
+
+  // 2b. PRODUCTION - DAILY STOCKOUT
+  renderDailyStockOut(container) {
+    const list = this.state.dailyStockOutList || [];
+    const totalWeightKg = list.reduce((acc, r) => acc + (r.netWeightKg || 0), 0);
+    const totalWeightMt = (totalWeightKg / 1000).toFixed(2);
+    const totalCartons = list.reduce((acc, r) => acc + (r.cartons || 0), 0);
+
+    container.innerHTML = `
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-2">
+        <div>
+          <h1 class="text-xl font-extrabold text-[#172B4D]">Daily StockOut & Dispatch Registry</h1>
+          <p class="text-xs text-[#6B778C] mt-0.5">Outward shipments, container stuffing, inter-plant transfers, and repacking dispatches</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E3FCEF] text-[#006644] text-xs font-bold border border-[#ABF5D1]">
+            <span class="w-2 h-2 rounded-full bg-[#00875A] animate-pulse"></span>
+            Cold Chain Outward Active
+          </span>
+        </div>
+      </div>
+
+      <!-- Key KPI Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 mb-4">
+        <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
+          <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Total Dispatched Stock</div>
+          <div class="text-2xl font-black text-[#172B4D] mt-1.5">${totalWeightMt} <span class="text-xs font-bold text-[#6B778C]">MT</span></div>
+          <div class="text-[11px] font-semibold text-[#00875A] mt-1">${totalWeightKg.toLocaleString()} Kgs Dispatched</div>
+        </div>
+        <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
+          <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Total Dispatched Cartons</div>
+          <div class="text-2xl font-black text-[#0284C7] mt-1.5">${totalCartons.toLocaleString()} <span class="text-xs font-bold text-[#6B778C]">Boxes</span></div>
+          <div class="text-[11px] font-semibold text-[#5E6C84] mt-1">Verified Gate Outward</div>
+        </div>
+        <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
+          <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Active Dispatch Orders</div>
+          <div class="text-2xl font-black text-[#00875A] mt-1.5">${list.length} <span class="text-xs font-bold text-[#6B778C]">Shipments</span></div>
+          <div class="text-[11px] font-semibold text-[#00875A] mt-1">Export, IBT & Floor Repack</div>
+        </div>
+        <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
+          <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Reefer Container Pre-Cool</div>
+          <div class="text-2xl font-black text-[#6554C0] mt-1.5">100% <span class="text-xs font-bold text-[#6B778C]">Verified</span></div>
+          <div class="text-[11px] font-semibold text-[#6554C0] mt-1">Below -18°C Core Set Temp</div>
+        </div>
+      </div>
+
+      <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
+        <div id="cs-daily-stockout-table"></div>
+      </div>
+    `;
+
+    new DataTable({
+      containerId: 'cs-daily-stockout-table',
+      keyField: 'stockOutCode',
+      searchable: true,
+      exportable: true,
+      pageSize: 10,
+      columns: [
+        { field: 'id', header: 'S.No', render: (v, r, idx) => idx + 1 },
+        { field: 'stockOutCode', header: 'StockOut Code', sortable: true, render: v => `<span class="font-mono font-bold text-[#0284C7]">${v}</span>` },
+        { field: 'date', header: 'Date' },
+        { field: 'orderNo', header: 'Order / Ref No', render: v => `<span class="font-mono font-bold">${v}</span>` },
+        { field: 'reason', header: 'Movement Type', render: v => `<span class="font-medium text-[#172B4D]">${v}</span>` },
+        { field: 'product', header: 'Product Description' },
+        { field: 'cartons', header: 'Cartons Dispatched', render: v => `<span class="font-mono font-bold text-[#00875A]">${v}</span>` },
+        { field: 'netWeightKg', header: 'Net Wt (Kg)', render: v => `<span class="font-mono font-bold">${Number(v).toFixed(1)}</span>` },
+        { field: 'chamber', header: 'Staged Vault' },
+        { field: 'vehicleNo', header: 'Vehicle / Container', render: v => `<span class="font-mono font-semibold">${v}</span>` },
+        { field: 'issuedBy', header: 'Issued By' },
+        { field: 'status', header: 'Status', render: v => {
+          let badgeClass = 'bg-[#E3FCEF] text-[#006644]';
+          if (v === 'Gate Pass Issued') badgeClass = 'bg-[#DEEBFF] text-[#0747A6]';
+          else if (v === 'In Transit') badgeClass = 'bg-[#FFF0B3] text-[#172B4D]';
+          return `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold ${badgeClass}">${v}</span>`;
+        }}
+      ],
+      data: list
+    });
+  },
+
+  // 2c. PRODUCTION - FREEZING
+  renderFreezing(container) {
+    const list = this.state.freezingRunsList || [];
+    const totalWeightKg = list.reduce((acc, r) => acc + (r.netWeightKg || 0), 0);
+    const totalCartons = list.reduce((acc, r) => acc + (r.cartons || 0), 0);
+
+    container.innerHTML = `
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-2">
+        <div>
+          <h1 class="text-xl font-extrabold text-[#172B4D]">Freezing Operations & Core Tunnel Registry</h1>
+          <p class="text-xs text-[#6B778C] mt-0.5">Continuous tracking of IQF tunnels, contact plate freezers, core exit temperatures & glaze verification</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E3FCEF] text-[#006644] text-xs font-bold border border-[#ABF5D1]">
+            <span class="w-2 h-2 rounded-full bg-[#00875A] animate-pulse"></span>
+            Freezer Tunnels Online
+          </span>
+        </div>
+      </div>
+
+      <!-- Key KPI Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 mb-4">
+        <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
+          <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Today's Freezing Volume</div>
+          <div class="text-2xl font-black text-[#172B4D] mt-1.5">${totalWeightKg.toLocaleString()} <span class="text-xs font-bold text-[#6B778C]">Kgs</span></div>
+          <div class="text-[11px] font-semibold text-[#00875A] mt-1">${(totalWeightKg / 1000).toFixed(2)} MT Processed</div>
+        </div>
+        <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
+          <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Active Freezer Lines</div>
+          <div class="text-2xl font-black text-[#0284C7] mt-1.5">4 <span class="text-xs font-bold text-[#6B778C]">Lines</span></div>
+          <div class="text-[11px] font-semibold text-[#5E6C84] mt-1">IQF Tunnels & Plate Freezers</div>
+        </div>
+        <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
+          <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Average Core Exit Temp</div>
+          <div class="text-2xl font-black text-[#00875A] mt-1.5">-24.1 <span class="text-xs font-bold text-[#6B778C]">°C</span></div>
+          <div class="text-[11px] font-semibold text-[#00875A] mt-1">Optimal Deep Freeze Threshold</div>
+        </div>
+        <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
+          <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">QC Glaze Compliance</div>
+          <div class="text-2xl font-black text-[#6554C0] mt-1.5">100% <span class="text-xs font-bold text-[#6B778C]">Passed</span></div>
+          <div class="text-[11px] font-semibold text-[#6554C0] mt-1">Standard Uniform Glazing</div>
+        </div>
+      </div>
+
+      <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
+        <div id="cs-freezing-runs-table"></div>
+      </div>
+    `;
+
+    new DataTable({
+      containerId: 'cs-freezing-runs-table',
+      keyField: 'runCode',
+      searchable: true,
+      exportable: true,
+      pageSize: 10,
+      columns: [
+        { field: 'id', header: 'S.No', render: (v, r, idx) => idx + 1 },
+        { field: 'runCode', header: 'Run Code', sortable: true, render: v => `<span class="font-mono font-bold text-[#0284C7]">${v}</span>` },
+        { field: 'date', header: 'Date' },
+        { field: 'freezerLine', header: 'Freezer Line', render: v => `<span class="font-medium text-[#172B4D]">${v}</span>` },
+        { field: 'trackCode', header: 'Track Code', render: v => `<span class="font-mono font-bold">${v}</span>` },
+        { field: 'product', header: 'Product Variety' },
+        { field: 'grade', header: 'Grade' },
+        { field: 'glazePct', header: 'Glaze %', render: v => `<span class="font-bold text-[#0284C7]">${v}</span>` },
+        { field: 'exitTemp', header: 'Exit Temp (°C)', render: v => `<span class="font-mono font-bold text-[#00875A]">${v} °C</span>` },
+        { field: 'cartons', header: 'Cartons / Slabs', render: v => `<span class="font-mono font-bold">${v}</span>` },
+        { field: 'netWeightKg', header: 'Net Wt (Kg)', render: v => `<span class="font-mono font-bold">${Number(v).toFixed(1)}</span>` },
+        { field: 'stagedChamber', header: 'Staged Vault' },
+        { field: 'qcStatus', header: 'QC Status', render: v => `<span class="px-2 py-0.5 rounded text-[10px] font-extrabold bg-[#E3FCEF] text-[#006644]">${v}</span>` },
+        { field: 'status', header: 'Status', render: v => `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#E3FCEF] text-[#006644]">${v}</span>` }
+      ],
+      data: list
+    });
+  },
+
+  // Backward compatibility alias
+  renderProductionIntake(container) {
+    this.renderDailyProduction(container);
   },
 
   // 3. STOCK
