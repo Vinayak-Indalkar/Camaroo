@@ -18,6 +18,7 @@ export const InventoryView = {
         docNo: 'IND-GS-2026-0041',
         date: '2026-10-28',
         department: 'Processing Unit-5',
+        status: 'Approved',
         narration: 'Monthly store requisition for seafood processing line consumables and safety PPE.',
         items: [
           {
@@ -45,6 +46,7 @@ export const InventoryView = {
         docNo: 'IND-GS-2026-0042',
         date: '2026-10-27',
         department: 'Coldstore Hub',
+        status: 'In Procurement',
         narration: 'Coldstore equipment maintenance and sub-zero protective gear requisition.',
         items: [
           {
@@ -63,6 +65,7 @@ export const InventoryView = {
         docNo: 'IND-GS-2026-0043',
         date: '2026-10-26',
         department: 'Quality Control Lab',
+        status: 'Approved',
         narration: 'Chemical reagents and HACCP water residual chlorine screen testing kits.',
         items: [
           {
@@ -81,6 +84,7 @@ export const InventoryView = {
         docNo: 'IND-GS-2026-0044',
         date: '2026-10-25',
         department: 'Engineering & Maintenance',
+        status: 'Pending',
         narration: 'Contact Plate Freezer door replacement seals and overhaul gaskets.',
         items: [
           {
@@ -99,6 +103,7 @@ export const InventoryView = {
         docNo: 'IND-GS-2026-0045',
         date: '2026-10-24',
         department: 'Pre-Processing Unit',
+        status: 'Approved',
         narration: 'Perforated shrimp washing and sorting crates replacement.',
         items: [
           {
@@ -109,6 +114,101 @@ export const InventoryView = {
             purpose: 'Deheading shed intake sorting',
             attachment: '',
             remarks: 'Heavy duty SS316 grade'
+          }
+        ]
+      },
+      {
+        id: 6,
+        docNo: 'IND-GS-2026-0046',
+        date: '2026-10-20',
+        department: 'Administration & Safety',
+        status: 'Pending',
+        narration: 'Fire extinguishers refill and safety signage replacement.',
+        items: [
+          {
+            item: 'CO2 Fire Extinguisher Refill (4.5kg)',
+            uom: 'Nos',
+            availableQty: 2,
+            requestedQty: 10,
+            purpose: 'Annual plant safety audit compliance',
+            attachment: '',
+            remarks: 'Scheduled inspection'
+          }
+        ]
+      },
+      {
+        id: 7,
+        docNo: 'IND-GS-2026-0047',
+        date: '2026-10-18',
+        department: 'Processing Unit-5',
+        status: 'Rejected',
+        narration: 'Additional sorting crates beyond monthly allocation quota.',
+        items: [
+          {
+            item: 'Plastic Sorting Crates (Red, 50L)',
+            uom: 'Nos',
+            availableQty: 40,
+            requestedQty: 120,
+            purpose: 'Extra buffer storage',
+            attachment: '',
+            remarks: 'Quota exceeded for October'
+          }
+        ]
+      },
+      {
+        id: 8,
+        docNo: 'IND-GS-2026-0048',
+        date: '2026-10-15',
+        department: 'Coldstore Hub',
+        status: 'Approved',
+        narration: 'Heavy duty pallet shrink wrap film rolls for blast freezer staging.',
+        items: [
+          {
+            item: 'Stretch Wrap Film Rolls (500mm x 300m, 23mic)',
+            uom: 'Rolls',
+            availableQty: 6,
+            requestedQty: 50,
+            purpose: 'Export pallet wrapping',
+            attachment: '',
+            remarks: 'Approved by store manager'
+          }
+        ]
+      },
+      {
+        id: 9,
+        docNo: 'IND-GS-2026-0049',
+        date: '2026-10-12',
+        department: 'Quality Control Lab',
+        status: 'In Procurement',
+        narration: 'Microbiology culture media and sterile petri dishes refill.',
+        items: [
+          {
+            item: 'Plate Count Agar (PCA) Powder 500g',
+            uom: 'Bottles',
+            availableQty: 1,
+            requestedQty: 8,
+            purpose: 'Daily pathogen screening',
+            attachment: '',
+            remarks: 'Standard lab consumable'
+          }
+        ]
+      },
+      {
+        id: 10,
+        docNo: 'IND-GS-2026-0050',
+        date: '2026-10-05',
+        department: 'Engineering & Maintenance',
+        status: 'Approved',
+        narration: 'Ammonia refrigeration valve seals and pressure gauge replacement.',
+        items: [
+          {
+            item: 'Danfoss Ammonia Valve Packing Kits',
+            uom: 'Sets',
+            availableQty: 0,
+            requestedQty: 6,
+            purpose: 'Refrigeration unit routine maintenance',
+            attachment: 'valve_specs.pdf',
+            remarks: 'Critical spare'
           }
         ]
       }
@@ -853,51 +953,224 @@ export const InventoryView = {
   // Additional General Store Tabs (Indent List, Proforma Order, Proforma List, GRN, GRN List, Material Issue)
   // =========================================================================
   renderGeneralStoreIndentList(container) {
+    const fullList = [...this.state.indentPageRecords];
+
     container.innerHTML = `
+      <!-- Page Header -->
       <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-1">
         <div>
           <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Indent List (GS)</h1>
-          <p class="text-xs text-[#5E6C84] mt-0.5">Comprehensive departmental indent register, item breakups and approval ledger</p>
+          <p class="text-xs text-[#5E6C84] mt-0.5">Comprehensive departmental indent register and approval status tracking</p>
         </div>
       </div>
-      <div id="gs-all-indents-table-container"></div>
+
+      <!-- Search & Filter Card -->
+      <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs">
+        <div class="flex items-center justify-between pb-2 mb-3 border-b border-[#F1F5F9]">
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+            <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filter</h3>
+          </div>
+          <button type="button" id="gs-list-filter-reset-btn" class="w-7 h-7 rounded-full border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#475569] flex items-center justify-center transition-colors cursor-pointer" title="Reset Filters">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+          <!-- 1. FROM DATE -->
+          <div>
+            <label for="gs-list-filter-from-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FROM DATE</label>
+            <input type="date" id="gs-list-filter-from-date" value="2026-10-01" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+
+          <!-- 2. TO DATE -->
+          <div>
+            <label for="gs-list-filter-to-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">TO DATE</label>
+            <input type="date" id="gs-list-filter-to-date" value="2026-10-29" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+
+          <!-- 3. STATUS -->
+          <div>
+            <label for="gs-list-filter-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">STATUS</label>
+            <select id="gs-list-filter-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL">All Statuses</option>
+              <option value="Approved">Approved</option>
+              <option value="Pending">Pending</option>
+              <option value="In Procurement">In Procurement</option>
+              <option value="Rejected">Rejected</option>
+            </select>
+          </div>
+
+          <!-- Search Button -->
+          <div class="flex items-end">
+            <button type="button" id="gs-list-filter-search-btn" class="w-full btn-primary px-4 py-1.5 rounded-full text-xs font-bold flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px]">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+              <span>Search</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Data Table: S.No, Doc No, Date, Status -->
+      <div id="gs-indent-list-table-container"></div>
     `;
 
-    const flatItems = [];
-    this.state.indentPageRecords.forEach(ind => {
-      (ind.items || []).forEach((it, idx) => {
-        flatItems.push({
-          id: `${ind.id}-${idx}`,
-          docNo: ind.docNo,
-          date: ind.date,
-          department: ind.department,
-          item: it.item,
-          uom: it.uom,
-          availQty: it.availableQty,
-          reqQty: it.requestedQty,
-          purpose: it.purpose,
-          remarks: it.remarks
-        });
+    const renderTable = (data) => {
+      new DataTable({
+        containerId: 'gs-indent-list-table-container',
+        tableTitle: `Indent Records (${data.length})`,
+        searchable: true,
+        exportable: true,
+        pageSize: 10,
+        onRowClick: (row) => {
+          this.showIndentDetailModal(row);
+        },
+        columns: [
+          // 1. S.No
+          {
+            field: 'sNo',
+            header: 'S.No',
+            sortable: true,
+            render: (v, r, idx) => `<span class="text-[#5E6C84] font-semibold">${idx + 1}</span>`
+          },
+          // 2. Doc No
+          {
+            field: 'docNo',
+            header: 'Doc No',
+            sortable: true,
+            render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer whitespace-nowrap">${v}</span>`
+          },
+          // 3. Date
+          {
+            field: 'date',
+            header: 'Date',
+            sortable: true,
+            render: v => `<span class="whitespace-nowrap text-xs text-[#172B4D] font-medium font-mono">${v}</span>`
+          },
+          // 4. Status
+          {
+            field: 'status',
+            header: 'Status',
+            sortable: true,
+            render: v => {
+              const st = v || 'Pending';
+              if (st === 'Approved') {
+                return `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>Approved</span>`;
+              }
+              if (st === 'In Procurement') {
+                return `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E0F2FE] text-[#0284C7] border border-[#BAE6FD]"><span class="w-1.5 h-1.5 rounded-full bg-[#0284C7]"></span>In Procurement</span>`;
+              }
+              if (st === 'Rejected') {
+                return `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#FFEBE6] text-[#BF2600] border border-[#FFBDAD]"><span class="w-1.5 h-1.5 rounded-full bg-[#DE350B]"></span>Rejected</span>`;
+              }
+              return `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#FFF0B3] text-[#172B4D] border border-[#FFE380]"><span class="w-1.5 h-1.5 rounded-full bg-[#FFAB00]"></span>Pending</span>`;
+            }
+          }
+        ],
+        data: data
       });
+    };
+
+    renderTable(fullList);
+
+    // Search Filter Handler (FROM DATE, TO DATE, STATUS)
+    container.querySelector('#gs-list-filter-search-btn')?.addEventListener('click', () => {
+      const fromDate = container.querySelector('#gs-list-filter-from-date')?.value;
+      const toDate = container.querySelector('#gs-list-filter-to-date')?.value;
+      const statusVal = container.querySelector('#gs-list-filter-status')?.value;
+
+      const filtered = fullList.filter(it => {
+        if (fromDate && it.date < fromDate) return false;
+        if (toDate && it.date > toDate) return false;
+        if (statusVal && statusVal !== 'ALL') {
+          const itemSt = (it.status || 'Pending').toLowerCase();
+          const targetSt = statusVal.toLowerCase();
+          if (!itemSt.includes(targetSt)) return false;
+        }
+        return true;
+      });
+
+      renderTable(filtered);
+      Toast.show(`Filtered ${filtered.length} indent record(s)`, 'info');
     });
 
-    new DataTable({
-      containerId: 'gs-all-indents-table-container',
-      tableTitle: `General Store Indent Items Register (${flatItems.length})`,
-      searchable: true,
-      exportable: true,
-      pageSize: 10,
-      columns: [
-        { field: 'sNo', header: 'S No', render: (v, r, idx) => `<span class="text-[#5E6C84] font-semibold">${idx + 1}</span>` },
-        { field: 'docNo', header: 'Doc No', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] whitespace-nowrap">${v}</span>` },
-        { field: 'date', header: 'Date', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">${v}</span>` },
-        { field: 'department', header: 'Department', sortable: true, render: v => `<span class="font-medium text-xs text-[#172B4D]">${v}</span>` },
-        { field: 'item', header: 'Item Description', render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
-        { field: 'uom', header: 'UoM', render: v => `<span class="font-mono text-xs text-[#5E6C84]">${v}</span>` },
-        { field: 'reqQty', header: 'Requested Qty', sortable: true, render: (v, r) => `<span class="font-mono font-bold text-xs text-[#172B4D]">${v} ${r.uom}</span>` },
-        { field: 'purpose', header: 'Purpose', render: v => `<span class="text-xs text-[#5E6C84]">${v || '-'}</span>` }
-      ],
-      data: flatItems
+    // Reset Handler
+    container.querySelector('#gs-list-filter-reset-btn')?.addEventListener('click', () => {
+      container.querySelector('#gs-list-filter-from-date').value = '2026-10-01';
+      container.querySelector('#gs-list-filter-to-date').value = '2026-10-29';
+      container.querySelector('#gs-list-filter-status').value = 'ALL';
+      renderTable(fullList);
+      Toast.show('Indent filters reset to default', 'info');
+    });
+  },
+
+  // Detail Modal on clicking row
+  showIndentDetailModal(row) {
+    Modal.open({
+      title: `Indent Details: ${row.docNo}`,
+      size: 'lg',
+      content: `
+        <div class="space-y-4 text-xs text-[#172B4D]">
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-[#F8FAFC] border border-[#E2E8F0] p-3 rounded-xl">
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">DOC NO</span>
+              <span class="font-mono font-bold text-xs text-[#00A4B7]">${row.docNo}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">DATE</span>
+              <span class="font-mono font-semibold text-xs text-[#172B4D]">${row.date}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">DEPARTMENT</span>
+              <span class="font-semibold text-xs text-[#172B4D]">${row.department}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">STATUS</span>
+              <span class="font-bold text-xs ${row.status === 'Approved' ? 'text-[#00875A]' : (row.status === 'Rejected' ? 'text-[#DE350B]' : 'text-[#D97706]')}">${row.status || 'Pending'}</span>
+            </div>
+          </div>
+
+          ${row.narration ? `
+            <div class="p-2.5 bg-white border border-[#E2E8F0] rounded-lg">
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-0.5">NARRATION</span>
+              <p class="text-xs text-[#172B4D]">${row.narration}</p>
+            </div>
+          ` : ''}
+
+          <div>
+            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider mb-2">Item Details (${row.items?.length || 0})</h4>
+            <div class="overflow-x-auto border border-[#E2E8F0] rounded-lg">
+              <table class="w-full text-left text-xs border-collapse">
+                <thead class="bg-[#F8FAFC] border-b border-[#E2E8F0] text-[#475569] font-bold text-[11px] uppercase">
+                  <tr>
+                    <th class="py-2 px-3">Item Description</th>
+                    <th class="py-2 px-3">UoM</th>
+                    <th class="py-2 px-3 text-right">Available Qty</th>
+                    <th class="py-2 px-3 text-right">Requested Qty</th>
+                    <th class="py-2 px-3">Purpose</th>
+                    <th class="py-2 px-3">Remarks</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-[#E2E8F0] text-[#1E293B]">
+                  ${(row.items || []).map(it => `
+                    <tr class="hover:bg-[#F8FAFC]">
+                      <td class="py-2 px-3 font-semibold text-[#172B4D]">${it.item}</td>
+                      <td class="py-2 px-3 font-mono text-[#5E6C84]">${it.uom}</td>
+                      <td class="py-2 px-3 text-right font-mono font-bold text-[#00875A]">${it.availableQty}</td>
+                      <td class="py-2 px-3 text-right font-mono font-bold text-[#172B4D]">${it.requestedQty}</td>
+                      <td class="py-2 px-3 text-[#5E6C84]">${it.purpose || '-'}</td>
+                      <td class="py-2 px-3 text-[#5E6C84]">${it.remarks || '-'}</td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      `,
+      footerButtons: [
+        { label: 'Close', type: 'secondary', onClick: (modal) => modal.close() }
+      ]
     });
   },
 
