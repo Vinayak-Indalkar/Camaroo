@@ -1253,6 +1253,194 @@ export const ColdstoreView = {
       }
     ],
 
+    // 2e. Shipments List (User-Specified Columns & Filters)
+    shipmentsList: [
+      {
+        sNo: 1,
+        cInvNo: 'CI-2026-901',
+        cInvDate: '2026-10-22',
+        poNo: 'PO-2026-4401',
+        poDate: '2026-10-18',
+        shipmentDate: '2026-10-24',
+        eta: '2026-11-14',
+        coldStores: 'Chamber #1 (IQF)',
+        country: 'U.S.A.',
+        exporters: 'Devi Fisheries Ltd',
+        productCategory: 'Raw Frozen',
+        year: '2026',
+        buyer: 'Pacific Seafood Group Inc.',
+        vesselName: 'MSC ARIES V.2604',
+        portOfLoading: 'Visakhapatnam (INVTZ)',
+        portOfDischarge: 'Los Angeles (USLAX)',
+        containerNo: 'MSCU-902144-8',
+        sealNo: 'SL-DFL-8821',
+        totalMcs: 1200,
+        totalKgs: 12000.0,
+        status: 'In Transit'
+      },
+      {
+        sNo: 2,
+        cInvNo: 'CI-2026-902',
+        cInvDate: '2026-10-20',
+        poNo: 'PO-2026-4402',
+        poDate: '2026-10-16',
+        shipmentDate: '2026-10-23',
+        eta: '2026-11-08',
+        coldStores: 'Chamber #2 (Block)',
+        country: 'Japan',
+        exporters: 'Devi Fisheries Ltd',
+        productCategory: 'Raw Frozen',
+        year: '2026',
+        buyer: 'Tokyo Global Fishery Co.',
+        vesselName: 'ONE HARBOR V.108',
+        portOfLoading: 'Visakhapatnam (INVTZ)',
+        portOfDischarge: 'Yokohama (JPYOK)',
+        containerNo: 'ONEY-773412-1',
+        sealNo: 'SL-DFL-8822',
+        totalMcs: 750,
+        totalKgs: 9000.0,
+        status: 'In Transit'
+      },
+      {
+        sNo: 3,
+        cInvNo: 'CI-2026-903',
+        cInvDate: '2026-10-18',
+        poNo: 'PO-2026-4403',
+        poDate: '2026-10-12',
+        shipmentDate: '2026-10-21',
+        eta: '2026-11-18',
+        coldStores: 'Vault #3 Staging',
+        country: 'Netherlands',
+        exporters: 'DFL Export Division',
+        productCategory: 'Cooked Frozen',
+        year: '2026',
+        buyer: 'Nordic Crustacean B.V.',
+        vesselName: 'MAERSK MC-KINNEY V.412',
+        portOfLoading: 'Visakhapatnam (INVTZ)',
+        portOfDischarge: 'Rotterdam (NLRTM)',
+        containerNo: 'MSKU-440192-3',
+        sealNo: 'SL-DFL-8823',
+        totalMcs: 1100,
+        totalKgs: 11000.0,
+        status: 'In Transit'
+      },
+      {
+        sNo: 4,
+        cInvNo: 'CI-2026-904',
+        cInvDate: '2026-10-15',
+        poNo: 'PO-2026-4406',
+        poDate: '2026-10-10',
+        shipmentDate: '2026-10-19',
+        eta: '2026-11-10',
+        coldStores: 'Chamber #1 (IQF)',
+        country: 'U.S.A.',
+        exporters: 'Devi Fisheries Ltd',
+        productCategory: 'Raw Frozen',
+        year: '2026',
+        buyer: 'Great American Seafood Co.',
+        vesselName: 'CMA CGM CORTE REAL V.091',
+        portOfLoading: 'Visakhapatnam (INVTZ)',
+        portOfDischarge: 'Savannah (USSAV)',
+        containerNo: 'CMAU-663810-9',
+        sealNo: 'SL-DFL-8824',
+        totalMcs: 1500,
+        totalKgs: 15000.0,
+        status: 'In Transit'
+      },
+      {
+        sNo: 5,
+        cInvNo: 'CI-2026-905',
+        cInvDate: '2026-10-12',
+        poNo: 'PO-2026-4408',
+        poDate: '2026-10-08',
+        shipmentDate: '2026-10-16',
+        eta: '2026-11-12',
+        coldStores: 'Vault #3 Staging',
+        country: 'Germany',
+        exporters: 'Devi Fisheries Ltd',
+        productCategory: 'Cooked Frozen',
+        year: '2026',
+        buyer: 'Hanseatic Fish Import GmbH',
+        vesselName: 'HAPAG AL JASRAH V.33',
+        portOfLoading: 'Visakhapatnam (INVTZ)',
+        portOfDischarge: 'Hamburg (DEHAM)',
+        containerNo: 'HLXU-882104-5',
+        sealNo: 'SL-DFL-8825',
+        totalMcs: 1400,
+        totalKgs: 14000.0,
+        status: 'In Transit'
+      },
+      {
+        sNo: 6,
+        cInvNo: 'CI-2025-781',
+        cInvDate: '2025-12-10',
+        poNo: 'PO-2025-3891',
+        poDate: '2025-12-01',
+        shipmentDate: '2025-12-14',
+        eta: '2026-01-05',
+        coldStores: 'Chamber #2 (Block)',
+        country: 'Australia',
+        exporters: 'DFL Export Division',
+        productCategory: 'Raw Frozen',
+        year: '2025',
+        buyer: 'Southern Ocean Harvest Pty',
+        vesselName: 'ANL WANGARATTA V.12',
+        portOfLoading: 'Visakhapatnam (INVTZ)',
+        portOfDischarge: 'Sydney (AUSYD)',
+        containerNo: 'ANLU-551920-2',
+        sealNo: 'SL-DFL-7719',
+        totalMcs: 800,
+        totalKgs: 8000.0,
+        status: 'Delivered'
+      },
+      {
+        sNo: 7,
+        cInvNo: 'CI-2025-782',
+        cInvDate: '2025-11-20',
+        poNo: 'PO-2025-3742',
+        poDate: '2025-11-14',
+        shipmentDate: '2025-11-25',
+        eta: '2025-12-20',
+        coldStores: 'Chamber #3 (Blast)',
+        country: 'Canada',
+        exporters: 'Devi Aqua Feeds',
+        productCategory: 'Blanched Frozen',
+        year: '2025',
+        buyer: 'Maple Leaf Seafoods Ltd.',
+        vesselName: 'ZIM KINGSTON V.48',
+        portOfLoading: 'Visakhapatnam (INVTZ)',
+        portOfDischarge: 'Vancouver (CAVAN)',
+        containerNo: 'ZIMU-332918-0',
+        sealNo: 'SL-DFL-7681',
+        totalMcs: 950,
+        totalKgs: 9500.0,
+        status: 'Delivered'
+      },
+      {
+        sNo: 8,
+        cInvNo: 'CI-2024-512',
+        cInvDate: '2024-10-14',
+        poNo: 'PO-2024-2910',
+        poDate: '2024-10-05',
+        shipmentDate: '2024-10-18',
+        eta: '2024-11-12',
+        coldStores: 'Chamber #1 (IQF)',
+        country: 'United Kingdom',
+        exporters: 'Devi Fisheries Ltd',
+        productCategory: 'Value-Added',
+        year: '2024',
+        buyer: 'British Ocean Foods Ltd.',
+        vesselName: 'EVER GIVEN V.881',
+        portOfLoading: 'Visakhapatnam (INVTZ)',
+        portOfDischarge: 'Felixstowe (GBFXT)',
+        containerNo: 'EGLV-991044-6',
+        sealNo: 'SL-DFL-6401',
+        totalMcs: 600,
+        totalKgs: 6000.0,
+        status: 'Delivered'
+      }
+    ],
+
     // 3. Orders & Outward Allocations
     orders: [
       { id: 1, orderNo: 'ORD-US-2026-891', buyer: 'Pacific Seafood Group Inc.', country: 'USA', product: 'Vannamei PD IQF 31/40', orderedMt: 24.0, allocatedMt: 24.0, chamber: 'Vault #3 Staging', shipDate: '2026-11-04', status: 'Ready for Stuffing' },
@@ -5364,26 +5552,379 @@ export const ColdstoreView = {
     });
   },
 
-  // 3c. ORDERS - SHIPMENTS LIST
+  // 3c. ORDERS - SHIPMENTS LIST (EXACT 5 USER-SPECIFIED FORM FIELDS & 7 DATA TABLE COLUMNS)
   renderShipmentsList(container) {
+    const fullList = this.state.shipmentsList || [];
+    let table = null;
+
     container.innerHTML = `
       <div class="space-y-4 animate-fade-in">
+        <!-- Clean Page Header -->
         <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
           <div>
             <h1 class="text-xl font-extrabold text-[#172B4D]">Shipments List</h1>
           </div>
         </div>
-        <div class="bg-white border border-[#DFE1E6] rounded-xl p-8 shadow-xs text-center">
-          <div class="max-w-md mx-auto py-8">
-            <div class="w-12 h-12 rounded-full bg-[#E3FCEF] text-[#006644] flex items-center justify-center mx-auto mb-3">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/></svg>
+
+        <!-- Collapsible Top Filter Header Card (5 User-Specified Search & Filter Fields) -->
+        <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200" style="margin-bottom: 12px !important;">
+          <div class="flex items-center justify-between pb-1">
+            <div class="flex items-center gap-2">
+              <svg style="width: 16px; height: 16px; min-width: 16px; min-height: 16px; stroke: #0284C7; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+              <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
             </div>
-            <h3 class="text-base font-bold text-[#172B4D]">Shipments List</h3>
-            <p class="text-xs text-[#6B778C] mt-1">Tab configured. Ready for form fields and table specifications.</p>
+
+            <!-- Filter Controls: Reset & Toggle Open/Close -->
+            <div class="inline-flex items-center" style="gap: 8px; display: inline-flex;">
+              <button 
+                type="button" 
+                id="sl-filter-reset-btn" 
+                class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#0284C7] text-[#334155] hover:text-[#0284C7] rounded-full transition-colors cursor-pointer select-none" 
+                style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 9999px; border: 1px solid #CBD5E1; background: #ffffff; color: #334155; display: inline-flex; align-items: center; justify-content: center; padding: 0;"
+                title="Reset All Filters" 
+                aria-label="Reset All Filters"
+              >
+                <svg style="width: 15px; height: 15px; min-width: 15px; min-height: 15px; stroke: #334155; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+              </button>
+
+              <button 
+                type="button" 
+                id="sl-filter-toggle-btn" 
+                class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#0284C7] text-[#334155] hover:text-[#0284C7] rounded-full transition-colors cursor-pointer select-none" 
+                style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 9999px; border: 1px solid #CBD5E1; background: #ffffff; color: #334155; display: inline-flex; align-items: center; justify-content: center; padding: 0;"
+                title="Hide Filter" 
+                aria-label="Hide Filter"
+              >
+                <svg id="sl-filter-toggle-icon" style="width: 15px; height: 15px; min-width: 15px; min-height: 15px; stroke: #334155; fill: none; display: inline-block;" class="dt-top-filter-toggle-icon transform transition-transform duration-200" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Collapsible Filter Inputs Grid (Matching 5 User-Specified Fields) -->
+          <div id="sl-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
+            <!-- 1. COLD STORES -->
+            <div>
+              <label for="sl-filter-coldstore" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">COLD STORES</label>
+              <select id="sl-filter-coldstore" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="ALL">Select Cold Store</option>
+                <option value="Chamber #1 (IQF)">Chamber #1 (IQF)</option>
+                <option value="Chamber #2 (Block)">Chamber #2 (Block)</option>
+                <option value="Vault #3 Staging">Vault #3 Staging</option>
+                <option value="Chamber #3 (Blast)">Chamber #3 (Blast)</option>
+              </select>
+            </div>
+
+            <!-- 2. SELECT COUNTRY -->
+            <div>
+              <label for="sl-filter-country" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SELECT COUNTRY</label>
+              <select id="sl-filter-country" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="ALL">Select Country</option>
+                <option value="U.S.A.">U.S.A.</option>
+                <option value="Japan">Japan</option>
+                <option value="Netherlands">Netherlands</option>
+                <option value="United Kingdom">United Kingdom</option>
+                <option value="Canada">Canada</option>
+                <option value="Australia">Australia</option>
+                <option value="Germany">Germany</option>
+              </select>
+            </div>
+
+            <!-- 3. EXPORTERS -->
+            <div>
+              <label for="sl-filter-exporters" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">EXPORTERS</label>
+              <select id="sl-filter-exporters" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="ALL">Select Exporter</option>
+                <option value="Devi Fisheries Ltd">Devi Fisheries Ltd</option>
+                <option value="Devi Aqua Feeds">Devi Aqua Feeds</option>
+                <option value="DFL Export Division">DFL Export Division</option>
+              </select>
+            </div>
+
+            <!-- 4. PRODUCT CATEGORY -->
+            <div>
+              <label for="sl-filter-category" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCT CATEGORY</label>
+              <select id="sl-filter-category" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="ALL">Select Product Category</option>
+                <option value="Raw Frozen">Raw Frozen</option>
+                <option value="Cooked Frozen">Cooked Frozen</option>
+                <option value="Blanched Frozen">Blanched Frozen</option>
+                <option value="Value-Added">Value-Added</option>
+              </select>
+            </div>
+
+            <!-- 5. YEAR -->
+            <div>
+              <label for="sl-filter-year" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">YEAR</label>
+              <select id="sl-filter-year" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="ALL">Select Year</option>
+                <option value="2026">2026</option>
+                <option value="2025">2025</option>
+                <option value="2024">2024</option>
+                <option value="2023">2023</option>
+              </select>
+            </div>
+
+            <!-- 6. Action Slot: Search Button -->
+            <div class="flex items-end">
+              <button 
+                type="button" 
+                id="sl-filter-search-btn" 
+                class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]"
+                title="Search Filter Records"
+              >
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                <span>Search</span>
+              </button>
+            </div>
           </div>
         </div>
+
+        <!-- Shipments List Data Table Container (7 User-Specified Columns) -->
+        <div id="cs-shipments-list-table-container"></div>
       </div>
     `;
+
+    // Render Table Function
+    const renderTable = (data) => {
+      table = new DataTable({
+        containerId: 'cs-shipments-list-table-container',
+        tableTitle: 'Shipments List',
+        searchable: true,
+        exportable: true,
+        pageSize: 10,
+        actions: [],
+        onRowClick: (row) => this.showShipmentDetailModal(row),
+        columns: [
+          // 1. S.No
+          {
+            field: 'sNo',
+            header: 'S.No',
+            sortable: true,
+            render: (v, r, idx) => `<span class="text-[#5E6C84] font-semibold">${v || (idx + 1)}</span>`
+          },
+          // 2. C.Inv No
+          {
+            field: 'cInvNo',
+            header: 'C.Inv No',
+            sortable: true,
+            render: v => `<span class="font-mono font-bold text-xs text-[#0284C7] hover:underline cursor-pointer whitespace-nowrap">${v}</span>`
+          },
+          // 3. C.Inv Date
+          {
+            field: 'cInvDate',
+            header: 'C.Inv Date',
+            sortable: true,
+            render: v => `<span class="font-mono text-xs text-[#5E6C84] whitespace-nowrap">${v}</span>`
+          },
+          // 4. Po.No
+          {
+            field: 'poNo',
+            header: 'Po.No',
+            sortable: true,
+            render: v => `<span class="font-mono font-bold text-xs text-[#172B4D] whitespace-nowrap">${v}</span>`
+          },
+          // 5. Po.Date
+          {
+            field: 'poDate',
+            header: 'Po.Date',
+            sortable: true,
+            render: v => `<span class="font-mono text-xs text-[#5E6C84] whitespace-nowrap">${v}</span>`
+          },
+          // 6. Shipment Date
+          {
+            field: 'shipmentDate',
+            header: 'Shipment Date',
+            sortable: true,
+            render: v => `<span class="font-mono text-xs font-semibold text-[#172B4D] whitespace-nowrap">${v}</span>`
+          },
+          // 7. ETA
+          {
+            field: 'eta',
+            header: 'ETA',
+            sortable: true,
+            render: v => `<span class="font-mono text-xs font-bold text-[#006644] whitespace-nowrap">${v}</span>`
+          }
+        ],
+        data: data
+      });
+    };
+
+    // Initial table render
+    renderTable(fullList);
+
+    // Bind Collapsible Filter Toggle
+    const toggleBtn = container.querySelector('#sl-filter-toggle-btn');
+    const filterBody = container.querySelector('#sl-filter-body');
+    const toggleIcon = container.querySelector('#sl-filter-toggle-icon');
+
+    if (toggleBtn && filterBody && toggleIcon) {
+      let isFilterOpen = true;
+      toggleBtn.addEventListener('click', () => {
+        isFilterOpen = !isFilterOpen;
+        if (isFilterOpen) {
+          filterBody.style.display = 'grid';
+          toggleIcon.classList.remove('rotate-180');
+          toggleBtn.title = 'Hide Filter';
+        } else {
+          filterBody.style.display = 'none';
+          toggleIcon.classList.add('rotate-180');
+          toggleBtn.title = 'Show Filter';
+        }
+      });
+    }
+
+    // Execute Filter Function (Matches 5 user-specified fields)
+    const executeFilter = () => {
+      const coldStoreVal = container.querySelector('#sl-filter-coldstore')?.value || 'ALL';
+      const countryVal = container.querySelector('#sl-filter-country')?.value || 'ALL';
+      const exportersVal = container.querySelector('#sl-filter-exporters')?.value || 'ALL';
+      const categoryVal = container.querySelector('#sl-filter-category')?.value || 'ALL';
+      const yearVal = container.querySelector('#sl-filter-year')?.value || 'ALL';
+
+      const filtered = fullList.filter(item => {
+        if (coldStoreVal !== 'ALL' && item.coldStores !== coldStoreVal) return false;
+        if (countryVal !== 'ALL' && item.country !== countryVal) return false;
+        if (exportersVal !== 'ALL' && item.exporters !== exportersVal) return false;
+        if (categoryVal !== 'ALL' && item.productCategory !== categoryVal) return false;
+        if (yearVal !== 'ALL' && String(item.year) !== yearVal) return false;
+        return true;
+      });
+
+      renderTable(filtered);
+      Toast.show(`Showing ${filtered.length} matching Shipment record(s)`, 'info');
+    };
+
+    // Bind Search Button
+    const searchBtn = container.querySelector('#sl-filter-search-btn');
+    if (searchBtn) {
+      searchBtn.addEventListener('click', executeFilter);
+    }
+
+    // Bind Reset Button
+    const resetBtn = container.querySelector('#sl-filter-reset-btn');
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        const cs = container.querySelector('#sl-filter-coldstore');
+        const cy = container.querySelector('#sl-filter-country');
+        const ex = container.querySelector('#sl-filter-exporters');
+        const cat = container.querySelector('#sl-filter-category');
+        const yr = container.querySelector('#sl-filter-year');
+
+        if (cs) cs.value = 'ALL';
+        if (cy) cy.value = 'ALL';
+        if (ex) ex.value = 'ALL';
+        if (cat) cat.value = 'ALL';
+        if (yr) yr.value = 'ALL';
+
+        renderTable(fullList);
+        Toast.show('Search filters reset to default', 'info');
+      });
+    }
+  },
+
+  // 3c-1. SHIPMENT DETAIL MODAL
+  showShipmentDetailModal(row) {
+    Modal.open({
+      title: `Shipment Details: ${row.cInvNo} (PO: ${row.poNo})`,
+      size: 'xl',
+      content: `
+        <div class="space-y-4 text-xs text-[#172B4D]">
+          <!-- Header Banner -->
+          <div class="p-3 bg-[#F4F5F7] border border-[#DFE1E6] rounded-lg flex items-center justify-between">
+            <div>
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">COMMERCIAL INVOICE</span>
+              <div class="text-base font-extrabold text-[#0284C7] font-mono">${row.cInvNo}</div>
+              <div class="text-[11px] text-[#6B778C]">Buyer: <span class="font-bold text-[#172B4D]">${row.buyer || 'Export Client'}</span> • Country: <span class="font-bold text-[#172B4D]">${row.country}</span></div>
+            </div>
+            <div class="text-right">
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">LOGISTICS STATUS</span>
+              <div class="mt-0.5">
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold ${row.status === 'Delivered' ? 'bg-[#E3FCEF] text-[#006644]' : 'bg-[#DEEBFF] text-[#0747A6]'}">${row.status || 'In Transit'}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 1: Invoicing & Shipping Dates (User Data Table Columns) -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-white p-3 border border-[#DFE1E6] rounded-lg">
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">C.INV NO</span>
+              <span class="font-mono font-bold text-xs text-[#0284C7]">${row.cInvNo}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">C.INV DATE</span>
+              <span class="font-mono text-xs text-[#5E6C84]">${row.cInvDate}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PO.NO</span>
+              <span class="font-mono font-bold text-xs text-[#172B4D]">${row.poNo}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PO.DATE</span>
+              <span class="font-mono text-xs text-[#5E6C84]">${row.poDate}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">SHIPMENT DATE</span>
+              <span class="font-mono font-semibold text-xs text-[#172B4D]">${row.shipmentDate}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">ESTIMATED ARRIVAL (ETA)</span>
+              <span class="font-mono font-bold text-xs text-[#006644]">${row.eta}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">SHIPPING YEAR</span>
+              <span class="font-mono font-bold text-xs text-[#172B4D]">${row.year || '2026'}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">S.NO</span>
+              <span class="font-mono text-xs text-[#5E6C84]">#${row.sNo}</span>
+            </div>
+          </div>
+
+          <!-- Section 2: Ocean Freight & Coldstore Origin Context -->
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 bg-[#F8FAFC] p-3 border border-[#DFE1E6] rounded-lg">
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">ORIGIN COLD STORE</span>
+              <span class="font-semibold text-xs text-[#172B4D]">${row.coldStores || 'Chamber #1 (IQF)'}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">VESSEL / VOYAGE</span>
+              <span class="font-semibold text-xs text-[#172B4D]">${row.vesselName || 'Ocean Carrier'}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">CONTAINER / REEFER NO</span>
+              <span class="font-mono font-bold text-xs text-[#0284C7]">${row.containerNo || 'REEF-992144'}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PORT OF LOADING</span>
+              <span class="text-xs text-[#172B4D]">${row.portOfLoading || 'Visakhapatnam (INVTZ)'}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PORT OF DISCHARGE</span>
+              <span class="text-xs text-[#172B4D]">${row.portOfDischarge || '-'}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">LINE SEAL NO</span>
+              <span class="font-mono text-xs text-[#172B4D]">${row.sealNo || '-'}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">EXPORTER</span>
+              <span class="font-semibold text-xs text-[#172B4D]">${row.exporters || 'Devi Fisheries Ltd'}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PRODUCT CATEGORY</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#E0F2FE] text-[#0284C7]">${row.productCategory || 'Raw Frozen'}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">TOTAL WEIGHT</span>
+              <span class="font-mono font-bold text-xs text-[#00875A]">${Number(row.totalMcs || 0).toLocaleString()} MCs / ${Number(row.totalKgs || 0).toLocaleString()} kg</span>
+            </div>
+          </div>
+        </div>
+      `,
+      footerButtons: [
+        { label: 'Close', type: 'secondary', onClick: (modal) => modal.close() }
+      ]
+    });
   },
 
   // 3d. ORDERS - BACKWARD COMPATIBILITY
