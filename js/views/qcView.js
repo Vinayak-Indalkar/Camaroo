@@ -253,6 +253,8 @@ const qcSchemas = {
   'feed-mill-audit-list': { title: 'Feed Mill Audits', fields: qcFeedMillAuditFields, auditType: 'Supplier', standard: 'BAP Feed Mill' }
 };
 const qcAliases = {
+  'daily-qc-ops': 'overview',
+  'dashboard': 'overview',
   'qc-overview': 'overview', 'qc-orders': 'documentation', 'incoming-lots': 'lots-list', 'antibiotic-testing': 'ab-report',
   'rm-testing': 'rm-report', microbiology: 'mb-report', 'in-house-lab': 'lab-report', 'external-lab': 'external-lab-report',
   'screening-records': 'food-social-audit', 'food-audits': 'food-audit-list', 'social-audits': 'social-audit-list',
@@ -915,7 +917,12 @@ export const QCView = {
     this.load();
     const container = typeof containerId === 'string' ? document.getElementById(containerId) : containerId;
     if (!container) return;
-    ['qc-antibiotic-chart', 'qc-defects-chart', 'qc-throughput-chart'].forEach(id => Charts.destroy(id));
+    [
+      'qc-chart-code-status', 'qc-chart-lab-coverage', 'qc-chart-prod-readiness',
+      'qc-chart-buyer-risk', 'qc-chart-dest-risk',
+      'qc-chart-monthly-counts', 'qc-chart-center-qty', 'qc-chart-supplier-qty',
+      'qc-antibiotic-chart', 'qc-defects-chart', 'qc-throughput-chart'
+    ].forEach(id => Charts.destroy(id));
     const key = qcAliases[subPage] || subPage;
     if (key !== subPage) {
       window.location.hash = activeHash.slice(0, activeHash.lastIndexOf('/') + 1) + key;
@@ -3612,30 +3619,778 @@ export const QCView = {
   },
 
   renderOverview() {
-    const ab = this.state['ab-report'];
-    const mb = this.state['mb-report'];
-    const passed = ab.filter(row => row.status === 'Pass').length;
-    const defects = this.state['rm-report'].filter(row => Number(row.totalDefects) > 0).length;
-    const cleared = this.state.documentation.filter(row => row.status === 'Completed' && !this.clearanceIssue(row.internalLotNo)).length;
-    const holds = ab.filter(row => row.status === 'Fail').length + mb.filter(row => row.status === 'Fail').length + this.state['daily-qc-ops'].filter(row => ['Hold', 'Re-ice'].includes(row.status)).length;
-    const metrics = [['Samples Tested', ab.length + mb.length], ['Antibiotic Pass Rate', `${ab.length ? (passed / ab.length * 100).toFixed(1) : '0'}%`], ['Lots With Defects', defects], ['Export Lots Cleared', cleared], ['Quarantine Alerts', holds]];
-    this.content.innerHTML = `<div class="space-y-4 min-w-0">
-      <h1 class="text-xl font-extrabold text-[#172B4D]">QC Overview</h1>
-      <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-3">${metrics.map(([label, value]) => `<div class="bg-white border border-[#DFE1E6] rounded-lg p-4"><div class="text-xs font-semibold text-[#5E6C84]">${label}</div><div class="text-2xl font-bold text-[#172B4D] mt-2">${value}</div></div>`).join('')}</div>
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">${[['qc-antibiotic-chart', 'Antibiotic Results'], ['qc-defects-chart', 'Raw Material Defects'], ['qc-throughput-chart', 'Receiving QC Throughput']].map(([id, title]) => `<section class="min-w-0 border-t border-[#DFE1E6] pt-3"><h2 class="text-sm font-bold text-[#172B4D] mb-3">${title}</h2><div class="relative h-56"><canvas id="${id}" aria-label="${title}" role="img"></canvas></div></section>`).join('')}</div>
-      <div id="qc-dashboard-table" class="min-w-0"></div>
-    </div>`;
-    new DataTable({ containerId: 'qc-dashboard-table', tableTitle: 'Daily QC Operations', data: this.state['daily-qc-ops'], columns: [
-      { field: 'date', header: 'Date' }, { field: 'timeSlot', header: 'Time' }, { field: 'batchNo', header: 'Batch', render: value => this.escape(value) },
-      { field: 'productLine', header: 'Line' }, { field: 'coreTemp', header: 'Core Temperature (C)' },
-      { field: 'chlorineLevel', header: 'Chlorine (ppm)' }, { field: 'status', header: 'Status', render: value => this.badge(value) }
-    ], onRowClick: row => this.showDetails('daily-qc-ops', row) });
+    // Destroy previous charts if any
+    [
+      'qc-chart-code-status', 'qc-chart-lab-coverage', 'qc-chart-prod-readiness',
+      'qc-chart-buyer-risk', 'qc-chart-dest-risk',
+      'qc-chart-monthly-counts', 'qc-chart-center-qty', 'qc-chart-supplier-qty'
+    ].forEach(id => Charts.destroy(id));
+
+    // Data for Lots Inspection & Lab Results (Matching Image 3)
+    const lotsInspectionData = [
+      { lotNo: 'ODS/2627/0553', supplier: 'MAASAREI TRADERS', center: 'ORISSA', arrivalDate: '07-Oct-2026', totalWeight: '7,324.4', result: '--', positive: 'UNKNOWN' },
+      { lotNo: 'KKD/2627/0204', supplier: 'K.RAGHU', center: 'KAKINADA LOCAL', arrivalDate: '24-Apr-2026', totalWeight: '7,168.0', result: '--', positive: 'UNKNOWN' },
+      { lotNo: 'RPL/2627/0129', supplier: 'PENMETSA VENKATAPATHI RAJU HUF', center: 'REPALLE', arrivalDate: '15-May-2026', totalWeight: '6,947.0', result: '--', positive: 'UNKNOWN' },
+      { lotNo: 'KKD/2627/0078', supplier: 'KORA NAVYA SRI', center: 'KAKINADA LOCAL', arrivalDate: '10-Apr-2026', totalWeight: '6,937.0', result: '--', positive: 'UNKNOWN' },
+      { lotNo: 'KKD/2627/0133', supplier: 'B.V.V.S.RAMA PRASAD', center: 'KAKINADA LOCAL', arrivalDate: '15-Apr-2026', totalWeight: '6,931.7', result: '--', positive: 'UNKNOWN' },
+      { lotNo: 'RPL/2627/0300', supplier: 'A.KOWSIK KUMAR', center: 'REPALLE', arrivalDate: '09-Jul-2026', totalWeight: '6,864.0', result: '--', positive: 'UNKNOWN' },
+      { lotNo: 'KKL/2627/0037', supplier: 'MANTHENA JAYANTH VARMA', center: 'KAIKALURU', arrivalDate: '02-May-2026', totalWeight: '6,861.0', result: 'PASS', positive: 'NO' },
+      { lotNo: 'ODS/2627/0382', supplier: 'MAASAREI TRADERS', center: 'ORISSA', arrivalDate: '14-Aug-2026', totalWeight: '6,845.0', result: 'Negative', positive: 'NO' },
+      { lotNo: 'KKL/2627/0068', supplier: 'MANTHENA JAYANTH VARMA', center: 'KAIKALURU', arrivalDate: '26-May-2026', totalWeight: '6,818.0', result: '--', positive: 'UNKNOWN' },
+      { lotNo: 'RPL/2627/0355', supplier: 'ARJUN AQUA', center: 'REPALLE', arrivalDate: '25-Jul-2026', totalWeight: '6,802.0', result: '--', positive: 'UNKNOWN' },
+      { lotNo: 'SKM/2627/0412', supplier: 'SRI YASHODA ENTERPRISES', center: 'SRIKAKULAM', arrivalDate: '18-Aug-2026', totalWeight: '6,750.5', result: 'PASS', positive: 'NO' },
+      { lotNo: 'AMP/2627/0198', supplier: 'PERICHERLA AVINASH', center: 'AMALAPURAM', arrivalDate: '04-Jun-2026', totalWeight: '6,720.0', result: 'Negative', positive: 'NO' },
+      { lotNo: 'KKD/2627/0288', supplier: 'RAMESH CHANDRA SEAFOODS', center: 'KAKINADA LOCAL', arrivalDate: '12-Jul-2026', totalWeight: '6,680.0', result: 'PASS', positive: 'NO' },
+      { lotNo: 'RPL/2627/0420', supplier: 'K.S.V.RAYAPA RAJU', center: 'REPALLE', arrivalDate: '30-Aug-2026', totalWeight: '6,590.0', result: '--', positive: 'UNKNOWN' },
+      { lotNo: 'AMP/2627/0255', supplier: 'DEVI FISHERIES LIMITED', center: 'AMALAPURAM', arrivalDate: '19-Sep-2026', totalWeight: '6,510.0', result: 'PASS', positive: 'NO' }
+    ];
+
+    // Data for PO Grade Lab Availability (Matching Image 4)
+    const poGradeAvailabilityData = [
+      { sNo: 1, poNo: 'PO1006705', buyer: 'STANLEY', brand: 'MEMBERS MARK', shipByDate: '12-Sep-2026', country: 'U.S.A.', product: '31/40-VM-PD-RI-NWNC-SALT', packingStyle: '12 X 3 LBS', orderedMcs: 1000, assignedMcs: '0.00', productionPacked: 0, availability: '0%' },
+      { sNo: 2, poNo: 'DF/DF-5739', buyer: 'DEVI INC', brand: 'PORTICO CLASSIC', shipByDate: '--', country: 'U.S.A.', product: '26/30-VM-EZPL-RI-NWNC-STPP', packingStyle: '4 X 2.5 LBS', orderedMcs: 1300, assignedMcs: '0.00', productionPacked: 0, availability: '0%' },
+      { sNo: 3, poNo: 'DF/DF-5490', buyer: 'DEVI INC', brand: 'SINDHU CLASSIC', shipByDate: '25-Jun-2026', country: 'U.S.A.', product: '26/30-VM-PDTO-SKW-RI-SKW-NWNC-STPP', packingStyle: '12 X 3.214 LBS', orderedMcs: 840, assignedMcs: '0.00', productionPacked: 0, availability: '0%' },
+      { sNo: 4, poNo: 'DF/DF-5739', buyer: 'DEVI INC', brand: 'PORTICO CLASSIC', shipByDate: '--', country: 'U.S.A.', product: '16/20-VM-EZPL-RI-NWNC-STPP', packingStyle: '4 X 2.5 LBS', orderedMcs: 300, assignedMcs: '0.00', productionPacked: 0, availability: '0%' },
+      { sNo: 5, poNo: 'DF/DF-5739', buyer: 'DEVI INC', brand: 'PORTICO CLASSIC', shipByDate: '--', country: 'U.S.A.', product: '21/25-VM-EZPL-RI-NWNC-STPP', packingStyle: '4 X 2.5 LBS', orderedMcs: 2000, assignedMcs: '0.00', productionPacked: 0, availability: '0%' },
+      { sNo: 6, poNo: 'PO1006788', buyer: 'EAST WEST CO. LTD', brand: 'OCEAN KING', shipByDate: '18-Aug-2026', country: 'RUSSIA', product: '31/40-VM-HLSO-BLOCK', packingStyle: '6 X 2 KG', orderedMcs: 1200, assignedMcs: '600.00', productionPacked: 600, availability: '50.0%' },
+      { sNo: 7, poNo: 'DF/DF-5812', buyer: 'MARK FOODS LLC', brand: 'BLUE OCEAN', shipByDate: '05-Oct-2026', country: 'CANADA', product: '41/50-VM-PDTO-IQF', packingStyle: '5 X 2 LBS', orderedMcs: 950, assignedMcs: '475.00', productionPacked: 475, availability: '50.0%' },
+      { sNo: 8, poNo: 'PO1006901', buyer: 'C.P. FOOD', brand: 'ROYAL PEARL', shipByDate: '15-Sep-2026', country: 'CHINA', product: '26/30-VM-COOKED-IQF', packingStyle: '10 X 1 KG', orderedMcs: 1500, assignedMcs: '1200.00', productionPacked: 1200, availability: '80.0%' },
+      { sNo: 9, poNo: 'DF/DF-5920', buyer: 'VALENCIA', brand: 'DEVI SELECT', shipByDate: '22-Jul-2026', country: 'BELGIUM', product: '16/20-BT-HLSO-BLOCK', packingStyle: '6 X 2 KG', orderedMcs: 800, assignedMcs: '800.00', productionPacked: 800, availability: '100.0%' },
+      { sNo: 10, poNo: 'PO1007010', buyer: 'METRO', brand: 'METRO CHEF', shipByDate: '29-Jun-2026', country: 'GERMANY', product: '31/40-VM-PUD-BLOCK', packingStyle: '10 X 1 KG', orderedMcs: 1100, assignedMcs: '1100.00', productionPacked: 1100, availability: '100.0%' }
+    ];
+
+    this.content.innerHTML = `
+      <div class="space-y-4 min-w-0 animate-fade-in pb-8">
+        <!-- Clean Page Header -->
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-1">
+          <div>
+            <h1 class="text-xl font-extrabold text-[#172B4D]">Quality Control Dashboard</h1>
+          </div>
+        </div>
+
+        <!-- 1. Collapsible Top Filter Header Card (Devi Fisheries UI Style) -->
+        <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200" style="margin-bottom: 12px !important;">
+          <div class="flex items-center justify-between pb-1">
+            <div class="flex items-center gap-2">
+              <svg style="width: 16px; height: 16px; min-width: 16px; min-height: 16px; stroke: #0284C7; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+              <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
+            </div>
+
+            <!-- Filter Controls: Reset & Toggle Open/Close -->
+            <div class="inline-flex items-center" style="gap: 8px; display: inline-flex;">
+              <button 
+                type="button" 
+                id="qc-dash-reset-btn"
+                class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#0284C7] text-[#334155] hover:text-[#0284C7] rounded-full transition-colors cursor-pointer select-none" 
+                style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 9999px; border: 1px solid #CBD5E1; background: #ffffff; color: #334155; display: inline-flex; align-items: center; justify-content: center; padding: 0;"
+                title="Reset All Filters" 
+                aria-label="Reset All Filters"
+              >
+                <svg style="width: 15px; height: 15px; min-width: 15px; min-height: 15px; stroke: #334155; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+              </button>
+
+              <button 
+                type="button" 
+                id="qc-dash-toggle-btn"
+                class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#0284C7] text-[#334155] hover:text-[#0284C7] rounded-full transition-colors cursor-pointer select-none" 
+                style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 9999px; border: 1px solid #CBD5E1; background: #ffffff; color: #334155; display: inline-flex; align-items: center; justify-content: center; padding: 0;"
+                title="Hide Filter" 
+                aria-label="Hide Filter"
+              >
+                <svg id="qc-dash-toggle-icon" style="width: 15px; height: 15px; min-width: 15px; min-height: 15px; stroke: #334155; fill: none; display: inline-block;" class="dt-top-filter-toggle-icon transform transition-transform duration-200" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Collapsible Filter Inputs Grid (Matching Image 1: 7 Fields + Search) -->
+          <div id="qc-dash-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
+            <!-- 1. Financial Year -->
+            <div>
+              <label for="qc-filter-fy" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">FINANCIAL YEAR</label>
+              <select id="qc-filter-fy" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="2026-27" selected>2026-27</option>
+                <option value="2025-26">2025-26</option>
+                <option value="2024-25">2024-25</option>
+              </select>
+            </div>
+
+            <!-- 2. Production Plant -->
+            <div>
+              <label for="qc-filter-plant" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCTION PLANT</label>
+              <select id="qc-filter-plant" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="ALL">Select Plant</option>
+                <option value="DFL UNIT-5 (JPT)">DFL UNIT-5 (JPT)</option>
+                <option value="DFL UNIT-3 (PSP)">DFL UNIT-3 (PSP)</option>
+                <option value="DFL UNIT-4 (PND)">DFL UNIT-4 (PND)</option>
+                <option value="DFL UNIT-1 (VSP)">DFL UNIT-1 (VSP)</option>
+                <option value="DFL UNIT-2 (KKD)">DFL UNIT-2 (KKD)</option>
+              </select>
+            </div>
+
+            <!-- 3. PO -->
+            <div>
+              <label for="qc-filter-po" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PO</label>
+              <select id="qc-filter-po" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="ALL">Select PO</option>
+                <option value="PO1006705">PO1006705</option>
+                <option value="DF/DF-5739">DF/DF-5739</option>
+                <option value="DF/DF-5490">DF/DF-5490</option>
+                <option value="PO1006788">PO1006788</option>
+                <option value="DF/DF-5812">DF/DF-5812</option>
+                <option value="PO1006901">PO1006901</option>
+              </select>
+            </div>
+
+            <!-- 4. Buyer -->
+            <div>
+              <label for="qc-filter-buyer" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">BUYER</label>
+              <select id="qc-filter-buyer" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="ALL">Select Buyer</option>
+                <option value="DEVI INC">DEVI INC</option>
+                <option value="STANLEY">STANLEY</option>
+                <option value="EAST WEST CO. LTD">EAST WEST CO. LTD</option>
+                <option value="MARK FOODS LLC">MARK FOODS LLC</option>
+                <option value="C.P. FOOD">C.P. FOOD</option>
+                <option value="VALENCIA">VALENCIA</option>
+                <option value="METRO">METRO</option>
+                <option value="NORDIC">NORDIC</option>
+              </select>
+            </div>
+
+            <!-- 5. Destination Country -->
+            <div>
+              <label for="qc-filter-country" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">DESTINATION COUNTRY</label>
+              <select id="qc-filter-country" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="ALL">Select Destination Country</option>
+                <option value="U.S.A.">U.S.A.</option>
+                <option value="RUSSIA">RUSSIA</option>
+                <option value="CHINA">CHINA</option>
+                <option value="BELGIUM">BELGIUM</option>
+                <option value="CANADA">CANADA</option>
+                <option value="IRELAND">IRELAND</option>
+                <option value="NEW ZEALAND">NEW ZEALAND</option>
+                <option value="FRANCE">FRANCE</option>
+                <option value="UNITED KINGDOM">UNITED KINGDOM</option>
+              </select>
+            </div>
+
+            <!-- 6. Lab -->
+            <div>
+              <label for="qc-filter-lab" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">LAB</label>
+              <select id="qc-filter-lab" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="ALL">Select Lab</option>
+                <option value="In-House Lab">In-House Lab</option>
+                <option value="External Lab">External Lab</option>
+                <option value="EIA Lab">EIA Lab</option>
+                <option value="SGS India Lab">SGS India Lab</option>
+                <option value="Eurofins Lab">Eurofins Lab</option>
+              </select>
+            </div>
+
+            <!-- 7. Status -->
+            <div>
+              <label for="qc-filter-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STATUS</label>
+              <select id="qc-filter-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="ALL">Select Status</option>
+                <option value="Completed">Completed</option>
+                <option value="Pending">Pending</option>
+                <option value="In Review">In Review</option>
+              </select>
+            </div>
+
+            <!-- 8. Search Action Button Slot -->
+            <div class="flex items-end">
+              <button 
+                type="button" 
+                id="qc-dash-search-btn" 
+                class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px] w-full"
+                title="Search Filter Records"
+              >
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                <span>Search</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. 6 KPI Metric Summary Cards (Matching Image 1) -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+          <!-- Card 1: TOTAL POS -->
+          <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 shadow-xs flex flex-col justify-between">
+            <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">TOTAL POS</span>
+            <div class="text-2xl font-black text-[#172B4D] font-mono my-1">1349</div>
+            <span class="text-[11px] text-[#6B778C]">Completed + pending POs</span>
+          </div>
+
+          <!-- Card 2: QC COMPLETED -->
+          <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 shadow-xs flex flex-col justify-between">
+            <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">QC COMPLETED</span>
+            <div class="text-2xl font-black text-[#00875A] font-mono my-1">969</div>
+            <span class="text-[11px] text-[#6B778C]">From monthly QC status</span>
+          </div>
+
+          <!-- Card 3: QC PENDING -->
+          <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 shadow-xs flex flex-col justify-between">
+            <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">QC PENDING</span>
+            <div class="text-2xl font-black text-[#FFAB00] font-mono my-1">380</div>
+            <span class="text-[11px] text-[#6B778C]">From monthly QC status</span>
+          </div>
+
+          <!-- Card 4: AVG AVAILABILITY -->
+          <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 shadow-xs flex flex-col justify-between">
+            <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">AVG AVAILABILITY</span>
+            <div class="text-2xl font-black text-[#0284C7] font-mono my-1">52.0%</div>
+            <span class="text-[11px] text-[#6B778C]">Packed / ordered Mcs</span>
+          </div>
+
+          <!-- Card 5: INTERNAL SAMPLES -->
+          <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 shadow-xs flex flex-col justify-between">
+            <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">INTERNAL SAMPLES</span>
+            <div class="text-2xl font-black text-[#6554C0] font-mono my-1">389</div>
+            <span class="text-[11px] text-[#6B778C]">Unique POs assigned</span>
+          </div>
+
+          <!-- Card 6: EXTERNAL SAMPLES -->
+          <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 shadow-xs flex flex-col justify-between">
+            <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">EXTERNAL SAMPLES</span>
+            <div class="text-2xl font-black text-[#00A4B7] font-mono my-1">189</div>
+            <span class="text-[11px] text-[#6B778C]">Unique POs assigned</span>
+          </div>
+        </div>
+
+        <!-- 3. Row 1 Charts (Matching Image 1: QC Code Status, Lab Coverage, Production Readiness) -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          <!-- QC Code Status -->
+          <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs min-w-0">
+            <h3 class="text-xs font-bold text-[#172B4D] mb-2">QC Code Status</h3>
+            <div class="relative h-60">
+              <canvas id="qc-chart-code-status"></canvas>
+            </div>
+          </div>
+
+          <!-- Lab Coverage -->
+          <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs min-w-0">
+            <h3 class="text-xs font-bold text-[#172B4D] mb-2">Lab Coverage</h3>
+            <div class="relative h-60">
+              <canvas id="qc-chart-lab-coverage"></canvas>
+            </div>
+          </div>
+
+          <!-- Production Readiness -->
+          <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs min-w-0">
+            <h3 class="text-xs font-bold text-[#172B4D] mb-2">Production Readiness</h3>
+            <div class="relative h-60">
+              <canvas id="qc-chart-prod-readiness"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Row 2 Charts (Matching Image 2: Buyer Pending Risk, Destination Pending Risk) -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <!-- Buyer Pending Risk -->
+          <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs min-w-0">
+            <h3 class="text-xs font-bold text-[#172B4D] mb-2">Buyer Pending Risk</h3>
+            <div class="relative h-72">
+              <canvas id="qc-chart-buyer-risk"></canvas>
+            </div>
+          </div>
+
+          <!-- Destination Pending Risk -->
+          <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs min-w-0">
+            <h3 class="text-xs font-bold text-[#172B4D] mb-2">Destination Pending Risk</h3>
+            <div class="relative h-72">
+              <canvas id="qc-chart-dest-risk"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. Row 3 Charts (Matching Image 2: QC Completed vs Pending, Center Wise Qty, Supplier Wise Qty) -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          <!-- QC Completed Count and Pending Count -->
+          <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs min-w-0">
+            <h3 class="text-xs font-bold text-[#172B4D] mb-2">Qc Completed Count and Pending Count</h3>
+            <div class="relative h-60">
+              <canvas id="qc-chart-monthly-counts"></canvas>
+            </div>
+          </div>
+
+          <!-- Center Wise Quantity -->
+          <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs min-w-0">
+            <h3 class="text-xs font-bold text-[#172B4D] mb-2">Center Wise Quantity</h3>
+            <div class="relative h-60">
+              <canvas id="qc-chart-center-qty"></canvas>
+            </div>
+          </div>
+
+          <!-- Supplier Wise Quantity -->
+          <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs min-w-0">
+            <h3 class="text-xs font-bold text-[#172B4D] mb-2">Supplier Wise Quantity</h3>
+            <div class="relative h-60">
+              <canvas id="qc-chart-supplier-qty"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. Table 1: Lots Inspection & Lab Results (Matching Image 3) -->
+        <div class="space-y-2">
+          <!-- Top Mini Search for Lots -->
+          <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 shadow-xs flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+              <div>
+                <label for="qc-lots-input" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0.5">LOTS</label>
+                <div class="flex items-center gap-2">
+                  <input type="text" id="qc-lots-input" placeholder="Select or enter lot number..." class="w-64 text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono text-[#172B4D]" />
+                  <button type="button" id="qc-lots-search-btn" class="btn-primary px-4 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    <span>Search Lots</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="qc-lots-inspection-table"></div>
+        </div>
+
+        <!-- 7. Table 2: PO Grade Lab Availability (Matching Image 4) -->
+        <div class="space-y-2">
+          <div id="qc-po-grade-availability-table"></div>
+        </div>
+      </div>
+    `;
+
+    // Initialize Table 1: Lots Inspection & Results
+    const lotsTable = new DataTable({
+      containerId: 'qc-lots-inspection-table',
+      tableTitle: 'Lots Inspection & Results',
+      data: lotsInspectionData,
+      searchable: true,
+      exportable: true,
+      pageSize: 10,
+      columns: [
+        {
+          field: 'lotNo',
+          header: 'Lot No',
+          sortable: true,
+          render: v => `<span class="font-mono font-bold text-[#0284C7] hover:underline cursor-pointer" onclick="event.stopPropagation(); window.location.hash='#/quality/lab/lots-list';">${v}</span>`
+        },
+        {
+          field: 'supplier',
+          header: 'Supplier',
+          sortable: true,
+          render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>`
+        },
+        {
+          field: 'center',
+          header: 'Center',
+          sortable: true,
+          render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#F4F5F7] text-[#42526E]">${v}</span>`
+        },
+        {
+          field: 'arrivalDate',
+          header: 'Arrival Date',
+          sortable: true,
+          render: v => `<span class="text-xs text-[#5E6C84]">${v}</span>`
+        },
+        {
+          field: 'totalWeight',
+          header: 'Total Weight',
+          sortable: true,
+          render: v => `<span class="font-mono font-bold text-xs text-[#172B4D]">${v} <span class="text-[10px] text-[#6B778C]">Kg</span></span>`
+        },
+        {
+          field: 'result',
+          header: 'Result',
+          sortable: true,
+          render: v => {
+            if (v === 'PASS' || v === 'Negative') return `<span class="lozenge lozenge-success">${v}</span>`;
+            if (v === 'Fail' || v === 'Positive') return `<span class="lozenge lozenge-danger">${v}</span>`;
+            return `<span class="text-[#8993A4] font-semibold">--</span>`;
+          }
+        },
+        {
+          field: 'positive',
+          header: 'Positive',
+          sortable: true,
+          render: v => {
+            if (v === 'NO') return `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#E3FCEF] text-[#006644]">NO</span>`;
+            return `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#F4F5F7] text-[#5E6C84]">UNKNOWN</span>`;
+          }
+        }
+      ]
+    });
+
+    // Initialize Table 2: PO Grade Lab Availability
+    const poTable = new DataTable({
+      containerId: 'qc-po-grade-availability-table',
+      tableTitle: 'PO Grade Lab Availability',
+      data: poGradeAvailabilityData,
+      searchable: true,
+      exportable: true,
+      pageSize: 10,
+      columns: [
+        {
+          field: 'sNo',
+          header: 'S.No.',
+          sortable: true,
+          render: (v, r, idx) => `<span class="text-[#5E6C84] font-semibold">${v || (idx + 1)}</span>`
+        },
+        {
+          field: 'poNo',
+          header: 'Po No',
+          sortable: true,
+          render: v => `<span class="font-mono font-bold text-[#0284C7] hover:underline cursor-pointer" onclick="event.stopPropagation(); window.location.hash='#/quality/qc-operations/documentation';">${v}</span>`
+        },
+        {
+          field: 'buyer',
+          header: 'Buyer',
+          sortable: true,
+          render: v => `<span class="font-bold text-xs text-[#172B4D]">${v}</span>`
+        },
+        {
+          field: 'brand',
+          header: 'Brand',
+          sortable: true,
+          render: v => `<span class="text-xs text-[#42526E] font-medium">${v}</span>`
+        },
+        {
+          field: 'shipByDate',
+          header: 'Ship By Date',
+          sortable: true,
+          render: v => `<span class="text-xs text-[#5E6C84] font-mono">${v}</span>`
+        },
+        {
+          field: 'country',
+          header: 'Country',
+          sortable: true,
+          render: v => `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#EAE6FF] text-[#403294]">${v}</span>`
+        },
+        {
+          field: 'product',
+          header: 'Product',
+          sortable: true,
+          render: v => `<span class="text-xs font-semibold text-[#172B4D]">${v}</span>`
+        },
+        {
+          field: 'packingStyle',
+          header: 'Packing Style',
+          sortable: true,
+          render: v => `<span class="text-xs text-[#5E6C84]">${v}</span>`
+        },
+        {
+          field: 'orderedMcs',
+          header: 'Ordered Mcs',
+          sortable: true,
+          render: v => `<span class="font-mono font-bold text-xs text-[#172B4D]">${Number(v).toLocaleString()}</span>`
+        },
+        {
+          field: 'assignedMcs',
+          header: 'Assigned Mcs',
+          sortable: true,
+          render: v => `<span class="font-mono text-xs text-[#5E6C84]">${v}</span>`
+        },
+        {
+          field: 'productionPacked',
+          header: 'Production Packed',
+          sortable: true,
+          render: v => `<span class="font-mono font-semibold text-xs text-[#172B4D]">${v}</span>`
+        },
+        {
+          field: 'availability',
+          header: 'Availability',
+          sortable: true,
+          render: v => {
+            const num = parseFloat(v);
+            if (num >= 80) return `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#E3FCEF] text-[#006644]">${v}</span>`;
+            if (num > 0) return `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#FFF0B3] text-[#172B4D]">${v}</span>`;
+            return `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#FFEBE6] text-[#BF2600]">${v}</span>`;
+          }
+        }
+      ]
+    });
+
+    // Hook Lots mini search button
+    const lotsInput = document.getElementById('qc-lots-input');
+    const lotsSearchBtn = document.getElementById('qc-lots-search-btn');
+    if (lotsSearchBtn && lotsInput) {
+      lotsSearchBtn.addEventListener('click', () => {
+        const query = lotsInput.value.trim().toLowerCase();
+        if (!query) {
+          lotsTable.setData(lotsInspectionData);
+          return;
+        }
+        const filtered = lotsInspectionData.filter(item => 
+          item.lotNo.toLowerCase().includes(query) || 
+          item.supplier.toLowerCase().includes(query) || 
+          item.center.toLowerCase().includes(query)
+        );
+        lotsTable.setData(filtered);
+        Toast.show(`Found ${filtered.length} matching lot(s)`, 'info');
+      });
+      lotsInput.addEventListener('keydown', e => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          lotsSearchBtn.click();
+        }
+      });
+    }
+
+    // Hook Filter Card Reset & Toggle Buttons
+    const resetBtn = document.getElementById('qc-dash-reset-btn');
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        const fy = document.getElementById('qc-filter-fy');
+        const plant = document.getElementById('qc-filter-plant');
+        const po = document.getElementById('qc-filter-po');
+        const buyer = document.getElementById('qc-filter-buyer');
+        const country = document.getElementById('qc-filter-country');
+        const lab = document.getElementById('qc-filter-lab');
+        const status = document.getElementById('qc-filter-status');
+        if (fy) fy.value = '2026-27';
+        if (plant) plant.value = 'ALL';
+        if (po) po.value = 'ALL';
+        if (buyer) buyer.value = 'ALL';
+        if (country) country.value = 'ALL';
+        if (lab) lab.value = 'ALL';
+        if (status) status.value = 'ALL';
+        lotsTable.setData(lotsInspectionData);
+        poTable.setData(poGradeAvailabilityData);
+        Toast.show('Filters reset', 'info');
+      });
+    }
+
+    const toggleBtn = document.getElementById('qc-dash-toggle-btn');
+    const filterBody = document.getElementById('qc-dash-filter-body');
+    const toggleIcon = document.getElementById('qc-dash-toggle-icon');
+    let isCollapsed = false;
+    if (toggleBtn && filterBody) {
+      toggleBtn.addEventListener('click', () => {
+        isCollapsed = !isCollapsed;
+        if (isCollapsed) {
+          filterBody.classList.add('hidden');
+          toggleBtn.title = 'Show Filter';
+          toggleBtn.setAttribute('aria-label', 'Show Filter');
+          if (toggleIcon) toggleIcon.classList.add('rotate-180');
+        } else {
+          filterBody.classList.remove('hidden');
+          toggleBtn.title = 'Hide Filter';
+          toggleBtn.setAttribute('aria-label', 'Hide Filter');
+          if (toggleIcon) toggleIcon.classList.remove('rotate-180');
+        }
+      });
+    }
+
+    const searchBtn = document.getElementById('qc-dash-search-btn');
+    if (searchBtn) {
+      searchBtn.addEventListener('click', () => {
+        const buyerVal = document.getElementById('qc-filter-buyer')?.value;
+        const countryVal = document.getElementById('qc-filter-country')?.value;
+        const poVal = document.getElementById('qc-filter-po')?.value;
+
+        let filteredPO = poGradeAvailabilityData;
+        if (buyerVal && buyerVal !== 'ALL') {
+          filteredPO = filteredPO.filter(r => r.buyer === buyerVal);
+        }
+        if (countryVal && countryVal !== 'ALL') {
+          filteredPO = filteredPO.filter(r => r.country === countryVal);
+        }
+        if (poVal && poVal !== 'ALL') {
+          filteredPO = filteredPO.filter(r => r.poNo === poVal);
+        }
+        poTable.setData(filteredPO);
+        Toast.show(`Applied filters (${filteredPO.length} PO record(s) matching)`, 'info');
+      });
+    }
+
+    // Render Charts
     if (typeof Chart === 'undefined') return;
-    const chartOptions = { plugins: { legend: { display: false } }, scales: { x: { ticks: { font: { family: 'Noto Sans', size: 11 } } }, y: { beginAtZero: true, ticks: { precision: 0, font: { family: 'Noto Sans', size: 11 } } } } };
-    Charts.renderBarChart('qc-antibiotic-chart', ['Pass', 'Fail', 'Pending'], [{ label: 'Samples', data: ['Pass', 'Fail', 'Pending'].map(status => ab.filter(row => row.status === status).length), backgroundColor: ['#00A4B7', '#881337', '#78350F'] }], chartOptions);
-    const defectFields = ['blackSpot', 'softShell', 'broken', 'dehydration'];
-    Charts.renderBarChart('qc-defects-chart', ['Black Spot', 'Soft Shell', 'Broken', 'Dehydration'], [{ label: 'Average Defects (%)', data: defectFields.map(field => this.state['rm-report'].length ? this.state['rm-report'].reduce((sum, row) => sum + Number(row[field] || 0), 0) / this.state['rm-report'].length : 0), backgroundColor: '#075985' }], chartOptions);
-    const dates = [...new Set(this.state['daily-qc-ops'].map(row => row.date))].sort();
-    Charts.renderBarChart('qc-throughput-chart', dates, [{ label: 'Inspections', data: dates.map(date => this.state['daily-qc-ops'].filter(row => row.date === date).length), backgroundColor: '#065F46' }], chartOptions);
+
+    // Chart 1: QC Code Status (Donut Chart)
+    Charts.renderDonutChart(
+      'qc-chart-code-status',
+      ['Completed', 'Pending'],
+      [969, 380],
+      ['#10B981', '#F59E0B'],
+      {
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: { boxWidth: 10, font: { size: 11, family: 'Inter' } }
+          }
+        }
+      }
+    );
+
+    // Chart 2: Lab Coverage (Donut Chart)
+    Charts.renderDonutChart(
+      'qc-chart-lab-coverage',
+      ['Internal', 'External', 'No Lab'],
+      [389, 189, 880],
+      ['#2563EB', '#8B5CF6', '#EF4444'],
+      {
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: { boxWidth: 10, font: { size: 11, family: 'Inter' } }
+          }
+        }
+      }
+    );
+
+    // Chart 3: Production Readiness (Vertical Bar Chart)
+    Charts.renderBarChart(
+      'qc-chart-prod-readiness',
+      ['0-49%', '50-79%', '80-99%', '100%+'],
+      [{
+        label: 'POs Count',
+        data: [1150, 220, 325, 280],
+        backgroundColor: '#1E7F75',
+        borderRadius: 4
+      }],
+      {
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { grid: { display: false }, ticks: { font: { size: 10 } } },
+          y: { beginAtZero: true, grid: { color: '#EBECF0' }, ticks: { font: { size: 10 } } }
+        }
+      }
+    );
+
+    // Chart 4: Buyer Pending Risk (Horizontal Bar Chart)
+    Charts.renderBarChart(
+      'qc-chart-buyer-risk',
+      ['DEVI INC', 'STANLEY', 'EAST WEST CO. LTD', 'MARK FOODS LLC', 'C.P. FOOD', 'VALENCIA', 'ZHANJIANG ZHANXIN A...', 'METRO', 'ZHEJIANG YIWU CHINA ...', 'NORDIC'],
+      [{
+        label: 'Pending POs',
+        data: [390, 212, 160, 150, 108, 60, 52, 48, 42, 40],
+        backgroundColor: '#EF4444',
+        borderRadius: 4
+      }],
+      {
+        indexAxis: 'y',
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { beginAtZero: true, grid: { color: '#EBECF0' }, ticks: { font: { size: 10 } } },
+          y: { grid: { display: false }, ticks: { font: { size: 9, weight: 'bold' }, color: '#172B4D' } }
+        }
+      }
+    );
+
+    // Chart 5: Destination Pending Risk (Horizontal Bar Chart)
+    Charts.renderBarChart(
+      'qc-chart-dest-risk',
+      ['U.S.A.', 'RUSSIA', 'CHINA', 'BELGIUM', 'CANADA', 'IRELAND', 'NEW ZEALAND', 'BAHAMAS', 'FRANCE', 'UNITED KINGDOM'],
+      [{
+        label: 'Pending POs',
+        data: [965, 235, 178, 142, 30, 15, 12, 10, 8, 6],
+        backgroundColor: '#F97316',
+        borderRadius: 4
+      }],
+      {
+        indexAxis: 'y',
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { beginAtZero: true, grid: { color: '#EBECF0' }, ticks: { font: { size: 10 } } },
+          y: { grid: { display: false }, ticks: { font: { size: 9, weight: 'bold' }, color: '#172B4D' } }
+        }
+      }
+    );
+
+    // Chart 6: QC Completed Count and Pending Count (Grouped Vertical Bar Chart)
+    Charts.renderBarChart(
+      'qc-chart-monthly-counts',
+      ['Apr 2026', 'May 2026', 'Jun 2026', 'Jul 2026', 'Aug 2026', 'Sep 2026', 'Oct 2026'],
+      [
+        {
+          label: 'QC Completed',
+          data: [156, 149, 172, 188, 144, 158, 88],
+          backgroundColor: '#10B981',
+          borderRadius: 3
+        },
+        {
+          label: 'QC Pending',
+          data: [12, 8, 9, 11, 9, 22, 15],
+          backgroundColor: '#F59E0B',
+          borderRadius: 3
+        }
+      ],
+      {
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: { boxWidth: 10, font: { size: 10, family: 'Inter' } }
+          }
+        },
+        scales: {
+          x: { grid: { display: false }, ticks: { font: { size: 9 } } },
+          y: { beginAtZero: true, grid: { color: '#EBECF0' }, ticks: { font: { size: 10 } } }
+        }
+      }
+    );
+
+    // Chart 7: Center Wise Quantity (Grouped Vertical Bar Chart)
+    Charts.renderBarChart(
+      'qc-chart-center-qty',
+      ['REPALLE FARMS', 'KAKINADA LOCAL', 'AMALAPURAM', 'ORISSA', 'SRIKAKULAM'],
+      [
+        {
+          label: 'Positive',
+          data: [4, 8, 12, 6, 2],
+          backgroundColor: '#EF4444',
+          borderRadius: 3
+        },
+        {
+          label: 'Negative',
+          data: [25, 740, 1120, 850, 240],
+          backgroundColor: '#10B981',
+          borderRadius: 3
+        }
+      ],
+      {
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: { boxWidth: 10, font: { size: 10, family: 'Inter' } }
+          }
+        },
+        scales: {
+          x: { grid: { display: false }, ticks: { font: { size: 9 } } },
+          y: { beginAtZero: true, grid: { color: '#EBECF0' }, ticks: { font: { size: 10 } } }
+        }
+      }
+    );
+
+    // Chart 8: Supplier Wise Quantity (Grouped Vertical Bar Chart)
+    Charts.renderBarChart(
+      'qc-chart-supplier-qty',
+      ['DEVI FISHERIES...', 'SRI YASHODA...', 'PERICHERLA...', 'RAMESH CHANDRA...', 'K.S.V.RAYAPA...'],
+      [
+        {
+          label: 'Positive',
+          data: [5, 1, 3, 2, 1],
+          backgroundColor: '#EF4444',
+          borderRadius: 3
+        },
+        {
+          label: 'Negative',
+          data: [48, 12, 108, 130, 8],
+          backgroundColor: '#10B981',
+          borderRadius: 3
+        }
+      ],
+      {
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: { boxWidth: 10, font: { size: 10, family: 'Inter' } }
+          }
+        },
+        scales: {
+          x: { grid: { display: false }, ticks: { font: { size: 9 } } },
+          y: { beginAtZero: true, grid: { color: '#EBECF0' }, ticks: { font: { size: 10 } } }
+        }
+      }
+    );
   }
 };
+

@@ -101,8 +101,7 @@ export const ADMIN_NAV_HIERARCHY = [
         title: "Dashboard",
         defaultTab: "overview",
         tabs: [
-          { id: "overview", label: "QC Overview", hash: "#/quality/dashboard/overview" },
-          { id: "daily-qc-ops", label: "Daily QC Operations", hash: "#/quality/dashboard/daily-qc-ops" }
+          { id: "overview", label: "Dashboard", hash: "#/quality/dashboard/overview" }
         ]
       },
       {
