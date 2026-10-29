@@ -1031,8 +1031,8 @@ export const ColdstoreView = {
             </div>
           </div>
 
-          <!-- Collapsible Filter Inputs Grid -->
-          <div id="dso-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 text-xs transition-all duration-200">
+          <!-- Collapsible Filter Inputs Grid (4 Columns) -->
+          <div id="dso-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
             <!-- 1. STOCK OUT DATE * -->
             <div>
               <label for="dso-filter-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STOCK OUT DATE <span class="text-red-500 font-black">*</span></label>
@@ -1079,19 +1079,18 @@ export const ColdstoreView = {
               </select>
             </div>
 
-            <!-- Search Action Button Slot -->
+            <!-- Search Action Button Slot (Width Fitted) -->
             <div class="flex items-end">
               <button 
                 type="button" 
                 id="dso-filter-search-btn" 
-                class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px] w-full"
+                class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]"
                 title="Search Filter Records"
               >
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                 <span>Search</span>
               </button>
             </div>
-          </div>
           </div>
         </div>
 
@@ -1469,19 +1468,18 @@ export const ColdstoreView = {
               </select>
             </div>
 
-            <!-- 8. Search Action Button Slot -->
+            <!-- 8. Search Action Button Slot (Width Fitted) -->
             <div class="flex items-end">
               <button 
                 type="button" 
                 id="fz-filter-search-btn" 
-                class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px] w-full"
+                class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]"
                 title="Search Filter Records"
               >
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                 <span>Search</span>
               </button>
             </div>
-          </div>
           </div>
         </div>
 
