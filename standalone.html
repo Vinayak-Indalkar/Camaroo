@@ -53454,189 +53454,15 @@ const InventoryView = {
       <div id="gs-indents-table-container"></div>
     `;
 
-    // 1. Render Staged Items in the Form
-    const renderStagedItems = () => {
-      const tbody = container.querySelector('#gs-staged-items-tbody');
-      const countBadge = container.querySelector('#gs-staged-items-count');
-      if (!tbody) return;
-
-      if (countBadge) countBadge.textContent = `${stagedItems.length} Item(s) Added`;
-
-      if (stagedItems.length === 0) {
-        tbody.innerHTML = `
-          <tr>
-            <td colspan="8" class="text-center py-4 text-xs text-[#94A3B8] italic">No items added to this indent yet. Fill item fields above and click "+ Add Item".</td>
-          </tr>
-        `;
-        return;
-      }
-
-      tbody.innerHTML = stagedItems.map((it, idx) => `
-        <tr class="hover:bg-[#F8FAFC] transition-colors">
-          <td class="py-2.5 px-3 font-semibold text-[#172B4D]">${it.item}</td>
-          <td class="py-2.5 px-3 font-mono text-[#5E6C84]">${it.uom}</td>
-          <td class="py-2.5 px-3 text-right font-mono font-bold text-[#00875A]">${it.availableQty}</td>
-          <td class="py-2.5 px-3 text-right font-mono font-bold text-[#172B4D]">${it.requestedQty}</td>
-          <td class="py-2.5 px-3 text-[#5E6C84]">${it.purpose || '-'}</td>
-          <td class="py-2.5 px-3">
-            ${it.attachment ? `<span class="inline-flex items-center gap-1 text-[11px] font-mono text-[#00A4B7] bg-[#E0F2FE] px-2 py-0.5 rounded border border-[#BAE6FD]"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/></svg>${it.attachment}</span>` : '<span class="text-[#94A3B8]">-</span>'}
-          </td>
-          <td class="py-2.5 px-3 text-[#5E6C84]">${it.remarks || '-'}</td>
-          <td class="py-2.5 px-3 text-center">
-            <button type="button" data-remove-idx="${idx}" class="gs-btn-remove-item w-6 h-6 rounded-full hover:bg-[#FFEBE6] text-[#DE350B] inline-flex items-center justify-center transition-colors cursor-pointer" title="Remove Item">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-            </button>
-          </td>
-        </tr>
-      `).join('');
-
-      // Bind remove buttons
-      tbody.querySelectorAll('.gs-btn-remove-item').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const rIdx = parseInt(btn.dataset.removeIdx, 10);
-          stagedItems.splice(rIdx, 1);
-          renderStagedItems();
-        });
-      });
-    };
-
-    renderStagedItems();
-
-    // 2. Add Item Handler
-    container.querySelector('#gs-btn-add-item')?.addEventListener('click', () => {
-      const itemNameInput = container.querySelector('#gs-item-name');
-      const uomInput = container.querySelector('#gs-item-uom');
-      const availInput = container.querySelector('#gs-item-avail-qty');
-      const reqInput = container.querySelector('#gs-item-req-qty');
-      const purposeInput = container.querySelector('#gs-item-purpose');
-      const attachInput = container.querySelector('#gs-item-attachment');
-      const remarksInput = container.querySelector('#gs-item-remarks');
-
-      const itemName = itemNameInput?.value?.trim();
-      const reqQty = parseInt(reqInput?.value, 10);
-
-      if (!itemName) {
-        Toast.show('Please enter Item description before adding.', 'warning');
-        itemNameInput?.focus();
-        return;
-      }
-      if (!reqQty || reqQty <= 0) {
-        Toast.show('Please enter a valid Requested Quantity (> 0).', 'warning');
-        reqInput?.focus();
-        return;
-      }
-
-      const fileAttached = attachInput?.files && attachInput.files.length > 0 ? attachInput.files[0].name : '';
-
-      stagedItems.push({
-        item: itemName,
-        uom: uomInput?.value || 'Nos',
-        availableQty: parseInt(availInput?.value, 10) || 0,
-        requestedQty: reqQty,
-        purpose: purposeInput?.value?.trim() || '',
-        attachment: fileAttached,
-        remarks: remarksInput?.value?.trim() || ''
-      });
-
-      // Clear item inputs
-      itemNameInput.value = '';
-      reqInput.value = '50';
-      if (purposeInput) purposeInput.value = '';
-      if (remarksInput) remarksInput.value = '';
-      if (attachInput) attachInput.value = '';
-
-      renderStagedItems();
-      Toast.show(`Item "${itemName}" added to indent.`, 'info');
-    });
-
-    // 3. Form Toggle Collapse/Expand (Shown on click "Indent Page" button)
+    // 1. Direct Click Handler for "Indent Page" Button -> Opens Add Indent Modal Popup
     const toggleBtn = container.querySelector('#gs-btn-toggle-form');
-    const formCard = container.querySelector('#gs-indent-form-card');
-    const closeFormBtn = container.querySelector('#gs-btn-close-form');
-    let isFormVisible = false;
-
-    const showForm = () => {
-      isFormVisible = true;
-      if (formCard) {
-        formCard.classList.remove('hidden');
-        formCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }
-      container.querySelector('#gs-form-docno')?.focus();
-    };
-
-    const hideForm = () => {
-      isFormVisible = false;
-      if (formCard) {
-        formCard.classList.add('hidden');
-      }
-    };
-
     toggleBtn?.addEventListener('click', () => {
-      if (isFormVisible) {
-        hideForm();
-      } else {
-        showForm();
-      }
-    });
-
-    closeFormBtn?.addEventListener('click', hideForm);
-
-    // 4. Reset Form Button
-    container.querySelector('#gs-btn-reset-form')?.addEventListener('click', () => {
-      const form = container.querySelector('#gs-add-indent-form');
-      if (form) form.reset();
-      stagedItems = [];
-      renderStagedItems();
-      Toast.show('Indent entry form cleared', 'info');
-    });
-
-    // 5. Submit & Save Indent Handler (with Modal.confirm!)
-    container.querySelector('#gs-add-indent-form')?.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const docNo = container.querySelector('#gs-form-docno')?.value?.trim();
-      const date = container.querySelector('#gs-form-date')?.value;
-      const department = container.querySelector('#gs-form-dept')?.value;
-      const narration = container.querySelector('#gs-form-narration')?.value?.trim();
-
-      if (!docNo) {
-        Toast.show('Please provide a valid DOC NO.', 'warning');
-        return;
-      }
-      if (stagedItems.length === 0) {
-        Toast.show('Please add at least one item to the indent details.', 'warning');
-        return;
-      }
-
-      Modal.confirm({
-        title: 'Confirm Save Indent',
-        message: `Are you sure you want to save General Store Indent <strong>${docNo}</strong> for <strong>${department}</strong> with <strong>${stagedItems.length} item(s)</strong>?`,
-        confirmText: 'Save Indent',
-        onConfirm: () => {
-          const newRecord = {
-            id: (this.state.indentPageRecords?.length || 0) + 1,
-            docNo,
-            date,
-            department,
-            narration,
-            items: [...stagedItems]
-          };
-
-          this.state.indentPageRecords.unshift(newRecord);
-          renderTable(this.state.indentPageRecords);
-
-          // Reset form with new sequence docNo
-          const nextSeq = this.state.indentPageRecords.length + 1;
-          container.querySelector('#gs-form-docno').value = `DOC-GS-2026-${String(nextSeq).padStart(4, '0')}`;
-          stagedItems = [];
-          renderStagedItems();
-
-          Toast.show(`General Store Indent ${docNo} created successfully!`, 'success');
-        }
+      this.showAddIndentModal(() => {
+        renderTable(this.state.indentPageRecords);
       });
     });
 
-    // 6. Data Table Rendering: S No, Doc No, Date, Actions (only Edit & Delete with Modal.confirm)
+    // 2. Data Table Rendering: S No, Doc No, Date, Actions (only Edit & Delete with Modal.confirm)
     let currentData = [...this.state.indentPageRecords];
 
     const renderTable = (data) => {
@@ -53647,22 +53473,27 @@ const InventoryView = {
         searchable: true,
         exportable: true,
         pageSize: 10,
+        onRowClick: (row) => {
+          this.showIndentDetailsModal(row);
+        },
         columns: [
-          // 1. S No
+          // 1. S No (Clickable to show whole details in popup)
           {
             field: 'sNo',
             header: 'S No',
             sortable: true,
-            render: (v, r, idx) => `<span class="text-[#5E6C84] font-semibold">${idx + 1}</span>`
+            render: (v, r, idx) => `
+              <span class="text-[#00A4B7] font-semibold hover:underline cursor-pointer select-none" title="Click to view full indent details">${idx + 1}</span>
+            `
           },
-          // 2. Doc No
+          // 2. Doc No (Clickable to show whole details in popup)
           {
             field: 'docNo',
             header: 'Doc No',
             sortable: true,
             render: (v, r) => `
-              <div class="flex flex-col">
-                <span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer whitespace-nowrap">${v}</span>
+              <div class="flex flex-col cursor-pointer" title="Click to view full indent details">
+                <span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline whitespace-nowrap">${v}</span>
                 <span class="text-[10px] text-[#5E6C84]">${r.department} (${r.items?.length || 0} items)</span>
               </div>
             `
@@ -53703,7 +53534,6 @@ const InventoryView = {
                   if (idx !== -1) {
                     this.state.indentPageRecords.splice(idx, 1);
                     renderTable(this.state.indentPageRecords);
-                    hideForm();
                     Toast.show(`Indent ${row.docNo} permanently deleted.`, 'success');
                   }
                 }
@@ -53764,65 +53594,77 @@ const InventoryView = {
 
     Modal.open({
       title: 'Add General Store Indent',
-      size: '2xl',
+      size: '3xl',
       content: `
-        <form id="modal-add-indent-form" class="space-y-4 text-xs text-[#172B4D]">
-          <!-- Form Header Input Fields: DOC NO, DATE, DEPARTMENT, NARRATION -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 bg-[#F8FAFC] border border-[#DFE1E6] p-3.5 rounded-xl">
-            <!-- 1. DOC NO -->
-            <div>
-              <label for="modal-indent-docno" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DOC NO <span class="text-red-500">*</span></label>
-              <input type="text" id="modal-indent-docno" value="${defaultDocNo}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+        <form id="modal-add-indent-form" class="space-y-4 text-xs text-[#172B4D]" onsubmit="return false;">
+          <!-- Section 1: Header Information -->
+          <div>
+            <div class="flex items-center justify-between pb-2 mb-3 border-b border-[#DFE1E6]">
+              <div class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Indent Header Information</h4>
+              </div>
+              <span class="text-[11px] font-semibold text-[#5E6C84]">All fields marked with <span class="text-[#DE350B] font-bold">*</span> are required</span>
             </div>
 
-            <!-- 2. DATE -->
-            <div>
-              <label for="modal-indent-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DATE <span class="text-red-500">*</span></label>
-              <input type="date" id="modal-indent-date" value="${todayStr}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
-            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3.5">
+              <!-- 1. DOC NO -->
+              <div>
+                <label for="modal-indent-docno" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DOC NO <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="modal-indent-docno" value="${defaultDocNo}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
 
-            <!-- 3. DEPARTMENT -->
-            <div>
-              <label for="modal-indent-dept" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DEPARTMENT <span class="text-red-500">*</span></label>
-              <select id="modal-indent-dept" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                <option value="Processing Unit-5" selected>Processing Unit-5</option>
-                <option value="Coldstore Hub">Coldstore Hub</option>
-                <option value="Quality Control Lab">Quality Control Lab</option>
-                <option value="Engineering & Maintenance">Engineering & Maintenance</option>
-                <option value="Pre-Processing Unit">Pre-Processing Unit</option>
-                <option value="Administration & Safety">Administration & Safety</option>
-              </select>
-            </div>
+              <!-- 2. DATE -->
+              <div>
+                <label for="modal-indent-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DATE <span class="text-[#DE350B]">*</span></label>
+                <div class="erp-date-wrapper">
+                  <input type="date" id="modal-indent-date" value="${todayStr}" required class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
+                </div>
+              </div>
 
-            <!-- 4. NARRATION -->
-            <div>
-              <label for="modal-indent-narration" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">NARRATION</label>
-              <input type="text" id="modal-indent-narration" placeholder="Enter indent purpose / narration..." value="Monthly store requisition for seafood processing shift consumables" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              <!-- 3. DEPARTMENT -->
+              <div>
+                <label for="modal-indent-dept" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DEPARTMENT <span class="text-[#DE350B]">*</span></label>
+                <select id="modal-indent-dept" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="Processing Unit-5" selected>Processing Unit-5</option>
+                  <option value="Coldstore Hub">Coldstore Hub</option>
+                  <option value="Quality Control Lab">Quality Control Lab</option>
+                  <option value="Engineering & Maintenance">Engineering & Maintenance</option>
+                  <option value="Pre-Processing Unit">Pre-Processing Unit</option>
+                  <option value="Administration & Safety">Administration & Safety</option>
+                </select>
+              </div>
+
+              <!-- 4. NARRATION -->
+              <div>
+                <label for="modal-indent-narration" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">NARRATION</label>
+                <input type="text" id="modal-indent-narration" placeholder="Enter indent purpose / narration..." value="Monthly store requisition for seafood processing shift consumables" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
             </div>
           </div>
 
-          <!-- Item Details Fields Section -->
-          <div class="mt-4 pt-4 border-t border-[#F1F5F9]">
-            <div class="flex items-center justify-between mb-3">
-              <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider flex items-center gap-1.5">
-                <svg class="w-3.5 h-3.5 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
-                Item Details
-              </h3>
-              <span id="modal-staged-count" class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-[#E0F2FE] text-[#0284C7]">${modalStagedItems.length} Item(s) Added</span>
+          <!-- Section 2: Item Details Section -->
+          <div class="pt-2 border-t border-[#DFE1E6]">
+            <div class="flex items-center justify-between pb-2 mb-3">
+              <div class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+                <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Item Details</h4>
+              </div>
+              <span id="modal-staged-count" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#E0F2FE] text-[#0284C7] border border-[#BAE6FD]">${modalStagedItems.length} Item(s) Added</span>
             </div>
 
-            <!-- Item Input Grid -->
-            <div class="bg-[#F8FAFC] border border-[#DFE1E6] rounded-xl p-3.5 space-y-3">
+            <!-- Item Input Grid Card -->
+            <div class="bg-[#F8FAFC] border border-[#DFE1E6] rounded-xl p-3.5 space-y-3 shadow-2xs">
               <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
                 <!-- 1. Item -->
                 <div class="md:col-span-2">
-                  <label for="modal-item-name" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ITEM <span class="text-red-500">*</span></label>
+                  <label for="modal-item-name" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ITEM <span class="text-[#DE350B]">*</span></label>
                   <input type="text" id="modal-item-name" placeholder="Item name, specification, make or code..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
                 </div>
 
                 <!-- 2. UoM -->
                 <div>
-                  <label for="modal-item-uom" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">UoM <span class="text-red-500">*</span></label>
+                  <label for="modal-item-uom" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">UoM <span class="text-[#DE350B]">*</span></label>
                   <select id="modal-item-uom" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
                     <option value="Box" selected>Box</option>
                     <option value="Nos">Nos</option>
@@ -53838,41 +53680,41 @@ const InventoryView = {
 
                 <!-- 3. Available Qty -->
                 <div>
-                  <label for="modal-item-avail" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">AVAILABLE QTY</label>
-                  <input type="number" id="modal-item-avail" value="10" min="0" step="1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                  <label for="modal-item-avail" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">AVAILABLE QTY</label>
+                  <input type="number" id="modal-item-avail" value="10" min="0" step="1" class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] shadow-2xs cursor-not-allowed" readonly />
                 </div>
               </div>
 
               <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
                 <!-- 4. Requested Qty -->
                 <div>
-                  <label for="modal-item-req" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">REQUESTED QTY <span class="text-red-500">*</span></label>
+                  <label for="modal-item-req" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">REQUESTED QTY <span class="text-[#DE350B]">*</span></label>
                   <input type="number" id="modal-item-req" value="50" min="1" step="1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
                 </div>
 
                 <!-- 5. Purpose -->
                 <div>
-                  <label for="modal-item-purpose" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PURPOSE</label>
+                  <label for="modal-item-purpose" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PURPOSE</label>
                   <input type="text" id="modal-item-purpose" placeholder="Operational purpose..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
                 </div>
 
                 <!-- 6. Attachment -->
                 <div>
-                  <label for="modal-item-attach" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ATTACHMENT</label>
+                  <label for="modal-item-attach" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ATTACHMENT</label>
                   <input type="file" id="modal-item-attach" class="w-full text-[11px] px-2 py-1 bg-white border border-[#DFE1E6] rounded text-[#5E6C84] focus:outline-none focus:border-[#00A4B7] file:mr-2 file:py-0.5 file:px-2 file:rounded file:border-0 file:text-[10px] file:font-semibold file:bg-[#E0F2FE] file:text-[#0284C7] cursor-pointer" />
                 </div>
 
                 <!-- 7. Remarks -->
                 <div>
-                  <label for="modal-item-remarks" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">REMARKS</label>
+                  <label for="modal-item-remarks" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">REMARKS</label>
                   <input type="text" id="modal-item-remarks" placeholder="Optional notes / remarks..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
                 </div>
               </div>
 
               <!-- 8. Action (Add Item Button) -->
               <div class="flex items-center justify-end pt-1">
-                <button type="button" id="modal-btn-add-item" class="btn-secondary border border-[#00A4B7] px-4 py-1.5 rounded-full text-xs font-bold text-[#00A4B7] hover:bg-[#E0F2FE] transition-colors cursor-pointer inline-flex items-center gap-1.5">
-                  <svg class="w-3.5 h-3.5 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                <button type="button" id="modal-btn-add-item" class="btn-primary px-4 py-1.5 rounded-full text-xs font-semibold inline-flex items-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
                   <span>Add Item</span>
                 </button>
               </div>
@@ -53883,14 +53725,14 @@ const InventoryView = {
               <table class="w-full text-left text-xs border-collapse">
                 <thead class="bg-[#F8FAFC] border-b border-[#DFE1E6] text-[#475569] font-bold text-[11px] uppercase tracking-wider">
                   <tr>
-                    <th class="py-2 px-3">Item</th>
-                    <th class="py-2 px-3">UoM</th>
-                    <th class="py-2 px-3 text-right">Available Qty</th>
-                    <th class="py-2 px-3 text-right">Requested Qty</th>
-                    <th class="py-2 px-3">Purpose</th>
-                    <th class="py-2 px-3">Attachment</th>
-                    <th class="py-2 px-3">Remarks</th>
-                    <th class="py-2 px-3 text-center">Action</th>
+                    <th class="py-2.5 px-3">Item</th>
+                    <th class="py-2.5 px-3">UoM</th>
+                    <th class="py-2.5 px-3 text-right">Available Qty</th>
+                    <th class="py-2.5 px-3 text-right">Requested Qty</th>
+                    <th class="py-2.5 px-3">Purpose</th>
+                    <th class="py-2.5 px-3">Attachment</th>
+                    <th class="py-2.5 px-3">Remarks</th>
+                    <th class="py-2.5 px-3 text-center">Action</th>
                   </tr>
                 </thead>
                 <tbody id="modal-staged-tbody" class="divide-y divide-[#DFE1E6] text-[#1E293B]">
@@ -53904,12 +53746,13 @@ const InventoryView = {
         {
           label: 'Cancel',
           type: 'secondary',
+          class: 'btn-secondary border border-[#CBD5E1] px-5 py-2 rounded-full text-xs font-semibold text-[#475569] hover:bg-[#F8FAFC] transition-all cursor-pointer',
           onClick: () => Modal.close()
         },
         {
           label: 'Save Indent',
           type: 'primary',
-          class: 'btn-primary border-0 px-6 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all',
+          class: 'btn-primary border-0 px-6 py-2 rounded-full text-xs font-semibold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all',
           onClick: () => {
             const modalRoot = document.getElementById('erp-modal-root');
             if (!modalRoot) return;
@@ -54434,72 +54277,7 @@ const InventoryView = {
 
   // Detail Modal on clicking row
   showIndentDetailModal(row) {
-    Modal.open({
-      title: `Indent Details: ${row.docNo}`,
-      size: 'lg',
-      content: `
-        <div class="space-y-4 text-xs text-[#172B4D]">
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-[#F8FAFC] border border-[#E2E8F0] p-3 rounded-xl">
-            <div>
-              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">DOC NO</span>
-              <span class="font-mono font-bold text-xs text-[#00A4B7]">${row.docNo}</span>
-            </div>
-            <div>
-              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">DATE</span>
-              <span class="font-mono font-semibold text-xs text-[#172B4D]">${row.date}</span>
-            </div>
-            <div>
-              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">DEPARTMENT</span>
-              <span class="font-semibold text-xs text-[#172B4D]">${row.department}</span>
-            </div>
-            <div>
-              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">STATUS</span>
-              <span class="font-bold text-xs ${row.status === 'Approved' ? 'text-[#00875A]' : (row.status === 'Rejected' ? 'text-[#DE350B]' : 'text-[#D97706]')}">${row.status || 'Pending'}</span>
-            </div>
-          </div>
-
-          ${row.narration ? `
-            <div class="p-2.5 bg-white border border-[#E2E8F0] rounded-lg">
-              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-0.5">NARRATION</span>
-              <p class="text-xs text-[#172B4D]">${row.narration}</p>
-            </div>
-          ` : ''}
-
-          <div>
-            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider mb-2">Item Details (${row.items?.length || 0})</h4>
-            <div class="overflow-x-auto border border-[#E2E8F0] rounded-lg">
-              <table class="w-full text-left text-xs border-collapse">
-                <thead class="bg-[#F8FAFC] border-b border-[#E2E8F0] text-[#475569] font-bold text-[11px] uppercase">
-                  <tr>
-                    <th class="py-2 px-3">Item Description</th>
-                    <th class="py-2 px-3">UoM</th>
-                    <th class="py-2 px-3 text-right">Available Qty</th>
-                    <th class="py-2 px-3 text-right">Requested Qty</th>
-                    <th class="py-2 px-3">Purpose</th>
-                    <th class="py-2 px-3">Remarks</th>
-                  </tr>
-                </thead>
-                <tbody class="divide-y divide-[#E2E8F0] text-[#1E293B]">
-                  ${(row.items || []).map(it => `
-                    <tr class="hover:bg-[#F8FAFC]">
-                      <td class="py-2 px-3 font-semibold text-[#172B4D]">${it.item}</td>
-                      <td class="py-2 px-3 font-mono text-[#5E6C84]">${it.uom}</td>
-                      <td class="py-2 px-3 text-right font-mono font-bold text-[#00875A]">${it.availableQty}</td>
-                      <td class="py-2 px-3 text-right font-mono font-bold text-[#172B4D]">${it.requestedQty}</td>
-                      <td class="py-2 px-3 text-[#5E6C84]">${it.purpose || '-'}</td>
-                      <td class="py-2 px-3 text-[#5E6C84]">${it.remarks || '-'}</td>
-                    </tr>
-                  `).join('')}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      `,
-      footerButtons: [
-        { label: 'Close', type: 'secondary', onClick: (modal) => modal.close() }
-      ]
-    });
+    this.showIndentDetailsModal(row);
   },
 
   renderGeneralStoreProformaOrder(container) {
@@ -54757,106 +54535,123 @@ const InventoryView = {
 
     Modal.open({
       title: 'Add General Store Proforma Order',
-      size: '2xl',
+      size: 'full',
       content: `
-        <form id="modal-add-po-form" class="space-y-4 text-xs text-[#172B4D]">
-          <!-- Header Form Input Fields -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 bg-[#F8FAFC] border border-[#DFE1E6] p-3.5 rounded-xl">
-            <!-- 1. DOC NO -->
-            <div>
-              <label for="modal-po-docno" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DOC NO <span class="text-red-500">*</span></label>
-              <input type="text" id="modal-po-docno" value="${defaultDocNo}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+        <form id="modal-add-po-form" class="space-y-4 text-xs text-[#172B4D]" onsubmit="return false;">
+          <!-- Section 1: Header Information -->
+          <div>
+            <div class="flex items-center justify-between pb-2 mb-3 border-b border-[#DFE1E6]">
+              <div class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Order Header Information</h4>
+              </div>
+              <span class="text-[11px] font-semibold text-[#5E6C84]">All fields marked with <span class="text-[#DE350B] font-bold">*</span> are required</span>
             </div>
 
-            <!-- 2. CODE -->
-            <div>
-              <label for="modal-po-code" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CODE <span class="text-red-500">*</span></label>
-              <input type="text" id="modal-po-code" value="${defaultCode}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
-            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5">
+              <!-- 1. DOC NO -->
+              <div>
+                <label for="modal-po-docno" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DOC NO <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="modal-po-docno" value="${defaultDocNo}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
 
-            <!-- 3. DATE -->
-            <div>
-              <label for="modal-po-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DATE <span class="text-red-500">*</span></label>
-              <input type="date" id="modal-po-date" value="${todayStr}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
-            </div>
+              <!-- 2. CODE -->
+              <div>
+                <label for="modal-po-code" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CODE <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="modal-po-code" value="${defaultCode}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
 
-            <!-- 4. SUPPLIER FIRM NAME -->
-            <div>
-              <label for="modal-po-supplier" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SUPPLIER FIRM NAME <span class="text-red-500">*</span></label>
-              <select id="modal-po-supplier" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                <option value="Devi Safety Aids & Industrial Supplies" selected>Devi Safety Aids &amp; Industrial Supplies</option>
-                <option value="Sri Venkateswara Packaging Ltd">Sri Venkateswara Packaging Ltd</option>
-                <option value="Apex Engineering & Spare Parts Ltd">Apex Engineering &amp; Spare Parts Ltd</option>
-                <option value="Bio-Chem Scientific Instruments India">Bio-Chem Scientific Instruments India</option>
-                <option value="Delta Seals & Tapes Corp">Delta Seals &amp; Tapes Corp</option>
-              </select>
-            </div>
+              <!-- 3. DATE -->
+              <div>
+                <label for="modal-po-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DATE <span class="text-[#DE350B]">*</span></label>
+                <div class="erp-date-wrapper">
+                  <input type="date" id="modal-po-date" value="${todayStr}" required class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
+                </div>
+              </div>
 
-            <!-- 5. PAYMENT & TERMS -->
-            <div>
-              <label for="modal-po-terms" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PAYMENT &amp; TERMS <span class="text-red-500">*</span></label>
-              <select id="modal-po-terms" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                <option value="30 Days from Inward" selected>30 Days from Inward</option>
-                <option value="Immediate against Inward">Immediate against Inward</option>
-                <option value="50% Advance / 50% Delivery">50% Advance / 50% Delivery</option>
-                <option value="Net 15 Days">Net 15 Days</option>
-              </select>
-            </div>
+              <!-- 4. SUPPLIER FIRM NAME -->
+              <div>
+                <label for="modal-po-supplier" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SUPPLIER FIRM NAME <span class="text-[#DE350B]">*</span></label>
+                <select id="modal-po-supplier" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="Devi Safety Aids & Industrial Supplies" selected>Devi Safety Aids &amp; Industrial Supplies</option>
+                  <option value="Sri Venkateswara Packaging Ltd">Sri Venkateswara Packaging Ltd</option>
+                  <option value="Apex Engineering & Spare Parts Ltd">Apex Engineering &amp; Spare Parts Ltd</option>
+                  <option value="Bio-Chem Scientific Instruments India">Bio-Chem Scientific Instruments India</option>
+                  <option value="Delta Seals & Tapes Corp">Delta Seals &amp; Tapes Corp</option>
+                </select>
+              </div>
 
-            <!-- 6. FREIGHT TYPE -->
-            <div>
-              <label for="modal-po-freight" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FREIGHT TYPE <span class="text-red-500">*</span></label>
-              <select id="modal-po-freight" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                <option value="Paid by Supplier" selected>Paid by Supplier</option>
-                <option value="To Pay (Consignee)">To Pay (Consignee)</option>
-                <option value="FOB Ex-Factory">FOB Ex-Factory</option>
-                <option value="CIF Visakhapatnam">CIF Visakhapatnam</option>
-              </select>
-            </div>
+              <!-- 5. PAYMENT & TERMS -->
+              <div>
+                <label for="modal-po-terms" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PAYMENT &amp; TERMS <span class="text-[#DE350B]">*</span></label>
+                <select id="modal-po-terms" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="30 Days from Inward" selected>30 Days from Inward</option>
+                  <option value="Immediate against Inward">Immediate against Inward</option>
+                  <option value="50% Advance / 50% Delivery">50% Advance / 50% Delivery</option>
+                  <option value="Net 15 Days">Net 15 Days</option>
+                </select>
+              </div>
 
-            <!-- 7. SUB DELIVERY DATE -->
-            <div>
-              <label for="modal-po-del-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SUB DELIVERY DATE <span class="text-red-500">*</span></label>
-              <input type="date" id="modal-po-del-date" value="2026-11-04" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
-            </div>
+              <!-- 6. FREIGHT TYPE -->
+              <div>
+                <label for="modal-po-freight" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FREIGHT TYPE <span class="text-[#DE350B]">*</span></label>
+                <select id="modal-po-freight" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="Paid by Supplier" selected>Paid by Supplier</option>
+                  <option value="To Pay (Consignee)">To Pay (Consignee)</option>
+                  <option value="FOB Ex-Factory">FOB Ex-Factory</option>
+                  <option value="CIF Visakhapatnam">CIF Visakhapatnam</option>
+                </select>
+              </div>
 
-            <!-- 8. NARRATION -->
-            <div>
-              <label for="modal-po-narration" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">NARRATION</label>
-              <input type="text" id="modal-po-narration" placeholder="Proforma order purpose / notes..." value="General Store approved indent procurement order" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
-            </div>
+              <!-- 7. SUB DELIVERY DATE -->
+              <div>
+                <label for="modal-po-del-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SUB DELIVERY DATE <span class="text-[#DE350B]">*</span></label>
+                <div class="erp-date-wrapper">
+                  <input type="date" id="modal-po-del-date" value="2026-11-04" required class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
+                </div>
+              </div>
 
-            <!-- 9. STATUS -->
-            <div>
-              <label for="modal-po-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">STATUS <span class="text-red-500">*</span></label>
-              <select id="modal-po-status" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                <option value="Approved" selected>Approved</option>
-                <option value="Issued to Vendor">Issued to Vendor</option>
-                <option value="Pending Delivery">Pending Delivery</option>
-                <option value="Draft">Draft</option>
-              </select>
+              <!-- 8. STATUS -->
+              <div>
+                <label for="modal-po-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">STATUS <span class="text-[#DE350B]">*</span></label>
+                <select id="modal-po-status" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="Approved" selected>Approved</option>
+                  <option value="Issued to Vendor">Issued to Vendor</option>
+                  <option value="Pending Delivery">Pending Delivery</option>
+                  <option value="Draft">Draft</option>
+                </select>
+              </div>
+
+              <!-- 9. NARRATION (Full width) -->
+              <div class="sm:col-span-2 md:col-span-3 lg:col-span-4">
+                <label for="modal-po-narration" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">NARRATION</label>
+                <input type="text" id="modal-po-narration" placeholder="Proforma order purpose / notes..." value="General Store approved indent procurement order" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
             </div>
           </div>
 
-          <!-- Work Flow Item Details Section -->
-          <div class="mt-4 pt-4 border-t border-[#F1F5F9]">
-            <div class="flex items-center justify-between mb-3">
-              <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider flex items-center gap-1.5">
-                <svg class="w-3.5 h-3.5 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
-                Work Flow (From Indent) - Item Details
-              </h3>
-              <span id="modal-po-items-count" class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-[#E0F2FE] text-[#0284C7]">${modalStagedPoItems.length} Item(s) in Order</span>
+          <!-- Section 2: Work Flow Item Details -->
+          <div class="pt-2 border-t border-[#DFE1E6]">
+            <div class="flex items-center justify-between pb-2 mb-3">
+              <div class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+                <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Work Flow (From Indent) - Item Details</h4>
+              </div>
+              <span id="modal-po-items-count" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#E0F2FE] text-[#0284C7] border border-[#BAE6FD]">
+                ${modalStagedPoItems.length} Item(s) in Order
+              </span>
             </div>
 
-            <div class="bg-[#F8FAFC] border border-[#DFE1E6] rounded-xl p-3.5 space-y-3">
-              <!-- Row 1: Item, Unit, Available Qty, Unit Price, Quantity, Supplier Rate -->
-              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 gap-2.5">
+            <!-- Item Input Grid Card -->
+            <div class="bg-[#F8FAFC] border border-[#DFE1E6] rounded-xl p-3.5 space-y-3 shadow-2xs">
+              <!-- Row 1: Item Requisition Details -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 gap-3">
                 <div class="md:col-span-2">
-                  <label for="mpoi-item" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ITEM <span class="text-red-500">*</span></label>
+                  <label for="mpoi-item" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ITEM <span class="text-[#DE350B]">*</span></label>
                   <input type="text" id="mpoi-item" placeholder="Item name or code..." value="Nitrile Food-Grade Gloves (Blue, L)" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
                 </div>
                 <div>
-                  <label for="mpoi-unit" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">UNIT</label>
+                  <label for="mpoi-unit" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">UNIT</label>
                   <select id="mpoi-unit" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
                     <option value="Box" selected>Box</option>
                     <option value="Nos">Nos</option>
@@ -54869,77 +54664,79 @@ const InventoryView = {
                   </select>
                 </div>
                 <div>
-                  <label for="mpoi-avail-qty" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">AVAIL QTY</label>
-                  <input type="number" id="mpoi-avail-qty" value="15" min="0" class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] shadow-2xs" readonly />
+                  <label for="mpoi-avail-qty" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">AVAIL QTY</label>
+                  <input type="number" id="mpoi-avail-qty" value="15" min="0" class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] shadow-2xs cursor-not-allowed" readonly />
                 </div>
                 <div>
-                  <label for="mpoi-unit-price" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">UNIT PRICE (₹)</label>
+                  <label for="mpoi-unit-price" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">UNIT PRICE (₹)</label>
                   <input type="number" id="mpoi-unit-price" value="280.00" min="0.01" step="0.01" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
                 </div>
                 <div>
-                  <label for="mpoi-qty" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">QUANTITY <span class="text-red-500">*</span></label>
+                  <label for="mpoi-qty" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">QUANTITY <span class="text-[#DE350B]">*</span></label>
                   <input type="number" id="mpoi-qty" value="100" min="1" step="1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
                 </div>
               </div>
 
-              <!-- Row 2: Supplier Rate, Total Value, Discount%, Discount, GST%, Dispatched Date -->
-              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 gap-2.5">
+              <!-- Row 2: Pricing, Discount, GST & Dispatch -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 gap-3">
                 <div>
-                  <label for="mpoi-supplier-rate" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SUPPLIER RATE (₹)</label>
+                  <label for="mpoi-supplier-rate" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SUPPLIER RATE (₹)</label>
                   <input type="number" id="mpoi-supplier-rate" value="280.00" min="0.01" step="0.01" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
                 </div>
                 <div>
-                  <label for="mpoi-total-value" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">TOTAL VALUE (₹)</label>
-                  <input type="number" id="mpoi-total-value" value="28000.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] shadow-2xs" />
+                  <label for="mpoi-total-value" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">TOTAL VALUE (₹)</label>
+                  <input type="number" id="mpoi-total-value" value="28000.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] shadow-2xs cursor-not-allowed" />
                 </div>
                 <div>
-                  <label for="mpoi-disc-pct" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DISCOUNT%</label>
+                  <label for="mpoi-disc-pct" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DISCOUNT%</label>
                   <input type="number" id="mpoi-disc-pct" value="5" min="0" max="100" step="0.5" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
                 </div>
                 <div>
-                  <label for="mpoi-disc-amt" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DISCOUNT (₹)</label>
-                  <input type="number" id="mpoi-disc-amt" value="1400.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-semibold text-[#D97706] shadow-2xs" />
+                  <label for="mpoi-disc-amt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DISCOUNT (₹)</label>
+                  <input type="number" id="mpoi-disc-amt" value="1400.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-semibold text-[#D97706] shadow-2xs cursor-not-allowed" />
                 </div>
                 <div>
-                  <label for="mpoi-gst-pct" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">GST%</label>
+                  <label for="mpoi-gst-pct" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">GST%</label>
                   <select id="mpoi-gst-pct" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                    <option value="18" selected>18%</option>
-                    <option value="12">12%</option>
-                    <option value="5">5%</option>
-                    <option value="0">0%</option>
+                    <option value="18" selected>18% GST</option>
+                    <option value="12">12% GST</option>
+                    <option value="5">5% GST</option>
+                    <option value="0">0% GST</option>
                   </select>
                 </div>
                 <div>
-                  <label for="mpoi-dispatch-date" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DISPATCHED DATE</label>
-                  <input type="date" id="mpoi-dispatch-date" value="${todayStr}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                  <label for="mpoi-dispatch-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DISPATCHED DATE</label>
+                  <div class="erp-date-wrapper">
+                    <input type="date" id="mpoi-dispatch-date" value="${todayStr}" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
+                  </div>
                 </div>
               </div>
 
-              <!-- Row 3: Tax Breakups (SGST Amt, CGST Amt, IGST Amt, Tax Amount, Invoice Amt) & Action Button -->
-              <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2.5 items-end">
+              <!-- Row 3: Tax Breakups (SGST, CGST, IGST, Tax Amount, Invoice Amt) & Action Button -->
+              <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 items-end pt-1">
                 <div>
-                  <label for="mpoi-sgst" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SGST AMT (₹)</label>
-                  <input type="number" id="mpoi-sgst" value="2394.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono text-xs text-[#5E6C84] shadow-2xs" />
+                  <label for="mpoi-sgst" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SGST AMT (₹)</label>
+                  <input type="number" id="mpoi-sgst" value="2394.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono text-xs text-[#5E6C84] shadow-2xs cursor-not-allowed" />
                 </div>
                 <div>
-                  <label for="mpoi-cgst" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CGST AMT (₹)</label>
-                  <input type="number" id="mpoi-cgst" value="2394.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono text-xs text-[#5E6C84] shadow-2xs" />
+                  <label for="mpoi-cgst" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CGST AMT (₹)</label>
+                  <input type="number" id="mpoi-cgst" value="2394.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono text-xs text-[#5E6C84] shadow-2xs cursor-not-allowed" />
                 </div>
                 <div>
-                  <label for="mpoi-igst" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">IGST AMT (₹)</label>
-                  <input type="number" id="mpoi-igst" value="0.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono text-xs text-[#5E6C84] shadow-2xs" />
+                  <label for="mpoi-igst" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">IGST AMT (₹)</label>
+                  <input type="number" id="mpoi-igst" value="0.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono text-xs text-[#5E6C84] shadow-2xs cursor-not-allowed" />
                 </div>
                 <div>
-                  <label for="mpoi-tax-amt" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">TAX AMOUNT (₹)</label>
-                  <input type="number" id="mpoi-tax-amt" value="4788.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#0284C7] shadow-2xs" />
+                  <label for="mpoi-tax-amt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">TAX AMOUNT (₹)</label>
+                  <input type="number" id="mpoi-tax-amt" value="4788.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#0284C7] shadow-2xs cursor-not-allowed" />
                 </div>
                 <div>
-                  <label for="mpoi-inv-amt" class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">INVOICE AMT (₹)</label>
-                  <input type="number" id="mpoi-inv-amt" value="31388.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F0FDF4] border border-[#BBF7D0] rounded-lg font-mono font-bold text-[#00875A] shadow-2xs" />
+                  <label for="mpoi-inv-amt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">INVOICE AMT (₹)</label>
+                  <input type="number" id="mpoi-inv-amt" value="31388.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F0FDF4] border border-[#BBF7D0] rounded-lg font-mono font-bold text-[#00875A] shadow-2xs cursor-not-allowed" />
                 </div>
                 <div>
-                  <button type="button" id="modal-po-btn-add-item" class="w-full btn-secondary border border-[#00A4B7] px-4 py-1.5 rounded-full text-xs font-bold text-[#00A4B7] hover:bg-[#E0F2FE] transition-colors cursor-pointer inline-flex items-center justify-center gap-1.5 h-[32px]">
-                    <svg class="w-3.5 h-3.5 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                  <button type="button" id="modal-po-btn-add-item" class="w-full btn-primary border-0 px-4 py-1.5 rounded-full text-xs font-bold inline-flex items-center justify-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all h-[32px]">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
                     <span>Add Item</span>
                   </button>
                 </div>
@@ -54947,21 +54744,21 @@ const InventoryView = {
             </div>
 
             <!-- Staged Order Items Table -->
-            <div class="mt-3 overflow-x-auto border border-[#DFE1E6] rounded-lg">
+            <div class="mt-3 overflow-x-auto border border-[#DFE1E6] rounded-xl bg-white shadow-2xs">
               <table class="w-full text-left text-xs border-collapse">
                 <thead class="bg-[#F8FAFC] border-b border-[#DFE1E6] text-[#475569] font-bold text-[11px] uppercase tracking-wider">
                   <tr>
-                    <th class="py-2 px-3">Item</th>
-                    <th class="py-2 px-3">Unit</th>
-                    <th class="py-2 px-3 text-right">Qty</th>
-                    <th class="py-2 px-3 text-right">Unit Price</th>
-                    <th class="py-2 px-3 text-right">Total Val</th>
-                    <th class="py-2 px-3 text-right">Disc%</th>
-                    <th class="py-2 px-3 text-right">GST%</th>
-                    <th class="py-2 px-3 text-right">Tax Amt</th>
-                    <th class="py-2 px-3 text-right">Invoice Amt</th>
-                    <th class="py-2 px-3">Dispatch Date</th>
-                    <th class="py-2 px-3 text-center">Action</th>
+                    <th class="py-2.5 px-3">Item</th>
+                    <th class="py-2.5 px-3">Unit</th>
+                    <th class="py-2.5 px-3 text-right">Qty</th>
+                    <th class="py-2.5 px-3 text-right">Unit Price</th>
+                    <th class="py-2.5 px-3 text-right">Total Val</th>
+                    <th class="py-2.5 px-3 text-right">Disc%</th>
+                    <th class="py-2.5 px-3 text-right">GST%</th>
+                    <th class="py-2.5 px-3 text-right">Tax Amt</th>
+                    <th class="py-2.5 px-3 text-right">Invoice Amt</th>
+                    <th class="py-2.5 px-3">Dispatch Date</th>
+                    <th class="py-2.5 px-3 text-center">Action</th>
                   </tr>
                 </thead>
                 <tbody id="modal-po-staged-tbody" class="divide-y divide-[#DFE1E6] text-[#1E293B]">
@@ -54975,6 +54772,7 @@ const InventoryView = {
         {
           label: 'Cancel',
           type: 'secondary',
+          class: 'btn-secondary px-5 py-2 rounded-full text-xs font-semibold border border-[#CBD5E1] text-[#475569] hover:bg-[#F8FAFC] cursor-pointer transition-colors',
           onClick: () => Modal.close()
         },
         {
@@ -55103,17 +54901,17 @@ const InventoryView = {
 
       tbody.innerHTML = modalStagedPoItems.map((it, idx) => `
         <tr class="hover:bg-[#F8FAFC] transition-colors">
-          <td class="py-2 px-3 font-semibold text-[#172B4D]">${it.item}</td>
-          <td class="py-2 px-3 font-mono text-[#5E6C84]">${it.unit}</td>
-          <td class="py-2 px-3 text-right font-mono font-bold text-[#172B4D]">${it.quantity}</td>
-          <td class="py-2 px-3 text-right font-mono text-[#5E6C84]">₹${Number(it.unitPrice).toFixed(2)}</td>
-          <td class="py-2 px-3 text-right font-mono font-semibold text-[#172B4D]">₹${Number(it.totalValue).toFixed(2)}</td>
-          <td class="py-2 px-3 text-right font-mono text-[#D97706]">${it.discountPercent}%</td>
-          <td class="py-2 px-3 text-right font-mono text-[#00A4B7]">${it.gstPercent}%</td>
-          <td class="py-2 px-3 text-right font-mono text-[#0284C7]">₹${Number(it.taxAmount).toFixed(2)}</td>
-          <td class="py-2 px-3 text-right font-mono font-bold text-[#00875A]">₹${Number(it.invoiceAmt).toFixed(2)}</td>
-          <td class="py-2 px-3 font-mono text-xs text-[#5E6C84]">${it.dispatchedDate || '-'}</td>
-          <td class="py-2 px-3 text-center">
+          <td class="py-2.5 px-3 font-semibold text-[#172B4D]">${it.item}</td>
+          <td class="py-2.5 px-3 font-mono text-[#5E6C84]">${it.unit}</td>
+          <td class="py-2.5 px-3 text-right font-mono font-bold text-[#172B4D]">${it.quantity}</td>
+          <td class="py-2.5 px-3 text-right font-mono text-[#5E6C84]">₹${Number(it.unitPrice).toFixed(2)}</td>
+          <td class="py-2.5 px-3 text-right font-mono font-semibold text-[#172B4D]">₹${Number(it.totalValue).toFixed(2)}</td>
+          <td class="py-2.5 px-3 text-right font-mono text-[#D97706]">${it.discountPercent}%</td>
+          <td class="py-2.5 px-3 text-right font-mono text-[#00A4B7]">${it.gstPercent}%</td>
+          <td class="py-2.5 px-3 text-right font-mono text-[#0284C7]">₹${Number(it.taxAmount).toFixed(2)}</td>
+          <td class="py-2.5 px-3 text-right font-mono font-bold text-[#00875A]">₹${Number(it.invoiceAmt).toFixed(2)}</td>
+          <td class="py-2.5 px-3 font-mono text-xs text-[#5E6C84]">${it.dispatchedDate || '-'}</td>
+          <td class="py-2.5 px-3 text-center">
             <button type="button" data-remove-idx="${idx}" class="modal-po-remove-btn w-6 h-6 rounded-full hover:bg-[#FFEBE6] text-[#DE350B] inline-flex items-center justify-center transition-colors cursor-pointer" title="Remove Item">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
             </button>
@@ -55295,30 +55093,40 @@ const InventoryView = {
       title: `Edit Proforma Order: ${row.docNo}`,
       size: 'lg',
       content: `
-        <form id="form-edit-po" class="space-y-4 text-xs text-[#172B4D]">
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <form id="form-edit-po" class="space-y-4 text-xs text-[#172B4D]" onsubmit="return false;">
+          <div class="flex items-center justify-between pb-2 mb-3 border-b border-[#DFE1E6]">
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Order Header Information</h4>
+            </div>
+            <span class="text-[11px] font-semibold text-[#5E6C84]">All fields marked with <span class="text-[#DE350B] font-bold">*</span> are required</span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
             <div>
               <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DOC NO</label>
               <input type="text" name="docNo" value="${row.docNo}" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] cursor-not-allowed">
             </div>
             <div>
-              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CODE</label>
-              <input type="text" name="code" value="${row.code}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg font-mono font-semibold focus:outline-none focus:border-[#00A4B7]">
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CODE <span class="text-[#DE350B]">*</span></label>
+              <input type="text" name="code" value="${row.code}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
             </div>
             <div>
-              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DATE <span class="text-red-500">*</span></label>
-              <input type="date" name="date" value="${row.date}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg font-semibold focus:outline-none focus:border-[#00A4B7]">
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DATE <span class="text-[#DE350B]">*</span></label>
+              <div class="erp-date-wrapper">
+                <input type="date" name="date" value="${row.date}" required class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()">
+              </div>
             </div>
           </div>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
             <div>
-              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SUPPLIER FIRM NAME <span class="text-red-500">*</span></label>
-              <input type="text" name="supplier" value="${row.supplier}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg font-semibold focus:outline-none focus:border-[#00A4B7]">
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SUPPLIER FIRM NAME <span class="text-[#DE350B]">*</span></label>
+              <input type="text" name="supplier" value="${row.supplier}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
             </div>
             <div>
               <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">STATUS</label>
-              <select name="status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg font-semibold focus:outline-none focus:border-[#00A4B7]">
+              <select name="status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
                 <option value="Approved" ${row.status === 'Approved' ? 'selected' : ''}>Approved</option>
                 <option value="Issued to Vendor" ${row.status === 'Issued to Vendor' ? 'selected' : ''}>Issued to Vendor</option>
                 <option value="Pending Delivery" ${row.status === 'Pending Delivery' ? 'selected' : ''}>Pending Delivery</option>
@@ -55329,15 +55137,21 @@ const InventoryView = {
 
           <div>
             <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">NARRATION</label>
-            <textarea name="narration" rows="2" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg focus:outline-none focus:border-[#00A4B7]">${row.narration || ''}</textarea>
+            <textarea name="narration" rows="2" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">${row.narration || ''}</textarea>
           </div>
         </form>
       `,
       footerButtons: [
-        { label: 'Cancel', type: 'secondary', onClick: (modal) => modal.close() },
+        {
+          label: 'Cancel',
+          type: 'secondary',
+          class: 'btn-secondary border border-[#CBD5E1] px-5 py-2 rounded-full text-xs font-semibold text-[#475569] hover:bg-[#F8FAFC] transition-all cursor-pointer',
+          onClick: (modal) => modal.close()
+        },
         {
           label: 'Update Order',
           type: 'primary',
+          class: 'btn-primary border-0 px-6 py-2 rounded-full text-xs font-semibold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all',
           onClick: (modal) => {
             const form = document.getElementById('form-edit-po');
             if (!form || !form.checkValidity()) {
