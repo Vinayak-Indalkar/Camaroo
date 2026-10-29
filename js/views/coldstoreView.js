@@ -8399,10 +8399,6 @@ export const ColdstoreView = {
               </button>
             </div>
           </div>
-
-          <div class="mt-2 text-[11px] text-[#6B778C]">
-            <span class="text-[#DE350B] font-bold">*</span> (Note: The asterisk * indicates a required field)
-          </div>
         </div>
 
         <!-- Data Table Container -->
@@ -8968,22 +8964,19 @@ export const ColdstoreView = {
                 <option value="Under Inspection">Under Inspection</option>
               </select>
             </div>
-          </div>
 
-          <!-- Filter Action Footer with Note and Search Button -->
-          <div class="flex flex-wrap items-center justify-between gap-3 pt-3 mt-3 border-t border-[#EBECF0]">
-            <p class="text-[11px] text-[#6B778C]">
-              *(Note: None of the fields are marked with an asterisk , so all appear to be optional)
-            </p>
-            <button 
-              type="button" 
-              id="ia-filter-search-btn" 
-              class="dt-top-filter-search-btn btn-primary px-6 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]"
-              title="Search Inward Approvals"
-            >
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-              <span>Search</span>
-            </button>
+            <!-- 13. Search Action Slot -->
+            <div class="flex items-end">
+              <button 
+                type="button" 
+                id="ia-filter-search-btn" 
+                class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px] w-full sm:w-auto"
+                title="Search Filter Records"
+              >
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                <span>Search</span>
+              </button>
+            </div>
           </div>
         </div>
 
