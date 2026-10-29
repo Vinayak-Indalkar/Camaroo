@@ -1101,10 +1101,10 @@ export const ColdstoreView = {
         onRowClick: (row) => this.showDailyProductionDetailModal(row),
         actions: [
           {
-            label: 'Print Barcode Label',
-            icon: `<svg class="w-4 h-4 text-[#00875A]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>`,
+            label: 'Add Intake',
+            icon: `<svg class="w-4 h-4 text-[#00875A]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>`,
             onClick: (row) => {
-              Toast.show(`Printing Barcode Tag for ${row.trackCode}...`, 'success');
+              this.showAddDailyProductionIntakeModal(row, () => renderTable(this.state.dailyProductionList || this.state.productionIntakeList || []));
             }
           }
         ],
@@ -3083,6 +3083,159 @@ export const ColdstoreView = {
           </div>
         </div>
       `
+    });
+  },
+
+  // 7b. ADD DAILY PRODUCTION INTAKE MODAL
+  showAddDailyProductionIntakeModal(row, onSuccess) {
+    const defaultMcs = row.balanceMcs > 0 ? row.balanceMcs : row.mcs;
+    const defaultKgs = row.balanceKgs > 0 ? row.balanceKgs : row.kgs;
+
+    Modal.open({
+      title: `Add Coldstore Intake: ${row.trackCode || row.poNumber}`,
+      size: 'xl',
+      content: `
+        <form id="form-add-daily-intake" class="space-y-4 text-xs text-[#172B4D]">
+          <!-- Top Info Banner -->
+          <div class="p-3 bg-[#F4F5F7] border border-[#DFE1E6] rounded-lg flex items-center justify-between">
+            <div>
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">PRODUCTION BATCH</span>
+              <div class="text-base font-extrabold text-[#0284C7] font-mono">${row.trackCode}</div>
+              <div class="text-[11px] text-[#6B778C]">${row.product} • Grade: <span class="font-bold text-[#172B4D]">${row.grade}</span></div>
+            </div>
+            <div class="text-right">
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">AVAILABLE BALANCE</span>
+              <div class="text-sm font-black text-[#00875A] font-mono">${row.balanceMcs} MCs / ${Number(row.balanceKgs).toFixed(1)} Kgs</div>
+            </div>
+          </div>
+
+          <!-- Production Reference Grid -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-white p-3 border border-[#DFE1E6] rounded-lg">
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PO NUMBER</span>
+              <span class="font-mono font-bold text-xs text-[#172B4D]">${row.poNumber || '-'}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">GROUP</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#EAE6FF] text-[#403294]">${row.group || 'Group A'}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PACKING TYPE</span>
+              <span class="text-xs text-[#5E6C84]">${row.packingType}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PACKING STYLE</span>
+              <span class="font-medium text-xs text-[#172B4D]">${row.packingStyle}</span>
+            </div>
+          </div>
+
+          <!-- Coldstore Storage Inputs -->
+          <div class="bg-[#F8FAFC] p-3 rounded-lg border border-[#DFE1E6]">
+            <h4 class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-2.5">Coldstore Inward Allocation</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">INTAKE DATE <span class="text-red-500 font-black">*</span></label>
+                <input type="date" name="intakeDate" value="2026-10-29" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">STORAGE CHAMBER <span class="text-red-500 font-black">*</span></label>
+                <select name="chamber" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
+                  <option value="Chamber #1 (IQF)" selected>Chamber #1 (IQF)</option>
+                  <option value="Chamber #2 (Block)">Chamber #2 (Block)</option>
+                  <option value="Vault #3 Staging">Vault #3 Staging</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">RACK SLOT <span class="text-red-500 font-black">*</span></label>
+                <input type="text" name="rack" value="RACK-A1-T1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-semibold" required>
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">SHIFT</label>
+                <select name="shift" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold">
+                  <option value="Shift A (Day)" selected>Shift A (Day)</option>
+                  <option value="Shift B (Evening)">Shift B (Evening)</option>
+                  <option value="Shift C (Night)">Shift C (Night)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-3">
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">INTAKE MCS <span class="text-red-500 font-black">*</span></label>
+                <input type="number" name="intakeMcs" value="${defaultMcs}" min="1" max="${row.balanceMcs || row.mcs}" step="1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-bold" required>
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">NET WEIGHT (KG) <span class="text-red-500 font-black">*</span></label>
+                <input type="number" name="intakeKgs" value="${defaultKgs}" min="0.1" step="0.1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-bold" required>
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">SUPERVISOR</label>
+                <input type="text" name="supervisor" value="K. Rama Rao" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold">
+              </div>
+            </div>
+          </div>
+        </form>
+      `,
+      buttons: [
+        { label: 'Cancel', class: 'btn-secondary', onClick: () => Modal.close() },
+        {
+          label: 'Save Intake',
+          class: 'btn-primary',
+          onClick: () => {
+            const form = document.getElementById('form-add-daily-intake');
+            if (!form || !form.checkValidity()) {
+              if (form) form.reportValidity();
+              return;
+            }
+            const fd = new FormData(form);
+            const intakeMcs = Number(fd.get('intakeMcs') || 0);
+            const intakeKgs = Number(fd.get('intakeKgs') || 0);
+
+            // Update row balances
+            row.balanceMcs = Math.max(0, (row.balanceMcs || row.mcs) - intakeMcs);
+            row.balanceKgs = Math.max(0, (row.balanceKgs || row.kgs) - intakeKgs);
+            row.balanceBags = Math.max(0, (row.balanceBags || row.bags) - (intakeMcs * 10));
+            if (row.balanceMcs === 0) {
+              row.status = 'Stored in Coldstore';
+            }
+
+            // Also add record to Stock In
+            const nextInwId = (this.state.stockInList?.length || 0) + 1;
+            const newStockIn = {
+              id: nextInwId,
+              sNo: 1,
+              inwardCode: `INW-CS-2026-${450 + nextInwId}`,
+              inwardDate: fd.get('intakeDate'),
+              palletId: `PAL-2026-${String(450 + nextInwId).padStart(4, '0')}`,
+              lotNo: row.trackCode,
+              productionPlant: row.plant || 'DFL UNIT-5 (JPT)',
+              stockBelongsTo: row.stockBelongsTo || 'Devi Fisheries Ltd (DFL)',
+              product: row.product,
+              grade: row.grade,
+              packingType: row.packingType,
+              packingStyle: row.packingStyle,
+              chamber: fd.get('chamber'),
+              rack: fd.get('rack'),
+              cartons: intakeMcs,
+              mcs: intakeMcs,
+              bags: intakeMcs * 10,
+              netWeightKg: intakeKgs,
+              temp: -22.0,
+              shift: fd.get('shift'),
+              supervisor: fd.get('supervisor'),
+              status: 'Stored'
+            };
+            if (this.state.stockInList) {
+              this.state.stockInList.unshift(newStockIn);
+              this.state.stockInList.forEach((it, idx) => { it.sNo = idx + 1; });
+            }
+
+            Modal.close();
+            Toast.show(`Coldstore intake of ${intakeMcs} MCs recorded for ${row.trackCode}.`, 'success');
+            if (typeof onSuccess === 'function') onSuccess();
+          }
+        }
+      ]
     });
   },
 
