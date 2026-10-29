@@ -239,9 +239,10 @@ export const ADMIN_NAV_HIERARCHY = [
       {
         id: "stock-approvals",
         title: "Stock Approvals",
-        defaultTab: "stock-approvals-list",
+        defaultTab: "admin-daily-production-list",
         tabs: [
-          { id: "stock-approvals-list", label: "Stock Approvals", hash: "#/coldstore/stock-approvals/stock-approvals-list" }
+          { id: "admin-daily-production-list", label: "Daily Production List", hash: "#/coldstore/stock-approvals/admin-daily-production-list" },
+          { id: "admin-inward-approval", label: "Inward Approval", hash: "#/coldstore/stock-approvals/admin-inward-approval" }
         ]
       },
       {

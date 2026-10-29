@@ -7142,9 +7142,10 @@ const ADMIN_NAV_HIERARCHY = [
       {
         id: "stock-approvals",
         title: "Stock Approvals",
-        defaultTab: "stock-approvals-list",
+        defaultTab: "admin-daily-production-list",
         tabs: [
-          { id: "stock-approvals-list", label: "Stock Approvals", hash: "#/coldstore/stock-approvals/stock-approvals-list" }
+          { id: "admin-daily-production-list", label: "Daily Production List", hash: "#/coldstore/stock-approvals/admin-daily-production-list" },
+          { id: "admin-inward-approval", label: "Inward Approval", hash: "#/coldstore/stock-approvals/admin-inward-approval" }
         ]
       },
       {
@@ -42433,7 +42434,11 @@ const ColdstoreView = {
         }
         break;
       case 'stock-approvals':
-        this.renderStockApprovals(contentEl);
+        if (tabId === 'admin-inward-approval' || tabId.includes('inward')) {
+          this.renderAdminInwardApproval(contentEl);
+        } else {
+          this.renderAdminDailyProductionList(contentEl);
+        }
         break;
       case 'ibt':
         this.renderIbt(contentEl);
@@ -48816,40 +48821,53 @@ const ColdstoreView = {
     this.renderViewStock(container);
   },
 
-  // 5. STOCK APPROVALS
-  renderStockApprovals(container) {
+  // 5a. STOCK APPROVALS - DAILY PRODUCTION LIST (admin-daily-production-list)
+  renderAdminDailyProductionList(container) {
     container.innerHTML = `
-      <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
-        <div>
-          <h1 class="text-xl font-extrabold text-[#172B4D]">Stock Inward Intake Approvals</h1>
-          <p class="text-xs text-[#6B778C] mt-0.5">Authorization and sign-off for finished production intake lots entering coldstore</p>
+      <div class="space-y-4 animate-fade-in">
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+          <div>
+            <h1 class="text-xl font-extrabold text-[#172B4D]">Daily Production List</h1>
+          </div>
+        </div>
+        <div class="bg-white border border-[#DFE1E6] rounded-xl p-8 shadow-xs text-center">
+          <div class="max-w-md mx-auto py-8">
+            <div class="w-12 h-12 rounded-full bg-[#E0F2FE] text-[#0284C7] flex items-center justify-center mx-auto mb-3">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+            </div>
+            <h3 class="text-base font-bold text-[#172B4D]">Daily Production List</h3>
+            <p class="text-xs text-[#6B778C] mt-1">Tab configured. Ready for search filters and data table specification.</p>
+          </div>
         </div>
       </div>
-      <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
-        <div id="cs-approvals-table"></div>
+    `;
+  },
+
+  // 5b. STOCK APPROVALS - INWARD APPROVAL (admin-inward-approval)
+  renderAdminInwardApproval(container) {
+    container.innerHTML = `
+      <div class="space-y-4 animate-fade-in">
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+          <div>
+            <h1 class="text-xl font-extrabold text-[#172B4D]">Inward Approval</h1>
+          </div>
+        </div>
+        <div class="bg-white border border-[#DFE1E6] rounded-xl p-8 shadow-xs text-center">
+          <div class="max-w-md mx-auto py-8">
+            <div class="w-12 h-12 rounded-full bg-[#E3FCEF] text-[#006644] flex items-center justify-center mx-auto mb-3">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <h3 class="text-base font-bold text-[#172B4D]">Inward Approval</h3>
+            <p class="text-xs text-[#6B778C] mt-1">Tab configured. Ready for search filters and data table specification.</p>
+          </div>
+        </div>
       </div>
     `;
+  },
 
-    new DataTable({
-      containerId: 'cs-approvals-table',
-      tableTitle: 'Pending Approvals',
-      searchable: true,
-      exportable: true,
-      pageSize: 10,
-      columns: [
-        { key: 'id', label: 'S.No', render: (v, r, idx) => idx + 1 },
-        { key: 'approvalId', label: 'Approval Code', sortable: true, render: v => `<span class="font-mono font-bold text-[#0284C7]">${v}</span>` },
-        { key: 'intakeDate', label: 'Date' },
-        { key: 'plant', label: 'Source Plant' },
-        { key: 'lotNo', label: 'Lot No', render: v => `<span class="font-mono font-bold">${v}</span>` },
-        { key: 'product', label: 'Product Category' },
-        { key: 'cartons', label: 'Cartons', render: v => `<span class="font-mono font-bold text-[#00875A]">${v}</span>` },
-        { key: 'netWeightKg', label: 'Net Wt (Kg)', render: v => `<span class="font-mono font-bold">${v.toFixed(1)}</span>` },
-        { key: 'supervisor', label: 'Supervisor' },
-        { key: 'status', label: 'Status', render: v => `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold ${v === 'Approved' ? 'bg-[#E3FCEF] text-[#006644]' : 'bg-[#FFF0B3] text-[#172B4D]'}">${v}</span>` }
-      ],
-      data: this.state.stockApprovals
-    });
+  // 5c. STOCK APPROVALS - BACKWARD COMPATIBILITY
+  renderStockApprovals(container) {
+    this.renderAdminDailyProductionList(container);
   },
 
   // 6. IBT
