@@ -1441,6 +1441,202 @@ export const ColdstoreView = {
       }
     ],
 
+    // 2f. Floor Stock Inventory (View Stock Tab)
+    floorStockList: [
+      {
+        sNo: 1,
+        coldStores: 'Chamber #1 (IQF)',
+        stockBelongsTo: 'Devi Fisheries Ltd (DFL)',
+        poNo: 'PO-2026-4401',
+        blocks: 'Block A',
+        species: 'Litopenaeus Vannamei',
+        typeProduct: 'Raw Frozen',
+        freezingType: 'IQF Tunnel',
+        brand: 'Devi Royal',
+        variety: 'Vannamei (White Shrimp)',
+        grade: '31/40',
+        group: 'Group A',
+        packingStyle: '10x1kg Net',
+        packingType: 'Master Cartons',
+        productCategory: 'Raw Frozen',
+        stockType: 'Floor Stock',
+        location: 'CH-1 / BAY-A01',
+        mcs: 240,
+        looseBags: 12,
+        totalWeight: 2400.0,
+        palletTag: 'PAL-2026-0451',
+        status: 'Available on Floor'
+      },
+      {
+        sNo: 2,
+        coldStores: 'Chamber #2 (Block)',
+        stockBelongsTo: 'DFL Unit-4 (PND)',
+        poNo: 'PO-2026-4402',
+        blocks: 'Block B',
+        species: 'Penaeus Monodon',
+        typeProduct: 'Raw Frozen',
+        freezingType: 'Contact Plate Freezer',
+        brand: 'Bay Harvest',
+        variety: 'Black Tiger (Monodon)',
+        grade: '16/20',
+        group: 'Group B',
+        packingStyle: '6x2kg Block',
+        packingType: 'Export Corrugated',
+        productCategory: 'Raw Frozen',
+        stockType: 'Floor Stock',
+        location: 'CH-2 / BAY-B04',
+        mcs: 180,
+        looseBags: 8,
+        totalWeight: 2160.0,
+        palletTag: 'PAL-2026-0452',
+        status: 'Available on Floor'
+      },
+      {
+        sNo: 3,
+        coldStores: 'Vault #3 Staging',
+        stockBelongsTo: 'DFL Unit-3 (PSP)',
+        poNo: 'PO-2026-4403',
+        blocks: 'Block C',
+        species: 'Litopenaeus Vannamei',
+        typeProduct: 'Cooked Frozen',
+        freezingType: 'IQF Tunnel',
+        brand: 'Ocean Jewel',
+        variety: 'Vannamei (White Shrimp)',
+        grade: '26/30',
+        group: 'Group C',
+        packingStyle: '10x1kg Net',
+        packingType: 'Master Cartons',
+        productCategory: 'Cooked Frozen',
+        stockType: 'Allocated Stock',
+        location: 'VAULT-3 / STG-02',
+        mcs: 310,
+        looseBags: 0,
+        totalWeight: 3100.0,
+        palletTag: 'PAL-2026-0453',
+        status: 'Staged for Outward'
+      },
+      {
+        sNo: 4,
+        coldStores: 'Chamber #1 (IQF)',
+        stockBelongsTo: 'DFL Unit-1 (VSP)',
+        poNo: 'PO-2026-4404',
+        blocks: 'Block A',
+        species: 'Litopenaeus Vannamei',
+        typeProduct: 'Value-Added',
+        freezingType: 'Semi-IQF Spiral',
+        brand: 'Sea Pearl',
+        variety: 'Sea Pearl Cooked PDTO',
+        grade: '21/25',
+        group: 'Group A',
+        packingStyle: '5x2kg Net',
+        packingType: 'Inner Polybag',
+        productCategory: 'Value-Added',
+        stockType: 'Floor Stock',
+        location: 'CH-1 / BAY-A09',
+        mcs: 150,
+        looseBags: 5,
+        totalWeight: 1500.0,
+        palletTag: 'PAL-2026-0454',
+        status: 'Available on Floor'
+      },
+      {
+        sNo: 5,
+        coldStores: 'Chamber #3 (Blast)',
+        stockBelongsTo: 'DFL Unit-5 (JPT)',
+        poNo: 'PO-2026-4405',
+        blocks: 'Block D',
+        species: 'Macrobrachium rosenbergii',
+        typeProduct: 'Blanched Frozen',
+        freezingType: 'Blast Freezer',
+        brand: 'Arctic Catch',
+        variety: 'Scampi (Macrobrachium)',
+        grade: '16/20',
+        group: 'Group D',
+        packingStyle: '6x2kg Block',
+        packingType: 'Export Corrugated',
+        productCategory: 'Blanched Frozen',
+        stockType: 'Quarantine Stock',
+        location: 'CH-3 / QRT-01',
+        mcs: 120,
+        looseBags: 0,
+        totalWeight: 1440.0,
+        palletTag: 'PAL-2026-0455',
+        status: 'Under Lab Hold'
+      },
+      {
+        sNo: 6,
+        coldStores: 'Chamber #1 (IQF)',
+        stockBelongsTo: 'Devi Fisheries Ltd (DFL)',
+        poNo: 'PO-2026-4406',
+        blocks: 'Block A',
+        species: 'Litopenaeus Vannamei',
+        typeProduct: 'Raw Frozen',
+        freezingType: 'IQF Tunnel',
+        brand: 'Devi Royal',
+        variety: 'Vannamei (White Shrimp)',
+        grade: '41/50',
+        group: 'Group A',
+        packingStyle: '10x1kg Net',
+        packingType: 'Master Cartons',
+        productCategory: 'Raw Frozen',
+        stockType: 'Racked Stock',
+        location: 'CH-1 / RACK-03',
+        mcs: 450,
+        looseBags: 15,
+        totalWeight: 4500.0,
+        palletTag: 'PAL-2026-0456',
+        status: 'Racked in Vault'
+      },
+      {
+        sNo: 7,
+        coldStores: 'Chamber #2 (Block)',
+        stockBelongsTo: 'Third-Party Co-Packing',
+        poNo: 'PO-2026-4407',
+        blocks: 'Block B',
+        species: 'Litopenaeus Vannamei',
+        typeProduct: 'Raw Frozen',
+        freezingType: 'IQF Tunnel',
+        brand: 'Bay Harvest',
+        variety: 'Vannamei (White Shrimp)',
+        grade: 'U-15',
+        group: 'Group B',
+        packingStyle: '10x2lb',
+        packingType: 'Outer Shipper',
+        productCategory: 'Raw Frozen',
+        stockType: 'Floor Stock',
+        location: 'CH-2 / BAY-B11',
+        mcs: 200,
+        looseBags: 4,
+        totalWeight: 1814.4,
+        palletTag: 'PAL-2026-0457',
+        status: 'Available on Floor'
+      },
+      {
+        sNo: 8,
+        coldStores: 'Vault #3 Staging',
+        stockBelongsTo: 'Devi Fisheries Ltd (DFL)',
+        poNo: 'PO-2026-4408',
+        blocks: 'Block C',
+        species: 'Litopenaeus Vannamei',
+        typeProduct: 'Cooked Frozen',
+        freezingType: 'IQF Tunnel',
+        brand: 'Ocean Jewel',
+        variety: 'Vannamei (White Shrimp)',
+        grade: '31/40',
+        group: 'Group C',
+        packingStyle: '10x1kg Net',
+        packingType: 'Master Cartons',
+        productCategory: 'Cooked Frozen',
+        stockType: 'Floor Stock',
+        location: 'VAULT-3 / FLR-05',
+        mcs: 380,
+        looseBags: 20,
+        totalWeight: 3800.0,
+        palletTag: 'PAL-2026-0458',
+        status: 'Available on Floor'
+      }
+    ],
+
     // 3. Orders & Outward Allocations
     orders: [
       { id: 1, orderNo: 'ORD-US-2026-891', buyer: 'Pacific Seafood Group Inc.', country: 'USA', product: 'Vannamei PD IQF 31/40', orderedMt: 24.0, allocatedMt: 24.0, chamber: 'Vault #3 Staging', shipDate: '2026-11-04', status: 'Ready for Stuffing' },
@@ -5938,26 +6134,567 @@ export const ColdstoreView = {
     this.renderRunningOrders(container);
   },
 
-  // 4a. STORE - VIEW STOCK (store-on-floor-stock)
+  // 4a. STORE - VIEW STOCK (EXACT 15 USER-SPECIFIED FORM FIELDS IN FILTER BAR)
   renderViewStock(container) {
+    const fullList = this.state.floorStockList || [];
+    let table = null;
+
     container.innerHTML = `
       <div class="space-y-4 animate-fade-in">
+        <!-- Clean Page Header -->
         <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
           <div>
             <h1 class="text-xl font-extrabold text-[#172B4D]">View Stock</h1>
           </div>
         </div>
-        <div class="bg-white border border-[#DFE1E6] rounded-xl p-8 shadow-xs text-center">
-          <div class="max-w-md mx-auto py-8">
-            <div class="w-12 h-12 rounded-full bg-[#E0F2FE] text-[#0284C7] flex items-center justify-center mx-auto mb-3">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+
+        <!-- Collapsible Top Filter Header Card (15 User-Specified Search & Filter Fields) -->
+        <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200" style="margin-bottom: 12px !important;">
+          <div class="flex items-center justify-between pb-1">
+            <div class="flex items-center gap-2">
+              <svg style="width: 16px; height: 16px; min-width: 16px; min-height: 16px; stroke: #0284C7; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+              <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
             </div>
-            <h3 class="text-base font-bold text-[#172B4D]">View Stock (Floor Stock)</h3>
-            <p class="text-xs text-[#6B778C] mt-1">Tab configured. Ready for form fields and table specifications.</p>
+
+            <!-- Filter Controls: Reset & Toggle Open/Close -->
+            <div class="inline-flex items-center" style="gap: 8px; display: inline-flex;">
+              <button 
+                type="button" 
+                id="vs-filter-reset-btn" 
+                class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#0284C7] text-[#334155] hover:text-[#0284C7] rounded-full transition-colors cursor-pointer select-none" 
+                style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 9999px; border: 1px solid #CBD5E1; background: #ffffff; color: #334155; display: inline-flex; align-items: center; justify-content: center; padding: 0;"
+                title="Reset All Filters" 
+                aria-label="Reset All Filters"
+              >
+                <svg style="width: 15px; height: 15px; min-width: 15px; min-height: 15px; stroke: #334155; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+              </button>
+
+              <button 
+                type="button" 
+                id="vs-filter-toggle-btn" 
+                class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#0284C7] text-[#334155] hover:text-[#0284C7] rounded-full transition-colors cursor-pointer select-none" 
+                style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 9999px; border: 1px solid #CBD5E1; background: #ffffff; color: #334155; display: inline-flex; align-items: center; justify-content: center; padding: 0;"
+                title="Hide Filter" 
+                aria-label="Hide Filter"
+              >
+                <svg id="vs-filter-toggle-icon" style="width: 15px; height: 15px; min-width: 15px; min-height: 15px; stroke: #334155; fill: none; display: inline-block;" class="dt-top-filter-toggle-icon transform transition-transform duration-200" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Collapsible Filter Inputs Grid (Matching 15 User-Specified Fields) -->
+          <div id="vs-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
+            <!-- 1. COLD STORES -->
+            <div>
+              <label for="vs-filter-coldstore" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">COLD STORES</label>
+              <select id="vs-filter-coldstore" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="ALL">Select Cold Store</option>
+                <option value="Chamber #1 (IQF)">Chamber #1 (IQF)</option>
+                <option value="Chamber #2 (Block)">Chamber #2 (Block)</option>
+                <option value="Vault #3 Staging">Vault #3 Staging</option>
+                <option value="Chamber #3 (Blast)">Chamber #3 (Blast)</option>
+              </select>
+            </div>
+
+            <!-- 2. STOCK BELONGS TO -->
+            <div>
+              <label for="vs-filter-belongsto" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STOCK BELONGS TO</label>
+              <select id="vs-filter-belongsto" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="ALL">Select Ownership</option>
+                <option value="Devi Fisheries Ltd (DFL)">Devi Fisheries Ltd (DFL)</option>
+                <option value="DFL Unit-5 (JPT)">DFL Unit-5 (JPT)</option>
+                <option value="DFL Unit-4 (PND)">DFL Unit-4 (PND)</option>
+                <option value="DFL Unit-3 (PSP)">DFL Unit-3 (PSP)</option>
+                <option value="DFL Unit-1 (VSP)">DFL Unit-1 (VSP)</option>
+                <option value="Third-Party Co-Packing">Third-Party Co-Packing</option>
+              </select>
+            </div>
+
+            <!-- 3. PO NO -->
+            <div>
+              <label for="vs-filter-pono" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PO NO</label>
+              <input type="text" id="vs-filter-pono" placeholder="Filter by PO No..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-semibold text-[#172B4D]">
+            </div>
+
+            <!-- 4. BLOCKS -->
+            <div>
+              <label for="vs-filter-blocks" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">BLOCKS</label>
+              <select id="vs-filter-blocks" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="ALL">Select Block</option>
+                <option value="Block A">Block A</option>
+                <option value="Block B">Block B</option>
+                <option value="Block C">Block C</option>
+                <option value="Block D">Block D</option>
+              </select>
+            </div>
+
+            <!-- 5. SPECIES -->
+            <div>
+              <label for="vs-filter-species" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SPECIES</label>
+              <select id="vs-filter-species" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="ALL">Select Species</option>
+                <option value="Litopenaeus Vannamei">Litopenaeus Vannamei</option>
+                <option value="Penaeus Monodon">Penaeus Monodon</option>
+                <option value="Macrobrachium rosenbergii">Macrobrachium rosenbergii</option>
+              </select>
+            </div>
+
+            <!-- 6. TYPE PRODUCT -->
+            <div>
+              <label for="vs-filter-typeproduct" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TYPE PRODUCT</label>
+              <select id="vs-filter-typeproduct" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="ALL">Select Type</option>
+                <option value="Raw Frozen">Raw Frozen</option>
+                <option value="Cooked Frozen">Cooked Frozen</option>
+                <option value="Blanched Frozen">Blanched Frozen</option>
+                <option value="Value-Added">Value-Added</option>
+              </select>
+            </div>
+
+            <!-- 7. FREEZING TYPE -->
+            <div>
+              <label for="vs-filter-freezingtype" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">FREEZING TYPE</label>
+              <select id="vs-filter-freezingtype" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="ALL">Select Freezing Type</option>
+                <option value="IQF Tunnel">IQF Tunnel</option>
+                <option value="Contact Plate Freezer">Contact Plate Freezer</option>
+                <option value="Blast Freezer">Blast Freezer</option>
+                <option value="Semi-IQF Spiral">Semi-IQF Spiral</option>
+              </select>
+            </div>
+
+            <!-- 8. BRAND -->
+            <div>
+              <label for="vs-filter-brand" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">BRAND</label>
+              <select id="vs-filter-brand" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="ALL">Select Brand</option>
+                <option value="Devi Royal">Devi Royal</option>
+                <option value="Bay Harvest">Bay Harvest</option>
+                <option value="Ocean Jewel">Ocean Jewel</option>
+                <option value="Sea Pearl">Sea Pearl</option>
+                <option value="Arctic Catch">Arctic Catch</option>
+              </select>
+            </div>
+
+            <!-- 9. VARIETY -->
+            <div>
+              <label for="vs-filter-variety" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">VARIETY</label>
+              <select id="vs-filter-variety" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="ALL">Select Variety</option>
+                <option value="Vannamei (White Shrimp)">Vannamei (White Shrimp)</option>
+                <option value="Black Tiger (Monodon)">Black Tiger (Monodon)</option>
+                <option value="Scampi (Macrobrachium)">Scampi (Macrobrachium)</option>
+                <option value="Sea Pearl Cooked PDTO">Sea Pearl Cooked PDTO</option>
+              </select>
+            </div>
+
+            <!-- 10. GRADE -->
+            <div>
+              <label for="vs-filter-grade" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">GRADE</label>
+              <select id="vs-filter-grade" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="ALL">Select Grade</option>
+                <option value="16/20">16/20</option>
+                <option value="21/25">21/25</option>
+                <option value="26/30">26/30</option>
+                <option value="31/40">31/40</option>
+                <option value="41/50">41/50</option>
+                <option value="U-15">U-15</option>
+              </select>
+            </div>
+
+            <!-- 11. GROUP -->
+            <div>
+              <label for="vs-filter-group" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">GROUP</label>
+              <select id="vs-filter-group" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="ALL">Select Group</option>
+                <option value="Group A">Group A</option>
+                <option value="Group B">Group B</option>
+                <option value="Group C">Group C</option>
+                <option value="Group D">Group D</option>
+              </select>
+            </div>
+
+            <!-- 12. PACKING STYLE -->
+            <div>
+              <label for="vs-filter-packingstyle" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PACKING STYLE</label>
+              <select id="vs-filter-packingstyle" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="ALL">Select Packing Style</option>
+                <option value="10x1kg Net">10x1kg Net</option>
+                <option value="6x2kg Block">6x2kg Block</option>
+                <option value="5x2kg Net">5x2kg Net</option>
+                <option value="10x2lb">10x2lb</option>
+              </select>
+            </div>
+
+            <!-- 13. PACKING TYPE -->
+            <div>
+              <label for="vs-filter-packingtype" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PACKING TYPE</label>
+              <select id="vs-filter-packingtype" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="ALL">Select Packing Type</option>
+                <option value="Master Cartons">Master Cartons</option>
+                <option value="Export Corrugated">Export Corrugated</option>
+                <option value="Inner Polybag">Inner Polybag</option>
+                <option value="Outer Shipper">Outer Shipper</option>
+              </select>
+            </div>
+
+            <!-- 14. PRODUCT CATEGORY -->
+            <div>
+              <label for="vs-filter-category" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCT CATEGORY</label>
+              <select id="vs-filter-category" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="ALL">Select Category</option>
+                <option value="Raw Frozen">Raw Frozen</option>
+                <option value="Cooked Frozen">Cooked Frozen</option>
+                <option value="Blanched Frozen">Blanched Frozen</option>
+                <option value="Value-Added">Value-Added</option>
+              </select>
+            </div>
+
+            <!-- 15. STOCK TYPE -->
+            <div>
+              <label for="vs-filter-stocktype" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STOCK TYPE</label>
+              <select id="vs-filter-stocktype" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="ALL">Select Stock Type</option>
+                <option value="Floor Stock">Floor Stock</option>
+                <option value="Racked Stock">Racked Stock</option>
+                <option value="Allocated Stock">Allocated Stock</option>
+                <option value="Quarantine Stock">Quarantine Stock</option>
+              </select>
+            </div>
+
+            <!-- 16. Action Slot: Search Button -->
+            <div class="flex items-end">
+              <button 
+                type="button" 
+                id="vs-filter-search-btn" 
+                class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]"
+                title="Search Filter Records"
+              >
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                <span>Search</span>
+              </button>
+            </div>
           </div>
         </div>
+
+        <!-- View Stock Data Table Container -->
+        <div id="cs-view-stock-table-container"></div>
       </div>
     `;
+
+    // Render Table Function
+    const renderTable = (data) => {
+      table = new DataTable({
+        containerId: 'cs-view-stock-table-container',
+        tableTitle: 'Store Floor Stock Inventory',
+        searchable: true,
+        exportable: true,
+        pageSize: 10,
+        actions: [],
+        onRowClick: (row) => this.showFloorStockDetailModal(row),
+        columns: [
+          {
+            field: 'sNo',
+            header: 'S.No',
+            sortable: true,
+            render: (v, r, idx) => `<span class="text-[#5E6C84] font-semibold">${v || (idx + 1)}</span>`
+          },
+          {
+            field: 'location',
+            header: 'Location',
+            sortable: true,
+            render: (v, r) => `<div><span class="font-bold text-xs text-[#0284C7] font-mono">${v}</span><div class="text-[10px] text-[#5E6C84]">${r.coldStores || ''}</div></div>`
+          },
+          {
+            field: 'poNo',
+            header: 'PO.No',
+            sortable: true,
+            render: v => `<span class="font-mono font-bold text-xs text-[#172B4D] hover:underline cursor-pointer">${v || '-'}</span>`
+          },
+          {
+            field: 'stockBelongsTo',
+            header: 'Stock Belongs To',
+            sortable: true,
+            render: v => `<span class="font-medium text-xs text-[#172B4D]">${v}</span>`
+          },
+          {
+            field: 'brand',
+            header: 'Brand',
+            sortable: true,
+            render: v => `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#EAE6FF] text-[#403294] whitespace-nowrap">${v || '-'}</span>`
+          },
+          {
+            field: 'variety',
+            header: 'Variety',
+            sortable: true,
+            render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>`
+          },
+          {
+            field: 'grade',
+            header: 'Grade',
+            sortable: true,
+            render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-bold bg-[#F4F5F7] text-[#172B4D]">${v}</span>`
+          },
+          {
+            field: 'stockType',
+            header: 'Stock Type',
+            sortable: true,
+            render: v => {
+              let color = 'bg-[#E3FCEF] text-[#006644]';
+              if (v === 'Allocated Stock') color = 'bg-[#DEEBFF] text-[#0747A6]';
+              else if (v === 'Quarantine Stock') color = 'bg-[#FFEBE6] text-[#BF2600]';
+              else if (v === 'Racked Stock') color = 'bg-[#E0F2FE] text-[#0284C7]';
+              return `<span class="px-2 py-0.5 rounded text-[10px] font-bold whitespace-nowrap ${color}">${v}</span>`;
+            }
+          },
+          {
+            field: 'mcs',
+            header: 'MCs',
+            sortable: true,
+            render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">${Number(v).toLocaleString()}</span>`
+          },
+          {
+            field: 'looseBags',
+            header: 'Loose Bags',
+            sortable: true,
+            render: v => `<span class="font-mono text-xs text-[#172B4D]">${v || 0}</span>`
+          },
+          {
+            field: 'totalWeight',
+            header: 'Total Wt (Kg)',
+            sortable: true,
+            render: v => `<span class="font-mono font-bold text-xs text-[#172B4D]">${Number(v).toLocaleString(undefined, { minimumFractionDigits: 1 })}</span>`
+          },
+          {
+            field: 'status',
+            header: 'Status',
+            sortable: true,
+            render: v => `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold whitespace-nowrap bg-[#F4F5F7] text-[#172B4D] border border-[#DFE1E6]">${v}</span>`
+          }
+        ],
+        data: data
+      });
+    };
+
+    // Initial table render
+    renderTable(fullList);
+
+    // Bind Collapsible Filter Toggle
+    const toggleBtn = container.querySelector('#vs-filter-toggle-btn');
+    const filterBody = container.querySelector('#vs-filter-body');
+    const toggleIcon = container.querySelector('#vs-filter-toggle-icon');
+
+    if (toggleBtn && filterBody && toggleIcon) {
+      let isFilterOpen = true;
+      toggleBtn.addEventListener('click', () => {
+        isFilterOpen = !isFilterOpen;
+        if (isFilterOpen) {
+          filterBody.style.display = 'grid';
+          toggleIcon.classList.remove('rotate-180');
+          toggleBtn.title = 'Hide Filter';
+        } else {
+          filterBody.style.display = 'none';
+          toggleIcon.classList.add('rotate-180');
+          toggleBtn.title = 'Show Filter';
+        }
+      });
+    }
+
+    // Execute Filter Function (Matches 15 user-specified fields)
+    const executeFilter = () => {
+      const coldStoreVal = container.querySelector('#vs-filter-coldstore')?.value || 'ALL';
+      const belongsVal = container.querySelector('#vs-filter-belongsto')?.value || 'ALL';
+      const poVal = (container.querySelector('#vs-filter-pono')?.value || '').trim().toLowerCase();
+      const blocksVal = container.querySelector('#vs-filter-blocks')?.value || 'ALL';
+      const speciesVal = container.querySelector('#vs-filter-species')?.value || 'ALL';
+      const typeProductVal = container.querySelector('#vs-filter-typeproduct')?.value || 'ALL';
+      const freezingVal = container.querySelector('#vs-filter-freezingtype')?.value || 'ALL';
+      const brandVal = container.querySelector('#vs-filter-brand')?.value || 'ALL';
+      const varietyVal = container.querySelector('#vs-filter-variety')?.value || 'ALL';
+      const gradeVal = container.querySelector('#vs-filter-grade')?.value || 'ALL';
+      const groupVal = container.querySelector('#vs-filter-group')?.value || 'ALL';
+      const pstyleVal = container.querySelector('#vs-filter-packingstyle')?.value || 'ALL';
+      const ptypeVal = container.querySelector('#vs-filter-packingtype')?.value || 'ALL';
+      const categoryVal = container.querySelector('#vs-filter-category')?.value || 'ALL';
+      const stockTypeVal = container.querySelector('#vs-filter-stocktype')?.value || 'ALL';
+
+      const filtered = fullList.filter(item => {
+        if (coldStoreVal !== 'ALL' && item.coldStores !== coldStoreVal) return false;
+        if (belongsVal !== 'ALL' && item.stockBelongsTo !== belongsVal) return false;
+        if (poVal && !(item.poNo || '').toLowerCase().includes(poVal)) return false;
+        if (blocksVal !== 'ALL' && item.blocks !== blocksVal) return false;
+        if (speciesVal !== 'ALL' && item.species !== speciesVal) return false;
+        if (typeProductVal !== 'ALL' && item.typeProduct !== typeProductVal) return false;
+        if (freezingVal !== 'ALL' && item.freezingType !== freezingVal) return false;
+        if (brandVal !== 'ALL' && item.brand !== brandVal) return false;
+        if (varietyVal !== 'ALL' && item.variety !== varietyVal) return false;
+        if (gradeVal !== 'ALL' && item.grade !== gradeVal) return false;
+        if (groupVal !== 'ALL' && item.group !== groupVal) return false;
+        if (pstyleVal !== 'ALL' && item.packingStyle !== pstyleVal) return false;
+        if (ptypeVal !== 'ALL' && item.packingType !== ptypeVal) return false;
+        if (categoryVal !== 'ALL' && item.productCategory !== categoryVal) return false;
+        if (stockTypeVal !== 'ALL' && item.stockType !== stockTypeVal) return false;
+        return true;
+      });
+
+      renderTable(filtered);
+      Toast.show(`Showing ${filtered.length} matching Floor Stock record(s)`, 'info');
+    };
+
+    // Bind Search Button
+    const searchBtn = container.querySelector('#vs-filter-search-btn');
+    if (searchBtn) {
+      searchBtn.addEventListener('click', executeFilter);
+    }
+
+    // Bind PO NO input enter key
+    const poInput = container.querySelector('#vs-filter-pono');
+    if (poInput) {
+      poInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          executeFilter();
+        }
+      });
+    }
+
+    // Bind Reset Button
+    const resetBtn = container.querySelector('#vs-filter-reset-btn');
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        const cs = container.querySelector('#vs-filter-coldstore');
+        const bg = container.querySelector('#vs-filter-belongsto');
+        const po = container.querySelector('#vs-filter-pono');
+        const bl = container.querySelector('#vs-filter-blocks');
+        const sp = container.querySelector('#vs-filter-species');
+        const tp = container.querySelector('#vs-filter-typeproduct');
+        const fz = container.querySelector('#vs-filter-freezingtype');
+        const br = container.querySelector('#vs-filter-brand');
+        const vr = container.querySelector('#vs-filter-variety');
+        const gr = container.querySelector('#vs-filter-grade');
+        const gp = container.querySelector('#vs-filter-group');
+        const ps = container.querySelector('#vs-filter-packingstyle');
+        const pt = container.querySelector('#vs-filter-packingtype');
+        const cat = container.querySelector('#vs-filter-category');
+        const st = container.querySelector('#vs-filter-stocktype');
+
+        if (cs) cs.value = 'ALL';
+        if (bg) bg.value = 'ALL';
+        if (po) po.value = '';
+        if (bl) bl.value = 'ALL';
+        if (sp) sp.value = 'ALL';
+        if (tp) tp.value = 'ALL';
+        if (fz) fz.value = 'ALL';
+        if (br) br.value = 'ALL';
+        if (vr) vr.value = 'ALL';
+        if (gr) gr.value = 'ALL';
+        if (gp) gp.value = 'ALL';
+        if (ps) ps.value = 'ALL';
+        if (pt) pt.value = 'ALL';
+        if (cat) cat.value = 'ALL';
+        if (st) st.value = 'ALL';
+
+        renderTable(fullList);
+        Toast.show('Search filters reset to default', 'info');
+      });
+    }
+  },
+
+  // 4a-1. FLOOR STOCK DETAIL MODAL
+  showFloorStockDetailModal(row) {
+    Modal.open({
+      title: `Stock Details: ${row.palletTag || row.poNo} (${row.location})`,
+      size: 'xl',
+      content: `
+        <div class="space-y-4 text-xs text-[#172B4D]">
+          <!-- Header Banner -->
+          <div class="p-3 bg-[#F4F5F7] border border-[#DFE1E6] rounded-lg flex items-center justify-between">
+            <div>
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">PALLET / SLOT LOCATION</span>
+              <div class="text-base font-extrabold text-[#0284C7] font-mono">${row.location} • ${row.palletTag || 'FLOOR-TAG'}</div>
+              <div class="text-[11px] text-[#6B778C]">Chamber: <span class="font-bold text-[#172B4D]">${row.coldStores}</span> • Block: <span class="font-bold text-[#172B4D]">${row.blocks}</span></div>
+            </div>
+            <div class="text-right">
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">STOCK TYPE</span>
+              <div class="mt-0.5">
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#E0F2FE] text-[#0284C7]">${row.stockType}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 1: Storage Quantities -->
+          <div class="grid grid-cols-3 gap-3 bg-[#F8FAFC] p-3 border border-[#DFE1E6] rounded-lg text-center">
+            <div class="p-2 bg-white rounded border border-[#DFE1E6]">
+              <div class="text-[10px] font-bold text-[#5E6C84] uppercase">MASTER CARTONS</div>
+              <div class="text-base font-black text-[#00875A] font-mono mt-0.5">${Number(row.mcs).toLocaleString()}</div>
+            </div>
+            <div class="p-2 bg-white rounded border border-[#DFE1E6]">
+              <div class="text-[10px] font-bold text-[#5E6C84] uppercase">LOOSE BAGS</div>
+              <div class="text-base font-black text-[#172B4D] font-mono mt-0.5">${row.looseBags || 0}</div>
+            </div>
+            <div class="p-2 bg-white rounded border border-[#DFE1E6]">
+              <div class="text-[10px] font-bold text-[#5E6C84] uppercase">TOTAL WEIGHT</div>
+              <div class="text-base font-black text-[#0284C7] font-mono mt-0.5">${Number(row.totalWeight).toLocaleString(undefined, { minimumFractionDigits: 1 })} kg</div>
+            </div>
+          </div>
+
+          <!-- Section 2: Product & Processing Identifiers (User Filters) -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-white p-3 border border-[#DFE1E6] rounded-lg">
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PO NO</span>
+              <span class="font-mono font-bold text-xs text-[#0284C7]">${row.poNo || '-'}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">STOCK BELONGS TO</span>
+              <span class="font-medium text-xs text-[#172B4D]">${row.stockBelongsTo}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">BRAND</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#EAE6FF] text-[#403294]">${row.brand || '-'}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">GROUP</span>
+              <span class="font-medium text-xs text-[#172B4D]">${row.group}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">SPECIES</span>
+              <span class="text-xs text-[#5E6C84] italic">${row.species}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">VARIETY</span>
+              <span class="font-semibold text-xs text-[#172B4D]">${row.variety}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">GRADE</span>
+              <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-[#F4F5F7] text-[#172B4D]">${row.grade}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PRODUCT CATEGORY</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#E0F2FE] text-[#0284C7]">${row.productCategory}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">FREEZING TYPE</span>
+              <span class="text-xs text-[#172B4D]">${row.freezingType}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">TYPE PRODUCT</span>
+              <span class="text-xs text-[#172B4D]">${row.typeProduct}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PACKING STYLE</span>
+              <span class="text-xs text-[#172B4D]">${row.packingStyle}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PACKING TYPE</span>
+              <span class="text-xs text-[#172B4D]">${row.packingType}</span>
+            </div>
+          </div>
+        </div>
+      `,
+      footerButtons: [
+        { label: 'Close', type: 'secondary', onClick: (modal) => modal.close() }
+      ]
+    });
   },
 
   // 4b. STORE - VIEW STORE (view-store-layout)
