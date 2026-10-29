@@ -10681,7 +10681,9 @@ export const ColdstoreView = {
       <div id="cs-shipments-table"></div>
     `;
 
+    let lastResults = [];
     const renderTable = (data, hasSearched = false) => {
+      lastResults = data;
       new DataTable({
         containerId: 'cs-shipments-table',
         tableTitle: hasSearched ? `Shipment Cargo Lots (${data.length})` : 'Shipment Cargo Lots',
@@ -10693,18 +10695,10 @@ export const ColdstoreView = {
         actions: [
           {
             label: 'Load',
-            title: 'Load Cargo Lot',
+            title: 'Load Consignment',
             icon: `<svg class="w-4 h-4 text-[#0284C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"></path></svg>`,
             onClick: (row) => {
-              Modal.confirm({
-                title: 'Load Cargo Lot',
-                message: `Confirm loading cargo lot <strong>${row.poNumber || row.barCode}</strong> (${row.variety || ''} ${row.grade || ''}, ${row.mcs || 0} Mcs / ${row.kgs || 0} Kgs) into reefer shipment container?`,
-                confirmText: 'Load Lot',
-                onConfirm: () => {
-                  row.orderStatus = 'Loaded & Sealed';
-                  Toast.show(`Lot ${row.poNumber || row.barCode} marked as Loaded & Sealed!`, 'success');
-                }
-              });
+              this.showLoadConsignmentModal(row, () => renderTable(lastResults, true));
             }
           }
         ],
@@ -10808,6 +10802,154 @@ export const ColdstoreView = {
         renderTable([], false);
         Toast.show('Shipment search & filters reset', 'info');
       });
+    }
+  },
+
+  // 7c. LOAD CONSIGNMENT MODAL (User-Specified Consignment Table with Style Guide)
+  showLoadConsignmentModal(row, onSuccess = null) {
+    const totalMcs = row.totalMcs || row.mcs || 2000;
+    const avalMcs = row.avalMcs !== undefined ? row.avalMcs : (row.mcs !== undefined ? Math.min(row.mcs, 48) : 48);
+    const avalLooseMcs = row.avalLooseMcs !== undefined ? row.avalLooseMcs : 0;
+    const grade = row.grade || '90/120';
+    const packingStyle = row.packingStyle || '1 X 10 KGS';
+    const freezingType = row.freezingType || 'IQF';
+    const glaze = row.glaze || '10';
+    const varietyDesc = row.varietyFull || (row.variety ? `FROZEN BLANCHED ${row.variety.toUpperCase()} PEELED AND DEVEINED TAIL OFF IQF SHRIMPS,10% GLAZE FROZEN WEIGH FROZEN COUNT (SALT TREATED ASC, )` : 'FROZEN BLANCHED VANNAMEI WHITE PEELED AND DEVEINED TAIL OFF IQF SHRIMPS,10% GLAZE FROZEN WEIGH FROZEN COUNT (SALT TREATED ASC, )');
+
+    const initialSelectLoose = 0;
+    const initialTotalAval = avalMcs + initialSelectLoose;
+    const initialBalance = totalMcs - initialTotalAval;
+    const todayStr = new Date().toISOString().slice(0, 10);
+
+    Modal.open({
+      title: 'Are you sure to Load the consignment?',
+      size: 'full',
+      content: `
+        <div class="space-y-6 text-xs text-[#172B4D] p-1">
+          <!-- Consignment Table Card -->
+          <div class="bg-white border border-[#DFE1E6] rounded-xl overflow-hidden shadow-xs">
+            <div class="overflow-x-auto">
+              <table class="erp-table w-full text-left border-collapse">
+                <thead>
+                  <tr class="bg-[#FAFBFC] border-b border-[#DFE1E6] text-[11px] font-bold text-[#5E6C84]">
+                    <th class="px-3 py-3 font-semibold text-[#172B4D] whitespace-normal min-w-[280px]">Variety</th>
+                    <th class="px-3 py-3 font-semibold text-[#172B4D] whitespace-nowrap">Grade</th>
+                    <th class="px-3 py-3 font-semibold text-[#172B4D] whitespace-nowrap">PackingStyle Style</th>
+                    <th class="px-3 py-3 font-semibold text-[#172B4D] whitespace-nowrap">FreezingType Type</th>
+                    <th class="px-3 py-3 font-semibold text-[#172B4D] whitespace-nowrap text-center">Glaze</th>
+                    <th class="px-3 py-3 font-semibold text-[#172B4D] whitespace-nowrap min-w-[130px]">Reason</th>
+                    <th class="px-3 py-3 font-semibold text-[#172B4D] whitespace-nowrap text-right">Total Mcs</th>
+                    <th class="px-3 py-3 font-semibold text-[#172B4D] whitespace-nowrap text-right">Aval Mcs</th>
+                    <th class="px-3 py-3 font-semibold text-[#172B4D] whitespace-nowrap text-right">Aval Loose Mcs</th>
+                    <th class="px-3 py-3 font-semibold text-[#172B4D] whitespace-nowrap text-center min-w-[110px]">Select Loose Mcs</th>
+                    <th class="px-3 py-3 font-semibold text-[#172B4D] whitespace-nowrap text-right">Total Aval Mcs</th>
+                    <th class="px-3 py-3 font-semibold text-[#172B4D] whitespace-nowrap text-right">Remaining Loose Bags</th>
+                    <th class="px-3 py-3 font-semibold text-[#172B4D] whitespace-nowrap text-right">Balance Mcs</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-[#EBECF0]">
+                  <tr class="hover:bg-[#FAFBFC] transition-colors">
+                    <td class="px-3 py-3.5 text-xs text-[#172B4D] font-medium leading-relaxed">${varietyDesc}</td>
+                    <td class="px-3 py-3.5 whitespace-nowrap font-mono text-xs font-semibold text-[#172B4D]">${grade}</td>
+                    <td class="px-3 py-3.5 whitespace-nowrap font-medium text-xs text-[#172B4D]">${packingStyle}</td>
+                    <td class="px-3 py-3.5 whitespace-nowrap font-medium text-xs text-[#172B4D]">${freezingType}</td>
+                    <td class="px-3 py-3.5 whitespace-nowrap text-center font-mono text-xs text-[#172B4D]">${glaze}</td>
+                    <td class="px-3 py-3.5 whitespace-nowrap">
+                      <select id="load-modal-reason" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#0284C7] rounded-lg focus:outline-none focus:ring-1 focus:ring-[#0284C7] font-semibold text-[#172B4D] shadow-2xs">
+                        <option value="Shipment Out" selected>Shipment Out</option>
+                        <option value="Export Dispatch">Export Dispatch</option>
+                        <option value="Sample Dispatch">Sample Dispatch</option>
+                        <option value="Inter-Branch Transfer">Inter-Branch Transfer</option>
+                        <option value="Reprocessing">Reprocessing</option>
+                      </select>
+                    </td>
+                    <td class="px-3 py-3.5 whitespace-nowrap text-right font-mono font-bold text-xs text-[#172B4D]">${totalMcs}</td>
+                    <td class="px-3 py-3.5 whitespace-nowrap text-right font-mono font-bold text-xs text-[#00875A]">${avalMcs}</td>
+                    <td class="px-3 py-3.5 whitespace-nowrap text-right font-mono font-bold text-xs text-[#172B4D]">${avalLooseMcs}</td>
+                    <td class="px-3 py-3.5 whitespace-nowrap text-center">
+                      <input type="number" id="load-modal-select-loose-mcs" value="0" min="0" max="${totalMcs}" class="w-20 text-center font-mono font-bold text-xs px-2.5 py-1.5 bg-white border border-[#0284C7] rounded-lg focus:outline-none focus:ring-1 focus:ring-[#0284C7] text-[#172B4D] shadow-2xs" />
+                    </td>
+                    <td class="px-3 py-3.5 whitespace-nowrap text-right font-mono font-bold text-xs text-[#0284C7]" id="load-modal-total-aval-mcs">${initialTotalAval}</td>
+                    <td class="px-3 py-3.5 whitespace-nowrap text-right font-mono text-xs text-[#5E6C84]" id="load-modal-remaining-loose-bags">0</td>
+                    <td class="px-3 py-3.5 whitespace-nowrap text-right font-mono font-bold text-xs text-[#172B4D]" id="load-modal-balance-mcs">${initialBalance}</td>
+                  </tr>
+                  <!-- Balance Mcs Summary Row -->
+                  <tr class="bg-[#FAFBFC] border-t border-[#DFE1E6]">
+                    <td class="px-3 py-3 font-bold text-xs text-[#172B4D]">Balance Mcs</td>
+                    <td colspan="11"></td>
+                    <td class="px-3 py-3 text-right font-mono font-bold text-xs text-[#172B4D]" id="load-modal-summary-balance-mcs">${initialBalance}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Bottom Action Controls: Stock Out Date & Stock Out Button -->
+          <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
+            <div></div>
+
+            <!-- Stock Out Date (Centered) -->
+            <div class="flex flex-col items-center">
+              <label for="load-modal-stock-out-date" class="block text-xs font-bold text-[#172B4D] mb-1.5">Stock Out Date</label>
+              <div class="relative">
+                <input type="date" id="load-modal-stock-out-date" value="${todayStr}" class="text-xs px-3.5 py-2 bg-white border border-[#DFE1E6] rounded-xl focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D] shadow-2xs cursor-pointer hover:border-[#CBD5E1] transition-colors" />
+              </div>
+            </div>
+
+            <!-- Stock Out Button (Right Aligned) -->
+            <div class="flex items-center justify-end">
+              <button type="button" id="load-modal-submit-stockout-btn" class="btn-primary px-6 py-2 rounded-xl text-xs font-bold flex items-center justify-center gap-2 shadow-xs hover:shadow transition-all cursor-pointer">
+                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"></path></svg>
+                <span>Stock Out</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      `
+    });
+
+    const modalRoot = document.getElementById('erp-modal-root');
+    if (modalRoot) {
+      const selectLooseInput = modalRoot.querySelector('#load-modal-select-loose-mcs');
+      const totalAvalEl = modalRoot.querySelector('#load-modal-total-aval-mcs');
+      const balanceEl = modalRoot.querySelector('#load-modal-balance-mcs');
+      const summaryBalanceEl = modalRoot.querySelector('#load-modal-summary-balance-mcs');
+      const remLooseEl = modalRoot.querySelector('#load-modal-remaining-loose-bags');
+
+      if (selectLooseInput) {
+        selectLooseInput.addEventListener('input', () => {
+          const looseVal = Math.max(0, parseInt(selectLooseInput.value, 10) || 0);
+          const currentTotalAval = avalMcs + looseVal;
+          const currentBalance = Math.max(0, totalMcs - currentTotalAval);
+          const remainingLoose = Math.max(0, avalLooseMcs - looseVal);
+
+          if (totalAvalEl) totalAvalEl.textContent = currentTotalAval;
+          if (balanceEl) balanceEl.textContent = currentBalance;
+          if (summaryBalanceEl) summaryBalanceEl.textContent = currentBalance;
+          if (remLooseEl) remLooseEl.textContent = remainingLoose;
+        });
+      }
+
+      const submitBtn = modalRoot.querySelector('#load-modal-submit-stockout-btn');
+      if (submitBtn) {
+        submitBtn.addEventListener('click', () => {
+          const reason = modalRoot.querySelector('#load-modal-reason')?.value || 'Shipment Out';
+          const stockOutDate = modalRoot.querySelector('#load-modal-stock-out-date')?.value || todayStr;
+          const selectedLoose = parseInt(selectLooseInput?.value, 10) || 0;
+          const finalTotalAval = avalMcs + selectedLoose;
+
+          row.orderStatus = 'Loaded & Sealed';
+          row.loadedDate = stockOutDate;
+          row.loadedMcs = finalTotalAval;
+          row.loadReason = reason;
+
+          Modal.close();
+          Toast.show(`Consignment ${row.poNumber || row.lotId} successfully loaded and stocked out (${finalTotalAval} Mcs, ${reason})!`, 'success');
+          if (typeof onSuccess === 'function') {
+            onSuccess();
+          }
+        });
+      }
     }
   },
 
