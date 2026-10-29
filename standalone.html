@@ -42361,10 +42361,14 @@ const ColdstoreView = {
 
     // 5. IBT (Inter-Branch Transfers)
     ibtTransfers: [
-      { id: 1, ibtCode: 'IBT-2026-088', transferDate: '2026-10-28', sourcePlant: 'DFL UNIT-5 (JPT)', destPlant: 'DFL UNIT-4 (PND)', product: 'Vannamei PD IQF 31/40', pallets: 12, weightMt: 5.76, vehicleNo: 'AP 39 TB 4412', status: 'In Transit' },
-      { id: 2, ibtCode: 'IBT-2026-087', transferDate: '2026-10-27', sourcePlant: 'DFL UNIT-3 (PSP)', destPlant: 'DFL UNIT-5 (JPT)', product: 'Black Tiger Block 16/20', pallets: 16, weightMt: 8.96, vehicleNo: 'AP 16 TX 9921', status: 'Received & Stored' },
-      { id: 3, ibtCode: 'IBT-2026-086', transferDate: '2026-10-25', sourcePlant: 'DFL UNIT-1 (VSP)', destPlant: 'DFL UNIT-5 (JPT)', product: 'Sea Pearl Cooked PDTO', pallets: 8, weightMt: 3.20, vehicleNo: 'AP 31 TC 1104', status: 'Received & Stored' },
-      { id: 4, ibtCode: 'IBT-2026-085', transferDate: '2026-10-24', sourcePlant: 'DFL UNIT-5 (JPT)', destPlant: 'DFL UNIT-6 (JPT-II)', product: 'Vannamei HLSO Block', pallets: 20, weightMt: 12.00, vehicleNo: 'AP 39 TB 5590', status: 'Gate Pass Dispatched' }
+      { id: 1, ibtCode: 'IBT-2026-088', transferDate: '2026-10-28', coldStore: 'Chamber #1 (IQF)', productCategory: 'Raw Frozen', ibtType: 'Inter-Plant Transfer', sourcePlant: 'DFL UNIT-5 (JPT)', destPlant: 'DFL UNIT-4 (PND)', product: 'Vannamei PD IQF 31/40', pallets: 12, weightMt: 5.76, vehicleNo: 'AP 39 TB 4412', status: 'In Transit' },
+      { id: 2, ibtCode: 'IBT-2026-087', transferDate: '2026-10-27', coldStore: 'Chamber #2 (Plate)', productCategory: 'Raw Frozen', ibtType: 'Inward Transfer', sourcePlant: 'DFL UNIT-3 (PSP)', destPlant: 'DFL UNIT-5 (JPT)', product: 'Black Tiger Block 16/20', pallets: 16, weightMt: 8.96, vehicleNo: 'AP 16 TX 9921', status: 'Received & Stored' },
+      { id: 3, ibtCode: 'IBT-2026-086', transferDate: '2026-10-25', coldStore: 'Chamber #1 (IQF)', productCategory: 'Cooked Frozen', ibtType: 'Outward Transfer', sourcePlant: 'DFL UNIT-1 (VSP)', destPlant: 'DFL UNIT-5 (JPT)', product: 'Sea Pearl Cooked PDTO', pallets: 8, weightMt: 3.20, vehicleNo: 'AP 31 TC 1104', status: 'Received & Stored' },
+      { id: 4, ibtCode: 'IBT-2026-085', transferDate: '2026-10-24', coldStore: 'Chamber #3 (Blast)', productCategory: 'Blanched Frozen', ibtType: 'Intra-Plant Relocation', sourcePlant: 'DFL UNIT-5 (JPT)', destPlant: 'DFL UNIT-6 (JPT-II)', product: 'Vannamei HLSO Block', pallets: 20, weightMt: 12.00, vehicleNo: 'AP 39 TB 5590', status: 'Gate Pass Dispatched' },
+      { id: 5, ibtCode: 'IBT-2026-084', transferDate: '2026-09-18', coldStore: 'Chamber #4 (Deep Freeze)', productCategory: 'Raw Frozen', ibtType: 'Inter-Plant Transfer', sourcePlant: 'DFL UNIT-2 (KKL)', destPlant: 'DFL UNIT-5 (JPT)', product: 'Vannamei Cooked IQF 41/50', pallets: 14, weightMt: 6.72, vehicleNo: 'AP 39 TB 8820', status: 'Received & Stored' },
+      { id: 6, ibtCode: 'IBT-2026-083', transferDate: '2026-08-11', coldStore: 'Main Cold Storage Plant 1', productCategory: 'Value Added', ibtType: 'Inward Transfer', sourcePlant: 'DFL UNIT-4 (PND)', destPlant: 'DFL UNIT-1 (VSP)', product: 'Breaded Torpedo Shrimp', pallets: 10, weightMt: 4.50, vehicleNo: 'AP 16 TX 1102', status: 'Received & Stored' },
+      { id: 7, ibtCode: 'IBT-2025-072', transferDate: '2025-11-15', coldStore: 'Chamber #1 (IQF)', productCategory: 'Raw Frozen', ibtType: 'Inter-Plant Transfer', sourcePlant: 'DFL UNIT-5 (JPT)', destPlant: 'DFL UNIT-3 (PSP)', product: 'Vannamei Easy Peel IQF 26/30', pallets: 15, weightMt: 7.20, vehicleNo: 'AP 39 TB 3319', status: 'Received & Stored' },
+      { id: 8, ibtCode: 'IBT-2025-065', transferDate: '2025-10-04', coldStore: 'Chamber #2 (Plate)', productCategory: 'Cooked Frozen', ibtType: 'Intra-Plant Relocation', sourcePlant: 'DFL UNIT-3 (PSP)', destPlant: 'DFL UNIT-1 (VSP)', product: 'Black Tiger HLSO 21/25', pallets: 18, weightMt: 9.00, vehicleNo: 'AP 16 TX 4402', status: 'Received & Stored' }
     ],
 
     // 6. Shipment
@@ -50008,31 +50012,286 @@ const ColdstoreView = {
           <p class="text-xs text-[#6B778C] mt-0.5">Inter-plant cold storage product transfers, reefer truck tracking, and receipts</p>
         </div>
       </div>
+
+      <!-- Search & Filters Card -->
+      <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200" style="margin-bottom: 12px !important;">
+        <div class="flex items-center justify-between pb-1">
+          <div class="flex items-center gap-2">
+            <svg style="width: 16px; height: 16px; min-width: 16px; min-height: 16px; stroke: #0284C7; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+            <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
+          </div>
+
+          <!-- Filter Controls: Reset & Toggle Open/Close -->
+          <div class="inline-flex items-center" style="gap: 8px; display: inline-flex;">
+            <button type="button" id="ibt-filter-reset-btn" class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#0284C7] text-[#334155] hover:text-[#0284C7] rounded-full transition-colors cursor-pointer select-none" style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 9999px; border: 1px solid #CBD5E1; background: #ffffff; color: #334155; display: inline-flex; align-items: center; justify-content: center; padding: 0;" title="Reset All Filters" aria-label="Reset All Filters">
+              <svg style="width: 15px; height: 15px; min-width: 15px; min-height: 15px; stroke: #334155; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+            </button>
+
+            <button type="button" id="ibt-filter-toggle-btn" class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#0284C7] text-[#334155] hover:text-[#0284C7] rounded-full transition-colors cursor-pointer select-none" style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 9999px; border: 1px solid #CBD5E1; background: #ffffff; color: #334155; display: inline-flex; align-items: center; justify-content: center; padding: 0;" title="Hide Filter" aria-label="Hide Filter">
+              <svg id="ibt-filter-toggle-icon" style="width: 15px; height: 15px; min-width: 15px; min-height: 15px; stroke: #334155; fill: none; display: inline-block;" class="dt-top-filter-toggle-icon transform transition-transform duration-200" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Form Input Fields (Standard 4-Column Grid) -->
+        <div id="ibt-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
+          <!-- 1. COLD STORES -->
+          <div>
+            <label for="ibt-filter-coldstore" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">COLD STORES</label>
+            <select id="ibt-filter-coldstore" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+              <option value="">All Cold Stores</option>
+              <option value="Chamber #1 (IQF)">Chamber #1 (IQF)</option>
+              <option value="Chamber #2 (Plate)">Chamber #2 (Plate)</option>
+              <option value="Chamber #3 (Blast)">Chamber #3 (Blast)</option>
+              <option value="Chamber #4 (Deep Freeze)">Chamber #4 (Deep Freeze)</option>
+              <option value="Main Cold Storage Plant 1">Main Cold Storage Plant 1</option>
+            </select>
+          </div>
+
+          <!-- 2. PRODUCT CATEGORY -->
+          <div>
+            <label for="ibt-filter-category" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCT CATEGORY</label>
+            <select id="ibt-filter-category" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+              <option value="">All Product Categories</option>
+              <option value="Raw Frozen">Raw Frozen</option>
+              <option value="Cooked Frozen">Cooked Frozen</option>
+              <option value="Blanched Frozen">Blanched Frozen</option>
+              <option value="Value Added">Value Added</option>
+            </select>
+          </div>
+
+          <!-- 3. YEAR -->
+          <div>
+            <label for="ibt-filter-year" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">YEAR</label>
+            <select id="ibt-filter-year" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+              <option value="">All Years</option>
+              <option value="2026">2026</option>
+              <option value="2025">2025</option>
+              <option value="2024">2024</option>
+              <option value="2023">2023</option>
+            </select>
+          </div>
+
+          <!-- 4. MONTH -->
+          <div>
+            <label for="ibt-filter-month" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">MONTH</label>
+            <select id="ibt-filter-month" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+              <option value="">All Months</option>
+              <option value="01">January</option>
+              <option value="02">February</option>
+              <option value="03">March</option>
+              <option value="04">April</option>
+              <option value="05">May</option>
+              <option value="06">June</option>
+              <option value="07">July</option>
+              <option value="08">August</option>
+              <option value="09">September</option>
+              <option value="10">October</option>
+              <option value="11">November</option>
+              <option value="12">December</option>
+            </select>
+          </div>
+
+          <!-- 5. IBT TYPE -->
+          <div>
+            <label for="ibt-filter-type" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">IBT TYPE</label>
+            <select id="ibt-filter-type" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+              <option value="">All IBT Types</option>
+              <option value="Inter-Plant Transfer">Inter-Plant Transfer</option>
+              <option value="Intra-Plant Relocation">Intra-Plant Relocation</option>
+              <option value="Inward Transfer">Inward Transfer</option>
+              <option value="Outward Transfer">Outward Transfer</option>
+            </select>
+          </div>
+
+          <!-- Search Action Button Slot -->
+          <div class="flex items-end">
+            <button type="button" id="ibt-filter-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]" title="Search Filter Records">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+              <span>Search</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Data Table Card -->
       <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
         <div id="cs-ibt-table"></div>
       </div>
     `;
 
-    new DataTable({
-      containerId: 'cs-ibt-table',
-      tableTitle: 'Inter-Branch Stock Transfers',
-      searchable: true,
-      exportable: true,
-      pageSize: 10,
-      columns: [
-        { key: 'id', label: 'S.No', render: (v, r, idx) => idx + 1 },
-        { key: 'ibtCode', label: 'IBT Code', sortable: true, render: v => `<span class="font-mono font-bold text-[#0284C7]">${v}</span>` },
-        { key: 'transferDate', label: 'Date' },
-        { key: 'sourcePlant', label: 'Source Plant' },
-        { key: 'destPlant', label: 'Destination Plant' },
-        { key: 'product', label: 'Product Grade' },
-        { key: 'pallets', label: 'Pallets', render: v => `<span class="font-mono font-bold">${v}</span>` },
-        { key: 'weightMt', label: 'Transfer (MT)', render: v => `<span class="font-mono font-bold text-[#00875A]">${v.toFixed(2)}</span>` },
-        { key: 'vehicleNo', label: 'Reefer Truck', render: v => `<span class="font-mono font-semibold">${v}</span>` },
-        { key: 'status', label: 'Status', render: v => `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold ${v === 'Received & Stored' ? 'bg-[#E3FCEF] text-[#006644]' : 'bg-[#DEEBFF] text-[#0747A6]'}">${v}</span>` }
-      ],
-      data: this.state.ibtTransfers
-    });
+    const initTable = (data) => {
+      new DataTable({
+        containerId: 'cs-ibt-table',
+        tableTitle: 'Inter-Branch Stock Transfers',
+        searchable: true,
+        exportable: true,
+        pageSize: 10,
+        columns: [
+          { field: 'id', header: 'S.No', render: (v, r, idx) => idx + 1 },
+          { field: 'ibtCode', header: 'IBT Code', sortable: true, render: v => `<span class="font-mono font-bold text-[#0284C7]">${v}</span>` },
+          { field: 'transferDate', header: 'Date', sortable: true },
+          { field: 'coldStore', header: 'Cold Store', sortable: true, render: v => `<span class="font-semibold text-[#172B4D] whitespace-nowrap">${v || 'Chamber #1 (IQF)'}</span>` },
+          { field: 'ibtType', header: 'IBT Type', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-[#F4F5F7] text-[#172B4D] border border-[#DFE1E6] whitespace-nowrap">${v || 'Inter-Plant Transfer'}</span>` },
+          { field: 'productCategory', header: 'Product Category', sortable: true, render: v => `<span class="px-2 py-0.5 rounded-full text-[10px] font-medium bg-[#EBF8FF] text-[#0284C7] whitespace-nowrap">${v || 'Raw Frozen'}</span>` },
+          { field: 'sourcePlant', header: 'Source Plant', sortable: true },
+          { field: 'destPlant', header: 'Destination Plant', sortable: true },
+          { field: 'product', header: 'Product Grade', sortable: true },
+          { field: 'pallets', header: 'Pallets', sortable: true, render: v => `<span class="font-mono font-bold">${v}</span>` },
+          { field: 'weightMt', header: 'Transfer (MT)', sortable: true, render: v => `<span class="font-mono font-bold text-[#00875A]">${Number(v || 0).toFixed(2)}</span>` },
+          { field: 'vehicleNo', header: 'Reefer Truck', render: v => `<span class="font-mono font-semibold">${v}</span>` },
+          {
+            field: 'status',
+            header: 'Status',
+            sortable: true,
+            render: v => {
+              let badgeCls = 'bg-[#DEEBFF] text-[#0747A6] border-[#B3D4FF]';
+              if (v === 'Received & Stored') badgeCls = 'bg-[#E3FCEF] text-[#006644] border-[#ABF5D1]';
+              if (v === 'Gate Pass Dispatched') badgeCls = 'bg-[#FFF0B3] text-[#172B4D] border-[#FFE380]';
+              return `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${badgeCls} whitespace-nowrap">${v}</span>`;
+            }
+          }
+        ],
+        actionsTitle: 'Actions',
+        actions: [
+          {
+            label: 'View Details',
+            icon: `<svg class="w-4 h-4 text-[#0284C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>`,
+            onClick: (row) => {
+              Modal.open({
+                title: `IBT Transfer Record: ${row.ibtCode}`,
+                size: 'lg',
+                content: `
+                  <div class="space-y-4 text-xs text-[#172B4D]">
+                    <div class="p-3 bg-[#F4F5F7] border border-[#DFE1E6] rounded-lg flex items-center justify-between">
+                      <div>
+                        <span class="text-[10px] font-bold text-[#5E6C84] uppercase">IBT TRANSFER CODE</span>
+                        <div class="text-base font-extrabold text-[#0284C7] font-mono">${row.ibtCode}</div>
+                      </div>
+                      <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold ${row.status === 'Received & Stored' ? 'bg-[#E3FCEF] text-[#006644]' : 'bg-[#DEEBFF] text-[#0747A6]'}">${row.status}</span>
+                    </div>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-white p-3 border border-[#DFE1E6] rounded-lg">
+                      <div>
+                        <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">DATE</span>
+                        <span class="font-semibold text-xs">${row.transferDate}</span>
+                      </div>
+                      <div>
+                        <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">COLD STORE</span>
+                        <span class="font-semibold text-xs text-[#0284C7]">${row.coldStore || '-'}</span>
+                      </div>
+                      <div>
+                        <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">CATEGORY</span>
+                        <span class="font-semibold text-xs">${row.productCategory || '-'}</span>
+                      </div>
+                      <div>
+                        <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">IBT TYPE</span>
+                        <span class="font-semibold text-xs">${row.ibtType || '-'}</span>
+                      </div>
+                      <div>
+                        <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">SOURCE PLANT</span>
+                        <span class="font-semibold text-xs">${row.sourcePlant}</span>
+                      </div>
+                      <div>
+                        <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">DEST PLANT</span>
+                        <span class="font-semibold text-xs">${row.destPlant}</span>
+                      </div>
+                      <div>
+                        <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">REEFER TRUCK</span>
+                        <span class="font-mono font-semibold text-xs">${row.vehicleNo}</span>
+                      </div>
+                      <div>
+                        <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">TRANSFER (MT)</span>
+                        <span class="font-mono font-bold text-xs text-[#00875A]">${Number(row.weightMt || 0).toFixed(2)} MT</span>
+                      </div>
+                    </div>
+                  </div>
+                `
+              });
+            }
+          },
+          {
+            label: 'Print Gate Pass',
+            icon: `<svg class="w-4 h-4 text-[#403294]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>`,
+            onClick: (row) => {
+              Toast.show(`Printing IBT Gate Pass document for ${row.ibtCode}...`, 'info');
+            }
+          }
+        ],
+        data
+      });
+    };
+
+    // Initial render
+    initTable(this.state.ibtTransfers);
+
+    // Collapsible Filter Toggle
+    const toggleBtn = container.querySelector('#ibt-filter-toggle-btn');
+    const filterBody = container.querySelector('#ibt-filter-body');
+    const toggleIcon = container.querySelector('#ibt-filter-toggle-icon');
+
+    if (toggleBtn && filterBody && toggleIcon) {
+      let isOpen = true;
+      toggleBtn.addEventListener('click', () => {
+        isOpen = !isOpen;
+        if (isOpen) {
+          filterBody.style.display = 'grid';
+          toggleIcon.classList.remove('rotate-180');
+          toggleBtn.title = 'Hide Filter';
+        } else {
+          filterBody.style.display = 'none';
+          toggleIcon.classList.add('rotate-180');
+          toggleBtn.title = 'Show Filter';
+        }
+      });
+    }
+
+    // Execute Search Filter
+    const executeFilter = () => {
+      const coldStoreVal = (container.querySelector('#ibt-filter-coldstore')?.value || '').trim();
+      const categoryVal = (container.querySelector('#ibt-filter-category')?.value || '').trim();
+      const yearVal = (container.querySelector('#ibt-filter-year')?.value || '').trim();
+      const monthVal = (container.querySelector('#ibt-filter-month')?.value || '').trim();
+      const typeVal = (container.querySelector('#ibt-filter-type')?.value || '').trim();
+
+      const filtered = this.state.ibtTransfers.filter(r => {
+        if (coldStoreVal && (r.coldStore || 'Chamber #1 (IQF)') !== coldStoreVal) return false;
+        if (categoryVal && (r.productCategory || 'Raw Frozen') !== categoryVal) return false;
+        if (yearVal && r.transferDate && !r.transferDate.startsWith(yearVal)) return false;
+        if (monthVal && r.transferDate && r.transferDate.substring(5, 7) !== monthVal) return false;
+        if (typeVal && (r.ibtType || 'Inter-Plant Transfer') !== typeVal) return false;
+        return true;
+      });
+
+      initTable(filtered);
+      Toast.show(`Displaying ${filtered.length} IBT record${filtered.length === 1 ? '' : 's'}`, 'info');
+    };
+
+    // Bind Search Button
+    const searchBtn = container.querySelector('#ibt-filter-search-btn');
+    if (searchBtn) {
+      searchBtn.addEventListener('click', executeFilter);
+    }
+
+    // Bind Reset Button
+    const resetBtn = container.querySelector('#ibt-filter-reset-btn');
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        const cs = container.querySelector('#ibt-filter-coldstore');
+        const cat = container.querySelector('#ibt-filter-category');
+        const yr = container.querySelector('#ibt-filter-year');
+        const mo = container.querySelector('#ibt-filter-month');
+        const tp = container.querySelector('#ibt-filter-type');
+
+        if (cs) cs.value = '';
+        if (cat) cat.value = '';
+        if (yr) yr.value = '';
+        if (mo) mo.value = '';
+        if (tp) tp.value = '';
+
+        initTable(this.state.ibtTransfers);
+        Toast.show('IBT filters reset to default', 'info');
+      });
+    }
   },
 
   // 7. SHIPMENT
