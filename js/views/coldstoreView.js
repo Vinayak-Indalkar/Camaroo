@@ -7003,26 +7003,442 @@ export const ColdstoreView = {
     });
   },
 
-  // 4b. STORE - VIEW STORE (view-store-layout)
+  // 4b. STORE - VIEW STORE (EXACT USER-SPECIFIED FILTERS & ATTACHED DASHLETS)
   renderViewStore(container) {
+    const defaultRacks = [
+      { id: 'RACK-A01', name: 'RACK-A01', storeId: 'CS-CH-01', blockId: 'BLK-A', floor: 'FL-1', variety: 'Vannamei PD IQF', grade: '31/40', brand: 'Devi Royal', occupancy: 85, mcs: 180, weightKg: 1800.0, status: 'Occupied', bay: 'Bay 1', tier: 'Tier 1-3' },
+      { id: 'RACK-A02', name: 'RACK-A02', storeId: 'CS-CH-01', blockId: 'BLK-A', floor: 'FL-1', variety: 'Black Tiger Block', grade: '16/20', brand: 'Bay Harvest', occupancy: 70, mcs: 150, weightKg: 1800.0, status: 'Occupied', bay: 'Bay 2', tier: 'Tier 1-3' },
+      { id: 'RACK-A03', name: 'RACK-A03', storeId: 'CS-CH-01', blockId: 'BLK-A', floor: 'FL-1', variety: 'Sea Pearl Cooked PDTO', grade: '21/25', brand: 'Sea Pearl', occupancy: 100, mcs: 220, weightKg: 2200.0, status: 'Occupied', bay: 'Bay 3', tier: 'Tier 1-4' },
+      { id: 'RACK-A04', name: 'RACK-A04', storeId: 'CS-CH-01', blockId: 'BLK-A', floor: 'FL-1', variety: 'Vannamei HOSO IQF', grade: '26/30', brand: 'Ocean Jewel', occupancy: 45, mcs: 95, weightKg: 950.0, status: 'Partially Loaded', bay: 'Bay 4', tier: 'Tier 1-2' },
+      { id: 'RACK-A05', name: 'RACK-A05', storeId: 'CS-CH-01', blockId: 'BLK-A', floor: 'FL-1', variety: 'Empty Bay', grade: '-', brand: '-', occupancy: 0, mcs: 0, weightKg: 0.0, status: 'Free', bay: 'Bay 5', tier: 'Available' },
+      { id: 'RACK-A06', name: 'RACK-A06', storeId: 'CS-CH-01', blockId: 'BLK-A', floor: 'FL-1', variety: 'Vannamei HLSO IQF', grade: '41/50', brand: 'Devi Royal', occupancy: 90, mcs: 200, weightKg: 2000.0, status: 'Occupied', bay: 'Bay 6', tier: 'Tier 1-3' },
+      { id: 'RACK-A07', name: 'RACK-A07', storeId: 'CS-CH-01', blockId: 'BLK-A', floor: 'FL-1', variety: 'Scampi Block', grade: '16/20', brand: 'Arctic Catch', occupancy: 60, mcs: 120, weightKg: 1440.0, status: 'Partially Loaded', bay: 'Bay 7', tier: 'Tier 1-2' },
+      { id: 'RACK-A08', name: 'RACK-A08', storeId: 'CS-CH-01', blockId: 'BLK-A', floor: 'FL-1', variety: 'Empty Bay', grade: '-', brand: '-', occupancy: 0, mcs: 0, weightKg: 0.0, status: 'Free', bay: 'Bay 8', tier: 'Available' }
+    ];
+
     container.innerHTML = `
       <div class="space-y-4 animate-fade-in">
+        <!-- Clean Page Header -->
         <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
           <div>
-            <h1 class="text-xl font-extrabold text-[#172B4D]">View Store</h1>
+            <h1 class="text-xl font-extrabold text-[#172B4D]">View Store Layout</h1>
           </div>
         </div>
-        <div class="bg-white border border-[#DFE1E6] rounded-xl p-8 shadow-xs text-center">
-          <div class="max-w-md mx-auto py-8">
-            <div class="w-12 h-12 rounded-full bg-[#EAE6FF] text-[#403294] flex items-center justify-center mx-auto mb-3">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/></svg>
+
+        <!-- Collapsible Top Filter Header Card (STORE ID *, BLOCK ID *, FLOORS *, RACK NAME) -->
+        <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200" style="margin-bottom: 12px !important;">
+          <div class="flex items-center justify-between pb-1">
+            <div class="flex items-center gap-2">
+              <svg style="width: 16px; height: 16px; min-width: 16px; min-height: 16px; stroke: #0284C7; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+              <h3 class="text-xs font-bold text-[#172B4D]">Store &amp; Rack Search Filters</h3>
             </div>
-            <h3 class="text-base font-bold text-[#172B4D]">View Store Layout</h3>
-            <p class="text-xs text-[#6B778C] mt-1">Tab configured. Ready for layout visualization and chamber telemetry specifications.</p>
+
+            <!-- Filter Controls: Reset & Toggle Open/Close -->
+            <div class="inline-flex items-center" style="gap: 8px; display: inline-flex;">
+              <button 
+                type="button" 
+                id="vsl-filter-reset-btn" 
+                class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#0284C7] text-[#334155] hover:text-[#0284C7] rounded-full transition-colors cursor-pointer select-none" 
+                style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 9999px; border: 1px solid #CBD5E1; background: #ffffff; color: #334155; display: inline-flex; align-items: center; justify-content: center; padding: 0;"
+                title="Reset All Filters" 
+                aria-label="Reset All Filters"
+              >
+                <svg style="width: 15px; height: 15px; min-width: 15px; min-height: 15px; stroke: #334155; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+              </button>
+
+              <button 
+                type="button" 
+                id="vsl-filter-toggle-btn" 
+                class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#0284C7] text-[#334155] hover:text-[#0284C7] rounded-full transition-colors cursor-pointer select-none" 
+                style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 9999px; border: 1px solid #CBD5E1; background: #ffffff; color: #334155; display: inline-flex; align-items: center; justify-content: center; padding: 0;"
+                title="Hide Filter" 
+                aria-label="Hide Filter"
+              >
+                <svg id="vsl-filter-toggle-icon" style="width: 15px; height: 15px; min-width: 15px; min-height: 15px; stroke: #334155; fill: none; display: inline-block;" class="dt-top-filter-toggle-icon transform transition-transform duration-200" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Collapsible Filter Inputs Grid -->
+          <div id="vsl-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 text-xs transition-all duration-200">
+            <!-- 1. STORE ID * -->
+            <div>
+              <label for="vsl-filter-store" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STORE ID <span class="text-[#DE350B] font-bold">*</span></label>
+              <select id="vsl-filter-store" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]" required>
+                <option value="CS-CH-01" selected>CS-CH-01 (Chamber #1 IQF)</option>
+                <option value="CS-CH-02">CS-CH-02 (Chamber #2 Block)</option>
+                <option value="CS-VLT-03">CS-VLT-03 (Vault #3 Staging)</option>
+                <option value="CS-CH-03">CS-CH-03 (Chamber #3 Blast)</option>
+              </select>
+            </div>
+
+            <!-- 2. BLOCK ID * -->
+            <div>
+              <label for="vsl-filter-block" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">BLOCK ID <span class="text-[#DE350B] font-bold">*</span></label>
+              <select id="vsl-filter-block" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]" required>
+                <option value="BLK-A" selected>BLK-A (Block A - Primary)</option>
+                <option value="BLK-B">BLK-B (Block B - Secondary)</option>
+                <option value="BLK-C">BLK-C (Block C - Staging)</option>
+                <option value="BLK-D">BLK-D (Block D - Blast)</option>
+              </select>
+            </div>
+
+            <!-- 3. FLOORS * -->
+            <div>
+              <label for="vsl-filter-floor" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">FLOORS <span class="text-[#DE350B] font-bold">*</span></label>
+              <select id="vsl-filter-floor" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]" required>
+                <option value="FL-1" selected>Floor 1 (Ground Level)</option>
+                <option value="FL-2">Floor 2 (Tier 2)</option>
+                <option value="FL-3">Floor 3 (High Bay)</option>
+              </select>
+            </div>
+
+            <!-- 4. RACK NAME -->
+            <div>
+              <label for="vsl-filter-rack" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">RACK NAME</label>
+              <input type="text" id="vsl-filter-rack" placeholder="e.g. RACK-A01, RACK-A02..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-semibold text-[#172B4D]">
+            </div>
+
+            <!-- 5. Action Slot: Search Button -->
+            <div class="flex items-end">
+              <button 
+                type="button" 
+                id="vsl-filter-search-btn" 
+                class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px] w-full sm:w-auto"
+                title="Search Filter Records"
+              >
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                <span>Search</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Attached Dashlets Below Filter & Search (Exact 4 Cards from User Uploaded Spec) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 mb-3.5">
+          <!-- Dashlet 1: TOTAL STORED WEIGHT -->
+          <div class="bg-gradient-to-r from-[#EFF6FF] to-[#DBEAFE] border border-[#BFDBFE] rounded-xl p-4 shadow-2xs flex items-center justify-between transition-all hover:shadow-xs">
+            <div class="flex-1 pr-2">
+              <div class="text-[10px] font-bold text-[#0284C7] uppercase tracking-wider">TOTAL STORED WEIGHT</div>
+              <div class="flex flex-wrap items-baseline gap-x-3 gap-y-0.5 mt-1">
+                <span class="text-xl sm:text-2xl font-black text-[#172B4D] tracking-tight">43,769 kg</span>
+                <span class="text-base sm:text-lg font-bold text-[#0284C7] font-mono">73,97,.95 McS</span>
+              </div>
+              <div class="flex items-center gap-3 text-[10px] text-[#5E6C84] font-semibold mt-1">
+                <span>TONNES 43.769</span>
+                <span>POUNDS 96,493.14</span>
+              </div>
+            </div>
+            <div class="w-11 h-11 rounded-full bg-[#D0E2FF] text-[#0F62FE] flex items-center justify-center shadow-xs shrink-0">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+            </div>
+          </div>
+
+          <!-- Dashlet 2: RACKS OVERVIEW -->
+          <div class="bg-gradient-to-r from-[#F0FDF4] to-[#DCFCE7] border border-[#BBF7D0] rounded-xl p-4 shadow-2xs flex flex-col justify-between transition-all hover:shadow-xs">
+            <div>
+              <div class="text-[10px] font-bold text-[#0E7A46] uppercase tracking-wider mb-2">RACKS OVERVIEW</div>
+              <div class="w-full bg-[#E5E7EB] rounded-full h-2 overflow-hidden flex">
+                <div class="bg-[#10B981] h-2 rounded-full transition-all duration-300" style="width: 69%"></div>
+              </div>
+            </div>
+            <div class="flex items-center justify-between text-[10px] font-semibold mt-3 text-[#172B4D]">
+              <div class="flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-[#10B981] inline-block"></span>
+                <span>USED RACKS 69% (105)</span>
+              </div>
+              <div class="flex items-center gap-1.5 text-[#5E6C84]">
+                <span class="w-2 h-2 rounded-full border border-[#9CA3AF] bg-white inline-block"></span>
+                <span>FREE RACKS 31% (47)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dashlet 3: TOP VARIETIES -->
+          <div class="bg-gradient-to-r from-[#FFFBEB] to-[#FEF3C7] border border-[#FDE68A] rounded-xl p-4 shadow-2xs flex items-center justify-between transition-all hover:shadow-xs">
+            <div>
+              <div class="text-[10px] font-bold text-[#B45309] uppercase tracking-wider">TOP VARIETIES</div>
+              <div class="text-lg sm:text-xl font-black text-[#78350F] tracking-tight mt-1">PDTO, PD, PVPD</div>
+              <div class="text-[10px] text-[#B45309] font-semibold mt-1">BASED ON TOTAL KGS</div>
+            </div>
+            <div class="w-11 h-11 rounded-full bg-[#FEDF89] text-[#B45309] flex items-center justify-center shadow-xs shrink-0">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+            </div>
+          </div>
+
+          <!-- Dashlet 4: PACKING TYPE -->
+          <div class="bg-gradient-to-r from-[#FAF5FF] to-[#F3E8FF] border border-[#E9D5FF] rounded-xl p-4 shadow-2xs flex flex-col justify-between transition-all hover:shadow-xs">
+            <div>
+              <div class="text-[10px] font-bold text-[#6941C6] uppercase tracking-wider mb-2">PACKING TYPE</div>
+              <div class="w-full bg-[#E5E7EB] rounded-full h-2 overflow-hidden flex">
+                <div class="bg-[#8B5CF6] h-2 rounded-full transition-all duration-300" style="width: 56%"></div>
+              </div>
+            </div>
+            <div class="flex items-center justify-between text-[10px] font-semibold mt-3 text-[#172B4D]">
+              <div class="flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-[#8B5CF6] inline-block"></span>
+                <span>DUMMY 56% (24,799)</span>
+              </div>
+              <div class="flex items-center gap-1.5 text-[#5E6C84]">
+                <span class="w-2 h-2 rounded-full border border-[#9CA3AF] bg-white inline-block"></span>
+                <span>MASTER 44% (19,565)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Store Layout Chamber Grid View -->
+        <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs">
+          <div class="flex flex-wrap items-center justify-between gap-3 border-b pb-3 border-[#DFE1E6] mb-4">
+            <div class="flex items-center gap-2">
+              <svg class="w-5 h-5 text-[#0284C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+              <div>
+                <h3 id="vsl-layout-title" class="text-sm font-bold text-[#172B4D]">Chamber #1 (IQF) - Block A Floor Plan</h3>
+                <p class="text-[11px] text-[#6B778C]">Interactive rack bay occupancy • Click rack card for pallet slotting details</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">-22.5°C Optimal</span>
+              <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-[#E0F2FE] text-[#0284C7] border border-[#B3D4FF]">88% RH</span>
+              <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">152 Total Racks</span>
+            </div>
+          </div>
+
+          <!-- Racks Grid Container -->
+          <div id="vsl-racks-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5">
+            <!-- Dynamically populated racks -->
           </div>
         </div>
       </div>
     `;
+
+    // Render Racks Grid Function
+    const renderRacksGrid = (racks) => {
+      const grid = container.querySelector('#vsl-racks-grid');
+      if (!grid) return;
+
+      if (racks.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full py-12 text-center text-[#5E6C84]">
+            <svg class="w-10 h-10 mx-auto mb-2 text-[#CBD5E1]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <p class="text-xs font-semibold">No racks matching the selected filter criteria</p>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = racks.map(rack => {
+        let statusBadge = 'bg-[#E3FCEF] text-[#006644] border-[#ABF5D1]';
+        let barColor = 'bg-[#10B981]';
+        if (rack.status === 'Partially Loaded') {
+          statusBadge = 'bg-[#FFF0B3] text-[#172B4D] border-[#FFE380]';
+          barColor = 'bg-[#F59E0B]';
+        } else if (rack.status === 'Free') {
+          statusBadge = 'bg-[#F4F5F7] text-[#5E6C84] border-[#DFE1E6]';
+          barColor = 'bg-[#CBD5E1]';
+        }
+
+        return `
+          <div 
+            class="p-3.5 rounded-xl border border-[#DFE1E6] hover:border-[#0284C7] bg-[#FAFBFC] hover:bg-white transition-all shadow-2xs hover:shadow-md cursor-pointer group"
+            data-rack-id="${rack.id}"
+          >
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-mono font-bold text-xs text-[#0284C7] group-hover:underline">${rack.name}</span>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold border ${statusBadge}">${rack.status}</span>
+            </div>
+            
+            <div class="space-y-1 mb-2.5">
+              <div class="text-xs font-bold text-[#172B4D] truncate">${rack.variety}</div>
+              <div class="flex items-center justify-between text-[11px] text-[#5E6C84]">
+                <span>Grade: <strong class="text-[#172B4D]">${rack.grade}</strong></span>
+                <span class="font-mono font-bold text-[#00875A]">${rack.mcs} MCs</span>
+              </div>
+            </div>
+
+            <!-- Occupancy bar -->
+            <div class="mt-2 pt-2 border-t border-[#EBECF0]">
+              <div class="flex items-center justify-between text-[10px] font-semibold text-[#5E6C84] mb-1">
+                <span>Occupancy</span>
+                <span class="font-mono font-bold text-[#172B4D]">${rack.occupancy}%</span>
+              </div>
+              <div class="w-full bg-[#EBECF0] rounded-full h-1.5 overflow-hidden">
+                <div class="${barColor} h-1.5 rounded-full" style="width: ${rack.occupancy}%"></div>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // Bind Rack Card Click
+      grid.querySelectorAll('[data-rack-id]').forEach(card => {
+        card.addEventListener('click', () => {
+          const rId = card.getAttribute('data-rack-id');
+          const found = racks.find(r => r.id === rId);
+          if (found) this.showRackDetailModal(found);
+        });
+      });
+    };
+
+    // Initial render
+    renderRacksGrid(defaultRacks);
+
+    // Bind Collapsible Filter Toggle
+    const toggleBtn = container.querySelector('#vsl-filter-toggle-btn');
+    const filterBody = container.querySelector('#vsl-filter-body');
+    const toggleIcon = container.querySelector('#vsl-filter-toggle-icon');
+
+    if (toggleBtn && filterBody && toggleIcon) {
+      let isFilterOpen = true;
+      toggleBtn.addEventListener('click', () => {
+        isFilterOpen = !isFilterOpen;
+        if (isFilterOpen) {
+          filterBody.style.display = 'grid';
+          toggleIcon.classList.remove('rotate-180');
+          toggleBtn.title = 'Hide Filter';
+        } else {
+          filterBody.style.display = 'none';
+          toggleIcon.classList.add('rotate-180');
+          toggleBtn.title = 'Show Filter';
+        }
+      });
+    }
+
+    // Execute Filter Function
+    const executeFilter = () => {
+      const storeVal = container.querySelector('#vsl-filter-store')?.value;
+      const blockVal = container.querySelector('#vsl-filter-block')?.value;
+      const floorVal = container.querySelector('#vsl-filter-floor')?.value;
+      const rackNameVal = (container.querySelector('#vsl-filter-rack')?.value || '').trim().toLowerCase();
+
+      const titleEl = container.querySelector('#vsl-layout-title');
+      if (titleEl) {
+        titleEl.textContent = `${storeVal || 'Chamber'} - ${blockVal || 'Block'} (${floorVal || 'Floor 1'}) Plan`;
+      }
+
+      const filtered = defaultRacks.filter(r => {
+        if (rackNameVal && !r.name.toLowerCase().includes(rackNameVal)) return false;
+        return true;
+      });
+
+      renderRacksGrid(filtered);
+      Toast.show(`Displaying ${filtered.length} rack bays for ${blockVal} on ${floorVal}`, 'info');
+    };
+
+    // Bind Search Button
+    const searchBtn = container.querySelector('#vsl-filter-search-btn');
+    if (searchBtn) {
+      searchBtn.addEventListener('click', executeFilter);
+    }
+
+    // Bind Rack Input Enter
+    const rackInput = container.querySelector('#vsl-filter-rack');
+    if (rackInput) {
+      rackInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          executeFilter();
+        }
+      });
+    }
+
+    // Bind Reset Button
+    const resetBtn = container.querySelector('#vsl-filter-reset-btn');
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        const st = container.querySelector('#vsl-filter-store');
+        const bk = container.querySelector('#vsl-filter-block');
+        const fl = container.querySelector('#vsl-filter-floor');
+        const rk = container.querySelector('#vsl-filter-rack');
+
+        if (st) st.value = 'CS-CH-01';
+        if (bk) bk.value = 'BLK-A';
+        if (fl) fl.value = 'FL-1';
+        if (rk) rk.value = '';
+
+        renderRacksGrid(defaultRacks);
+        Toast.show('Store layout filters reset to default', 'info');
+      });
+    }
+  },
+
+  // 4b-1. RACK DETAIL MODAL
+  showRackDetailModal(rack) {
+    Modal.open({
+      title: `Rack Slot Details - ${rack.name} (${rack.bay})`,
+      size: 'xl',
+      content: `
+        <div class="space-y-4 text-xs text-[#172B4D]">
+          <!-- Header Banner -->
+          <div class="p-3 bg-[#F4F5F7] border border-[#DFE1E6] rounded-lg flex items-center justify-between">
+            <div>
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">RACK BAY IDENTIFIER</span>
+              <div class="text-base font-extrabold text-[#0284C7] font-mono">${rack.name} • ${rack.tier}</div>
+              <div class="text-[11px] text-[#6B778C]">Store: <span class="font-bold text-[#172B4D]">${rack.storeId}</span> • Block: <span class="font-bold text-[#172B4D]">${rack.blockId}</span></div>
+            </div>
+            <div class="text-right">
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">OCCUPANCY</span>
+              <div class="text-lg font-black text-[#00875A] font-mono">${rack.occupancy}%</div>
+            </div>
+          </div>
+
+          <!-- Section 1: Storage Quantities -->
+          <div class="grid grid-cols-3 gap-3 bg-[#F8FAFC] p-3 border border-[#DFE1E6] rounded-lg text-center">
+            <div class="p-2 bg-white rounded border border-[#DFE1E6]">
+              <div class="text-[10px] font-bold text-[#5E6C84] uppercase">STORED MCS</div>
+              <div class="text-base font-black text-[#00875A] font-mono mt-0.5">${rack.mcs}</div>
+            </div>
+            <div class="p-2 bg-white rounded border border-[#DFE1E6]">
+              <div class="text-[10px] font-bold text-[#5E6C84] uppercase">TOTAL WEIGHT</div>
+              <div class="text-base font-black text-[#0284C7] font-mono mt-0.5">${Number(rack.weightKg).toLocaleString()} kg</div>
+            </div>
+            <div class="p-2 bg-white rounded border border-[#DFE1E6]">
+              <div class="text-[10px] font-bold text-[#5E6C84] uppercase">PALLET SLOTS</div>
+              <div class="text-base font-black text-[#172B4D] font-mono mt-0.5">4 Slots Active</div>
+            </div>
+          </div>
+
+          <!-- Section 2: Stored Product Details -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-white p-3 border border-[#DFE1E6] rounded-lg">
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">VARIETY</span>
+              <span class="font-bold text-xs text-[#172B4D]">${rack.variety}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">GRADE</span>
+              <span class="font-bold text-xs text-[#0284C7]">${rack.grade}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">BRAND</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#EAE6FF] text-[#403294]">${rack.brand}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">STATUS</span>
+              <span class="font-semibold text-xs text-[#00875A]">${rack.status}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">STORAGE TEMPERATURE</span>
+              <span class="font-mono text-xs font-bold text-[#00875A]">-22.4°C</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">HUMIDITY</span>
+              <span class="font-mono text-xs font-bold text-[#0284C7]">88% RH</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">FORKLIFT ACCESS</span>
+              <span class="text-xs text-[#172B4D]">Aisle A - Clear</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">LAST AUDITED</span>
+              <span class="font-mono text-xs text-[#5E6C84]">2026-10-29</span>
+            </div>
+          </div>
+        </div>
+      `,
+      footerButtons: [
+        { label: 'Close', type: 'secondary', onClick: (modal) => modal.close() }
+      ]
+    });
   },
 
   // 4c. STORE - RACK NAMES (create-store-layout)
