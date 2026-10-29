@@ -47636,19 +47636,8 @@ const ColdstoreView = {
     });
   },
 
-  // 4b. STORE - VIEW STORE (EXACT USER-SPECIFIED FILTERS & ATTACHED DASHLETS)
+  // 4b. STORE - VIEW STORE (EXACT USER-SPECIFIED FILTERS, ATTACHED DASHLETS & RACK LAYOUT MAP)
   renderViewStore(container) {
-    const defaultRacks = [
-      { id: 'RACK-A01', name: 'RACK-A01', storeId: 'CS-CH-01', blockId: 'BLK-A', floor: 'FL-1', variety: 'Vannamei PD IQF', grade: '31/40', brand: 'Devi Royal', occupancy: 85, mcs: 180, weightKg: 1800.0, status: 'Occupied', bay: 'Bay 1', tier: 'Tier 1-3' },
-      { id: 'RACK-A02', name: 'RACK-A02', storeId: 'CS-CH-01', blockId: 'BLK-A', floor: 'FL-1', variety: 'Black Tiger Block', grade: '16/20', brand: 'Bay Harvest', occupancy: 70, mcs: 150, weightKg: 1800.0, status: 'Occupied', bay: 'Bay 2', tier: 'Tier 1-3' },
-      { id: 'RACK-A03', name: 'RACK-A03', storeId: 'CS-CH-01', blockId: 'BLK-A', floor: 'FL-1', variety: 'Sea Pearl Cooked PDTO', grade: '21/25', brand: 'Sea Pearl', occupancy: 100, mcs: 220, weightKg: 2200.0, status: 'Occupied', bay: 'Bay 3', tier: 'Tier 1-4' },
-      { id: 'RACK-A04', name: 'RACK-A04', storeId: 'CS-CH-01', blockId: 'BLK-A', floor: 'FL-1', variety: 'Vannamei HOSO IQF', grade: '26/30', brand: 'Ocean Jewel', occupancy: 45, mcs: 95, weightKg: 950.0, status: 'Partially Loaded', bay: 'Bay 4', tier: 'Tier 1-2' },
-      { id: 'RACK-A05', name: 'RACK-A05', storeId: 'CS-CH-01', blockId: 'BLK-A', floor: 'FL-1', variety: 'Empty Bay', grade: '-', brand: '-', occupancy: 0, mcs: 0, weightKg: 0.0, status: 'Free', bay: 'Bay 5', tier: 'Available' },
-      { id: 'RACK-A06', name: 'RACK-A06', storeId: 'CS-CH-01', blockId: 'BLK-A', floor: 'FL-1', variety: 'Vannamei HLSO IQF', grade: '41/50', brand: 'Devi Royal', occupancy: 90, mcs: 200, weightKg: 2000.0, status: 'Occupied', bay: 'Bay 6', tier: 'Tier 1-3' },
-      { id: 'RACK-A07', name: 'RACK-A07', storeId: 'CS-CH-01', blockId: 'BLK-A', floor: 'FL-1', variety: 'Scampi Block', grade: '16/20', brand: 'Arctic Catch', occupancy: 60, mcs: 120, weightKg: 1440.0, status: 'Partially Loaded', bay: 'Bay 7', tier: 'Tier 1-2' },
-      { id: 'RACK-A08', name: 'RACK-A08', storeId: 'CS-CH-01', blockId: 'BLK-A', floor: 'FL-1', variety: 'Empty Bay', grade: '-', brand: '-', occupancy: 0, mcs: 0, weightKg: 0.0, status: 'Free', bay: 'Bay 8', tier: 'Available' }
-    ];
-
     container.innerHTML = `
       <div class="space-y-4 animate-fade-in">
         <!-- Clean Page Header -->
@@ -47820,101 +47809,314 @@ const ColdstoreView = {
           </div>
         </div>
 
-        <!-- Store Layout Chamber Grid View -->
-        <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs">
-          <div class="flex flex-wrap items-center justify-between gap-3 border-b pb-3 border-[#DFE1E6] mb-4">
-            <div class="flex items-center gap-2">
-              <svg class="w-5 h-5 text-[#0284C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
-              <div>
-                <h3 id="vsl-layout-title" class="text-sm font-bold text-[#172B4D]">Chamber #1 (IQF) - Block A Floor Plan</h3>
-                <p class="text-[11px] text-[#6B778C]">Interactive rack bay occupancy • Click rack card for pallet slotting details</p>
+        <!-- RACK LAYOUT SECTION (EXACT MATCH TO SPEC) -->
+        <div class="mt-4">
+          <!-- Top Section Header: RACK LAYOUT and Legend -->
+          <div class="flex flex-wrap items-center justify-between gap-3 mb-2.5 px-1">
+            <h2 class="text-xs font-bold text-[#334155] tracking-wider uppercase">RACK LAYOUT</h2>
+            <div class="flex flex-wrap items-center gap-5 sm:gap-7">
+              <div class="flex items-center gap-2">
+                <span class="w-4 h-4 rounded border border-[#DFE1E6] bg-[#EEF2F6] inline-block shadow-2xs"></span>
+                <span class="text-[11px] font-bold text-[#64748B] tracking-wider">EMPTY RACK</span>
               </div>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">-22.5°C Optimal</span>
-              <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-[#E0F2FE] text-[#0284C7] border border-[#B3D4FF]">88% RH</span>
-              <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">152 Total Racks</span>
+              <div class="flex items-center gap-2">
+                <span class="w-4 h-4 rounded border border-[#86EFAC] bg-[#D1FADF] inline-block shadow-2xs"></span>
+                <span class="text-[11px] font-bold text-[#0E7A46] tracking-wider">FILLED RACK</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="w-6 h-1 bg-[#FDBA74] rounded inline-block shadow-2xs"></span>
+                <span class="text-[11px] font-bold text-[#D97706] tracking-wider">WALK PATH</span>
+              </div>
             </div>
           </div>
 
-          <!-- Racks Grid Container -->
-          <div id="vsl-racks-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5">
-            <!-- Dynamically populated racks -->
+          <!-- White Canvas Container for Realistic Warehouse Grid -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 sm:p-6 shadow-xs overflow-x-auto">
+            <div id="vsl-warehouse-map" class="min-w-[980px] space-y-2">
+              <!-- Dynamically populated warehouse rack bays -->
+            </div>
           </div>
         </div>
       </div>
     `;
 
-    // Render Racks Grid Function
-    const renderRacksGrid = (racks) => {
-      const grid = container.querySelector('#vsl-racks-grid');
-      if (!grid) return;
+    // Realistic Warehouse Map Data Specification (Matching Uploaded Floor Plan Layout)
+    const warehouseLayoutRows = [
+      // --- TIER 1 (Row 1 & Row 2 across all 14 bays) ---
+      {
+        type: 'row',
+        id: 'tier-1-r',
+        racks: [
+          { name: '1-101 R', filled: false, variety: 'Empty Bay', grade: '-', mcs: 0, weightKg: 0, occupancy: 0 },
+          { name: '1-102 R', filled: false, variety: 'Empty Bay', grade: '-', mcs: 0, weightKg: 0, occupancy: 0 },
+          { name: '1-103 R', filled: true, variety: 'Vannamei PD IQF', grade: '31/40', mcs: 180, weightKg: 1800, occupancy: 85 },
+          { name: '1-104 R', filled: true, variety: 'Vannamei HLSO', grade: '26/30', mcs: 220, weightKg: 2200, occupancy: 95 },
+          { name: '1-105 R', filled: false, variety: 'Empty Bay', grade: '-', mcs: 0, weightKg: 0, occupancy: 0 },
+          { name: '1-106 R', filled: false, variety: 'Empty Bay', grade: '-', mcs: 0, weightKg: 0, occupancy: 0 },
+          { name: '1-107 R', filled: false, variety: 'Empty Bay', grade: '-', mcs: 0, weightKg: 0, occupancy: 0 },
+          { name: '1-108 R', filled: true, variety: 'Black Tiger Block', grade: '16/20', mcs: 160, weightKg: 1920, occupancy: 80 },
+          { name: '1-109 R', filled: true, variety: 'Sea Pearl Cooked PDTO', grade: '21/25', mcs: 240, weightKg: 2400, occupancy: 100 },
+          { name: '1-1010 R', filled: true, variety: 'Vannamei HOSO', grade: '31/40', mcs: 190, weightKg: 1900, occupancy: 90 },
+          { name: '1-1011 R', filled: true, variety: 'Scampi Headless', grade: '11/15', mcs: 140, weightKg: 1680, occupancy: 75 },
+          { name: '1-1012 R', filled: true, variety: 'Vannamei EZ Peel', grade: '26/30', mcs: 210, weightKg: 2100, occupancy: 92 },
+          { name: '1-1013 R', filled: false, variety: 'Empty Bay', grade: '-', mcs: 0, weightKg: 0, occupancy: 0 },
+          { name: '1-1014 R', filled: true, variety: 'Black Tiger HOSO', grade: '21/25', mcs: 200, weightKg: 2400, occupancy: 90 }
+        ]
+      },
+      {
+        type: 'row',
+        id: 'tier-1',
+        racks: [
+          { name: '1-101', filled: true, variety: 'Vannamei PD IQF', grade: '41/50', mcs: 250, weightKg: 2500, occupancy: 100 },
+          { name: '1-102', filled: true, variety: 'Black Tiger Block', grade: '16/20', mcs: 210, weightKg: 2520, occupancy: 90 },
+          { name: '1-103', filled: true, variety: 'Sea Pearl Cooked', grade: '21/25', mcs: 180, weightKg: 1800, occupancy: 85 },
+          { name: '1-104', filled: true, variety: 'Vannamei HLSO IQF', grade: '31/40', mcs: 240, weightKg: 2400, occupancy: 100 },
+          { name: '1-105', filled: true, variety: 'Ocean Jewel PD', grade: '26/30', mcs: 195, weightKg: 1950, occupancy: 88 },
+          { name: '1-106', filled: true, variety: 'Vannamei Raw PD', grade: '51/60', mcs: 220, weightKg: 2200, occupancy: 95 },
+          { name: '1-107', filled: false, variety: 'Empty Bay', grade: '-', mcs: 0, weightKg: 0, occupancy: 0 },
+          { name: '1-108', filled: true, variety: 'Black Tiger EZ Peel', grade: '16/20', mcs: 175, weightKg: 2100, occupancy: 82 },
+          { name: '1-109', filled: true, variety: 'Vannamei PDTO IQF', grade: '31/40', mcs: 260, weightKg: 2600, occupancy: 100 },
+          { name: '1-1010', filled: true, variety: 'Devi Classic Block', grade: '21/25', mcs: 230, weightKg: 2760, occupancy: 95 },
+          { name: '1-1011', filled: true, variety: 'Sea White HOSO', grade: '31/40', mcs: 180, weightKg: 1800, occupancy: 85 },
+          { name: '1-1012', filled: false, variety: 'Empty Bay', grade: '-', mcs: 0, weightKg: 0, occupancy: 0 },
+          { name: '1-1013', filled: false, variety: 'Empty Bay', grade: '-', mcs: 0, weightKg: 0, occupancy: 0 },
+          { name: '1-1014', filled: true, variety: 'Vannamei Cooked PD', grade: '41/50', mcs: 210, weightKg: 2100, occupancy: 92 }
+        ]
+      },
+      // Horizontal Walk Path 1
+      { type: 'walkpath-h' },
+      // --- TIER 2 ---
+      {
+        type: 'split-row',
+        id: 'tier-2',
+        left: [
+          { name: '1-201', filled: false, variety: 'Empty Bay', grade: '-', mcs: 0, weightKg: 0, occupancy: 0 },
+          { name: '1-202', filled: true, variety: 'Vannamei PD IQF', grade: '31/40', mcs: 200, weightKg: 2000, occupancy: 90 },
+          { name: '1-203', filled: true, variety: 'Black Tiger Block', grade: '21/25', mcs: 180, weightKg: 2160, occupancy: 85 },
+          { name: '1-204', filled: false, variety: 'Empty Bay', grade: '-', mcs: 0, weightKg: 0, occupancy: 0 },
+          { name: '1-205', filled: true, variety: 'Sea Pearl Cooked', grade: '26/30', mcs: 230, weightKg: 2300, occupancy: 95 },
+          { name: '1-206', filled: true, variety: 'Ocean Jewel PD', grade: '16/20', mcs: 190, weightKg: 1900, occupancy: 88 }
+        ],
+        right: [
+          { name: '1-209', filled: true, variety: 'Vannamei HLSO', grade: '31/40', mcs: 220, weightKg: 2200, occupancy: 92 },
+          { name: '1-2010', filled: true, variety: 'Black Tiger HOSO', grade: '16/20', mcs: 170, weightKg: 2040, occupancy: 80 },
+          { name: '1-2011', filled: true, variety: 'Sea White PD IQF', grade: '41/50', mcs: 240, weightKg: 2400, occupancy: 100 },
+          { name: '1-2012', filled: true, variety: 'Devi Royal PDTO', grade: '21/25', mcs: 210, weightKg: 2100, occupancy: 90 },
+          { name: '1-2013', filled: true, variety: 'Scampi Tail On', grade: '11/15', mcs: 150, weightKg: 1800, occupancy: 75 },
+          { name: '1-2014', filled: true, variety: 'Vannamei Block', grade: '51/60', mcs: 260, weightKg: 2600, occupancy: 100 }
+        ]
+      },
+      {
+        type: 'split-row',
+        id: 'tier-2-r',
+        left: [
+          { name: '1-201 R', filled: false, variety: 'Empty Bay', grade: '-', mcs: 0, weightKg: 0, occupancy: 0 },
+          { name: '1-202 R', filled: true, variety: 'Vannamei PD IQF', grade: '26/30', mcs: 190, weightKg: 1900, occupancy: 85 },
+          { name: '1-203 R', filled: false, variety: 'Empty Bay', grade: '-', mcs: 0, weightKg: 0, occupancy: 0 },
+          { name: '1-204 R', filled: false, variety: 'Empty Bay', grade: '-', mcs: 0, weightKg: 0, occupancy: 0 },
+          { name: '1-205 R', filled: true, variety: 'Black Tiger Block', grade: '16/20', mcs: 160, weightKg: 1920, occupancy: 80 },
+          { name: '1-206 R', filled: true, variety: 'Sea Pearl Cooked', grade: '31/40', mcs: 210, weightKg: 2100, occupancy: 92 }
+        ],
+        right: [
+          { name: '1-209 R', filled: false, variety: 'Empty Bay', grade: '-', mcs: 0, weightKg: 0, occupancy: 0 },
+          { name: '1-2010 R', filled: true, variety: 'Ocean Jewel PD', grade: '21/25', mcs: 180, weightKg: 1800, occupancy: 85 },
+          { name: '1-2011 R', filled: true, variety: 'Vannamei HLSO', grade: '41/50', mcs: 220, weightKg: 2200, occupancy: 95 },
+          { name: '1-2012 R', filled: true, variety: 'Black Tiger EZ Peel', grade: '26/30', mcs: 195, weightKg: 2340, occupancy: 88 },
+          { name: '1-2013 R', filled: false, variety: 'Empty Bay', grade: '-', mcs: 0, weightKg: 0, occupancy: 0 },
+          { name: '1-2014 R', filled: true, variety: 'Vannamei PDTO', grade: '31/40', mcs: 230, weightKg: 2300, occupancy: 95 }
+        ]
+      },
+      // --- TIER 3 ---
+      {
+        type: 'split-row',
+        id: 'tier-3-r',
+        left: [
+          { name: '1-301 R', filled: true, variety: 'Vannamei PD IQF', grade: '31/40', mcs: 200, weightKg: 2000, occupancy: 90 },
+          { name: '1-302 R', filled: true, variety: 'Black Tiger Block', grade: '16/20', mcs: 180, weightKg: 2160, occupancy: 85 },
+          { name: '1-303 R', filled: true, variety: 'Sea Pearl Cooked', grade: '21/25', mcs: 220, weightKg: 2200, occupancy: 95 },
+          { name: '1-304 R', filled: true, variety: 'Ocean Jewel PD', grade: '26/30', mcs: 190, weightKg: 1900, occupancy: 88 },
+          { name: '1-305 R', filled: true, variety: 'Vannamei HLSO', grade: '41/50', mcs: 240, weightKg: 2400, occupancy: 100 },
+          { name: '1-306 R', filled: true, variety: 'Sea White PD', grade: '31/40', mcs: 210, weightKg: 2100, occupancy: 92 }
+        ],
+        right: [
+          { name: '1-309 R', filled: true, variety: 'Black Tiger HOSO', grade: '21/25', mcs: 175, weightKg: 2100, occupancy: 82 },
+          { name: '1-3010 R', filled: true, variety: 'Vannamei PDTO', grade: '31/40', mcs: 230, weightKg: 2300, occupancy: 95 },
+          { name: '1-3011 R', filled: true, variety: 'Devi Classic Block', grade: '16/20', mcs: 195, weightKg: 2340, occupancy: 88 },
+          { name: '1-3012 R', filled: true, variety: 'Scampi Tail On', grade: '11/15', mcs: 160, weightKg: 1920, occupancy: 80 },
+          { name: '1-3013 R', filled: true, variety: 'Vannamei EZ Peel', grade: '26/30', mcs: 215, weightKg: 2150, occupancy: 92 },
+          { name: '1-3014 R', filled: false, variety: 'Empty Bay', grade: '-', mcs: 0, weightKg: 0, occupancy: 0 }
+        ]
+      },
+      {
+        type: 'split-row',
+        id: 'tier-3',
+        left: [
+          { name: '1-301', filled: true, variety: 'Vannamei PD IQF', grade: '41/50', mcs: 220, weightKg: 2200, occupancy: 95 },
+          { name: '1-302', filled: true, variety: 'Black Tiger Block', grade: '21/25', mcs: 185, weightKg: 2220, occupancy: 85 },
+          { name: '1-303', filled: true, variety: 'Sea Pearl Cooked', grade: '26/30', mcs: 240, weightKg: 2400, occupancy: 100 },
+          { name: '1-304', filled: true, variety: 'Ocean Jewel PD', grade: '31/40', mcs: 210, weightKg: 2100, occupancy: 92 },
+          { name: '1-305', filled: false, variety: 'Empty Bay', grade: '-', mcs: 0, weightKg: 0, occupancy: 0 },
+          { name: '1-306', filled: true, variety: 'Vannamei HLSO', grade: '16/20', mcs: 200, weightKg: 2000, occupancy: 90 }
+        ],
+        right: [
+          { name: '1-309', filled: true, variety: 'Sea White PD', grade: '31/40', mcs: 215, weightKg: 2150, occupancy: 92 },
+          { name: '1-3010', filled: true, variety: 'Black Tiger EZ Peel', grade: '16/20', mcs: 190, weightKg: 2280, occupancy: 88 },
+          { name: '1-3011', filled: true, variety: 'Vannamei PDTO', grade: '26/30', mcs: 225, weightKg: 2250, occupancy: 95 },
+          { name: '1-3012', filled: true, variety: 'Devi Classic Block', grade: '41/50', mcs: 245, weightKg: 2940, occupancy: 100 },
+          { name: '1-3013', filled: true, variety: 'Scampi Headless', grade: '11/15', mcs: 155, weightKg: 1860, occupancy: 78 },
+          { name: '1-3014', filled: true, variety: 'Vannamei Raw PD', grade: '51/60', mcs: 235, weightKg: 2350, occupancy: 95 }
+        ]
+      },
+      // Horizontal Walk Path 2
+      { type: 'walkpath-h' },
+      // --- TIER 4 ---
+      {
+        type: 'split-row',
+        id: 'tier-4',
+        left: [
+          { name: '1-401', filled: true, variety: 'Vannamei PD IQF', grade: '31/40', mcs: 210, weightKg: 2100, occupancy: 90 },
+          { name: '1-402', filled: false, variety: 'Empty Bay', grade: '-', mcs: 0, weightKg: 0, occupancy: 0 },
+          { name: '1-403', filled: false, variety: 'Empty Bay', grade: '-', mcs: 0, weightKg: 0, occupancy: 0 },
+          { name: '1-404', filled: true, variety: 'Black Tiger Block', grade: '16/20', mcs: 190, weightKg: 2280, occupancy: 88 },
+          { name: '1-405', filled: true, variety: 'Sea Pearl Cooked', grade: '21/25', mcs: 230, weightKg: 2300, occupancy: 95 },
+          { name: '1-406', filled: false, variety: 'Empty Bay', grade: '-', mcs: 0, weightKg: 0, occupancy: 0 }
+        ],
+        right: [
+          { name: '1-409', filled: true, variety: 'Ocean Jewel PD', grade: '26/30', mcs: 200, weightKg: 2000, occupancy: 90 },
+          { name: '1-4010', filled: false, variety: 'Empty Bay', grade: '-', mcs: 0, weightKg: 0, occupancy: 0 },
+          { name: '1-4011', filled: false, variety: 'Empty Bay', grade: '-', mcs: 0, weightKg: 0, occupancy: 0 },
+          { name: '1-4012', filled: true, variety: 'Vannamei HLSO', grade: '41/50', mcs: 220, weightKg: 2200, occupancy: 92 },
+          { name: '1-4013', filled: true, variety: 'Sea White PD', grade: '31/40', mcs: 210, weightKg: 2100, occupancy: 90 },
+          { name: '1-4014', filled: false, variety: 'Empty Bay', grade: '-', mcs: 0, weightKg: 0, occupancy: 0 }
+        ]
+      }
+    ];
 
-      if (racks.length === 0) {
-        grid.innerHTML = `
-          <div class="col-span-full py-12 text-center text-[#5E6C84]">
-            <svg class="w-10 h-10 mx-auto mb-2 text-[#CBD5E1]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-            <p class="text-xs font-semibold">No racks matching the selected filter criteria</p>
-          </div>
-        `;
-        return;
+    // Collect all racks for lookup
+    const allRacks = [];
+    warehouseLayoutRows.forEach(row => {
+      if (row.racks) allRacks.push(...row.racks);
+      if (row.left) allRacks.push(...row.left);
+      if (row.right) allRacks.push(...row.right);
+    });
+
+    // Realistic Isometric Cardboard Boxes Stack Graphic
+    const boxStackSvg = `
+      <svg class="w-6 h-6 sm:w-7 sm:h-7 drop-shadow-2xs pointer-events-none" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Bottom Left Box -->
+        <path d="M4 17L13 12L22 17L13 22L4 17Z" fill="#E8C391"/>
+        <path d="M4 17L13 22V31L4 26V17Z" fill="#CB9759"/>
+        <path d="M13 22L22 17V26L13 31V22Z" fill="#AF7E42"/>
+        <line x1="8.5" y1="14.5" x2="17.5" y2="19.5" stroke="#BA8549" stroke-width="1"/>
+        <!-- Top Right Stacked Box -->
+        <path d="M14 9L23 4L32 9L23 14L14 9Z" fill="#F0CD9D"/>
+        <path d="M14 9L23 14V23L14 18V9Z" fill="#D7A466"/>
+        <path d="M23 14L32 9V18L23 23V14Z" fill="#BD8A4C"/>
+        <line x1="18.5" y1="6.5" x2="27.5" y2="11.5" stroke="#C49354" stroke-width="1"/>
+      </svg>
+    `;
+
+    // Render Individual Rack Cell
+    const renderRackCell = (rack, query = '') => {
+      const q = query.trim().toLowerCase();
+      const isMatch = !q || rack.name.toLowerCase().includes(q);
+      const isDimmed = q && !isMatch;
+      const isHighlighted = q && isMatch;
+
+      let cellClasses = 'relative h-[58px] sm:h-[64px] rounded-lg flex flex-col items-center justify-between pt-1.5 pb-1 px-1 transition-all duration-150 cursor-pointer select-none group ';
+      
+      if (rack.filled) {
+        cellClasses += 'bg-[#D1FADF] border border-[#86EFAC] hover:border-[#34D399] ';
+      } else {
+        cellClasses += 'bg-[#EEF2F6] border border-[#DFE1E6] hover:border-[#CBD5E1] ';
       }
 
-      grid.innerHTML = racks.map(rack => {
-        let statusBadge = 'bg-[#E3FCEF] text-[#006644] border-[#ABF5D1]';
-        let barColor = 'bg-[#10B981]';
-        if (rack.status === 'Partially Loaded') {
-          statusBadge = 'bg-[#FFF0B3] text-[#172B4D] border-[#FFE380]';
-          barColor = 'bg-[#F59E0B]';
-        } else if (rack.status === 'Free') {
-          statusBadge = 'bg-[#F4F5F7] text-[#5E6C84] border-[#DFE1E6]';
-          barColor = 'bg-[#CBD5E1]';
-        }
+      if (isHighlighted) {
+        cellClasses += 'ring-2 ring-[#0284C7] ring-offset-2 scale-105 shadow-md z-20 ';
+      } else if (isDimmed) {
+        cellClasses += 'opacity-25 hover:opacity-100 ';
+      } else {
+        cellClasses += 'hover:scale-105 hover:shadow-md hover:z-10 ';
+      }
 
-        return `
-          <div 
-            class="p-3.5 rounded-xl border border-[#DFE1E6] hover:border-[#0284C7] bg-[#FAFBFC] hover:bg-white transition-all shadow-2xs hover:shadow-md cursor-pointer group"
-            data-rack-id="${rack.id}"
-          >
-            <div class="flex items-center justify-between mb-2">
-              <span class="font-mono font-bold text-xs text-[#0284C7] group-hover:underline">${rack.name}</span>
-              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold border ${statusBadge}">${rack.status}</span>
-            </div>
-            
-            <div class="space-y-1 mb-2.5">
-              <div class="text-xs font-bold text-[#172B4D] truncate">${rack.variety}</div>
-              <div class="flex items-center justify-between text-[11px] text-[#5E6C84]">
-                <span>Grade: <strong class="text-[#172B4D]">${rack.grade}</strong></span>
-                <span class="font-mono font-bold text-[#00875A]">${rack.mcs} MCs</span>
-              </div>
-            </div>
+      const labelColor = rack.filled ? 'text-[#0F172A]' : 'text-[#64748B]';
 
-            <!-- Occupancy bar -->
-            <div class="mt-2 pt-2 border-t border-[#EBECF0]">
-              <div class="flex items-center justify-between text-[10px] font-semibold text-[#5E6C84] mb-1">
-                <span>Occupancy</span>
-                <span class="font-mono font-bold text-[#172B4D]">${rack.occupancy}%</span>
-              </div>
-              <div class="w-full bg-[#EBECF0] rounded-full h-1.5 overflow-hidden">
-                <div class="${barColor} h-1.5 rounded-full" style="width: ${rack.occupancy}%"></div>
-              </div>
-            </div>
+      return `
+        <div 
+          class="${cellClasses}" 
+          data-rack-name="${rack.name}"
+          title="Rack: ${rack.name} • Status: ${rack.filled ? 'FILLED' : 'EMPTY'} • Variety: ${rack.variety} • Grade: ${rack.grade} • MCs: ${rack.mcs}"
+        >
+          <div class="text-[10px] sm:text-[11px] font-bold ${labelColor} leading-none tracking-tight">${rack.name}</div>
+          <div class="flex-1 flex items-center justify-center">
+            ${rack.filled ? boxStackSvg : ''}
           </div>
-        `;
+        </div>
+      `;
+    };
+
+    // Render Warehouse Map Layout
+    const renderWarehouseMap = (query = '') => {
+      const mapContainer = container.querySelector('#vsl-warehouse-map');
+      if (!mapContainer) return;
+
+      const html = warehouseLayoutRows.map(row => {
+        if (row.type === 'walkpath-h') {
+          return `<div class="w-full h-1 bg-[#FDBA74] rounded my-2 shadow-2xs"></div>`;
+        }
+        if (row.type === 'row') {
+          return `
+            <div style="display: grid; grid-template-columns: repeat(14, minmax(58px, 1fr)); gap: 8px;">
+              ${row.racks.map(r => renderRackCell(r, query)).join('')}
+            </div>
+          `;
+        }
+        if (row.type === 'split-row') {
+          return `
+            <div style="display: grid; grid-template-columns: repeat(14, minmax(58px, 1fr)); gap: 8px;">
+              ${row.left.map(r => renderRackCell(r, query)).join('')}
+              <div class="col-span-2 flex items-center justify-center py-0.5">
+                <div class="w-1.5 h-full bg-[#FDBA74] rounded shadow-2xs" style="min-height: 54px;"></div>
+              </div>
+              ${row.right.map(r => renderRackCell(r, query)).join('')}
+            </div>
+          `;
+        }
+        return '';
       }).join('');
 
-      // Bind Rack Card Click
-      grid.querySelectorAll('[data-rack-id]').forEach(card => {
+      mapContainer.innerHTML = html;
+
+      // Bind Click handler for all rack cards
+      mapContainer.querySelectorAll('[data-rack-name]').forEach(card => {
         card.addEventListener('click', () => {
-          const rId = card.getAttribute('data-rack-id');
-          const found = racks.find(r => r.id === rId);
-          if (found) this.showRackDetailModal(found);
+          const rName = card.getAttribute('data-rack-name');
+          const found = allRacks.find(r => r.name === rName);
+          if (found) {
+            const rackModalData = {
+              id: found.name,
+              name: found.name,
+              storeId: 'CS-CH-01',
+              blockId: 'BLK-A',
+              floor: 'FL-1',
+              bay: `Bay ${found.name.split(' ')[0]}`,
+              tier: found.name.includes('R') ? 'Tier R (Upper Level)' : 'Tier Base (Lower Level)',
+              variety: found.variety || (found.filled ? 'Vannamei PD IQF' : 'Empty Bay'),
+              grade: found.grade || (found.filled ? '31/40' : '-'),
+              brand: found.filled ? 'Devi Royal' : '-',
+              status: found.filled ? 'Occupied' : 'Free',
+              occupancy: found.occupancy || (found.filled ? 90 : 0),
+              mcs: found.mcs || (found.filled ? 220 : 0),
+              weightKg: found.weightKg || (found.filled ? 2200 : 0)
+            };
+            this.showRackDetailModal(rackModalData);
+          }
         });
       });
     };
 
-    // Initial render
-    renderRacksGrid(defaultRacks);
+    // Initial Warehouse Render
+    renderWarehouseMap();
 
     // Bind Collapsible Filter Toggle
     const toggleBtn = container.querySelector('#vsl-filter-toggle-btn');
@@ -47942,20 +48144,16 @@ const ColdstoreView = {
       const storeVal = container.querySelector('#vsl-filter-store')?.value;
       const blockVal = container.querySelector('#vsl-filter-block')?.value;
       const floorVal = container.querySelector('#vsl-filter-floor')?.value;
-      const rackNameVal = (container.querySelector('#vsl-filter-rack')?.value || '').trim().toLowerCase();
+      const rackNameVal = (container.querySelector('#vsl-filter-rack')?.value || '').trim();
 
-      const titleEl = container.querySelector('#vsl-layout-title');
-      if (titleEl) {
-        titleEl.textContent = `${storeVal || 'Chamber'} - ${blockVal || 'Block'} (${floorVal || 'Floor 1'}) Plan`;
+      renderWarehouseMap(rackNameVal);
+
+      if (rackNameVal) {
+        const matches = allRacks.filter(r => r.name.toLowerCase().includes(rackNameVal.toLowerCase()));
+        Toast.show(`Found ${matches.length} rack bay${matches.length === 1 ? '' : 's'} matching "${rackNameVal}" in ${blockVal || 'current layout'}`, 'info');
+      } else {
+        Toast.show(`Displaying rack layout for ${blockVal || 'current block'} on ${floorVal || 'selected floor'}`, 'info');
       }
-
-      const filtered = defaultRacks.filter(r => {
-        if (rackNameVal && !r.name.toLowerCase().includes(rackNameVal)) return false;
-        return true;
-      });
-
-      renderRacksGrid(filtered);
-      Toast.show(`Displaying ${filtered.length} rack bays for ${blockVal} on ${floorVal}`, 'info');
     };
 
     // Bind Search Button
@@ -47989,7 +48187,7 @@ const ColdstoreView = {
         if (fl) fl.value = 'FL-1';
         if (rk) rk.value = '';
 
-        renderRacksGrid(defaultRacks);
+        renderWarehouseMap('');
         Toast.show('Store layout filters reset to default', 'info');
       });
     }
