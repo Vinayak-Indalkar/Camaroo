@@ -1064,7 +1064,7 @@ export const InventoryView = {
                 <!-- 8. Action (Add Item Button - placed right after Remarks with same width) -->
                 <div>
                   <label class="block text-[11px] font-bold text-transparent uppercase tracking-wider mb-1 select-none">&nbsp;</label>
-                  <button type="button" id="modal-btn-add-item" class="btn-primary w-full h-[31px] px-4 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer">
+                  <button type="button" id="modal-btn-add-item" class="btn-primary w-full h-[32px] px-4 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer">
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
                     <span>Add Item</span>
                   </button>
@@ -1946,15 +1946,19 @@ export const InventoryView = {
                 </div>
 
                 <!-- Row 5 -->
-                <!-- 16. Invoice Amount (Col 1-2) -->
-                <div class="sm:col-span-2 md:col-span-2">
+                <!-- 16. Invoice Amount (Col 1) -->
+                <div>
                   <label for="mpoi-inv-amt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">INVOICE AMT (₹)</label>
                   <input type="number" id="mpoi-inv-amt" value="31388.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F0FDF4] border border-[#BBF7D0] rounded font-mono font-bold text-[#00875A] shadow-2xs cursor-not-allowed" />
                 </div>
 
-                <!-- 17. Action Button (Col 3-4) -->
-                <div class="sm:col-span-2 md:col-span-2 flex items-end justify-end">
-                  <button type="button" id="modal-po-btn-add-item" class="btn-primary border-0 px-5 py-2 rounded-full text-xs font-bold inline-flex items-center justify-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all h-[32px]">
+                <div class="hidden md:block"></div>
+                <div class="hidden md:block"></div>
+
+                <!-- 17. Action Button (Col 4) -->
+                <div>
+                  <label class="block text-[11px] font-bold text-transparent uppercase tracking-wider mb-1 select-none">&nbsp;</label>
+                  <button type="button" id="modal-po-btn-add-item" class="btn-primary w-full h-[32px] px-4 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer">
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
                     <span>Add Item</span>
                   </button>
@@ -2806,7 +2810,7 @@ export const InventoryView = {
 
             <!-- Item Input Grid Card (4-Column Layout) -->
             <div class="bg-[#F8FAFC] border border-[#DFE1E6] rounded-xl p-3.5 shadow-2xs">
-              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3.5">
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
                 <!-- Row 1 -->
                 <!-- 1. Item (Span 2) -->
                 <div class="sm:col-span-2 md:col-span-2">
@@ -2912,11 +2916,14 @@ export const InventoryView = {
                   <input type="text" id="mgrn-gst-amt" value="5040.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] shadow-2xs cursor-not-allowed" />
                 </div>
 
-                <!-- Add Item Button (Span 2, right-aligned) -->
-                <div class="sm:col-span-2 md:col-span-2 flex items-end justify-end pt-1">
-                  <button type="button" id="modal-grn-btn-add-item" class="btn-primary px-5 py-2 rounded-full text-xs font-semibold inline-flex items-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px]">
+                <div class="hidden md:block"></div>
+
+                <!-- 14. Action Button (Col 4) -->
+                <div>
+                  <label class="block text-[11px] font-bold text-transparent uppercase tracking-wider mb-1 select-none">&nbsp;</label>
+                  <button type="button" id="modal-grn-btn-add-item" class="btn-primary w-full h-[32px] px-4 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer">
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                    <span>Add Item to GRN</span>
+                    <span>Add Item</span>
                   </button>
                 </div>
               </div>
@@ -3784,7 +3791,7 @@ export const InventoryView = {
 
             <!-- Item Input Grid Card (4-Column Layout) -->
             <div class="bg-[#F8FAFC] border border-[#DFE1E6] rounded-xl p-3.5 shadow-2xs">
-              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3.5">
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
                 <!-- Row 1 -->
                 <!-- 1. Item (Span 2) -->
                 <div class="sm:col-span-2 md:col-span-2">
@@ -3877,9 +3884,10 @@ export const InventoryView = {
                   <input type="text" id="missue-remarks" placeholder="Optional notes / issue remarks..." value="Shift Incharge indent" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
                 </div>
 
-                <!-- 13. Action: Add Item Button (Col 4, aligned to bottom) -->
-                <div class="flex items-end justify-end pt-1">
-                  <button type="button" id="modal-issue-btn-add-item" class="w-full btn-primary px-5 py-2 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px]">
+                <!-- 13. Action: Add Item Button (Col 4) -->
+                <div>
+                  <label class="block text-[11px] font-bold text-transparent uppercase tracking-wider mb-1 select-none">&nbsp;</label>
+                  <button type="button" id="modal-issue-btn-add-item" class="btn-primary w-full h-[32px] px-4 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer">
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
                     <span>Add Item</span>
                   </button>
