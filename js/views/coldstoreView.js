@@ -8189,24 +8189,460 @@ export const ColdstoreView = {
 
   // 5a. STOCK APPROVALS - DAILY PRODUCTION LIST (admin-daily-production-list)
   renderAdminDailyProductionList(container) {
+    const dailyProductionRecords = [
+      {
+        id: 1,
+        date: '2026-10-29',
+        stockBelongsTo: 'Own Stock (Devi Fisheries)',
+        group: 'Vannamei PD',
+        supc: 'SUPC-VM-1029',
+        product: 'Vannamei PD IQF Quick Frozen',
+        grade: '31/40',
+        packingType: 'DUMMY',
+        packingStyle: '6 X 1.8 KGS',
+        mcs: 180,
+        balanceMcs: 24,
+        bags: 1080,
+        balanceBags: 144,
+        kgs: 1944.0,
+        balanceKgs: 259.2,
+        status: 'Partially Stored'
+      },
+      {
+        id: 2,
+        date: '2026-10-29',
+        stockBelongsTo: 'Own Stock (Devi Fisheries)',
+        group: 'Black Tiger Block',
+        supc: 'SUPC-BT-0842',
+        product: 'Black Tiger Block Frozen',
+        grade: '16/20',
+        packingType: 'MASTER',
+        packingStyle: '10 X 1 KG',
+        mcs: 240,
+        balanceMcs: 0,
+        bags: 2400,
+        balanceBags: 0,
+        kgs: 2400.0,
+        balanceKgs: 0.0,
+        status: 'Approved'
+      },
+      {
+        id: 3,
+        date: '2026-10-29',
+        stockBelongsTo: 'Job Work / Processing',
+        group: 'Sea Pearl PDTO',
+        supc: 'SUPC-SP-3310',
+        product: 'Cooked PDTO Tail On IQF',
+        grade: '21/25',
+        packingType: 'DUMMY',
+        packingStyle: '5 X 2 LBS',
+        mcs: 320,
+        balanceMcs: 45,
+        bags: 1600,
+        balanceBags: 225,
+        kgs: 1451.5,
+        balanceKgs: 204.1,
+        status: 'Pending Approval'
+      },
+      {
+        id: 4,
+        date: '2026-10-29',
+        stockBelongsTo: 'Own Stock (Devi Fisheries)',
+        group: 'Vannamei HLSO',
+        supc: 'SUPC-VM-4412',
+        product: 'Vannamei Head Less Shell On',
+        grade: '26/30',
+        packingType: 'MASTER',
+        packingStyle: '6 X 2 KGS',
+        mcs: 150,
+        balanceMcs: 0,
+        bags: 900,
+        balanceBags: 0,
+        kgs: 1800.0,
+        balanceKgs: 0.0,
+        status: 'Approved'
+      },
+      {
+        id: 5,
+        date: '2026-10-29',
+        stockBelongsTo: 'Third Party Trading',
+        group: 'Scampi Block',
+        supc: 'SUPC-SC-5501',
+        product: 'Freshwater Scampi Block',
+        grade: 'U/15',
+        packingType: 'POUCH / BAG',
+        packingStyle: '10 X 1 KG',
+        mcs: 120,
+        balanceMcs: 18,
+        bags: 1200,
+        balanceBags: 180,
+        kgs: 1200.0,
+        balanceKgs: 180.0,
+        status: 'Partially Stored'
+      },
+      {
+        id: 6,
+        date: '2026-10-29',
+        stockBelongsTo: 'Own Stock (Devi Fisheries)',
+        group: 'Vannamei PD',
+        supc: 'SUPC-VM-1030',
+        product: 'Vannamei PD Tail On IQF',
+        grade: '41/50',
+        packingType: 'DUMMY',
+        packingStyle: '6 X 1.8 KGS',
+        mcs: 200,
+        balanceMcs: 200,
+        bags: 1200,
+        balanceBags: 1200,
+        kgs: 2160.0,
+        balanceKgs: 2160.0,
+        status: 'Pending Approval'
+      }
+    ];
+
     container.innerHTML = `
       <div class="space-y-4 animate-fade-in">
+        <!-- Clean Page Header -->
         <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
           <div>
             <h1 class="text-xl font-extrabold text-[#172B4D]">Daily Production List</h1>
           </div>
         </div>
-        <div class="bg-white border border-[#DFE1E6] rounded-xl p-8 shadow-xs text-center">
-          <div class="max-w-md mx-auto py-8">
-            <div class="w-12 h-12 rounded-full bg-[#E0F2FE] text-[#0284C7] flex items-center justify-center mx-auto mb-3">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+
+        <!-- Collapsible Search & Filter Card -->
+        <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200" style="margin-bottom: 12px !important;">
+          <div class="flex items-center justify-between pb-1">
+            <div class="flex items-center gap-2">
+              <svg style="width: 16px; height: 16px; min-width: 16px; min-height: 16px; stroke: #0284C7; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+              <h3 class="text-xs font-bold text-[#172B4D]">Daily Production Search Filters</h3>
             </div>
-            <h3 class="text-base font-bold text-[#172B4D]">Daily Production List</h3>
-            <p class="text-xs text-[#6B778C] mt-1">Tab configured. Ready for search filters and data table specification.</p>
+
+            <!-- Filter Controls: Reset & Toggle Open/Close -->
+            <div class="inline-flex items-center" style="gap: 8px; display: inline-flex;">
+              <button 
+                type="button" 
+                id="dpl-filter-reset-btn" 
+                class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#0284C7] text-[#334155] hover:text-[#0284C7] rounded-full transition-colors cursor-pointer select-none" 
+                style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 9999px; border: 1px solid #CBD5E1; background: #ffffff; color: #334155; display: inline-flex; align-items: center; justify-content: center; padding: 0;"
+                title="Reset All Filters" 
+                aria-label="Reset All Filters"
+              >
+                <svg style="width: 15px; height: 15px; min-width: 15px; min-height: 15px; stroke: #334155; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+              </button>
+
+              <button 
+                type="button" 
+                id="dpl-filter-toggle-btn" 
+                class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#0284C7] text-[#334155] hover:text-[#0284C7] rounded-full transition-colors cursor-pointer select-none" 
+                style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 9999px; border: 1px solid #CBD5E1; background: #ffffff; color: #334155; display: inline-flex; align-items: center; justify-content: center; padding: 0;"
+                title="Hide Filter" 
+                aria-label="Hide Filter"
+              >
+                <svg id="dpl-filter-toggle-icon" style="width: 15px; height: 15px; min-width: 15px; min-height: 15px; stroke: #334155; fill: none; display: inline-block;" class="dt-top-filter-toggle-icon transform transition-transform duration-200" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+              </button>
+            </div>
           </div>
+
+          <!-- Form Input Fields (Consistent 4 Columns Grid) -->
+          <div id="dpl-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs transition-all duration-200">
+            <!-- 1. PRODUCTION DATE * -->
+            <div>
+              <label for="dpl-filter-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCTION DATE <span class="text-[#DE350B] font-bold">*</span></label>
+              <input type="date" id="dpl-filter-date" value="2026-10-29" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]" required>
+            </div>
+
+            <!-- 2. STOCK BELONGS TO -->
+            <div>
+              <label for="dpl-filter-stock-belongs" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STOCK BELONGS TO</label>
+              <select id="dpl-filter-stock-belongs" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="">All Stock</option>
+                <option value="Own Stock (Devi Fisheries)" selected>Own Stock (Devi Fisheries)</option>
+                <option value="Job Work / Processing">Job Work / Processing</option>
+                <option value="Third Party Trading">Third Party Trading</option>
+              </select>
+            </div>
+
+            <!-- 3. PACKING TYPE -->
+            <div>
+              <label for="dpl-filter-packing-type" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PACKING TYPE</label>
+              <select id="dpl-filter-packing-type" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="">All Packing Types</option>
+                <option value="DUMMY">DUMMY</option>
+                <option value="MASTER">MASTER</option>
+                <option value="POUCH / BAG">POUCH / BAG</option>
+              </select>
+            </div>
+
+            <!-- 4. GROUP -->
+            <div>
+              <label for="dpl-filter-group" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">GROUP</label>
+              <select id="dpl-filter-group" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="">All Groups</option>
+                <option value="Vannamei PD">Vannamei PD</option>
+                <option value="Black Tiger Block">Black Tiger Block</option>
+                <option value="Sea Pearl PDTO">Sea Pearl PDTO</option>
+                <option value="Vannamei HLSO">Vannamei HLSO</option>
+                <option value="Scampi Block">Scampi Block</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Bottom Action Bar with Search Button & Note -->
+          <div class="flex flex-wrap items-center justify-between gap-3 pt-3 mt-3 border-t border-[#EBECF0]">
+            <p class="text-[11px] text-[#6B778C] italic">
+              <span class="text-[#DE350B] font-bold">*</span> Note: The asterisk * indicates a required field
+            </p>
+            <button 
+              type="button" 
+              id="dpl-filter-search-btn" 
+              class="dt-top-filter-search-btn btn-primary px-6 py-1.5 rounded-full text-xs font-bold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]"
+              title="Search Daily Production Lots"
+            >
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+              <span>Search</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Data Table Container -->
+        <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
+          <div id="cs-daily-prod-table"></div>
         </div>
       </div>
     `;
+
+    // Initialize DataTable
+    let dataTableInstance = null;
+
+    const initTable = (data) => {
+      const tableWrapper = container.querySelector('#cs-daily-prod-table');
+      if (!tableWrapper) return;
+      tableWrapper.innerHTML = '';
+
+      dataTableInstance = new DataTable({
+        containerId: 'cs-daily-prod-table',
+        tableTitle: 'Daily Production Intake Lots',
+        searchable: true,
+        exportable: true,
+        pageSize: 10,
+        columns: [
+          // 1. S.NO
+          { key: 'id', label: 'S.NO', render: (v, r, idx) => `<span class="font-mono text-xs text-[#5E6C84]">${idx + 1}</span>` },
+
+          // 2. Group
+          { key: 'group', label: 'Group', sortable: true, render: (v) => `<span class="font-bold text-xs text-[#172B4D]">${v}</span>` },
+
+          // 3. SUPC
+          { key: 'supc', label: 'SUPC', sortable: true, render: (v) => `<span class="font-mono font-bold text-xs text-[#0284C7] bg-[#F0F9FF] px-2 py-0.5 rounded border border-[#BEE3F8]">${v}</span>` },
+
+          // 4. Product
+          { key: 'product', label: 'Product', sortable: true, render: (v) => `<span class="text-xs text-[#172B4D] font-medium">${v}</span>` },
+
+          // 5. Grade
+          { key: 'grade', label: 'Grade', sortable: true, render: (v) => `<span class="font-mono font-bold text-xs text-[#0F62FE]">${v}</span>` },
+
+          // 6. Packing Type
+          { key: 'packingType', label: 'Packing Type', sortable: true, render: (v) => `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#EAE6FF] text-[#403294]">${v}</span>` },
+
+          // 7. Packing Style
+          { key: 'packingStyle', label: 'Packing Style', render: (v) => `<span class="font-mono text-xs text-[#5E6C84]">${v}</span>` },
+
+          // 8. Mcs
+          { key: 'mcs', label: 'Mcs', sortable: true, render: (v) => `<span class="font-mono font-bold text-xs text-[#172B4D]">${v.toLocaleString()}</span>` },
+
+          // 9. Balance Mcs
+          { key: 'balanceMcs', label: 'Balance Mcs', sortable: true, render: (v) => `<span class="font-mono font-bold text-xs ${v > 0 ? 'text-[#D97706]' : 'text-[#00875A]'}">${v.toLocaleString()}</span>` },
+
+          // 10. Bags
+          { key: 'bags', label: 'Bags', sortable: true, render: (v) => `<span class="font-mono font-bold text-xs text-[#172B4D]">${v.toLocaleString()}</span>` },
+
+          // 11. Balance Bags
+          { key: 'balanceBags', label: 'Balance Bags', sortable: true, render: (v) => `<span class="font-mono font-bold text-xs ${v > 0 ? 'text-[#D97706]' : 'text-[#00875A]'}">${v.toLocaleString()}</span>` },
+
+          // 12. Kgs
+          { key: 'kgs', label: 'Kgs', sortable: true, render: (v) => `<span class="font-mono font-bold text-xs text-[#172B4D]">${Number(v).toFixed(1)}</span>` },
+
+          // 13. Balance Kgs
+          { key: 'balanceKgs', label: 'Balance Kgs', sortable: true, render: (v) => `<span class="font-mono font-bold text-xs ${v > 0 ? 'text-[#D97706]' : 'text-[#00875A]'}">${Number(v).toFixed(1)}</span>` },
+
+          // 14. Status
+          {
+            key: 'status',
+            label: 'Status',
+            sortable: true,
+            render: (v) => {
+              let badgeCls = 'bg-[#FFF0B3] text-[#172B4D] border-[#FFE380]';
+              if (v === 'Approved') badgeCls = 'bg-[#E3FCEF] text-[#006644] border-[#ABF5D1]';
+              if (v === 'Partially Stored') badgeCls = 'bg-[#E0F2FE] text-[#0284C7] border-[#B3D4FF]';
+              return `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${badgeCls}">${v}</span>`;
+            }
+          },
+
+          // 15. Actions
+          {
+            key: 'actions',
+            label: 'Actions',
+            render: (v, row) => `
+              <div class="flex items-center gap-1.5">
+                <button 
+                  type="button" 
+                  class="dpl-action-view p-1.5 text-[#5E6C84] hover:text-[#0284C7] hover:bg-[#F0F9FF] rounded transition-colors cursor-pointer"
+                  title="View Production Lot"
+                  data-row-id="${row.id}"
+                >
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                </button>
+                <button 
+                  type="button" 
+                  class="dpl-action-approve p-1.5 text-[#00875A] hover:bg-[#E3FCEF] rounded transition-colors cursor-pointer"
+                  title="Inward / Approve Lot"
+                  data-row-id="${row.id}"
+                >
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                </button>
+                <button 
+                  type="button" 
+                  class="dpl-action-print p-1.5 text-[#403294] hover:bg-[#EAE6FF] rounded transition-colors cursor-pointer"
+                  title="Print Pallet Labels"
+                  data-row-id="${row.id}"
+                >
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+                </button>
+              </div>
+            `
+          }
+        ],
+        data
+      });
+
+      // Bind Action Clicks
+      tableWrapper.querySelectorAll('.dpl-action-view').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const rId = parseInt(btn.getAttribute('data-row-id'), 10);
+          const found = data.find(r => r.id === rId);
+          if (found) {
+            Modal.open({
+              title: `Production Lot Details - ${found.supc}`,
+              size: 'lg',
+              content: `
+                <div class="space-y-4 text-xs text-[#172B4D]">
+                  <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-[#F8FAFC] p-3 rounded-lg border border-[#DFE1E6]">
+                    <div><span class="block text-[10px] font-bold text-[#5E6C84]">PRODUCT</span><span class="font-bold text-xs">${found.product}</span></div>
+                    <div><span class="block text-[10px] font-bold text-[#5E6C84]">GRADE</span><span class="font-mono font-bold text-xs text-[#0284C7]">${found.grade}</span></div>
+                    <div><span class="block text-[10px] font-bold text-[#5E6C84]">PACKING STYLE</span><span class="font-bold text-xs">${found.packingStyle}</span></div>
+                    <div><span class="block text-[10px] font-bold text-[#5E6C84]">STOCK BELONGS TO</span><span class="font-bold text-xs">${found.stockBelongsTo}</span></div>
+                  </div>
+                  <div class="grid grid-cols-3 gap-3 text-center">
+                    <div class="p-3 bg-white border border-[#DFE1E6] rounded-lg"><div class="text-[10px] font-bold text-[#5E6C84]">TOTAL MCS</div><div class="text-lg font-black text-[#172B4D] font-mono">${found.mcs}</div></div>
+                    <div class="p-3 bg-white border border-[#DFE1E6] rounded-lg"><div class="text-[10px] font-bold text-[#5E6C84]">BALANCE MCS</div><div class="text-lg font-black text-[#D97706] font-mono">${found.balanceMcs}</div></div>
+                    <div class="p-3 bg-white border border-[#DFE1E6] rounded-lg"><div class="text-[10px] font-bold text-[#5E6C84]">TOTAL KGS</div><div class="text-lg font-black text-[#00875A] font-mono">${found.kgs}</div></div>
+                  </div>
+                </div>
+              `,
+              footerButtons: [{ label: 'Close', type: 'secondary', onClick: (modal) => modal.close() }]
+            });
+          }
+        });
+      });
+
+      tableWrapper.querySelectorAll('.dpl-action-approve').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const rId = parseInt(btn.getAttribute('data-row-id'), 10);
+          const found = data.find(r => r.id === rId);
+          if (found) {
+            Modal.confirm({
+              title: 'Approve Inward Production Lot',
+              message: `Confirm inward intake approval for production lot <strong>${found.supc}</strong> (${found.product}, Grade: ${found.grade}, Mcs: ${found.mcs})?`,
+              confirmText: 'Approve Inward',
+              onConfirm: () => {
+                found.status = 'Approved';
+                found.balanceMcs = 0;
+                found.balanceBags = 0;
+                found.balanceKgs = 0.0;
+                initTable(data);
+                Toast.show(`Production lot ${found.supc} successfully approved and slotted!`, 'success');
+              }
+            });
+          }
+        });
+      });
+
+      tableWrapper.querySelectorAll('.dpl-action-print').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const rId = parseInt(btn.getAttribute('data-row-id'), 10);
+          const found = data.find(r => r.id === rId);
+          if (found) {
+            Toast.show(`Printing pallet label barcode stickers for ${found.supc}...`, 'info');
+          }
+        });
+      });
+    };
+
+    // Initial render
+    initTable(dailyProductionRecords);
+
+    // Collapsible Filter Toggle
+    const toggleBtn = container.querySelector('#dpl-filter-toggle-btn');
+    const filterBody = container.querySelector('#dpl-filter-body');
+    const toggleIcon = container.querySelector('#dpl-filter-toggle-icon');
+
+    if (toggleBtn && filterBody && toggleIcon) {
+      let isOpen = true;
+      toggleBtn.addEventListener('click', () => {
+        isOpen = !isOpen;
+        if (isOpen) {
+          filterBody.style.display = 'grid';
+          toggleIcon.classList.remove('rotate-180');
+          toggleBtn.title = 'Hide Filter';
+        } else {
+          filterBody.style.display = 'none';
+          toggleIcon.classList.add('rotate-180');
+          toggleBtn.title = 'Show Filter';
+        }
+      });
+    }
+
+    // Execute Search Filter
+    const executeFilter = () => {
+      const stockBelongsVal = (container.querySelector('#dpl-filter-stock-belongs')?.value || '').trim();
+      const packingTypeVal = (container.querySelector('#dpl-filter-packing-type')?.value || '').trim();
+      const groupVal = (container.querySelector('#dpl-filter-group')?.value || '').trim();
+
+      const filtered = dailyProductionRecords.filter(r => {
+        if (stockBelongsVal && r.stockBelongsTo !== stockBelongsVal) return false;
+        if (packingTypeVal && r.packingType !== packingTypeVal) return false;
+        if (groupVal && r.group !== groupVal) return false;
+        return true;
+      });
+
+      initTable(filtered);
+      Toast.show(`Displaying ${filtered.length} production record${filtered.length === 1 ? '' : 's'}`, 'info');
+    };
+
+    // Bind Search Button
+    const searchBtn = container.querySelector('#dpl-filter-search-btn');
+    if (searchBtn) {
+      searchBtn.addEventListener('click', executeFilter);
+    }
+
+    // Bind Reset Button
+    const resetBtn = container.querySelector('#dpl-filter-reset-btn');
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        const dateInput = container.querySelector('#dpl-filter-date');
+        const sb = container.querySelector('#dpl-filter-stock-belongs');
+        const pt = container.querySelector('#dpl-filter-packing-type');
+        const gr = container.querySelector('#dpl-filter-group');
+
+        if (dateInput) dateInput.value = '2026-10-29';
+        if (sb) sb.value = 'Own Stock (Devi Fisheries)';
+        if (pt) pt.value = '';
+        if (gr) gr.value = '';
+
+        initTable(dailyProductionRecords);
+        Toast.show('Daily production search filters reset to default', 'info');
+      });
+    }
   },
 
   // 5b. STOCK APPROVALS - INWARD APPROVAL (admin-inward-approval)
