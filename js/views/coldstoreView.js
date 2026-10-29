@@ -2932,6 +2932,26 @@ export const ColdstoreView = {
             onClick: (row) => {
               Toast.show(`Printing Freezing Tag for ${row.arrivalLotCode || row.runCode}...`, 'success');
             }
+          },
+          {
+            label: 'Delete Freezing Run',
+            icon: `<svg class="w-4 h-4 text-[#DE350B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>`,
+            onClick: (row) => {
+              Modal.confirm({
+                title: 'Delete Freezing Run',
+                message: `Are you sure you want to permanently delete freezing run <strong>${row.runCode || row.arrivalLotCode}</strong>? This action cannot be undone.`,
+                confirmText: 'Delete Run',
+                isDestructive: true,
+                onConfirm: () => {
+                  const idx = fullList.findIndex(item => (item.id === row.id) || (item.runCode && item.runCode === row.runCode));
+                  if (idx !== -1) {
+                    fullList.splice(idx, 1);
+                    renderTable(fullList);
+                    Toast.show(`Freezing run ${row.runCode || row.arrivalLotCode} deleted.`, 'success');
+                  }
+                }
+              });
+            }
           }
         ],
         data: data
@@ -4057,13 +4077,21 @@ export const ColdstoreView = {
             const fd = new FormData(form);
             const outMcs = Number(fd.get('outMcs') || 0);
             const outLooseBags = Number(fd.get('outLooseBags') || 0);
+            const reason = fd.get('reason') || 'Export Dispatch';
 
-            row.mcs = Math.max(0, row.mcs - outMcs);
-            row.looseBags = Math.max(0, row.looseBags - outLooseBags);
+            Modal.confirm({
+              title: 'Confirm Stock Out Dispatch',
+              message: `Are you sure you want to dispatch <strong>${outMcs} MCs</strong> (${outLooseBags} Bags) for lot <strong>${row.poNo || row.variety}</strong> (Reason: ${reason})?`,
+              confirmText: 'Yes, Confirm Dispatch',
+              onConfirm: () => {
+                row.mcs = Math.max(0, row.mcs - outMcs);
+                row.looseBags = Math.max(0, row.looseBags - outLooseBags);
 
-            modal.close();
-            Toast.show(`Stock Out dispatch of ${outMcs} MCs processed successfully for ${row.poNo}. Remaining: ${row.mcs} MCs.`, 'success');
-            if (typeof onSuccess === 'function') onSuccess();
+                modal.close();
+                Toast.show(`Stock Out dispatch of ${outMcs} MCs processed successfully for ${row.poNo}. Remaining: ${row.mcs} MCs.`, 'success');
+                if (typeof onSuccess === 'function') onSuccess();
+              }
+            });
           }
         }
       ]
@@ -4248,11 +4276,20 @@ export const ColdstoreView = {
               return;
             }
             const fd = new FormData(form);
-            row.palletId = fd.get('palletTag');
-            row.palletStatus = 'Palletized (Pending Slotting)';
-            modal.close();
-            Toast.show(`New Palette ${row.palletId} generated for batch ${row.batchCodes}.`, 'success');
-            if (typeof onSuccess === 'function') onSuccess();
+            const palletTag = fd.get('palletTag');
+
+            Modal.confirm({
+              title: 'Confirm Palette Creation',
+              message: `Are you sure you want to generate pallet <strong>${palletTag}</strong> for batch <strong>${row.batchCodes}</strong>?`,
+              confirmText: 'Generate Palette',
+              onConfirm: () => {
+                row.palletId = palletTag;
+                row.palletStatus = 'Palletized (Pending Slotting)';
+                modal.close();
+                Toast.show(`New Palette ${row.palletId} generated for batch ${row.batchCodes}.`, 'success');
+                if (typeof onSuccess === 'function') onSuccess();
+              }
+            });
           }
         }
       ]
@@ -4318,12 +4355,23 @@ export const ColdstoreView = {
               return;
             }
             const fd = new FormData(form);
-            row.coldStores = fd.get('chamber');
-            row.rack = fd.get('rack');
-            row.palletStatus = fd.get('status');
-            modal.close();
-            Toast.show(`Palette ${row.palletId || row.batchCodes} placed into ${row.coldStores} at ${row.rack}.`, 'success');
-            if (typeof onSuccess === 'function') onSuccess();
+            const chamber = fd.get('chamber');
+            const rack = fd.get('rack');
+            const status = fd.get('status');
+
+            Modal.confirm({
+              title: 'Confirm Palette Placement',
+              message: `Are you sure you want to place palette <strong>${row.palletId || row.batchCodes}</strong> into <strong>${chamber}</strong> at rack location <strong>${rack}</strong>?`,
+              confirmText: 'Confirm Placement',
+              onConfirm: () => {
+                row.coldStores = chamber;
+                row.rack = rack;
+                row.palletStatus = status;
+                modal.close();
+                Toast.show(`Palette ${row.palletId || row.batchCodes} placed into ${row.coldStores} at ${row.rack}.`, 'success');
+                if (typeof onSuccess === 'function') onSuccess();
+              }
+            });
           }
         }
       ]
@@ -4625,43 +4673,52 @@ export const ColdstoreView = {
             const looseBagsNum = Number(fd.get('looseBags') || 0);
             const totalWeightNum = Number(fd.get('totalWeight') || (mcsNum * 10));
             const balanceWeightNum = Number(fd.get('balanceWeight') || totalWeightNum);
+            const batchCodes = fd.get('batchCodes');
+            const coldStores = fd.get('coldStores');
 
-            const newRecord = {
-              id: nextId,
-              sNo: 1,
-              productionPlant: fd.get('productionPlant'),
-              productionDate: fd.get('productionDate'),
-              batchCodes: fd.get('batchCodes'),
-              transactionDate: fd.get('transactionDate'),
-              group: fd.get('group'),
-              stockBelongsTo: fd.get('stockBelongsTo'),
-              shift: fd.get('shift'),
-              poNo: fd.get('poNo'),
-              variety: fd.get('variety'),
-              packingStyle: fd.get('packingStyle'),
-              grade: fd.get('grade'),
-              packingType: fd.get('packingType'),
-              freezingType: fd.get('freezingType'),
-              soaking: fd.get('soaking'),
-              productCategory: fd.get('productCategory'),
-              abStatus: fd.get('abStatus'),
-              remarks: fd.get('remarks'),
-              totalWeight: totalWeightNum,
-              balanceWeight: balanceWeightNum,
-              coldStores: fd.get('coldStores'),
-              mcs: mcsNum,
-              balanceMcs: mcsNum,
-              looseBags: looseBagsNum,
-              palletId: `PAL-2026-${String(450 + nextId).padStart(4, '0')}`,
-              rack: 'RACK-A1-T1',
-              palletStatus: 'Placed in Store'
-            };
+            Modal.confirm({
+              title: 'Confirm Add Stock',
+              message: `Are you sure you want to add stock lot <strong>${batchCodes}</strong> (${mcsNum} MCs, ${totalWeightNum} Kg) into <strong>${coldStores}</strong>?`,
+              confirmText: 'Yes, Add Stock',
+              onConfirm: () => {
+                const newRecord = {
+                  id: nextId,
+                  sNo: 1,
+                  productionPlant: fd.get('productionPlant'),
+                  productionDate: fd.get('productionDate'),
+                  batchCodes: batchCodes,
+                  transactionDate: fd.get('transactionDate'),
+                  group: fd.get('group'),
+                  stockBelongsTo: fd.get('stockBelongsTo'),
+                  shift: fd.get('shift'),
+                  poNo: fd.get('poNo'),
+                  variety: fd.get('variety'),
+                  packingStyle: fd.get('packingStyle'),
+                  grade: fd.get('grade'),
+                  packingType: fd.get('packingType'),
+                  freezingType: fd.get('freezingType'),
+                  soaking: fd.get('soaking'),
+                  productCategory: fd.get('productCategory'),
+                  abStatus: fd.get('abStatus'),
+                  remarks: fd.get('remarks'),
+                  totalWeight: totalWeightNum,
+                  balanceWeight: balanceWeightNum,
+                  coldStores: coldStores,
+                  mcs: mcsNum,
+                  balanceMcs: mcsNum,
+                  looseBags: looseBagsNum,
+                  palletId: `PAL-2026-${String(450 + nextId).padStart(4, '0')}`,
+                  rack: 'RACK-A1-T1',
+                  palletStatus: 'Placed in Store'
+                };
 
-            this.state.stockInList.unshift(newRecord);
-            this.state.stockInList.forEach((it, idx) => { it.sNo = idx + 1; });
-            modal.close();
-            Toast.show(`Stock record for ${newRecord.batchCodes} created successfully!`, 'success');
-            if (typeof onSuccess === 'function') onSuccess();
+                this.state.stockInList.unshift(newRecord);
+                this.state.stockInList.forEach((it, idx) => { it.sNo = idx + 1; });
+                modal.close();
+                Toast.show(`Stock record for ${newRecord.batchCodes} created successfully!`, 'success');
+                if (typeof onSuccess === 'function') onSuccess();
+              }
+            });
           }
         }
       ]
@@ -8564,6 +8621,23 @@ export const ColdstoreView = {
             }
           },
           {
+            label: 'Reject Lot',
+            icon: `<svg class="w-4 h-4 text-[#DE350B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>`,
+            onClick: (row) => {
+              Modal.confirm({
+                title: 'Reject Inward Production Lot',
+                message: `Are you sure you want to reject production lot <strong>${row.supc}</strong>? It will be marked as Rejected and sent to quarantine.`,
+                confirmText: 'Reject Lot',
+                isDestructive: true,
+                onConfirm: () => {
+                  row.status = 'Rejected';
+                  initTable(data);
+                  Toast.show(`Production lot ${row.supc} rejected and moved to QC quarantine.`, 'error');
+                }
+              });
+            }
+          },
+          {
             label: 'Print Pallet Labels',
             icon: `<svg class="w-4 h-4 text-[#403294]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>`,
             onClick: (row) => {
@@ -9156,6 +9230,23 @@ export const ColdstoreView = {
                   row.status = 'Approved';
                   initTable(data);
                   Toast.show(`Inward stock ${row.bid} successfully approved!`, 'success');
+                }
+              });
+            }
+          },
+          {
+            label: 'Reject Inward',
+            icon: `<svg class="w-4 h-4 text-[#DE350B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`,
+            onClick: (row) => {
+              Modal.confirm({
+                title: 'Reject Inward Stock Intake',
+                message: `Are you sure you want to reject inward intake for BID <strong>${row.bid}</strong> (${row.variety}, Grade: ${row.grade})?`,
+                confirmText: 'Reject Inward',
+                isDestructive: true,
+                onConfirm: () => {
+                  row.status = 'Rejected';
+                  initTable(data);
+                  Toast.show(`Inward stock ${row.bid} marked as Rejected.`, 'error');
                 }
               });
             }
@@ -10965,7 +11056,7 @@ export const ColdstoreView = {
 
               <!-- Stock Out Button (Right Aligned) -->
               <div class="flex items-center justify-end">
-                <button type="button" id="load-modal-submit-stockout-btn" class="btn-primary px-6 py-2 rounded-xl text-xs font-bold flex items-center justify-center gap-2 shadow-xs hover:shadow transition-all cursor-pointer">
+                <button type="button" id="load-modal-submit-stockout-btn" class="px-6 py-2 rounded-full text-xs font-bold flex items-center justify-center gap-2 shadow-xs hover:shadow transition-all cursor-pointer text-white hover:opacity-90" style="background-color: #F43F5E; border: none;">
                   <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"></path></svg>
                   <span>Stock Out</span>
                 </button>
@@ -11352,48 +11443,53 @@ export const ColdstoreView = {
             const intakeMcs = Number(fd.get('intakeMcs') || 0);
             const intakeKgs = Number(fd.get('intakeKgs') || 0);
 
-            // Update row balances
-            row.balanceMcs = Math.max(0, (row.balanceMcs || row.mcs) - intakeMcs);
-            row.balanceKgs = Math.max(0, (row.balanceKgs || row.kgs) - intakeKgs);
-            row.balanceBags = Math.max(0, (row.balanceBags || row.bags) - (intakeMcs * 10));
-            if (row.balanceMcs === 0) {
-              row.status = 'Stored in Coldstore';
-            }
+            Modal.confirm({
+              title: 'Confirm Coldstore Intake',
+              message: `Are you sure you want to record intake of <strong>${intakeMcs} MCs (${intakeKgs} Kgs)</strong> into <strong>${fd.get('chamber')}</strong> for batch <strong>${row.trackCode}</strong>?`,
+              confirmText: 'Save Intake',
+              onConfirm: () => {
+                row.balanceMcs = Math.max(0, (row.balanceMcs || row.mcs) - intakeMcs);
+                row.balanceKgs = Math.max(0, (row.balanceKgs || row.kgs) - intakeKgs);
+                row.balanceBags = Math.max(0, (row.balanceBags || row.bags) - (intakeMcs * 10));
+                if (row.balanceMcs === 0) {
+                  row.status = 'Stored in Coldstore';
+                }
 
-            // Also add record to Stock In
-            const nextInwId = (this.state.stockInList?.length || 0) + 1;
-            const newStockIn = {
-              id: nextInwId,
-              sNo: 1,
-              inwardCode: `INW-CS-2026-${450 + nextInwId}`,
-              inwardDate: fd.get('intakeDate'),
-              palletId: `PAL-2026-${String(450 + nextInwId).padStart(4, '0')}`,
-              lotNo: row.trackCode,
-              productionPlant: row.plant || 'DFL UNIT-5 (JPT)',
-              stockBelongsTo: row.stockBelongsTo || 'Devi Fisheries Ltd (DFL)',
-              product: row.product,
-              grade: row.grade,
-              packingType: row.packingType,
-              packingStyle: row.packingStyle,
-              chamber: fd.get('chamber'),
-              rack: fd.get('rack'),
-              cartons: intakeMcs,
-              mcs: intakeMcs,
-              bags: intakeMcs * 10,
-              netWeightKg: intakeKgs,
-              temp: -22.0,
-              shift: fd.get('shift'),
-              supervisor: fd.get('supervisor'),
-              status: 'Stored'
-            };
-            if (this.state.stockInList) {
-              this.state.stockInList.unshift(newStockIn);
-              this.state.stockInList.forEach((it, idx) => { it.sNo = idx + 1; });
-            }
+                const nextInwId = (this.state.stockInList?.length || 0) + 1;
+                const newStockIn = {
+                  id: nextInwId,
+                  sNo: 1,
+                  inwardCode: `INW-CS-2026-${450 + nextInwId}`,
+                  inwardDate: fd.get('intakeDate'),
+                  palletId: `PAL-2026-${String(450 + nextInwId).padStart(4, '0')}`,
+                  lotNo: row.trackCode,
+                  productionPlant: row.plant || 'DFL UNIT-5 (JPT)',
+                  stockBelongsTo: row.stockBelongsTo || 'Devi Fisheries Ltd (DFL)',
+                  product: row.product,
+                  grade: row.grade,
+                  packingType: row.packingType,
+                  packingStyle: row.packingStyle,
+                  chamber: fd.get('chamber'),
+                  rack: fd.get('rack'),
+                  cartons: intakeMcs,
+                  mcs: intakeMcs,
+                  bags: intakeMcs * 10,
+                  netWeightKg: intakeKgs,
+                  temp: -22.0,
+                  shift: fd.get('shift'),
+                  supervisor: fd.get('supervisor'),
+                  status: 'Stored'
+                };
+                if (this.state.stockInList) {
+                  this.state.stockInList.unshift(newStockIn);
+                  this.state.stockInList.forEach((it, idx) => { it.sNo = idx + 1; });
+                }
 
-            modal.close();
-            Toast.show(`Coldstore intake of ${intakeMcs} MCs recorded for ${row.trackCode}.`, 'success');
-            if (typeof onSuccess === 'function') onSuccess();
+                modal.close();
+                Toast.show(`Coldstore intake of ${intakeMcs} MCs recorded for ${row.trackCode}.`, 'success');
+                if (typeof onSuccess === 'function') onSuccess();
+              }
+            });
           }
         }
       ]
@@ -11752,42 +11848,52 @@ export const ColdstoreView = {
               return;
             }
             const fd = new FormData(form);
-            const newRecord = {
-              id: Date.now(),
-              sNo: (this.state.freezingRunsList?.length || 0) + 1,
-              productionDate: fd.get('productionDate') || today,
-              transactionDate: fd.get('transactionDate') || today,
-              arrivalDate: fd.get('arrivalDate') || today,
-              arrivalLotCode: fd.get('arrivalLotCode') || defaultLotCode,
-              batchCodes: fd.get('batchCodes') || '-',
-              productionPlant: fd.get('productionPlant'),
-              group: fd.get('group'),
-              stockBelongsTo: fd.get('stockBelongsTo'),
-              shift: fd.get('shift'),
-              poNumber: fd.get('poNumber'),
-              variety: fd.get('variety'),
-              packingStyle: fd.get('packingStyle'),
-              grade: fd.get('grade'),
-              packingType: fd.get('packingType'),
-              freezingType: fd.get('freezingType'),
-              soaking: fd.get('soaking'),
-              productCategory: fd.get('productCategory'),
-              abStatus: fd.get('abStatus'),
-              remarks: fd.get('remarks') || '-',
-              totalWeight: Number(fd.get('totalWeight') || 0),
-              balanceWeight: Number(fd.get('balanceWeight') || 0),
-              hlCount: Number(fd.get('hlCount') || 0),
-              mcs: Number(fd.get('mcs') || 0),
-              looseBags: Number(fd.get('looseBags') || 0),
-              tubNo: fd.get('tubNo') || '-'
-            };
+            const lotCode = fd.get('arrivalLotCode') || defaultLotCode;
+            const weight = Number(fd.get('totalWeight') || 0);
 
-            this.state.freezingRunsList.unshift(newRecord);
-            modal.close();
-            if (typeof onSuccessCallback === 'function') {
-              onSuccessCallback(this.state.freezingRunsList);
-            }
-            Toast.show(`Freezing run ${newRecord.arrivalLotCode} added successfully`, 'success');
+            Modal.confirm({
+              title: 'Confirm Add Freezing Run',
+              message: `Add new freezing run <strong>${lotCode}</strong> (${weight} Kg, Variety: ${fd.get('variety') || 'Vannamei'})?`,
+              confirmText: 'Yes, Save Run',
+              onConfirm: () => {
+                const newRecord = {
+                  id: Date.now(),
+                  sNo: (this.state.freezingRunsList?.length || 0) + 1,
+                  productionDate: fd.get('productionDate') || today,
+                  transactionDate: fd.get('transactionDate') || today,
+                  arrivalDate: fd.get('arrivalDate') || today,
+                  arrivalLotCode: lotCode,
+                  batchCodes: fd.get('batchCodes') || '-',
+                  productionPlant: fd.get('productionPlant'),
+                  group: fd.get('group'),
+                  stockBelongsTo: fd.get('stockBelongsTo'),
+                  shift: fd.get('shift'),
+                  poNumber: fd.get('poNumber'),
+                  variety: fd.get('variety'),
+                  packingStyle: fd.get('packingStyle'),
+                  grade: fd.get('grade'),
+                  packingType: fd.get('packingType'),
+                  freezingType: fd.get('freezingType'),
+                  soaking: fd.get('soaking'),
+                  productCategory: fd.get('productCategory'),
+                  abStatus: fd.get('abStatus'),
+                  remarks: fd.get('remarks') || '-',
+                  totalWeight: weight,
+                  balanceWeight: Number(fd.get('balanceWeight') || 0),
+                  hlCount: Number(fd.get('hlCount') || 0),
+                  mcs: Number(fd.get('mcs') || 0),
+                  looseBags: Number(fd.get('looseBags') || 0),
+                  tubNo: fd.get('tubNo') || '-'
+                };
+
+                this.state.freezingRunsList.unshift(newRecord);
+                modal.close();
+                if (typeof onSuccessCallback === 'function') {
+                  onSuccessCallback(this.state.freezingRunsList);
+                }
+                Toast.show(`Freezing run ${newRecord.arrivalLotCode} added successfully`, 'success');
+              }
+            });
           }
         }
       ]
@@ -11860,21 +11966,30 @@ export const ColdstoreView = {
               return;
             }
             const fd = new FormData(form);
-            row.productionDate = fd.get('productionDate');
-            row.productionPlant = fd.get('productionPlant');
-            row.grade = fd.get('grade');
-            row.abStatus = fd.get('abStatus');
-            row.mcs = Number(fd.get('mcs') || 0);
-            row.looseBags = Number(fd.get('looseBags') || 0);
-            row.totalWeight = Number(fd.get('totalWeight') || 0);
-            row.balanceWeight = Number(fd.get('balanceWeight') || 0);
-            row.remarks = fd.get('remarks');
+            const lotCode = row.arrivalLotCode || row.runCode;
 
-            modal.close();
-            if (typeof onSuccessCallback === 'function') {
-              onSuccessCallback(this.state.freezingRunsList);
-            }
-            Toast.show(`Freezing run ${row.arrivalLotCode} updated`, 'success');
+            Modal.confirm({
+              title: 'Confirm Update Freezing Run',
+              message: `Save updates to freezing run <strong>${lotCode}</strong>?`,
+              confirmText: 'Yes, Update',
+              onConfirm: () => {
+                row.productionDate = fd.get('productionDate');
+                row.productionPlant = fd.get('productionPlant');
+                row.grade = fd.get('grade');
+                row.abStatus = fd.get('abStatus');
+                row.mcs = Number(fd.get('mcs') || 0);
+                row.looseBags = Number(fd.get('looseBags') || 0);
+                row.totalWeight = Number(fd.get('totalWeight') || 0);
+                row.balanceWeight = Number(fd.get('balanceWeight') || 0);
+                row.remarks = fd.get('remarks');
+
+                modal.close();
+                if (typeof onSuccessCallback === 'function') {
+                  onSuccessCallback(this.state.freezingRunsList);
+                }
+                Toast.show(`Freezing run ${lotCode} updated successfully`, 'success');
+              }
+            });
           }
         }
       ]
