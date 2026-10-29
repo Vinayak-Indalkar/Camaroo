@@ -26,7 +26,11 @@ export class DataTable {
     onDataChange = null
   }) {
     this.container = typeof containerId === 'string' ? document.getElementById(containerId) : containerId;
-    this.columns = columns;
+    this.columns = (columns || []).map(c => ({
+      ...c,
+      field: c.field || c.key || c.id || '',
+      header: c.header || c.label || c.title || c.field || c.key || ''
+    }));
     this.originalData = [...data];
     this.filteredData = [...data];
     this.keyField = keyField;

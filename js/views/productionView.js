@@ -1126,190 +1126,196 @@ export const ProductionView = {
   // SUB MENU: DASHBOARD -> PRODUCTION OPERATIONS DASHBOARD
   // =========================================================================
   renderProductionDashboard(container) {
-    const totalFloorProd = '42,850';
-    const avgYield = '84.8%';
-    const tunnelOutput = '28,400';
-    const activeBatchesCount = this.state.freezingTrackIds.length + this.state.soakingTrackIds.length;
+    try {
+      const totalFloorProd = '42,850';
+      const avgYield = '84.8%';
+      const tunnelOutput = '28,400';
+      const activeBatchesCount = (this.state.freezingTrackIds?.length || 0) + (this.state.soakingTrackIds?.length || 0);
 
-    // Floor lines data
-    const lines = [
-      { id: 1, name: 'Line #1 — IQF Tunnel 1', product: 'Vannamei PD IQF 31/40', output: '7,420 Kgs', temp: '-22.5°C', glaze: '10%', status: 'RUNNING', badgeCls: 'bg-[#E3FCEF] text-[#006644]' },
-      { id: 2, name: 'Line #2 — IQF Tunnel 2', product: 'Black Tiger HOSO IQF 16/20', output: '6,850 Kgs', temp: '-23.1°C', glaze: '12%', status: 'RUNNING', badgeCls: 'bg-[#E3FCEF] text-[#006644]' },
-      { id: 3, name: 'Line #3 — Plate Freezer', product: 'Vannamei HLSO Block 26/30', output: '8,200 Kgs', temp: '-26.0°C', glaze: 'None', status: 'COMPLETED', badgeCls: 'bg-[#DEEBFF] text-[#0747A6]' },
-      { id: 4, name: 'Line #4 — Blast Freezer', product: 'Sea Pearl Cooked PDTO', output: '5,930 Kgs', temp: '-24.8°C', glaze: '5%', status: 'STAGED', badgeCls: 'bg-[#FFF0B3] text-[#172B4D]' }
-    ];
+      // Floor lines data
+      const lines = [
+        { id: 1, name: 'Line #1 — IQF Tunnel 1', product: 'Vannamei PD IQF 31/40', output: '7,420 Kgs', temp: '-22.5°C', glaze: '10%', status: 'RUNNING', badgeCls: 'bg-[#E3FCEF] text-[#006644]' },
+        { id: 2, name: 'Line #2 — IQF Tunnel 2', product: 'Black Tiger HOSO IQF 16/20', output: '6,850 Kgs', temp: '-23.1°C', glaze: '12%', status: 'RUNNING', badgeCls: 'bg-[#E3FCEF] text-[#006644]' },
+        { id: 3, name: 'Line #3 — Plate Freezer', product: 'Vannamei HLSO Block 26/30', output: '8,200 Kgs', temp: '-26.0°C', glaze: 'None', status: 'COMPLETED', badgeCls: 'bg-[#DEEBFF] text-[#0747A6]' },
+        { id: 4, name: 'Line #4 — Blast Freezer', product: 'Sea Pearl Cooked PDTO', output: '5,930 Kgs', temp: '-24.8°C', glaze: '5%', status: 'STAGED', badgeCls: 'bg-[#FFF0B3] text-[#172B4D]' }
+      ];
 
-    // Quick Action modules
-    const modules = [
-      { title: 'Soaking Track ID', desc: 'Pre-chill parameters, chemical dosing & soaking lot IDs', hash: '#/production/pre-processing/soaking-trackid', count: `${this.state.soakingTrackIds.length} Lots`, color: '#0284C7' },
-      { title: 'Freezing Track ID', desc: 'Freezer timer, slab output & floor rejection tracking', hash: '#/production/pre-processing/freezing-trackid', count: `${this.state.freezingTrackIds.length} Runs`, color: '#00875A' },
-      { title: 'Standard Yields', desc: 'Enterprise standard yield benchmarks by species & grade', hash: '#/production/operations/production-standard-yields', count: `${this.state.standardYields.length} Targets`, color: '#6554C0' },
-      { title: 'Soaking Operations', desc: 'Live tub weights, salt & chemical solution batch logs', hash: '#/production/operations/soaking', count: `${this.state.soakingBatches.length} Batches`, color: '#FFAB00' },
-      { title: 'Freezing-Store Intake', desc: 'IQF carton packing reports & coldstore chamber staging', hash: '#/production/operations/freezing-store', count: `${this.state.freezingStoreReports.length} Reports`, color: '#00B8D9' }
-    ];
+      // Quick Action modules
+      const modules = [
+        { title: 'Soaking Track ID', desc: 'Pre-chill parameters, chemical dosing & soaking lot IDs', hash: '#/production/pre-processing/soaking-trackid', count: `${this.state.soakingTrackIds?.length || 0} Lots`, color: '#0284C7' },
+        { title: 'Freezing Track ID', desc: 'Freezer timer, slab output & floor rejection tracking', hash: '#/production/pre-processing/freezing-trackid', count: `${this.state.freezingTrackIds?.length || 0} Runs`, color: '#00875A' },
+        { title: 'Standard Yields', desc: 'Enterprise standard yield benchmarks by species & grade', hash: '#/production/operations/production-standard-yields', count: `${this.state.standardYields?.length || 0} Targets`, color: '#6554C0' },
+        { title: 'Soaking Operations', desc: 'Live tub weights, salt & chemical solution batch logs', hash: '#/production/operations/soaking', count: `${this.state.soakingOperations?.length || 0} Batches`, color: '#FFAB00' },
+        { title: 'Freezing-Store Intake', desc: 'IQF carton packing reports & coldstore chamber staging', hash: '#/production/operations/freezing-store', count: `${this.state.freezingStoreReports?.length || 0} Reports`, color: '#00B8D9' }
+      ];
 
-    container.innerHTML = `
-      <div class="space-y-4">
-        <!-- Top Header & Live Status -->
-        <div class="flex flex-wrap items-center justify-between gap-3 mb-1">
-          <div>
-            <h1 class="text-xl font-extrabold text-[#172B4D] flex items-center gap-2">
-              <span>Production Operations Dashboard</span>
-            </h1>
-            <p class="text-xs text-[#6B778C] mt-0.5">Real-time floor line tracking, tunnel freezing telemetry, soaking batches & yield analytics</p>
-          </div>
-          <div class="flex items-center gap-2 flex-wrap">
-            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E3FCEF] text-[#006644] text-xs font-bold border border-[#ABF5D1]">
-              <span class="w-2 h-2 rounded-full bg-[#00875A] animate-pulse"></span>
-              Shift A (Day) • Floor Running
-            </span>
-            <span class="px-3 py-1 rounded-full bg-white text-[#172B4D] text-xs font-semibold border border-[#DFE1E6] shadow-2xs">
-              Plant: <strong>DFL UNIT-5 (JPT)</strong>
-            </span>
-          </div>
-        </div>
-
-        <!-- 4 Top KPI Cards -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
-          <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
-            <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Today's Floor Production</div>
-            <div class="text-2xl font-black text-[#172B4D] mt-1.5">${totalFloorProd} <span class="text-xs font-bold text-[#6B778C]">Kgs</span></div>
-            <div class="text-[11px] font-semibold text-[#00875A] mt-1">+12.4% vs Shift Target • 4 Active Lines</div>
-          </div>
-          <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
-            <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Average Process Yield</div>
-            <div class="text-2xl font-black text-[#00875A] mt-1.5">${avgYield}</div>
-            <div class="text-[11px] font-semibold text-[#00875A] mt-1">Target: 82.0% • +2.8% Positive Variance</div>
-          </div>
-          <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
-            <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Tunnel Freezing Output</div>
-            <div class="text-2xl font-black text-[#0284C7] mt-1.5">${tunnelOutput} <span class="text-xs font-bold text-[#6B778C]">Kgs</span></div>
-            <div class="text-[11px] font-semibold text-[#5E6C84] mt-1">IQF: 18.2 MT • Plate Block: 10.2 MT</div>
-          </div>
-          <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
-            <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Active Batches In-Process</div>
-            <div class="text-2xl font-black text-[#6554C0] mt-1.5">${activeBatchesCount} <span class="text-xs font-bold text-[#6B778C]">Batches</span></div>
-            <div class="text-[11px] font-semibold text-[#6554C0] mt-1">${this.state.soakingTrackIds.length} Soaking • ${this.state.freezingTrackIds.length} Freezing Runs</div>
-          </div>
-        </div>
-
-        <!-- 4 Freezing Tunnels & Lines Telemetry Status -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
-          ${lines.map(line => `
-            <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 shadow-xs flex flex-col justify-between">
-              <div>
-                <div class="flex items-center justify-between pb-2 border-b border-[#F4F5F7]">
-                  <h4 class="text-xs font-bold text-[#172B4D] truncate">${line.name}</h4>
-                  <span class="px-2 py-0.5 rounded text-[10px] font-bold ${line.badgeCls}">${line.status}</span>
-                </div>
-                <div class="mt-2.5 text-xs">
-                  <div class="text-[#172B4D] font-semibold truncate">${line.product}</div>
-                  <div class="flex items-center justify-between mt-2 text-[11px] text-[#5E6C84]">
-                    <span>Output: <strong class="text-[#172B4D]">${line.output}</strong></span>
-                    <span>Glaze: <strong class="text-[#172B4D]">${line.glaze}</strong></span>
-                  </div>
-                </div>
-              </div>
-              <div class="mt-3 pt-2.5 border-t border-[#F4F5F7] flex items-center justify-between text-xs">
-                <span class="text-[11px] font-bold text-[#5E6C84] uppercase">Exit Temp</span>
-                <span class="font-mono font-bold text-[#0284C7]">${line.temp}</span>
-              </div>
+      container.innerHTML = `
+        <div class="space-y-4">
+          <!-- Top Header & Live Status -->
+          <div class="flex flex-wrap items-center justify-between gap-3 mb-1">
+            <div>
+              <h1 class="text-xl font-extrabold text-[#172B4D] flex items-center gap-2">
+                <span>Production Operations Dashboard</span>
+              </h1>
+              <p class="text-xs text-[#6B778C] mt-0.5">Real-time floor line tracking, tunnel freezing telemetry, soaking batches & yield analytics</p>
             </div>
-          `).join('')}
-        </div>
-
-        <!-- Quick Navigation / Production Sections -->
-        <div>
-          <div class="flex items-center justify-between mb-2">
-            <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Production Operations Sections</h3>
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E3FCEF] text-[#006644] text-xs font-bold border border-[#ABF5D1]">
+                <span class="w-2 h-2 rounded-full bg-[#00875A] animate-pulse"></span>
+                Shift A (Day) • Floor Running
+              </span>
+              <span class="px-3 py-1 rounded-full bg-white text-[#172B4D] text-xs font-semibold border border-[#DFE1E6] shadow-2xs">
+                Plant: <strong>DFL UNIT-5 (JPT)</strong>
+              </span>
+            </div>
           </div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
-            ${modules.map(m => `
-              <a href="${m.hash}" class="bg-white border border-[#DFE1E6] hover:border-[#0284C7] rounded-xl p-3.5 shadow-xs transition-all hover:shadow-sm group flex flex-col justify-between">
+
+          <!-- 4 Top KPI Cards -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+            <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
+              <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Today's Floor Production</div>
+              <div class="text-2xl font-black text-[#172B4D] mt-1.5">${totalFloorProd} <span class="text-xs font-bold text-[#6B778C]">Kgs</span></div>
+              <div class="text-[11px] font-semibold text-[#00875A] mt-1">+12.4% vs Shift Target • 4 Active Lines</div>
+            </div>
+            <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
+              <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Average Process Yield</div>
+              <div class="text-2xl font-black text-[#00875A] mt-1.5">${avgYield}</div>
+              <div class="text-[11px] font-semibold text-[#00875A] mt-1">Target: 82.0% • +2.8% Positive Variance</div>
+            </div>
+            <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
+              <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Tunnel Freezing Output</div>
+              <div class="text-2xl font-black text-[#0284C7] mt-1.5">${tunnelOutput} <span class="text-xs font-bold text-[#6B778C]">Kgs</span></div>
+              <div class="text-[11px] font-semibold text-[#5E6C84] mt-1">IQF: 18.2 MT • Plate Block: 10.2 MT</div>
+            </div>
+            <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
+              <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Active Batches In-Process</div>
+              <div class="text-2xl font-black text-[#6554C0] mt-1.5">${activeBatchesCount} <span class="text-xs font-bold text-[#6B778C]">Batches</span></div>
+              <div class="text-[11px] font-semibold text-[#6554C0] mt-1">${this.state.soakingTrackIds?.length || 0} Soaking • ${this.state.freezingTrackIds?.length || 0} Freezing Runs</div>
+            </div>
+          </div>
+
+          <!-- 4 Freezing Tunnels & Lines Telemetry Status -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+            ${lines.map(line => `
+              <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 shadow-xs flex flex-col justify-between">
                 <div>
-                  <div class="flex items-center justify-between">
-                    <span class="text-xs font-bold text-[#172B4D] group-hover:text-[#0284C7] transition-colors truncate">${m.title}</span>
-                    <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-[#F4F5F7] text-[#5E6C84]">${m.count}</span>
+                  <div class="flex items-center justify-between pb-2 border-b border-[#F4F5F7]">
+                    <h4 class="text-xs font-bold text-[#172B4D] truncate">${line.name}</h4>
+                    <span class="px-2 py-0.5 rounded text-[10px] font-bold ${line.badgeCls}">${line.status}</span>
                   </div>
-                  <p class="text-[11px] text-[#6B778C] mt-1.5 leading-snug line-clamp-2">${m.desc}</p>
+                  <div class="mt-2.5 text-xs">
+                    <div class="text-[#172B4D] font-semibold truncate">${line.product}</div>
+                    <div class="flex items-center justify-between mt-2 text-[11px] text-[#5E6C84]">
+                      <span>Output: <strong class="text-[#172B4D]">${line.output}</strong></span>
+                      <span>Glaze: <strong class="text-[#172B4D]">${line.glaze}</strong></span>
+                    </div>
+                  </div>
                 </div>
-                <div class="mt-3 pt-2 border-t border-[#F4F5F7] text-[11px] font-bold text-[#0284C7] flex items-center justify-between">
-                  <span>Open Section</span>
-                  <svg class="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                <div class="mt-3 pt-2.5 border-t border-[#F4F5F7] flex items-center justify-between text-xs">
+                  <span class="text-[11px] font-bold text-[#5E6C84] uppercase">Exit Temp</span>
+                  <span class="font-mono font-bold text-[#0284C7]">${line.temp}</span>
                 </div>
-              </a>
+              </div>
             `).join('')}
           </div>
-        </div>
 
-        <!-- Live Floor Runs & Track Code Registry Table -->
-        <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
-          <div class="flex items-center justify-between pb-3 border-b border-[#F4F5F7] mb-3">
-            <div>
-              <h3 class="text-sm font-bold text-[#172B4D]">Recent Production Floor Runs & Batches</h3>
-              <p class="text-xs text-[#6B778C]">Click any row to open full batch parameters and quality sign-offs</p>
+          <!-- Quick Navigation / Production Sections -->
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Production Operations Sections</h3>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+              ${modules.map(m => `
+                <a href="${m.hash}" class="bg-white border border-[#DFE1E6] hover:border-[#0284C7] rounded-xl p-3.5 shadow-xs transition-all hover:shadow-sm group flex flex-col justify-between">
+                  <div>
+                    <div class="flex items-center justify-between">
+                      <span class="text-xs font-bold text-[#172B4D] group-hover:text-[#0284C7] transition-colors truncate">${m.title}</span>
+                      <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-[#F4F5F7] text-[#5E6C84]">${m.count}</span>
+                    </div>
+                    <p class="text-[11px] text-[#6B778C] mt-1.5 leading-snug line-clamp-2">${m.desc}</p>
+                  </div>
+                  <div class="mt-3 pt-2 border-t border-[#F4F5F7] text-[11px] font-bold text-[#0284C7] flex items-center justify-between">
+                    <span>Open Section</span>
+                    <svg class="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                  </div>
+                </a>
+              `).join('')}
             </div>
           </div>
-          <div id="prod-dashboard-table"></div>
+
+          <!-- Live Floor Runs & Track Code Registry Table -->
+          <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
+            <div class="flex items-center justify-between pb-3 border-b border-[#F4F5F7] mb-3">
+              <div>
+                <h3 class="text-sm font-bold text-[#172B4D]">Recent Production Floor Runs & Batches</h3>
+                <p class="text-xs text-[#6B778C]">Click any row to open full batch parameters and quality sign-offs</p>
+              </div>
+            </div>
+            <div id="prod-dashboard-table"></div>
+          </div>
         </div>
-      </div>
-    `;
+      `;
 
-    // Unified Floor Runs Data
-    const runsData = [
-      ...this.state.freezingTrackIds.slice(0, 4).map(r => ({
-        trackCode: r.trackCode,
-        stage: 'Freezing Tunnel',
-        plant: r.plant || r.productionPlant || 'DFL UNIT-5 (JPT)',
-        variety: r.variety || 'Vannamei (VM)',
-        grade: r.grade || '31/40',
-        shift: r.shift || 'Shift A (Day)',
-        output: `${r.productionSlabs || 400} Slabs (${r.prodWeight || '800.0 Kgs'})`,
-        yieldPct: '85.2%',
-        status: r.abStatus || 'ACTIVE',
-        type: 'freezing',
-        raw: r
-      })),
-      ...this.state.soakingTrackIds.slice(0, 4).map(r => ({
-        trackCode: r.trackCode,
-        stage: 'Soaking Floor',
-        plant: r.plant || r.productionPlant || 'DFL UNIT-5 (JPT)',
-        variety: r.variety || 'Vannamei (VM)',
-        grade: r.grade || '21/25',
-        shift: r.shift || 'Shift A (Day)',
-        output: `${r.inQuantity || 1200} Kg In / ${r.outQuantity || 1240} Kg Out`,
-        yieldPct: '103.3%',
-        status: 'COMPLETED',
-        type: 'soaking',
-        raw: r
-      }))
-    ];
+      // Unified Floor Runs Data
+      const runsData = [
+        ...(this.state.freezingTrackIds || []).slice(0, 4).map(r => ({
+          trackCode: r.trackCode,
+          stage: 'Freezing Tunnel',
+          plant: r.plant || r.productionPlant || 'DFL UNIT-5 (JPT)',
+          variety: r.variety || 'Vannamei (VM)',
+          grade: r.grade || '31/40',
+          shift: r.shift || 'Shift A (Day)',
+          output: `${r.productionSlabs || 400} Slabs (${r.prodWeight || '800.0 Kgs'})`,
+          yieldPct: '85.2%',
+          status: r.abStatus || 'ACTIVE',
+          type: 'freezing',
+          raw: r
+        })),
+        ...(this.state.soakingTrackIds || []).slice(0, 4).map(r => ({
+          trackCode: r.trackCode,
+          stage: 'Soaking Floor',
+          plant: r.plant || r.productionPlant || 'DFL UNIT-5 (JPT)',
+          variety: r.variety || 'Vannamei (VM)',
+          grade: r.grade || '21/25',
+          shift: r.shift || 'Shift A (Day)',
+          output: `${r.inQuantity || 1200} Kg In / ${r.outQuantity || 1240} Kg Out`,
+          yieldPct: '103.3%',
+          status: 'COMPLETED',
+          type: 'soaking',
+          raw: r
+        }))
+      ];
 
-    new DataTable({
-      containerId: 'prod-dashboard-table',
-      searchable: true,
-      exportable: true,
-      pageSize: 8,
-      onRowClick: (row) => {
-        if (row.type === 'freezing') {
-          this.showFreezingDetails(row.raw);
-        } else {
-          this.showSoakingDetails(row.raw);
-        }
-      },
-      columns: [
-        { key: 'trackCode', label: 'Track Code', sortable: true, render: v => `<span class="font-mono font-bold text-[#0284C7]">${v}</span>` },
-        { key: 'stage', label: 'Operation Stage', render: v => `<span class="px-2 py-0.5 rounded text-[10px] font-bold ${v.includes('Freezing') ? 'bg-[#E3FCEF] text-[#006644]' : 'bg-[#DEEBFF] text-[#0747A6]'}">${v}</span>` },
-        { key: 'plant', label: 'Production Plant' },
-        { key: 'variety', label: 'Variety' },
-        { key: 'grade', label: 'Grade' },
-        { key: 'shift', label: 'Shift' },
-        { key: 'output', label: 'Output / Throughput', render: v => `<span class="font-mono font-bold text-[#172B4D]">${v}</span>` },
-        { key: 'yieldPct', label: 'Yield', render: v => `<span class="font-mono font-bold text-[#00875A]">${v}</span>` },
-        { key: 'status', label: 'Status', render: v => `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${v === 'ACTIVE' || v === 'COMPLETED' ? 'bg-[#E3FCEF] text-[#006644]' : 'bg-[#FFF0B3] text-[#172B4D]'}">${v}</span>` }
-      ],
-      data: runsData
-    });
+      new DataTable({
+        containerId: 'prod-dashboard-table',
+        keyField: 'trackCode',
+        searchable: true,
+        exportable: true,
+        pageSize: 8,
+        onRowClick: (row) => {
+          if (row.type === 'freezing') {
+            this.showFreezingDetails(row.raw);
+          } else {
+            this.showSoakingDetails(row.raw);
+          }
+        },
+        columns: [
+          { field: 'trackCode', header: 'Track Code', sortable: true, render: v => `<span class="font-mono font-bold text-[#0284C7]">${v}</span>` },
+          { field: 'stage', header: 'Operation Stage', render: v => `<span class="px-2 py-0.5 rounded text-[10px] font-bold ${v.includes('Freezing') ? 'bg-[#E3FCEF] text-[#006644]' : 'bg-[#DEEBFF] text-[#0747A6]'}">${v}</span>` },
+          { field: 'plant', header: 'Production Plant' },
+          { field: 'variety', header: 'Variety' },
+          { field: 'grade', header: 'Grade' },
+          { field: 'shift', header: 'Shift' },
+          { field: 'output', header: 'Output / Throughput', render: v => `<span class="font-mono font-bold text-[#172B4D]">${v}</span>` },
+          { field: 'yieldPct', header: 'Yield', render: v => `<span class="font-mono font-bold text-[#00875A]">${v}</span>` },
+          { field: 'status', header: 'Status', render: v => `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${v === 'ACTIVE' || v === 'COMPLETED' ? 'bg-[#E3FCEF] text-[#006644]' : 'bg-[#FFF0B3] text-[#172B4D]'}">${v}</span>` }
+        ],
+        data: runsData
+      });
+    } catch (e) {
+      console.error('Error rendering Production Dashboard:', e);
+      container.innerHTML = `<div class="p-6 bg-white border border-[#DFE1E6] rounded-xl text-center text-[#DE350B]">Production Dashboard encountered an error: ${e.message}</div>`;
+    }
   },
 
   // =========================================================================
