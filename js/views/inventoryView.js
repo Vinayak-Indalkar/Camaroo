@@ -492,16 +492,10 @@ export const InventoryView = {
     const cleanHash = (activeHash || '').toLowerCase();
 
     // General Store sub-tabs routing
-    if (cleanHash.includes('indent-list')) {
-      this.renderGeneralStoreIndentList(subContainer);
-    } else if (cleanHash.includes('proforma-order')) {
+    if (cleanHash.includes('proforma-order')) {
       this.renderGeneralStoreProformaOrder(subContainer);
-    } else if (cleanHash.includes('proforma-list')) {
-      this.renderGeneralStoreProformaList(subContainer);
     } else if (cleanHash.includes('goods-receipt-note')) {
       this.renderGeneralStoreGRN(subContainer);
-    } else if (cleanHash.includes('grn-list')) {
-      this.renderGeneralStoreGRNList(subContainer);
     } else if (cleanHash.includes('material-issue')) {
       this.renderGeneralStoreMaterialIssue(subContainer);
     } else if (cleanHash.includes('pm-proforma-invoice') || cleanHash.includes('packing-material')) {
@@ -1274,169 +1268,8 @@ export const InventoryView = {
   },
 
   // =========================================================================
-  // Additional General Store Tabs (Indent List, Proforma Order, Proforma List, GRN, GRN List, Material Issue)
+  // Additional General Store Tabs (Proforma Order, Proforma List, GRN, GRN List, Material Issue)
   // =========================================================================
-  renderGeneralStoreIndentList(container) {
-    const fullList = [...this.state.indentPageRecords];
-
-    container.innerHTML = `
-      <!-- Page Header -->
-      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-1">
-        <div>
-          <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Indent List (GS)</h1>
-        </div>
-      </div>
-
-      <!-- Search & Filter Card -->
-      <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200">
-        <div class="flex items-center justify-between pb-1">
-          <div class="flex items-center gap-2">
-            <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
-            <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
-          </div>
-          <div class="inline-flex items-center gap-2">
-            <button type="button" id="gs-list-filter-reset-btn" class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Reset all filters">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-            </button>
-            <button type="button" id="gs-list-filter-toggle-btn" class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Hide Filter">
-              <svg id="gs-list-filter-toggle-icon" class="w-3.5 h-3.5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-            </button>
-          </div>
-        </div>
-
-        <div id="gs-list-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-3 border-t border-[#F1F5F9] mt-2 text-xs">
-          <!-- 1. FROM DATE -->
-          <div>
-            <label for="gs-list-filter-from-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FROM DATE</label>
-            <input type="date" id="gs-list-filter-from-date" value="2026-10-01" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
-          </div>
-
-          <!-- 2. TO DATE -->
-          <div>
-            <label for="gs-list-filter-to-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">TO DATE</label>
-            <input type="date" id="gs-list-filter-to-date" value="2026-10-29" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
-          </div>
-
-          <!-- 3. STATUS -->
-          <div>
-            <label for="gs-list-filter-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">STATUS</label>
-            <select id="gs-list-filter-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-              <option value="ALL">All Statuses</option>
-              <option value="Approved">Approved</option>
-              <option value="Pending">Pending</option>
-              <option value="In Procurement">In Procurement</option>
-              <option value="Rejected">Rejected</option>
-            </select>
-          </div>
-
-          <!-- Search Button -->
-          <div class="flex items-end">
-            <button type="button" id="gs-list-filter-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-              <span>Search</span>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Data Table: S.No, Doc No, Date, Status -->
-      <div id="gs-indent-list-table-container"></div>
-    `;
-
-    const renderTable = (data) => {
-      new DataTable({
-        containerId: 'gs-indent-list-table-container',
-        tableTitle: `Indent Records (${data.length})`,
-        searchable: true,
-        exportable: true,
-        pageSize: 10,
-        onRowClick: (row) => {
-          this.showIndentDetailModal(row);
-        },
-        columns: [
-          // 1. S.No
-          {
-            field: 'sNo',
-            header: 'S.No',
-            sortable: true,
-            render: (v, r, idx) => `<span class="text-[#5E6C84] font-semibold">${idx + 1}</span>`
-          },
-          // 2. Doc No
-          {
-            field: 'docNo',
-            header: 'Doc No',
-            sortable: true,
-            render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer whitespace-nowrap">${v}</span>`
-          },
-          // 3. Date
-          {
-            field: 'date',
-            header: 'Date',
-            sortable: true,
-            render: v => `<span class="whitespace-nowrap text-xs text-[#172B4D] font-medium font-mono">${v}</span>`
-          },
-          // 4. Status
-          {
-            field: 'status',
-            header: 'Status',
-            sortable: true,
-            render: v => {
-              const st = v || 'Pending';
-              if (st === 'Approved') {
-                return `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>Approved</span>`;
-              }
-              if (st === 'In Procurement') {
-                return `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E0F2FE] text-[#0284C7] border border-[#BAE6FD]"><span class="w-1.5 h-1.5 rounded-full bg-[#0284C7]"></span>In Procurement</span>`;
-              }
-              if (st === 'Rejected') {
-                return `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#FFEBE6] text-[#BF2600] border border-[#FFBDAD]"><span class="w-1.5 h-1.5 rounded-full bg-[#DE350B]"></span>Rejected</span>`;
-              }
-              return `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#FFF0B3] text-[#172B4D] border border-[#FFE380]"><span class="w-1.5 h-1.5 rounded-full bg-[#FFAB00]"></span>Pending</span>`;
-            }
-          }
-        ],
-        data: data
-      });
-    };
-
-    renderTable(fullList);
-
-    // Search Filter Handler (FROM DATE, TO DATE, STATUS)
-    container.querySelector('#gs-list-filter-search-btn')?.addEventListener('click', () => {
-      const fromDate = container.querySelector('#gs-list-filter-from-date')?.value;
-      const toDate = container.querySelector('#gs-list-filter-to-date')?.value;
-      const statusVal = container.querySelector('#gs-list-filter-status')?.value;
-
-      const filtered = fullList.filter(it => {
-        if (fromDate && it.date < fromDate) return false;
-        if (toDate && it.date > toDate) return false;
-        if (statusVal && statusVal !== 'ALL') {
-          const itemSt = (it.status || 'Pending').toLowerCase();
-          const targetSt = statusVal.toLowerCase();
-          if (!itemSt.includes(targetSt)) return false;
-        }
-        return true;
-      });
-
-      renderTable(filtered);
-      Toast.show(`Filtered ${filtered.length} indent record(s)`, 'info');
-    });
-
-    // Reset Handler
-    container.querySelector('#gs-list-filter-reset-btn')?.addEventListener('click', () => {
-      container.querySelector('#gs-list-filter-from-date').value = '2026-10-01';
-      container.querySelector('#gs-list-filter-to-date').value = '2026-10-29';
-      container.querySelector('#gs-list-filter-status').value = 'ALL';
-      renderTable(fullList);
-      Toast.show('Indent filters reset to default', 'info');
-    });
-  },
-
-  // Detail Modal on clicking row
-  showIndentDetailModal(row) {
-    this.showIndentDetailsModal(row);
-  },
-
   renderGeneralStoreProformaOrder(container) {
     const todayStr = new Date().toISOString().slice(0, 10);
 
@@ -2339,22 +2172,6 @@ export const InventoryView = {
     });
   },
 
-  renderGeneralStoreProformaList(container) {
-    container.innerHTML = `
-      <div class="flex items-center justify-between pb-1">
-        <div>
-          <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Proforma List (GS)</h1>
-          <p class="text-xs text-[#5E6C84] mt-0.5">Supplier proforma order reports, commitment valuations and order deliveries</p>
-        </div>
-      </div>
-      <div class="bg-white border border-[#DFE1E6] rounded-xl p-6 shadow-xs text-center text-xs text-[#5E6C84]">
-        <svg class="w-10 h-10 text-[#00A4B7] mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-        <p class="font-bold text-[#172B4D] text-sm">General Store Proforma Ledger</p>
-        <p class="mt-1 text-[#64748B]">Live reports of all issued proforma orders and vendor confirmations.</p>
-      </div>
-    `;
-  },
-
   renderGeneralStoreGRN(container) {
     container.innerHTML = `
       <div class="flex items-center justify-between pb-1">
@@ -2367,21 +2184,6 @@ export const InventoryView = {
         <svg class="w-10 h-10 text-[#00A4B7] mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
         <p class="font-bold text-[#172B4D] text-sm">Inward GRN Ingestion Form</p>
         <p class="mt-1 text-[#64748B]">Inward receipts update available stock quantities in the General Store.</p>
-      </div>
-    `;
-  },
-
-  renderGeneralStoreGRNList(container) {
-    container.innerHTML = `
-      <div class="flex items-center justify-between pb-1">
-        <div>
-          <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Goods Receipt Note List (GS)</h1>
-          <p class="text-xs text-[#5E6C84] mt-0.5">Historical goods receipt notes, physical gate entries and challan reconciliation</p>
-        </div>
-      </div>
-      <div class="bg-white border border-[#DFE1E6] rounded-xl p-6 shadow-xs text-center text-xs text-[#5E6C84]">
-        <svg class="w-10 h-10 text-[#00A4B7] mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-        <p class="font-bold text-[#172B4D] text-sm">GRN Archive &amp; Audit Logs</p>
       </div>
     `;
   },

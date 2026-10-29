@@ -3367,45 +3367,6 @@ const DEFAULT_SUBMENUS_CONFIG = {
           "badge": ""
         }
       ]
-    },
-    {
-      "id": "indent-list-gs",
-      "title": "Indent List (GS)",
-      "tabs": [
-        {
-          "id": "indent-list-gs",
-          "label": "Indent List (GS)",
-          "route": "#/general-store/indent-list-gs/indent-list-gs",
-          "type": "system",
-          "badge": ""
-        }
-      ]
-    },
-    {
-      "id": "proforma-list-gs",
-      "title": "Proforma List (GS)",
-      "tabs": [
-        {
-          "id": "proforma-list-gs",
-          "label": "Proforma List (GS)",
-          "route": "#/general-store/proforma-list-gs/proforma-list-gs",
-          "type": "dynamic-form",
-          "badge": ""
-        }
-      ]
-    },
-    {
-      "id": "goods-receipt-note-list-gs",
-      "title": "Goods Receipt Note List (GS)",
-      "tabs": [
-        {
-          "id": "goods-receipt-note-list-gs",
-          "label": "Goods Receipt Note List (GS)",
-          "route": "#/general-store/goods-receipt-note-list-gs/goods-receipt-note-list-gs",
-          "type": "system",
-          "badge": ""
-        }
-      ]
     }
   ],
   "cs-master": [
