@@ -946,6 +946,7 @@ export const InventoryView = {
     Modal.open({
       title: 'Add General Store Indent',
       size: '3xl',
+      confirmActions: false,
       content: `
         <form id="modal-add-indent-form" class="space-y-4 text-xs text-[#172B4D]" onsubmit="return false;">
           <!-- Section 1: Header Information -->
@@ -1392,6 +1393,7 @@ export const InventoryView = {
     Modal.open({
       title: `Edit Indent: ${row.docNo}`,
       size: 'lg',
+      confirmActions: false,
       content: `
         <form id="form-edit-indent" class="space-y-4 text-xs text-[#172B4D]">
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -1727,6 +1729,7 @@ export const InventoryView = {
     Modal.open({
       title: 'Add General Store Proforma Order',
       size: 'full',
+      confirmActions: false,
       content: `
         <form id="modal-add-po-form" class="space-y-4 text-xs text-[#172B4D]" onsubmit="return false;">
           <!-- Section 1: Header Information -->
@@ -2312,6 +2315,7 @@ export const InventoryView = {
     Modal.open({
       title: `Edit Proforma Order: ${row.docNo}`,
       size: 'lg',
+      confirmActions: false,
       content: `
         <form id="form-edit-po" class="space-y-4 text-xs text-[#172B4D]" onsubmit="return false;">
           <div class="flex items-center justify-between pb-2 mb-3 border-b border-[#DFE1E6]">
@@ -2691,6 +2695,7 @@ export const InventoryView = {
     Modal.open({
       title: 'Add Goods Receipt Note (GS)',
       size: 'full',
+      confirmActions: false,
       content: `
         <form id="modal-add-grn-form" class="space-y-4 text-xs text-[#172B4D]" onsubmit="return false;">
           <!-- Section 1: Header Information -->
@@ -2994,7 +2999,7 @@ export const InventoryView = {
 
             // Confirmation Popup Modal
             Modal.confirm({
-              title: 'Confirm Goods Receipt Note',
+              title: 'Confirm Save Goods Receipt Note',
               message: `Are you sure you want to save Goods Receipt Note <strong>${docNo}</strong> from <strong>${supplier}</strong> (PO: ${poNo}, Invoice: ${invoiceNumber}) with <strong>${modalStagedGrnItems.length} item(s)</strong>?`,
               confirmText: 'Save GRN',
               onConfirm: () => {
@@ -3311,6 +3316,7 @@ export const InventoryView = {
     Modal.open({
       title: `Edit Goods Receipt Note: ${row.docNo}`,
       size: 'lg',
+      confirmActions: false,
       content: `
         <form id="form-edit-grn" class="space-y-4 text-xs text-[#172B4D]" onsubmit="return false;">
           <div class="flex items-center justify-between pb-2 mb-3 border-b border-[#DFE1E6]">
@@ -3710,6 +3716,7 @@ export const InventoryView = {
     Modal.open({
       title: 'Add Material Issue (GS)',
       size: 'full',
+      confirmActions: false,
       content: `
         <form id="modal-add-issue-form" class="space-y-4 text-xs text-[#172B4D]" onsubmit="return false;">
           <!-- Section 1: Header Information -->
@@ -4228,6 +4235,7 @@ export const InventoryView = {
     Modal.open({
       title: `Edit Material Issue: ${row.docNo}`,
       size: 'lg',
+      confirmActions: false,
       content: `
         <form id="form-edit-issue" class="space-y-4 text-xs text-[#172B4D]" onsubmit="return false;">
           <div class="flex items-center justify-between pb-2 mb-3 border-b border-[#DFE1E6]">
