@@ -2498,12 +2498,12 @@ export const ColdstoreView = {
           </div>
         </form>
       `,
-      buttons: [
-        { label: 'Cancel', class: 'btn-secondary', onClick: () => Modal.close() },
+      footerButtons: [
+        { label: 'Cancel', type: 'secondary', onClick: (modal) => modal.close() },
         {
           label: 'Create Palette',
-          class: 'btn-primary',
-          onClick: () => {
+          type: 'primary',
+          onClick: (modal) => {
             const form = document.getElementById('form-new-palette');
             if (!form || !form.checkValidity()) {
               if (form) form.reportValidity();
@@ -2512,7 +2512,7 @@ export const ColdstoreView = {
             const fd = new FormData(form);
             row.palletId = fd.get('palletTag');
             row.palletStatus = 'Palletized (Pending Slotting)';
-            Modal.close();
+            modal.close();
             Toast.show(`New Palette ${row.palletId} generated for batch ${row.batchCodes}.`, 'success');
             if (typeof onSuccess === 'function') onSuccess();
           }
@@ -2542,7 +2542,7 @@ export const ColdstoreView = {
 
           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 bg-[#F8FAFC] p-3 rounded-lg border border-[#DFE1E6]">
             <div>
-              <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">COLD STORE CHAMBER <span class="text-red-500 font-black">*</span></label>
+              <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">COLD STORE CHAMBER <span class="text-[#DE350B] font-bold">*</span></label>
               <select name="chamber" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
                 <option value="Chamber #1 (IQF)" ${row.coldStores === 'Chamber #1 (IQF)' ? 'selected' : ''}>Chamber #1 (IQF)</option>
                 <option value="Chamber #2 (Block)" ${row.coldStores === 'Chamber #2 (Block)' ? 'selected' : ''}>Chamber #2 (Block)</option>
@@ -2550,7 +2550,7 @@ export const ColdstoreView = {
               </select>
             </div>
             <div>
-              <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">RACK AISLE &amp; BAY <span class="text-red-500 font-black">*</span></label>
+              <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">RACK AISLE &amp; BAY <span class="text-[#DE350B] font-bold">*</span></label>
               <input type="text" name="rack" value="${row.rack || 'RACK-A1-T1'}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-bold" required>
             </div>
             <div>
@@ -2568,12 +2568,12 @@ export const ColdstoreView = {
           </div>
         </form>
       `,
-      buttons: [
-        { label: 'Cancel', class: 'btn-secondary', onClick: () => Modal.close() },
+      footerButtons: [
+        { label: 'Cancel', type: 'secondary', onClick: (modal) => modal.close() },
         {
           label: 'Confirm Slotting',
-          class: 'btn-primary',
-          onClick: () => {
+          type: 'primary',
+          onClick: (modal) => {
             const form = document.getElementById('form-place-palette');
             if (!form || !form.checkValidity()) {
               if (form) form.reportValidity();
@@ -2583,7 +2583,7 @@ export const ColdstoreView = {
             row.coldStores = fd.get('chamber');
             row.rack = fd.get('rack');
             row.palletStatus = fd.get('status');
-            Modal.close();
+            modal.close();
             Toast.show(`Palette ${row.palletId || row.batchCodes} placed into ${row.coldStores} at ${row.rack}.`, 'success');
             if (typeof onSuccess === 'function') onSuccess();
           }
@@ -2653,14 +2653,15 @@ export const ColdstoreView = {
           </div>
         </div>
       `,
-      buttons: [
-        { label: 'Close', class: 'btn-secondary', onClick: () => Modal.close() }
+      footerButtons: [
+        { label: 'Close', type: 'secondary', onClick: (modal) => modal.close() }
       ]
     });
   },
 
-  // 3g. ADD STOCK MODAL (EXACT 22 USER-SPECIFIED FORM FIELDS)
+  // 3g. ADD STOCK MODAL (EXACT 22 USER-SPECIFIED FORM FIELDS - FLAT CLEAN STYLE GUIDE)
   showAddStockModal(onSuccess) {
+    const today = new Date().toISOString().slice(0, 10);
     const nextId = (this.state.stockInList?.length || 0) + 1;
     const generatedBatchCode = `BCH-2026-${910 + nextId}`;
 
@@ -2668,225 +2669,214 @@ export const ColdstoreView = {
       title: 'Add Stock (Coldstore Inward)',
       size: '2xl',
       content: `
-        <form id="form-add-stock" class="space-y-4 text-xs text-[#172B4D]">
-          <!-- 1. Production & Tracking Identifiers -->
-          <div class="bg-[#F8FAFC] p-3 rounded-lg border border-[#DFE1E6]">
-            <h4 class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-2.5">1. Production &amp; Tracking Identifiers</h4>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
-              <!-- PRODUCTION PLANT * -->
-              <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">PRODUCTION PLANT <span class="text-red-500 font-black">*</span></label>
-                <select name="productionPlant" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
-                  <option value="DFL UNIT-5 (JPT)" selected>DFL UNIT-5 (JPT)</option>
-                  <option value="DFL UNIT-4 (PND)">DFL UNIT-4 (PND)</option>
-                  <option value="DFL UNIT-3 (PSP)">DFL UNIT-3 (PSP)</option>
-                  <option value="DFL UNIT-1 (VSP)">DFL UNIT-1 (VSP)</option>
-                </select>
-              </div>
-
-              <!-- PRODUCTION DATE * -->
-              <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">PRODUCTION DATE <span class="text-red-500 font-black">*</span></label>
-                <input type="date" name="productionDate" value="2026-10-29" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
-              </div>
-
-              <!-- BATCH CODES * -->
-              <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">BATCH CODES <span class="text-red-500 font-black">*</span></label>
-                <input type="text" name="batchCodes" value="${generatedBatchCode}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-bold text-[#0284C7]" required>
-              </div>
-
-              <!-- TRANSACTION DATE * -->
-              <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">TRANSACTION DATE <span class="text-red-500 font-black">*</span></label>
-                <input type="date" name="transactionDate" value="2026-10-29" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
-              </div>
-
-              <!-- GROUP * -->
-              <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">GROUP <span class="text-red-500 font-black">*</span></label>
-                <select name="group" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
-                  <option value="Group A" selected>Group A</option>
-                  <option value="Group B">Group B</option>
-                  <option value="Group C">Group C</option>
-                  <option value="Group D">Group D</option>
-                </select>
-              </div>
-
-              <!-- STOCK BELONGS TO * -->
-              <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">STOCK BELONGS TO <span class="text-red-500 font-black">*</span></label>
-                <select name="stockBelongsTo" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
-                  <option value="Devi Fisheries Ltd (DFL)" selected>Devi Fisheries Ltd (DFL)</option>
-                  <option value="DFL Unit-5 (JPT)">DFL Unit-5 (JPT)</option>
-                  <option value="DFL Unit-4 (PND)">DFL Unit-4 (PND)</option>
-                  <option value="DFL Unit-3 (PSP)">DFL Unit-3 (PSP)</option>
-                  <option value="DFL Unit-1 (VSP)">DFL Unit-1 (VSP)</option>
-                  <option value="Third-Party Co-Packing">Third-Party Co-Packing</option>
-                </select>
-              </div>
-
-              <!-- SHIFT -->
-              <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">SHIFT</label>
-                <select name="shift" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold">
-                  <option value="Shift A (Day)" selected>Shift A (Day)</option>
-                  <option value="Shift B (Evening)">Shift B (Evening)</option>
-                  <option value="Shift C (Night)">Shift C (Night)</option>
-                </select>
-              </div>
-
-              <!-- PO NO -->
-              <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">PO NO</label>
-                <input type="text" name="poNo" value="PO-2026-4445" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-semibold">
-              </div>
-            </div>
+        <form id="form-add-stock" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs">
+          <!-- 1. PRODUCTION PLANT * -->
+          <div>
+            <label for="cs-add-plant" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCTION PLANT <span class="text-[#DE350B] font-bold">*</span></label>
+            <select id="cs-add-plant" name="productionPlant" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]" required>
+              <option value="DFL UNIT-5 (JPT)" selected>DFL UNIT-5 (JPT)</option>
+              <option value="DFL UNIT-4 (PND)">DFL UNIT-4 (PND)</option>
+              <option value="DFL UNIT-3 (PSP)">DFL UNIT-3 (PSP)</option>
+              <option value="DFL UNIT-1 (VSP)">DFL UNIT-1 (VSP)</option>
+              <option value="DFL UNIT-2 (KKD)">DFL UNIT-2 (KKD)</option>
+            </select>
           </div>
 
-          <!-- 2. Product & Processing Specifications -->
-          <div class="bg-[#F8FAFC] p-3 rounded-lg border border-[#DFE1E6]">
-            <h4 class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-2.5">2. Product &amp; Processing Specifications</h4>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
-              <!-- VARIETY * -->
-              <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">VARIETY <span class="text-red-500 font-black">*</span></label>
-                <select name="variety" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
-                  <option value="Vannamei (White Shrimp)" selected>Vannamei (White Shrimp)</option>
-                  <option value="Black Tiger (Monodon)">Black Tiger (Monodon)</option>
-                  <option value="Scampi (Macrobrachium)">Scampi (Macrobrachium)</option>
-                  <option value="Sea Pearl Cooked PDTO">Sea Pearl Cooked PDTO</option>
-                </select>
-              </div>
-
-              <!-- PACKING STYLE -->
-              <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">PACKING STYLE</label>
-                <input type="text" name="packingStyle" value="10x1kg Net" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold">
-              </div>
-
-              <!-- GRADE -->
-              <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">GRADE</label>
-                <select name="grade" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold">
-                  <option value="16/20">16/20</option>
-                  <option value="21/25">21/25</option>
-                  <option value="26/30">26/30</option>
-                  <option value="31/40" selected>31/40</option>
-                  <option value="41/50">41/50</option>
-                  <option value="11/15">11/15</option>
-                </select>
-              </div>
-
-              <!-- PACKING TYPE -->
-              <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">PACKING TYPE</label>
-                <select name="packingType" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold">
-                  <option value="Master Cartons" selected>Master Cartons</option>
-                  <option value="6x2kg Block">6x2kg Block</option>
-                  <option value="Dummy Cartons">Dummy Cartons</option>
-                  <option value="10x2lb Pouch">10x2lb Pouch</option>
-                  <option value="5x2kg IQF Poly">5x2kg IQF Poly</option>
-                </select>
-              </div>
-
-              <!-- FREEZING TYPE -->
-              <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">FREEZING TYPE</label>
-                <select name="freezingType" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold">
-                  <option value="IQF Tunnel" selected>IQF Tunnel</option>
-                  <option value="Contact Plate Freezer">Contact Plate Freezer</option>
-                  <option value="Blast Freezer">Blast Freezer</option>
-                  <option value="Semi-IQF Spiral">Semi-IQF Spiral</option>
-                </select>
-              </div>
-
-              <!-- SOAKING -->
-              <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">SOAKING</label>
-                <select name="soaking" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold">
-                  <option value="Yes (Non-Phosphate)" selected>Yes (Non-Phosphate)</option>
-                  <option value="No (Unsoaked)">No (Unsoaked)</option>
-                  <option value="Yes (STPP Treated)">Yes (STPP Treated)</option>
-                </select>
-              </div>
-
-              <!-- PRODUCT CATEGORY * -->
-              <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">PRODUCT CATEGORY <span class="text-red-500 font-black">*</span></label>
-                <select name="productCategory" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
-                  <option value="Raw Frozen" selected>Raw Frozen</option>
-                  <option value="Cooked Frozen">Cooked Frozen</option>
-                  <option value="Blanched Frozen">Blanched Frozen</option>
-                  <option value="Value-Added">Value-Added</option>
-                </select>
-              </div>
-
-              <!-- ABSTATUS -->
-              <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">ABSTATUS</label>
-                <select name="abStatus" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold">
-                  <option value="PASSED (AB Negative)" selected>PASSED (AB Negative)</option>
-                  <option value="UNDER TEST">UNDER TEST</option>
-                  <option value="AWAITING LAB">AWAITING LAB</option>
-                </select>
-              </div>
-            </div>
+          <!-- 2. PRODUCTION DATE * -->
+          <div>
+            <label for="cs-add-pdate" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCTION DATE <span class="text-[#DE350B] font-bold">*</span></label>
+            <input type="date" id="cs-add-pdate" name="productionDate" value="${today}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]" required onclick="this.showPicker ? this.showPicker() : this.focus()">
           </div>
 
-          <!-- 3. Coldstore & Quantities Details -->
-          <div class="bg-[#F8FAFC] p-3 rounded-lg border border-[#DFE1E6]">
-            <h4 class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-2.5">3. Cold Store &amp; Weight Specifications</h4>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3">
-              <!-- COLD STORES * -->
-              <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">COLD STORES <span class="text-red-500 font-black">*</span></label>
-                <select name="coldStores" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold" required>
-                  <option value="Chamber #1 (IQF)" selected>Chamber #1 (IQF)</option>
-                  <option value="Chamber #2 (Block)">Chamber #2 (Block)</option>
-                  <option value="Vault #3 Staging">Vault #3 Staging</option>
-                </select>
-              </div>
+          <!-- 3. BATCH CODES * -->
+          <div>
+            <label for="cs-add-batch" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">BATCH CODES <span class="text-[#DE350B] font-bold">*</span></label>
+            <input type="text" id="cs-add-batch" name="batchCodes" value="${generatedBatchCode}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-bold text-[#0284C7]" required>
+          </div>
 
-              <!-- MCS * -->
-              <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">MCS <span class="text-red-500 font-black">*</span></label>
-                <input type="number" name="mcs" value="150" min="1" step="1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-bold" required>
-              </div>
+          <!-- 4. TRANSACTION DATE * -->
+          <div>
+            <label for="cs-add-tdate" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TRANSACTION DATE <span class="text-[#DE350B] font-bold">*</span></label>
+            <input type="date" id="cs-add-tdate" name="transactionDate" value="${today}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]" required onclick="this.showPicker ? this.showPicker() : this.focus()">
+          </div>
 
-              <!-- LOOSE BAGS * -->
-              <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">LOOSE BAGS <span class="text-red-500 font-black">*</span></label>
-                <input type="number" name="looseBags" value="10" min="0" step="1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-bold" required>
-              </div>
+          <!-- 5. GROUP * -->
+          <div>
+            <label for="cs-add-group" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">GROUP <span class="text-[#DE350B] font-bold">*</span></label>
+            <select id="cs-add-group" name="group" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]" required>
+              <option value="Group A" selected>Group A</option>
+              <option value="Group B">Group B</option>
+              <option value="Group C">Group C</option>
+              <option value="Group D">Group D</option>
+            </select>
+          </div>
 
-              <!-- TOTAL WEIGHT (MCS :) -->
-              <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">TOTAL WEIGHT (MCS :)</label>
-                <input type="number" name="totalWeight" value="1500.0" min="0.1" step="0.1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-bold">
-              </div>
+          <!-- 6. STOCK BELONGS TO * -->
+          <div>
+            <label for="cs-add-stockbelongs" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STOCK BELONGS TO <span class="text-[#DE350B] font-bold">*</span></label>
+            <select id="cs-add-stockbelongs" name="stockBelongsTo" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]" required>
+              <option value="Devi Fisheries Ltd (DFL)" selected>Devi Fisheries Ltd (DFL)</option>
+              <option value="DFL Unit-5 (JPT)">DFL Unit-5 (JPT)</option>
+              <option value="DFL Unit-4 (PND)">DFL Unit-4 (PND)</option>
+              <option value="DFL Unit-3 (PSP)">DFL Unit-3 (PSP)</option>
+              <option value="DFL Unit-1 (VSP)">DFL Unit-1 (VSP)</option>
+              <option value="Third-Party Co-Packing">Third-Party Co-Packing</option>
+            </select>
+          </div>
 
-              <!-- BALANCE WEIGHT (MCS :, LOOSEBAGS :) -->
-              <div>
-                <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">BALANCE WEIGHT</label>
-                <input type="number" name="balanceWeight" value="1500.0" min="0.1" step="0.1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-bold">
-              </div>
-            </div>
+          <!-- 7. SHIFT -->
+          <div>
+            <label for="cs-add-shift" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SHIFT</label>
+            <select id="cs-add-shift" name="shift" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+              <option value="Shift A (Day)" selected>Shift A (Day)</option>
+              <option value="Shift B (Evening)">Shift B (Evening)</option>
+              <option value="Shift C (Night)">Shift C (Night)</option>
+            </select>
+          </div>
 
-            <!-- REMARKS -->
-            <div class="mt-3">
-              <label class="block text-[10px] font-bold text-[#5E6C84] uppercase mb-1">REMARKS</label>
-              <input type="text" name="remarks" placeholder="Enter remarks or storage notes" value="Coldstore intake verified, core temperature compliant" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]">
-            </div>
+          <!-- 8. PO NO -->
+          <div>
+            <label for="cs-add-pono" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PO NO</label>
+            <input type="text" id="cs-add-pono" name="poNo" value="PO-2026-4445" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-semibold text-[#172B4D]">
+          </div>
+
+          <!-- 9. VARIETY * -->
+          <div>
+            <label for="cs-add-variety" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">VARIETY <span class="text-[#DE350B] font-bold">*</span></label>
+            <select id="cs-add-variety" name="variety" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]" required>
+              <option value="Vannamei (White Shrimp)" selected>Vannamei (White Shrimp)</option>
+              <option value="Black Tiger (Monodon)">Black Tiger (Monodon)</option>
+              <option value="Scampi (Macrobrachium)">Scampi (Macrobrachium)</option>
+              <option value="Sea Pearl Cooked PDTO">Sea Pearl Cooked PDTO</option>
+            </select>
+          </div>
+
+          <!-- 10. PACKING STYLE -->
+          <div>
+            <label for="cs-add-pstyle" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PACKING STYLE</label>
+            <input type="text" id="cs-add-pstyle" name="packingStyle" value="10x1kg Net" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+          </div>
+
+          <!-- 11. GRADE -->
+          <div>
+            <label for="cs-add-grade" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">GRADE</label>
+            <select id="cs-add-grade" name="grade" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+              <option value="16/20">16/20</option>
+              <option value="21/25">21/25</option>
+              <option value="26/30">26/30</option>
+              <option value="31/40" selected>31/40</option>
+              <option value="41/50">41/50</option>
+              <option value="11/15">11/15</option>
+              <option value="U/15">U/15</option>
+            </select>
+          </div>
+
+          <!-- 12. PACKING TYPE -->
+          <div>
+            <label for="cs-add-ptype" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PACKING TYPE</label>
+            <select id="cs-add-ptype" name="packingType" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+              <option value="Master Cartons" selected>Master Cartons</option>
+              <option value="6x2kg Block">6x2kg Block</option>
+              <option value="Dummy Cartons">Dummy Cartons</option>
+              <option value="10x2lb Pouch">10x2lb Pouch</option>
+              <option value="5x2kg IQF Poly">5x2kg IQF Poly</option>
+            </select>
+          </div>
+
+          <!-- 13. FREEZING TYPE -->
+          <div>
+            <label for="cs-add-ftype" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">FREEZING TYPE</label>
+            <select id="cs-add-ftype" name="freezingType" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+              <option value="IQF Tunnel" selected>IQF Tunnel</option>
+              <option value="Contact Plate Freezer">Contact Plate Freezer</option>
+              <option value="Blast Freezer">Blast Freezer</option>
+              <option value="Semi-IQF Spiral">Semi-IQF Spiral</option>
+            </select>
+          </div>
+
+          <!-- 14. SOAKING -->
+          <div>
+            <label for="cs-add-soaking" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SOAKING</label>
+            <select id="cs-add-soaking" name="soaking" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+              <option value="Yes (Non-Phosphate)" selected>Yes (Non-Phosphate)</option>
+              <option value="No (Unsoaked)">No (Unsoaked)</option>
+              <option value="Yes (STPP Treated)">Yes (STPP Treated)</option>
+            </select>
+          </div>
+
+          <!-- 15. PRODUCT CATEGORY * -->
+          <div>
+            <label for="cs-add-category" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCT CATEGORY <span class="text-[#DE350B] font-bold">*</span></label>
+            <select id="cs-add-category" name="productCategory" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]" required>
+              <option value="Raw Frozen" selected>Raw Frozen</option>
+              <option value="Cooked Frozen">Cooked Frozen</option>
+              <option value="Blanched Frozen">Blanched Frozen</option>
+              <option value="Value-Added">Value-Added</option>
+            </select>
+          </div>
+
+          <!-- 16. ABSTATUS -->
+          <div>
+            <label for="cs-add-abstatus" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">ABSTATUS</label>
+            <select id="cs-add-abstatus" name="abStatus" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-bold text-[#006644]">
+              <option value="PASSED (AB Negative)" selected>PASSED (AB Negative)</option>
+              <option value="UNDER TEST">UNDER TEST</option>
+              <option value="AWAITING LAB">AWAITING LAB</option>
+            </select>
+          </div>
+
+          <!-- 17. COLD STORES * -->
+          <div>
+            <label for="cs-add-coldstores" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">COLD STORES <span class="text-[#DE350B] font-bold">*</span></label>
+            <select id="cs-add-coldstores" name="coldStores" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]" required>
+              <option value="Chamber #1 (IQF)" selected>Chamber #1 (IQF)</option>
+              <option value="Chamber #2 (Block)">Chamber #2 (Block)</option>
+              <option value="Vault #3 Staging">Vault #3 Staging</option>
+              <option value="Chamber #3 (Blast)">Chamber #3 (Blast)</option>
+            </select>
+          </div>
+
+          <!-- 18. MCS * -->
+          <div>
+            <label for="cs-add-mcs" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">MCS <span class="text-[#DE350B] font-bold">*</span></label>
+            <input type="number" id="cs-add-mcs" name="mcs" value="150" min="1" step="1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-bold text-[#00875A]" required>
+          </div>
+
+          <!-- 19. LOOSE BAGS * -->
+          <div>
+            <label for="cs-add-loosebags" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">LOOSE BAGS <span class="text-[#DE350B] font-bold">*</span></label>
+            <input type="number" id="cs-add-loosebags" name="looseBags" value="10" min="0" step="1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-bold text-[#172B4D]" required>
+          </div>
+
+          <!-- 20. TOTAL WEIGHT (MCS :) -->
+          <div>
+            <label for="cs-add-totalwt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TOTAL WEIGHT (MCS :)</label>
+            <input type="number" step="0.1" id="cs-add-totalwt" name="totalWeight" value="1500.0" min="0.1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-bold text-[#172B4D]">
+          </div>
+
+          <!-- 21. BALANCE WEIGHT (MCS :, LOOSEBAGS :) -->
+          <div>
+            <label for="cs-add-balwt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">BALANCE WEIGHT (MCS :, LOOSEBAGS :)</label>
+            <input type="number" step="0.1" id="cs-add-balwt" name="balanceWeight" value="1500.0" min="0.1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono font-bold text-[#0284C7]">
+          </div>
+
+          <!-- 22. REMARKS (Spans full width across cols) -->
+          <div class="sm:col-span-2 md:col-span-3 lg:col-span-3">
+            <label for="cs-add-remarks" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">REMARKS</label>
+            <input type="text" id="cs-add-remarks" name="remarks" placeholder="Enter remarks or storage notes..." value="Coldstore intake verified, core temperature compliant" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] text-[#172B4D]">
           </div>
         </form>
       `,
-      buttons: [
-        { label: 'Cancel', class: 'btn-secondary', onClick: () => Modal.close() },
+      footerButtons: [
+        {
+          label: 'Cancel',
+          type: 'secondary',
+          onClick: (modal) => modal.close()
+        },
         {
           label: 'Save Stock',
-          class: 'btn-primary',
-          onClick: () => {
+          type: 'primary',
+          onClick: (modal) => {
             const form = document.getElementById('form-add-stock');
             if (!form || !form.checkValidity()) {
               if (form) form.reportValidity();
@@ -2931,7 +2921,7 @@ export const ColdstoreView = {
 
             this.state.stockInList.unshift(newRecord);
             this.state.stockInList.forEach((it, idx) => { it.sNo = idx + 1; });
-            Modal.close();
+            modal.close();
             Toast.show(`Stock record for ${newRecord.batchCodes} created successfully!`, 'success');
             if (typeof onSuccess === 'function') onSuccess();
           }
@@ -3048,8 +3038,8 @@ export const ColdstoreView = {
           </div>
         </div>
       `,
-      buttons: [
-        { label: 'Close', class: 'btn-secondary', onClick: () => Modal.close() }
+      footerButtons: [
+        { label: 'Close', type: 'secondary', onClick: (modal) => modal.close() }
       ]
     });
   },
@@ -3428,12 +3418,12 @@ export const ColdstoreView = {
           </div>
         </form>
       `,
-      buttons: [
-        { label: 'Cancel', class: 'btn-secondary', onClick: () => Modal.close() },
+      footerButtons: [
+        { label: 'Cancel', type: 'secondary', onClick: (modal) => modal.close() },
         {
           label: 'Save Intake',
-          class: 'btn-primary',
-          onClick: () => {
+          type: 'primary',
+          onClick: (modal) => {
             const form = document.getElementById('form-add-daily-intake');
             if (!form || !form.checkValidity()) {
               if (form) form.reportValidity();
@@ -3482,7 +3472,7 @@ export const ColdstoreView = {
               this.state.stockInList.forEach((it, idx) => { it.sNo = idx + 1; });
             }
 
-            Modal.close();
+            modal.close();
             Toast.show(`Coldstore intake of ${intakeMcs} MCs recorded for ${row.trackCode}.`, 'success');
             if (typeof onSuccess === 'function') onSuccess();
           }

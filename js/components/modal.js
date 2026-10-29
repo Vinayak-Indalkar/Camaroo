@@ -45,7 +45,7 @@ export const Modal = {
     }
   },
 
-  open({ title, content, footerButtons = [], size = 'md', confirmActions = true, onClose = null }) {
+  open({ title, content, footerButtons = [], buttons = [], size = 'md', confirmActions = true, onClose = null }) {
     this.close();
 
     const sizeClasses = {
@@ -65,13 +65,14 @@ export const Modal = {
     modalEl.id = 'erp-modal-root';
     modalEl.className = 'fixed inset-0 z-50 flex items-center justify-center p-4 drawer-backdrop';
     
+    const activeFooterButtons = (footerButtons && footerButtons.length > 0) ? footerButtons : (buttons || []);
     let buttonsHtml = '';
-    footerButtons.forEach((btn, idx) => {
-      const cls = btn.type === 'primary' 
+    activeFooterButtons.forEach((btn, idx) => {
+      const cls = btn.class || (btn.type === 'primary' 
         ? 'btn-primary px-5 py-2 rounded-full text-sm font-bold' 
         : btn.type === 'danger'
         ? 'btn-danger px-5 py-2 rounded-full text-sm font-semibold' 
-        : 'btn-secondary px-5 py-2 rounded-full text-sm font-semibold';
+        : 'btn-secondary px-5 py-2 rounded-full text-sm font-semibold');
       buttonsHtml += `<button id="modal-btn-${idx}" class="${cls}">${btn.label}</button>`;
     });
 
@@ -110,7 +111,7 @@ export const Modal = {
     });
 
     // Attach Footer Handlers
-    footerButtons.forEach((btn, idx) => {
+    activeFooterButtons.forEach((btn, idx) => {
       const btnEl = modalEl.querySelector(`#modal-btn-${idx}`);
       if (btnEl && btn.onClick) {
         btnEl.addEventListener('click', () => {
