@@ -158,9 +158,9 @@ export const ADMIN_NAV_HIERARCHY = [
       {
         id: "dashboard",
         title: "Dashboard",
-        defaultTab: "overview",
+        defaultTab: "dashboard",
         tabs: [
-          { id: "overview", label: "Overview", hash: "#/production/dashboard/overview" }
+          { id: "dashboard", label: "Dashboard", hash: "#/production/dashboard/dashboard" }
         ]
       },
       {

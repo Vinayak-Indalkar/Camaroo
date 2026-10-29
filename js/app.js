@@ -100,7 +100,7 @@ export const App = {
           '1': '#/purchase/dashboard/rm-dashboard',
           '2': '#/preprocessing/dashboard/overview',
           '3': '#/quality/dashboard/qc-overview',
-          '4': '#/production/dashboard/overview',
+          '4': '#/production/dashboard/dashboard',
           '5': '#/coldstore/dashboard/overview',
           '6': '#/sales/dashboard/overview',
           '7': '#/reports/production-analytics/yield-reports'
