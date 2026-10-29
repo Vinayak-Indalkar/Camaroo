@@ -49278,27 +49278,730 @@ const ColdstoreView = {
 
   // 5b. STOCK APPROVALS - INWARD APPROVAL (admin-inward-approval)
   renderAdminInwardApproval(container) {
+    const inwardApprovalRecords = [
+      {
+        id: 1,
+        bid: 'BID-2026-8801',
+        date: '2026-10-29',
+        coldStore: 'Chamber #1 (IQF)',
+        stockBelongsTo: 'Own Stock (Devi Fisheries)',
+        species: 'Vannamei (Litopenaeus vannamei)',
+        typeProduct: 'Peeled & Deveined (PD)',
+        freezingType: 'IQF (Individually Quick Frozen)',
+        variety: 'Vannamei PD IQF',
+        grade: '26/30',
+        soaking: 'Yes (Non-Phosphate)',
+        packingType: 'DUMMY',
+        packingStyle: '6 X 1.8 KGS',
+        category: 'Raw Frozen',
+        productCategory: 'Raw Frozen',
+        abStatus: 'PASSED (AB Negative)',
+        poNumber: 'PO-2026-4412',
+        lotNumber: 'LOT-VM-901',
+        mcs: 180,
+        loose: 12,
+        store: 'Chamber #1 (IQF)',
+        status: 'Pending Approval'
+      },
+      {
+        id: 2,
+        bid: 'BID-2026-8802',
+        date: '2026-10-29',
+        coldStore: 'Chamber #2 (Plate)',
+        stockBelongsTo: 'Own Stock (Devi Fisheries)',
+        species: 'Black Tiger (Penaeus monodon)',
+        typeProduct: 'Head Less Shell On (HLSO)',
+        freezingType: 'Block Frozen',
+        variety: 'Black Tiger Block',
+        grade: '16/20',
+        soaking: 'No (Unsoaked)',
+        packingType: 'MASTER',
+        packingStyle: '6 X 2 KGS',
+        category: 'Raw Frozen',
+        productCategory: 'Raw Frozen',
+        abStatus: 'PASSED (AB Negative)',
+        poNumber: 'PO-2026-4415',
+        lotNumber: 'LOT-BT-412',
+        mcs: 240,
+        loose: 0,
+        store: 'Chamber #2 (Plate)',
+        status: 'Approved'
+      },
+      {
+        id: 3,
+        bid: 'BID-2026-8803',
+        date: '2026-10-28',
+        coldStore: 'Chamber #1 (IQF)',
+        stockBelongsTo: 'Job Work / Processing',
+        species: 'Sea White (Penaeus indicus)',
+        typeProduct: 'Easy Peel (EZP)',
+        freezingType: 'IQF (Individually Quick Frozen)',
+        variety: 'Sea Pearl EZP',
+        grade: '31/40',
+        soaking: 'Yes (Non-Phosphate)',
+        packingType: 'POUCH / BAG',
+        packingStyle: '10 X 1 KG',
+        category: 'Value Added',
+        productCategory: 'Value Added',
+        abStatus: 'PASSED (AB Negative)',
+        poNumber: 'PO-2026-4390',
+        lotNumber: 'LOT-SP-104',
+        mcs: 110,
+        loose: 5,
+        store: 'Chamber #1 (IQF)',
+        status: 'Pending Approval'
+      },
+      {
+        id: 4,
+        bid: 'BID-2026-8804',
+        date: '2026-10-28',
+        coldStore: 'Chamber #3 (Blast)',
+        stockBelongsTo: 'Third Party Trading',
+        species: 'Freshwater Scampi (Macrobrachium rosenbergii)',
+        typeProduct: 'Head Less Shell On (HLSO)',
+        freezingType: 'Block Frozen',
+        variety: 'Scampi Block',
+        grade: 'U/15',
+        soaking: 'No (Unsoaked)',
+        packingType: 'MASTER',
+        packingStyle: '6 X 2 KGS',
+        category: 'Raw Frozen',
+        productCategory: 'Raw Frozen',
+        abStatus: 'UNDER TESTING',
+        poNumber: 'PO-2026-4401',
+        lotNumber: 'LOT-SC-202',
+        mcs: 95,
+        loose: 8,
+        store: 'Chamber #3 (Blast)',
+        status: 'Under Inspection'
+      },
+      {
+        id: 5,
+        bid: 'BID-2026-8805',
+        date: '2026-10-27',
+        coldStore: 'Chamber #4 (Deep Freeze)',
+        stockBelongsTo: 'Devi Fisheries Ltd (DFL)',
+        species: 'Vannamei (Litopenaeus vannamei)',
+        typeProduct: 'Peeled & Deveined Tail On (PDTO)',
+        freezingType: 'IQF (Individually Quick Frozen)',
+        variety: 'Vannamei Cooked PDTO',
+        grade: '21/25',
+        soaking: 'Yes (STPP Treated)',
+        packingType: 'DUMMY',
+        packingStyle: '5 X 2 KGS',
+        category: 'Cooked Frozen',
+        productCategory: 'Cooked Frozen',
+        abStatus: 'PASSED (AB Negative)',
+        poNumber: 'PO-2026-4388',
+        lotNumber: 'LOT-CK-550',
+        mcs: 160,
+        loose: 0,
+        store: 'Chamber #4 (Deep Freeze)',
+        status: 'Approved'
+      },
+      {
+        id: 6,
+        bid: 'BID-2026-8806',
+        date: '2026-10-27',
+        coldStore: 'Main Cold Storage Plant 1',
+        stockBelongsTo: 'Own Stock (Devi Fisheries)',
+        species: 'Vannamei (Litopenaeus vannamei)',
+        typeProduct: 'Peeled & Deveined (PD)',
+        freezingType: 'IQF (Individually Quick Frozen)',
+        variety: 'Vannamei PD IQF',
+        grade: '41/50',
+        soaking: 'No (Unsoaked)',
+        packingType: 'MASTER',
+        packingStyle: '6 X 1.8 KGS',
+        category: 'Raw Frozen',
+        productCategory: 'Raw Frozen',
+        abStatus: 'PASSED (AB Negative)',
+        poNumber: 'PO-2026-4375',
+        lotNumber: 'LOT-VM-980',
+        mcs: 220,
+        loose: 15,
+        store: 'Main Cold Storage Plant 1',
+        status: 'Pending Approval'
+      }
+    ];
+
     container.innerHTML = `
       <div class="space-y-4 animate-fade-in">
+        <!-- Clean Page Header -->
         <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
           <div>
             <h1 class="text-xl font-extrabold text-[#172B4D]">Inward Approval</h1>
           </div>
         </div>
-        <div class="bg-white border border-[#DFE1E6] rounded-xl p-8 shadow-xs text-center">
-          <div class="max-w-md mx-auto py-8">
-            <div class="w-12 h-12 rounded-full bg-[#E3FCEF] text-[#006644] flex items-center justify-center mx-auto mb-3">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+
+        <!-- Collapsible Search & Filter Card -->
+        <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200" style="margin-bottom: 12px !important;">
+          <div class="flex items-center justify-between pb-1">
+            <div class="flex items-center gap-2">
+              <svg style="width: 16px; height: 16px; min-width: 16px; min-height: 16px; stroke: #0284C7; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+              <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
             </div>
-            <h3 class="text-base font-bold text-[#172B4D]">Inward Approval</h3>
-            <p class="text-xs text-[#6B778C] mt-1">Tab configured. Ready for search filters and data table specification.</p>
+
+            <!-- Filter Controls: Reset & Toggle Open/Close -->
+            <div class="inline-flex items-center" style="gap: 8px; display: inline-flex;">
+              <button 
+                type="button" 
+                id="ia-filter-reset-btn" 
+                class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#0284C7] text-[#334155] hover:text-[#0284C7] rounded-full transition-colors cursor-pointer select-none" 
+                style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 9999px; border: 1px solid #CBD5E1; background: #ffffff; color: #334155; display: inline-flex; align-items: center; justify-content: center; padding: 0;"
+                title="Reset All Filters" 
+                aria-label="Reset All Filters"
+              >
+                <svg style="width: 15px; height: 15px; min-width: 15px; min-height: 15px; stroke: #334155; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+              </button>
+
+              <button 
+                type="button" 
+                id="ia-filter-toggle-btn" 
+                class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#0284C7] text-[#334155] hover:text-[#0284C7] rounded-full transition-colors cursor-pointer select-none" 
+                style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 9999px; border: 1px solid #CBD5E1; background: #ffffff; color: #334155; display: inline-flex; align-items: center; justify-content: center; padding: 0;"
+                title="Hide Filter" 
+                aria-label="Hide Filter"
+              >
+                <svg id="ia-filter-toggle-icon" style="width: 15px; height: 15px; min-width: 15px; min-height: 15px; stroke: #334155; fill: none; display: inline-block;" class="dt-top-filter-toggle-icon transform transition-transform duration-200" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Form Input Fields (12 Optional Fields Grid) -->
+          <div id="ia-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
+            <!-- 1. COLD STORES -->
+            <div>
+              <label for="ia-filter-cold-store" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">COLD STORES</label>
+              <select id="ia-filter-cold-store" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="">All Cold Stores</option>
+                <option value="Chamber #1 (IQF)">Chamber #1 (IQF)</option>
+                <option value="Chamber #2 (Plate)">Chamber #2 (Plate)</option>
+                <option value="Chamber #3 (Blast)">Chamber #3 (Blast)</option>
+                <option value="Chamber #4 (Deep Freeze)">Chamber #4 (Deep Freeze)</option>
+                <option value="Main Cold Storage Plant 1">Main Cold Storage Plant 1</option>
+              </select>
+            </div>
+
+            <!-- 2. STOCK BELONGS TO -->
+            <div>
+              <label for="ia-filter-stock-belongs" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">STOCK BELONGS TO</label>
+              <select id="ia-filter-stock-belongs" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="">All Stock</option>
+                <option value="Own Stock (Devi Fisheries)">Own Stock (Devi Fisheries)</option>
+                <option value="Devi Fisheries Ltd (DFL)">Devi Fisheries Ltd (DFL)</option>
+                <option value="Job Work / Processing">Job Work / Processing</option>
+                <option value="Third Party Trading">Third Party Trading</option>
+              </select>
+            </div>
+
+            <!-- 3. PRODUCTION DATE -->
+            <div>
+              <label for="ia-filter-prod-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PRODUCTION DATE</label>
+              <input type="date" id="ia-filter-prod-date" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+            </div>
+
+            <!-- 4. PO NO -->
+            <div>
+              <label for="ia-filter-po-no" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PO NO</label>
+              <input type="text" id="ia-filter-po-no" placeholder="Search PO Number" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+            </div>
+
+            <!-- 5. SPECIES -->
+            <div>
+              <label for="ia-filter-species" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SPECIES</label>
+              <select id="ia-filter-species" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="">All Species</option>
+                <option value="Vannamei (Litopenaeus vannamei)">Vannamei (Litopenaeus vannamei)</option>
+                <option value="Black Tiger (Penaeus monodon)">Black Tiger (Penaeus monodon)</option>
+                <option value="Sea White (Penaeus indicus)">Sea White (Penaeus indicus)</option>
+                <option value="Freshwater Scampi (Macrobrachium rosenbergii)">Freshwater Scampi (Macrobrachium rosenbergii)</option>
+              </select>
+            </div>
+
+            <!-- 6. TYPE PRODUCT -->
+            <div>
+              <label for="ia-filter-type-product" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">TYPE PRODUCT</label>
+              <select id="ia-filter-type-product" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="">All Product Types</option>
+                <option value="Head Less Shell On (HLSO)">Head Less Shell On (HLSO)</option>
+                <option value="Peeled & Deveined (PD)">Peeled & Deveined (PD)</option>
+                <option value="Peeled & Deveined Tail On (PDTO)">Peeled & Deveined Tail On (PDTO)</option>
+                <option value="Easy Peel (EZP)">Easy Peel (EZP)</option>
+              </select>
+            </div>
+
+            <!-- 7. FREEZING TYPE -->
+            <div>
+              <label for="ia-filter-freezing-type" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FREEZING TYPE</label>
+              <select id="ia-filter-freezing-type" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="">All Freezing Types</option>
+                <option value="IQF (Individually Quick Frozen)">IQF (Individually Quick Frozen)</option>
+                <option value="Block Frozen">Block Frozen</option>
+                <option value="Plate Freezing">Plate Freezing</option>
+              </select>
+            </div>
+
+            <!-- 8. VARIETY -->
+            <div>
+              <label for="ia-filter-variety" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">VARIETY</label>
+              <select id="ia-filter-variety" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="">All Varieties</option>
+                <option value="Vannamei PD IQF">Vannamei PD IQF</option>
+                <option value="Black Tiger Block">Black Tiger Block</option>
+                <option value="Sea Pearl EZP">Sea Pearl EZP</option>
+                <option value="Scampi Block">Scampi Block</option>
+                <option value="Vannamei Cooked PDTO">Vannamei Cooked PDTO</option>
+              </select>
+            </div>
+
+            <!-- 9. GRADE -->
+            <div>
+              <label for="ia-filter-grade" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">GRADE</label>
+              <select id="ia-filter-grade" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="">All Grades</option>
+                <option value="16/20">16/20</option>
+                <option value="21/25">21/25</option>
+                <option value="26/30">26/30</option>
+                <option value="31/40">31/40</option>
+                <option value="41/50">41/50</option>
+                <option value="U/15">U/15</option>
+              </select>
+            </div>
+
+            <!-- 10. PACKING STYLE -->
+            <div>
+              <label for="ia-filter-packing-style" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PACKING STYLE</label>
+              <select id="ia-filter-packing-style" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="">All Packing Styles</option>
+                <option value="6 X 1.8 KGS">6 X 1.8 KGS</option>
+                <option value="6 X 2 KGS">6 X 2 KGS</option>
+                <option value="10 X 1 KG">10 X 1 KG</option>
+                <option value="5 X 2 KGS">5 X 2 KGS</option>
+              </select>
+            </div>
+
+            <!-- 11. PRODUCT CATEGORY -->
+            <div>
+              <label for="ia-filter-category" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PRODUCT CATEGORY</label>
+              <select id="ia-filter-category" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="">All Categories</option>
+                <option value="Raw Frozen">Raw Frozen</option>
+                <option value="Cooked Frozen">Cooked Frozen</option>
+                <option value="Value Added">Value Added</option>
+              </select>
+            </div>
+
+            <!-- 12. STOCK STATUS -->
+            <div>
+              <label for="ia-filter-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">STOCK STATUS</label>
+              <select id="ia-filter-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]">
+                <option value="">All Statuses</option>
+                <option value="Pending Approval">Pending Approval</option>
+                <option value="Approved">Approved</option>
+                <option value="Under Inspection">Under Inspection</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Filter Action Footer with Note and Search Button -->
+          <div class="flex flex-wrap items-center justify-between gap-3 pt-3 mt-3 border-t border-[#EBECF0]">
+            <p class="text-[11px] text-[#6B778C]">
+              *(Note: None of the fields are marked with an asterisk , so all appear to be optional)
+            </p>
+            <button 
+              type="button" 
+              id="ia-filter-search-btn" 
+              class="dt-top-filter-search-btn btn-primary px-6 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]"
+              title="Search Inward Approvals"
+            >
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+              <span>Search</span>
+            </button>
           </div>
         </div>
+
+        <!-- Data Table Container -->
+        <div id="cs-inward-approval-table"></div>
       </div>
     `;
+
+    // Initialize DataTable
+    let dataTableInstance = null;
+
+    const initTable = (data) => {
+      const tableWrapper = container.querySelector('#cs-inward-approval-table');
+      if (!tableWrapper) return;
+      tableWrapper.innerHTML = '';
+
+      dataTableInstance = new DataTable({
+        containerId: 'cs-inward-approval-table',
+        tableTitle: 'Inward Stock Approvals',
+        keyField: 'bid',
+        searchable: true,
+        exportable: true,
+        pageSize: 10,
+        onRowClick: (row) => this.showInwardApprovalDetailModal(row),
+        columns: [
+          // 1. S.No
+          {
+            field: 'id',
+            header: 'S.No',
+            render: (v, r, idx) => `<span class="text-[#5E6C84] font-semibold">${idx + 1}</span>`
+          },
+
+          // 2. BID
+          {
+            field: 'bid',
+            header: 'BID',
+            sortable: true,
+            render: (v) => `<span class="font-mono font-bold text-xs text-[#0284C7] hover:underline cursor-pointer whitespace-nowrap">${v}</span>`
+          },
+
+          // 3. Date
+          {
+            field: 'date',
+            header: 'Date',
+            sortable: true,
+            render: (v) => `<span class="whitespace-nowrap text-xs text-[#172B4D] font-medium">${v}</span>`
+          },
+
+          // 4. Variety
+          {
+            field: 'variety',
+            header: 'Variety',
+            sortable: true,
+            render: (v) => `<span class="font-medium text-xs text-[#172B4D] whitespace-nowrap">${v}</span>`
+          },
+
+          // 5. Grade
+          {
+            field: 'grade',
+            header: 'Grade',
+            sortable: true,
+            render: (v) => `<span class="font-mono font-bold text-xs text-[#0284C7] whitespace-nowrap">${v}</span>`
+          },
+
+          // 6. Soaking
+          {
+            field: 'soaking',
+            header: 'Soaking',
+            sortable: true,
+            render: (v) => `<span class="text-xs text-[#5E6C84] whitespace-nowrap">${v}</span>`
+          },
+
+          // 7. Packing Type
+          {
+            field: 'packingType',
+            header: 'Packing Type',
+            sortable: true,
+            render: (v) => `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#EAE6FF] text-[#403294] whitespace-nowrap">${v}</span>`
+          },
+
+          // 8. Packing style
+          {
+            field: 'packingStyle',
+            header: 'Packing style',
+            render: (v) => `<span class="font-mono text-xs text-[#5E6C84] whitespace-nowrap">${v}</span>`
+          },
+
+          // 9. Category
+          {
+            field: 'category',
+            header: 'Category',
+            sortable: true,
+            render: (v) => `<span class="whitespace-nowrap text-xs text-[#172B4D]">${v}</span>`
+          },
+
+          // 10. AB Status
+          {
+            field: 'abStatus',
+            header: 'AB Status',
+            sortable: true,
+            render: (v) => {
+              let cls = 'bg-[#E3FCEF] text-[#006644] border-[#ABF5D1]';
+              if (v.includes('TESTING') || v.includes('PENDING')) cls = 'bg-[#FFF0B3] text-[#172B4D] border-[#FFE380]';
+              if (v.includes('FAIL') || v.includes('POSITIVE')) cls = 'bg-[#FFEBE6] text-[#DE350B] border-[#FFBDAD]';
+              return `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold border ${cls} whitespace-nowrap">${v}</span>`;
+            }
+          },
+
+          // 11. Po Number
+          {
+            field: 'poNumber',
+            header: 'Po Number',
+            sortable: true,
+            render: (v) => `<span class="font-mono font-bold text-xs text-[#172B4D] whitespace-nowrap">${v}</span>`
+          },
+
+          // 12. Lot Number
+          {
+            field: 'lotNumber',
+            header: 'Lot Number',
+            sortable: true,
+            render: (v) => `<span class="font-mono text-xs text-[#0284C7] bg-[#F0F9FF] px-2 py-0.5 rounded border border-[#BEE3F8] whitespace-nowrap">${v}</span>`
+          },
+
+          // 13. MCS
+          {
+            field: 'mcs',
+            header: 'MCS',
+            sortable: true,
+            render: (v) => `<span class="font-mono font-bold text-xs text-[#00875A]">${Number(v).toLocaleString()}</span>`
+          },
+
+          // 14. Loose
+          {
+            field: 'loose',
+            header: 'Loose',
+            sortable: true,
+            render: (v) => `<span class="font-mono font-bold text-xs ${v > 0 ? 'text-[#D97706]' : 'text-[#A5ADBA]'}">${Number(v).toLocaleString()}</span>`
+          },
+
+          // 15. Store
+          {
+            field: 'store',
+            header: 'Store',
+            sortable: true,
+            render: (v) => `<span class="text-xs text-[#172B4D] font-medium whitespace-nowrap">${v}</span>`
+          },
+
+          // 16. Status
+          {
+            field: 'status',
+            header: 'Status',
+            sortable: true,
+            render: (v) => {
+              let cls = 'bg-[#FFF0B3] text-[#172B4D] border-[#FFE380]';
+              if (v === 'Approved') cls = 'bg-[#E3FCEF] text-[#006644] border-[#ABF5D1]';
+              if (v === 'Under Inspection') cls = 'bg-[#E0F2FE] text-[#0284C7] border-[#B3D4FF]';
+              return `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${cls} whitespace-nowrap">${v}</span>`;
+            }
+          }
+        ],
+        actionsTitle: 'Action',
+        actions: [
+          {
+            label: 'Approve Inward',
+            icon: `<svg class="w-4 h-4 text-[#00875A]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`,
+            onClick: (row) => {
+              Modal.confirm({
+                title: 'Approve Inward Stock Intake',
+                message: `Confirm inward intake approval for BID <strong>${row.bid}</strong> (${row.variety}, Grade: ${row.grade}, Store: ${row.store}, MCS: ${row.mcs})?`,
+                confirmText: 'Approve Inward',
+                onConfirm: () => {
+                  row.status = 'Approved';
+                  initTable(data);
+                  Toast.show(`Inward stock ${row.bid} successfully approved!`, 'success');
+                }
+              });
+            }
+          }
+        ],
+        data
+      });
+    };
+
+    // Initial render
+    initTable(inwardApprovalRecords);
+
+    // Collapsible Filter Toggle
+    const toggleBtn = container.querySelector('#ia-filter-toggle-btn');
+    const filterBody = container.querySelector('#ia-filter-body');
+    const toggleIcon = container.querySelector('#ia-filter-toggle-icon');
+
+    if (toggleBtn && filterBody && toggleIcon) {
+      let isOpen = true;
+      toggleBtn.addEventListener('click', () => {
+        isOpen = !isOpen;
+        if (isOpen) {
+          filterBody.style.display = 'grid';
+          toggleIcon.classList.remove('rotate-180');
+          toggleBtn.title = 'Hide Filter';
+        } else {
+          filterBody.style.display = 'none';
+          toggleIcon.classList.add('rotate-180');
+          toggleBtn.title = 'Show Filter';
+        }
+      });
+    }
+
+    // Execute Filter Logic
+    const executeFilter = () => {
+      const coldStoreVal = (container.querySelector('#ia-filter-cold-store')?.value || '').trim();
+      const stockBelongsVal = (container.querySelector('#ia-filter-stock-belongs')?.value || '').trim();
+      const prodDateVal = (container.querySelector('#ia-filter-prod-date')?.value || '').trim();
+      const poNoVal = (container.querySelector('#ia-filter-po-no')?.value || '').trim().toLowerCase();
+      const speciesVal = (container.querySelector('#ia-filter-species')?.value || '').trim();
+      const typeProdVal = (container.querySelector('#ia-filter-type-product')?.value || '').trim();
+      const freezingVal = (container.querySelector('#ia-filter-freezing-type')?.value || '').trim();
+      const varietyVal = (container.querySelector('#ia-filter-variety')?.value || '').trim();
+      const gradeVal = (container.querySelector('#ia-filter-grade')?.value || '').trim();
+      const packingStyleVal = (container.querySelector('#ia-filter-packing-style')?.value || '').trim();
+      const categoryVal = (container.querySelector('#ia-filter-category')?.value || '').trim();
+      const statusVal = (container.querySelector('#ia-filter-status')?.value || '').trim();
+
+      const filtered = inwardApprovalRecords.filter(r => {
+        if (coldStoreVal && r.coldStore !== coldStoreVal) return false;
+        if (stockBelongsVal && r.stockBelongsTo !== stockBelongsVal) return false;
+        if (prodDateVal && r.date !== prodDateVal) return false;
+        if (poNoVal && !r.poNumber.toLowerCase().includes(poNoVal)) return false;
+        if (speciesVal && r.species !== speciesVal) return false;
+        if (typeProdVal && r.typeProduct !== typeProdVal) return false;
+        if (freezingVal && r.freezingType !== freezingVal) return false;
+        if (varietyVal && r.variety !== varietyVal) return false;
+        if (gradeVal && r.grade !== gradeVal) return false;
+        if (packingStyleVal && r.packingStyle !== packingStyleVal) return false;
+        if (categoryVal && r.category !== categoryVal) return false;
+        if (statusVal && r.status !== statusVal) return false;
+        return true;
+      });
+
+      initTable(filtered);
+      Toast.show(`Displaying ${filtered.length} inward record${filtered.length === 1 ? '' : 's'}`, 'info');
+    };
+
+    // Bind Search Button
+    const searchBtn = container.querySelector('#ia-filter-search-btn');
+    if (searchBtn) {
+      searchBtn.addEventListener('click', executeFilter);
+    }
+
+    // Bind Reset Button
+    const resetBtn = container.querySelector('#ia-filter-reset-btn');
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        const cs = container.querySelector('#ia-filter-cold-store');
+        const sb = container.querySelector('#ia-filter-stock-belongs');
+        const pd = container.querySelector('#ia-filter-prod-date');
+        const po = container.querySelector('#ia-filter-po-no');
+        const sp = container.querySelector('#ia-filter-species');
+        const tp = container.querySelector('#ia-filter-type-product');
+        const fz = container.querySelector('#ia-filter-freezing-type');
+        const vr = container.querySelector('#ia-filter-variety');
+        const gr = container.querySelector('#ia-filter-grade');
+        const ps = container.querySelector('#ia-filter-packing-style');
+        const ct = container.querySelector('#ia-filter-category');
+        const st = container.querySelector('#ia-filter-status');
+
+        if (cs) cs.value = '';
+        if (sb) sb.value = '';
+        if (pd) pd.value = '';
+        if (po) po.value = '';
+        if (sp) sp.value = '';
+        if (tp) tp.value = '';
+        if (fz) fz.value = '';
+        if (vr) vr.value = '';
+        if (gr) gr.value = '';
+        if (ps) ps.value = '';
+        if (ct) ct.value = '';
+        if (st) st.value = '';
+
+        initTable(inwardApprovalRecords);
+        Toast.show('Inward approval search filters reset to default', 'info');
+      });
+    }
   },
 
-  // 5c. STOCK APPROVALS - BACKWARD COMPATIBILITY
+  // 5c. INWARD APPROVAL DETAIL MODAL
+  showInwardApprovalDetailModal(row) {
+    Modal.open({
+      title: `Inward Stock Details: ${row.bid}`,
+      size: 'xl',
+      content: `
+        <div class="space-y-4 text-xs text-[#172B4D]">
+          <!-- Header Banner -->
+          <div class="p-3 bg-[#F4F5F7] border border-[#DFE1E6] rounded-lg flex items-center justify-between">
+            <div>
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">BATCH IDENTIFICATION (BID)</span>
+              <div class="text-base font-extrabold text-[#0284C7] font-mono">${row.bid}</div>
+            </div>
+            <div class="text-right">
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">APPROVAL STATUS</span>
+              <div>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold ${row.status === 'Approved' ? 'bg-[#E3FCEF] text-[#006644]' : 'bg-[#FFF0B3] text-[#172B4D]'}">${row.status}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Reference & Order Information Grid -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-white p-3 border border-[#DFE1E6] rounded-lg">
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">INTAKE DATE</span>
+              <span class="font-semibold text-xs text-[#172B4D]">${row.date}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PO NUMBER</span>
+              <span class="font-mono font-bold text-xs text-[#172B4D]">${row.poNumber}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">LOT NUMBER</span>
+              <span class="font-mono font-semibold text-xs text-[#0284C7]">${row.lotNumber}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">STOCK BELONGS TO</span>
+              <span class="font-semibold text-xs text-[#172B4D]">${row.stockBelongsTo}</span>
+            </div>
+          </div>
+
+          <!-- Product & Processing Specifications Grid -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-white p-3 border border-[#DFE1E6] rounded-lg">
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">VARIETY</span>
+              <span class="font-bold text-xs text-[#172B4D]">${row.variety}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">GRADE</span>
+              <span class="font-mono font-bold text-xs text-[#0284C7]">${row.grade}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">SOAKING</span>
+              <span class="font-semibold text-xs text-[#5E6C84]">${row.soaking}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">ANTIBIOTIC (AB) STATUS</span>
+              <span class="font-bold text-xs ${row.abStatus.includes('PASS') ? 'text-[#00875A]' : 'text-[#D97706]'}">${row.abStatus}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PACKING TYPE</span>
+              <span class="font-semibold text-xs text-[#172B4D]">${row.packingType}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">PACKING STYLE</span>
+              <span class="font-semibold text-xs text-[#172B4D]">${row.packingStyle}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">CATEGORY</span>
+              <span class="font-semibold text-xs text-[#172B4D]">${row.category}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase">COLD STORE</span>
+              <span class="font-semibold text-xs text-[#0284C7]">${row.store}</span>
+            </div>
+          </div>
+
+          <!-- Quantity Breakdown Cards -->
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 bg-[#FAFBFC] p-3 border border-[#DFE1E6] rounded-lg text-center">
+            <div class="bg-white p-3 rounded border border-[#EBECF0]">
+              <div class="text-[10px] font-bold text-[#5E6C84] uppercase">TOTAL MCS</div>
+              <div class="text-xl font-black text-[#00875A] font-mono mt-0.5">${Number(row.mcs).toLocaleString()}</div>
+            </div>
+            <div class="bg-white p-3 rounded border border-[#EBECF0]">
+              <div class="text-[10px] font-bold text-[#5E6C84] uppercase">LOOSE PACKETS</div>
+              <div class="text-xl font-black text-[#D97706] font-mono mt-0.5">${Number(row.loose).toLocaleString()}</div>
+            </div>
+            <div class="bg-white p-3 rounded border border-[#EBECF0]">
+              <div class="text-[10px] font-bold text-[#5E6C84] uppercase">STORAGE LOCATION</div>
+              <div class="text-sm font-black text-[#172B4D] mt-1">${row.store}</div>
+            </div>
+          </div>
+        </div>
+      `,
+      footerButtons: [{ label: 'Close', type: 'secondary', onClick: (modal) => modal.close() }]
+    });
+  },
+
+  // 5d. STOCK APPROVALS - BACKWARD COMPATIBILITY
   renderStockApprovals(container) {
     this.renderAdminDailyProductionList(container);
   },
