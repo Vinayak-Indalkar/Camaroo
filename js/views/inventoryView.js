@@ -5679,7 +5679,7 @@ export const InventoryView = {
           </div>
         </div>
 
-        <div id="pm-po-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 pt-3 border-t border-[#F1F5F9] mt-2 text-xs">
+        <div id="pm-po-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-3 border-t border-[#F1F5F9] mt-2 text-xs">
           <!-- 1. From Date -->
           <div>
             <label for="pm-po-flt-from" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FROM DATE</label>
@@ -5705,9 +5705,9 @@ export const InventoryView = {
             </select>
           </div>
 
-          <!-- Second Line: Search Button -->
-          <div class="col-span-1 sm:col-span-2 md:col-span-3 flex justify-end pt-1">
-            <button type="button" id="pm-po-flt-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px]">
+          <!-- 4. Search Button in Fourth Column -->
+          <div class="flex items-end">
+            <button type="button" id="pm-po-flt-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
               <span>Search</span>
             </button>
