@@ -53769,17 +53769,21 @@ const InventoryView = {
         id: 1,
         docNo: 'ISS-PM-2026-0031',
         date: '2026-10-28',
-        location: 'Packaging Store Vault #1',
-        department: 'Packaging & Boxing Bay',
+        proNumber: 'PRO-2026-0819',
         narration: 'Material issue of master cartons for shift packing target',
         items: [
           {
+            warehouse: 'Packaging Store Vault #1',
             item: '7-Ply Corrugated Master Cartons (1 X 10 KGS IQF Print)',
+            grade: '31/40',
+            packingStyle: '10 X 1 KG Printed Pouch',
+            processType: 'PDTO (Peeled Deveined Tail-On)',
+            brand: 'Devi Gold',
             uom: 'MCs',
             availableQty: 25000,
+            itemPrice: 58.50,
             batch: 'BAT-PM-2026-01',
             quantity: 3500,
-            itemPrice: 58.50,
             baseValue: 204750.00,
             gstPercent: 12,
             invoiceAmount: 229320.00,
@@ -53793,23 +53797,27 @@ const InventoryView = {
         id: 2,
         docNo: 'ISS-PM-2026-0032',
         date: '2026-10-27',
-        location: 'Central PM Bay A-2',
-        department: 'IQF Line 1 Packing Table',
+        proNumber: 'PRO-2026-0815',
         narration: 'Polybag issuance for 2-Lb retail brand run',
         items: [
           {
+            warehouse: 'Central PM Bay A-2',
             item: 'Printed LDPE 2-Lb Gusseted Shrimp Bags with Zipper (50 Micron)',
+            grade: '16/20',
+            packingStyle: '5 X 2 Lb Retail Zipper Bag',
+            processType: 'HLSO (Headless Shell-On)',
+            brand: 'AquaStar',
             uom: 'Bags',
             availableQty: 99500,
-            batch: 'BAT-PM-2026-02',
-            quantity: 12000,
             itemPrice: 3.40,
-            baseValue: 40800.00,
+            batch: 'BAT-PM-2026-02',
+            quantity: 10000,
+            baseValue: 34000.00,
             gstPercent: 18,
-            invoiceAmount: 48144.00,
-            purpose: 'Retail branded zipper packaging for US consignment',
+            invoiceAmount: 40120.00,
+            purpose: 'Retail pack shrimp packaging line 1',
             attachment: '',
-            remarks: 'Daily production run dispatch'
+            remarks: 'Quality checked - issue approved'
           }
         ]
       }
@@ -61090,7 +61098,7 @@ const InventoryView = {
         </div>
       </div>
 
-      <!-- Search & Filter Card -->
+      <!-- Search & Filter Card (4 Columns: Doc/PRO No, From Date, To Date, Search) -->
       <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200">
         <div class="flex items-center justify-between pb-1">
           <div class="flex items-center gap-2">
@@ -61107,38 +61115,26 @@ const InventoryView = {
           </div>
         </div>
 
-        <div id="pm-issue-flt-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3 pt-3 border-t border-[#F1F5F9] mt-2 text-xs">
-          <!-- 1. Search Query -->
+        <div id="pm-issue-flt-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-3 border-t border-[#F1F5F9] mt-2 text-xs">
+          <!-- 1. DOC NO / PRO NUMBER -->
           <div>
-            <label for="pm-issue-flt-search" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SEARCH</label>
-            <input type="text" id="pm-issue-flt-search" placeholder="Doc No / Item / Narration..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            <label for="pm-issue-flt-doc" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DOC NO / PRO NO</label>
+            <input type="text" id="pm-issue-flt-doc" placeholder="Search by Doc or PRO No..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
           </div>
 
-          <!-- 2. Department -->
-          <div>
-            <label for="pm-issue-flt-dept" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DEPARTMENT</label>
-            <select id="pm-issue-flt-dept" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-              <option value="ALL">All Departments</option>
-              <option value="Packaging & Boxing Bay">Packaging &amp; Boxing Bay</option>
-              <option value="IQF Line 1 Packing Table">IQF Line 1 Packing Table</option>
-              <option value="Coldstore Hub - Dispatch Packaging">Coldstore Hub - Dispatch Packaging</option>
-              <option value="Pre-Processing Unit">Pre-Processing Unit</option>
-            </select>
-          </div>
-
-          <!-- 3. From Date -->
+          <!-- 2. FROM DATE -->
           <div>
             <label for="pm-issue-flt-from" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FROM DATE</label>
             <input type="date" id="pm-issue-flt-from" value="2026-10-01" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
           </div>
 
-          <!-- 4. To Date -->
+          <!-- 3. TO DATE -->
           <div>
             <label for="pm-issue-flt-to" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">TO DATE</label>
             <input type="date" id="pm-issue-flt-to" value="${todayStr}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
           </div>
 
-          <!-- Search Button -->
+          <!-- 4. Search Button in Fourth Column -->
           <div class="flex items-end">
             <button type="button" id="pm-issue-flt-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
@@ -61148,17 +61144,18 @@ const InventoryView = {
         </div>
       </div>
 
-      <!-- Material Issue Records Table: S No, Date, Actions (plus Doc No, Dept, Location, Amount) -->
+      <!-- Material Issue Records Table: S No, Doc No, Date, Actions -->
       <div id="pm-issue-table-container"></div>
     `;
 
-    // Add Material Issue button handler
+    // Direct Click Handler for "Add Material Issue" Button -> Opens Add Material Issue Modal Popup
     container.querySelector('#pm-issue-add-btn')?.addEventListener('click', () => {
       this.showAddPmMaterialIssueModal(() => {
         renderTable(this.state.pmMaterialIssueList);
       });
     });
 
+    // Render Material Issue Table: S No, Doc No, Date, Actions
     const renderTable = (data) => {
       new DataTable({
         containerId: 'pm-issue-table-container',
@@ -61173,9 +61170,11 @@ const InventoryView = {
           {
             field: 'sNo',
             header: 'S No',
-            sortable: true,
+            sortable: false,
             render: (v, r, idx) => `
-              <span class="text-[#00A4B7] font-semibold hover:underline cursor-pointer select-none">${idx + 1}</span>
+              <span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer select-none">
+                ${String(idx + 1).padStart(2, '0')}
+              </span>
             `
           },
           {
@@ -61183,36 +61182,17 @@ const InventoryView = {
             header: 'Doc No',
             sortable: true,
             render: (v, r) => `
-              <span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer whitespace-nowrap">${v}</span>
+              <div class="flex flex-col">
+                <span class="font-mono font-bold text-xs text-[#172B4D] hover:text-[#00A4B7] cursor-pointer whitespace-nowrap">${v || '-'}</span>
+                ${r.proNumber ? `<span class="text-[10px] text-[#5E6C84]">PRO: ${r.proNumber}</span>` : ''}
+              </div>
             `
           },
           {
             field: 'date',
             header: 'Date',
             sortable: true,
-            render: v => `<span class="whitespace-nowrap text-xs text-[#172B4D] font-medium font-mono">${v}</span>`
-          },
-          {
-            field: 'department',
-            header: 'Department',
-            sortable: true,
-            render: v => `<span class="font-semibold text-xs text-[#172B4D] whitespace-nowrap">${v}</span>`
-          },
-          {
-            field: 'location',
-            header: 'Location',
-            sortable: true,
-            render: v => `<span class="text-xs text-[#5E6C84] whitespace-nowrap">${v || '-'}</span>`
-          },
-          {
-            field: 'totalValue',
-            header: 'Total Value (₹)',
-            sortable: true,
-            render: (v, r) => {
-              const items = Array.isArray(r.items) ? r.items : [];
-              const total = items.reduce((acc, it) => acc + (it.invoiceAmount || it.baseValue || 0), 0);
-              return `<span class="font-mono font-bold text-xs text-[#00875A] whitespace-nowrap">₹${total.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>`;
-            }
+            render: v => `<span class="whitespace-nowrap text-xs text-[#172B4D] font-medium font-mono">${v || '-'}</span>`
           }
         ],
         actionsTitle: 'Actions',
@@ -61242,7 +61222,7 @@ const InventoryView = {
             onClick: (row) => {
               Modal.confirm({
                 title: 'Delete Material Issue (PM)',
-                message: `Are you sure you want to delete Packaging Material Issue <strong>${row.docNo}</strong> (${row.department})?`,
+                message: `Are you sure you want to delete Packaging Material Issue <strong>${row.docNo}</strong>? This action will reverse stock deductions.`,
                 confirmText: 'Delete Issue',
                 isDestructive: true,
                 onConfirm: () => {
@@ -61265,19 +61245,17 @@ const InventoryView = {
 
     // Search & Filter Handlers
     container.querySelector('#pm-issue-flt-search-btn')?.addEventListener('click', () => {
-      const q = container.querySelector('#pm-issue-flt-search')?.value?.trim().toLowerCase();
-      const deptVal = container.querySelector('#pm-issue-flt-dept')?.value;
+      const q = container.querySelector('#pm-issue-flt-doc')?.value?.trim().toLowerCase();
       const fromVal = container.querySelector('#pm-issue-flt-from')?.value;
       const toVal = container.querySelector('#pm-issue-flt-to')?.value;
 
       const filtered = this.state.pmMaterialIssueList.filter(it => {
         if (q) {
           const matchDoc = it.docNo?.toLowerCase().includes(q);
+          const matchPro = it.proNumber?.toLowerCase().includes(q);
           const matchNarr = it.narration?.toLowerCase().includes(q);
-          const matchItem = it.items?.some(i => i.item?.toLowerCase().includes(q));
-          if (!matchDoc && !matchNarr && !matchItem) return false;
+          if (!matchDoc && !matchPro && !matchNarr) return false;
         }
-        if (deptVal && deptVal !== 'ALL' && it.department !== deptVal) return false;
         if (fromVal && it.date < fromVal) return false;
         if (toVal && it.date > toVal) return false;
         return true;
@@ -61288,8 +61266,7 @@ const InventoryView = {
     });
 
     container.querySelector('#pm-issue-flt-reset-btn')?.addEventListener('click', () => {
-      container.querySelector('#pm-issue-flt-search').value = '';
-      container.querySelector('#pm-issue-flt-dept').value = 'ALL';
+      container.querySelector('#pm-issue-flt-doc').value = '';
       container.querySelector('#pm-issue-flt-from').value = '2026-10-01';
       container.querySelector('#pm-issue-flt-to').value = todayStr;
       renderTable(this.state.pmMaterialIssueList);
@@ -61308,7 +61285,7 @@ const InventoryView = {
     });
   },
 
-  // Modal: Add Packaging Material Issue
+  // Modal: Add Packaging Material Issue (Consistent Proforma/PO style)
   showAddPmMaterialIssueModal(onSuccess = null) {
     const todayStr = new Date().toISOString().slice(0, 10);
     const nextNum = (this.state.pmMaterialIssueList?.length || 0) + 1;
@@ -61316,20 +61293,41 @@ const InventoryView = {
 
     let issueItems = [
       {
+        warehouse: 'Packaging Store Vault #1',
         item: '7-Ply Corrugated Master Cartons (1 X 10 KGS IQF Print)',
+        grade: '31/40',
+        packingStyle: '10 X 1 KG Printed Pouch',
+        processType: 'PDTO (Peeled Deveined Tail-On)',
+        brand: 'Devi Gold',
         uom: 'MCs',
         availableQty: 25000,
-        batch: 'BAT-PM-2026-01',
-        quantity: 1500,
         itemPrice: 58.50,
-        baseValue: 87750.00,
+        batch: 'BAT-PM-2026-01',
+        quantity: 3500,
+        baseValue: 204750.00,
         gstPercent: 12,
-        invoiceAmount: 98280.00,
-        purpose: 'Shift export carton packing run',
+        invoiceAmount: 229320.00,
+        purpose: 'Export packing of 31/40 peeled deveined shrimp',
         attachment: '',
-        remarks: 'Approved per indent'
+        remarks: 'Shift supervisor indent approved'
       }
     ];
+
+    const recalculateTotals = () => {
+      const totalQty = issueItems.reduce((acc, it) => acc + (it.quantity || 0), 0);
+      const totalBase = issueItems.reduce((acc, it) => acc + (it.baseValue || 0), 0);
+      const netInvoice = issueItems.reduce((acc, it) => acc + (it.invoiceAmount || 0), 0);
+
+      const itemsCountEl = document.getElementById('pm-issue-modal-items-count');
+      const qtyEl = document.getElementById('pm-issue-modal-total-qty');
+      const baseEl = document.getElementById('pm-issue-modal-total-base');
+      const netEl = document.getElementById('pm-issue-modal-net-inv');
+
+      if (itemsCountEl) itemsCountEl.innerText = issueItems.length;
+      if (qtyEl) qtyEl.innerText = totalQty.toLocaleString();
+      if (baseEl) baseEl.innerText = `₹${totalBase.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      if (netEl) netEl.innerText = `₹${netInvoice.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    };
 
     const renderItemsTable = () => {
       const tbody = document.getElementById('pm-issue-modal-items-tbody');
@@ -61338,24 +61336,31 @@ const InventoryView = {
       if (issueItems.length === 0) {
         tbody.innerHTML = `
           <tr>
-            <td colspan="8" class="text-center py-5 text-[#5E6C84] italic">
+            <td colspan="15" class="text-center py-6 text-[#5E6C84] italic">
               No items added to this issue yet. Fill item details above and click "Add Item".
             </td>
           </tr>
         `;
+        recalculateTotals();
         return;
       }
 
       tbody.innerHTML = issueItems.map((it, idx) => `
         <tr class="hover:bg-[#F8FAFC]">
-          <td class="py-2 px-3 font-semibold text-[#172B4D]">${it.item}</td>
-          <td class="py-2 px-3 text-[#5E6C84]">${it.uom}</td>
-          <td class="py-2 px-3 text-right font-mono font-bold text-[#172B4D]">${Number(it.quantity || 0).toLocaleString()}</td>
-          <td class="py-2 px-3 text-right font-mono text-[#172B4D]">₹${Number(it.itemPrice || 0).toFixed(2)}</td>
-          <td class="py-2 px-3 text-right font-mono text-[#172B4D]">₹${Number(it.baseValue || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
-          <td class="py-2 px-3 text-right font-mono font-bold text-[#00875A]">₹${Number(it.invoiceAmount || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
-          <td class="py-2 px-3 text-[#5E6C84] text-[11px]">${it.purpose || '-'}</td>
-          <td class="py-2 px-3 text-center">
+          <td class="py-2.5 px-3 font-semibold text-[#172B4D] whitespace-nowrap">${it.item}</td>
+          <td class="py-2.5 px-3 text-[#172B4D] whitespace-nowrap">${it.warehouse || '-'}</td>
+          <td class="py-2.5 px-3 text-[#5E6C84] whitespace-nowrap">${it.grade || '-'}</td>
+          <td class="py-2.5 px-3 text-[#5E6C84] whitespace-nowrap">${it.packingStyle || '-'}</td>
+          <td class="py-2.5 px-3 text-[#172B4D] whitespace-nowrap">${it.brand || '-'}</td>
+          <td class="py-2.5 px-3 text-[#5E6C84] whitespace-nowrap">${it.uom}</td>
+          <td class="py-2.5 px-3 font-mono text-[#5E6C84] whitespace-nowrap">${it.batch || '-'}</td>
+          <td class="py-2.5 px-3 text-right font-mono font-bold text-[#00A4B7] whitespace-nowrap">${Number(it.quantity || 0).toLocaleString()}</td>
+          <td class="py-2.5 px-3 text-right font-mono text-[#172B4D] whitespace-nowrap">₹${Number(it.itemPrice || 0).toFixed(2)}</td>
+          <td class="py-2.5 px-3 text-right font-mono font-bold text-[#172B4D] whitespace-nowrap">₹${Number(it.baseValue || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
+          <td class="py-2.5 px-3 text-right font-mono text-[#00A4B7] whitespace-nowrap">${it.gstPercent}%</td>
+          <td class="py-2.5 px-3 text-right font-mono font-bold text-[#00875A] whitespace-nowrap">₹${Number(it.invoiceAmount || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
+          <td class="py-2.5 px-3 text-[#5E6C84] text-[11px] whitespace-nowrap truncate max-w-[150px]">${it.purpose || '-'}</td>
+          <td class="py-2.5 px-3 text-center whitespace-nowrap">
             <button type="button" class="btn-remove-pm-issue-item text-[#DE350B] hover:text-[#BF2600] p-1 rounded hover:bg-[#FFEBE6] transition-colors cursor-pointer" data-idx="${idx}" title="Remove item">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
             </button>
@@ -61370,169 +61375,338 @@ const InventoryView = {
           renderItemsTable();
         });
       });
+
+      recalculateTotals();
     };
 
     Modal.open({
       title: 'Add Material Issue (PM)',
-      width: 'max-w-5xl',
+      size: 'full',
       confirmActions: false,
-      body: `
-        <div class="space-y-4 text-xs">
-          <!-- 1. Header Information -->
-          <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 space-y-3 shadow-2xs">
-            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider border-b border-[#DFE1E6] pb-1.5">Material Issue Header Details</h4>
+      content: `
+        <form id="modal-add-pm-issue-form" class="space-y-4 text-xs text-[#172B4D]" onsubmit="return false;">
+          <!-- Section 1: Header Information -->
+          <div>
+            <div class="flex items-center justify-between pb-2 mb-3 border-b border-[#DFE1E6]">
+              <div class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Material Issue Header Information</h4>
+              </div>
+              <span class="text-[11px] font-semibold text-[#5E6C84]">All fields marked with <span class="text-[#DE350B] font-bold">*</span> are required</span>
+            </div>
+
+            <!-- Header Form Input Fields (Clean 4 columns responsive layout) -->
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+              <!-- 1. DOC NO -->
               <div>
-                <label for="pm-missue-doc" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DOC NO</label>
-                <input type="text" id="pm-missue-doc" value="${defaultDocNo}" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] shadow-2xs cursor-not-allowed" />
+                <label for="pm-missue-doc" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DOC NO <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="pm-missue-doc" value="${defaultDocNo}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
               </div>
+
+              <!-- 2. DATE -->
               <div>
-                <label for="pm-missue-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DATE <span class="text-[#DE350B] font-bold">*</span></label>
-                <input type="date" id="pm-missue-date" value="${todayStr}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                <label for="pm-missue-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DATE <span class="text-[#DE350B]">*</span></label>
+                <input type="date" id="pm-missue-date" value="${todayStr}" required class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
               </div>
+
+              <!-- 3. PRO NUMBER -->
               <div>
-                <label for="pm-missue-loc" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">LOCATION <span class="text-[#DE350B] font-bold">*</span></label>
-                <select id="pm-missue-loc" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                  <option value="Packaging Store Vault #1" selected>Packaging Store Vault #1</option>
-                  <option value="Central PM Bay A-2">Central PM Bay A-2</option>
-                  <option value="Master Carton Storage Unit">Master Carton Storage Unit</option>
-                </select>
+                <label for="pm-missue-pro-no" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PRO NUMBER <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="pm-missue-pro-no" value="PRO-2026-0819" placeholder="Enter PRO Number..." required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
               </div>
+
+              <!-- 4. NARRATION -->
               <div>
-                <label for="pm-missue-dept" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DEPARTMENT <span class="text-[#DE350B] font-bold">*</span></label>
-                <select id="pm-missue-dept" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                  <option value="Packaging & Boxing Bay" selected>Packaging &amp; Boxing Bay</option>
-                  <option value="IQF Line 1 Packing Table">IQF Line 1 Packing Table</option>
-                  <option value="Coldstore Hub - Dispatch Packaging">Coldstore Hub - Dispatch Packaging</option>
-                  <option value="Pre-Processing Unit">Pre-Processing Unit</option>
-                </select>
-              </div>
-              <div class="sm:col-span-2 md:col-span-4">
                 <label for="pm-missue-narr" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">NARRATION</label>
-                <input type="text" id="pm-missue-narr" placeholder="Department consumption or requisition note..." value="Issue of master cartons for shift packing target" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                <input type="text" id="pm-missue-narr" placeholder="Department issue or dispatch pack notes..." value="Packaging materials issue for export line production target" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
               </div>
             </div>
           </div>
 
-          <!-- 2. Item Details Fields -->
-          <div class="bg-[#F8FAFC] border border-[#DFE1E6] rounded-xl p-3.5 space-y-3 shadow-2xs">
-            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider border-b border-[#DFE1E6] pb-1.5">Item Issuance Details</h4>
-            
-            <!-- Row 1: Item, Unit, Avail, Price, Batch, Qty -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 gap-3">
-              <div class="md:col-span-2">
-                <label for="pm-missuei-item" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ITEM <span class="text-[#DE350B] font-bold">*</span></label>
-                <input type="text" id="pm-missuei-item" value="Printed LDPE 2-Lb Gusseted Shrimp Bags with Zipper (50 Micron)" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          <!-- Section 2: Item Details Fields -->
+          <div>
+            <div class="flex items-center justify-between pb-2 mb-3 border-b border-[#DFE1E6]">
+              <div class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+                <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Item Details Fields</h4>
               </div>
-              <div>
-                <label for="pm-missuei-uom" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">UOM</label>
-                <select id="pm-missuei-uom" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                  <option value="Bags" selected>Bags</option>
-                  <option value="MCs">MCs</option>
-                  <option value="Boxes">Boxes</option>
-                  <option value="Rolls">Rolls</option>
-                  <option value="Nos">Nos</option>
-                </select>
-              </div>
-              <div>
-                <label for="pm-missuei-avail" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">AVAIL QTY</label>
-                <input type="number" id="pm-missuei-avail" value="99500" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] shadow-2xs cursor-not-allowed" />
-              </div>
-              <div>
-                <label for="pm-missuei-price" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ITEM PRICE (₹)</label>
-                <input type="number" id="pm-missuei-price" value="3.40" min="0.01" step="0.01" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
-              </div>
-              <div>
-                <label for="pm-missuei-batch" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BATCH</label>
-                <input type="text" id="pm-missuei-batch" value="BAT-PM-2026-02" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              <span class="text-[11px] font-semibold text-[#5E6C84]">All fields marked with <span class="text-[#DE350B] font-bold">*</span> are required</span>
+            </div>
+
+            <!-- Item Input Grid Card (4 columns responsive layout) -->
+            <div class="bg-[#F8FAFC] border border-[#DFE1E6] rounded-xl p-3.5 space-y-3 shadow-2xs">
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+                <!-- 1. Warehouse -->
+                <div>
+                  <label for="pm-missuei-wh" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">WAREHOUSE <span class="text-[#DE350B]">*</span></label>
+                  <select id="pm-missuei-wh" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                    <option value="Packaging Store Vault #1" selected>Packaging Store Vault #1</option>
+                    <option value="Central PM Bay A-2">Central PM Bay A-2</option>
+                    <option value="Cold Storage Packaging Rack B">Cold Storage Packaging Rack B</option>
+                    <option value="General Warehouse PM Shelf 3">General Warehouse PM Shelf 3</option>
+                  </select>
+                </div>
+
+                <!-- 2. Item -->
+                <div>
+                  <label for="pm-missuei-item" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ITEM <span class="text-[#DE350B]">*</span></label>
+                  <input type="text" id="pm-missuei-item" value="7-Ply Corrugated Master Cartons (1 X 10 KGS IQF Print)" placeholder="Item name..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                </div>
+
+                <!-- 3. Grade -->
+                <div>
+                  <label for="pm-missuei-grade" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">GRADE</label>
+                  <select id="pm-missuei-grade" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                    <option value="16/20">16/20</option>
+                    <option value="21/25">21/25</option>
+                    <option value="26/30">26/30</option>
+                    <option value="31/40" selected>31/40</option>
+                    <option value="41/50">41/50</option>
+                    <option value="51/60">51/60</option>
+                  </select>
+                </div>
+
+                <!-- 4. Packing Style -->
+                <div>
+                  <label for="pm-missuei-packing-style" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PACKING STYLE</label>
+                  <select id="pm-missuei-packing-style" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                    <option value="10 X 1 KG Printed Pouch" selected>10 X 1 KG Printed Pouch</option>
+                    <option value="6 X 2 KG Master Carton">6 X 2 KG Master Carton</option>
+                    <option value="1 X 10 KG Block IQF">1 X 10 KG Block IQF</option>
+                    <option value="5 X 2 Lb Retail Zipper Bag">5 X 2 Lb Retail Zipper Bag</option>
+                    <option value="10 X 2 Lb Export Master">10 X 2 Lb Export Master</option>
+                  </select>
+                </div>
+
+                <!-- 5. Process Type -->
+                <div>
+                  <label for="pm-missuei-process-type" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PROCESS TYPE</label>
+                  <select id="pm-missuei-process-type" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                    <option value="PDTO (Peeled Deveined Tail-On)" selected>PDTO (Peeled Deveined Tail-On)</option>
+                    <option value="HLSO (Headless Shell-On)">HLSO (Headless Shell-On)</option>
+                    <option value="PD (Peeled &amp; Deveined)">PD (Peeled &amp; Deveined)</option>
+                    <option value="Cooked Tail-On">Cooked Tail-On</option>
+                    <option value="EZ Peel">EZ Peel</option>
+                  </select>
+                </div>
+
+                <!-- 6. Brand -->
+                <div>
+                  <label for="pm-missuei-brand" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BRAND</label>
+                  <input type="text" id="pm-missuei-brand" value="Devi Gold" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                </div>
+
+                <!-- 7. UoM -->
+                <div>
+                  <label for="pm-missuei-uom" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">UOM</label>
+                  <select id="pm-missuei-uom" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                    <option value="MCs" selected>MCs</option>
+                    <option value="Bags">Bags</option>
+                    <option value="Boxes">Boxes</option>
+                    <option value="Rolls">Rolls</option>
+                    <option value="Nos">Nos</option>
+                    <option value="Kg">Kg</option>
+                  </select>
+                </div>
+
+                <!-- 8. Available Qty -->
+                <div>
+                  <label for="pm-missuei-avail" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">AVAILABLE QTY</label>
+                  <input type="number" id="pm-missuei-avail" value="25000" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] shadow-2xs cursor-not-allowed" />
+                </div>
+
+                <!-- 9. Item Price -->
+                <div>
+                  <label for="pm-missuei-price" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ITEM PRICE (₹) <span class="text-[#DE350B]">*</span></label>
+                  <input type="number" id="pm-missuei-price" value="58.50" min="0.01" step="0.01" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                </div>
+
+                <!-- 10. Batch -->
+                <div>
+                  <label for="pm-missuei-batch" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BATCH</label>
+                  <input type="text" id="pm-missuei-batch" value="BAT-PM-2026-01" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                </div>
+
+                <!-- 11. Quantity -->
+                <div>
+                  <label for="pm-missuei-qty" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">QUANTITY <span class="text-[#DE350B]">*</span></label>
+                  <input type="number" id="pm-missuei-qty" value="3500" min="1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                </div>
+
+                <!-- 12. Base Value -->
+                <div>
+                  <label for="pm-missuei-base" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BASE VALUE (₹)</label>
+                  <input type="number" id="pm-missuei-base" value="204750.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] shadow-2xs cursor-not-allowed" />
+                </div>
+
+                <!-- 13. GST% -->
+                <div>
+                  <label for="pm-missuei-gst" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">GST %</label>
+                  <select id="pm-missuei-gst" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                    <option value="0">0% (Nil)</option>
+                    <option value="5">5%</option>
+                    <option value="12" selected>12%</option>
+                    <option value="18">18%</option>
+                    <option value="28">28%</option>
+                  </select>
+                </div>
+
+                <!-- 14. Invoice Amount -->
+                <div>
+                  <label for="pm-missuei-inv" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">INVOICE AMOUNT (₹)</label>
+                  <input type="number" id="pm-missuei-inv" value="229320.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F0FDF4] border border-[#BBF7D0] rounded font-mono font-bold text-[#00875A] shadow-2xs cursor-not-allowed" />
+                </div>
+
+                <!-- 15. Purpose -->
+                <div>
+                  <label for="pm-missuei-purpose" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PURPOSE</label>
+                  <input type="text" id="pm-missuei-purpose" value="Export packing of 31/40 peeled deveined shrimp" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                </div>
+
+                <!-- 16. Attachment -->
+                <div>
+                  <label for="pm-missuei-attachment" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ATTACHMENT</label>
+                  <input type="file" id="pm-missuei-attachment" class="w-full text-[11px] px-2 py-1 bg-white border border-[#DFE1E6] rounded text-[#5E6C84] focus:outline-none focus:border-[#00A4B7] file:mr-2 file:py-0.5 file:px-2 file:rounded file:border-0 file:text-[10px] file:font-semibold file:bg-[#E0F2FE] file:text-[#0284C7] cursor-pointer" />
+                </div>
+
+                <!-- 17. Remarks -->
+                <div>
+                  <label for="pm-missuei-remarks" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">REMARKS</label>
+                  <input type="text" id="pm-missuei-remarks" value="Shift supervisor indent approved" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                </div>
+
+                <!-- 18. Action Button (Add Item) -->
+                <div>
+                  <label class="block text-[11px] font-bold text-transparent uppercase tracking-wider mb-1 select-none">&nbsp;</label>
+                  <button type="button" id="modal-pm-issue-btn-add-item" class="btn-primary w-full max-w-[150px] h-[32px] px-4 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                    <span>Add Item</span>
+                  </button>
+                </div>
               </div>
             </div>
 
-            <!-- Row 2: Qty, Base, GST, Invoice, Purpose, Remarks -->
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
-              <div>
-                <label for="pm-missuei-qty" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">QUANTITY <span class="text-[#DE350B] font-bold">*</span></label>
-                <input type="number" id="pm-missuei-qty" value="5000" min="1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
-              </div>
-              <div>
-                <label for="pm-missuei-base" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BASE VALUE (₹)</label>
-                <input type="number" id="pm-missuei-base" value="17000.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] shadow-2xs cursor-not-allowed" />
-              </div>
-              <div>
-                <label for="pm-missuei-gst" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">GST %</label>
-                <select id="pm-missuei-gst" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                  <option value="0">0%</option>
-                  <option value="5">5%</option>
-                  <option value="12">12%</option>
-                  <option value="18" selected>18%</option>
-                  <option value="28">28%</option>
-                </select>
-              </div>
-              <div>
-                <label for="pm-missuei-inv" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">INVOICE AMOUNT (₹)</label>
-                <input type="number" id="pm-missuei-inv" value="20060.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F0FDF4] border border-[#BBF7D0] rounded font-mono font-bold text-[#00875A] shadow-2xs cursor-not-allowed" />
-              </div>
-              <div>
-                <label for="pm-missuei-purpose" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PURPOSE</label>
-                <input type="text" id="pm-missuei-purpose" value="Retail pack shrimp packaging" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
-              </div>
-              <div>
-                <label for="pm-missuei-remarks" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">REMARKS</label>
-                <input type="text" id="pm-missuei-remarks" value="Standard issue" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
-              </div>
-            </div>
-
-            <!-- Row 3: Action Button -->
-            <div class="flex justify-start">
-              <button type="button" id="modal-pm-issue-btn-add-item" class="btn-primary w-full max-w-[150px] h-[32px] px-4 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                <span>Add Item</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- 3. Staged Items Table Card -->
-          <div class="bg-white border border-[#DFE1E6] rounded-xl overflow-hidden shadow-2xs">
-            <div class="p-3 bg-[#F8FAFC] border-b border-[#DFE1E6]">
-              <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Items in Material Issue</span>
-            </div>
-            <div class="overflow-x-auto">
+            <!-- Staged Items Preview Table Card -->
+            <div class="mt-3 overflow-x-auto border border-[#DFE1E6] rounded-xl bg-white shadow-2xs">
               <table class="w-full text-left text-xs border-collapse">
                 <thead class="bg-[#F8FAFC] border-b border-[#DFE1E6] text-[#475569] font-bold text-[11px] uppercase tracking-wider">
                   <tr>
                     <th class="py-2.5 px-3">Item</th>
-                    <th class="py-2.5 px-3">UOM</th>
+                    <th class="py-2.5 px-3">Warehouse</th>
+                    <th class="py-2.5 px-3">Grade</th>
+                    <th class="py-2.5 px-3">Packing Style</th>
+                    <th class="py-2.5 px-3">Brand</th>
+                    <th class="py-2.5 px-3">UoM</th>
+                    <th class="py-2.5 px-3 font-mono">Batch</th>
                     <th class="py-2.5 px-3 text-right">Qty</th>
                     <th class="py-2.5 px-3 text-right">Price</th>
                     <th class="py-2.5 px-3 text-right">Base Value</th>
+                    <th class="py-2.5 px-3 text-right">GST %</th>
                     <th class="py-2.5 px-3 text-right">Invoice Amt</th>
                     <th class="py-2.5 px-3">Purpose</th>
                     <th class="py-2.5 px-3 text-center">Action</th>
                   </tr>
                 </thead>
-                <tbody id="pm-issue-modal-items-tbody" class="divide-y divide-[#DFE1E6]">
+                <tbody id="pm-issue-modal-items-tbody" class="divide-y divide-[#DFE1E6] text-[#1E293B]">
                 </tbody>
               </table>
             </div>
           </div>
 
-          <!-- 4. Footer Actions -->
-          <div class="bg-[#F8FAFC] border border-[#DFE1E6] rounded-xl p-3 flex justify-end gap-2">
-            <button type="button" id="modal-pm-issue-cancel-btn" class="btn-secondary border border-[#CBD5E1] px-5 py-2 rounded-full text-xs font-semibold text-[#475569] hover:bg-[#F8FAFC] transition-all cursor-pointer">
-              Cancel
-            </button>
-            <button type="button" id="modal-pm-issue-submit-btn" class="btn-primary border-0 px-6 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-              <span>Save Material Issue</span>
-            </button>
+          <!-- Section 3: Summary Calculation Card -->
+          <div class="bg-[#F8FAFC] border border-[#DFE1E6] rounded-xl p-3 flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center gap-6">
+              <div>
+                <span class="text-[10px] uppercase font-bold text-[#5E6C84] block">Items Count</span>
+                <span id="pm-issue-modal-items-count" class="text-sm font-mono font-bold text-[#172B4D]">0</span>
+              </div>
+              <div>
+                <span class="text-[10px] uppercase font-bold text-[#5E6C84] block">Total Quantity</span>
+                <span id="pm-issue-modal-total-qty" class="text-sm font-mono font-bold text-[#00A4B7]">0</span>
+              </div>
+              <div>
+                <span class="text-[10px] uppercase font-bold text-[#5E6C84] block">Total Base Value</span>
+                <span id="pm-issue-modal-total-base" class="text-sm font-mono font-bold text-[#172B4D]">₹0.00</span>
+              </div>
+              <div>
+                <span class="text-[10px] uppercase font-bold text-[#5E6C84] block">Net Invoice Value</span>
+                <span id="pm-issue-modal-net-inv" class="text-base font-mono font-bold text-[#00875A]">₹0.00</span>
+              </div>
+            </div>
           </div>
-        </div>
-      `
+        </form>
+      `,
+      footerButtons: [
+        {
+          label: 'Cancel',
+          type: 'secondary',
+          class: 'btn-secondary border border-[#CBD5E1] px-5 py-2 rounded-full text-xs font-semibold text-[#475569] hover:bg-[#F8FAFC] transition-all cursor-pointer',
+          onClick: () => Modal.close()
+        },
+        {
+          label: 'Save Material Issue',
+          type: 'primary',
+          class: 'btn-primary border-0 px-6 py-2 rounded-full text-xs font-semibold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all',
+          onClick: () => {
+            const modalRoot = document.getElementById('erp-modal-root');
+            if (!modalRoot) return;
+
+            const docNo = modalRoot.querySelector('#pm-missue-doc')?.value?.trim();
+            const date = modalRoot.querySelector('#pm-missue-date')?.value;
+            const proNumber = modalRoot.querySelector('#pm-missue-pro-no')?.value?.trim();
+            const narration = modalRoot.querySelector('#pm-missue-narr')?.value?.trim();
+
+            if (!docNo) {
+              Toast.show('DOC NO is required', 'error');
+              modalRoot.querySelector('#pm-missue-doc')?.focus();
+              return;
+            }
+            if (!date) {
+              Toast.show('DATE is required', 'error');
+              modalRoot.querySelector('#pm-missue-date')?.focus();
+              return;
+            }
+            if (!proNumber) {
+              Toast.show('PRO NUMBER is required', 'error');
+              modalRoot.querySelector('#pm-missue-pro-no')?.focus();
+              return;
+            }
+            if (issueItems.length === 0) {
+              Toast.show('Please add at least one item before saving.', 'warning');
+              return;
+            }
+
+            const totalInvoice = issueItems.reduce((acc, it) => acc + (it.invoiceAmount || 0), 0);
+
+            // Confirmation Popup
+            Modal.confirm({
+              title: 'Confirm Save Material Issue (PM)',
+              message: `Are you sure you want to save Material Issue <strong>${docNo}</strong> (PRO: <strong>${proNumber}</strong>) with <strong>${issueItems.length} item(s)</strong> totaling <strong>₹${totalInvoice.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</strong>?`,
+              confirmText: 'Save Material Issue',
+              onConfirm: () => {
+                const newRecord = {
+                  id: Date.now(),
+                  docNo,
+                  date,
+                  proNumber,
+                  narration,
+                  items: JSON.parse(JSON.stringify(issueItems))
+                };
+
+                this.state.pmMaterialIssueList.unshift(newRecord);
+                Modal.close();
+                if (onSuccess) onSuccess();
+                Toast.show(`Material Issue ${docNo} created successfully!`, 'success');
+              }
+            });
+          }
+        }
+      ]
     });
 
     renderItemsTable();
 
-    // Calculations
+    // Live calculation for item entry
     const calcIssueVals = () => {
       const qty = parseFloat(document.getElementById('pm-missuei-qty')?.value || 0);
       const price = parseFloat(document.getElementById('pm-missuei-price')?.value || 0);
@@ -61554,35 +61728,50 @@ const InventoryView = {
       document.getElementById(id)?.addEventListener('change', calcIssueVals);
     });
 
+    // Add item click
     document.getElementById('modal-pm-issue-btn-add-item')?.addEventListener('click', () => {
+      const wh = document.getElementById('pm-missuei-wh')?.value;
       const item = document.getElementById('pm-missuei-item')?.value?.trim();
+      const grade = document.getElementById('pm-missuei-grade')?.value;
+      const packingStyle = document.getElementById('pm-missuei-packing-style')?.value;
+      const processType = document.getElementById('pm-missuei-process-type')?.value;
+      const brand = document.getElementById('pm-missuei-brand')?.value?.trim();
       const uom = document.getElementById('pm-missuei-uom')?.value;
       const avail = parseFloat(document.getElementById('pm-missuei-avail')?.value || 0);
       const price = parseFloat(document.getElementById('pm-missuei-price')?.value || 0);
-      const batch = document.getElementById('pm-missuei-batch')?.value;
+      const batch = document.getElementById('pm-missuei-batch')?.value?.trim();
       const qty = parseFloat(document.getElementById('pm-missuei-qty')?.value || 0);
       const baseVal = parseFloat(document.getElementById('pm-missuei-base')?.value || 0);
       const gstPct = parseFloat(document.getElementById('pm-missuei-gst')?.value || 0);
       const invAmt = parseFloat(document.getElementById('pm-missuei-inv')?.value || 0);
-      const purpose = document.getElementById('pm-missuei-purpose')?.value;
-      const remarks = document.getElementById('pm-missuei-remarks')?.value;
+      const purpose = document.getElementById('pm-missuei-purpose')?.value?.trim();
+      const remarks = document.getElementById('pm-missuei-remarks')?.value?.trim();
 
       if (!item) {
-        Toast.show('Please enter item name', 'warning');
+        Toast.show('Item name is required', 'warning');
         return;
       }
       if (qty <= 0) {
         Toast.show('Quantity must be greater than zero', 'warning');
         return;
       }
+      if (price <= 0) {
+        Toast.show('Item price must be greater than zero', 'warning');
+        return;
+      }
 
       issueItems.push({
+        warehouse: wh,
         item,
+        grade,
+        packingStyle,
+        processType,
+        brand,
         uom,
         availableQty: avail,
+        itemPrice: price,
         batch,
         quantity: qty,
-        itemPrice: price,
         baseValue: baseVal,
         gstPercent: gstPct,
         invoiceAmount: invAmt,
@@ -61592,50 +61781,7 @@ const InventoryView = {
       });
 
       renderItemsTable();
-      Toast.show(`Added "${item}" to Material Issue`, 'success');
-    });
-
-    document.getElementById('modal-pm-issue-cancel-btn')?.addEventListener('click', () => {
-      Modal.close();
-    });
-
-    document.getElementById('modal-pm-issue-submit-btn')?.addEventListener('click', () => {
-      const docNo = document.getElementById('pm-missue-doc')?.value;
-      const date = document.getElementById('pm-missue-date')?.value;
-      const location = document.getElementById('pm-missue-loc')?.value;
-      const department = document.getElementById('pm-missue-dept')?.value;
-      const narration = document.getElementById('pm-missue-narr')?.value;
-
-      if (!date || !location || !department) {
-        Toast.show('Please fill in required fields (Date, Location, Department)', 'warning');
-        return;
-      }
-      if (issueItems.length === 0) {
-        Toast.show('Please add at least one item to issue', 'warning');
-        return;
-      }
-
-      Modal.confirm({
-        title: 'Confirm Packaging Material Issue',
-        message: `Issue materials under <strong>${docNo}</strong> to <strong>${department}</strong> with ${issueItems.length} item(s)?`,
-        confirmText: 'Save Issue',
-        onConfirm: () => {
-          const newIssue = {
-            id: Date.now(),
-            docNo,
-            date,
-            location,
-            department,
-            narration,
-            items: [...issueItems]
-          };
-
-          this.state.pmMaterialIssueList.unshift(newIssue);
-          Modal.close();
-          if (onSuccess) onSuccess();
-          Toast.show(`Material Issue ${docNo} created successfully!`, 'success');
-        }
-      });
+      Toast.show(`Added "${item}" to issue items`, 'success');
     });
   },
 
@@ -61644,6 +61790,22 @@ const InventoryView = {
     const todayStr = new Date().toISOString().slice(0, 10);
     let issueItems = Array.isArray(row.items) ? JSON.parse(JSON.stringify(row.items)) : [];
 
+    const recalculateTotals = () => {
+      const totalQty = issueItems.reduce((acc, it) => acc + (it.quantity || 0), 0);
+      const totalBase = issueItems.reduce((acc, it) => acc + (it.baseValue || 0), 0);
+      const netInvoice = issueItems.reduce((acc, it) => acc + (it.invoiceAmount || 0), 0);
+
+      const itemsCountEl = document.getElementById('pm-issue-edit-items-count');
+      const qtyEl = document.getElementById('pm-issue-edit-total-qty');
+      const baseEl = document.getElementById('pm-issue-edit-total-base');
+      const netEl = document.getElementById('pm-issue-edit-net-inv');
+
+      if (itemsCountEl) itemsCountEl.innerText = issueItems.length;
+      if (qtyEl) qtyEl.innerText = totalQty.toLocaleString();
+      if (baseEl) baseEl.innerText = `₹${totalBase.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      if (netEl) netEl.innerText = `₹${netInvoice.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    };
+
     const renderItemsTable = () => {
       const tbody = document.getElementById('pm-issue-edit-items-tbody');
       if (!tbody) return;
@@ -61651,35 +61813,63 @@ const InventoryView = {
       if (issueItems.length === 0) {
         tbody.innerHTML = `
           <tr>
-            <td colspan="7" class="text-center py-5 text-[#5E6C84] italic">
+            <td colspan="15" class="text-center py-6 text-[#5E6C84] italic">
               No items in this issue.
             </td>
           </tr>
         `;
+        recalculateTotals();
         return;
       }
 
       tbody.innerHTML = issueItems.map((it, idx) => `
         <tr class="hover:bg-[#F8FAFC]">
-          <td class="py-2 px-3 font-semibold text-[#172B4D]">${it.item}</td>
-          <td class="py-2 px-3 text-[#5E6C84]">${it.uom || it.unit || 'Nos'}</td>
-          <td class="py-2 px-3 text-right font-mono font-bold text-[#172B4D]">${Number(it.quantity || 0).toLocaleString()}</td>
-          <td class="py-2 px-3 text-right font-mono text-[#172B4D]">₹${Number(it.itemPrice || 0).toFixed(2)}</td>
-          <td class="py-2 px-3 text-right font-mono text-[#172B4D]">₹${Number(it.baseValue || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
-          <td class="py-2 px-3 text-right font-mono font-bold text-[#00875A]">₹${Number(it.invoiceAmount || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
-          <td class="py-2 px-3 text-[#5E6C84] text-[11px]">${it.purpose || '-'}</td>
+          <td class="py-2.5 px-3 font-semibold text-[#172B4D] whitespace-nowrap">${it.item}</td>
+          <td class="py-2.5 px-3 text-[#172B4D] whitespace-nowrap">${it.warehouse || '-'}</td>
+          <td class="py-2.5 px-3 text-[#5E6C84] whitespace-nowrap">${it.grade || '-'}</td>
+          <td class="py-2.5 px-3 text-[#5E6C84] whitespace-nowrap">${it.packingStyle || '-'}</td>
+          <td class="py-2.5 px-3 text-[#172B4D] whitespace-nowrap">${it.brand || '-'}</td>
+          <td class="py-2.5 px-3 text-[#5E6C84] whitespace-nowrap">${it.uom || it.unit || 'Nos'}</td>
+          <td class="py-2.5 px-3 font-mono text-[#5E6C84] whitespace-nowrap">${it.batch || '-'}</td>
+          <td class="py-2.5 px-3 text-right font-mono font-bold text-[#00A4B7] whitespace-nowrap">${Number(it.quantity || 0).toLocaleString()}</td>
+          <td class="py-2.5 px-3 text-right font-mono text-[#172B4D] whitespace-nowrap">₹${Number(it.itemPrice || 0).toFixed(2)}</td>
+          <td class="py-2.5 px-3 text-right font-mono font-bold text-[#172B4D] whitespace-nowrap">₹${Number(it.baseValue || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
+          <td class="py-2.5 px-3 text-right font-mono text-[#00A4B7] whitespace-nowrap">${it.gstPercent || 0}%</td>
+          <td class="py-2.5 px-3 text-right font-mono font-bold text-[#00875A] whitespace-nowrap">₹${Number(it.invoiceAmount || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
+          <td class="py-2.5 px-3 text-[#5E6C84] text-[11px] whitespace-nowrap truncate max-w-[150px]">${it.purpose || '-'}</td>
+          <td class="py-2.5 px-3 text-center whitespace-nowrap">
+            <button type="button" class="btn-remove-edit-pm-issue-item text-[#DE350B] hover:text-[#BF2600] p-1 rounded hover:bg-[#FFEBE6] transition-colors cursor-pointer" data-idx="${idx}" title="Remove item">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+            </button>
+          </td>
         </tr>
       `).join('');
+
+      tbody.querySelectorAll('.btn-remove-edit-pm-issue-item').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const idx = parseInt(e.currentTarget.getAttribute('data-idx'), 10);
+          issueItems.splice(idx, 1);
+          renderItemsTable();
+        });
+      });
+
+      recalculateTotals();
     };
 
     Modal.open({
       title: `Edit Material Issue (PM) — ${row.docNo}`,
-      width: 'max-w-4xl',
+      size: 'full',
       confirmActions: false,
-      body: `
-        <div class="space-y-4 text-xs">
-          <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 space-y-3 shadow-2xs">
-            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider border-b border-[#DFE1E6] pb-1.5">Material Issue Header Details</h4>
+      content: `
+        <div class="space-y-4 text-xs text-[#172B4D]">
+          <!-- Section 1: Header Details -->
+          <div>
+            <div class="flex items-center justify-between pb-2 mb-3 border-b border-[#DFE1E6]">
+              <div class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Material Issue Header Details</h4>
+              </div>
+            </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
               <div>
                 <label for="pm-eissue-doc" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DOC NO</label>
@@ -61687,113 +61877,135 @@ const InventoryView = {
               </div>
               <div>
                 <label for="pm-eissue-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DATE <span class="text-[#DE350B] font-bold">*</span></label>
-                <input type="date" id="pm-eissue-date" value="${row.date || todayStr}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                <input type="date" id="pm-eissue-date" value="${row.date || todayStr}" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
               </div>
               <div>
-                <label for="pm-eissue-loc" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">LOCATION <span class="text-[#DE350B] font-bold">*</span></label>
-                <input type="text" id="pm-eissue-loc" value="${row.location || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                <label for="pm-eissue-pro-no" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PRO NUMBER <span class="text-[#DE350B] font-bold">*</span></label>
+                <input type="text" id="pm-eissue-pro-no" value="${row.proNumber || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
               </div>
               <div>
-                <label for="pm-eissue-dept" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DEPARTMENT <span class="text-[#DE350B] font-bold">*</span></label>
-                <select id="pm-eissue-dept" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                  <option value="Packaging & Boxing Bay" ${row.department === 'Packaging & Boxing Bay' ? 'selected' : ''}>Packaging &amp; Boxing Bay</option>
-                  <option value="IQF Line 1 Packing Table" ${row.department === 'IQF Line 1 Packing Table' ? 'selected' : ''}>IQF Line 1 Packing Table</option>
-                  <option value="Coldstore Hub - Dispatch Packaging" ${row.department === 'Coldstore Hub - Dispatch Packaging' ? 'selected' : ''}>Coldstore Hub - Dispatch Packaging</option>
-                  <option value="Pre-Processing Unit" ${row.department === 'Pre-Processing Unit' ? 'selected' : ''}>Pre-Processing Unit</option>
-                </select>
-              </div>
-              <div class="sm:col-span-2 md:col-span-4">
                 <label for="pm-eissue-narr" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">NARRATION</label>
                 <input type="text" id="pm-eissue-narr" value="${row.narration || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
               </div>
             </div>
           </div>
 
-          <!-- Items Table Card -->
+          <!-- Section 2: Items Table Card -->
           <div class="bg-white border border-[#DFE1E6] rounded-xl overflow-hidden shadow-2xs">
-            <div class="p-3 bg-[#F8FAFC] border-b border-[#DFE1E6]">
-              <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Issued Items</span>
+            <div class="p-3 bg-[#F8FAFC] border-b border-[#DFE1E6] flex items-center justify-between">
+              <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Issued Items (<span id="pm-issue-edit-items-count">${issueItems.length}</span>)</span>
             </div>
             <div class="overflow-x-auto">
               <table class="w-full text-left text-xs border-collapse">
                 <thead class="bg-[#F8FAFC] border-b border-[#DFE1E6] text-[#475569] font-bold text-[11px] uppercase tracking-wider">
                   <tr>
                     <th class="py-2.5 px-3">Item</th>
-                    <th class="py-2.5 px-3">UOM</th>
+                    <th class="py-2.5 px-3">Warehouse</th>
+                    <th class="py-2.5 px-3">Grade</th>
+                    <th class="py-2.5 px-3">Packing Style</th>
+                    <th class="py-2.5 px-3">Brand</th>
+                    <th class="py-2.5 px-3">UoM</th>
+                    <th class="py-2.5 px-3 font-mono">Batch</th>
                     <th class="py-2.5 px-3 text-right">Qty</th>
                     <th class="py-2.5 px-3 text-right">Price</th>
                     <th class="py-2.5 px-3 text-right">Base Value</th>
+                    <th class="py-2.5 px-3 text-right">GST %</th>
                     <th class="py-2.5 px-3 text-right">Invoice Amt</th>
                     <th class="py-2.5 px-3">Purpose</th>
+                    <th class="py-2.5 px-3 text-center">Action</th>
                   </tr>
                 </thead>
-                <tbody id="pm-issue-edit-items-tbody" class="divide-y divide-[#DFE1E6]">
+                <tbody id="pm-issue-edit-items-tbody" class="divide-y divide-[#DFE1E6] text-[#1E293B]">
                 </tbody>
               </table>
             </div>
           </div>
 
-          <!-- Footer Actions -->
-          <div class="bg-[#F8FAFC] border border-[#DFE1E6] rounded-xl p-3 flex justify-end gap-2">
-            <button type="button" id="modal-pm-eissue-cancel-btn" class="btn-secondary border border-[#CBD5E1] px-5 py-2 rounded-full text-xs font-semibold text-[#475569] hover:bg-[#F8FAFC] transition-all cursor-pointer">
-              Cancel
-            </button>
-            <button type="button" id="modal-pm-eissue-submit-btn" class="btn-primary border-0 px-6 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-              <span>Update Material Issue</span>
-            </button>
+          <!-- Section 3: Summary -->
+          <div class="bg-[#F8FAFC] border border-[#DFE1E6] rounded-xl p-3 flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center gap-6">
+              <div>
+                <span class="text-[10px] uppercase font-bold text-[#5E6C84] block">Total Quantity</span>
+                <span id="pm-issue-edit-total-qty" class="text-sm font-mono font-bold text-[#00A4B7]">0</span>
+              </div>
+              <div>
+                <span class="text-[10px] uppercase font-bold text-[#5E6C84] block">Total Base Value</span>
+                <span id="pm-issue-edit-total-base" class="text-sm font-mono font-bold text-[#172B4D]">₹0.00</span>
+              </div>
+              <div>
+                <span class="text-[10px] uppercase font-bold text-[#5E6C84] block">Net Invoice Value</span>
+                <span id="pm-issue-edit-net-inv" class="text-base font-mono font-bold text-[#00875A]">₹0.00</span>
+              </div>
+            </div>
           </div>
         </div>
-      `
+      `,
+      footerButtons: [
+        {
+          label: 'Cancel',
+          type: 'secondary',
+          class: 'btn-secondary border border-[#CBD5E1] px-5 py-2 rounded-full text-xs font-semibold text-[#475569] hover:bg-[#F8FAFC] transition-all cursor-pointer',
+          onClick: () => Modal.close()
+        },
+        {
+          label: 'Update Material Issue',
+          type: 'primary',
+          class: 'btn-primary border-0 px-6 py-2 rounded-full text-xs font-semibold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all',
+          onClick: () => {
+            const modalRoot = document.getElementById('erp-modal-root');
+            if (!modalRoot) return;
+
+            const date = modalRoot.querySelector('#pm-eissue-date')?.value;
+            const proNumber = modalRoot.querySelector('#pm-eissue-pro-no')?.value?.trim();
+            const narration = modalRoot.querySelector('#pm-eissue-narr')?.value?.trim();
+
+            if (!date) {
+              Toast.show('Date is required', 'error');
+              return;
+            }
+            if (!proNumber) {
+              Toast.show('PRO Number is required', 'error');
+              return;
+            }
+
+            Modal.confirm({
+              title: 'Confirm Update Material Issue (PM)',
+              message: `Are you sure you want to update Material Issue <strong>${row.docNo}</strong>?`,
+              confirmText: 'Update Issue',
+              onConfirm: () => {
+                row.date = date;
+                row.proNumber = proNumber;
+                row.narration = narration;
+                row.items = JSON.parse(JSON.stringify(issueItems));
+
+                Modal.close();
+                if (onSuccess) onSuccess();
+                Toast.show(`Material Issue ${row.docNo} updated successfully!`, 'success');
+              }
+            });
+          }
+        }
+      ]
     });
 
     renderItemsTable();
-
-    document.getElementById('modal-pm-eissue-cancel-btn')?.addEventListener('click', () => {
-      Modal.close();
-    });
-
-    document.getElementById('modal-pm-eissue-submit-btn')?.addEventListener('click', () => {
-      const date = document.getElementById('pm-eissue-date')?.value;
-      const location = document.getElementById('pm-eissue-loc')?.value;
-      const department = document.getElementById('pm-eissue-dept')?.value;
-      const narration = document.getElementById('pm-eissue-narr')?.value;
-
-      if (!date || !location || !department) {
-        Toast.show('Please fill in required fields', 'warning');
-        return;
-      }
-
-      Modal.confirm({
-        title: 'Confirm Update Material Issue',
-        message: `Update changes to Packaging Material Issue <strong>${row.docNo}</strong>?`,
-        confirmText: 'Confirm Update',
-        onConfirm: () => {
-          row.date = date;
-          row.location = location;
-          row.department = department;
-          row.narration = narration;
-
-          Modal.close();
-          if (onSuccess) onSuccess();
-          Toast.show(`Material Issue ${row.docNo} updated successfully!`, 'success');
-        }
-      });
-    });
   },
 
   // Modal: View Packaging Material Issue Details
   showPmMaterialIssueDetailsModal(row) {
     const items = Array.isArray(row.items) ? row.items : [];
-    const totalValue = items.reduce((acc, it) => acc + (it.invoiceAmount || it.baseValue || 0), 0);
+    const totalQty = items.reduce((acc, it) => acc + (it.quantity || 0), 0);
+    const totalBase = items.reduce((acc, it) => acc + (it.baseValue || 0), 0);
+    const totalInvoice = items.reduce((acc, it) => acc + (it.invoiceAmount || it.baseValue || 0), 0);
 
     Modal.open({
       title: `Material Issue (PM) Details — ${row.docNo}`,
-      width: 'max-w-4xl',
-      body: `
-        <div class="space-y-4 text-xs">
-          <!-- Header Details -->
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-[#F8FAFC] border border-[#DFE1E6] rounded-xl p-3.5">
+      size: 'full',
+      confirmActions: false,
+      content: `
+        <div class="space-y-4 text-xs text-[#172B4D]">
+          <!-- Summary Header (Clean 4 columns without border/bg) -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
             <div>
               <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">DOC NO</span>
               <span class="font-mono font-bold text-xs text-[#00A4B7]">${row.docNo}</span>
@@ -61803,12 +62015,12 @@ const InventoryView = {
               <span class="font-mono font-medium text-xs text-[#172B4D]">${row.date}</span>
             </div>
             <div>
-              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">DEPARTMENT</span>
-              <span class="font-semibold text-xs text-[#172B4D]">${row.department}</span>
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">PRO NUMBER</span>
+              <span class="font-mono font-bold text-xs text-[#172B4D]">${row.proNumber || '-'}</span>
             </div>
             <div>
-              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">LOCATION</span>
-              <span class="text-xs text-[#5E6C84] font-medium">${row.location || '-'}</span>
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">TOTAL QUANTITY</span>
+              <span class="font-mono font-bold text-xs text-[#00A4B7]">${totalQty.toLocaleString()}</span>
             </div>
             ${row.narration ? `
               <div class="col-span-2 sm:col-span-4 border-t border-[#DFE1E6] pt-2 mt-1">
@@ -61828,34 +62040,48 @@ const InventoryView = {
                 <thead class="bg-[#F8FAFC] border-b border-[#DFE1E6] text-[#475569] font-bold text-[11px] uppercase tracking-wider">
                   <tr>
                     <th class="py-2.5 px-3">Item</th>
-                    <th class="py-2.5 px-3">UOM</th>
+                    <th class="py-2.5 px-3">Warehouse</th>
+                    <th class="py-2.5 px-3">Grade</th>
+                    <th class="py-2.5 px-3">Packing Style</th>
+                    <th class="py-2.5 px-3">Brand</th>
+                    <th class="py-2.5 px-3">UoM</th>
+                    <th class="py-2.5 px-3 font-mono">Batch</th>
                     <th class="py-2.5 px-3 text-right">Qty</th>
-                    <th class="py-2.5 px-3 text-right">Item Price</th>
+                    <th class="py-2.5 px-3 text-right">Price</th>
                     <th class="py-2.5 px-3 text-right">Base Value</th>
+                    <th class="py-2.5 px-3 text-right">GST %</th>
                     <th class="py-2.5 px-3 text-right">Invoice Amt</th>
                     <th class="py-2.5 px-3">Purpose</th>
-                    <th class="py-2.5 px-3 text-center">Batch</th>
                   </tr>
                 </thead>
                 <tbody class="divide-y divide-[#DFE1E6]">
                   ${items.map(it => `
                     <tr class="hover:bg-[#F8FAFC]">
-                      <td class="py-2.5 px-3 font-semibold text-[#172B4D]">${it.item}</td>
-                      <td class="py-2.5 px-3 text-[#5E6C84]">${it.uom || it.unit || 'Nos'}</td>
-                      <td class="py-2.5 px-3 text-right font-mono font-bold text-[#172B4D]">${Number(it.quantity || 0).toLocaleString()}</td>
-                      <td class="py-2.5 px-3 text-right font-mono text-[#172B4D]">₹${Number(it.itemPrice || 0).toFixed(2)}</td>
-                      <td class="py-2.5 px-3 text-right font-mono text-[#172B4D]">₹${Number(it.baseValue || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
-                      <td class="py-2.5 px-3 text-right font-mono font-bold text-[#00875A]">₹${Number(it.invoiceAmount || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
-                      <td class="py-2.5 px-3 text-[#5E6C84] text-[11px]">${it.purpose || '-'}</td>
-                      <td class="py-2.5 px-3 text-center text-[#5E6C84] font-mono text-[11px]">${it.batch || '-'}</td>
+                      <td class="py-2.5 px-3 font-semibold text-[#172B4D] whitespace-nowrap">${it.item}</td>
+                      <td class="py-2.5 px-3 text-[#172B4D] whitespace-nowrap">${it.warehouse || '-'}</td>
+                      <td class="py-2.5 px-3 text-[#5E6C84] whitespace-nowrap">${it.grade || '-'}</td>
+                      <td class="py-2.5 px-3 text-[#5E6C84] whitespace-nowrap">${it.packingStyle || '-'}</td>
+                      <td class="py-2.5 px-3 text-[#172B4D] whitespace-nowrap">${it.brand || '-'}</td>
+                      <td class="py-2.5 px-3 text-[#5E6C84] whitespace-nowrap">${it.uom || it.unit || 'Nos'}</td>
+                      <td class="py-2.5 px-3 font-mono text-[#5E6C84] whitespace-nowrap">${it.batch || '-'}</td>
+                      <td class="py-2.5 px-3 text-right font-mono font-bold text-[#00A4B7] whitespace-nowrap">${Number(it.quantity || 0).toLocaleString()}</td>
+                      <td class="py-2.5 px-3 text-right font-mono text-[#172B4D] whitespace-nowrap">₹${Number(it.itemPrice || 0).toFixed(2)}</td>
+                      <td class="py-2.5 px-3 text-right font-mono font-bold text-[#172B4D] whitespace-nowrap">₹${Number(it.baseValue || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
+                      <td class="py-2.5 px-3 text-right font-mono text-[#00A4B7] whitespace-nowrap">${it.gstPercent || 0}%</td>
+                      <td class="py-2.5 px-3 text-right font-mono font-bold text-[#00875A] whitespace-nowrap">₹${Number(it.invoiceAmount || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
+                      <td class="py-2.5 px-3 text-[#5E6C84] text-[11px] whitespace-nowrap">${it.purpose || '-'}</td>
                     </tr>
                   `).join('')}
                 </tbody>
                 <tfoot class="bg-[#F8FAFC] border-t border-[#DFE1E6] font-bold text-xs">
                   <tr>
-                    <td colspan="5" class="py-2.5 px-3 text-right text-[#5E6C84] uppercase">Total Value Issued:</td>
-                    <td class="py-2.5 px-3 text-right font-mono text-[#00875A]">₹${totalValue.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
-                    <td colspan="2"></td>
+                    <td colspan="7" class="py-2.5 px-3 text-right text-[#5E6C84] uppercase">Total Issued:</td>
+                    <td class="py-2.5 px-3 text-right font-mono text-[#00A4B7]">${totalQty.toLocaleString()}</td>
+                    <td></td>
+                    <td class="py-2.5 px-3 text-right font-mono text-[#172B4D]">₹${totalBase.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
+                    <td></td>
+                    <td class="py-2.5 px-3 text-right font-mono text-[#00875A]">₹${totalInvoice.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
+                    <td></td>
                   </tr>
                 </tfoot>
               </table>
