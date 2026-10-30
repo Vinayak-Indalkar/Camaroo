@@ -217,8 +217,12 @@ export const App = {
       tabName = subObj.defaultTab || subObj.tabs[0]?.id || '';
     }
     if (!subObj.tabs.some(tab => tab.id === tabName)) {
-      this.renderRouteError(404, 'Page not found', 'The requested application page does not exist.', homeHash);
-      return;
+      if (modObj.id === 'reports') {
+        tabName = subObj.defaultTab || subObj.id;
+      } else {
+        this.renderRouteError(404, 'Page not found', 'The requested application page does not exist.', homeHash);
+        return;
+      }
     }
 
     const resolvedHash = `#/${modObj.id}/${subObj.id}/${tabName}`;

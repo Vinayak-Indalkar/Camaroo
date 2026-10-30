@@ -363,64 +363,49 @@ export const ADMIN_NAV_HIERARCHY = [
       {
         id: "purchase-reports",
         title: "Purchase Reports",
-        defaultTab: "rm-inward-reports",
+        defaultTab: "purchase-reports",
         tabs: [
-          { id: "rm-inward-reports", label: "RM Inward & Arrivals", hash: "#/reports/purchase-reports/rm-inward-reports" },
-          { id: "supplier-procurement", label: "Supplier Procurement", hash: "#/reports/purchase-reports/supplier-procurement" },
-          { id: "lot-valuation", label: "Lot Valuation & Tracking", hash: "#/reports/purchase-reports/lot-valuation" },
-          { id: "purchase-bills", label: "Bills & Payment Status", hash: "#/reports/purchase-reports/purchase-bills" }
+          { id: "purchase-reports", label: "Purchase Reports", hash: "#/reports/purchase-reports/purchase-reports" }
         ]
       },
       {
         id: "preprocessing-reports",
         title: "Pre-Processing Reports",
-        defaultTab: "deheading-grading",
+        defaultTab: "preprocessing-reports",
         tabs: [
-          { id: "deheading-grading", label: "Deheading & Grading", hash: "#/reports/preprocessing-reports/deheading-grading" },
-          { id: "peeling-yield", label: "Peeling & Value Addition", hash: "#/reports/preprocessing-reports/peeling-yield" },
-          { id: "chemical-reports", label: "Chemicals & Consumption", hash: "#/reports/preprocessing-reports/chemical-reports" }
+          { id: "preprocessing-reports", label: "Pre-Processing Reports", hash: "#/reports/preprocessing-reports/preprocessing-reports" }
         ]
       },
       {
         id: "quality-reports",
         title: "Quality Control Reports",
-        defaultTab: "rm-qc-inspections",
+        defaultTab: "quality-reports",
         tabs: [
-          { id: "rm-qc-inspections", label: "RM QC Inspections", hash: "#/reports/quality-reports/rm-qc-inspections" },
-          { id: "lab-test-clearances", label: "Lab & Antibiotic Clearance", hash: "#/reports/quality-reports/lab-test-clearances" },
-          { id: "microbiology-reports", label: "Microbiology Testing", hash: "#/reports/quality-reports/microbiology-reports" },
-          { id: "audit-compliance", label: "QC Audits & Compliance", hash: "#/reports/quality-reports/audit-compliance" }
+          { id: "quality-reports", label: "Quality Control Reports", hash: "#/reports/quality-reports/quality-reports" }
         ]
       },
       {
         id: "production-analytics",
         title: "Production Analytics",
-        defaultTab: "yield-reports",
+        defaultTab: "production-analytics",
         tabs: [
-          { id: "yield-reports", label: "Yield Reports", hash: "#/reports/production-analytics/yield-reports" },
-          { id: "floor-summaries", label: "Floor Summaries", hash: "#/reports/production-analytics/floor-summaries" },
-          { id: "ad-export-logs", label: "Anti-Dumping Export Logs", hash: "#/reports/production-analytics/ad-export-logs" }
+          { id: "production-analytics", label: "Production Analytics", hash: "#/reports/production-analytics/production-analytics" }
         ]
       },
       {
         id: "coldstore-analytics",
         title: "Coldstore Analytics",
-        defaultTab: "inventory-valuation",
+        defaultTab: "coldstore-analytics",
         tabs: [
-          { id: "inventory-valuation", label: "Inventory Valuation", hash: "#/reports/coldstore-analytics/inventory-valuation" },
-          { id: "stock-summaries", label: "Stock Summaries", hash: "#/reports/coldstore-analytics/stock-summaries" },
-          { id: "movement-logs", label: "Movement Logs", hash: "#/reports/coldstore-analytics/movement-logs" },
-          { id: "operational-exceptions", label: "Operational Exceptions", hash: "#/reports/coldstore-analytics/operational-exceptions" }
+          { id: "coldstore-analytics", label: "Coldstore Analytics", hash: "#/reports/coldstore-analytics/coldstore-analytics" }
         ]
       },
       {
         id: "sales-export-analytics",
         title: "Sales & Export Analytics",
-        defaultTab: "compliance-regulatory",
+        defaultTab: "sales-export-analytics",
         tabs: [
-          { id: "compliance-regulatory", label: "Compliance & Regulatory", hash: "#/reports/sales-export-analytics/compliance-regulatory" },
-          { id: "logistics-freight", label: "Logistics & Freight", hash: "#/reports/sales-export-analytics/logistics-freight" },
-          { id: "financials", label: "Financials", hash: "#/reports/sales-export-analytics/financials" }
+          { id: "sales-export-analytics", label: "Sales & Export Analytics", hash: "#/reports/sales-export-analytics/sales-export-analytics" }
         ]
       }
     ]

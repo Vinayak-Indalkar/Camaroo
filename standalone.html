@@ -7407,64 +7407,49 @@ const ADMIN_NAV_HIERARCHY = [
       {
         id: "purchase-reports",
         title: "Purchase Reports",
-        defaultTab: "rm-inward-reports",
+        defaultTab: "purchase-reports",
         tabs: [
-          { id: "rm-inward-reports", label: "RM Inward & Arrivals", hash: "#/reports/purchase-reports/rm-inward-reports" },
-          { id: "supplier-procurement", label: "Supplier Procurement", hash: "#/reports/purchase-reports/supplier-procurement" },
-          { id: "lot-valuation", label: "Lot Valuation & Tracking", hash: "#/reports/purchase-reports/lot-valuation" },
-          { id: "purchase-bills", label: "Bills & Payment Status", hash: "#/reports/purchase-reports/purchase-bills" }
+          { id: "purchase-reports", label: "Purchase Reports", hash: "#/reports/purchase-reports/purchase-reports" }
         ]
       },
       {
         id: "preprocessing-reports",
         title: "Pre-Processing Reports",
-        defaultTab: "deheading-grading",
+        defaultTab: "preprocessing-reports",
         tabs: [
-          { id: "deheading-grading", label: "Deheading & Grading", hash: "#/reports/preprocessing-reports/deheading-grading" },
-          { id: "peeling-yield", label: "Peeling & Value Addition", hash: "#/reports/preprocessing-reports/peeling-yield" },
-          { id: "chemical-reports", label: "Chemicals & Consumption", hash: "#/reports/preprocessing-reports/chemical-reports" }
+          { id: "preprocessing-reports", label: "Pre-Processing Reports", hash: "#/reports/preprocessing-reports/preprocessing-reports" }
         ]
       },
       {
         id: "quality-reports",
         title: "Quality Control Reports",
-        defaultTab: "rm-qc-inspections",
+        defaultTab: "quality-reports",
         tabs: [
-          { id: "rm-qc-inspections", label: "RM QC Inspections", hash: "#/reports/quality-reports/rm-qc-inspections" },
-          { id: "lab-test-clearances", label: "Lab & Antibiotic Clearance", hash: "#/reports/quality-reports/lab-test-clearances" },
-          { id: "microbiology-reports", label: "Microbiology Testing", hash: "#/reports/quality-reports/microbiology-reports" },
-          { id: "audit-compliance", label: "QC Audits & Compliance", hash: "#/reports/quality-reports/audit-compliance" }
+          { id: "quality-reports", label: "Quality Control Reports", hash: "#/reports/quality-reports/quality-reports" }
         ]
       },
       {
         id: "production-analytics",
         title: "Production Analytics",
-        defaultTab: "yield-reports",
+        defaultTab: "production-analytics",
         tabs: [
-          { id: "yield-reports", label: "Yield Reports", hash: "#/reports/production-analytics/yield-reports" },
-          { id: "floor-summaries", label: "Floor Summaries", hash: "#/reports/production-analytics/floor-summaries" },
-          { id: "ad-export-logs", label: "Anti-Dumping Export Logs", hash: "#/reports/production-analytics/ad-export-logs" }
+          { id: "production-analytics", label: "Production Analytics", hash: "#/reports/production-analytics/production-analytics" }
         ]
       },
       {
         id: "coldstore-analytics",
         title: "Coldstore Analytics",
-        defaultTab: "inventory-valuation",
+        defaultTab: "coldstore-analytics",
         tabs: [
-          { id: "inventory-valuation", label: "Inventory Valuation", hash: "#/reports/coldstore-analytics/inventory-valuation" },
-          { id: "stock-summaries", label: "Stock Summaries", hash: "#/reports/coldstore-analytics/stock-summaries" },
-          { id: "movement-logs", label: "Movement Logs", hash: "#/reports/coldstore-analytics/movement-logs" },
-          { id: "operational-exceptions", label: "Operational Exceptions", hash: "#/reports/coldstore-analytics/operational-exceptions" }
+          { id: "coldstore-analytics", label: "Coldstore Analytics", hash: "#/reports/coldstore-analytics/coldstore-analytics" }
         ]
       },
       {
         id: "sales-export-analytics",
         title: "Sales & Export Analytics",
-        defaultTab: "compliance-regulatory",
+        defaultTab: "sales-export-analytics",
         tabs: [
-          { id: "compliance-regulatory", label: "Compliance & Regulatory", hash: "#/reports/sales-export-analytics/compliance-regulatory" },
-          { id: "logistics-freight", label: "Logistics & Freight", hash: "#/reports/sales-export-analytics/logistics-freight" },
-          { id: "financials", label: "Financials", hash: "#/reports/sales-export-analytics/financials" }
+          { id: "sales-export-analytics", label: "Sales & Export Analytics", hash: "#/reports/sales-export-analytics/sales-export-analytics" }
         ]
       }
     ]
@@ -63062,37 +63047,57 @@ const SalesView = {
   }
 };
 
-  // Global Reports Module Views (Configured with On-Screen Tabs, 4-Column Filters, Interactive Data Tables & Atlassian Detail Modals)
-
+  // Global Reports Module Views (Configured with Direct Submenu Views, 4-Column Filters, Dynamic Report Types & Atlassian Detail Modals)
 
 
 
 
 
 const ReportsView = {
-  render(containerId, subPage = 'rm-inward-reports', activeHash = '#/reports/purchase-reports/rm-inward-reports') {
+  render(containerId, subPage = 'purchase-reports', activeHash = '#/reports/purchase-reports/purchase-reports') {
     const container = document.getElementById(containerId);
     if (!container) return;
 
+    // Determine current report submenu category from hash or subPage
+    const cleanHash = (activeHash || '').replace(/^#\/?/, '').replace(/^\/+/, '');
+    const parts = cleanHash.split('/');
+    let submenuId = parts[1] || subPage || 'purchase-reports';
+    if (submenuId === 'purchase') submenuId = 'purchase-reports';
+    if (submenuId === 'preprocessing') submenuId = 'preprocessing-reports';
+    if (submenuId === 'quality') submenuId = 'quality-reports';
+    if (submenuId === 'production') submenuId = 'production-analytics';
+    if (submenuId === 'coldstore') submenuId = 'coldstore-analytics';
+    if (submenuId === 'sales') submenuId = 'sales-export-analytics';
+
+    const submenuTitles = {
+      'purchase-reports': 'Purchase Reports',
+      'preprocessing-reports': 'Pre-Processing Reports',
+      'quality-reports': 'Quality Control Reports',
+      'production-analytics': 'Production Analytics',
+      'coldstore-analytics': 'Coldstore Analytics',
+      'sales-export-analytics': 'Sales & Export Analytics'
+    };
+
+    const pageTitle = submenuTitles[submenuId] || 'Reports & Analytics';
+
     container.innerHTML = `
-      <div id="reports-tab-bar-container"></div>
       <div id="reports-subpage-content" class="space-y-3"></div>
     `;
 
-    const tabContext = TabBar.render('reports-tab-bar-container', activeHash);
     const subContainer = document.getElementById('reports-subpage-content');
     if (!subContainer) return;
 
-    const tabLabel = tabContext?.submenu?.tabs?.find(t => t.id === subPage)?.label || subPage.replace(/-/g, ' ');
+    const reportTypeOptionsHtml = this.getReportTypeOptions(submenuId);
+    let currentReportType = submenuId === 'sales-export-analytics' ? 'shipment-report' : 'ALL';
 
-    // Generate specific contextual dataset and columns based on active tab
-    const reportData = this.getReportData(subPage, tabLabel);
+    // Generate specific contextual dataset and columns based on active submenu & report type
+    let reportData = this.getReportData(submenuId, currentReportType, pageTitle);
 
     subContainer.innerHTML = `
       <!-- Page Header -->
       <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-1">
         <div>
-          <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">${tabLabel}</h1>
+          <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">${pageTitle}</h1>
         </div>
       </div>
 
@@ -63118,11 +63123,7 @@ const ReportsView = {
           <div>
             <label for="rep-flt-type" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">REPORT TYPE</label>
             <select id="rep-flt-type" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-              <option value="ALL">All Report Types</option>
-              <option value="detailed" selected>Detailed Audit Ledger</option>
-              <option value="summary">Summary Report</option>
-              <option value="clearance">QC &amp; Regulatory Clearance</option>
-              <option value="valuation">Valuation &amp; Financials</option>
+              ${reportTypeOptionsHtml}
             </select>
           </div>
 
@@ -63161,18 +63162,26 @@ const ReportsView = {
     const renderTable = (rows) => {
       new DataTable({
         containerId: 'reports-table-container',
-        tableTitle: `${tabLabel} Records (${rows.length})`,
+        tableTitle: `${pageTitle} Records (${rows.length})`,
         searchable: true,
         exportable: true,
         selectable: true,
         pageSize: 10,
         columns: reportData.columns,
         data: rows,
-        onRowClick: (row) => this.showReportDetails(row, tabLabel)
+        onRowClick: (row) => this.showReportDetails(row, pageTitle)
       });
     };
 
     renderTable(reportData.rows);
+
+    // Report Type change listener
+    subContainer.querySelector('#rep-flt-type')?.addEventListener('change', (e) => {
+      currentReportType = e.target.value;
+      reportData = this.getReportData(submenuId, currentReportType, pageTitle);
+      renderTable(reportData.rows);
+      Toast.show(`Loaded ${e.target.options[e.target.selectedIndex]?.text || currentReportType}`, 'info');
+    });
 
     // Filter listeners
     subContainer.querySelector('#rep-flt-search-btn')?.addEventListener('click', () => {
@@ -63186,10 +63195,13 @@ const ReportsView = {
 
     subContainer.querySelector('#rep-flt-reset-btn')?.addEventListener('click', () => {
       const typeSel = subContainer.querySelector('#rep-flt-type');
-      if (typeSel) typeSel.value = 'detailed';
+      if (typeSel) {
+        typeSel.value = submenuId === 'sales-export-analytics' ? 'shipment-report' : 'ALL';
+      }
       subContainer.querySelector('#rep-flt-search').value = '';
       subContainer.querySelector('#rep-flt-from').value = '2026-10-01';
       subContainer.querySelector('#rep-flt-to').value = '2026-10-30';
+      reportData = this.getReportData(submenuId, typeSel ? typeSel.value : 'ALL', pageTitle);
       renderTable(reportData.rows);
     });
 
@@ -63203,13 +63215,90 @@ const ReportsView = {
     });
   },
 
+  // Report Type Options by Submenu
+  getReportTypeOptions(submenuId) {
+    if (submenuId === 'sales-export-analytics' || submenuId.includes('sales')) {
+      return `
+        <option value="pending-contracts">Pending Contracts</option>
+        <option value="price-book">Price Book</option>
+        <option value="approved-contracts">Approved Contracts</option>
+        <option value="eta-status">OUT of ETD/ETA Report</option>
+        <option value="fda-examination">FDA Examination Report</option>
+        <option value="mpeda-report">MPEDA Report</option>
+        <option value="shipment-report" selected>Shipment Report</option>
+        <option value="lab-report">Lab Report</option>
+        <option value="q-certificate">Q Certificate Report</option>
+        <option value="pending-payments">Pending Payments</option>
+        <option value="pending-negotiation">Pending Negotiation Report</option>
+        <option value="bills-realization">Bills Realization</option>
+        <option value="fc-utilized">FC Utilized Report</option>
+        <option value="gst-sales">GST Sales report</option>
+        <option value="clearing-agent">Clearing Agent Report</option>
+        <option value="transit-insurance">M Transit Ins & Payments</option>
+        <option value="packing-report">Packing Report</option>
+        <option value="lineitemwise-report">Shipment LineItemwise Report</option>
+        <option value="return-container">Return Container Report</option>
+        <option value="freight-rates">Freight Rates Report</option>
+      `;
+    }
+    if (submenuId === 'purchase-reports' || submenuId.includes('purchase')) {
+      return `
+        <option value="ALL" selected>All Purchase Reports</option>
+        <option value="inward">RM Inward & Arrivals</option>
+        <option value="procurement">Supplier Procurement Report</option>
+        <option value="valuation">Lot Valuation & Tracking</option>
+        <option value="bills">Bills & Payment Status</option>
+      `;
+    }
+    if (submenuId === 'preprocessing-reports' || submenuId.includes('preproc')) {
+      return `
+        <option value="ALL" selected>All Pre-Processing Reports</option>
+        <option value="deheading">Deheading & Grading</option>
+        <option value="peeling">Peeling & Recovery Report</option>
+        <option value="chemicals">Chemicals & Consumption</option>
+      `;
+    }
+    if (submenuId === 'quality-reports' || submenuId.includes('quality') || submenuId.includes('qc')) {
+      return `
+        <option value="ALL" selected>All Quality Control Reports</option>
+        <option value="inspections">RM QC Inspections</option>
+        <option value="lab">Lab & Antibiotic Clearance</option>
+        <option value="microbiology">Microbiology Testing</option>
+        <option value="audits">QC Audits & Compliance</option>
+      `;
+    }
+    if (submenuId === 'production-analytics' || submenuId.includes('production')) {
+      return `
+        <option value="ALL" selected>All Production Analytics</option>
+        <option value="yield">Yield Reports</option>
+        <option value="floor">Floor Summaries</option>
+        <option value="ad">Anti-Dumping Export Logs</option>
+      `;
+    }
+    if (submenuId === 'coldstore-analytics' || submenuId.includes('coldstore')) {
+      return `
+        <option value="ALL" selected>All Coldstore Analytics</option>
+        <option value="valuation">Inventory Valuation</option>
+        <option value="stock">Stock Summaries</option>
+        <option value="movement">Movement Logs</option>
+        <option value="exceptions">Operational Exceptions</option>
+      `;
+    }
+    return `
+      <option value="ALL" selected>All Report Types</option>
+      <option value="detailed">Detailed Audit Ledger</option>
+      <option value="summary">Summary Report</option>
+      <option value="valuation">Valuation & Financials</option>
+    `;
+  },
+
   // Modal: Show Details Page matching our Atlassian UI style
-  showReportDetails(row, tabLabel) {
+  showReportDetails(row, pageTitle) {
     if (!row) return;
 
-    const ref = row.docNo || row.refNo || row.batchNo || row.testNo || row.palletRef || row.runId || row.billNo || row.invoiceNo || ('REC-' + row.id);
-    const date = row.date || row.productionDate || row.shipDate || row.auditDate || '2026-10-28';
-    const status = row.status || row.qcStatus || row.paymentStatus || row.freightStatus || row.realizationStatus || 'Audited & Verified';
+    const ref = row.docNo || row.refNo || row.batchNo || row.testNo || row.palletRef || row.runId || row.billNo || row.invoiceNo || row.contractNo || ('REC-' + row.id);
+    const date = row.date || row.productionDate || row.shipDate || row.auditDate || row.etd || '2026-10-28';
+    const status = row.status || row.qcStatus || row.paymentStatus || row.freightStatus || row.realizationStatus || row.etaStatus || 'Audited & Verified';
 
     const excludedKeys = new Set(['id', 'actions', 'sNo']);
     const entries = Object.entries(row).filter(([k]) => !excludedKeys.has(k));
@@ -63227,7 +63316,7 @@ const ReportsView = {
     const formatVal = (k, v) => {
       if (v === null || v === undefined || v === '') return '-';
       if (typeof v === 'number') {
-        if (k.toLowerCase().includes('val') || k.toLowerCase().includes('gross') || k.toLowerCase().includes('amount') || k.toLowerCase().includes('rate') || k.toLowerCase().includes('netpayable')) {
+        if (k.toLowerCase().includes('val') || k.toLowerCase().includes('gross') || k.toLowerCase().includes('amount') || k.toLowerCase().includes('rate') || k.toLowerCase().includes('netpayable') || k.toLowerCase().includes('freight')) {
           return '₹' + Number(v).toLocaleString('en-IN', { minimumFractionDigits: 2 });
         }
         return Number(v).toLocaleString();
@@ -63236,7 +63325,7 @@ const ReportsView = {
     };
 
     Modal.open({
-      title: `${tabLabel} Details: ${ref}`,
+      title: `${pageTitle} Details: ${ref}`,
       size: '2xl',
       content: `
         <div class="space-y-4 text-xs text-[#172B4D]">
@@ -63252,7 +63341,7 @@ const ReportsView = {
             </div>
             <div>
               <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block mb-0.5">REPORT CATEGORY</span>
-              <span class="font-semibold text-xs text-[#172B4D]">${tabLabel}</span>
+              <span class="font-semibold text-xs text-[#172B4D]">${pageTitle}</span>
             </div>
             <div>
               <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block mb-0.5">STATUS</span>
@@ -63287,7 +63376,7 @@ const ReportsView = {
                 </div>
               `).join('') : `
                 <div class="border-b border-[#F1F5F9] pb-2">
-                  <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block mb-0.5">QC Verification</span>
+                  <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block mb-0.5">Verification Standard</span>
                   <span class="font-semibold text-xs text-[#00875A]">Cleared Grade A Export Standard</span>
                 </div>
                 <div class="border-b border-[#F1F5F9] pb-2">
@@ -63321,12 +63410,99 @@ const ReportsView = {
   },
 
   // Generate tab-specific columns and realistic analytical rows for all application reports
-  getReportData(tabId, label) {
+  getReportData(submenuId, reportType = 'ALL', pageTitle = 'Reports') {
     let columns = [];
     let rows = [];
 
-    // 1. RM Inward & Arrivals / Supplier Procurement
-    if (tabId === 'rm-inward-reports' || tabId === 'supplier-procurement' || tabId.includes('inward') || tabId.includes('procurement')) {
+    // ==========================================
+    // 1. Sales & Export Analytics (with 20 distinct types)
+    // ==========================================
+    if (submenuId === 'sales-export-analytics' || submenuId.includes('sales')) {
+      if (reportType === 'pending-contracts' || reportType === 'approved-contracts') {
+        const isApproved = reportType === 'approved-contracts';
+        columns = [
+          { field: 'sNo', header: 'S No', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
+          { field: 'contractNo', header: 'Contract No', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer" title="Click to view details">${v}</span>` },
+          { field: 'date', header: 'Contract Date', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'buyer', header: 'Buyer / Consignee', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'destination', header: 'Destination Country', sortable: true, render: v => `<span class="text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'variety', header: 'Product Item', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-medium bg-[#F1F5F9] text-[#172B4D]">${v}</span>` },
+          { field: 'quantity', header: 'Contract Qty (Kg)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#172B4D]">${Number(v).toLocaleString()}</span>` },
+          { field: 'fobRate', header: 'FOB Rate/Kg', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">$${v}</span>` },
+          { field: 'contractValue', header: 'Total Value ($)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">$${Number(v).toLocaleString()}</span>` },
+          { field: 'status', header: 'Contract Status', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold ${isApproved ? 'bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]' : 'bg-[#FFF0B3] text-[#172B4D] border border-[#FFE380]'}"><span class="w-1.5 h-1.5 rounded-full ${isApproved ? 'bg-[#00875A]' : 'bg-[#FFAB00]'}"></span>${v}</span>` }
+        ];
+        rows = isApproved ? [
+          { id: 1, contractNo: 'CTR-EXP-2026-088', date: '2026-10-24', buyer: 'Pacific Coast Seafood LLC', destination: 'USA', variety: 'Vannamei Easy-Peel 31/40', quantity: 24000, fobRate: 7.20, contractValue: 172800, status: 'Approved by Director' },
+          { id: 2, contractNo: 'CTR-EXP-2026-089', date: '2026-10-23', buyer: 'Nippon Suisan Kaisha Ltd', destination: 'Japan', variety: 'Black Tiger HLSO 16/20', quantity: 18000, fobRate: 11.50, contractValue: 207000, status: 'Approved by Director' },
+          { id: 3, contractNo: 'CTR-EXP-2026-090', date: '2026-10-22', buyer: 'Euro-Baltic Marine Traders', destination: 'Netherlands', variety: 'Cooked Tail-On IQF 26/30', quantity: 22000, fobRate: 8.40, contractValue: 184800, status: 'Approved by Director' }
+        ] : [
+          { id: 1, contractNo: 'CTR-PND-2026-041', date: '2026-10-28', buyer: 'Red Lobster Seafood Sourcing', destination: 'USA', variety: 'Vannamei EZ-Peel 26/30', quantity: 44000, fobRate: 7.80, contractValue: 343200, status: 'Pending Buyer Sign-off' },
+          { id: 2, contractNo: 'CTR-PND-2026-042', date: '2026-10-27', buyer: 'Kyokuyo Global Foods Ltd', destination: 'Japan', variety: 'Vannamei Nobashi 21/25', quantity: 16000, fobRate: 9.10, contractValue: 145600, status: 'Price Revision Requested' },
+          { id: 3, contractNo: 'CTR-PND-2026-043', date: '2026-10-26', buyer: 'Meridian Global Foods LLC', destination: 'UK', variety: 'Raw Headless Block 31/40', quantity: 20000, fobRate: 6.90, contractValue: 138000, status: 'LC Drafting in Progress' }
+        ];
+      } else if (reportType === 'eta-status') {
+        columns = [
+          { field: 'sNo', header: 'S No', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
+          { field: 'containerNo', header: 'Container No', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer" title="Click to view details">${v}</span>` },
+          { field: 'shippingLine', header: 'Shipping Line', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'vessel', header: 'Vessel / Voyage', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'destination', header: 'Discharge Port', sortable: true, render: v => `<span class="text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'etd', header: 'ETD Actual', sortable: true, render: v => `<span class="font-mono text-xs text-[#5E6C84]">${v}</span>` },
+          { field: 'originalEta', header: 'Original ETA', sortable: true, render: v => `<span class="font-mono text-xs text-[#5E6C84]">${v}</span>` },
+          { field: 'revisedEta', header: 'Revised ETA', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#DE350B]">${v}</span>` },
+          { field: 'delayDays', header: 'Delay Days', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#DE350B]">+${v} Days</span>` },
+          { field: 'etaStatus', header: 'ETA Status', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#FFEBE6] text-[#DE350B] border border-[#FFBDAD]"><span class="w-1.5 h-1.5 rounded-full bg-[#DE350B]"></span>${v}</span>` }
+        ];
+        rows = [
+          { id: 1, containerNo: 'MSKU-820491-2', shippingLine: 'Maersk Line', vessel: 'Maersk Mc-Kinney / 2608W', destination: 'Port of Long Beach (USA)', etd: '2026-10-08', originalEta: '2026-11-04', revisedEta: '2026-11-10', delayDays: 6, etaStatus: 'Delayed at Transshipment' },
+          { id: 2, containerNo: 'CMAU-491028-6', shippingLine: 'CMA CGM', vessel: 'CMA CGM Palais / 0914S', destination: 'Port of Yokohama (Japan)', etd: '2026-10-12', originalEta: '2026-10-29', revisedEta: '2026-11-02', delayDays: 4, etaStatus: 'Weather Delay' },
+          { id: 3, containerNo: 'HLCU-319402-1', shippingLine: 'Hapag-Lloyd', vessel: 'Al Jasrah / 2618E', destination: 'Port of Rotterdam (NL)', etd: '2026-10-14', originalEta: '2026-11-08', revisedEta: '2026-11-13', delayDays: 5, etaStatus: 'Port Congestion' }
+        ];
+      } else if (reportType === 'freight-rates') {
+        columns = [
+          { field: 'sNo', header: 'S No', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
+          { field: 'carrier', header: 'Ocean Carrier', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'pol', header: 'Port of Loading', sortable: true, render: v => `<span class="text-xs text-[#5E6C84]">${v}</span>` },
+          { field: 'pod', header: 'Port of Discharge', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'containerSize', header: 'Container Type', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D] font-bold">${v}</span>` },
+          { field: 'freightUsd', header: 'Base Freight ($)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">$${v}</span>` },
+          { field: 'baf', header: 'BAF / Bunker ($)', sortable: true, render: v => `<span class="font-mono text-xs text-[#5E6C84]">$${v}</span>` },
+          { field: 'totalFreight', header: 'Total Ocean Freight ($)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7]">$${Number(v).toLocaleString()}</span>` },
+          { field: 'validity', header: 'Rate Validity', sortable: true, render: v => `<span class="font-mono text-xs text-[#5E6C84]">${v}</span>` },
+          { field: 'status', header: 'Rate Agreement', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` }
+        ];
+        rows = [
+          { id: 1, carrier: 'Maersk Line India', pol: 'Visakhapatnam (INVTZ)', pod: 'Long Beach, USA (USLGB)', containerSize: '40ft Reefer High Cube', freightUsd: 4850, baf: 420, totalFreight: 5270, validity: '2026-11-30', status: 'Contracted Rate' },
+          { id: 2, carrier: 'MSC Mediterranean', pol: 'Visakhapatnam (INVTZ)', pod: 'New York, USA (USNYC)', containerSize: '40ft Reefer High Cube', freightUsd: 5400, baf: 480, totalFreight: 5880, validity: '2026-11-30', status: 'Contracted Rate' },
+          { id: 3, carrier: 'ONE Ocean Network', pol: 'Visakhapatnam (INVTZ)', pod: 'Yokohama, Japan (JPYOK)', containerSize: '40ft Reefer High Cube', freightUsd: 2950, baf: 310, totalFreight: 3260, validity: '2026-12-15', status: 'Contracted Rate' },
+          { id: 4, carrier: 'Hapag-Lloyd AG', pol: 'Visakhapatnam (INVTZ)', pod: 'Rotterdam, NL (NLRTM)', containerSize: '40ft Reefer High Cube', freightUsd: 3800, baf: 360, totalFreight: 4160, validity: '2026-11-30', status: 'Spot Rate Cleared' }
+        ];
+      } else {
+        // Standard Comprehensive Shipment Report & General Sales
+        columns = [
+          { field: 'sNo', header: 'S No', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
+          { field: 'invoiceNo', header: 'Invoice / Container', sortable: true, render: (v, r) => `<div class="flex flex-col"><span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer" title="Click to view details">${v}</span><span class="text-[10px] font-mono text-[#5E6C84]">${r.containerNo}</span></div>` },
+          { field: 'shipDate', header: 'Ship Date', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'buyer', header: 'Buyer / Consignee', sortable: true, render: (v, r) => `<div class="flex flex-col"><span class="font-semibold text-xs text-[#172B4D]">${v}</span><span class="text-[10px] text-[#5E6C84]">${r.destination}</span></div>` },
+          { field: 'port', header: 'Port of Discharge', sortable: true, render: v => `<span class="text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'cartons', header: 'Total MCs', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#172B4D]">${Number(v).toLocaleString()}</span>` },
+          { field: 'fobVal', header: 'FOB Value ($)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">$${Number(v).toLocaleString()}</span>` },
+          { field: 'freightStatus', header: 'Logistics Status', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E0F2FE] text-[#0284C7] border border-[#BAE6FD]"><span class="w-1.5 h-1.5 rounded-full bg-[#0284C7]"></span>${v}</span>` },
+          { field: 'realizationStatus', header: 'Realization', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` }
+        ];
+        rows = [
+          { id: 1, invoiceNo: 'EXP-INV-2026-081', containerNo: 'MSKU-820491-2', shipDate: '2026-10-28', buyer: 'Pacific Coast Seafood LLC', destination: 'Los Angeles, USA', port: 'Port of Long Beach', cartons: 2150, fobVal: 142500, freightStatus: 'Vessel In Transit', realizationStatus: 'LC Realized 100%' },
+          { id: 2, invoiceNo: 'EXP-INV-2026-082', containerNo: 'CMAU-491028-6', shipDate: '2026-10-27', buyer: 'Nippon Suisan Kaisha Ltd', destination: 'Tokyo, Japan', port: 'Port of Yokohama', cartons: 1980, fobVal: 168400, freightStatus: 'Vessel In Transit', realizationStatus: 'LC Realized 100%' },
+          { id: 3, invoiceNo: 'EXP-INV-2026-083', containerNo: 'HLCU-319402-1', shipDate: '2026-10-26', buyer: 'Euro-Baltic Marine Traders', destination: 'Rotterdam, Netherlands', port: 'Port of Rotterdam', cartons: 2200, fobVal: 139200, freightStatus: 'Customs Cleared', realizationStatus: 'Payment Received' },
+          { id: 4, invoiceNo: 'EXP-INV-2026-084', containerNo: 'MEDU-992140-5', shipDate: '2026-10-25', buyer: 'Great American Seafood Imports', destination: 'New York, USA', port: 'Port of New York / New Jersey', cartons: 2400, fobVal: 158000, freightStatus: 'Dispatched from Port', realizationStatus: 'LC Verified' }
+        ];
+      }
+    }
+    // ==========================================
+    // 2. Purchase Reports
+    // ==========================================
+    else if (submenuId === 'purchase-reports' || submenuId.includes('purchase')) {
       columns = [
         { field: 'sNo', header: 'S No', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
         { field: 'docNo', header: 'GRN / Arrival No', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer" title="Click to view details">${v}</span>` },
@@ -63346,28 +63522,10 @@ const ReportsView = {
         { id: 4, docNo: 'ARR-2026-1047', date: '2026-10-26', supplier: 'Suryalanka Marine Culture', location: 'Bapatla Belt', lotNo: 'LOT-2026-0915', variety: 'Vannamei Fresh', count: '25/30', netWeight: 11200, grossVal: 3920000, qcStatus: 'Passed Grade A' }
       ];
     }
-    // 2. Lot Valuation & Tracking / Purchase Bills
-    else if (tabId === 'lot-valuation' || tabId === 'purchase-bills' || tabId.includes('bill') || tabId.includes('valuation')) {
-      columns = [
-        { field: 'sNo', header: 'S No', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
-        { field: 'billNo', header: 'Bill / Voucher No', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer" title="Click to view details">${v}</span>` },
-        { field: 'date', header: 'Bill Date', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">${v}</span>` },
-        { field: 'supplier', header: 'Vendor / Farmer', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
-        { field: 'variety', header: 'Raw Material Lot', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-medium bg-[#F1F5F9] text-[#172B4D]">${v}</span>` },
-        { field: 'billedWeight', header: 'Weight (Kg)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#172B4D]">${Number(v).toLocaleString()}</span>` },
-        { field: 'ratePerKg', header: 'Rate/Kg', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">₹${v}</span>` },
-        { field: 'grossAmount', header: 'Gross (₹)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">₹${Number(v).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>` },
-        { field: 'paymentStatus', header: 'Payment Status', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold ${v.includes('Paid') ? 'bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]' : 'bg-[#FFF0B3] text-[#172B4D] border border-[#FFE380]'}"><span class="w-1.5 h-1.5 rounded-full ${v.includes('Paid') ? 'bg-[#00875A]' : 'bg-[#FFAB00]'}"></span>${v}</span>` }
-      ];
-      rows = [
-        { id: 1, billNo: 'VCH-PUR-2026-0881', date: '2026-10-28', supplier: 'Sri Sai Ram Aqua Farm', variety: 'LOT-912 (Vannamei 30/40)', billedWeight: 8450, ratePerKg: 320, grossAmount: 2704000, paymentStatus: 'Fully Paid (RTGS)' },
-        { id: 2, billNo: 'VCH-PUR-2026-0882', date: '2026-10-28', supplier: 'Krishna Delta Aqua Producers', variety: 'LOT-913 (Black Tiger 20/25)', billedWeight: 6200, ratePerKg: 550, grossAmount: 3410000, paymentStatus: 'Fully Paid (RTGS)' },
-        { id: 3, billNo: 'VCH-PUR-2026-0883', date: '2026-10-27', supplier: 'Godavari Coastal Farms Ltd', variety: 'LOT-914 (Vannamei 40/50)', billedWeight: 9800, ratePerKg: 290, grossAmount: 2842000, paymentStatus: 'Partial (70% Paid)' },
-        { id: 4, billNo: 'VCH-PUR-2026-0884', date: '2026-10-26', supplier: 'Suryalanka Marine Culture', variety: 'LOT-915 (Vannamei 25/30)', billedWeight: 11200, ratePerKg: 350, grossAmount: 3920000, paymentStatus: 'Pending Treasury Release' }
-      ];
-    }
-    // 3. Deheading, Peeling & Yield Reports
-    else if (tabId === 'deheading-grading' || tabId === 'peeling-yield' || tabId === 'yield-reports' || tabId.includes('dehead') || tabId.includes('peel') || tabId.includes('yield')) {
+    // ==========================================
+    // 3. Pre-Processing Reports
+    // ==========================================
+    else if (submenuId === 'preprocessing-reports' || submenuId.includes('preproc')) {
       columns = [
         { field: 'sNo', header: 'S No', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
         { field: 'batchNo', header: 'Process Batch', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer" title="Click to view details">${v}</span>` },
@@ -63386,28 +63544,10 @@ const ReportsView = {
         { id: 4, batchNo: 'BCH-PR-2026-084', date: '2026-10-26', line: 'Grading Bay 2', rmInput: 15400, recovery: 15246, yieldPct: 99.0, stdYield: 98.8, variance: 0.2 }
       ];
     }
-    // 4. Chemicals & Consumption
-    else if (tabId === 'chemical-reports' || tabId.includes('chemical')) {
-      columns = [
-        { field: 'sNo', header: 'S No', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
-        { field: 'batchNo', header: 'Soaking Batch ID', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer" title="Click to view details">${v}</span>` },
-        { field: 'date', header: 'Treatment Date', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">${v}</span>` },
-        { field: 'chemical', header: 'Treatment Compound', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
-        { field: 'grade', header: 'Grade / Specification', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-medium bg-[#F1F5F9] text-[#172B4D]">${v}</span>` },
-        { field: 'dosage', header: 'Dosage Rate', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D] font-bold">${v}</span>` },
-        { field: 'duration', header: 'Dip Duration', sortable: true, render: v => `<span class="font-mono text-xs text-[#5E6C84]">${v}</span>` },
-        { field: 'uptakePct', header: 'Water Uptake %', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">${v}</span>` },
-        { field: 'qcStatus', header: 'Clearance Status', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` }
-      ];
-      rows = [
-        { id: 1, batchNo: 'CHM-TR-2026-041', date: '2026-10-28', chemical: 'Non-Phosphate Blend (M-9)', grade: 'Food Grade Natural', dosage: '2.5% Solution', duration: '45 mins', uptakePct: '6.2%', qcStatus: 'USFDA Approved' },
-        { id: 2, batchNo: 'CHM-TR-2026-042', date: '2026-10-28', chemical: 'Citric Acid / Salt Chill Bath', grade: 'HACCP Standard', dosage: '1.2% Solution', duration: '20 mins', uptakePct: '3.1%', qcStatus: 'USFDA Approved' },
-        { id: 3, batchNo: 'CHM-TR-2026-043', date: '2026-10-27', chemical: 'STPP Light Moisture Retainer', grade: 'EU Certified Low P2O5', dosage: '1.8% Solution', duration: '35 mins', uptakePct: '5.0%', qcStatus: 'EU Export Cleared' },
-        { id: 4, batchNo: 'CHM-TR-2026-044', date: '2026-10-26', chemical: 'Ozone Sanitized Wash Water', grade: '0.4 ppm O3', dosage: 'Continuous Flow', duration: '15 mins', uptakePct: '0.0%', qcStatus: 'Microbiology Cleared' }
-      ];
-    }
-    // 5. Quality Control, Lab Clearances, Microbiology & Audits
-    else if (tabId.includes('qc') || tabId.includes('lab') || tabId.includes('microbiology') || tabId.includes('audit')) {
+    // ==========================================
+    // 4. Quality Control Reports
+    // ==========================================
+    else if (submenuId === 'quality-reports' || submenuId.includes('quality') || submenuId.includes('qc')) {
       columns = [
         { field: 'sNo', header: 'S No', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
         { field: 'testNo', header: 'Test Sample ID', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer" title="Click to view details">${v}</span>` },
@@ -63425,8 +63565,10 @@ const ReportsView = {
         { id: 4, testNo: 'AUD-BAP-2026-019', date: '2026-10-25', sampleType: 'Processing Line 1 & IQF Tunnel', testType: 'BAP 4-Star Plant Sanitation Audit', result: 'Zero Critical Deficiencies (Score: 98.6%)', analyst: 'External Lead Auditor', status: 'BAP Certified' }
       ];
     }
-    // 6. Production Floor Summaries & Anti-Dumping Logs
-    else if (tabId === 'floor-summaries' || tabId === 'ad-export-logs' || tabId.includes('floor') || tabId.includes('export-log')) {
+    // ==========================================
+    // 5. Production Analytics
+    // ==========================================
+    else if (submenuId === 'production-analytics' || submenuId.includes('production')) {
       columns = [
         { field: 'sNo', header: 'S No', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
         { field: 'runId', header: 'Shift Run ID', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer" title="Click to view details">${v}</span>` },
@@ -63445,8 +63587,10 @@ const ReportsView = {
         { id: 4, runId: 'SHF-PR-2026-0944', date: '2026-10-26', line: 'Value Addition Table 2', product: 'Butterfly Tail-On Skewers', targetQty: 2500, achievedQty: 2470, efficiency: 98.8, shiftHead: 'Ch. Prasad' }
       ];
     }
-    // 7. Coldstore Analytics (Valuation, Summaries, Movement & Exceptions)
-    else if (tabId.includes('coldstore') || tabId.includes('inventory') || tabId.includes('stock') || tabId.includes('movement') || tabId.includes('exception')) {
+    // ==========================================
+    // 6. Coldstore Analytics
+    // ==========================================
+    else if (submenuId === 'coldstore-analytics' || submenuId.includes('coldstore')) {
       columns = [
         { field: 'sNo', header: 'S No', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
         { field: 'palletRef', header: 'Pallet ID / Ref', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer" title="Click to view details">${v}</span>` },
@@ -63465,27 +63609,9 @@ const ReportsView = {
         { id: 4, palletRef: 'PLT-CS-2026-1084', date: '2026-10-26', chamber: 'Coldstore Room 4 (Rack C-19)', product: 'Raw PDTO Vannamei 41/50 (5x2lb)', cartons: 740, netWeight: 6713, temp: -21.8, status: 'In Coldstore Stock' }
       ];
     }
-    // 8. Sales, Export Analytics, Logistics & Financials
-    else if (tabId.includes('sales') || tabId.includes('logistics') || tabId.includes('freight') || tabId.includes('financial') || tabId.includes('compliance')) {
-      columns = [
-        { field: 'sNo', header: 'S No', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
-        { field: 'invoiceNo', header: 'Invoice / Container', sortable: true, render: (v, r) => `<div class="flex flex-col"><span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer" title="Click to view details">${v}</span><span class="text-[10px] font-mono text-[#5E6C84]">${r.containerNo}</span></div>` },
-        { field: 'shipDate', header: 'Ship Date', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">${v}</span>` },
-        { field: 'buyer', header: 'Buyer / Consignee', sortable: true, render: (v, r) => `<div class="flex flex-col"><span class="font-semibold text-xs text-[#172B4D]">${v}</span><span class="text-[10px] text-[#5E6C84]">${r.destination}</span></div>` },
-        { field: 'port', header: 'Port of Discharge', sortable: true, render: v => `<span class="text-xs text-[#172B4D]">${v}</span>` },
-        { field: 'cartons', header: 'Total MCs', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#172B4D]">${Number(v).toLocaleString()}</span>` },
-        { field: 'fobVal', header: 'FOB Value ($)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">$${Number(v).toLocaleString()}</span>` },
-        { field: 'freightStatus', header: 'Logistics Status', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E0F2FE] text-[#0284C7] border border-[#BAE6FD]"><span class="w-1.5 h-1.5 rounded-full bg-[#0284C7]"></span>${v}</span>` },
-        { field: 'realizationStatus', header: 'Realization', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` }
-      ];
-      rows = [
-        { id: 1, invoiceNo: 'EXP-INV-2026-081', containerNo: 'MSKU-820491-2', shipDate: '2026-10-28', buyer: 'Pacific Coast Seafood LLC', destination: 'Los Angeles, USA', port: 'Port of Long Beach', cartons: 2150, fobVal: 142500, freightStatus: 'Vessel In Transit', realizationStatus: 'LC Realized 100%' },
-        { id: 2, invoiceNo: 'EXP-INV-2026-082', containerNo: 'CMAU-491028-6', shipDate: '2026-10-27', buyer: 'Nippon Suisan Kaisha Ltd', destination: 'Tokyo, Japan', port: 'Port of Yokohama', cartons: 1980, fobVal: 168400, freightStatus: 'Vessel In Transit', realizationStatus: 'LC Realized 100%' },
-        { id: 3, invoiceNo: 'EXP-INV-2026-083', containerNo: 'HLCU-319402-1', shipDate: '2026-10-26', buyer: 'Euro-Baltic Marine Traders', destination: 'Rotterdam, Netherlands', port: 'Port of Rotterdam', cartons: 2200, fobVal: 139200, freightStatus: 'Customs Cleared', realizationStatus: 'Payment Received' },
-        { id: 4, invoiceNo: 'EXP-INV-2026-084', containerNo: 'MEDU-992140-5', shipDate: '2026-10-25', buyer: 'Great American Seafood Imports', destination: 'New York, USA', port: 'Port of New York / New Jersey', cartons: 2400, fobVal: 158000, freightStatus: 'Dispatched from Port', realizationStatus: 'LC Verified' }
-      ];
-    }
-    // 9. Standard Fallback Ledger
+    // ==========================================
+    // 7. Standard Fallback Ledger
+    // ==========================================
     else {
       columns = [
         { field: 'sNo', header: 'S No', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
@@ -75757,8 +75883,12 @@ const App = {
       tabName = subObj.defaultTab || subObj.tabs[0]?.id || '';
     }
     if (!subObj.tabs.some(tab => tab.id === tabName)) {
-      this.renderRouteError(404, 'Page not found', 'The requested application page does not exist.', homeHash);
-      return;
+      if (modObj.id === 'reports') {
+        tabName = subObj.defaultTab || subObj.id;
+      } else {
+        this.renderRouteError(404, 'Page not found', 'The requested application page does not exist.', homeHash);
+        return;
+      }
     }
 
     const resolvedHash = `#/${modObj.id}/${subObj.id}/${tabName}`;
