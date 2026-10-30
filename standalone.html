@@ -5591,6 +5591,7 @@ const Modal = {
 class DataTable {
   constructor({
     containerId,
+    container,
     columns,
     data,
     keyField = 'id',
@@ -5611,7 +5612,8 @@ class DataTable {
     onDataChange = null,
     toolbarButtons = []
   }) {
-    this.container = typeof containerId === 'string' ? document.getElementById(containerId) : containerId;
+    const target = containerId || container;
+    this.container = typeof target === 'string' ? document.getElementById(target) : target;
     this.columns = (columns || []).map(c => ({
       ...c,
       field: c.field || c.key || c.id || '',
@@ -63168,6 +63170,7 @@ const ReportsView = {
 
     const renderReportsTable = (data) => {
       table = new DataTable({
+        containerId: 'reports-table-container',
         container: tableContainer,
         tableTitle: `${typeLabel} (${data.length})`,
         columns: reportData.columns,

@@ -6,6 +6,7 @@ import { Modal } from './modal.js';
 export class DataTable {
   constructor({
     containerId,
+    container,
     columns,
     data,
     keyField = 'id',
@@ -26,7 +27,8 @@ export class DataTable {
     onDataChange = null,
     toolbarButtons = []
   }) {
-    this.container = typeof containerId === 'string' ? document.getElementById(containerId) : containerId;
+    const target = containerId || container;
+    this.container = typeof target === 'string' ? document.getElementById(target) : target;
     this.columns = (columns || []).map(c => ({
       ...c,
       field: c.field || c.key || c.id || '',

@@ -99,6 +99,7 @@ export const ReportsView = {
 
     const renderReportsTable = (data) => {
       table = new DataTable({
+        containerId: 'reports-table-container',
         container: tableContainer,
         tableTitle: `${typeLabel} (${data.length})`,
         columns: reportData.columns,
