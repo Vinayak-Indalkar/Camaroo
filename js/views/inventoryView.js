@@ -9279,7 +9279,7 @@ export const InventoryView = {
         </div>
       </div>
 
-      <!-- Search & Filter Card (Standard 4-Column Layout) -->
+      <!-- Search & Filter Card (DATE OPTIONS, START DATE, END DATE, LAYOUT, OUTPUT) -->
       <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200">
         <div class="flex items-center justify-between pb-1">
           <div class="flex items-center gap-2">
@@ -9297,41 +9297,54 @@ export const InventoryView = {
         </div>
 
         <div id="reg-flt-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-3 border-t border-[#F1F5F9] mt-2 text-xs">
-          <!-- 1. SEARCH -->
+          <!-- 1. DATE OPTIONS -->
           <div>
-            <label for="reg-flt-search" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SEARCH</label>
-            <input type="text" id="reg-flt-search" placeholder="Code / Ref Doc / Item..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
-          </div>
-
-          <!-- 2. CATEGORY -->
-          <div>
-            <label for="reg-flt-cat" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CATEGORY</label>
-            <select id="reg-flt-cat" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-              <option value="ALL">All Categories</option>
-              <option value="Packing Materials">Packing Materials</option>
-              <option value="Master Cartons">Master Cartons</option>
-              <option value="Inner Cartons">Inner Cartons</option>
-              <option value="Polybags">Polybags</option>
-              <option value="Pouch Bags">Pouch Bags</option>
-              <option value="Strapping & Tapes">Strapping &amp; Tapes</option>
-              <option value="Processing Additives">Processing Additives</option>
+            <label for="reg-flt-dateopt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DATE OPTIONS</label>
+            <select id="reg-flt-dateopt" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL">All Dates</option>
+              <option value="Shipment Date" selected>Shipment Date</option>
+              <option value="PO Approval Date">PO Approval Date</option>
+              <option value="This Month">This Month</option>
+              <option value="This Quarter">This Quarter</option>
+              <option value="This Financial Year">This Financial Year</option>
             </select>
           </div>
 
-          <!-- 3. STORE LOCATION -->
+          <!-- 2. START DATE -->
           <div>
-            <label for="reg-flt-loc" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">STORE LOCATION</label>
-            <select id="reg-flt-loc" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-              <option value="ALL">All Store Locations</option>
-              <option value="Packaging Store Vault #1">Packaging Store Vault #1</option>
-              <option value="Central PM Bay A-2">Central PM Bay A-2</option>
-              <option value="Dry Goods Store 3">Dry Goods Store 3</option>
-              <option value="Cold Storage Dock">Cold Storage Dock</option>
-              <option value="Main Warehouse Bay B">Main Warehouse Bay B</option>
+            <label for="reg-flt-start" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">START DATE</label>
+            <input type="date" id="reg-flt-start" value="2026-10-01" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
+          </div>
+
+          <!-- 3. END DATE -->
+          <div>
+            <label for="reg-flt-end" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">END DATE</label>
+            <input type="date" id="reg-flt-end" value="2026-11-30" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
+          </div>
+
+          <!-- 4. LAYOUT -->
+          <div>
+            <label for="reg-flt-layout" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">LAYOUT</label>
+            <select id="reg-flt-layout" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="Standard">Standard Register Layout</option>
+              <option value="Destination Summary">Destination Summary Layout</option>
+              <option value="Financial & Commission">Financial &amp; Commission Layout</option>
+              <option value="Logistics & Dispatch">Logistics &amp; Dispatch Layout</option>
             </select>
           </div>
 
-          <!-- 4. Search Button in Column 4 -->
+          <!-- 5. OUTPUT (Row 2, Column 1) -->
+          <div>
+            <label for="reg-flt-output" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">OUTPUT</label>
+            <select id="reg-flt-output" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="Screen">Screen View (Table)</option>
+              <option value="PDF">PDF Report</option>
+              <option value="Excel">Excel Spreadsheet</option>
+              <option value="CSV">CSV Data Ledger</option>
+            </select>
+          </div>
+
+          <!-- Search Button (Row 2, Column 2) -->
           <div class="flex items-end">
             <button type="button" id="reg-flt-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
@@ -9341,11 +9354,11 @@ export const InventoryView = {
         </div>
       </div>
 
-      <!-- Data Table Card -->
+      <!-- Data Table Card (Columns per Add Proforma Register form) -->
       <div id="proforma-register-table-container"></div>
     `;
 
-    // Direct Click Handler for "Add Proforma Register" Button -> Opens Add Modal Popup
+    // Direct Click Handler for "Add Proforma Register" Button
     container.querySelector('#reg-add-btn')?.addEventListener('click', () => {
       this.showAddProformaRegisterModal(() => {
         renderTable(this.state.proformaRegisterList);
@@ -9355,7 +9368,7 @@ export const InventoryView = {
     const renderTable = (data) => {
       new DataTable({
         containerId: 'proforma-register-table-container',
-        tableTitle: `Proforma Register Ledger (${data.length})`,
+        tableTitle: `Proforma Register Records (${data.length})`,
         searchable: true,
         exportable: true,
         pageSize: 10,
@@ -9374,57 +9387,80 @@ export const InventoryView = {
             `
           },
           {
-            field: 'regCode',
-            header: 'Register Code',
+            field: 'proNo',
+            header: 'PRO No',
             sortable: true,
             render: (v, r) => `
               <div class="flex flex-col">
-                <span class="font-mono font-bold text-xs text-[#172B4D] hover:text-[#00A4B7] cursor-pointer whitespace-nowrap">${v}</span>
-                <span class="text-[10px] text-[#5E6C84]">Ref: ${r.refDoc || '-'}</span>
+                <span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer whitespace-nowrap">${v || '-'}</span>
+                <span class="text-[10px] text-[#5E6C84]">Approved: ${r.poApprovalDate || '-'}</span>
               </div>
             `
           },
           {
-            field: 'regDate',
-            header: 'Date',
+            field: 'shipmentDate',
+            header: 'Shipment Date',
             sortable: true,
             render: v => `<span class="whitespace-nowrap text-xs text-[#172B4D] font-medium font-mono">${v || '-'}</span>`
           },
           {
-            field: 'category',
-            header: 'Category',
+            field: 'finalDestination',
+            header: 'Destination',
             sortable: true,
-            render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#F4F5F7] text-[#172B4D] border border-[#DFE1E6] whitespace-nowrap">${v || '-'}</span>`
+            render: (v, r) => `
+              <div class="flex flex-col">
+                <span class="font-semibold text-xs text-[#172B4D] whitespace-nowrap">${v || '-'}</span>
+                <span class="text-[10px] text-[#5E6C84]">${r.countryOfFinalDestination || '-'}</span>
+              </div>
+            `
           },
           {
-            field: 'itemDescription',
-            header: 'Description',
-            render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v || '-'}</span>`
+            field: 'portOfDischarge',
+            header: 'Port of Discharge',
+            sortable: true,
+            render: v => `<span class="text-xs text-[#172B4D] whitespace-nowrap">${v || '-'}</span>`
           },
           {
-            field: 'storeLocation',
-            header: 'Store Location',
+            field: 'processAndPackedBy',
+            header: 'Process & Packed By',
             sortable: true,
-            render: v => `<span class="text-xs text-[#5E6C84] whitespace-nowrap">${v || '-'}</span>`
+            render: v => `<span class="text-xs text-[#5E6C84] whitespace-nowrap max-w-[140px] truncate block" title="${v}">${v || '-'}</span>`
           },
           {
-            field: 'quantity',
-            header: 'Quantity',
+            field: 'totalQuantity',
+            header: 'Total Qty',
             sortable: true,
-            render: (v, r) => `<span class="font-mono font-bold text-xs text-[#00A4B7] whitespace-nowrap">${Number(v || 0).toLocaleString()} ${r.unit || 'Nos'}</span>`
+            render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] whitespace-nowrap">${Number(v || 0).toLocaleString()} KGs</span>`
           },
           {
-            field: 'totalInvoiced',
-            header: 'Invoiced (₹)',
+            field: 'advanceAmount',
+            header: 'Advance Amount',
             sortable: true,
-            render: v => `<span class="font-mono font-bold text-xs text-[#00875A] whitespace-nowrap">₹${Number(v || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>`
+            render: v => `<span class="font-mono font-bold text-xs text-[#00875A] whitespace-nowrap">${Number(v || 0).toLocaleString('en-US', { minimumFractionDigits: 2 })}</span>`
+          },
+          {
+            field: 'commissionPercent',
+            header: 'Commission',
+            sortable: true,
+            render: (v, r) => `
+              <div class="flex flex-col">
+                <span class="font-mono font-bold text-xs text-[#172B4D]">${v || 0}%</span>
+                <span class="text-[10px] text-[#00875A] font-mono">${Number(r.commissionValue || 0).toLocaleString('en-US', { minimumFractionDigits: 2 })}</span>
+              </div>
+            `
+          },
+          {
+            field: 'approvedBy',
+            header: 'Approved By',
+            sortable: true,
+            render: v => `<span class="text-xs text-[#172B4D] font-medium whitespace-nowrap">${v || '-'}</span>`
           }
         ],
         actionsTitle: 'Actions',
         actions: [
           {
             label: 'View',
-            title: 'View Ledger Details',
+            title: 'View Register Details',
             icon: `<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>`,
             onClick: (row) => {
               this.showProformaRegisterDetailsModal(row);
@@ -9447,13 +9483,13 @@ export const InventoryView = {
             onClick: (row) => {
               Modal.confirm({
                 title: 'Delete Proforma Register Entry',
-                message: `Are you sure you want to delete Proforma Register entry <strong>${row.regCode}</strong> (${row.itemDescription})? This action cannot be undone.`,
-                confirmText: 'Delete Record',
+                message: `Are you sure you want to delete Proforma Register entry <strong>${row.proNo}</strong> for Destination <strong>${row.finalDestination}</strong>? This action cannot be undone.`,
+                confirmText: 'Delete Entry',
                 isDestructive: true,
                 onConfirm: () => {
                   this.state.proformaRegisterList = this.state.proformaRegisterList.filter(it => it.id !== row.id);
                   renderTable(this.state.proformaRegisterList);
-                  Toast.show(`Register entry ${row.regCode} deleted successfully.`, 'info');
+                  Toast.show(`Register entry ${row.proNo} deleted successfully.`, 'info');
                 }
               });
             }
@@ -9467,32 +9503,26 @@ export const InventoryView = {
 
     // Search & Filter Listeners
     container.querySelector('#reg-flt-search-btn')?.addEventListener('click', () => {
-      const q = container.querySelector('#reg-flt-search')?.value?.trim().toLowerCase();
-      const cat = container.querySelector('#reg-flt-cat')?.value;
-      const loc = container.querySelector('#reg-flt-loc')?.value;
+      const start = container.querySelector('#reg-flt-start')?.value;
+      const end = container.querySelector('#reg-flt-end')?.value;
 
       let filtered = [...this.state.proformaRegisterList];
-      if (q) {
-        filtered = filtered.filter(it =>
-          (it.regCode || '').toLowerCase().includes(q) ||
-          (it.refDoc || '').toLowerCase().includes(q) ||
-          (it.itemDescription || '').toLowerCase().includes(q)
-        );
+      if (start) {
+        filtered = filtered.filter(it => !it.shipmentDate || it.shipmentDate >= start);
       }
-      if (cat && cat !== 'ALL') {
-        filtered = filtered.filter(it => it.category === cat);
-      }
-      if (loc && loc !== 'ALL') {
-        filtered = filtered.filter(it => it.storeLocation === loc);
+      if (end) {
+        filtered = filtered.filter(it => !it.shipmentDate || it.shipmentDate <= end);
       }
 
       renderTable(filtered);
     });
 
     container.querySelector('#reg-flt-reset-btn')?.addEventListener('click', () => {
-      container.querySelector('#reg-flt-search').value = '';
-      container.querySelector('#reg-flt-cat').value = 'ALL';
-      container.querySelector('#reg-flt-loc').value = 'ALL';
+      container.querySelector('#reg-flt-start').value = '2026-10-01';
+      container.querySelector('#reg-flt-end').value = '2026-11-30';
+      container.querySelector('#reg-flt-dateopt').value = 'Shipment Date';
+      container.querySelector('#reg-flt-layout').value = 'Standard';
+      container.querySelector('#reg-flt-output').value = 'Screen';
       renderTable(this.state.proformaRegisterList);
     });
 
@@ -9508,98 +9538,137 @@ export const InventoryView = {
     });
   },
 
-  // 3b. ADD PROFORMA REGISTER MODAL POPUP
+  // 3b. ADD PROFORMA REGISTER MODAL POPUP (All 18 Form Input Fields)
   showAddProformaRegisterModal(onSuccess = null) {
     const todayStr = new Date().toISOString().slice(0, 10);
     const nextSeq = (this.state.proformaRegisterList?.length || 0) + 1;
-    const defaultRegCode = `REG-PM-2026-${String(nextSeq).padStart(4, '0')}`;
+    const defaultProNo = `PRO-2026-${String(840 + nextSeq).padStart(4, '0')}`;
 
     Modal.open({
-      title: 'Add Proforma Register Entry',
-      size: '2xl',
+      title: 'Add Proforma Register',
+      size: 'full',
       confirmActions: false,
       content: `
         <form id="reg-add-form" class="space-y-4 text-xs text-[#172B4D]">
           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 bg-[#F8FAFC] border border-[#DFE1E6] p-3.5 rounded-xl">
-            <!-- 1. REGISTER CODE -->
+            <!-- 1. PRO NO -->
             <div>
-              <label for="reg-add-code" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">REGISTER CODE <span class="text-[#DE350B]">*</span></label>
-              <input type="text" id="reg-add-code" value="${defaultRegCode}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              <label for="reg-add-prono" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PRO NO <span class="text-[#DE350B]">*</span></label>
+              <input type="text" id="reg-add-prono" value="${defaultProNo}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
             </div>
 
-            <!-- 2. DATE -->
+            <!-- 2. SHIPMENT DATE -->
             <div>
-              <label for="reg-add-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DATE <span class="text-[#DE350B]">*</span></label>
-              <input type="date" id="reg-add-date" value="${todayStr}" required class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
+              <label for="reg-add-shipdate" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SHIPMENT DATE <span class="text-[#DE350B]">*</span></label>
+              <input type="date" id="reg-add-shipdate" value="${todayStr}" required class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
             </div>
 
-            <!-- 3. REF DOC / PI -->
+            <!-- 3. PO APPROVAL DATE -->
             <div>
-              <label for="reg-add-ref" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">REF DOC / PI <span class="text-[#DE350B]">*</span></label>
-              <input type="text" id="reg-add-ref" placeholder="PI-PM-2026-XXXX" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              <label for="reg-add-poappdate" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PO APPROVAL DATE <span class="text-[#DE350B]">*</span></label>
+              <input type="date" id="reg-add-poappdate" value="${todayStr}" required class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
             </div>
 
-            <!-- 4. CATEGORY -->
+            <!-- 4. COUNTRY OF ORIGIN -->
             <div>
-              <label for="reg-add-cat" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CATEGORY <span class="text-[#DE350B]">*</span></label>
-              <select id="reg-add-cat" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                <option value="Packing Materials">Packing Materials</option>
-                <option value="Master Cartons">Master Cartons</option>
-                <option value="Inner Cartons">Inner Cartons</option>
-                <option value="Polybags">Polybags</option>
-                <option value="Pouch Bags">Pouch Bags</option>
-                <option value="Strapping & Tapes">Strapping &amp; Tapes</option>
-                <option value="Processing Additives">Processing Additives</option>
+              <label for="reg-add-origin" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">COUNTRY OF ORIGIN <span class="text-[#DE350B]">*</span></label>
+              <input type="text" id="reg-add-origin" value="India" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            </div>
+
+            <!-- 5. COUNTRY OF FINAL DESTINATION -->
+            <div>
+              <label for="reg-add-destcountry" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">COUNTRY OF FINAL DESTINATION <span class="text-[#DE350B]">*</span></label>
+              <input type="text" id="reg-add-destcountry" value="United States" required placeholder="e.g. United States, Japan" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            </div>
+
+            <!-- 6. FINAL DESTINATION -->
+            <div>
+              <label for="reg-add-finaldest" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FINAL DESTINATION <span class="text-[#DE350B]">*</span></label>
+              <input type="text" id="reg-add-finaldest" placeholder="e.g. Long Beach Port, California" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            </div>
+
+            <!-- 7. PORT OF DISCHARGE -->
+            <div>
+              <label for="reg-add-portdischarge" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PORT OF DISCHARGE <span class="text-[#DE350B]">*</span></label>
+              <input type="text" id="reg-add-portdischarge" placeholder="e.g. Port of Los Angeles (USLAX)" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            </div>
+
+            <!-- 8. PROCESS AND PACKED BY -->
+            <div>
+              <label for="reg-add-packedby" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PROCESS AND PACKED BY <span class="text-[#DE350B]">*</span></label>
+              <input type="text" id="reg-add-packedby" value="Devi Fisheries Ltd - Processing Unit-5" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            </div>
+
+            <!-- 9. IS GLAZE -->
+            <div>
+              <label for="reg-add-isglaze" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">IS GLAZE</label>
+              <select id="reg-add-isglaze" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="10% Protective Water Glaze">Yes (10% Protective Water Glaze)</option>
+                <option value="5% Protective Glaze">Yes (5% Protective Glaze)</option>
+                <option value="15% Protective Glaze">Yes (15% Protective Glaze)</option>
+                <option value="No Glaze (0%)">No Glaze (0%)</option>
               </select>
             </div>
 
-            <!-- 5. STORE LOCATION -->
+            <!-- 10. DELIVERY TERMS -->
             <div>
-              <label for="reg-add-loc" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">STORE LOCATION <span class="text-[#DE350B]">*</span></label>
-              <select id="reg-add-loc" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                <option value="Packaging Store Vault #1">Packaging Store Vault #1</option>
-                <option value="Central PM Bay A-2">Central PM Bay A-2</option>
-                <option value="Dry Goods Store 3">Dry Goods Store 3</option>
-                <option value="Cold Storage Dock">Cold Storage Dock</option>
-                <option value="Main Warehouse Bay B">Main Warehouse Bay B</option>
+              <label for="reg-add-deliveryterms" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DELIVERY TERMS <span class="text-[#DE350B]">*</span></label>
+              <select id="reg-add-deliveryterms" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="CIF (Cost, Insurance & Freight)">CIF (Cost, Insurance &amp; Freight)</option>
+                <option value="FOB (Free On Board)">FOB (Free On Board)</option>
+                <option value="CFR (Cost & Freight)">CFR (Cost &amp; Freight)</option>
+                <option value="DDP (Delivered Duty Paid)">DDP (Delivered Duty Paid)</option>
+                <option value="Ex-Works">Ex-Works</option>
               </select>
             </div>
 
-            <!-- 6. QUANTITY -->
+            <!-- 11. BUYERS (OTHER THAN CONSIGNEE) -->
             <div>
-              <label for="reg-add-qty" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">QUANTITY <span class="text-[#DE350B]">*</span></label>
-              <input type="number" id="reg-add-qty" value="1000" min="1" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              <label for="reg-add-buyer" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BUYERS (OTHER THAN CONSIGNEE)</label>
+              <input type="text" id="reg-add-buyer" placeholder="e.g. Pacific Seafood Imports LLC" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
             </div>
 
-            <!-- 7. UNIT -->
+            <!-- 12. TOTAL QUANTITY -->
             <div>
-              <label for="reg-add-unit" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">UNIT</label>
-              <select id="reg-add-unit" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                <option value="MCs">MCs</option>
-                <option value="Bags">Bags</option>
-                <option value="Rolls">Rolls</option>
-                <option value="Kg">Kg</option>
-                <option value="Nos">Nos</option>
-              </select>
+              <label for="reg-add-totalqty" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">TOTAL QUANTITY <span class="text-[#DE350B]">*</span></label>
+              <input type="number" id="reg-add-totalqty" value="20000" min="1" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
             </div>
 
-            <!-- 8. TOTAL INVOICED -->
+            <!-- 13. ADVANCE AMOUNT -->
             <div>
-              <label for="reg-add-val" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">INVOICED AMOUNT (₹) <span class="text-[#DE350B]">*</span></label>
-              <input type="number" id="reg-add-val" value="50000" min="0" step="0.01" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              <label for="reg-add-advamt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ADVANCE AMOUNT ($) <span class="text-[#DE350B]">*</span></label>
+              <input type="number" id="reg-add-advamt" value="35000" min="0" step="0.01" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
             </div>
-          </div>
 
-          <!-- ITEM DESCRIPTION -->
-          <div>
-            <label for="reg-add-desc" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ITEM DESCRIPTION <span class="text-[#DE350B]">*</span></label>
-            <input type="text" id="reg-add-desc" placeholder="Enter detailed item description and specifications..." required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
-          </div>
+            <!-- 14. COMMISSION (%) -->
+            <div>
+              <label for="reg-add-commpct" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">COMMISSION (%)</label>
+              <input type="number" id="reg-add-commpct" value="2.5" min="0" max="100" step="0.1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            </div>
 
-          <!-- REMARKS -->
-          <div>
-            <label for="reg-add-rem" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">REMARKS</label>
-            <textarea id="reg-add-rem" rows="2" placeholder="Optional audit or storage notes..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs"></textarea>
+            <!-- 15. COMMISSION VALUE -->
+            <div>
+              <label for="reg-add-commval" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">COMMISSION VALUE ($)</label>
+              <input type="number" id="reg-add-commval" value="2500" min="0" step="0.01" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            </div>
+
+            <!-- 16. APPROVED BY -->
+            <div>
+              <label for="reg-add-approvedby" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">APPROVED BY <span class="text-[#DE350B]">*</span></label>
+              <input type="text" id="reg-add-approvedby" value="Dr. Y. S. Prasad (VP Operations)" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            </div>
+
+            <!-- 17. AMOUNT IN WORDS -->
+            <div class="col-span-1 sm:col-span-2">
+              <label for="reg-add-amtwords" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">AMOUNT IN WORDS <span class="text-[#DE350B]">*</span></label>
+              <input type="text" id="reg-add-amtwords" value="One Hundred Thousand US Dollars Only" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            </div>
+
+            <!-- 18. PURCHASE ORDER ATTACHMENT -->
+            <div class="col-span-1 sm:col-span-2">
+              <label for="reg-add-poattach" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PURCHASE ORDER ATTACHMENT</label>
+              <input type="file" id="reg-add-poattach" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs file:mr-2 file:py-1 file:px-2.5 file:rounded-full file:border-0 file:text-[11px] file:font-semibold file:bg-[#E0F2FE] file:text-[#00A4B7] hover:file:bg-[#BAE6FD]" />
+            </div>
           </div>
         </form>
       `,
@@ -9613,44 +9682,61 @@ export const InventoryView = {
           label: 'Save Register Entry',
           variant: 'primary',
           onClick: () => {
-            const code = document.getElementById('reg-add-code')?.value?.trim();
-            const date = document.getElementById('reg-add-date')?.value;
-            const refDoc = document.getElementById('reg-add-ref')?.value?.trim();
-            const category = document.getElementById('reg-add-cat')?.value;
-            const storeLocation = document.getElementById('reg-add-loc')?.value;
-            const quantity = parseFloat(document.getElementById('reg-add-qty')?.value) || 0;
-            const unit = document.getElementById('reg-add-unit')?.value || 'Nos';
-            const totalInvoiced = parseFloat(document.getElementById('reg-add-val')?.value) || 0;
-            const itemDescription = document.getElementById('reg-add-desc')?.value?.trim();
-            const remarks = document.getElementById('reg-add-rem')?.value?.trim() || '';
+            const proNo = document.getElementById('reg-add-prono')?.value?.trim();
+            const shipmentDate = document.getElementById('reg-add-shipdate')?.value;
+            const poApprovalDate = document.getElementById('reg-add-poappdate')?.value;
+            const countryOfOrigin = document.getElementById('reg-add-origin')?.value?.trim();
+            const countryOfFinalDestination = document.getElementById('reg-add-destcountry')?.value?.trim();
+            const finalDestination = document.getElementById('reg-add-finaldest')?.value?.trim();
+            const portOfDischarge = document.getElementById('reg-add-portdischarge')?.value?.trim();
+            const processAndPackedBy = document.getElementById('reg-add-packedby')?.value?.trim();
+            const isGlaze = document.getElementById('reg-add-isglaze')?.value;
+            const deliveryTerms = document.getElementById('reg-add-deliveryterms')?.value;
+            const buyerOtherThanConsignee = document.getElementById('reg-add-buyer')?.value?.trim() || '';
+            const totalQuantity = parseFloat(document.getElementById('reg-add-totalqty')?.value) || 0;
+            const advanceAmount = parseFloat(document.getElementById('reg-add-advamt')?.value) || 0;
+            const commissionPercent = parseFloat(document.getElementById('reg-add-commpct')?.value) || 0;
+            const commissionValue = parseFloat(document.getElementById('reg-add-commval')?.value) || 0;
+            const approvedBy = document.getElementById('reg-add-approvedby')?.value?.trim();
+            const amountInWords = document.getElementById('reg-add-amtwords')?.value?.trim();
+            const attachInput = document.getElementById('reg-add-poattach');
+            const poAttachment = attachInput?.files && attachInput.files.length > 0 ? attachInput.files[0].name : 'PO_Attachment_Doc.pdf';
 
-            if (!code || !refDoc || !itemDescription) {
-              Toast.show('Please fill in all required fields (Code, Ref Doc, Description).', 'warning');
+            if (!proNo || !finalDestination || !portOfDischarge) {
+              Toast.show('Please fill in required fields (PRO No, Final Destination, Port of Discharge).', 'warning');
               return;
             }
 
             Modal.confirm({
               title: 'Confirm Save Proforma Register',
-              message: `Are you sure you want to register <strong>${code}</strong> for Ref Doc <strong>${refDoc}</strong> with quantity <strong>${quantity} ${unit}</strong>?`,
+              message: `Are you sure you want to save Proforma Register for PRO <strong>${proNo}</strong> with Destination <strong>${finalDestination}</strong> (${countryOfFinalDestination}) and Total Quantity <strong>${totalQuantity.toLocaleString()} KGs</strong>?`,
               confirmText: 'Save Entry',
               onConfirm: () => {
                 const newRecord = {
                   id: Date.now(),
-                  regCode: code,
-                  refDoc,
-                  regDate: date,
-                  category,
-                  itemDescription,
-                  storeLocation,
-                  quantity,
-                  unit,
-                  totalInvoiced,
-                  remarks
+                  proNo,
+                  shipmentDate,
+                  poApprovalDate,
+                  countryOfOrigin,
+                  countryOfFinalDestination,
+                  finalDestination,
+                  portOfDischarge,
+                  processAndPackedBy,
+                  isGlaze,
+                  deliveryTerms,
+                  buyerOtherThanConsignee,
+                  totalQuantity,
+                  advanceAmount,
+                  commissionPercent,
+                  commissionValue,
+                  approvedBy,
+                  amountInWords,
+                  poAttachment
                 };
 
                 this.state.proformaRegisterList.unshift(newRecord);
                 Modal.close();
-                Toast.show(`Proforma Register entry ${code} successfully saved!`, 'success');
+                Toast.show(`Proforma Register for ${proNo} saved successfully!`, 'success');
 
                 if (typeof onSuccess === 'function') {
                   onSuccess();
@@ -9668,91 +9754,133 @@ export const InventoryView = {
     if (!row) return;
 
     Modal.open({
-      title: `Edit Proforma Register: ${row.regCode}`,
-      size: '2xl',
+      title: `Edit Proforma Register: ${row.proNo}`,
+      size: 'full',
       confirmActions: false,
       content: `
         <form id="reg-edit-form" class="space-y-4 text-xs text-[#172B4D]">
           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 bg-[#F8FAFC] border border-[#DFE1E6] p-3.5 rounded-xl">
-            <!-- 1. REGISTER CODE -->
+            <!-- 1. PRO NO -->
             <div>
-              <label for="reg-edit-code" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">REGISTER CODE</label>
-              <input type="text" id="reg-edit-code" value="${row.regCode}" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F1F5F9] border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none cursor-not-allowed shadow-2xs" />
+              <label for="reg-edit-prono" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PRO NO</label>
+              <input type="text" id="reg-edit-prono" value="${row.proNo}" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F1F5F9] border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none cursor-not-allowed shadow-2xs" />
             </div>
 
-            <!-- 2. DATE -->
+            <!-- 2. SHIPMENT DATE -->
             <div>
-              <label for="reg-edit-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DATE <span class="text-[#DE350B]">*</span></label>
-              <input type="date" id="reg-edit-date" value="${row.regDate}" required class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
+              <label for="reg-edit-shipdate" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SHIPMENT DATE <span class="text-[#DE350B]">*</span></label>
+              <input type="date" id="reg-edit-shipdate" value="${row.shipmentDate || ''}" required class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
             </div>
 
-            <!-- 3. REF DOC / PI -->
+            <!-- 3. PO APPROVAL DATE -->
             <div>
-              <label for="reg-edit-ref" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">REF DOC / PI <span class="text-[#DE350B]">*</span></label>
-              <input type="text" id="reg-edit-ref" value="${row.refDoc || ''}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              <label for="reg-edit-poappdate" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PO APPROVAL DATE <span class="text-[#DE350B]">*</span></label>
+              <input type="date" id="reg-edit-poappdate" value="${row.poApprovalDate || ''}" required class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
             </div>
 
-            <!-- 4. CATEGORY -->
+            <!-- 4. COUNTRY OF ORIGIN -->
             <div>
-              <label for="reg-edit-cat" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CATEGORY <span class="text-[#DE350B]">*</span></label>
-              <select id="reg-edit-cat" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                <option value="Packing Materials" ${row.category === 'Packing Materials' ? 'selected' : ''}>Packing Materials</option>
-                <option value="Master Cartons" ${row.category === 'Master Cartons' ? 'selected' : ''}>Master Cartons</option>
-                <option value="Inner Cartons" ${row.category === 'Inner Cartons' ? 'selected' : ''}>Inner Cartons</option>
-                <option value="Polybags" ${row.category === 'Polybags' ? 'selected' : ''}>Polybags</option>
-                <option value="Pouch Bags" ${row.category === 'Pouch Bags' ? 'selected' : ''}>Pouch Bags</option>
-                <option value="Strapping & Tapes" ${row.category === 'Strapping & Tapes' ? 'selected' : ''}>Strapping &amp; Tapes</option>
-                <option value="Processing Additives" ${row.category === 'Processing Additives' ? 'selected' : ''}>Processing Additives</option>
+              <label for="reg-edit-origin" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">COUNTRY OF ORIGIN <span class="text-[#DE350B]">*</span></label>
+              <input type="text" id="reg-edit-origin" value="${row.countryOfOrigin || 'India'}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            </div>
+
+            <!-- 5. COUNTRY OF FINAL DESTINATION -->
+            <div>
+              <label for="reg-edit-destcountry" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">COUNTRY OF FINAL DESTINATION <span class="text-[#DE350B]">*</span></label>
+              <input type="text" id="reg-edit-destcountry" value="${row.countryOfFinalDestination || ''}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            </div>
+
+            <!-- 6. FINAL DESTINATION -->
+            <div>
+              <label for="reg-edit-finaldest" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FINAL DESTINATION <span class="text-[#DE350B]">*</span></label>
+              <input type="text" id="reg-edit-finaldest" value="${row.finalDestination || ''}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            </div>
+
+            <!-- 7. PORT OF DISCHARGE -->
+            <div>
+              <label for="reg-edit-portdischarge" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PORT OF DISCHARGE <span class="text-[#DE350B]">*</span></label>
+              <input type="text" id="reg-edit-portdischarge" value="${row.portOfDischarge || ''}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            </div>
+
+            <!-- 8. PROCESS AND PACKED BY -->
+            <div>
+              <label for="reg-edit-packedby" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PROCESS AND PACKED BY <span class="text-[#DE350B]">*</span></label>
+              <input type="text" id="reg-edit-packedby" value="${row.processAndPackedBy || ''}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            </div>
+
+            <!-- 9. IS GLAZE -->
+            <div>
+              <label for="reg-edit-isglaze" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">IS GLAZE</label>
+              <select id="reg-edit-isglaze" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="10% Protective Water Glaze" ${row.isGlaze?.includes('10%') ? 'selected' : ''}>Yes (10% Protective Water Glaze)</option>
+                <option value="5% Protective Glaze" ${row.isGlaze?.includes('5%') ? 'selected' : ''}>Yes (5% Protective Glaze)</option>
+                <option value="15% Protective Glaze" ${row.isGlaze?.includes('15%') ? 'selected' : ''}>Yes (15% Protective Glaze)</option>
+                <option value="No Glaze (0%)" ${row.isGlaze?.includes('No') ? 'selected' : ''}>No Glaze (0%)</option>
               </select>
             </div>
 
-            <!-- 5. STORE LOCATION -->
+            <!-- 10. DELIVERY TERMS -->
             <div>
-              <label for="reg-edit-loc" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">STORE LOCATION <span class="text-[#DE350B]">*</span></label>
-              <select id="reg-edit-loc" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                <option value="Packaging Store Vault #1" ${row.storeLocation === 'Packaging Store Vault #1' ? 'selected' : ''}>Packaging Store Vault #1</option>
-                <option value="Central PM Bay A-2" ${row.storeLocation === 'Central PM Bay A-2' ? 'selected' : ''}>Central PM Bay A-2</option>
-                <option value="Dry Goods Store 3" ${row.storeLocation === 'Dry Goods Store 3' ? 'selected' : ''}>Dry Goods Store 3</option>
-                <option value="Cold Storage Dock" ${row.storeLocation === 'Cold Storage Dock' ? 'selected' : ''}>Cold Storage Dock</option>
-                <option value="Main Warehouse Bay B" ${row.storeLocation === 'Main Warehouse Bay B' ? 'selected' : ''}>Main Warehouse Bay B</option>
+              <label for="reg-edit-deliveryterms" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DELIVERY TERMS <span class="text-[#DE350B]">*</span></label>
+              <select id="reg-edit-deliveryterms" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="CIF (Cost, Insurance & Freight)" ${row.deliveryTerms?.includes('CIF') ? 'selected' : ''}>CIF (Cost, Insurance &amp; Freight)</option>
+                <option value="FOB (Free On Board)" ${row.deliveryTerms?.includes('FOB') ? 'selected' : ''}>FOB (Free On Board)</option>
+                <option value="CFR (Cost & Freight)" ${row.deliveryTerms?.includes('CFR') ? 'selected' : ''}>CFR (Cost &amp; Freight)</option>
+                <option value="DDP (Delivered Duty Paid)" ${row.deliveryTerms?.includes('DDP') ? 'selected' : ''}>DDP (Delivered Duty Paid)</option>
+                <option value="Ex-Works" ${row.deliveryTerms?.includes('Ex-Works') ? 'selected' : ''}>Ex-Works</option>
               </select>
             </div>
 
-            <!-- 6. QUANTITY -->
+            <!-- 11. BUYERS (OTHER THAN CONSIGNEE) -->
             <div>
-              <label for="reg-edit-qty" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">QUANTITY <span class="text-[#DE350B]">*</span></label>
-              <input type="number" id="reg-edit-qty" value="${row.quantity || 0}" min="1" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              <label for="reg-edit-buyer" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BUYERS (OTHER THAN CONSIGNEE)</label>
+              <input type="text" id="reg-edit-buyer" value="${row.buyerOtherThanConsignee || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
             </div>
 
-            <!-- 7. UNIT -->
+            <!-- 12. TOTAL QUANTITY -->
             <div>
-              <label for="reg-edit-unit" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">UNIT</label>
-              <select id="reg-edit-unit" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                <option value="MCs" ${row.unit === 'MCs' ? 'selected' : ''}>MCs</option>
-                <option value="Bags" ${row.unit === 'Bags' ? 'selected' : ''}>Bags</option>
-                <option value="Rolls" ${row.unit === 'Rolls' ? 'selected' : ''}>Rolls</option>
-                <option value="Kg" ${row.unit === 'Kg' ? 'selected' : ''}>Kg</option>
-                <option value="Nos" ${row.unit === 'Nos' ? 'selected' : ''}>Nos</option>
-              </select>
+              <label for="reg-edit-totalqty" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">TOTAL QUANTITY <span class="text-[#DE350B]">*</span></label>
+              <input type="number" id="reg-edit-totalqty" value="${row.totalQuantity || 0}" min="1" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
             </div>
 
-            <!-- 8. TOTAL INVOICED -->
+            <!-- 13. ADVANCE AMOUNT -->
             <div>
-              <label for="reg-edit-val" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">INVOICED AMOUNT (₹) <span class="text-[#DE350B]">*</span></label>
-              <input type="number" id="reg-edit-val" value="${row.totalInvoiced || 0}" min="0" step="0.01" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              <label for="reg-edit-advamt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ADVANCE AMOUNT ($) <span class="text-[#DE350B]">*</span></label>
+              <input type="number" id="reg-edit-advamt" value="${row.advanceAmount || 0}" min="0" step="0.01" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
             </div>
-          </div>
 
-          <!-- ITEM DESCRIPTION -->
-          <div>
-            <label for="reg-edit-desc" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ITEM DESCRIPTION <span class="text-[#DE350B]">*</span></label>
-            <input type="text" id="reg-edit-desc" value="${row.itemDescription || ''}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
-          </div>
+            <!-- 14. COMMISSION (%) -->
+            <div>
+              <label for="reg-edit-commpct" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">COMMISSION (%)</label>
+              <input type="number" id="reg-edit-commpct" value="${row.commissionPercent || 0}" min="0" max="100" step="0.1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            </div>
 
-          <!-- REMARKS -->
-          <div>
-            <label for="reg-edit-rem" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">REMARKS</label>
-            <textarea id="reg-edit-rem" rows="2" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">${row.remarks || ''}</textarea>
+            <!-- 15. COMMISSION VALUE -->
+            <div>
+              <label for="reg-edit-commval" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">COMMISSION VALUE ($)</label>
+              <input type="number" id="reg-edit-commval" value="${row.commissionValue || 0}" min="0" step="0.01" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            </div>
+
+            <!-- 16. APPROVED BY -->
+            <div>
+              <label for="reg-edit-approvedby" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">APPROVED BY <span class="text-[#DE350B]">*</span></label>
+              <input type="text" id="reg-edit-approvedby" value="${row.approvedBy || ''}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            </div>
+
+            <!-- 17. AMOUNT IN WORDS -->
+            <div class="col-span-1 sm:col-span-2">
+              <label for="reg-edit-amtwords" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">AMOUNT IN WORDS <span class="text-[#DE350B]">*</span></label>
+              <input type="text" id="reg-edit-amtwords" value="${row.amountInWords || ''}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            </div>
+
+            <!-- 18. PURCHASE ORDER ATTACHMENT -->
+            <div class="col-span-1 sm:col-span-2">
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PURCHASE ORDER ATTACHMENT</label>
+              <div class="flex items-center gap-2">
+                <input type="file" id="reg-edit-poattach" class="flex-1 text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs file:mr-2 file:py-1 file:px-2.5 file:rounded-full file:border-0 file:text-[11px] file:font-semibold file:bg-[#E0F2FE] file:text-[#00A4B7] hover:file:bg-[#BAE6FD]" />
+                ${row.poAttachment ? `<span class="text-[11px] font-mono text-[#00A4B7] bg-[#E0F2FE] px-2 py-1 rounded border border-[#BAE6FD] shrink-0">${row.poAttachment}</span>` : ''}
+              </div>
+            </div>
           </div>
         </form>
       `,
@@ -9766,38 +9894,56 @@ export const InventoryView = {
           label: 'Update Register Entry',
           variant: 'primary',
           onClick: () => {
-            const date = document.getElementById('reg-edit-date')?.value;
-            const refDoc = document.getElementById('reg-edit-ref')?.value?.trim();
-            const category = document.getElementById('reg-edit-cat')?.value;
-            const storeLocation = document.getElementById('reg-edit-loc')?.value;
-            const quantity = parseFloat(document.getElementById('reg-edit-qty')?.value) || 0;
-            const unit = document.getElementById('reg-edit-unit')?.value || 'Nos';
-            const totalInvoiced = parseFloat(document.getElementById('reg-edit-val')?.value) || 0;
-            const itemDescription = document.getElementById('reg-edit-desc')?.value?.trim();
-            const remarks = document.getElementById('reg-edit-rem')?.value?.trim() || '';
+            const shipmentDate = document.getElementById('reg-edit-shipdate')?.value;
+            const poApprovalDate = document.getElementById('reg-edit-poappdate')?.value;
+            const countryOfOrigin = document.getElementById('reg-edit-origin')?.value?.trim();
+            const countryOfFinalDestination = document.getElementById('reg-edit-destcountry')?.value?.trim();
+            const finalDestination = document.getElementById('reg-edit-finaldest')?.value?.trim();
+            const portOfDischarge = document.getElementById('reg-edit-portdischarge')?.value?.trim();
+            const processAndPackedBy = document.getElementById('reg-edit-packedby')?.value?.trim();
+            const isGlaze = document.getElementById('reg-edit-isglaze')?.value;
+            const deliveryTerms = document.getElementById('reg-edit-deliveryterms')?.value;
+            const buyerOtherThanConsignee = document.getElementById('reg-edit-buyer')?.value?.trim() || '';
+            const totalQuantity = parseFloat(document.getElementById('reg-edit-totalqty')?.value) || 0;
+            const advanceAmount = parseFloat(document.getElementById('reg-edit-advamt')?.value) || 0;
+            const commissionPercent = parseFloat(document.getElementById('reg-edit-commpct')?.value) || 0;
+            const commissionValue = parseFloat(document.getElementById('reg-edit-commval')?.value) || 0;
+            const approvedBy = document.getElementById('reg-edit-approvedby')?.value?.trim();
+            const amountInWords = document.getElementById('reg-edit-amtwords')?.value?.trim();
+            const attachInput = document.getElementById('reg-edit-poattach');
+            if (attachInput?.files && attachInput.files.length > 0) {
+              row.poAttachment = attachInput.files[0].name;
+            }
 
-            if (!refDoc || !itemDescription) {
-              Toast.show('Please fill in all required fields (Ref Doc, Description).', 'warning');
+            if (!finalDestination || !portOfDischarge) {
+              Toast.show('Please fill in required fields (Final Destination, Port of Discharge).', 'warning');
               return;
             }
 
             Modal.confirm({
               title: 'Confirm Update Proforma Register',
-              message: `Are you sure you want to update Proforma Register entry <strong>${row.regCode}</strong>?`,
+              message: `Are you sure you want to update Proforma Register entry <strong>${row.proNo}</strong>?`,
               confirmText: 'Update Entry',
               onConfirm: () => {
-                row.regDate = date;
-                row.refDoc = refDoc;
-                row.category = category;
-                row.storeLocation = storeLocation;
-                row.quantity = quantity;
-                row.unit = unit;
-                row.totalInvoiced = totalInvoiced;
-                row.itemDescription = itemDescription;
-                row.remarks = remarks;
+                row.shipmentDate = shipmentDate;
+                row.poApprovalDate = poApprovalDate;
+                row.countryOfOrigin = countryOfOrigin;
+                row.countryOfFinalDestination = countryOfFinalDestination;
+                row.finalDestination = finalDestination;
+                row.portOfDischarge = portOfDischarge;
+                row.processAndPackedBy = processAndPackedBy;
+                row.isGlaze = isGlaze;
+                row.deliveryTerms = deliveryTerms;
+                row.buyerOtherThanConsignee = buyerOtherThanConsignee;
+                row.totalQuantity = totalQuantity;
+                row.advanceAmount = advanceAmount;
+                row.commissionPercent = commissionPercent;
+                row.commissionValue = commissionValue;
+                row.approvedBy = approvedBy;
+                row.amountInWords = amountInWords;
 
                 Modal.close();
-                Toast.show(`Register entry ${row.regCode} updated successfully!`, 'success');
+                Toast.show(`Register entry ${row.proNo} updated successfully!`, 'success');
 
                 if (typeof onSuccess === 'function') {
                   onSuccess();
@@ -9815,62 +9961,106 @@ export const InventoryView = {
     if (!row) return;
 
     Modal.open({
-      title: `Proforma Ledger Record: ${row.regCode}`,
-      size: '2xl',
+      title: `Proforma Register Record: ${row.proNo}`,
+      size: 'full',
       content: `
         <div class="space-y-4 text-xs text-[#172B4D]">
-          <!-- Header Overview Grid -->
+          <!-- Key Overview Header Grid -->
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-[#F8FAFC] border border-[#DFE1E6] p-3.5 rounded-xl shadow-2xs">
             <div>
-              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0.5">REGISTER CODE</span>
-              <span class="font-mono font-bold text-sm text-[#00A4B7]">${row.regCode}</span>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0.5">PRO NUMBER</span>
+              <span class="font-mono font-bold text-sm text-[#00A4B7]">${row.proNo}</span>
             </div>
             <div>
-              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0.5">REF DOC / PI</span>
-              <span class="font-mono font-semibold text-xs text-[#172B4D]">${row.refDoc || '-'}</span>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0.5">SHIPMENT DATE</span>
+              <span class="font-mono text-xs font-semibold text-[#172B4D]">${row.shipmentDate || '-'}</span>
             </div>
             <div>
-              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0.5">DATE</span>
-              <span class="font-mono text-xs text-[#172B4D]">${row.regDate || '-'}</span>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0.5">PO APPROVAL DATE</span>
+              <span class="font-mono text-xs text-[#172B4D]">${row.poApprovalDate || '-'}</span>
             </div>
             <div>
-              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0.5">CATEGORY</span>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0.5">APPROVED BY</span>
+              <span class="font-semibold text-xs text-[#00875A]">${row.approvedBy || '-'}</span>
+            </div>
+          </div>
+
+          <!-- Destination & Logistics Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-white border border-[#DFE1E6] p-3.5 rounded-xl shadow-2xs">
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0.5">COUNTRY OF ORIGIN</span>
+              <span class="font-semibold text-xs text-[#172B4D]">${row.countryOfOrigin || 'India'}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0.5">COUNTRY OF FINAL DESTINATION</span>
+              <span class="font-semibold text-xs text-[#172B4D]">${row.countryOfFinalDestination || '-'}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0.5">FINAL DESTINATION</span>
+              <span class="font-semibold text-xs text-[#00A4B7]">${row.finalDestination || '-'}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0.5">PORT OF DISCHARGE</span>
+              <span class="font-semibold text-xs text-[#172B4D]">${row.portOfDischarge || '-'}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0.5">PROCESS AND PACKED BY</span>
+              <span class="font-semibold text-xs text-[#172B4D]">${row.processAndPackedBy || '-'}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0.5">IS GLAZE</span>
               <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E0F2FE] text-[#0284C7] border border-[#BAE6FD]">
-                ${row.category || '-'}
+                ${row.isGlaze || 'No Glaze'}
               </span>
             </div>
           </div>
 
-          <!-- Stock & Valuation Grid -->
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-white border border-[#DFE1E6] p-3.5 rounded-xl shadow-2xs">
+          <!-- Commercial & Financial Terms -->
+          <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 bg-[#F8FAFC] border border-[#DFE1E6] p-3.5 rounded-xl shadow-2xs">
             <div>
-              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0.5">STORE LOCATION</span>
-              <span class="font-semibold text-xs text-[#172B4D]">${row.storeLocation || '-'}</span>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0.5">DELIVERY TERMS</span>
+              <span class="font-semibold text-xs text-[#172B4D]">${row.deliveryTerms || '-'}</span>
             </div>
             <div>
-              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0.5">RECORDED QUANTITY</span>
-              <span class="font-mono font-bold text-xs text-[#00A4B7]">${Number(row.quantity || 0).toLocaleString()} ${row.unit || 'Nos'}</span>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0.5">TOTAL QUANTITY</span>
+              <span class="font-mono font-bold text-xs text-[#00A4B7]">${Number(row.totalQuantity || 0).toLocaleString()} KGs</span>
             </div>
             <div>
-              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0.5">INVOICED VALUE</span>
-              <span class="font-mono font-bold text-xs text-[#00875A]">₹${Number(row.totalInvoiced || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0.5">ADVANCE AMOUNT</span>
+              <span class="font-mono font-bold text-xs text-[#00875A]">${Number(row.advanceAmount || 0).toLocaleString('en-US', { minimumFractionDigits: 2 })}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0.5">COMMISSION</span>
+              <span class="font-mono font-bold text-xs text-[#172B4D]">${row.commissionPercent || 0}% (${Number(row.commissionValue || 0).toLocaleString('en-US', { minimumFractionDigits: 2 })})</span>
             </div>
           </div>
 
-          <!-- Description Card -->
+          <!-- Buyer & Document Notes -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-white border border-[#DFE1E6] p-3.5 rounded-xl shadow-2xs">
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BUYERS (OTHER THAN CONSIGNEE)</span>
+              <span class="font-semibold text-xs text-[#172B4D] block bg-[#F8FAFC] p-2 rounded border border-[#DFE1E6]">${row.buyerOtherThanConsignee || 'None'}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PO ATTACHMENT</span>
+              <div class="bg-[#F8FAFC] p-2 rounded border border-[#DFE1E6]">
+                ${row.poAttachment ? `
+                  <span class="inline-flex items-center gap-1.5 font-mono text-xs text-[#00A4B7] font-semibold">
+                    <svg class="w-3.5 h-3.5 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/></svg>
+                    ${row.poAttachment}
+                  </span>
+                ` : '<span class="text-[#94A3B8] italic">No document attached</span>'}
+              </div>
+            </div>
+          </div>
+
+          <!-- Amount In Words Card -->
           <div class="bg-white border border-[#DFE1E6] p-3.5 rounded-xl shadow-2xs">
-            <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ITEM DESCRIPTION</span>
-            <div class="font-semibold text-xs text-[#172B4D] bg-[#F8FAFC] p-2.5 rounded-lg border border-[#DFE1E6]">
-              ${row.itemDescription || '-'}
+            <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">AMOUNT IN WORDS</span>
+            <div class="font-semibold text-xs text-[#172B4D] italic bg-[#F8FAFC] p-2.5 rounded-lg border border-[#DFE1E6]">
+              ${row.amountInWords || '-'}
             </div>
           </div>
-
-          ${row.remarks ? `
-            <div class="bg-white border border-[#DFE1E6] p-3.5 rounded-xl shadow-2xs">
-              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">REMARKS</span>
-              <p class="text-xs text-[#5E6C84]">${row.remarks}</p>
-            </div>
-          ` : ''}
         </div>
       `,
       actions: [
