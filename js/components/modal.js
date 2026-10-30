@@ -144,8 +144,12 @@ export const Modal = {
     document.addEventListener('keydown', escHandler);
   },
 
-  show(title, content, size = 'md') {
-    this.open({ title, content, size });
+  show(titleOrOptions, content, size = 'md') {
+    if (typeof titleOrOptions === 'object' && titleOrOptions !== null) {
+      this.open(titleOrOptions);
+    } else {
+      this.open({ title: titleOrOptions, content, size });
+    }
   },
 
   close() {

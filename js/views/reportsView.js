@@ -1370,30 +1370,44 @@ export const ReportsView = {
     const entries = Object.entries(row)
       .filter(([k]) => k !== 'id' && !k.startsWith('__'))
       .map(([k, v]) => `
-        <div class="py-2 border-b border-[#F4F5F7] flex justify-between items-center text-xs">
+        <div class="py-2.5 border-b border-[#F1F5F9] flex justify-between items-center text-xs">
           <span class="font-semibold text-[#5E6C84] capitalize">${k.replace(/([A-Z])/g, ' $1').trim()}</span>
-          <span class="font-mono font-medium text-[#172B4D] text-right">${v !== null && v !== undefined ? v : '-'}</span>
+          <span class="font-mono font-medium text-[#172B4D] text-right">${v !== null && v !== undefined && v !== '' ? v : '-'}</span>
         </div>
       `).join('');
 
-    Modal.show({
+    Modal.open({
       title: `${typeLabel} - ${title}`,
+      size: 'lg',
       content: `
-        <div class="space-y-1">
-          <div class="bg-[#F8FAFC] p-3 rounded-lg border border-[#E2E8F0] mb-3">
-            <span class="text-xs text-[#00A4B7] font-bold block uppercase tracking-wider">${typeLabel} Dossier</span>
-            <span class="text-sm font-extrabold text-[#172B4D]">${title}</span>
+        <div class="space-y-3">
+          <div class="bg-[#F8FAFC] p-3.5 rounded-xl border border-[#E2E8F0] flex items-center justify-between">
+            <div>
+              <span class="text-[11px] text-[#00A4B7] font-bold block uppercase tracking-wider">${typeLabel}</span>
+              <span class="text-sm font-extrabold text-[#172B4D]">${title}</span>
+            </div>
+            <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-[#E0F2FE] text-[#0284C7]">Verified Record</span>
           </div>
-          <div class="max-h-[360px] overflow-y-auto px-1">
+          <div class="max-h-[380px] overflow-y-auto px-1">
             ${entries}
           </div>
         </div>
       `,
-      confirmText: 'Download PDF',
-      cancelText: 'Close',
-      onConfirm: () => {
-        Toast.show(`Downloading official export ledger for ${title}...`, 'success');
-      }
+      buttons: [
+        {
+          label: 'Close',
+          type: 'secondary',
+          onClick: (modal) => modal.close()
+        },
+        {
+          label: 'Download Report',
+          type: 'primary',
+          onClick: (modal) => {
+            modal.close();
+            Toast.show(`Downloading report document for ${title}...`, 'success');
+          }
+        }
+      ]
     });
   }
 };
