@@ -9672,15 +9672,15 @@ export const InventoryView = {
           </div>
         </form>
       `,
-      actions: [
+      footerButtons: [
         {
           label: 'Cancel',
-          variant: 'secondary',
+          type: 'secondary',
           onClick: () => Modal.close()
         },
         {
           label: 'Save Register Entry',
-          variant: 'primary',
+          type: 'primary',
           onClick: () => {
             const proNo = document.getElementById('reg-add-prono')?.value?.trim();
             const shipmentDate = document.getElementById('reg-add-shipdate')?.value;
@@ -9884,15 +9884,15 @@ export const InventoryView = {
           </div>
         </form>
       `,
-      actions: [
+      footerButtons: [
         {
           label: 'Cancel',
-          variant: 'secondary',
+          type: 'secondary',
           onClick: () => Modal.close()
         },
         {
           label: 'Update Register Entry',
-          variant: 'primary',
+          type: 'primary',
           onClick: () => {
             const shipmentDate = document.getElementById('reg-edit-shipdate')?.value;
             const poApprovalDate = document.getElementById('reg-edit-poappdate')?.value;
@@ -10063,10 +10063,10 @@ export const InventoryView = {
           </div>
         </div>
       `,
-      actions: [
+      footerButtons: [
         {
           label: 'Close',
-          variant: 'secondary',
+          type: 'secondary',
           onClick: () => Modal.close()
         }
       ]

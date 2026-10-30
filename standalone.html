@@ -5240,7 +5240,7 @@ const Modal = {
     }
   },
 
-  open({ title, content, footerButtons = [], buttons = [], size = 'md', confirmActions = true, onClose = null }) {
+  open({ title, content, footerButtons = [], buttons = [], actions = [], size = 'md', confirmActions = true, onClose = null }) {
     this.close();
 
     const sizeClasses = {
@@ -5260,15 +5260,16 @@ const Modal = {
     modalEl.id = 'erp-modal-root';
     modalEl.className = 'fixed inset-0 z-50 flex items-center justify-center p-4 drawer-backdrop';
     
-    const activeFooterButtons = (footerButtons && footerButtons.length > 0) ? footerButtons : (buttons || []);
+    const activeFooterButtons = (footerButtons && footerButtons.length > 0) ? footerButtons : ((buttons && buttons.length > 0) ? buttons : (actions || []));
     let buttonsHtml = '';
     activeFooterButtons.forEach((btn, idx) => {
-      const cls = btn.class || (btn.type === 'primary' 
-        ? 'btn-primary px-5 py-2 rounded-full text-sm font-bold' 
-        : btn.type === 'danger'
-        ? 'btn-danger px-5 py-2 rounded-full text-sm font-semibold' 
-        : 'btn-secondary px-5 py-2 rounded-full text-sm font-semibold');
-      buttonsHtml += `<button id="modal-btn-${idx}" class="${cls}">${btn.label}</button>`;
+      const btnType = btn.type || btn.variant || 'secondary';
+      const cls = btn.class || (btnType === 'primary' 
+        ? 'btn-primary px-5 py-2 rounded-full text-sm font-bold shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer' 
+        : btnType === 'danger'
+        ? 'btn-danger px-5 py-2 rounded-full text-sm font-semibold shadow-xs bg-[#DE350B] hover:bg-[#BF2600] text-white transition-all cursor-pointer' 
+        : 'btn-secondary px-5 py-2 rounded-full text-sm font-semibold border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#172B4D] transition-all cursor-pointer');
+      buttonsHtml += `<button id="modal-btn-${idx}" type="button" class="${cls}">${btn.label}</button>`;
     });
 
     modalEl.innerHTML = `
@@ -62515,15 +62516,15 @@ const InventoryView = {
           </div>
         </form>
       `,
-      actions: [
+      footerButtons: [
         {
           label: 'Cancel',
-          variant: 'secondary',
+          type: 'secondary',
           onClick: () => Modal.close()
         },
         {
           label: 'Save Register Entry',
-          variant: 'primary',
+          type: 'primary',
           onClick: () => {
             const proNo = document.getElementById('reg-add-prono')?.value?.trim();
             const shipmentDate = document.getElementById('reg-add-shipdate')?.value;
@@ -62727,15 +62728,15 @@ const InventoryView = {
           </div>
         </form>
       `,
-      actions: [
+      footerButtons: [
         {
           label: 'Cancel',
-          variant: 'secondary',
+          type: 'secondary',
           onClick: () => Modal.close()
         },
         {
           label: 'Update Register Entry',
-          variant: 'primary',
+          type: 'primary',
           onClick: () => {
             const shipmentDate = document.getElementById('reg-edit-shipdate')?.value;
             const poApprovalDate = document.getElementById('reg-edit-poappdate')?.value;
@@ -62906,10 +62907,10 @@ const InventoryView = {
           </div>
         </div>
       `,
-      actions: [
+      footerButtons: [
         {
           label: 'Close',
-          variant: 'secondary',
+          type: 'secondary',
           onClick: () => Modal.close()
         }
       ]
