@@ -63046,7 +63046,6 @@ const ReportsView = {
     const subContainer = document.getElementById('reports-subpage-content');
     if (!subContainer) return;
 
-    const submenuTitle = tabContext?.submenu?.title || 'Analytical Reports';
     const tabLabel = tabContext?.submenu?.tabs?.find(t => t.id === subPage)?.label || subPage.replace(/-/g, ' ');
 
     // Generate specific contextual dataset and columns based on active tab
@@ -63057,7 +63056,6 @@ const ReportsView = {
       <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-1">
         <div>
           <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">${tabLabel}</h1>
-          <p class="text-xs text-[#5E6C84] mt-0.5">${submenuTitle} — Comprehensive audit and analytical extract ledger</p>
         </div>
         <div class="flex items-center gap-2">
           <button type="button" id="rep-export-excel-btn" class="btn-primary px-3.5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer">
