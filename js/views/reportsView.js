@@ -102,41 +102,20 @@ export const ReportsView = {
         containerId: 'reports-table-container',
         container: tableContainer,
         tableTitle: `${typeLabel} (${data.length})`,
-        columns: reportData.columns,
+        columns: (reportData.columns || []).filter(c => c.field !== 'actions'),
         data: data,
         searchable: true,
         pageSize: 10,
-        selectable: false,
+        selectable: true,
         exportable: true,
         actionsTitle: 'Actions',
-        actions: reportData.actions || [
+        actions: [
           {
-            label: 'Edit',
-            title: 'Edit',
-            icon: `<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>`,
+            label: 'Download',
+            title: 'Download Report',
+            icon: `<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>`,
             onClick: (row) => {
-              this.showReportDetails(row, typeLabel);
-            }
-          },
-          {
-            label: 'Delete',
-            title: 'Delete',
-            icon: `<svg class="w-4 h-4 text-[#DE350B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>`,
-            onClick: (row) => {
-              Modal.confirm({
-                title: 'Delete Record',
-                message: `Are you sure you want to permanently delete record <strong>${row.docNo || row.poNo || row.billNo || row.orderNo}</strong>? This action cannot be undone.`,
-                confirmText: 'Delete',
-                isDestructive: true,
-                onConfirm: () => {
-                  const idx = reportData.rows.findIndex(r => r.id === row.id || (row.docNo && r.docNo === row.docNo));
-                  if (idx !== -1) {
-                    reportData.rows.splice(idx, 1);
-                    renderReportsTable(reportData.rows);
-                    Toast.show(`Record permanently deleted.`, 'success');
-                  }
-                }
-              });
+              Toast.show(`Downloading report for ${row.billNo || row.docNo || row.poNo || row.orderNo || 'record'}...`, 'success');
             }
           }
         ],
