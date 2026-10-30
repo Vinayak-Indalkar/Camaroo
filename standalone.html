@@ -63096,8 +63096,13 @@ const ReportsView = {
     subContainer.innerHTML = `
       <!-- Page Header -->
       <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-1">
-        <div>
+        <div class="flex items-center gap-3 flex-wrap">
           <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">${pageTitle}</h1>
+          <div class="w-64 sm:w-72">
+            <select id="rep-header-type" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              ${reportTypeOptionsHtml}
+            </select>
+          </div>
         </div>
       </div>
 
@@ -63175,12 +63180,26 @@ const ReportsView = {
 
     renderTable(reportData.rows);
 
-    // Report Type change listener
-    subContainer.querySelector('#rep-flt-type')?.addEventListener('change', (e) => {
-      currentReportType = e.target.value;
+    // Report Type change listeners (sync header & filter dropdowns)
+    const onReportTypeChange = (newType, sourceEl) => {
+      currentReportType = newType;
+      const headerSelect = subContainer.querySelector('#rep-header-type');
+      const fltSelect = subContainer.querySelector('#rep-flt-type');
+      if (headerSelect && headerSelect !== sourceEl) headerSelect.value = newType;
+      if (fltSelect && fltSelect !== sourceEl) fltSelect.value = newType;
+
       reportData = this.getReportData(submenuId, currentReportType, pageTitle);
       renderTable(reportData.rows);
-      Toast.show(`Loaded ${e.target.options[e.target.selectedIndex]?.text || currentReportType}`, 'info');
+      const text = sourceEl?.options ? sourceEl.options[sourceEl.selectedIndex]?.text : currentReportType;
+      Toast.show(`Loaded ${text || currentReportType}`, 'info');
+    };
+
+    subContainer.querySelector('#rep-header-type')?.addEventListener('change', (e) => {
+      onReportTypeChange(e.target.value, e.target);
+    });
+
+    subContainer.querySelector('#rep-flt-type')?.addEventListener('change', (e) => {
+      onReportTypeChange(e.target.value, e.target);
     });
 
     // Filter listeners
@@ -63194,14 +63213,21 @@ const ReportsView = {
     });
 
     subContainer.querySelector('#rep-flt-reset-btn')?.addEventListener('click', () => {
-      const typeSel = subContainer.querySelector('#rep-flt-type');
-      if (typeSel) {
-        typeSel.value = submenuId === 'sales-export-analytics' ? 'shipment-report' : 'ALL';
-      }
-      subContainer.querySelector('#rep-flt-search').value = '';
-      subContainer.querySelector('#rep-flt-from').value = '2026-10-01';
-      subContainer.querySelector('#rep-flt-to').value = '2026-10-30';
-      reportData = this.getReportData(submenuId, typeSel ? typeSel.value : 'ALL', pageTitle);
+      const defaultType = submenuId === 'sales-export-analytics' ? 'shipment-report' : 'ALL';
+      const headerSelect = subContainer.querySelector('#rep-header-type');
+      const fltSelect = subContainer.querySelector('#rep-flt-type');
+      if (headerSelect) headerSelect.value = defaultType;
+      if (fltSelect) fltSelect.value = defaultType;
+      currentReportType = defaultType;
+
+      const searchInput = subContainer.querySelector('#rep-flt-search');
+      if (searchInput) searchInput.value = '';
+      const fromInput = subContainer.querySelector('#rep-flt-from');
+      if (fromInput) fromInput.value = '2026-10-01';
+      const toInput = subContainer.querySelector('#rep-flt-to');
+      if (toInput) toInput.value = '2026-10-30';
+
+      reportData = this.getReportData(submenuId, defaultType, pageTitle);
       renderTable(reportData.rows);
     });
 
