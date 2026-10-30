@@ -30,12 +30,6 @@ export const ReportsView = {
         <div>
           <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">${tabLabel}</h1>
         </div>
-        <div class="flex items-center gap-2">
-          <button type="button" id="rep-export-excel-btn" class="btn-primary px-3.5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer">
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-            <span>Export Report</span>
-          </button>
-        </div>
       </div>
 
       <!-- Search & Filter Card (4-Column Layout) -->
@@ -94,6 +88,7 @@ export const ReportsView = {
         tableTitle: `${tabLabel} Records (${rows.length})`,
         searchable: true,
         exportable: true,
+        selectable: true,
         pageSize: 10,
         columns: reportData.columns,
         data: rows,
@@ -129,15 +124,19 @@ export const ReportsView = {
       }
     });
 
-    subContainer.querySelector('#rep-export-excel-btn')?.addEventListener('click', () => {
-      Toast.show(`Generating export extract for ${tabLabel}...`, 'info');
-      setTimeout(() => {
-        Toast.show(`${tabLabel} report downloaded successfully!`, 'success');
-      }, 700);
-    });
-
-    // Delegate row details button click
+    // Delegate row actions (download report extract & view details)
     subContainer.addEventListener('click', (e) => {
+      const dlBtn = e.target.closest('.rep-download-btn');
+      if (dlBtn) {
+        e.stopPropagation();
+        const id = dlBtn.getAttribute('data-id');
+        Toast.show(`Preparing export download for ${id}...`, 'info');
+        setTimeout(() => {
+          Toast.show(`Report ${id} downloaded successfully!`, 'success');
+        }, 600);
+        return;
+      }
+
       const viewBtn = e.target.closest('.rep-view-det-btn');
       if (viewBtn) {
         e.stopPropagation();
@@ -262,7 +261,7 @@ export const ReportsView = {
       `,
       footerButtons: [
         { label: 'Close', type: 'secondary', onClick: modal => modal.close() },
-        { label: 'Export Details', type: 'primary', onClick: () => { Toast.show(`Details for ${ref} exported successfully!`, 'success'); } }
+        { label: 'Download Details', type: 'primary', onClick: () => { Toast.show(`Details for ${ref} downloaded successfully!`, 'success'); } }
       ]
     });
   },
@@ -273,13 +272,19 @@ export const ReportsView = {
       field: 'actions',
       header: 'Actions',
       sortable: false,
-      render: (v, r) => `
-        <div class="inline-flex items-center justify-center gap-1.5">
-          <button type="button" class="rep-view-det-btn dt-action-btn w-7 h-7 inline-flex items-center justify-center rounded-full bg-white hover:bg-[#F0F9FF] text-[#00A4B7] border border-[#DFE1E6] hover:border-[#00A4B7] transition-all cursor-pointer shadow-2xs" data-id="${r.docNo || r.refNo || r.batchNo || r.testNo || r.palletRef || r.runId || r.billNo || r.invoiceNo || r.id}" title="View Details">
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-          </button>
-        </div>
-      `
+      render: (v, r) => {
+        const id = r.docNo || r.refNo || r.batchNo || r.testNo || r.palletRef || r.runId || r.billNo || r.invoiceNo || r.id;
+        return `
+          <div class="inline-flex items-center justify-center gap-1.5">
+            <button type="button" class="rep-download-btn dt-action-btn w-7 h-7 inline-flex items-center justify-center rounded-full bg-white hover:bg-[#F0F9FF] text-[#00A4B7] border border-[#DFE1E6] hover:border-[#00A4B7] transition-all cursor-pointer shadow-2xs" data-id="${id}" title="Download Report">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+            </button>
+            <button type="button" class="rep-view-det-btn dt-action-btn w-7 h-7 inline-flex items-center justify-center rounded-full bg-white hover:bg-[#F0F9FF] text-[#5E6C84] hover:text-[#00A4B7] border border-[#DFE1E6] hover:border-[#00A4B7] transition-all cursor-pointer shadow-2xs" data-id="${id}" title="View Details">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+            </button>
+          </div>
+        `;
+      }
     };
 
     let columns = [];
