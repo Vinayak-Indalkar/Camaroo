@@ -81,8 +81,18 @@ export class DataTable {
     this.render();
   }
 
+  isActionColumn(col) {
+    if (!col) return false;
+    const f = String(col.field || '').toLowerCase().trim();
+    const h = String(col.header || '').toLowerCase().trim();
+    return f === 'actions' || f === 'action' || f === '__actions__' || h === 'actions' || h === 'action' || col.sticky === 'right' || Boolean(col.isAction);
+  }
+
   getVisibleColumns() {
-    return this.columns.filter(c => !this.hiddenColumns.has(c.field));
+    const cols = this.columns.filter(c => !this.hiddenColumns.has(c.field));
+    const nonActionCols = cols.filter(c => !this.isActionColumn(c));
+    const actionCols = cols.filter(c => this.isActionColumn(c));
+    return [...nonActionCols, ...actionCols];
   }
 
   showRowDetails(row) {
@@ -451,19 +461,23 @@ export class DataTable {
     }
 
     visibleCols.forEach(col => {
+      const isAction = this.isActionColumn(col);
       const isSorted = this.sortColumn === col.field;
       const sortIcon = isSorted 
         ? (this.sortDirection === 'asc' ? '↑' : '↓')
         : '';
       
-      const sortClass = col.sortable !== false ? 'cursor-pointer hover:bg-[#EBECF0] transition-colors select-none' : '';
-      const customWidth = this.colWidths[col.field] ? `style="width: ${this.colWidths[col.field]}px; min-width: ${this.colWidths[col.field]}px; max-width: ${this.colWidths[col.field]}px;"` : '';
+      const sortClass = col.sortable !== false && !isAction ? 'cursor-pointer hover:bg-[#EBECF0] transition-colors select-none' : '';
+      const actionClass = isAction ? 'sticky-action-col text-center' : '';
+      const customWidth = this.colWidths[col.field] 
+        ? `style="width: ${this.colWidths[col.field]}px; min-width: ${this.colWidths[col.field]}px; max-width: ${this.colWidths[col.field]}px; ${isAction ? 'position: sticky !important; right: 0 !important; z-index: 20 !important;' : ''}"` 
+        : (isAction ? 'style="min-width: 120px; position: sticky !important; right: 0 !important; z-index: 20 !important;"' : '');
 
       html += `
-        <th data-field="${col.field}" class="${sortClass} relative" ${customWidth}>
-          <div class="flex items-center gap-1.5 pr-2">
+        <th data-field="${col.field}" class="${sortClass} ${actionClass} relative" ${customWidth}>
+          <div class="flex items-center gap-1.5 pr-2 ${isAction ? 'justify-center w-full' : ''}">
             <span>${col.header}</span>
-            <span class="text-xs text-[#0284C7] font-bold">${sortIcon}</span>
+            ${sortIcon ? `<span class="text-xs text-[#0284C7] font-bold">${sortIcon}</span>` : ''}
           </div>
           <div class="dt-col-resizer" title="Drag to resize column (Double-click to reset)"></div>
         </th>
@@ -608,6 +622,7 @@ export class DataTable {
       }
 
       visibleCols.forEach(col => {
+        const isAction = this.isActionColumn(col);
         let cellVal = row[col.field];
         let content = cellVal !== undefined && cellVal !== null ? cellVal : '-';
 
@@ -629,7 +644,12 @@ export class DataTable {
           rawPlainText = String(cellVal).trim();
         }
 
-        rowsHtml += `<td title="${rawPlainText.replace(/"/g, '&quot;')}" class="truncate">${content}</td>`;
+        if (isAction) {
+          const actionStyle = 'min-width: 120px; position: sticky !important; right: 0 !important; z-index: 10 !important; text-align: center !important; overflow: visible !important;';
+          rowsHtml += `<td class="text-center whitespace-nowrap sticky-action-col" style="${actionStyle}" data-field="${col.field}">${content}</td>`;
+        } else {
+          rowsHtml += `<td title="${rawPlainText.replace(/"/g, '&quot;')}" class="truncate" data-field="${col.field}">${content}</td>`;
+        }
       });
 
       if (this.actions.length > 0) {

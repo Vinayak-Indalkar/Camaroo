@@ -39,7 +39,7 @@ export const ReportsView = {
     if (!subContainer) return;
 
     const reportTypeOptionsHtml = this.getReportTypeOptions(submenuId);
-    let currentReportType = submenuId === 'sales-export-analytics' ? 'pending-contracts' : 'ALL';
+    let currentReportType = submenuId === 'sales-export-analytics' ? 'pending-contracts' : (submenuId === 'purchase-reports' || submenuId.includes('purchase') ? 'purchase-report' : 'ALL');
 
     // Generate specific contextual dataset and columns based on active submenu & report type
     let reportData = this.getReportData(submenuId, currentReportType, pageTitle);
@@ -233,10 +233,21 @@ export const ReportsView = {
       'lineitemwise-report': 'Shipment LineItemwise Report',
       'return-container': 'Return Container Report',
       'freight-rates': 'Freight Rates Report',
-      'inward': 'RM Inward & Arrivals',
-      'procurement': 'Supplier Procurement Report',
-      'valuation': 'Lot Valuation & Tracking',
-      'bills': 'Bills & Payment Status',
+'purchase-report': 'Purchase Report',
+      'purchase-count-wise': 'Purchase Count Wise',
+      'center-wise-report': 'Center Wise Report',
+      'supplier-bill-summary': 'Supplier Bill Summary',
+      'center-wise-abstract': 'Center Wise Abstract Report',
+      'date-wise-abstract': 'Date Wise Abstract Report',
+      'supplier-wise-outstanding': 'Supplier Wise Outstanding Report',
+      'monthly-abstract': 'Monthly Abstract Report',
+      'bill-date-payment-summary': 'Bill & Date Wise Payment Summary',
+      'supplier-wise-abstract': 'Supplier Wise Abstract Report',
+      'supplier-bill-outstanding': 'Supplier & Bill Wise Outstanding Amount',
+      'supplier-wise-ledger': 'Supplier Wise Ledger',
+      'company-wise-tds': 'Company Wise TDS Report',
+      'arrival-report': 'Arrival Report',
+      'agent-commission': 'Agent Commission Report',
       'deheading': 'Deheading & Grading',
       'peeling': 'Peeling & Recovery Report',
       'chemicals': 'Chemicals & Consumption',
@@ -280,13 +291,23 @@ export const ReportsView = {
         <option value="freight-rates">Freight Rates Report</option>
       `;
     }
-    if (submenuId === 'purchase-reports' || submenuId.includes('purchase')) {
+        if (submenuId === 'purchase-reports' || submenuId.includes('purchase')) {
       return `
-        <option value="ALL" selected>All Purchase Reports</option>
-        <option value="inward">RM Inward & Arrivals</option>
-        <option value="procurement">Supplier Procurement Report</option>
-        <option value="valuation">Lot Valuation & Tracking</option>
-        <option value="bills">Bills & Payment Status</option>
+        <option value="purchase-report" selected>Purchase Report</option>
+        <option value="purchase-count-wise">Purchase Count Wise</option>
+        <option value="center-wise-report">Center Wise Report</option>
+        <option value="supplier-bill-summary">Supplier Bill Summary</option>
+        <option value="center-wise-abstract">Center Wise Abstract Report</option>
+        <option value="date-wise-abstract">Date Wise Abstract Report</option>
+        <option value="supplier-wise-outstanding">Supplier Wise Outstanding Report</option>
+        <option value="monthly-abstract">Monthly Abstract Report</option>
+        <option value="bill-date-payment-summary">Bill & Date Wise Payment Summary</option>
+        <option value="supplier-wise-abstract">Supplier Wise Abstract Report</option>
+        <option value="supplier-bill-outstanding">Supplier & Bill Wise Outstanding Amount</option>
+        <option value="supplier-wise-ledger">Supplier Wise Ledger</option>
+        <option value="company-wise-tds">Company Wise TDS Report</option>
+        <option value="arrival-report">Arrival Report</option>
+        <option value="agent-commission">Agent Commission Report</option>
       `;
     }
     if (submenuId === 'preprocessing-reports' || submenuId.includes('preproc')) {
@@ -579,31 +600,166 @@ export const ReportsView = {
       `;
     }
 
-    // ----------------------------------------------------
-    // 2. Purchase Reports
+        // ----------------------------------------------------
+    // 2. Purchase Reports (15 Tailored Types)
     // ----------------------------------------------------
     if (submenuId === 'purchase-reports' || submenuId.includes('purchase')) {
-      if (type === 'inward') {
+      if (type === 'purchase-report' || type === 'arrival-report') {
         return `
           <div>
-            <label for="flt-supplier" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Supplier / Farmer</label>
-            <input type="text" id="flt-supplier" placeholder="Farmer name..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            <label for="flt-supplier" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Select Supplier / Farmer</label>
+            <input type="text" id="flt-supplier" placeholder="Search farmer name..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
           </div>
           <div>
-            <label for="flt-variety" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Raw Material Variety</label>
+            <label for="flt-chamber" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Purchase Center</label>
+            <select id="flt-chamber" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL" selected>All Centers</option>
+              <option value="Bhimavaram">Bhimavaram Center</option>
+              <option value="Machilipatnam">Machilipatnam Center</option>
+              <option value="Narsapur">Narsapur Center</option>
+              <option value="Bapatla">Bapatla Center</option>
+              <option value="Ongole">Ongole Center</option>
+            </select>
+          </div>
+          <div>
+            <label for="flt-variety" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Variety</label>
             <select id="flt-variety" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
               <option value="ALL" selected>All Varieties</option>
               <option value="Vannamei Fresh">Vannamei Fresh</option>
               <option value="Black Tiger">Black Tiger</option>
-              <option value="Sea Catch">Sea Catch White</option>
+              <option value="Sea White">Sea White</option>
             </select>
           </div>
           <div>
-            <label for="rep-flt-from" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Arrival Date</label>
-            <input type="date" id="rep-flt-from" value="2026-10-28" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
+            <label for="rep-flt-from" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">From Date</label>
+            <input type="date" id="rep-flt-from" value="2026-10-01" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
           </div>
         `;
       }
+      if (type === 'purchase-count-wise') {
+        return `
+          <div>
+            <label for="flt-grade" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Count / Grade Range</label>
+            <select id="flt-grade" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL" selected>All Counts</option>
+              <option value="16/20">16/20 (Extra Large)</option>
+              <option value="20/25">20/25 (Large)</option>
+              <option value="25/30">25/30 (Medium Large)</option>
+              <option value="30/40">30/40 (Medium)</option>
+              <option value="40/50">40/50 (Regular)</option>
+              <option value="50/60">50/60 (Small)</option>
+            </select>
+          </div>
+          <div>
+            <label for="flt-variety" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">RM Species</label>
+            <select id="flt-variety" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL" selected>All Species</option>
+              <option value="Vannamei Fresh">Vannamei Fresh</option>
+              <option value="Black Tiger">Black Tiger</option>
+            </select>
+          </div>
+          <div>
+            <label for="rep-flt-from" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">From Date</label>
+            <input type="date" id="rep-flt-from" value="2026-10-01" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
+          </div>
+        `;
+      }
+      if (type === 'center-wise-report' || type === 'center-wise-abstract') {
+        return `
+          <div>
+            <label for="flt-chamber" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Purchase Center</label>
+            <select id="flt-chamber" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL" selected>All Centers</option>
+              <option value="Bhimavaram">Bhimavaram Procurement Hub</option>
+              <option value="Machilipatnam">Machilipatnam Delta Center</option>
+              <option value="Narsapur">Narsapur Coastal Station</option>
+              <option value="Bapatla">Bapatla Buying Station</option>
+              <option value="Ongole">Ongole Depot</option>
+            </select>
+          </div>
+          <div>
+            <label for="rep-flt-from" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">From Date</label>
+            <input type="date" id="rep-flt-from" value="2026-10-01" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
+          </div>
+          <div>
+            <label for="rep-flt-to" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">To Date</label>
+            <input type="date" id="rep-flt-to" value="2026-10-30" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
+          </div>
+        `;
+      }
+      if (type === 'supplier-bill-summary' || type === 'supplier-wise-outstanding' || type === 'supplier-bill-outstanding' || type === 'supplier-wise-ledger') {
+        return `
+          <div>
+            <label for="flt-supplier" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Supplier / Farmer</label>
+            <input type="text" id="flt-supplier" placeholder="Farmer or Ledger Ref..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+          <div>
+            <label for="flt-pay-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Bill / Settlement Status</label>
+            <select id="flt-pay-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL" selected>All Bills</option>
+              <option value="Outstanding">Outstanding Amount</option>
+              <option value="Cleared">Direct NEFT Cleared</option>
+              <option value="Pending">Pending Audit Clearance</option>
+            </select>
+          </div>
+          <div>
+            <label for="rep-flt-from" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">From Date</label>
+            <input type="date" id="rep-flt-from" value="2026-10-01" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
+          </div>
+        `;
+      }
+      if (type === 'company-wise-tds') {
+        return `
+          <div>
+            <label for="flt-year" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Assessment Year</label>
+            <select id="flt-year" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="2026-2027" selected>AY 2026 - 2027</option>
+              <option value="2025-2026">AY 2025 - 2026</option>
+            </select>
+          </div>
+          <div>
+            <label for="flt-pay-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">TDS Section</label>
+            <select id="flt-pay-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL" selected>All TDS Sections</option>
+              <option value="194Q">Section 194Q (Purchase of Goods)</option>
+              <option value="194C">Section 194C (Contractor Transport)</option>
+            </select>
+          </div>
+        `;
+      }
+      if (type === 'agent-commission') {
+        return `
+          <div>
+            <label for="flt-supplier" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Procurement Agent</label>
+            <input type="text" id="flt-supplier" placeholder="Agent name or code..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+          <div>
+            <label for="flt-chamber" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Agent Cluster</label>
+            <select id="flt-chamber" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL" selected>All Agent Clusters</option>
+              <option value="Bhimavaram">Bhimavaram</option>
+              <option value="Machilipatnam">Machilipatnam</option>
+              <option value="Bapatla">Bapatla</option>
+            </select>
+          </div>
+        `;
+      }
+      // General Purchase Filter
+      return `
+        <div>
+          <label for="rep-flt-search" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SEARCH</label>
+          <input type="text" id="rep-flt-search" placeholder="Search reference, lot, supplier..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+        </div>
+        <div>
+          <label for="rep-flt-from" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FROM DATE</label>
+          <input type="date" id="rep-flt-from" value="2026-10-01" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
+        </div>
+        <div>
+          <label for="rep-flt-to" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">TO DATE</label>
+          <input type="date" id="rep-flt-to" value="2026-10-30" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
+        </div>
+      `;
+    }
       if (type === 'procurement') {
         return `
           <div>
@@ -1176,75 +1332,132 @@ export const ReportsView = {
       }
     }
 
-    // ==========================================
-    // 2. Purchase Reports
+        // ==========================================
+    // 2. Purchase Reports (15 Distinct Types with Actions Column)
     // ==========================================
     else if (submenuId === 'purchase-reports' || submenuId.includes('purchase')) {
-      if (reportType === 'inward') {
+      const actionCol = {
+        field: 'actions',
+        header: 'Actions',
+        sortable: false,
+        render: (v, r) => `
+          <div class="flex items-center gap-1.5 justify-center">
+            <button type="button" class="btn-pc-view p-1.5 rounded hover:bg-[#EBECF0] text-[#00A4B7] transition-colors cursor-pointer" data-id="${r.id}" title="View Details">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+            </button>
+            <button type="button" class="btn-pc-download p-1.5 rounded hover:bg-[#EBECF0] text-[#107C41] transition-colors cursor-pointer" data-id="${r.id}" title="Download Report">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+            </button>
+          </div>
+        `
+      };
+
+      if (reportType === 'purchase-count-wise') {
         columns = [
           { field: 'sNo', header: 'S No.', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
-          { field: 'docNo', header: 'GRN / Inward No', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer">${v}</span>` },
-          { field: 'date', header: 'Arrival Time', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">${v}</span>` },
-          { field: 'supplier', header: 'Farmer / Supplier', sortable: true, render: (v, r) => `<div class="flex flex-col"><span class="font-semibold text-xs text-[#172B4D]">${v}</span><span class="text-[10px] text-[#5E6C84]">${r.location}</span></div>` },
-          { field: 'vehicleNo', header: 'Vehicle No', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'count', header: 'Count / Size', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">${v}</span>` },
           { field: 'variety', header: 'RM Variety', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-medium bg-[#F1F5F9] text-[#172B4D]">${v}</span>` },
-          { field: 'netWeight', header: 'Gross Wt (Kg)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#172B4D]">${Number(v).toLocaleString()}</span>` },
-          { field: 'status', header: 'Weighbridge Status', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` }
+          { field: 'totalLots', header: 'Total Lots', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'netWeight', header: 'Total Qty (Kg)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#172B4D]">${Number(v).toLocaleString()}</span>` },
+          { field: 'avgRate', header: 'Avg Rate / Kg', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">₹${Number(v).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>` },
+          { field: 'totalAmount', header: 'Total Purchase Value', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">₹${Number(v).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>` },
+          actionCol
         ];
         rows = [
-          { id: 1, docNo: 'INW-2026-1044', date: '2026-10-28 06:30 AM', supplier: 'Sri Sai Ram Aqua Farm', location: 'Bhimavaram Cluster', vehicleNo: 'AP 39 TK 4821', variety: 'Vannamei Fresh', netWeight: 8450, status: 'Weighed & Staged' },
-          { id: 2, docNo: 'INW-2026-1045', date: '2026-10-28 07:15 AM', supplier: 'Krishna Delta Aqua Producers', location: 'Machilipatnam Hub', vehicleNo: 'AP 16 Z 8902', variety: 'Black Tiger', netWeight: 6200, status: 'Weighed & Staged' },
-          { id: 3, docNo: 'INW-2026-1046', date: '2026-10-27 05:45 AM', supplier: 'Godavari Coastal Farms Ltd', location: 'Narsapur Zone', vehicleNo: 'AP 37 TT 1190', variety: 'Vannamei Fresh', netWeight: 9800, status: 'Completed' }
+          { id: 1, count: '16/20', variety: 'Vannamei Fresh', totalLots: 8, netWeight: 14200, avgRate: 460.00, totalAmount: 6532000 },
+          { id: 2, count: '20/25', variety: 'Black Tiger', totalLots: 6, netWeight: 9800, avgRate: 550.00, totalAmount: 5390000 },
+          { id: 3, count: '30/40', variety: 'Vannamei Fresh', totalLots: 18, netWeight: 32400, avgRate: 320.00, totalAmount: 10368000 },
+          { id: 4, count: '40/50', variety: 'Vannamei Fresh', totalLots: 12, netWeight: 24100, avgRate: 290.00, totalAmount: 6989000 }
         ];
-      } else if (reportType === 'procurement') {
+      } else if (reportType === 'center-wise-report' || reportType === 'center-wise-abstract') {
         columns = [
           { field: 'sNo', header: 'S No.', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
-          { field: 'supplier', header: 'Farmer / Cluster', sortable: true, render: (v, r) => `<div class="flex flex-col"><span class="font-semibold text-xs text-[#172B4D]">${v}</span><span class="text-[10px] text-[#5E6C84]">${r.location}</span></div>` },
-          { field: 'pondCode', header: 'Pond Ref', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${v}</span>` },
-          { field: 'count', header: 'Harvest Count', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">${v}</span>` },
-          { field: 'netWeight', header: 'Total Harvest (Kg)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#172B4D]">${Number(v).toLocaleString()}</span>` },
+          { field: 'chamber', header: 'Procurement Center', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'incharge', header: 'Center In-Charge', sortable: true, render: v => `<span class="text-xs text-[#5E6C84]">${v}</span>` },
+          { field: 'totalLots', header: 'Received Lots', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${v}</span>` },
+          { field: 'netWeight', header: 'Net Weight (Kg)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#172B4D]">${Number(v).toLocaleString()}</span>` },
           { field: 'grossVal', header: 'Gross Value', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">₹${Number(v).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>` },
-          { field: 'status', header: 'Field Clearance', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` }
+          { field: 'status', header: 'Center Status', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` },
+          actionCol
         ];
         rows = [
-          { id: 1, supplier: 'Sri Sai Ram Aqua Farm', location: 'Bhimavaram Cluster', pondCode: 'POND-BM-04', count: '30/40', netWeight: 8450, grossVal: 2704000, status: 'Harvest Passed' },
-          { id: 2, supplier: 'Krishna Delta Aqua Producers', location: 'Machilipatnam Hub', pondCode: 'POND-MC-11', count: '20/25', netWeight: 6200, grossVal: 3410000, status: 'Harvest Passed' }
+          { id: 1, chamber: 'Bhimavaram Procurement Hub', incharge: 'K. R. V. Prasad', totalLots: 24, netWeight: 48500, grossVal: 15520000, status: 'Active Hub' },
+          { id: 2, chamber: 'Machilipatnam Delta Center', incharge: 'N. Satyanarayana', totalLots: 19, netWeight: 36200, grossVal: 12670000, status: 'Active Hub' },
+          { id: 3, chamber: 'Narsapur Coastal Station', incharge: 'P. V. Subbarao', totalLots: 15, netWeight: 28400, grossVal: 9088000, status: 'Active Hub' },
+          { id: 4, chamber: 'Bapatla Buying Station', incharge: 'Ch. Venkat', totalLots: 12, netWeight: 22100, grossVal: 7735000, status: 'Active Hub' }
         ];
-      } else if (reportType === 'bills') {
+      } else if (reportType === 'supplier-bill-summary' || reportType === 'supplier-wise-ledger') {
         columns = [
           { field: 'sNo', header: 'S No.', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
-          { field: 'billNo', header: 'Bill Reference', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer">${v}</span>` },
-          { field: 'supplier', header: 'Payee / Farmer', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
-          { field: 'billDate', header: 'Bill Date', sortable: true, render: v => `<span class="font-mono text-xs text-[#5E6C84]">${v}</span>` },
-          { field: 'netPayable', header: 'Net Disbursed', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">₹${Number(v).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>` },
-          { field: 'bankTxn', header: 'Bank NEFT Ref', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">${v}</span>` },
-          { field: 'status', header: 'Payment Status', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` }
+          { field: 'supplier', header: 'Farmer / Supplier', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'chamber', header: 'Center', sortable: true, render: v => `<span class="text-xs text-[#5E6C84]">${v}</span>` },
+          { field: 'billCount', header: 'Total Bills', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D] font-bold">${v}</span>` },
+          { field: 'totalBilled', header: 'Billed Amount', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">₹${Number(v).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>` },
+          { field: 'paidAmount', header: 'Paid via NEFT', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">₹${Number(v).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>` },
+          { field: 'outstanding', header: 'Balance Outstanding', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#DE350B]">₹${Number(v).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>` },
+          { field: 'status', header: 'Settlement Status', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` },
+          actionCol
         ];
         rows = [
-          { id: 1, billNo: 'BILL-AQ-2026-901', supplier: 'Sri Sai Ram Aqua Farm', billDate: '2026-10-28', netPayable: 2704000, bankTxn: 'NEFT-SBI-89201948', status: 'Direct NEFT Paid' },
-          { id: 2, billNo: 'BILL-AQ-2026-902', supplier: 'Krishna Delta Aqua Producers', billDate: '2026-10-28', netPayable: 3410000, bankTxn: 'NEFT-HDFC-3109283', status: 'Direct NEFT Paid' }
+          { id: 1, supplier: 'Sri Sai Ram Aqua Farm', chamber: 'Bhimavaram', billCount: 4, totalBilled: 8120000, paidAmount: 8120000, outstanding: 0, status: 'Fully Settled' },
+          { id: 2, supplier: 'Krishna Delta Aqua Producers', chamber: 'Machilipatnam', billCount: 3, totalBilled: 6850000, paidAmount: 5000000, outstanding: 1850000, status: 'Partially Outstanding' },
+          { id: 3, supplier: 'Godavari Coastal Farms Ltd', chamber: 'Narsapur', billCount: 5, totalBilled: 11400000, paidAmount: 11400000, outstanding: 0, status: 'Fully Settled' }
+        ];
+      } else if (reportType === 'company-wise-tds') {
+        columns = [
+          { field: 'sNo', header: 'S No.', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
+          { field: 'pan', header: 'Farmer / Entity PAN', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${v}</span>` },
+          { field: 'supplier', header: 'Deductee Name', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'section', header: 'TDS Section', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#F4F5F7] text-[#172B4D] border border-[#DFE1E6]">${v}</span>` },
+          { field: 'grossVal', header: 'Gross Purchase', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">₹${Number(v).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>` },
+          { field: 'tdsRate', header: 'Rate %', sortable: true, render: v => `<span class="font-mono text-xs text-[#5E6C84]">${v}%</span>` },
+          { field: 'tdsAmount', header: 'TDS Deducted', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#DE350B]">₹${Number(v).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>` },
+          { field: 'status', header: 'Challan Status', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` },
+          actionCol
+        ];
+        rows = [
+          { id: 1, pan: 'ABCDE1234F', supplier: 'Sri Sai Ram Aqua Farm', section: '194Q', grossVal: 8120000, tdsRate: 0.1, tdsAmount: 8120, status: 'Challan Deposited' },
+          { id: 2, pan: 'XYZPA9876K', supplier: 'Krishna Delta Aqua Producers', section: '194Q', grossVal: 6850000, tdsRate: 0.1, tdsAmount: 6850, status: 'Challan Deposited' }
+        ];
+      } else if (reportType === 'agent-commission') {
+        columns = [
+          { field: 'sNo', header: 'S No.', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
+          { field: 'agentCode', header: 'Agent Code', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${v}</span>` },
+          { field: 'supplier', header: 'Agent Name', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'chamber', header: 'Procurement Cluster', sortable: true, render: v => `<span class="text-xs text-[#5E6C84]">${v}</span>` },
+          { field: 'procuredQty', header: 'Brokered Qty (Kg)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#172B4D]">${Number(v).toLocaleString()}</span>` },
+          { field: 'commRate', header: 'Commission / Kg', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">₹${v.toFixed(2)}</span>` },
+          { field: 'totalComm', header: 'Commission Amount', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">₹${Number(v).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>` },
+          { field: 'status', header: 'Payout Status', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` },
+          actionCol
+        ];
+        rows = [
+          { id: 1, agentCode: 'AGT-BM-01', supplier: 'M. S. Raju (Bhimavaram Agro)', chamber: 'Bhimavaram', procuredQty: 64200, commRate: 2.50, totalComm: 160500, status: 'Commission Disbursed' },
+          { id: 2, agentCode: 'AGT-MC-04', supplier: 'Ch. Veerabhadra Rao', chamber: 'Machilipatnam', procuredQty: 48900, commRate: 2.50, totalComm: 122250, status: 'Commission Disbursed' }
         ];
       } else {
-        // Standard General Purchase Ledger
+        // Standard General Purchase Report / Arrival Report
         columns = [
           { field: 'sNo', header: 'S No.', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
           { field: 'docNo', header: 'GRN / Arrival No', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer" title="Click to view details">${v}</span>` },
           { field: 'date', header: 'Arrival Date', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">${v}</span>` },
-          { field: 'supplier', header: 'Supplier / Farmer', sortable: true, render: (v, r) => `<div class="flex flex-col"><span class="font-semibold text-xs text-[#172B4D]">${v}</span><span class="text-[10px] text-[#5E6C84]">${r.location}</span></div>` },
+          { field: 'supplier', header: 'Supplier / Farmer', sortable: true, render: (v, r) => `<div class="flex flex-col"><span class="font-semibold text-xs text-[#172B4D]">${v}</span><span class="text-[10px] text-[#5E6C84]">${r.chamber || r.location || 'Procurement Hub'}</span></div>` },
           { field: 'lotNo', header: 'Lot No', sortable: true, render: v => `<span class="font-mono text-xs text-[#00A4B7] font-semibold">${v}</span>` },
           { field: 'variety', header: 'Variety', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-medium bg-[#F1F5F9] text-[#172B4D]">${v}</span>` },
           { field: 'count', header: 'Count / Size', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D] font-bold">${v}</span>` },
           { field: 'netWeight', header: 'Net Wt (Kg)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#172B4D]">${Number(v).toLocaleString()}</span>` },
           { field: 'grossVal', header: 'Gross Value', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">₹${Number(v).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>` },
-          { field: 'qcStatus', header: 'QC Status', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` }
+          { field: 'qcStatus', header: 'QC Status', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` },
+          actionCol
         ];
         rows = [
-          { id: 1, docNo: 'ARR-2026-1044', date: '2026-10-28', supplier: 'Sri Sai Ram Aqua Farm', location: 'Bhimavaram Cluster', lotNo: 'LOT-2026-0912', variety: 'Vannamei Fresh', count: '30/40', netWeight: 8450, grossVal: 2704000, qcStatus: 'Passed Grade A' },
-          { id: 2, docNo: 'ARR-2026-1045', date: '2026-10-28', supplier: 'Krishna Delta Aqua Producers', location: 'Machilipatnam Hub', lotNo: 'LOT-2026-0913', variety: 'Black Tiger', count: '20/25', netWeight: 6200, grossVal: 3410000, qcStatus: 'Passed Grade A' },
-          { id: 3, docNo: 'ARR-2026-1046', date: '2026-10-27', supplier: 'Godavari Coastal Farms Ltd', location: 'Narsapur Zone', lotNo: 'LOT-2026-0914', variety: 'Vannamei Fresh', count: '40/50', netWeight: 9800, grossVal: 2842000, qcStatus: 'Passed Grade A' },
-          { id: 4, docNo: 'ARR-2026-1047', date: '2026-10-26', supplier: 'Suryalanka Marine Culture', location: 'Bapatla Belt', lotNo: 'LOT-2026-0915', variety: 'Vannamei Fresh', count: '25/30', netWeight: 11200, grossVal: 3920000, qcStatus: 'Passed Grade A' }
+          { id: 1, docNo: 'ARR-2026-1044', date: '2026-10-28', supplier: 'Sri Sai Ram Aqua Farm', chamber: 'Bhimavaram Hub', lotNo: 'LOT-2026-0912', variety: 'Vannamei Fresh', count: '30/40', netWeight: 8450, grossVal: 2704000, qcStatus: 'Passed Grade A' },
+          { id: 2, docNo: 'ARR-2026-1045', date: '2026-10-28', supplier: 'Krishna Delta Aqua Producers', chamber: 'Machilipatnam Hub', lotNo: 'LOT-2026-0913', variety: 'Black Tiger', count: '20/25', netWeight: 6200, grossVal: 3410000, qcStatus: 'Passed Grade A' },
+          { id: 3, docNo: 'ARR-2026-1046', date: '2026-10-27', supplier: 'Godavari Coastal Farms Ltd', chamber: 'Narsapur Zone', lotNo: 'LOT-2026-0914', variety: 'Vannamei Fresh', count: '40/50', netWeight: 9800, grossVal: 2842000, qcStatus: 'Passed Grade A' },
+          { id: 4, docNo: 'ARR-2026-1047', date: '2026-10-26', supplier: 'Suryalanka Marine Culture', chamber: 'Bapatla Belt', lotNo: 'LOT-2026-0915', variety: 'Vannamei Fresh', count: '25/30', netWeight: 11200, grossVal: 3920000, qcStatus: 'Passed Grade A' }
         ];
       }
+    }
     }
 
     // ==========================================
