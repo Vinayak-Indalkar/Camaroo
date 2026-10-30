@@ -4,22 +4,12 @@ import { Toast } from '../components/toast.js';
 
 export const ReportsView = {
   render(container, submenuId = 'sales-export-analytics', pageTitle = 'Reports') {
-    let currentReportType = submenuId === 'sales-export-analytics' || submenuId.includes('sales')
-      ? 'pending-contracts'
-      : (submenuId === 'purchase-reports' || submenuId.includes('purchase')
-        ? 'purchase-report'
-        : (submenuId === 'preprocessing-reports' || submenuId.includes('preproc')
-          ? 'rm-received-daywise'
-          : (submenuId === 'quality-reports' || submenuId.includes('quality') || submenuId.includes('qc')
-            ? 'buyer-request-list'
-            : (submenuId === 'production-analytics' || submenuId.includes('production')
-              ? 'soaking-floor-balance'
-              : (submenuId === 'coldstore-analytics' || submenuId.includes('coldstore')
-                ? 'rm-req'
-                : 'ALL')))));
+    const isSales = submenuId === 'sales-export-analytics' || submenuId.includes('sales');
+    let currentReportType = isSales ? 'pending-contracts' : 'ALL';
 
-    const reportTypeOptionsHtml = this.getReportTypeOptions(submenuId);
+    const reportTypeOptionsHtml = isSales ? this.getReportTypeOptions(submenuId) : '';
     let reportData = this.getReportData(submenuId, currentReportType, pageTitle);
+    const activeTitle = isSales ? this.getReportTypeLabel(submenuId, currentReportType, pageTitle) : pageTitle;
 
     container.innerHTML = `
       <div class="space-y-4">
@@ -31,17 +21,19 @@ export const ReportsView = {
               <span>/</span>
               <span class="font-medium text-[#172B4D]">${pageTitle}</span>
             </div>
-            <h1 class="text-xl font-bold text-[#172B4D]" id="rep-page-title">${this.getReportTypeLabel(submenuId, currentReportType, pageTitle)}</h1>
+            <h1 class="text-xl font-bold text-[#172B4D]" id="rep-page-title">${activeTitle}</h1>
           </div>
           
           <div class="flex items-center gap-2 flex-wrap sm:flex-nowrap">
-            <!-- REPORT TYPE SELECTOR -->
-            <div class="flex items-center gap-2">
-              <label for="rep-flt-type" class="text-xs font-bold text-[#5E6C84] whitespace-nowrap uppercase tracking-wider">Report Type:</label>
-              <select id="rep-flt-type" class="text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs min-w-[220px]">
-                ${reportTypeOptionsHtml}
-              </select>
-            </div>
+            ${isSales ? `
+              <!-- REPORT TYPE SELECTOR (Sales & Export Analytics Only) -->
+              <div class="flex items-center gap-2">
+                <label for="rep-flt-type" class="text-xs font-bold text-[#5E6C84] whitespace-nowrap uppercase tracking-wider">Report Type:</label>
+                <select id="rep-flt-type" class="text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs min-w-[220px]">
+                  ${reportTypeOptionsHtml}
+                </select>
+              </div>
+            ` : ''}
             
             <button id="rep-btn-export" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-[#DFE1E6] hover:bg-[#F4F5F7] rounded text-xs font-semibold text-[#172B4D] transition-colors shadow-2xs">
               <svg class="w-3.5 h-3.5 text-[#5E6C84]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
@@ -54,14 +46,14 @@ export const ReportsView = {
           </div>
         </div>
 
-        <!-- Dynamic Filter Card -->
+        <!-- Filter Card -->
         <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
           <form id="rep-filter-form" class="space-y-3">
             <div id="rep-dynamic-filter-fields" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3">
               ${this.getFilterFieldsHtml(submenuId, currentReportType)}
             </div>
             <div class="flex items-center justify-between pt-2 border-t border-[#EBECF0]">
-              <span class="text-xs text-[#5E6C84]">Showing results for <span id="rep-type-display-badge" class="font-bold text-[#00A4B7]">${this.getReportTypeLabel(submenuId, currentReportType, pageTitle)}</span></span>
+              <span class="text-xs text-[#5E6C84]">Showing results for <span id="rep-type-display-badge" class="font-bold text-[#00A4B7]">${activeTitle}</span></span>
               <div class="flex items-center gap-2">
                 <button type="button" id="rep-btn-reset" class="px-3 py-1.5 text-xs font-semibold text-[#5E6C84] hover:text-[#172B4D] hover:bg-[#F4F5F7] rounded transition-colors">
                   Reset
@@ -109,7 +101,7 @@ export const ReportsView = {
     `;
 
     // Render Table Component with Fixed Actions Column
-    let typeLabel = this.getReportTypeLabel(submenuId, currentReportType, pageTitle);
+    let typeLabel = isSales ? this.getReportTypeLabel(submenuId, currentReportType, pageTitle) : pageTitle;
     const table = new TableComponent({
       columns: reportData.columns,
       data: reportData.rows,
@@ -210,7 +202,7 @@ export const ReportsView = {
         const r = reportData.rows.find(x => 
           (x.orderNo === ref || x.lotNo === ref || x.code === ref || x.poNo === ref || x.billNo === ref || x.batchNo === ref || x.traceCode === ref || x.itemCode === ref || x.trackId === ref || x.qcNo === ref || x.formNo === ref || x.transId === ref || x.inwardNo === ref || x.rackNo === ref || String(x.id) === ref)
         );
-        if (r) this.showReportDetails(r, this.getReportTypeLabel(submenuId, currentReportType, pageTitle));
+        if (r) this.showReportDetails(r, isSales ? this.getReportTypeLabel(submenuId, currentReportType, pageTitle) : pageTitle);
         else Toast.show(`Viewing details for: ${ref}`, 'info');
         return;
       }
@@ -224,10 +216,10 @@ export const ReportsView = {
     });
   },
 
-  // Full Human-Readable Label Mapping for all 91 Report Types across 6 Submenus
+  // Full Human-Readable Label Mapping for Sales & Export Analytics
   getReportTypeLabel(submenuId, reportType, pageTitle) {
     const labels = {
-      // 1. Sales & Export Analytics (20)
+      // Sales & Export Analytics (20 Types)
       'pending-contracts': 'Pending Contracts',
       'price-book': 'Price Book',
       'approved-contracts': 'Approved Contracts',
@@ -247,220 +239,41 @@ export const ReportsView = {
       'packing-report': 'Packing Report',
       'lineitemwise-report': 'Shipment LineItemwise Report',
       'return-container': 'Return Container Report',
-      'freight-rates': 'Freight Rates Report',
-
-      // 2. Purchase Reports (15)
-      'purchase-report': 'Purchase Report',
-      'purchase-count-wise': 'Purchase Count Wise',
-      'center-wise-report': 'Center Wise Report',
-      'supplier-bill-summary': 'Supplier Bill Summary',
-      'center-wise-abstract': 'Center Wise Abstract Report',
-      'date-wise-abstract': 'Date Wise Abstract Report',
-      'supplier-wise-outstanding': 'Supplier Wise Outstanding Report',
-      'monthly-abstract': 'Monthly Abstract Report',
-      'bill-date-payment-summary': 'Bill & Date Wise Payment Summary',
-      'supplier-wise-abstract': 'Supplier Wise Abstract Report',
-      'supplier-bill-outstanding-amt': 'Supplier & Bill Wise Outstanding Amount',
-      'supplier-wise-ledger': 'Supplier Wise Ledger',
-      'company-wise-tds': 'Company Wise TDS Report',
-      'arrival-report': 'Arrival Report',
-      'agent-commission': 'Agent Commission Report',
-
-      // 3. Pre-Processing Reports (10)
-      'rm-received-daywise': 'Rm Received Day wise Report',
-      'deheading-daywise': 'Deheading Day wise Report',
-      'assumed-reports-arrival': 'Assumed Reports by Rm & Arrival',
-      'grading-day-machine': 'Grading Day & Machine Wise Report',
-      'value-addition': 'Value Addition Report',
-      'value-addition-new': 'Value addition report new',
-      'va-floor-balance': 'VA Floor Balance Report',
-      'va-transfer': 'VA Transfer Report',
-      'consolidation-daily-monthly': 'Consolidation Report Daily & Monthly',
-      'track-code-report': 'Track Code Report',
-
-      // 4. Quality Control Reports (11)
-      'buyer-request-list': 'Buyer Request List',
-      'sysco-status-list': 'Sysco Status List',
-      'food-audit-report': 'Food Audit Report',
-      'social-audit-report': 'Social Audit Report',
-      'farm-audit-report': 'Farm Audit Report',
-      'hatchery-audit-report': 'Hatchery Audit Report',
-      'feed-mill-audit-report': 'Feed Mill Audit Report',
-      'bap-report': 'Bap Report',
-      'traceability-utilized': 'Traceability Utilized Report',
-      'payment-statement': 'Payment Statement',
-      'traceability-report': 'Traceability Report',
-
-      // 5. Production Analytics (14)
-      'soaking-floor-balance': 'Soaking Floor Balance Report',
-      'untreated-report': 'Untreated Report',
-      'soaking-floor-balance-variety': 'Soaking Floor Balance Variety Report New',
-      'soaking-report': 'Soaking Report',
-      'freezing-report': 'Freezing Report',
-      'freezing-production-report': 'Freezing Production Report',
-      'reconciliation-report': 'Reconciliation Report',
-      'headon-to-finished': 'Headon To Finished Report',
-      'anti-dumping-form': 'Anti Dumping Entry Form',
-      'anti-dumping-report': 'Anti Dumping Report',
-      'anti-dumping-negative': 'Anti Dumping Negative Report',
-      'anti-dumping-shipment': 'Anti Dumping Shipment Report',
-      'anti-dumping-opening-closing': 'Anti Dumping Opening & Closing Report',
-      'anti-dumping-closing': 'Anti Dumping Closing Report',
-
-      // 6. Coldstore Analytics (21)
-      'rm-req': 'Rm Requirement',
-      'inward-report': 'Inward Report',
-      'outward-report': 'Outward Report',
-      'thawing-report': 'Thawing Report',
-      'repacking-report': 'Repacking Report (Rep+ And Rep -)',
-      'order-timeline': 'Order Timeline Report',
-      'shipment-status': 'Shipment Status Report',
-      'shipment-daily-monthly': 'Shipment Report Daily & Monthly',
-      'daily-production': 'Daily Production Report',
-      'daily-monthly-production': 'Daily & Monthly Production',
-      'daily-stock-plantwise': 'Daily Stock Report (Plant wise)',
-      'opening-closing-stock': 'Opening & Closing Report',
-      'rackwise-stock': 'Rack Wise Stock Report',
-      'stock-report': 'Stock Report',
-      'stock-production': 'Stock Production Report',
-      'excess-order': 'Excess Order Report',
-      'excess-stock': 'Excess Stock report',
-      'ibt-report': 'IBT- IBT+ Report',
-      'stock-overall': 'Stock Overall Report',
-      'stock-summary': 'Stock Summary',
-      'physical-report': 'Physical Report(Phy+ and Phy-)'
+      'freight-rates': 'Freight Rates Report'
     };
     return labels[reportType] || pageTitle || 'Analytical Report';
   },
 
-  // Generates Exact Select Options HTML for all 6 Submenus
+  // Generates Exact Select Options HTML for Sales & Export Analytics
   getReportTypeOptions(submenuId) {
-    if (submenuId === 'sales-export-analytics' || submenuId.includes('sales')) {
-      return `
-        <option value="pending-contracts" selected>Pending Contracts</option>
-        <option value="price-book">Price Book</option>
-        <option value="approved-contracts">Approved Contracts</option>
-        <option value="eta-status">OUT of ETD/ETA Report</option>
-        <option value="fda-examination">FDA Examination Report</option>
-        <option value="mpeda-report">MPEDA Report</option>
-        <option value="shipment-report">Shipment Report</option>
-        <option value="lab-report">Lab Report</option>
-        <option value="q-certificate">Q Certificate Report</option>
-        <option value="pending-payments">Pending Payments</option>
-        <option value="pending-negotiation">Pending Negotiation Report</option>
-        <option value="bills-realization">Bills Realization</option>
-        <option value="fc-utilized">FC Utilized Report</option>
-        <option value="gst-sales">GST Sales report</option>
-        <option value="clearing-agent">Clearing Agent Report</option>
-        <option value="transit-insurance">M Transit Ins & Payments</option>
-        <option value="packing-report">Packing Report</option>
-        <option value="lineitemwise-report">Shipment LineItemwise Report</option>
-        <option value="return-container">Return Container Report</option>
-        <option value="freight-rates">Freight Rates Report</option>
-      `;
-    }
-    if (submenuId === 'purchase-reports' || submenuId.includes('purchase')) {
-      return `
-        <option value="purchase-report" selected>Purchase Report</option>
-        <option value="purchase-count-wise">Purchase Count Wise</option>
-        <option value="center-wise-report">Center Wise Report</option>
-        <option value="supplier-bill-summary">Supplier Bill Summary</option>
-        <option value="center-wise-abstract">Center Wise Abstract Report</option>
-        <option value="date-wise-abstract">Date Wise Abstract Report</option>
-        <option value="supplier-wise-outstanding">Supplier Wise Outstanding Report</option>
-        <option value="monthly-abstract">Monthly Abstract Report</option>
-        <option value="bill-date-payment-summary">Bill & Date Wise Payment Summary</option>
-        <option value="supplier-wise-abstract">Supplier Wise Abstract Report</option>
-        <option value="supplier-bill-outstanding-amt">Supplier & Bill Wise Outstanding Amount</option>
-        <option value="supplier-wise-ledger">Supplier Wise Ledger</option>
-        <option value="company-wise-tds">Company Wise TDS Report</option>
-        <option value="arrival-report">Arrival Report</option>
-        <option value="agent-commission">Agent Commission Report</option>
-      `;
-    }
-    if (submenuId === 'preprocessing-reports' || submenuId.includes('preproc')) {
-      return `
-        <option value="rm-received-daywise" selected>Rm Received Day wise Report</option>
-        <option value="deheading-daywise">Deheading Day wise Report</option>
-        <option value="assumed-reports-arrival">Assumed Reports by Rm & Arrival</option>
-        <option value="grading-day-machine">Grading Day & Machine Wise Report</option>
-        <option value="value-addition">Value Addition Report</option>
-        <option value="value-addition-new">Value addition report new</option>
-        <option value="va-floor-balance">VA Floor Balance Report</option>
-        <option value="va-transfer">VA Transfer Report</option>
-        <option value="consolidation-daily-monthly">Consolidation Report Daily & Monthly</option>
-        <option value="track-code-report">Track Code Report</option>
-      `;
-    }
-    if (submenuId === 'quality-reports' || submenuId.includes('quality') || submenuId.includes('qc')) {
-      return `
-        <option value="buyer-request-list" selected>Buyer Request List</option>
-        <option value="sysco-status-list">Sysco Status List</option>
-        <option value="food-audit-report">Food Audit Report</option>
-        <option value="social-audit-report">Social Audit Report</option>
-        <option value="farm-audit-report">Farm Audit Report</option>
-        <option value="hatchery-audit-report">Hatchery Audit Report</option>
-        <option value="feed-mill-audit-report">Feed Mill Audit Report</option>
-        <option value="bap-report">Bap Report</option>
-        <option value="traceability-utilized">Traceability Utilized Report</option>
-        <option value="payment-statement">Payment Statement</option>
-        <option value="traceability-report">Traceability Report</option>
-      `;
-    }
-    if (submenuId === 'production-analytics' || submenuId.includes('production')) {
-      return `
-        <option value="soaking-floor-balance" selected>Soaking Floor Balance Report</option>
-        <option value="untreated-report">Untreated Report</option>
-        <option value="soaking-floor-balance-variety">Soaking Floor Balance Variety Report New</option>
-        <option value="soaking-report">Soaking Report</option>
-        <option value="freezing-report">Freezing Report</option>
-        <option value="freezing-production-report">Freezing Production Report</option>
-        <option value="reconciliation-report">Reconciliation Report</option>
-        <option value="headon-to-finished">Headon To Finished Report</option>
-        <option value="anti-dumping-form">Anti Dumping Entry Form</option>
-        <option value="anti-dumping-report">Anti Dumping Report</option>
-        <option value="anti-dumping-negative">Anti Dumping Negative Report</option>
-        <option value="anti-dumping-shipment">Anti Dumping Shipment Report</option>
-        <option value="anti-dumping-opening-closing">Anti Dumping Opening & Closing Report</option>
-        <option value="anti-dumping-closing">Anti Dumping Closing Report</option>
-      `;
-    }
-    if (submenuId === 'coldstore-analytics' || submenuId.includes('coldstore')) {
-      return `
-        <option value="rm-req" selected>Rm Requirement</option>
-        <option value="inward-report">Inward Report</option>
-        <option value="outward-report">Outward Report</option>
-        <option value="thawing-report">Thawing Report</option>
-        <option value="repacking-report">Repacking Report (Rep+ And Rep -)</option>
-        <option value="order-timeline">Order Timeline Report</option>
-        <option value="shipment-status">Shipment Status Report</option>
-        <option value="shipment-daily-monthly">Shipment Report Daily & Monthly</option>
-        <option value="daily-production">Daily Production Report</option>
-        <option value="daily-monthly-production">Daily & Monthly Production</option>
-        <option value="daily-stock-plantwise">Daily Stock Report (Plant wise)</option>
-        <option value="opening-closing-stock">Opening & Closing Report</option>
-        <option value="rackwise-stock">Rack Wise Stock Report</option>
-        <option value="stock-report">Stock Report</option>
-        <option value="stock-production">Stock Production Report</option>
-        <option value="excess-order">Excess Order Report</option>
-        <option value="excess-stock">Excess Stock report</option>
-        <option value="ibt-report">IBT- IBT+ Report</option>
-        <option value="stock-overall">Stock Overall Report</option>
-        <option value="stock-summary">Stock Summary</option>
-        <option value="physical-report">Physical Report(Phy+ and Phy-)</option>
-      `;
-    }
     return `
-      <option value="ALL" selected>All Reports</option>
-      <option value="detailed">Detailed Audit Ledger</option>
-      <option value="summary">Summary Report</option>
+      <option value="pending-contracts" selected>Pending Contracts</option>
+      <option value="price-book">Price Book</option>
+      <option value="approved-contracts">Approved Contracts</option>
+      <option value="eta-status">OUT of ETD/ETA Report</option>
+      <option value="fda-examination">FDA Examination Report</option>
+      <option value="mpeda-report">MPEDA Report</option>
+      <option value="shipment-report">Shipment Report</option>
+      <option value="lab-report">Lab Report</option>
+      <option value="q-certificate">Q Certificate Report</option>
+      <option value="pending-payments">Pending Payments</option>
+      <option value="pending-negotiation">Pending Negotiation Report</option>
+      <option value="bills-realization">Bills Realization</option>
+      <option value="fc-utilized">FC Utilized Report</option>
+      <option value="gst-sales">GST Sales report</option>
+      <option value="clearing-agent">Clearing Agent Report</option>
+      <option value="transit-insurance">M Transit Ins & Payments</option>
+      <option value="packing-report">Packing Report</option>
+      <option value="lineitemwise-report">Shipment LineItemwise Report</option>
+      <option value="return-container">Return Container Report</option>
+      <option value="freight-rates">Freight Rates Report</option>
     `;
   },
 
-  // Dynamic Contextual Filter Fields Generator per Submenu & Report Type
+  // Dynamic Contextual Filter Fields Generator per Submenu
   getFilterFieldsHtml(submenuId, type) {
     // ----------------------------------------------------
-    // 1. Sales & Export Analytics
+    // 1. Sales & Export Analytics (Dynamic per Type)
     // ----------------------------------------------------
     if (submenuId === 'sales-export-analytics' || submenuId.includes('sales')) {
       if (type === 'pending-contracts' || type === 'approved-contracts') {
@@ -799,7 +612,7 @@ export const ReportsView = {
     });
   },
 
-  // Generate Tab-Specific Columns & Realistic Datasets for ALL 91 Application Report Types
+  // Generate Tab-Specific Columns & Realistic Datasets
   getReportData(submenuId, reportType = 'ALL', pageTitle = 'Reports') {
     let columns = [];
     let rows = [];
@@ -822,7 +635,7 @@ export const ReportsView = {
     };
 
     // ==========================================
-    // 1. Sales & Export Analytics (20 Types)
+    // 1. Sales & Export Analytics (20 Dynamic Types)
     // ==========================================
     if (submenuId === 'sales-export-analytics' || submenuId.includes('sales')) {
       if (reportType === 'pending-contracts') {
@@ -876,52 +689,33 @@ export const ReportsView = {
     }
 
     // ==========================================
-    // 2. Purchase Reports (15 Types)
+    // 2. Purchase Reports
     // ==========================================
     else if (submenuId === 'purchase-reports' || submenuId.includes('purchase')) {
-      if (reportType === 'purchase-report' || reportType === 'arrival-report') {
-        columns = [
-          { field: 'sNo', header: 'S No.', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
-          { field: 'poNo', header: 'Purchase Ref / Lot', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer" title="Click to view details">${v}</span>` },
-          { field: 'date', header: 'Arrival Date', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">${v}</span>` },
-          { field: 'supplier', header: 'Farmer / Supplier', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
-          { field: 'center', header: 'Purchase Center', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-medium bg-[#F1F5F9] text-[#172B4D]">${v}</span>` },
-          { field: 'variety', header: 'RM Variety', sortable: true, render: v => `<span class="text-xs text-[#5E6C84] font-medium">${v}</span>` },
-          { field: 'count', header: 'Count / Grade', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${v}</span>` },
-          { field: 'grossWt', header: 'Arrival Wt (Kg)', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D] font-bold">${Number(v).toLocaleString()}</span>` },
-          { field: 'rate', header: 'Purchase Rate (₹/Kg)', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">₹${Number(v).toFixed(2)}</span>` },
-          { field: 'grossVal', header: 'Total Value (₹)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">₹${Number(v).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>` },
-          { field: 'status', header: 'Lot Status', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` },
-          actionCol
-        ];
-        rows = [
-          { id: 1, poNo: 'PUR-DFL-2026-1041', date: '2026-10-28', supplier: 'Sri Venkata Krishna Aquatics', center: 'Bhimavaram Center', variety: 'Vannamei Fresh', count: '30 Count', grossWt: 8450, rate: 385.00, grossVal: 3253250, status: 'Weighed & Certified' },
-          { id: 2, poNo: 'PUR-DFL-2026-1042', date: '2026-10-28', supplier: 'Godavari Aqua Harvests', center: 'Machilipatnam Center', variety: 'Vannamei Fresh', count: '40 Count', grossWt: 6200, rate: 340.00, grossVal: 2108000, status: 'Weighed & Certified' },
-          { id: 3, poNo: 'PUR-DFL-2026-1043', date: '2026-10-27', supplier: 'Kishna Coastal Prawns', center: 'Narsapur Center', variety: 'Black Tiger', count: '16/20 Count', grossWt: 4100, rate: 580.00, grossVal: 2378000, status: 'Weighed & Certified' },
-          { id: 4, poNo: 'PUR-DFL-2026-1044', date: '2026-10-27', supplier: 'Delta Prime Hatcheries & Farms', center: 'Bapatla Center', variety: 'Vannamei Fresh', count: '25 Count', grossWt: 9800, rate: 415.00, grossVal: 4067000, status: 'Weighed & Certified' }
-        ];
-      } else {
-        // Standard Purchase ledger for other 13 types
-        columns = [
-          { field: 'sNo', header: 'S No.', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
-          { field: 'billNo', header: 'Bill / Voucher Ref', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer" title="Click to view details">${v}</span>` },
-          { field: 'date', header: 'Date', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">${v}</span>` },
-          { field: 'supplier', header: 'Farmer / Supplier', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
-          { field: 'center', header: 'Center / Hub', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-medium bg-[#F1F5F9] text-[#172B4D]">${v}</span>` },
-          { field: 'totalQty', header: 'Quantity (Kg)', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D] font-bold">${Number(v).toLocaleString()}</span>` },
-          { field: 'billAmount', header: 'Bill Amount (₹)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">₹${Number(v).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>` },
-          { field: 'status', header: 'Payment State', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` },
-          actionCol
-        ];
-        rows = [
-          { id: 1, billNo: 'BILL-PUR-2026-9041', date: '2026-10-28', supplier: 'Sri Venkata Krishna Aquatics', center: 'Bhimavaram Center', totalQty: 8450, billAmount: 3253250, status: 'Direct NEFT Settled' },
-          { id: 2, billNo: 'BILL-PUR-2026-9042', date: '2026-10-28', supplier: 'Godavari Aqua Harvests', center: 'Machilipatnam Center', totalQty: 6200, billAmount: 2108000, status: 'Direct NEFT Settled' }
-        ];
-      }
+      columns = [
+        { field: 'sNo', header: 'S No.', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
+        { field: 'poNo', header: 'Purchase Ref / Lot', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer" title="Click to view details">${v}</span>` },
+        { field: 'date', header: 'Arrival Date', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">${v}</span>` },
+        { field: 'supplier', header: 'Farmer / Supplier', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
+        { field: 'center', header: 'Purchase Center', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-medium bg-[#F1F5F9] text-[#172B4D]">${v}</span>` },
+        { field: 'variety', header: 'RM Variety', sortable: true, render: v => `<span class="text-xs text-[#5E6C84] font-medium">${v}</span>` },
+        { field: 'count', header: 'Count / Grade', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${v}</span>` },
+        { field: 'grossWt', header: 'Arrival Wt (Kg)', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D] font-bold">${Number(v).toLocaleString()}</span>` },
+        { field: 'rate', header: 'Purchase Rate (₹/Kg)', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">₹${Number(v).toFixed(2)}</span>` },
+        { field: 'grossVal', header: 'Total Value (₹)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">₹${Number(v).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>` },
+        { field: 'status', header: 'Lot Status', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` },
+        actionCol
+      ];
+      rows = [
+        { id: 1, poNo: 'PUR-DFL-2026-1041', date: '2026-10-28', supplier: 'Sri Venkata Krishna Aquatics', center: 'Bhimavaram Center', variety: 'Vannamei Fresh', count: '30 Count', grossWt: 8450, rate: 385.00, grossVal: 3253250, status: 'Weighed & Certified' },
+        { id: 2, poNo: 'PUR-DFL-2026-1042', date: '2026-10-28', supplier: 'Godavari Aqua Harvests', center: 'Machilipatnam Center', variety: 'Vannamei Fresh', count: '40 Count', grossWt: 6200, rate: 340.00, grossVal: 2108000, status: 'Weighed & Certified' },
+        { id: 3, poNo: 'PUR-DFL-2026-1043', date: '2026-10-27', supplier: 'Kishna Coastal Prawns', center: 'Narsapur Center', variety: 'Black Tiger', count: '16/20 Count', grossWt: 4100, rate: 580.00, grossVal: 2378000, status: 'Weighed & Certified' },
+        { id: 4, poNo: 'PUR-DFL-2026-1044', date: '2026-10-27', supplier: 'Delta Prime Hatcheries & Farms', center: 'Bapatla Center', variety: 'Vannamei Fresh', count: '25 Count', grossWt: 9800, rate: 415.00, grossVal: 4067000, status: 'Weighed & Certified' }
+      ];
     }
 
     // ==========================================
-    // 3. Pre-Processing Reports (10 Types)
+    // 3. Pre-Processing Reports
     // ==========================================
     else if (submenuId === 'preprocessing-reports' || submenuId.includes('preproc')) {
       columns = [
@@ -945,7 +739,7 @@ export const ReportsView = {
     }
 
     // ==========================================
-    // 4. Quality Control Reports (11 Types)
+    // 4. Quality Control Reports
     // ==========================================
     else if (submenuId === 'quality-reports' || submenuId.includes('quality') || submenuId.includes('qc')) {
       columns = [
@@ -968,7 +762,7 @@ export const ReportsView = {
     }
 
     // ==========================================
-    // 5. Production Analytics (14 Types)
+    // 5. Production Analytics
     // ==========================================
     else if (submenuId === 'production-analytics' || submenuId.includes('production')) {
       columns = [
@@ -992,7 +786,7 @@ export const ReportsView = {
     }
 
     // ==========================================
-    // 6. Coldstore Analytics (21 Types)
+    // 6. Coldstore Analytics
     // ==========================================
     else if (submenuId === 'coldstore-analytics' || submenuId.includes('coldstore')) {
       columns = [
