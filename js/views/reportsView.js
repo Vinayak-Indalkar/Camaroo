@@ -6,8 +6,15 @@ import { Toast } from '../components/toast.js';
 import { Modal } from '../components/modal.js';
 
 export const ReportsView = {
-  render(container, activeSubmenu) {
-    const submenuId = activeSubmenu || 'purchase-reports';
+  render(containerTarget, activeSubmenu, activeHash) {
+    const container = typeof containerTarget === 'string' ? document.getElementById(containerTarget) : containerTarget;
+    if (!container) return;
+
+    let submenuId = activeSubmenu || 'purchase-reports';
+    if (activeHash) {
+      const parts = activeHash.replace(/^#\/?/, '').split('/');
+      if (parts[1]) submenuId = parts[1];
+    }
     let pageTitle = '';
 
     const titlesMap = {

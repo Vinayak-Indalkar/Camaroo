@@ -63090,8 +63090,15 @@ const SalesView = {
 
 
 const ReportsView = {
-  render(container, activeSubmenu) {
-    const submenuId = activeSubmenu || 'purchase-reports';
+  render(containerTarget, activeSubmenu, activeHash) {
+    const container = typeof containerTarget === 'string' ? document.getElementById(containerTarget) : containerTarget;
+    if (!container) return;
+
+    let submenuId = activeSubmenu || 'purchase-reports';
+    if (activeHash) {
+      const parts = activeHash.replace(/^#\/?/, '').split('/');
+      if (parts[1]) submenuId = parts[1];
+    }
     let pageTitle = '';
 
     const titlesMap = {
@@ -76683,7 +76690,7 @@ const App = {
       : '#/purchase/dashboard/rm-dashboard';
 
     // Keep direct URL navigation subject to the same module restrictions as the sidebar.
-    const operationalModules = ['purchase', 'preprocessing', 'quality', 'production', 'coldstore', 'inventory', 'sales', 'help', 'master'];
+    const operationalModules = ['purchase', 'preprocessing', 'quality', 'production', 'coldstore', 'inventory', 'sales', 'reports', 'help', 'master'];
     const superAdminModules = ['dashboard', 'general', 'super-reports'];
     if ((isSuperAdmin && operationalModules.includes(moduleName)) || (!isSuperAdmin && superAdminModules.includes(moduleName))) {
       this.renderRouteError(403, 'Access denied', 'You do not have permission to access this section.', homeHash);

@@ -178,7 +178,7 @@ export const App = {
       : '#/purchase/dashboard/rm-dashboard';
 
     // Keep direct URL navigation subject to the same module restrictions as the sidebar.
-    const operationalModules = ['purchase', 'preprocessing', 'quality', 'production', 'coldstore', 'inventory', 'sales', 'help', 'master'];
+    const operationalModules = ['purchase', 'preprocessing', 'quality', 'production', 'coldstore', 'inventory', 'sales', 'reports', 'help', 'master'];
     const superAdminModules = ['dashboard', 'general', 'super-reports'];
     if ((isSuperAdmin && operationalModules.includes(moduleName)) || (!isSuperAdmin && superAdminModules.includes(moduleName))) {
       this.renderRouteError(403, 'Access denied', 'You do not have permission to access this section.', homeHash);
