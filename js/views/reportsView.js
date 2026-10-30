@@ -123,30 +123,6 @@ export const ReportsView = {
         if (toggleIcon) toggleIcon.classList.toggle('rotate-180');
       }
     });
-
-    // Delegate row actions (download report extract & view details)
-    subContainer.addEventListener('click', (e) => {
-      const dlBtn = e.target.closest('.rep-download-btn');
-      if (dlBtn) {
-        e.stopPropagation();
-        const id = dlBtn.getAttribute('data-id');
-        Toast.show(`Preparing export download for ${id}...`, 'info');
-        setTimeout(() => {
-          Toast.show(`Report ${id} downloaded successfully!`, 'success');
-        }, 600);
-        return;
-      }
-
-      const viewBtn = e.target.closest('.rep-view-det-btn');
-      if (viewBtn) {
-        e.stopPropagation();
-        const id = viewBtn.getAttribute('data-id');
-        const row = reportData.rows.find(r => (r.docNo || r.refNo || r.batchNo || r.testNo || r.palletRef || r.runId || r.billNo || r.invoiceNo || String(r.id)) === id);
-        if (row) {
-          this.showReportDetails(row, tabLabel);
-        }
-      }
-    });
   },
 
   // Modal: Show Details Page matching our Atlassian UI style
@@ -268,25 +244,6 @@ export const ReportsView = {
 
   // Generate tab-specific columns and realistic analytical rows for all application reports
   getReportData(tabId, label) {
-    const actionColumn = {
-      field: 'actions',
-      header: 'Actions',
-      sortable: false,
-      render: (v, r) => {
-        const id = r.docNo || r.refNo || r.batchNo || r.testNo || r.palletRef || r.runId || r.billNo || r.invoiceNo || r.id;
-        return `
-          <div class="inline-flex items-center justify-center gap-1.5">
-            <button type="button" class="rep-download-btn dt-action-btn w-7 h-7 inline-flex items-center justify-center rounded-full bg-white hover:bg-[#F0F9FF] text-[#00A4B7] border border-[#DFE1E6] hover:border-[#00A4B7] transition-all cursor-pointer shadow-2xs" data-id="${id}" title="Download Report">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-            </button>
-            <button type="button" class="rep-view-det-btn dt-action-btn w-7 h-7 inline-flex items-center justify-center rounded-full bg-white hover:bg-[#F0F9FF] text-[#5E6C84] hover:text-[#00A4B7] border border-[#DFE1E6] hover:border-[#00A4B7] transition-all cursor-pointer shadow-2xs" data-id="${id}" title="View Details">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-            </button>
-          </div>
-        `;
-      }
-    };
-
     let columns = [];
     let rows = [];
 
@@ -302,8 +259,7 @@ export const ReportsView = {
         { field: 'count', header: 'Count / Size', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D] font-bold">${v}</span>` },
         { field: 'netWeight', header: 'Net Wt (Kg)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#172B4D]">${Number(v).toLocaleString()}</span>` },
         { field: 'grossVal', header: 'Gross Value', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">₹${Number(v).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>` },
-        { field: 'qcStatus', header: 'QC Status', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` },
-        actionColumn
+        { field: 'qcStatus', header: 'QC Status', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` }
       ];
       rows = [
         { id: 1, docNo: 'ARR-2026-1044', date: '2026-10-28', supplier: 'Sri Sai Ram Aqua Farm', location: 'Bhimavaram Cluster', lotNo: 'LOT-2026-0912', variety: 'Vannamei Fresh', count: '30/40', netWeight: 8450, grossVal: 2704000, qcStatus: 'Passed Grade A' },
@@ -323,8 +279,7 @@ export const ReportsView = {
         { field: 'billedWeight', header: 'Weight (Kg)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#172B4D]">${Number(v).toLocaleString()}</span>` },
         { field: 'ratePerKg', header: 'Rate/Kg', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">₹${v}</span>` },
         { field: 'grossAmount', header: 'Gross (₹)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">₹${Number(v).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>` },
-        { field: 'paymentStatus', header: 'Payment Status', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold ${v.includes('Paid') ? 'bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]' : 'bg-[#FFF0B3] text-[#172B4D] border border-[#FFE380]'}"><span class="w-1.5 h-1.5 rounded-full ${v.includes('Paid') ? 'bg-[#00875A]' : 'bg-[#FFAB00]'}"></span>${v}</span>` },
-        actionColumn
+        { field: 'paymentStatus', header: 'Payment Status', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold ${v.includes('Paid') ? 'bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]' : 'bg-[#FFF0B3] text-[#172B4D] border border-[#FFE380]'}"><span class="w-1.5 h-1.5 rounded-full ${v.includes('Paid') ? 'bg-[#00875A]' : 'bg-[#FFAB00]'}"></span>${v}</span>` }
       ];
       rows = [
         { id: 1, billNo: 'VCH-PUR-2026-0881', date: '2026-10-28', supplier: 'Sri Sai Ram Aqua Farm', variety: 'LOT-912 (Vannamei 30/40)', billedWeight: 8450, ratePerKg: 320, grossAmount: 2704000, paymentStatus: 'Fully Paid (RTGS)' },
@@ -344,8 +299,7 @@ export const ReportsView = {
         { field: 'recovery', header: 'Recovery (Kg)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${Number(v).toLocaleString()}</span>` },
         { field: 'yieldPct', header: 'Actual Yield %', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">${v}%</span>` },
         { field: 'stdYield', header: 'Standard Yield', sortable: true, render: v => `<span class="font-mono text-xs text-[#5E6C84]">${v}%</span>` },
-        { field: 'variance', header: 'Variance', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">+${v}%</span>` },
-        actionColumn
+        { field: 'variance', header: 'Variance', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">+${v}%</span>` }
       ];
       rows = [
         { id: 1, batchNo: 'BCH-PR-2026-081', date: '2026-10-28', line: 'Deheading Line 1', rmInput: 12500, recovery: 8125, yieldPct: 65.0, stdYield: 64.0, variance: 1.0 },
@@ -365,8 +319,7 @@ export const ReportsView = {
         { field: 'dosage', header: 'Dosage Rate', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D] font-bold">${v}</span>` },
         { field: 'duration', header: 'Dip Duration', sortable: true, render: v => `<span class="font-mono text-xs text-[#5E6C84]">${v}</span>` },
         { field: 'uptakePct', header: 'Water Uptake %', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">${v}</span>` },
-        { field: 'qcStatus', header: 'Clearance Status', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` },
-        actionColumn
+        { field: 'qcStatus', header: 'Clearance Status', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` }
       ];
       rows = [
         { id: 1, batchNo: 'CHM-TR-2026-041', date: '2026-10-28', chemical: 'Non-Phosphate Blend (M-9)', grade: 'Food Grade Natural', dosage: '2.5% Solution', duration: '45 mins', uptakePct: '6.2%', qcStatus: 'USFDA Approved' },
@@ -385,8 +338,7 @@ export const ReportsView = {
         { field: 'testType', header: 'Test Protocol', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#F1F5F9] text-[#172B4D]">${v}</span>` },
         { field: 'result', header: 'Test Findings', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">${v}</span>` },
         { field: 'analyst', header: 'Tested By', sortable: true, render: v => `<span class="text-xs text-[#5E6C84]">${v}</span>` },
-        { field: 'status', header: 'Clearance Status', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` },
-        actionColumn
+        { field: 'status', header: 'Clearance Status', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` }
       ];
       rows = [
         { id: 1, testNo: 'LAB-EL-2026-0412', date: '2026-10-28', sampleType: 'Raw Head-On Vannamei (Lot 912)', testType: 'ELISA (AOZ / AMOZ / CAP / Nitrofuran)', result: 'Not Detected (< 0.1 ppb)', analyst: 'K. S. Narayana (Sr. Microbiologist)', status: 'Cleared for Export' },
@@ -406,8 +358,7 @@ export const ReportsView = {
         { field: 'targetQty', header: 'Target (Kg)', sortable: true, render: v => `<span class="font-mono text-xs text-[#5E6C84]">${Number(v).toLocaleString()}</span>` },
         { field: 'achievedQty', header: 'Achieved (Kg)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${Number(v).toLocaleString()}</span>` },
         { field: 'efficiency', header: 'Efficiency %', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">${v}%</span>` },
-        { field: 'shiftHead', header: 'Shift In-Charge', sortable: true, render: v => `<span class="text-xs text-[#172B4D] font-medium">${v}</span>` },
-        actionColumn
+        { field: 'shiftHead', header: 'Shift In-Charge', sortable: true, render: v => `<span class="text-xs text-[#172B4D] font-medium">${v}</span>` }
       ];
       rows = [
         { id: 1, runId: 'SHF-PR-2026-0941', date: '2026-10-28', line: 'Freezing Line 1 (IQF)', product: 'Vannamei Easy-Peel 31/40', targetQty: 6000, achievedQty: 6180, efficiency: 103.0, shiftHead: 'M. Ramesh Babu' },
@@ -427,8 +378,7 @@ export const ReportsView = {
         { field: 'cartons', header: 'Master Cartons', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${Number(v).toLocaleString()} MCs</span>` },
         { field: 'netWeight', header: 'Net Wt (Kg)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#172B4D]">${Number(v).toLocaleString()}</span>` },
         { field: 'temp', header: 'Temp (°C)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">${v}°C</span>` },
-        { field: 'status', header: 'Storage Status', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` },
-        actionColumn
+        { field: 'status', header: 'Storage Status', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` }
       ];
       rows = [
         { id: 1, palletRef: 'PLT-CS-2026-1081', date: '2026-10-28', chamber: 'Coldstore Room 4 (Rack B-12)', product: 'IQF Cooked Tail-On Vannamei 26/30 (6x2kg)', cartons: 640, netWeight: 7680, temp: -21.4, status: 'In Coldstore Stock' },
@@ -448,8 +398,7 @@ export const ReportsView = {
         { field: 'cartons', header: 'Total MCs', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#172B4D]">${Number(v).toLocaleString()}</span>` },
         { field: 'fobVal', header: 'FOB Value ($)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">$${Number(v).toLocaleString()}</span>` },
         { field: 'freightStatus', header: 'Logistics Status', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E0F2FE] text-[#0284C7] border border-[#BAE6FD]"><span class="w-1.5 h-1.5 rounded-full bg-[#0284C7]"></span>${v}</span>` },
-        { field: 'realizationStatus', header: 'Realization', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` },
-        actionColumn
+        { field: 'realizationStatus', header: 'Realization', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` }
       ];
       rows = [
         { id: 1, invoiceNo: 'EXP-INV-2026-081', containerNo: 'MSKU-820491-2', shipDate: '2026-10-28', buyer: 'Pacific Coast Seafood LLC', destination: 'Los Angeles, USA', port: 'Port of Long Beach', cartons: 2150, fobVal: 142500, freightStatus: 'Vessel In Transit', realizationStatus: 'LC Realized 100%' },
@@ -468,8 +417,7 @@ export const ReportsView = {
         { field: 'category', header: 'Category', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#F4F5F7] text-[#172B4D] border border-[#DFE1E6]">${v}</span>` },
         { field: 'quantity', header: 'Quantity', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${v}</span>` },
         { field: 'value', header: 'Total Value', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">${v}</span>` },
-        { field: 'status', header: 'Status', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` },
-        actionColumn
+        { field: 'status', header: 'Status', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` }
       ];
       rows = [
         { id: 1, refNo: 'REP-EXT-2026-01', date: '2026-10-28', entity: 'Master Packaging & Cartons Ledger', category: 'General Store', quantity: '45,000 MCs', value: '₹26,32,500', status: 'Audited & Verified' },
