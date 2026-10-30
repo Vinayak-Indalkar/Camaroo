@@ -54669,7 +54669,7 @@ const InventoryView = {
           </div>
         </div>
 
-        <div id="gs-po-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3 pt-3 border-t border-[#F1F5F9] mt-2 text-xs">
+        <div id="gs-po-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-3 border-t border-[#F1F5F9] mt-2 text-xs">
           <!-- Filter: DOC NO / CODE -->
           <div>
             <label for="po-flt-doc" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DOC NO / CODE</label>
@@ -54688,22 +54688,20 @@ const InventoryView = {
             <input type="date" id="po-flt-to" value="${todayStr}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
           </div>
 
-          <!-- Filter: SUPPLIER -->
-          <div>
-            <label for="po-flt-sup" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SUPPLIER</label>
-            <select id="po-flt-sup" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-              <option value="ALL">All Suppliers</option>
-              <option value="Devi Safety Aids & Industrial Supplies">Devi Safety Aids</option>
-              <option value="Sri Venkateswara Packaging Ltd">Sri Venkateswara</option>
-              <option value="Apex Engineering & Spare Parts Ltd">Apex Engineering</option>
-              <option value="Bio-Chem Scientific Instruments India">Bio-Chem Scientific</option>
-              <option value="Delta Seals & Tapes Corp">Delta Seals &amp; Tapes</option>
-            </select>
-          </div>
-
-          <!-- Search Button -->
-          <div class="flex items-end">
-            <button type="button" id="po-flt-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
+          <!-- Filter: SUPPLIER & SEARCH -->
+          <div class="flex items-end gap-2">
+            <div class="flex-1 min-w-0">
+              <label for="po-flt-sup" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SUPPLIER</label>
+              <select id="po-flt-sup" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="ALL">All Suppliers</option>
+                <option value="Devi Safety Aids & Industrial Supplies">Devi Safety Aids</option>
+                <option value="Sri Venkateswara Packaging Ltd">Sri Venkateswara</option>
+                <option value="Apex Engineering & Spare Parts Ltd">Apex Engineering</option>
+                <option value="Bio-Chem Scientific Instruments India">Bio-Chem Scientific</option>
+                <option value="Delta Seals & Tapes Corp">Delta Seals &amp; Tapes</option>
+              </select>
+            </div>
+            <button type="button" id="po-flt-search-btn" class="dt-top-filter-search-btn btn-primary px-4 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] shrink-0">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
               <span>Search</span>
             </button>
@@ -58509,7 +58507,7 @@ const InventoryView = {
           </div>
         </div>
 
-        <div id="pm-po-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3 pt-3 border-t border-[#F1F5F9] mt-2 text-xs">
+        <div id="pm-po-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-3 border-t border-[#F1F5F9] mt-2 text-xs">
           <!-- Filter: DOC NO / CODE -->
           <div>
             <label for="pm-po-flt-doc" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DOC NO / CODE</label>
@@ -58528,22 +58526,20 @@ const InventoryView = {
             <input type="date" id="pm-po-flt-to" value="${todayStr}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
           </div>
 
-          <!-- Filter: SUPPLIER -->
-          <div>
-            <label for="pm-po-flt-sup" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SUPPLIER</label>
-            <select id="pm-po-flt-sup" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-              <option value="ALL">All Packaging Suppliers</option>
-              <option value="Sri Venkateswara Packaging Ltd">Sri Venkateswara Packaging Ltd</option>
-              <option value="Apex Polymers & Films India Ltd">Apex Polymers &amp; Films India Ltd</option>
-              <option value="Modern Corrugators Visakhapatnam">Modern Corrugators Visakhapatnam</option>
-              <option value="South Coast Boxes & Cartons">South Coast Boxes &amp; Cartons</option>
-              <option value="Delta Polyfilms Corp">Delta Polyfilms Corp</option>
-            </select>
-          </div>
-
-          <!-- Search Button -->
-          <div class="flex items-end">
-            <button type="button" id="pm-po-flt-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
+          <!-- Filter: SUPPLIER & SEARCH -->
+          <div class="flex items-end gap-2">
+            <div class="flex-1 min-w-0">
+              <label for="pm-po-flt-sup" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SUPPLIER</label>
+              <select id="pm-po-flt-sup" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="ALL">All Packaging Suppliers</option>
+                <option value="Sri Venkateswara Packaging Ltd">Sri Venkateswara Packaging Ltd</option>
+                <option value="Apex Polymers & Films India Ltd">Apex Polymers &amp; Films India Ltd</option>
+                <option value="Modern Corrugators Visakhapatnam">Modern Corrugators Visakhapatnam</option>
+                <option value="South Coast Boxes & Cartons">South Coast Boxes &amp; Cartons</option>
+                <option value="Delta Polyfilms Corp">Delta Polyfilms Corp</option>
+              </select>
+            </div>
+            <button type="button" id="pm-po-flt-search-btn" class="dt-top-filter-search-btn btn-primary px-4 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] shrink-0">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
               <span>Search</span>
             </button>
