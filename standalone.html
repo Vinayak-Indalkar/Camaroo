@@ -63230,16 +63230,19 @@ const ReportsView = {
         let filtered = [...reportData.rows];
         if (docVal) {
           filtered = filtered.filter(r => 
-            String(r.docNo || r.poNo || r.billNo || r.orderNo || r.code || '').toLowerCase().includes(docVal) ||
-            String(r.supplier || r.buyer || r.farmer || '').toLowerCase().includes(docVal)
+            String(r.billNo || r.docNo || r.poNo || r.orderNo || r.code || '').toLowerCase().includes(docVal) ||
+            String(r.supplier || r.buyer || r.farmer || '').toLowerCase().includes(docVal) ||
+            String(r.vehicleNumber || '').toLowerCase().includes(docVal)
           );
         }
         if (dateVal) {
-          filtered = filtered.filter(r => String(r.date || r.arrivalDate || '').includes(dateVal));
+          filtered = filtered.filter(r => 
+            String(r.billDate || r.arrivalDate || r.date || '').includes(dateVal)
+          );
         }
         if (deptVal && deptVal !== 'ALL') {
           filtered = filtered.filter(r => 
-            String(r.department || r.center || '').toLowerCase().includes(deptVal.toLowerCase())
+            String(r.centerName || r.arrivalPlant || r.productionPlant || r.department || r.center || '').toLowerCase().includes(deptVal.toLowerCase())
           );
         }
 
@@ -63311,38 +63314,6 @@ const ReportsView = {
         }
       });
     }
-
-    // Filter Reset Button
-    const resetBtn = container.querySelector('#rep-flt-reset-btn');
-    if (resetBtn) {
-      resetBtn.addEventListener('click', () => {
-        if (filterForm) filterForm.reset();
-        table.setData(reportData.rows);
-        Toast.show('Filters reset', 'info');
-      });
-    }
-
-    // Delegate row action clicks
-    container.addEventListener('click', (e) => {
-      const viewBtn = e.target.closest('.rep-action-view');
-      if (viewBtn) {
-        e.stopPropagation();
-        const ref = viewBtn.getAttribute('data-ref');
-        const r = reportData.rows.find(x => 
-          (x.orderNo === ref || x.lotNo === ref || x.code === ref || x.poNo === ref || x.billNo === ref || x.batchNo === ref || x.traceCode === ref || x.itemCode === ref || x.trackId === ref || x.qcNo === ref || x.formNo === ref || x.transId === ref || x.inwardNo === ref || x.rackNo === ref || String(x.id) === ref)
-        );
-        if (r) this.showReportDetails(r, this.getReportTypeLabel(submenuId, currentReportType, pageTitle));
-        else Toast.show(`Viewing details for: ${ref}`, 'info');
-        return;
-      }
-      const exportRowBtn = e.target.closest('.rep-action-export');
-      if (exportRowBtn) {
-        e.stopPropagation();
-        const ref = exportRowBtn.getAttribute('data-ref');
-        Toast.show(`Exporting dossier for ${ref}...`, 'success');
-        return;
-      }
-    });
   },
 
   // Full Human-Readable Label Mapping for all 91 Report Types across 6 Submenus
@@ -63672,29 +63643,32 @@ const ReportsView = {
     // ----------------------------------------------------
     if (submenuId === 'purchase-reports' || submenuId.includes('purchase')) {
       return `
-        <!-- Filter: DOC NO -->
+        <!-- Filter: BILL NO -->
         <div>
-          <label for="rep-filter-docno" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DOC NO</label>
-          <input type="text" id="rep-filter-docno" placeholder="Search by Doc No..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          <label for="rep-filter-docno" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BILL NO</label>
+          <input type="text" id="rep-filter-docno" placeholder="Search by Bill No..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
         </div>
 
         <!-- Filter: DATE -->
         <div>
-          <label for="rep-filter-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DATE</label>
+          <label for="rep-filter-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BILL / ARRIVAL DATE</label>
           <input type="date" id="rep-filter-date" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
         </div>
 
-        <!-- Filter: DEPARTMENT -->
+        <!-- Filter: CENTER / PLANT -->
         <div>
-          <label for="rep-filter-dept" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DEPARTMENT</label>
+          <label for="rep-filter-dept" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CENTER / PLANT</label>
           <select id="rep-filter-dept" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-            <option value="ALL">All Departments</option>
-            <option value="Processing Unit-5">Processing Unit-5</option>
-            <option value="Coldstore Hub">Coldstore Hub</option>
-            <option value="Quality Control Lab">Quality Control Lab</option>
-            <option value="Engineering & Maintenance">Engineering & Maintenance</option>
-            <option value="Pre-Processing Unit">Pre-Processing Unit</option>
-            <option value="Administration & Safety">Administration & Safety</option>
+            <option value="ALL">All Centers & Plants</option>
+            <option value="Bhimavaram Center">Bhimavaram Center</option>
+            <option value="Machilipatnam Center">Machilipatnam Center</option>
+            <option value="Narsapur Center">Narsapur Center</option>
+            <option value="Bapatla Center">Bapatla Center</option>
+            <option value="Ongole Center">Ongole Center</option>
+            <option value="Unit 1 - Processing">Unit 1 - Processing (Vizag)</option>
+            <option value="Unit 2 - Pre-Processing">Unit 2 - Pre-Processing</option>
+            <option value="Unit 3 - Coldstore">Unit 3 - Coldstore & IQF</option>
+            <option value="Unit 5 - Bulk Value Addition">Unit 5 - Bulk Value Addition</option>
           </select>
         </div>
 
@@ -64008,47 +63982,339 @@ const ReportsView = {
     // ==========================================
     else if (submenuId === 'purchase-reports' || submenuId.includes('purchase')) {
       columns = [
-        // 1. S No (Clickable to show full indent details)
+        // 1. S.No
         {
           field: 'sNo',
-          header: 'S No',
+          header: 'S.No',
           sortable: true,
           render: (v, r, idx) => `
-            <span class="text-[#00A4B7] font-semibold hover:underline cursor-pointer select-none" title="Click to view full indent details">${idx + 1}</span>
+            <span class="text-[#00A4B7] font-semibold hover:underline cursor-pointer select-none" title="Click to view details">${idx + 1}</span>
           `
         },
-        // 2. Doc No (Clickable to show full indent details)
+        // 2. Bill No
         {
-          field: 'docNo',
-          header: 'Doc No',
+          field: 'billNo',
+          header: 'Bill No',
           sortable: true,
-          render: (v, r) => `
-            <div class="flex flex-col cursor-pointer" title="Click to view full indent details">
-              <span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline whitespace-nowrap">${v || r.poNo || r.billNo || ''}</span>
-              <span class="text-[10px] text-[#5E6C84]">${r.department || 'Processing Unit-5'} (${r.items?.length || 1} items)</span>
-            </div>
+          render: v => `
+            <span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer whitespace-nowrap" title="Click to view details">${v}</span>
           `
         },
-        // 3. Date
+        // 3. Arrival Plant
         {
-          field: 'date',
-          header: 'Date',
+          field: 'arrivalPlant',
+          header: 'Arrival Plant',
           sortable: true,
-          render: v => `<span class="whitespace-nowrap text-xs text-[#172B4D] font-medium font-mono">${v}</span>`
+          render: v => `<span class="text-xs font-medium text-[#172B4D] whitespace-nowrap">${v}</span>`
+        },
+        // 4. Bill Date
+        {
+          field: 'billDate',
+          header: 'Bill Date',
+          sortable: true,
+          render: v => `<span class="whitespace-nowrap text-xs text-[#172B4D] font-mono">${v}</span>`
+        },
+        // 5. Arrival Date
+        {
+          field: 'arrivalDate',
+          header: 'Arrival Date',
+          sortable: true,
+          render: v => `<span class="whitespace-nowrap text-xs text-[#5E6C84] font-mono">${v}</span>`
+        },
+        // 6. Supplier
+        {
+          field: 'supplier',
+          header: 'Supplier',
+          sortable: true,
+          render: v => `<span class="font-semibold text-xs text-[#172B4D] whitespace-nowrap">${v}</span>`
+        },
+        // 7. Center Name
+        {
+          field: 'centerName',
+          header: 'Center Name',
+          sortable: true,
+          render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-medium bg-[#F1F5F9] text-[#172B4D] whitespace-nowrap">${v}</span>`
+        },
+        // 8. Production Plant
+        {
+          field: 'productionPlant',
+          header: 'Production Plant',
+          sortable: true,
+          render: v => `<span class="text-xs text-[#172B4D] font-medium whitespace-nowrap">${v}</span>`
+        },
+        // 9. Variety
+        {
+          field: 'variety',
+          header: 'Variety',
+          sortable: true,
+          render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-medium bg-[#E0F2FE] text-[#0369A1] whitespace-nowrap">${v}</span>`
+        },
+        // 10. Count
+        {
+          field: 'count',
+          header: 'Count',
+          sortable: true,
+          render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] whitespace-nowrap">${v}</span>`
+        },
+        // 11. Vehicle Number
+        {
+          field: 'vehicleNumber',
+          header: 'Vehicle Number',
+          sortable: true,
+          render: v => `<span class="font-mono text-xs font-semibold text-[#475569] whitespace-nowrap">${v}</span>`
+        },
+        // 12. RM Production Plant
+        {
+          field: 'rmProductionPlant',
+          header: 'RM Production Plant',
+          sortable: true,
+          render: v => `<span class="text-xs text-[#172B4D] whitespace-nowrap">${v}</span>`
+        },
+        // 13. Final Quantity
+        {
+          field: 'finalQuantity',
+          header: 'Final Quantity',
+          sortable: true,
+          render: v => `<span class="font-mono font-bold text-xs text-[#172B4D] whitespace-nowrap">${Number(v).toLocaleString()} Kg</span>`
+        },
+        // 14. Rate
+        {
+          field: 'rate',
+          header: 'Rate',
+          sortable: true,
+          render: v => `<span class="font-mono text-xs text-[#172B4D] whitespace-nowrap">₹${Number(v).toFixed(2)}</span>`
+        },
+        // 15. Amount
+        {
+          field: 'amount',
+          header: 'Amount',
+          sortable: true,
+          render: v => `<span class="font-mono font-bold text-xs text-[#172B4D] whitespace-nowrap">₹${Number(v).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>`
+        },
+        // 16. Harvest
+        {
+          field: 'harvest',
+          header: 'Harvest',
+          sortable: true,
+          render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#FEF3C7] text-[#92400E] whitespace-nowrap">${v}</span>`
+        },
+        // 17. Harvest Amount
+        {
+          field: 'harvestAmount',
+          header: 'Harvest Amount',
+          sortable: true,
+          render: v => `<span class="font-mono text-xs text-[#64748B] whitespace-nowrap">₹${Number(v).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>`
+        },
+        // 18. Final Amount
+        {
+          field: 'finalAmount',
+          header: 'Final Amount',
+          sortable: true,
+          render: v => `<span class="font-mono font-extrabold text-xs text-[#00875A] whitespace-nowrap">₹${Number(v).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>`
         }
       ];
 
       rows = [
-        { id: 1, docNo: 'IND-GS-2026-0041', poNo: 'PUR-DFL-2026-1041', date: '2026-10-28', department: 'Processing Unit-5', items: [{ name: 'Vannamei Fresh' }, { name: 'Ice' }], supplier: 'Sri Venkata Krishna Aquatics', center: 'Bhimavaram Center', variety: 'Vannamei Fresh', count: '30 Count', grossWt: 8450, rate: 385.00, grossVal: 3253250, status: 'Weighed & Certified' },
-        { id: 2, docNo: 'IND-GS-2026-0042', poNo: 'PUR-DFL-2026-1042', date: '2026-10-27', department: 'Coldstore Hub', items: [{ name: 'Packaging Bags' }], supplier: 'Godavari Aqua Harvests', center: 'Machilipatnam Center', variety: 'Vannamei Fresh', count: '40 Count', grossWt: 6200, rate: 340.00, grossVal: 2108000, status: 'Weighed & Certified' },
-        { id: 3, docNo: 'IND-GS-2026-0043', poNo: 'PUR-DFL-2026-1043', date: '2026-10-26', department: 'Quality Control Lab', items: [{ name: 'Testing Reagents' }], supplier: 'Kishna Coastal Prawns', center: 'Narsapur Center', variety: 'Black Tiger', count: '16/20 Count', grossWt: 4100, rate: 580.00, grossVal: 2378000, status: 'Weighed & Certified' },
-        { id: 4, docNo: 'IND-GS-2026-0044', poNo: 'PUR-DFL-2026-1044', date: '2026-10-25', department: 'Engineering & Maintenance', items: [{ name: 'Spare Parts' }], supplier: 'Delta Prime Hatcheries & Farms', center: 'Bapatla Center', variety: 'Vannamei Fresh', count: '25 Count', grossWt: 9800, rate: 415.00, grossVal: 4067000, status: 'Weighed & Certified' },
-        { id: 5, docNo: 'IND-GS-2026-0045', poNo: 'PUR-DFL-2026-1045', date: '2026-10-24', department: 'Pre-Processing Unit', items: [{ name: 'Grading Trays' }], supplier: 'Delta Sea Farms', center: 'Ongole Center', variety: 'Vannamei Fresh', count: '50 Count', grossWt: 7200, rate: 290.00, grossVal: 2088000, status: 'Weighed & Certified' },
-        { id: 6, docNo: 'IND-GS-2026-0046', poNo: 'PUR-DFL-2026-1046', date: '2026-10-20', department: 'Administration & Safety', items: [{ name: 'Gloves' }], supplier: 'Coastal Marine Harvesters', center: 'Bhimavaram Center', variety: 'Sea White', count: '20/25 Count', grossWt: 5300, rate: 460.00, grossVal: 2438000, status: 'Weighed & Certified' },
-        { id: 7, docNo: 'IND-GS-2026-0047', poNo: 'PUR-DFL-2026-1047', date: '2026-10-18', department: 'Processing Unit-5', items: [{ name: 'Aprons' }], supplier: 'Andhra Prawn Hatcheries', center: 'Machilipatnam Center', variety: 'Vannamei Fresh', count: '35 Count', grossWt: 6900, rate: 360.00, grossVal: 2484000, status: 'Weighed & Certified' },
-        { id: 8, docNo: 'IND-GS-2026-0048', poNo: 'PUR-DFL-2026-1048', date: '2026-10-15', department: 'Coldstore Hub', items: [{ name: 'Pallets' }], supplier: 'Sagar Marine Farms', center: 'Narsapur Center', variety: 'Black Tiger', count: '10/15 Count', grossWt: 3800, rate: 690.00, grossVal: 2622000, status: 'Weighed & Certified' },
-        { id: 9, docNo: 'IND-GS-2026-0049', poNo: 'PUR-DFL-2026-1049', date: '2026-10-12', department: 'Quality Control Lab', items: [{ name: 'Chlorine Strips' }], supplier: 'Krishna Delta Aqua', center: 'Bapatla Center', variety: 'Vannamei Fresh', count: '45 Count', grossWt: 8100, rate: 310.00, grossVal: 2511000, status: 'Weighed & Certified' },
-        { id: 10, docNo: 'IND-GS-2026-0050', poNo: 'PUR-DFL-2026-1050', date: '2026-10-05', department: 'Engineering & Maintenance', items: [{ name: 'Filters' }], supplier: 'Godavari Bio-Harvest', center: 'Bhimavaram Center', variety: 'Vannamei Fresh', count: '28 Count', grossWt: 10500, rate: 395.00, grossVal: 4147500, status: 'Weighed & Certified' }
+        {
+          id: 1,
+          billNo: 'BIL-PUR-2026-1041',
+          arrivalPlant: 'Unit 1 - Processing (Vizag)',
+          billDate: '2026-10-28',
+          arrivalDate: '2026-10-28',
+          supplier: 'Sri Venkata Krishna Aquatics',
+          centerName: 'Bhimavaram Center',
+          productionPlant: 'Unit 1 - Processing Facility',
+          variety: 'Vannamei Fresh',
+          count: '30 Count',
+          vehicleNumber: 'AP 39 TE 2450',
+          rmProductionPlant: 'Unit 1 - Processing Facility',
+          finalQuantity: 8450,
+          rate: 385.00,
+          amount: 3253250.00,
+          harvest: 'Day Harvest',
+          harvestAmount: 42250.00,
+          finalAmount: 3295500.00
+        },
+        {
+          id: 2,
+          billNo: 'BIL-PUR-2026-1042',
+          arrivalPlant: 'Unit 2 - Pre-Processing',
+          billDate: '2026-10-28',
+          arrivalDate: '2026-10-27',
+          supplier: 'Godavari Aqua Harvests',
+          centerName: 'Machilipatnam Center',
+          productionPlant: 'Unit 2 - Pre-Processing Facility',
+          variety: 'Vannamei Fresh',
+          count: '40 Count',
+          vehicleNumber: 'AP 16 TX 7812',
+          rmProductionPlant: 'Unit 2 - Pre-Processing Facility',
+          finalQuantity: 6200,
+          rate: 340.00,
+          amount: 2108000.00,
+          harvest: 'Night Harvest',
+          harvestAmount: 31000.00,
+          finalAmount: 2139000.00
+        },
+        {
+          id: 3,
+          billNo: 'BIL-PUR-2026-1043',
+          arrivalPlant: 'Unit 3 - Coldstore & IQF',
+          billDate: '2026-10-27',
+          arrivalDate: '2026-10-27',
+          supplier: 'Kishna Coastal Prawns',
+          centerName: 'Narsapur Center',
+          productionPlant: 'Unit 3 - Cold Storage & IQF',
+          variety: 'Black Tiger',
+          count: '16/20 Count',
+          vehicleNumber: 'AP 37 TT 3411',
+          rmProductionPlant: 'Unit 3 - Cold Storage & IQF',
+          finalQuantity: 4100,
+          rate: 580.00,
+          amount: 2378000.00,
+          harvest: 'Day Harvest',
+          harvestAmount: 20500.00,
+          finalAmount: 2398500.00
+        },
+        {
+          id: 4,
+          billNo: 'BIL-PUR-2026-1044',
+          arrivalPlant: 'Unit 1 - Processing (Vizag)',
+          billDate: '2026-10-27',
+          arrivalDate: '2026-10-26',
+          supplier: 'Delta Prime Hatcheries & Farms',
+          centerName: 'Bapatla Center',
+          productionPlant: 'Unit 1 - Processing Facility',
+          variety: 'Vannamei Fresh',
+          count: '25 Count',
+          vehicleNumber: 'AP 07 TJ 9033',
+          rmProductionPlant: 'Unit 1 - Processing Facility',
+          finalQuantity: 9800,
+          rate: 415.00,
+          amount: 4067000.00,
+          harvest: 'Night Harvest',
+          harvestAmount: 49000.00,
+          finalAmount: 4116000.00
+        },
+        {
+          id: 5,
+          billNo: 'BIL-PUR-2026-1045',
+          arrivalPlant: 'Unit 5 - Bulk Value Addition',
+          billDate: '2026-10-26',
+          arrivalDate: '2026-10-25',
+          supplier: 'Delta Sea Farms',
+          centerName: 'Ongole Center',
+          productionPlant: 'Unit 5 - Value Addition Plant',
+          variety: 'Vannamei Fresh',
+          count: '50 Count',
+          vehicleNumber: 'AP 27 TC 1109',
+          rmProductionPlant: 'Unit 5 - Value Addition Plant',
+          finalQuantity: 7200,
+          rate: 290.00,
+          amount: 2088000.00,
+          harvest: 'Day Harvest',
+          harvestAmount: 36000.00,
+          finalAmount: 2124000.00
+        },
+        {
+          id: 6,
+          billNo: 'BIL-PUR-2026-1046',
+          arrivalPlant: 'Unit 3 - Coldstore & IQF',
+          billDate: '2026-10-25',
+          arrivalDate: '2026-10-24',
+          supplier: 'Coastal Marine Harvesters',
+          centerName: 'Bhimavaram Center',
+          productionPlant: 'Unit 3 - Cold Storage & IQF',
+          variety: 'Sea White',
+          count: '20/25 Count',
+          vehicleNumber: 'AP 39 TH 5521',
+          rmProductionPlant: 'Unit 3 - Cold Storage & IQF',
+          finalQuantity: 5300,
+          rate: 460.00,
+          amount: 2438000.00,
+          harvest: 'Night Harvest',
+          harvestAmount: 26500.00,
+          finalAmount: 2464500.00
+        },
+        {
+          id: 7,
+          billNo: 'BIL-PUR-2026-1047',
+          arrivalPlant: 'Unit 2 - Pre-Processing',
+          billDate: '2026-10-24',
+          arrivalDate: '2026-10-23',
+          supplier: 'Andhra Prawn Hatcheries',
+          centerName: 'Machilipatnam Center',
+          productionPlant: 'Unit 2 - Pre-Processing Facility',
+          variety: 'Vannamei Fresh',
+          count: '35 Count',
+          vehicleNumber: 'AP 16 TZ 8844',
+          rmProductionPlant: 'Unit 2 - Pre-Processing Facility',
+          finalQuantity: 6900,
+          rate: 360.00,
+          amount: 2484000.00,
+          harvest: 'Day Harvest',
+          harvestAmount: 34500.00,
+          finalAmount: 2518500.00
+        },
+        {
+          id: 8,
+          billNo: 'BIL-PUR-2026-1048',
+          arrivalPlant: 'Unit 1 - Processing (Vizag)',
+          billDate: '2026-10-23',
+          arrivalDate: '2026-10-22',
+          supplier: 'Sagar Marine Farms',
+          centerName: 'Narsapur Center',
+          productionPlant: 'Unit 1 - Processing Facility',
+          variety: 'Black Tiger',
+          count: '10/15 Count',
+          vehicleNumber: 'AP 37 TW 9012',
+          rmProductionPlant: 'Unit 1 - Processing Facility',
+          finalQuantity: 3800,
+          rate: 690.00,
+          amount: 2622000.00,
+          harvest: 'Night Harvest',
+          harvestAmount: 19000.00,
+          finalAmount: 2641000.00
+        },
+        {
+          id: 9,
+          billNo: 'BIL-PUR-2026-1049',
+          arrivalPlant: 'Unit 5 - Bulk Value Addition',
+          billDate: '2026-10-22',
+          arrivalDate: '2026-10-21',
+          supplier: 'Krishna Delta Aqua',
+          centerName: 'Bapatla Center',
+          productionPlant: 'Unit 5 - Value Addition Plant',
+          variety: 'Vannamei Fresh',
+          count: '45 Count',
+          vehicleNumber: 'AP 07 TL 6701',
+          rmProductionPlant: 'Unit 5 - Value Addition Plant',
+          finalQuantity: 8100,
+          rate: 310.00,
+          amount: 2511000.00,
+          harvest: 'Day Harvest',
+          harvestAmount: 40500.00,
+          finalAmount: 2551500.00
+        },
+        {
+          id: 10,
+          billNo: 'BIL-PUR-2026-1050',
+          arrivalPlant: 'Unit 1 - Processing (Vizag)',
+          billDate: '2026-10-21',
+          arrivalDate: '2026-10-20',
+          supplier: 'Godavari Bio-Harvest',
+          centerName: 'Bhimavaram Center',
+          productionPlant: 'Unit 1 - Processing Facility',
+          variety: 'Vannamei Fresh',
+          count: '28 Count',
+          vehicleNumber: 'AP 39 TJ 4432',
+          rmProductionPlant: 'Unit 1 - Processing Facility',
+          finalQuantity: 10500,
+          rate: 395.00,
+          amount: 4147500.00,
+          harvest: 'Night Harvest',
+          harvestAmount: 52500.00,
+          finalAmount: 4200000.00
+        }
       ];
     }
 
