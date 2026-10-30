@@ -358,8 +358,40 @@ export const ADMIN_NAV_HIERARCHY = [
   {
     id: "reports",
     title: "Reports",
-    icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>`,
+    icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>`,
     submenus: [
+      {
+        id: "purchase-reports",
+        title: "Purchase Reports",
+        defaultTab: "rm-inward-reports",
+        tabs: [
+          { id: "rm-inward-reports", label: "RM Inward & Arrivals", hash: "#/reports/purchase-reports/rm-inward-reports" },
+          { id: "supplier-procurement", label: "Supplier Procurement", hash: "#/reports/purchase-reports/supplier-procurement" },
+          { id: "lot-valuation", label: "Lot Valuation & Tracking", hash: "#/reports/purchase-reports/lot-valuation" },
+          { id: "purchase-bills", label: "Bills & Payment Status", hash: "#/reports/purchase-reports/purchase-bills" }
+        ]
+      },
+      {
+        id: "preprocessing-reports",
+        title: "Pre-Processing Reports",
+        defaultTab: "deheading-grading",
+        tabs: [
+          { id: "deheading-grading", label: "Deheading & Grading", hash: "#/reports/preprocessing-reports/deheading-grading" },
+          { id: "peeling-yield", label: "Peeling & Value Addition", hash: "#/reports/preprocessing-reports/peeling-yield" },
+          { id: "chemical-reports", label: "Chemicals & Consumption", hash: "#/reports/preprocessing-reports/chemical-reports" }
+        ]
+      },
+      {
+        id: "quality-reports",
+        title: "Quality Control Reports",
+        defaultTab: "rm-qc-inspections",
+        tabs: [
+          { id: "rm-qc-inspections", label: "RM QC Inspections", hash: "#/reports/quality-reports/rm-qc-inspections" },
+          { id: "lab-test-clearances", label: "Lab & Antibiotic Clearance", hash: "#/reports/quality-reports/lab-test-clearances" },
+          { id: "microbiology-reports", label: "Microbiology Testing", hash: "#/reports/quality-reports/microbiology-reports" },
+          { id: "audit-compliance", label: "QC Audits & Compliance", hash: "#/reports/quality-reports/audit-compliance" }
+        ]
+      },
       {
         id: "production-analytics",
         title: "Production Analytics",
