@@ -835,51 +835,73 @@ export const InventoryView = {
       {
         id: 1,
         docNo: 'GRN-PM-2026-0051',
-        code: 'COD-PM-9101',
         date: '2026-10-28',
+        vendor: 'Sri Venkateswara Packaging Ltd',
+        vendorAccount: 'Sri Venkateswara Packaging Ltd',
         supplier: 'Sri Venkateswara Packaging Ltd',
+        freightType: 'Door Delivery (Freight Included)',
+        isGst: 'Yes (Registered GST Invoice)',
         invoiceNumber: 'INV-SVP-8821',
         invoiceDate: '2026-10-27',
-        poNo: 'PO-PM-2026-0201',
-        freightType: 'Door Delivery (Freight Included)',
+        invoiceAttachment: '',
+        creditNoteType: 'None',
         status: 'Verified & Binned',
         narration: 'First shipment of 10-KG Export Master Cartons received in good order',
         items: [
           {
-            item: '7-Ply Corrugated Master Cartons (1 X 10 KGS IQF Print)',
-            uom: 'MCs',
-            availableQty: 2500,
-            poQty: 25000,
-            receivedQty: 25000,
+            proNumber: 'PRO-2026-0819',
+            typeOfOrder: 'Export Packaging Order',
+            variety: 'Vannamei White Shrimp',
+            grade: '31/40',
+            packingStyle: '10 X 1 KG Printed Pouch',
+            processType: 'PDTO (Peeled Deveined Tail-On)',
+            brand: 'Devi Gold',
+            sizeInMm: '650 x 350 x 280 mm',
+            availQty: 2500,
+            ppoQty: 20000,
+            receivedQty: 20000,
             deviationQty: 0,
             location: 'Packaging Store Vault #1',
             batch: 'BAT-PM-2026-01',
             itemPrice: 58.50,
-            baseValue: 1462500.00,
+            baseValue: 1170000.00,
             deviationAmount: 0.00,
             gstPercent: 12,
-            gstTaxAmount: 175500.00
+            taxAmount: 140400.00,
+            invoiceAmount: 1310400.00,
+            purpose: 'Commercial export packing order allocation',
+            attachment: '',
+            remarks: 'Physical count verified; QC seal intact'
           }
         ]
       },
       {
         id: 2,
         docNo: 'GRN-PM-2026-0052',
-        code: 'COD-PM-9102',
         date: '2026-10-27',
+        vendor: 'Apex Polymers & Films India Ltd',
+        vendorAccount: 'Apex Polymers & Films India Ltd',
         supplier: 'Apex Polymers & Films India Ltd',
+        freightType: 'Ex-Works with Paid Transit',
+        isGst: 'Yes (Registered GST Invoice)',
         invoiceNumber: 'INV-APF-4419',
         invoiceDate: '2026-10-26',
-        poNo: 'PO-PM-2026-0202',
-        freightType: 'Ex-Works with Paid Transit',
+        invoiceAttachment: '',
+        creditNoteType: 'Shortage Deduction',
         status: 'Verified & Binned',
         narration: 'Printed polybags batch receipt - Quality check passed for seal integrity',
         items: [
           {
-            item: 'Printed LDPE 2-Lb Gusseted Shrimp Bags with Zipper (50 Micron)',
-            uom: 'Bags',
-            availableQty: 10000,
-            poQty: 100000,
+            proNumber: 'PRO-2026-0815',
+            typeOfOrder: 'Standard Production Order',
+            variety: 'Black Tiger Shrimp',
+            grade: '16/20',
+            packingStyle: '5 X 2 Lb Retail Zipper Bag',
+            processType: 'HLSO (Headless Shell-On)',
+            brand: 'AquaStar',
+            sizeInMm: '50 Micron Polyfilm',
+            availQty: 10000,
+            ppoQty: 100000,
             receivedQty: 99500,
             deviationQty: -500,
             location: 'Central PM Bay A-2',
@@ -888,7 +910,11 @@ export const InventoryView = {
             baseValue: 338300.00,
             deviationAmount: -1700.00,
             gstPercent: 18,
-            gstTaxAmount: 60894.00
+            taxAmount: 60894.00,
+            invoiceAmount: 399194.00,
+            purpose: 'Export packing buffer stock',
+            attachment: '',
+            remarks: 'Minus 500 pcs shortage recorded on credit note'
           }
         ]
       }
@@ -6899,7 +6925,7 @@ export const InventoryView = {
         </div>
       </div>
 
-      <!-- Search & Filter Card -->
+      <!-- Search & Filter Card (4 Columns: From Date, To Date, Status, Search) -->
       <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200">
         <div class="flex items-center justify-between pb-1">
           <div class="flex items-center gap-2">
@@ -6916,38 +6942,33 @@ export const InventoryView = {
           </div>
         </div>
 
-        <div id="pm-grn-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3 pt-3 border-t border-[#F1F5F9] mt-2 text-xs">
-          <!-- 1. S NO / CODE / PO / INVOICE -->
-          <div>
-            <label for="pm-grn-flt-doc" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DOC / CODE / PO / INV</label>
-            <input type="text" id="pm-grn-flt-doc" placeholder="Search by identifiers..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
-          </div>
-
-          <!-- 2. FROM DATE -->
+        <div id="pm-grn-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-3 border-t border-[#F1F5F9] mt-2 text-xs">
+          <!-- 1. From Date -->
           <div>
             <label for="pm-grn-flt-from" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FROM DATE</label>
             <input type="date" id="pm-grn-flt-from" value="2026-10-01" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
           </div>
 
-          <!-- 3. TO DATE -->
+          <!-- 2. To Date -->
           <div>
             <label for="pm-grn-flt-to" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">TO DATE</label>
             <input type="date" id="pm-grn-flt-to" value="${todayStr}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
           </div>
 
-          <!-- 4. SUPPLIER -->
+          <!-- 3. Status -->
           <div>
-            <label for="pm-grn-flt-sup" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SUPPLIER</label>
-            <select id="pm-grn-flt-sup" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-              <option value="ALL">All Packaging Suppliers</option>
-              <option value="Sri Venkateswara Packaging Ltd">Sri Venkateswara Packaging Ltd</option>
-              <option value="Apex Polymers & Films India Ltd">Apex Polymers &amp; Films India Ltd</option>
-              <option value="Modern Corrugators Visakhapatnam">Modern Corrugators Visakhapatnam</option>
-              <option value="South Coast Boxes & Cartons">South Coast Boxes &amp; Cartons</option>
+            <label for="pm-grn-flt-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">STATUS</label>
+            <select id="pm-grn-flt-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL">All Statuses</option>
+              <option value="Verified & Binned">Verified &amp; Binned</option>
+              <option value="Pending Verification">Pending Verification</option>
+              <option value="Approved">Approved</option>
+              <option value="Draft">Draft</option>
+              <option value="Quality Hold">Quality Hold</option>
             </select>
           </div>
 
-          <!-- Search Button -->
+          <!-- 4. Search Button in Fourth Column -->
           <div class="flex items-end">
             <button type="button" id="pm-grn-flt-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
@@ -6957,17 +6978,28 @@ export const InventoryView = {
         </div>
       </div>
 
-      <!-- Existing GRNs Table Card: S No, Supplier, Date, PO No, Invoice No, Code, Actions -->
+      <!-- Data Table Card: S.No, Doc No, Date, Vendor, Invoice No, Status, Actions -->
       <div id="pm-grn-table-container"></div>
     `;
 
-    // Add GRN button handler
+    // Direct Click Handler for "Add Goods Receipt Note" Button -> Opens Add GRN Modal Popup
     container.querySelector('#pm-grn-toggle-form-btn')?.addEventListener('click', () => {
       this.showAddPmGrnModal(() => {
         renderTable(this.state.pmGrnList);
       });
     });
 
+    // Helper for Status Badge Styling
+    const getStatusBadge = (status) => {
+      const s = status || 'Verified & Binned';
+      let bg = 'bg-[#E3FCEF] text-[#006644]';
+      if (s === 'Pending Verification' || s === 'Draft') bg = 'bg-[#F4F5F7] text-[#42526E]';
+      else if (s === 'Quality Hold') bg = 'bg-[#FFF0B3] text-[#172B4D]';
+      else if (s === 'Rejected') bg = 'bg-[#FFEBE6] text-[#DE350B]';
+      return `<span class="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-semibold ${bg} whitespace-nowrap shadow-2xs">${s}</span>`;
+    };
+
+    // Render Existing PM GRNs Table: S.No, Doc No, Date, Vendor, Invoice No, Status, Actions
     const renderTable = (data) => {
       new DataTable({
         containerId: 'pm-grn-table-container',
@@ -6981,41 +7013,53 @@ export const InventoryView = {
         columns: [
           {
             field: 'sNo',
-            header: 'S No',
-            sortable: true,
+            header: 'S.No',
+            sortable: false,
             render: (v, r, idx) => `
-              <span class="text-[#00A4B7] font-semibold hover:underline cursor-pointer select-none">${idx + 1}</span>
+              <span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer select-none">
+                ${String(idx + 1).padStart(2, '0')}
+              </span>
             `
           },
           {
-            field: 'supplier',
-            header: 'Supplier',
+            field: 'docNo',
+            header: 'Doc No',
             sortable: true,
-            render: v => `<span class="font-semibold text-xs text-[#172B4D] whitespace-nowrap">${v}</span>`
+            render: (v, r) => `
+              <div class="flex flex-col">
+                <span class="font-mono font-bold text-xs text-[#172B4D] hover:text-[#00A4B7] cursor-pointer whitespace-nowrap">${v || '-'}</span>
+                ${r.narration ? `<span class="text-[10px] text-[#5E6C84] truncate max-w-[200px]">${r.narration}</span>` : ''}
+              </div>
+            `
           },
           {
             field: 'date',
             header: 'Date',
             sortable: true,
-            render: v => `<span class="whitespace-nowrap text-xs text-[#172B4D] font-medium font-mono">${v}</span>`
+            render: v => `<span class="whitespace-nowrap text-xs text-[#172B4D] font-medium font-mono">${v || '-'}</span>`
           },
           {
-            field: 'poNo',
-            header: 'PO No',
+            field: 'vendor',
+            header: 'Vendor',
             sortable: true,
-            render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] whitespace-nowrap">${v || '-'}</span>`
+            render: (v, r) => `
+              <div class="flex flex-col">
+                <span class="font-semibold text-xs text-[#172B4D] whitespace-nowrap">${v || r.vendorAccount || r.supplier || '-'}</span>
+                <span class="text-[10px] text-[#5E6C84]">${r.freightType || ''}</span>
+              </div>
+            `
           },
           {
             field: 'invoiceNumber',
             header: 'Invoice No',
             sortable: true,
-            render: v => `<span class="font-mono text-xs text-[#172B4D] whitespace-nowrap">${v || '-'}</span>`
+            render: (v, r) => `<span class="font-mono text-xs font-semibold text-[#172B4D] whitespace-nowrap">${v || r.invoiceNo || '-'}</span>`
           },
           {
-            field: 'code',
-            header: 'Code',
+            field: 'status',
+            header: 'Status',
             sortable: true,
-            render: v => `<span class="font-mono font-semibold text-xs text-[#5E6C84] whitespace-nowrap">${v || '-'}</span>`
+            render: v => getStatusBadge(v)
           }
         ],
         actionsTitle: 'Actions',
@@ -7045,7 +7089,7 @@ export const InventoryView = {
             onClick: (row) => {
               Modal.confirm({
                 title: 'Delete Goods Receipt Note (PM)',
-                message: `Are you sure you want to delete Packaging GRN <strong>${row.docNo}</strong> (${row.supplier})? This will revert inward receipts.`,
+                message: `Are you sure you want to delete Packaging GRN <strong>${row.docNo}</strong> (${row.vendor || row.vendorAccount || row.supplier})? This action cannot be undone.`,
                 confirmText: 'Delete GRN',
                 isDestructive: true,
                 onConfirm: () => {
@@ -7068,22 +7112,14 @@ export const InventoryView = {
 
     // Search & Filter Handlers
     container.querySelector('#pm-grn-flt-search-btn')?.addEventListener('click', () => {
-      const q = container.querySelector('#pm-grn-flt-doc')?.value?.trim().toLowerCase();
       const fromVal = container.querySelector('#pm-grn-flt-from')?.value;
       const toVal = container.querySelector('#pm-grn-flt-to')?.value;
-      const supVal = container.querySelector('#pm-grn-flt-sup')?.value;
+      const statusVal = container.querySelector('#pm-grn-flt-status')?.value;
 
       const filtered = this.state.pmGrnList.filter(it => {
-        if (q) {
-          const matchDoc = it.docNo?.toLowerCase().includes(q);
-          const matchCode = it.code?.toLowerCase().includes(q);
-          const matchPo = it.poNo?.toLowerCase().includes(q);
-          const matchInv = it.invoiceNumber?.toLowerCase().includes(q);
-          if (!matchDoc && !matchCode && !matchPo && !matchInv) return false;
-        }
         if (fromVal && it.date < fromVal) return false;
         if (toVal && it.date > toVal) return false;
-        if (supVal && supVal !== 'ALL' && it.supplier !== supVal) return false;
+        if (statusVal && statusVal !== 'ALL' && it.status !== statusVal) return false;
         return true;
       });
 
@@ -7092,14 +7128,14 @@ export const InventoryView = {
     });
 
     container.querySelector('#pm-grn-filter-reset-btn')?.addEventListener('click', () => {
-      container.querySelector('#pm-grn-flt-doc').value = '';
       container.querySelector('#pm-grn-flt-from').value = '2026-10-01';
       container.querySelector('#pm-grn-flt-to').value = todayStr;
-      container.querySelector('#pm-grn-flt-sup').value = 'ALL';
+      container.querySelector('#pm-grn-flt-status').value = 'ALL';
       renderTable(this.state.pmGrnList);
       Toast.show('GRN filters reset to default', 'info');
     });
 
+    // Toggle Filters Accordion
     const grnFilterBody = container.querySelector('#pm-grn-filter-body');
     const grnToggleIcon = container.querySelector('#pm-grn-filter-toggle-icon');
     container.querySelector('#pm-grn-filter-toggle-btn')?.addEventListener('click', () => {
@@ -7112,30 +7148,58 @@ export const InventoryView = {
     });
   },
 
-  // Modal: Add Packaging GRN
+  // Modal: Add Packaging Goods Receipt Note
   showAddPmGrnModal(onSuccess = null) {
     const todayStr = new Date().toISOString().slice(0, 10);
-    const nextNum = (this.state.pmGrnList?.length || 0) + 1;
-    const defaultDocNo = `GRN-PM-2026-${String(50 + nextNum).padStart(4, '0')}`;
-    const defaultCode = `COD-PM-${9100 + nextNum}`;
+    const nextGrnNum = (this.state.pmGrnList?.length || 0) + 1;
+    const defaultDocNo = `GRN-PM-2026-${String(50 + nextGrnNum).padStart(4, '0')}`;
 
     let grnItems = [
       {
-        item: '7-Ply Corrugated Master Cartons (1 X 10 KGS IQF Print)',
-        uom: 'MCs',
-        availableQty: 2500,
-        poQty: 20000,
+        proNumber: 'PRO-2026-0819',
+        typeOfOrder: 'Export Packaging Order',
+        variety: 'Vannamei White Shrimp',
+        grade: '31/40',
+        packingStyle: '10 X 1 KG Printed Pouch',
+        processType: 'PDTO (Peeled Deveined Tail-On)',
+        brand: 'Devi Gold',
+        sizeInMm: '650 x 350 x 280 mm',
+        availQty: 2500,
+        ppoQty: 20000,
         receivedQty: 20000,
         deviationQty: 0,
         location: 'Packaging Store Vault #1',
-        batch: 'BAT-PM-2026-03',
+        batch: 'BAT-PM-2026-01',
         itemPrice: 58.50,
         baseValue: 1170000.00,
         deviationAmount: 0.00,
         gstPercent: 12,
-        gstTaxAmount: 140400.00
+        taxAmount: 140400.00,
+        invoiceAmount: 1310400.00,
+        purpose: 'Commercial export packing order allocation',
+        attachment: '',
+        remarks: 'Physical count verified; QC seal intact'
       }
     ];
+
+    const recalculateTotals = () => {
+      const totalBase = grnItems.reduce((acc, it) => acc + (it.baseValue || 0), 0);
+      const totalDevAmt = grnItems.reduce((acc, it) => acc + (it.deviationAmount || 0), 0);
+      const totalTax = grnItems.reduce((acc, it) => acc + (it.taxAmount || 0), 0);
+      const netInvoice = grnItems.reduce((acc, it) => acc + (it.invoiceAmount || 0), 0);
+
+      const itemsCountEl = document.getElementById('pm-grn-modal-items-count');
+      const baseEl = document.getElementById('pm-grn-modal-total-base');
+      const devEl = document.getElementById('pm-grn-modal-total-dev');
+      const taxEl = document.getElementById('pm-grn-modal-total-tax');
+      const netEl = document.getElementById('pm-grn-modal-net-inv');
+
+      if (itemsCountEl) itemsCountEl.innerText = grnItems.length;
+      if (baseEl) baseEl.innerText = `₹${totalBase.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      if (devEl) devEl.innerText = `₹${totalDevAmt.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      if (taxEl) taxEl.innerText = `₹${totalTax.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      if (netEl) netEl.innerText = `₹${netInvoice.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    };
 
     const renderItemsTable = () => {
       const tbody = document.getElementById('pm-grn-modal-items-tbody');
@@ -7144,25 +7208,32 @@ export const InventoryView = {
       if (grnItems.length === 0) {
         tbody.innerHTML = `
           <tr>
-            <td colspan="9" class="text-center py-5 text-[#5E6C84] italic">
-              No items received yet. Fill in item receipt details above and click "Add Item to GRN".
+            <td colspan="15" class="text-center py-6 text-[#5E6C84] italic">
+              No items added yet. Fill the item details above and click "Add Item".
             </td>
           </tr>
         `;
+        recalculateTotals();
         return;
       }
 
       tbody.innerHTML = grnItems.map((it, idx) => `
         <tr class="hover:bg-[#F8FAFC]">
-          <td class="py-2 px-3 font-semibold text-[#172B4D]">${it.item}</td>
-          <td class="py-2 px-3 text-[#5E6C84]">${it.uom}</td>
-          <td class="py-2 px-3 text-right font-mono font-bold text-[#172B4D]">${Number(it.poQty || 0).toLocaleString()}</td>
-          <td class="py-2 px-3 text-right font-mono font-bold text-[#00875A]">${Number(it.receivedQty || 0).toLocaleString()}</td>
-          <td class="py-2 px-3 text-right font-mono font-bold ${it.deviationQty < 0 ? 'text-[#DE350B]' : 'text-[#5E6C84]'}">${it.deviationQty}</td>
-          <td class="py-2 px-3 text-right font-mono text-[#172B4D]">₹${Number(it.baseValue || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
-          <td class="py-2 px-3 text-right font-mono text-[#00A4B7]">${it.gstPercent}%</td>
-          <td class="py-2 px-3 text-center text-[#5E6C84] font-mono text-[11px]">${it.batch || '-'}</td>
-          <td class="py-2 px-3 text-center">
+          <td class="py-2.5 px-3 font-mono font-semibold text-[#00A4B7] whitespace-nowrap">${it.proNumber || '-'}</td>
+          <td class="py-2.5 px-3 font-semibold text-[#172B4D] whitespace-nowrap">${it.variety}</td>
+          <td class="py-2.5 px-3 text-[#5E6C84] whitespace-nowrap">${it.grade || '-'}</td>
+          <td class="py-2.5 px-3 text-[#5E6C84] whitespace-nowrap">${it.packingStyle || '-'}</td>
+          <td class="py-2.5 px-3 text-[#172B4D] whitespace-nowrap">${it.location || '-'}</td>
+          <td class="py-2.5 px-3 font-mono text-[#5E6C84] whitespace-nowrap">${it.batch || '-'}</td>
+          <td class="py-2.5 px-3 text-right font-mono text-[#5E6C84] whitespace-nowrap">${Number(it.ppoQty || 0).toLocaleString()}</td>
+          <td class="py-2.5 px-3 text-right font-mono font-bold text-[#172B4D] whitespace-nowrap">${Number(it.receivedQty || 0).toLocaleString()}</td>
+          <td class="py-2.5 px-3 text-right font-mono font-bold ${(it.deviationQty || 0) < 0 ? 'text-[#DE350B]' : (it.deviationQty > 0 ? 'text-[#00875A]' : 'text-[#5E6C84]')} whitespace-nowrap">${it.deviationQty || 0}</td>
+          <td class="py-2.5 px-3 text-right font-mono text-[#172B4D] whitespace-nowrap">₹${Number(it.itemPrice || 0).toFixed(2)}</td>
+          <td class="py-2.5 px-3 text-right font-mono font-bold text-[#172B4D] whitespace-nowrap">₹${Number(it.baseValue || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
+          <td class="py-2.5 px-3 text-right font-mono text-[#00A4B7] whitespace-nowrap">${it.gstPercent}%</td>
+          <td class="py-2.5 px-3 text-right font-mono text-[#00A4B7] whitespace-nowrap">₹${Number(it.taxAmount || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
+          <td class="py-2.5 px-3 text-right font-mono font-bold text-[#00875A] whitespace-nowrap">₹${Number(it.invoiceAmount || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
+          <td class="py-2.5 px-3 text-center whitespace-nowrap">
             <button type="button" class="btn-remove-pm-grn-item text-[#DE350B] hover:text-[#BF2600] p-1 rounded hover:bg-[#FFEBE6] transition-colors cursor-pointer" data-idx="${idx}" title="Remove item">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
             </button>
@@ -7177,308 +7248,591 @@ export const InventoryView = {
           renderItemsTable();
         });
       });
+
+      recalculateTotals();
     };
 
     Modal.open({
       title: 'Add Goods Receipt Note (PM)',
-      width: 'max-w-5xl',
+      size: 'full',
       confirmActions: false,
-      body: `
-        <div class="space-y-4 text-xs">
-          <!-- 1. Header Details -->
-          <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 space-y-3 shadow-2xs">
-            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider border-b border-[#DFE1E6] pb-1.5">GRN Header Information</h4>
+      content: `
+        <form id="modal-add-pm-grn-form" class="space-y-4 text-xs text-[#172B4D]" onsubmit="return false;">
+          <!-- Section 1: Header Information -->
+          <div>
+            <div class="flex items-center justify-between pb-2 mb-3 border-b border-[#DFE1E6]">
+              <div class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Goods Receipt Note Header Information</h4>
+              </div>
+              <span class="text-[11px] font-semibold text-[#5E6C84]">All fields marked with <span class="text-[#DE350B] font-bold">*</span> are required</span>
+            </div>
+
+            <!-- Header Form Input Fields (Clean 4 columns responsive layout) -->
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+              <!-- 1. DOC NO -->
               <div>
-                <label for="pm-mgrn-doc" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DOC NO</label>
-                <input type="text" id="pm-mgrn-doc" value="${defaultDocNo}" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] shadow-2xs cursor-not-allowed" />
+                <label for="pm-mgrn-doc" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DOC NO <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="pm-mgrn-doc" value="${defaultDocNo}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
               </div>
+
+              <!-- 2. DATE -->
               <div>
-                <label for="pm-mgrn-code" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CODE</label>
-                <input type="text" id="pm-mgrn-code" value="${defaultCode}" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] shadow-2xs cursor-not-allowed" />
+                <label for="pm-mgrn-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DATE <span class="text-[#DE350B]">*</span></label>
+                <input type="date" id="pm-mgrn-date" value="${todayStr}" required class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
               </div>
+
+              <!-- 3. VENDOR ACCOUNT -->
               <div>
-                <label for="pm-mgrn-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DATE <span class="text-[#DE350B] font-bold">*</span></label>
-                <input type="date" id="pm-mgrn-date" value="${todayStr}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
-              </div>
-              <div>
-                <label for="pm-mgrn-supplier" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SUPPLIER <span class="text-[#DE350B] font-bold">*</span></label>
-                <select id="pm-mgrn-supplier" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <label for="pm-mgrn-vendor" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">VENDOR ACCOUNT <span class="text-[#DE350B]">*</span></label>
+                <select id="pm-mgrn-vendor" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
                   <option value="Sri Venkateswara Packaging Ltd" selected>Sri Venkateswara Packaging Ltd</option>
                   <option value="Apex Polymers & Films India Ltd">Apex Polymers &amp; Films India Ltd</option>
                   <option value="Modern Corrugators Visakhapatnam">Modern Corrugators Visakhapatnam</option>
                   <option value="South Coast Boxes & Cartons">South Coast Boxes &amp; Cartons</option>
+                  <option value="Delta Polyfilms Corp">Delta Polyfilms Corp</option>
                 </select>
               </div>
+
+              <!-- 4. FREIGHT TYPE -->
               <div>
-                <label for="pm-mgrn-po" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PO NO</label>
-                <input type="text" id="pm-mgrn-po" value="PO-PM-2026-0201" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                <label for="pm-mgrn-freight-type" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FREIGHT TYPE</label>
+                <select id="pm-mgrn-freight-type" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="Door Delivery (Freight Included)" selected>Door Delivery (Freight Included)</option>
+                  <option value="Ex-Works with Paid Transit">Ex-Works with Paid Transit</option>
+                  <option value="To Pay (Freight Extra)">To Pay (Freight Extra)</option>
+                </select>
               </div>
+
+              <!-- 5. IS GST -->
               <div>
-                <label for="pm-mgrn-inv-no" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">INVOICE NO <span class="text-[#DE350B] font-bold">*</span></label>
-                <input type="text" id="pm-mgrn-inv-no" value="INV-SVP-8902" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                <label for="pm-mgrn-is-gst" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">IS GST</label>
+                <select id="pm-mgrn-is-gst" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="Yes (Registered GST Invoice)" selected>Yes (Registered GST Invoice)</option>
+                  <option value="No (Non-GST / Exempt)">No (Non-GST / Exempt)</option>
+                </select>
               </div>
+
+              <!-- 6. INVOICE NUMBER -->
               <div>
-                <label for="pm-mgrn-inv-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">INVOICE DATE</label>
-                <input type="date" id="pm-mgrn-inv-date" value="${todayStr}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                <label for="pm-mgrn-inv-no" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">INVOICE NUMBER <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="pm-mgrn-inv-no" value="INV-SVP-8825" placeholder="Supplier invoice number..." required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
               </div>
+
+              <!-- 7. INVOICE DATE -->
               <div>
+                <label for="pm-mgrn-inv-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">INVOICE DATE <span class="text-[#DE350B]">*</span></label>
+                <input type="date" id="pm-mgrn-inv-date" value="${todayStr}" required class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
+              </div>
+
+              <!-- 8. INVOICE ATTACHMENT -->
+              <div>
+                <label for="pm-mgrn-inv-attach" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">INVOICE ATTACHMENT</label>
+                <input type="file" id="pm-mgrn-inv-attach" class="w-full text-[11px] px-2 py-1 bg-white border border-[#DFE1E6] rounded text-[#5E6C84] focus:outline-none focus:border-[#00A4B7] file:mr-2 file:py-0.5 file:px-2 file:rounded file:border-0 file:text-[10px] file:font-semibold file:bg-[#E0F2FE] file:text-[#0284C7] cursor-pointer" />
+              </div>
+
+              <!-- 9. CREDIT NOTE TYPE -->
+              <div>
+                <label for="pm-mgrn-credit-type" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CREDIT NOTE TYPE</label>
+                <select id="pm-mgrn-credit-type" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="None" selected>None</option>
+                  <option value="Shortage Deduction">Shortage Deduction</option>
+                  <option value="Rate Difference">Rate Difference</option>
+                  <option value="Quality Rejection">Quality Rejection</option>
+                </select>
+              </div>
+
+              <!-- 10. STATUS -->
+              <div>
+                <label for="pm-mgrn-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">STATUS</label>
+                <select id="pm-mgrn-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="Verified & Binned" selected>Verified &amp; Binned</option>
+                  <option value="Pending Verification">Pending Verification</option>
+                  <option value="Approved">Approved</option>
+                  <option value="Draft">Draft</option>
+                  <option value="Quality Hold">Quality Hold</option>
+                </select>
+              </div>
+
+              <!-- 11. NARRATION (Full width) -->
+              <div class="col-span-1 sm:col-span-2 md:col-span-2">
                 <label for="pm-mgrn-narration" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">NARRATION</label>
-                <input type="text" id="pm-mgrn-narration" placeholder="Inward inspection notes..." value="Packaging materials received and quality inspected" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                <input type="text" id="pm-mgrn-narration" placeholder="Inward receipt notes and physical verification remarks..." value="Packaging materials inward receipt against Purchase Order for export line" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
               </div>
             </div>
           </div>
 
-          <!-- 2. Item Details Fields -->
-          <div class="bg-[#F8FAFC] border border-[#DFE1E6] rounded-xl p-3.5 space-y-3 shadow-2xs">
-            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider border-b border-[#DFE1E6] pb-1.5">Inward Item Receipt Details</h4>
-            
-            <!-- Row 1: Item & Quantities -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 gap-3">
-              <div class="md:col-span-2">
-                <label for="pm-mgrni-item" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ITEM <span class="text-[#DE350B] font-bold">*</span></label>
-                <input type="text" id="pm-mgrni-item" value="Printed LDPE 2-Lb Gusseted Shrimp Bags with Zipper (50 Micron)" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          <!-- Section 2: Work Flow - Item Details Fields -->
+          <div>
+            <div class="flex items-center justify-between pb-2 mb-3 border-b border-[#DFE1E6]">
+              <div class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+                <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Work Flow - Item Details Fields</h4>
               </div>
-              <div>
-                <label for="pm-mgrni-uom" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">UOM</label>
-                <select id="pm-mgrni-uom" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                  <option value="Bags" selected>Bags</option>
-                  <option value="MCs">MCs</option>
-                  <option value="Boxes">Boxes</option>
-                  <option value="Rolls">Rolls</option>
-                  <option value="Nos">Nos</option>
-                </select>
-              </div>
-              <div>
-                <label for="pm-mgrni-avail-qty" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">AVAIL QTY</label>
-                <input type="number" id="pm-mgrni-avail-qty" value="10000" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] shadow-2xs cursor-not-allowed" />
-              </div>
-              <div>
-                <label for="pm-mgrni-po-qty" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PO QTY</label>
-                <input type="number" id="pm-mgrni-po-qty" value="50000" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
-              </div>
-              <div>
-                <label for="pm-mgrni-rec-qty" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">RECEIVED QTY <span class="text-[#DE350B] font-bold">*</span></label>
-                <input type="number" id="pm-mgrni-rec-qty" value="50000" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              <span class="text-[11px] font-semibold text-[#5E6C84]">All fields marked with <span class="text-[#DE350B] font-bold">*</span> are required</span>
+            </div>
+
+            <!-- Item Input Grid Card (4 columns responsive layout) -->
+            <div class="bg-[#F8FAFC] border border-[#DFE1E6] rounded-xl p-3.5 space-y-3 shadow-2xs">
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+                <!-- 1. PRO Number -->
+                <div>
+                  <label for="pm-mgrni-pro-no" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PRO NUMBER</label>
+                  <input type="text" id="pm-mgrni-pro-no" value="PRO-2026-0819" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                </div>
+
+                <!-- 2. Type of Order -->
+                <div>
+                  <label for="pm-mgrni-order-type" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">TYPE OF ORDER</label>
+                  <select id="pm-mgrni-order-type" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                    <option value="Export Packaging Order" selected>Export Packaging Order</option>
+                    <option value="Standard Production Order">Standard Production Order</option>
+                    <option value="Seasonal Peak Pack">Seasonal Peak Pack</option>
+                    <option value="Sample Trial Order">Sample Trial Order</option>
+                  </select>
+                </div>
+
+                <!-- 3. Variety * -->
+                <div>
+                  <label for="pm-mgrni-variety" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">VARIETY <span class="text-[#DE350B]">*</span></label>
+                  <select id="pm-mgrni-variety" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                    <option value="Vannamei White Shrimp" selected>Vannamei White Shrimp</option>
+                    <option value="Black Tiger Shrimp">Black Tiger Shrimp</option>
+                    <option value="Sea White Shrimp">Sea White Shrimp</option>
+                    <option value="Pink Brown Shrimp">Pink Brown Shrimp</option>
+                    <option value="Freshwater Scampi">Freshwater Scampi</option>
+                  </select>
+                </div>
+
+                <!-- 4. Grade -->
+                <div>
+                  <label for="pm-mgrni-grade" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">GRADE</label>
+                  <select id="pm-mgrni-grade" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                    <option value="16/20">16/20</option>
+                    <option value="21/25">21/25</option>
+                    <option value="26/30">26/30</option>
+                    <option value="31/40" selected>31/40</option>
+                    <option value="41/50">41/50</option>
+                    <option value="51/60">51/60</option>
+                  </select>
+                </div>
+
+                <!-- 5. Packing Style -->
+                <div>
+                  <label for="pm-mgrni-packing-style" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PACKING STYLE</label>
+                  <select id="pm-mgrni-packing-style" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                    <option value="10 X 1 KG Printed Pouch" selected>10 X 1 KG Printed Pouch</option>
+                    <option value="6 X 2 KG Master Carton">6 X 2 KG Master Carton</option>
+                    <option value="1 X 10 KG Block IQF">1 X 10 KG Block IQF</option>
+                    <option value="5 X 2 Lb Retail Zipper Bag">5 X 2 Lb Retail Zipper Bag</option>
+                    <option value="10 X 2 Lb Export Master">10 X 2 Lb Export Master</option>
+                  </select>
+                </div>
+
+                <!-- 6. Process Type -->
+                <div>
+                  <label for="pm-mgrni-process-type" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PROCESS TYPE</label>
+                  <select id="pm-mgrni-process-type" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                    <option value="PDTO (Peeled Deveined Tail-On)" selected>PDTO (Peeled Deveined Tail-On)</option>
+                    <option value="HLSO (Headless Shell-On)">HLSO (Headless Shell-On)</option>
+                    <option value="PD (Peeled &amp; Deveined)">PD (Peeled &amp; Deveined)</option>
+                    <option value="Cooked Tail-On">Cooked Tail-On</option>
+                    <option value="EZ Peel">EZ Peel</option>
+                  </select>
+                </div>
+
+                <!-- 7. Brand -->
+                <div>
+                  <label for="pm-mgrni-brand" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BRAND</label>
+                  <input type="text" id="pm-mgrni-brand" value="Devi Gold" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                </div>
+
+                <!-- 8. Size in mm -->
+                <div>
+                  <label for="pm-mgrni-size-mm" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SIZE IN MM</label>
+                  <input type="text" id="pm-mgrni-size-mm" value="650 x 350 x 280 mm" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                </div>
+
+                <!-- 9. Available Qty -->
+                <div>
+                  <label for="pm-mgrni-avail-qty" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">AVAILABLE QTY</label>
+                  <input type="number" id="pm-mgrni-avail-qty" value="2500" min="0" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] shadow-2xs cursor-not-allowed" />
+                </div>
+
+                <!-- 10. PPO Qty -->
+                <div>
+                  <label for="pm-mgrni-ppo-qty" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PPO QTY <span class="text-[#DE350B]">*</span></label>
+                  <input type="number" id="pm-mgrni-ppo-qty" value="20000" min="1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                </div>
+
+                <!-- 11. Received Qty -->
+                <div>
+                  <label for="pm-mgrni-rec-qty" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">RECEIVED QTY <span class="text-[#DE350B]">*</span></label>
+                  <input type="number" id="pm-mgrni-rec-qty" value="20000" min="1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                </div>
+
+                <!-- 12. Deviation Qty -->
+                <div>
+                  <label for="pm-mgrni-dev-qty" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DEVIATION QTY</label>
+                  <input type="number" id="pm-mgrni-dev-qty" value="0" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#5E6C84] shadow-2xs cursor-not-allowed" />
+                </div>
+
+                <!-- 13. Location -->
+                <div>
+                  <label for="pm-mgrni-location" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">LOCATION</label>
+                  <select id="pm-mgrni-location" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                    <option value="Packaging Store Vault #1" selected>Packaging Store Vault #1</option>
+                    <option value="Central PM Bay A-2">Central PM Bay A-2</option>
+                    <option value="Cold Storage Packaging Rack B">Cold Storage Packaging Rack B</option>
+                    <option value="General Warehouse PM Shelf 3">General Warehouse PM Shelf 3</option>
+                  </select>
+                </div>
+
+                <!-- 14. Batch -->
+                <div>
+                  <label for="pm-mgrni-batch" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BATCH</label>
+                  <input type="text" id="pm-mgrni-batch" value="BAT-PM-2026-03" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                </div>
+
+                <!-- 15. Item Price -->
+                <div>
+                  <label for="pm-mgrni-price" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ITEM PRICE (₹) <span class="text-[#DE350B]">*</span></label>
+                  <input type="number" id="pm-mgrni-price" value="58.50" step="0.01" min="0" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                </div>
+
+                <!-- 16. Base Value -->
+                <div>
+                  <label for="pm-mgrni-base-val" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BASE VALUE (₹)</label>
+                  <input type="number" id="pm-mgrni-base-val" value="1170000.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] shadow-2xs cursor-not-allowed" />
+                </div>
+
+                <!-- 17. Deviation Amount -->
+                <div>
+                  <label for="pm-mgrni-dev-amt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DEVIATION AMOUNT (₹)</label>
+                  <input type="number" id="pm-mgrni-dev-amt" value="0.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#5E6C84] shadow-2xs cursor-not-allowed" />
+                </div>
+
+                <!-- 18. GST % -->
+                <div>
+                  <label for="pm-mgrni-gst-pct" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">GST %</label>
+                  <select id="pm-mgrni-gst-pct" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                    <option value="0">0% (Nil)</option>
+                    <option value="5">5%</option>
+                    <option value="12" selected>12%</option>
+                    <option value="18">18%</option>
+                    <option value="28">28%</option>
+                  </select>
+                </div>
+
+                <!-- 19. Tax Amount -->
+                <div>
+                  <label for="pm-mgrni-tax-amt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">TAX AMOUNT (₹)</label>
+                  <input type="number" id="pm-mgrni-tax-amt" value="140400.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] shadow-2xs cursor-not-allowed" />
+                </div>
+
+                <!-- 20. Invoice Amount -->
+                <div>
+                  <label for="pm-mgrni-inv-amt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">INVOICE AMOUNT (₹)</label>
+                  <input type="number" id="pm-mgrni-inv-amt" value="1310400.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F0FDF4] border border-[#BBF7D0] rounded font-mono font-bold text-[#00875A] shadow-2xs cursor-not-allowed" />
+                </div>
+
+                <!-- 21. Purpose -->
+                <div>
+                  <label for="pm-mgrni-purpose" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PURPOSE</label>
+                  <input type="text" id="pm-mgrni-purpose" value="Commercial export packing batch" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                </div>
+
+                <!-- 22. Attachment -->
+                <div>
+                  <label for="pm-mgrni-attachment" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ATTACHMENT</label>
+                  <input type="file" id="pm-mgrni-attachment" class="w-full text-[11px] px-2 py-1 bg-white border border-[#DFE1E6] rounded text-[#5E6C84] focus:outline-none focus:border-[#00A4B7] file:mr-2 file:py-0.5 file:px-2 file:rounded file:border-0 file:text-[10px] file:font-semibold file:bg-[#E0F2FE] file:text-[#0284C7] cursor-pointer" />
+                </div>
+
+                <!-- 23. Remarks -->
+                <div>
+                  <label for="pm-mgrni-remarks" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">REMARKS</label>
+                  <input type="text" id="pm-mgrni-remarks" value="Physical count verified; QC seal intact" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                </div>
+
+                <!-- 24. Action Button (Add Item) -->
+                <div>
+                  <label class="block text-[11px] font-bold text-transparent uppercase tracking-wider mb-1 select-none">&nbsp;</label>
+                  <button type="button" id="modal-pm-grn-btn-add-item" class="btn-primary w-full max-w-[150px] h-[32px] px-4 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                    <span>Add Item</span>
+                  </button>
+                </div>
               </div>
             </div>
 
-            <!-- Row 2: Location, Batch, Financials -->
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
-              <div>
-                <label for="pm-mgrni-dev-qty" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DEVIATION QTY</label>
-                <input type="number" id="pm-mgrni-dev-qty" value="0" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] shadow-2xs cursor-not-allowed" />
-              </div>
-              <div>
-                <label for="pm-mgrni-location" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">LOCATION</label>
-                <input type="text" id="pm-mgrni-location" value="Central PM Bay A-2" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
-              </div>
-              <div>
-                <label for="pm-mgrni-batch" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BATCH</label>
-                <input type="text" id="pm-mgrni-batch" value="BAT-PM-2026-04" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
-              </div>
-              <div>
-                <label for="pm-mgrni-price" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ITEM PRICE (₹)</label>
-                <input type="number" id="pm-mgrni-price" value="3.40" min="0.01" step="0.01" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
-              </div>
-              <div>
-                <label for="pm-mgrni-base-val" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BASE VALUE (₹)</label>
-                <input type="number" id="pm-mgrni-base-val" value="170000.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] shadow-2xs cursor-not-allowed" />
-              </div>
-              <div>
-                <label for="pm-mgrni-gst-pct" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">GST %</label>
-                <select id="pm-mgrni-gst-pct" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                  <option value="0">0%</option>
-                  <option value="5">5%</option>
-                  <option value="12">12%</option>
-                  <option value="18" selected>18%</option>
-                  <option value="28">28%</option>
-                </select>
-              </div>
-            </div>
-
-            <!-- Row 3: Taxes & Add Item Button -->
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 items-end">
-              <div>
-                <label for="pm-mgrni-gst-amt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">GST TAX AMOUNT (₹)</label>
-                <input type="number" id="pm-mgrni-gst-amt" value="30600.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] shadow-2xs cursor-not-allowed" />
-              </div>
-              <div>
-                <label class="block text-[11px] font-bold text-transparent uppercase tracking-wider mb-1 select-none">ACTION</label>
-                <button type="button" id="modal-pm-grn-btn-add-item" class="btn-primary w-full max-w-[150px] h-[32px] px-4 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer">
-                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                  <span>Add Item to GRN</span>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <!-- 3. Staged Items Table Card -->
-          <div class="bg-white border border-[#DFE1E6] rounded-xl overflow-hidden shadow-2xs">
-            <div class="p-3 bg-[#F8FAFC] border-b border-[#DFE1E6]">
-              <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Received Items List</span>
-            </div>
-            <div class="overflow-x-auto">
+            <!-- Staged Items Preview Table Card -->
+            <div class="mt-3 overflow-x-auto border border-[#DFE1E6] rounded-xl bg-white shadow-2xs">
               <table class="w-full text-left text-xs border-collapse">
                 <thead class="bg-[#F8FAFC] border-b border-[#DFE1E6] text-[#475569] font-bold text-[11px] uppercase tracking-wider">
                   <tr>
-                    <th class="py-2.5 px-3">Item</th>
-                    <th class="py-2.5 px-3">UOM</th>
-                    <th class="py-2.5 px-3 text-right">PO Qty</th>
+                    <th class="py-2.5 px-3">PRO Number</th>
+                    <th class="py-2.5 px-3">Variety</th>
+                    <th class="py-2.5 px-3">Grade</th>
+                    <th class="py-2.5 px-3">Packing Style</th>
+                    <th class="py-2.5 px-3">Location</th>
+                    <th class="py-2.5 px-3">Batch</th>
+                    <th class="py-2.5 px-3 text-right">PPO Qty</th>
                     <th class="py-2.5 px-3 text-right">Rec Qty</th>
                     <th class="py-2.5 px-3 text-right">Dev Qty</th>
+                    <th class="py-2.5 px-3 text-right">Price</th>
                     <th class="py-2.5 px-3 text-right">Base Value</th>
                     <th class="py-2.5 px-3 text-right">GST %</th>
-                    <th class="py-2.5 px-3 text-center">Batch</th>
+                    <th class="py-2.5 px-3 text-right">Tax Amt</th>
+                    <th class="py-2.5 px-3 text-right">Invoice Amt</th>
                     <th class="py-2.5 px-3 text-center">Action</th>
                   </tr>
                 </thead>
-                <tbody id="pm-grn-modal-items-tbody" class="divide-y divide-[#DFE1E6]">
+                <tbody id="pm-grn-modal-items-tbody" class="divide-y divide-[#DFE1E6] text-[#1E293B]">
                 </tbody>
               </table>
             </div>
           </div>
 
-          <!-- 4. Footer Actions -->
-          <div class="bg-[#F8FAFC] border border-[#DFE1E6] rounded-xl p-3 flex justify-end gap-2">
-            <button type="button" id="modal-pm-grn-cancel-btn" class="btn-secondary border border-[#CBD5E1] px-5 py-2 rounded-full text-xs font-semibold text-[#475569] hover:bg-[#F8FAFC] transition-all cursor-pointer">
-              Cancel
-            </button>
-            <button type="button" id="modal-pm-grn-submit-btn" class="btn-primary border-0 px-6 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-              <span>Save Goods Receipt Note</span>
-            </button>
+          <!-- Section 3: Summary Calculation Card -->
+          <div class="bg-[#F8FAFC] border border-[#DFE1E6] rounded-xl p-3 flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center gap-6">
+              <div>
+                <span class="text-[10px] uppercase font-bold text-[#5E6C84] block">Items Count</span>
+                <span id="pm-grn-modal-items-count" class="text-sm font-mono font-bold text-[#172B4D]">0</span>
+              </div>
+              <div>
+                <span class="text-[10px] uppercase font-bold text-[#5E6C84] block">Total Base</span>
+                <span id="pm-grn-modal-total-base" class="text-sm font-mono font-bold text-[#172B4D]">₹0.00</span>
+              </div>
+              <div>
+                <span class="text-[10px] uppercase font-bold text-[#5E6C84] block">Total Deviation</span>
+                <span id="pm-grn-modal-total-dev" class="text-sm font-mono font-bold text-[#5E6C84]">₹0.00</span>
+              </div>
+              <div>
+                <span class="text-[10px] uppercase font-bold text-[#5E6C84] block">Total Tax</span>
+                <span id="pm-grn-modal-total-tax" class="text-sm font-mono font-bold text-[#00A4B7]">₹0.00</span>
+              </div>
+              <div>
+                <span class="text-[10px] uppercase font-bold text-[#5E6C84] block">Net Invoice Value</span>
+                <span id="pm-grn-modal-net-inv" class="text-base font-mono font-bold text-[#00875A]">₹0.00</span>
+              </div>
+            </div>
           </div>
-        </div>
-      `
+        </form>
+      `,
+      footerButtons: [
+        {
+          label: 'Cancel',
+          type: 'secondary',
+          class: 'btn-secondary border border-[#CBD5E1] px-5 py-2 rounded-full text-xs font-semibold text-[#475569] hover:bg-[#F8FAFC] transition-all cursor-pointer',
+          onClick: () => Modal.close()
+        },
+        {
+          label: 'Save Goods Receipt Note',
+          type: 'primary',
+          class: 'btn-primary border-0 px-6 py-2 rounded-full text-xs font-semibold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all',
+          onClick: () => {
+            const modalRoot = document.getElementById('erp-modal-root');
+            if (!modalRoot) return;
+
+            const docNo = modalRoot.querySelector('#pm-mgrn-doc')?.value?.trim();
+            const date = modalRoot.querySelector('#pm-mgrn-date')?.value;
+            const vendorAccount = modalRoot.querySelector('#pm-mgrn-vendor')?.value;
+            const freightType = modalRoot.querySelector('#pm-mgrn-freight-type')?.value;
+            const isGst = modalRoot.querySelector('#pm-mgrn-is-gst')?.value;
+            const invoiceNumber = modalRoot.querySelector('#pm-mgrn-inv-no')?.value?.trim();
+            const invoiceDate = modalRoot.querySelector('#pm-mgrn-inv-date')?.value;
+            const creditNoteType = modalRoot.querySelector('#pm-mgrn-credit-type')?.value;
+            const status = modalRoot.querySelector('#pm-mgrn-status')?.value;
+            const narration = modalRoot.querySelector('#pm-mgrn-narration')?.value?.trim();
+
+            if (!docNo) {
+              Toast.show('DOC NO is required', 'error');
+              modalRoot.querySelector('#pm-mgrn-doc')?.focus();
+              return;
+            }
+            if (!date) {
+              Toast.show('DATE is required', 'error');
+              modalRoot.querySelector('#pm-mgrn-date')?.focus();
+              return;
+            }
+            if (!vendorAccount) {
+              Toast.show('VENDOR ACCOUNT is required', 'error');
+              modalRoot.querySelector('#pm-mgrn-vendor')?.focus();
+              return;
+            }
+            if (!invoiceNumber) {
+              Toast.show('INVOICE NUMBER is required', 'error');
+              modalRoot.querySelector('#pm-mgrn-inv-no')?.focus();
+              return;
+            }
+            if (grnItems.length === 0) {
+              Toast.show('Please add at least one item before saving.', 'warning');
+              return;
+            }
+
+            const totalInvoice = grnItems.reduce((acc, it) => acc + (it.invoiceAmount || 0), 0);
+
+            // Custom Confirmation Popup
+            Modal.confirm({
+              title: 'Confirm Save Goods Receipt Note (PM)',
+              message: `Are you sure you want to save Goods Receipt Note <strong>${docNo}</strong> for Vendor <strong>${vendorAccount}</strong> (Invoice: <strong>${invoiceNumber}</strong>) with <strong>${grnItems.length} item(s)</strong> totaling <strong>₹${totalInvoice.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</strong>?`,
+              confirmText: 'Save Goods Receipt Note',
+              onConfirm: () => {
+                const newRecord = {
+                  id: Date.now(),
+                  docNo,
+                  date,
+                  vendor: vendorAccount,
+                  vendorAccount,
+                  supplier: vendorAccount,
+                  freightType,
+                  isGst,
+                  invoiceNumber,
+                  invoiceNo: invoiceNumber,
+                  invoiceDate,
+                  creditNoteType,
+                  status: status || 'Verified & Binned',
+                  narration,
+                  items: JSON.parse(JSON.stringify(grnItems))
+                };
+
+                this.state.pmGrnList.unshift(newRecord);
+                Modal.close();
+                if (onSuccess) onSuccess();
+                Toast.show(`Goods Receipt Note ${docNo} created successfully!`, 'success');
+              }
+            });
+          }
+        }
+      ]
     });
 
     renderItemsTable();
 
-    // Calculations
+    // Live calculation for item entry
     const calcGrnVals = () => {
-      const poQty = parseFloat(document.getElementById('pm-mgrni-po-qty')?.value || 0);
+      const ppoQty = parseFloat(document.getElementById('pm-mgrni-ppo-qty')?.value || 0);
       const recQty = parseFloat(document.getElementById('pm-mgrni-rec-qty')?.value || 0);
       const price = parseFloat(document.getElementById('pm-mgrni-price')?.value || 0);
       const gstPct = parseFloat(document.getElementById('pm-mgrni-gst-pct')?.value || 0);
 
-      const devQty = recQty - poQty;
+      const devQty = recQty - ppoQty;
       const baseVal = recQty * price;
-      const gstAmt = baseVal * (gstPct / 100);
+      const devAmt = devQty * price;
+      const taxAmt = baseVal * (gstPct / 100);
+      const invAmt = baseVal + taxAmt;
 
       const devEl = document.getElementById('pm-mgrni-dev-qty');
       const baseEl = document.getElementById('pm-mgrni-base-val');
-      const gstEl = document.getElementById('pm-mgrni-gst-amt');
+      const devAmtEl = document.getElementById('pm-mgrni-dev-amt');
+      const taxEl = document.getElementById('pm-mgrni-tax-amt');
+      const invEl = document.getElementById('pm-mgrni-inv-amt');
 
       if (devEl) devEl.value = devQty;
       if (baseEl) baseEl.value = baseVal.toFixed(2);
-      if (gstEl) gstEl.value = gstAmt.toFixed(2);
+      if (devAmtEl) devAmtEl.value = devAmt.toFixed(2);
+      if (taxEl) taxEl.value = taxAmt.toFixed(2);
+      if (invEl) invEl.value = invAmt.toFixed(2);
     };
 
-    ['pm-mgrni-po-qty', 'pm-mgrni-rec-qty', 'pm-mgrni-price', 'pm-mgrni-gst-pct'].forEach(id => {
+    ['pm-mgrni-ppo-qty', 'pm-mgrni-rec-qty', 'pm-mgrni-price', 'pm-mgrni-gst-pct'].forEach(id => {
       document.getElementById(id)?.addEventListener('input', calcGrnVals);
       document.getElementById(id)?.addEventListener('change', calcGrnVals);
     });
 
+    // Add item click
     document.getElementById('modal-pm-grn-btn-add-item')?.addEventListener('click', () => {
-      const item = document.getElementById('pm-mgrni-item')?.value?.trim();
-      const uom = document.getElementById('pm-mgrni-uom')?.value;
+      const proNumber = document.getElementById('pm-mgrni-pro-no')?.value?.trim();
+      const orderType = document.getElementById('pm-mgrni-order-type')?.value;
+      const variety = document.getElementById('pm-mgrni-variety')?.value;
+      const grade = document.getElementById('pm-mgrni-grade')?.value;
+      const packingStyle = document.getElementById('pm-mgrni-packing-style')?.value;
+      const processType = document.getElementById('pm-mgrni-process-type')?.value;
+      const brand = document.getElementById('pm-mgrni-brand')?.value?.trim();
+      const sizeInMm = document.getElementById('pm-mgrni-size-mm')?.value?.trim();
       const availQty = parseFloat(document.getElementById('pm-mgrni-avail-qty')?.value || 0);
-      const poQty = parseFloat(document.getElementById('pm-mgrni-po-qty')?.value || 0);
+      const ppoQty = parseFloat(document.getElementById('pm-mgrni-ppo-qty')?.value || 0);
       const recQty = parseFloat(document.getElementById('pm-mgrni-rec-qty')?.value || 0);
       const devQty = parseFloat(document.getElementById('pm-mgrni-dev-qty')?.value || 0);
       const location = document.getElementById('pm-mgrni-location')?.value;
-      const batch = document.getElementById('pm-mgrni-batch')?.value;
+      const batch = document.getElementById('pm-mgrni-batch')?.value?.trim();
       const price = parseFloat(document.getElementById('pm-mgrni-price')?.value || 0);
       const baseVal = parseFloat(document.getElementById('pm-mgrni-base-val')?.value || 0);
+      const devAmt = parseFloat(document.getElementById('pm-mgrni-dev-amt')?.value || 0);
       const gstPct = parseFloat(document.getElementById('pm-mgrni-gst-pct')?.value || 0);
-      const gstAmt = parseFloat(document.getElementById('pm-mgrni-gst-amt')?.value || 0);
+      const taxAmt = parseFloat(document.getElementById('pm-mgrni-tax-amt')?.value || 0);
+      const invAmt = parseFloat(document.getElementById('pm-mgrni-inv-amt')?.value || 0);
+      const purpose = document.getElementById('pm-mgrni-purpose')?.value?.trim();
+      const remarks = document.getElementById('pm-mgrni-remarks')?.value?.trim();
 
-      if (!item) {
-        Toast.show('Please enter item name', 'warning');
+      if (!variety) {
+        Toast.show('Variety is required', 'warning');
         return;
       }
       if (recQty <= 0) {
         Toast.show('Received quantity must be greater than zero', 'warning');
         return;
       }
+      if (price <= 0) {
+        Toast.show('Item price must be greater than zero', 'warning');
+        return;
+      }
 
       grnItems.push({
-        item,
-        uom,
-        availableQty: availQty,
-        poQty,
+        proNumber,
+        typeOfOrder: orderType,
+        variety,
+        grade,
+        packingStyle,
+        processType,
+        brand,
+        sizeInMm,
+        availQty,
+        ppoQty,
         receivedQty: recQty,
         deviationQty: devQty,
         location,
         batch,
         itemPrice: price,
         baseValue: baseVal,
-        deviationAmount: devQty * price,
+        deviationAmount: devAmt,
         gstPercent: gstPct,
-        gstTaxAmount: gstAmt
+        taxAmount: taxAmt,
+        invoiceAmount: invAmt,
+        purpose,
+        attachment: '',
+        remarks
       });
 
       renderItemsTable();
-      Toast.show(`Added "${item}" to GRN`, 'success');
-    });
-
-    document.getElementById('modal-pm-grn-cancel-btn')?.addEventListener('click', () => {
-      Modal.close();
-    });
-
-    document.getElementById('modal-pm-grn-submit-btn')?.addEventListener('click', () => {
-      const docNo = document.getElementById('pm-mgrn-doc')?.value;
-      const code = document.getElementById('pm-mgrn-code')?.value;
-      const date = document.getElementById('pm-mgrn-date')?.value;
-      const supplier = document.getElementById('pm-mgrn-supplier')?.value;
-      const poNo = document.getElementById('pm-mgrn-po')?.value;
-      const invoiceNumber = document.getElementById('pm-mgrn-inv-no')?.value;
-      const invoiceDate = document.getElementById('pm-mgrn-inv-date')?.value;
-      const narration = document.getElementById('pm-mgrn-narration')?.value;
-
-      if (!date || !invoiceNumber) {
-        Toast.show('Please fill in required Date and Invoice Number', 'warning');
-        return;
-      }
-      if (grnItems.length === 0) {
-        Toast.show('Please add at least one received item', 'warning');
-        return;
-      }
-
-      Modal.confirm({
-        title: 'Confirm Packaging GRN',
-        message: `Save Goods Receipt Note <strong>${docNo}</strong> from <strong>${supplier}</strong> (Invoice: ${invoiceNumber}) with ${grnItems.length} item(s)?`,
-        confirmText: 'Save GRN',
-        onConfirm: () => {
-          const newGrn = {
-            id: Date.now(),
-            docNo,
-            code,
-            date,
-            supplier,
-            poNo,
-            invoiceNumber,
-            invoiceDate,
-            freightType: 'Door Delivery',
-            status: 'Verified & Binned',
-            narration,
-            items: [...grnItems]
-          };
-
-          this.state.pmGrnList.unshift(newGrn);
-          Modal.close();
-          if (onSuccess) onSuccess();
-          Toast.show(`Goods Receipt Note ${docNo} recorded!`, 'success');
-        }
-      });
+      Toast.show(`Added "${variety}" to GRN items`, 'success');
     });
   },
 
-  // Modal: Edit Packaging GRN
+  // Modal: Edit Packaging Goods Receipt Note
   showEditPmGrnModal(row, onSuccess = null) {
     const todayStr = new Date().toISOString().slice(0, 10);
     let grnItems = Array.isArray(row.items) ? JSON.parse(JSON.stringify(row.items)) : [];
+
+    const recalculateTotals = () => {
+      const totalBase = grnItems.reduce((acc, it) => acc + (it.baseValue || 0), 0);
+      const totalDevAmt = grnItems.reduce((acc, it) => acc + (it.deviationAmount || 0), 0);
+      const totalTax = grnItems.reduce((acc, it) => acc + (it.taxAmount || it.gstTaxAmount || 0), 0);
+      const netInvoice = grnItems.reduce((acc, it) => acc + (it.invoiceAmount || 0), 0);
+
+      const itemsCountEl = document.getElementById('pm-grn-edit-items-count');
+      const baseEl = document.getElementById('pm-grn-edit-total-base');
+      const devEl = document.getElementById('pm-grn-edit-total-dev');
+      const taxEl = document.getElementById('pm-grn-edit-total-tax');
+      const netEl = document.getElementById('pm-grn-edit-net-inv');
+
+      if (itemsCountEl) itemsCountEl.innerText = grnItems.length;
+      if (baseEl) baseEl.innerText = `₹${totalBase.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      if (devEl) devEl.innerText = `₹${totalDevAmt.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      if (taxEl) taxEl.innerText = `₹${totalTax.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      if (netEl) netEl.innerText = `₹${netInvoice.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    };
 
     const renderItemsTable = () => {
       const tbody = document.getElementById('pm-grn-edit-items-tbody');
@@ -7487,175 +7841,281 @@ export const InventoryView = {
       if (grnItems.length === 0) {
         tbody.innerHTML = `
           <tr>
-            <td colspan="8" class="text-center py-5 text-[#5E6C84] italic">
-              No items in this GRN.
+            <td colspan="15" class="text-center py-6 text-[#5E6C84] italic">
+              No items in this Goods Receipt Note.
             </td>
           </tr>
         `;
+        recalculateTotals();
         return;
       }
 
       tbody.innerHTML = grnItems.map((it, idx) => `
         <tr class="hover:bg-[#F8FAFC]">
-          <td class="py-2 px-3 font-semibold text-[#172B4D]">${it.item}</td>
-          <td class="py-2 px-3 text-[#5E6C84]">${it.uom || it.unit || 'Nos'}</td>
-          <td class="py-2 px-3 text-right font-mono font-bold text-[#172B4D]">${Number(it.poQty || 0).toLocaleString()}</td>
-          <td class="py-2 px-3 text-right font-mono font-bold text-[#00875A]">${Number(it.receivedQty || it.quantity || 0).toLocaleString()}</td>
-          <td class="py-2 px-3 text-right font-mono font-bold ${(it.deviationQty || 0) < 0 ? 'text-[#DE350B]' : 'text-[#5E6C84]'}">${it.deviationQty || 0}</td>
-          <td class="py-2 px-3 text-right font-mono text-[#172B4D]">₹${Number(it.baseValue || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
-          <td class="py-2 px-3 text-right font-mono text-[#00A4B7]">${it.gstPercent || 0}%</td>
-          <td class="py-2 px-3 text-center text-[#5E6C84] font-mono text-[11px]">${it.batch || '-'}</td>
+          <td class="py-2.5 px-3 font-mono font-semibold text-[#00A4B7] whitespace-nowrap">${it.proNumber || '-'}</td>
+          <td class="py-2.5 px-3 font-semibold text-[#172B4D] whitespace-nowrap">${it.variety || it.item || '-'}</td>
+          <td class="py-2.5 px-3 text-[#5E6C84] whitespace-nowrap">${it.grade || '-'}</td>
+          <td class="py-2.5 px-3 text-[#5E6C84] whitespace-nowrap">${it.packingStyle || '-'}</td>
+          <td class="py-2.5 px-3 text-[#172B4D] whitespace-nowrap">${it.location || '-'}</td>
+          <td class="py-2.5 px-3 font-mono text-[#5E6C84] whitespace-nowrap">${it.batch || '-'}</td>
+          <td class="py-2.5 px-3 text-right font-mono text-[#5E6C84] whitespace-nowrap">${Number(it.ppoQty || it.poQty || 0).toLocaleString()}</td>
+          <td class="py-2.5 px-3 text-right font-mono font-bold text-[#172B4D] whitespace-nowrap">${Number(it.receivedQty || it.quantity || 0).toLocaleString()}</td>
+          <td class="py-2.5 px-3 text-right font-mono font-bold ${(it.deviationQty || 0) < 0 ? 'text-[#DE350B]' : ((it.deviationQty || 0) > 0 ? 'text-[#00875A]' : 'text-[#5E6C84]')} whitespace-nowrap">${it.deviationQty || 0}</td>
+          <td class="py-2.5 px-3 text-right font-mono text-[#172B4D] whitespace-nowrap">₹${Number(it.itemPrice || 0).toFixed(2)}</td>
+          <td class="py-2.5 px-3 text-right font-mono font-bold text-[#172B4D] whitespace-nowrap">₹${Number(it.baseValue || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
+          <td class="py-2.5 px-3 text-right font-mono text-[#00A4B7] whitespace-nowrap">${it.gstPercent || 0}%</td>
+          <td class="py-2.5 px-3 text-right font-mono text-[#00A4B7] whitespace-nowrap">₹${Number(it.taxAmount || it.gstTaxAmount || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
+          <td class="py-2.5 px-3 text-right font-mono font-bold text-[#00875A] whitespace-nowrap">₹${Number(it.invoiceAmount || (it.baseValue || 0) + (it.taxAmount || it.gstTaxAmount || 0)).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
+          <td class="py-2.5 px-3 text-center whitespace-nowrap">
+            <button type="button" class="btn-remove-edit-pm-grn-item text-[#DE350B] hover:text-[#BF2600] p-1 rounded hover:bg-[#FFEBE6] transition-colors cursor-pointer" data-idx="${idx}" title="Remove item">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+            </button>
+          </td>
         </tr>
       `).join('');
+
+      tbody.querySelectorAll('.btn-remove-edit-pm-grn-item').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const idx = parseInt(e.currentTarget.getAttribute('data-idx'), 10);
+          grnItems.splice(idx, 1);
+          renderItemsTable();
+        });
+      });
+
+      recalculateTotals();
     };
 
     Modal.open({
       title: `Edit Goods Receipt Note (PM) — ${row.docNo}`,
-      width: 'max-w-4xl',
+      size: 'full',
       confirmActions: false,
-      body: `
-        <div class="space-y-4 text-xs">
-          <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 space-y-3 shadow-2xs">
-            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider border-b border-[#DFE1E6] pb-1.5">GRN Header Information</h4>
+      content: `
+        <div class="space-y-4 text-xs text-[#172B4D]">
+          <!-- Section 1: Header Details -->
+          <div>
+            <div class="flex items-center justify-between pb-2 mb-3 border-b border-[#DFE1E6]">
+              <div class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Goods Receipt Note Header Details</h4>
+              </div>
+            </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
               <div>
                 <label for="pm-egrn-doc" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DOC NO</label>
                 <input type="text" id="pm-egrn-doc" value="${row.docNo}" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] shadow-2xs cursor-not-allowed" />
               </div>
               <div>
-                <label for="pm-egrn-code" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CODE</label>
-                <input type="text" id="pm-egrn-code" value="${row.code || ''}" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] shadow-2xs cursor-not-allowed" />
-              </div>
-              <div>
                 <label for="pm-egrn-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DATE <span class="text-[#DE350B] font-bold">*</span></label>
-                <input type="date" id="pm-egrn-date" value="${row.date || todayStr}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                <input type="date" id="pm-egrn-date" value="${row.date || todayStr}" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
               </div>
               <div>
-                <label for="pm-egrn-supplier" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SUPPLIER <span class="text-[#DE350B] font-bold">*</span></label>
-                <select id="pm-egrn-supplier" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                  <option value="Sri Venkateswara Packaging Ltd" ${row.supplier === 'Sri Venkateswara Packaging Ltd' ? 'selected' : ''}>Sri Venkateswara Packaging Ltd</option>
-                  <option value="Apex Polymers & Films India Ltd" ${row.supplier === 'Apex Polymers & Films India Ltd' ? 'selected' : ''}>Apex Polymers &amp; Films India Ltd</option>
-                  <option value="Modern Corrugators Visakhapatnam" ${row.supplier === 'Modern Corrugators Visakhapatnam' ? 'selected' : ''}>Modern Corrugators Visakhapatnam</option>
-                  <option value="South Coast Boxes & Cartons" ${row.supplier === 'South Coast Boxes & Cartons' ? 'selected' : ''}>South Coast Boxes &amp; Cartons</option>
+                <label for="pm-egrn-vendor" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">VENDOR ACCOUNT <span class="text-[#DE350B] font-bold">*</span></label>
+                <select id="pm-egrn-vendor" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="Sri Venkateswara Packaging Ltd" ${(row.vendor || row.vendorAccount || row.supplier) === 'Sri Venkateswara Packaging Ltd' ? 'selected' : ''}>Sri Venkateswara Packaging Ltd</option>
+                  <option value="Apex Polymers & Films India Ltd" ${(row.vendor || row.vendorAccount || row.supplier) === 'Apex Polymers & Films India Ltd' ? 'selected' : ''}>Apex Polymers &amp; Films India Ltd</option>
+                  <option value="Modern Corrugators Visakhapatnam" ${(row.vendor || row.vendorAccount || row.supplier) === 'Modern Corrugators Visakhapatnam' ? 'selected' : ''}>Modern Corrugators Visakhapatnam</option>
+                  <option value="South Coast Boxes & Cartons" ${(row.vendor || row.vendorAccount || row.supplier) === 'South Coast Boxes & Cartons' ? 'selected' : ''}>South Coast Boxes &amp; Cartons</option>
+                  <option value="Delta Polyfilms Corp" ${(row.vendor || row.vendorAccount || row.supplier) === 'Delta Polyfilms Corp' ? 'selected' : ''}>Delta Polyfilms Corp</option>
                 </select>
               </div>
               <div>
-                <label for="pm-egrn-po" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PO NO</label>
-                <input type="text" id="pm-egrn-po" value="${row.poNo || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                <label for="pm-egrn-freight-type" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FREIGHT TYPE</label>
+                <select id="pm-egrn-freight-type" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="Door Delivery (Freight Included)" ${row.freightType === 'Door Delivery (Freight Included)' ? 'selected' : ''}>Door Delivery (Freight Included)</option>
+                  <option value="Ex-Works with Paid Transit" ${row.freightType === 'Ex-Works with Paid Transit' ? 'selected' : ''}>Ex-Works with Paid Transit</option>
+                  <option value="To Pay (Freight Extra)" ${row.freightType === 'To Pay (Freight Extra)' ? 'selected' : ''}>To Pay (Freight Extra)</option>
+                </select>
               </div>
               <div>
-                <label for="pm-egrn-inv-no" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">INVOICE NO <span class="text-[#DE350B] font-bold">*</span></label>
-                <input type="text" id="pm-egrn-inv-no" value="${row.invoiceNumber || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                <label for="pm-egrn-is-gst" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">IS GST</label>
+                <select id="pm-egrn-is-gst" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="Yes (Registered GST Invoice)" ${row.isGst === 'Yes (Registered GST Invoice)' ? 'selected' : ''}>Yes (Registered GST Invoice)</option>
+                  <option value="No (Non-GST / Exempt)" ${row.isGst === 'No (Non-GST / Exempt)' ? 'selected' : ''}>No (Non-GST / Exempt)</option>
+                </select>
               </div>
               <div>
-                <label for="pm-egrn-inv-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">INVOICE DATE</label>
-                <input type="date" id="pm-egrn-inv-date" value="${row.invoiceDate || todayStr}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                <label for="pm-egrn-inv-no" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">INVOICE NUMBER <span class="text-[#DE350B] font-bold">*</span></label>
+                <input type="text" id="pm-egrn-inv-no" value="${row.invoiceNumber || row.invoiceNo || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
               </div>
               <div>
-                <label for="pm-egrn-narr" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">NARRATION</label>
-                <input type="text" id="pm-egrn-narr" value="${row.narration || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                <label for="pm-egrn-inv-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">INVOICE DATE <span class="text-[#DE350B] font-bold">*</span></label>
+                <input type="date" id="pm-egrn-inv-date" value="${row.invoiceDate || todayStr}" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+              <div>
+                <label for="pm-egrn-credit-type" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CREDIT NOTE TYPE</label>
+                <select id="pm-egrn-credit-type" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="None" ${row.creditNoteType === 'None' ? 'selected' : ''}>None</option>
+                  <option value="Shortage Deduction" ${row.creditNoteType === 'Shortage Deduction' ? 'selected' : ''}>Shortage Deduction</option>
+                  <option value="Rate Difference" ${row.creditNoteType === 'Rate Difference' ? 'selected' : ''}>Rate Difference</option>
+                  <option value="Quality Rejection" ${row.creditNoteType === 'Quality Rejection' ? 'selected' : ''}>Quality Rejection</option>
+                </select>
+              </div>
+              <div>
+                <label for="pm-egrn-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">STATUS</label>
+                <select id="pm-egrn-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="Verified & Binned" ${row.status === 'Verified & Binned' ? 'selected' : ''}>Verified &amp; Binned</option>
+                  <option value="Pending Verification" ${row.status === 'Pending Verification' ? 'selected' : ''}>Pending Verification</option>
+                  <option value="Approved" ${row.status === 'Approved' ? 'selected' : ''}>Approved</option>
+                  <option value="Draft" ${row.status === 'Draft' ? 'selected' : ''}>Draft</option>
+                  <option value="Quality Hold" ${row.status === 'Quality Hold' ? 'selected' : ''}>Quality Hold</option>
+                </select>
+              </div>
+              <div class="col-span-1 sm:col-span-2 md:col-span-3">
+                <label for="pm-egrn-narration" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">NARRATION</label>
+                <input type="text" id="pm-egrn-narration" value="${row.narration || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
               </div>
             </div>
           </div>
 
-          <!-- Items Table Card -->
+          <!-- Section 2: Items Table Card -->
           <div class="bg-white border border-[#DFE1E6] rounded-xl overflow-hidden shadow-2xs">
-            <div class="p-3 bg-[#F8FAFC] border-b border-[#DFE1E6]">
-              <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Received Items</span>
+            <div class="p-3 bg-[#F8FAFC] border-b border-[#DFE1E6] flex items-center justify-between">
+              <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Goods Receipt Note Items (<span id="pm-grn-edit-items-count">${grnItems.length}</span>)</span>
             </div>
             <div class="overflow-x-auto">
               <table class="w-full text-left text-xs border-collapse">
                 <thead class="bg-[#F8FAFC] border-b border-[#DFE1E6] text-[#475569] font-bold text-[11px] uppercase tracking-wider">
                   <tr>
-                    <th class="py-2.5 px-3">Item</th>
-                    <th class="py-2.5 px-3">UOM</th>
-                    <th class="py-2.5 px-3 text-right">PO Qty</th>
+                    <th class="py-2.5 px-3">PRO Number</th>
+                    <th class="py-2.5 px-3">Variety</th>
+                    <th class="py-2.5 px-3">Grade</th>
+                    <th class="py-2.5 px-3">Packing Style</th>
+                    <th class="py-2.5 px-3">Location</th>
+                    <th class="py-2.5 px-3">Batch</th>
+                    <th class="py-2.5 px-3 text-right">PPO Qty</th>
                     <th class="py-2.5 px-3 text-right">Rec Qty</th>
                     <th class="py-2.5 px-3 text-right">Dev Qty</th>
+                    <th class="py-2.5 px-3 text-right">Price</th>
                     <th class="py-2.5 px-3 text-right">Base Value</th>
                     <th class="py-2.5 px-3 text-right">GST %</th>
-                    <th class="py-2.5 px-3 text-center">Batch</th>
+                    <th class="py-2.5 px-3 text-right">Tax Amt</th>
+                    <th class="py-2.5 px-3 text-right">Invoice Amt</th>
+                    <th class="py-2.5 px-3 text-center">Action</th>
                   </tr>
                 </thead>
-                <tbody id="pm-grn-edit-items-tbody" class="divide-y divide-[#DFE1E6]">
+                <tbody id="pm-grn-edit-items-tbody" class="divide-y divide-[#DFE1E6] text-[#1E293B]">
                 </tbody>
               </table>
             </div>
           </div>
 
-          <!-- Footer Actions -->
-          <div class="bg-[#F8FAFC] border border-[#DFE1E6] rounded-xl p-3 flex justify-end gap-2">
-            <button type="button" id="modal-pm-egrn-cancel-btn" class="btn-secondary border border-[#CBD5E1] px-5 py-2 rounded-full text-xs font-semibold text-[#475569] hover:bg-[#F8FAFC] transition-all cursor-pointer">
-              Cancel
-            </button>
-            <button type="button" id="modal-pm-egrn-submit-btn" class="btn-primary border-0 px-6 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-              <span>Update Goods Receipt Note</span>
-            </button>
+          <!-- Section 3: Summary -->
+          <div class="bg-[#F8FAFC] border border-[#DFE1E6] rounded-xl p-3 flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center gap-6">
+              <div>
+                <span class="text-[10px] uppercase font-bold text-[#5E6C84] block">Total Base</span>
+                <span id="pm-grn-edit-total-base" class="text-sm font-mono font-bold text-[#172B4D]">₹0.00</span>
+              </div>
+              <div>
+                <span class="text-[10px] uppercase font-bold text-[#5E6C84] block">Total Deviation</span>
+                <span id="pm-grn-edit-total-dev" class="text-sm font-mono font-bold text-[#5E6C84]">₹0.00</span>
+              </div>
+              <div>
+                <span class="text-[10px] uppercase font-bold text-[#5E6C84] block">Total Tax</span>
+                <span id="pm-grn-edit-total-tax" class="text-sm font-mono font-bold text-[#00A4B7]">₹0.00</span>
+              </div>
+              <div>
+                <span class="text-[10px] uppercase font-bold text-[#5E6C84] block">Net Invoice Value</span>
+                <span id="pm-grn-edit-net-inv" class="text-base font-mono font-bold text-[#00875A]">₹0.00</span>
+              </div>
+            </div>
           </div>
         </div>
-      `
+      `,
+      footerButtons: [
+        {
+          label: 'Cancel',
+          type: 'secondary',
+          class: 'btn-secondary border border-[#CBD5E1] px-5 py-2 rounded-full text-xs font-semibold text-[#475569] hover:bg-[#F8FAFC] transition-all cursor-pointer',
+          onClick: () => Modal.close()
+        },
+        {
+          label: 'Update Goods Receipt Note',
+          type: 'primary',
+          class: 'btn-primary border-0 px-6 py-2 rounded-full text-xs font-semibold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all',
+          onClick: () => {
+            const modalRoot = document.getElementById('erp-modal-root');
+            if (!modalRoot) return;
+
+            const date = modalRoot.querySelector('#pm-egrn-date')?.value;
+            const vendorAccount = modalRoot.querySelector('#pm-egrn-vendor')?.value;
+            const freightType = modalRoot.querySelector('#pm-egrn-freight-type')?.value;
+            const isGst = modalRoot.querySelector('#pm-egrn-is-gst')?.value;
+            const invoiceNumber = modalRoot.querySelector('#pm-egrn-inv-no')?.value?.trim();
+            const invoiceDate = modalRoot.querySelector('#pm-egrn-inv-date')?.value;
+            const creditNoteType = modalRoot.querySelector('#pm-egrn-credit-type')?.value;
+            const status = modalRoot.querySelector('#pm-egrn-status')?.value;
+            const narration = modalRoot.querySelector('#pm-egrn-narration')?.value?.trim();
+
+            if (!date) {
+              Toast.show('Date is required', 'error');
+              return;
+            }
+            if (!invoiceNumber) {
+              Toast.show('Invoice Number is required', 'error');
+              return;
+            }
+
+            Modal.confirm({
+              title: 'Confirm Update Goods Receipt Note (PM)',
+              message: `Are you sure you want to update Goods Receipt Note <strong>${row.docNo}</strong>?`,
+              confirmText: 'Update GRN',
+              onConfirm: () => {
+                row.date = date;
+                row.vendor = vendorAccount;
+                row.vendorAccount = vendorAccount;
+                row.supplier = vendorAccount;
+                row.freightType = freightType;
+                row.isGst = isGst;
+                row.invoiceNumber = invoiceNumber;
+                row.invoiceNo = invoiceNumber;
+                row.invoiceDate = invoiceDate;
+                row.creditNoteType = creditNoteType;
+                row.status = status;
+                row.narration = narration;
+                row.items = JSON.parse(JSON.stringify(grnItems));
+
+                Modal.close();
+                if (onSuccess) onSuccess();
+                Toast.show(`GRN ${row.docNo} updated successfully!`, 'success');
+              }
+            });
+          }
+        }
+      ]
     });
 
     renderItemsTable();
-
-    document.getElementById('modal-pm-egrn-cancel-btn')?.addEventListener('click', () => {
-      Modal.close();
-    });
-
-    document.getElementById('modal-pm-egrn-submit-btn')?.addEventListener('click', () => {
-      const date = document.getElementById('pm-egrn-date')?.value;
-      const supplier = document.getElementById('pm-egrn-supplier')?.value;
-      const poNo = document.getElementById('pm-egrn-po')?.value;
-      const invoiceNumber = document.getElementById('pm-egrn-inv-no')?.value;
-      const invoiceDate = document.getElementById('pm-egrn-inv-date')?.value;
-      const narration = document.getElementById('pm-egrn-narr')?.value;
-
-      if (!date || !invoiceNumber) {
-        Toast.show('Please fill in required Date and Invoice Number', 'warning');
-        return;
-      }
-
-      Modal.confirm({
-        title: 'Confirm Update GRN',
-        message: `Update changes to Packaging GRN <strong>${row.docNo}</strong>?`,
-        confirmText: 'Confirm Update',
-        onConfirm: () => {
-          row.date = date;
-          row.supplier = supplier;
-          row.poNo = poNo;
-          row.invoiceNumber = invoiceNumber;
-          row.invoiceDate = invoiceDate;
-          row.narration = narration;
-
-          Modal.close();
-          if (onSuccess) onSuccess();
-          Toast.show(`GRN ${row.docNo} updated successfully!`, 'success');
-        }
-      });
-    });
   },
 
   // Modal: View Packaging GRN Details
   showPmGrnDetailsModal(row) {
     const items = Array.isArray(row.items) ? row.items : [];
     const totalBase = items.reduce((acc, it) => acc + (it.baseValue || 0), 0);
-    const totalTax = items.reduce((acc, it) => acc + (it.gstTaxAmount || 0), 0);
+    const totalDevAmt = items.reduce((acc, it) => acc + (it.deviationAmount || 0), 0);
+    const totalTax = items.reduce((acc, it) => acc + (it.taxAmount || it.gstTaxAmount || 0), 0);
+    const totalNet = items.reduce((acc, it) => acc + (it.invoiceAmount || (it.baseValue || 0) + (it.taxAmount || it.gstTaxAmount || 0)), 0);
+
+    const getStatusBadge = (status) => {
+      const s = status || 'Verified & Binned';
+      let bg = 'bg-[#E3FCEF] text-[#006644]';
+      if (s === 'Pending Verification' || s === 'Draft') bg = 'bg-[#F4F5F7] text-[#42526E]';
+      else if (s === 'Quality Hold') bg = 'bg-[#FFF0B3] text-[#172B4D]';
+      else if (s === 'Rejected') bg = 'bg-[#FFEBE6] text-[#DE350B]';
+      return `<span class="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-semibold ${bg} whitespace-nowrap">${s}</span>`;
+    };
 
     Modal.open({
       title: `Goods Receipt Note (PM) Details — ${row.docNo}`,
-      width: 'max-w-4xl',
-      body: `
-        <div class="space-y-4 text-xs">
-          <!-- Header Details -->
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-[#F8FAFC] border border-[#DFE1E6] rounded-xl p-3.5">
+      size: 'full',
+      confirmActions: false,
+      content: `
+        <div class="space-y-4 text-xs text-[#172B4D]">
+          <!-- Summary Header (Clean 4 columns without border/bg) -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
             <div>
               <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">DOC NO</span>
               <span class="font-mono font-bold text-xs text-[#00A4B7]">${row.docNo}</span>
-            </div>
-            <div>
-              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">CODE</span>
-              <span class="font-mono font-semibold text-xs text-[#172B4D]">${row.code || '-'}</span>
             </div>
             <div>
               <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">DATE</span>
@@ -7663,19 +8123,31 @@ export const InventoryView = {
             </div>
             <div>
               <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">STATUS</span>
-              <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-[#E3FCEF] text-[#006644]">${row.status || 'Verified & Binned'}</span>
+              <div>${getStatusBadge(row.status)}</div>
+            </div>
+            <div>
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">IS GST</span>
+              <span class="text-xs text-[#172B4D] font-semibold">${row.isGst || 'Yes'}</span>
             </div>
             <div class="sm:col-span-2">
-              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">SUPPLIER</span>
-              <span class="font-semibold text-xs text-[#172B4D]">${row.supplier}</span>
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">VENDOR ACCOUNT</span>
+              <span class="font-semibold text-xs text-[#172B4D]">${row.vendor || row.vendorAccount || row.supplier}</span>
             </div>
             <div>
-              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">PO NO</span>
-              <span class="font-mono text-xs text-[#00A4B7] font-bold">${row.poNo || '-'}</span>
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">INVOICE NUMBER</span>
+              <span class="font-mono font-bold text-xs text-[#172B4D]">${row.invoiceNumber || row.invoiceNo || '-'}</span>
             </div>
             <div>
-              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">INVOICE NO &amp; DATE</span>
-              <span class="font-mono text-xs text-[#172B4D]">${row.invoiceNumber || '-'} (${row.invoiceDate || '-'})</span>
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">INVOICE DATE</span>
+              <span class="font-mono text-xs text-[#172B4D]">${row.invoiceDate || '-'}</span>
+            </div>
+            <div>
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">FREIGHT TYPE</span>
+              <span class="text-xs text-[#172B4D]">${row.freightType || '-'}</span>
+            </div>
+            <div>
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">CREDIT NOTE TYPE</span>
+              <span class="text-xs text-[#172B4D] font-semibold">${row.creditNoteType || 'None'}</span>
             </div>
             ${row.narration ? `
               <div class="col-span-2 sm:col-span-4 border-t border-[#DFE1E6] pt-2 mt-1">
@@ -7688,42 +8160,55 @@ export const InventoryView = {
           <!-- Items Table -->
           <div>
             <div class="flex items-center justify-between pb-2 mb-2 border-b border-[#DFE1E6]">
-              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Inward Items (${items.length})</h4>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Work Flow - Item Details (${items.length})</h4>
             </div>
             <div class="overflow-x-auto border border-[#DFE1E6] rounded-xl bg-white shadow-2xs">
               <table class="w-full text-left text-xs border-collapse">
                 <thead class="bg-[#F8FAFC] border-b border-[#DFE1E6] text-[#475569] font-bold text-[11px] uppercase tracking-wider">
                   <tr>
-                    <th class="py-2.5 px-3">Item</th>
-                    <th class="py-2.5 px-3">UOM</th>
-                    <th class="py-2.5 px-3 text-right">PO Qty</th>
+                    <th class="py-2.5 px-3">PRO Number</th>
+                    <th class="py-2.5 px-3">Variety</th>
+                    <th class="py-2.5 px-3">Grade</th>
+                    <th class="py-2.5 px-3">Packing Style</th>
+                    <th class="py-2.5 px-3">Location</th>
+                    <th class="py-2.5 px-3">Batch</th>
+                    <th class="py-2.5 px-3 text-right">PPO Qty</th>
                     <th class="py-2.5 px-3 text-right">Rec Qty</th>
                     <th class="py-2.5 px-3 text-right">Dev Qty</th>
+                    <th class="py-2.5 px-3 text-right">Price</th>
                     <th class="py-2.5 px-3 text-right">Base Value</th>
-                    <th class="py-2.5 px-3 text-right">GST Tax</th>
-                    <th class="py-2.5 px-3 text-center">Batch / Location</th>
+                    <th class="py-2.5 px-3 text-right">GST %</th>
+                    <th class="py-2.5 px-3 text-right">Tax Amt</th>
+                    <th class="py-2.5 px-3 text-right">Invoice Amt</th>
                   </tr>
                 </thead>
                 <tbody class="divide-y divide-[#DFE1E6]">
                   ${items.map(it => `
                     <tr class="hover:bg-[#F8FAFC]">
-                      <td class="py-2.5 px-3 font-semibold text-[#172B4D]">${it.item}</td>
-                      <td class="py-2.5 px-3 text-[#5E6C84]">${it.uom || it.unit || 'Nos'}</td>
-                      <td class="py-2.5 px-3 text-right font-mono font-bold text-[#172B4D]">${Number(it.poQty || 0).toLocaleString()}</td>
-                      <td class="py-2.5 px-3 text-right font-mono font-bold text-[#00875A]">${Number(it.receivedQty || it.quantity || 0).toLocaleString()}</td>
-                      <td class="py-2.5 px-3 text-right font-mono font-bold ${(it.deviationQty || 0) < 0 ? 'text-[#DE350B]' : 'text-[#5E6C84]'}">${it.deviationQty || 0}</td>
-                      <td class="py-2.5 px-3 text-right font-mono text-[#172B4D]">₹${Number(it.baseValue || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
-                      <td class="py-2.5 px-3 text-right font-mono text-[#00A4B7]">₹${Number(it.gstTaxAmount || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
-                      <td class="py-2.5 px-3 text-center text-[#5E6C84] text-[11px] font-mono">${it.batch || '-'} <span class="text-[#0284C7] block text-[10px]">${it.location || ''}</span></td>
+                      <td class="py-2.5 px-3 font-mono font-semibold text-[#00A4B7] whitespace-nowrap">${it.proNumber || '-'}</td>
+                      <td class="py-2.5 px-3 font-semibold text-[#172B4D] whitespace-nowrap">${it.variety || it.item || '-'}</td>
+                      <td class="py-2.5 px-3 text-[#5E6C84] whitespace-nowrap">${it.grade || '-'}</td>
+                      <td class="py-2.5 px-3 text-[#5E6C84] whitespace-nowrap">${it.packingStyle || '-'}</td>
+                      <td class="py-2.5 px-3 text-[#172B4D] whitespace-nowrap">${it.location || '-'}</td>
+                      <td class="py-2.5 px-3 font-mono text-[#5E6C84] whitespace-nowrap">${it.batch || '-'}</td>
+                      <td class="py-2.5 px-3 text-right font-mono text-[#5E6C84] whitespace-nowrap">${Number(it.ppoQty || it.poQty || 0).toLocaleString()}</td>
+                      <td class="py-2.5 px-3 text-right font-mono font-bold text-[#172B4D] whitespace-nowrap">${Number(it.receivedQty || it.quantity || 0).toLocaleString()}</td>
+                      <td class="py-2.5 px-3 text-right font-mono font-bold ${(it.deviationQty || 0) < 0 ? 'text-[#DE350B]' : ((it.deviationQty || 0) > 0 ? 'text-[#00875A]' : 'text-[#5E6C84]')} whitespace-nowrap">${it.deviationQty || 0}</td>
+                      <td class="py-2.5 px-3 text-right font-mono text-[#172B4D] whitespace-nowrap">₹${Number(it.itemPrice || 0).toFixed(2)}</td>
+                      <td class="py-2.5 px-3 text-right font-mono font-bold text-[#172B4D] whitespace-nowrap">₹${Number(it.baseValue || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
+                      <td class="py-2.5 px-3 text-right font-mono text-[#00A4B7] whitespace-nowrap">${it.gstPercent || 0}%</td>
+                      <td class="py-2.5 px-3 text-right font-mono text-[#00A4B7] whitespace-nowrap">₹${Number(it.taxAmount || it.gstTaxAmount || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
+                      <td class="py-2.5 px-3 text-right font-mono font-bold text-[#00875A] whitespace-nowrap">₹${Number(it.invoiceAmount || (it.baseValue || 0) + (it.taxAmount || it.gstTaxAmount || 0)).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
                     </tr>
                   `).join('')}
                 </tbody>
                 <tfoot class="bg-[#F8FAFC] border-t border-[#DFE1E6] font-bold text-xs">
                   <tr>
-                    <td colspan="5" class="py-2.5 px-3 text-right text-[#5E6C84] uppercase">Total Inward Base Value:</td>
-                    <td class="py-2.5 px-3 text-right font-mono text-[#00875A]">₹${totalBase.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
-                    <td class="py-2.5 px-3 text-right font-mono text-[#00A4B7]">₹${totalTax.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
+                    <td colspan="10" class="py-2.5 px-3 text-right text-[#5E6C84] uppercase">Total Valuation:</td>
+                    <td class="py-2.5 px-3 text-right font-mono text-[#172B4D]">₹${totalBase.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
                     <td></td>
+                    <td class="py-2.5 px-3 text-right font-mono text-[#00A4B7]">Tax: ₹${totalTax.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
+                    <td class="py-2.5 px-3 text-right font-mono text-[#00875A]">₹${totalNet.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
                   </tr>
                 </tfoot>
               </table>
