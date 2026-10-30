@@ -1,9 +1,38 @@
-import { TableComponent } from '../components/table.js';
-import { ModalComponent } from '../components/modal.js';
+import { DataTable } from '../components/table.js';
+import { Modal } from '../components/modal.js';
 import { Toast } from '../components/toast.js';
 
 export const ReportsView = {
-  render(container, submenuId = 'sales-export-analytics', pageTitle = 'Reports') {
+  render(containerId, activeTab = 'sales-export-analytics', resolvedHash = '#/reports/sales-export-analytics/sales-export-analytics') {
+    const container = typeof containerId === 'string' ? document.getElementById(containerId) : containerId;
+    if (!container) return;
+
+    let submenuId = activeTab || 'sales-export-analytics';
+    let pageTitle = '';
+
+    if (typeof resolvedHash === 'string' && (resolvedHash.startsWith('#') || resolvedHash.includes('/'))) {
+      const clean = resolvedHash.replace(/^#\/?/, '').replace(/^\/+/, '');
+      const parts = clean.split('/');
+      if (parts[1]) {
+        submenuId = parts[1];
+      }
+    } else if (typeof resolvedHash === 'string' && resolvedHash.trim().length > 0) {
+      pageTitle = resolvedHash.trim();
+    }
+
+    const titlesMap = {
+      'purchase-reports': 'Purchase Reports',
+      'preprocessing-reports': 'Pre-Processing Reports',
+      'quality-reports': 'Quality Control Reports',
+      'production-analytics': 'Production Analytics',
+      'coldstore-analytics': 'Coldstore Analytics',
+      'sales-export-analytics': 'Sales & Export Analytics'
+    };
+
+    if (!pageTitle) {
+      pageTitle = titlesMap[submenuId] || (submenuId ? submenuId.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) : 'Reports');
+    }
+
     const isSales = submenuId === 'sales-export-analytics' || submenuId.includes('sales');
     let currentReportType = isSales ? 'pending-contracts' : 'ALL';
 
@@ -102,17 +131,19 @@ export const ReportsView = {
 
     // Render Table Component with Fixed Actions Column
     let typeLabel = isSales ? this.getReportTypeLabel(submenuId, currentReportType, pageTitle) : pageTitle;
-    const table = new TableComponent({
+    const tableContainer = container.querySelector('#reports-table-container');
+    let table = new DataTable({
+      container: tableContainer,
       columns: reportData.columns,
       data: reportData.rows,
       searchable: true,
-      pagination: true,
       pageSize: 10,
       selectable: false,
-      stickyActionColumn: true,
+      exportable: true,
+      tableTitle: activeTitle,
+      hideTopFilterBar: true,
       onRowClick: (row) => this.showReportDetails(row, typeLabel)
     });
-    table.render(container.querySelector('#reports-table-container'));
 
     // Attach Event Listeners
     const typeSelect = container.querySelector('#rep-flt-type');
@@ -132,11 +163,18 @@ export const ReportsView = {
       }
 
       reportData = this.getReportData(submenuId, currentReportType, pageTitle);
-      table.columns = reportData.columns;
-      table.data = [...reportData.rows];
-      table.originalData = [...reportData.rows];
-      table.currentPage = 1;
-      table.render(container.querySelector('#reports-table-container'));
+      table = new DataTable({
+        container: tableContainer,
+        columns: reportData.columns,
+        data: reportData.rows,
+        searchable: true,
+        pageSize: 10,
+        selectable: false,
+        exportable: true,
+        tableTitle: typeLabel,
+        hideTopFilterBar: true,
+        onRowClick: (row) => this.showReportDetails(row, typeLabel)
+      });
 
       if (recordsMetric) recordsMetric.textContent = reportData.rows.length;
     };
@@ -578,7 +616,7 @@ export const ReportsView = {
         `;
       }).join('');
 
-    ModalComponent.open({
+    Modal.open({
       title: `${pageTitle}: ${ref}`,
       size: 'lg',
       content: `
