@@ -1098,7 +1098,7 @@ export const InventoryView = {
         <div class="flex items-center gap-2">
           <button type="button" id="gs-btn-toggle-form" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-            <span id="gs-form-toggle-text">Indent Page</span>
+            <span id="gs-form-toggle-text">Add Indent</span>
           </button>
         </div>
       </div>
@@ -1894,20 +1894,22 @@ export const InventoryView = {
             <input type="date" id="po-flt-to" value="${todayStr}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
           </div>
 
-          <!-- Filter: SUPPLIER & SEARCH -->
-          <div class="flex items-end gap-2">
-            <div class="flex-1 min-w-0">
-              <label for="po-flt-sup" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SUPPLIER</label>
-              <select id="po-flt-sup" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                <option value="ALL">All Suppliers</option>
-                <option value="Devi Safety Aids & Industrial Supplies">Devi Safety Aids</option>
-                <option value="Sri Venkateswara Packaging Ltd">Sri Venkateswara</option>
-                <option value="Apex Engineering & Spare Parts Ltd">Apex Engineering</option>
-                <option value="Bio-Chem Scientific Instruments India">Bio-Chem Scientific</option>
-                <option value="Delta Seals & Tapes Corp">Delta Seals &amp; Tapes</option>
-              </select>
-            </div>
-            <button type="button" id="po-flt-search-btn" class="dt-top-filter-search-btn btn-primary px-4 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] shrink-0">
+          <!-- Filter: SUPPLIER -->
+          <div>
+            <label for="po-flt-sup" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SUPPLIER</label>
+            <select id="po-flt-sup" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL">All Suppliers</option>
+              <option value="Devi Safety Aids & Industrial Supplies">Devi Safety Aids</option>
+              <option value="Sri Venkateswara Packaging Ltd">Sri Venkateswara</option>
+              <option value="Apex Engineering & Spare Parts Ltd">Apex Engineering</option>
+              <option value="Bio-Chem Scientific Instruments India">Bio-Chem Scientific</option>
+              <option value="Delta Seals & Tapes Corp">Delta Seals &amp; Tapes</option>
+            </select>
+          </div>
+
+          <!-- Second Row: Search Button -->
+          <div class="col-span-1 sm:col-span-2 md:col-span-4 flex justify-start pt-1">
+            <button type="button" id="po-flt-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
               <span>Search</span>
             </button>
@@ -2825,7 +2827,7 @@ export const InventoryView = {
           </div>
         </div>
 
-        <div id="grn-flt-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3 pt-3 border-t border-[#F1F5F9] mt-2 text-xs">
+        <div id="grn-flt-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-3 border-t border-[#F1F5F9] mt-2 text-xs">
           <!-- 1. DOC NO / CODE / PO NO / INV NO -->
           <div>
             <label for="grn-flt-doc" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SEARCH</label>
@@ -2861,8 +2863,8 @@ export const InventoryView = {
             </div>
           </div>
 
-          <!-- Search Button -->
-          <div class="flex items-end">
+          <!-- Second Row: Search Button -->
+          <div class="col-span-1 sm:col-span-2 md:col-span-4 flex justify-start pt-1">
             <button type="button" id="grn-flt-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
               <span>Search</span>
@@ -9265,6 +9267,7 @@ export const InventoryView = {
     const totalValuation = fullList.reduce((acc, it) => acc + (it.totalInvoiced || 0), 0);
 
     container.innerHTML = `
+      <!-- Page Header -->
       <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-1">
         <div>
           <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Inventory — Proforma Register</h1>
@@ -9272,7 +9275,8 @@ export const InventoryView = {
         </div>
       </div>
 
-      <div class="grid grid-cols-2 gap-3">
+      <!-- KPI Summary Cards -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 shadow-2xs">
           <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Total Register Entries</span>
           <div class="text-xl font-extrabold text-[#172B4D] mt-1 font-mono">${fullList.length}</div>
@@ -9283,29 +9287,275 @@ export const InventoryView = {
           <div class="text-xl font-extrabold text-[#00875A] mt-1 font-mono">₹${(totalValuation / 100000).toFixed(2)} L</div>
           <span class="text-[10px] text-[#00875A] font-semibold">Audited Book Stock</span>
         </div>
+        <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 shadow-2xs">
+          <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Total Quantity</span>
+          <div class="text-xl font-extrabold text-[#00A4B7] mt-1 font-mono">${fullList.reduce((a, b) => a + (b.quantity || 0), 0).toLocaleString()}</div>
+          <span class="text-[10px] text-[#00A4B7] font-semibold">Units in Storage</span>
+        </div>
+        <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 shadow-2xs">
+          <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Active Locations</span>
+          <div class="text-xl font-extrabold text-[#172B4D] mt-1 font-mono">${new Set(fullList.map(it => it.storeLocation)).size}</div>
+          <span class="text-[10px] text-[#5E6C84] font-semibold">Warehouses & Bays</span>
+        </div>
       </div>
 
+      <!-- Search & Filter Card (Standard 4-Column Layout) -->
+      <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200">
+        <div class="flex items-center justify-between pb-1">
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+            <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
+          </div>
+          <div class="inline-flex items-center gap-2">
+            <button type="button" id="reg-flt-reset-btn" class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Reset all filters">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+            </button>
+            <button type="button" id="reg-flt-toggle-btn" class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Hide Filter">
+              <svg id="reg-flt-toggle-icon" class="w-3.5 h-3.5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div id="reg-flt-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-3 border-t border-[#F1F5F9] mt-2 text-xs">
+          <!-- 1. SEARCH -->
+          <div>
+            <label for="reg-flt-search" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SEARCH</label>
+            <input type="text" id="reg-flt-search" placeholder="Code / Ref Doc / Item..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+
+          <!-- 2. CATEGORY -->
+          <div>
+            <label for="reg-flt-cat" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CATEGORY</label>
+            <select id="reg-flt-cat" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL">All Categories</option>
+              <option value="Packing Materials">Packing Materials</option>
+              <option value="Master Cartons">Master Cartons</option>
+              <option value="Inner Cartons">Inner Cartons</option>
+              <option value="Polybags">Polybags</option>
+              <option value="Pouch Bags">Pouch Bags</option>
+              <option value="Strapping & Tapes">Strapping &amp; Tapes</option>
+              <option value="Processing Additives">Processing Additives</option>
+            </select>
+          </div>
+
+          <!-- 3. STORE LOCATION -->
+          <div>
+            <label for="reg-flt-loc" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">STORE LOCATION</label>
+            <select id="reg-flt-loc" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL">All Store Locations</option>
+              <option value="Packaging Store Vault #1">Packaging Store Vault #1</option>
+              <option value="Central PM Bay A-2">Central PM Bay A-2</option>
+              <option value="Dry Goods Store 3">Dry Goods Store 3</option>
+              <option value="Cold Storage Dock">Cold Storage Dock</option>
+              <option value="Main Warehouse Bay B">Main Warehouse Bay B</option>
+            </select>
+          </div>
+
+          <!-- 4. Search Button in Column 4 -->
+          <div class="flex items-end">
+            <button type="button" id="reg-flt-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+              <span>Search</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Data Table Card -->
       <div id="proforma-register-table-container"></div>
     `;
 
-    new DataTable({
-      containerId: 'proforma-register-table-container',
-      tableTitle: `Proforma Register Ledger (${fullList.length})`,
-      searchable: true,
-      exportable: true,
-      pageSize: 10,
-      columns: [
-        { field: 'sNo', header: 'S.No', render: (v, r, idx) => `<span class="text-[#5E6C84] font-semibold">${idx + 1}</span>` },
-        { field: 'regCode', header: 'Register Code', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] whitespace-nowrap">${v}</span>` },
-        { field: 'refDoc', header: 'Ref Doc / PI', sortable: true, render: v => `<span class="font-mono font-semibold text-xs text-[#172B4D] whitespace-nowrap">${v}</span>` },
-        { field: 'regDate', header: 'Date', sortable: true, render: v => `<span class="whitespace-nowrap text-xs text-[#172B4D] font-medium font-mono">${v}</span>` },
-        { field: 'category', header: 'Category', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#F4F5F7] text-[#172B4D] border border-[#DFE1E6] whitespace-nowrap">${v}</span>` },
-        { field: 'itemDescription', header: 'Description', render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
-        { field: 'storeLocation', header: 'Store Location', sortable: true, render: v => `<span class="text-xs text-[#5E6C84] whitespace-nowrap">${v}</span>` },
-        { field: 'quantity', header: 'Quantity', sortable: true, render: (v, r) => `<span class="font-mono font-bold text-xs text-[#172B4D] whitespace-nowrap">${Number(v).toLocaleString()} ${r.unit}</span>` },
-        { field: 'totalInvoiced', header: 'Invoiced (₹)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A] whitespace-nowrap">₹${Number(v).toLocaleString()}</span>` }
-      ],
-      data: fullList
+    const renderTable = (data) => {
+      new DataTable({
+        containerId: 'proforma-register-table-container',
+        tableTitle: `Proforma Register Ledger (${data.length})`,
+        searchable: true,
+        exportable: true,
+        pageSize: 10,
+        onRowClick: (row) => {
+          this.showProformaRegisterDetailsModal(row);
+        },
+        columns: [
+          {
+            field: 'sNo',
+            header: 'S No',
+            sortable: false,
+            render: (v, r, idx) => `
+              <span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer select-none">
+                ${String(idx + 1).padStart(2, '0')}
+              </span>
+            `
+          },
+          {
+            field: 'regCode',
+            header: 'Register Code',
+            sortable: true,
+            render: (v, r) => `
+              <div class="flex flex-col">
+                <span class="font-mono font-bold text-xs text-[#172B4D] hover:text-[#00A4B7] cursor-pointer whitespace-nowrap">${v}</span>
+                <span class="text-[10px] text-[#5E6C84]">Ref: ${r.refDoc || '-'}</span>
+              </div>
+            `
+          },
+          {
+            field: 'regDate',
+            header: 'Date',
+            sortable: true,
+            render: v => `<span class="whitespace-nowrap text-xs text-[#172B4D] font-medium font-mono">${v || '-'}</span>`
+          },
+          {
+            field: 'category',
+            header: 'Category',
+            sortable: true,
+            render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#F4F5F7] text-[#172B4D] border border-[#DFE1E6] whitespace-nowrap">${v || '-'}</span>`
+          },
+          {
+            field: 'itemDescription',
+            header: 'Description',
+            render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v || '-'}</span>`
+          },
+          {
+            field: 'storeLocation',
+            header: 'Store Location',
+            sortable: true,
+            render: v => `<span class="text-xs text-[#5E6C84] whitespace-nowrap">${v || '-'}</span>`
+          },
+          {
+            field: 'quantity',
+            header: 'Quantity',
+            sortable: true,
+            render: (v, r) => `<span class="font-mono font-bold text-xs text-[#00A4B7] whitespace-nowrap">${Number(v || 0).toLocaleString()} ${r.unit || 'Nos'}</span>`
+          },
+          {
+            field: 'totalInvoiced',
+            header: 'Invoiced (₹)',
+            sortable: true,
+            render: v => `<span class="font-mono font-bold text-xs text-[#00875A] whitespace-nowrap">₹${Number(v || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>`
+          }
+        ],
+        actionsTitle: 'Actions',
+        actions: [
+          {
+            label: 'View',
+            title: 'View Ledger Details',
+            icon: `<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>`,
+            onClick: (row) => {
+              this.showProformaRegisterDetailsModal(row);
+            }
+          }
+        ],
+        data
+      });
+    };
+
+    renderTable(fullList);
+
+    // Search & Filter Listeners
+    container.querySelector('#reg-flt-search-btn')?.addEventListener('click', () => {
+      const q = container.querySelector('#reg-flt-search')?.value?.trim().toLowerCase();
+      const cat = container.querySelector('#reg-flt-cat')?.value;
+      const loc = container.querySelector('#reg-flt-loc')?.value;
+
+      let filtered = [...fullList];
+      if (q) {
+        filtered = filtered.filter(it =>
+          (it.regCode || '').toLowerCase().includes(q) ||
+          (it.refDoc || '').toLowerCase().includes(q) ||
+          (it.itemDescription || '').toLowerCase().includes(q)
+        );
+      }
+      if (cat && cat !== 'ALL') {
+        filtered = filtered.filter(it => it.category === cat);
+      }
+      if (loc && loc !== 'ALL') {
+        filtered = filtered.filter(it => it.storeLocation === loc);
+      }
+
+      renderTable(filtered);
+    });
+
+    container.querySelector('#reg-flt-reset-btn')?.addEventListener('click', () => {
+      container.querySelector('#reg-flt-search').value = '';
+      container.querySelector('#reg-flt-cat').value = 'ALL';
+      container.querySelector('#reg-flt-loc').value = 'ALL';
+      renderTable(fullList);
+    });
+
+    const regFilterBody = container.querySelector('#reg-flt-body');
+    const regToggleIcon = container.querySelector('#reg-flt-toggle-icon');
+    container.querySelector('#reg-flt-toggle-btn')?.addEventListener('click', () => {
+      if (regFilterBody) {
+        regFilterBody.classList.toggle('hidden');
+        if (regToggleIcon) {
+          regToggleIcon.classList.toggle('rotate-180');
+        }
+      }
+    });
+  },
+
+  // Details Modal for Proforma Register Entry
+  showProformaRegisterDetailsModal(row) {
+    if (!row) return;
+
+    Modal.open({
+      title: `Proforma Ledger Record: ${row.regCode}`,
+      size: '2xl',
+      content: `
+        <div class="space-y-4 text-xs text-[#172B4D]">
+          <!-- Header Overview Grid -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-[#F8FAFC] border border-[#DFE1E6] p-3.5 rounded-xl shadow-2xs">
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0.5">REGISTER CODE</span>
+              <span class="font-mono font-bold text-sm text-[#00A4B7]">${row.regCode}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0.5">REF DOC / PI</span>
+              <span class="font-mono font-semibold text-xs text-[#172B4D]">${row.refDoc || '-'}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0.5">DATE</span>
+              <span class="font-mono text-xs text-[#172B4D]">${row.regDate || '-'}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0.5">CATEGORY</span>
+              <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E0F2FE] text-[#0284C7] border border-[#BAE6FD]">
+                ${row.category || '-'}
+              </span>
+            </div>
+          </div>
+
+          <!-- Stock & Valuation Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-white border border-[#DFE1E6] p-3.5 rounded-xl shadow-2xs">
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0.5">STORE LOCATION</span>
+              <span class="font-semibold text-xs text-[#172B4D]">${row.storeLocation || '-'}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0.5">RECORDED QUANTITY</span>
+              <span class="font-mono font-bold text-xs text-[#00A4B7]">${Number(row.quantity || 0).toLocaleString()} ${row.unit || 'Nos'}</span>
+            </div>
+            <div>
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0.5">INVOICED VALUE</span>
+              <span class="font-mono font-bold text-xs text-[#00875A]">₹${Number(row.totalInvoiced || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
+            </div>
+          </div>
+
+          <!-- Description Card -->
+          <div class="bg-white border border-[#DFE1E6] p-3.5 rounded-xl shadow-2xs">
+            <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ITEM DESCRIPTION</span>
+            <div class="font-semibold text-xs text-[#172B4D] bg-[#F8FAFC] p-2.5 rounded-lg border border-[#DFE1E6]">
+              ${row.itemDescription || '-'}
+            </div>
+          </div>
+        </div>
+      `,
+      actions: [
+        {
+          label: 'Close',
+          variant: 'secondary',
+          onClick: () => Modal.close()
+        }
+      ]
     });
   }
 };
