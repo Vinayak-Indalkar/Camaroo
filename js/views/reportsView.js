@@ -107,6 +107,7 @@ export const ReportsView = {
         searchable: true,
         pageSize: 10,
         selectable: true,
+        showSelectedCount: false,
         exportable: true,
         actionsTitle: 'Actions',
         actions: [

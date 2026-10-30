@@ -14,6 +14,7 @@ export class DataTable {
     searchable = true,
     filterable = true,
     selectable = false,
+    showSelectedCount = false,
     actions = [],
     actionsTitle = 'Actions',
     bulkActions = [],
@@ -42,6 +43,7 @@ export class DataTable {
     this.searchable = searchable;
     this.filterable = filterable;
     this.selectable = Boolean(selectable);
+    this.showSelectedCount = Boolean(showSelectedCount);
     // Global safeguard: Never add a view eye icon in actions column anywhere in the application
     this.actions = (actions || []).filter(act => {
       const label = String(act.label || '').toLowerCase().trim();
@@ -398,7 +400,7 @@ export class DataTable {
 
           <!-- Selected Rows Bulk Bar -->
           <div id="dt-bulk-bar" class="hidden px-4 py-2 bg-[#F0F9FF] border-b border-[#BAE6FD] items-center justify-between text-xs text-[#00A4B7]">
-            <span id="dt-selected-count">0 items selected</span>
+            <span id="dt-selected-count" class="hidden" style="display: none !important;"></span>
             <div id="dt-bulk-actions" class="flex items-center gap-2"></div>
           </div>
 
@@ -1111,11 +1113,22 @@ export class DataTable {
   updateBulkBar() {
     const bulkBar = this.container.querySelector('#dt-bulk-bar');
     const selectedCount = this.container.querySelector('#dt-selected-count');
-    if (bulkBar && selectedCount) {
-      if (this.selectedKeys.size > 0) {
+    if (selectedCount) {
+      if (this.showSelectedCount && this.selectedKeys.size > 0) {
+        selectedCount.classList.remove('hidden');
+        selectedCount.style.display = '';
+        selectedCount.innerText = `${this.selectedKeys.size} items selected`;
+      } else {
+        selectedCount.classList.add('hidden');
+        selectedCount.style.display = 'none';
+      }
+    }
+    if (bulkBar) {
+      const hasBulkActions = Boolean(this.bulkActions && this.bulkActions.length > 0);
+      const shouldShow = this.selectedKeys.size > 0 && (hasBulkActions || this.showSelectedCount);
+      if (shouldShow) {
         bulkBar.classList.remove('hidden');
         bulkBar.classList.add('flex');
-        selectedCount.innerText = `${this.selectedKeys.size} items selected`;
       } else {
         bulkBar.classList.add('hidden');
         bulkBar.classList.remove('flex');
