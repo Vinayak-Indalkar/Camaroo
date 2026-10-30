@@ -2858,30 +2858,23 @@ input[type="number"]:hover::-webkit-outer-spin-button {
 
 
 /* ==========================================================================
-   GLOBAL RULE: No border color or border anywhere on ANY button across entire application
+   Primary & Filter Search Buttons - Zero Border Everywhere
    ========================================================================== */
-button,
-[type="button"],
-[type="submit"],
-[type="reset"],
-.btn,
-.btn-primary,
-.btn-secondary,
-.btn-danger,
-.btn-destructive,
-.btn-dark,
-.btn-outline,
-.btn-subtle,
-.btn-ghost,
 .dt-top-filter-search-btn,
-.dt-action-btn,
+.dt-top-filter-card .dt-top-filter-search-btn,
+button.dt-top-filter-search-btn,
+button[id*="search-btn"],
+button[id$="-search-btn"],
+#reg-flt-search-btn,
+#issue-flt-search-btn,
+#po-flt-search-btn,
+#grn-flt-search-btn,
+.btn-primary,
+button.btn-primary,
+.btn-danger,
+button.btn-danger,
 .dt-top-filter-reset-btn,
-.dt-top-filter-toggle-btn,
-.dt-page-btn,
-.cu-page-btn,
-.sub-page-btn,
-[class*="btn-"],
-[class*="dt-action-btn"] {
+.dt-top-filter-toggle-btn {
   border: none !important;
   border-width: 0 !important;
   border-style: none !important;
@@ -2890,51 +2883,94 @@ button,
   box-shadow: none !important;
 }
 
-button:hover,
-button:focus,
-button:active,
-[type="button"]:hover,
-[type="button"]:focus,
-[type="button"]:active,
-[type="submit"]:hover,
-[type="submit"]:focus,
-[type="submit"]:active,
-[type="reset"]:hover,
-[type="reset"]:focus,
-[type="reset"]:active,
-.btn:hover,
-.btn:focus,
-.btn:active,
-.btn-primary:hover,
-.btn-primary:focus,
-.btn-primary:active,
-.btn-secondary:hover,
-.btn-secondary:focus,
-.btn-secondary:active,
-.btn-danger:hover,
-.btn-danger:focus,
-.btn-danger:active,
 .dt-top-filter-search-btn:hover,
 .dt-top-filter-search-btn:focus,
 .dt-top-filter-search-btn:active,
-.dt-action-btn:hover,
-.dt-action-btn:focus,
-.dt-action-btn:active,
+button.dt-top-filter-search-btn:hover,
+button[id*="search-btn"]:hover,
+button[id*="search-btn"]:focus,
+button[id*="search-btn"]:active,
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+button.btn-primary:hover,
+.btn-danger:hover,
+.btn-danger:focus,
+.btn-danger:active,
 .dt-top-filter-reset-btn:hover,
 .dt-top-filter-reset-btn:focus,
 .dt-top-filter-reset-btn:active,
 .dt-top-filter-toggle-btn:hover,
 .dt-top-filter-toggle-btn:focus,
-.dt-top-filter-toggle-btn:active,
-[class*="btn-"]:hover,
-[class*="btn-"]:focus,
-[class*="btn-"]:active {
+.dt-top-filter-toggle-btn:active {
   border: none !important;
   border-width: 0 !important;
   border-style: none !important;
   border-color: transparent !important;
   outline: none !important;
   box-shadow: none !important;
+}
+
+/* ==========================================================================
+   Secondary Buttons (Modal Cancel, Download, Column Visibility & Secondary Outline Buttons) - Border Rule
+   ========================================================================== */
+#modal-btn-0,
+button[id^="modal-btn-"]:not(.btn-primary):not(.btn-danger),
+button[id*="cancel-btn"],
+#dt-download-btn,
+#dt-columns-btn,
+button#dt-download-btn,
+button#dt-columns-btn,
+.btn-secondary,
+button.btn-secondary,
+[type="button"].btn-secondary,
+.btn-outline,
+button.btn-outline,
+button.border,
+button[class*="border-[#DFE1E6]"],
+button[class*="border-[#CBD5E1]"],
+button.border-neutral-300 {
+  border: 1px solid #CBD5E1 !important;
+  border-width: 1px !important;
+  border-style: solid !important;
+  border-color: #CBD5E1 !important;
+  background-color: #FFFFFF !important;
+  color: #172B4D !important;
+  border-radius: 9999px !important;
+}
+
+#modal-btn-0:hover,
+button[id^="modal-btn-"]:not(.btn-primary):not(.btn-danger):hover,
+button[id*="cancel-btn"]:hover,
+#dt-download-btn:hover,
+#dt-columns-btn:hover,
+button#dt-download-btn:hover,
+button#dt-columns-btn:hover,
+.btn-secondary:hover,
+button.btn-secondary:hover,
+[type="button"].btn-secondary:hover,
+.btn-outline:hover,
+button.btn-outline:hover,
+button.border:hover,
+button[class*="border-[#DFE1E6]"]:hover,
+button[class*="border-[#CBD5E1]"]:hover,
+button.border-neutral-300:hover {
+  border: 1px solid #94A3B8 !important;
+  border-color: #94A3B8 !important;
+  background-color: #F8FAFD !important;
+  color: #0F172A !important;
+}
+
+#modal-btn-0:focus,
+button[id^="modal-btn-"]:focus,
+#dt-download-btn:focus,
+#dt-columns-btn:focus,
+button#dt-download-btn:focus,
+button#dt-columns-btn:focus,
+.btn-secondary:focus,
+button.btn-secondary:focus {
+  border: 1px solid #00A4B7 !important;
+  border-color: #00A4B7 !important;
 }
 
 

@@ -332,7 +332,7 @@ export class DataTable {
               ${this.renderToolbarButtonsHtml()}
               <!-- Unified Download Button with Dropdown (Excel, CSV, PDF) -->
               <div class="relative">
-                <button type="button" id="dt-download-btn" class="btn-secondary px-3 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5 hover:bg-[#EBECF0] transition-colors cursor-pointer shadow-2xs" title="Download Table Data">
+                <button type="button" id="dt-download-btn" class="btn-secondary px-3 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5 hover:bg-[#EBECF0] transition-colors cursor-pointer shadow-2xs border border-[#DFE1E6]" title="Download Table Data">
                   <svg class="w-3.5 h-3.5 text-[#0284C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
                   <span>Download</span>
                   <svg id="dt-download-chevron" class="w-3 h-3 text-[#5E6C84] transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
@@ -356,7 +356,7 @@ export class DataTable {
 
               <!-- Column Section / Visibility Dropdown -->
               <div class="relative">
-                <button type="button" id="dt-columns-btn" class="btn-secondary px-3 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5 hover:bg-[#EBECF0] transition-colors cursor-pointer shadow-2xs" title="Customize Visible Columns">
+                <button type="button" id="dt-columns-btn" class="btn-secondary px-3 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5 hover:bg-[#EBECF0] transition-colors cursor-pointer shadow-2xs border border-[#DFE1E6]" title="Customize Visible Columns">
                   <svg class="w-3.5 h-3.5 text-[#0284C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
                   <span>Column visibility</span>
                 </button>
