@@ -74,41 +74,7 @@ export const ReportsView = {
           </div>
         </div>
 
-        <div id="rep-flt-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-3 border-t border-[#F1F5F9] mt-2 text-xs">
-          <!-- 1. REPORT TYPE -->
-          <div>
-            <label for="rep-flt-type" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">REPORT TYPE</label>
-            <select id="rep-flt-type" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-              ${reportTypeOptionsHtml}
-            </select>
-          </div>
-
-          <!-- 2. SEARCH -->
-          <div>
-            <label for="rep-flt-search" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SEARCH</label>
-            <input type="text" id="rep-flt-search" placeholder="Search reference, lot, entity..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
-          </div>
-
-          <!-- 3. FROM DATE -->
-          <div>
-            <label for="rep-flt-from" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FROM DATE</label>
-            <input type="date" id="rep-flt-from" value="2026-10-01" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
-          </div>
-
-          <!-- 4. TO DATE -->
-          <div>
-            <label for="rep-flt-to" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">TO DATE</label>
-            <input type="date" id="rep-flt-to" value="2026-10-30" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
-          </div>
-
-          <!-- 5. SEARCH BUTTON (Row 2, Column 1 - Left side after TO DATE) -->
-          <div class="flex items-end">
-            <button type="button" id="rep-flt-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-              <span>Search</span>
-            </button>
-          </div>
-        </div>
+        <div id="rep-flt-body" class="dt-top-filter-body"></div>
       </div>
 
       <!-- Report Table Card -->
@@ -116,30 +82,185 @@ export const ReportsView = {
     `;
 
     const renderTable = (rows) => {
+      const title = currentReportType === 'pending-contracts'
+        ? `Pending Contracts Records (${rows.length})`
+        : `${pageTitle} Records (${rows.length})`;
+
       new DataTable({
         containerId: 'reports-table-container',
-        tableTitle: `${pageTitle} Records (${rows.length})`,
+        tableTitle: title,
         searchable: true,
         exportable: true,
         selectable: true,
         pageSize: 10,
         columns: reportData.columns,
         data: rows,
-        onRowClick: (row) => this.showReportDetails(row, pageTitle)
+        onRowClick: (row) => this.showReportDetails(row, currentReportType === 'pending-contracts' ? 'Pending Contract' : pageTitle)
       });
     };
 
+    // Render Filter Body based on Report Type
+    const renderFilterBody = (type) => {
+      const fltBody = subContainer.querySelector('#rep-flt-body');
+      if (!fltBody) return;
+
+      if (type === 'pending-contracts') {
+        fltBody.innerHTML = `
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-3 border-t border-[#F1F5F9] mt-2 text-xs">
+            <!-- 1. Select Year -->
+            <div>
+              <label for="flt-year" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Select Year</label>
+              <select id="flt-year" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="2026-2027" selected>2026 - 2027</option>
+                <option value="2025-2026">2025 - 2026</option>
+                <option value="2024-2025">2024 - 2025</option>
+              </select>
+            </div>
+
+            <!-- 2. Select Exporter -->
+            <div>
+              <label for="flt-exporter" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Select Exporter</label>
+              <select id="flt-exporter" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="ALL">All Exporters</option>
+                <option value="devi-fisheries" selected>Devi Fisheries Limited</option>
+                <option value="devi-sea-foods">Devi Sea Foods Ltd</option>
+                <option value="devi-marine">Devi Marine Food Exports</option>
+              </select>
+            </div>
+
+            <!-- 3. Select Consignee -->
+            <div>
+              <label for="flt-consignee" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Select Consignee</label>
+              <select id="flt-consignee" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="ALL" selected>All Consignees</option>
+                <option value="red-lobster">Red Lobster Seafood Sourcing</option>
+                <option value="kyokuyo">Kyokuyo Global Foods Ltd</option>
+                <option value="euro-baltic">Euro-Baltic Marine Traders</option>
+                <option value="pacific-coast">Pacific Coast Seafood LLC</option>
+                <option value="meridian">Meridian Global Foods LLC</option>
+                <option value="aquastar">AquaStar Global Imports</option>
+              </select>
+            </div>
+
+            <!-- 4. Select Country -->
+            <div>
+              <label for="flt-country" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Select Country</label>
+              <select id="flt-country" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="ALL" selected>All Countries</option>
+                <option value="USA">USA</option>
+                <option value="Japan">Japan</option>
+                <option value="Netherlands">Netherlands</option>
+                <option value="UK">United Kingdom</option>
+                <option value="Canada">Canada</option>
+              </select>
+            </div>
+
+            <!-- 5. Priority -->
+            <div>
+              <label for="flt-priority" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Priority</label>
+              <select id="flt-priority" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="ALL" selected>All Priorities</option>
+                <option value="High">High</option>
+                <option value="Medium">Medium</option>
+                <option value="Low">Low</option>
+              </select>
+            </div>
+
+            <!-- 6. Select Plant -->
+            <div>
+              <label for="flt-plant" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Select Plant</label>
+              <select id="flt-plant" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="ALL" selected>All Plants</option>
+                <option value="Plant 1">Unit 1 - Singarayakonda</option>
+                <option value="Plant 2">Unit 2 - Visakhapatnam</option>
+                <option value="Plant 3">Unit 3 - Bapatla</option>
+                <option value="Plant 5">Unit 5 - Processing Hub</option>
+              </select>
+            </div>
+
+            <!-- 7. SEARCH BUTTON (Row 2, Column 3 - Left after Plant) -->
+            <div class="flex items-end">
+              <button type="button" id="rep-flt-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                <span>Search</span>
+              </button>
+            </div>
+          </div>
+        `;
+      } else {
+        fltBody.innerHTML = `
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-3 border-t border-[#F1F5F9] mt-2 text-xs">
+            <!-- 1. SEARCH -->
+            <div>
+              <label for="rep-flt-search" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SEARCH</label>
+              <input type="text" id="rep-flt-search" placeholder="Search reference, lot, entity..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            </div>
+
+            <!-- 2. FROM DATE -->
+            <div>
+              <label for="rep-flt-from" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FROM DATE</label>
+              <input type="date" id="rep-flt-from" value="2026-10-01" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
+            </div>
+
+            <!-- 3. TO DATE -->
+            <div>
+              <label for="rep-flt-to" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">TO DATE</label>
+              <input type="date" id="rep-flt-to" value="2026-10-30" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
+            </div>
+
+            <!-- 4. SEARCH BUTTON (Row 2, Column 1 - Left side after TO DATE) -->
+            <div class="flex items-end">
+              <button type="button" id="rep-flt-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                <span>Search</span>
+              </button>
+            </div>
+          </div>
+        `;
+      }
+
+      // Re-attach Search listener
+      fltBody.querySelector('#rep-flt-search-btn')?.addEventListener('click', handleSearch);
+    };
+
+    // Filter Search Execution
+    const handleSearch = () => {
+      let filtered = [...reportData.rows];
+      if (currentReportType === 'pending-contracts') {
+        const yr = subContainer.querySelector('#flt-year')?.value;
+        const exp = subContainer.querySelector('#flt-exporter')?.value;
+        const cons = subContainer.querySelector('#flt-consignee')?.value;
+        const ctry = subContainer.querySelector('#flt-country')?.value;
+        const prio = subContainer.querySelector('#flt-priority')?.value;
+        const plnt = subContainer.querySelector('#flt-plant')?.value;
+
+        if (yr && yr !== 'ALL') filtered = filtered.filter(r => r.year === yr);
+        if (exp && exp !== 'ALL') filtered = filtered.filter(r => r.exporter === exp);
+        if (cons && cons !== 'ALL') filtered = filtered.filter(r => r.consigneeKey === cons || (r.buyer && r.buyer.toLowerCase().includes(cons.replace('-', ' '))));
+        if (ctry && ctry !== 'ALL') filtered = filtered.filter(r => r.country.toLowerCase() === ctry.toLowerCase() || r.destination.toLowerCase().includes(ctry.toLowerCase()));
+        if (prio && prio !== 'ALL') filtered = filtered.filter(r => r.priority.toLowerCase() === prio.toLowerCase());
+        if (plnt && plnt !== 'ALL') filtered = filtered.filter(r => r.plant === plnt);
+      } else {
+        const q = subContainer.querySelector('#rep-flt-search')?.value?.trim().toLowerCase();
+        if (q) {
+          filtered = filtered.filter(row => Object.values(row).some(v => String(v).toLowerCase().includes(q)));
+        }
+      }
+      renderTable(filtered);
+    };
+
+    // Initial Filter Body & Table
+    renderFilterBody(currentReportType);
     renderTable(reportData.rows);
 
     // Report Type change listeners (sync header & filter dropdowns)
     const onReportTypeChange = (newType, sourceEl) => {
       currentReportType = newType;
       const headerSelect = subContainer.querySelector('#rep-header-type');
-      const fltSelect = subContainer.querySelector('#rep-flt-type');
       if (headerSelect && headerSelect !== sourceEl) headerSelect.value = newType;
-      if (fltSelect && fltSelect !== sourceEl) fltSelect.value = newType;
 
       reportData = this.getReportData(submenuId, currentReportType, pageTitle);
+      renderFilterBody(currentReportType);
       renderTable(reportData.rows);
       const text = sourceEl?.options ? sourceEl.options[sourceEl.selectedIndex]?.text : currentReportType;
       Toast.show(`Loaded ${text || currentReportType}`, 'info');
@@ -149,37 +270,51 @@ export const ReportsView = {
       onReportTypeChange(e.target.value, e.target);
     });
 
-    subContainer.querySelector('#rep-flt-type')?.addEventListener('change', (e) => {
-      onReportTypeChange(e.target.value, e.target);
-    });
-
-    // Filter listeners
-    subContainer.querySelector('#rep-flt-search-btn')?.addEventListener('click', () => {
-      const q = subContainer.querySelector('#rep-flt-search')?.value?.trim().toLowerCase();
-      let filtered = [...reportData.rows];
-      if (q) {
-        filtered = filtered.filter(row => Object.values(row).some(v => String(v).toLowerCase().includes(q)));
-      }
-      renderTable(filtered);
-    });
-
+    // Reset button listener
     subContainer.querySelector('#rep-flt-reset-btn')?.addEventListener('click', () => {
-      const defaultType = submenuId === 'sales-export-analytics' ? 'shipment-report' : 'ALL';
-      const headerSelect = subContainer.querySelector('#rep-header-type');
-      const fltSelect = subContainer.querySelector('#rep-flt-type');
-      if (headerSelect) headerSelect.value = defaultType;
-      if (fltSelect) fltSelect.value = defaultType;
-      currentReportType = defaultType;
-
-      const searchInput = subContainer.querySelector('#rep-flt-search');
-      if (searchInput) searchInput.value = '';
-      const fromInput = subContainer.querySelector('#rep-flt-from');
-      if (fromInput) fromInput.value = '2026-10-01';
-      const toInput = subContainer.querySelector('#rep-flt-to');
-      if (toInput) toInput.value = '2026-10-30';
-
-      reportData = this.getReportData(submenuId, defaultType, pageTitle);
+      if (currentReportType === 'pending-contracts') {
+        const yr = subContainer.querySelector('#flt-year');
+        const exp = subContainer.querySelector('#flt-exporter');
+        const cons = subContainer.querySelector('#flt-consignee');
+        const ctry = subContainer.querySelector('#flt-country');
+        const prio = subContainer.querySelector('#flt-priority');
+        const plnt = subContainer.querySelector('#flt-plant');
+        if (yr) yr.value = '2026-2027';
+        if (exp) exp.value = 'devi-fisheries';
+        if (cons) cons.value = 'ALL';
+        if (ctry) ctry.value = 'ALL';
+        if (prio) prio.value = 'ALL';
+        if (plnt) plnt.value = 'ALL';
+      } else {
+        const searchInput = subContainer.querySelector('#rep-flt-search');
+        if (searchInput) searchInput.value = '';
+        const fromInput = subContainer.querySelector('#rep-flt-from');
+        if (fromInput) fromInput.value = '2026-10-01';
+        const toInput = subContainer.querySelector('#rep-flt-to');
+        if (toInput) toInput.value = '2026-10-30';
+      }
       renderTable(reportData.rows);
+      Toast.show('Filters reset', 'info');
+    });
+
+    // Action button listeners for Pending Contracts
+    subContainer.addEventListener('click', (e) => {
+      const viewBtn = e.target.closest('.btn-pc-view');
+      if (viewBtn) {
+        e.stopPropagation();
+        const id = Number(viewBtn.dataset.id);
+        const r = reportData.rows.find(item => item.id === id);
+        if (r) this.showReportDetails(r, 'Pending Contract');
+        return;
+      }
+      const dlBtn = e.target.closest('.btn-pc-download');
+      if (dlBtn) {
+        e.stopPropagation();
+        const id = Number(dlBtn.dataset.id);
+        const r = reportData.rows.find(item => item.id === id);
+        if (r) Toast.show(`Contract ${r.orderNo} downloaded successfully!`, 'success');
+        return;
+      }
     });
 
     const filterBody = subContainer.querySelector('#rep-flt-body');
@@ -273,11 +408,11 @@ export const ReportsView = {
   showReportDetails(row, pageTitle) {
     if (!row) return;
 
-    const ref = row.docNo || row.refNo || row.batchNo || row.testNo || row.palletRef || row.runId || row.billNo || row.invoiceNo || row.contractNo || ('REC-' + row.id);
-    const date = row.date || row.productionDate || row.shipDate || row.auditDate || row.etd || '2026-10-28';
-    const status = row.status || row.qcStatus || row.paymentStatus || row.freightStatus || row.realizationStatus || row.etaStatus || 'Audited & Verified';
+    const ref = row.docNo || row.refNo || row.batchNo || row.testNo || row.palletRef || row.runId || row.billNo || row.invoiceNo || row.contractNo || row.orderNo || ('REC-' + row.id);
+    const date = row.date || row.productionDate || row.shipDate || row.shipmentDate || row.auditDate || row.etd || '2026-10-28';
+    const status = row.status || row.priority || row.qcStatus || row.paymentStatus || row.freightStatus || row.realizationStatus || row.etaStatus || 'Audited & Verified';
 
-    const excludedKeys = new Set(['id', 'actions', 'sNo']);
+    const excludedKeys = new Set(['id', 'actions', 'sNo', 'consigneeKey']);
     const entries = Object.entries(row).filter(([k]) => !excludedKeys.has(k));
 
     const topGrid = entries.slice(0, 8);
@@ -395,10 +530,53 @@ export const ReportsView = {
     // 1. Sales & Export Analytics (with 20 distinct types)
     // ==========================================
     if (submenuId === 'sales-export-analytics' || submenuId.includes('sales')) {
-      if (reportType === 'pending-contracts' || reportType === 'approved-contracts') {
-        const isApproved = reportType === 'approved-contracts';
+      if (reportType === 'pending-contracts') {
         columns = [
-          { field: 'sNo', header: 'S No', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
+          { field: 'sNo', header: 'S No.', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
+          { field: 'orderNo', header: 'ORDER NO', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer" title="Click to view details">${v}</span>` },
+          { field: 'buyer', header: 'BUYER', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'brand', header: 'BRAND', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#F4F5F7] text-[#172B4D] border border-[#DFE1E6]">${v}</span>` },
+          { field: 'variety', header: 'VARIETY', sortable: true, render: v => `<span class="text-xs font-medium text-[#172B4D]">${v}</span>` },
+          { field: 'mcs', header: 'MCS', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#172B4D]">${Number(v).toLocaleString()}</span>` },
+          { field: 'pack', header: 'PACK', sortable: true, render: v => `<span class="font-mono text-xs text-[#5E6C84]">${v}</span>` },
+          { field: 'grade', header: 'GRADE', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">${v}</span>` },
+          { field: 'shipmentDate', header: 'SHIPMENT DATE AS PER PO', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'destination', header: 'DESTINATION', sortable: true, render: v => `<span class="text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'priority', header: 'Priority', sortable: true, render: v => {
+            const p = String(v || '').toLowerCase();
+            let bg = 'bg-[#FFF0B3] text-[#172B4D] border-[#FFE380]';
+            let dot = 'bg-[#FFAB00]';
+            if (p === 'high') {
+              bg = 'bg-[#FFEBE6] text-[#DE350B] border-[#FFBDAD]';
+              dot = 'bg-[#DE350B]';
+            } else if (p === 'low') {
+              bg = 'bg-[#E3FCEF] text-[#006644] border-[#ABF5D1]';
+              dot = 'bg-[#00875A]';
+            }
+            return `<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold border ${bg}"><span class="w-1.5 h-1.5 rounded-full ${dot}"></span>${v}</span>`;
+          }},
+          { field: 'actions', header: 'Actions', sortable: false, render: (v, r) => `
+            <div class="flex items-center gap-1.5 justify-center">
+              <button type="button" class="btn-pc-view p-1.5 rounded hover:bg-[#EBECF0] text-[#00A4B7] transition-colors cursor-pointer" data-id="${r.id}" title="View Order Details">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+              </button>
+              <button type="button" class="btn-pc-download p-1.5 rounded hover:bg-[#EBECF0] text-[#107C41] transition-colors cursor-pointer" data-id="${r.id}" title="Download Order">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+              </button>
+            </div>
+          `}
+        ];
+        rows = [
+          { id: 1, orderNo: 'PO-USA-2026-8801', buyer: 'Red Lobster Seafood Sourcing', consigneeKey: 'red-lobster', brand: 'Devi Gold', variety: 'Vannamei EZ-Peel IQF', mcs: 2200, pack: '10 x 2 Lbs', grade: '26/30', shipmentDate: '2026-11-15', destination: 'Los Angeles, USA', country: 'USA', priority: 'High', exporter: 'devi-fisheries', plant: 'Plant 1', year: '2026-2027', fobRate: 7.80, contractValue: 343200, status: 'Pending Buyer Sign-off' },
+          { id: 2, orderNo: 'PO-JPN-2026-4412', buyer: 'Kyokuyo Global Foods Ltd', consigneeKey: 'kyokuyo', brand: 'Ocean Prime', variety: 'Vannamei Nobashi Tray', mcs: 1600, pack: '20 x 300g', grade: '21/25', shipmentDate: '2026-11-20', destination: 'Yokohama, Japan', country: 'Japan', priority: 'Medium', exporter: 'devi-fisheries', plant: 'Plant 2', year: '2026-2027', fobRate: 9.10, contractValue: 145600, status: 'Price Revision Requested' },
+          { id: 3, orderNo: 'PO-EUR-2026-1930', buyer: 'Euro-Baltic Marine Traders', consigneeKey: 'euro-baltic', brand: 'Arctic Feast', variety: 'Cooked Tail-On IQF', mcs: 2050, pack: '10 x 1 Kg', grade: '31/40', shipmentDate: '2026-11-25', destination: 'Rotterdam, Netherlands', country: 'Netherlands', priority: 'High', exporter: 'devi-sea-foods', plant: 'Plant 3', year: '2026-2027', fobRate: 8.20, contractValue: 168100, status: 'LC Drafting in Progress' },
+          { id: 4, orderNo: 'PO-USA-2026-8804', buyer: 'Pacific Coast Seafood LLC', consigneeKey: 'pacific-coast', brand: 'Devi Classic', variety: 'Raw Headless Block', mcs: 2500, pack: '6 x 4 Lbs', grade: '16/20', shipmentDate: '2026-12-05', destination: 'New York, USA', country: 'USA', priority: 'Low', exporter: 'devi-fisheries', plant: 'Plant 5', year: '2026-2027', fobRate: 9.80, contractValue: 245000, status: 'Draft Agreement Sent' },
+          { id: 5, orderNo: 'PO-UK-2026-0318', buyer: 'Meridian Global Foods LLC', consigneeKey: 'meridian', brand: 'Royal Blue', variety: 'Black Tiger HLSO', mcs: 1400, pack: '10 x 1 Kg', grade: '13/15', shipmentDate: '2026-12-10', destination: 'Felixstowe, UK', country: 'UK', priority: 'Medium', exporter: 'devi-marine', plant: 'Plant 2', year: '2026-2027', fobRate: 12.40, contractValue: 173600, status: 'Pending LC Confirmation' },
+          { id: 6, orderNo: 'PO-CAN-2026-0521', buyer: 'AquaStar Global Imports', consigneeKey: 'aquastar', brand: 'Devi Gold', variety: 'Vannamei Peeled Deveined', mcs: 1850, pack: '5 x 2 Lbs', grade: '41/50', shipmentDate: '2026-12-18', destination: 'Vancouver, Canada', country: 'Canada', priority: 'Low', exporter: 'devi-fisheries', plant: 'Plant 1', year: '2026-2027', fobRate: 6.40, contractValue: 118400, status: 'Under Review' }
+        ];
+      } else if (reportType === 'approved-contracts') {
+        columns = [
+          { field: 'sNo', header: 'S No.', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
           { field: 'contractNo', header: 'Contract No', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer" title="Click to view details">${v}</span>` },
           { field: 'date', header: 'Contract Date', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">${v}</span>` },
           { field: 'buyer', header: 'Buyer / Consignee', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
@@ -407,16 +585,12 @@ export const ReportsView = {
           { field: 'quantity', header: 'Contract Qty (Kg)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#172B4D]">${Number(v).toLocaleString()}</span>` },
           { field: 'fobRate', header: 'FOB Rate/Kg', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">$${v}</span>` },
           { field: 'contractValue', header: 'Total Value ($)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">$${Number(v).toLocaleString()}</span>` },
-          { field: 'status', header: 'Contract Status', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold ${isApproved ? 'bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]' : 'bg-[#FFF0B3] text-[#172B4D] border border-[#FFE380]'}"><span class="w-1.5 h-1.5 rounded-full ${isApproved ? 'bg-[#00875A]' : 'bg-[#FFAB00]'}"></span>${v}</span>` }
+          { field: 'status', header: 'Contract Status', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` }
         ];
-        rows = isApproved ? [
+        rows = [
           { id: 1, contractNo: 'CTR-EXP-2026-088', date: '2026-10-24', buyer: 'Pacific Coast Seafood LLC', destination: 'USA', variety: 'Vannamei Easy-Peel 31/40', quantity: 24000, fobRate: 7.20, contractValue: 172800, status: 'Approved by Director' },
           { id: 2, contractNo: 'CTR-EXP-2026-089', date: '2026-10-23', buyer: 'Nippon Suisan Kaisha Ltd', destination: 'Japan', variety: 'Black Tiger HLSO 16/20', quantity: 18000, fobRate: 11.50, contractValue: 207000, status: 'Approved by Director' },
           { id: 3, contractNo: 'CTR-EXP-2026-090', date: '2026-10-22', buyer: 'Euro-Baltic Marine Traders', destination: 'Netherlands', variety: 'Cooked Tail-On IQF 26/30', quantity: 22000, fobRate: 8.40, contractValue: 184800, status: 'Approved by Director' }
-        ] : [
-          { id: 1, contractNo: 'CTR-PND-2026-041', date: '2026-10-28', buyer: 'Red Lobster Seafood Sourcing', destination: 'USA', variety: 'Vannamei EZ-Peel 26/30', quantity: 44000, fobRate: 7.80, contractValue: 343200, status: 'Pending Buyer Sign-off' },
-          { id: 2, contractNo: 'CTR-PND-2026-042', date: '2026-10-27', buyer: 'Kyokuyo Global Foods Ltd', destination: 'Japan', variety: 'Vannamei Nobashi 21/25', quantity: 16000, fobRate: 9.10, contractValue: 145600, status: 'Price Revision Requested' },
-          { id: 3, contractNo: 'CTR-PND-2026-043', date: '2026-10-26', buyer: 'Meridian Global Foods LLC', destination: 'UK', variety: 'Raw Headless Block 31/40', quantity: 20000, fobRate: 6.90, contractValue: 138000, status: 'LC Drafting in Progress' }
         ];
       } else if (reportType === 'eta-status') {
         columns = [
