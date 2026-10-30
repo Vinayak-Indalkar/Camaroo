@@ -63114,25 +63114,37 @@ const ReportsView = {
         </div>
 
         <div id="rep-flt-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-3 border-t border-[#F1F5F9] mt-2 text-xs">
-          <!-- 1. SEARCH QUERY -->
+          <!-- 1. REPORT TYPE -->
+          <div>
+            <label for="rep-flt-type" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">REPORT TYPE</label>
+            <select id="rep-flt-type" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL">All Report Types</option>
+              <option value="detailed" selected>Detailed Audit Ledger</option>
+              <option value="summary">Summary Report</option>
+              <option value="clearance">QC &amp; Regulatory Clearance</option>
+              <option value="valuation">Valuation &amp; Financials</option>
+            </select>
+          </div>
+
+          <!-- 2. SEARCH -->
           <div>
             <label for="rep-flt-search" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SEARCH</label>
             <input type="text" id="rep-flt-search" placeholder="Search reference, lot, entity..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
           </div>
 
-          <!-- 2. FROM DATE -->
+          <!-- 3. FROM DATE -->
           <div>
             <label for="rep-flt-from" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FROM DATE</label>
             <input type="date" id="rep-flt-from" value="2026-10-01" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
           </div>
 
-          <!-- 3. TO DATE -->
+          <!-- 4. TO DATE -->
           <div>
             <label for="rep-flt-to" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">TO DATE</label>
             <input type="date" id="rep-flt-to" value="2026-10-30" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
           </div>
 
-          <!-- 4. SEARCH BUTTON -->
+          <!-- 5. SEARCH BUTTON (Row 2, Column 1 - Left side after TO DATE) -->
           <div class="flex items-end">
             <button type="button" id="rep-flt-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
@@ -63173,6 +63185,8 @@ const ReportsView = {
     });
 
     subContainer.querySelector('#rep-flt-reset-btn')?.addEventListener('click', () => {
+      const typeSel = subContainer.querySelector('#rep-flt-type');
+      if (typeSel) typeSel.value = 'detailed';
       subContainer.querySelector('#rep-flt-search').value = '';
       subContainer.querySelector('#rep-flt-from').value = '2026-10-01';
       subContainer.querySelector('#rep-flt-to').value = '2026-10-30';
