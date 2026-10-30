@@ -62107,38 +62107,18 @@ const InventoryView = {
   // =========================================================================
   renderInventoryProformaRegister(container) {
     const fullList = [...this.state.proformaRegisterList];
-    const totalValuation = fullList.reduce((acc, it) => acc + (it.totalInvoiced || 0), 0);
 
     container.innerHTML = `
       <!-- Page Header -->
       <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-1">
         <div>
-          <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Inventory — Proforma Register</h1>
-          <p class="text-xs text-[#5E6C84] mt-0.5">Central register of proforma records, stock allocations, and valuation ledger</p>
+          <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Proforma Register</h1>
         </div>
-      </div>
-
-      <!-- KPI Summary Cards -->
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 shadow-2xs">
-          <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Total Register Entries</span>
-          <div class="text-xl font-extrabold text-[#172B4D] mt-1 font-mono">${fullList.length}</div>
-          <span class="text-[10px] text-[#0284C7] font-semibold">Ledger Records</span>
-        </div>
-        <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 shadow-2xs">
-          <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Total Proforma Value</span>
-          <div class="text-xl font-extrabold text-[#00875A] mt-1 font-mono">₹${(totalValuation / 100000).toFixed(2)} L</div>
-          <span class="text-[10px] text-[#00875A] font-semibold">Audited Book Stock</span>
-        </div>
-        <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 shadow-2xs">
-          <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Total Quantity</span>
-          <div class="text-xl font-extrabold text-[#00A4B7] mt-1 font-mono">${fullList.reduce((a, b) => a + (b.quantity || 0), 0).toLocaleString()}</div>
-          <span class="text-[10px] text-[#00A4B7] font-semibold">Units in Storage</span>
-        </div>
-        <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 shadow-2xs">
-          <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Active Locations</span>
-          <div class="text-xl font-extrabold text-[#172B4D] mt-1 font-mono">${new Set(fullList.map(it => it.storeLocation)).size}</div>
-          <span class="text-[10px] text-[#5E6C84] font-semibold">Warehouses & Bays</span>
+        <div class="flex items-center gap-2">
+          <button type="button" id="reg-add-btn" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+            <span>Add Proforma Register</span>
+          </button>
         </div>
       </div>
 
@@ -62207,6 +62187,13 @@ const InventoryView = {
       <!-- Data Table Card -->
       <div id="proforma-register-table-container"></div>
     `;
+
+    // Direct Click Handler for "Add Proforma Register" Button -> Opens Add Modal Popup
+    container.querySelector('#reg-add-btn')?.addEventListener('click', () => {
+      this.showAddProformaRegisterModal(() => {
+        renderTable(this.state.proformaRegisterList);
+      });
+    });
 
     const renderTable = (data) => {
       new DataTable({
@@ -62285,6 +62272,34 @@ const InventoryView = {
             onClick: (row) => {
               this.showProformaRegisterDetailsModal(row);
             }
+          },
+          {
+            label: 'Edit',
+            title: 'Edit Register Entry',
+            icon: `<svg class="w-4 h-4 text-[#0284C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>`,
+            onClick: (row) => {
+              this.showEditProformaRegisterModal(row, () => {
+                renderTable(this.state.proformaRegisterList);
+              });
+            }
+          },
+          {
+            label: 'Delete',
+            title: 'Delete Register Entry',
+            icon: `<svg class="w-4 h-4 text-[#DE350B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>`,
+            onClick: (row) => {
+              Modal.confirm({
+                title: 'Delete Proforma Register Entry',
+                message: `Are you sure you want to delete Proforma Register entry <strong>${row.regCode}</strong> (${row.itemDescription})? This action cannot be undone.`,
+                confirmText: 'Delete Record',
+                isDestructive: true,
+                onConfirm: () => {
+                  this.state.proformaRegisterList = this.state.proformaRegisterList.filter(it => it.id !== row.id);
+                  renderTable(this.state.proformaRegisterList);
+                  Toast.show(`Register entry ${row.regCode} deleted successfully.`, 'info');
+                }
+              });
+            }
           }
         ],
         data
@@ -62299,7 +62314,7 @@ const InventoryView = {
       const cat = container.querySelector('#reg-flt-cat')?.value;
       const loc = container.querySelector('#reg-flt-loc')?.value;
 
-      let filtered = [...fullList];
+      let filtered = [...this.state.proformaRegisterList];
       if (q) {
         filtered = filtered.filter(it =>
           (it.regCode || '').toLowerCase().includes(q) ||
@@ -62321,7 +62336,7 @@ const InventoryView = {
       container.querySelector('#reg-flt-search').value = '';
       container.querySelector('#reg-flt-cat').value = 'ALL';
       container.querySelector('#reg-flt-loc').value = 'ALL';
-      renderTable(fullList);
+      renderTable(this.state.proformaRegisterList);
     });
 
     const regFilterBody = container.querySelector('#reg-flt-body');
@@ -62336,7 +62351,309 @@ const InventoryView = {
     });
   },
 
-  // Details Modal for Proforma Register Entry
+  // 3b. ADD PROFORMA REGISTER MODAL POPUP
+  showAddProformaRegisterModal(onSuccess = null) {
+    const todayStr = new Date().toISOString().slice(0, 10);
+    const nextSeq = (this.state.proformaRegisterList?.length || 0) + 1;
+    const defaultRegCode = `REG-PM-2026-${String(nextSeq).padStart(4, '0')}`;
+
+    Modal.open({
+      title: 'Add Proforma Register Entry',
+      size: '2xl',
+      confirmActions: false,
+      content: `
+        <form id="reg-add-form" class="space-y-4 text-xs text-[#172B4D]">
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 bg-[#F8FAFC] border border-[#DFE1E6] p-3.5 rounded-xl">
+            <!-- 1. REGISTER CODE -->
+            <div>
+              <label for="reg-add-code" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">REGISTER CODE <span class="text-[#DE350B]">*</span></label>
+              <input type="text" id="reg-add-code" value="${defaultRegCode}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            </div>
+
+            <!-- 2. DATE -->
+            <div>
+              <label for="reg-add-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DATE <span class="text-[#DE350B]">*</span></label>
+              <input type="date" id="reg-add-date" value="${todayStr}" required class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
+            </div>
+
+            <!-- 3. REF DOC / PI -->
+            <div>
+              <label for="reg-add-ref" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">REF DOC / PI <span class="text-[#DE350B]">*</span></label>
+              <input type="text" id="reg-add-ref" placeholder="PI-PM-2026-XXXX" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            </div>
+
+            <!-- 4. CATEGORY -->
+            <div>
+              <label for="reg-add-cat" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CATEGORY <span class="text-[#DE350B]">*</span></label>
+              <select id="reg-add-cat" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="Packing Materials">Packing Materials</option>
+                <option value="Master Cartons">Master Cartons</option>
+                <option value="Inner Cartons">Inner Cartons</option>
+                <option value="Polybags">Polybags</option>
+                <option value="Pouch Bags">Pouch Bags</option>
+                <option value="Strapping & Tapes">Strapping &amp; Tapes</option>
+                <option value="Processing Additives">Processing Additives</option>
+              </select>
+            </div>
+
+            <!-- 5. STORE LOCATION -->
+            <div>
+              <label for="reg-add-loc" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">STORE LOCATION <span class="text-[#DE350B]">*</span></label>
+              <select id="reg-add-loc" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="Packaging Store Vault #1">Packaging Store Vault #1</option>
+                <option value="Central PM Bay A-2">Central PM Bay A-2</option>
+                <option value="Dry Goods Store 3">Dry Goods Store 3</option>
+                <option value="Cold Storage Dock">Cold Storage Dock</option>
+                <option value="Main Warehouse Bay B">Main Warehouse Bay B</option>
+              </select>
+            </div>
+
+            <!-- 6. QUANTITY -->
+            <div>
+              <label for="reg-add-qty" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">QUANTITY <span class="text-[#DE350B]">*</span></label>
+              <input type="number" id="reg-add-qty" value="1000" min="1" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            </div>
+
+            <!-- 7. UNIT -->
+            <div>
+              <label for="reg-add-unit" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">UNIT</label>
+              <select id="reg-add-unit" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="MCs">MCs</option>
+                <option value="Bags">Bags</option>
+                <option value="Rolls">Rolls</option>
+                <option value="Kg">Kg</option>
+                <option value="Nos">Nos</option>
+              </select>
+            </div>
+
+            <!-- 8. TOTAL INVOICED -->
+            <div>
+              <label for="reg-add-val" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">INVOICED AMOUNT (₹) <span class="text-[#DE350B]">*</span></label>
+              <input type="number" id="reg-add-val" value="50000" min="0" step="0.01" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            </div>
+          </div>
+
+          <!-- ITEM DESCRIPTION -->
+          <div>
+            <label for="reg-add-desc" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ITEM DESCRIPTION <span class="text-[#DE350B]">*</span></label>
+            <input type="text" id="reg-add-desc" placeholder="Enter detailed item description and specifications..." required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+
+          <!-- REMARKS -->
+          <div>
+            <label for="reg-add-rem" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">REMARKS</label>
+            <textarea id="reg-add-rem" rows="2" placeholder="Optional audit or storage notes..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs"></textarea>
+          </div>
+        </form>
+      `,
+      actions: [
+        {
+          label: 'Cancel',
+          variant: 'secondary',
+          onClick: () => Modal.close()
+        },
+        {
+          label: 'Save Register Entry',
+          variant: 'primary',
+          onClick: () => {
+            const code = document.getElementById('reg-add-code')?.value?.trim();
+            const date = document.getElementById('reg-add-date')?.value;
+            const refDoc = document.getElementById('reg-add-ref')?.value?.trim();
+            const category = document.getElementById('reg-add-cat')?.value;
+            const storeLocation = document.getElementById('reg-add-loc')?.value;
+            const quantity = parseFloat(document.getElementById('reg-add-qty')?.value) || 0;
+            const unit = document.getElementById('reg-add-unit')?.value || 'Nos';
+            const totalInvoiced = parseFloat(document.getElementById('reg-add-val')?.value) || 0;
+            const itemDescription = document.getElementById('reg-add-desc')?.value?.trim();
+            const remarks = document.getElementById('reg-add-rem')?.value?.trim() || '';
+
+            if (!code || !refDoc || !itemDescription) {
+              Toast.show('Please fill in all required fields (Code, Ref Doc, Description).', 'warning');
+              return;
+            }
+
+            Modal.confirm({
+              title: 'Confirm Save Proforma Register',
+              message: `Are you sure you want to register <strong>${code}</strong> for Ref Doc <strong>${refDoc}</strong> with quantity <strong>${quantity} ${unit}</strong>?`,
+              confirmText: 'Save Entry',
+              onConfirm: () => {
+                const newRecord = {
+                  id: Date.now(),
+                  regCode: code,
+                  refDoc,
+                  regDate: date,
+                  category,
+                  itemDescription,
+                  storeLocation,
+                  quantity,
+                  unit,
+                  totalInvoiced,
+                  remarks
+                };
+
+                this.state.proformaRegisterList.unshift(newRecord);
+                Modal.close();
+                Toast.show(`Proforma Register entry ${code} successfully saved!`, 'success');
+
+                if (typeof onSuccess === 'function') {
+                  onSuccess();
+                }
+              }
+            });
+          }
+        }
+      ]
+    });
+  },
+
+  // 3c. EDIT PROFORMA REGISTER MODAL POPUP
+  showEditProformaRegisterModal(row, onSuccess = null) {
+    if (!row) return;
+
+    Modal.open({
+      title: `Edit Proforma Register: ${row.regCode}`,
+      size: '2xl',
+      confirmActions: false,
+      content: `
+        <form id="reg-edit-form" class="space-y-4 text-xs text-[#172B4D]">
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 bg-[#F8FAFC] border border-[#DFE1E6] p-3.5 rounded-xl">
+            <!-- 1. REGISTER CODE -->
+            <div>
+              <label for="reg-edit-code" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">REGISTER CODE</label>
+              <input type="text" id="reg-edit-code" value="${row.regCode}" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F1F5F9] border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none cursor-not-allowed shadow-2xs" />
+            </div>
+
+            <!-- 2. DATE -->
+            <div>
+              <label for="reg-edit-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DATE <span class="text-[#DE350B]">*</span></label>
+              <input type="date" id="reg-edit-date" value="${row.regDate}" required class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
+            </div>
+
+            <!-- 3. REF DOC / PI -->
+            <div>
+              <label for="reg-edit-ref" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">REF DOC / PI <span class="text-[#DE350B]">*</span></label>
+              <input type="text" id="reg-edit-ref" value="${row.refDoc || ''}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            </div>
+
+            <!-- 4. CATEGORY -->
+            <div>
+              <label for="reg-edit-cat" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CATEGORY <span class="text-[#DE350B]">*</span></label>
+              <select id="reg-edit-cat" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="Packing Materials" ${row.category === 'Packing Materials' ? 'selected' : ''}>Packing Materials</option>
+                <option value="Master Cartons" ${row.category === 'Master Cartons' ? 'selected' : ''}>Master Cartons</option>
+                <option value="Inner Cartons" ${row.category === 'Inner Cartons' ? 'selected' : ''}>Inner Cartons</option>
+                <option value="Polybags" ${row.category === 'Polybags' ? 'selected' : ''}>Polybags</option>
+                <option value="Pouch Bags" ${row.category === 'Pouch Bags' ? 'selected' : ''}>Pouch Bags</option>
+                <option value="Strapping & Tapes" ${row.category === 'Strapping & Tapes' ? 'selected' : ''}>Strapping &amp; Tapes</option>
+                <option value="Processing Additives" ${row.category === 'Processing Additives' ? 'selected' : ''}>Processing Additives</option>
+              </select>
+            </div>
+
+            <!-- 5. STORE LOCATION -->
+            <div>
+              <label for="reg-edit-loc" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">STORE LOCATION <span class="text-[#DE350B]">*</span></label>
+              <select id="reg-edit-loc" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="Packaging Store Vault #1" ${row.storeLocation === 'Packaging Store Vault #1' ? 'selected' : ''}>Packaging Store Vault #1</option>
+                <option value="Central PM Bay A-2" ${row.storeLocation === 'Central PM Bay A-2' ? 'selected' : ''}>Central PM Bay A-2</option>
+                <option value="Dry Goods Store 3" ${row.storeLocation === 'Dry Goods Store 3' ? 'selected' : ''}>Dry Goods Store 3</option>
+                <option value="Cold Storage Dock" ${row.storeLocation === 'Cold Storage Dock' ? 'selected' : ''}>Cold Storage Dock</option>
+                <option value="Main Warehouse Bay B" ${row.storeLocation === 'Main Warehouse Bay B' ? 'selected' : ''}>Main Warehouse Bay B</option>
+              </select>
+            </div>
+
+            <!-- 6. QUANTITY -->
+            <div>
+              <label for="reg-edit-qty" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">QUANTITY <span class="text-[#DE350B]">*</span></label>
+              <input type="number" id="reg-edit-qty" value="${row.quantity || 0}" min="1" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            </div>
+
+            <!-- 7. UNIT -->
+            <div>
+              <label for="reg-edit-unit" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">UNIT</label>
+              <select id="reg-edit-unit" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="MCs" ${row.unit === 'MCs' ? 'selected' : ''}>MCs</option>
+                <option value="Bags" ${row.unit === 'Bags' ? 'selected' : ''}>Bags</option>
+                <option value="Rolls" ${row.unit === 'Rolls' ? 'selected' : ''}>Rolls</option>
+                <option value="Kg" ${row.unit === 'Kg' ? 'selected' : ''}>Kg</option>
+                <option value="Nos" ${row.unit === 'Nos' ? 'selected' : ''}>Nos</option>
+              </select>
+            </div>
+
+            <!-- 8. TOTAL INVOICED -->
+            <div>
+              <label for="reg-edit-val" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">INVOICED AMOUNT (₹) <span class="text-[#DE350B]">*</span></label>
+              <input type="number" id="reg-edit-val" value="${row.totalInvoiced || 0}" min="0" step="0.01" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            </div>
+          </div>
+
+          <!-- ITEM DESCRIPTION -->
+          <div>
+            <label for="reg-edit-desc" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ITEM DESCRIPTION <span class="text-[#DE350B]">*</span></label>
+            <input type="text" id="reg-edit-desc" value="${row.itemDescription || ''}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+
+          <!-- REMARKS -->
+          <div>
+            <label for="reg-edit-rem" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">REMARKS</label>
+            <textarea id="reg-edit-rem" rows="2" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">${row.remarks || ''}</textarea>
+          </div>
+        </form>
+      `,
+      actions: [
+        {
+          label: 'Cancel',
+          variant: 'secondary',
+          onClick: () => Modal.close()
+        },
+        {
+          label: 'Update Register Entry',
+          variant: 'primary',
+          onClick: () => {
+            const date = document.getElementById('reg-edit-date')?.value;
+            const refDoc = document.getElementById('reg-edit-ref')?.value?.trim();
+            const category = document.getElementById('reg-edit-cat')?.value;
+            const storeLocation = document.getElementById('reg-edit-loc')?.value;
+            const quantity = parseFloat(document.getElementById('reg-edit-qty')?.value) || 0;
+            const unit = document.getElementById('reg-edit-unit')?.value || 'Nos';
+            const totalInvoiced = parseFloat(document.getElementById('reg-edit-val')?.value) || 0;
+            const itemDescription = document.getElementById('reg-edit-desc')?.value?.trim();
+            const remarks = document.getElementById('reg-edit-rem')?.value?.trim() || '';
+
+            if (!refDoc || !itemDescription) {
+              Toast.show('Please fill in all required fields (Ref Doc, Description).', 'warning');
+              return;
+            }
+
+            Modal.confirm({
+              title: 'Confirm Update Proforma Register',
+              message: `Are you sure you want to update Proforma Register entry <strong>${row.regCode}</strong>?`,
+              confirmText: 'Update Entry',
+              onConfirm: () => {
+                row.regDate = date;
+                row.refDoc = refDoc;
+                row.category = category;
+                row.storeLocation = storeLocation;
+                row.quantity = quantity;
+                row.unit = unit;
+                row.totalInvoiced = totalInvoiced;
+                row.itemDescription = itemDescription;
+                row.remarks = remarks;
+
+                Modal.close();
+                Toast.show(`Register entry ${row.regCode} updated successfully!`, 'success');
+
+                if (typeof onSuccess === 'function') {
+                  onSuccess();
+                }
+              }
+            });
+          }
+        }
+      ]
+    });
+  },
+
+  // 3d. DETAILS MODAL FOR PROFORMA REGISTER ENTRY
   showProformaRegisterDetailsModal(row) {
     if (!row) return;
 
@@ -62390,6 +62707,13 @@ const InventoryView = {
               ${row.itemDescription || '-'}
             </div>
           </div>
+
+          ${row.remarks ? `
+            <div class="bg-white border border-[#DFE1E6] p-3.5 rounded-xl shadow-2xs">
+              <span class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">REMARKS</span>
+              <p class="text-xs text-[#5E6C84]">${row.remarks}</p>
+            </div>
+          ` : ''}
         </div>
       `,
       actions: [
@@ -62402,6 +62726,7 @@ const InventoryView = {
     });
   }
 };
+
   // Sales & Exports Module Views (Configured with On-Screen Tabs & Standard Empty States)
 
 
