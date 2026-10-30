@@ -63127,124 +63127,163 @@ const ReportsView = {
           <h1 class="text-xl font-bold text-[#172B4D]" id="rep-page-title">${pageTitle}</h1>
           <div class="flex items-center gap-2">
             <label for="rep-flt-type" class="text-xs font-bold text-[#5E6C84] whitespace-nowrap uppercase tracking-wider">Report Type:</label>
-            <select id="rep-flt-type" class="text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7] min-w-[220px]">
+            <select id="rep-flt-type" class="text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] min-w-[220px]">
               ${reportTypeOptionsHtml}
             </select>
           </div>
         </div>
 
-        <!-- Search & Filter Card (Unified Purchase ERP Style with Reset & Collapse Toggle) -->
-        <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200" style="margin-bottom: 12px !important;">
+        <!-- Search & Filter Card (calibrated as per the form data) -->
+        <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200">
           <div class="flex items-center justify-between pb-1">
             <div class="flex items-center gap-2">
-              <svg class="w-4 h-4 text-[#0284C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+              <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
               <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
             </div>
-
-            <!-- Filter Controls: Reset & Toggle Open/Close -->
-            <div class="flex items-center" style="gap: 8px;">
-              <button type="button" id="rep-flt-reset-btn" class="dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#0284C7] text-[#334155] hover:text-[#0284C7] rounded-full transition-colors cursor-pointer select-none" style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 9999px; border: 1px solid #CBD5E1; background: #ffffff; color: #334155; display: inline-flex; align-items: center; justify-content: center; padding: 0;" title="Reset all filters" aria-label="Reset all filters">
-                <svg class="w-3.5 h-3.5 text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+            <div class="inline-flex items-center gap-2">
+              <button type="button" id="rep-flt-reset-btn" class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Reset all filters">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
               </button>
-
-              <button type="button" id="rep-flt-toggle-btn" class="dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#0284C7] text-[#334155] hover:text-[#0284C7] rounded-full transition-colors cursor-pointer select-none" style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 9999px; border: 1px solid #CBD5E1; background: #ffffff; color: #334155; display: inline-flex; align-items: center; justify-content: center; padding: 0;" title="Hide Filter" aria-label="Hide Filter">
-                <svg class="w-3.5 h-3.5 text-current dt-top-filter-toggle-icon transform transition-transform duration-200" id="rep-flt-toggle-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              <button type="button" id="rep-flt-toggle-btn" class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Hide Filter">
+                <svg id="rep-flt-toggle-icon" class="w-3.5 h-3.5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
               </button>
             </div>
           </div>
 
-          <!-- Collapsible Filter Inputs Grid -->
-          <div id="rep-flt-body" class="dt-top-filter-body mt-3 transition-all duration-200">
-            <form id="rep-filter-form" class="space-y-3">
-              <div id="rep-dynamic-filter-fields" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 text-xs">
-                ${this.getFilterFieldsHtml(submenuId, currentReportType)}
-              </div>
-              <div class="flex items-center justify-between pt-2 border-t border-[#EBECF0]">
-                <span class="text-xs text-[#5E6C84]">Showing results for <span id="rep-type-display-badge" class="font-bold text-[#0284C7]">${typeLabel}</span></span>
-                <div class="flex items-center gap-2">
-                  <button type="submit" id="rep-btn-search" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]">
-                    <svg class="w-3.5 h-3.5 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                    <span>Search</span>
-                  </button>
-                </div>
-              </div>
-            </form>
+          <div id="rep-flt-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-3 border-t border-[#F1F5F9] mt-2 text-xs">
+            ${this.getFilterFieldsHtml(submenuId, currentReportType)}
           </div>
         </div>
 
-        <!-- Table Container (Data table only) -->
+        <!-- Data Table Card -->
         <div id="reports-table-container"></div>
       </div>
     `;
 
     // Render Table Component with Fixed Actions Column
     const tableContainer = container.querySelector('#reports-table-container');
-    let table = new DataTable({
-      container: tableContainer,
-      columns: reportData.columns,
-      data: reportData.rows,
-      searchable: true,
-      pageSize: 10,
-      selectable: false,
-      exportable: true,
-      tableTitle: typeLabel,
-      hideTopFilterBar: true,
-      onRowClick: (row) => this.showReportDetails(row, typeLabel)
-    });
+    let table = null;
 
-    // Attach Event Listeners
-    const typeSelect = container.querySelector('#rep-flt-type');
-    const badgeEl = container.querySelector('#rep-type-display-badge');
-    const dynamicFieldsContainer = container.querySelector('#rep-dynamic-filter-fields');
-
-    const updateViewForType = (type) => {
-      currentReportType = type;
-      typeLabel = this.getReportTypeLabel(submenuId, currentReportType, pageTitle);
-      if (badgeEl) badgeEl.textContent = typeLabel;
-
-      if (dynamicFieldsContainer) {
-        dynamicFieldsContainer.innerHTML = this.getFilterFieldsHtml(submenuId, type);
-      }
-
-      reportData = this.getReportData(submenuId, currentReportType, pageTitle);
+    const renderReportsTable = (data) => {
       table = new DataTable({
         container: tableContainer,
+        tableTitle: `${typeLabel} (${data.length})`,
         columns: reportData.columns,
-        data: reportData.rows,
+        data: data,
         searchable: true,
         pageSize: 10,
         selectable: false,
         exportable: true,
-        tableTitle: typeLabel,
-        hideTopFilterBar: true,
+        actionsTitle: 'ACTIONS',
+        actions: reportData.actions || [
+          {
+            label: 'Edit',
+            title: 'Edit Record',
+            icon: `<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>`,
+            onClick: (row) => {
+              this.showReportDetails(row, typeLabel);
+            }
+          },
+          {
+            label: 'Delete',
+            title: 'Delete Record',
+            icon: `<svg class="w-4 h-4 text-[#DE350B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>`,
+            onClick: (row) => {
+              Modal.confirm({
+                title: 'Delete Record',
+                message: `Are you sure you want to permanently delete record <strong>${row.docNo || row.poNo || row.billNo || row.orderNo}</strong>? This action cannot be undone.`,
+                confirmText: 'Delete Record',
+                isDestructive: true,
+                onConfirm: () => {
+                  const idx = reportData.rows.findIndex(r => r.id === row.id || (row.docNo && r.docNo === row.docNo));
+                  if (idx !== -1) {
+                    reportData.rows.splice(idx, 1);
+                    renderReportsTable(reportData.rows);
+                    Toast.show(`Record permanently deleted.`, 'success');
+                  }
+                }
+              });
+            }
+          }
+        ],
         onRowClick: (row) => this.showReportDetails(row, typeLabel)
       });
+    };
+
+    renderReportsTable(reportData.rows);
+
+    // Attach Event Listeners for Filters
+    const attachFilterEvents = () => {
+      const searchBtn = container.querySelector('#rep-search-btn');
+      const resetBtn = container.querySelector('#rep-flt-reset-btn');
+      const docNoInput = container.querySelector('#rep-filter-docno');
+      const dateInput = container.querySelector('#rep-filter-date');
+      const deptSelect = container.querySelector('#rep-filter-dept');
+
+      const handleFilter = () => {
+        const docVal = docNoInput ? docNoInput.value.trim().toLowerCase() : '';
+        const dateVal = dateInput ? dateInput.value.trim() : '';
+        const deptVal = deptSelect ? deptSelect.value : 'ALL';
+
+        let filtered = [...reportData.rows];
+        if (docVal) {
+          filtered = filtered.filter(r => 
+            String(r.docNo || r.poNo || r.billNo || r.orderNo || r.code || '').toLowerCase().includes(docVal) ||
+            String(r.supplier || r.buyer || r.farmer || '').toLowerCase().includes(docVal)
+          );
+        }
+        if (dateVal) {
+          filtered = filtered.filter(r => String(r.date || r.arrivalDate || '').includes(dateVal));
+        }
+        if (deptVal && deptVal !== 'ALL') {
+          filtered = filtered.filter(r => 
+            String(r.department || r.center || '').toLowerCase().includes(deptVal.toLowerCase())
+          );
+        }
+
+        renderReportsTable(filtered);
+        Toast.show(`Applied filters: ${filtered.length} matching record(s)`, 'info');
+      };
+
+      searchBtn?.addEventListener('click', handleFilter);
+      docNoInput?.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          handleFilter();
+        }
+      });
+
+      resetBtn?.addEventListener('click', () => {
+        if (docNoInput) docNoInput.value = '';
+        if (dateInput) dateInput.value = '';
+        if (deptSelect) deptSelect.value = 'ALL';
+        renderReportsTable(reportData.rows);
+        Toast.show('Filters reset', 'info');
+      });
+    };
+
+    attachFilterEvents();
+
+    // Type Select change
+    const typeSelect = container.querySelector('#rep-flt-type');
+    const updateViewForType = (type) => {
+      currentReportType = type;
+      typeLabel = this.getReportTypeLabel(submenuId, currentReportType, pageTitle);
+
+      const filterBody = container.querySelector('#rep-flt-body');
+      if (filterBody) {
+        filterBody.innerHTML = this.getFilterFieldsHtml(submenuId, type);
+        attachFilterEvents();
+      }
+
+      reportData = this.getReportData(submenuId, currentReportType, pageTitle);
+      renderReportsTable(reportData.rows);
     };
 
     if (typeSelect) {
       typeSelect.value = currentReportType;
       typeSelect.addEventListener('change', (e) => {
         updateViewForType(e.target.value);
-      });
-    }
-
-    const filterForm = container.querySelector('#rep-filter-form');
-    if (filterForm) {
-      filterForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const searchInput = filterForm.querySelector('#rep-flt-search');
-        const term = searchInput ? searchInput.value.trim().toLowerCase() : '';
-        
-        let filtered = [...reportData.rows];
-        if (term) {
-          filtered = filtered.filter(row => {
-            return Object.values(row).some(v => 
-              String(v).toLowerCase().includes(term)
-            );
-          });
-        }
-        table.setData(filtered);
-        Toast.show(`Applied filters: ${filtered.length} matching record(s)`, 'info');
       });
     }
 
@@ -63631,37 +63670,42 @@ const ReportsView = {
     // ----------------------------------------------------
     if (submenuId === 'purchase-reports' || submenuId.includes('purchase')) {
       return `
+        <!-- Filter: DOC NO -->
         <div>
-          <label for="flt-supplier" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">Farmer / Supplier</label>
-          <input type="text" id="flt-supplier" placeholder="Search farmer name..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#0284C7]" />
+          <label for="rep-filter-docno" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DOC NO</label>
+          <input type="text" id="rep-filter-docno" placeholder="Search by Doc No..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
         </div>
+
+        <!-- Filter: DATE -->
         <div>
-          <label for="flt-chamber" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">Purchase Center</label>
-          <select id="flt-chamber" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]">
-            <option value="ALL" selected>All Centers</option>
-            <option value="Bhimavaram">Bhimavaram Center</option>
-            <option value="Machilipatnam">Machilipatnam Center</option>
-            <option value="Narsapur">Narsapur Center</option>
-            <option value="Bapatla">Bapatla Center</option>
-            <option value="Ongole">Ongole Center</option>
+          <label for="rep-filter-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DATE</label>
+          <input type="date" id="rep-filter-date" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+        </div>
+
+        <!-- Filter: DEPARTMENT -->
+        <div>
+          <label for="rep-filter-dept" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DEPARTMENT</label>
+          <select id="rep-filter-dept" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+            <option value="ALL">All Departments</option>
+            <option value="Processing Unit-5">Processing Unit-5</option>
+            <option value="Coldstore Hub">Coldstore Hub</option>
+            <option value="Quality Control Lab">Quality Control Lab</option>
+            <option value="Engineering & Maintenance">Engineering & Maintenance</option>
+            <option value="Pre-Processing Unit">Pre-Processing Unit</option>
+            <option value="Administration & Safety">Administration & Safety</option>
+            <option value="Bhimavaram Center">Bhimavaram Center</option>
+            <option value="Machilipatnam Center">Machilipatnam Center</option>
+            <option value="Narsapur Center">Narsapur Center</option>
+            <option value="Bapatla Center">Bapatla Center</option>
           </select>
         </div>
-        <div>
-          <label for="flt-variety" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">RM Species / Grade</label>
-          <select id="flt-variety" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]">
-            <option value="ALL" selected>All Varieties</option>
-            <option value="Vannamei Fresh">Vannamei Fresh</option>
-            <option value="Black Tiger">Black Tiger</option>
-            <option value="Sea White">Sea White</option>
-          </select>
-        </div>
-        <div>
-          <label for="rep-flt-from" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">From Date</label>
-          <input type="date" id="rep-flt-from" value="2026-10-01" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" onclick="this.showPicker ? this.showPicker() : this.focus()" />
-        </div>
-        <div>
-          <label for="rep-flt-to" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">To Date</label>
-          <input type="date" id="rep-flt-to" value="2026-10-30" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" onclick="this.showPicker ? this.showPicker() : this.focus()" />
+
+        <!-- Search Button -->
+        <div class="flex items-end">
+          <button type="button" id="rep-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            <span>Search</span>
+          </button>
         </div>
       `;
     }
@@ -63965,45 +64009,49 @@ const ReportsView = {
     // 2. Purchase Reports (15 Types)
     // ==========================================
     else if (submenuId === 'purchase-reports' || submenuId.includes('purchase')) {
-      if (reportType === 'purchase-report' || reportType === 'arrival-report') {
-        columns = [
-          { field: 'sNo', header: 'S No.', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
-          { field: 'poNo', header: 'Purchase Ref / Lot', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer" title="Click to view details">${v}</span>` },
-          { field: 'date', header: 'Arrival Date', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">${v}</span>` },
-          { field: 'supplier', header: 'Farmer / Supplier', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
-          { field: 'center', header: 'Purchase Center', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-medium bg-[#F1F5F9] text-[#172B4D]">${v}</span>` },
-          { field: 'variety', header: 'RM Variety', sortable: true, render: v => `<span class="text-xs text-[#5E6C84] font-medium">${v}</span>` },
-          { field: 'count', header: 'Count / Grade', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${v}</span>` },
-          { field: 'grossWt', header: 'Arrival Wt (Kg)', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D] font-bold">${Number(v).toLocaleString()}</span>` },
-          { field: 'rate', header: 'Purchase Rate (₹/Kg)', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">₹${Number(v).toFixed(2)}</span>` },
-          { field: 'grossVal', header: 'Total Value (₹)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">₹${Number(v).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>` },
-          { field: 'status', header: 'Lot Status', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` },
-          actionCol
-        ];
-        rows = [
-          { id: 1, poNo: 'PUR-DFL-2026-1041', date: '2026-10-28', supplier: 'Sri Venkata Krishna Aquatics', center: 'Bhimavaram Center', variety: 'Vannamei Fresh', count: '30 Count', grossWt: 8450, rate: 385.00, grossVal: 3253250, status: 'Weighed & Certified' },
-          { id: 2, poNo: 'PUR-DFL-2026-1042', date: '2026-10-28', supplier: 'Godavari Aqua Harvests', center: 'Machilipatnam Center', variety: 'Vannamei Fresh', count: '40 Count', grossWt: 6200, rate: 340.00, grossVal: 2108000, status: 'Weighed & Certified' },
-          { id: 3, poNo: 'PUR-DFL-2026-1043', date: '2026-10-27', supplier: 'Kishna Coastal Prawns', center: 'Narsapur Center', variety: 'Black Tiger', count: '16/20 Count', grossWt: 4100, rate: 580.00, grossVal: 2378000, status: 'Weighed & Certified' },
-          { id: 4, poNo: 'PUR-DFL-2026-1044', date: '2026-10-27', supplier: 'Delta Prime Hatcheries & Farms', center: 'Bapatla Center', variety: 'Vannamei Fresh', count: '25 Count', grossWt: 9800, rate: 415.00, grossVal: 4067000, status: 'Weighed & Certified' }
-        ];
-      } else {
-        // Standard Purchase ledger for other 13 types
-        columns = [
-          { field: 'sNo', header: 'S No.', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
-          { field: 'billNo', header: 'Bill / Voucher Ref', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer" title="Click to view details">${v}</span>` },
-          { field: 'date', header: 'Date', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">${v}</span>` },
-          { field: 'supplier', header: 'Farmer / Supplier', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
-          { field: 'center', header: 'Center / Hub', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-medium bg-[#F1F5F9] text-[#172B4D]">${v}</span>` },
-          { field: 'totalQty', header: 'Quantity (Kg)', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D] font-bold">${Number(v).toLocaleString()}</span>` },
-          { field: 'billAmount', header: 'Bill Amount (₹)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">₹${Number(v).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>` },
-          { field: 'status', header: 'Payment State', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` },
-          actionCol
-        ];
-        rows = [
-          { id: 1, billNo: 'BILL-PUR-2026-9041', date: '2026-10-28', supplier: 'Sri Venkata Krishna Aquatics', center: 'Bhimavaram Center', totalQty: 8450, billAmount: 3253250, status: 'Direct NEFT Settled' },
-          { id: 2, billNo: 'BILL-PUR-2026-9042', date: '2026-10-28', supplier: 'Godavari Aqua Harvests', center: 'Machilipatnam Center', totalQty: 6200, billAmount: 2108000, status: 'Direct NEFT Settled' }
-        ];
-      }
+      columns = [
+        // 1. S NO
+        {
+          field: 'sNo',
+          header: 'S NO',
+          sortable: true,
+          render: (v, r, idx) => `
+            <span class="text-[#00A4B7] font-semibold hover:underline cursor-pointer select-none" title="Click to view details">${idx + 1}</span>
+          `
+        },
+        // 2. DOC NO
+        {
+          field: 'docNo',
+          header: 'DOC NO',
+          sortable: true,
+          render: (v, r) => `
+            <div class="flex flex-col cursor-pointer" title="Click to view details">
+              <span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline whitespace-nowrap">${v || r.poNo || r.billNo || ''}</span>
+              <span class="text-[10px] text-[#5E6C84]">${r.department || r.center || 'Processing Unit-5'} (${r.items?.length || 2} items)</span>
+            </div>
+          `
+        },
+        // 3. DATE
+        {
+          field: 'date',
+          header: 'DATE',
+          sortable: true,
+          render: v => `<span class="whitespace-nowrap text-xs text-[#172B4D] font-medium font-mono">${v}</span>`
+        }
+      ];
+
+      rows = [
+        { id: 1, docNo: 'IND-GS-2026-0041', poNo: 'PUR-DFL-2026-1041', date: '2026-10-28', department: 'Processing Unit-5', items: [{ name: 'Vannamei Fresh' }, { name: 'Ice' }], supplier: 'Sri Venkata Krishna Aquatics', center: 'Bhimavaram Center', variety: 'Vannamei Fresh', count: '30 Count', grossWt: 8450, rate: 385.00, grossVal: 3253250, status: 'Weighed & Certified' },
+        { id: 2, docNo: 'IND-GS-2026-0042', poNo: 'PUR-DFL-2026-1042', date: '2026-10-27', department: 'Coldstore Hub', items: [{ name: 'Packaging Bags' }], supplier: 'Godavari Aqua Harvests', center: 'Machilipatnam Center', variety: 'Vannamei Fresh', count: '40 Count', grossWt: 6200, rate: 340.00, grossVal: 2108000, status: 'Weighed & Certified' },
+        { id: 3, docNo: 'IND-GS-2026-0043', poNo: 'PUR-DFL-2026-1043', date: '2026-10-26', department: 'Quality Control Lab', items: [{ name: 'Testing Reagents' }], supplier: 'Kishna Coastal Prawns', center: 'Narsapur Center', variety: 'Black Tiger', count: '16/20 Count', grossWt: 4100, rate: 580.00, grossVal: 2378000, status: 'Weighed & Certified' },
+        { id: 4, docNo: 'IND-GS-2026-0044', poNo: 'PUR-DFL-2026-1044', date: '2026-10-25', department: 'Engineering & Maintenance', items: [{ name: 'Spare Parts' }], supplier: 'Delta Prime Hatcheries & Farms', center: 'Bapatla Center', variety: 'Vannamei Fresh', count: '25 Count', grossWt: 9800, rate: 415.00, grossVal: 4067000, status: 'Weighed & Certified' },
+        { id: 5, docNo: 'IND-GS-2026-0045', poNo: 'PUR-DFL-2026-1045', date: '2026-10-24', department: 'Processing Unit-5', items: [{ name: 'Grading Trays' }, { name: 'Sanitizers' }], supplier: 'Delta Sea Farms', center: 'Ongole Center', variety: 'Vannamei Fresh', count: '50 Count', grossWt: 7200, rate: 290.00, grossVal: 2088000, status: 'Weighed & Certified' },
+        { id: 6, docNo: 'IND-GS-2026-0046', poNo: 'PUR-DFL-2026-1046', date: '2026-10-23', department: 'Coldstore Hub', items: [{ name: 'Pallets' }], supplier: 'Coastal Marine Harvesters', center: 'Bhimavaram Center', variety: 'Sea White', count: '20/25 Count', grossWt: 5300, rate: 460.00, grossVal: 2438000, status: 'Weighed & Certified' },
+        { id: 7, docNo: 'IND-GS-2026-0047', poNo: 'PUR-DFL-2026-1047', date: '2026-10-22', department: 'Administration & Safety', items: [{ name: 'Gloves' }], supplier: 'Andhra Prawn Hatcheries', center: 'Machilipatnam Center', variety: 'Vannamei Fresh', count: '35 Count', grossWt: 6900, rate: 360.00, grossVal: 2484000, status: 'Weighed & Certified' },
+        { id: 8, docNo: 'IND-GS-2026-0048', poNo: 'PUR-DFL-2026-1048', date: '2026-10-21', department: 'Pre-Processing Unit', items: [{ name: 'Crates' }], supplier: 'Sagar Marine Farms', center: 'Narsapur Center', variety: 'Black Tiger', count: '10/15 Count', grossWt: 3800, rate: 690.00, grossVal: 2622000, status: 'Weighed & Certified' },
+        { id: 9, docNo: 'IND-GS-2026-0049', poNo: 'PUR-DFL-2026-1049', date: '2026-10-20', department: 'Quality Control Lab', items: [{ name: 'Chlorine Strips' }], supplier: 'Krishna Delta Aqua', center: 'Bapatla Center', variety: 'Vannamei Fresh', count: '45 Count', grossWt: 8100, rate: 310.00, grossVal: 2511000, status: 'Weighed & Certified' },
+        { id: 10, docNo: 'IND-GS-2026-0050', poNo: 'PUR-DFL-2026-1050', date: '2026-10-19', department: 'Processing Unit-5', items: [{ name: 'Aprons' }], supplier: 'Godavari Bio-Harvest', center: 'Bhimavaram Center', variety: 'Vannamei Fresh', count: '28 Count', grossWt: 10500, rate: 395.00, grossVal: 4147500, status: 'Weighed & Certified' }
+      ];
     }
 
     // ==========================================
