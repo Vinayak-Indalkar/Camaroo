@@ -1,24 +1,14 @@
+// Reports View Module for Enterprise Fisheries & Cold Storage Management
+// Implements dynamic Search & Filters and contextual Data Tables per Report Type across all submenus
+
 import { DataTable } from '../components/table.js';
-import { Modal } from '../components/modal.js';
 import { Toast } from '../components/toast.js';
+import { Modal } from '../components/modal.js';
 
 export const ReportsView = {
-  render(containerId, activeTab = 'sales-export-analytics', resolvedHash = '#/reports/sales-export-analytics/sales-export-analytics') {
-    const container = typeof containerId === 'string' ? document.getElementById(containerId) : containerId;
-    if (!container) return;
-
-    let submenuId = activeTab || 'sales-export-analytics';
+  render(container, activeSubmenu) {
+    const submenuId = activeSubmenu || 'purchase-reports';
     let pageTitle = '';
-
-    if (typeof resolvedHash === 'string' && (resolvedHash.startsWith('#') || resolvedHash.includes('/'))) {
-      const clean = resolvedHash.replace(/^#\/?/, '').replace(/^\/+/, '');
-      const parts = clean.split('/');
-      if (parts[1]) {
-        submenuId = parts[1];
-      }
-    } else if (typeof resolvedHash === 'string' && resolvedHash.trim().length > 0) {
-      pageTitle = resolvedHash.trim();
-    }
 
     const titlesMap = {
       'purchase-reports': 'Purchase Reports',
@@ -29,9 +19,7 @@ export const ReportsView = {
       'sales-export-analytics': 'Sales & Export Analytics'
     };
 
-    if (!pageTitle) {
-      pageTitle = titlesMap[submenuId] || (submenuId ? submenuId.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) : 'Reports');
-    }
+    pageTitle = titlesMap[submenuId] || (submenuId ? submenuId.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) : 'Reports');
 
     let currentReportType = submenuId === 'sales-export-analytics' || submenuId.includes('sales')
       ? 'pending-contracts'
@@ -59,14 +47,14 @@ export const ReportsView = {
             <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight" id="rep-page-title">${pageTitle}</h1>
             <div class="flex items-center gap-2">
               <label for="rep-flt-type" class="text-xs font-bold text-[#5E6C84] whitespace-nowrap uppercase tracking-wider">Report Type:</label>
-              <select id="rep-flt-type" class="text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] min-w-[220px]">
+              <select id="rep-flt-type" class="text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] min-w-[240px]">
                 ${reportTypeOptionsHtml}
               </select>
             </div>
           </div>
         </div>
 
-        <!-- Search & Filter Card (calibrated as per the form data) -->
+        <!-- Search & Filter Card -->
         <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200">
           <div class="flex items-center justify-between pb-1">
             <div class="flex items-center gap-2">
@@ -88,12 +76,12 @@ export const ReportsView = {
           </div>
         </div>
 
-        <!-- Data Table Card (S No, Doc No, Date, Actions with only edit, delete icon) -->
+        <!-- Data Table Container -->
         <div id="reports-table-container"></div>
       </div>
     `;
 
-    // Render Table Component with Fixed Actions Column
+    // Render Table Component with Fixed Actions Column and Checkbox Selection
     const tableContainer = container.querySelector('#reports-table-container');
     let table = null;
 
@@ -114,9 +102,9 @@ export const ReportsView = {
           {
             label: 'Download',
             title: 'Download Report',
-            icon: `<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>`,
+            icon: `<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>`,
             onClick: (row) => {
-              Toast.show(`Downloading report for ${row.billNo || row.docNo || row.poNo || row.orderNo || 'record'}...`, 'success');
+              Toast.show(`Downloading report for ${row.billNo || row.docNo || row.lotNo || row.orderNo || row.rackNo || row.qcNo || row.trackId || row.reqNo || 'record'}...`, 'success');
             }
           }
         ],
@@ -126,54 +114,60 @@ export const ReportsView = {
 
     renderReportsTable(reportData.rows);
 
-    // Attach Event Listeners for Filters
+    // Attach Event Listeners for Dynamic Filters
     const attachFilterEvents = () => {
       const searchBtn = container.querySelector('#rep-search-btn');
       const resetBtn = container.querySelector('#rep-flt-reset-btn');
-      const docNoInput = container.querySelector('#rep-filter-docno');
-      const dateInput = container.querySelector('#rep-filter-date');
-      const deptSelect = container.querySelector('#rep-filter-dept');
+      const filterBody = container.querySelector('#rep-flt-body');
 
       const handleFilter = () => {
-        const docVal = docNoInput ? docNoInput.value.trim().toLowerCase() : '';
-        const dateVal = dateInput ? dateInput.value.trim() : '';
-        const deptVal = deptSelect ? deptSelect.value : 'ALL';
-
         let filtered = [...reportData.rows];
-        if (docVal) {
-          filtered = filtered.filter(r => 
-            String(r.billNo || r.docNo || r.poNo || r.orderNo || r.code || '').toLowerCase().includes(docVal) ||
-            String(r.supplier || r.buyer || r.farmer || '').toLowerCase().includes(docVal) ||
-            String(r.vehicleNumber || '').toLowerCase().includes(docVal)
-          );
-        }
-        if (dateVal) {
-          filtered = filtered.filter(r => 
-            String(r.billDate || r.arrivalDate || r.date || '').includes(dateVal)
-          );
-        }
-        if (deptVal && deptVal !== 'ALL') {
-          filtered = filtered.filter(r => 
-            String(r.centerName || r.arrivalPlant || r.productionPlant || r.department || r.center || '').toLowerCase().includes(deptVal.toLowerCase())
-          );
-        }
+        const inputs = filterBody ? filterBody.querySelectorAll('input, select') : [];
+        let hasActiveFilters = false;
+
+        inputs.forEach(input => {
+          const val = input.value.trim().toLowerCase();
+          if (!val || val === 'all') return;
+          hasActiveFilters = true;
+
+          if (input.type === 'date') {
+            filtered = filtered.filter(row => {
+              const rowDates = [row.date, row.billDate, row.arrivalDate, row.harvestDate, row.shiftDate, row.etdDate, row.dueDate].filter(Boolean);
+              return rowDates.some(d => String(d).includes(val));
+            });
+          } else {
+            filtered = filtered.filter(row => {
+              return Object.values(row).some(v => String(v).toLowerCase().includes(val));
+            });
+          }
+        });
 
         renderReportsTable(filtered);
-        Toast.show(`Applied filters: ${filtered.length} matching record(s)`, 'info');
+        if (hasActiveFilters) {
+          Toast.show(`Filtered ${filtered.length} matching record(s)`, 'info');
+        }
       };
 
       searchBtn?.addEventListener('click', handleFilter);
-      docNoInput?.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-          handleFilter();
-        }
+
+      filterBody?.querySelectorAll('input').forEach(inp => {
+        inp.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            handleFilter();
+          }
+        });
       });
 
       resetBtn?.addEventListener('click', () => {
-        if (docNoInput) docNoInput.value = '';
-        if (dateInput) dateInput.value = '';
-        if (deptSelect) deptSelect.value = 'ALL';
+        const inputs = filterBody ? filterBody.querySelectorAll('input, select') : [];
+        inputs.forEach(input => {
+          if (input.tagName === 'SELECT') {
+            input.selectedIndex = 0;
+          } else {
+            input.value = '';
+          }
+        });
         renderReportsTable(reportData.rows);
         Toast.show('Filters reset', 'info');
       });
@@ -181,7 +175,7 @@ export const ReportsView = {
 
     attachFilterEvents();
 
-    // Type Select change
+    // Type Select change: Dynamically changes Search & Filter card AND Data Table
     const typeSelect = container.querySelector('#rep-flt-type');
     const updateViewForType = (type) => {
       currentReportType = type;
@@ -189,7 +183,7 @@ export const ReportsView = {
 
       const filterBody = container.querySelector('#rep-flt-body');
       if (filterBody) {
-        filterBody.innerHTML = this.getFilterFieldsHtml(submenuId, type);
+        filterBody.innerHTML = this.getFilterFieldsHtml(submenuId, currentReportType);
         attachFilterEvents();
       }
 
@@ -228,10 +222,10 @@ export const ReportsView = {
     }
   },
 
-  // Full Human-Readable Label Mapping for all 91 Report Types across 6 Submenus
+  // Full Human-Readable Label Mapping
   getReportTypeLabel(submenuId, reportType, pageTitle) {
     const labels = {
-      // 1. Sales & Export Analytics (20)
+      // 1. Sales & Export Analytics
       'pending-contracts': 'Pending Contracts',
       'price-book': 'Price Book',
       'approved-contracts': 'Approved Contracts',
@@ -253,7 +247,7 @@ export const ReportsView = {
       'return-container': 'Return Container Report',
       'freight-rates': 'Freight Rates Report',
 
-      // 2. Purchase Reports (15)
+      // 2. Purchase Reports
       'purchase-report': 'Purchase Report',
       'purchase-count-wise': 'Purchase Count Wise',
       'center-wise-report': 'Center Wise Report',
@@ -270,7 +264,7 @@ export const ReportsView = {
       'arrival-report': 'Arrival Report',
       'agent-commission': 'Agent Commission Report',
 
-      // 3. Pre-Processing Reports (10)
+      // 3. Pre-Processing Reports
       'rm-received-daywise': 'Rm Received Day wise Report',
       'deheading-daywise': 'Deheading Day wise Report',
       'assumed-reports-arrival': 'Assumed Reports by Rm & Arrival',
@@ -282,7 +276,7 @@ export const ReportsView = {
       'consolidation-daily-monthly': 'Consolidation Report Daily & Monthly',
       'track-code-report': 'Track Code Report',
 
-      // 4. Quality Control Reports (11)
+      // 4. Quality Control Reports
       'buyer-request-list': 'Buyer Request List',
       'sysco-status-list': 'Sysco Status List',
       'food-audit-report': 'Food Audit Report',
@@ -295,7 +289,7 @@ export const ReportsView = {
       'payment-statement': 'Payment Statement',
       'traceability-report': 'Traceability Report',
 
-      // 5. Production Analytics (14)
+      // 5. Production Analytics
       'soaking-floor-balance': 'Soaking Floor Balance Report',
       'untreated-report': 'Untreated Report',
       'soaking-floor-balance-variety': 'Soaking Floor Balance Variety Report New',
@@ -304,14 +298,8 @@ export const ReportsView = {
       'freezing-production-report': 'Freezing Production Report',
       'reconciliation-report': 'Reconciliation Report',
       'headon-to-finished': 'Headon To Finished Report',
-      'anti-dumping-form': 'Anti Dumping Entry Form',
-      'anti-dumping-report': 'Anti Dumping Report',
-      'anti-dumping-negative': 'Anti Dumping Negative Report',
-      'anti-dumping-shipment': 'Anti Dumping Shipment Report',
-      'anti-dumping-opening-closing': 'Anti Dumping Opening & Closing Report',
-      'anti-dumping-closing': 'Anti Dumping Closing Report',
 
-      // 6. Coldstore Analytics (21)
+      // 6. Coldstore Analytics
       'rm-req': 'Rm Requirement',
       'inward-report': 'Inward Report',
       'outward-report': 'Outward Report',
@@ -334,12 +322,10 @@ export const ReportsView = {
       'stock-summary': 'Stock Summary',
       'physical-report': 'Physical Report(Phy+ and Phy-)'
     };
-    return labels[reportType] || pageTitle || 'Analytical Report';
+    return labels[reportType] || (pageTitle ? `${pageTitle} - ${reportType.replace(/-/g, ' ').toUpperCase()}` : 'Report');
   },
 
-
-
-  // Generates Exact Select Options HTML for all 6 Submenus
+  // Dropdown Options per Submenu
   getReportTypeOptions(submenuId) {
     if (submenuId === 'sales-export-analytics' || submenuId.includes('sales')) {
       return `
@@ -452,155 +438,255 @@ export const ReportsView = {
     }
     return `
       <option value="ALL" selected>All Reports</option>
-      <option value="detailed">Detailed Audit Ledger</option>
-      <option value="summary">Summary Report</option>
     `;
   },
 
-
-
   // Dynamic Contextual Filter Fields Generator per Submenu & Report Type
+  // Always puts a styled search button after the last input field
   getFilterFieldsHtml(submenuId, type) {
-    // ----------------------------------------------------
-    // 1. Sales & Export Analytics
-    // ----------------------------------------------------
-    if (submenuId === 'sales-export-analytics' || submenuId.includes('sales')) {
-      if (type === 'pending-contracts' || type === 'approved-contracts') {
-        return `
-          <div>
-            <label for="flt-year" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Select Year</label>
-            <select id="flt-year" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-              <option value="2026-2027" selected>2026 - 2027</option>
-              <option value="2025-2026">2025 - 2026</option>
-              <option value="2024-2025">2024 - 2025</option>
-            </select>
-          </div>
-          <div>
-            <label for="flt-exporter" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Select Exporter</label>
-            <select id="flt-exporter" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-              <option value="ALL">All Exporters</option>
-              <option value="devi-fisheries" selected>Devi Fisheries Limited</option>
-              <option value="devi-sea-foods">Devi Sea Foods Ltd</option>
-              <option value="devi-marine">Devi Marine Food Exports</option>
-            </select>
-          </div>
-          <div>
-            <label for="flt-consignee" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Select Consignee</label>
-            <select id="flt-consignee" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-              <option value="ALL" selected>All Consignees</option>
-              <option value="sysco">Sysco Corporation USA</option>
-              <option value="nippon">Nippon Suisan Kaisha</option>
-              <option value="maruha">Maruha Nichiro Corp</option>
-              <option value="euro-baltic">Euro-Baltic Marine Traders</option>
-              <option value="pacific-coast">Pacific Coast Seafood LLC</option>
-              <option value="meridian">Meridian Global Foods LLC</option>
-              <option value="aquastar">AquaStar Global Imports</option>
-            </select>
-          </div>
-          <div>
-            <label for="flt-country" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Select Country</label>
-            <select id="flt-country" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-              <option value="ALL" selected>All Countries</option>
-              <option value="USA">USA</option>
-              <option value="Japan">Japan</option>
-              <option value="Netherlands">Netherlands</option>
-              <option value="UK">United Kingdom</option>
-              <option value="Canada">Canada</option>
-            </select>
-          </div>
-          <div>
-            <label for="flt-priority" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Priority</label>
-            <select id="flt-priority" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-              <option value="ALL" selected>All Priorities</option>
-              <option value="High">High</option>
-              <option value="Medium">Medium</option>
-              <option value="Low">Low</option>
-            </select>
-          </div>
-          <div>
-            <label for="flt-plant" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Select Plant</label>
-            <select id="flt-plant" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-              <option value="ALL" selected>All Plants</option>
-              <option value="Unit 1">Unit 1 - Processing Facility (Vizag)</option>
-              <option value="Unit 2">Unit 2 - Pre-Processing Facility</option>
-              <option value="Unit 3">Unit 3 - Cold Storage & IQF</option>
-            </select>
-          </div>
-        `;
-      }
-      return `
-        <div>
-          <label for="rep-flt-search" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SEARCH</label>
-          <input type="text" id="rep-flt-search" placeholder="Search reference, container, buyer..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
-        </div>
-        <div>
-          <label for="rep-flt-from" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FROM DATE</label>
-          <input type="date" id="rep-flt-from" value="2026-10-01" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
-        </div>
-        <div>
-          <label for="rep-flt-to" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">TO DATE</label>
-          <input type="date" id="rep-flt-to" value="2026-10-30" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
-        </div>
-      `;
-    }
+    const searchBtnHtml = `
+      <div class="flex items-end">
+        <button type="button" id="rep-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          <span>Search</span>
+        </button>
+      </div>
+    `;
 
     // ----------------------------------------------------
-    // 2. Purchase Reports
+    // 1. Purchase Reports Submenu Filters
     // ----------------------------------------------------
     if (submenuId === 'purchase-reports' || submenuId.includes('purchase')) {
+      if (type === 'purchase-count-wise') {
+        return `
+          <div>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">COUNT / GRADE</label>
+            <select class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL">All Counts</option>
+              <option value="20 Count">20 Count</option>
+              <option value="25 Count">25 Count</option>
+              <option value="30 Count">30 Count</option>
+              <option value="40 Count">40 Count</option>
+              <option value="50 Count">50 Count</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SPECIES / VARIETY</label>
+            <select class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL">All Species</option>
+              <option value="Vannamei">Vannamei Fresh</option>
+              <option value="Black Tiger">Black Tiger</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CENTER</label>
+            <select class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL">All Centers</option>
+              <option value="Bhimavaram">Bhimavaram Center</option>
+              <option value="Machilipatnam">Machilipatnam Center</option>
+              <option value="Narsapur">Narsapur Center</option>
+              <option value="Ongole">Ongole Center</option>
+            </select>
+          </div>
+          ${searchBtnHtml}
+        `;
+      }
+
+      if (type === 'center-wise-report' || type === 'center-wise-abstract') {
+        return `
+          <div>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PROCUREMENT CENTER</label>
+            <select class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL">All Procurement Centers</option>
+              <option value="Bhimavaram">Bhimavaram Center</option>
+              <option value="Machilipatnam">Machilipatnam Center</option>
+              <option value="Narsapur">Narsapur Center</option>
+              <option value="Bapatla">Bapatla Center</option>
+              <option value="Ongole">Ongole Center</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DATE FROM</label>
+            <input type="date" value="2026-10-01" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DATE TO</label>
+            <input type="date" value="2026-10-30" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+          ${searchBtnHtml}
+        `;
+      }
+
+      if (type.includes('supplier') || type === 'company-wise-tds') {
+        return `
+          <div>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SUPPLIER / FARMER</label>
+            <input type="text" placeholder="Search supplier or farm name..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PAYMENT STATUS</label>
+            <select class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL">All Payment States</option>
+              <option value="Paid">Paid In Full</option>
+              <option value="Pending">Payment Pending</option>
+              <option value="Overdue">Overdue (>30 Days)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FINANCIAL YEAR</label>
+            <select class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="2026-2027">FY 2026 - 2027</option>
+              <option value="2025-2026">FY 2025 - 2026</option>
+            </select>
+          </div>
+          ${searchBtnHtml}
+        `;
+      }
+
+      if (type === 'arrival-report') {
+        return `
+          <div>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">VEHICLE NUMBER</label>
+            <input type="text" placeholder="Vehicle No (e.g. AP 39 TE)..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ARRIVAL DATE</label>
+            <input type="date" value="2026-10-28" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">RECEIVING PLANT</label>
+            <select class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL">All Plants</option>
+              <option value="Unit 1">Unit 1 - Processing Facility (Vizag)</option>
+              <option value="Unit 2">Unit 2 - Pre-Processing Facility</option>
+              <option value="Unit 5">Unit 5 - Bulk Value Addition</option>
+            </select>
+          </div>
+          ${searchBtnHtml}
+        `;
+      }
+
+      if (type === 'agent-commission') {
+        return `
+          <div>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">COMMISSION AGENT</label>
+            <input type="text" placeholder="Agent Name or Code..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PROCUREMENT CENTER</label>
+            <select class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL">All Centers</option>
+              <option value="Bhimavaram">Bhimavaram Center</option>
+              <option value="Machilipatnam">Machilipatnam Center</option>
+              <option value="Ongole">Ongole Center</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">HARVEST SEASON</label>
+            <select class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="Kharif 2026">Kharif 2026</option>
+              <option value="Rabi 2026">Rabi 2026</option>
+            </select>
+          </div>
+          ${searchBtnHtml}
+        `;
+      }
+
+      // Default Purchase Report Filters
       return `
-        <!-- Filter: BILL NO -->
         <div>
-          <label for="rep-filter-docno" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BILL NO</label>
-          <input type="text" id="rep-filter-docno" placeholder="Search by Bill No..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BILL NO</label>
+          <input type="text" placeholder="Search by Bill No..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
         </div>
-
-        <!-- Filter: DATE -->
         <div>
-          <label for="rep-filter-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BILL / ARRIVAL DATE</label>
-          <input type="date" id="rep-filter-date" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BILL / ARRIVAL DATE</label>
+          <input type="date" value="2026-10-28" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
         </div>
-
-        <!-- Filter: CENTER / PLANT -->
         <div>
-          <label for="rep-filter-dept" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CENTER / PLANT</label>
-          <select id="rep-filter-dept" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+          <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CENTER / PLANT</label>
+          <select class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
             <option value="ALL">All Centers & Plants</option>
-            <option value="Bhimavaram Center">Bhimavaram Center</option>
-            <option value="Machilipatnam Center">Machilipatnam Center</option>
-            <option value="Narsapur Center">Narsapur Center</option>
-            <option value="Bapatla Center">Bapatla Center</option>
-            <option value="Ongole Center">Ongole Center</option>
-            <option value="Unit 1 - Processing">Unit 1 - Processing (Vizag)</option>
-            <option value="Unit 2 - Pre-Processing">Unit 2 - Pre-Processing</option>
-            <option value="Unit 3 - Coldstore">Unit 3 - Coldstore & IQF</option>
-            <option value="Unit 5 - Bulk Value Addition">Unit 5 - Bulk Value Addition</option>
+            <option value="Bhimavaram">Bhimavaram Center</option>
+            <option value="Machilipatnam">Machilipatnam Center</option>
+            <option value="Narsapur">Narsapur Center</option>
+            <option value="Unit 1">Unit 1 - Processing (Vizag)</option>
+            <option value="Unit 2">Unit 2 - Pre-Processing</option>
           </select>
         </div>
-
-        <!-- Search Button -->
-        <div class="flex items-end">
-          <button type="button" id="rep-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-            <span>Search</span>
-          </button>
-        </div>
+        ${searchBtnHtml}
       `;
     }
 
     // ----------------------------------------------------
-    // 3. Pre-Processing Reports
+    // 2. Pre-Processing Reports Submenu Filters
     // ----------------------------------------------------
     if (submenuId === 'preprocessing-reports' || submenuId.includes('preproc')) {
+      if (type === 'deheading-daywise') {
+        return `
+          <div>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DEHEADING LINE</label>
+            <select class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL">All Deheading Lines</option>
+              <option value="Line 1">Deheading Line 1</option>
+              <option value="Line 2">Deheading Line 2</option>
+              <option value="Line 3">Deheading Line 3 (Manual Bay)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SHIFT</label>
+            <select class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL">All Shifts</option>
+              <option value="Morning">Morning Shift (06:00 - 14:00)</option>
+              <option value="Evening">Evening Shift (14:00 - 22:00)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SHIFT DATE</label>
+            <input type="date" value="2026-10-28" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+          ${searchBtnHtml}
+        `;
+      }
+
+      if (type.includes('value-addition') || type.includes('va-')) {
+        return `
+          <div>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PRODUCT STYLE</label>
+            <select class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL">All Styles</option>
+              <option value="PDTO">PDTO (Peeled Deveined Tail On)</option>
+              <option value="EZ Peel">Easy Peel (Raw / Blanched)</option>
+              <option value="Nobashi">Nobashi Stretched Shrimp</option>
+              <option value="Butterfly">Butterfly Cut Spec</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">VA WORK TABLE</label>
+            <select class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL">All Tables</option>
+              <option value="Table 1">VA Table 1 (Export Grade)</option>
+              <option value="Table 2">VA Table 2 (Quick Prep)</option>
+              <option value="Table 3">VA Table 3 (Specialty)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DATE</label>
+            <input type="date" value="2026-10-28" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+          ${searchBtnHtml}
+        `;
+      }
+
+      // Default Pre-Processing Filters
       return `
         <div>
-          <label for="rep-flt-search" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Track ID / Lot Code</label>
-          <input type="text" id="rep-flt-search" placeholder="Track ID (e.g. TRK-2026)..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">TRACK ID / LOT CODE</label>
+          <input type="text" placeholder="Track ID (e.g. TRK-PP-2026)..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
         </div>
         <div>
-          <label for="flt-line" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Bay / Machine Line</label>
-          <select id="flt-line" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-            <option value="ALL" selected>All Lines</option>
+          <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BAY / MACHINE LINE</label>
+          <select class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+            <option value="ALL">All Lines & Bays</option>
             <option value="Receiving Bay 1">Receiving Bay 1</option>
             <option value="Deheading Line 1">Deheading Line 1</option>
             <option value="Grading Machine A">Grading Machine A</option>
@@ -608,235 +694,623 @@ export const ReportsView = {
           </select>
         </div>
         <div>
-          <label for="flt-variety" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">RM Species</label>
-          <select id="flt-variety" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-            <option value="ALL" selected>All Species</option>
-            <option value="Vannamei">Vannamei</option>
-            <option value="Black Tiger">Black Tiger</option>
-          </select>
+          <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DATE</label>
+          <input type="date" value="2026-10-28" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
         </div>
-        <div>
-          <label for="rep-flt-from" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">From Date</label>
-          <input type="date" id="rep-flt-from" value="2026-10-01" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
-        </div>
-        <div>
-          <label for="rep-flt-to" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">To Date</label>
-          <input type="date" id="rep-flt-to" value="2026-10-30" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
-        </div>
+        ${searchBtnHtml}
       `;
     }
 
     // ----------------------------------------------------
-    // 4. Quality Control Reports
+    // 3. Quality Control Reports Submenu Filters
     // ----------------------------------------------------
     if (submenuId === 'quality-reports' || submenuId.includes('quality') || submenuId.includes('qc')) {
+      if (type === 'sysco-status-list') {
+        return `
+          <div>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SYSCO PO NUMBER</label>
+            <input type="text" placeholder="Sysco PO (e.g. SYS-PO-2026)..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SYSCO QA SIGN-OFF</label>
+            <select class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL">All Clearance States</option>
+              <option value="Approved">Approved & Cleared</option>
+              <option value="Pending">Audit In Progress</option>
+              <option value="Hold">Hold / Re-Test</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">AUDIT DATE</label>
+            <input type="date" value="2026-10-28" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+          ${searchBtnHtml}
+        `;
+      }
+
+      if (type === 'bap-report') {
+        return `
+          <div>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BAP CERTIFICATION TIER</label>
+            <select class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL">All BAP Tiers</option>
+              <option value="4-Star">BAP 4-Star (Full Chain)</option>
+              <option value="3-Star">BAP 3-Star (Plant + Farm + Hatchery)</option>
+              <option value="2-Star">BAP 2-Star (Plant + Farm)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CHAIN OF CUSTODY REF</label>
+            <input type="text" placeholder="BAP ID / COC..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">STATUS</label>
+            <select class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL">All Status</option>
+              <option value="Certified">Certified & Active</option>
+              <option value="Renewing">Renewal Due</option>
+            </select>
+          </div>
+          ${searchBtnHtml}
+        `;
+      }
+
+      // Default Quality Control Filters
       return `
         <div>
-          <label for="rep-flt-search" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Audit Ref / Buyer Code</label>
-          <input type="text" id="rep-flt-search" placeholder="Search audit or QC ref..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">AUDIT / DOSSIER ID</label>
+          <input type="text" placeholder="Dossier ID (e.g. QC-AUD-2026)..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
         </div>
         <div>
-          <label for="flt-buyer" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Buyer / Standard</label>
-          <select id="flt-buyer" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-            <option value="ALL" selected>All Buyers & Standards</option>
+          <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BUYER / STANDARD</label>
+          <select class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+            <option value="ALL">All Buyers & Standards</option>
             <option value="Sysco">Sysco Corporation</option>
-            <option value="USFDA">USFDA / EIA Standards</option>
-            <option value="BAP">BAP 4-Star Standard</option>
+            <option value="USFDA">USFDA Micro Protocol</option>
+            <option value="BAP">BAP 4-Star Traceability</option>
             <option value="BRCGS">BRCGS Food Safety</option>
           </select>
         </div>
         <div>
-          <label for="flt-qc-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Compliance Status</label>
-          <select id="flt-qc-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-            <option value="ALL" selected>All Statuses</option>
-            <option value="Passed">Compliant / Passed</option>
-            <option value="Pending">Pending Analysis</option>
-          </select>
+          <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">AUDIT DATE</label>
+          <input type="date" value="2026-10-28" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
         </div>
-        <div>
-          <label for="rep-flt-from" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">From Date</label>
-          <input type="date" id="rep-flt-from" value="2026-10-01" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
-        </div>
-        <div>
-          <label for="rep-flt-to" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">To Date</label>
-          <input type="date" id="rep-flt-to" value="2026-10-30" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
-        </div>
+        ${searchBtnHtml}
       `;
     }
 
     // ----------------------------------------------------
-    // 5. Production Analytics
+    // 4. Production Analytics Submenu Filters
     // ----------------------------------------------------
     if (submenuId === 'production-analytics' || submenuId.includes('production')) {
+      if (type.includes('soaking')) {
+        return `
+          <div>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SOAKING TANK / BAY</label>
+            <select class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL">All Soaking Tanks</option>
+              <option value="Tank A1">Tank A1 (Non-Phosphate)</option>
+              <option value="Tank A2">Tank A2 (Salt Glaze)</option>
+              <option value="Tank B1">Tank B1 (Chilled Aqua)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">RECIPE FORMULATION</label>
+            <select class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL">All Formulations</option>
+              <option value="Natural">Natural Pure Clean (Zero Additive)</option>
+              <option value="Recipe NP-4">Recipe NP-4 (EU Export)</option>
+              <option value="Recipe US-2">Recipe US-2 (US Spec)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PRODUCTION DATE</label>
+            <input type="date" value="2026-10-28" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+          ${searchBtnHtml}
+        `;
+      }
+
+      if (type.includes('freezing')) {
+        return `
+          <div>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FREEZING EQUIPMENT</label>
+            <select class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL">All Freezers</option>
+              <option value="IQF Tunnel 1">IQF Tunnel 1 (OctoFrost)</option>
+              <option value="IQF Tunnel 2">IQF Tunnel 2 (Spiral)</option>
+              <option value="Plate Freezer A">Contact Plate Freezer A</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PRODUCT SPEC</label>
+            <input type="text" placeholder="Product Spec (e.g. Cooked Tail-On)..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DATE</label>
+            <input type="date" value="2026-10-28" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+          ${searchBtnHtml}
+        `;
+      }
+
+      // Default Production Filters
       return `
         <div>
-          <label for="rep-flt-search" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Batch / Shift / Form Ref</label>
-          <input type="text" id="rep-flt-search" placeholder="Ref code (e.g. AD-2026, SHF)..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">RUN / JOB ORDER</label>
+          <input type="text" placeholder="Job Order No..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
         </div>
         <div>
-          <label for="flt-facility" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Production Unit</label>
-          <select id="flt-facility" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-            <option value="ALL" selected>All Facilities</option>
-            <option value="Soaking Bay A">Soaking Bay A (Chemical Free)</option>
-            <option value="Soaking Bay B">Soaking Bay B (Standard)</option>
-            <option value="IQF Tunnel 1">IQF Tunnel 1 (OctoFrost)</option>
-            <option value="Plate Freezer 2">Plate Freezer Bay 2</option>
-            <option value="Cooked Line A">Cooked Line A</option>
+          <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PROCESS UNIT</label>
+          <select class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+            <option value="ALL">All Process Units</option>
+            <option value="Unit 1">Unit 1 - Processing (Vizag)</option>
+            <option value="Unit 2">Unit 2 - Pre-Processing</option>
+            <option value="Unit 3">Unit 3 - IQF & Coldstore</option>
           </select>
         </div>
         <div>
-          <label for="flt-ad-country" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Destination / Scope</label>
-          <select id="flt-ad-country" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-            <option value="ALL" selected>All Export Markets</option>
-            <option value="USA">USA (Anti-Dumping Scope)</option>
-            <option value="EU">European Union</option>
-            <option value="Japan">Japan (Cooked / Raw)</option>
-          </select>
+          <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DATE</label>
+          <input type="date" value="2026-10-28" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
         </div>
-        <div>
-          <label for="rep-flt-from" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">From Date</label>
-          <input type="date" id="rep-flt-from" value="2026-10-01" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
-        </div>
-        <div>
-          <label for="rep-flt-to" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">To Date</label>
-          <input type="date" id="rep-flt-to" value="2026-10-30" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
-        </div>
+        ${searchBtnHtml}
       `;
     }
 
     // ----------------------------------------------------
-    // 6. Coldstore Analytics
+    // 5. Coldstore Analytics Submenu Filters
     // ----------------------------------------------------
     if (submenuId === 'coldstore-analytics' || submenuId.includes('coldstore')) {
+      if (type.includes('rack') || type.includes('stock')) {
+        return `
+          <div>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">COLDSTORE CHAMBER</label>
+            <select class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL">All Chambers</option>
+              <option value="Chamber 1">Chamber 1 (-22°C Finished)</option>
+              <option value="Chamber 2">Chamber 2 (-20°C Export Buffer)</option>
+              <option value="Chamber 3">Chamber 3 (-25°C Deep Freeze)</option>
+              <option value="Chamber 4">Chamber 4 (-20°C Raw Block)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">RACK / PALLET ID</label>
+            <input type="text" placeholder="Rack (e.g. RCK-CS-A12)..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">STOCK STATUS</label>
+            <select class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL">All States</option>
+              <option value="In Stock">In Coldstore Stock</option>
+              <option value="Allocated">Allocated for Shipment</option>
+              <option value="Quarantine">QA Hold</option>
+            </select>
+          </div>
+          ${searchBtnHtml}
+        `;
+      }
+
+      if (type.includes('inward') || type.includes('outward') || type === 'ibt-report') {
+        return `
+          <div>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">GATE PASS / TRANSFER REF</label>
+            <input type="text" placeholder="Ref No (e.g. IBT-2026)..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">TRANSFER DIRECTION</label>
+            <select class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL">All Directions</option>
+              <option value="Inward">Inward Receiving</option>
+              <option value="Outward">Outward Dispatch</option>
+              <option value="IBT">Inter-Branch Transfer</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DATE</label>
+            <input type="date" value="2026-10-28" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+          ${searchBtnHtml}
+        `;
+      }
+
+      // Default Coldstore Filters
       return `
         <div>
-          <label for="rep-flt-search" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Pallet / Rack / Ref Code</label>
-          <input type="text" id="rep-flt-search" placeholder="Rack (e.g. RCK-A), Pallet..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">REQ / SHIPMENT NO</label>
+          <input type="text" placeholder="Ref No..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
         </div>
         <div>
-          <label for="flt-chamber" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Coldstore Chamber</label>
-          <select id="flt-chamber" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-            <option value="ALL" selected>All Cold Chambers</option>
-            <option value="Chamber 1">Chamber 1 (-22°C Bulk Finished)</option>
-            <option value="Chamber 2">Chamber 2 (-20°C Export Buffer)</option>
-            <option value="Chamber 3">Chamber 3 (-25°C Ultra Deep)</option>
-            <option value="Chamber 4">Chamber 4 (-20°C Raw Block Store)</option>
+          <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">STORAGE CHAMBER</label>
+          <select class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+            <option value="ALL">All Chambers</option>
+            <option value="Chamber 1">Chamber 1 (-22°C)</option>
+            <option value="Chamber 2">Chamber 2 (-20°C)</option>
+            <option value="Chamber 3">Chamber 3 (-25°C)</option>
           </select>
         </div>
         <div>
-          <label for="flt-cs-variety" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Product Variety</label>
-          <select id="flt-cs-variety" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-            <option value="ALL" selected>All Varieties</option>
-            <option value="Vannamei PDTO">Vannamei PDTO</option>
-            <option value="Cooked Tail-On">Cooked Tail-On</option>
-            <option value="Easy Peel Raw">Easy Peel Raw</option>
-            <option value="Block Frozen HLSO">Block Frozen HLSO</option>
-          </select>
+          <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DATE</label>
+          <input type="date" value="2026-10-28" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
         </div>
-        <div>
-          <label for="rep-flt-from" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">From Date</label>
-          <input type="date" id="rep-flt-from" value="2026-10-01" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
-        </div>
-        <div>
-          <label for="rep-flt-to" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">To Date</label>
-          <input type="date" id="rep-flt-to" value="2026-10-30" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
-        </div>
+        ${searchBtnHtml}
       `;
     }
 
+    // ----------------------------------------------------
+    // 6. Sales & Export Analytics Submenu Filters
+    // ----------------------------------------------------
     return `
       <div>
-        <label for="rep-flt-search" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SEARCH</label>
-        <input type="text" id="rep-flt-search" placeholder="Search..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+        <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ORDER / CONTRACT REF</label>
+        <input type="text" placeholder="Order No / Container..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
       </div>
+      <div>
+        <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BUYER / IMPORTER</label>
+        <select class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+          <option value="ALL">All Buyers</option>
+          <option value="Sysco">Sysco Corporation USA</option>
+          <option value="Nippon">Nippon Suisan Kaisha Japan</option>
+          <option value="Maruha">Maruha Nichiro Corp</option>
+          <option value="Euro-Baltic">Euro-Baltic Marine Traders</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DESTINATION PORT</label>
+        <select class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+          <option value="ALL">All Destination Ports</option>
+          <option value="Los Angeles">Port of Los Angeles, USA</option>
+          <option value="Tokyo">Tokyo Port, Japan</option>
+          <option value="Yokohama">Yokohama Port, Japan</option>
+          <option value="Rotterdam">Rotterdam, Netherlands</option>
+        </select>
+      </div>
+      ${searchBtnHtml}
     `;
   },
 
-
-
-  // Detailed Modal for any record
-  showReportDetails(row, pageTitle) {
-    const ref = row.orderNo || row.lotNo || row.code || row.poNo || row.billNo || row.batchNo || row.traceCode || row.itemCode || row.trackId || row.qcNo || row.formNo || row.transId || row.inwardNo || row.rackNo || row.id || 'Details';
-    const fields = Object.entries(row)
-      .filter(([k]) => k !== 'id' && k !== '__actions__' && k !== 'actions')
-      .map(([key, val]) => {
-        const formattedKey = key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
-        let displayVal = val;
-        if (typeof val === 'number') {
-          displayVal = val.toLocaleString();
-        }
-        return `
-          <div class="flex flex-col p-2.5 bg-[#FAFBFC] border border-[#EBECF0] rounded-lg">
-            <span class="text-[10px] font-bold uppercase tracking-wider text-[#5E6C84]">${formattedKey}</span>
-            <span class="text-xs font-semibold text-[#172B4D] mt-0.5 break-words">${displayVal || '—'}</span>
-          </div>
-        `;
-      }).join('');
-
-    Modal.open({
-      title: `${pageTitle}: ${ref}`,
-      size: 'lg',
-      content: `
-        <div class="space-y-4">
-          <div class="bg-[#DEEBFF] border border-[#B3D4FF] rounded-xl p-3 flex items-center justify-between">
-            <div class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-[#0052CC]"></span>
-              <span class="text-xs font-bold text-[#0747A6]">Official Record Dossier</span>
-            </div>
-            <span class="font-mono text-xs font-bold text-[#0747A6]">${ref}</span>
-          </div>
-
-          <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 max-h-[60vh] overflow-y-auto p-1">
-            ${fields}
-          </div>
-
-          <div class="bg-[#F8FAFC] border border-[#DFE1E6] rounded-xl p-3 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs">
-            <div class="flex items-center gap-2">
-              <span class="w-2 h-2 rounded-full bg-[#00875A]"></span>
-              <span class="font-semibold text-[#172B4D]">Verification Status:</span>
-              <span class="text-[#00875A] font-medium">Digital ERP Ledger Verified & Certified</span>
-            </div>
-            <div class="font-mono text-[11px] text-[#5E6C84]">Devi Fisheries Quality Infrastructure</div>
-          </div>
-        </div>
-      `,
-      footerButtons: [
-        { label: 'Close', type: 'secondary', onClick: modal => modal.close() },
-        { label: 'Download Dossier', type: 'primary', onClick: () => { Toast.show(`Dossier for ${ref} downloaded successfully!`, 'success'); } }
-      ]
-    });
-  },
-
-  // Generate Tab-Specific Columns & Realistic Datasets for ALL 91 Application Report Types
+  // Generate Tab-Specific Columns & Realistic Datasets dynamically per Report Type
   getReportData(submenuId, reportType = 'ALL', pageTitle = 'Reports') {
     let columns = [];
     let rows = [];
 
-    // Sticky Action Column applied to all tables
-    const actionCol = {
-      field: 'actions',
-      header: 'Actions',
-      sortable: false,
-      render: (v, r) => `
-        <div class="flex items-center gap-1.5 justify-center">
-          <button class="rep-action-view p-1 hover:bg-[#EBECF0] rounded text-[#00A4B7] hover:text-[#00875A] transition-colors" data-ref="${r.orderNo || r.lotNo || r.code || r.poNo || r.billNo || r.batchNo || r.traceCode || r.itemCode || r.trackId || r.qcNo || r.formNo || r.transId || r.inwardNo || r.rackNo || r.id || ''}" title="View Details">
-            <svg class="w-4 h-4 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-          </button>
-          <button class="rep-action-export p-1 hover:bg-[#EBECF0] rounded text-[#5E6C84] hover:text-[#172B4D] transition-colors" data-ref="${r.orderNo || r.lotNo || r.code || r.poNo || r.billNo || r.batchNo || r.traceCode || r.itemCode || r.trackId || r.qcNo || r.formNo || r.transId || r.inwardNo || r.rackNo || r.id || ''}" title="Download / Export">
-            <svg class="w-4 h-4 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-          </button>
-        </div>
-      `
+    // Helper formatter for serial number
+    const sNoCol = {
+      field: 'sNo',
+      header: 'S.No',
+      sortable: true,
+      render: (v, r, idx) => `<span class="text-[#00A4B7] font-semibold hover:underline cursor-pointer select-none" title="Click to view details">${idx + 1}</span>`
     };
 
     // ==========================================
-    // 1. Sales & Export Analytics (20 Types)
+    // 1. PURCHASE REPORTS (15 Types)
     // ==========================================
-    if (submenuId === 'sales-export-analytics' || submenuId.includes('sales')) {
-      if (reportType === 'pending-contracts') {
+    if (submenuId === 'purchase-reports' || submenuId.includes('purchase')) {
+      if (reportType === 'purchase-count-wise') {
         columns = [
-          { field: 'sNo', header: 'S No.', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
-          { field: 'orderNo', header: 'ORDER NO', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer" title="Click to view details">${v}</span>` },
+          sNoCol,
+          { field: 'variety', header: 'Variety / Species', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'countGrade', header: 'Count / Grade', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${v}</span>` },
+          { field: 'totalQty', header: 'Total Quantity (Kg)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#172B4D]">${Number(v).toLocaleString()} Kg</span>` },
+          { field: 'avgRate', header: 'Avg Rate (₹/Kg)', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">₹${Number(v).toFixed(2)}</span>` },
+          { field: 'totalAmount', header: 'Total Amount (₹)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">₹${Number(v).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>` },
+          { field: 'centerName', header: 'Center Name', sortable: true, render: v => `<span class="text-xs text-[#5E6C84]">${v}</span>` },
+          { field: 'sampleChecked', header: 'Sample Count Test', sortable: true, render: v => `<span class="font-mono text-xs text-[#475569]">${v}</span>` },
+          { field: 'status', header: 'Count Quality', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-bold bg-[#E3FCEF] text-[#006644]">${v}</span>` }
+        ];
+        rows = [
+          { id: 1, variety: 'Vannamei Fresh', countGrade: '20 Count', totalQty: 18500, avgRate: 460.00, totalAmount: 8510000.00, centerName: 'Bhimavaram Center', sampleChecked: '19.8 / Kg', status: 'Optimal Grade' },
+          { id: 2, variety: 'Vannamei Fresh', countGrade: '30 Count', totalQty: 32400, avgRate: 385.00, totalAmount: 12474000.00, centerName: 'Machilipatnam Center', sampleChecked: '29.5 / Kg', status: 'Optimal Grade' },
+          { id: 3, variety: 'Vannamei Fresh', countGrade: '40 Count', totalQty: 41200, avgRate: 330.00, totalAmount: 13596000.00, centerName: 'Narsapur Center', sampleChecked: '40.2 / Kg', status: 'Passed Spec' },
+          { id: 4, variety: 'Black Tiger', countGrade: '16/20 Count', totalQty: 9500, avgRate: 640.00, totalAmount: 6080000.00, centerName: 'Ongole Center', sampleChecked: '16.5 / Kg', status: 'Premium Grade' },
+          { id: 5, variety: 'Vannamei Fresh', countGrade: '50 Count', totalQty: 24800, avgRate: 290.00, totalAmount: 7192000.00, centerName: 'Bapatla Center', sampleChecked: '49.8 / Kg', status: 'Passed Spec' }
+        ];
+      }
+      else if (reportType === 'center-wise-report' || reportType === 'center-wise-abstract') {
+        columns = [
+          sNoCol,
+          { field: 'centerName', header: 'Center Name', sortable: true, render: v => `<span class="font-bold text-xs text-[#00A4B7]">${v}</span>` },
+          { field: 'centerCode', header: 'Center Code', sortable: true, render: v => `<span class="font-mono text-xs text-[#5E6C84]">${v}</span>` },
+          { field: 'totalBills', header: 'Total Bills', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'totalFarmers', header: 'Farmers / Suppliers', sortable: true, render: v => `<span class="text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'totalQty', header: 'Total Quantity (Kg)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#172B4D]">${Number(v).toLocaleString()} Kg</span>` },
+          { field: 'purchaseAmount', header: 'Purchase Value (₹)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">₹${Number(v).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>` },
+          { field: 'avgRate', header: 'Avg Rate (₹/Kg)', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">₹${Number(v).toFixed(2)}</span>` },
+          { field: 'dispatchStatus', header: 'Dispatch State', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">${v}</span>` }
+        ];
+        rows = [
+          { id: 1, centerName: 'Bhimavaram Center', centerCode: 'CTR-BV-01', totalBills: 42, totalFarmers: 28, totalQty: 68450, purchaseAmount: 26353250.00, avgRate: 385.00, dispatchStatus: 'Dispatched to Unit 1' },
+          { id: 2, centerName: 'Machilipatnam Center', centerCode: 'CTR-MT-02', totalBills: 35, totalFarmers: 22, totalQty: 54100, purchaseAmount: 20287500.00, avgRate: 375.00, dispatchStatus: 'Dispatched to Unit 2' },
+          { id: 3, centerName: 'Narsapur Center', centerCode: 'CTR-NS-03', totalBills: 29, totalFarmers: 19, totalQty: 41800, purchaseAmount: 16302000.00, avgRate: 390.00, dispatchStatus: 'Dispatched to Unit 1' },
+          { id: 4, centerName: 'Ongole Center', centerCode: 'CTR-OG-04', totalBills: 18, totalFarmers: 14, totalQty: 29500, purchaseAmount: 12390000.00, avgRate: 420.00, dispatchStatus: 'Dispatched to Unit 5' },
+          { id: 5, centerName: 'Bapatla Center', centerCode: 'CTR-BP-05', totalBills: 24, totalFarmers: 16, totalQty: 33200, purchaseAmount: 12284000.00, avgRate: 370.00, dispatchStatus: 'Dispatched to Unit 2' }
+        ];
+      }
+      else if (reportType.includes('supplier') || reportType.includes('outstanding') || reportType === 'company-wise-tds') {
+        columns = [
+          sNoCol,
+          { field: 'supplier', header: 'Supplier / Farmer Name', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'panGst', header: 'PAN / GSTIN', sortable: true, render: v => `<span class="font-mono text-xs text-[#5E6C84]">${v}</span>` },
+          { field: 'billRef', header: 'Bill Reference', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${v}</span>` },
+          { field: 'totalQty', header: 'Supplied Wt (Kg)', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">${Number(v).toLocaleString()} Kg</span>` },
+          { field: 'grossAmount', header: 'Gross Value (₹)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#172B4D]">₹${Number(v).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>` },
+          { field: 'tdsAmount', header: 'TDS (₹)', sortable: true, render: v => `<span class="font-mono text-xs text-[#DE350B]">₹${Number(v).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>` },
+          { field: 'netPayable', header: 'Net Amount (₹)', sortable: true, render: v => `<span class="font-mono font-extrabold text-xs text-[#00875A]">₹${Number(v).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>` },
+          { field: 'paymentStatus', header: 'Payment State', sortable: true, render: v => {
+            const clr = v === 'Paid' ? 'bg-[#E3FCEF] text-[#006644]' : 'bg-[#FFFAE6] text-[#FF8B00]';
+            return `<span class="px-2 py-0.5 rounded text-[11px] font-bold ${clr}">${v}</span>`;
+          }}
+        ];
+        rows = [
+          { id: 1, supplier: 'Sri Venkata Krishna Aquatics', panGst: 'AABCV1234F', billRef: 'BIL-PUR-2026-1041', totalQty: 8450, grossAmount: 3253250.00, tdsAmount: 3253.25, netPayable: 3249996.75, paymentStatus: 'Paid' },
+          { id: 2, supplier: 'Coastal Marine Aqua Farms', panGst: 'BCDFK5678G', billRef: 'BIL-PUR-2026-1042', totalQty: 9200, grossAmount: 3496000.00, tdsAmount: 3496.00, netPayable: 3492504.00, paymentStatus: 'Paid' },
+          { id: 3, supplier: 'Bhimavaram Shrimp Breeders Ltd', panGst: 'CDEFR9012H', billRef: 'BIL-PUR-2026-1043', totalQty: 6800, grossAmount: 2754000.00, tdsAmount: 2754.00, netPayable: 2751246.00, paymentStatus: 'Pending' },
+          { id: 4, supplier: 'Godavari Bio-Harvest Aquatics', panGst: 'DEFTR3456J', billRef: 'BIL-PUR-2026-1044', totalQty: 10500, grossAmount: 4147500.00, tdsAmount: 4147.50, netPayable: 4143352.50, paymentStatus: 'Pending' }
+        ];
+      }
+      else if (reportType === 'arrival-report') {
+        columns = [
+          sNoCol,
+          { field: 'arrivalNo', header: 'Arrival Gate Entry', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer">${v}</span>` },
+          { field: 'arrivalDate', header: 'Arrival Date & Time', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'vehicleNumber', header: 'Vehicle Number', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#475569]">${v}</span>` },
+          { field: 'sourceCenter', header: 'Source Center', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'arrivalPlant', header: 'Arrival Plant', sortable: true, render: v => `<span class="text-xs text-[#5E6C84]">${v}</span>` },
+          { field: 'grossWt', header: 'Gross Weight (Kg)', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">${Number(v).toLocaleString()}</span>` },
+          { field: 'tareWt', header: 'Tare Weight (Kg)', sortable: true, render: v => `<span class="font-mono text-xs text-[#5E6C84]">${Number(v).toLocaleString()}</span>` },
+          { field: 'netWeight', header: 'Net Raw Material (Kg)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${Number(v).toLocaleString()} Kg</span>` },
+          { field: 'gateStatus', header: 'Gate Status', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-bold bg-[#E3FCEF] text-[#006644]">${v}</span>` }
+        ];
+        rows = [
+          { id: 1, arrivalNo: 'ARR-PUR-2026-081', arrivalDate: '2026-10-28 07:45 AM', vehicleNumber: 'AP 39 TE 2450', sourceCenter: 'Bhimavaram Center', arrivalPlant: 'Unit 1 - Processing (Vizag)', grossWt: 16200, tareWt: 7750, netWeight: 8450, gateStatus: 'Weighed & Unloaded' },
+          { id: 2, arrivalNo: 'ARR-PUR-2026-082', arrivalDate: '2026-10-28 08:30 AM', vehicleNumber: 'AP 39 TK 8812', sourceCenter: 'Machilipatnam Center', arrivalPlant: 'Unit 1 - Processing (Vizag)', grossWt: 17400, tareWt: 8200, netWeight: 9200, gateStatus: 'Weighed & Unloaded' },
+          { id: 3, arrivalNo: 'ARR-PUR-2026-083', arrivalDate: '2026-10-27 06:15 PM', vehicleNumber: 'AP 39 TX 4419', sourceCenter: 'Narsapur Center', arrivalPlant: 'Unit 2 - Pre-Processing', grossWt: 14800, tareWt: 8000, netWeight: 6800, gateStatus: 'Weighed & Unloaded' }
+        ];
+      }
+      else if (reportType === 'agent-commission') {
+        columns = [
+          sNoCol,
+          { field: 'agentName', header: 'Commission Agent', sortable: true, render: v => `<span class="font-bold text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'agentCode', header: 'Agent Code', sortable: true, render: v => `<span class="font-mono text-xs text-[#5E6C84]">${v}</span>` },
+          { field: 'center', header: 'Associated Center', sortable: true, render: v => `<span class="text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'procuredQty', header: 'Procured Qty (Kg)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#172B4D]">${Number(v).toLocaleString()} Kg</span>` },
+          { field: 'commRate', header: 'Commission (₹/Kg)', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">₹${Number(v).toFixed(2)}</span>` },
+          { field: 'totalCommission', header: 'Total Commission (₹)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">₹${Number(v).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>` },
+          { field: 'paidAmount', header: 'Paid (₹)', sortable: true, render: v => `<span class="font-mono text-xs text-[#475569]">₹${Number(v).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>` },
+          { field: 'balanceDue', header: 'Balance Due (₹)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#DE350B]">₹${Number(v).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>` }
+        ];
+        rows = [
+          { id: 1, agentName: 'Rao Aqua Logistics & Commission', agentCode: 'AGT-BV-101', center: 'Bhimavaram Center', procuredQty: 68450, commRate: 2.50, totalCommission: 171125.00, paidAmount: 150000.00, balanceDue: 21125.00 },
+          { id: 2, agentName: 'Krishna Delta Procurement Agency', agentCode: 'AGT-MT-102', center: 'Machilipatnam Center', procuredQty: 54100, commRate: 2.25, totalCommission: 121725.00, paidAmount: 121725.00, balanceDue: 0.00 },
+          { id: 3, agentName: 'Coastal Seafarm Facilitators', agentCode: 'AGT-OG-103', center: 'Ongole Center', procuredQty: 29500, commRate: 3.00, totalCommission: 88500.00, paidAmount: 60000.00, balanceDue: 28500.00 }
+        ];
+      }
+      else {
+        // Standard 18 Columns for Purchase Report
+        columns = [
+          sNoCol,
+          { field: 'billNo', header: 'Bill No', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer whitespace-nowrap">${v}</span>` },
+          { field: 'arrivalPlant', header: 'Arrival Plant', sortable: true, render: v => `<span class="text-xs font-medium text-[#172B4D] whitespace-nowrap">${v}</span>` },
+          { field: 'billDate', header: 'Bill Date', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D] whitespace-nowrap">${v}</span>` },
+          { field: 'arrivalDate', header: 'Arrival Date', sortable: true, render: v => `<span class="font-mono text-xs text-[#5E6C84] whitespace-nowrap">${v}</span>` },
+          { field: 'supplier', header: 'Supplier', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D] whitespace-nowrap">${v}</span>` },
+          { field: 'centerName', header: 'Center Name', sortable: true, render: v => `<span class="text-xs font-medium text-[#5E6C84] whitespace-nowrap">${v}</span>` },
+          { field: 'productionPlant', header: 'Production Plant', sortable: true, render: v => `<span class="text-xs text-[#172B4D] whitespace-nowrap">${v}</span>` },
+          { field: 'variety', header: 'Variety', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#F1F5F9] text-[#172B4D] whitespace-nowrap">${v}</span>` },
+          { field: 'count', header: 'Count', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] whitespace-nowrap">${v}</span>` },
+          { field: 'vehicleNumber', header: 'Vehicle Number', sortable: true, render: v => `<span class="font-mono text-xs font-semibold text-[#475569] whitespace-nowrap">${v}</span>` },
+          { field: 'rmProductionPlant', header: 'RM Production Plant', sortable: true, render: v => `<span class="text-xs text-[#172B4D] whitespace-nowrap">${v}</span>` },
+          { field: 'finalQuantity', header: 'Final Quantity', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#172B4D] whitespace-nowrap">${Number(v).toLocaleString()} Kg</span>` },
+          { field: 'rate', header: 'Rate', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D] whitespace-nowrap">₹${Number(v).toFixed(2)}</span>` },
+          { field: 'amount', header: 'Amount', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#172B4D] whitespace-nowrap">₹${Number(v).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>` },
+          { field: 'harvest', header: 'Harvest', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#FEF3C7] text-[#92400E] whitespace-nowrap">${v}</span>` },
+          { field: 'harvestAmount', header: 'Harvest Amount', sortable: true, render: v => `<span class="font-mono text-xs text-[#64748B] whitespace-nowrap">₹${Number(v).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>` },
+          { field: 'finalAmount', header: 'Final Amount', sortable: true, render: v => `<span class="font-mono font-extrabold text-xs text-[#00875A] whitespace-nowrap">₹${Number(v).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>` }
+        ];
+        rows = [
+          { id: 1, billNo: 'BIL-PUR-2026-1041', arrivalPlant: 'Unit 1 - Processing (Vizag)', billDate: '2026-10-28', arrivalDate: '2026-10-28', supplier: 'Sri Venkata Krishna Aquatics', centerName: 'Bhimavaram Center', productionPlant: 'Unit 1 - Processing Facility', variety: 'Vannamei Fresh', count: '30 Count', vehicleNumber: 'AP 39 TE 2450', rmProductionPlant: 'Unit 1 - Processing Facility', finalQuantity: 8450, rate: 385.00, amount: 3253250.00, harvest: 'Day Harvest', harvestAmount: 42250.00, finalAmount: 3295500.00 },
+          { id: 2, billNo: 'BIL-PUR-2026-1042', arrivalPlant: 'Unit 1 - Processing (Vizag)', billDate: '2026-10-28', arrivalDate: '2026-10-28', supplier: 'Coastal Marine Aqua Farms', centerName: 'Machilipatnam Center', productionPlant: 'Unit 1 - Processing Facility', variety: 'Vannamei Fresh', count: '25 Count', vehicleNumber: 'AP 39 TK 8812', rmProductionPlant: 'Unit 1 - Processing Facility', finalQuantity: 9200, rate: 380.00, amount: 3496000.00, harvest: 'Night Harvest', harvestAmount: 46000.00, finalAmount: 3542000.00 },
+          { id: 3, billNo: 'BIL-PUR-2026-1043', arrivalPlant: 'Unit 2 - Pre-Processing', billDate: '2026-10-27', arrivalDate: '2026-10-27', supplier: 'Bhimavaram Shrimp Breeders Ltd', centerName: 'Bhimavaram Center', productionPlant: 'Unit 2 - Pre-Processing', variety: 'Black Tiger', count: '20 Count', vehicleNumber: 'AP 39 TX 4419', rmProductionPlant: 'Unit 2 - Pre-Processing', finalQuantity: 6800, rate: 405.00, amount: 2754000.00, harvest: 'Day Harvest', harvestAmount: 34000.00, finalAmount: 2788000.00 },
+          { id: 4, billNo: 'BIL-PUR-2026-1044', arrivalPlant: 'Unit 5 - Bulk Value Addition', billDate: '2026-10-26', arrivalDate: '2026-10-26', supplier: 'Delta Fresh Exports Ltd', centerName: 'Narsapur Center', productionPlant: 'Unit 5 - Bulk Facility', variety: 'Vannamei Fresh', count: '40 Count', vehicleNumber: 'AP 39 TP 1120', rmProductionPlant: 'Unit 5 - Bulk Facility', finalQuantity: 11200, rate: 360.00, amount: 4032000.00, harvest: 'Day Harvest', harvestAmount: 56000.00, finalAmount: 4088000.00 }
+        ];
+      }
+    }
+
+    // ==========================================
+    // 2. PRE-PROCESSING REPORTS (10 Types)
+    // ==========================================
+    else if (submenuId === 'preprocessing-reports' || submenuId.includes('preproc')) {
+      if (reportType === 'deheading-daywise') {
+        columns = [
+          sNoCol,
+          { field: 'batchNo', header: 'Deheading Batch Ref', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer">${v}</span>` },
+          { field: 'date', header: 'Shift Date', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'line', header: 'Line No', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'headonInput', header: 'Headon Input (Kg)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#172B4D]">${Number(v).toLocaleString()}</span>` },
+          { field: 'headlessOutput', header: 'Headless Output (Kg)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${Number(v).toLocaleString()}</span>` },
+          { field: 'yieldPct', header: 'Deheading Yield %', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">${v}%</span>` },
+          { field: 'wastage', header: 'Head Waste (Kg)', sortable: true, render: v => `<span class="font-mono text-xs text-[#DE350B]">${Number(v).toLocaleString()}</span>` },
+          { field: 'supervisor', header: 'Line Supervisor', sortable: true, render: v => `<span class="text-xs text-[#5E6C84]">${v}</span>` }
+        ];
+        rows = [
+          { id: 1, batchNo: 'DH-2026-101', date: '2026-10-28', line: 'Deheading Line 1', headonInput: 12000, headlessOutput: 7920, yieldPct: 66.0, wastage: 4080, supervisor: 'R. K. Varman' },
+          { id: 2, batchNo: 'DH-2026-102', date: '2026-10-28', line: 'Deheading Line 2', headonInput: 14500, headlessOutput: 9642, yieldPct: 66.5, wastage: 4858, supervisor: 'M. S. Prasad' },
+          { id: 3, batchNo: 'DH-2026-103', date: '2026-10-27', line: 'Deheading Line 1', headonInput: 10500, headlessOutput: 6982, yieldPct: 66.5, wastage: 3518, supervisor: 'R. K. Varman' }
+        ];
+      }
+      else if (reportType.includes('value-addition') || reportType.includes('va-')) {
+        columns = [
+          sNoCol,
+          { field: 'jobOrder', header: 'VA Order Ref', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer">${v}</span>` },
+          { field: 'style', header: 'Product Style', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-bold bg-[#F1F5F9] text-[#172B4D]">${v}</span>` },
+          { field: 'tableNo', header: 'VA Table', sortable: true, render: v => `<span class="text-xs text-[#172B4D] font-medium">${v}</span>` },
+          { field: 'rawInput', header: 'Raw Material (Kg)', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">${Number(v).toLocaleString()}</span>` },
+          { field: 'finishedOutput', header: 'Finished VA (Kg)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${Number(v).toLocaleString()}</span>` },
+          { field: 'recovery', header: 'VA Recovery %', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">${v}%</span>` },
+          { field: 'workers', header: 'Workers Count', sortable: true, render: v => `<span class="font-mono text-xs text-[#5E6C84]">${v}</span>` },
+          { field: 'status', header: 'Floor State', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-bold bg-[#E3FCEF] text-[#006644]">${v}</span>` }
+        ];
+        rows = [
+          { id: 1, jobOrder: 'VA-ORD-2026-081', style: 'PDTO (Peeled Deveined Tail On)', tableNo: 'VA Table 1', rawInput: 5400, finishedOutput: 4428, recovery: 82.0, workers: 36, status: 'Completed & Chilled' },
+          { id: 2, jobOrder: 'VA-ORD-2026-082', style: 'Easy Peel Raw 31/40', tableNo: 'VA Table 2', rawInput: 6200, finishedOutput: 5580, recovery: 90.0, workers: 24, status: 'Completed & Chilled' },
+          { id: 3, jobOrder: 'VA-ORD-2026-083', style: 'Nobashi Stretched Shrimp', tableNo: 'VA Table 3', rawInput: 3200, finishedOutput: 2816, recovery: 88.0, workers: 40, status: 'In Progress' }
+        ];
+      }
+      else {
+        // Standard Pre-Processing Table
+        columns = [
+          sNoCol,
+          { field: 'trackId', header: 'TRACK ID / LOT NO', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer">${v}</span>` },
+          { field: 'date', header: 'Shift Date', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'facility', header: 'Line / Machine Bay', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'variety', header: 'Raw Material Species', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-medium bg-[#F1F5F9] text-[#172B4D]">${v}</span>` },
+          { field: 'inflowQty', header: 'Inflow Wt (Kg)', sortable: true, render: v => `<span class="font-mono text-xs text-[#5E6C84]">${Number(v).toLocaleString()}</span>` },
+          { field: 'outflowQty', header: 'Yielded Wt (Kg)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${Number(v).toLocaleString()}</span>` },
+          { field: 'recovery', header: 'Yield Recovery %', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">${v}%</span>` },
+          { field: 'status', header: 'Floor State', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">${v}</span>` }
+        ];
+        rows = [
+          { id: 1, trackId: 'TRK-PP-2026-081', date: '2026-10-28', facility: 'Deheading Line 1', variety: 'Vannamei Fresh (Headon)', inflowQty: 12000, outflowQty: 7920, recovery: 66.0, status: 'Transferred to Grading' },
+          { id: 2, trackId: 'TRK-PP-2026-082', date: '2026-10-28', facility: 'Grading Machine A', variety: 'Vannamei Headless 31/40', inflowQty: 7920, outflowQty: 7840, recovery: 99.0, status: 'Passed to Soaking Bay' },
+          { id: 3, trackId: 'TRK-PP-2026-083', date: '2026-10-27', facility: 'VA Table 1 (PDTO)', variety: 'Tail-On Vannamei 26/30', inflowQty: 5400, outflowQty: 4428, recovery: 82.0, status: 'VA Floor Completed' },
+          { id: 4, trackId: 'TRK-PP-2026-084', date: '2026-10-27', facility: 'Receiving Bay 2', variety: 'Black Tiger Headon', inflowQty: 8500, outflowQty: 5695, recovery: 67.0, status: 'Pre-Processing Verified' }
+        ];
+      }
+    }
+
+    // ==========================================
+    // 3. QUALITY CONTROL REPORTS (11 Types)
+    // ==========================================
+    else if (submenuId === 'quality-reports' || submenuId.includes('quality') || submenuId.includes('qc')) {
+      if (reportType === 'sysco-status-list') {
+        columns = [
+          sNoCol,
+          { field: 'syscoPo', header: 'Sysco PO No', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer">${v}</span>` },
+          { field: 'product', header: 'Product Description', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'cartons', header: 'Master Cartons', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">${Number(v).toLocaleString()} MCs</span>` },
+          { field: 'microTest', header: 'Microbiological Test', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-bold bg-[#E3FCEF] text-[#006644]">${v}</span>` },
+          { field: 'residue', header: 'Antibiotic Residue Check', sortable: true, render: v => `<span class="font-mono text-[11px] text-[#00875A] font-bold">${v}</span>` },
+          { field: 'netWtCheck', header: 'Net Weight Verification', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D] font-medium">${v}</span>` },
+          { field: 'syscoSignoff', header: 'Sysco QA Approval', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">${v}</span>` }
+        ];
+        rows = [
+          { id: 1, syscoPo: 'SYS-PO-2026-081', product: 'Vannamei PDTO 31/40 (10x1 kg)', cartons: 1400, microTest: 'Passed (Zero Salmonella/E.Coli)', residue: 'ND (LC-MS Certified)', netWtCheck: '100% Target Met', syscoSignoff: 'Sysco Lead Approved' },
+          { id: 2, syscoPo: 'SYS-PO-2026-082', product: 'Cooked Tail-On 26/30 (5x2 lb)', cartons: 2100, microTest: 'Passed (Zero Listeria)', residue: 'ND (LC-MS Certified)', netWtCheck: '100.2% Compliant', syscoSignoff: 'Sysco Lead Approved' },
+          { id: 3, syscoPo: 'SYS-PO-2026-083', product: 'Easy Peel Raw 41/50 (10x1 kg)', cartons: 1250, microTest: 'Testing in Progress', residue: 'ND Verified', netWtCheck: '99.9% Compliant', syscoSignoff: 'Audit Pending' }
+        ];
+      }
+      else {
+        // Standard Quality Control Table
+        columns = [
+          sNoCol,
+          { field: 'qcNo', header: 'QC Dossier / Audit ID', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer">${v}</span>` },
+          { field: 'target', header: 'Buyer / Standard Scope', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'batchCode', header: 'Inspected Lot / Trace Code', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'antibioticCheck', header: 'Antibiotic / Residue', sortable: true, render: v => `<span class="font-semibold text-[11px] text-[#00875A]">${v}</span>` },
+          { field: 'sensoryGrade', header: 'Sensory / Organoleptic', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#E3FCEF] text-[#006644]">${v}</span>` },
+          { field: 'inspector', header: 'QC Auditor', sortable: true, render: v => `<span class="text-xs text-[#5E6C84] font-medium">${v}</span>` },
+          { field: 'status', header: 'Certification Status', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">${v}</span>` }
+        ];
+        rows = [
+          { id: 1, qcNo: 'QC-AUD-2026-091', target: 'Sysco Corporation (BRCGS Audit)', batchCode: 'LOT-EXP-2026-081', antibioticCheck: 'ND (Chloramphenicol / Nitrofurans)', sensoryGrade: 'Grade A Export Spec', inspector: 'Dr. K. Srinivas Rao (Lead Auditor)', status: 'Approved & Certified' },
+          { id: 2, qcNo: 'QC-AUD-2026-092', target: 'USFDA Microbiological Protocol', batchCode: 'LOT-EXP-2026-082', antibioticCheck: 'Zero Tolerance Passed', sensoryGrade: 'Premium IQF Firm', inspector: 'P. Ananya (Microbiologist)', status: 'Approved & Certified' },
+          { id: 3, qcNo: 'QC-AUD-2026-093', target: 'BAP 4-Star Traceability Audit', batchCode: 'TRC-BAP-2026-9014', antibioticCheck: 'Certified Clean Feed/Hatchery', sensoryGrade: 'Grade A Export Spec', inspector: 'Devi Fisheries QA Cell', status: 'Approved & Certified' }
+        ];
+      }
+    }
+
+    // ==========================================
+    // 4. PRODUCTION ANALYTICS (8 Types)
+    // ==========================================
+    else if (submenuId === 'production-analytics' || submenuId.includes('production')) {
+      if (reportType.includes('soaking')) {
+        columns = [
+          sNoCol,
+          { field: 'tankNo', header: 'Tank / Bay', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${v}</span>` },
+          { field: 'batchRef', header: 'Batch Run Ref', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D] hover:underline cursor-pointer">${v}</span>` },
+          { field: 'grade', header: 'Species / Grade', sortable: true, render: v => `<span class="text-xs text-[#172B4D] font-medium">${v}</span>` },
+          { field: 'preSoak', header: 'Pre-Soak Wt (Kg)', sortable: true, render: v => `<span class="font-mono text-xs text-[#5E6C84]">${Number(v).toLocaleString()}</span>` },
+          { field: 'postSoak', header: 'Post-Soak Wt (Kg)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${Number(v).toLocaleString()}</span>` },
+          { field: 'gainPct', header: 'Moisture Gain %', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">+${v}%</span>` },
+          { field: 'hours', header: 'Soak Duration', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'state', header: 'Floor Status', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-bold bg-[#E3FCEF] text-[#006644]">${v}</span>` }
+        ];
+        rows = [
+          { id: 1, tankNo: 'Tank A1', batchRef: 'RUN-SOAK-2026-104', grade: 'Vannamei PDTO 31/40', preSoak: 6000, postSoak: 6240, gainPct: 4.0, hours: '1 hr 45 min', state: 'Passed to Freezing' },
+          { id: 2, tankNo: 'Tank A2', batchRef: 'RUN-SOAK-2026-105', grade: 'Tail-On Cooked 26/30', preSoak: 4500, postSoak: 4680, gainPct: 4.0, hours: '2 hrs 00 min', state: 'Passed to Freezing' },
+          { id: 3, tankNo: 'Tank B1', batchRef: 'RUN-SOAK-2026-106', grade: 'Black Tiger 16/20', preSoak: 3500, postSoak: 3605, gainPct: 3.0, hours: '1 hr 30 min', state: 'Soaking Complete' }
+        ];
+      }
+      else {
+        // Standard Production Table
+        columns = [
+          sNoCol,
+          { field: 'batchNo', header: 'Production Run / Ref', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer">${v}</span>` },
+          { field: 'date', header: 'Date', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'unit', header: 'Process Unit / Bay', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'variety', header: 'Product Spec', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-medium bg-[#F1F5F9] text-[#172B4D]">${v}</span>` },
+          { field: 'inQty', header: 'Input (Kg)', sortable: true, render: v => `<span class="font-mono text-xs text-[#5E6C84]">${Number(v).toLocaleString()}</span>` },
+          { field: 'outQty', header: 'Finished (Kg)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${Number(v).toLocaleString()}</span>` },
+          { field: 'yieldPct', header: 'Yield %', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">${v}%</span>` },
+          { field: 'status', header: 'Log Status', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">${v}</span>` }
+        ];
+        rows = [
+          { id: 1, batchNo: 'RUN-SOAK-2026-104', date: '2026-10-28', unit: 'Soaking Bay A', variety: 'Vannamei PDTO 31/40', inQty: 6000, outQty: 6240, yieldPct: 104.0, status: 'Passed to Freezing' },
+          { id: 2, batchNo: 'RUN-FREEZ-2026-088', date: '2026-10-28', unit: 'IQF Tunnel 1 (OctoFrost)', variety: 'Tail-On Cooked IQF 26/30', inQty: 4500, outQty: 4485, yieldPct: 99.7, status: 'Finished & Cartoned' },
+          { id: 3, batchNo: 'RECON-PR-2026-019', date: '2026-10-27', unit: 'Headon To Finished Line', variety: 'Black Tiger Easy Peel', inQty: 8500, outQty: 5695, yieldPct: 67.0, status: 'Reconciled 100%' }
+        ];
+      }
+    }
+
+    // ==========================================
+    // 5. COLDSTORE ANALYTICS (21 Types)
+    // ==========================================
+    else if (submenuId === 'coldstore-analytics' || submenuId.includes('coldstore')) {
+      if (reportType === 'rm-req') {
+        columns = [
+          sNoCol,
+          { field: 'reqNo', header: 'Requisition No', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer">${v}</span>` },
+          { field: 'unit', header: 'Requesting Unit', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'product', header: 'Required Product Spec', sortable: true, render: v => `<span class="text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'reqQty', header: 'Required Qty (Kg)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#172B4D]">${Number(v).toLocaleString()}</span>` },
+          { field: 'availQty', header: 'Coldstore Stock (Kg)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">${Number(v).toLocaleString()}</span>` },
+          { field: 'shortfall', header: 'Shortfall (Kg)', sortable: true, render: v => `<span class="font-mono text-xs text-[#5E6C84]">${Number(v).toLocaleString()}</span>` },
+          { field: 'status', header: 'Fulfillment Status', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-bold bg-[#E3FCEF] text-[#006644]">${v}</span>` }
+        ];
+        rows = [
+          { id: 1, reqNo: 'REQ-RM-2026-051', unit: 'Processing Line 1', product: 'Raw Headless Vannamei 31/40 Buffer', reqQty: 10450, availQty: 12500, shortfall: 0, status: 'Fully Allocated' },
+          { id: 2, reqNo: 'REQ-RM-2026-052', unit: 'Value Addition Bay', product: 'Black Tiger 16/20 Peeled Blocks', reqQty: 6200, availQty: 6200, shortfall: 0, status: 'Fully Allocated' },
+          { id: 3, reqNo: 'REQ-RM-2026-053', unit: 'Pre-Processing Export', product: 'Cooked Tail-On 26/30 Export', reqQty: 8000, availQty: 8500, shortfall: 0, status: 'Ready for Staging' }
+        ];
+      }
+      else {
+        // Standard Coldstore Table
+        columns = [
+          sNoCol,
+          { field: 'rackNo', header: 'RACK / PALLET / INWARD REF', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer">${v}</span>` },
+          { field: 'chamber', header: 'Chamber / Facility', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'product', header: 'Finished Product Style', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-medium bg-[#F1F5F9] text-[#172B4D]">${v}</span>` },
+          { field: 'cartons', header: 'Master Cartons', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${Number(v).toLocaleString()} MCs</span>` },
+          { field: 'netWt', header: 'Net Weight (Kg)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#172B4D]">${Number(v).toLocaleString()}</span>` },
+          { field: 'temp', header: 'Chamber Temp', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">${v}°C</span>` },
+          { field: 'status', header: 'Storage State', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">${v}</span>` }
+        ];
+        rows = [
+          { id: 1, rackNo: 'RCK-CS-A12 / PLT-1081', chamber: 'Chamber 1 (-22°C Bulk Finished)', product: 'IQF Cooked Tail-On Vannamei 26/30 (6x2kg)', cartons: 640, netWt: 7680, temp: -21.8, status: 'In Coldstore Stock' },
+          { id: 2, rackNo: 'RCK-CS-B04 / PLT-1082', chamber: 'Chamber 2 (-20°C Export Buffer)', product: 'Block Frozen HLSO Black Tiger 16/20 (6x1.8kg)', cartons: 580, netWt: 6264, temp: -20.5, status: 'Allocated for Shipment' },
+          { id: 3, rackNo: 'RCK-CS-C19 / PLT-1083', chamber: 'Chamber 3 (-25°C Ultra Deep)', product: 'Easy Peel Raw Vannamei 31/40 (10x1kg)', cartons: 820, netWt: 8200, temp: -25.2, status: 'In Coldstore Stock' },
+          { id: 4, rackNo: 'RCK-CS-D08 / PLT-1084', chamber: 'Chamber 4 (-20°C Raw Block Store)', product: 'Raw PDTO Vannamei 41/50 (5x2lb)', cartons: 740, netWt: 6713, temp: -21.4, status: 'In Coldstore Stock' }
+        ];
+      }
+    }
+
+    // ==========================================
+    // 6. SALES & EXPORT ANALYTICS (20 Types)
+    // ==========================================
+    else {
+      if (reportType === 'pending-contracts' || reportType === 'approved-contracts') {
+        columns = [
+          sNoCol,
+          { field: 'orderNo', header: 'ORDER NO', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer">${v}</span>` },
           { field: 'buyer', header: 'BUYER', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
           { field: 'brand', header: 'BRAND', sortable: true, render: v => `<span class="text-xs text-[#5E6C84]">${v}</span>` },
           { field: 'variety', header: 'VARIETY', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-medium bg-[#F1F5F9] text-[#172B4D]">${v}</span>` },
@@ -852,473 +1326,67 @@ export const ReportsView = {
               'Low': 'bg-[#E3FCEF] text-[#006644] border-[#ABF5D1]'
             };
             return `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold border ${colors[v] || 'bg-gray-100 text-gray-700'}"><span class="w-1.5 h-1.5 rounded-full bg-current"></span>${v}</span>`;
-          }},
-          actionCol
+          }}
         ];
         rows = [
           { id: 1, orderNo: 'ORD-DFL-2026-081', buyer: 'Sysco Corporation', brand: 'Devi Classic', variety: 'Vannamei PDTO', mcs: 1400, pack: '10x1 kg', grade: '31/40', shipmentDatePo: '2026-11-15', destination: 'Port of Los Angeles, USA', priority: 'High' },
           { id: 2, orderNo: 'ORD-DFL-2026-082', buyer: 'Nippon Suisan Kaisha', brand: 'AquaStar Premium', variety: 'Black Tiger HLSO', mcs: 850, pack: '6x1.8 kg', grade: '16/20', shipmentDatePo: '2026-11-20', destination: 'Tokyo Port, Japan', priority: 'High' },
-          { id: 3, orderNo: 'ORD-DFL-2026-083', buyer: 'Maruha Nichiro Corp', brand: 'Devi Supreme', variety: 'Cooked Tail-On', mcs: 2100, pack: '5x2 lb', grade: '26/30', shipmentDatePo: '2026-11-28', destination: 'Yokohama Port, Japan', priority: 'Medium' },
-          { id: 4, orderNo: 'ORD-DFL-2026-084', buyer: 'Euro-Baltic Marine', brand: 'Nordic Gold', variety: 'Easy Peel Raw', mcs: 1250, pack: '10x1 kg', grade: '41/50', shipmentDatePo: '2026-12-05', destination: 'Rotterdam, Netherlands', priority: 'Medium' },
-          { id: 5, orderNo: 'ORD-DFL-2026-085', buyer: 'Pacific Coast Seafood', brand: 'Pacific Crest', variety: 'Raw Peeled Deveined', mcs: 950, pack: '5x2 lb', grade: '51/60', shipmentDatePo: '2026-12-10', destination: 'Seattle, USA', priority: 'Low' }
+          { id: 3, orderNo: 'ORD-DFL-2026-083', buyer: 'Maruha Nichiro Corp', brand: 'Devi Supreme', variety: 'Cooked Tail-On', mcs: 2100, pack: '5x2 lb', grade: '26/30', shipmentDatePo: '2026-11-28', destination: 'Yokohama Port, Japan', priority: 'Medium' }
         ];
-      } else {
-        // Standard Sales Analytics format for other 19 types
+      }
+      else {
+        // Standard Export Analytics Table
         columns = [
-          { field: 'sNo', header: 'S No.', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
-          { field: 'refNo', header: 'REFERENCE / LOT NO', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer" title="Click to view details">${v}</span>` },
+          sNoCol,
+          { field: 'refNo', header: 'REFERENCE / LOT NO', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer">${v}</span>` },
           { field: 'buyer', header: 'BUYER / IMPORTER', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
           { field: 'product', header: 'PRODUCT & SPEC', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-medium bg-[#F1F5F9] text-[#172B4D]">${v}</span>` },
           { field: 'volume', header: 'VOLUME (KGS / MCS)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#172B4D]">${Number(v).toLocaleString()}</span>` },
           { field: 'port', header: 'PORT / LOGISTICS', sortable: true, render: v => `<span class="text-xs text-[#5E6C84] font-medium">${v}</span>` },
-          { field: 'status', header: 'AUDIT / COMPLIANCE STATUS', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` },
-          actionCol
+          { field: 'status', header: 'AUDIT / COMPLIANCE STATUS', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` }
         ];
         rows = [
           { id: 1, refNo: 'EXP-DFL-2026-041', buyer: 'Sysco Corporation USA', product: 'Vannamei PDTO 31/40 (10x1kg)', volume: 14000, port: 'Port of Los Angeles / Maersk', status: 'Export Verified & Clean' },
           { id: 2, refNo: 'EXP-DFL-2026-042', buyer: 'Nippon Suisan Kaisha Japan', product: 'Black Tiger HLSO 16/20 (6x1.8kg)', volume: 9180, port: 'Tokyo Port / ONE Line', status: 'Health Certificate Approved' },
-          { id: 3, refNo: 'EXP-DFL-2026-043', buyer: 'Maruha Nichiro Corp', product: 'Cooked Tail-On 26/30 (5x2lb)', volume: 19050, port: 'Yokohama / CMA CGM', status: 'Customs Cleared' },
-          { id: 4, refNo: 'EXP-DFL-2026-044', buyer: 'Euro-Baltic Marine Traders', product: 'Easy Peel Raw 41/50 (10x1kg)', volume: 12500, port: 'Rotterdam / MSC', status: 'EU Veterinary Passed' }
+          { id: 3, refNo: 'EXP-DFL-2026-043', buyer: 'Maruha Nichiro Corp', product: 'Cooked Tail-On 26/30 (5x2lb)', volume: 19050, port: 'Yokohama / CMA CGM', status: 'Customs Cleared' }
         ];
       }
     }
 
-    // ==========================================
-    // 2. Purchase Reports (15 Types)
-    // ==========================================
-    else if (submenuId === 'purchase-reports' || submenuId.includes('purchase')) {
-      columns = [
-        // 1. S.No
-        {
-          field: 'sNo',
-          header: 'S.No',
-          sortable: true,
-          render: (v, r, idx) => `
-            <span class="text-[#00A4B7] font-semibold hover:underline cursor-pointer select-none" title="Click to view details">${idx + 1}</span>
-          `
-        },
-        // 2. Bill No
-        {
-          field: 'billNo',
-          header: 'Bill No',
-          sortable: true,
-          render: v => `
-            <span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer whitespace-nowrap" title="Click to view details">${v}</span>
-          `
-        },
-        // 3. Arrival Plant
-        {
-          field: 'arrivalPlant',
-          header: 'Arrival Plant',
-          sortable: true,
-          render: v => `<span class="text-xs font-medium text-[#172B4D] whitespace-nowrap">${v}</span>`
-        },
-        // 4. Bill Date
-        {
-          field: 'billDate',
-          header: 'Bill Date',
-          sortable: true,
-          render: v => `<span class="whitespace-nowrap text-xs text-[#172B4D] font-mono">${v}</span>`
-        },
-        // 5. Arrival Date
-        {
-          field: 'arrivalDate',
-          header: 'Arrival Date',
-          sortable: true,
-          render: v => `<span class="whitespace-nowrap text-xs text-[#5E6C84] font-mono">${v}</span>`
-        },
-        // 6. Supplier
-        {
-          field: 'supplier',
-          header: 'Supplier',
-          sortable: true,
-          render: v => `<span class="font-semibold text-xs text-[#172B4D] whitespace-nowrap">${v}</span>`
-        },
-        // 7. Center Name
-        {
-          field: 'centerName',
-          header: 'Center Name',
-          sortable: true,
-          render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-medium bg-[#F1F5F9] text-[#172B4D] whitespace-nowrap">${v}</span>`
-        },
-        // 8. Production Plant
-        {
-          field: 'productionPlant',
-          header: 'Production Plant',
-          sortable: true,
-          render: v => `<span class="text-xs text-[#172B4D] font-medium whitespace-nowrap">${v}</span>`
-        },
-        // 9. Variety
-        {
-          field: 'variety',
-          header: 'Variety',
-          sortable: true,
-          render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-medium bg-[#E0F2FE] text-[#0369A1] whitespace-nowrap">${v}</span>`
-        },
-        // 10. Count
-        {
-          field: 'count',
-          header: 'Count',
-          sortable: true,
-          render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] whitespace-nowrap">${v}</span>`
-        },
-        // 11. Vehicle Number
-        {
-          field: 'vehicleNumber',
-          header: 'Vehicle Number',
-          sortable: true,
-          render: v => `<span class="font-mono text-xs font-semibold text-[#475569] whitespace-nowrap">${v}</span>`
-        },
-        // 12. RM Production Plant
-        {
-          field: 'rmProductionPlant',
-          header: 'RM Production Plant',
-          sortable: true,
-          render: v => `<span class="text-xs text-[#172B4D] whitespace-nowrap">${v}</span>`
-        },
-        // 13. Final Quantity
-        {
-          field: 'finalQuantity',
-          header: 'Final Quantity',
-          sortable: true,
-          render: v => `<span class="font-mono font-bold text-xs text-[#172B4D] whitespace-nowrap">${Number(v).toLocaleString()} Kg</span>`
-        },
-        // 14. Rate
-        {
-          field: 'rate',
-          header: 'Rate',
-          sortable: true,
-          render: v => `<span class="font-mono text-xs text-[#172B4D] whitespace-nowrap">₹${Number(v).toFixed(2)}</span>`
-        },
-        // 15. Amount
-        {
-          field: 'amount',
-          header: 'Amount',
-          sortable: true,
-          render: v => `<span class="font-mono font-bold text-xs text-[#172B4D] whitespace-nowrap">₹${Number(v).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>`
-        },
-        // 16. Harvest
-        {
-          field: 'harvest',
-          header: 'Harvest',
-          sortable: true,
-          render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#FEF3C7] text-[#92400E] whitespace-nowrap">${v}</span>`
-        },
-        // 17. Harvest Amount
-        {
-          field: 'harvestAmount',
-          header: 'Harvest Amount',
-          sortable: true,
-          render: v => `<span class="font-mono text-xs text-[#64748B] whitespace-nowrap">₹${Number(v).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>`
-        },
-        // 18. Final Amount
-        {
-          field: 'finalAmount',
-          header: 'Final Amount',
-          sortable: true,
-          render: v => `<span class="font-mono font-extrabold text-xs text-[#00875A] whitespace-nowrap">₹${Number(v).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>`
-        }
-      ];
-
-      rows = [
-        {
-          id: 1,
-          billNo: 'BIL-PUR-2026-1041',
-          arrivalPlant: 'Unit 1 - Processing (Vizag)',
-          billDate: '2026-10-28',
-          arrivalDate: '2026-10-28',
-          supplier: 'Sri Venkata Krishna Aquatics',
-          centerName: 'Bhimavaram Center',
-          productionPlant: 'Unit 1 - Processing Facility',
-          variety: 'Vannamei Fresh',
-          count: '30 Count',
-          vehicleNumber: 'AP 39 TE 2450',
-          rmProductionPlant: 'Unit 1 - Processing Facility',
-          finalQuantity: 8450,
-          rate: 385.00,
-          amount: 3253250.00,
-          harvest: 'Day Harvest',
-          harvestAmount: 42250.00,
-          finalAmount: 3295500.00
-        },
-        {
-          id: 2,
-          billNo: 'BIL-PUR-2026-1042',
-          arrivalPlant: 'Unit 2 - Pre-Processing',
-          billDate: '2026-10-28',
-          arrivalDate: '2026-10-27',
-          supplier: 'Godavari Aqua Harvests',
-          centerName: 'Machilipatnam Center',
-          productionPlant: 'Unit 2 - Pre-Processing Facility',
-          variety: 'Vannamei Fresh',
-          count: '40 Count',
-          vehicleNumber: 'AP 16 TX 7812',
-          rmProductionPlant: 'Unit 2 - Pre-Processing Facility',
-          finalQuantity: 6200,
-          rate: 340.00,
-          amount: 2108000.00,
-          harvest: 'Night Harvest',
-          harvestAmount: 31000.00,
-          finalAmount: 2139000.00
-        },
-        {
-          id: 3,
-          billNo: 'BIL-PUR-2026-1043',
-          arrivalPlant: 'Unit 3 - Coldstore & IQF',
-          billDate: '2026-10-27',
-          arrivalDate: '2026-10-27',
-          supplier: 'Kishna Coastal Prawns',
-          centerName: 'Narsapur Center',
-          productionPlant: 'Unit 3 - Cold Storage & IQF',
-          variety: 'Black Tiger',
-          count: '16/20 Count',
-          vehicleNumber: 'AP 37 TT 3411',
-          rmProductionPlant: 'Unit 3 - Cold Storage & IQF',
-          finalQuantity: 4100,
-          rate: 580.00,
-          amount: 2378000.00,
-          harvest: 'Day Harvest',
-          harvestAmount: 20500.00,
-          finalAmount: 2398500.00
-        },
-        {
-          id: 4,
-          billNo: 'BIL-PUR-2026-1044',
-          arrivalPlant: 'Unit 1 - Processing (Vizag)',
-          billDate: '2026-10-27',
-          arrivalDate: '2026-10-26',
-          supplier: 'Delta Prime Hatcheries & Farms',
-          centerName: 'Bapatla Center',
-          productionPlant: 'Unit 1 - Processing Facility',
-          variety: 'Vannamei Fresh',
-          count: '25 Count',
-          vehicleNumber: 'AP 07 TJ 9033',
-          rmProductionPlant: 'Unit 1 - Processing Facility',
-          finalQuantity: 9800,
-          rate: 415.00,
-          amount: 4067000.00,
-          harvest: 'Night Harvest',
-          harvestAmount: 49000.00,
-          finalAmount: 4116000.00
-        },
-        {
-          id: 5,
-          billNo: 'BIL-PUR-2026-1045',
-          arrivalPlant: 'Unit 5 - Bulk Value Addition',
-          billDate: '2026-10-26',
-          arrivalDate: '2026-10-25',
-          supplier: 'Delta Sea Farms',
-          centerName: 'Ongole Center',
-          productionPlant: 'Unit 5 - Value Addition Plant',
-          variety: 'Vannamei Fresh',
-          count: '50 Count',
-          vehicleNumber: 'AP 27 TC 1109',
-          rmProductionPlant: 'Unit 5 - Value Addition Plant',
-          finalQuantity: 7200,
-          rate: 290.00,
-          amount: 2088000.00,
-          harvest: 'Day Harvest',
-          harvestAmount: 36000.00,
-          finalAmount: 2124000.00
-        },
-        {
-          id: 6,
-          billNo: 'BIL-PUR-2026-1046',
-          arrivalPlant: 'Unit 3 - Coldstore & IQF',
-          billDate: '2026-10-25',
-          arrivalDate: '2026-10-24',
-          supplier: 'Coastal Marine Harvesters',
-          centerName: 'Bhimavaram Center',
-          productionPlant: 'Unit 3 - Cold Storage & IQF',
-          variety: 'Sea White',
-          count: '20/25 Count',
-          vehicleNumber: 'AP 39 TH 5521',
-          rmProductionPlant: 'Unit 3 - Cold Storage & IQF',
-          finalQuantity: 5300,
-          rate: 460.00,
-          amount: 2438000.00,
-          harvest: 'Night Harvest',
-          harvestAmount: 26500.00,
-          finalAmount: 2464500.00
-        },
-        {
-          id: 7,
-          billNo: 'BIL-PUR-2026-1047',
-          arrivalPlant: 'Unit 2 - Pre-Processing',
-          billDate: '2026-10-24',
-          arrivalDate: '2026-10-23',
-          supplier: 'Andhra Prawn Hatcheries',
-          centerName: 'Machilipatnam Center',
-          productionPlant: 'Unit 2 - Pre-Processing Facility',
-          variety: 'Vannamei Fresh',
-          count: '35 Count',
-          vehicleNumber: 'AP 16 TZ 8844',
-          rmProductionPlant: 'Unit 2 - Pre-Processing Facility',
-          finalQuantity: 6900,
-          rate: 360.00,
-          amount: 2484000.00,
-          harvest: 'Day Harvest',
-          harvestAmount: 34500.00,
-          finalAmount: 2518500.00
-        },
-        {
-          id: 8,
-          billNo: 'BIL-PUR-2026-1048',
-          arrivalPlant: 'Unit 1 - Processing (Vizag)',
-          billDate: '2026-10-23',
-          arrivalDate: '2026-10-22',
-          supplier: 'Sagar Marine Farms',
-          centerName: 'Narsapur Center',
-          productionPlant: 'Unit 1 - Processing Facility',
-          variety: 'Black Tiger',
-          count: '10/15 Count',
-          vehicleNumber: 'AP 37 TW 9012',
-          rmProductionPlant: 'Unit 1 - Processing Facility',
-          finalQuantity: 3800,
-          rate: 690.00,
-          amount: 2622000.00,
-          harvest: 'Night Harvest',
-          harvestAmount: 19000.00,
-          finalAmount: 2641000.00
-        },
-        {
-          id: 9,
-          billNo: 'BIL-PUR-2026-1049',
-          arrivalPlant: 'Unit 5 - Bulk Value Addition',
-          billDate: '2026-10-22',
-          arrivalDate: '2026-10-21',
-          supplier: 'Krishna Delta Aqua',
-          centerName: 'Bapatla Center',
-          productionPlant: 'Unit 5 - Value Addition Plant',
-          variety: 'Vannamei Fresh',
-          count: '45 Count',
-          vehicleNumber: 'AP 07 TL 6701',
-          rmProductionPlant: 'Unit 5 - Value Addition Plant',
-          finalQuantity: 8100,
-          rate: 310.00,
-          amount: 2511000.00,
-          harvest: 'Day Harvest',
-          harvestAmount: 40500.00,
-          finalAmount: 2551500.00
-        },
-        {
-          id: 10,
-          billNo: 'BIL-PUR-2026-1050',
-          arrivalPlant: 'Unit 1 - Processing (Vizag)',
-          billDate: '2026-10-21',
-          arrivalDate: '2026-10-20',
-          supplier: 'Godavari Bio-Harvest',
-          centerName: 'Bhimavaram Center',
-          productionPlant: 'Unit 1 - Processing Facility',
-          variety: 'Vannamei Fresh',
-          count: '28 Count',
-          vehicleNumber: 'AP 39 TJ 4432',
-          rmProductionPlant: 'Unit 1 - Processing Facility',
-          finalQuantity: 10500,
-          rate: 395.00,
-          amount: 4147500.00,
-          harvest: 'Night Harvest',
-          harvestAmount: 52500.00,
-          finalAmount: 4200000.00
-        }
-      ];
-    }
-
-    // ==========================================
-    // 3. Pre-Processing Reports (10 Types)
-    // ==========================================
-    else if (submenuId === 'preprocessing-reports' || submenuId.includes('preproc')) {
-      columns = [
-        { field: 'sNo', header: 'S No.', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
-        { field: 'trackId', header: 'TRACK ID / LOT NO', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer" title="Click to view details">${v}</span>` },
-        { field: 'date', header: 'Shift Date', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">${v}</span>` },
-        { field: 'facility', header: 'Line / Machine Bay', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
-        { field: 'variety', header: 'Raw Material Species', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-medium bg-[#F1F5F9] text-[#172B4D]">${v}</span>` },
-        { field: 'inflowQty', header: 'Inflow Wt (Kg)', sortable: true, render: v => `<span class="font-mono text-xs text-[#5E6C84]">${Number(v).toLocaleString()}</span>` },
-        { field: 'outflowQty', header: 'Yielded Wt (Kg)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${Number(v).toLocaleString()}</span>` },
-        { field: 'recovery', header: 'Yield Recovery %', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">${v}%</span>` },
-        { field: 'status', header: 'Floor State', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` },
-        actionCol
-      ];
-      rows = [
-        { id: 1, trackId: 'TRK-PP-2026-081', date: '2026-10-28', facility: 'Deheading Line 1', variety: 'Vannamei Fresh (Headon)', inflowQty: 12000, outflowQty: 7920, recovery: 66.0, status: 'Transferred to Grading' },
-        { id: 2, trackId: 'TRK-PP-2026-082', date: '2026-10-28', facility: 'Grading Machine A', variety: 'Vannamei Headless 31/40', inflowQty: 7920, outflowQty: 7840, recovery: 99.0, status: 'Passed to Soaking Bay' },
-        { id: 3, trackId: 'TRK-PP-2026-083', date: '2026-10-27', facility: 'VA Table 1 (PDTO)', variety: 'Tail-On Vannamei 26/30', inflowQty: 5400, outflowQty: 4428, recovery: 82.0, status: 'VA Floor Completed' },
-        { id: 4, trackId: 'TRK-PP-2026-084', date: '2026-10-27', facility: 'Receiving Bay 2', variety: 'Black Tiger Headon', inflowQty: 8500, outflowQty: 5695, recovery: 67.0, status: 'Pre-Processing Verified' }
-      ];
-    }
-
-    // ==========================================
-    // 4. Quality Control Reports (11 Types)
-    // ==========================================
-    else if (submenuId === 'quality-reports' || submenuId.includes('quality') || submenuId.includes('qc')) {
-      columns = [
-        { field: 'sNo', header: 'S No.', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
-        { field: 'qcNo', header: 'QC Dossier / Audit ID', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer" title="Click to view details">${v}</span>` },
-        { field: 'target', header: 'Buyer / Standard Scope', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
-        { field: 'batchCode', header: 'Inspected Lot / Trace Code', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">${v}</span>` },
-        { field: 'antibioticCheck', header: 'Antibiotic / Residue', sortable: true, render: v => `<span class="font-semibold text-[11px] text-[#00875A]">${v}</span>` },
-        { field: 'sensoryGrade', header: 'Sensory / Organoleptic', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#E3FCEF] text-[#006644]">${v}</span>` },
-        { field: 'inspector', header: 'QC Auditor', sortable: true, render: v => `<span class="text-xs text-[#5E6C84] font-medium">${v}</span>` },
-        { field: 'status', header: 'Certification Status', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` },
-        actionCol
-      ];
-      rows = [
-        { id: 1, qcNo: 'QC-AUD-2026-091', target: 'Sysco Corporation (BRCGS Audit)', batchCode: 'LOT-EXP-2026-081', antibioticCheck: 'ND (Chloramphenicol / Nitrofurans)', sensoryGrade: 'Grade A Export Spec', inspector: 'Dr. K. Srinivas Rao (Lead Auditor)', status: 'Approved & Certified' },
-        { id: 2, qcNo: 'QC-AUD-2026-092', target: 'USFDA Microbiological Protocol', batchCode: 'LOT-EXP-2026-082', antibioticCheck: 'Zero Tolerance Passed', sensoryGrade: 'Premium IQF Firm', inspector: 'P. Ananya (Microbiologist)', status: 'Approved & Certified' },
-        { id: 3, qcNo: 'QC-AUD-2026-093', target: 'BAP 4-Star Traceability Audit', batchCode: 'TRC-BAP-2026-9014', antibioticCheck: 'Certified Clean Feed/Hatchery', sensoryGrade: 'Grade A Export Spec', inspector: 'Devi Fisheries QA Cell', status: 'Approved & Certified' },
-        { id: 4, qcNo: 'QC-AUD-2026-094', target: 'EIA / MPEDA Export Clearance', batchCode: 'LOT-EXP-2026-084', antibioticCheck: 'Health Certificate Issued', sensoryGrade: 'Compliant EU Standard', inspector: 'Govt. EIA Inspector', status: 'Approved & Certified' }
-      ];
-    }
-
-    // ==========================================
-    // 5. Production Analytics (14 Types)
-    // ==========================================
-    else if (submenuId === 'production-analytics' || submenuId.includes('production')) {
-      columns = [
-        { field: 'sNo', header: 'S No.', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
-        { field: 'batchNo', header: 'Production Run / AD Form Ref', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer" title="Click to view details">${v}</span>` },
-        { field: 'date', header: 'Date', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">${v}</span>` },
-        { field: 'unit', header: 'Process Unit / Bay', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
-        { field: 'variety', header: 'Product Spec', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-medium bg-[#F1F5F9] text-[#172B4D]">${v}</span>` },
-        { field: 'inQty', header: 'Input (Kg)', sortable: true, render: v => `<span class="font-mono text-xs text-[#5E6C84]">${Number(v).toLocaleString()}</span>` },
-        { field: 'outQty', header: 'Finished (Kg)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${Number(v).toLocaleString()}</span>` },
-        { field: 'yieldPct', header: 'Yield / Efficiency %', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">${v}%</span>` },
-        { field: 'status', header: 'Log Status', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` },
-        actionCol
-      ];
-      rows = [
-        { id: 1, batchNo: 'RUN-SOAK-2026-104', date: '2026-10-28', unit: 'Soaking Bay A (Chemical Free)', variety: 'Vannamei PDTO 31/40', inQty: 6000, outQty: 6240, yieldPct: 104.0, status: 'Passed to Freezing' },
-        { id: 2, batchNo: 'RUN-FREEZ-2026-088', date: '2026-10-28', unit: 'IQF Tunnel 1 (OctoFrost)', variety: 'Tail-On Cooked IQF 26/30', inQty: 4500, outQty: 4485, yieldPct: 99.7, status: 'Finished & Cartoned' },
-        { id: 3, batchNo: 'FORM-AD-2026-042', date: '2026-10-27', unit: 'Anti-Dumping Entry Portal', variety: 'US Export Headless Blocks', inQty: 18000, outQty: 18000, yieldPct: 100.0, status: 'DOC Filed & Verified' },
-        { id: 4, batchNo: 'RECON-PR-2026-019', date: '2026-10-27', unit: 'Headon To Finished Line', variety: 'Black Tiger Easy Peel', inQty: 8500, outQty: 5695, yieldPct: 67.0, status: 'Reconciled 100%' }
-      ];
-    }
-
-    // ==========================================
-    // 6. Coldstore Analytics (21 Types)
-    // ==========================================
-    else if (submenuId === 'coldstore-analytics' || submenuId.includes('coldstore')) {
-      columns = [
-        { field: 'sNo', header: 'S No.', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
-        { field: 'rackNo', header: 'RACK / PALLET / INWARD REF', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer" title="Click to view details">${v}</span>` },
-        { field: 'chamber', header: 'Chamber / Facility', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
-        { field: 'product', header: 'Finished Product Style', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-medium bg-[#F1F5F9] text-[#172B4D]">${v}</span>` },
-        { field: 'cartons', header: 'Master Cartons', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${Number(v).toLocaleString()} MCs</span>` },
-        { field: 'netWt', header: 'Net Weight (Kg)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#172B4D]">${Number(v).toLocaleString()}</span>` },
-        { field: 'temp', header: 'Chamber Temp', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">${v}°C</span>` },
-        { field: 'status', header: 'Storage State', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` },
-        actionCol
-      ];
-      rows = [
-        { id: 1, rackNo: 'RCK-CS-A12 / PLT-1081', chamber: 'Chamber 1 (-22°C Bulk Finished)', product: 'IQF Cooked Tail-On Vannamei 26/30 (6x2kg)', cartons: 640, netWt: 7680, temp: -21.8, status: 'In Coldstore Stock' },
-        { id: 2, rackNo: 'RCK-CS-B04 / PLT-1082', chamber: 'Chamber 2 (-20°C Export Buffer)', product: 'Block Frozen HLSO Black Tiger 16/20 (6x1.8kg)', cartons: 580, netWt: 6264, temp: -20.5, status: 'Allocated for Shipment' },
-        { id: 3, rackNo: 'RCK-CS-C19 / PLT-1083', chamber: 'Chamber 3 (-25°C Ultra Deep)', product: 'Easy Peel Raw Vannamei 31/40 (10x1kg)', cartons: 820, netWt: 8200, temp: -25.2, status: 'In Coldstore Stock' },
-        { id: 4, rackNo: 'RCK-CS-D08 / PLT-1084', chamber: 'Chamber 4 (-20°C Raw Block Store)', product: 'Raw PDTO Vannamei 41/50 (5x2lb)', cartons: 740, netWt: 6713, temp: -21.4, status: 'In Coldstore Stock' },
-        { id: 5, rackNo: 'REQ-RM-2026-051', chamber: 'Chamber 1 (-22°C Processing Feed)', product: 'Raw Material Buffer Stock for Line 1', cartons: 950, netWt: 10450, temp: -22.0, status: 'RM Requirement Ready' }
-      ];
-    }
-
     return { columns, rows };
+  },
+
+  // Record Details Modal
+  showReportDetails(row, typeLabel) {
+    if (!row) return;
+    const title = row.billNo || row.orderNo || row.docNo || row.lotNo || row.refNo || row.batchNo || row.trackId || row.qcNo || row.rackNo || row.reqNo || 'Record Details';
+    const entries = Object.entries(row)
+      .filter(([k]) => k !== 'id' && !k.startsWith('__'))
+      .map(([k, v]) => `
+        <div class="py-2 border-b border-[#F4F5F7] flex justify-between items-center text-xs">
+          <span class="font-semibold text-[#5E6C84] capitalize">${k.replace(/([A-Z])/g, ' $1').trim()}</span>
+          <span class="font-mono font-medium text-[#172B4D] text-right">${v !== null && v !== undefined ? v : '-'}</span>
+        </div>
+      `).join('');
+
+    Modal.show({
+      title: `${typeLabel} - ${title}`,
+      content: `
+        <div class="space-y-1">
+          <div class="bg-[#F8FAFC] p-3 rounded-lg border border-[#E2E8F0] mb-3">
+            <span class="text-xs text-[#00A4B7] font-bold block uppercase tracking-wider">${typeLabel} Dossier</span>
+            <span class="text-sm font-extrabold text-[#172B4D]">${title}</span>
+          </div>
+          <div class="max-h-[360px] overflow-y-auto px-1">
+            ${entries}
+          </div>
+        </div>
+      `,
+      confirmText: 'Download PDF',
+      cancelText: 'Close',
+      onConfirm: () => {
+        Toast.show(`Downloading official export ledger for ${title}...`, 'success');
+      }
+    });
   }
 };
