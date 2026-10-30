@@ -582,57 +582,352 @@ export const InventoryView = {
     pmProformaList: [
       {
         id: 1,
-        piNumber: 'PI-PM-2026-0891',
-        piDate: '2026-10-28',
-        supplierName: 'Sri Venkateswara Packaging Ltd',
-        materialCategory: 'Master Cartons',
-        itemDescription: '7-Ply Corrugated Master Cartons (1 X 10 KGS IQF Print)',
-        quantity: 35000,
-        unit: 'MCs',
-        rate: 58.50,
-        grossAmount: 2047500,
-        taxAmount: 245700,
-        totalAmount: 2293200,
-        deliveryPlant: 'DFL Unit-5 (JPT)',
-        paymentTerms: '30 Days from Inward',
-        status: 'Approved',
-        deliveryStatus: 'In Transit'
+        docNo: 'PI-PM-2026-0041',
+        date: '2026-10-28',
+        currency: 'USD ($)',
+        exchangeRate: '86.50',
+        consignee: 'AquaStar Global Foods LLC, Seattle WA',
+        company: 'Devi Fisheries Limited - Plant 5',
+        portOfLoading: 'Visakhapatnam Port (INVTZ1)',
+        notifyParty: 'Apex Global Logistics Newark, NJ',
+        narration: 'Export packing proforma allocation for seasonal Vannamei pack',
+        termOfDeliveryAndPayment: 'CIF Los Angeles / 30% Advance, 70% against BL copy',
+        buyerOrderNo: 'BO-USA-2026-9921',
+        exportReferenceNo: 'EXP-REF-8841',
+        shipmentDate: '2026-11-20',
+        countryOfFinalDestination: 'United States',
+        countryOfOrigin: 'India',
+        finalDestination: 'Los Angeles, CA',
+        proNo: 'PRO-2026-0819',
+        poAttachment: 'po_contract_9921.pdf',
+        poApprovedDate: '2026-10-25',
+        processAndPackedBy: 'Devi Fisheries Ltd (Unit-5, JPT)',
+        portOfDischarge: 'Port of Los Angeles (USLAX)',
+        isGlaze: 'Yes (10% Protective Water Glaze)',
+        deliveryTerms: 'CIF',
+        buyerOtherThanConsignee: 'Ocean Harvest International USA',
+        amountInWords: 'US Dollars Sixty-Four Thousand Eight Hundred Only',
+        advanceAmount: '19440.00',
+        items: [
+          {
+            variety: 'Vannamei White Shrimp',
+            grade: '31/40',
+            packingStyle: '10 X 1 KG Printed Pouch',
+            processType: 'PDTO (Peeled Deveined Tail-On)',
+            brand: 'Devi Gold',
+            bapMaster: '4-Star BAP Certified',
+            noOfCartons: 1500,
+            totalNetWeight: 15000
+          },
+          {
+            variety: 'Black Tiger Shrimp',
+            grade: '16/20',
+            packingStyle: '6 X 2 KG Master Carton',
+            processType: 'HLSO (Headless Shell-On)',
+            brand: 'Ocean Crown',
+            bapMaster: '4-Star BAP Certified',
+            noOfCartons: 800,
+            totalNetWeight: 9600
+          }
+        ]
       },
       {
         id: 2,
-        piNumber: 'PI-PM-2026-0892',
-        piDate: '2026-10-27',
-        supplierName: 'Apex Polymers & Films India Ltd',
-        materialCategory: 'Poly Bags',
-        itemDescription: 'Printed LDPE 2-Lb Gusseted Shrimp Bags with Zipper (50 Micron)',
-        quantity: 120000,
-        unit: 'Bags',
-        rate: 3.40,
-        grossAmount: 408000,
-        taxAmount: 73440,
-        totalAmount: 481440,
-        deliveryPlant: 'DFL Unit-5 (JPT)',
-        paymentTerms: '50% Advance / 50% Inward',
-        status: 'Approved',
-        deliveryStatus: 'Partially Received'
+        docNo: 'PI-PM-2026-0042',
+        date: '2026-10-27',
+        currency: 'EUR (€)',
+        exchangeRate: '93.20',
+        consignee: 'Marunaka Seafoods Europe BV, Rotterdam',
+        company: 'Devi Fisheries Limited - Plant 5',
+        portOfLoading: 'Chennai Port (INMAA1)',
+        notifyParty: 'Kuehne+Nagel Logistics Rotterdam',
+        narration: 'Polybag printed shrimp packs for Netherlands retail line',
+        termOfDeliveryAndPayment: 'CFR Rotterdam / 20% Advance, 80% DP at Sight',
+        buyerOrderNo: 'BO-EUR-2026-1104',
+        exportReferenceNo: 'EXP-REF-8842',
+        shipmentDate: '2026-11-25',
+        countryOfFinalDestination: 'Netherlands',
+        countryOfOrigin: 'India',
+        finalDestination: 'Rotterdam Port',
+        proNo: 'PRO-2026-0820',
+        poAttachment: 'po_contract_1104.pdf',
+        poApprovedDate: '2026-10-24',
+        processAndPackedBy: 'Devi Fisheries Ltd (Unit-5, JPT)',
+        portOfDischarge: 'Port of Rotterdam (NLRTM)',
+        isGlaze: 'No Glaze (Raw IQF Block)',
+        deliveryTerms: 'CFR',
+        buyerOtherThanConsignee: 'Direct Source Seafood EU',
+        amountInWords: 'Euros Forty-Eight Thousand Five Hundred Only',
+        advanceAmount: '9700.00',
+        items: [
+          {
+            variety: 'Vannamei White Shrimp',
+            grade: '41/50',
+            packingStyle: '5 X 2 Lb Retail Zipper Bag',
+            processType: 'PD (Peeled & Deveined)',
+            brand: 'Devi Star',
+            bapMaster: 'ASC Certified',
+            noOfCartons: 1200,
+            totalNetWeight: 10886
+          }
+        ]
       },
       {
         id: 3,
-        piNumber: 'PI-PM-2026-0893',
-        piDate: '2026-10-26',
-        supplierName: 'Modern Corrugators Visakhapatnam',
-        materialCategory: 'Inner Cartons',
-        itemDescription: 'Duplex Printed 2-KG Inner Cartons (Vannamei Tail-Off Graphic)',
-        quantity: 80000,
-        unit: 'Boxes',
-        rate: 9.80,
-        grossAmount: 784000,
-        taxAmount: 94080,
-        totalAmount: 878080,
-        deliveryPlant: 'DFL Unit-7 (GNT)',
+        docNo: 'PI-PM-2026-0043',
+        date: '2026-10-26',
+        currency: 'USD ($)',
+        exchangeRate: '86.50',
+        consignee: 'Nichirei Fresh Inc, Tokyo Japan',
+        company: 'Devi Fisheries Limited - Plant 5',
+        portOfLoading: 'Visakhapatnam Port (INVTZ1)',
+        notifyParty: 'Mitsui-Soko Co Ltd Tokyo',
+        narration: 'Duplex inner cartons for Japanese headless Vannamei blocks',
+        termOfDeliveryAndPayment: 'FOB Visakhapatnam / 100% LC at Sight',
+        buyerOrderNo: 'BO-JPN-2026-4402',
+        exportReferenceNo: 'EXP-REF-8843',
+        shipmentDate: '2026-11-18',
+        countryOfFinalDestination: 'Japan',
+        countryOfOrigin: 'India',
+        finalDestination: 'Tokyo Port',
+        proNo: 'PRO-2026-0821',
+        poAttachment: 'po_nichirei_4402.pdf',
+        poApprovedDate: '2026-10-23',
+        processAndPackedBy: 'Devi Fisheries Ltd (Unit-7, GNT)',
+        portOfDischarge: 'Yokohama Port (JPYOK)',
+        isGlaze: 'Yes (10% Protective Water Glaze)',
+        deliveryTerms: 'FOB',
+        buyerOtherThanConsignee: 'Nichirei Corporation Global',
+        amountInWords: 'US Dollars Fifty-Two Thousand Two Hundred Only',
+        advanceAmount: '0.00',
+        items: [
+          {
+            variety: 'Vannamei White Shrimp',
+            grade: '26/30',
+            packingStyle: '6 X 2 KG Master Carton',
+            processType: 'HLSO (Headless Shell-On)',
+            brand: 'Devi Gold',
+            bapMaster: '4-Star BAP Certified',
+            noOfCartons: 1000,
+            totalNetWeight: 12000
+          }
+        ]
+      }
+    ],
+
+    // 2b. Packing Material Purchase Orders
+    pmPurchaseOrderList: [
+      {
+        id: 1,
+        docNo: 'PO-PM-2026-0201',
+        code: 'COD-PM-9101',
+        date: '2026-10-28',
+        supplier: 'Sri Venkateswara Packaging Ltd',
+        paymentTerms: '30 Days Net from Inward Acceptance',
+        freightType: 'Door Delivery (Freight Included)',
+        subDeliveryDate: '2026-11-05',
+        status: 'Approved',
+        narration: 'Urgent procurement of export master cartons for EU batch packaging',
+        items: [
+          {
+            item: '7-Ply Corrugated Master Cartons (1 X 10 KGS IQF Print)',
+            unit: 'MCs',
+            availQty: 2500,
+            quantity: 25000,
+            unitPrice: 58.50,
+            supplierRate: 58.50,
+            totalValue: 1462500.00,
+            discPct: 2,
+            discAmt: 29250.00,
+            gstPercent: 12,
+            sgstAmt: 85995.00,
+            cgstAmt: 85995.00,
+            igstAmt: 0.00,
+            taxAmount: 171990.00,
+            invoiceAmt: 1605240.00,
+            dispatchedDate: '2026-11-05'
+          }
+        ]
+      },
+      {
+        id: 2,
+        docNo: 'PO-PM-2026-0202',
+        code: 'COD-PM-9102',
+        date: '2026-10-27',
+        supplier: 'Apex Polymers & Films India Ltd',
+        paymentTerms: '50% Advance / 50% Inward',
+        freightType: 'Ex-Works with Paid Transit',
+        subDeliveryDate: '2026-11-03',
+        status: 'Issued to Vendor',
+        narration: 'Pre-season supply of 2-Lb printed seafood pouches for US retail order',
+        items: [
+          {
+            item: 'Printed LDPE 2-Lb Gusseted Shrimp Bags with Zipper (50 Micron)',
+            unit: 'Bags',
+            availQty: 10000,
+            quantity: 100000,
+            unitPrice: 3.40,
+            supplierRate: 3.40,
+            totalValue: 340000.00,
+            discPct: 3,
+            discAmt: 10200.00,
+            gstPercent: 18,
+            sgstAmt: 29682.00,
+            cgstAmt: 29682.00,
+            igstAmt: 0.00,
+            taxAmount: 59364.00,
+            invoiceAmt: 389164.00,
+            dispatchedDate: '2026-11-03'
+          }
+        ]
+      },
+      {
+        id: 3,
+        docNo: 'PO-PM-2026-0203',
+        code: 'COD-PM-9103',
+        date: '2026-10-26',
+        supplier: 'Modern Corrugators Visakhapatnam',
         paymentTerms: 'Immediate upon QC Approval',
-        status: 'In Transit',
-        deliveryStatus: 'Under Loading'
+        freightType: 'Door Delivery (Freight Included)',
+        subDeliveryDate: '2026-11-02',
+        status: 'In Production',
+        narration: 'Duplex inner cartons for Japanese market headless tail-on Vannamei blocks',
+        items: [
+          {
+            item: 'Duplex Printed 2-KG Inner Cartons (Vannamei Graphic)',
+            unit: 'Boxes',
+            availQty: 8000,
+            quantity: 50000,
+            unitPrice: 9.80,
+            supplierRate: 9.80,
+            totalValue: 490000.00,
+            discPct: 0,
+            discAmt: 0.00,
+            gstPercent: 12,
+            sgstAmt: 29400.00,
+            cgstAmt: 29400.00,
+            igstAmt: 0.00,
+            taxAmount: 58800.00,
+            invoiceAmt: 548800.00,
+            dispatchedDate: '2026-11-02'
+          }
+        ]
+      }
+    ],
+
+    // 2c. Packing Material Goods Receipt Notes
+    pmGrnList: [
+      {
+        id: 1,
+        docNo: 'GRN-PM-2026-0051',
+        code: 'COD-PM-9101',
+        date: '2026-10-28',
+        supplier: 'Sri Venkateswara Packaging Ltd',
+        invoiceNumber: 'INV-SVP-8821',
+        invoiceDate: '2026-10-27',
+        poNo: 'PO-PM-2026-0201',
+        freightType: 'Door Delivery (Freight Included)',
+        status: 'Verified & Binned',
+        narration: 'First shipment of 10-KG Export Master Cartons received in good order',
+        items: [
+          {
+            item: '7-Ply Corrugated Master Cartons (1 X 10 KGS IQF Print)',
+            uom: 'MCs',
+            availableQty: 2500,
+            poQty: 25000,
+            receivedQty: 25000,
+            deviationQty: 0,
+            location: 'Packaging Store Vault #1',
+            batch: 'BAT-PM-2026-01',
+            itemPrice: 58.50,
+            baseValue: 1462500.00,
+            deviationAmount: 0.00,
+            gstPercent: 12,
+            gstTaxAmount: 175500.00
+          }
+        ]
+      },
+      {
+        id: 2,
+        docNo: 'GRN-PM-2026-0052',
+        code: 'COD-PM-9102',
+        date: '2026-10-27',
+        supplier: 'Apex Polymers & Films India Ltd',
+        invoiceNumber: 'INV-APF-4419',
+        invoiceDate: '2026-10-26',
+        poNo: 'PO-PM-2026-0202',
+        freightType: 'Ex-Works with Paid Transit',
+        status: 'Verified & Binned',
+        narration: 'Printed polybags batch receipt - Quality check passed for seal integrity',
+        items: [
+          {
+            item: 'Printed LDPE 2-Lb Gusseted Shrimp Bags with Zipper (50 Micron)',
+            uom: 'Bags',
+            availableQty: 10000,
+            poQty: 100000,
+            receivedQty: 99500,
+            deviationQty: -500,
+            location: 'Central PM Bay A-2',
+            batch: 'BAT-PM-2026-02',
+            itemPrice: 3.40,
+            baseValue: 338300.00,
+            deviationAmount: -1700.00,
+            gstPercent: 18,
+            gstTaxAmount: 60894.00
+          }
+        ]
+      }
+    ],
+
+    // 2d. Packing Material Material Issues
+    pmMaterialIssueList: [
+      {
+        id: 1,
+        docNo: 'ISS-PM-2026-0031',
+        date: '2026-10-28',
+        location: 'Packaging Store Vault #1',
+        department: 'Packaging & Boxing Bay',
+        narration: 'Material issue of master cartons for shift packing target',
+        items: [
+          {
+            item: '7-Ply Corrugated Master Cartons (1 X 10 KGS IQF Print)',
+            uom: 'MCs',
+            availableQty: 25000,
+            batch: 'BAT-PM-2026-01',
+            quantity: 3500,
+            itemPrice: 58.50,
+            baseValue: 204750.00,
+            gstPercent: 12,
+            invoiceAmount: 229320.00,
+            purpose: 'Export packing of 31/40 peeled deveined shrimp',
+            attachment: '',
+            remarks: 'Shift supervisor indent approved'
+          }
+        ]
+      },
+      {
+        id: 2,
+        docNo: 'ISS-PM-2026-0032',
+        date: '2026-10-27',
+        location: 'Central PM Bay A-2',
+        department: 'IQF Line 1 Packing Table',
+        narration: 'Polybag issuance for 2-Lb retail brand run',
+        items: [
+          {
+            item: 'Printed LDPE 2-Lb Gusseted Shrimp Bags with Zipper (50 Micron)',
+            uom: 'Bags',
+            availableQty: 99500,
+            batch: 'BAT-PM-2026-02',
+            quantity: 12000,
+            itemPrice: 3.40,
+            baseValue: 40800.00,
+            gstPercent: 18,
+            invoiceAmount: 48144.00,
+            purpose: 'Retail branded zipper packaging for US consignment',
+            attachment: '',
+            remarks: 'Daily production run dispatch'
+          }
+        ]
       }
     ],
 
@@ -691,15 +986,27 @@ export const InventoryView = {
 
     const cleanHash = (activeHash || '').toLowerCase();
 
-    // General Store sub-tabs routing
-    if (cleanHash.includes('proforma-order')) {
-      this.renderGeneralStoreProformaOrder(subContainer);
-    } else if (cleanHash.includes('goods-receipt-note')) {
-      this.renderGeneralStoreGRN(subContainer);
-    } else if (cleanHash.includes('material-issue')) {
-      this.renderGeneralStoreMaterialIssue(subContainer);
-    } else if (cleanHash.includes('pm-proforma-invoice') || cleanHash.includes('packing-material')) {
-      this.renderPackingMaterialProforma(subContainer);
+    // Packing Material sub-tabs routing
+    if (cleanHash.includes('packing-material')) {
+      if (cleanHash.includes('purchase-orders')) {
+        this.renderPackingMaterialPurchaseOrders(subContainer);
+      } else if (cleanHash.includes('goods-receipt-note')) {
+        this.renderPackingMaterialGRN(subContainer);
+      } else if (cleanHash.includes('material-issue')) {
+        this.renderPackingMaterialMaterialIssue(subContainer);
+      } else {
+        this.renderPackingMaterialProformaInvoice(subContainer);
+      }
+    } else if (cleanHash.includes('general-store')) {
+      if (cleanHash.includes('proforma-order')) {
+        this.renderGeneralStoreProformaOrder(subContainer);
+      } else if (cleanHash.includes('goods-receipt-note')) {
+        this.renderGeneralStoreGRN(subContainer);
+      } else if (cleanHash.includes('material-issue')) {
+        this.renderGeneralStoreMaterialIssue(subContainer);
+      } else {
+        this.renderGeneralStoreIndentPage(subContainer);
+      }
     } else if (cleanHash.includes('proforma-register') || cleanHash.includes('inventory/inventory')) {
       this.renderInventoryProformaRegister(subContainer);
     } else {
@@ -4354,80 +4661,157 @@ export const InventoryView = {
   },
 
   // =========================================================================
-  // 2. PACKING MATERIAL: PM PROFORMA INVOICE
+  // 2. PACKING MATERIAL (PM) MODULE VIEWS
+  // Tabs: Proforma Invoice, Purchase Orders, Goods Receipt Note, Material Issue
   // =========================================================================
-  renderPackingMaterialProforma(container) {
-    const fullList = [...this.state.pmProformaList];
-    const totalValue = fullList.reduce((acc, it) => acc + (it.totalAmount || 0), 0);
-    const activeCount = fullList.filter(it => it.status === 'Approved' || it.status === 'In Transit').length;
 
+  // 2a. PROFORMA INVOICE (PM)
+  renderPackingMaterialProformaInvoice(container) {
+    const todayStr = new Date().toISOString().slice(0, 10);
     container.innerHTML = `
-      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-1">
-        <div>
-          <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Packing Material — Proforma Invoices</h1>
-          <p class="text-xs text-[#5E6C84] mt-0.5">Manage master cartons, poly liners, inner cartons &amp; packaging vendor proformas</p>
+      <div class="flex items-center justify-between pb-1 mb-2">
+        <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Proforma Invoice (PM)</h1>
+        <button type="button" id="btn-create-pm-pi" class="btn-primary border-0 px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+          <span>Add PROFORMA INVOICE</span>
+        </button>
+      </div>
+
+      <!-- Search & Filter Card -->
+      <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200">
+        <div class="flex items-center justify-between pb-1">
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+            <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
+          </div>
+          <div class="inline-flex items-center gap-2">
+            <button type="button" id="pm-pi-flt-reset-btn" class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Reset all filters">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+            </button>
+            <button type="button" id="pm-pi-flt-toggle-btn" class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Hide Filter">
+              <svg id="pm-pi-flt-toggle-icon" class="w-3.5 h-3.5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+          </div>
         </div>
-        <div class="flex items-center gap-2">
-          <button type="button" id="btn-create-pm-pi" class="btn-primary border-0 px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-            <span>New PM Proforma</span>
-          </button>
+
+        <div id="pm-pi-flt-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3 pt-3 border-t border-[#F1F5F9] mt-2 text-xs">
+          <!-- 1. DOC NO -->
+          <div>
+            <label for="pm-pi-flt-doc" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DOC NO</label>
+            <input type="text" id="pm-pi-flt-doc" placeholder="Search by Doc No..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+
+          <!-- 2. DATE -->
+          <div>
+            <label for="pm-pi-flt-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DATE</label>
+            <input type="date" id="pm-pi-flt-date" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+
+          <!-- 3. CONSIGNEE -->
+          <div>
+            <label for="pm-pi-flt-consignee" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CONSIGNEE / BUYER</label>
+            <input type="text" id="pm-pi-flt-consignee" placeholder="Search consignee..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+
+          <!-- 4. PRO NO / BUYER ORDER NO -->
+          <div>
+            <label for="pm-pi-flt-pro" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PRO NO / BUYER ORDER NO</label>
+            <input type="text" id="pm-pi-flt-pro" placeholder="Pro No or Buyer Order..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+
+          <!-- Search Button -->
+          <div class="flex items-end">
+            <button type="button" id="pm-pi-flt-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+              <span>Search</span>
+            </button>
+          </div>
         </div>
       </div>
 
-      <!-- KPI Summary Cards -->
-      <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
-        <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 shadow-2xs">
-          <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Total PM PIs</span>
-          <div class="text-xl font-extrabold text-[#172B4D] mt-1 font-mono">${fullList.length}</div>
-          <span class="text-[10px] text-[#0284C7] font-semibold">Packaging Vendor Orders</span>
-        </div>
-        <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 shadow-2xs">
-          <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Active Proformas</span>
-          <div class="text-xl font-extrabold text-[#00A4B7] mt-1 font-mono">${activeCount}</div>
-          <span class="text-[10px] text-[#00A4B7] font-semibold">In Transit / Processing</span>
-        </div>
-        <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 shadow-2xs">
-          <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Total Valuation</span>
-          <div class="text-xl font-extrabold text-[#00875A] mt-1 font-mono">₹${(totalValue / 100000).toFixed(2)} L</div>
-          <span class="text-[10px] text-[#00875A] font-semibold">Committed Proforma Value</span>
-        </div>
-      </div>
-
-      <div id="pm-proforma-table-container"></div>
+      <!-- Data Table Card (S No, Doc No, Date, Actions) -->
+      <div id="pm-pi-table-container"></div>
     `;
 
+    // Add Proforma Invoice Button click
+    container.querySelector('#btn-create-pm-pi')?.addEventListener('click', () => {
+      this.showAddPmPiModal(() => renderTable(this.state.pmProformaList));
+    });
+
+    // Render Table: S No, Doc No, Date, Actions
     const renderTable = (data) => {
       new DataTable({
-        containerId: 'pm-proforma-table-container',
-        tableTitle: `PM Proforma Invoices (${data.length})`,
+        containerId: 'pm-pi-table-container',
+        tableTitle: `Proforma Invoices (${data.length})`,
         searchable: true,
         exportable: true,
         pageSize: 10,
+        onRowClick: (row) => {
+          this.showPmPiDetailsModal(row);
+        },
         columns: [
-          { field: 'sNo', header: 'S.No', render: (v, r, idx) => `<span class="text-[#5E6C84] font-semibold">${idx + 1}</span>` },
-          { field: 'piNumber', header: 'PI Number', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] whitespace-nowrap">${v}</span>` },
-          { field: 'piDate', header: 'PI Date', sortable: true, render: v => `<span class="whitespace-nowrap text-xs text-[#172B4D] font-medium font-mono">${v}</span>` },
-          { field: 'supplierName', header: 'Supplier Name', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D] whitespace-nowrap">${v}</span>` },
-          { field: 'materialCategory', header: 'Category', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#E0F2FE] text-[#0284C7] whitespace-nowrap">${v}</span>` },
-          { field: 'itemDescription', header: 'Description', render: v => `<span class="font-medium text-xs text-[#172B4D]">${v}</span>` },
-          { field: 'quantity', header: 'Order Qty', sortable: true, render: (v, r) => `<span class="font-mono font-bold text-xs text-[#172B4D] whitespace-nowrap">${Number(v).toLocaleString()} ${r.unit}</span>` },
-          { field: 'totalAmount', header: 'Total Value (₹)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A] whitespace-nowrap">₹${Number(v).toLocaleString()}</span>` }
+          {
+            field: 'sNo',
+            header: 'S No',
+            sortable: false,
+            render: (v, r, idx) => `
+              <span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer select-none">
+                ${String(idx + 1).padStart(2, '0')}
+              </span>
+            `
+          },
+          {
+            field: 'docNo',
+            header: 'Doc No',
+            sortable: true,
+            render: (v, r) => `
+              <div class="flex flex-col">
+                <span class="font-mono font-bold text-xs text-[#172B4D] hover:text-[#00A4B7] cursor-pointer">${v || r.piNumber || '-'}</span>
+                <span class="text-[11px] text-[#5E6C84] truncate max-w-[200px]">${r.consignee || r.supplierName || ''}</span>
+              </div>
+            `
+          },
+          {
+            field: 'date',
+            header: 'Date',
+            sortable: true,
+            render: (v, r) => `<span class="font-mono text-xs text-[#172B4D]">${v || r.piDate || '-'}</span>`
+          }
         ],
         actions: [
           {
-            label: 'Receive Inward (GRN)',
-            icon: `<svg class="w-4 h-4 text-[#00875A]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`,
+            label: 'View',
+            title: 'View Proforma Invoice Details',
+            icon: `<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>`,
+            onClick: (row) => {
+              this.showPmPiDetailsModal(row);
+            }
+          },
+          {
+            label: 'Edit',
+            title: 'Edit Proforma Invoice',
+            icon: `<svg class="w-4 h-4 text-[#5E6C84] hover:text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>`,
+            onClick: (row) => {
+              this.showEditPmPiModal(row, () => renderTable(this.state.pmProformaList));
+            }
+          },
+          {
+            label: 'Delete',
+            title: 'Delete Proforma Invoice',
+            icon: `<svg class="w-4 h-4 text-[#DE350B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>`,
             onClick: (row) => {
               Modal.confirm({
-                title: 'Confirm Packaging Material Inward',
-                message: `Record inward delivery receipt for PI <strong>${row.piNumber}</strong> (${row.quantity.toLocaleString()} ${row.unit} from ${row.supplierName})?`,
-                confirmText: 'Confirm Inward',
+                title: 'Delete Proforma Invoice',
+                message: `Are you sure you want to permanently delete Proforma Invoice <strong>${row.docNo || row.piNumber}</strong>? This action cannot be undone.`,
+                confirmText: 'Delete Proforma Invoice',
+                isDestructive: true,
                 onConfirm: () => {
-                  row.deliveryStatus = 'Delivered & Verified';
-                  row.status = 'Completed';
-                  renderTable(fullList);
-                  Toast.show(`Inward GRN completed for ${row.piNumber}!`, 'success');
+                  const idx = this.state.pmProformaList.findIndex(r => r.id === row.id || r.docNo === row.docNo);
+                  if (idx !== -1) {
+                    this.state.pmProformaList.splice(idx, 1);
+                    renderTable(this.state.pmProformaList);
+                    Toast.show(`Proforma Invoice ${row.docNo || row.piNumber} deleted.`, 'success');
+                  }
                 }
               });
             }
@@ -4437,7 +4821,3447 @@ export const InventoryView = {
       });
     };
 
-    renderTable(fullList);
+    renderTable(this.state.pmProformaList);
+
+    // Search Handler
+    container.querySelector('#pm-pi-flt-search-btn')?.addEventListener('click', () => {
+      const docVal = container.querySelector('#pm-pi-flt-doc')?.value?.trim().toLowerCase();
+      const dateVal = container.querySelector('#pm-pi-flt-date')?.value;
+      const consigneeVal = container.querySelector('#pm-pi-flt-consignee')?.value?.trim().toLowerCase();
+      const proVal = container.querySelector('#pm-pi-flt-pro')?.value?.trim().toLowerCase();
+
+      const filtered = this.state.pmProformaList.filter(it => {
+        if (docVal && !((it.docNo || it.piNumber || '').toLowerCase().includes(docVal))) return false;
+        if (dateVal && (it.date || it.piDate) !== dateVal) return false;
+        if (consigneeVal && !((it.consignee || it.supplierName || '').toLowerCase().includes(consigneeVal))) return false;
+        if (proVal) {
+          const matchPro = (it.proNo || '').toLowerCase().includes(proVal);
+          const matchBo = (it.buyerOrderNo || '').toLowerCase().includes(proVal);
+          if (!matchPro && !matchBo) return false;
+        }
+        return true;
+      });
+
+      renderTable(filtered);
+      Toast.show(`Found ${filtered.length} matching proforma invoice(s)`, 'info');
+    });
+
+    // Reset Handler
+    container.querySelector('#pm-pi-flt-reset-btn')?.addEventListener('click', () => {
+      container.querySelector('#pm-pi-flt-doc').value = '';
+      container.querySelector('#pm-pi-flt-date').value = '';
+      container.querySelector('#pm-pi-flt-consignee').value = '';
+      container.querySelector('#pm-pi-flt-pro').value = '';
+      renderTable(this.state.pmProformaList);
+      Toast.show('Filters reset to default', 'info');
+    });
+
+    // Toggle Filters Accordion
+    const filterBody = container.querySelector('#pm-pi-flt-body');
+    const toggleIcon = container.querySelector('#pm-pi-flt-toggle-icon');
+    container.querySelector('#pm-pi-flt-toggle-btn')?.addEventListener('click', () => {
+      if (filterBody) {
+        filterBody.classList.toggle('hidden');
+        if (toggleIcon) {
+          toggleIcon.classList.toggle('rotate-180');
+        }
+      }
+    });
+  },
+
+  // Modal: ADD PROFORMA INVOICE
+  showAddPmPiModal(onSuccess = null) {
+    const todayStr = new Date().toISOString().slice(0, 10);
+    const nextNum = (this.state.pmProformaList?.length || 0) + 1;
+    const defaultDocNo = `PI-PM-2026-${String(40 + nextNum).padStart(4, '0')}`;
+
+    let modalStagedItems = [
+      {
+        variety: 'Vannamei White Shrimp',
+        grade: '31/40',
+        packingStyle: '10 X 1 KG Printed Pouch',
+        processType: 'PDTO (Peeled Deveined Tail-On)',
+        brand: 'Devi Gold',
+        bapMaster: '4-Star BAP Certified',
+        noOfCartons: 1500,
+        totalNetWeight: 15000
+      }
+    ];
+
+    Modal.open({
+      title: 'Add PROFORMA INVOICE',
+      size: 'full',
+      confirmActions: false,
+      content: `
+        <form id="modal-add-pm-pi-form" class="space-y-4 text-xs text-[#172B4D]" onsubmit="return false;">
+          <!-- Section 1: Header Information -->
+          <div>
+            <div class="flex items-center justify-between pb-2 mb-3 border-b border-[#DFE1E6]">
+              <div class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Proforma Invoice Header Information</h4>
+              </div>
+              <span class="text-[11px] font-semibold text-[#5E6C84]">All fields marked with <span class="text-[#DE350B] font-bold">*</span> are required</span>
+            </div>
+
+            <!-- Header Form Input Fields (4 columns responsive layout) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 bg-[#F8FAFC] border border-[#DFE1E6] p-3.5 rounded-xl">
+              <!-- 1. DOC NO -->
+              <div>
+                <label for="mpi-docno" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DOC NO <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="mpi-docno" value="${defaultDocNo}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+
+              <!-- 2. DATE -->
+              <div>
+                <label for="mpi-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DATE <span class="text-[#DE350B]">*</span></label>
+                <input type="date" id="mpi-date" value="${todayStr}" required class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
+              </div>
+
+              <!-- 3. CURRENCY -->
+              <div>
+                <label for="mpi-currency" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CURRENCY <span class="text-[#DE350B]">*</span></label>
+                <select id="mpi-currency" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="USD ($)" selected>USD ($)</option>
+                  <option value="EUR (€)">EUR (€)</option>
+                  <option value="GBP (£)">GBP (£)</option>
+                  <option value="JPY (¥)">JPY (¥)</option>
+                  <option value="INR (₹)">INR (₹)</option>
+                </select>
+              </div>
+
+              <!-- 4. EXCHANGE RATE -->
+              <div>
+                <label for="mpi-exchange-rate" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">EXCHANGE RATE</label>
+                <input type="number" id="mpi-exchange-rate" value="86.50" step="0.01" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+
+              <!-- 5. CONSIGNEE * -->
+              <div class="sm:col-span-2 md:col-span-2">
+                <label for="mpi-consignee" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CONSIGNEE <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="mpi-consignee" placeholder="Consignee company name and address..." value="AquaStar Global Foods LLC, Seattle WA" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+
+              <!-- 6. COMPANY -->
+              <div class="sm:col-span-2 md:col-span-2">
+                <label for="mpi-company" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">COMPANY</label>
+                <input type="text" id="mpi-company" value="Devi Fisheries Limited - Plant 5" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+
+              <!-- 7. PORT OF LOADING -->
+              <div>
+                <label for="mpi-pol" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PORT OF LOADING</label>
+                <input type="text" id="mpi-pol" value="Visakhapatnam Port (INVTZ1)" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+
+              <!-- 8. NOTIFY PARTY -->
+              <div>
+                <label for="mpi-notify-party" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">NOTIFY PARTY</label>
+                <input type="text" id="mpi-notify-party" value="Apex Global Logistics Newark, NJ" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+
+              <!-- 9. BUYER ORDER NO -->
+              <div>
+                <label for="mpi-buyer-order" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BUYER ORDER NO</label>
+                <input type="text" id="mpi-buyer-order" value="BO-USA-2026-9921" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+
+              <!-- 10. EXPORT REFERENCE NO -->
+              <div>
+                <label for="mpi-export-ref" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">EXPORT REFERENCE NO</label>
+                <input type="text" id="mpi-export-ref" value="EXP-REF-8841" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+
+              <!-- 11. SHIPMENT DATE -->
+              <div>
+                <label for="mpi-shipment-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SHIPMENT DATE</label>
+                <input type="date" id="mpi-shipment-date" value="2026-11-20" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
+              </div>
+
+              <!-- 12. COUNTRY OF FINAL DESTINATION -->
+              <div>
+                <label for="mpi-dest-country" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">COUNTRY OF FINAL DESTINATION</label>
+                <select id="mpi-dest-country" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="United States" selected>United States</option>
+                  <option value="Japan">Japan</option>
+                  <option value="Netherlands">Netherlands</option>
+                  <option value="United Kingdom">United Kingdom</option>
+                  <option value="Germany">Germany</option>
+                  <option value="Canada">Canada</option>
+                  <option value="Australia">Australia</option>
+                </select>
+              </div>
+
+              <!-- 13. COUNTRY OF ORIGIN -->
+              <div>
+                <label for="mpi-origin-country" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">COUNTRY OF ORIGIN</label>
+                <input type="text" id="mpi-origin-country" value="India" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-semibold text-[#172B4D] shadow-2xs cursor-not-allowed" />
+              </div>
+
+              <!-- 14. FINAL DESTINATION -->
+              <div>
+                <label for="mpi-final-dest" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FINAL DESTINATION</label>
+                <input type="text" id="mpi-final-dest" value="Los Angeles, CA" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+
+              <!-- 15. PRO NO -->
+              <div>
+                <label for="mpi-pro-no" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PRO NO</label>
+                <input type="text" id="mpi-pro-no" value="PRO-2026-0819" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+
+              <!-- 16. PURCHASE ORDER ATTACHMENT -->
+              <div>
+                <label for="mpi-po-attach" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PURCHASE ORDER ATTACHMENT</label>
+                <input type="file" id="mpi-po-attach" class="w-full text-[11px] px-2 py-1 bg-white border border-[#DFE1E6] rounded text-[#5E6C84] focus:outline-none focus:border-[#00A4B7] file:mr-2 file:py-0.5 file:px-2 file:rounded file:border-0 file:text-[10px] file:font-semibold file:bg-[#E0F2FE] file:text-[#0284C7] cursor-pointer" />
+              </div>
+
+              <!-- 17. PO APPROVED DATE -->
+              <div>
+                <label for="mpi-po-app-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PO APPROVED DATE</label>
+                <input type="date" id="mpi-po-app-date" value="2026-10-25" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
+              </div>
+
+              <!-- 18. PROCESS AND PACKED BY -->
+              <div>
+                <label for="mpi-proc-packed" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PROCESS AND PACKED BY</label>
+                <input type="text" id="mpi-proc-packed" value="Devi Fisheries Ltd (Unit-5, JPT)" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+
+              <!-- 19. PORT OF DISCHARGE -->
+              <div>
+                <label for="mpi-pod" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PORT OF DISCHARGE</label>
+                <input type="text" id="mpi-pod" value="Port of Los Angeles (USLAX)" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+
+              <!-- 20. IS GLAZE -->
+              <div>
+                <label for="mpi-is-glaze" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">IS GLAZE</label>
+                <select id="mpi-is-glaze" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="Yes (10% Protective Water Glaze)" selected>Yes (10% Protective Water Glaze)</option>
+                  <option value="Yes (15% Protective Glaze)">Yes (15% Protective Glaze)</option>
+                  <option value="Yes (20% Protective Glaze)">Yes (20% Protective Glaze)</option>
+                  <option value="No Glaze (Raw IQF Block)">No Glaze (Raw IQF Block)</option>
+                </select>
+              </div>
+
+              <!-- 21. DELIVERY TERMS -->
+              <div>
+                <label for="mpi-delivery-terms" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DELIVERY TERMS</label>
+                <select id="mpi-delivery-terms" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="CIF" selected>CIF (Cost, Insurance &amp; Freight)</option>
+                  <option value="CFR">CFR (Cost &amp; Freight)</option>
+                  <option value="FOB">FOB (Free on Board)</option>
+                  <option value="DDP">DDP (Delivered Duty Paid)</option>
+                  <option value="EXW">EXW (Ex Works)</option>
+                </select>
+              </div>
+
+              <!-- 22. BUYER (OTHER THAN CONSIGNEE) -->
+              <div>
+                <label for="mpi-buyer-other" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BUYER(OTHER THAN CONSIGNEE)</label>
+                <input type="text" id="mpi-buyer-other" value="Ocean Harvest International USA" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+
+              <!-- 23. ADVANCE AMOUNT -->
+              <div>
+                <label for="mpi-advance-amt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ADVANCE AMOUNT ($)</label>
+                <input type="number" id="mpi-advance-amt" value="19440.00" step="0.01" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#00875A] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+
+              <!-- 24. TERM OF DELIVERY AND PAYMENT -->
+              <div class="sm:col-span-2 md:col-span-2">
+                <label for="mpi-term-del-pay" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">TERM OF DELIVERY AND PAYMENT</label>
+                <input type="text" id="mpi-term-del-pay" value="CIF Los Angeles / 30% Advance, 70% against BL copy" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+
+              <!-- 25. AMOUNT IN WORDS -->
+              <div class="sm:col-span-2 md:col-span-2">
+                <label for="mpi-amt-words" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">AMOUNT IN WORDS</label>
+                <input type="text" id="mpi-amt-words" value="US Dollars Sixty-Four Thousand Eight Hundred Only" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+
+              <!-- 26. NARRATION (Full width) -->
+              <div class="sm:col-span-2 md:col-span-4">
+                <label for="mpi-narration" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">NARRATION</label>
+                <input type="text" id="mpi-narration" placeholder="Proforma purpose and special packaging instructions..." value="Export packing proforma allocation for seasonal Vannamei pack" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Work Flow - Item Details Fields -->
+          <div class="pt-2 border-t border-[#DFE1E6]">
+            <div class="flex items-center justify-between pb-2 mb-3">
+              <div class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+                <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Item Details Fields</h4>
+              </div>
+              <span id="modal-pi-items-count" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#E0F2FE] text-[#0284C7] border border-[#BAE6FD]">
+                ${modalStagedItems.length} Item(s) Added
+              </span>
+            </div>
+
+            <!-- Item Input Grid Card (4 columns responsive layout) -->
+            <div class="bg-[#F8FAFC] border border-[#DFE1E6] rounded-xl p-3.5 space-y-3 shadow-2xs">
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+                <!-- 1. Variety * -->
+                <div>
+                  <label for="mpi-item-variety" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">VARIETY <span class="text-[#DE350B]">*</span></label>
+                  <select id="mpi-item-variety" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                    <option value="Vannamei White Shrimp" selected>Vannamei White Shrimp</option>
+                    <option value="Black Tiger Shrimp">Black Tiger Shrimp</option>
+                    <option value="Sea White Shrimp">Sea White Shrimp</option>
+                    <option value="Pink Brown Shrimp">Pink Brown Shrimp</option>
+                    <option value="Freshwater Scampi">Freshwater Scampi</option>
+                  </select>
+                </div>
+
+                <!-- 2. Grade -->
+                <div>
+                  <label for="mpi-item-grade" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">GRADE</label>
+                  <select id="mpi-item-grade" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                    <option value="16/20">16/20</option>
+                    <option value="21/25">21/25</option>
+                    <option value="26/30">26/30</option>
+                    <option value="31/40" selected>31/40</option>
+                    <option value="41/50">41/50</option>
+                    <option value="51/60">51/60</option>
+                    <option value="61/70">61/70</option>
+                    <option value="71/90">71/90</option>
+                  </select>
+                </div>
+
+                <!-- 3. Packing Style -->
+                <div>
+                  <label for="mpi-item-packing-style" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PACKING STYLE</label>
+                  <select id="mpi-item-packing-style" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                    <option value="10 X 1 KG Printed Pouch" selected>10 X 1 KG Printed Pouch</option>
+                    <option value="6 X 2 KG Master Carton">6 X 2 KG Master Carton</option>
+                    <option value="1 X 10 KG Block IQF">1 X 10 KG Block IQF</option>
+                    <option value="5 X 2 Lb Retail Zipper Bag">5 X 2 Lb Retail Zipper Bag</option>
+                    <option value="10 X 2 Lb Export Master">10 X 2 Lb Export Master</option>
+                  </select>
+                </div>
+
+                <!-- 4. Process Type -->
+                <div>
+                  <label for="mpi-item-process-type" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PROCESS TYPE</label>
+                  <select id="mpi-item-process-type" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                    <option value="PDTO (Peeled Deveined Tail-On)" selected>PDTO (Peeled Deveined Tail-On)</option>
+                    <option value="HLSO (Headless Shell-On)">HLSO (Headless Shell-On)</option>
+                    <option value="PD (Peeled &amp; Deveined)">PD (Peeled &amp; Deveined)</option>
+                    <option value="Cooked Tail-On">Cooked Tail-On</option>
+                    <option value="EZ Peel">EZ Peel</option>
+                  </select>
+                </div>
+
+                <!-- 5. Brand -->
+                <div>
+                  <label for="mpi-item-brand" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BRAND</label>
+                  <input type="text" id="mpi-item-brand" value="Devi Gold" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                </div>
+
+                <!-- 6. BAP Master -->
+                <div>
+                  <label for="mpi-item-bap" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BAP MASTER</label>
+                  <select id="mpi-item-bap" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                    <option value="4-Star BAP Certified" selected>4-Star BAP Certified</option>
+                    <option value="3-Star BAP">3-Star BAP</option>
+                    <option value="ASC Certified">ASC Certified</option>
+                    <option value="BRCGS Grade A">BRCGS Grade A</option>
+                  </select>
+                </div>
+
+                <!-- 7. No of Cartons -->
+                <div>
+                  <label for="mpi-item-cartons" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">NO OF CARTONS <span class="text-[#DE350B]">*</span></label>
+                  <input type="number" id="mpi-item-cartons" value="1500" min="1" step="1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                </div>
+
+                <!-- 8. Total Net Weight(KGs) -->
+                <div>
+                  <label for="mpi-item-weight" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">TOTAL NET WEIGHT (KGS) <span class="text-[#DE350B]">*</span></label>
+                  <input type="number" id="mpi-item-weight" value="15000" min="1" step="1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                </div>
+
+                <!-- 9. Action Button (Placed directly after with max-width 150px) -->
+                <div>
+                  <label class="block text-[11px] font-bold text-transparent uppercase tracking-wider mb-1 select-none">&nbsp;</label>
+                  <button type="button" id="modal-pi-btn-add-item" class="btn-primary w-full max-w-[150px] h-[32px] px-4 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                    <span>Add Item</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Staged Items Preview Table -->
+            <div class="mt-3 overflow-x-auto border border-[#DFE1E6] rounded-xl bg-white shadow-2xs">
+              <table class="w-full text-left text-xs border-collapse">
+                <thead class="bg-[#F8FAFC] border-b border-[#DFE1E6] text-[#475569] font-bold text-[11px] uppercase tracking-wider">
+                  <tr>
+                    <th class="py-2.5 px-3">Variety</th>
+                    <th class="py-2.5 px-3">Grade</th>
+                    <th class="py-2.5 px-3">Packing Style</th>
+                    <th class="py-2.5 px-3">Process Type</th>
+                    <th class="py-2.5 px-3">Brand</th>
+                    <th class="py-2.5 px-3">BAP Master</th>
+                    <th class="py-2.5 px-3 text-right">No of Cartons</th>
+                    <th class="py-2.5 px-3 text-right">Total Net Wt (KGs)</th>
+                    <th class="py-2.5 px-3 text-center">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="modal-pi-staged-tbody" class="divide-y divide-[#DFE1E6] text-[#1E293B]">
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </form>
+      `,
+      footerButtons: [
+        {
+          label: 'Cancel',
+          type: 'secondary',
+          class: 'btn-secondary border border-[#CBD5E1] px-5 py-2 rounded-full text-xs font-semibold text-[#475569] hover:bg-[#F8FAFC] transition-all cursor-pointer',
+          onClick: () => Modal.close()
+        },
+        {
+          label: 'Save PROFORMA INVOICE',
+          type: 'primary',
+          class: 'btn-primary border-0 px-6 py-2 rounded-full text-xs font-semibold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all',
+          onClick: () => {
+            const modalRoot = document.getElementById('erp-modal-root');
+            if (!modalRoot) return;
+
+            const docNo = modalRoot.querySelector('#mpi-docno')?.value?.trim();
+            const date = modalRoot.querySelector('#mpi-date')?.value;
+            const consignee = modalRoot.querySelector('#mpi-consignee')?.value?.trim();
+            const currency = modalRoot.querySelector('#mpi-currency')?.value;
+            const exchangeRate = modalRoot.querySelector('#mpi-exchange-rate')?.value;
+            const company = modalRoot.querySelector('#mpi-company')?.value?.trim();
+            const portOfLoading = modalRoot.querySelector('#mpi-pol')?.value?.trim();
+            const notifyParty = modalRoot.querySelector('#mpi-notify-party')?.value?.trim();
+            const buyerOrderNo = modalRoot.querySelector('#mpi-buyer-order')?.value?.trim();
+            const exportReferenceNo = modalRoot.querySelector('#mpi-export-ref')?.value?.trim();
+            const shipmentDate = modalRoot.querySelector('#mpi-shipment-date')?.value;
+            const countryOfFinalDestination = modalRoot.querySelector('#mpi-dest-country')?.value;
+            const countryOfOrigin = modalRoot.querySelector('#mpi-origin-country')?.value;
+            const finalDestination = modalRoot.querySelector('#mpi-final-dest')?.value?.trim();
+            const proNo = modalRoot.querySelector('#mpi-pro-no')?.value?.trim();
+            const poApprovedDate = modalRoot.querySelector('#mpi-po-app-date')?.value;
+            const processAndPackedBy = modalRoot.querySelector('#mpi-proc-packed')?.value?.trim();
+            const portOfDischarge = modalRoot.querySelector('#mpi-pod')?.value?.trim();
+            const isGlaze = modalRoot.querySelector('#mpi-is-glaze')?.value;
+            const deliveryTerms = modalRoot.querySelector('#mpi-delivery-terms')?.value;
+            const buyerOtherThanConsignee = modalRoot.querySelector('#mpi-buyer-other')?.value?.trim();
+            const advanceAmount = modalRoot.querySelector('#mpi-advance-amt')?.value;
+            const termOfDeliveryAndPayment = modalRoot.querySelector('#mpi-term-del-pay')?.value?.trim();
+            const amountInWords = modalRoot.querySelector('#mpi-amt-words')?.value?.trim();
+            const narration = modalRoot.querySelector('#mpi-narration')?.value?.trim();
+
+            if (!docNo) {
+              Toast.show('DOC NO is required', 'error');
+              modalRoot.querySelector('#mpi-docno')?.focus();
+              return;
+            }
+            if (!consignee) {
+              Toast.show('CONSIGNEE is required', 'error');
+              modalRoot.querySelector('#mpi-consignee')?.focus();
+              return;
+            }
+            if (modalStagedItems.length === 0) {
+              Toast.show('Please add at least one item before saving.', 'warning');
+              return;
+            }
+
+            // Custom Confirmation Popup
+            Modal.confirm({
+              title: 'Confirm Save PROFORMA INVOICE',
+              message: `Are you sure you want to save Proforma Invoice <strong>${docNo}</strong> for <strong>${consignee}</strong> with <strong>${modalStagedItems.length} item(s)</strong>?`,
+              confirmText: 'Save Proforma Invoice',
+              onConfirm: () => {
+                const newRecord = {
+                  id: (this.state.pmProformaList?.length || 0) + 1,
+                  docNo,
+                  date,
+                  currency,
+                  exchangeRate,
+                  consignee,
+                  company,
+                  portOfLoading,
+                  notifyParty,
+                  buyerOrderNo,
+                  exportReferenceNo,
+                  shipmentDate,
+                  countryOfFinalDestination,
+                  countryOfOrigin,
+                  finalDestination,
+                  proNo,
+                  poApprovedDate,
+                  processAndPackedBy,
+                  portOfDischarge,
+                  isGlaze,
+                  deliveryTerms,
+                  buyerOtherThanConsignee,
+                  advanceAmount,
+                  termOfDeliveryAndPayment,
+                  amountInWords,
+                  narration,
+                  status: 'Approved',
+                  items: [...modalStagedItems]
+                };
+
+                this.state.pmProformaList.unshift(newRecord);
+                Modal.close();
+                Toast.show(`Proforma Invoice ${docNo} created successfully!`, 'success');
+
+                if (typeof onSuccess === 'function') {
+                  onSuccess();
+                }
+              }
+            });
+          }
+        }
+      ]
+    });
+
+    const modalRoot = document.getElementById('erp-modal-root');
+    if (!modalRoot) return;
+
+    // Render Staged Items
+    const renderModalStagedItems = () => {
+      const tbody = modalRoot.querySelector('#modal-pi-staged-tbody');
+      const countEl = modalRoot.querySelector('#modal-pi-items-count');
+      if (countEl) countEl.textContent = `${modalStagedItems.length} Item(s) Added`;
+      if (!tbody) return;
+
+      if (modalStagedItems.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="9" class="py-4 text-center text-[#5E6C84]">No items added yet. Fill fields above and click "+ Add Item".</td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = modalStagedItems.map((it, idx) => `
+        <tr class="hover:bg-[#F8FAFC] transition-colors">
+          <td class="py-2.5 px-3 font-semibold text-[#172B4D]">${it.variety}</td>
+          <td class="py-2.5 px-3 font-mono text-[#00A4B7] font-bold">${it.grade}</td>
+          <td class="py-2.5 px-3 text-[#172B4D]">${it.packingStyle}</td>
+          <td class="py-2.5 px-3 text-[#5E6C84]">${it.processType}</td>
+          <td class="py-2.5 px-3 font-semibold text-[#172B4D]">${it.brand}</td>
+          <td class="py-2.5 px-3 text-[11px] text-[#0284C7] font-semibold">${it.bapMaster}</td>
+          <td class="py-2.5 px-3 text-right font-mono font-bold text-[#172B4D]">${Number(it.noOfCartons).toLocaleString()}</td>
+          <td class="py-2.5 px-3 text-right font-mono font-bold text-[#00875A]">${Number(it.totalNetWeight).toLocaleString()} KGs</td>
+          <td class="py-2.5 px-3 text-center">
+            <button type="button" data-remove-idx="${idx}" class="modal-remove-item-btn w-6 h-6 rounded-full hover:bg-[#FFEBE6] text-[#DE350B] inline-flex items-center justify-center transition-colors cursor-pointer" title="Remove Item">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+            </button>
+          </td>
+        </tr>
+      `).join('');
+
+      tbody.querySelectorAll('.modal-remove-item-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const rIdx = parseInt(btn.dataset.removeIdx, 10);
+          modalStagedItems.splice(rIdx, 1);
+          renderModalStagedItems();
+        });
+      });
+    };
+
+    renderModalStagedItems();
+
+    // Add Item click handler
+    modalRoot.querySelector('#modal-pi-btn-add-item')?.addEventListener('click', () => {
+      const variety = modalRoot.querySelector('#mpi-item-variety')?.value;
+      const grade = modalRoot.querySelector('#mpi-item-grade')?.value;
+      const packingStyle = modalRoot.querySelector('#mpi-item-packing-style')?.value;
+      const processType = modalRoot.querySelector('#mpi-item-process-type')?.value;
+      const brand = modalRoot.querySelector('#mpi-item-brand')?.value?.trim() || 'Devi Gold';
+      const bapMaster = modalRoot.querySelector('#mpi-item-bap')?.value;
+      const noOfCartons = parseInt(modalRoot.querySelector('#mpi-item-cartons')?.value, 10) || 0;
+      const totalNetWeight = parseFloat(modalRoot.querySelector('#mpi-item-weight')?.value) || 0;
+
+      if (!variety) {
+        Toast.show('Please select a Variety.', 'warning');
+        return;
+      }
+      if (noOfCartons <= 0) {
+        Toast.show('No of Cartons must be greater than 0', 'warning');
+        modalRoot.querySelector('#mpi-item-cartons')?.focus();
+        return;
+      }
+      if (totalNetWeight <= 0) {
+        Toast.show('Total Net Weight must be greater than 0', 'warning');
+        modalRoot.querySelector('#mpi-item-weight')?.focus();
+        return;
+      }
+
+      modalStagedItems.push({
+        variety,
+        grade,
+        packingStyle,
+        processType,
+        brand,
+        bapMaster,
+        noOfCartons,
+        totalNetWeight
+      });
+
+      renderModalStagedItems();
+      Toast.show(`Item added to Proforma Invoice (${modalStagedItems.length} total)`, 'success');
+    });
+  },
+
+  // Modal: EDIT PROFORMA INVOICE
+  showEditPmPiModal(row, onSuccess = null) {
+    Modal.open({
+      title: `Edit Proforma Invoice: ${row.docNo || row.piNumber}`,
+      size: 'lg',
+      confirmActions: false,
+      content: `
+        <form id="form-edit-pm-pi" class="space-y-4 text-xs text-[#172B4D]" onsubmit="return false;">
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DOC NO</label>
+              <input type="text" value="${row.docNo || row.piNumber}" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] cursor-not-allowed" />
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DATE</label>
+              <input type="date" id="edit-pm-pi-date" value="${row.date || row.piDate || ''}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CURRENCY</label>
+              <input type="text" id="edit-pm-pi-currency" value="${row.currency || 'USD ($)'}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            </div>
+            <div class="sm:col-span-2 md:col-span-3">
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CONSIGNEE</label>
+              <input type="text" id="edit-pm-pi-consignee" value="${row.consignee || row.supplierName || ''}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FINAL DESTINATION</label>
+              <input type="text" id="edit-pm-pi-dest" value="${row.finalDestination || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PRO NO</label>
+              <input type="text" id="edit-pm-pi-pro" value="${row.proNo || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BUYER ORDER NO</label>
+              <input type="text" id="edit-pm-pi-order" value="${row.buyerOrderNo || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            </div>
+            <div class="sm:col-span-2 md:col-span-3">
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">NARRATION</label>
+              <input type="text" id="edit-pm-pi-narration" value="${row.narration || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            </div>
+          </div>
+        </form>
+      `,
+      footerButtons: [
+        {
+          label: 'Cancel',
+          type: 'secondary',
+          class: 'btn-secondary border border-[#CBD5E1] px-5 py-2 rounded-full text-xs font-semibold text-[#475569] hover:bg-[#F8FAFC] transition-all cursor-pointer',
+          onClick: () => Modal.close()
+        },
+        {
+          label: 'Update Proforma Invoice',
+          type: 'primary',
+          class: 'btn-primary border-0 px-6 py-2 rounded-full text-xs font-semibold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all',
+          onClick: () => {
+            const date = document.getElementById('edit-pm-pi-date')?.value;
+            const consignee = document.getElementById('edit-pm-pi-consignee')?.value?.trim();
+            const currency = document.getElementById('edit-pm-pi-currency')?.value;
+            const finalDestination = document.getElementById('edit-pm-pi-dest')?.value?.trim();
+            const proNo = document.getElementById('edit-pm-pi-pro')?.value?.trim();
+            const buyerOrderNo = document.getElementById('edit-pm-pi-order')?.value?.trim();
+            const narration = document.getElementById('edit-pm-pi-narration')?.value?.trim();
+
+            if (!consignee) {
+              Toast.show('Consignee is required', 'error');
+              return;
+            }
+
+            Modal.confirm({
+              title: 'Confirm Update Proforma Invoice',
+              message: `Are you sure you want to update Proforma Invoice <strong>${row.docNo || row.piNumber}</strong>?`,
+              confirmText: 'Update Proforma Invoice',
+              onConfirm: () => {
+                row.date = date;
+                row.consignee = consignee;
+                row.currency = currency;
+                row.finalDestination = finalDestination;
+                row.proNo = proNo;
+                row.buyerOrderNo = buyerOrderNo;
+                row.narration = narration;
+
+                Modal.close();
+                Toast.show(`Proforma Invoice ${row.docNo || row.piNumber} updated successfully!`, 'success');
+                if (typeof onSuccess === 'function') onSuccess();
+              }
+            });
+          }
+        }
+      ]
+    });
+  },
+
+  // Modal: VIEW DETAILS PROFORMA INVOICE
+  showPmPiDetailsModal(row) {
+    const items = row.items || [];
+    Modal.open({
+      title: `Proforma Invoice Details: ${row.docNo || row.piNumber}`,
+      size: '2xl',
+      content: `
+        <div class="space-y-4 text-xs text-[#172B4D]">
+          <!-- Header Information Grid -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-[#F8FAFC] border border-[#DFE1E6] p-3.5 rounded-xl">
+            <div>
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">DOC NO</span>
+              <span class="font-mono font-bold text-xs text-[#00A4B7]">${row.docNo || row.piNumber || '-'}</span>
+            </div>
+            <div>
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">DATE</span>
+              <span class="font-mono text-xs text-[#172B4D]">${row.date || row.piDate || '-'}</span>
+            </div>
+            <div>
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">CURRENCY</span>
+              <span class="font-semibold text-xs text-[#172B4D]">${row.currency || 'USD ($)'} (Ex. Rate: ${row.exchangeRate || '86.50'})</span>
+            </div>
+            <div>
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">PRO NO / BO NO</span>
+              <span class="font-mono text-xs text-[#172B4D]">${row.proNo || '-'} / ${row.buyerOrderNo || '-'}</span>
+            </div>
+            <div class="sm:col-span-2">
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">CONSIGNEE</span>
+              <span class="font-semibold text-xs text-[#172B4D]">${row.consignee || row.supplierName || '-'}</span>
+            </div>
+            <div class="sm:col-span-2">
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">COMPANY</span>
+              <span class="font-medium text-xs text-[#172B4D]">${row.company || 'Devi Fisheries Limited - Plant 5'}</span>
+            </div>
+            <div>
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">PORT OF LOADING</span>
+              <span class="text-xs text-[#172B4D]">${row.portOfLoading || '-'}</span>
+            </div>
+            <div>
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">PORT OF DISCHARGE</span>
+              <span class="text-xs text-[#172B4D]">${row.portOfDischarge || '-'}</span>
+            </div>
+            <div>
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">FINAL DESTINATION</span>
+              <span class="text-xs text-[#172B4D]">${row.finalDestination || row.countryOfFinalDestination || '-'}</span>
+            </div>
+            <div>
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">DELIVERY TERMS</span>
+              <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-[#E0F2FE] text-[#0284C7]">${row.deliveryTerms || 'CIF'}</span>
+            </div>
+            <div class="sm:col-span-2">
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">TERMS OF DELIVERY &amp; PAYMENT</span>
+              <span class="text-xs text-[#172B4D]">${row.termOfDeliveryAndPayment || '-'}</span>
+            </div>
+            <div class="sm:col-span-2">
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">AMOUNT IN WORDS</span>
+              <span class="text-xs italic text-[#172B4D]">${row.amountInWords || '-'}</span>
+            </div>
+            ${row.narration ? `
+              <div class="col-span-2 sm:col-span-4 border-t border-[#DFE1E6] pt-2 mt-1">
+                <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">NARRATION</span>
+                <span class="text-xs text-[#172B4D] font-medium">${row.narration}</span>
+              </div>
+            ` : ''}
+          </div>
+
+          <!-- Items Table -->
+          <div>
+            <div class="flex items-center justify-between pb-2 mb-2 border-b border-[#DFE1E6]">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Item Details (${items.length})</h4>
+            </div>
+            <div class="overflow-x-auto border border-[#DFE1E6] rounded-xl bg-white shadow-2xs">
+              <table class="w-full text-left text-xs border-collapse">
+                <thead class="bg-[#F8FAFC] border-b border-[#DFE1E6] text-[#475569] font-bold text-[11px] uppercase tracking-wider">
+                  <tr>
+                    <th class="py-2.5 px-3">Variety</th>
+                    <th class="py-2.5 px-3">Grade</th>
+                    <th class="py-2.5 px-3">Packing Style</th>
+                    <th class="py-2.5 px-3">Process Type</th>
+                    <th class="py-2.5 px-3">Brand</th>
+                    <th class="py-2.5 px-3">BAP Master</th>
+                    <th class="py-2.5 px-3 text-right">No of Cartons</th>
+                    <th class="py-2.5 px-3 text-right">Total Net Wt (KGs)</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-[#DFE1E6] text-[#1E293B]">
+                  ${items.map(it => `
+                    <tr class="hover:bg-[#F8FAFC]">
+                      <td class="py-2.5 px-3 font-semibold text-[#172B4D]">${it.variety || it.item || '-'}</td>
+                      <td class="py-2.5 px-3 font-mono text-[#00A4B7] font-bold">${it.grade || '-'}</td>
+                      <td class="py-2.5 px-3 text-[#172B4D]">${it.packingStyle || it.unit || '-'}</td>
+                      <td class="py-2.5 px-3 text-[#5E6C84]">${it.processType || '-'}</td>
+                      <td class="py-2.5 px-3 font-semibold text-[#172B4D]">${it.brand || '-'}</td>
+                      <td class="py-2.5 px-3 text-[11px] text-[#0284C7] font-semibold">${it.bapMaster || '-'}</td>
+                      <td class="py-2.5 px-3 text-right font-mono font-bold text-[#172B4D]">${Number(it.noOfCartons || it.quantity || 0).toLocaleString()}</td>
+                      <td class="py-2.5 px-3 text-right font-mono font-bold text-[#00875A]">${Number(it.totalNetWeight || it.baseValue || 0).toLocaleString()} KGs</td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      `,
+      footerButtons: [
+        {
+          label: 'Close',
+          type: 'secondary',
+          class: 'btn-secondary border border-[#CBD5E1] px-5 py-2 rounded-full text-xs font-semibold text-[#475569] hover:bg-[#F8FAFC] transition-all cursor-pointer',
+          onClick: () => Modal.close()
+        }
+      ]
+    });
+  },
+
+  // Backward compatibility alias for any existing router/calls
+  renderPackingMaterialProforma(container) {
+    this.renderPackingMaterialProformaInvoice(container);
+  },
+
+  // =========================================================================
+  // 2b. PURCHASE ORDERS (PM)
+  // =========================================================================
+  renderPackingMaterialPurchaseOrders(container) {
+    const todayStr = new Date().toISOString().slice(0, 10);
+
+    container.innerHTML = `
+      <!-- Page Header -->
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-1">
+        <div>
+          <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Purchase Orders (PM)</h1>
+        </div>
+        <div class="flex items-center gap-2">
+          <button type="button" id="pm-po-toggle-form-btn" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+            <span id="pm-po-toggle-text">Add Purchase Order</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Search & Filter Card -->
+      <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200">
+        <div class="flex items-center justify-between pb-1">
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+            <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
+          </div>
+          <div class="inline-flex items-center gap-2">
+            <button type="button" id="pm-po-filter-reset-btn" class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Reset all filters">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+            </button>
+            <button type="button" id="pm-po-filter-toggle-btn" class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Hide Filter">
+              <svg id="pm-po-filter-toggle-icon" class="w-3.5 h-3.5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div id="pm-po-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3 pt-3 border-t border-[#F1F5F9] mt-2 text-xs">
+          <!-- Filter: DOC NO / CODE -->
+          <div>
+            <label for="pm-po-flt-doc" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DOC NO / CODE</label>
+            <input type="text" id="pm-po-flt-doc" placeholder="Search Doc No or Code..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+
+          <!-- Filter: FROM DATE -->
+          <div>
+            <label for="pm-po-flt-from" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FROM DATE</label>
+            <input type="date" id="pm-po-flt-from" value="2026-10-01" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+
+          <!-- Filter: TO DATE -->
+          <div>
+            <label for="pm-po-flt-to" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">TO DATE</label>
+            <input type="date" id="pm-po-flt-to" value="${todayStr}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+
+          <!-- Filter: SUPPLIER -->
+          <div>
+            <label for="pm-po-flt-sup" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SUPPLIER</label>
+            <select id="pm-po-flt-sup" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL">All Packaging Suppliers</option>
+              <option value="Sri Venkateswara Packaging Ltd">Sri Venkateswara Packaging Ltd</option>
+              <option value="Apex Polymers & Films India Ltd">Apex Polymers &amp; Films India Ltd</option>
+              <option value="Modern Corrugators Visakhapatnam">Modern Corrugators Visakhapatnam</option>
+              <option value="South Coast Boxes & Cartons">South Coast Boxes &amp; Cartons</option>
+              <option value="Delta Polyfilms Corp">Delta Polyfilms Corp</option>
+            </select>
+          </div>
+
+          <!-- Search Button -->
+          <div class="flex items-end">
+            <button type="button" id="pm-po-flt-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+              <span>Search</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Existing PM POs Table Card: S No, Doc No, Code, Date, Supplier, Actions -->
+      <div id="pm-po-table-container"></div>
+    `;
+
+    // Direct Click Handler for "Add Purchase Order" Button -> Opens Add PO Modal Popup
+    container.querySelector('#pm-po-toggle-form-btn')?.addEventListener('click', () => {
+      this.showAddPmPoModal(() => {
+        renderTable(this.state.pmPurchaseOrderList);
+      });
+    });
+
+    // Render Existing PM POs Table: S No, Doc No, Code, Date, Supplier, Actions
+    const renderTable = (data) => {
+      new DataTable({
+        containerId: 'pm-po-table-container',
+        tableTitle: `Existing Packaging Material Purchase Orders (${data.length})`,
+        searchable: true,
+        exportable: true,
+        pageSize: 10,
+        onRowClick: (row) => {
+          this.showPmPoDetailModal(row);
+        },
+        columns: [
+          {
+            field: 'sNo',
+            header: 'S No',
+            sortable: true,
+            render: (v, r, idx) => `
+              <span class="text-[#00A4B7] font-semibold hover:underline cursor-pointer select-none" title="Click to view full PO details">${idx + 1}</span>
+            `
+          },
+          {
+            field: 'docNo',
+            header: 'Doc No',
+            sortable: true,
+            render: (v, r) => `
+              <span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer whitespace-nowrap" title="Click to view full PO details">${v}</span>
+            `
+          },
+          {
+            field: 'code',
+            header: 'Code',
+            sortable: true,
+            render: v => `<span class="font-mono font-semibold text-xs text-[#172B4D] whitespace-nowrap">${v || '-'}</span>`
+          },
+          {
+            field: 'date',
+            header: 'Date',
+            sortable: true,
+            render: v => `<span class="whitespace-nowrap text-xs text-[#172B4D] font-medium font-mono">${v}</span>`
+          },
+          {
+            field: 'supplier',
+            header: 'Supplier',
+            sortable: true,
+            render: (v, r) => `
+              <div class="flex flex-col">
+                <span class="font-semibold text-xs text-[#172B4D] whitespace-nowrap">${v}</span>
+                <span class="text-[10px] text-[#5E6C84]">${r.paymentTerms || ''} ${r.freightType ? '• ' + r.freightType : ''}</span>
+              </div>
+            `
+          }
+        ],
+        actionsTitle: 'Actions',
+        actions: [
+          {
+            label: 'View',
+            title: 'View PO Details',
+            icon: `<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>`,
+            onClick: (row) => {
+              this.showPmPoDetailModal(row);
+            }
+          },
+          {
+            label: 'Edit',
+            title: 'Edit Purchase Order',
+            icon: `<svg class="w-4 h-4 text-[#0284C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>`,
+            onClick: (row) => {
+              this.showEditPmPoModal(row, () => {
+                renderTable(this.state.pmPurchaseOrderList);
+              });
+            }
+          },
+          {
+            label: 'Delete',
+            title: 'Delete Purchase Order',
+            icon: `<svg class="w-4 h-4 text-[#DE350B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>`,
+            onClick: (row) => {
+              Modal.confirm({
+                title: 'Delete Purchase Order (PM)',
+                message: `Are you sure you want to delete Packaging Purchase Order <strong>${row.docNo}</strong> (${row.supplier})? This action cannot be undone.`,
+                confirmText: 'Delete Order',
+                isDestructive: true,
+                onConfirm: () => {
+                  const idx = this.state.pmPurchaseOrderList.findIndex(r => r.id === row.id || r.docNo === row.docNo);
+                  if (idx !== -1) {
+                    this.state.pmPurchaseOrderList.splice(idx, 1);
+                    renderTable(this.state.pmPurchaseOrderList);
+                    Toast.show(`Purchase Order ${row.docNo} deleted.`, 'success');
+                  }
+                }
+              });
+            }
+          }
+        ],
+        data: data
+      });
+    };
+
+    renderTable(this.state.pmPurchaseOrderList);
+
+    // Search & Filter Handlers
+    container.querySelector('#pm-po-flt-search-btn')?.addEventListener('click', () => {
+      const docVal = container.querySelector('#pm-po-flt-doc')?.value?.trim().toLowerCase();
+      const fromVal = container.querySelector('#pm-po-flt-from')?.value;
+      const toVal = container.querySelector('#pm-po-flt-to')?.value;
+      const supVal = container.querySelector('#pm-po-flt-sup')?.value;
+
+      const filtered = this.state.pmPurchaseOrderList.filter(it => {
+        if (docVal) {
+          const matchDoc = it.docNo.toLowerCase().includes(docVal);
+          const matchCode = it.code?.toLowerCase().includes(docVal);
+          if (!matchDoc && !matchCode) return false;
+        }
+        if (fromVal && it.date < fromVal) return false;
+        if (toVal && it.date > toVal) return false;
+        if (supVal && supVal !== 'ALL' && it.supplier !== supVal) return false;
+        return true;
+      });
+
+      renderTable(filtered);
+      Toast.show(`Found ${filtered.length} matching purchase order(s)`, 'info');
+    });
+
+    container.querySelector('#pm-po-filter-reset-btn')?.addEventListener('click', () => {
+      container.querySelector('#pm-po-flt-doc').value = '';
+      container.querySelector('#pm-po-flt-from').value = '2026-10-01';
+      container.querySelector('#pm-po-flt-to').value = todayStr;
+      container.querySelector('#pm-po-flt-sup').value = 'ALL';
+      renderTable(this.state.pmPurchaseOrderList);
+      Toast.show('PO filters reset to default', 'info');
+    });
+
+    // Toggle Filters Accordion
+    const poFilterBody = container.querySelector('#pm-po-filter-body');
+    const poToggleIcon = container.querySelector('#pm-po-filter-toggle-icon');
+    container.querySelector('#pm-po-filter-toggle-btn')?.addEventListener('click', () => {
+      if (poFilterBody) {
+        poFilterBody.classList.toggle('hidden');
+        if (poToggleIcon) {
+          poToggleIcon.classList.toggle('rotate-180');
+        }
+      }
+    });
+  },
+
+  // Modal: Add Packaging Purchase Order
+  showAddPmPoModal(onSuccess = null) {
+    const todayStr = new Date().toISOString().slice(0, 10);
+    const nextPoNum = (this.state.pmPurchaseOrderList?.length || 0) + 1;
+    const defaultDocNo = `PO-PM-2026-${String(200 + nextPoNum).padStart(4, '0')}`;
+    const defaultCode = `COD-PM-${9100 + nextPoNum}`;
+
+    let orderItems = [
+      {
+        item: '7-Ply Corrugated Master Cartons (1 X 10 KGS IQF Print)',
+        unit: 'MCs',
+        availQty: 2500,
+        unitPrice: 58.50,
+        supplierRate: 58.50,
+        quantity: 20000,
+        discPct: 2,
+        discAmt: 23400.00,
+        baseValue: 1146600.00,
+        gstPercent: 12,
+        taxAmount: 137592.00,
+        invoiceAmt: 1284192.00,
+        dispatchedDate: todayStr
+      }
+    ];
+
+    const recalculateTotals = () => {
+      const totalBase = orderItems.reduce((acc, it) => acc + (it.baseValue || 0), 0);
+      const totalTax = orderItems.reduce((acc, it) => acc + (it.taxAmount || 0), 0);
+      const netInvoice = orderItems.reduce((acc, it) => acc + (it.invoiceAmt || 0), 0);
+
+      const itemsCountEl = document.getElementById('pm-po-modal-items-count');
+      const baseEl = document.getElementById('pm-po-modal-total-base');
+      const taxEl = document.getElementById('pm-po-modal-total-tax');
+      const netEl = document.getElementById('pm-po-modal-net-inv');
+
+      if (itemsCountEl) itemsCountEl.innerText = orderItems.length;
+      if (baseEl) baseEl.innerText = `₹${totalBase.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      if (taxEl) taxEl.innerText = `₹${totalTax.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      if (netEl) netEl.innerText = `₹${netInvoice.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    };
+
+    const renderItemsTable = () => {
+      const tbody = document.getElementById('pm-po-modal-items-tbody');
+      if (!tbody) return;
+
+      if (orderItems.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="9" class="text-center py-5 text-[#5E6C84] italic">
+              No items added yet. Enter item details above and click "Add Item".
+            </td>
+          </tr>
+        `;
+        recalculateTotals();
+        return;
+      }
+
+      tbody.innerHTML = orderItems.map((it, idx) => `
+        <tr class="hover:bg-[#F8FAFC]">
+          <td class="py-2 px-3 font-semibold text-[#172B4D]">${it.item}</td>
+          <td class="py-2 px-3 text-[#5E6C84]">${it.unit}</td>
+          <td class="py-2 px-3 text-right font-mono font-bold text-[#172B4D]">${it.quantity.toLocaleString()}</td>
+          <td class="py-2 px-3 text-right font-mono text-[#172B4D]">₹${it.unitPrice.toFixed(2)}</td>
+          <td class="py-2 px-3 text-right font-mono text-[#172B4D]">₹${it.baseValue.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
+          <td class="py-2 px-3 text-right font-mono text-[#00A4B7]">${it.gstPercent}%</td>
+          <td class="py-2 px-3 text-right font-mono font-bold text-[#00875A]">₹${it.invoiceAmt.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
+          <td class="py-2 px-3 text-center text-[#5E6C84] font-mono text-[11px]">${it.dispatchedDate || '-'}</td>
+          <td class="py-2 px-3 text-center">
+            <button type="button" class="btn-remove-pm-po-item text-[#DE350B] hover:text-[#BF2600] p-1 rounded hover:bg-[#FFEBE6] transition-colors cursor-pointer" data-idx="${idx}" title="Remove item">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+            </button>
+          </td>
+        </tr>
+      `).join('');
+
+      tbody.querySelectorAll('.btn-remove-pm-po-item').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const idx = parseInt(e.currentTarget.getAttribute('data-idx'), 10);
+          orderItems.splice(idx, 1);
+          renderItemsTable();
+        });
+      });
+
+      recalculateTotals();
+    };
+
+    Modal.open({
+      title: 'Add Purchase Order (PM)',
+      width: 'max-w-5xl',
+      confirmActions: false,
+      body: `
+        <div class="space-y-4 text-xs">
+          <!-- 1. Header Information (4-column responsive grid) -->
+          <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 space-y-3 shadow-2xs">
+            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider border-b border-[#DFE1E6] pb-1.5">Purchase Order Header Details</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+              <div>
+                <label for="pm-mpo-doc-no" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DOC NO</label>
+                <input type="text" id="pm-mpo-doc-no" value="${defaultDocNo}" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] shadow-2xs cursor-not-allowed" />
+              </div>
+              <div>
+                <label for="pm-mpo-code" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CODE</label>
+                <input type="text" id="pm-mpo-code" value="${defaultCode}" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] shadow-2xs cursor-not-allowed" />
+              </div>
+              <div>
+                <label for="pm-mpo-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DATE <span class="text-[#DE350B] font-bold">*</span></label>
+                <input type="date" id="pm-mpo-date" value="${todayStr}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+              <div>
+                <label for="pm-mpo-supplier" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SUPPLIER <span class="text-[#DE350B] font-bold">*</span></label>
+                <select id="pm-mpo-supplier" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="Sri Venkateswara Packaging Ltd" selected>Sri Venkateswara Packaging Ltd</option>
+                  <option value="Apex Polymers & Films India Ltd">Apex Polymers &amp; Films India Ltd</option>
+                  <option value="Modern Corrugators Visakhapatnam">Modern Corrugators Visakhapatnam</option>
+                  <option value="South Coast Boxes & Cartons">South Coast Boxes &amp; Cartons</option>
+                  <option value="Delta Polyfilms Corp">Delta Polyfilms Corp</option>
+                </select>
+              </div>
+              <div>
+                <label for="pm-mpo-payment-terms" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PAYMENT TERMS</label>
+                <input type="text" id="pm-mpo-payment-terms" value="30 Days Net from Inward Acceptance" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+              <div>
+                <label for="pm-mpo-freight-type" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FREIGHT TYPE</label>
+                <select id="pm-mpo-freight-type" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="Door Delivery (Freight Included)" selected>Door Delivery (Freight Included)</option>
+                  <option value="Ex-Works with Paid Transit">Ex-Works with Paid Transit</option>
+                  <option value="To Pay (Freight Extra)">To Pay (Freight Extra)</option>
+                </select>
+              </div>
+              <div>
+                <label for="pm-mpo-delivery-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SUB DELIVERY DATE</label>
+                <input type="date" id="pm-mpo-delivery-date" value="${todayStr}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+              <div>
+                <label for="pm-mpo-narration" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">NARRATION</label>
+                <input type="text" id="pm-mpo-narration" placeholder="Notes or remarks..." value="Packaging materials procurement for seasonal export batch" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Item Entry Form Card -->
+          <div class="bg-[#F8FAFC] border border-[#DFE1E6] rounded-xl p-3.5 space-y-3 shadow-2xs">
+            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider border-b border-[#DFE1E6] pb-1.5">Add Item Requisition Details</h4>
+            
+            <!-- Row 1: Item Requisition Details -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 gap-3">
+              <div class="md:col-span-2">
+                <label for="pm-mpoi-item" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ITEM <span class="text-[#DE350B] font-bold">*</span></label>
+                <input type="text" id="pm-mpoi-item" placeholder="Item name or code..." value="Printed LDPE 2-Lb Gusseted Shrimp Bags with Zipper (50 Micron)" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+              <div>
+                <label for="pm-mpoi-unit" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">UNIT</label>
+                <select id="pm-mpoi-unit" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="Bags" selected>Bags</option>
+                  <option value="MCs">MCs</option>
+                  <option value="Boxes">Boxes</option>
+                  <option value="Rolls">Rolls</option>
+                  <option value="Nos">Nos</option>
+                  <option value="Kg">Kg</option>
+                </select>
+              </div>
+              <div>
+                <label for="pm-mpoi-avail-qty" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">AVAIL QTY</label>
+                <input type="number" id="pm-mpoi-avail-qty" value="10000" min="0" class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] shadow-2xs cursor-not-allowed" readonly />
+              </div>
+              <div>
+                <label for="pm-mpoi-unit-price" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">UNIT PRICE (₹)</label>
+                <input type="number" id="pm-mpoi-unit-price" value="3.40" min="0.01" step="0.01" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+              <div>
+                <label for="pm-mpoi-sup-rate" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SUPPLIER RATE (₹)</label>
+                <input type="number" id="pm-mpoi-sup-rate" value="3.40" min="0.01" step="0.01" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+            </div>
+
+            <!-- Row 2: Quantities, Commercials & Taxes -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+              <div>
+                <label for="pm-mpoi-qty" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">QUANTITY <span class="text-[#DE350B] font-bold">*</span></label>
+                <input type="number" id="pm-mpoi-qty" value="50000" min="1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+              <div>
+                <label for="pm-mpoi-disc-pct" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DISC %</label>
+                <input type="number" id="pm-mpoi-disc-pct" value="0" min="0" max="100" step="0.5" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+              <div>
+                <label for="pm-mpoi-disc-amt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DISC AMOUNT (₹)</label>
+                <input type="number" id="pm-mpoi-disc-amt" value="0.00" min="0" step="0.01" class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] shadow-2xs cursor-not-allowed" readonly />
+              </div>
+              <div>
+                <label for="pm-mpoi-base-val" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BASE VALUE (₹)</label>
+                <input type="number" id="pm-mpoi-base-val" value="170000.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] shadow-2xs cursor-not-allowed" />
+              </div>
+              <div>
+                <label for="pm-mpoi-gst-pct" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">GST %</label>
+                <select id="pm-mpoi-gst-pct" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="0">0% (Nil)</option>
+                  <option value="5">5%</option>
+                  <option value="12">12%</option>
+                  <option value="18" selected>18%</option>
+                  <option value="28">28%</option>
+                </select>
+              </div>
+              <div>
+                <label for="pm-mpoi-gst-amt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">GST AMOUNT (₹)</label>
+                <input type="number" id="pm-mpoi-gst-amt" value="30600.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] shadow-2xs cursor-not-allowed" />
+              </div>
+            </div>
+
+            <!-- Row 3: Invoice Amount, Dispatched Date & Add Item Button -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 items-end">
+              <div>
+                <label for="pm-mpoi-inv-amt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">INVOICE AMOUNT (₹)</label>
+                <input type="number" id="pm-mpoi-inv-amt" value="200600.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F0FDF4] border border-[#BBF7D0] rounded font-mono font-bold text-[#00875A] shadow-2xs cursor-not-allowed" />
+              </div>
+              <div>
+                <label for="pm-mpoi-disp-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DISPATCHED DATE</label>
+                <input type="date" id="pm-mpoi-disp-date" value="${todayStr}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-transparent uppercase tracking-wider mb-1 select-none">ACTION</label>
+                <button type="button" id="modal-pm-po-btn-add-item" class="btn-primary w-full max-w-[150px] h-[32px] px-4 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                  <span>Add Item</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Staged Items Table Card -->
+          <div class="bg-white border border-[#DFE1E6] rounded-xl overflow-hidden shadow-2xs">
+            <div class="p-3 bg-[#F8FAFC] border-b border-[#DFE1E6] flex items-center justify-between">
+              <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Purchase Order Items (<span id="pm-po-modal-items-count">${orderItems.length}</span>)</span>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs border-collapse">
+                <thead class="bg-[#F8FAFC] border-b border-[#DFE1E6] text-[#475569] font-bold text-[11px] uppercase tracking-wider">
+                  <tr>
+                    <th class="py-2.5 px-3">Item</th>
+                    <th class="py-2.5 px-3">Unit</th>
+                    <th class="py-2.5 px-3 text-right">Qty</th>
+                    <th class="py-2.5 px-3 text-right">Unit Price</th>
+                    <th class="py-2.5 px-3 text-right">Base Value</th>
+                    <th class="py-2.5 px-3 text-right">GST %</th>
+                    <th class="py-2.5 px-3 text-right">Invoice Amt</th>
+                    <th class="py-2.5 px-3 text-center">Dispatch</th>
+                    <th class="py-2.5 px-3 text-center">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="pm-po-modal-items-tbody" class="divide-y divide-[#DFE1E6]">
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- 4. Summary Calculation Card -->
+          <div class="bg-[#F8FAFC] border border-[#DFE1E6] rounded-xl p-3 flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center gap-6">
+              <div>
+                <span class="text-[10px] uppercase font-bold text-[#5E6C84] block">Total Base</span>
+                <span id="pm-po-modal-total-base" class="text-sm font-mono font-bold text-[#172B4D]">₹0.00</span>
+              </div>
+              <div>
+                <span class="text-[10px] uppercase font-bold text-[#5E6C84] block">Total Tax</span>
+                <span id="pm-po-modal-total-tax" class="text-sm font-mono font-bold text-[#00A4B7]">₹0.00</span>
+              </div>
+              <div>
+                <span class="text-[10px] uppercase font-bold text-[#5E6C84] block">Net Invoice Value</span>
+                <span id="pm-po-modal-net-inv" class="text-base font-mono font-bold text-[#00875A]">₹0.00</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <button type="button" id="modal-pm-po-cancel-btn" class="btn-secondary border border-[#CBD5E1] px-5 py-2 rounded-full text-xs font-semibold text-[#475569] hover:bg-[#F8FAFC] transition-all cursor-pointer">
+                Cancel
+              </button>
+              <button type="button" id="modal-pm-po-submit-btn" class="btn-primary border-0 px-6 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span>Save Purchase Order</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      `
+    });
+
+    renderItemsTable();
+
+    // Live calculation for item entry
+    const calcItemValues = () => {
+      const qty = parseFloat(document.getElementById('pm-mpoi-qty')?.value || 0);
+      const price = parseFloat(document.getElementById('pm-mpoi-unit-price')?.value || 0);
+      const discPct = parseFloat(document.getElementById('pm-mpoi-disc-pct')?.value || 0);
+      const gstPct = parseFloat(document.getElementById('pm-mpoi-gst-pct')?.value || 0);
+
+      const gross = qty * price;
+      const discAmt = gross * (discPct / 100);
+      const baseVal = Math.max(0, gross - discAmt);
+      const gstAmt = baseVal * (gstPct / 100);
+      const invAmt = baseVal + gstAmt;
+
+      const discAmtEl = document.getElementById('pm-mpoi-disc-amt');
+      const baseValEl = document.getElementById('pm-mpoi-base-val');
+      const gstAmtEl = document.getElementById('pm-mpoi-gst-amt');
+      const invAmtEl = document.getElementById('pm-mpoi-inv-amt');
+
+      if (discAmtEl) discAmtEl.value = discAmt.toFixed(2);
+      if (baseValEl) baseValEl.value = baseVal.toFixed(2);
+      if (gstAmtEl) gstAmtEl.value = gstAmt.toFixed(2);
+      if (invAmtEl) invAmtEl.value = invAmt.toFixed(2);
+    };
+
+    ['pm-mpoi-qty', 'pm-mpoi-unit-price', 'pm-mpoi-disc-pct', 'pm-mpoi-gst-pct'].forEach(id => {
+      document.getElementById(id)?.addEventListener('input', calcItemValues);
+      document.getElementById(id)?.addEventListener('change', calcItemValues);
+    });
+
+    // Add item click
+    document.getElementById('modal-pm-po-btn-add-item')?.addEventListener('click', () => {
+      const item = document.getElementById('pm-mpoi-item')?.value?.trim();
+      const unit = document.getElementById('pm-mpoi-unit')?.value;
+      const availQty = parseFloat(document.getElementById('pm-mpoi-avail-qty')?.value || 0);
+      const unitPrice = parseFloat(document.getElementById('pm-mpoi-unit-price')?.value || 0);
+      const supRate = parseFloat(document.getElementById('pm-mpoi-sup-rate')?.value || 0);
+      const qty = parseFloat(document.getElementById('pm-mpoi-qty')?.value || 0);
+      const discPct = parseFloat(document.getElementById('pm-mpoi-disc-pct')?.value || 0);
+      const discAmt = parseFloat(document.getElementById('pm-mpoi-disc-amt')?.value || 0);
+      const baseVal = parseFloat(document.getElementById('pm-mpoi-base-val')?.value || 0);
+      const gstPct = parseFloat(document.getElementById('pm-mpoi-gst-pct')?.value || 0);
+      const gstAmt = parseFloat(document.getElementById('pm-mpoi-gst-amt')?.value || 0);
+      const invAmt = parseFloat(document.getElementById('pm-mpoi-inv-amt')?.value || 0);
+      const dispDate = document.getElementById('pm-mpoi-disp-date')?.value;
+
+      if (!item) {
+        Toast.show('Please enter item name or code', 'warning');
+        return;
+      }
+      if (qty <= 0) {
+        Toast.show('Quantity must be greater than zero', 'warning');
+        return;
+      }
+
+      orderItems.push({
+        item,
+        unit,
+        availQty,
+        unitPrice,
+        supplierRate: supRate,
+        quantity: qty,
+        discPct,
+        discAmt,
+        baseValue: baseVal,
+        gstPercent: gstPct,
+        taxAmount: gstAmt,
+        invoiceAmt: invAmt,
+        dispatchedDate: dispDate
+      });
+
+      renderItemsTable();
+      Toast.show(`Added "${item}" to PO items`, 'success');
+    });
+
+    document.getElementById('modal-pm-po-cancel-btn')?.addEventListener('click', () => {
+      Modal.close();
+    });
+
+    document.getElementById('modal-pm-po-submit-btn')?.addEventListener('click', () => {
+      const docNo = document.getElementById('pm-mpo-doc-no')?.value?.trim();
+      const code = document.getElementById('pm-mpo-code')?.value?.trim();
+      const date = document.getElementById('pm-mpo-date')?.value;
+      const supplier = document.getElementById('pm-mpo-supplier')?.value;
+      const paymentTerms = document.getElementById('pm-mpo-payment-terms')?.value;
+      const freightType = document.getElementById('pm-mpo-freight-type')?.value;
+      const deliveryDate = document.getElementById('pm-mpo-delivery-date')?.value;
+      const narration = document.getElementById('pm-mpo-narration')?.value;
+
+      if (!date) {
+        Toast.show('Please select a valid PO date', 'warning');
+        return;
+      }
+      if (orderItems.length === 0) {
+        Toast.show('Please add at least one item to the PO', 'warning');
+        return;
+      }
+
+      const totalValue = orderItems.reduce((acc, it) => acc + (it.invoiceAmt || 0), 0);
+
+      Modal.confirm({
+        title: 'Confirm Packaging Purchase Order',
+        message: `Are you sure you want to create Packaging Purchase Order <strong>${docNo}</strong> for <strong>${supplier}</strong> with <strong>${orderItems.length} item(s)</strong> totaling <strong>₹${totalValue.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</strong>?`,
+        confirmText: 'Save Purchase Order',
+        onConfirm: () => {
+          const newRecord = {
+            id: Date.now(),
+            docNo,
+            code,
+            date,
+            supplier,
+            paymentTerms,
+            freightType,
+            subDeliveryDate: deliveryDate,
+            status: 'Approved',
+            narration,
+            items: [...orderItems]
+          };
+
+          this.state.pmPurchaseOrderList.unshift(newRecord);
+          Modal.close();
+          if (onSuccess) onSuccess();
+          Toast.show(`Purchase Order ${docNo} created successfully!`, 'success');
+        }
+      });
+    });
+  },
+
+  // Modal: Edit Packaging Purchase Order
+  showEditPmPoModal(row, onSuccess = null) {
+    const todayStr = new Date().toISOString().slice(0, 10);
+    let orderItems = Array.isArray(row.items) ? JSON.parse(JSON.stringify(row.items)) : [];
+
+    const recalculateTotals = () => {
+      const totalBase = orderItems.reduce((acc, it) => acc + (it.baseValue || 0), 0);
+      const totalTax = orderItems.reduce((acc, it) => acc + (it.taxAmount || it.gstTaxAmount || 0), 0);
+      const netInvoice = orderItems.reduce((acc, it) => acc + (it.invoiceAmt || it.invoiceAmount || 0), 0);
+
+      const itemsCountEl = document.getElementById('pm-po-edit-items-count');
+      const baseEl = document.getElementById('pm-po-edit-total-base');
+      const taxEl = document.getElementById('pm-po-edit-total-tax');
+      const netEl = document.getElementById('pm-po-edit-net-inv');
+
+      if (itemsCountEl) itemsCountEl.innerText = orderItems.length;
+      if (baseEl) baseEl.innerText = `₹${totalBase.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      if (taxEl) taxEl.innerText = `₹${totalTax.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      if (netEl) netEl.innerText = `₹${netInvoice.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    };
+
+    const renderItemsTable = () => {
+      const tbody = document.getElementById('pm-po-edit-items-tbody');
+      if (!tbody) return;
+
+      if (orderItems.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="9" class="text-center py-5 text-[#5E6C84] italic">
+              No items in this purchase order. Add items below.
+            </td>
+          </tr>
+        `;
+        recalculateTotals();
+        return;
+      }
+
+      tbody.innerHTML = orderItems.map((it, idx) => `
+        <tr class="hover:bg-[#F8FAFC]">
+          <td class="py-2 px-3 font-semibold text-[#172B4D]">${it.item}</td>
+          <td class="py-2 px-3 text-[#5E6C84]">${it.unit || it.uom || 'Nos'}</td>
+          <td class="py-2 px-3 text-right font-mono font-bold text-[#172B4D]">${Number(it.quantity || 0).toLocaleString()}</td>
+          <td class="py-2 px-3 text-right font-mono text-[#172B4D]">₹${Number(it.unitPrice || it.itemPrice || 0).toFixed(2)}</td>
+          <td class="py-2 px-3 text-right font-mono text-[#172B4D]">₹${Number(it.baseValue || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
+          <td class="py-2 px-3 text-right font-mono text-[#00A4B7]">${it.gstPercent}%</td>
+          <td class="py-2 px-3 text-right font-mono font-bold text-[#00875A]">₹${Number(it.invoiceAmt || it.invoiceAmount || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
+          <td class="py-2 px-3 text-center text-[#5E6C84] font-mono text-[11px]">${it.dispatchedDate || '-'}</td>
+          <td class="py-2 px-3 text-center">
+            <button type="button" class="btn-remove-edit-pm-po-item text-[#DE350B] hover:text-[#BF2600] p-1 rounded hover:bg-[#FFEBE6] transition-colors cursor-pointer" data-idx="${idx}" title="Remove item">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+            </button>
+          </td>
+        </tr>
+      `).join('');
+
+      tbody.querySelectorAll('.btn-remove-edit-pm-po-item').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const idx = parseInt(e.currentTarget.getAttribute('data-idx'), 10);
+          orderItems.splice(idx, 1);
+          renderItemsTable();
+        });
+      });
+
+      recalculateTotals();
+    };
+
+    Modal.open({
+      title: `Edit Purchase Order (PM) — ${row.docNo}`,
+      width: 'max-w-5xl',
+      confirmActions: false,
+      body: `
+        <div class="space-y-4 text-xs">
+          <!-- 1. Header Information -->
+          <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 space-y-3 shadow-2xs">
+            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider border-b border-[#DFE1E6] pb-1.5">Purchase Order Header Details</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+              <div>
+                <label for="pm-edit-po-doc" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DOC NO</label>
+                <input type="text" id="pm-edit-po-doc" value="${row.docNo}" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] shadow-2xs cursor-not-allowed" />
+              </div>
+              <div>
+                <label for="pm-edit-po-code" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CODE</label>
+                <input type="text" id="pm-edit-po-code" value="${row.code || ''}" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] shadow-2xs cursor-not-allowed" />
+              </div>
+              <div>
+                <label for="pm-edit-po-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DATE <span class="text-[#DE350B] font-bold">*</span></label>
+                <input type="date" id="pm-edit-po-date" value="${row.date || todayStr}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+              <div>
+                <label for="pm-edit-po-supplier" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SUPPLIER <span class="text-[#DE350B] font-bold">*</span></label>
+                <select id="pm-edit-po-supplier" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="Sri Venkateswara Packaging Ltd" ${row.supplier === 'Sri Venkateswara Packaging Ltd' ? 'selected' : ''}>Sri Venkateswara Packaging Ltd</option>
+                  <option value="Apex Polymers & Films India Ltd" ${row.supplier === 'Apex Polymers & Films India Ltd' ? 'selected' : ''}>Apex Polymers &amp; Films India Ltd</option>
+                  <option value="Modern Corrugators Visakhapatnam" ${row.supplier === 'Modern Corrugators Visakhapatnam' ? 'selected' : ''}>Modern Corrugators Visakhapatnam</option>
+                  <option value="South Coast Boxes & Cartons" ${row.supplier === 'South Coast Boxes & Cartons' ? 'selected' : ''}>South Coast Boxes &amp; Cartons</option>
+                  <option value="Delta Polyfilms Corp" ${row.supplier === 'Delta Polyfilms Corp' ? 'selected' : ''}>Delta Polyfilms Corp</option>
+                </select>
+              </div>
+              <div>
+                <label for="pm-edit-po-pay" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PAYMENT TERMS</label>
+                <input type="text" id="pm-edit-po-pay" value="${row.paymentTerms || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+              <div>
+                <label for="pm-edit-po-freight" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FREIGHT TYPE</label>
+                <input type="text" id="pm-edit-po-freight" value="${row.freightType || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+              <div>
+                <label for="pm-edit-po-del-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SUB DELIVERY DATE</label>
+                <input type="date" id="pm-edit-po-del-date" value="${row.subDeliveryDate || todayStr}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+              <div>
+                <label for="pm-edit-po-narr" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">NARRATION</label>
+                <input type="text" id="pm-edit-po-narr" value="${row.narration || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Staged Items Table Card -->
+          <div class="bg-white border border-[#DFE1E6] rounded-xl overflow-hidden shadow-2xs">
+            <div class="p-3 bg-[#F8FAFC] border-b border-[#DFE1E6] flex items-center justify-between">
+              <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Purchase Order Items (<span id="pm-po-edit-items-count">${orderItems.length}</span>)</span>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs border-collapse">
+                <thead class="bg-[#F8FAFC] border-b border-[#DFE1E6] text-[#475569] font-bold text-[11px] uppercase tracking-wider">
+                  <tr>
+                    <th class="py-2.5 px-3">Item</th>
+                    <th class="py-2.5 px-3">Unit</th>
+                    <th class="py-2.5 px-3 text-right">Qty</th>
+                    <th class="py-2.5 px-3 text-right">Unit Price</th>
+                    <th class="py-2.5 px-3 text-right">Base Value</th>
+                    <th class="py-2.5 px-3 text-right">GST %</th>
+                    <th class="py-2.5 px-3 text-right">Invoice Amt</th>
+                    <th class="py-2.5 px-3 text-center">Dispatch</th>
+                    <th class="py-2.5 px-3 text-center">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="pm-po-edit-items-tbody" class="divide-y divide-[#DFE1E6]">
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- 3. Summary & Footer Actions -->
+          <div class="bg-[#F8FAFC] border border-[#DFE1E6] rounded-xl p-3 flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center gap-6">
+              <div>
+                <span class="text-[10px] uppercase font-bold text-[#5E6C84] block">Total Base</span>
+                <span id="pm-po-edit-total-base" class="text-sm font-mono font-bold text-[#172B4D]">₹0.00</span>
+              </div>
+              <div>
+                <span class="text-[10px] uppercase font-bold text-[#5E6C84] block">Total Tax</span>
+                <span id="pm-po-edit-total-tax" class="text-sm font-mono font-bold text-[#00A4B7]">₹0.00</span>
+              </div>
+              <div>
+                <span class="text-[10px] uppercase font-bold text-[#5E6C84] block">Net Invoice Value</span>
+                <span id="pm-po-edit-net-inv" class="text-base font-mono font-bold text-[#00875A]">₹0.00</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <button type="button" id="modal-pm-po-edit-cancel-btn" class="btn-secondary border border-[#CBD5E1] px-5 py-2 rounded-full text-xs font-semibold text-[#475569] hover:bg-[#F8FAFC] transition-all cursor-pointer">
+                Cancel
+              </button>
+              <button type="button" id="modal-pm-po-edit-submit-btn" class="btn-primary border-0 px-6 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span>Update Purchase Order</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      `
+    });
+
+    renderItemsTable();
+
+    document.getElementById('modal-pm-po-edit-cancel-btn')?.addEventListener('click', () => {
+      Modal.close();
+    });
+
+    document.getElementById('modal-pm-po-edit-submit-btn')?.addEventListener('click', () => {
+      const date = document.getElementById('pm-edit-po-date')?.value;
+      const supplier = document.getElementById('pm-edit-po-supplier')?.value;
+      const paymentTerms = document.getElementById('pm-edit-po-pay')?.value;
+      const freightType = document.getElementById('pm-edit-po-freight')?.value;
+      const subDeliveryDate = document.getElementById('pm-edit-po-del-date')?.value;
+      const narration = document.getElementById('pm-edit-po-narr')?.value;
+
+      if (!date) {
+        Toast.show('Please select a valid PO date', 'warning');
+        return;
+      }
+
+      Modal.confirm({
+        title: 'Confirm Update Purchase Order',
+        message: `Update changes to Packaging Purchase Order <strong>${row.docNo}</strong> (${supplier})?`,
+        confirmText: 'Confirm Update',
+        onConfirm: () => {
+          row.date = date;
+          row.supplier = supplier;
+          row.paymentTerms = paymentTerms;
+          row.freightType = freightType;
+          row.subDeliveryDate = subDeliveryDate;
+          row.narration = narration;
+          row.items = [...orderItems];
+
+          Modal.close();
+          if (onSuccess) onSuccess();
+          Toast.show(`Purchase Order ${row.docNo} updated successfully!`, 'success');
+        }
+      });
+    });
+  },
+
+  // Modal: View Packaging Purchase Order Details
+  showPmPoDetailModal(row) {
+    const items = Array.isArray(row.items) ? row.items : [];
+    const totalBase = items.reduce((acc, it) => acc + (it.baseValue || 0), 0);
+    const totalTax = items.reduce((acc, it) => acc + (it.taxAmount || it.gstTaxAmount || 0), 0);
+    const totalNet = items.reduce((acc, it) => acc + (it.invoiceAmt || it.invoiceAmount || it.totalValue || 0), 0);
+
+    Modal.open({
+      title: `Purchase Order (PM) Details — ${row.docNo}`,
+      width: 'max-w-4xl',
+      body: `
+        <div class="space-y-4 text-xs">
+          <!-- Summary Header -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-[#F8FAFC] border border-[#DFE1E6] rounded-xl p-3.5">
+            <div>
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">DOC NO</span>
+              <span class="font-mono font-bold text-xs text-[#00A4B7]">${row.docNo}</span>
+            </div>
+            <div>
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">CODE</span>
+              <span class="font-mono font-semibold text-xs text-[#172B4D]">${row.code || '-'}</span>
+            </div>
+            <div>
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">DATE</span>
+              <span class="font-mono font-medium text-xs text-[#172B4D]">${row.date}</span>
+            </div>
+            <div>
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">STATUS</span>
+              <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-[#E3FCEF] text-[#006644]">${row.status || 'Approved'}</span>
+            </div>
+            <div class="sm:col-span-2">
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">SUPPLIER</span>
+              <span class="font-semibold text-xs text-[#172B4D]">${row.supplier}</span>
+            </div>
+            <div>
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">PAYMENT TERMS</span>
+              <span class="text-xs text-[#172B4D]">${row.paymentTerms || '-'}</span>
+            </div>
+            <div>
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">FREIGHT</span>
+              <span class="text-xs text-[#172B4D]">${row.freightType || '-'}</span>
+            </div>
+            ${row.narration ? `
+              <div class="col-span-2 sm:col-span-4 border-t border-[#DFE1E6] pt-2 mt-1">
+                <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">NARRATION</span>
+                <span class="text-xs text-[#172B4D] font-medium">${row.narration}</span>
+              </div>
+            ` : ''}
+          </div>
+
+          <!-- Items Table -->
+          <div>
+            <div class="flex items-center justify-between pb-2 mb-2 border-b border-[#DFE1E6]">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Order Items (${items.length})</h4>
+            </div>
+            <div class="overflow-x-auto border border-[#DFE1E6] rounded-xl bg-white shadow-2xs">
+              <table class="w-full text-left text-xs border-collapse">
+                <thead class="bg-[#F8FAFC] border-b border-[#DFE1E6] text-[#475569] font-bold text-[11px] uppercase tracking-wider">
+                  <tr>
+                    <th class="py-2.5 px-3">Item</th>
+                    <th class="py-2.5 px-3">Unit</th>
+                    <th class="py-2.5 px-3 text-right">Qty</th>
+                    <th class="py-2.5 px-3 text-right">Unit Price</th>
+                    <th class="py-2.5 px-3 text-right">Base Value</th>
+                    <th class="py-2.5 px-3 text-right">GST %</th>
+                    <th class="py-2.5 px-3 text-right">Invoice Amt</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-[#DFE1E6]">
+                  ${items.map(it => `
+                    <tr class="hover:bg-[#F8FAFC]">
+                      <td class="py-2.5 px-3 font-semibold text-[#172B4D]">${it.item}</td>
+                      <td class="py-2.5 px-3 text-[#5E6C84]">${it.unit || it.uom || 'Nos'}</td>
+                      <td class="py-2.5 px-3 text-right font-mono font-bold text-[#172B4D]">${Number(it.quantity || 0).toLocaleString()}</td>
+                      <td class="py-2.5 px-3 text-right font-mono text-[#172B4D]">₹${Number(it.unitPrice || it.itemPrice || 0).toFixed(2)}</td>
+                      <td class="py-2.5 px-3 text-right font-mono text-[#172B4D]">₹${Number(it.baseValue || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
+                      <td class="py-2.5 px-3 text-right font-mono text-[#00A4B7]">${it.gstPercent}%</td>
+                      <td class="py-2.5 px-3 text-right font-mono font-bold text-[#00875A]">₹${Number(it.invoiceAmt || it.invoiceAmount || it.totalValue || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+                <tfoot class="bg-[#F8FAFC] border-t border-[#DFE1E6] font-bold text-xs">
+                  <tr>
+                    <td colspan="4" class="py-2.5 px-3 text-right text-[#5E6C84] uppercase">Total Valuation:</td>
+                    <td class="py-2.5 px-3 text-right font-mono text-[#172B4D]">₹${totalBase.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
+                    <td class="py-2.5 px-3 text-right font-mono text-[#00A4B7]">Tax: ₹${totalTax.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
+                    <td class="py-2.5 px-3 text-right font-mono text-[#00875A]">₹${totalNet.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </div>
+      `,
+      footerButtons: [
+        {
+          label: 'Close',
+          type: 'secondary',
+          class: 'btn-secondary border border-[#CBD5E1] px-5 py-2 rounded-full text-xs font-semibold text-[#475569] hover:bg-[#F8FAFC] transition-all cursor-pointer',
+          onClick: () => Modal.close()
+        }
+      ]
+    });
+  },
+
+  // =========================================================================
+  // 2c. GOODS RECEIPT NOTE (PM)
+  // =========================================================================
+  renderPackingMaterialGRN(container) {
+    const todayStr = new Date().toISOString().slice(0, 10);
+
+    container.innerHTML = `
+      <!-- Page Header -->
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-1">
+        <div>
+          <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Goods Receipt Note (PM)</h1>
+        </div>
+        <div class="flex items-center gap-2">
+          <button type="button" id="pm-grn-toggle-form-btn" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+            <span id="pm-grn-toggle-text">Add Goods Receipt Note</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Search & Filter Card -->
+      <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200">
+        <div class="flex items-center justify-between pb-1">
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+            <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
+          </div>
+          <div class="inline-flex items-center gap-2">
+            <button type="button" id="pm-grn-filter-reset-btn" class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Reset all filters">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+            </button>
+            <button type="button" id="pm-grn-filter-toggle-btn" class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Hide Filter">
+              <svg id="pm-grn-filter-toggle-icon" class="w-3.5 h-3.5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div id="pm-grn-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3 pt-3 border-t border-[#F1F5F9] mt-2 text-xs">
+          <!-- 1. S NO / CODE / PO / INVOICE -->
+          <div>
+            <label for="pm-grn-flt-doc" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DOC / CODE / PO / INV</label>
+            <input type="text" id="pm-grn-flt-doc" placeholder="Search by identifiers..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+
+          <!-- 2. FROM DATE -->
+          <div>
+            <label for="pm-grn-flt-from" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FROM DATE</label>
+            <input type="date" id="pm-grn-flt-from" value="2026-10-01" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+
+          <!-- 3. TO DATE -->
+          <div>
+            <label for="pm-grn-flt-to" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">TO DATE</label>
+            <input type="date" id="pm-grn-flt-to" value="${todayStr}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+
+          <!-- 4. SUPPLIER -->
+          <div>
+            <label for="pm-grn-flt-sup" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SUPPLIER</label>
+            <select id="pm-grn-flt-sup" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL">All Packaging Suppliers</option>
+              <option value="Sri Venkateswara Packaging Ltd">Sri Venkateswara Packaging Ltd</option>
+              <option value="Apex Polymers & Films India Ltd">Apex Polymers &amp; Films India Ltd</option>
+              <option value="Modern Corrugators Visakhapatnam">Modern Corrugators Visakhapatnam</option>
+              <option value="South Coast Boxes & Cartons">South Coast Boxes &amp; Cartons</option>
+            </select>
+          </div>
+
+          <!-- Search Button -->
+          <div class="flex items-end">
+            <button type="button" id="pm-grn-flt-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+              <span>Search</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Existing GRNs Table Card: S No, Supplier, Date, PO No, Invoice No, Code, Actions -->
+      <div id="pm-grn-table-container"></div>
+    `;
+
+    // Add GRN button handler
+    container.querySelector('#pm-grn-toggle-form-btn')?.addEventListener('click', () => {
+      this.showAddPmGrnModal(() => {
+        renderTable(this.state.pmGrnList);
+      });
+    });
+
+    const renderTable = (data) => {
+      new DataTable({
+        containerId: 'pm-grn-table-container',
+        tableTitle: `Packaging Material Goods Receipt Notes (${data.length})`,
+        searchable: true,
+        exportable: true,
+        pageSize: 10,
+        onRowClick: (row) => {
+          this.showPmGrnDetailsModal(row);
+        },
+        columns: [
+          {
+            field: 'sNo',
+            header: 'S No',
+            sortable: true,
+            render: (v, r, idx) => `
+              <span class="text-[#00A4B7] font-semibold hover:underline cursor-pointer select-none">${idx + 1}</span>
+            `
+          },
+          {
+            field: 'supplier',
+            header: 'Supplier',
+            sortable: true,
+            render: v => `<span class="font-semibold text-xs text-[#172B4D] whitespace-nowrap">${v}</span>`
+          },
+          {
+            field: 'date',
+            header: 'Date',
+            sortable: true,
+            render: v => `<span class="whitespace-nowrap text-xs text-[#172B4D] font-medium font-mono">${v}</span>`
+          },
+          {
+            field: 'poNo',
+            header: 'PO No',
+            sortable: true,
+            render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] whitespace-nowrap">${v || '-'}</span>`
+          },
+          {
+            field: 'invoiceNumber',
+            header: 'Invoice No',
+            sortable: true,
+            render: v => `<span class="font-mono text-xs text-[#172B4D] whitespace-nowrap">${v || '-'}</span>`
+          },
+          {
+            field: 'code',
+            header: 'Code',
+            sortable: true,
+            render: v => `<span class="font-mono font-semibold text-xs text-[#5E6C84] whitespace-nowrap">${v || '-'}</span>`
+          }
+        ],
+        actionsTitle: 'Actions',
+        actions: [
+          {
+            label: 'View',
+            title: 'View GRN Details',
+            icon: `<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>`,
+            onClick: (row) => {
+              this.showPmGrnDetailsModal(row);
+            }
+          },
+          {
+            label: 'Edit',
+            title: 'Edit GRN',
+            icon: `<svg class="w-4 h-4 text-[#0284C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>`,
+            onClick: (row) => {
+              this.showEditPmGrnModal(row, () => {
+                renderTable(this.state.pmGrnList);
+              });
+            }
+          },
+          {
+            label: 'Delete',
+            title: 'Delete GRN',
+            icon: `<svg class="w-4 h-4 text-[#DE350B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>`,
+            onClick: (row) => {
+              Modal.confirm({
+                title: 'Delete Goods Receipt Note (PM)',
+                message: `Are you sure you want to delete Packaging GRN <strong>${row.docNo}</strong> (${row.supplier})? This will revert inward receipts.`,
+                confirmText: 'Delete GRN',
+                isDestructive: true,
+                onConfirm: () => {
+                  const idx = this.state.pmGrnList.findIndex(r => r.id === row.id || r.docNo === row.docNo);
+                  if (idx !== -1) {
+                    this.state.pmGrnList.splice(idx, 1);
+                    renderTable(this.state.pmGrnList);
+                    Toast.show(`GRN ${row.docNo} deleted.`, 'success');
+                  }
+                }
+              });
+            }
+          }
+        ],
+        data: data
+      });
+    };
+
+    renderTable(this.state.pmGrnList);
+
+    // Search & Filter Handlers
+    container.querySelector('#pm-grn-flt-search-btn')?.addEventListener('click', () => {
+      const q = container.querySelector('#pm-grn-flt-doc')?.value?.trim().toLowerCase();
+      const fromVal = container.querySelector('#pm-grn-flt-from')?.value;
+      const toVal = container.querySelector('#pm-grn-flt-to')?.value;
+      const supVal = container.querySelector('#pm-grn-flt-sup')?.value;
+
+      const filtered = this.state.pmGrnList.filter(it => {
+        if (q) {
+          const matchDoc = it.docNo?.toLowerCase().includes(q);
+          const matchCode = it.code?.toLowerCase().includes(q);
+          const matchPo = it.poNo?.toLowerCase().includes(q);
+          const matchInv = it.invoiceNumber?.toLowerCase().includes(q);
+          if (!matchDoc && !matchCode && !matchPo && !matchInv) return false;
+        }
+        if (fromVal && it.date < fromVal) return false;
+        if (toVal && it.date > toVal) return false;
+        if (supVal && supVal !== 'ALL' && it.supplier !== supVal) return false;
+        return true;
+      });
+
+      renderTable(filtered);
+      Toast.show(`Found ${filtered.length} matching GRN(s)`, 'info');
+    });
+
+    container.querySelector('#pm-grn-filter-reset-btn')?.addEventListener('click', () => {
+      container.querySelector('#pm-grn-flt-doc').value = '';
+      container.querySelector('#pm-grn-flt-from').value = '2026-10-01';
+      container.querySelector('#pm-grn-flt-to').value = todayStr;
+      container.querySelector('#pm-grn-flt-sup').value = 'ALL';
+      renderTable(this.state.pmGrnList);
+      Toast.show('GRN filters reset to default', 'info');
+    });
+
+    const grnFilterBody = container.querySelector('#pm-grn-filter-body');
+    const grnToggleIcon = container.querySelector('#pm-grn-filter-toggle-icon');
+    container.querySelector('#pm-grn-filter-toggle-btn')?.addEventListener('click', () => {
+      if (grnFilterBody) {
+        grnFilterBody.classList.toggle('hidden');
+        if (grnToggleIcon) {
+          grnToggleIcon.classList.toggle('rotate-180');
+        }
+      }
+    });
+  },
+
+  // Modal: Add Packaging GRN
+  showAddPmGrnModal(onSuccess = null) {
+    const todayStr = new Date().toISOString().slice(0, 10);
+    const nextNum = (this.state.pmGrnList?.length || 0) + 1;
+    const defaultDocNo = `GRN-PM-2026-${String(50 + nextNum).padStart(4, '0')}`;
+    const defaultCode = `COD-PM-${9100 + nextNum}`;
+
+    let grnItems = [
+      {
+        item: '7-Ply Corrugated Master Cartons (1 X 10 KGS IQF Print)',
+        uom: 'MCs',
+        availableQty: 2500,
+        poQty: 20000,
+        receivedQty: 20000,
+        deviationQty: 0,
+        location: 'Packaging Store Vault #1',
+        batch: 'BAT-PM-2026-03',
+        itemPrice: 58.50,
+        baseValue: 1170000.00,
+        deviationAmount: 0.00,
+        gstPercent: 12,
+        gstTaxAmount: 140400.00
+      }
+    ];
+
+    const renderItemsTable = () => {
+      const tbody = document.getElementById('pm-grn-modal-items-tbody');
+      if (!tbody) return;
+
+      if (grnItems.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="9" class="text-center py-5 text-[#5E6C84] italic">
+              No items received yet. Fill in item receipt details above and click "Add Item to GRN".
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = grnItems.map((it, idx) => `
+        <tr class="hover:bg-[#F8FAFC]">
+          <td class="py-2 px-3 font-semibold text-[#172B4D]">${it.item}</td>
+          <td class="py-2 px-3 text-[#5E6C84]">${it.uom}</td>
+          <td class="py-2 px-3 text-right font-mono font-bold text-[#172B4D]">${Number(it.poQty || 0).toLocaleString()}</td>
+          <td class="py-2 px-3 text-right font-mono font-bold text-[#00875A]">${Number(it.receivedQty || 0).toLocaleString()}</td>
+          <td class="py-2 px-3 text-right font-mono font-bold ${it.deviationQty < 0 ? 'text-[#DE350B]' : 'text-[#5E6C84]'}">${it.deviationQty}</td>
+          <td class="py-2 px-3 text-right font-mono text-[#172B4D]">₹${Number(it.baseValue || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
+          <td class="py-2 px-3 text-right font-mono text-[#00A4B7]">${it.gstPercent}%</td>
+          <td class="py-2 px-3 text-center text-[#5E6C84] font-mono text-[11px]">${it.batch || '-'}</td>
+          <td class="py-2 px-3 text-center">
+            <button type="button" class="btn-remove-pm-grn-item text-[#DE350B] hover:text-[#BF2600] p-1 rounded hover:bg-[#FFEBE6] transition-colors cursor-pointer" data-idx="${idx}" title="Remove item">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+            </button>
+          </td>
+        </tr>
+      `).join('');
+
+      tbody.querySelectorAll('.btn-remove-pm-grn-item').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const idx = parseInt(e.currentTarget.getAttribute('data-idx'), 10);
+          grnItems.splice(idx, 1);
+          renderItemsTable();
+        });
+      });
+    };
+
+    Modal.open({
+      title: 'Add Goods Receipt Note (PM)',
+      width: 'max-w-5xl',
+      confirmActions: false,
+      body: `
+        <div class="space-y-4 text-xs">
+          <!-- 1. Header Details -->
+          <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 space-y-3 shadow-2xs">
+            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider border-b border-[#DFE1E6] pb-1.5">GRN Header Information</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+              <div>
+                <label for="pm-mgrn-doc" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DOC NO</label>
+                <input type="text" id="pm-mgrn-doc" value="${defaultDocNo}" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] shadow-2xs cursor-not-allowed" />
+              </div>
+              <div>
+                <label for="pm-mgrn-code" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CODE</label>
+                <input type="text" id="pm-mgrn-code" value="${defaultCode}" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] shadow-2xs cursor-not-allowed" />
+              </div>
+              <div>
+                <label for="pm-mgrn-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DATE <span class="text-[#DE350B] font-bold">*</span></label>
+                <input type="date" id="pm-mgrn-date" value="${todayStr}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+              <div>
+                <label for="pm-mgrn-supplier" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SUPPLIER <span class="text-[#DE350B] font-bold">*</span></label>
+                <select id="pm-mgrn-supplier" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="Sri Venkateswara Packaging Ltd" selected>Sri Venkateswara Packaging Ltd</option>
+                  <option value="Apex Polymers & Films India Ltd">Apex Polymers &amp; Films India Ltd</option>
+                  <option value="Modern Corrugators Visakhapatnam">Modern Corrugators Visakhapatnam</option>
+                  <option value="South Coast Boxes & Cartons">South Coast Boxes &amp; Cartons</option>
+                </select>
+              </div>
+              <div>
+                <label for="pm-mgrn-po" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PO NO</label>
+                <input type="text" id="pm-mgrn-po" value="PO-PM-2026-0201" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+              <div>
+                <label for="pm-mgrn-inv-no" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">INVOICE NO <span class="text-[#DE350B] font-bold">*</span></label>
+                <input type="text" id="pm-mgrn-inv-no" value="INV-SVP-8902" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+              <div>
+                <label for="pm-mgrn-inv-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">INVOICE DATE</label>
+                <input type="date" id="pm-mgrn-inv-date" value="${todayStr}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+              <div>
+                <label for="pm-mgrn-narration" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">NARRATION</label>
+                <input type="text" id="pm-mgrn-narration" placeholder="Inward inspection notes..." value="Packaging materials received and quality inspected" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Item Details Fields -->
+          <div class="bg-[#F8FAFC] border border-[#DFE1E6] rounded-xl p-3.5 space-y-3 shadow-2xs">
+            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider border-b border-[#DFE1E6] pb-1.5">Inward Item Receipt Details</h4>
+            
+            <!-- Row 1: Item & Quantities -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 gap-3">
+              <div class="md:col-span-2">
+                <label for="pm-mgrni-item" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ITEM <span class="text-[#DE350B] font-bold">*</span></label>
+                <input type="text" id="pm-mgrni-item" value="Printed LDPE 2-Lb Gusseted Shrimp Bags with Zipper (50 Micron)" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+              <div>
+                <label for="pm-mgrni-uom" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">UOM</label>
+                <select id="pm-mgrni-uom" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="Bags" selected>Bags</option>
+                  <option value="MCs">MCs</option>
+                  <option value="Boxes">Boxes</option>
+                  <option value="Rolls">Rolls</option>
+                  <option value="Nos">Nos</option>
+                </select>
+              </div>
+              <div>
+                <label for="pm-mgrni-avail-qty" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">AVAIL QTY</label>
+                <input type="number" id="pm-mgrni-avail-qty" value="10000" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] shadow-2xs cursor-not-allowed" />
+              </div>
+              <div>
+                <label for="pm-mgrni-po-qty" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PO QTY</label>
+                <input type="number" id="pm-mgrni-po-qty" value="50000" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+              <div>
+                <label for="pm-mgrni-rec-qty" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">RECEIVED QTY <span class="text-[#DE350B] font-bold">*</span></label>
+                <input type="number" id="pm-mgrni-rec-qty" value="50000" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+            </div>
+
+            <!-- Row 2: Location, Batch, Financials -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+              <div>
+                <label for="pm-mgrni-dev-qty" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DEVIATION QTY</label>
+                <input type="number" id="pm-mgrni-dev-qty" value="0" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] shadow-2xs cursor-not-allowed" />
+              </div>
+              <div>
+                <label for="pm-mgrni-location" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">LOCATION</label>
+                <input type="text" id="pm-mgrni-location" value="Central PM Bay A-2" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+              <div>
+                <label for="pm-mgrni-batch" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BATCH</label>
+                <input type="text" id="pm-mgrni-batch" value="BAT-PM-2026-04" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+              <div>
+                <label for="pm-mgrni-price" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ITEM PRICE (₹)</label>
+                <input type="number" id="pm-mgrni-price" value="3.40" min="0.01" step="0.01" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+              <div>
+                <label for="pm-mgrni-base-val" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BASE VALUE (₹)</label>
+                <input type="number" id="pm-mgrni-base-val" value="170000.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] shadow-2xs cursor-not-allowed" />
+              </div>
+              <div>
+                <label for="pm-mgrni-gst-pct" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">GST %</label>
+                <select id="pm-mgrni-gst-pct" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="0">0%</option>
+                  <option value="5">5%</option>
+                  <option value="12">12%</option>
+                  <option value="18" selected>18%</option>
+                  <option value="28">28%</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Row 3: Taxes & Add Item Button -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 items-end">
+              <div>
+                <label for="pm-mgrni-gst-amt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">GST TAX AMOUNT (₹)</label>
+                <input type="number" id="pm-mgrni-gst-amt" value="30600.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] shadow-2xs cursor-not-allowed" />
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-transparent uppercase tracking-wider mb-1 select-none">ACTION</label>
+                <button type="button" id="modal-pm-grn-btn-add-item" class="btn-primary w-full max-w-[150px] h-[32px] px-4 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                  <span>Add Item to GRN</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Staged Items Table Card -->
+          <div class="bg-white border border-[#DFE1E6] rounded-xl overflow-hidden shadow-2xs">
+            <div class="p-3 bg-[#F8FAFC] border-b border-[#DFE1E6]">
+              <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Received Items List</span>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs border-collapse">
+                <thead class="bg-[#F8FAFC] border-b border-[#DFE1E6] text-[#475569] font-bold text-[11px] uppercase tracking-wider">
+                  <tr>
+                    <th class="py-2.5 px-3">Item</th>
+                    <th class="py-2.5 px-3">UOM</th>
+                    <th class="py-2.5 px-3 text-right">PO Qty</th>
+                    <th class="py-2.5 px-3 text-right">Rec Qty</th>
+                    <th class="py-2.5 px-3 text-right">Dev Qty</th>
+                    <th class="py-2.5 px-3 text-right">Base Value</th>
+                    <th class="py-2.5 px-3 text-right">GST %</th>
+                    <th class="py-2.5 px-3 text-center">Batch</th>
+                    <th class="py-2.5 px-3 text-center">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="pm-grn-modal-items-tbody" class="divide-y divide-[#DFE1E6]">
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- 4. Footer Actions -->
+          <div class="bg-[#F8FAFC] border border-[#DFE1E6] rounded-xl p-3 flex justify-end gap-2">
+            <button type="button" id="modal-pm-grn-cancel-btn" class="btn-secondary border border-[#CBD5E1] px-5 py-2 rounded-full text-xs font-semibold text-[#475569] hover:bg-[#F8FAFC] transition-all cursor-pointer">
+              Cancel
+            </button>
+            <button type="button" id="modal-pm-grn-submit-btn" class="btn-primary border-0 px-6 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <span>Save Goods Receipt Note</span>
+            </button>
+          </div>
+        </div>
+      `
+    });
+
+    renderItemsTable();
+
+    // Calculations
+    const calcGrnVals = () => {
+      const poQty = parseFloat(document.getElementById('pm-mgrni-po-qty')?.value || 0);
+      const recQty = parseFloat(document.getElementById('pm-mgrni-rec-qty')?.value || 0);
+      const price = parseFloat(document.getElementById('pm-mgrni-price')?.value || 0);
+      const gstPct = parseFloat(document.getElementById('pm-mgrni-gst-pct')?.value || 0);
+
+      const devQty = recQty - poQty;
+      const baseVal = recQty * price;
+      const gstAmt = baseVal * (gstPct / 100);
+
+      const devEl = document.getElementById('pm-mgrni-dev-qty');
+      const baseEl = document.getElementById('pm-mgrni-base-val');
+      const gstEl = document.getElementById('pm-mgrni-gst-amt');
+
+      if (devEl) devEl.value = devQty;
+      if (baseEl) baseEl.value = baseVal.toFixed(2);
+      if (gstEl) gstEl.value = gstAmt.toFixed(2);
+    };
+
+    ['pm-mgrni-po-qty', 'pm-mgrni-rec-qty', 'pm-mgrni-price', 'pm-mgrni-gst-pct'].forEach(id => {
+      document.getElementById(id)?.addEventListener('input', calcGrnVals);
+      document.getElementById(id)?.addEventListener('change', calcGrnVals);
+    });
+
+    document.getElementById('modal-pm-grn-btn-add-item')?.addEventListener('click', () => {
+      const item = document.getElementById('pm-mgrni-item')?.value?.trim();
+      const uom = document.getElementById('pm-mgrni-uom')?.value;
+      const availQty = parseFloat(document.getElementById('pm-mgrni-avail-qty')?.value || 0);
+      const poQty = parseFloat(document.getElementById('pm-mgrni-po-qty')?.value || 0);
+      const recQty = parseFloat(document.getElementById('pm-mgrni-rec-qty')?.value || 0);
+      const devQty = parseFloat(document.getElementById('pm-mgrni-dev-qty')?.value || 0);
+      const location = document.getElementById('pm-mgrni-location')?.value;
+      const batch = document.getElementById('pm-mgrni-batch')?.value;
+      const price = parseFloat(document.getElementById('pm-mgrni-price')?.value || 0);
+      const baseVal = parseFloat(document.getElementById('pm-mgrni-base-val')?.value || 0);
+      const gstPct = parseFloat(document.getElementById('pm-mgrni-gst-pct')?.value || 0);
+      const gstAmt = parseFloat(document.getElementById('pm-mgrni-gst-amt')?.value || 0);
+
+      if (!item) {
+        Toast.show('Please enter item name', 'warning');
+        return;
+      }
+      if (recQty <= 0) {
+        Toast.show('Received quantity must be greater than zero', 'warning');
+        return;
+      }
+
+      grnItems.push({
+        item,
+        uom,
+        availableQty: availQty,
+        poQty,
+        receivedQty: recQty,
+        deviationQty: devQty,
+        location,
+        batch,
+        itemPrice: price,
+        baseValue: baseVal,
+        deviationAmount: devQty * price,
+        gstPercent: gstPct,
+        gstTaxAmount: gstAmt
+      });
+
+      renderItemsTable();
+      Toast.show(`Added "${item}" to GRN`, 'success');
+    });
+
+    document.getElementById('modal-pm-grn-cancel-btn')?.addEventListener('click', () => {
+      Modal.close();
+    });
+
+    document.getElementById('modal-pm-grn-submit-btn')?.addEventListener('click', () => {
+      const docNo = document.getElementById('pm-mgrn-doc')?.value;
+      const code = document.getElementById('pm-mgrn-code')?.value;
+      const date = document.getElementById('pm-mgrn-date')?.value;
+      const supplier = document.getElementById('pm-mgrn-supplier')?.value;
+      const poNo = document.getElementById('pm-mgrn-po')?.value;
+      const invoiceNumber = document.getElementById('pm-mgrn-inv-no')?.value;
+      const invoiceDate = document.getElementById('pm-mgrn-inv-date')?.value;
+      const narration = document.getElementById('pm-mgrn-narration')?.value;
+
+      if (!date || !invoiceNumber) {
+        Toast.show('Please fill in required Date and Invoice Number', 'warning');
+        return;
+      }
+      if (grnItems.length === 0) {
+        Toast.show('Please add at least one received item', 'warning');
+        return;
+      }
+
+      Modal.confirm({
+        title: 'Confirm Packaging GRN',
+        message: `Save Goods Receipt Note <strong>${docNo}</strong> from <strong>${supplier}</strong> (Invoice: ${invoiceNumber}) with ${grnItems.length} item(s)?`,
+        confirmText: 'Save GRN',
+        onConfirm: () => {
+          const newGrn = {
+            id: Date.now(),
+            docNo,
+            code,
+            date,
+            supplier,
+            poNo,
+            invoiceNumber,
+            invoiceDate,
+            freightType: 'Door Delivery',
+            status: 'Verified & Binned',
+            narration,
+            items: [...grnItems]
+          };
+
+          this.state.pmGrnList.unshift(newGrn);
+          Modal.close();
+          if (onSuccess) onSuccess();
+          Toast.show(`Goods Receipt Note ${docNo} recorded!`, 'success');
+        }
+      });
+    });
+  },
+
+  // Modal: Edit Packaging GRN
+  showEditPmGrnModal(row, onSuccess = null) {
+    const todayStr = new Date().toISOString().slice(0, 10);
+    let grnItems = Array.isArray(row.items) ? JSON.parse(JSON.stringify(row.items)) : [];
+
+    const renderItemsTable = () => {
+      const tbody = document.getElementById('pm-grn-edit-items-tbody');
+      if (!tbody) return;
+
+      if (grnItems.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="8" class="text-center py-5 text-[#5E6C84] italic">
+              No items in this GRN.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = grnItems.map((it, idx) => `
+        <tr class="hover:bg-[#F8FAFC]">
+          <td class="py-2 px-3 font-semibold text-[#172B4D]">${it.item}</td>
+          <td class="py-2 px-3 text-[#5E6C84]">${it.uom || it.unit || 'Nos'}</td>
+          <td class="py-2 px-3 text-right font-mono font-bold text-[#172B4D]">${Number(it.poQty || 0).toLocaleString()}</td>
+          <td class="py-2 px-3 text-right font-mono font-bold text-[#00875A]">${Number(it.receivedQty || it.quantity || 0).toLocaleString()}</td>
+          <td class="py-2 px-3 text-right font-mono font-bold ${(it.deviationQty || 0) < 0 ? 'text-[#DE350B]' : 'text-[#5E6C84]'}">${it.deviationQty || 0}</td>
+          <td class="py-2 px-3 text-right font-mono text-[#172B4D]">₹${Number(it.baseValue || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
+          <td class="py-2 px-3 text-right font-mono text-[#00A4B7]">${it.gstPercent || 0}%</td>
+          <td class="py-2 px-3 text-center text-[#5E6C84] font-mono text-[11px]">${it.batch || '-'}</td>
+        </tr>
+      `).join('');
+    };
+
+    Modal.open({
+      title: `Edit Goods Receipt Note (PM) — ${row.docNo}`,
+      width: 'max-w-4xl',
+      confirmActions: false,
+      body: `
+        <div class="space-y-4 text-xs">
+          <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 space-y-3 shadow-2xs">
+            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider border-b border-[#DFE1E6] pb-1.5">GRN Header Information</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+              <div>
+                <label for="pm-egrn-doc" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DOC NO</label>
+                <input type="text" id="pm-egrn-doc" value="${row.docNo}" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] shadow-2xs cursor-not-allowed" />
+              </div>
+              <div>
+                <label for="pm-egrn-code" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CODE</label>
+                <input type="text" id="pm-egrn-code" value="${row.code || ''}" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] shadow-2xs cursor-not-allowed" />
+              </div>
+              <div>
+                <label for="pm-egrn-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DATE <span class="text-[#DE350B] font-bold">*</span></label>
+                <input type="date" id="pm-egrn-date" value="${row.date || todayStr}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+              <div>
+                <label for="pm-egrn-supplier" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SUPPLIER <span class="text-[#DE350B] font-bold">*</span></label>
+                <select id="pm-egrn-supplier" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="Sri Venkateswara Packaging Ltd" ${row.supplier === 'Sri Venkateswara Packaging Ltd' ? 'selected' : ''}>Sri Venkateswara Packaging Ltd</option>
+                  <option value="Apex Polymers & Films India Ltd" ${row.supplier === 'Apex Polymers & Films India Ltd' ? 'selected' : ''}>Apex Polymers &amp; Films India Ltd</option>
+                  <option value="Modern Corrugators Visakhapatnam" ${row.supplier === 'Modern Corrugators Visakhapatnam' ? 'selected' : ''}>Modern Corrugators Visakhapatnam</option>
+                  <option value="South Coast Boxes & Cartons" ${row.supplier === 'South Coast Boxes & Cartons' ? 'selected' : ''}>South Coast Boxes &amp; Cartons</option>
+                </select>
+              </div>
+              <div>
+                <label for="pm-egrn-po" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PO NO</label>
+                <input type="text" id="pm-egrn-po" value="${row.poNo || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+              <div>
+                <label for="pm-egrn-inv-no" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">INVOICE NO <span class="text-[#DE350B] font-bold">*</span></label>
+                <input type="text" id="pm-egrn-inv-no" value="${row.invoiceNumber || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+              <div>
+                <label for="pm-egrn-inv-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">INVOICE DATE</label>
+                <input type="date" id="pm-egrn-inv-date" value="${row.invoiceDate || todayStr}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+              <div>
+                <label for="pm-egrn-narr" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">NARRATION</label>
+                <input type="text" id="pm-egrn-narr" value="${row.narration || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Items Table Card -->
+          <div class="bg-white border border-[#DFE1E6] rounded-xl overflow-hidden shadow-2xs">
+            <div class="p-3 bg-[#F8FAFC] border-b border-[#DFE1E6]">
+              <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Received Items</span>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs border-collapse">
+                <thead class="bg-[#F8FAFC] border-b border-[#DFE1E6] text-[#475569] font-bold text-[11px] uppercase tracking-wider">
+                  <tr>
+                    <th class="py-2.5 px-3">Item</th>
+                    <th class="py-2.5 px-3">UOM</th>
+                    <th class="py-2.5 px-3 text-right">PO Qty</th>
+                    <th class="py-2.5 px-3 text-right">Rec Qty</th>
+                    <th class="py-2.5 px-3 text-right">Dev Qty</th>
+                    <th class="py-2.5 px-3 text-right">Base Value</th>
+                    <th class="py-2.5 px-3 text-right">GST %</th>
+                    <th class="py-2.5 px-3 text-center">Batch</th>
+                  </tr>
+                </thead>
+                <tbody id="pm-grn-edit-items-tbody" class="divide-y divide-[#DFE1E6]">
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Footer Actions -->
+          <div class="bg-[#F8FAFC] border border-[#DFE1E6] rounded-xl p-3 flex justify-end gap-2">
+            <button type="button" id="modal-pm-egrn-cancel-btn" class="btn-secondary border border-[#CBD5E1] px-5 py-2 rounded-full text-xs font-semibold text-[#475569] hover:bg-[#F8FAFC] transition-all cursor-pointer">
+              Cancel
+            </button>
+            <button type="button" id="modal-pm-egrn-submit-btn" class="btn-primary border-0 px-6 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <span>Update Goods Receipt Note</span>
+            </button>
+          </div>
+        </div>
+      `
+    });
+
+    renderItemsTable();
+
+    document.getElementById('modal-pm-egrn-cancel-btn')?.addEventListener('click', () => {
+      Modal.close();
+    });
+
+    document.getElementById('modal-pm-egrn-submit-btn')?.addEventListener('click', () => {
+      const date = document.getElementById('pm-egrn-date')?.value;
+      const supplier = document.getElementById('pm-egrn-supplier')?.value;
+      const poNo = document.getElementById('pm-egrn-po')?.value;
+      const invoiceNumber = document.getElementById('pm-egrn-inv-no')?.value;
+      const invoiceDate = document.getElementById('pm-egrn-inv-date')?.value;
+      const narration = document.getElementById('pm-egrn-narr')?.value;
+
+      if (!date || !invoiceNumber) {
+        Toast.show('Please fill in required Date and Invoice Number', 'warning');
+        return;
+      }
+
+      Modal.confirm({
+        title: 'Confirm Update GRN',
+        message: `Update changes to Packaging GRN <strong>${row.docNo}</strong>?`,
+        confirmText: 'Confirm Update',
+        onConfirm: () => {
+          row.date = date;
+          row.supplier = supplier;
+          row.poNo = poNo;
+          row.invoiceNumber = invoiceNumber;
+          row.invoiceDate = invoiceDate;
+          row.narration = narration;
+
+          Modal.close();
+          if (onSuccess) onSuccess();
+          Toast.show(`GRN ${row.docNo} updated successfully!`, 'success');
+        }
+      });
+    });
+  },
+
+  // Modal: View Packaging GRN Details
+  showPmGrnDetailsModal(row) {
+    const items = Array.isArray(row.items) ? row.items : [];
+    const totalBase = items.reduce((acc, it) => acc + (it.baseValue || 0), 0);
+    const totalTax = items.reduce((acc, it) => acc + (it.gstTaxAmount || 0), 0);
+
+    Modal.open({
+      title: `Goods Receipt Note (PM) Details — ${row.docNo}`,
+      width: 'max-w-4xl',
+      body: `
+        <div class="space-y-4 text-xs">
+          <!-- Header Details -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-[#F8FAFC] border border-[#DFE1E6] rounded-xl p-3.5">
+            <div>
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">DOC NO</span>
+              <span class="font-mono font-bold text-xs text-[#00A4B7]">${row.docNo}</span>
+            </div>
+            <div>
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">CODE</span>
+              <span class="font-mono font-semibold text-xs text-[#172B4D]">${row.code || '-'}</span>
+            </div>
+            <div>
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">DATE</span>
+              <span class="font-mono font-medium text-xs text-[#172B4D]">${row.date}</span>
+            </div>
+            <div>
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">STATUS</span>
+              <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-[#E3FCEF] text-[#006644]">${row.status || 'Verified & Binned'}</span>
+            </div>
+            <div class="sm:col-span-2">
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">SUPPLIER</span>
+              <span class="font-semibold text-xs text-[#172B4D]">${row.supplier}</span>
+            </div>
+            <div>
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">PO NO</span>
+              <span class="font-mono text-xs text-[#00A4B7] font-bold">${row.poNo || '-'}</span>
+            </div>
+            <div>
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">INVOICE NO &amp; DATE</span>
+              <span class="font-mono text-xs text-[#172B4D]">${row.invoiceNumber || '-'} (${row.invoiceDate || '-'})</span>
+            </div>
+            ${row.narration ? `
+              <div class="col-span-2 sm:col-span-4 border-t border-[#DFE1E6] pt-2 mt-1">
+                <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">NARRATION</span>
+                <span class="text-xs text-[#172B4D] font-medium">${row.narration}</span>
+              </div>
+            ` : ''}
+          </div>
+
+          <!-- Items Table -->
+          <div>
+            <div class="flex items-center justify-between pb-2 mb-2 border-b border-[#DFE1E6]">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Inward Items (${items.length})</h4>
+            </div>
+            <div class="overflow-x-auto border border-[#DFE1E6] rounded-xl bg-white shadow-2xs">
+              <table class="w-full text-left text-xs border-collapse">
+                <thead class="bg-[#F8FAFC] border-b border-[#DFE1E6] text-[#475569] font-bold text-[11px] uppercase tracking-wider">
+                  <tr>
+                    <th class="py-2.5 px-3">Item</th>
+                    <th class="py-2.5 px-3">UOM</th>
+                    <th class="py-2.5 px-3 text-right">PO Qty</th>
+                    <th class="py-2.5 px-3 text-right">Rec Qty</th>
+                    <th class="py-2.5 px-3 text-right">Dev Qty</th>
+                    <th class="py-2.5 px-3 text-right">Base Value</th>
+                    <th class="py-2.5 px-3 text-right">GST Tax</th>
+                    <th class="py-2.5 px-3 text-center">Batch / Location</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-[#DFE1E6]">
+                  ${items.map(it => `
+                    <tr class="hover:bg-[#F8FAFC]">
+                      <td class="py-2.5 px-3 font-semibold text-[#172B4D]">${it.item}</td>
+                      <td class="py-2.5 px-3 text-[#5E6C84]">${it.uom || it.unit || 'Nos'}</td>
+                      <td class="py-2.5 px-3 text-right font-mono font-bold text-[#172B4D]">${Number(it.poQty || 0).toLocaleString()}</td>
+                      <td class="py-2.5 px-3 text-right font-mono font-bold text-[#00875A]">${Number(it.receivedQty || it.quantity || 0).toLocaleString()}</td>
+                      <td class="py-2.5 px-3 text-right font-mono font-bold ${(it.deviationQty || 0) < 0 ? 'text-[#DE350B]' : 'text-[#5E6C84]'}">${it.deviationQty || 0}</td>
+                      <td class="py-2.5 px-3 text-right font-mono text-[#172B4D]">₹${Number(it.baseValue || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
+                      <td class="py-2.5 px-3 text-right font-mono text-[#00A4B7]">₹${Number(it.gstTaxAmount || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
+                      <td class="py-2.5 px-3 text-center text-[#5E6C84] text-[11px] font-mono">${it.batch || '-'} <span class="text-[#0284C7] block text-[10px]">${it.location || ''}</span></td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+                <tfoot class="bg-[#F8FAFC] border-t border-[#DFE1E6] font-bold text-xs">
+                  <tr>
+                    <td colspan="5" class="py-2.5 px-3 text-right text-[#5E6C84] uppercase">Total Inward Base Value:</td>
+                    <td class="py-2.5 px-3 text-right font-mono text-[#00875A]">₹${totalBase.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
+                    <td class="py-2.5 px-3 text-right font-mono text-[#00A4B7]">₹${totalTax.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
+                    <td></td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </div>
+      `,
+      footerButtons: [
+        {
+          label: 'Close',
+          type: 'secondary',
+          class: 'btn-secondary border border-[#CBD5E1] px-5 py-2 rounded-full text-xs font-semibold text-[#475569] hover:bg-[#F8FAFC] transition-all cursor-pointer',
+          onClick: () => Modal.close()
+        }
+      ]
+    });
+  },
+
+  // =========================================================================
+  // 2d. MATERIAL ISSUE (PM)
+  // =========================================================================
+  renderPackingMaterialMaterialIssue(container) {
+    const todayStr = new Date().toISOString().slice(0, 10);
+
+    container.innerHTML = `
+      <!-- Page Header -->
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-1">
+        <div>
+          <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Material Issue (PM)</h1>
+        </div>
+        <div class="flex items-center gap-2">
+          <button type="button" id="pm-issue-add-btn" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+            <span>Add Material Issue</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Search & Filter Card -->
+      <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200">
+        <div class="flex items-center justify-between pb-1">
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+            <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
+          </div>
+          <div class="inline-flex items-center gap-2">
+            <button type="button" id="pm-issue-flt-reset-btn" class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Reset all filters">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+            </button>
+            <button type="button" id="pm-issue-flt-toggle-btn" class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Hide Filter">
+              <svg id="pm-issue-flt-toggle-icon" class="w-3.5 h-3.5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div id="pm-issue-flt-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3 pt-3 border-t border-[#F1F5F9] mt-2 text-xs">
+          <!-- 1. Search Query -->
+          <div>
+            <label for="pm-issue-flt-search" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SEARCH</label>
+            <input type="text" id="pm-issue-flt-search" placeholder="Doc No / Item / Narration..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+
+          <!-- 2. Department -->
+          <div>
+            <label for="pm-issue-flt-dept" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DEPARTMENT</label>
+            <select id="pm-issue-flt-dept" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL">All Departments</option>
+              <option value="Packaging & Boxing Bay">Packaging &amp; Boxing Bay</option>
+              <option value="IQF Line 1 Packing Table">IQF Line 1 Packing Table</option>
+              <option value="Coldstore Hub - Dispatch Packaging">Coldstore Hub - Dispatch Packaging</option>
+              <option value="Pre-Processing Unit">Pre-Processing Unit</option>
+            </select>
+          </div>
+
+          <!-- 3. From Date -->
+          <div>
+            <label for="pm-issue-flt-from" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FROM DATE</label>
+            <input type="date" id="pm-issue-flt-from" value="2026-10-01" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+
+          <!-- 4. To Date -->
+          <div>
+            <label for="pm-issue-flt-to" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">TO DATE</label>
+            <input type="date" id="pm-issue-flt-to" value="${todayStr}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+
+          <!-- Search Button -->
+          <div class="flex items-end">
+            <button type="button" id="pm-issue-flt-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+              <span>Search</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Material Issue Records Table: S No, Date, Actions (plus Doc No, Dept, Location, Amount) -->
+      <div id="pm-issue-table-container"></div>
+    `;
+
+    // Add Material Issue button handler
+    container.querySelector('#pm-issue-add-btn')?.addEventListener('click', () => {
+      this.showAddPmMaterialIssueModal(() => {
+        renderTable(this.state.pmMaterialIssueList);
+      });
+    });
+
+    const renderTable = (data) => {
+      new DataTable({
+        containerId: 'pm-issue-table-container',
+        tableTitle: `Packaging Material Issue Records (${data.length})`,
+        searchable: true,
+        exportable: true,
+        pageSize: 10,
+        onRowClick: (row) => {
+          this.showPmMaterialIssueDetailsModal(row);
+        },
+        columns: [
+          {
+            field: 'sNo',
+            header: 'S No',
+            sortable: true,
+            render: (v, r, idx) => `
+              <span class="text-[#00A4B7] font-semibold hover:underline cursor-pointer select-none">${idx + 1}</span>
+            `
+          },
+          {
+            field: 'docNo',
+            header: 'Doc No',
+            sortable: true,
+            render: (v, r) => `
+              <span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer whitespace-nowrap">${v}</span>
+            `
+          },
+          {
+            field: 'date',
+            header: 'Date',
+            sortable: true,
+            render: v => `<span class="whitespace-nowrap text-xs text-[#172B4D] font-medium font-mono">${v}</span>`
+          },
+          {
+            field: 'department',
+            header: 'Department',
+            sortable: true,
+            render: v => `<span class="font-semibold text-xs text-[#172B4D] whitespace-nowrap">${v}</span>`
+          },
+          {
+            field: 'location',
+            header: 'Location',
+            sortable: true,
+            render: v => `<span class="text-xs text-[#5E6C84] whitespace-nowrap">${v || '-'}</span>`
+          },
+          {
+            field: 'totalValue',
+            header: 'Total Value (₹)',
+            sortable: true,
+            render: (v, r) => {
+              const items = Array.isArray(r.items) ? r.items : [];
+              const total = items.reduce((acc, it) => acc + (it.invoiceAmount || it.baseValue || 0), 0);
+              return `<span class="font-mono font-bold text-xs text-[#00875A] whitespace-nowrap">₹${total.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>`;
+            }
+          }
+        ],
+        actionsTitle: 'Actions',
+        actions: [
+          {
+            label: 'View',
+            title: 'View Issue Details',
+            icon: `<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>`,
+            onClick: (row) => {
+              this.showPmMaterialIssueDetailsModal(row);
+            }
+          },
+          {
+            label: 'Edit',
+            title: 'Edit Material Issue',
+            icon: `<svg class="w-4 h-4 text-[#0284C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>`,
+            onClick: (row) => {
+              this.showEditPmMaterialIssueModal(row, () => {
+                renderTable(this.state.pmMaterialIssueList);
+              });
+            }
+          },
+          {
+            label: 'Delete',
+            title: 'Delete Material Issue',
+            icon: `<svg class="w-4 h-4 text-[#DE350B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>`,
+            onClick: (row) => {
+              Modal.confirm({
+                title: 'Delete Material Issue (PM)',
+                message: `Are you sure you want to delete Packaging Material Issue <strong>${row.docNo}</strong> (${row.department})?`,
+                confirmText: 'Delete Issue',
+                isDestructive: true,
+                onConfirm: () => {
+                  const idx = this.state.pmMaterialIssueList.findIndex(r => r.id === row.id || r.docNo === row.docNo);
+                  if (idx !== -1) {
+                    this.state.pmMaterialIssueList.splice(idx, 1);
+                    renderTable(this.state.pmMaterialIssueList);
+                    Toast.show(`Material Issue ${row.docNo} deleted.`, 'success');
+                  }
+                }
+              });
+            }
+          }
+        ],
+        data: data
+      });
+    };
+
+    renderTable(this.state.pmMaterialIssueList);
+
+    // Search & Filter Handlers
+    container.querySelector('#pm-issue-flt-search-btn')?.addEventListener('click', () => {
+      const q = container.querySelector('#pm-issue-flt-search')?.value?.trim().toLowerCase();
+      const deptVal = container.querySelector('#pm-issue-flt-dept')?.value;
+      const fromVal = container.querySelector('#pm-issue-flt-from')?.value;
+      const toVal = container.querySelector('#pm-issue-flt-to')?.value;
+
+      const filtered = this.state.pmMaterialIssueList.filter(it => {
+        if (q) {
+          const matchDoc = it.docNo?.toLowerCase().includes(q);
+          const matchNarr = it.narration?.toLowerCase().includes(q);
+          const matchItem = it.items?.some(i => i.item?.toLowerCase().includes(q));
+          if (!matchDoc && !matchNarr && !matchItem) return false;
+        }
+        if (deptVal && deptVal !== 'ALL' && it.department !== deptVal) return false;
+        if (fromVal && it.date < fromVal) return false;
+        if (toVal && it.date > toVal) return false;
+        return true;
+      });
+
+      renderTable(filtered);
+      Toast.show(`Found ${filtered.length} matching material issue(s)`, 'info');
+    });
+
+    container.querySelector('#pm-issue-flt-reset-btn')?.addEventListener('click', () => {
+      container.querySelector('#pm-issue-flt-search').value = '';
+      container.querySelector('#pm-issue-flt-dept').value = 'ALL';
+      container.querySelector('#pm-issue-flt-from').value = '2026-10-01';
+      container.querySelector('#pm-issue-flt-to').value = todayStr;
+      renderTable(this.state.pmMaterialIssueList);
+      Toast.show('Material Issue filters reset to default', 'info');
+    });
+
+    const issueFilterBody = container.querySelector('#pm-issue-flt-body');
+    const issueToggleIcon = container.querySelector('#pm-issue-flt-toggle-icon');
+    container.querySelector('#pm-issue-flt-toggle-btn')?.addEventListener('click', () => {
+      if (issueFilterBody) {
+        issueFilterBody.classList.toggle('hidden');
+        if (issueToggleIcon) {
+          issueToggleIcon.classList.toggle('rotate-180');
+        }
+      }
+    });
+  },
+
+  // Modal: Add Packaging Material Issue
+  showAddPmMaterialIssueModal(onSuccess = null) {
+    const todayStr = new Date().toISOString().slice(0, 10);
+    const nextNum = (this.state.pmMaterialIssueList?.length || 0) + 1;
+    const defaultDocNo = `ISS-PM-2026-${String(30 + nextNum).padStart(4, '0')}`;
+
+    let issueItems = [
+      {
+        item: '7-Ply Corrugated Master Cartons (1 X 10 KGS IQF Print)',
+        uom: 'MCs',
+        availableQty: 25000,
+        batch: 'BAT-PM-2026-01',
+        quantity: 1500,
+        itemPrice: 58.50,
+        baseValue: 87750.00,
+        gstPercent: 12,
+        invoiceAmount: 98280.00,
+        purpose: 'Shift export carton packing run',
+        attachment: '',
+        remarks: 'Approved per indent'
+      }
+    ];
+
+    const renderItemsTable = () => {
+      const tbody = document.getElementById('pm-issue-modal-items-tbody');
+      if (!tbody) return;
+
+      if (issueItems.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="8" class="text-center py-5 text-[#5E6C84] italic">
+              No items added to this issue yet. Fill item details above and click "Add Item".
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = issueItems.map((it, idx) => `
+        <tr class="hover:bg-[#F8FAFC]">
+          <td class="py-2 px-3 font-semibold text-[#172B4D]">${it.item}</td>
+          <td class="py-2 px-3 text-[#5E6C84]">${it.uom}</td>
+          <td class="py-2 px-3 text-right font-mono font-bold text-[#172B4D]">${Number(it.quantity || 0).toLocaleString()}</td>
+          <td class="py-2 px-3 text-right font-mono text-[#172B4D]">₹${Number(it.itemPrice || 0).toFixed(2)}</td>
+          <td class="py-2 px-3 text-right font-mono text-[#172B4D]">₹${Number(it.baseValue || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
+          <td class="py-2 px-3 text-right font-mono font-bold text-[#00875A]">₹${Number(it.invoiceAmount || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
+          <td class="py-2 px-3 text-[#5E6C84] text-[11px]">${it.purpose || '-'}</td>
+          <td class="py-2 px-3 text-center">
+            <button type="button" class="btn-remove-pm-issue-item text-[#DE350B] hover:text-[#BF2600] p-1 rounded hover:bg-[#FFEBE6] transition-colors cursor-pointer" data-idx="${idx}" title="Remove item">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+            </button>
+          </td>
+        </tr>
+      `).join('');
+
+      tbody.querySelectorAll('.btn-remove-pm-issue-item').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const idx = parseInt(e.currentTarget.getAttribute('data-idx'), 10);
+          issueItems.splice(idx, 1);
+          renderItemsTable();
+        });
+      });
+    };
+
+    Modal.open({
+      title: 'Add Material Issue (PM)',
+      width: 'max-w-5xl',
+      confirmActions: false,
+      body: `
+        <div class="space-y-4 text-xs">
+          <!-- 1. Header Information -->
+          <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 space-y-3 shadow-2xs">
+            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider border-b border-[#DFE1E6] pb-1.5">Material Issue Header Details</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+              <div>
+                <label for="pm-missue-doc" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DOC NO</label>
+                <input type="text" id="pm-missue-doc" value="${defaultDocNo}" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] shadow-2xs cursor-not-allowed" />
+              </div>
+              <div>
+                <label for="pm-missue-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DATE <span class="text-[#DE350B] font-bold">*</span></label>
+                <input type="date" id="pm-missue-date" value="${todayStr}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+              <div>
+                <label for="pm-missue-loc" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">LOCATION <span class="text-[#DE350B] font-bold">*</span></label>
+                <select id="pm-missue-loc" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="Packaging Store Vault #1" selected>Packaging Store Vault #1</option>
+                  <option value="Central PM Bay A-2">Central PM Bay A-2</option>
+                  <option value="Master Carton Storage Unit">Master Carton Storage Unit</option>
+                </select>
+              </div>
+              <div>
+                <label for="pm-missue-dept" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DEPARTMENT <span class="text-[#DE350B] font-bold">*</span></label>
+                <select id="pm-missue-dept" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="Packaging & Boxing Bay" selected>Packaging &amp; Boxing Bay</option>
+                  <option value="IQF Line 1 Packing Table">IQF Line 1 Packing Table</option>
+                  <option value="Coldstore Hub - Dispatch Packaging">Coldstore Hub - Dispatch Packaging</option>
+                  <option value="Pre-Processing Unit">Pre-Processing Unit</option>
+                </select>
+              </div>
+              <div class="sm:col-span-2 md:col-span-4">
+                <label for="pm-missue-narr" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">NARRATION</label>
+                <input type="text" id="pm-missue-narr" placeholder="Department consumption or requisition note..." value="Issue of master cartons for shift packing target" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Item Details Fields -->
+          <div class="bg-[#F8FAFC] border border-[#DFE1E6] rounded-xl p-3.5 space-y-3 shadow-2xs">
+            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider border-b border-[#DFE1E6] pb-1.5">Item Issuance Details</h4>
+            
+            <!-- Row 1: Item, Unit, Avail, Price, Batch, Qty -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 gap-3">
+              <div class="md:col-span-2">
+                <label for="pm-missuei-item" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ITEM <span class="text-[#DE350B] font-bold">*</span></label>
+                <input type="text" id="pm-missuei-item" value="Printed LDPE 2-Lb Gusseted Shrimp Bags with Zipper (50 Micron)" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+              <div>
+                <label for="pm-missuei-uom" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">UOM</label>
+                <select id="pm-missuei-uom" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="Bags" selected>Bags</option>
+                  <option value="MCs">MCs</option>
+                  <option value="Boxes">Boxes</option>
+                  <option value="Rolls">Rolls</option>
+                  <option value="Nos">Nos</option>
+                </select>
+              </div>
+              <div>
+                <label for="pm-missuei-avail" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">AVAIL QTY</label>
+                <input type="number" id="pm-missuei-avail" value="99500" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] shadow-2xs cursor-not-allowed" />
+              </div>
+              <div>
+                <label for="pm-missuei-price" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ITEM PRICE (₹)</label>
+                <input type="number" id="pm-missuei-price" value="3.40" min="0.01" step="0.01" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+              <div>
+                <label for="pm-missuei-batch" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BATCH</label>
+                <input type="text" id="pm-missuei-batch" value="BAT-PM-2026-02" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+            </div>
+
+            <!-- Row 2: Qty, Base, GST, Invoice, Purpose, Remarks -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+              <div>
+                <label for="pm-missuei-qty" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">QUANTITY <span class="text-[#DE350B] font-bold">*</span></label>
+                <input type="number" id="pm-missuei-qty" value="5000" min="1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+              <div>
+                <label for="pm-missuei-base" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BASE VALUE (₹)</label>
+                <input type="number" id="pm-missuei-base" value="17000.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] shadow-2xs cursor-not-allowed" />
+              </div>
+              <div>
+                <label for="pm-missuei-gst" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">GST %</label>
+                <select id="pm-missuei-gst" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="0">0%</option>
+                  <option value="5">5%</option>
+                  <option value="12">12%</option>
+                  <option value="18" selected>18%</option>
+                  <option value="28">28%</option>
+                </select>
+              </div>
+              <div>
+                <label for="pm-missuei-inv" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">INVOICE AMOUNT (₹)</label>
+                <input type="number" id="pm-missuei-inv" value="20060.00" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F0FDF4] border border-[#BBF7D0] rounded font-mono font-bold text-[#00875A] shadow-2xs cursor-not-allowed" />
+              </div>
+              <div>
+                <label for="pm-missuei-purpose" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PURPOSE</label>
+                <input type="text" id="pm-missuei-purpose" value="Retail pack shrimp packaging" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+              <div>
+                <label for="pm-missuei-remarks" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">REMARKS</label>
+                <input type="text" id="pm-missuei-remarks" value="Standard issue" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+            </div>
+
+            <!-- Row 3: Action Button -->
+            <div class="flex justify-start">
+              <button type="button" id="modal-pm-issue-btn-add-item" class="btn-primary w-full max-w-[150px] h-[32px] px-4 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                <span>Add Item</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 3. Staged Items Table Card -->
+          <div class="bg-white border border-[#DFE1E6] rounded-xl overflow-hidden shadow-2xs">
+            <div class="p-3 bg-[#F8FAFC] border-b border-[#DFE1E6]">
+              <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Items in Material Issue</span>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs border-collapse">
+                <thead class="bg-[#F8FAFC] border-b border-[#DFE1E6] text-[#475569] font-bold text-[11px] uppercase tracking-wider">
+                  <tr>
+                    <th class="py-2.5 px-3">Item</th>
+                    <th class="py-2.5 px-3">UOM</th>
+                    <th class="py-2.5 px-3 text-right">Qty</th>
+                    <th class="py-2.5 px-3 text-right">Price</th>
+                    <th class="py-2.5 px-3 text-right">Base Value</th>
+                    <th class="py-2.5 px-3 text-right">Invoice Amt</th>
+                    <th class="py-2.5 px-3">Purpose</th>
+                    <th class="py-2.5 px-3 text-center">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="pm-issue-modal-items-tbody" class="divide-y divide-[#DFE1E6]">
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- 4. Footer Actions -->
+          <div class="bg-[#F8FAFC] border border-[#DFE1E6] rounded-xl p-3 flex justify-end gap-2">
+            <button type="button" id="modal-pm-issue-cancel-btn" class="btn-secondary border border-[#CBD5E1] px-5 py-2 rounded-full text-xs font-semibold text-[#475569] hover:bg-[#F8FAFC] transition-all cursor-pointer">
+              Cancel
+            </button>
+            <button type="button" id="modal-pm-issue-submit-btn" class="btn-primary border-0 px-6 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <span>Save Material Issue</span>
+            </button>
+          </div>
+        </div>
+      `
+    });
+
+    renderItemsTable();
+
+    // Calculations
+    const calcIssueVals = () => {
+      const qty = parseFloat(document.getElementById('pm-missuei-qty')?.value || 0);
+      const price = parseFloat(document.getElementById('pm-missuei-price')?.value || 0);
+      const gstPct = parseFloat(document.getElementById('pm-missuei-gst')?.value || 0);
+
+      const baseVal = qty * price;
+      const gstAmt = baseVal * (gstPct / 100);
+      const invAmt = baseVal + gstAmt;
+
+      const baseEl = document.getElementById('pm-missuei-base');
+      const invEl = document.getElementById('pm-missuei-inv');
+
+      if (baseEl) baseEl.value = baseVal.toFixed(2);
+      if (invEl) invEl.value = invAmt.toFixed(2);
+    };
+
+    ['pm-missuei-qty', 'pm-missuei-price', 'pm-missuei-gst'].forEach(id => {
+      document.getElementById(id)?.addEventListener('input', calcIssueVals);
+      document.getElementById(id)?.addEventListener('change', calcIssueVals);
+    });
+
+    document.getElementById('modal-pm-issue-btn-add-item')?.addEventListener('click', () => {
+      const item = document.getElementById('pm-missuei-item')?.value?.trim();
+      const uom = document.getElementById('pm-missuei-uom')?.value;
+      const avail = parseFloat(document.getElementById('pm-missuei-avail')?.value || 0);
+      const price = parseFloat(document.getElementById('pm-missuei-price')?.value || 0);
+      const batch = document.getElementById('pm-missuei-batch')?.value;
+      const qty = parseFloat(document.getElementById('pm-missuei-qty')?.value || 0);
+      const baseVal = parseFloat(document.getElementById('pm-missuei-base')?.value || 0);
+      const gstPct = parseFloat(document.getElementById('pm-missuei-gst')?.value || 0);
+      const invAmt = parseFloat(document.getElementById('pm-missuei-inv')?.value || 0);
+      const purpose = document.getElementById('pm-missuei-purpose')?.value;
+      const remarks = document.getElementById('pm-missuei-remarks')?.value;
+
+      if (!item) {
+        Toast.show('Please enter item name', 'warning');
+        return;
+      }
+      if (qty <= 0) {
+        Toast.show('Quantity must be greater than zero', 'warning');
+        return;
+      }
+
+      issueItems.push({
+        item,
+        uom,
+        availableQty: avail,
+        batch,
+        quantity: qty,
+        itemPrice: price,
+        baseValue: baseVal,
+        gstPercent: gstPct,
+        invoiceAmount: invAmt,
+        purpose,
+        attachment: '',
+        remarks
+      });
+
+      renderItemsTable();
+      Toast.show(`Added "${item}" to Material Issue`, 'success');
+    });
+
+    document.getElementById('modal-pm-issue-cancel-btn')?.addEventListener('click', () => {
+      Modal.close();
+    });
+
+    document.getElementById('modal-pm-issue-submit-btn')?.addEventListener('click', () => {
+      const docNo = document.getElementById('pm-missue-doc')?.value;
+      const date = document.getElementById('pm-missue-date')?.value;
+      const location = document.getElementById('pm-missue-loc')?.value;
+      const department = document.getElementById('pm-missue-dept')?.value;
+      const narration = document.getElementById('pm-missue-narr')?.value;
+
+      if (!date || !location || !department) {
+        Toast.show('Please fill in required fields (Date, Location, Department)', 'warning');
+        return;
+      }
+      if (issueItems.length === 0) {
+        Toast.show('Please add at least one item to issue', 'warning');
+        return;
+      }
+
+      Modal.confirm({
+        title: 'Confirm Packaging Material Issue',
+        message: `Issue materials under <strong>${docNo}</strong> to <strong>${department}</strong> with ${issueItems.length} item(s)?`,
+        confirmText: 'Save Issue',
+        onConfirm: () => {
+          const newIssue = {
+            id: Date.now(),
+            docNo,
+            date,
+            location,
+            department,
+            narration,
+            items: [...issueItems]
+          };
+
+          this.state.pmMaterialIssueList.unshift(newIssue);
+          Modal.close();
+          if (onSuccess) onSuccess();
+          Toast.show(`Material Issue ${docNo} created successfully!`, 'success');
+        }
+      });
+    });
+  },
+
+  // Modal: Edit Packaging Material Issue
+  showEditPmMaterialIssueModal(row, onSuccess = null) {
+    const todayStr = new Date().toISOString().slice(0, 10);
+    let issueItems = Array.isArray(row.items) ? JSON.parse(JSON.stringify(row.items)) : [];
+
+    const renderItemsTable = () => {
+      const tbody = document.getElementById('pm-issue-edit-items-tbody');
+      if (!tbody) return;
+
+      if (issueItems.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="7" class="text-center py-5 text-[#5E6C84] italic">
+              No items in this issue.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = issueItems.map((it, idx) => `
+        <tr class="hover:bg-[#F8FAFC]">
+          <td class="py-2 px-3 font-semibold text-[#172B4D]">${it.item}</td>
+          <td class="py-2 px-3 text-[#5E6C84]">${it.uom || it.unit || 'Nos'}</td>
+          <td class="py-2 px-3 text-right font-mono font-bold text-[#172B4D]">${Number(it.quantity || 0).toLocaleString()}</td>
+          <td class="py-2 px-3 text-right font-mono text-[#172B4D]">₹${Number(it.itemPrice || 0).toFixed(2)}</td>
+          <td class="py-2 px-3 text-right font-mono text-[#172B4D]">₹${Number(it.baseValue || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
+          <td class="py-2 px-3 text-right font-mono font-bold text-[#00875A]">₹${Number(it.invoiceAmount || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
+          <td class="py-2 px-3 text-[#5E6C84] text-[11px]">${it.purpose || '-'}</td>
+        </tr>
+      `).join('');
+    };
+
+    Modal.open({
+      title: `Edit Material Issue (PM) — ${row.docNo}`,
+      width: 'max-w-4xl',
+      confirmActions: false,
+      body: `
+        <div class="space-y-4 text-xs">
+          <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 space-y-3 shadow-2xs">
+            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider border-b border-[#DFE1E6] pb-1.5">Material Issue Header Details</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+              <div>
+                <label for="pm-eissue-doc" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DOC NO</label>
+                <input type="text" id="pm-eissue-doc" value="${row.docNo}" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] shadow-2xs cursor-not-allowed" />
+              </div>
+              <div>
+                <label for="pm-eissue-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DATE <span class="text-[#DE350B] font-bold">*</span></label>
+                <input type="date" id="pm-eissue-date" value="${row.date || todayStr}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+              <div>
+                <label for="pm-eissue-loc" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">LOCATION <span class="text-[#DE350B] font-bold">*</span></label>
+                <input type="text" id="pm-eissue-loc" value="${row.location || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+              <div>
+                <label for="pm-eissue-dept" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DEPARTMENT <span class="text-[#DE350B] font-bold">*</span></label>
+                <select id="pm-eissue-dept" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="Packaging & Boxing Bay" ${row.department === 'Packaging & Boxing Bay' ? 'selected' : ''}>Packaging &amp; Boxing Bay</option>
+                  <option value="IQF Line 1 Packing Table" ${row.department === 'IQF Line 1 Packing Table' ? 'selected' : ''}>IQF Line 1 Packing Table</option>
+                  <option value="Coldstore Hub - Dispatch Packaging" ${row.department === 'Coldstore Hub - Dispatch Packaging' ? 'selected' : ''}>Coldstore Hub - Dispatch Packaging</option>
+                  <option value="Pre-Processing Unit" ${row.department === 'Pre-Processing Unit' ? 'selected' : ''}>Pre-Processing Unit</option>
+                </select>
+              </div>
+              <div class="sm:col-span-2 md:col-span-4">
+                <label for="pm-eissue-narr" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">NARRATION</label>
+                <input type="text" id="pm-eissue-narr" value="${row.narration || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Items Table Card -->
+          <div class="bg-white border border-[#DFE1E6] rounded-xl overflow-hidden shadow-2xs">
+            <div class="p-3 bg-[#F8FAFC] border-b border-[#DFE1E6]">
+              <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Issued Items</span>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs border-collapse">
+                <thead class="bg-[#F8FAFC] border-b border-[#DFE1E6] text-[#475569] font-bold text-[11px] uppercase tracking-wider">
+                  <tr>
+                    <th class="py-2.5 px-3">Item</th>
+                    <th class="py-2.5 px-3">UOM</th>
+                    <th class="py-2.5 px-3 text-right">Qty</th>
+                    <th class="py-2.5 px-3 text-right">Price</th>
+                    <th class="py-2.5 px-3 text-right">Base Value</th>
+                    <th class="py-2.5 px-3 text-right">Invoice Amt</th>
+                    <th class="py-2.5 px-3">Purpose</th>
+                  </tr>
+                </thead>
+                <tbody id="pm-issue-edit-items-tbody" class="divide-y divide-[#DFE1E6]">
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Footer Actions -->
+          <div class="bg-[#F8FAFC] border border-[#DFE1E6] rounded-xl p-3 flex justify-end gap-2">
+            <button type="button" id="modal-pm-eissue-cancel-btn" class="btn-secondary border border-[#CBD5E1] px-5 py-2 rounded-full text-xs font-semibold text-[#475569] hover:bg-[#F8FAFC] transition-all cursor-pointer">
+              Cancel
+            </button>
+            <button type="button" id="modal-pm-eissue-submit-btn" class="btn-primary border-0 px-6 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <span>Update Material Issue</span>
+            </button>
+          </div>
+        </div>
+      `
+    });
+
+    renderItemsTable();
+
+    document.getElementById('modal-pm-eissue-cancel-btn')?.addEventListener('click', () => {
+      Modal.close();
+    });
+
+    document.getElementById('modal-pm-eissue-submit-btn')?.addEventListener('click', () => {
+      const date = document.getElementById('pm-eissue-date')?.value;
+      const location = document.getElementById('pm-eissue-loc')?.value;
+      const department = document.getElementById('pm-eissue-dept')?.value;
+      const narration = document.getElementById('pm-eissue-narr')?.value;
+
+      if (!date || !location || !department) {
+        Toast.show('Please fill in required fields', 'warning');
+        return;
+      }
+
+      Modal.confirm({
+        title: 'Confirm Update Material Issue',
+        message: `Update changes to Packaging Material Issue <strong>${row.docNo}</strong>?`,
+        confirmText: 'Confirm Update',
+        onConfirm: () => {
+          row.date = date;
+          row.location = location;
+          row.department = department;
+          row.narration = narration;
+
+          Modal.close();
+          if (onSuccess) onSuccess();
+          Toast.show(`Material Issue ${row.docNo} updated successfully!`, 'success');
+        }
+      });
+    });
+  },
+
+  // Modal: View Packaging Material Issue Details
+  showPmMaterialIssueDetailsModal(row) {
+    const items = Array.isArray(row.items) ? row.items : [];
+    const totalValue = items.reduce((acc, it) => acc + (it.invoiceAmount || it.baseValue || 0), 0);
+
+    Modal.open({
+      title: `Material Issue (PM) Details — ${row.docNo}`,
+      width: 'max-w-4xl',
+      body: `
+        <div class="space-y-4 text-xs">
+          <!-- Header Details -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-[#F8FAFC] border border-[#DFE1E6] rounded-xl p-3.5">
+            <div>
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">DOC NO</span>
+              <span class="font-mono font-bold text-xs text-[#00A4B7]">${row.docNo}</span>
+            </div>
+            <div>
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">DATE</span>
+              <span class="font-mono font-medium text-xs text-[#172B4D]">${row.date}</span>
+            </div>
+            <div>
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">DEPARTMENT</span>
+              <span class="font-semibold text-xs text-[#172B4D]">${row.department}</span>
+            </div>
+            <div>
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">LOCATION</span>
+              <span class="text-xs text-[#5E6C84] font-medium">${row.location || '-'}</span>
+            </div>
+            ${row.narration ? `
+              <div class="col-span-2 sm:col-span-4 border-t border-[#DFE1E6] pt-2 mt-1">
+                <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">NARRATION</span>
+                <span class="text-xs text-[#172B4D] font-medium">${row.narration}</span>
+              </div>
+            ` : ''}
+          </div>
+
+          <!-- Items Table -->
+          <div>
+            <div class="flex items-center justify-between pb-2 mb-2 border-b border-[#DFE1E6]">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Issued Items (${items.length})</h4>
+            </div>
+            <div class="overflow-x-auto border border-[#DFE1E6] rounded-xl bg-white shadow-2xs">
+              <table class="w-full text-left text-xs border-collapse">
+                <thead class="bg-[#F8FAFC] border-b border-[#DFE1E6] text-[#475569] font-bold text-[11px] uppercase tracking-wider">
+                  <tr>
+                    <th class="py-2.5 px-3">Item</th>
+                    <th class="py-2.5 px-3">UOM</th>
+                    <th class="py-2.5 px-3 text-right">Qty</th>
+                    <th class="py-2.5 px-3 text-right">Item Price</th>
+                    <th class="py-2.5 px-3 text-right">Base Value</th>
+                    <th class="py-2.5 px-3 text-right">Invoice Amt</th>
+                    <th class="py-2.5 px-3">Purpose</th>
+                    <th class="py-2.5 px-3 text-center">Batch</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-[#DFE1E6]">
+                  ${items.map(it => `
+                    <tr class="hover:bg-[#F8FAFC]">
+                      <td class="py-2.5 px-3 font-semibold text-[#172B4D]">${it.item}</td>
+                      <td class="py-2.5 px-3 text-[#5E6C84]">${it.uom || it.unit || 'Nos'}</td>
+                      <td class="py-2.5 px-3 text-right font-mono font-bold text-[#172B4D]">${Number(it.quantity || 0).toLocaleString()}</td>
+                      <td class="py-2.5 px-3 text-right font-mono text-[#172B4D]">₹${Number(it.itemPrice || 0).toFixed(2)}</td>
+                      <td class="py-2.5 px-3 text-right font-mono text-[#172B4D]">₹${Number(it.baseValue || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
+                      <td class="py-2.5 px-3 text-right font-mono font-bold text-[#00875A]">₹${Number(it.invoiceAmount || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
+                      <td class="py-2.5 px-3 text-[#5E6C84] text-[11px]">${it.purpose || '-'}</td>
+                      <td class="py-2.5 px-3 text-center text-[#5E6C84] font-mono text-[11px]">${it.batch || '-'}</td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+                <tfoot class="bg-[#F8FAFC] border-t border-[#DFE1E6] font-bold text-xs">
+                  <tr>
+                    <td colspan="5" class="py-2.5 px-3 text-right text-[#5E6C84] uppercase">Total Value Issued:</td>
+                    <td class="py-2.5 px-3 text-right font-mono text-[#00875A]">₹${totalValue.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
+                    <td colspan="2"></td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </div>
+      `,
+      footerButtons: [
+        {
+          label: 'Close',
+          type: 'secondary',
+          class: 'btn-secondary border border-[#CBD5E1] px-5 py-2 rounded-full text-xs font-semibold text-[#475569] hover:bg-[#F8FAFC] transition-all cursor-pointer',
+          onClick: () => Modal.close()
+        }
+      ]
+    });
   },
 
   // =========================================================================

@@ -282,9 +282,12 @@ export const ADMIN_NAV_HIERARCHY = [
       {
         id: "packing-material",
         title: "Packing Material",
-        defaultTab: "pm-proforma-invoice",
+        defaultTab: "proforma-invoice",
         tabs: [
-          { id: "pm-proforma-invoice", label: "PM Proforma Invoice", hash: "#/inventory/packing-material/pm-proforma-invoice" }
+          { id: "proforma-invoice", label: "Proforma Invoice (PM)", hash: "#/inventory/packing-material/proforma-invoice" },
+          { id: "purchase-orders", label: "Purchase Orders (PM)", hash: "#/inventory/packing-material/purchase-orders" },
+          { id: "goods-receipt-note", label: "Goods Receipt Note (PM)", hash: "#/inventory/packing-material/goods-receipt-note" },
+          { id: "material-issue", label: "Material Issue (PM)", hash: "#/inventory/packing-material/material-issue" }
         ]
       },
       {
