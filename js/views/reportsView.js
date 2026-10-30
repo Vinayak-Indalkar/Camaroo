@@ -1,4 +1,4 @@
-// Global Reports Module Views (Configured with Direct Submenu Views, 4-Column Filters, Dynamic Report Types & Atlassian Detail Modals)
+// Global Reports Module Views (Configured with Direct Submenu Views, Dynamic Per-Report Filters & Contextual Data Tables)
 
 import { DataTable } from '../components/table.js';
 import { Toast } from '../components/toast.js';
@@ -39,25 +39,25 @@ export const ReportsView = {
     if (!subContainer) return;
 
     const reportTypeOptionsHtml = this.getReportTypeOptions(submenuId);
-    let currentReportType = submenuId === 'sales-export-analytics' ? 'shipment-report' : 'ALL';
+    let currentReportType = submenuId === 'sales-export-analytics' ? 'pending-contracts' : 'ALL';
 
     // Generate specific contextual dataset and columns based on active submenu & report type
     let reportData = this.getReportData(submenuId, currentReportType, pageTitle);
 
     subContainer.innerHTML = `
-      <!-- Page Header -->
+      <!-- Page Header with Inline Report Type Dropdown -->
       <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-1">
         <div class="flex items-center gap-3 flex-wrap">
           <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">${pageTitle}</h1>
           <div class="w-64 sm:w-72">
-            <select id="rep-header-type" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+            <select id="rep-header-type" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" title="Select Report Type">
               ${reportTypeOptionsHtml}
             </select>
           </div>
         </div>
       </div>
 
-      <!-- Search & Filter Card (4-Column Layout) -->
+      <!-- Search & Filter Card (Tailored for each report type) -->
       <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200">
         <div class="flex items-center justify-between pb-1">
           <div class="flex items-center gap-2">
@@ -82,178 +82,81 @@ export const ReportsView = {
     `;
 
     const renderTable = (rows) => {
-      const title = currentReportType === 'pending-contracts'
-        ? `Pending Contracts Records (${rows.length})`
-        : `${pageTitle} Records (${rows.length})`;
-
+      const typeLabel = this.getReportTypeLabel(submenuId, currentReportType, pageTitle);
       new DataTable({
         containerId: 'reports-table-container',
-        tableTitle: title,
+        tableTitle: `${typeLabel} Records (${rows.length})`,
         searchable: true,
         exportable: true,
         selectable: true,
         pageSize: 10,
         columns: reportData.columns,
         data: rows,
-        onRowClick: (row) => this.showReportDetails(row, currentReportType === 'pending-contracts' ? 'Pending Contract' : pageTitle)
+        onRowClick: (row) => this.showReportDetails(row, typeLabel)
       });
     };
 
-    // Render Filter Body based on Report Type
+    // Render Filter Body based on Submenu and Report Type
     const renderFilterBody = (type) => {
       const fltBody = subContainer.querySelector('#rep-flt-body');
       if (!fltBody) return;
 
-      if (type === 'pending-contracts') {
-        fltBody.innerHTML = `
-          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-3 border-t border-[#F1F5F9] mt-2 text-xs">
-            <!-- 1. Select Year -->
-            <div>
-              <label for="flt-year" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Select Year</label>
-              <select id="flt-year" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                <option value="2026-2027" selected>2026 - 2027</option>
-                <option value="2025-2026">2025 - 2026</option>
-                <option value="2024-2025">2024 - 2025</option>
-              </select>
-            </div>
-
-            <!-- 2. Select Exporter -->
-            <div>
-              <label for="flt-exporter" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Select Exporter</label>
-              <select id="flt-exporter" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                <option value="ALL">All Exporters</option>
-                <option value="devi-fisheries" selected>Devi Fisheries Limited</option>
-                <option value="devi-sea-foods">Devi Sea Foods Ltd</option>
-                <option value="devi-marine">Devi Marine Food Exports</option>
-              </select>
-            </div>
-
-            <!-- 3. Select Consignee -->
-            <div>
-              <label for="flt-consignee" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Select Consignee</label>
-              <select id="flt-consignee" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                <option value="ALL" selected>All Consignees</option>
-                <option value="red-lobster">Red Lobster Seafood Sourcing</option>
-                <option value="kyokuyo">Kyokuyo Global Foods Ltd</option>
-                <option value="euro-baltic">Euro-Baltic Marine Traders</option>
-                <option value="pacific-coast">Pacific Coast Seafood LLC</option>
-                <option value="meridian">Meridian Global Foods LLC</option>
-                <option value="aquastar">AquaStar Global Imports</option>
-              </select>
-            </div>
-
-            <!-- 4. Select Country -->
-            <div>
-              <label for="flt-country" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Select Country</label>
-              <select id="flt-country" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                <option value="ALL" selected>All Countries</option>
-                <option value="USA">USA</option>
-                <option value="Japan">Japan</option>
-                <option value="Netherlands">Netherlands</option>
-                <option value="UK">United Kingdom</option>
-                <option value="Canada">Canada</option>
-              </select>
-            </div>
-
-            <!-- 5. Priority -->
-            <div>
-              <label for="flt-priority" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Priority</label>
-              <select id="flt-priority" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                <option value="ALL" selected>All Priorities</option>
-                <option value="High">High</option>
-                <option value="Medium">Medium</option>
-                <option value="Low">Low</option>
-              </select>
-            </div>
-
-            <!-- 6. Select Plant -->
-            <div>
-              <label for="flt-plant" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Select Plant</label>
-              <select id="flt-plant" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                <option value="ALL" selected>All Plants</option>
-                <option value="Plant 1">Unit 1 - Singarayakonda</option>
-                <option value="Plant 2">Unit 2 - Visakhapatnam</option>
-                <option value="Plant 3">Unit 3 - Bapatla</option>
-                <option value="Plant 5">Unit 5 - Processing Hub</option>
-              </select>
-            </div>
-
-            <!-- 7. SEARCH BUTTON (Row 2, Column 3 - Left after Plant) -->
-            <div class="flex items-end">
-              <button type="button" id="rep-flt-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                <span>Search</span>
-              </button>
-            </div>
+      const fieldsHtml = this.getFilterFieldsHtml(submenuId, type);
+      fltBody.innerHTML = `
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-3 border-t border-[#F1F5F9] mt-2 text-xs">
+          ${fieldsHtml}
+          <!-- Search Button (Row 2 left or inline) -->
+          <div class="flex items-end">
+            <button type="button" id="rep-flt-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+              <span>Search</span>
+            </button>
           </div>
-        `;
-      } else {
-        fltBody.innerHTML = `
-          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-3 border-t border-[#F1F5F9] mt-2 text-xs">
-            <!-- 1. SEARCH -->
-            <div>
-              <label for="rep-flt-search" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SEARCH</label>
-              <input type="text" id="rep-flt-search" placeholder="Search reference, lot, entity..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
-            </div>
-
-            <!-- 2. FROM DATE -->
-            <div>
-              <label for="rep-flt-from" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FROM DATE</label>
-              <input type="date" id="rep-flt-from" value="2026-10-01" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
-            </div>
-
-            <!-- 3. TO DATE -->
-            <div>
-              <label for="rep-flt-to" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">TO DATE</label>
-              <input type="date" id="rep-flt-to" value="2026-10-30" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
-            </div>
-
-            <!-- 4. SEARCH BUTTON (Row 2, Column 1 - Left side after TO DATE) -->
-            <div class="flex items-end">
-              <button type="button" id="rep-flt-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                <span>Search</span>
-              </button>
-            </div>
-          </div>
-        `;
-      }
+        </div>
+      `;
 
       // Re-attach Search listener
       fltBody.querySelector('#rep-flt-search-btn')?.addEventListener('click', handleSearch);
     };
 
-    // Filter Search Execution
+    // Dynamic Search Filter Execution across all input fields
     const handleSearch = () => {
       let filtered = [...reportData.rows];
-      if (currentReportType === 'pending-contracts') {
-        const yr = subContainer.querySelector('#flt-year')?.value;
-        const exp = subContainer.querySelector('#flt-exporter')?.value;
-        const cons = subContainer.querySelector('#flt-consignee')?.value;
-        const ctry = subContainer.querySelector('#flt-country')?.value;
-        const prio = subContainer.querySelector('#flt-priority')?.value;
-        const plnt = subContainer.querySelector('#flt-plant')?.value;
+      const inputs = subContainer.querySelectorAll('#rep-flt-body input, #rep-flt-body select');
 
-        if (yr && yr !== 'ALL') filtered = filtered.filter(r => r.year === yr);
-        if (exp && exp !== 'ALL') filtered = filtered.filter(r => r.exporter === exp);
-        if (cons && cons !== 'ALL') filtered = filtered.filter(r => r.consigneeKey === cons || (r.buyer && r.buyer.toLowerCase().includes(cons.replace('-', ' '))));
-        if (ctry && ctry !== 'ALL') filtered = filtered.filter(r => r.country.toLowerCase() === ctry.toLowerCase() || r.destination.toLowerCase().includes(ctry.toLowerCase()));
-        if (prio && prio !== 'ALL') filtered = filtered.filter(r => r.priority.toLowerCase() === prio.toLowerCase());
-        if (plnt && plnt !== 'ALL') filtered = filtered.filter(r => r.plant === plnt);
-      } else {
-        const q = subContainer.querySelector('#rep-flt-search')?.value?.trim().toLowerCase();
-        if (q) {
-          filtered = filtered.filter(row => Object.values(row).some(v => String(v).toLowerCase().includes(q)));
+      inputs.forEach(input => {
+        const val = input.value?.trim();
+        if (!val || val === 'ALL') return;
+        const id = input.id;
+
+        if (id === 'flt-year') filtered = filtered.filter(r => !r.year || r.year === val);
+        else if (id === 'flt-exporter') filtered = filtered.filter(r => !r.exporter || r.exporter === val);
+        else if (id === 'flt-consignee') filtered = filtered.filter(r => (r.consigneeKey && r.consigneeKey === val) || (r.buyer && r.buyer.toLowerCase().includes(val.replace(/-/g, ' '))));
+        else if (id === 'flt-country') filtered = filtered.filter(r => (r.country && r.country.toLowerCase() === val.toLowerCase()) || (r.destination && r.destination.toLowerCase().includes(val.toLowerCase())));
+        else if (id === 'flt-priority') filtered = filtered.filter(r => r.priority && r.priority.toLowerCase() === val.toLowerCase());
+        else if (id === 'flt-plant') filtered = filtered.filter(r => r.plant && r.plant === val);
+        else if (id === 'flt-supplier') filtered = filtered.filter(r => r.supplier && r.supplier.toLowerCase().includes(val.toLowerCase()));
+        else if (id === 'flt-variety') filtered = filtered.filter(r => r.variety && r.variety.toLowerCase().includes(val.toLowerCase()));
+        else if (id === 'flt-chamber') filtered = filtered.filter(r => r.chamber && r.chamber.toLowerCase().includes(val.toLowerCase()));
+        else if (id === 'flt-line' || id === 'flt-facility') filtered = filtered.filter(r => (r.line && r.line.toLowerCase().includes(val.toLowerCase())) || (r.shippingLine && r.shippingLine.toLowerCase().includes(val.toLowerCase())));
+        else if (id === 'flt-carrier') filtered = filtered.filter(r => r.carrier && r.carrier.toLowerCase().includes(val.toLowerCase()));
+        else if (id === 'flt-grade') filtered = filtered.filter(r => (r.grade && r.grade.toLowerCase().includes(val.toLowerCase())) || (r.count && r.count.toLowerCase().includes(val.toLowerCase())));
+        else if (id === 'flt-protocol') filtered = filtered.filter(r => (r.testType && r.testType.toLowerCase().includes(val.toLowerCase())) || (r.testProtocol && r.testProtocol.toLowerCase().includes(val.toLowerCase())));
+        else if (id === 'flt-clearance' || id === 'flt-status' || id === 'flt-pay-status') filtered = filtered.filter(r => (r.status && r.status.toLowerCase().includes(val.toLowerCase())) || (r.qcStatus && r.qcStatus.toLowerCase().includes(val.toLowerCase())));
+        else if (input.type === 'text' || id === 'rep-flt-search') {
+          const lower = val.toLowerCase();
+          filtered = filtered.filter(r => Object.values(r).some(v => String(v).toLowerCase().includes(lower)));
         }
-      }
+      });
+
       renderTable(filtered);
     };
 
-    // Initial Filter Body & Table
+    // Initial Render of Filter Body & Data Table
     renderFilterBody(currentReportType);
     renderTable(reportData.rows);
 
-    // Report Type change listeners (sync header & filter dropdowns)
+    // Report Type change listener
     const onReportTypeChange = (newType, sourceEl) => {
       currentReportType = newType;
       const headerSelect = subContainer.querySelector('#rep-header-type');
@@ -272,39 +175,19 @@ export const ReportsView = {
 
     // Reset button listener
     subContainer.querySelector('#rep-flt-reset-btn')?.addEventListener('click', () => {
-      if (currentReportType === 'pending-contracts') {
-        const yr = subContainer.querySelector('#flt-year');
-        const exp = subContainer.querySelector('#flt-exporter');
-        const cons = subContainer.querySelector('#flt-consignee');
-        const ctry = subContainer.querySelector('#flt-country');
-        const prio = subContainer.querySelector('#flt-priority');
-        const plnt = subContainer.querySelector('#flt-plant');
-        if (yr) yr.value = '2026-2027';
-        if (exp) exp.value = 'devi-fisheries';
-        if (cons) cons.value = 'ALL';
-        if (ctry) ctry.value = 'ALL';
-        if (prio) prio.value = 'ALL';
-        if (plnt) plnt.value = 'ALL';
-      } else {
-        const searchInput = subContainer.querySelector('#rep-flt-search');
-        if (searchInput) searchInput.value = '';
-        const fromInput = subContainer.querySelector('#rep-flt-from');
-        if (fromInput) fromInput.value = '2026-10-01';
-        const toInput = subContainer.querySelector('#rep-flt-to');
-        if (toInput) toInput.value = '2026-10-30';
-      }
+      renderFilterBody(currentReportType);
       renderTable(reportData.rows);
       Toast.show('Filters reset', 'info');
     });
 
-    // Action button listeners for Pending Contracts
+    // Action button listeners for Contracts & Downloads
     subContainer.addEventListener('click', (e) => {
       const viewBtn = e.target.closest('.btn-pc-view');
       if (viewBtn) {
         e.stopPropagation();
         const id = Number(viewBtn.dataset.id);
         const r = reportData.rows.find(item => item.id === id);
-        if (r) this.showReportDetails(r, 'Pending Contract');
+        if (r) this.showReportDetails(r, this.getReportTypeLabel(submenuId, currentReportType, pageTitle));
         return;
       }
       const dlBtn = e.target.closest('.btn-pc-download');
@@ -312,7 +195,7 @@ export const ReportsView = {
         e.stopPropagation();
         const id = Number(dlBtn.dataset.id);
         const r = reportData.rows.find(item => item.id === id);
-        if (r) Toast.show(`Contract ${r.orderNo} downloaded successfully!`, 'success');
+        if (r) Toast.show(`Record ${r.orderNo || r.contractNo || r.docNo || r.invoiceNo || id} downloaded successfully!`, 'success');
         return;
       }
     });
@@ -327,17 +210,61 @@ export const ReportsView = {
     });
   },
 
+  // Helper: Friendly Label for each report type
+  getReportTypeLabel(submenuId, reportType, pageTitle) {
+    const labels = {
+      'pending-contracts': 'Pending Contracts',
+      'price-book': 'Price Book',
+      'approved-contracts': 'Approved Contracts',
+      'eta-status': 'OUT of ETD/ETA Report',
+      'fda-examination': 'FDA Examination Report',
+      'mpeda-report': 'MPEDA Report',
+      'shipment-report': 'Shipment Report',
+      'lab-report': 'Lab Report',
+      'q-certificate': 'Q Certificate Report',
+      'pending-payments': 'Pending Payments',
+      'pending-negotiation': 'Pending Negotiation Report',
+      'bills-realization': 'Bills Realization',
+      'fc-utilized': 'FC Utilized Report',
+      'gst-sales': 'GST Sales Report',
+      'clearing-agent': 'Clearing Agent Report',
+      'transit-insurance': 'M Transit Ins & Payments',
+      'packing-report': 'Packing Report',
+      'lineitemwise-report': 'Shipment LineItemwise Report',
+      'return-container': 'Return Container Report',
+      'freight-rates': 'Freight Rates Report',
+      'inward': 'RM Inward & Arrivals',
+      'procurement': 'Supplier Procurement Report',
+      'valuation': 'Lot Valuation & Tracking',
+      'bills': 'Bills & Payment Status',
+      'deheading': 'Deheading & Grading',
+      'peeling': 'Peeling & Recovery Report',
+      'chemicals': 'Chemicals & Consumption',
+      'inspections': 'RM QC Inspections',
+      'lab': 'Lab & Antibiotic Clearance',
+      'microbiology': 'Microbiology Testing',
+      'audits': 'QC Audits & Compliance',
+      'yield': 'Yield Reports',
+      'floor': 'Floor Summaries',
+      'ad': 'Anti-Dumping Export Logs',
+      'stock': 'Stock Summaries',
+      'movement': 'Movement Logs',
+      'exceptions': 'Operational Exceptions'
+    };
+    return labels[reportType] || pageTitle;
+  },
+
   // Report Type Options by Submenu
   getReportTypeOptions(submenuId) {
     if (submenuId === 'sales-export-analytics' || submenuId.includes('sales')) {
       return `
-        <option value="pending-contracts">Pending Contracts</option>
+        <option value="pending-contracts" selected>Pending Contracts</option>
         <option value="price-book">Price Book</option>
         <option value="approved-contracts">Approved Contracts</option>
         <option value="eta-status">OUT of ETD/ETA Report</option>
         <option value="fda-examination">FDA Examination Report</option>
         <option value="mpeda-report">MPEDA Report</option>
-        <option value="shipment-report" selected>Shipment Report</option>
+        <option value="shipment-report">Shipment Report</option>
         <option value="lab-report">Lab Report</option>
         <option value="q-certificate">Q Certificate Report</option>
         <option value="pending-payments">Pending Payments</option>
@@ -404,6 +331,579 @@ export const ReportsView = {
     `;
   },
 
+  // Dynamic Contextual Filter Fields Generator per Submenu & Report Type
+  getFilterFieldsHtml(submenuId, type) {
+    // ----------------------------------------------------
+    // 1. Sales & Export Analytics
+    // ----------------------------------------------------
+    if (submenuId === 'sales-export-analytics' || submenuId.includes('sales')) {
+      if (type === 'pending-contracts') {
+        return `
+          <div>
+            <label for="flt-year" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Select Year</label>
+            <select id="flt-year" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="2026-2027" selected>2026 - 2027</option>
+              <option value="2025-2026">2025 - 2026</option>
+              <option value="2024-2025">2024 - 2025</option>
+            </select>
+          </div>
+          <div>
+            <label for="flt-exporter" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Select Exporter</label>
+            <select id="flt-exporter" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL">All Exporters</option>
+              <option value="devi-fisheries" selected>Devi Fisheries Limited</option>
+              <option value="devi-sea-foods">Devi Sea Foods Ltd</option>
+              <option value="devi-marine">Devi Marine Food Exports</option>
+            </select>
+          </div>
+          <div>
+            <label for="flt-consignee" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Select Consignee</label>
+            <select id="flt-consignee" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL" selected>All Consignees</option>
+              <option value="red-lobster">Red Lobster Seafood Sourcing</option>
+              <option value="kyokuyo">Kyokuyo Global Foods Ltd</option>
+              <option value="euro-baltic">Euro-Baltic Marine Traders</option>
+              <option value="pacific-coast">Pacific Coast Seafood LLC</option>
+              <option value="meridian">Meridian Global Foods LLC</option>
+              <option value="aquastar">AquaStar Global Imports</option>
+            </select>
+          </div>
+          <div>
+            <label for="flt-country" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Select Country</label>
+            <select id="flt-country" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL" selected>All Countries</option>
+              <option value="USA">USA</option>
+              <option value="Japan">Japan</option>
+              <option value="Netherlands">Netherlands</option>
+              <option value="UK">United Kingdom</option>
+              <option value="Canada">Canada</option>
+            </select>
+          </div>
+          <div>
+            <label for="flt-priority" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Priority</label>
+            <select id="flt-priority" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL" selected>All Priorities</option>
+              <option value="High">High</option>
+              <option value="Medium">Medium</option>
+              <option value="Low">Low</option>
+            </select>
+          </div>
+          <div>
+            <label for="flt-plant" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Select Plant</label>
+            <select id="flt-plant" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL" selected>All Plants</option>
+              <option value="Plant 1">Unit 1 - Singarayakonda</option>
+              <option value="Plant 2">Unit 2 - Visakhapatnam</option>
+              <option value="Plant 3">Unit 3 - Bapatla</option>
+              <option value="Plant 5">Unit 5 - Processing Hub</option>
+            </select>
+          </div>
+        `;
+      }
+      if (type === 'price-book') {
+        return `
+          <div>
+            <label for="flt-variety" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Product Variety</label>
+            <select id="flt-variety" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL" selected>All Varieties</option>
+              <option value="Vannamei EZ-Peel">Vannamei EZ-Peel</option>
+              <option value="Vannamei Nobashi">Vannamei Nobashi</option>
+              <option value="Black Tiger HLSO">Black Tiger HLSO</option>
+              <option value="Cooked Tail-On">Cooked Tail-On</option>
+            </select>
+          </div>
+          <div>
+            <label for="flt-grade" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Grade / Count</label>
+            <select id="flt-grade" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL" selected>All Grades</option>
+              <option value="16/20">16/20</option>
+              <option value="21/25">21/25</option>
+              <option value="26/30">26/30</option>
+              <option value="31/40">31/40</option>
+              <option value="41/50">41/50</option>
+            </select>
+          </div>
+          <div>
+            <label for="flt-currency" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Currency</label>
+            <select id="flt-currency" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL" selected>All Currencies</option>
+              <option value="USD">USD ($)</option>
+              <option value="EUR">EUR (€)</option>
+              <option value="JPY">JPY (¥)</option>
+            </select>
+          </div>
+        `;
+      }
+      if (type === 'approved-contracts') {
+        return `
+          <div>
+            <label for="flt-year" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Contract Year</label>
+            <select id="flt-year" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL" selected>All Years</option>
+              <option value="2026-2027">2026 - 2027</option>
+              <option value="2025-2026">2025 - 2026</option>
+            </select>
+          </div>
+          <div>
+            <label for="flt-buyer" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Buyer / Consignee</label>
+            <input type="text" id="flt-buyer" placeholder="Search approved buyer..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+          <div>
+            <label for="flt-country" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Destination Country</label>
+            <select id="flt-country" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL" selected>All Countries</option>
+              <option value="USA">USA</option>
+              <option value="Japan">Japan</option>
+              <option value="Netherlands">Netherlands</option>
+            </select>
+          </div>
+        `;
+      }
+      if (type === 'eta-status') {
+        return `
+          <div>
+            <label for="flt-line" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Shipping Line</label>
+            <select id="flt-line" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL" selected>All Shipping Lines</option>
+              <option value="Maersk Line">Maersk Line</option>
+              <option value="CMA CGM">CMA CGM</option>
+              <option value="Hapag-Lloyd">Hapag-Lloyd</option>
+            </select>
+          </div>
+          <div>
+            <label for="flt-port" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Discharge Port</label>
+            <input type="text" id="flt-port" placeholder="Filter by port..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+          <div>
+            <label for="flt-delay" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ETA Delay Status</label>
+            <select id="flt-delay" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL" selected>All Shipments</option>
+              <option value="Delayed">Delayed Only</option>
+              <option value="Normal">On Schedule</option>
+            </select>
+          </div>
+        `;
+      }
+      if (type === 'freight-rates') {
+        return `
+          <div>
+            <label for="flt-carrier" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Ocean Carrier</label>
+            <select id="flt-carrier" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL" selected>All Carriers</option>
+              <option value="Maersk">Maersk Line India</option>
+              <option value="MSC">MSC Mediterranean</option>
+              <option value="Hapag">Hapag-Lloyd</option>
+              <option value="ONE">ONE Ocean Network</option>
+            </select>
+          </div>
+          <div>
+            <label for="flt-pod" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Discharge Port (POD)</label>
+            <input type="text" id="flt-pod" placeholder="POD (e.g. Long Beach)..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+          <div>
+            <label for="flt-cntr-size" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Container Type</label>
+            <select id="flt-cntr-size" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL" selected>All Reefer Types</option>
+              <option value="40ft Reefer High Cube">40ft Reefer High Cube</option>
+              <option value="20ft Reefer">20ft Reefer Standard</option>
+            </select>
+          </div>
+        `;
+      }
+      if (type === 'fda-examination') {
+        return `
+          <div>
+            <label for="flt-fda-entry" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FDA Entry / Ref No</label>
+            <input type="text" id="flt-fda-entry" placeholder="Entry Ref..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+          <div>
+            <label for="flt-fda-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">USFDA Status</label>
+            <select id="flt-fda-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL" selected>All Statuses</option>
+              <option value="Green Ticket">Green Ticket Cleared</option>
+              <option value="Under Examination">Under Examination</option>
+              <option value="Sampled">Sampled for Lab Test</option>
+            </select>
+          </div>
+          <div>
+            <label for="flt-country" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Port of Arrival</label>
+            <select id="flt-country" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL" selected>All Ports</option>
+              <option value="Long Beach">Port of Long Beach</option>
+              <option value="New York">Port of New York</option>
+              <option value="Savannah">Port of Savannah</option>
+            </select>
+          </div>
+        `;
+      }
+      if (type === 'pending-payments' || type === 'bills-realization') {
+        return `
+          <div>
+            <label for="flt-buyer" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Buyer / Consignee</label>
+            <input type="text" id="flt-buyer" placeholder="Buyer Name..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+          <div>
+            <label for="flt-pay-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Payment / Realization Status</label>
+            <select id="flt-pay-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL" selected>All Statuses</option>
+              <option value="Overdue">Overdue Aging (30+ Days)</option>
+              <option value="Pending">Pending Clearance</option>
+              <option value="Realized">Realized in Bank</option>
+            </select>
+          </div>
+          <div>
+            <label for="flt-currency" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Currency</label>
+            <select id="flt-currency" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL" selected>All Currencies</option>
+              <option value="USD">USD ($)</option>
+              <option value="EUR">EUR (€)</option>
+              <option value="JPY">JPY (¥)</option>
+            </select>
+          </div>
+        `;
+      }
+      // General Sales Filter
+      return `
+        <div>
+          <label for="rep-flt-search" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SEARCH</label>
+          <input type="text" id="rep-flt-search" placeholder="Search reference, container, buyer..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+        </div>
+        <div>
+          <label for="rep-flt-from" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FROM DATE</label>
+          <input type="date" id="rep-flt-from" value="2026-10-01" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
+        </div>
+        <div>
+          <label for="rep-flt-to" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">TO DATE</label>
+          <input type="date" id="rep-flt-to" value="2026-10-30" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
+        </div>
+      `;
+    }
+
+    // ----------------------------------------------------
+    // 2. Purchase Reports
+    // ----------------------------------------------------
+    if (submenuId === 'purchase-reports' || submenuId.includes('purchase')) {
+      if (type === 'inward') {
+        return `
+          <div>
+            <label for="flt-supplier" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Supplier / Farmer</label>
+            <input type="text" id="flt-supplier" placeholder="Farmer name..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+          <div>
+            <label for="flt-variety" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Raw Material Variety</label>
+            <select id="flt-variety" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL" selected>All Varieties</option>
+              <option value="Vannamei Fresh">Vannamei Fresh</option>
+              <option value="Black Tiger">Black Tiger</option>
+              <option value="Sea Catch">Sea Catch White</option>
+            </select>
+          </div>
+          <div>
+            <label for="rep-flt-from" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Arrival Date</label>
+            <input type="date" id="rep-flt-from" value="2026-10-28" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
+          </div>
+        `;
+      }
+      if (type === 'procurement') {
+        return `
+          <div>
+            <label for="flt-supplier" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Procurement Cluster</label>
+            <select id="flt-supplier" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL" selected>All Clusters</option>
+              <option value="Bhimavaram">Bhimavaram Cluster</option>
+              <option value="Machilipatnam">Machilipatnam Hub</option>
+              <option value="Narsapur">Narsapur Coastal Zone</option>
+              <option value="Bapatla">Bapatla Belt</option>
+            </select>
+          </div>
+          <div>
+            <label for="flt-grade" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Pond Count Size</label>
+            <select id="flt-grade" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL" selected>All Counts</option>
+              <option value="20/25">20/25</option>
+              <option value="30/40">30/40</option>
+              <option value="40/50">40/50</option>
+            </select>
+          </div>
+        `;
+      }
+      if (type === 'bills') {
+        return `
+          <div>
+            <label for="flt-supplier" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Farmer / Supplier</label>
+            <input type="text" id="flt-supplier" placeholder="Farmer or Bill Ref..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+          <div>
+            <label for="flt-pay-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Payment Status</label>
+            <select id="flt-pay-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL" selected>All Payment Statuses</option>
+              <option value="Paid">Direct NEFT Paid</option>
+              <option value="Approved">Approved for Payout</option>
+              <option value="Pending">Pending Audit Clearance</option>
+            </select>
+          </div>
+        `;
+      }
+      return `
+        <div>
+          <label for="rep-flt-search" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SEARCH</label>
+          <input type="text" id="rep-flt-search" placeholder="Search reference, lot, supplier..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+        </div>
+        <div>
+          <label for="rep-flt-from" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FROM DATE</label>
+          <input type="date" id="rep-flt-from" value="2026-10-01" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
+        </div>
+        <div>
+          <label for="rep-flt-to" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">TO DATE</label>
+          <input type="date" id="rep-flt-to" value="2026-10-30" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
+        </div>
+      `;
+    }
+
+    // ----------------------------------------------------
+    // 3. Pre-Processing Reports
+    // ----------------------------------------------------
+    if (submenuId === 'preprocessing-reports' || submenuId.includes('preproc')) {
+      if (type === 'deheading') {
+        return `
+          <div>
+            <label for="flt-line" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Deheading Line</label>
+            <select id="flt-line" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL" selected>All Deheading Lines</option>
+              <option value="Deheading Line 1">Deheading Line 1</option>
+              <option value="Deheading Line 2">Deheading Line 2</option>
+            </select>
+          </div>
+          <div>
+            <label for="flt-variety" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">RM Species</label>
+            <select id="flt-variety" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL" selected>All Species</option>
+              <option value="Vannamei">Vannamei</option>
+              <option value="Black Tiger">Black Tiger</option>
+            </select>
+          </div>
+        `;
+      }
+      if (type === 'peeling') {
+        return `
+          <div>
+            <label for="flt-line" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Peeling Section / Bay</label>
+            <select id="flt-line" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL" selected>All Peeling Sections</option>
+              <option value="Peeling Table A">Peeling Table A</option>
+              <option value="Peeling Table B">Peeling Table B</option>
+              <option value="Hand Peeling Bay 3">Hand Peeling Bay 3</option>
+            </select>
+          </div>
+        `;
+      }
+      if (type === 'chemicals') {
+        return `
+          <div>
+            <label for="flt-line" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Chemical Treatment Type</label>
+            <select id="flt-line" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL" selected>All Treatments</option>
+              <option value="STPP (Food Grade)">STPP (Food Grade Moisture Dip)</option>
+              <option value="Non-Phosphate">Non-Phosphate Organic Blend</option>
+              <option value="Metabisulphite">Sodium Metabisulphite Anti-Blackening</option>
+            </select>
+          </div>
+        `;
+      }
+      return `
+        <div>
+          <label for="rep-flt-search" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SEARCH</label>
+          <input type="text" id="rep-flt-search" placeholder="Search batch, process line..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+        </div>
+        <div>
+          <label for="rep-flt-from" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Production Date</label>
+          <input type="date" id="rep-flt-from" value="2026-10-28" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
+        </div>
+      `;
+    }
+
+    // ----------------------------------------------------
+    // 4. Quality Control Reports
+    // ----------------------------------------------------
+    if (submenuId === 'quality-reports' || submenuId.includes('quality') || submenuId.includes('qc')) {
+      if (type === 'lab') {
+        return `
+          <div>
+            <label for="flt-protocol" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Test Protocol</label>
+            <select id="flt-protocol" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL" selected>All Protocols</option>
+              <option value="ELISA">ELISA Antibiotic Screen</option>
+              <option value="LC-MS-MS">LC-MS-MS Nitrofuran Confirmatory</option>
+              <option value="Chloramphenicol">Chloramphenicol HPLC Screen</option>
+            </select>
+          </div>
+          <div>
+            <label for="flt-clearance" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Clearance Status</label>
+            <select id="flt-clearance" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL" selected>All Statuses</option>
+              <option value="Cleared">Cleared for Export</option>
+              <option value="Pre-Harvest Approved">Pre-Harvest Approved</option>
+            </select>
+          </div>
+        `;
+      }
+      if (type === 'microbiology') {
+        return `
+          <div>
+            <label for="flt-protocol" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Pathogen Marker</label>
+            <select id="flt-protocol" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL" selected>All Micro Parameters</option>
+              <option value="Salmonella">Salmonella (Absence in 25g)</option>
+              <option value="Vibrio">Vibrio cholerae / parahaemolyticus</option>
+              <option value="TPC">TPC (Aerobic Plate Count)</option>
+              <option value="E.coli">E. Coli</option>
+            </select>
+          </div>
+        `;
+      }
+      if (type === 'audits') {
+        return `
+          <div>
+            <label for="flt-protocol" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Audit Standard</label>
+            <select id="flt-protocol" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL" selected>All Standards</option>
+              <option value="BAP">BAP 4-Star Compliance</option>
+              <option value="USFDA">USFDA Seafood HACCP</option>
+              <option value="BRCGS">BRCGS Global Food Standard</option>
+            </select>
+          </div>
+        `;
+      }
+      return `
+        <div>
+          <label for="rep-flt-search" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SEARCH</label>
+          <input type="text" id="rep-flt-search" placeholder="Search sample ID, test parameter..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+        </div>
+        <div>
+          <label for="rep-flt-from" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Testing Date</label>
+          <input type="date" id="rep-flt-from" value="2026-10-28" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
+        </div>
+      `;
+    }
+
+    // ----------------------------------------------------
+    // 5. Production Analytics
+    // ----------------------------------------------------
+    if (submenuId === 'production-analytics' || submenuId.includes('production')) {
+      if (type === 'yield') {
+        return `
+          <div>
+            <label for="flt-facility" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Freezing Line</label>
+            <select id="flt-facility" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL" selected>All Freezing Lines</option>
+              <option value="IQF Tunnel 1">IQF Tunnel 1</option>
+              <option value="Plate Freezer Bay 3">Plate Freezer Bay 3</option>
+              <option value="Cooked Line A">Cooked Line A</option>
+            </select>
+          </div>
+          <div>
+            <label for="flt-variety" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Product Style</label>
+            <select id="flt-variety" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL" selected>All Product Styles</option>
+              <option value="Easy-Peel">Easy-Peel Raw</option>
+              <option value="Cooked Tail-On">Cooked Tail-On IQF</option>
+              <option value="Block Frozen">Block Frozen Headless</option>
+            </select>
+          </div>
+        `;
+      }
+      if (type === 'ad') {
+        return `
+          <div>
+            <label for="flt-country" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Anti-Dumping Market</label>
+            <select id="flt-country" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL" selected>All Regimes</option>
+              <option value="USA">US Department of Commerce (DOC)</option>
+              <option value="EU">EU Countervailing Tariff</option>
+            </select>
+          </div>
+        `;
+      }
+      return `
+        <div>
+          <label for="rep-flt-search" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SEARCH</label>
+          <input type="text" id="rep-flt-search" placeholder="Search shift run, line, in-charge..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+        </div>
+        <div>
+          <label for="rep-flt-from" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Shift Date</label>
+          <input type="date" id="rep-flt-from" value="2026-10-28" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
+        </div>
+      `;
+    }
+
+    // ----------------------------------------------------
+    // 6. Coldstore Analytics
+    // ----------------------------------------------------
+    if (submenuId === 'coldstore-analytics' || submenuId.includes('coldstore')) {
+      if (type === 'stock') {
+        return `
+          <div>
+            <label for="flt-chamber" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Coldstore Room</label>
+            <select id="flt-chamber" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL" selected>All Chambers</option>
+              <option value="Room 1">Coldstore Room 1</option>
+              <option value="Room 2">Coldstore Room 2</option>
+              <option value="Room 3">Coldstore Room 3</option>
+              <option value="Room 4">Coldstore Room 4</option>
+            </select>
+          </div>
+          <div>
+            <label for="flt-clearance" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Stock Allocation</label>
+            <select id="flt-clearance" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL" selected>All Statuses</option>
+              <option value="In Coldstore Stock">In Stock (Unallocated)</option>
+              <option value="Allocated for Shipment">Allocated for Export</option>
+            </select>
+          </div>
+        `;
+      }
+      if (type === 'exceptions') {
+        return `
+          <div>
+            <label for="flt-chamber" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Coldstore Chamber</label>
+            <select id="flt-chamber" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL" selected>All Chambers</option>
+              <option value="Room 2">Coldstore Room 2</option>
+              <option value="Room 3">Coldstore Room 3</option>
+              <option value="Room 4">Coldstore Room 4</option>
+            </select>
+          </div>
+          <div>
+            <label for="flt-priority" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Severity Level</label>
+            <select id="flt-priority" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="ALL" selected>All Severity</option>
+              <option value="High">Critical / High Alert</option>
+              <option value="Medium">Medium Advisory</option>
+            </select>
+          </div>
+        `;
+      }
+      return `
+        <div>
+          <label for="rep-flt-search" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SEARCH</label>
+          <input type="text" id="rep-flt-search" placeholder="Search pallet, chamber, product..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+        </div>
+        <div>
+          <label for="rep-flt-from" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Placement Date</label>
+          <input type="date" id="rep-flt-from" value="2026-10-28" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" onclick="this.showPicker ? this.showPicker() : this.focus()" />
+        </div>
+      `;
+    }
+
+    // Default Fallback Filter
+    return `
+      <div>
+        <label for="rep-flt-search" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SEARCH</label>
+        <input type="text" id="rep-flt-search" placeholder="Search reference, entity..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+      </div>
+    `;
+  },
+
   // Modal: Show Details Page matching our Atlassian UI style
   showReportDetails(row, pageTitle) {
     if (!row) return;
@@ -412,7 +912,7 @@ export const ReportsView = {
     const date = row.date || row.productionDate || row.shipDate || row.shipmentDate || row.auditDate || row.etd || '2026-10-28';
     const status = row.status || row.priority || row.qcStatus || row.paymentStatus || row.freightStatus || row.realizationStatus || row.etaStatus || 'Audited & Verified';
 
-    const excludedKeys = new Set(['id', 'actions', 'sNo', 'consigneeKey']);
+    const excludedKeys = new Set(['id', 'actions', 'sNo', 'consigneeKey', 'year', 'exporter']);
     const entries = Object.entries(row).filter(([k]) => !excludedKeys.has(k));
 
     const topGrid = entries.slice(0, 8);
@@ -449,38 +949,37 @@ export const ReportsView = {
             </div>
             <div>
               <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block mb-0.5">RECORD DATE</span>
-              <span class="font-mono font-semibold text-xs text-[#172B4D]">${date}</span>
-            </div>
-            <div>
-              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block mb-0.5">REPORT CATEGORY</span>
-              <span class="font-semibold text-xs text-[#172B4D]">${pageTitle}</span>
+              <span class="font-semibold text-xs text-[#172B4D]">${date}</span>
             </div>
             <div>
               <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block mb-0.5">STATUS</span>
-              <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>
-                ${status}
+              <span class="inline-flex items-center gap-1 font-bold text-[11px] text-[#00875A]">
+                <span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${status}
               </span>
             </div>
-
-            ${topGrid.map(([k, v]) => `
-              <div>
-                <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block mb-0.5">${formatKey(k)}</span>
-                <span class="font-medium text-xs text-[#172B4D] break-words">${formatVal(k, v)}</span>
-              </div>
-            `).join('')}
+            <div>
+              <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block mb-0.5">CATEGORY</span>
+              <span class="font-semibold text-xs text-[#172B4D]">${pageTitle}</span>
+            </div>
           </div>
 
-          <!-- Operational & Ledger Breakdown -->
-          <div class="border border-[#DFE1E6] rounded-xl overflow-hidden bg-white shadow-xs">
-            <div class="bg-[#FAFBFC] px-4 py-2.5 border-b border-[#DFE1E6] flex items-center justify-between">
-              <h4 class="text-xs font-bold text-[#172B4D] flex items-center gap-1.5">
-                <svg class="w-3.5 h-3.5 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
-                <span>Analytical &amp; Quality Specifications</span>
-              </h4>
-              <span class="text-[11px] font-mono text-[#5E6C84] bg-white border border-[#DFE1E6] px-2 py-0.5 rounded">Plant Unit 5</span>
+          <!-- Primary Specifications Card -->
+          <div class="bg-white border border-[#DFE1E6] rounded-xl p-4">
+            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider border-b border-[#EBECF0] pb-2 mb-3">Primary Specifications &amp; Ledger Data</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+              ${topGrid.map(([k, v]) => `
+                <div>
+                  <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block mb-0.5">${formatKey(k)}</span>
+                  <span class="font-semibold text-xs text-[#172B4D]">${formatVal(k, v)}</span>
+                </div>
+              `).join('')}
             </div>
-            <div class="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+          </div>
+
+          <!-- Additional Metadata & Extended Parameters -->
+          <div class="bg-white border border-[#DFE1E6] rounded-xl p-4">
+            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider border-b border-[#EBECF0] pb-2 mb-3">Extended Quality &amp; Compliance Details</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
               ${detailList.length > 0 ? detailList.map(([k, v]) => `
                 <div class="border-b border-[#F1F5F9] pb-2">
                   <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block mb-0.5">${formatKey(k)}</span>
@@ -527,7 +1026,7 @@ export const ReportsView = {
     let rows = [];
 
     // ==========================================
-    // 1. Sales & Export Analytics (with 20 distinct types)
+    // 1. Sales & Export Analytics
     // ==========================================
     if (submenuId === 'sales-export-analytics' || submenuId.includes('sales')) {
       if (reportType === 'pending-contracts') {
@@ -546,13 +1045,8 @@ export const ReportsView = {
             const p = String(v || '').toLowerCase();
             let bg = 'bg-[#FFF0B3] text-[#172B4D] border-[#FFE380]';
             let dot = 'bg-[#FFAB00]';
-            if (p === 'high') {
-              bg = 'bg-[#FFEBE6] text-[#DE350B] border-[#FFBDAD]';
-              dot = 'bg-[#DE350B]';
-            } else if (p === 'low') {
-              bg = 'bg-[#E3FCEF] text-[#006644] border-[#ABF5D1]';
-              dot = 'bg-[#00875A]';
-            }
+            if (p === 'high') { bg = 'bg-[#FFEBE6] text-[#DE350B] border-[#FFBDAD]'; dot = 'bg-[#DE350B]'; }
+            else if (p === 'low') { bg = 'bg-[#E3FCEF] text-[#006644] border-[#ABF5D1]'; dot = 'bg-[#00875A]'; }
             return `<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold border ${bg}"><span class="w-1.5 h-1.5 rounded-full ${dot}"></span>${v}</span>`;
           }},
           { field: 'actions', header: 'Actions', sortable: false, render: (v, r) => `
@@ -574,27 +1068,46 @@ export const ReportsView = {
           { id: 5, orderNo: 'PO-UK-2026-0318', buyer: 'Meridian Global Foods LLC', consigneeKey: 'meridian', brand: 'Royal Blue', variety: 'Black Tiger HLSO', mcs: 1400, pack: '10 x 1 Kg', grade: '13/15', shipmentDate: '2026-12-10', destination: 'Felixstowe, UK', country: 'UK', priority: 'Medium', exporter: 'devi-marine', plant: 'Plant 2', year: '2026-2027', fobRate: 12.40, contractValue: 173600, status: 'Pending LC Confirmation' },
           { id: 6, orderNo: 'PO-CAN-2026-0521', buyer: 'AquaStar Global Imports', consigneeKey: 'aquastar', brand: 'Devi Gold', variety: 'Vannamei Peeled Deveined', mcs: 1850, pack: '5 x 2 Lbs', grade: '41/50', shipmentDate: '2026-12-18', destination: 'Vancouver, Canada', country: 'Canada', priority: 'Low', exporter: 'devi-fisheries', plant: 'Plant 1', year: '2026-2027', fobRate: 6.40, contractValue: 118400, status: 'Under Review' }
         ];
+      } else if (reportType === 'price-book') {
+        columns = [
+          { field: 'sNo', header: 'S No.', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
+          { field: 'variety', header: 'Product Item', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'grade', header: 'Grade / Count', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">${v}</span>` },
+          { field: 'pack', header: 'Packing Style', sortable: true, render: v => `<span class="font-mono text-xs text-[#5E6C84]">${v}</span>` },
+          { field: 'fobPrice', header: 'Base FOB Rate ($)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7]">$${v.toFixed(2)} / Kg</span>` },
+          { field: 'moq', header: 'MOQ (MCs)', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">${Number(v).toLocaleString()}</span>` },
+          { field: 'effectiveDate', header: 'Effective From', sortable: true, render: v => `<span class="font-mono text-xs text-[#5E6C84]">${v}</span>` },
+          { field: 'validUntil', header: 'Valid Until', sortable: true, render: v => `<span class="font-mono text-xs text-[#5E6C84]">${v}</span>` },
+          { field: 'status', header: 'Price Status', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` }
+        ];
+        rows = [
+          { id: 1, variety: 'Vannamei EZ-Peel IQF', grade: '16/20', pack: '10 x 2 Lbs', fobPrice: 9.80, moq: 1000, effectiveDate: '2026-10-01', validUntil: '2026-11-15', status: 'Active Official Rate' },
+          { id: 2, variety: 'Vannamei EZ-Peel IQF', grade: '21/25', pack: '10 x 2 Lbs', fobPrice: 8.90, moq: 1000, effectiveDate: '2026-10-01', validUntil: '2026-11-15', status: 'Active Official Rate' },
+          { id: 3, variety: 'Vannamei EZ-Peel IQF', grade: '26/30', pack: '10 x 2 Lbs', fobPrice: 7.80, moq: 1000, effectiveDate: '2026-10-01', validUntil: '2026-11-15', status: 'Active Official Rate' },
+          { id: 4, variety: 'Vannamei Nobashi Tray', grade: '21/25', pack: '20 x 300g', fobPrice: 9.10, moq: 800, effectiveDate: '2026-10-15', validUntil: '2026-11-30', status: 'Active Official Rate' },
+          { id: 5, variety: 'Black Tiger HLSO', grade: '13/15', pack: '6 x 1.8 Kg', fobPrice: 12.40, moq: 500, effectiveDate: '2026-10-01', validUntil: '2026-11-15', status: 'Active Official Rate' }
+        ];
       } else if (reportType === 'approved-contracts') {
         columns = [
           { field: 'sNo', header: 'S No.', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
           { field: 'contractNo', header: 'Contract No', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer" title="Click to view details">${v}</span>` },
           { field: 'date', header: 'Contract Date', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">${v}</span>` },
           { field: 'buyer', header: 'Buyer / Consignee', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
-          { field: 'destination', header: 'Destination Country', sortable: true, render: v => `<span class="text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'destination', header: 'Destination', sortable: true, render: v => `<span class="text-xs text-[#172B4D]">${v}</span>` },
           { field: 'variety', header: 'Product Item', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-medium bg-[#F1F5F9] text-[#172B4D]">${v}</span>` },
           { field: 'quantity', header: 'Contract Qty (Kg)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#172B4D]">${Number(v).toLocaleString()}</span>` },
           { field: 'fobRate', header: 'FOB Rate/Kg', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">$${v}</span>` },
           { field: 'contractValue', header: 'Total Value ($)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">$${Number(v).toLocaleString()}</span>` },
-          { field: 'status', header: 'Contract Status', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` }
+          { field: 'status', header: 'Approval Status', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` }
         ];
         rows = [
-          { id: 1, contractNo: 'CTR-EXP-2026-088', date: '2026-10-24', buyer: 'Pacific Coast Seafood LLC', destination: 'USA', variety: 'Vannamei Easy-Peel 31/40', quantity: 24000, fobRate: 7.20, contractValue: 172800, status: 'Approved by Director' },
-          { id: 2, contractNo: 'CTR-EXP-2026-089', date: '2026-10-23', buyer: 'Nippon Suisan Kaisha Ltd', destination: 'Japan', variety: 'Black Tiger HLSO 16/20', quantity: 18000, fobRate: 11.50, contractValue: 207000, status: 'Approved by Director' },
-          { id: 3, contractNo: 'CTR-EXP-2026-090', date: '2026-10-22', buyer: 'Euro-Baltic Marine Traders', destination: 'Netherlands', variety: 'Cooked Tail-On IQF 26/30', quantity: 22000, fobRate: 8.40, contractValue: 184800, status: 'Approved by Director' }
+          { id: 1, contractNo: 'CTR-EXP-2026-088', date: '2026-10-24', buyer: 'Pacific Coast Seafood LLC', destination: 'USA', variety: 'Vannamei Easy-Peel 31/40', quantity: 24000, fobRate: 7.20, contractValue: 172800, status: 'Approved by Director', year: '2026-2027', country: 'USA' },
+          { id: 2, contractNo: 'CTR-EXP-2026-089', date: '2026-10-23', buyer: 'Nippon Suisan Kaisha Ltd', destination: 'Japan', variety: 'Black Tiger HLSO 16/20', quantity: 18000, fobRate: 11.50, contractValue: 207000, status: 'Approved by Director', year: '2026-2027', country: 'Japan' },
+          { id: 3, contractNo: 'CTR-EXP-2026-090', date: '2026-10-22', buyer: 'Euro-Baltic Marine Traders', destination: 'Netherlands', variety: 'Cooked Tail-On IQF 26/30', quantity: 22000, fobRate: 8.40, contractValue: 184800, status: 'Approved by Director', year: '2026-2027', country: 'Netherlands' }
         ];
       } else if (reportType === 'eta-status') {
         columns = [
-          { field: 'sNo', header: 'S No', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
+          { field: 'sNo', header: 'S No.', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
           { field: 'containerNo', header: 'Container No', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer" title="Click to view details">${v}</span>` },
           { field: 'shippingLine', header: 'Shipping Line', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
           { field: 'vessel', header: 'Vessel / Voyage', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">${v}</span>` },
@@ -610,33 +1123,46 @@ export const ReportsView = {
           { id: 2, containerNo: 'CMAU-491028-6', shippingLine: 'CMA CGM', vessel: 'CMA CGM Palais / 0914S', destination: 'Port of Yokohama (Japan)', etd: '2026-10-12', originalEta: '2026-10-29', revisedEta: '2026-11-02', delayDays: 4, etaStatus: 'Weather Delay' },
           { id: 3, containerNo: 'HLCU-319402-1', shippingLine: 'Hapag-Lloyd', vessel: 'Al Jasrah / 2618E', destination: 'Port of Rotterdam (NL)', etd: '2026-10-14', originalEta: '2026-11-08', revisedEta: '2026-11-13', delayDays: 5, etaStatus: 'Port Congestion' }
         ];
+      } else if (reportType === 'fda-examination') {
+        columns = [
+          { field: 'sNo', header: 'S No.', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
+          { field: 'entryNo', header: 'FDA Entry No', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer">${v}</span>` },
+          { field: 'containerNo', header: 'Container Ref', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'port', header: 'US Port of Entry', sortable: true, render: v => `<span class="text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'examType', header: 'Examination Type', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#F4F5F7] text-[#172B4D] border border-[#DFE1E6]">${v}</span>` },
+          { field: 'findings', header: 'Lab / Inspection Findings', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">${v}</span>` },
+          { field: 'fdaAction', header: 'USFDA Action', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` }
+        ];
+        rows = [
+          { id: 1, entryNo: 'FDA-ENT-2026-9014', containerNo: 'MSKU-820491-2', port: 'Port of Long Beach', examType: 'Physical Organoleptic & Seal Check', findings: 'Compliant with USFDA Limits', fdaAction: 'May Proceed (Green Ticket)' },
+          { id: 2, entryNo: 'FDA-ENT-2026-9015', containerNo: 'MEDU-992140-5', port: 'Port of New York / Newark', examType: 'FDA Antibiotic Screen (AOZ / CAP)', findings: 'Zero Residues Detected (<0.1 ppb)', fdaAction: 'May Proceed (Green Ticket)' }
+        ];
       } else if (reportType === 'freight-rates') {
         columns = [
-          { field: 'sNo', header: 'S No', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
+          { field: 'sNo', header: 'S No.', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
           { field: 'carrier', header: 'Ocean Carrier', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
           { field: 'pol', header: 'Port of Loading', sortable: true, render: v => `<span class="text-xs text-[#5E6C84]">${v}</span>` },
           { field: 'pod', header: 'Port of Discharge', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
           { field: 'containerSize', header: 'Container Type', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D] font-bold">${v}</span>` },
           { field: 'freightUsd', header: 'Base Freight ($)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">$${v}</span>` },
           { field: 'baf', header: 'BAF / Bunker ($)', sortable: true, render: v => `<span class="font-mono text-xs text-[#5E6C84]">$${v}</span>` },
-          { field: 'totalFreight', header: 'Total Ocean Freight ($)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7]">$${Number(v).toLocaleString()}</span>` },
-          { field: 'validity', header: 'Rate Validity', sortable: true, render: v => `<span class="font-mono text-xs text-[#5E6C84]">${v}</span>` },
+          { field: 'totalFreight', header: 'Total Freight ($)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7]">$${Number(v).toLocaleString()}</span>` },
+          { field: 'validity', header: 'Validity', sortable: true, render: v => `<span class="font-mono text-xs text-[#5E6C84]">${v}</span>` },
           { field: 'status', header: 'Rate Agreement', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` }
         ];
         rows = [
           { id: 1, carrier: 'Maersk Line India', pol: 'Visakhapatnam (INVTZ)', pod: 'Long Beach, USA (USLGB)', containerSize: '40ft Reefer High Cube', freightUsd: 4850, baf: 420, totalFreight: 5270, validity: '2026-11-30', status: 'Contracted Rate' },
           { id: 2, carrier: 'MSC Mediterranean', pol: 'Visakhapatnam (INVTZ)', pod: 'New York, USA (USNYC)', containerSize: '40ft Reefer High Cube', freightUsd: 5400, baf: 480, totalFreight: 5880, validity: '2026-11-30', status: 'Contracted Rate' },
-          { id: 3, carrier: 'ONE Ocean Network', pol: 'Visakhapatnam (INVTZ)', pod: 'Yokohama, Japan (JPYOK)', containerSize: '40ft Reefer High Cube', freightUsd: 2950, baf: 310, totalFreight: 3260, validity: '2026-12-15', status: 'Contracted Rate' },
-          { id: 4, carrier: 'Hapag-Lloyd AG', pol: 'Visakhapatnam (INVTZ)', pod: 'Rotterdam, NL (NLRTM)', containerSize: '40ft Reefer High Cube', freightUsd: 3800, baf: 360, totalFreight: 4160, validity: '2026-11-30', status: 'Spot Rate Cleared' }
+          { id: 3, carrier: 'ONE Ocean Network', pol: 'Visakhapatnam (INVTZ)', pod: 'Yokohama, Japan (JPYOK)', containerSize: '40ft Reefer High Cube', freightUsd: 2950, baf: 310, totalFreight: 3260, validity: '2026-12-15', status: 'Contracted Rate' }
         ];
       } else {
-        // Standard Comprehensive Shipment Report & General Sales
+        // Standard Shipment Report & other sales reports
         columns = [
-          { field: 'sNo', header: 'S No', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
+          { field: 'sNo', header: 'S No.', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
           { field: 'invoiceNo', header: 'Invoice / Container', sortable: true, render: (v, r) => `<div class="flex flex-col"><span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer" title="Click to view details">${v}</span><span class="text-[10px] font-mono text-[#5E6C84]">${r.containerNo}</span></div>` },
           { field: 'shipDate', header: 'Ship Date', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">${v}</span>` },
           { field: 'buyer', header: 'Buyer / Consignee', sortable: true, render: (v, r) => `<div class="flex flex-col"><span class="font-semibold text-xs text-[#172B4D]">${v}</span><span class="text-[10px] text-[#5E6C84]">${r.destination}</span></div>` },
-          { field: 'port', header: 'Port of Discharge', sortable: true, render: v => `<span class="text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'port', header: 'Discharge Port', sortable: true, render: v => `<span class="text-xs text-[#172B4D]">${v}</span>` },
           { field: 'cartons', header: 'Total MCs', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#172B4D]">${Number(v).toLocaleString()}</span>` },
           { field: 'fobVal', header: 'FOB Value ($)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">$${Number(v).toLocaleString()}</span>` },
           { field: 'freightStatus', header: 'Logistics Status', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E0F2FE] text-[#0284C7] border border-[#BAE6FD]"><span class="w-1.5 h-1.5 rounded-full bg-[#0284C7]"></span>${v}</span>` },
@@ -645,141 +1171,269 @@ export const ReportsView = {
         rows = [
           { id: 1, invoiceNo: 'EXP-INV-2026-081', containerNo: 'MSKU-820491-2', shipDate: '2026-10-28', buyer: 'Pacific Coast Seafood LLC', destination: 'Los Angeles, USA', port: 'Port of Long Beach', cartons: 2150, fobVal: 142500, freightStatus: 'Vessel In Transit', realizationStatus: 'LC Realized 100%' },
           { id: 2, invoiceNo: 'EXP-INV-2026-082', containerNo: 'CMAU-491028-6', shipDate: '2026-10-27', buyer: 'Nippon Suisan Kaisha Ltd', destination: 'Tokyo, Japan', port: 'Port of Yokohama', cartons: 1980, fobVal: 168400, freightStatus: 'Vessel In Transit', realizationStatus: 'LC Realized 100%' },
-          { id: 3, invoiceNo: 'EXP-INV-2026-083', containerNo: 'HLCU-319402-1', shipDate: '2026-10-26', buyer: 'Euro-Baltic Marine Traders', destination: 'Rotterdam, Netherlands', port: 'Port of Rotterdam', cartons: 2200, fobVal: 139200, freightStatus: 'Customs Cleared', realizationStatus: 'Payment Received' },
-          { id: 4, invoiceNo: 'EXP-INV-2026-084', containerNo: 'MEDU-992140-5', shipDate: '2026-10-25', buyer: 'Great American Seafood Imports', destination: 'New York, USA', port: 'Port of New York / New Jersey', cartons: 2400, fobVal: 158000, freightStatus: 'Dispatched from Port', realizationStatus: 'LC Verified' }
+          { id: 3, invoiceNo: 'EXP-INV-2026-083', containerNo: 'HLCU-319402-1', shipDate: '2026-10-26', buyer: 'Euro-Baltic Marine Traders', destination: 'Rotterdam, Netherlands', port: 'Port of Rotterdam', cartons: 2200, fobVal: 139200, freightStatus: 'Customs Cleared', realizationStatus: 'Payment Received' }
         ];
       }
     }
+
     // ==========================================
     // 2. Purchase Reports
     // ==========================================
     else if (submenuId === 'purchase-reports' || submenuId.includes('purchase')) {
-      columns = [
-        { field: 'sNo', header: 'S No', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
-        { field: 'docNo', header: 'GRN / Arrival No', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer" title="Click to view details">${v}</span>` },
-        { field: 'date', header: 'Arrival Date', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">${v}</span>` },
-        { field: 'supplier', header: 'Supplier / Farmer', sortable: true, render: (v, r) => `<div class="flex flex-col"><span class="font-semibold text-xs text-[#172B4D]">${v}</span><span class="text-[10px] text-[#5E6C84]">${r.location}</span></div>` },
-        { field: 'lotNo', header: 'Lot No', sortable: true, render: v => `<span class="font-mono text-xs text-[#00A4B7] font-semibold">${v}</span>` },
-        { field: 'variety', header: 'Variety', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-medium bg-[#F1F5F9] text-[#172B4D]">${v}</span>` },
-        { field: 'count', header: 'Count / Size', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D] font-bold">${v}</span>` },
-        { field: 'netWeight', header: 'Net Wt (Kg)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#172B4D]">${Number(v).toLocaleString()}</span>` },
-        { field: 'grossVal', header: 'Gross Value', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">₹${Number(v).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>` },
-        { field: 'qcStatus', header: 'QC Status', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` }
-      ];
-      rows = [
-        { id: 1, docNo: 'ARR-2026-1044', date: '2026-10-28', supplier: 'Sri Sai Ram Aqua Farm', location: 'Bhimavaram Cluster', lotNo: 'LOT-2026-0912', variety: 'Vannamei Fresh', count: '30/40', netWeight: 8450, grossVal: 2704000, qcStatus: 'Passed Grade A' },
-        { id: 2, docNo: 'ARR-2026-1045', date: '2026-10-28', supplier: 'Krishna Delta Aqua Producers', location: 'Machilipatnam Hub', lotNo: 'LOT-2026-0913', variety: 'Black Tiger', count: '20/25', netWeight: 6200, grossVal: 3410000, qcStatus: 'Passed Grade A' },
-        { id: 3, docNo: 'ARR-2026-1046', date: '2026-10-27', supplier: 'Godavari Coastal Farms Ltd', location: 'Narsapur Zone', lotNo: 'LOT-2026-0914', variety: 'Vannamei Fresh', count: '40/50', netWeight: 9800, grossVal: 2842000, qcStatus: 'Passed Grade A' },
-        { id: 4, docNo: 'ARR-2026-1047', date: '2026-10-26', supplier: 'Suryalanka Marine Culture', location: 'Bapatla Belt', lotNo: 'LOT-2026-0915', variety: 'Vannamei Fresh', count: '25/30', netWeight: 11200, grossVal: 3920000, qcStatus: 'Passed Grade A' }
-      ];
+      if (reportType === 'inward') {
+        columns = [
+          { field: 'sNo', header: 'S No.', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
+          { field: 'docNo', header: 'GRN / Inward No', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer">${v}</span>` },
+          { field: 'date', header: 'Arrival Time', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'supplier', header: 'Farmer / Supplier', sortable: true, render: (v, r) => `<div class="flex flex-col"><span class="font-semibold text-xs text-[#172B4D]">${v}</span><span class="text-[10px] text-[#5E6C84]">${r.location}</span></div>` },
+          { field: 'vehicleNo', header: 'Vehicle No', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'variety', header: 'RM Variety', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-medium bg-[#F1F5F9] text-[#172B4D]">${v}</span>` },
+          { field: 'netWeight', header: 'Gross Wt (Kg)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#172B4D]">${Number(v).toLocaleString()}</span>` },
+          { field: 'status', header: 'Weighbridge Status', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` }
+        ];
+        rows = [
+          { id: 1, docNo: 'INW-2026-1044', date: '2026-10-28 06:30 AM', supplier: 'Sri Sai Ram Aqua Farm', location: 'Bhimavaram Cluster', vehicleNo: 'AP 39 TK 4821', variety: 'Vannamei Fresh', netWeight: 8450, status: 'Weighed & Staged' },
+          { id: 2, docNo: 'INW-2026-1045', date: '2026-10-28 07:15 AM', supplier: 'Krishna Delta Aqua Producers', location: 'Machilipatnam Hub', vehicleNo: 'AP 16 Z 8902', variety: 'Black Tiger', netWeight: 6200, status: 'Weighed & Staged' },
+          { id: 3, docNo: 'INW-2026-1046', date: '2026-10-27 05:45 AM', supplier: 'Godavari Coastal Farms Ltd', location: 'Narsapur Zone', vehicleNo: 'AP 37 TT 1190', variety: 'Vannamei Fresh', netWeight: 9800, status: 'Completed' }
+        ];
+      } else if (reportType === 'procurement') {
+        columns = [
+          { field: 'sNo', header: 'S No.', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
+          { field: 'supplier', header: 'Farmer / Cluster', sortable: true, render: (v, r) => `<div class="flex flex-col"><span class="font-semibold text-xs text-[#172B4D]">${v}</span><span class="text-[10px] text-[#5E6C84]">${r.location}</span></div>` },
+          { field: 'pondCode', header: 'Pond Ref', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${v}</span>` },
+          { field: 'count', header: 'Harvest Count', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">${v}</span>` },
+          { field: 'netWeight', header: 'Total Harvest (Kg)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#172B4D]">${Number(v).toLocaleString()}</span>` },
+          { field: 'grossVal', header: 'Gross Value', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">₹${Number(v).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>` },
+          { field: 'status', header: 'Field Clearance', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` }
+        ];
+        rows = [
+          { id: 1, supplier: 'Sri Sai Ram Aqua Farm', location: 'Bhimavaram Cluster', pondCode: 'POND-BM-04', count: '30/40', netWeight: 8450, grossVal: 2704000, status: 'Harvest Passed' },
+          { id: 2, supplier: 'Krishna Delta Aqua Producers', location: 'Machilipatnam Hub', pondCode: 'POND-MC-11', count: '20/25', netWeight: 6200, grossVal: 3410000, status: 'Harvest Passed' }
+        ];
+      } else if (reportType === 'bills') {
+        columns = [
+          { field: 'sNo', header: 'S No.', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
+          { field: 'billNo', header: 'Bill Reference', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer">${v}</span>` },
+          { field: 'supplier', header: 'Payee / Farmer', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'billDate', header: 'Bill Date', sortable: true, render: v => `<span class="font-mono text-xs text-[#5E6C84]">${v}</span>` },
+          { field: 'netPayable', header: 'Net Disbursed', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">₹${Number(v).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>` },
+          { field: 'bankTxn', header: 'Bank NEFT Ref', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'status', header: 'Payment Status', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` }
+        ];
+        rows = [
+          { id: 1, billNo: 'BILL-AQ-2026-901', supplier: 'Sri Sai Ram Aqua Farm', billDate: '2026-10-28', netPayable: 2704000, bankTxn: 'NEFT-SBI-89201948', status: 'Direct NEFT Paid' },
+          { id: 2, billNo: 'BILL-AQ-2026-902', supplier: 'Krishna Delta Aqua Producers', billDate: '2026-10-28', netPayable: 3410000, bankTxn: 'NEFT-HDFC-3109283', status: 'Direct NEFT Paid' }
+        ];
+      } else {
+        // Standard General Purchase Ledger
+        columns = [
+          { field: 'sNo', header: 'S No.', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
+          { field: 'docNo', header: 'GRN / Arrival No', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer" title="Click to view details">${v}</span>` },
+          { field: 'date', header: 'Arrival Date', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'supplier', header: 'Supplier / Farmer', sortable: true, render: (v, r) => `<div class="flex flex-col"><span class="font-semibold text-xs text-[#172B4D]">${v}</span><span class="text-[10px] text-[#5E6C84]">${r.location}</span></div>` },
+          { field: 'lotNo', header: 'Lot No', sortable: true, render: v => `<span class="font-mono text-xs text-[#00A4B7] font-semibold">${v}</span>` },
+          { field: 'variety', header: 'Variety', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-medium bg-[#F1F5F9] text-[#172B4D]">${v}</span>` },
+          { field: 'count', header: 'Count / Size', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D] font-bold">${v}</span>` },
+          { field: 'netWeight', header: 'Net Wt (Kg)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#172B4D]">${Number(v).toLocaleString()}</span>` },
+          { field: 'grossVal', header: 'Gross Value', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">₹${Number(v).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>` },
+          { field: 'qcStatus', header: 'QC Status', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` }
+        ];
+        rows = [
+          { id: 1, docNo: 'ARR-2026-1044', date: '2026-10-28', supplier: 'Sri Sai Ram Aqua Farm', location: 'Bhimavaram Cluster', lotNo: 'LOT-2026-0912', variety: 'Vannamei Fresh', count: '30/40', netWeight: 8450, grossVal: 2704000, qcStatus: 'Passed Grade A' },
+          { id: 2, docNo: 'ARR-2026-1045', date: '2026-10-28', supplier: 'Krishna Delta Aqua Producers', location: 'Machilipatnam Hub', lotNo: 'LOT-2026-0913', variety: 'Black Tiger', count: '20/25', netWeight: 6200, grossVal: 3410000, qcStatus: 'Passed Grade A' },
+          { id: 3, docNo: 'ARR-2026-1046', date: '2026-10-27', supplier: 'Godavari Coastal Farms Ltd', location: 'Narsapur Zone', lotNo: 'LOT-2026-0914', variety: 'Vannamei Fresh', count: '40/50', netWeight: 9800, grossVal: 2842000, qcStatus: 'Passed Grade A' },
+          { id: 4, docNo: 'ARR-2026-1047', date: '2026-10-26', supplier: 'Suryalanka Marine Culture', location: 'Bapatla Belt', lotNo: 'LOT-2026-0915', variety: 'Vannamei Fresh', count: '25/30', netWeight: 11200, grossVal: 3920000, qcStatus: 'Passed Grade A' }
+        ];
+      }
     }
+
     // ==========================================
     // 3. Pre-Processing Reports
     // ==========================================
     else if (submenuId === 'preprocessing-reports' || submenuId.includes('preproc')) {
-      columns = [
-        { field: 'sNo', header: 'S No', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
-        { field: 'batchNo', header: 'Process Batch', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer" title="Click to view details">${v}</span>` },
-        { field: 'date', header: 'Production Date', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">${v}</span>` },
-        { field: 'line', header: 'Line / Unit', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
-        { field: 'rmInput', header: 'RM Input (Kg)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#172B4D]">${Number(v).toLocaleString()}</span>` },
-        { field: 'recovery', header: 'Recovery (Kg)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${Number(v).toLocaleString()}</span>` },
-        { field: 'yieldPct', header: 'Actual Yield %', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">${v}%</span>` },
-        { field: 'stdYield', header: 'Standard Yield', sortable: true, render: v => `<span class="font-mono text-xs text-[#5E6C84]">${v}%</span>` },
-        { field: 'variance', header: 'Variance', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">+${v}%</span>` }
-      ];
-      rows = [
-        { id: 1, batchNo: 'BCH-PR-2026-081', date: '2026-10-28', line: 'Deheading Line 1', rmInput: 12500, recovery: 8125, yieldPct: 65.0, stdYield: 64.0, variance: 1.0 },
-        { id: 2, batchNo: 'BCH-PR-2026-082', date: '2026-10-28', line: 'Peeling Table A', rmInput: 8125, recovery: 6987, yieldPct: 86.0, stdYield: 85.5, variance: 0.5 },
-        { id: 3, batchNo: 'BCH-PR-2026-083', date: '2026-10-27', line: 'IQF Freezing Tunnel', rmInput: 6987, recovery: 7406, yieldPct: 106.0, stdYield: 105.0, variance: 1.0 },
-        { id: 4, batchNo: 'BCH-PR-2026-084', date: '2026-10-26', line: 'Grading Bay 2', rmInput: 15400, recovery: 15246, yieldPct: 99.0, stdYield: 98.8, variance: 0.2 }
-      ];
+      if (reportType === 'deheading') {
+        columns = [
+          { field: 'sNo', header: 'S No.', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
+          { field: 'batchNo', header: 'Deheading Batch', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer">${v}</span>` },
+          { field: 'line', header: 'Processing Line', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'rmInput', header: 'Input Whole (Kg)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#172B4D]">${Number(v).toLocaleString()}</span>` },
+          { field: 'recovery', header: 'Deheaded (Kg)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${Number(v).toLocaleString()}</span>` },
+          { field: 'yieldPct', header: 'Actual Recovery %', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">${v}%</span>` },
+          { field: 'stdYield', header: 'Standard Yield', sortable: true, render: v => `<span class="font-mono text-xs text-[#5E6C84]">${v}%</span>` },
+          { field: 'variance', header: 'Variance', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">+${v}%</span>` }
+        ];
+        rows = [
+          { id: 1, batchNo: 'BCH-DH-2026-081', line: 'Deheading Line 1', rmInput: 12500, recovery: 8125, yieldPct: 65.0, stdYield: 64.0, variance: 1.0 },
+          { id: 2, batchNo: 'BCH-DH-2026-082', line: 'Deheading Line 2', rmInput: 11200, recovery: 7300, yieldPct: 65.2, stdYield: 64.0, variance: 1.2 }
+        ];
+      } else if (reportType === 'peeling') {
+        columns = [
+          { field: 'sNo', header: 'S No.', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
+          { field: 'tableRef', header: 'Peeling Table ID', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer">${v}</span>` },
+          { field: 'workerCount', header: 'Peelers Count', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">${v} Active</span>` },
+          { field: 'rmInput', header: 'HLSO Input (Kg)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#172B4D]">${Number(v).toLocaleString()}</span>` },
+          { field: 'recovery', header: 'Peeled Meat (Kg)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${Number(v).toLocaleString()}</span>` },
+          { field: 'yieldPct', header: 'Recovery %', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">${v}%</span>` },
+          { field: 'status', header: 'Inspection Status', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` }
+        ];
+        rows = [
+          { id: 1, tableRef: 'PL-TAB-A-01', workerCount: 42, rmInput: 8125, recovery: 6987, yieldPct: 86.0, status: 'Graded & Cleared' },
+          { id: 2, tableRef: 'PL-TAB-B-02', workerCount: 38, rmInput: 7400, recovery: 6364, yieldPct: 86.0, status: 'Graded & Cleared' }
+        ];
+      } else {
+        // Standard General Preprocessing Ledger
+        columns = [
+          { field: 'sNo', header: 'S No.', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
+          { field: 'batchNo', header: 'Process Batch', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer" title="Click to view details">${v}</span>` },
+          { field: 'date', header: 'Production Date', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'line', header: 'Line / Unit', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'rmInput', header: 'RM Input (Kg)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#172B4D]">${Number(v).toLocaleString()}</span>` },
+          { field: 'recovery', header: 'Recovery (Kg)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${Number(v).toLocaleString()}</span>` },
+          { field: 'yieldPct', header: 'Actual Yield %', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">${v}%</span>` },
+          { field: 'stdYield', header: 'Standard Yield', sortable: true, render: v => `<span class="font-mono text-xs text-[#5E6C84]">${v}%</span>` },
+          { field: 'variance', header: 'Variance', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">+${v}%</span>` }
+        ];
+        rows = [
+          { id: 1, batchNo: 'BCH-PR-2026-081', date: '2026-10-28', line: 'Deheading Line 1', rmInput: 12500, recovery: 8125, yieldPct: 65.0, stdYield: 64.0, variance: 1.0 },
+          { id: 2, batchNo: 'BCH-PR-2026-082', date: '2026-10-28', line: 'Peeling Table A', rmInput: 8125, recovery: 6987, yieldPct: 86.0, stdYield: 85.5, variance: 0.5 },
+          { id: 3, batchNo: 'BCH-PR-2026-083', date: '2026-10-27', line: 'IQF Freezing Tunnel', rmInput: 6987, recovery: 7406, yieldPct: 106.0, stdYield: 105.0, variance: 1.0 },
+          { id: 4, batchNo: 'BCH-PR-2026-084', date: '2026-10-26', line: 'Grading Bay 2', rmInput: 15400, recovery: 15246, yieldPct: 99.0, stdYield: 98.8, variance: 0.2 }
+        ];
+      }
     }
+
     // ==========================================
     // 4. Quality Control Reports
     // ==========================================
     else if (submenuId === 'quality-reports' || submenuId.includes('quality') || submenuId.includes('qc')) {
-      columns = [
-        { field: 'sNo', header: 'S No', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
-        { field: 'testNo', header: 'Test Sample ID', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer" title="Click to view details">${v}</span>` },
-        { field: 'date', header: 'Sampling Date', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">${v}</span>` },
-        { field: 'sampleType', header: 'Sample Description', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
-        { field: 'testType', header: 'Test Protocol', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#F1F5F9] text-[#172B4D]">${v}</span>` },
-        { field: 'result', header: 'Test Findings', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">${v}</span>` },
-        { field: 'analyst', header: 'Tested By', sortable: true, render: v => `<span class="text-xs text-[#5E6C84]">${v}</span>` },
-        { field: 'status', header: 'Clearance Status', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` }
-      ];
-      rows = [
-        { id: 1, testNo: 'LAB-EL-2026-0412', date: '2026-10-28', sampleType: 'Raw Head-On Vannamei (Lot 912)', testType: 'ELISA (AOZ / AMOZ / CAP / Nitrofuran)', result: 'Not Detected (< 0.1 ppb)', analyst: 'K. S. Narayana (Sr. Microbiologist)', status: 'Cleared for Export' },
-        { id: 2, testNo: 'LAB-MB-2026-0389', date: '2026-10-27', sampleType: 'Finished IQF Cooked Tail-On (16/20)', testType: 'TPC / E.coli / Salmonella / Vibrio', result: 'Compliant with USFDA Limits', analyst: 'Dr. P. Swathi (QC Head)', status: 'Cleared for Export' },
-        { id: 3, testNo: 'LAB-EL-2026-0413', date: '2026-10-27', sampleType: 'Harvest Pre-Screen Pool 4', testType: 'ELISA Antibiotic Screen', result: 'Negative across all 5 markers', analyst: 'K. S. Narayana', status: 'Pre-Harvest Approved' },
-        { id: 4, testNo: 'AUD-BAP-2026-019', date: '2026-10-25', sampleType: 'Processing Line 1 & IQF Tunnel', testType: 'BAP 4-Star Plant Sanitation Audit', result: 'Zero Critical Deficiencies (Score: 98.6%)', analyst: 'External Lead Auditor', status: 'BAP Certified' }
-      ];
+      if (reportType === 'lab') {
+        columns = [
+          { field: 'sNo', header: 'S No.', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
+          { field: 'testNo', header: 'Lab Test No', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer">${v}</span>` },
+          { field: 'testType', header: 'Screening Protocol', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#F1F5F9] text-[#172B4D]">${v}</span>` },
+          { field: 'marker', header: 'Target Marker', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D] font-bold">${v}</span>` },
+          { field: 'threshold', header: 'MRL Limit', sortable: true, render: v => `<span class="font-mono text-xs text-[#5E6C84]">${v}</span>` },
+          { field: 'result', header: 'Observed Reading', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">${v}</span>` },
+          { field: 'status', header: 'Export Clearance', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` }
+        ];
+        rows = [
+          { id: 1, testNo: 'LAB-EL-2026-0412', testType: 'ELISA Screen', marker: 'AOZ / Nitrofuran', threshold: '0.5 ppb', result: 'Not Detected (<0.1 ppb)', status: 'Cleared for Export' },
+          { id: 2, testNo: 'LAB-EL-2026-0413', testType: 'HPLC Confirmatory', marker: 'Chloramphenicol', threshold: '0.3 ppb', result: 'Negative (0.00 ppb)', status: 'Cleared for Export' },
+          { id: 3, testNo: 'LAB-EL-2026-0414', testType: 'ELISA Screen', marker: 'AMOZ', threshold: '0.5 ppb', result: 'Not Detected (<0.1 ppb)', status: 'Cleared for Export' }
+        ];
+      } else if (reportType === 'audits') {
+        columns = [
+          { field: 'sNo', header: 'S No.', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
+          { field: 'auditRef', header: 'Audit Ref No', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer">${v}</span>` },
+          { field: 'standard', header: 'Accreditation Standard', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#F4F5F7] text-[#172B4D] border border-[#DFE1E6]">${v}</span>` },
+          { field: 'facility', header: 'Audited Section', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'score', header: 'Audit Compliance Score', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">${v}</span>` },
+          { field: 'status', header: 'Certification Status', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` }
+        ];
+        rows = [
+          { id: 1, auditRef: 'AUD-BAP-2026-019', standard: 'BAP 4-Star Plant Sanitation Audit', facility: 'Processing Line 1 & IQF Tunnel', score: '98.6% (A Grade)', status: 'BAP Certified' },
+          { id: 2, auditRef: 'AUD-BRC-2026-004', standard: 'BRCGS Global Food Standard (Issue 9)', facility: 'Coldstores & Packaging Halls', score: 'Grade AA Certified', status: 'Compliant' }
+        ];
+      } else {
+        // Standard General QC Ledger
+        columns = [
+          { field: 'sNo', header: 'S No.', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
+          { field: 'testNo', header: 'Test Sample ID', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer" title="Click to view details">${v}</span>` },
+          { field: 'date', header: 'Sampling Date', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'sampleType', header: 'Sample Description', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'testType', header: 'Test Protocol', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#F1F5F9] text-[#172B4D]">${v}</span>` },
+          { field: 'result', header: 'Test Findings', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">${v}</span>` },
+          { field: 'analyst', header: 'Tested By', sortable: true, render: v => `<span class="text-xs text-[#5E6C84]">${v}</span>` },
+          { field: 'status', header: 'Clearance Status', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` }
+        ];
+        rows = [
+          { id: 1, testNo: 'LAB-EL-2026-0412', date: '2026-10-28', sampleType: 'Raw Head-On Vannamei (Lot 912)', testType: 'ELISA (AOZ / AMOZ / CAP / Nitrofuran)', result: 'Not Detected (< 0.1 ppb)', analyst: 'K. S. Narayana (Sr. Microbiologist)', status: 'Cleared for Export' },
+          { id: 2, testNo: 'LAB-MB-2026-0389', date: '2026-10-27', sampleType: 'Finished IQF Cooked Tail-On (16/20)', testType: 'TPC / E.coli / Salmonella / Vibrio', result: 'Compliant with USFDA Limits', analyst: 'Dr. P. Swathi (QC Head)', status: 'Cleared for Export' },
+          { id: 3, testNo: 'LAB-EL-2026-0413', date: '2026-10-27', sampleType: 'Harvest Pre-Screen Pool 4', testType: 'ELISA Antibiotic Screen', result: 'Negative across all 5 markers', analyst: 'K. S. Narayana', status: 'Pre-Harvest Approved' },
+          { id: 4, testNo: 'AUD-BAP-2026-019', date: '2026-10-25', sampleType: 'Processing Line 1 & IQF Tunnel', testType: 'BAP 4-Star Plant Sanitation Audit', result: 'Zero Critical Deficiencies (Score: 98.6%)', analyst: 'External Lead Auditor', status: 'BAP Certified' }
+        ];
+      }
     }
+
     // ==========================================
     // 5. Production Analytics
     // ==========================================
     else if (submenuId === 'production-analytics' || submenuId.includes('production')) {
-      columns = [
-        { field: 'sNo', header: 'S No', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
-        { field: 'runId', header: 'Shift Run ID', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer" title="Click to view details">${v}</span>` },
-        { field: 'date', header: 'Shift Date', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">${v}</span>` },
-        { field: 'line', header: 'Line / Facility', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
-        { field: 'product', header: 'Finished Product Style', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-medium bg-[#F1F5F9] text-[#172B4D]">${v}</span>` },
-        { field: 'targetQty', header: 'Target (Kg)', sortable: true, render: v => `<span class="font-mono text-xs text-[#5E6C84]">${Number(v).toLocaleString()}</span>` },
-        { field: 'achievedQty', header: 'Achieved (Kg)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${Number(v).toLocaleString()}</span>` },
-        { field: 'efficiency', header: 'Efficiency %', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">${v}%</span>` },
-        { field: 'shiftHead', header: 'Shift In-Charge', sortable: true, render: v => `<span class="text-xs text-[#172B4D] font-medium">${v}</span>` }
-      ];
-      rows = [
-        { id: 1, runId: 'SHF-PR-2026-0941', date: '2026-10-28', line: 'Freezing Line 1 (IQF)', product: 'Vannamei Easy-Peel 31/40', targetQty: 6000, achievedQty: 6180, efficiency: 103.0, shiftHead: 'M. Ramesh Babu' },
-        { id: 2, runId: 'SHF-PR-2026-0942', date: '2026-10-28', line: 'Cooked Line A', product: 'Tail-On Cooked IQF 26/30', targetQty: 4500, achievedQty: 4480, efficiency: 99.5, shiftHead: 'S. K. Verma' },
-        { id: 3, runId: 'SHF-PR-2026-0943', date: '2026-10-27', line: 'Plate Freezer Bay 3', product: 'Block Frozen Headless 16/20', targetQty: 8000, achievedQty: 8050, efficiency: 100.6, shiftHead: 'M. Ramesh Babu' },
-        { id: 4, runId: 'SHF-PR-2026-0944', date: '2026-10-26', line: 'Value Addition Table 2', product: 'Butterfly Tail-On Skewers', targetQty: 2500, achievedQty: 2470, efficiency: 98.8, shiftHead: 'Ch. Prasad' }
-      ];
+      if (reportType === 'yield') {
+        columns = [
+          { field: 'sNo', header: 'S No.', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
+          { field: 'runId', header: 'Freezer Run ID', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer">${v}</span>` },
+          { field: 'product', header: 'Product Item', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'line', header: 'Tunnel Unit', sortable: true, render: v => `<span class="text-xs text-[#5E6C84]">${v}</span>` },
+          { field: 'targetQty', header: 'Target (Kg)', sortable: true, render: v => `<span class="font-mono text-xs text-[#5E6C84]">${Number(v).toLocaleString()}</span>` },
+          { field: 'achievedQty', header: 'Actual (Kg)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${Number(v).toLocaleString()}</span>` },
+          { field: 'efficiency', header: 'Freezing Yield %', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">${v}%</span>` },
+          { field: 'status', header: 'Quality Run', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` }
+        ];
+        rows = [
+          { id: 1, runId: 'TUN-IQF-2026-081', product: 'Vannamei Easy-Peel 31/40', line: 'IQF Tunnel 1', targetQty: 6000, achievedQty: 6180, efficiency: 103.0, status: 'Completed Grade A' },
+          { id: 2, runId: 'TUN-CKD-2026-042', product: 'Tail-On Cooked IQF 26/30', line: 'Cooked Line A', targetQty: 4500, achievedQty: 4480, efficiency: 99.5, status: 'Completed Grade A' }
+        ];
+      } else {
+        // Standard Production Ledger
+        columns = [
+          { field: 'sNo', header: 'S No.', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
+          { field: 'runId', header: 'Shift Run ID', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer" title="Click to view details">${v}</span>` },
+          { field: 'date', header: 'Shift Date', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'line', header: 'Line / Facility', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'product', header: 'Finished Product Style', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-medium bg-[#F1F5F9] text-[#172B4D]">${v}</span>` },
+          { field: 'targetQty', header: 'Target (Kg)', sortable: true, render: v => `<span class="font-mono text-xs text-[#5E6C84]">${Number(v).toLocaleString()}</span>` },
+          { field: 'achievedQty', header: 'Achieved (Kg)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${Number(v).toLocaleString()}</span>` },
+          { field: 'efficiency', header: 'Efficiency %', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">${v}%</span>` },
+          { field: 'shiftHead', header: 'Shift In-Charge', sortable: true, render: v => `<span class="text-xs text-[#172B4D] font-medium">${v}</span>` }
+        ];
+        rows = [
+          { id: 1, runId: 'SHF-PR-2026-0941', date: '2026-10-28', line: 'Freezing Line 1 (IQF)', product: 'Vannamei Easy-Peel 31/40', targetQty: 6000, achievedQty: 6180, efficiency: 103.0, shiftHead: 'M. Ramesh Babu' },
+          { id: 2, runId: 'SHF-PR-2026-0942', date: '2026-10-28', line: 'Cooked Line A', product: 'Tail-On Cooked IQF 26/30', targetQty: 4500, achievedQty: 4480, efficiency: 99.5, shiftHead: 'S. K. Verma' },
+          { id: 3, runId: 'SHF-PR-2026-0943', date: '2026-10-27', line: 'Plate Freezer Bay 3', product: 'Block Frozen Headless 16/20', targetQty: 8000, achievedQty: 8050, efficiency: 100.6, shiftHead: 'M. Ramesh Babu' },
+          { id: 4, runId: 'SHF-PR-2026-0944', date: '2026-10-26', line: 'Value Addition Table 2', product: 'Butterfly Tail-On Skewers', targetQty: 2500, achievedQty: 2470, efficiency: 98.8, shiftHead: 'Ch. Prasad' }
+        ];
+      }
     }
+
     // ==========================================
     // 6. Coldstore Analytics
     // ==========================================
     else if (submenuId === 'coldstore-analytics' || submenuId.includes('coldstore')) {
-      columns = [
-        { field: 'sNo', header: 'S No', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
-        { field: 'palletRef', header: 'Pallet ID / Ref', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer" title="Click to view details">${v}</span>` },
-        { field: 'date', header: 'Placement Date', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">${v}</span>` },
-        { field: 'chamber', header: 'Chamber / Bay', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
-        { field: 'product', header: 'Product Item Description', sortable: true, render: v => `<span class="text-xs text-[#172B4D] font-medium">${v}</span>` },
-        { field: 'cartons', header: 'Master Cartons', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${Number(v).toLocaleString()} MCs</span>` },
-        { field: 'netWeight', header: 'Net Wt (Kg)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#172B4D]">${Number(v).toLocaleString()}</span>` },
-        { field: 'temp', header: 'Temp (°C)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">${v}°C</span>` },
-        { field: 'status', header: 'Storage Status', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` }
-      ];
-      rows = [
-        { id: 1, palletRef: 'PLT-CS-2026-1081', date: '2026-10-28', chamber: 'Coldstore Room 4 (Rack B-12)', product: 'IQF Cooked Tail-On Vannamei 26/30 (6x2kg)', cartons: 640, netWeight: 7680, temp: -21.4, status: 'In Coldstore Stock' },
-        { id: 2, palletRef: 'PLT-CS-2026-1082', date: '2026-10-28', chamber: 'Coldstore Room 3 (Rack D-04)', product: 'Block Frozen HLSO Black Tiger 16/20 (6x1.8kg)', cartons: 580, netWeight: 6264, temp: -22.0, status: 'In Coldstore Stock' },
-        { id: 3, palletRef: 'PLT-CS-2026-1083', date: '2026-10-27', chamber: 'Coldstore Room 2 (Rack A-08)', product: 'Easy Peel Raw Vannamei 31/40 (10x1kg)', cartons: 820, netWeight: 8200, temp: -20.8, status: 'Allocated for Shipment' },
-        { id: 4, palletRef: 'PLT-CS-2026-1084', date: '2026-10-26', chamber: 'Coldstore Room 4 (Rack C-19)', product: 'Raw PDTO Vannamei 41/50 (5x2lb)', cartons: 740, netWeight: 6713, temp: -21.8, status: 'In Coldstore Stock' }
-      ];
-    }
-    // ==========================================
-    // 7. Standard Fallback Ledger
-    // ==========================================
-    else {
-      columns = [
-        { field: 'sNo', header: 'S No', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
-        { field: 'refNo', header: 'Reference', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer" title="Click to view details">${v}</span>` },
-        { field: 'date', header: 'Date', sortable: true, render: v => `<span class="font-mono text-xs text-[#5E6C84]">${v}</span>` },
-        { field: 'entity', header: 'Entity / Description', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
-        { field: 'category', header: 'Category', sortable: true, render: v => `<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#F4F5F7] text-[#172B4D] border border-[#DFE1E6]">${v}</span>` },
-        { field: 'quantity', header: 'Quantity', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${v}</span>` },
-        { field: 'value', header: 'Total Value', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">${v}</span>` },
-        { field: 'status', header: 'Status', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` }
-      ];
-      rows = [
-        { id: 1, refNo: 'REP-EXT-2026-01', date: '2026-10-28', entity: 'Master Packaging & Cartons Ledger', category: 'General Store', quantity: '45,000 MCs', value: '₹26,32,500', status: 'Audited & Verified' },
-        { id: 2, refNo: 'REP-EXT-2026-02', date: '2026-10-27', entity: 'Cold Storage Room 4 Pallet Stock', category: 'Finished Goods', quantity: '1,240 Pallets', value: '₹4,89,60,000', status: 'In Coldstore Stock' },
-        { id: 3, refNo: 'REP-EXT-2026-03', date: '2026-10-26', entity: 'US Export Consignment Realization', category: 'Export Sales', quantity: '4 Containers (40ft)', value: '$580,000', status: 'Realized in Bank' },
-        { id: 4, refNo: 'REP-EXT-2026-04', date: '2026-10-25', entity: 'Pre-Processing Daily Peeling Shift Summary', category: 'Operations', quantity: '28,400 KGs', value: '₹92,30,000', status: 'Shift Completed' }
-      ];
+      if (reportType === 'exceptions') {
+        columns = [
+          { field: 'sNo', header: 'S No.', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
+          { field: 'incidentId', header: 'Incident Ref', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer">${v}</span>` },
+          { field: 'chamber', header: 'Coldstore Chamber', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'incident', header: 'Event / Anomaly', sortable: true, render: v => `<span class="text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'reading', header: 'Sensor Reading', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#DE350B]">${v}</span>` },
+          { field: 'severity', header: 'Severity', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#FFEBE6] text-[#DE350B] border border-[#FFBDAD]"><span class="w-1.5 h-1.5 rounded-full bg-[#DE350B]"></span>${v}</span>` },
+          { field: 'status', header: 'Resolution Status', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` }
+        ];
+        rows = [
+          { id: 1, incidentId: 'EXC-CS-2026-012', chamber: 'Coldstore Room 3 (Door 2)', incident: 'Door Open Duration Exceeded (14 Mins)', reading: '-18.1°C (Temp Rise)', severity: 'High Alert', status: 'Door Closed & Temp Restored' },
+          { id: 2, incidentId: 'EXC-CS-2026-013', chamber: 'Coldstore Room 4 (Bay C)', incident: 'Pallet Placement Inverted Barcode', reading: 'PLT-CS-1084', severity: 'Minor Advisory', status: 'Barcode Scanned & Corrected' }
+        ];
+      } else {
+        // Standard Coldstore Pallet Stock Ledger
+        columns = [
+          { field: 'sNo', header: 'S No.', render: (v, r, idx) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${String(idx + 1).padStart(2, '0')}</span>` },
+          { field: 'palletRef', header: 'Pallet ID / Ref', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer" title="Click to view details">${v}</span>` },
+          { field: 'date', header: 'Placement Date', sortable: true, render: v => `<span class="font-mono text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'chamber', header: 'Chamber / Bay', sortable: true, render: v => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
+          { field: 'product', header: 'Product Item Description', sortable: true, render: v => `<span class="text-xs text-[#172B4D] font-medium">${v}</span>` },
+          { field: 'cartons', header: 'Master Cartons', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${Number(v).toLocaleString()} MCs</span>` },
+          { field: 'netWeight', header: 'Net Wt (Kg)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#172B4D]">${Number(v).toLocaleString()}</span>` },
+          { field: 'temp', header: 'Temp (°C)', sortable: true, render: v => `<span class="font-mono font-bold text-xs text-[#00875A]">${v}°C</span>` },
+          { field: 'status', header: 'Storage Status', sortable: true, render: v => `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]"><span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>${v}</span>` }
+        ];
+        rows = [
+          { id: 1, palletRef: 'PLT-CS-2026-1081', date: '2026-10-28', chamber: 'Coldstore Room 4 (Rack B-12)', product: 'IQF Cooked Tail-On Vannamei 26/30 (6x2kg)', cartons: 640, netWeight: 7680, temp: -21.4, status: 'In Coldstore Stock' },
+          { id: 2, palletRef: 'PLT-CS-2026-1082', date: '2026-10-28', chamber: 'Coldstore Room 3 (Rack D-04)', product: 'Block Frozen HLSO Black Tiger 16/20 (6x1.8kg)', cartons: 580, netWeight: 6264, temp: -22.0, status: 'In Coldstore Stock' },
+          { id: 3, palletRef: 'PLT-CS-2026-1083', date: '2026-10-27', chamber: 'Coldstore Room 2 (Rack A-08)', product: 'Easy Peel Raw Vannamei 31/40 (10x1kg)', cartons: 820, netWeight: 8200, temp: -20.8, status: 'Allocated for Shipment' },
+          { id: 4, palletRef: 'PLT-CS-2026-1084', date: '2026-10-26', chamber: 'Coldstore Room 4 (Rack C-19)', product: 'Raw PDTO Vannamei 41/50 (5x2lb)', cartons: 740, netWeight: 6713, temp: -21.8, status: 'In Coldstore Stock' }
+        ];
+      }
     }
 
     return { columns, rows };
