@@ -2858,43 +2858,83 @@ input[type="number"]:hover::-webkit-outer-spin-button {
 
 
 /* ==========================================================================
-   Search Buttons & Primary Action Buttons - Zero Border Everywhere
+   GLOBAL RULE: No border color or border anywhere on ANY button across entire application
    ========================================================================== */
+button,
+[type="button"],
+[type="submit"],
+[type="reset"],
+.btn,
+.btn-primary,
+.btn-secondary,
+.btn-danger,
+.btn-destructive,
+.btn-dark,
+.btn-outline,
+.btn-subtle,
+.btn-ghost,
 .dt-top-filter-search-btn,
-.dt-top-filter-card .dt-top-filter-search-btn,
-button.dt-top-filter-search-btn,
-button[id*="search-btn"],
-button[id$="-search-btn"],
-#rm-top-search-btn,
-#booking-top-search-btn,
-#lot-search-btn,
-#comm-search-btn,
-#bill-top-search-btn,
-#ctx-top-search-btn,
-#pay-top-search-btn,
-#users-top-search-btn,
-#roles-top-search-btn,
-.btn-primary {
-  border: none !important;
-  border-width: 0 !important;
-  border-style: none !important;
-  outline: none !important;
-}
-
-.dt-top-filter-search-btn:hover,
-.dt-top-filter-search-btn:focus,
-.dt-top-filter-search-btn:active,
-button[id*="search-btn"]:hover,
-button[id*="search-btn"]:focus,
-button[id*="search-btn"]:active,
-.btn-primary:hover,
-.btn-primary:focus,
-.btn-primary:active {
+.dt-action-btn,
+.dt-top-filter-reset-btn,
+.dt-top-filter-toggle-btn,
+.dt-page-btn,
+.cu-page-btn,
+.sub-page-btn,
+[class*="btn-"],
+[class*="dt-action-btn"] {
   border: none !important;
   border-width: 0 !important;
   border-style: none !important;
   border-color: transparent !important;
   outline: none !important;
+  box-shadow: none !important;
+}
+
+button:hover,
+button:focus,
+button:active,
+[type="button"]:hover,
+[type="button"]:focus,
+[type="button"]:active,
+[type="submit"]:hover,
+[type="submit"]:focus,
+[type="submit"]:active,
+[type="reset"]:hover,
+[type="reset"]:focus,
+[type="reset"]:active,
+.btn:hover,
+.btn:focus,
+.btn:active,
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-secondary:hover,
+.btn-secondary:focus,
+.btn-secondary:active,
+.btn-danger:hover,
+.btn-danger:focus,
+.btn-danger:active,
+.dt-top-filter-search-btn:hover,
+.dt-top-filter-search-btn:focus,
+.dt-top-filter-search-btn:active,
+.dt-action-btn:hover,
+.dt-action-btn:focus,
+.dt-action-btn:active,
+.dt-top-filter-reset-btn:hover,
+.dt-top-filter-reset-btn:focus,
+.dt-top-filter-reset-btn:active,
+.dt-top-filter-toggle-btn:hover,
+.dt-top-filter-toggle-btn:focus,
+.dt-top-filter-toggle-btn:active,
+[class*="btn-"]:hover,
+[class*="btn-"]:focus,
+[class*="btn-"]:active {
+  border: none !important;
+  border-width: 0 !important;
+  border-style: none !important;
+  border-color: transparent !important;
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 

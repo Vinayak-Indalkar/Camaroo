@@ -367,6 +367,39 @@
       opacity: 1 !important;
       margin-left: 6px !important;
     }
+    /* Zero Border Everywhere for all buttons */
+    button,
+    [type="button"],
+    [type="submit"],
+    [type="reset"],
+    .btn,
+    .btn-primary,
+    .btn-secondary,
+    .btn-danger,
+    .dt-top-filter-search-btn,
+    .dt-action-btn,
+    .dt-top-filter-reset-btn,
+    .dt-top-filter-toggle-btn {
+      border: none !important;
+      border-width: 0 !important;
+      border-style: none !important;
+      border-color: transparent !important;
+      outline: none !important;
+    }
+    button:hover,
+    button:focus,
+    button:active,
+    .btn:hover,
+    .btn-primary:hover,
+    .btn-secondary:hover,
+    .dt-top-filter-search-btn:hover,
+    .dt-action-btn:hover,
+    .dt-top-filter-reset-btn:hover,
+    .dt-top-filter-toggle-btn:hover {
+      border: none !important;
+      border-color: transparent !important;
+      outline: none !important;
+    }
   </style>
 </head>
 <body class="bg-[#F2F5F9] text-[#0F172A] antialiased overflow-x-hidden min-h-screen">
