@@ -436,8 +436,50 @@ export const SalesView = {
         netWeightKg: 18000,
         grossWeightKg: 19440,
         fobValueUsd: 153000,
-        cifValueUsd: 159300,
-        customsStatus: "LEO_GRANTED"
+        cifValueUsd: 163800,
+        customsStatus: "LEO_GRANTED",
+        lineItems: [
+          {
+            id: 1,
+            variety: "Vannamei Shrimp HLSO IQF",
+            grade: "26/30",
+            packingStyle: "10x1 Kg Printed Bags",
+            treatment: "Non-Treated",
+            freezingType: "IQF",
+            brand: "Devi Gold",
+            mcs: 1200,
+            traysQty: 2400,
+            unitPriceBags: 8.85,
+            ddpPrice: 9.45,
+            amountUsd: 106200,
+            cups: 240,
+            cupsPriceBags: 0.65,
+            code: "PRD-VAN-2630",
+            fullName: "Frozen Raw Headless Shell-On White Shrimp 26/30",
+            description: "Individually Quick Frozen, 10x1kg bags per master carton",
+            buyerDescription: "Custom retail branded packing with UPC barcode"
+          },
+          {
+            id: 2,
+            variety: "Vannamei Cooked Tail-On IQF",
+            grade: "31/40",
+            packingStyle: "10x1 Kg Retail Pouch",
+            treatment: "STPP Treated",
+            freezingType: "IQF",
+            brand: "Ocean Pearl",
+            mcs: 600,
+            traysQty: 1200,
+            unitPriceBags: 9.60,
+            ddpPrice: 10.20,
+            amountUsd: 57600,
+            cups: 120,
+            cupsPriceBags: 0.70,
+            code: "PRD-CKD-3140",
+            fullName: "Cooked Peeled Tail-On White Shrimp 31/40",
+            description: "Blanched / Cooked IQF, ready to eat",
+            buyerDescription: "Foodservice label pack"
+          }
+        ]
       },
       {
         id: "CI-002",
@@ -458,9 +500,31 @@ export const SalesView = {
         dischargePort: "Tokyo Port, Japan",
         netWeightKg: 14000,
         grossWeightKg: 15120,
-        fobValueUsd: 203000,
+        fobValueUsd: 194880,
         cifValueUsd: 203000,
-        customsStatus: "ASSESSED_CLEARED"
+        customsStatus: "ASSESSED_CLEARED",
+        lineItems: [
+          {
+            id: 1,
+            variety: "Black Tiger HOSO Semi-IQF",
+            grade: "16/20",
+            packingStyle: "6x2 Kg Blocks",
+            treatment: "Non-Treated",
+            freezingType: "Semi-IQF",
+            brand: "Devi Diamond",
+            mcs: 1400,
+            traysQty: 2800,
+            unitPriceBags: 14.50,
+            ddpPrice: 15.20,
+            amountUsd: 203000,
+            cups: 200,
+            cupsPriceBags: 0.85,
+            code: "PRD-BT-1620",
+            fullName: "Black Tiger Head-On Shell-On Shrimp 16/20",
+            description: "6x2kg inner cartons, semi-IQF blast frozen",
+            buyerDescription: "Japanese sashimi grade packaging"
+          }
+        ]
       },
       {
         id: "CI-003",
@@ -483,7 +547,29 @@ export const SalesView = {
         grossWeightKg: 12960,
         fobValueUsd: 128000,
         cifValueUsd: 134400,
-        customsStatus: "UNDER_EXAMINATION"
+        customsStatus: "UNDER_EXAMINATION",
+        lineItems: [
+          {
+            id: 1,
+            variety: "Vannamei PDTO IQF",
+            grade: "21/25",
+            packingStyle: "10x1 Kg Printed Bags",
+            treatment: "Citric Acid Treated",
+            freezingType: "IQF",
+            brand: "Devi Royal",
+            mcs: 1200,
+            traysQty: 2400,
+            unitPriceBags: 11.20,
+            ddpPrice: 11.90,
+            amountUsd: 134400,
+            cups: 180,
+            cupsPriceBags: 0.70,
+            code: "PRD-PDTO-2125",
+            fullName: "Peeled Deveined Tail-On White Shrimp 21/25",
+            description: "Individually Quick Frozen, European master carton",
+            buyerDescription: "EU compliant retail packaging"
+          }
+        ]
       },
       {
         id: "CI-004",
@@ -502,11 +588,53 @@ export const SalesView = {
         iecCode: "0391004812",
         loadingPort: "Visakhapatnam Sea (INVTZ)",
         dischargePort: "New York Terminal, USA",
-        netWeightKg: 22000,
-        grossWeightKg: 23760,
-        fobValueUsd: 204000,
+        netWeightKg: 20000,
+        grossWeightKg: 21600,
+        fobValueUsd: 202750,
         cifValueUsd: 211200,
-        customsStatus: "LEO_GRANTED"
+        customsStatus: "LEO_GRANTED",
+        lineItems: [
+          {
+            id: 1,
+            variety: "Vannamei Easy Peel IQF",
+            grade: "26/30",
+            packingStyle: "10x1 Kg Printed Bags",
+            treatment: "Non-Treated",
+            freezingType: "IQF",
+            brand: "Devi Chef",
+            mcs: 1500,
+            traysQty: 3000,
+            unitPriceBags: 9.20,
+            ddpPrice: 9.80,
+            amountUsd: 138000,
+            cups: 250,
+            cupsPriceBags: 0.60,
+            code: "PRD-EZP-2630",
+            fullName: "Easy Peel Split Back White Shrimp 26/30",
+            description: "Deep cut easy peel raw shrimp",
+            buyerDescription: "Sysco Imperial brand specs"
+          },
+          {
+            id: 2,
+            variety: "Asian Seabass Fillet IQF",
+            grade: "200/300g",
+            packingStyle: "Bulk 10 Kg Master",
+            treatment: "Non-Treated",
+            freezingType: "IQF",
+            brand: "Ocean Harvest",
+            mcs: 500,
+            traysQty: 1000,
+            unitPriceBags: 14.64,
+            ddpPrice: 15.30,
+            amountUsd: 73200,
+            cups: 100,
+            cupsPriceBags: 0.80,
+            code: "PRD-FS-SB200",
+            fullName: "Barramundi / Asian Seabass Fillet Skin-On",
+            description: "Individually wrapped skin-on scale-off fillets",
+            buyerDescription: "White tablecloth restaurant pack"
+          }
+        ]
       },
       {
         id: "CI-005",
@@ -527,9 +655,51 @@ export const SalesView = {
         dischargePort: "Houston Sea Port, USA",
         netWeightKg: 16500,
         grossWeightKg: 17820,
-        fobValueUsd: 156000,
+        fobValueUsd: 156816,
         cifValueUsd: 163350,
-        customsStatus: "DRAFT_REGISTERED"
+        customsStatus: "DRAFT_REGISTERED",
+        lineItems: [
+          {
+            id: 1,
+            variety: "Vannamei Shrimp HLSO IQF",
+            grade: "31/40",
+            packingStyle: "10x1 Kg Printed Bags",
+            treatment: "Non-Treated",
+            freezingType: "IQF",
+            brand: "Devi Gold",
+            mcs: 1100,
+            traysQty: 2200,
+            unitPriceBags: 9.50,
+            ddpPrice: 10.10,
+            amountUsd: 104500,
+            cups: 150,
+            cupsPriceBags: 0.65,
+            code: "PRD-VAN-3140",
+            fullName: "Headless Shell-On White Shrimp 31/40",
+            description: "10x1kg bags per master carton",
+            buyerDescription: "US Foods Harbour Banks label"
+          },
+          {
+            id: 2,
+            variety: "Vannamei Cooked Tail-On IQF",
+            grade: "41/50",
+            packingStyle: "10x1 Kg Retail Pouch",
+            treatment: "STPP Treated",
+            freezingType: "IQF",
+            brand: "Ocean Pearl",
+            mcs: 550,
+            traysQty: 1100,
+            unitPriceBags: 10.70,
+            ddpPrice: 11.40,
+            amountUsd: 58850,
+            cups: 110,
+            cupsPriceBags: 0.75,
+            code: "PRD-CKD-4150",
+            fullName: "Cooked Tail-On Shrimp 41/50",
+            description: "Fully cooked thaw & serve shrimp",
+            buyerDescription: "Deli counter display pack"
+          }
+        ]
       }
     ],
 
@@ -3061,6 +3231,7 @@ export const SalesView = {
         searchable: true,
         exportable: true,
         pageSize: 10,
+        onRowClick: (row) => this.showCustomInvoiceDetailsModal(row),
         columns: [
           {
             field: '__sno__',
@@ -3191,7 +3362,8 @@ export const SalesView = {
       id: nextId,
       invoiceNo: nextNo,
       invoiceDate: new Date().toISOString().slice(0, 10),
-      stockStatus: 'WAREHOUSE_STAGED'
+      stockStatus: 'WAREHOUSE_STAGED',
+      lineItems: sourceRow.lineItems ? JSON.parse(JSON.stringify(sourceRow.lineItems)) : []
     };
 
     this.state.customInvoices.unshift(duplicated);
@@ -3200,30 +3372,367 @@ export const SalesView = {
     Toast.show(`Custom Invoice duplicated as ${nextNo}`, 'success');
   },
 
-  // Edit Custom Invoice Modal
-  showEditCustomInvoiceModal(row) {
-    this.openCustomInvoiceModal({
-      title: `Edit Custom Invoice: ${row.invoiceNo}`,
-      initialData: row,
-      submitButtonText: 'Update Custom Invoice',
-      onSubmit: (formData, modal) => {
-        Object.assign(row, formData);
-        modal.close();
-        Toast.show(`Custom Invoice ${row.invoiceNo} updated successfully!`, 'success');
-        const mainEl = document.getElementById('sales-view-main');
-        if (mainEl) this.renderCustomInvoices(mainEl);
+  // Custom Invoice Details Modal (Row Click) matching Proforma Invoices (PI Register)
+  showCustomInvoiceDetailsModal(row) {
+    const lineItems = row.lineItems || (this.state.proformaList?.find(p => p.piNumber === row.pInvoiceNo)?.lineItems) || [
+      {
+        id: 1,
+        variety: "Vannamei Shrimp HLSO IQF",
+        grade: "26/30",
+        packingStyle: "10x1 Kg Printed Bags",
+        treatment: "Non-Treated",
+        freezingType: "IQF",
+        brand: "Devi Gold",
+        mcs: Math.round((row.netWeightKg || 18000) / 15),
+        traysQty: Math.round((row.netWeightKg || 18000) / 15) * 2,
+        unitPriceBags: 8.85,
+        ddpPrice: 9.45,
+        amountUsd: Number(row.cifValueUsd || 159300),
+        cups: 240,
+        cupsPriceBags: 0.65,
+        code: "PRD-VAN-2630",
+        fullName: "Frozen Raw Headless Shell-On White Shrimp 26/30",
+        description: "Individually Quick Frozen, 10x1kg bags per master carton",
+        buyerDescription: "Custom retail branded packing with UPC barcode"
       }
+    ];
+
+    const totMcs = lineItems.reduce((acc, i) => acc + (Number(i.mcs) || 0), 0) || Math.round((row.netWeightKg || 18000) / 10);
+    const totTrays = lineItems.reduce((acc, i) => acc + (Number(i.traysQty) || 0), 0) || (totMcs * 2);
+    const totAmount = lineItems.reduce((acc, i) => acc + (Number(i.amountUsd) || 0), 0) || Number(row.cifValueUsd || 159300);
+
+    const stockStatusVal = String(row.stockStatus || '').toUpperCase();
+    let statusClass = 'bg-[#F1F5F9] text-[#172B4D] border-[#DFE1E6]';
+    if (stockStatusVal.includes('PORT_CLEARED') || stockStatusVal.includes('DISPATCHED') || stockStatusVal.includes('ALLOCATED')) {
+      statusClass = 'bg-[#E3FCEF] text-[#006644] border-[#ABF5D1]';
+    } else if (stockStatusVal.includes('TRANSIT')) {
+      statusClass = 'bg-[#F0F9FF] text-[#00A4B7] border-[#BAE6FD]';
+    } else if (stockStatusVal.includes('STAGED') || stockStatusVal.includes('PENDING')) {
+      statusClass = 'bg-[#FFFAE6] text-[#FF8B00] border-[#FFE380]';
+    }
+
+    Modal.open({
+      title: `Custom Invoice Details - ${row.invoiceNo}`,
+      size: 'full',
+      content: `
+        <div class="space-y-4 text-xs animate-fade-in">
+          <!-- Top Hero / Summary Card -->
+          <div class="bg-gradient-to-r from-[#F0F9FF] to-[#F8FAFC] p-4 rounded-xl border border-[#BAE6FD] flex flex-wrap items-center justify-between gap-3 shadow-2xs">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-[#00A4B7] text-white flex items-center justify-center font-bold shadow-xs">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              </div>
+              <div>
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span class="font-mono font-extrabold text-[#0F172A] text-base">${row.invoiceNo}</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold tracking-wide uppercase border ${statusClass}">${stockStatusVal.replace(/_/g, ' ')}</span>
+                  <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">${row.billsType || 'Commercial Export'}</span>
+                </div>
+                <div class="text-[11px] text-[#64748B] mt-0.5 font-medium flex items-center gap-1.5 flex-wrap">
+                  <span><strong>Exporter:</strong> ${row.exporter || '-'}</span>
+                  <span>•</span>
+                  <span><strong>Date:</strong> ${row.invoiceDate || '-'}</span>
+                  <span>•</span>
+                  <span><strong>Buyer:</strong> ${row.buyer || '-'}</span>
+                  <span>•</span>
+                  <span><strong>PI Link:</strong> ${row.pInvoiceNo || '-'}</span>
+                  <span>•</span>
+                  <span><strong>Port of Discharge:</strong> ${row.dischargePort || '-'}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Metrics Badges -->
+            <div class="flex items-center gap-2 shrink-0">
+              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[85px]">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Master Cartons</span>
+                <span class="font-mono font-extrabold text-[#172B4D] text-sm mt-0.5 block">${Number(totMcs).toLocaleString('en-IN')} Mcs</span>
+              </div>
+              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[85px]">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Net Weight</span>
+                <span class="font-mono font-extrabold text-[#172B4D] text-sm mt-0.5 block">${Number(row.netWeightKg || totMcs * 10).toLocaleString('en-IN')} Kg</span>
+              </div>
+              <div class="bg-white px-3.5 py-1.5 rounded-lg border border-[#ABF5D1] bg-[#F0FDF4] shadow-2xs text-center min-w-[100px]">
+                <span class="text-[10px] font-bold text-[#006644] uppercase tracking-wider block">Total CIF Value</span>
+                <span class="font-mono font-extrabold text-[#006644] text-sm mt-0.5 block">${Number(totAmount).toLocaleString('en-IN')}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 1: Exporter, Consignee & Buyer Parties -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Exporter, Consignee &amp; Buyer Parties</h4>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">SELECT EXPORTER</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${row.exporter || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">CONSIGNEE</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${row.consignee || row.buyer || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">BUYER NAME</span>
+                <span class="font-bold text-[#172B4D] text-xs block mt-0.5">${row.buyer || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">DESTINATION COUNTRY</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${row.country || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">FINANCIAL YEAR</span>
+                <span class="font-mono font-bold text-[#172B4D] text-xs block mt-0.5">${row.year || '2026-2027'}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Customs & Invoice Identifiers -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Customs &amp; Invoice Identifiers</h4>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">INVOICE NO</span>
+                <span class="font-mono font-extrabold text-[#00A4B7] text-xs block mt-0.5">${row.invoiceNo || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">INVOICE DATE</span>
+                <span class="font-mono text-[#172B4D] text-xs block mt-0.5">${row.invoiceDate || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">P.O NO</span>
+                <span class="font-mono font-bold text-[#172B4D] text-xs block mt-0.5">${row.poNo || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">PROFORMA INVOICE NO</span>
+                <span class="font-mono font-bold text-[#403294] text-xs block mt-0.5">${row.pInvoiceNo || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">BILLS TYPE</span>
+                <span class="font-semibold text-[#00A4B7] text-xs block mt-0.5">${row.billsType || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">IEC CODE</span>
+                <span class="font-mono text-[#172B4D] text-xs block mt-0.5">${row.iecCode || '0391004812'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">SHIPPING BILL REF</span>
+                <span class="font-mono font-bold text-[#172B4D] text-xs block mt-0.5">${row.shippingBillRef || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">CUSTOMS STATUS</span>
+                <span class="font-mono text-xs font-bold text-[#006644] block mt-0.5">${row.customsStatus || 'LEO_GRANTED'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">STOCK STATUS</span>
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold border ${statusClass} uppercase block w-fit mt-0.5">${stockStatusVal.replace(/_/g, ' ')}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 3: Port, Logistics & Financial Values -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Port Routing, Weights &amp; Valuation</h4>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">PORT OF LOADING</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${row.loadingPort || 'Visakhapatnam Sea (INVTZ)'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">PORT OF DISCHARGE</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${row.dischargePort || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">NET WEIGHT (KG)</span>
+                <span class="font-mono font-bold text-[#172B4D] text-xs block mt-0.5">${Number(row.netWeightKg || totMcs * 10).toLocaleString('en-IN')} Kg</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">GROSS WEIGHT (KG)</span>
+                <span class="font-mono font-bold text-[#172B4D] text-xs block mt-0.5">${Number(row.grossWeightKg || Math.round((row.netWeightKg || totMcs * 10) * 1.08)).toLocaleString('en-IN')} Kg</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">FOB VALUE (USD)</span>
+                <span class="font-mono font-bold text-[#172B4D] text-xs block mt-0.5">${Number(row.fobValueUsd || Math.round(totAmount * 0.96)).toLocaleString('en-IN')}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">CIF VALUE (USD)</span>
+                <span class="font-mono font-extrabold text-[#006644] text-xs block mt-0.5">${Number(row.cifValueUsd || totAmount).toLocaleString('en-IN')}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 4: Data Table (Variety Line Items) matching Proforma Invoices -->
+          <div class="bg-white rounded-xl">
+            <div class="flex items-center justify-between pb-2.5 mb-2 border-b border-[#F1F5F9]">
+              <div class="flex items-center gap-2">
+                <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Data Table (Variety Line Items)</h4>
+              </div>
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD] uppercase">${lineItems.length} Variety Items</span>
+            </div>
+            
+            <div class="overflow-x-auto max-h-[340px] rounded-lg border border-[#DFE1E6]">
+              <table class="w-full text-xs text-left border-collapse">
+                <thead>
+                  <tr class="bg-[#F8FAFC] border-b border-[#DFE1E6] text-[#5E6C84] uppercase font-bold text-[10px] tracking-wider">
+                    <th class="py-2.5 px-2.5">ID</th>
+                    <th class="py-2.5 px-2.5">Variety</th>
+                    <th class="py-2.5 px-2.5">Grade</th>
+                    <th class="py-2.5 px-2.5">Packing Style</th>
+                    <th class="py-2.5 px-2.5">Treatment</th>
+                    <th class="py-2.5 px-2.5">Freezing Type</th>
+                    <th class="py-2.5 px-2.5">Brand</th>
+                    <th class="py-2.5 px-2.5 text-right">Mcs</th>
+                    <th class="py-2.5 px-2.5 text-right">Trays Qty</th>
+                    <th class="py-2.5 px-2.5 text-right">Unit Price (BAGS)</th>
+                    <th class="py-2.5 px-2.5 text-right">Ddp Price</th>
+                    <th class="py-2.5 px-2.5 text-right">Amount in (USD)</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-[#F1F5F9] bg-white">
+                  ${lineItems.length === 0 ? `
+                    <tr><td colspan="12" class="py-6 text-center text-xs text-[#5E6C84]">No variety line items recorded for this invoice.</td></tr>
+                  ` : lineItems.map(item => `
+                    <tr class="hover:bg-[#F8FAFC] transition-colors border-b border-[#F1F5F9] text-[#172B4D]">
+                      <td class="py-2.5 px-2.5 font-mono font-bold text-[#00A4B7]">${item.id}</td>
+                      <td class="py-2.5 px-2.5 font-bold">${item.variety}</td>
+                      <td class="py-2.5 px-2.5 font-semibold text-[#5E6C84]">${item.grade}</td>
+                      <td class="py-2.5 px-2.5 text-[#5E6C84]">${item.packingStyle}</td>
+                      <td class="py-2.5 px-2.5 text-[#5E6C84]">${item.treatment}</td>
+                      <td class="py-2.5 px-2.5 text-[#5E6C84]">${item.freezingType}</td>
+                      <td class="py-2.5 px-2.5 font-medium">${item.brand}</td>
+                      <td class="py-2.5 px-2.5 text-right font-mono font-bold">${Number(item.mcs).toLocaleString('en-IN')}</td>
+                      <td class="py-2.5 px-2.5 text-right font-mono text-[#5E6C84]">${Number(item.traysQty).toLocaleString('en-IN')}</td>
+                      <td class="py-2.5 px-2.5 text-right font-mono font-semibold text-[#172B4D]">${Number(item.unitPriceBags).toFixed(2)}</td>
+                      <td class="py-2.5 px-2.5 text-right font-mono text-[#5E6C84]">${Number(item.ddpPrice).toFixed(2)}</td>
+                      <td class="py-2.5 px-2.5 text-right font-mono font-extrabold text-[#006644]">${Number(item.amountUsd).toLocaleString('en-IN')}</td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+                <tfoot class="bg-[#F8FAFC] border-t-2 border-[#DFE1E6]">
+                  <tr>
+                    <td colspan="7" class="py-2.5 px-2.5 text-right uppercase tracking-wider text-[11px] font-extrabold text-[#172B4D]">Total:</td>
+                    <td class="py-2.5 px-2.5 text-right font-mono font-extrabold text-xs text-[#172B4D]">${Number(totMcs).toLocaleString('en-IN')}</td>
+                    <td class="py-2.5 px-2.5 text-right font-mono font-bold text-xs text-[#5E6C84]">${Number(totTrays).toLocaleString('en-IN')}</td>
+                    <td colspan="2" class="py-2.5 px-2.5"></td>
+                    <td class="py-2.5 px-2.5 text-right font-mono font-extrabold text-xs text-[#006644]">${Number(totAmount).toLocaleString('en-IN')}</td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </div>
+      `,
+      buttons: [
+        {
+          label: 'Close',
+          type: 'secondary',
+          onClick: (modal) => modal.close()
+        },
+        {
+          label: 'Print Custom Invoice',
+          type: 'secondary',
+          onClick: () => Toast.show(`Printing Custom Invoice ${row.invoiceNo}...`, 'info')
+        },
+        {
+          label: 'Edit Custom Invoice',
+          type: 'primary',
+          onClick: (modal) => {
+            modal.close();
+            this.showEditCustomInvoiceModal(row);
+          }
+        }
+      ]
     });
   },
 
-  // Create Custom Invoice Modal
+  // Edit Custom Invoice 2-Step Wizard Modal (Matching Proforma Invoices)
+  showEditCustomInvoiceModal(row) {
+    // Clone lineItems and headerData so modifications are atomic
+    const lineItems = row.lineItems ? JSON.parse(JSON.stringify(row.lineItems)) : [
+      {
+        id: 1,
+        variety: "Vannamei Shrimp HLSO IQF",
+        grade: "26/30",
+        packingStyle: "10x1 Kg Printed Bags",
+        treatment: "Non-Treated",
+        freezingType: "IQF",
+        brand: "Devi Gold",
+        mcs: Math.round((row.netWeightKg || 18000) / 15),
+        traysQty: Math.round((row.netWeightKg || 18000) / 15) * 2,
+        unitPriceBags: 8.85,
+        ddpPrice: 9.45,
+        amountUsd: Number(row.cifValueUsd || 159300),
+        cups: 240,
+        cupsPriceBags: 0.65,
+        code: "PRD-VAN-2630",
+        fullName: "Frozen Raw Headless Shell-On White Shrimp 26/30",
+        description: "Individually Quick Frozen, 10x1kg bags per master carton",
+        buyerDescription: "Custom retail branded packing with UPC barcode"
+      }
+    ];
+
+    const headerData = { ...row };
+
+    // Launch Step 1 of Custom Invoice Wizard
+    this.openCustomInvoiceStep1Modal(lineItems, headerData, true, row);
+  },
+
+  // Create Custom Invoice 2-Step Wizard Modal
   showAddCustomInvoiceModal() {
     const nextIdx = this.state.customInvoices.length + 1;
     const nextId = `CI-${String(nextIdx).padStart(3, '0')}`;
     const nextNo = `CI-EXP-2026-${500 + nextIdx}`;
     const today = new Date().toISOString().slice(0, 10);
 
-    const defaultData = {
+    let lineItems = [
+      {
+        id: 1,
+        variety: "Vannamei Shrimp HLSO IQF",
+        grade: "26/30",
+        packingStyle: "10x1 Kg Printed Bags",
+        treatment: "Non-Treated",
+        freezingType: "IQF",
+        brand: "Devi Gold",
+        mcs: 1200,
+        traysQty: 2400,
+        unitPriceBags: 8.85,
+        ddpPrice: 9.45,
+        amountUsd: 106200,
+        cups: 240,
+        cupsPriceBags: 0.65,
+        code: "PRD-VAN-2630",
+        fullName: "Frozen Raw Headless Shell-On White Shrimp 26/30",
+        description: "Individually Quick Frozen, 10x1kg bags per master carton",
+        buyerDescription: "Custom retail branded packing with UPC barcode"
+      },
+      {
+        id: 2,
+        variety: "Vannamei Cooked Tail-On IQF",
+        grade: "31/40",
+        packingStyle: "10x1 Kg Retail Pouch",
+        treatment: "STPP Treated",
+        freezingType: "IQF",
+        brand: "Ocean Pearl",
+        mcs: 600,
+        traysQty: 1200,
+        unitPriceBags: 9.60,
+        ddpPrice: 10.20,
+        amountUsd: 57600,
+        cups: 120,
+        cupsPriceBags: 0.70,
+        code: "PRD-CKD-3140",
+        fullName: "Cooked Peeled Tail-On White Shrimp 31/40",
+        description: "Blanched / Cooked IQF, ready to eat",
+        buyerDescription: "Foodservice label pack"
+      }
+    ];
+
+    let headerData = {
       id: nextId,
       invoiceNo: nextNo,
       invoiceDate: today,
@@ -3243,38 +3752,26 @@ export const SalesView = {
       netWeightKg: 18000,
       grossWeightKg: 19440,
       fobValueUsd: 153000,
-      cifValueUsd: 159300,
+      cifValueUsd: 163800,
       customsStatus: 'LEO_GRANTED'
     };
 
-    this.openCustomInvoiceModal({
-      title: 'Create Custom Invoice',
-      initialData: defaultData,
-      submitButtonText: 'Create Custom Invoice',
-      onSubmit: (formData, modal) => {
-        const newRecord = {
-          ...defaultData,
-          ...formData
-        };
-        this.state.customInvoices.unshift(newRecord);
-        modal.close();
-        Toast.show(`Custom Invoice ${newRecord.invoiceNo} created successfully!`, 'success');
-        const mainEl = document.getElementById('sales-view-main');
-        if (mainEl) this.renderCustomInvoices(mainEl);
-      }
-    });
+    this.openCustomInvoiceStep1Modal(lineItems, headerData, false, null);
   },
 
-  // Categorized Custom Invoice Form Modal
-  openCustomInvoiceModal({ title, initialData, submitButtonText, onSubmit }) {
-    const d = initialData || {};
+  // Wizard Step 1: Custom Invoice Details Form (Categorized Sections)
+  openCustomInvoiceStep1Modal(lineItems, headerData, isEdit = false, targetRow = null) {
+    const d = headerData || {};
+    const modalTitle = isEdit 
+      ? `Edit Custom Invoice: ${d.invoiceNo} - Step 1: Customs Invoice Details`
+      : 'Create Custom Invoice - Step 1: Customs Invoice Details';
 
     Modal.open({
-      title,
-      size: 'xl',
+      title: modalTitle,
+      size: 'full',
       content: `
-        <form id="form-ci-details" class="space-y-4 text-xs">
-          <!-- Section 1: Invoice & PO Identifiers -->
+        <form id="form-ci-step1" class="space-y-4 text-xs">
+          <!-- Section 1: Customs Invoice & Reference Numbers -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
             <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Customs Invoice &amp; Reference Numbers</h4>
@@ -3282,27 +3779,27 @@ export const SalesView = {
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
               <div>
                 <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">INVOICE NO <span class="text-[#DE350B]">*</span></label>
-                <input type="text" id="ci-modal-inv-no" value="${d.invoiceNo || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
+                <input type="text" id="ci-step1-inv-no" value="${d.invoiceNo || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
               </div>
 
               <div>
                 <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">INVOICE DATE <span class="text-[#DE350B]">*</span></label>
-                <input type="date" id="ci-modal-inv-date" value="${d.invoiceDate || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
+                <input type="date" id="ci-step1-inv-date" value="${d.invoiceDate || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
               </div>
 
               <div>
                 <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">P.O NO</label>
-                <input type="text" id="ci-modal-po-no" value="${d.poNo || ''}" placeholder="e.g. PO-8821" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+                <input type="text" id="ci-step1-po-no" value="${d.poNo || ''}" placeholder="e.g. PO-8821" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
               </div>
 
               <div>
                 <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PROFORMA INVOICE NO</label>
-                <input type="text" id="ci-modal-pi-no" value="${d.pInvoiceNo || ''}" placeholder="e.g. PI-2026-901" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#403294] focus:outline-none focus:border-[#00A4B7]">
+                <input type="text" id="ci-step1-pi-no" value="${d.pInvoiceNo || ''}" placeholder="e.g. PI-2026-901" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#403294] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
               </div>
             </div>
           </div>
 
-          <!-- Section 2: Exporter, Buyer & Consignee -->
+          <!-- Section 2: Exporter, Buyer & Consignee Parties -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
             <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Parties &amp; Destination</h4>
@@ -3310,7 +3807,7 @@ export const SalesView = {
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
               <div>
                 <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">EXPORTER <span class="text-[#DE350B]">*</span></label>
-                <select id="ci-modal-exporter" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
+                <select id="ci-step1-exporter" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
                   <option value="Devi Fisheries Limited" ${d.exporter === 'Devi Fisheries Limited' ? 'selected' : ''}>Devi Fisheries Limited</option>
                   <option value="Devi Sea Foods Ltd" ${d.exporter === 'Devi Sea Foods Ltd' ? 'selected' : ''}>Devi Sea Foods Ltd</option>
                   <option value="Devi Marine Processors" ${d.exporter === 'Devi Marine Processors' ? 'selected' : ''}>Devi Marine Processors</option>
@@ -3319,17 +3816,17 @@ export const SalesView = {
 
               <div>
                 <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BUYER / CONSIGNEE <span class="text-[#DE350B]">*</span></label>
-                <input type="text" id="ci-modal-buyer" value="${d.buyer || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
+                <input type="text" id="ci-step1-buyer" value="${d.buyer || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
               </div>
 
               <div>
                 <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DESTINATION COUNTRY <span class="text-[#DE350B]">*</span></label>
-                <input type="text" id="ci-modal-country" value="${d.country || 'United States'}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
+                <input type="text" id="ci-step1-country" value="${d.country || 'United States'}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
               </div>
 
               <div>
                 <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FINANCIAL YEAR</label>
-                <select id="ci-modal-year" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+                <select id="ci-step1-year" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
                   <option value="2026-2027" ${d.year === '2026-2027' ? 'selected' : ''}>2026-2027</option>
                   <option value="2025-2026" ${d.year === '2025-2026' ? 'selected' : ''}>2025-2026</option>
                   <option value="2024-2025" ${d.year === '2024-2025' ? 'selected' : ''}>2024-2025</option>
@@ -3338,15 +3835,15 @@ export const SalesView = {
             </div>
           </div>
 
-          <!-- Section 3: Customs & Stock Clearance -->
+          <!-- Section 3: Customs Bill Type, Shipping Bill & Stock Clearance -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
             <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
-              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Customs Bill Type &amp; Stock Status</h4>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Customs Bill Type, Shipping Bill &amp; Stock Status</h4>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
               <div>
                 <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BILLS TYPE <span class="text-[#DE350B]">*</span></label>
-                <select id="ci-modal-billstype" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
+                <select id="ci-step1-billstype" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
                   <option value="Duty Drawback" ${d.billsType === 'Duty Drawback' ? 'selected' : ''}>Duty Drawback</option>
                   <option value="RoDTEP Scheme" ${d.billsType === 'RoDTEP Scheme' ? 'selected' : ''}>RoDTEP Scheme</option>
                   <option value="EPCG Scheme" ${d.billsType === 'EPCG Scheme' ? 'selected' : ''}>EPCG Scheme</option>
@@ -3357,7 +3854,7 @@ export const SalesView = {
 
               <div>
                 <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">STOCK STATUS <span class="text-[#DE350B]">*</span></label>
-                <select id="ci-modal-stock-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
+                <select id="ci-step1-stock-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
                   <option value="ALLOCATED" ${d.stockStatus === 'ALLOCATED' ? 'selected' : ''}>Allocated</option>
                   <option value="DISPATCHED_TO_PORT" ${d.stockStatus === 'DISPATCHED_TO_PORT' ? 'selected' : ''}>Dispatched To Port</option>
                   <option value="IN_TRANSIT" ${d.stockStatus === 'IN_TRANSIT' ? 'selected' : ''}>In Transit</option>
@@ -3368,12 +3865,55 @@ export const SalesView = {
 
               <div>
                 <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SHIPPING BILL REF</label>
-                <input type="text" id="ci-modal-sb-ref" value="${d.shippingBillRef || ''}" placeholder="e.g. SB-2026-88401" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+                <input type="text" id="ci-step1-sb-ref" value="${d.shippingBillRef || ''}" placeholder="e.g. SB-2026-88401" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
               </div>
 
               <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">IEC CODE</label>
+                <input type="text" id="ci-step1-iec" value="${d.iecCode || '0391004812'}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 4: Port Routing, Weights & Valuation -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Port Routing, Weights &amp; Valuation</h4>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+              <div>
                 <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PORT OF LOADING</label>
-                <input type="text" id="ci-modal-pol" value="${d.loadingPort || 'Visakhapatnam Sea (INVTZ)'}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+                <input type="text" id="ci-step1-pol" value="${d.loadingPort || 'Visakhapatnam Sea (INVTZ)'}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PORT OF DISCHARGE</label>
+                <input type="text" id="ci-step1-pod" value="${d.dischargePort || 'Long Beach Port, USA'}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CUSTOMS STATUS</label>
+                <select id="ci-step1-customs-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="LEO_GRANTED" ${d.customsStatus === 'LEO_GRANTED' ? 'selected' : ''}>LEO Granted (Let Export Order)</option>
+                  <option value="ASSESSED_CLEARED" ${d.customsStatus === 'ASSESSED_CLEARED' ? 'selected' : ''}>Assessed &amp; Cleared</option>
+                  <option value="UNDER_EXAMINATION" ${d.customsStatus === 'UNDER_EXAMINATION' ? 'selected' : ''}>Under Examination</option>
+                  <option value="DRAFT_REGISTERED" ${d.customsStatus === 'DRAFT_REGISTERED' ? 'selected' : ''}>Draft Registered</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">NET WEIGHT (KG)</label>
+                <input type="number" id="ci-step1-net-wt" value="${d.netWeightKg || 18000}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">GROSS WEIGHT (KG)</label>
+                <input type="number" id="ci-step1-gross-wt" value="${d.grossWeightKg || 19440}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CIF VALUE (USD)</label>
+                <input type="number" id="ci-step1-cif-val" value="${d.cifValueUsd || 159300}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#006644] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
               </div>
             </div>
           </div>
@@ -3386,46 +3926,416 @@ export const SalesView = {
           onClick: (modal) => modal.close()
         },
         {
-          label: submitButtonText || 'Save Custom Invoice',
+          label: 'Next',
           type: 'primary',
           onClick: (modal) => {
             const getVal = (id) => document.getElementById(id)?.value?.trim() || '';
 
-            const invNo = getVal('ci-modal-inv-no');
-            const invDate = getVal('ci-modal-inv-date');
-            const buyer = getVal('ci-modal-buyer');
-            const exporter = getVal('ci-modal-exporter');
-            const country = getVal('ci-modal-country');
-            const billsType = getVal('ci-modal-billstype');
-            const stockStatus = getVal('ci-modal-stock-status');
+            const invNo = getVal('ci-step1-inv-no');
+            const invDate = getVal('ci-step1-inv-date');
+            const buyer = getVal('ci-step1-buyer');
+            const exporter = getVal('ci-step1-exporter');
+            const country = getVal('ci-step1-country');
+            const billsType = getVal('ci-step1-billstype');
+            const stockStatus = getVal('ci-step1-stock-status');
 
             if (!invNo || !invDate || !buyer || !exporter || !country || !billsType || !stockStatus) {
               Toast.show('Please fill in all mandatory fields marked with *', 'warning');
               return;
             }
 
-            const payload = {
+            // Save user inputs into headerData
+            Object.assign(headerData, {
               invoiceNo: invNo,
               invoiceDate: invDate,
-              poNo: getVal('ci-modal-po-no'),
-              pInvoiceNo: getVal('ci-modal-pi-no'),
+              poNo: getVal('ci-step1-po-no'),
+              pInvoiceNo: getVal('ci-step1-pi-no'),
               buyer,
               consignee: buyer,
               exporter,
               country,
-              year: getVal('ci-modal-year') || '2026-2027',
+              year: getVal('ci-step1-year') || '2026-2027',
               billsType,
               stockStatus,
-              shippingBillRef: getVal('ci-modal-sb-ref'),
-              loadingPort: getVal('ci-modal-pol')
-            };
+              shippingBillRef: getVal('ci-step1-sb-ref'),
+              iecCode: getVal('ci-step1-iec') || '0391004812',
+              loadingPort: getVal('ci-step1-pol') || 'Visakhapatnam Sea (INVTZ)',
+              dischargePort: getVal('ci-step1-pod') || 'Long Beach Port, USA',
+              customsStatus: getVal('ci-step1-customs-status') || 'LEO_GRANTED',
+              netWeightKg: Number(getVal('ci-step1-net-wt')) || 18000,
+              grossWeightKg: Number(getVal('ci-step1-gross-wt')) || 19440,
+              cifValueUsd: Number(getVal('ci-step1-cif-val')) || 159300,
+              fobValueUsd: Math.round((Number(getVal('ci-step1-cif-val')) || 159300) * 0.96)
+            });
 
-            if (typeof onSubmit === 'function') {
-              onSubmit(payload, modal);
-            }
+            modal.close();
+            // Proceed to Step 2: Variety & Line Items Entry
+            this.openCustomInvoiceStep2Modal(lineItems, headerData, isEdit, targetRow);
           }
         }
       ]
+    });
+  },
+
+  // Wizard Step 2: Custom Invoice Variety Line Items Entry & Data Table
+  openCustomInvoiceStep2Modal(lineItems, headerData, isEdit = false, targetRow = null) {
+    const renderTableRows = () => {
+      if (!lineItems || lineItems.length === 0) {
+        return `<tr><td colspan="13" class="py-6 text-center text-xs text-[#5E6C84]">No variety line items added yet. Fill the inputs above and click "Add Line Item".</td></tr>`;
+      }
+      return lineItems.map((item, idx) => `
+        <tr class="hover:bg-[#F8FAFC] transition-colors border-b border-[#F1F5F9] text-[#172B4D]">
+          <td class="py-2.5 px-2.5 font-mono font-bold text-[#00A4B7]">${item.id}</td>
+          <td class="py-2.5 px-2.5 font-bold">${item.variety}</td>
+          <td class="py-2.5 px-2.5 font-semibold text-[#5E6C84]">${item.grade || '26/30'}</td>
+          <td class="py-2.5 px-2.5 text-[#5E6C84]">${item.packingStyle || '10x1 Kg Bags'}</td>
+          <td class="py-2.5 px-2.5 text-[#5E6C84]">${item.treatment || 'Non-Treated'}</td>
+          <td class="py-2.5 px-2.5 text-[#5E6C84]">${item.freezingType || 'IQF'}</td>
+          <td class="py-2.5 px-2.5 font-medium">${item.brand || 'Devi Gold'}</td>
+          <td class="py-2.5 px-2.5 text-right font-mono font-bold">${Number(item.mcs).toLocaleString('en-IN')}</td>
+          <td class="py-2.5 px-2.5 text-right font-mono text-[#5E6C84]">${Number(item.traysQty).toLocaleString('en-IN')}</td>
+          <td class="py-2.5 px-2.5 text-right font-mono font-semibold text-[#172B4D]">${Number(item.unitPriceBags).toFixed(2)}</td>
+          <td class="py-2.5 px-2.5 text-right font-mono text-[#5E6C84]">${Number(item.ddpPrice).toFixed(2)}</td>
+          <td class="py-2.5 px-2.5 text-right font-mono font-extrabold text-[#006644]">${Number(item.amountUsd).toLocaleString('en-IN')}</td>
+          <td class="py-2.5 px-2.5 text-center">
+            <button type="button" class="btn-remove-ci-li text-[#DE350B] hover:text-[#BF2600] p-1 rounded hover:bg-[#FFEBE6] transition-colors cursor-pointer" data-idx="${idx}" title="Remove Item">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    };
+
+    const renderTableTotals = () => {
+      const totMcs = lineItems.reduce((acc, i) => acc + (Number(i.mcs) || 0), 0);
+      const totTrays = lineItems.reduce((acc, i) => acc + (Number(i.traysQty) || 0), 0);
+      const totAmount = lineItems.reduce((acc, i) => acc + (Number(i.amountUsd) || 0), 0);
+      return `
+        <tr>
+          <td colspan="7" class="py-2.5 px-2.5 text-right uppercase tracking-wider text-[11px] font-extrabold text-[#172B4D]">Total:</td>
+          <td class="py-2.5 px-2.5 text-right font-mono font-extrabold text-xs text-[#172B4D]">${Number(totMcs).toLocaleString('en-IN')}</td>
+          <td class="py-2.5 px-2.5 text-right font-mono font-bold text-xs text-[#5E6C84]">${Number(totTrays).toLocaleString('en-IN')}</td>
+          <td colspan="2" class="py-2.5 px-2.5"></td>
+          <td class="py-2.5 px-2.5 text-right font-mono font-extrabold text-xs text-[#006644]">${Number(totAmount).toLocaleString('en-IN')}</td>
+          <td></td>
+        </tr>
+      `;
+    };
+
+    const modalTitle = isEdit 
+      ? `Edit Custom Invoice: ${headerData.invoiceNo} - Step 2: Variety &amp; Line Items Entry`
+      : `Create Custom Invoice: ${headerData.invoiceNo} - Step 2: Variety &amp; Line Items Entry`;
+
+    Modal.open({
+      title: modalTitle,
+      size: 'full',
+      content: `
+        <div class="space-y-4 text-xs animate-fade-in">
+          <!-- Form Input Fields (Variety & Pricing) - No border, No padding -->
+          <div class="bg-white rounded-xl">
+            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Form Input Fields (Variety &amp; Pricing)</h4>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
+              <!-- SELECT PI * -->
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SELECT PI <span class="text-[#DE350B]">*</span></label>
+                <select id="ci-li-select-pi" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="${headerData.pInvoiceNo || 'PI-2026-901'}" selected>${headerData.pInvoiceNo || 'PI-2026-901'}</option>
+                  <option value="PI-2026-901">PI-2026-901 (Red Lobster)</option>
+                  <option value="PI-2026-902">PI-2026-902 (Maruha Nichiro)</option>
+                  <option value="PI-2026-903">PI-2026-903 (Royal Greenland)</option>
+                  <option value="PI-2026-904">PI-2026-904 (Sysco)</option>
+                  <option value="PI-2026-905">PI-2026-905 (US Foods)</option>
+                </select>
+              </div>
+
+              <!-- VARIETY NAME * -->
+              <div class="lg:col-span-2">
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">VARIETY NAME <span class="text-[#DE350B]">*</span></label>
+                <select id="ci-li-variety-name" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="Vannamei Shrimp HLSO IQF">Vannamei Shrimp HLSO IQF</option>
+                  <option value="Vannamei PDTO IQF">Vannamei PDTO IQF</option>
+                  <option value="Vannamei Cooked Tail-On IQF">Vannamei Cooked Tail-On IQF</option>
+                  <option value="Black Tiger HOSO Semi-IQF">Black Tiger HOSO Semi-IQF</option>
+                  <option value="Asian Seabass Fillet IQF">Asian Seabass Fillet IQF</option>
+                  <option value="Vannamei Easy Peel IQF">Vannamei Easy Peel IQF</option>
+                </select>
+              </div>
+
+              <!-- MCS * -->
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">MCS <span class="text-[#DE350B]">*</span></label>
+                <input type="number" id="ci-li-mcs" value="800" min="1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" placeholder="Master Cartons">
+              </div>
+
+              <!-- TRAYS QUANTITY -->
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">TRAYS QUANTITY</label>
+                <input type="number" id="ci-li-trays" value="1600" min="0" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" placeholder="Trays Qty">
+              </div>
+
+              <!-- RATE/BAGS * -->
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">RATE/BAGS <span class="text-[#DE350B]">*</span></label>
+                <input type="number" step="0.01" id="ci-li-rate-bags" value="9.20" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" placeholder="Rate USD">
+              </div>
+
+              <!-- DDP PRICE -->
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DDP PRICE</label>
+                <input type="number" step="0.01" id="ci-li-ddp-price" value="9.80" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" placeholder="DDP Price">
+              </div>
+
+              <!-- CUPS -->
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CUPS</label>
+                <input type="number" id="ci-li-cups" value="160" min="0" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" placeholder="Cups Qty">
+              </div>
+
+              <!-- CUPS PRICE/BAGS -->
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CUPS PRICE/BAGS</label>
+                <input type="number" step="0.01" id="ci-li-cups-price" value="0.75" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" placeholder="Price / Bag">
+              </div>
+
+              <!-- CODE -->
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CODE</label>
+                <input type="text" id="ci-li-code" value="PRD-VAN-HLSO" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" placeholder="SKU Code">
+              </div>
+
+              <!-- FULL NAME -->
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FULL NAME</label>
+                <input type="text" id="ci-li-full-name" value="Frozen Raw HLSO Vannamei Shrimp" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" placeholder="Full Product Name">
+              </div>
+
+              <!-- DESCRIPTION -->
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DESCRIPTION</label>
+                <input type="text" id="ci-li-desc" value="10x1kg bags per master carton, IQF" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" placeholder="Description">
+              </div>
+
+              <!-- BUYER DESCRIPTION -->
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BUYER DESCRIPTION</label>
+                <input type="text" id="ci-li-buyer-desc" value="Private label retail pouch with UPC" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" placeholder="Buyer Description">
+              </div>
+
+              <!-- Auxiliary attributes -->
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">GRADE</label>
+                <select id="ci-li-grade" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="26/30">26/30</option>
+                  <option value="16/20">16/20</option>
+                  <option value="21/25">21/25</option>
+                  <option value="31/40">31/40</option>
+                  <option value="41/50">41/50</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PACKING STYLE</label>
+                <select id="ci-li-packing" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="10x1 Kg Printed Bags">10x1 Kg Printed Bags</option>
+                  <option value="6x2 Kg Blocks">6x2 Kg Blocks</option>
+                  <option value="10x1 Kg Retail Pouch">10x1 Kg Retail Pouch</option>
+                  <option value="Bulk 10 Kg Master">Bulk 10 Kg Master</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">TREATMENT</label>
+                <select id="ci-li-treatment" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="Non-Treated">Non-Treated</option>
+                  <option value="STPP Treated">STPP Treated</option>
+                  <option value="Citric Acid Treated">Citric Acid Treated</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FREEZING TYPE</label>
+                <select id="ci-li-freezing" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="IQF">IQF</option>
+                  <option value="Semi-IQF">Semi-IQF</option>
+                  <option value="Block Frozen">Block Frozen</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BRAND</label>
+                <input type="text" id="ci-li-brand" value="Devi Gold" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" placeholder="Brand">
+              </div>
+
+              <div class="flex items-end">
+                <button type="button" id="btn-add-ci-line-item" class="btn-primary w-full px-4 py-1.5 rounded-full text-xs font-bold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px]">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                  <span>Add Line Item</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 2 Data Table (No border, No padding) -->
+          <div class="bg-white rounded-xl">
+            <div class="flex items-center justify-between pb-2.5 mb-2 border-b border-[#F1F5F9]">
+              <div class="flex items-center gap-2">
+                <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Data Table (Variety Line Items)</h4>
+              </div>
+              <span id="ci-li-items-count" class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD] uppercase">${lineItems.length} Variety Items</span>
+            </div>
+            
+            <div class="overflow-x-auto max-h-[280px] rounded-lg border border-[#DFE1E6]">
+              <table class="w-full text-xs text-left border-collapse">
+                <thead>
+                  <tr class="bg-[#F8FAFC] border-b border-[#DFE1E6] text-[#5E6C84] uppercase font-bold text-[10px] tracking-wider">
+                    <th class="py-2.5 px-2.5">ID</th>
+                    <th class="py-2.5 px-2.5">Variety</th>
+                    <th class="py-2.5 px-2.5">Grade</th>
+                    <th class="py-2.5 px-2.5">Packing Style</th>
+                    <th class="py-2.5 px-2.5">Treatment</th>
+                    <th class="py-2.5 px-2.5">Freezing Type</th>
+                    <th class="py-2.5 px-2.5">Brand</th>
+                    <th class="py-2.5 px-2.5 text-right">Mcs</th>
+                    <th class="py-2.5 px-2.5 text-right">Trays Qty</th>
+                    <th class="py-2.5 px-2.5 text-right">Unit Price (BAGS)</th>
+                    <th class="py-2.5 px-2.5 text-right">Ddp Price</th>
+                    <th class="py-2.5 px-2.5 text-right">Amount in (USD)</th>
+                    <th class="py-2.5 px-2.5 text-center">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="ci-li-table-tbody" class="divide-y divide-[#F1F5F9] bg-white">
+                  ${renderTableRows()}
+                </tbody>
+                <tfoot id="ci-li-table-tfoot" class="bg-[#F8FAFC] border-t-2 border-[#DFE1E6]">
+                  ${renderTableTotals()}
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </div>
+      `,
+      buttons: [
+        {
+          label: 'Back',
+          type: 'secondary',
+          onClick: (modal) => {
+            modal.close();
+            this.openCustomInvoiceStep1Modal(lineItems, headerData, isEdit, targetRow);
+          }
+        },
+        {
+          label: isEdit ? 'Update Custom Invoice' : 'Create Custom Invoice',
+          type: 'primary',
+          onClick: (modal) => {
+            if (!lineItems || lineItems.length === 0) {
+              Toast.show('Please add at least one variety line item to the custom invoice', 'warning');
+              return;
+            }
+
+            const totMcs = lineItems.reduce((acc, i) => acc + (Number(i.mcs) || 0), 0);
+            const totAmount = lineItems.reduce((acc, i) => acc + (Number(i.amountUsd) || 0), 0);
+
+            headerData.netWeightKg = headerData.netWeightKg || (totMcs * 10);
+            headerData.grossWeightKg = headerData.grossWeightKg || Math.round((totMcs * 10) * 1.08);
+            headerData.cifValueUsd = totAmount;
+            headerData.fobValueUsd = Math.round(totAmount * 0.96);
+
+            if (isEdit && targetRow) {
+              Object.assign(targetRow, headerData, {
+                lineItems: [...lineItems]
+              });
+              Toast.show(`Custom Invoice ${targetRow.invoiceNo} updated successfully!`, 'success');
+            } else {
+              const newRecord = {
+                ...headerData,
+                lineItems: [...lineItems]
+              };
+              this.state.customInvoices.unshift(newRecord);
+              Toast.show(`Custom Invoice ${newRecord.invoiceNo} created successfully!`, 'success');
+            }
+
+            modal.close();
+            const mainEl = document.getElementById('sales-view-main');
+            if (mainEl) this.renderCustomInvoices(mainEl);
+          }
+        }
+      ]
+    });
+
+    const modalRoot = document.getElementById('erp-modal-root');
+    if (!modalRoot) return;
+
+    const bindRowActions = () => {
+      modalRoot.querySelectorAll('.btn-remove-ci-li').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const idx = parseInt(btn.dataset.idx, 10);
+          if (!isNaN(idx) && idx >= 0 && idx < lineItems.length) {
+            const removed = lineItems.splice(idx, 1);
+            const tbody = modalRoot.querySelector('#ci-li-table-tbody');
+            const tfoot = modalRoot.querySelector('#ci-li-table-tfoot');
+            const cnt = modalRoot.querySelector('#ci-li-items-count');
+            if (tbody) tbody.innerHTML = renderTableRows();
+            if (tfoot) tfoot.innerHTML = renderTableTotals();
+            if (cnt) cnt.textContent = `${lineItems.length} Variety Items`;
+            bindRowActions();
+            Toast.show(`Removed ${removed[0]?.variety || 'item'}`, 'info');
+          }
+        });
+      });
+    };
+
+    bindRowActions();
+
+    modalRoot.querySelector('#btn-add-ci-line-item')?.addEventListener('click', () => {
+      const getVal = (id) => modalRoot.querySelector(`#${id}`)?.value?.trim() || '';
+
+      const variety = getVal('ci-li-variety-name');
+      const mcs = Number(getVal('ci-li-mcs')) || 0;
+      const rateBags = Number(getVal('ci-li-rate-bags')) || 0;
+
+      if (!variety || mcs <= 0 || rateBags <= 0) {
+        Toast.show('Please specify Variety Name, MCS (>0) and Rate/Bags (>0)', 'warning');
+        return;
+      }
+
+      const trays = Number(getVal('ci-li-trays')) || (mcs * 2);
+      const ddp = Number(getVal('ci-li-ddp-price')) || (rateBags + 0.6);
+      const amount = Math.round(mcs * 10 * rateBags);
+
+      const newItem = {
+        id: lineItems.length + 1,
+        variety,
+        grade: getVal('ci-li-grade') || '26/30',
+        packingStyle: getVal('ci-li-packing') || '10x1 Kg Printed Bags',
+        treatment: getVal('ci-li-treatment') || 'Non-Treated',
+        freezingType: getVal('ci-li-freezing') || 'IQF',
+        brand: getVal('ci-li-brand') || 'Devi Gold',
+        mcs,
+        traysQty: trays,
+        unitPriceBags: rateBags,
+        ddpPrice: ddp,
+        amountUsd: amount,
+        cups: Number(getVal('ci-li-cups')) || 0,
+        cupsPriceBags: Number(getVal('ci-li-cups-price')) || 0,
+        code: getVal('ci-li-code') || 'PRD-NEW',
+        fullName: getVal('ci-li-full-name') || variety,
+        description: getVal('ci-li-desc') || 'Standard export packaging',
+        buyerDescription: getVal('ci-li-buyer-desc') || 'Buyer label'
+      };
+
+      lineItems.push(newItem);
+
+      const tbody = modalRoot.querySelector('#ci-li-table-tbody');
+      const tfoot = modalRoot.querySelector('#ci-li-table-tfoot');
+      const cnt = modalRoot.querySelector('#ci-li-items-count');
+      if (tbody) tbody.innerHTML = renderTableRows();
+      if (tfoot) tfoot.innerHTML = renderTableTotals();
+      if (cnt) cnt.textContent = `${lineItems.length} Variety Items`;
+      bindRowActions();
+      Toast.show(`Added ${variety} to line items`, 'success');
     });
   },
 
