@@ -5360,12 +5360,6 @@ export const SalesView = {
         <!-- Page Title & Header Actions (NO Subheading) -->
         <div class="flex flex-wrap items-center justify-between gap-3 mb-1">
           <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">ISF Details (Importer Security Filing 10+2)</h1>
-          <div class="inline-flex items-center gap-2">
-            <button type="button" id="btn-create-isf" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-              <span>Add ISF Filing</span>
-            </button>
-          </div>
         </div>
 
         <!-- Search & Filter Card -->
@@ -5458,11 +5452,6 @@ export const SalesView = {
         <div id="isf-details-table-container"></div>
       </div>
     `;
-
-    // Hook primary action button
-    container.querySelector('#btn-create-isf')?.addEventListener('click', () => {
-      this.showAddIsfModal(null);
-    });
 
     // Toggle filter
     const toggleBtn = container.querySelector('#flt-isf-toggle-btn');
@@ -7215,7 +7204,7 @@ export const SalesView = {
 
     Modal.open({
       title: `Commercial Invoice & Product Specifications &mdash; ${d.invoiceNo || d.id}`,
-      size: 'xl',
+      size: 'full',
       content: `
         <form id="form-cinv-complete-modal" class="space-y-4 text-xs animate-fade-in">
           <!-- Reference Header Bar -->
@@ -9489,10 +9478,10 @@ export const SalesView = {
       size: 'full',
       content: `
         <form id="form-cha-entry-modal" class="space-y-4 text-xs animate-fade-in">
-          <!-- SECTION 1: CLEARING AGENT FORM — Invoice Details Section -->
+          <!-- SECTION 1: CLEARING AGENT FORM — Invoice Details -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
             <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
-              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Invoice Details Section</h4>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Invoice Details</h4>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-3">
               <div>
@@ -9527,10 +9516,10 @@ export const SalesView = {
             </div>
           </div>
 
-          <!-- SECTION 2: CLEARING AGENT FORM — Transactions Section -->
+          <!-- SECTION 2: CLEARING AGENT FORM — Transactions -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
             <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
-              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Transactions Section</h4>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Transactions</h4>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-3">
               <div>
@@ -9545,10 +9534,10 @@ export const SalesView = {
             </div>
           </div>
 
-          <!-- SECTION 3: CLEARING AGENT FORM — Notify Section -->
+          <!-- SECTION 3: CLEARING AGENT FORM — Notify -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
             <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
-              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Notify Section</h4>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Notify</h4>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-3">
               <div>
@@ -9568,10 +9557,10 @@ export const SalesView = {
             </div>
           </div>
 
-          <!-- SECTION 4: CLEARING AGENT FORM — Duty Section -->
+          <!-- SECTION 4: CLEARING AGENT FORM — Duty -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
             <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
-              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Duty Section</h4>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Duty</h4>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-3">
               <div>
@@ -9799,10 +9788,10 @@ export const SalesView = {
             </div>
           </div>
 
-          <!-- Section 1: Invoice Details Section -->
+          <!-- Section 1: Invoice Details -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
             <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
-              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Invoice Details Section</h4>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Invoice Details</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3.5 pt-3">
               <div>
@@ -9832,10 +9821,10 @@ export const SalesView = {
             </div>
           </div>
 
-          <!-- Section 2: Transactions Section -->
+          <!-- Section 2: Transactions -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
             <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
-              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Transactions Section</h4>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Transactions</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5 pt-3">
               <div>
@@ -9857,10 +9846,10 @@ export const SalesView = {
             </div>
           </div>
 
-          <!-- Section 3: Notify Section -->
+          <!-- Section 3: Notify -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
             <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
-              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Notify Section</h4>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Notify</h4>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5 pt-3">
               <div>
@@ -9878,10 +9867,10 @@ export const SalesView = {
             </div>
           </div>
 
-          <!-- Section 4: Duty Section -->
+          <!-- Section 4: Duty -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
             <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
-              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Duty Section</h4>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Duty</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-5 gap-3.5 pt-3">
               <div>
