@@ -64209,11 +64209,11 @@ const SalesView = {
   // 1. DASHBOARD SUBMENU VIEW
   // ----------------------------------------------------
   renderDashboard(container) {
-    const totalContracts = this.state.contracts.length;
-    const totalValue = this.state.contracts.reduce((sum, c) => sum + (c.totalValueUsd || 0), 0);
-    const activeDispatches = this.state.etaStatusList.length;
-    const realizedVal = this.state.payments.reduce((sum, p) => sum + (p.realizedAmount || 0), 0);
-    const sumInsured = this.state.insurancePolicies.reduce((sum, p) => sum + (p.sumInsuredUsd || 0), 0);
+    const totalContracts = (this.state.contracts || []).length;
+    const totalValue = (this.state.contracts || []).reduce((sum, c) => sum + (c.totalValueUsd || 0), 0);
+    const activeDispatches = (this.state.etaStatusList || []).length;
+    const realizedVal = (this.state.realizationDone || []).reduce((sum, p) => sum + (p.realizedUsd || 0), 0);
+    const sumInsured = (this.state.pendingInsurance || []).reduce((sum, p) => sum + (p.cargoValueUsd || 0), 0);
 
     container.innerHTML = `
       <div class="space-y-3 animate-fade-in">
