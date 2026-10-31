@@ -63876,30 +63876,208 @@ const SalesView = {
 
     isfDetails: [
       {
-        isfNumber: "ISF-USA-2026-112",
-        contractNo: "SC-USA-2026-441",
-        importerOfRecord: "Red Lobster Supply Chain LLC (EIN: 59-2819033)",
-        consigneeNo: "US-CON-884021",
-        sellerName: "Devi Fisheries Limited, Unit-1 Vizag",
-        buyerName: "Red Lobster Supply Chain LLC",
-        containerNo: "ONEU-440912-8",
-        vesselName: "M/V ONE HARMONY V.082E",
-        unladingPort: "Long Beach, CA (Port Code 2704)",
-        filingDate: "2026-10-16",
-        usCustomsStatus: "ACCEPTED_MATCH_ON_FILE"
+        id: "ISF-001",
+        pInvoiceNo: "PI-2026-901",
+        invoiceNo: "CI-EXP-2026-441",
+        invoiceDate: "2026-10-14",
+        poNo: "PO-RL-8821",
+        buyer: "Red Lobster Supply Chain LLC",
+        consignee: "Red Lobster Supply Chain LLC",
+        status: "ISF_FILED",
+        year: "2026-2027",
+        exporter: "Devi Fisheries Limited",
+        country: "United States",
+        address: "450 S Orange Ave, Suite 800, Orlando, FL 32801, USA",
+        brand: "Devi Gold",
+        isfTransactionNo: "ISF-TXN-2026-88401",
+        shippingLine: "Ocean Network Express (ONE)",
+        containerNumber: "ONEU-440912-8",
+        linerSealNumber: "ONE-SL-994012",
+        blNumber: "ONEYMAA261014",
+        blDate: "2026-10-14",
+        shippingOnboardDate: "2026-10-16",
+        stuffingLocation: "Devi Fisheries Cold Storage CFS, Visakhapatnam (Plant 1)",
+        dateOfLoading: "2026-10-15",
+        sizeAndType: "40ft High Cube Reefer (40HR)",
+        stowPosition: "BAY 14 / ROW 06 / TIER 82",
+        sdd: "2026-11-28",
+        byRoad: "Intermodal Reefer Trucking LLC",
+        byRoadDate: "2026-10-15",
+        temperatureOfRecord: "-18.5°C continuous recorder verified",
+        sealTime: "14:30 IST / High-Security Bolt Seal Affixed",
+        consolidator: "Expeditors International / Devi Logistics Hub",
+        nameOfRepresentative: "R. K. Sharma (Customs Broker Reg: CHB-8420)",
+        transshipments: [
+          {
+            departurePort: "Visakhapatnam (INVTZ)",
+            arrivalPort: "Singapore Port (SGSIN)",
+            departureDate: "2026-10-16",
+            arrivalDate: "2026-10-22",
+            vesselName: "M/V X-PRESS BARKLY",
+            voyNo: "V.024W"
+          },
+          {
+            departurePort: "Singapore Port (SGSIN)",
+            arrivalPort: "Long Beach Port, USA",
+            departureDate: "2026-10-24",
+            arrivalDate: "2026-11-15",
+            vesselName: "M/V ONE HARMONY",
+            voyNo: "V.082E"
+          }
+        ]
       },
       {
-        isfNumber: "ISF-USA-2026-118",
-        contractNo: "SC-USA-2026-448",
-        importerOfRecord: "Sysco Corporation (EIN: 74-1428580)",
-        consigneeNo: "US-CON-992104",
-        sellerName: "Devi Fisheries Limited, Unit-5 JPT",
-        buyerName: "Sysco Corporation International",
-        containerNo: "HLCU-883012-9",
-        vesselName: "M/V FRANKFURT EXPRESS V.014W",
-        unladingPort: "New York / Newark (Port Code 4601)",
-        filingDate: "2026-10-29",
-        usCustomsStatus: "ACCEPTED_TIMELY"
+        id: "ISF-002",
+        pInvoiceNo: "PI-2026-904",
+        invoiceNo: "CI-EXP-2026-448",
+        invoiceDate: "2026-10-26",
+        poNo: "PO-SYS-3319",
+        buyer: "Sysco Corporation International",
+        consignee: "Sysco Corporation International",
+        status: "ACCEPTED_TIMELY",
+        year: "2026-2027",
+        exporter: "Devi Fisheries Limited",
+        country: "United States",
+        address: "1390 Enclave Pkwy, Houston, TX 77077, USA",
+        brand: "Devi Chef",
+        isfTransactionNo: "ISF-TXN-2026-88490",
+        shippingLine: "Hapag-Lloyd Line",
+        containerNumber: "HLCU-883012-9",
+        linerSealNumber: "HL-SL-22104",
+        blNumber: "HLCUBL261026",
+        blDate: "2026-10-26",
+        shippingOnboardDate: "2026-10-28",
+        stuffingLocation: "Devi Fisheries JPT Unit-5 CFS, Andhra Pradesh",
+        dateOfLoading: "2026-10-27",
+        sizeAndType: "40ft High Cube Reefer (40HR)",
+        stowPosition: "BAY 22 / ROW 04 / TIER 84",
+        sdd: "2026-12-05",
+        byRoad: "Southern Express Transport",
+        byRoadDate: "2026-10-27",
+        temperatureOfRecord: "-19.0°C / -2.2°F automated log",
+        sealTime: "16:00 IST / Green Bolt Seal Verified",
+        consolidator: "Kuehne + Nagel Logistics Vizag",
+        nameOfRepresentative: "P. Venkat Rao (Authorized CHA: VIZ-CHA-019)",
+        transshipments: [
+          {
+            departurePort: "Visakhapatnam (INVTZ)",
+            arrivalPort: "Colombo Sea Port (LKCMB)",
+            departureDate: "2026-10-28",
+            arrivalDate: "2026-11-01",
+            vesselName: "M/V FEEDER VIZAG",
+            voyNo: "V.112S"
+          },
+          {
+            departurePort: "Colombo Sea Port (LKCMB)",
+            arrivalPort: "New York Terminal, USA",
+            departureDate: "2026-11-03",
+            arrivalDate: "2026-11-26",
+            vesselName: "M/V FRANKFURT EXPRESS",
+            voyNo: "V.014W"
+          }
+        ]
+      },
+      {
+        id: "ISF-003",
+        pInvoiceNo: "PI-2026-905",
+        invoiceNo: "CI-EXP-2026-502",
+        invoiceDate: "2026-10-29",
+        poNo: "PO-USF-2210",
+        buyer: "US Foods Trading Co",
+        consignee: "US Foods Trading Co",
+        status: "PENDING_FILING",
+        year: "2025-2026",
+        exporter: "Devi Sea Foods Ltd",
+        country: "United States",
+        address: "9399 W Higgins Rd, Rosemont, IL 60018, USA",
+        brand: "Ocean Pearl",
+        isfTransactionNo: "ISF-TXN-2026-88512",
+        shippingLine: "Maersk Line",
+        containerNumber: "MSKU-992104-5",
+        linerSealNumber: "MSK-SL-55102",
+        blNumber: "MAEU26102911",
+        blDate: "2026-10-29",
+        shippingOnboardDate: "2026-10-31",
+        stuffingLocation: "Devi Sea Foods Plant-2 CFS, Singarayakonda",
+        dateOfLoading: "2026-10-30",
+        sizeAndType: "40ft High Cube Reefer (40HR)",
+        stowPosition: "BAY 18 / ROW 02 / TIER 80",
+        sdd: "2026-12-12",
+        byRoad: "Andhra State Cold Haulage",
+        byRoadDate: "2026-10-30",
+        temperatureOfRecord: "-18.2°C Continuous Sensor",
+        sealTime: "11:15 IST / Dual Customs Seal",
+        consolidator: "DB Schenker India Private Limited",
+        nameOfRepresentative: "M. Suresh (CHA Registration: IND-8812)",
+        transshipments: []
+      },
+      {
+        id: "ISF-004",
+        pInvoiceNo: "PI-2026-902",
+        invoiceNo: "CI-EXP-2026-112",
+        invoiceDate: "2026-10-10",
+        poNo: "PO-MN-4402",
+        buyer: "Maruha Nichiro Corporation",
+        consignee: "Maruha Nichiro Corporation",
+        status: "DRAFT",
+        year: "2026-2027",
+        exporter: "Devi Sea Foods Ltd",
+        country: "Japan",
+        address: "Toyosu Central Bldg, Koto-ku, Tokyo, Japan",
+        brand: "Devi Diamond",
+        isfTransactionNo: "ISF-TXN-2026-88390",
+        shippingLine: "Ocean Network Express (ONE)",
+        containerNumber: "TGHU-332014-2",
+        linerSealNumber: "ONE-SL-88102",
+        blNumber: "ONEYTYO261010",
+        blDate: "2026-10-10",
+        shippingOnboardDate: "2026-10-12",
+        stuffingLocation: "Devi Sea Foods Vizag Plant CFS",
+        dateOfLoading: "2026-10-11",
+        sizeAndType: "40ft High Cube Reefer (40HR)",
+        stowPosition: "BAY 08 / ROW 04 / TIER 82",
+        sdd: "2026-11-18",
+        byRoad: "Coastal Line Haul",
+        byRoadDate: "2026-10-11",
+        temperatureOfRecord: "-22.0°C Sashimi Deep Frozen",
+        sealTime: "10:00 IST Verified",
+        consolidator: "Nippon Express Logistics",
+        nameOfRepresentative: "T. Narayana (CHA Reg: VIZ-0041)",
+        transshipments: []
+      },
+      {
+        id: "ISF-005",
+        pInvoiceNo: "PI-2026-903",
+        invoiceNo: "CI-EXP-2026-079",
+        invoiceDate: "2026-10-22",
+        poNo: "PO-RG-9011",
+        buyer: "Royal Greenland Seafood A/S",
+        consignee: "Royal Greenland Seafood A/S",
+        status: "PENDING_FILING",
+        year: "2026-2027",
+        exporter: "Devi Fisheries Limited",
+        country: "Netherlands",
+        address: "Hellebarden 7, 9230 Svenstrup J, Denmark / Rotterdam Hub",
+        brand: "Devi Royal",
+        isfTransactionNo: "ISF-TXN-2026-88455",
+        shippingLine: "MSC Mediterranean Shipping Co.",
+        containerNumber: "MSCU-774012-3",
+        linerSealNumber: "MSC-SL-90124",
+        blNumber: "MSCRTM261022",
+        blDate: "2026-10-22",
+        shippingOnboardDate: "2026-10-24",
+        stuffingLocation: "Devi Fisheries CFS Unit-1 Vizag",
+        dateOfLoading: "2026-10-23",
+        sizeAndType: "40ft High Cube Reefer (40HR)",
+        stowPosition: "BAY 12 / ROW 08 / TIER 84",
+        sdd: "2026-11-25",
+        byRoad: "All-Cargo Logistics Trucking",
+        byRoadDate: "2026-10-23",
+        temperatureOfRecord: "-18.0°C Data Logged",
+        sealTime: "15:45 IST",
+        consolidator: "Seaways Global Logistics Ltd",
+        nameOfRepresentative: "V. Ramana (CHA Reg: VIZ-0298)",
+        transshipments: []
       }
     ],
 
@@ -67651,39 +67829,942 @@ const SalesView = {
     });
   },
 
-  // Tab 3: ISF Details
+  // Tab 3: ISF Details (Importer Security Filing 10+2)
   renderIsfDetails(container) {
-    this.renderGenericTablePage({
-      container,
-      pageTitle: 'ISF Details (Importer Security Filing 10+2)',
-            primaryBtnText: 'Submit ISF 10+2 Record',
-      onPrimaryClick: () => Toast.show('ISF Submission form opened', 'info'),
-      filterFields: [
-        { id: 'isf-no', label: 'ISF Reference No', placeholder: 'e.g. ISF-USA' },
-        { id: 'importer', label: 'Importer of Record', placeholder: 'e.g. Red Lobster' },
-        { id: 'container', label: 'Container Number', placeholder: 'e.g. ONEU' }
-      ],
-      data: this.state.isfDetails,
-      keyField: 'isfNumber',
-      tableTitle: 'ISF Details',
-      columns: [
-        { field: 'isfNumber', header: 'ISF Number', render: (v) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${v}</span>` },
-        { field: 'contractNo', header: 'Contract Ref', render: (v) => `<span class="font-mono text-xs font-semibold text-[#172B4D]">${v}</span>` },
-        { field: 'importerOfRecord', header: 'Importer of Record (IRS / EIN)', render: (v) => `<span class="font-bold text-[#172B4D] text-xs">${v}</span>` },
-        { field: 'containerNo', header: 'Container No', render: (v) => `<span class="font-mono text-xs font-semibold text-[#403294]">${v}</span>` },
-        { field: 'vesselName', header: 'Vessel / Voyage', render: (v) => `<span class="text-xs text-[#5E6C84]">${v}</span>` },
-        { field: 'unladingPort', header: 'Port of Unlading', render: (v) => `<span class="text-xs text-[#5E6C84]">${v}</span>` },
-        { field: 'filingDate', header: 'Filing Date', render: (v) => `<span class="font-mono text-xs text-[#5E6C84]">${v}</span>` },
+    container.innerHTML = `
+      <div class="space-y-3 animate-fade-in">
+        <!-- Page Title & Header Actions (NO Subheading) -->
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-1">
+          <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">ISF Details (Importer Security Filing 10+2)</h1>
+          <div class="inline-flex items-center gap-2">
+            <button type="button" id="btn-create-isf" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+              <span>Add ISF Filing</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Search & Filter Card -->
+        <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200">
+          <div class="flex items-center justify-between pb-1">
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+              <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
+            </div>
+            <div class="inline-flex items-center gap-2">
+              <button type="button" id="flt-isf-reset-btn" class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Reset all filters">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+              </button>
+              <button type="button" id="flt-isf-toggle-btn" class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Hide Filter">
+                <svg class="w-3.5 h-3.5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              </button>
+            </div>
+          </div>
+          <div id="flt-isf-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
+            <!-- SELECT YEAR -->
+            <div>
+              <label for="flt-isf-year" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SELECT YEAR</label>
+              <select id="flt-isf-year" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="ALL">All Years</option>
+                <option value="2026-2027">2026-2027</option>
+                <option value="2025-2026">2025-2026</option>
+                <option value="2024-2025">2024-2025</option>
+              </select>
+            </div>
+
+            <!-- SELECT EXPORTER -->
+            <div>
+              <label for="flt-isf-exporter" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SELECT EXPORTER</label>
+              <select id="flt-isf-exporter" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="ALL">All Exporters</option>
+                <option value="Devi Fisheries Limited">Devi Fisheries Limited</option>
+                <option value="Devi Sea Foods Ltd">Devi Sea Foods Ltd</option>
+                <option value="Devi Marine Processors">Devi Marine Processors</option>
+              </select>
+            </div>
+
+            <!-- SELECT CONSIGNEE -->
+            <div>
+              <label for="flt-isf-consignee" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SELECT CONSIGNEE</label>
+              <select id="flt-isf-consignee" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="ALL">All Consignees</option>
+                <option value="Red Lobster Supply Chain LLC">Red Lobster Supply Chain LLC</option>
+                <option value="Maruha Nichiro Corporation">Maruha Nichiro Corporation</option>
+                <option value="Royal Greenland Seafood A/S">Royal Greenland Seafood A/S</option>
+                <option value="Sysco Corporation International">Sysco Corporation International</option>
+                <option value="US Foods Trading Co">US Foods Trading Co</option>
+              </select>
+            </div>
+
+            <!-- SELECT COUNTRY -->
+            <div>
+              <label for="flt-isf-country" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SELECT COUNTRY</label>
+              <select id="flt-isf-country" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="ALL">All Countries</option>
+                <option value="United States">United States</option>
+                <option value="Japan">Japan</option>
+                <option value="Netherlands">Netherlands</option>
+                <option value="Canada">Canada</option>
+              </select>
+            </div>
+
+            <!-- INVOICE STATUS -->
+            <div>
+              <label for="flt-isf-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">INVOICE STATUS</label>
+              <select id="flt-isf-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="ALL">All Statuses</option>
+                <option value="ISF_FILED">ISF Filed</option>
+                <option value="ACCEPTED_TIMELY">Accepted Timely</option>
+                <option value="PENDING_FILING">Pending Filing</option>
+                <option value="DRAFT">Draft</option>
+              </select>
+            </div>
+
+            <!-- Search Button placed inside grid -->
+            <div class="flex items-end">
+              <button type="button" id="flt-isf-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                <span>Search</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- DataTable Container -->
+        <div id="isf-details-table-container"></div>
+      </div>
+    `;
+
+    // Hook primary action button
+    container.querySelector('#btn-create-isf')?.addEventListener('click', () => {
+      this.showAddIsfModal(null);
+    });
+
+    // Toggle filter
+    const toggleBtn = container.querySelector('#flt-isf-toggle-btn');
+    const filterBody = container.querySelector('#flt-isf-body');
+    toggleBtn?.addEventListener('click', () => {
+      filterBody?.classList.toggle('hidden');
+      toggleBtn.querySelector('svg')?.classList.toggle('-rotate-90');
+    });
+
+    // Render table
+    const renderTable = (dataToDisplay) => {
+      new DataTable({
+        containerId: 'isf-details-table-container',
+        data: dataToDisplay,
+        keyField: 'id',
+        tableTitle: `ISF Records (${dataToDisplay.length})`,
+        searchable: true,
+        exportable: true,
+        pageSize: 10,
+        onRowClick: (row) => this.showIsfDetailsModal(row),
+        columns: [
+          {
+            field: '__sno__',
+            header: 'S.No',
+            render: (v, r, idx) => `<span class="font-mono text-xs text-[#5E6C84]">${idx + 1}</span>`
+          },
+          {
+            field: 'id',
+            header: 'ID',
+            render: (v) => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer">${v}</span>`
+          },
+          {
+            field: 'pInvoiceNo',
+            header: 'PInvoice No',
+            render: (v) => `<span class="font-mono text-xs font-bold text-[#403294]">${v || '-'}</span>`
+          },
+          {
+            field: 'invoiceNo',
+            header: 'Invoice No',
+            render: (v) => `<span class="font-mono font-bold text-xs text-[#172B4D] hover:underline cursor-pointer">${v || '-'}</span>`
+          },
+          {
+            field: 'invoiceDate',
+            header: 'Invoice Date',
+            render: (v) => `<span class="font-mono text-xs text-[#5E6C84]">${v || '-'}</span>`
+          },
+          {
+            field: 'poNo',
+            header: 'Po No',
+            render: (v) => `<span class="font-mono text-xs font-semibold text-[#172B4D]">${v || '-'}</span>`
+          },
+          {
+            field: 'buyer',
+            header: 'Buyer',
+            render: (v) => `<span class="font-bold text-[#172B4D] text-xs">${v || '-'}</span>`
+          },
+          {
+            field: 'status',
+            header: 'Status',
+            render: (v) => {
+              const val = String(v || '').toUpperCase();
+              let cls = 'bg-[#F1F5F9] text-[#172B4D] border-[#DFE1E6]';
+              if (val.includes('FILED') || val.includes('ACCEPTED') || val.includes('APPROVED')) {
+                cls = 'bg-[#E3FCEF] text-[#006644] border-[#ABF5D1]';
+              } else if (val.includes('PENDING')) {
+                cls = 'bg-[#FFFAE6] text-[#FF8B00] border-[#FFE380]';
+              } else if (val.includes('DRAFT') || val.includes('TRANSIT')) {
+                cls = 'bg-[#F0F9FF] text-[#00A4B7] border-[#BAE6FD]';
+              }
+              return `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold border ${cls} uppercase">${val.replace(/_/g, ' ')}</span>`;
+            }
+          }
+        ],
+        actions: [
+          {
+            label: 'Add ISF Filing',
+            icon: `<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>`,
+            onClick: (row) => this.showAddIsfModal(row)
+          }
+        ]
+      });
+    };
+
+    renderTable(this.state.isfDetails);
+
+    // Search and Reset handlers
+    const searchBtn = container.querySelector('#flt-isf-search-btn');
+    const resetBtn = container.querySelector('#flt-isf-reset-btn');
+
+    searchBtn?.addEventListener('click', () => {
+      const yr = container.querySelector('#flt-isf-year')?.value || 'ALL';
+      const exp = container.querySelector('#flt-isf-exporter')?.value || 'ALL';
+      const con = container.querySelector('#flt-isf-consignee')?.value || 'ALL';
+      const cty = container.querySelector('#flt-isf-country')?.value || 'ALL';
+      const st = container.querySelector('#flt-isf-status')?.value || 'ALL';
+
+      let filtered = [...this.state.isfDetails];
+
+      if (yr !== 'ALL') {
+        filtered = filtered.filter(r => (r.year || '').includes(yr));
+      }
+      if (exp !== 'ALL') {
+        filtered = filtered.filter(r => (r.exporter || '').toLowerCase().includes(exp.toLowerCase()));
+      }
+      if (con !== 'ALL') {
+        filtered = filtered.filter(r => (r.consignee || r.buyer || '').toLowerCase().includes(con.toLowerCase()));
+      }
+      if (cty !== 'ALL') {
+        filtered = filtered.filter(r => (r.country || '').toLowerCase().includes(cty.toLowerCase()));
+      }
+      if (st !== 'ALL') {
+        filtered = filtered.filter(r => (r.status || '').toLowerCase().includes(st.toLowerCase()));
+      }
+
+      renderTable(filtered);
+      Toast.show(`Filtered ${filtered.length} ISF Record(s)`, 'info');
+    });
+
+    resetBtn?.addEventListener('click', () => {
+      container.querySelector('#flt-isf-year').value = 'ALL';
+      container.querySelector('#flt-isf-exporter').value = 'ALL';
+      container.querySelector('#flt-isf-consignee').value = 'ALL';
+      container.querySelector('#flt-isf-country').value = 'ALL';
+      container.querySelector('#flt-isf-status').value = 'ALL';
+      renderTable(this.state.isfDetails);
+      Toast.show('Filters reset', 'info');
+    });
+  },
+
+  // Modal: ISF Form with "More transshipment" Button, Transshipment Fields & Transshipment Table
+  showAddIsfModal(targetRow) {
+    const nextIdx = this.state.isfDetails.length + 1;
+    const isEdit = !!targetRow;
+    const d = targetRow || {
+      id: `ISF-${String(nextIdx).padStart(3, '0')}`,
+      pInvoiceNo: 'PI-2026-901',
+      invoiceNo: `CI-EXP-2026-${500 + nextIdx}`,
+      invoiceDate: new Date().toISOString().slice(0, 10),
+      poNo: 'PO-RL-8821',
+      buyer: 'Red Lobster Supply Chain LLC',
+      consignee: 'Red Lobster Supply Chain LLC',
+      status: 'PENDING_FILING',
+      year: '2026-2027',
+      exporter: 'Devi Fisheries Limited',
+      country: 'United States',
+      address: '450 S Orange Ave, Suite 800, Orlando, FL 32801, USA',
+      brand: 'Devi Gold',
+      isfTransactionNo: `ISF-TXN-2026-${88400 + nextIdx}`,
+      shippingLine: 'Ocean Network Express (ONE)',
+      containerNumber: `ONEU-${440000 + nextIdx}-8`,
+      linerSealNumber: `ONE-SL-${994000 + nextIdx}`,
+      blNumber: `ONEYMAA${261000 + nextIdx}`,
+      blDate: new Date().toISOString().slice(0, 10),
+      shippingOnboardDate: new Date().toISOString().slice(0, 10),
+      stuffingLocation: 'Devi Fisheries Cold Storage CFS, Visakhapatnam',
+      dateOfLoading: new Date().toISOString().slice(0, 10),
+      sizeAndType: '40ft High Cube Reefer (40HR)',
+      stowPosition: 'BAY 14 / ROW 06 / TIER 82',
+      sdd: '2026-11-30',
+      byRoad: 'Intermodal Reefer Trucking LLC',
+      byRoadDate: new Date().toISOString().slice(0, 10),
+      temperatureOfRecord: '-18.5°C continuous recorder verified',
+      sealTime: '14:30 IST / High-Security Seal Affixed',
+      consolidator: 'Expeditors International / Devi Logistics Hub',
+      nameOfRepresentative: 'R. K. Sharma (Customs Broker Reg: CHB-8420)',
+      transshipments: []
+    };
+
+    // Deep copy transshipments
+    let transshipments = d.transshipments ? JSON.parse(JSON.stringify(d.transshipments)) : [];
+
+    const renderTransshipmentRows = () => {
+      if (!transshipments || transshipments.length === 0) {
+        return `<tr><td colspan="8" class="py-6 text-center text-xs text-[#5E6C84]">No transshipment legs added. Click "More transshipment" to enter transshipment routing.</td></tr>`;
+      }
+      return transshipments.map((t, idx) => `
+        <tr class="hover:bg-[#F8FAFC] transition-colors border-b border-[#F1F5F9] text-[#172B4D]">
+          <td class="py-2.5 px-2.5 font-mono text-xs text-[#5E6C84] text-center">${idx + 1}</td>
+          <td class="py-2.5 px-2.5 font-semibold text-[#172B4D]">${t.departurePort}</td>
+          <td class="py-2.5 px-2.5 font-semibold text-[#172B4D]">${t.arrivalPort}</td>
+          <td class="py-2.5 px-2.5 font-mono text-xs text-[#5E6C84]">${t.departureDate}</td>
+          <td class="py-2.5 px-2.5 font-bold text-[#00A4B7]">${t.vesselName}</td>
+          <td class="py-2.5 px-2.5 font-mono font-bold text-[#403294]">${t.voyNo}</td>
+          <td class="py-2.5 px-2.5 font-mono text-xs text-[#5E6C84]">${t.arrivalDate}</td>
+          <td class="py-2.5 px-2.5 text-center">
+            <button type="button" class="btn-remove-transshipment text-[#DE350B] hover:text-[#BF2600] p-1 rounded hover:bg-[#FFEBE6] transition-colors cursor-pointer" data-idx="${idx}" title="Remove transshipment leg">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    };
+
+    Modal.open({
+      title: isEdit ? `ISF 10+2 Filing Form - ${d.invoiceNo}` : 'Submit New ISF 10+2 Filing',
+      size: 'full',
+      content: `
+        <form id="form-isf-modal" class="space-y-4 text-xs animate-fade-in">
+          <!-- Section 1: Commercial & Invoice Identifiers -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Commercial &amp; Invoice Reference</h4>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CUSTOM INVOICE <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="isf-custom-invoice" value="${d.invoiceNo || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PO NO</label>
+                <input type="text" id="isf-po-no" value="${d.poNo || ''}" placeholder="e.g. PO-8821" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CONSIGNEE <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="isf-consignee" value="${d.consignee || d.buyer || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BRAND</label>
+                <input type="text" id="isf-brand" value="${d.brand || 'Devi Gold'}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ISF TRANSACTION NO</label>
+                <input type="text" id="isf-transaction-no" value="${d.isfTransactionNo || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <div class="sm:col-span-2 lg:col-span-1">
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">P.INVOICE NO</label>
+                <input type="text" id="isf-p-invoice-no" value="${d.pInvoiceNo || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#403294] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <div class="sm:col-span-3 lg:col-span-6">
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ADDRESS</label>
+                <input type="text" id="isf-address" value="${d.address || ''}" placeholder="Consignee delivery address in USA" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Shipping Line, Bills of Lading & Container -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Shipping Line, Bills of Lading &amp; Container Specifications</h4>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SHIPPING LINE <span class="text-[#DE350B]">*</span></label>
+                <select id="isf-shipping-line" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
+                  <option value="Ocean Network Express (ONE)" ${d.shippingLine?.includes('ONE') ? 'selected' : ''}>Ocean Network Express (ONE)</option>
+                  <option value="Maersk Line" ${d.shippingLine?.includes('Maersk') ? 'selected' : ''}>Maersk Line</option>
+                  <option value="Hapag-Lloyd Line" ${d.shippingLine?.includes('Hapag') ? 'selected' : ''}>Hapag-Lloyd Line</option>
+                  <option value="MSC Mediterranean Shipping Co." ${d.shippingLine?.includes('MSC') ? 'selected' : ''}>MSC Mediterranean Shipping Co.</option>
+                  <option value="CMA CGM Logistics" ${d.shippingLine?.includes('CMA') ? 'selected' : ''}>CMA CGM Logistics</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CONTAINER NUMBER <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="isf-container-number" value="${d.containerNumber || ''}" placeholder="e.g. ONEU-440912-8" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">LINER SEAL NUMBER <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="isf-liner-seal-number" value="${d.linerSealNumber || ''}" placeholder="e.g. ONE-SL-994012" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BL NUMBER <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="isf-bl-number" value="${d.blNumber || ''}" placeholder="e.g. ONEYMAA261014" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BL DATE <span class="text-[#DE350B]">*</span></label>
+                <input type="date" id="isf-bl-date" value="${d.blDate || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SHIPPING ONBOARD DATE <span class="text-[#DE350B]">*</span></label>
+                <input type="date" id="isf-shipping-onboard-date" value="${d.shippingOnboardDate || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DATE OF LOADING</label>
+                <input type="date" id="isf-date-of-loading" value="${d.dateOfLoading || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SIZE AND TYPE</label>
+                <select id="isf-size-and-type" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="40ft High Cube Reefer (40HR)" ${d.sizeAndType?.includes('40HR') ? 'selected' : ''}>40ft High Cube Reefer (40HR)</option>
+                  <option value="20ft Standard Reefer (20RF)" ${d.sizeAndType?.includes('20RF') ? 'selected' : ''}>20ft Standard Reefer (20RF)</option>
+                  <option value="40ft Standard Reefer (40RF)" ${d.sizeAndType?.includes('40RF') ? 'selected' : ''}>40ft Standard Reefer (40RF)</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">STOW POSITION</label>
+                <input type="text" id="isf-stow-position" value="${d.stowPosition || 'BAY 14 / ROW 06 / TIER 82'}" placeholder="e.g. BAY 14 / ROW 06" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">STUFFING LOCATION <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="isf-stuffing-location" value="${d.stuffingLocation || 'Devi Fisheries Cold Storage CFS, Visakhapatnam'}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 3: Logistics, Transit & Verification -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Logistics, Transit &amp; Verification</h4>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SDD (SCHEDULED DELIVERY DATE)</label>
+                <input type="date" id="isf-sdd" value="${d.sdd || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BY ROAD</label>
+                <input type="text" id="isf-by-road" value="${d.byRoad || 'Intermodal Reefer Trucking LLC'}" placeholder="Trucking Carrier" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BY ROAD DATE</label>
+                <input type="date" id="isf-by-road-date" value="${d.byRoadDate || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">TEMPERATURE OF RECORD</label>
+                <input type="text" id="isf-temperature-of-record" value="${d.temperatureOfRecord || '-18.5°C continuous recorder verified'}" placeholder="e.g. -18°C" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SEALTIME</label>
+                <input type="text" id="isf-sealtime" value="${d.sealTime || '14:30 IST / Seal Verified'}" placeholder="e.g. 14:30 IST" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CONSOLIDATOR</label>
+                <input type="text" id="isf-consolidator" value="${d.consolidator || 'Expeditors International / Devi Logistics Hub'}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <div class="sm:col-span-2">
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">NAME OF THE REPRESENTATIVE</label>
+                <input type="text" id="isf-name-of-representative" value="${d.nameOfRepresentative || 'R. K. Sharma (Customs Broker Reg: CHB-8420)'}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 4: Transshipment Routing Sub-Module -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center justify-between pb-2.5 mb-3 border-b border-[#F1F5F9]">
+              <div class="flex items-center gap-2">
+                <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">ISF Form &mdash; Transhipment Routing</h4>
+              </div>
+              <button type="button" id="btn-toggle-more-transshipment" class="btn-secondary px-3 py-1.5 rounded-full text-xs font-bold inline-flex items-center gap-1.5 bg-[#F0F9FF] text-[#00A4B7] border border-[#BAE6FD] hover:bg-[#E0F2FE] transition-colors cursor-pointer select-none">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                <span>More transshipment</span>
+              </button>
+            </div>
+
+            <!-- ISF FORM — Transhipment Fields (Hidden by default until "More transshipment" is clicked) -->
+            <div id="transshipment-fields-card" class="hidden bg-[#F8FAFC] p-3.5 rounded-lg border border-[#E2E8F0] mb-3.5 space-y-3">
+              <div class="text-[11px] font-bold text-[#172B4D] uppercase tracking-wider flex items-center justify-between">
+                <span>Enter Transhipment Details</span>
+                <span class="text-[10px] text-[#5E6C84] font-medium">* Required for transshipment route</span>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+                <div>
+                  <label class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DEPARTURE PORT</label>
+                  <input type="text" id="ts-departure-port" value="Visakhapatnam (INVTZ)" placeholder="Port of Departure" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                </div>
+
+                <div>
+                  <label class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ARRIVAL PORT</label>
+                  <input type="text" id="ts-arrival-port" value="Singapore Port (SGSIN)" placeholder="Port of Arrival" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                </div>
+
+                <div>
+                  <label class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DEPARTURE DATE <span class="text-[#DE350B]">*</span></label>
+                  <input type="date" id="ts-departure-date" value="${new Date().toISOString().slice(0, 10)}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                </div>
+
+                <div>
+                  <label class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ARRIVAL DATE <span class="text-[#DE350B]">*</span></label>
+                  <input type="date" id="ts-arrival-date" value="${new Date().toISOString().slice(0, 10)}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                </div>
+
+                <div>
+                  <label class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">VESSEL NAME <span class="text-[#DE350B]">*</span></label>
+                  <input type="text" id="ts-vessel-name" value="M/V X-PRESS BARKLY" placeholder="Vessel Name" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                </div>
+
+                <div>
+                  <label class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">VOY#</label>
+                  <input type="text" id="ts-voy-no" value="V.024W" placeholder="Voyage Number" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#403294] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                </div>
+
+                <div class="sm:col-span-2 lg:col-span-6 flex justify-end">
+                  <button type="button" id="btn-add-ts-leg" class="btn-primary px-4 py-1.5 rounded-full text-xs font-bold inline-flex items-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px]">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                    <span>Add Transhipment Leg</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- ISF FORM — Transhipment Table -->
+            <div class="overflow-x-auto max-h-[240px] rounded-lg border border-[#DFE1E6]">
+              <table class="w-full text-xs text-left border-collapse">
+                <thead>
+                  <tr class="bg-[#F8FAFC] border-b border-[#DFE1E6] text-[#5E6C84] uppercase font-bold text-[10px] tracking-wider">
+                    <th class="py-2.5 px-2.5 text-center">S.No</th>
+                    <th class="py-2.5 px-2.5">Departure Port</th>
+                    <th class="py-2.5 px-2.5">Arrival Port</th>
+                    <th class="py-2.5 px-2.5">Departure Date</th>
+                    <th class="py-2.5 px-2.5">Vessel Name</th>
+                    <th class="py-2.5 px-2.5">VOY#</th>
+                    <th class="py-2.5 px-2.5">Arrival Date</th>
+                    <th class="py-2.5 px-2.5 text-center">Remove</th>
+                  </tr>
+                </thead>
+                <tbody id="ts-table-tbody" class="divide-y divide-[#F1F5F9] bg-white">
+                  ${renderTransshipmentRows()}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </form>
+      `,
+      buttons: [
         {
-          field: 'usCustomsStatus',
-          header: 'CBP Status',
-          render: (v) => `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1] uppercase">${v.replace(/_/g, ' ')}</span>`
+          label: 'Cancel',
+          type: 'secondary',
+          onClick: (modal) => modal.close()
+        },
+        {
+          label: isEdit ? 'Update ISF 10+2 Record' : 'Submit ISF 10+2 Filing',
+          type: 'primary',
+          onClick: (modal) => {
+            const getVal = (id) => document.getElementById(id)?.value?.trim() || '';
+
+            const customInvoice = getVal('isf-custom-invoice');
+            const consignee = getVal('isf-consignee');
+            const shippingLine = getVal('isf-shipping-line');
+            const containerNumber = getVal('isf-container-number');
+            const linerSealNumber = getVal('isf-liner-seal-number');
+            const blNumber = getVal('isf-bl-number');
+            const blDate = getVal('isf-bl-date');
+            const shippingOnboardDate = getVal('isf-shipping-onboard-date');
+            const stuffingLocation = getVal('isf-stuffing-location');
+
+            if (!customInvoice || !consignee || !shippingLine || !containerNumber || !linerSealNumber || !blNumber || !blDate || !shippingOnboardDate || !stuffingLocation) {
+              Toast.show('Please fill in all mandatory fields marked with *', 'warning');
+              return;
+            }
+
+            const updatedData = {
+              ...d,
+              invoiceNo: customInvoice,
+              poNo: getVal('isf-po-no'),
+              consignee,
+              buyer: consignee,
+              address: getVal('isf-address'),
+              brand: getVal('isf-brand'),
+              isfTransactionNo: getVal('isf-transaction-no') || `ISF-TXN-2026-${Math.floor(10000 + Math.random() * 90000)}`,
+              pInvoiceNo: getVal('isf-p-invoice-no'),
+              shippingLine,
+              containerNumber,
+              linerSealNumber,
+              blNumber,
+              blDate,
+              shippingOnboardDate,
+              stuffingLocation,
+              dateOfLoading: getVal('isf-date-of-loading'),
+              sizeAndType: getVal('isf-size-and-type'),
+              stowPosition: getVal('isf-stow-position'),
+              sdd: getVal('isf-sdd'),
+              byRoad: getVal('isf-by-road'),
+              byRoadDate: getVal('isf-by-road-date'),
+              temperatureOfRecord: getVal('isf-temperature-of-record'),
+              sealTime: getVal('isf-sealtime'),
+              consolidator: getVal('isf-consolidator'),
+              nameOfRepresentative: getVal('isf-name-of-representative'),
+              transshipments: [...transshipments],
+              status: 'ISF_FILED'
+            };
+
+            if (isEdit && targetRow) {
+              Object.assign(targetRow, updatedData);
+              Toast.show(`ISF 10+2 record updated successfully for ${targetRow.invoiceNo}`, 'success');
+            } else {
+              this.state.isfDetails.unshift(updatedData);
+              Toast.show(`ISF 10+2 record created successfully for ${updatedData.invoiceNo}`, 'success');
+            }
+
+            modal.close();
+            const mainEl = document.getElementById('sales-view-main');
+            if (mainEl) this.renderIsfDetails(mainEl);
+          }
+        }
+      ]
+    });
+
+    const modalRoot = document.getElementById('erp-modal-root');
+    if (!modalRoot) return;
+
+    // Toggle "More transshipment" fields card
+    const toggleTsBtn = modalRoot.querySelector('#btn-toggle-more-transshipment');
+    const tsFieldsCard = modalRoot.querySelector('#transshipment-fields-card');
+    toggleTsBtn?.addEventListener('click', () => {
+      if (tsFieldsCard) {
+        tsFieldsCard.classList.toggle('hidden');
+        const isHidden = tsFieldsCard.classList.contains('hidden');
+        toggleTsBtn.innerHTML = isHidden 
+          ? `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg><span>More transshipment</span>`
+          : `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"/></svg><span>Hide Transhipment Fields</span>`;
+      }
+    });
+
+    // Remove Transshipment Leg binding
+    const bindTsActions = () => {
+      modalRoot.querySelectorAll('.btn-remove-transshipment').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const idx = parseInt(btn.dataset.idx, 10);
+          if (!isNaN(idx) && idx >= 0 && idx < transshipments.length) {
+            const removed = transshipments.splice(idx, 1);
+            const tbody = modalRoot.querySelector('#ts-table-tbody');
+            if (tbody) tbody.innerHTML = renderTransshipmentRows();
+            bindTsActions();
+            Toast.show(`Removed transshipment leg: ${removed[0]?.vesselName || 'Leg'}`, 'info');
+          }
+        });
+      });
+    };
+
+    bindTsActions();
+
+    // Add Transshipment Leg button listener
+    modalRoot.querySelector('#btn-add-ts-leg')?.addEventListener('click', () => {
+      const getVal = (id) => modalRoot.querySelector(`#${id}`)?.value?.trim() || '';
+
+      const depDate = getVal('ts-departure-date');
+      const arrDate = getVal('ts-arrival-date');
+      const vessel = getVal('ts-vessel-name');
+      const depPort = getVal('ts-departure-port') || 'Visakhapatnam (INVTZ)';
+      const arrPort = getVal('ts-arrival-port') || 'Singapore Port (SGSIN)';
+      const voy = getVal('ts-voy-no') || 'V.01';
+
+      if (!depDate || !arrDate || !vessel) {
+        Toast.show('Please fill in Departure Date, Arrival Date and Vessel Name', 'warning');
+        return;
+      }
+
+      const newLeg = {
+        departurePort: depPort,
+        arrivalPort: arrPort,
+        departureDate: depDate,
+        arrivalDate: arrDate,
+        vesselName: vessel,
+        voyNo: voy
+      };
+
+      transshipments.push(newLeg);
+
+      const tbody = modalRoot.querySelector('#ts-table-tbody');
+      if (tbody) tbody.innerHTML = renderTransshipmentRows();
+      bindTsActions();
+
+      Toast.show(`Added transshipment via ${vessel}`, 'success');
+    });
+  },
+
+  // Modal: ISF Details View (On Row Click)
+  showIsfDetailsModal(row) {
+    const d = row || {};
+    const transshipments = d.transshipments || [];
+
+    const val = String(d.status || '').toUpperCase();
+    let statusClass = 'bg-[#F1F5F9] text-[#172B4D] border-[#DFE1E6]';
+    if (val.includes('FILED') || val.includes('ACCEPTED') || val.includes('APPROVED')) {
+      statusClass = 'bg-[#E3FCEF] text-[#006644] border-[#ABF5D1]';
+    } else if (val.includes('PENDING')) {
+      statusClass = 'bg-[#FFFAE6] text-[#FF8B00] border-[#FFE380]';
+    } else if (val.includes('DRAFT') || val.includes('TRANSIT')) {
+      statusClass = 'bg-[#F0F9FF] text-[#00A4B7] border-[#BAE6FD]';
+    }
+
+    Modal.open({
+      title: `ISF 10+2 Filing Details - ${d.invoiceNo || d.id}`,
+      size: 'full',
+      content: `
+        <div class="space-y-4 text-xs animate-fade-in">
+          <!-- Top Hero / Summary Card -->
+          <div class="bg-gradient-to-r from-[#F0F9FF] to-[#F8FAFC] p-4 rounded-xl border border-[#BAE6FD] flex flex-wrap items-center justify-between gap-3 shadow-2xs">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-[#00A4B7] text-white flex items-center justify-center font-bold shadow-xs">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              </div>
+              <div>
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span class="font-mono font-extrabold text-[#0F172A] text-base">${d.invoiceNo || d.id}</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold tracking-wide uppercase border ${statusClass}">${val.replace(/_/g, ' ')}</span>
+                  <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">${d.shippingLine || 'Ocean Line'}</span>
+                </div>
+                <div class="text-[11px] text-[#64748B] mt-0.5 font-medium flex items-center gap-1.5 flex-wrap">
+                  <span><strong>ISF Txn:</strong> ${d.isfTransactionNo || '-'}</span>
+                  <span>•</span>
+                  <span><strong>Buyer:</strong> ${d.buyer || '-'}</span>
+                  <span>•</span>
+                  <span><strong>Container:</strong> ${d.containerNumber || '-'}</span>
+                  <span>•</span>
+                  <span><strong>B/L No:</strong> ${d.blNumber || '-'}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Metrics Badges -->
+            <div class="flex items-center gap-2 shrink-0">
+              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[85px]">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Container Size</span>
+                <span class="font-mono font-extrabold text-[#172B4D] text-xs mt-0.5 block">${d.sizeAndType?.slice(0, 15) || '40ft Reefer'}</span>
+              </div>
+              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[85px]">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Set Temp</span>
+                <span class="font-mono font-extrabold text-[#006644] text-xs mt-0.5 block">${d.temperatureOfRecord?.slice(0, 8) || '-18.5°C'}</span>
+              </div>
+              <div class="bg-white px-3.5 py-1.5 rounded-lg border border-[#ABF5D1] bg-[#F0FDF4] shadow-2xs text-center min-w-[90px]">
+                <span class="text-[10px] font-bold text-[#006644] uppercase tracking-wider block">Transhipments</span>
+                <span class="font-mono font-extrabold text-[#006644] text-sm mt-0.5 block">${transshipments.length} Leg(s)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 1: Commercial & Invoice Identifiers -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Commercial &amp; Invoice Reference</h4>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">CUSTOM INVOICE</span>
+                <span class="font-mono font-extrabold text-[#00A4B7] text-xs block mt-0.5">${d.invoiceNo || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">PO NO</span>
+                <span class="font-mono font-bold text-[#172B4D] text-xs block mt-0.5">${d.poNo || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">CONSIGNEE</span>
+                <span class="font-bold text-[#172B4D] text-xs block mt-0.5">${d.consignee || d.buyer || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">BRAND</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${d.brand || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">ISF TRANSACTION NO</span>
+                <span class="font-mono font-extrabold text-[#00A4B7] text-xs block mt-0.5">${d.isfTransactionNo || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">P.INVOICE NO</span>
+                <span class="font-mono font-bold text-[#403294] text-xs block mt-0.5">${d.pInvoiceNo || '-'}</span>
+              </div>
+              <div class="sm:col-span-2">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">ADDRESS</span>
+                <span class="text-[#5E6C84] text-xs block mt-0.5">${d.address || '-'}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Shipping Line, Bills of Lading & Container -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Shipping Line, Bills of Lading &amp; Container Specifications</h4>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">SHIPPING LINE</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${d.shippingLine || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">CONTAINER NUMBER</span>
+                <span class="font-mono font-extrabold text-[#172B4D] text-xs block mt-0.5">${d.containerNumber || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">LINER SEAL NUMBER</span>
+                <span class="font-mono font-semibold text-[#172B4D] text-xs block mt-0.5">${d.linerSealNumber || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">BL NUMBER</span>
+                <span class="font-mono font-extrabold text-[#00A4B7] text-xs block mt-0.5">${d.blNumber || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">BL DATE</span>
+                <span class="font-mono text-[#172B4D] text-xs block mt-0.5">${d.blDate || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">SHIPPING ONBOARD DATE</span>
+                <span class="font-mono text-[#172B4D] text-xs block mt-0.5">${d.shippingOnboardDate || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">DATE OF LOADING</span>
+                <span class="font-mono text-[#172B4D] text-xs block mt-0.5">${d.dateOfLoading || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">SIZE AND TYPE</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${d.sizeAndType || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">STOW POSITION</span>
+                <span class="font-mono text-[#172B4D] text-xs block mt-0.5">${d.stowPosition || '-'}</span>
+              </div>
+              <div class="sm:col-span-3">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">STUFFING LOCATION</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${d.stuffingLocation || '-'}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 3: Logistics, Transit & Verification -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Logistics, Transit &amp; Verification</h4>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">SDD (SCHEDULED DELIVERY DATE)</span>
+                <span class="font-mono font-bold text-[#172B4D] text-xs block mt-0.5">${d.sdd || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">BY ROAD</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${d.byRoad || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">BY ROAD DATE</span>
+                <span class="font-mono text-[#172B4D] text-xs block mt-0.5">${d.byRoadDate || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">TEMPERATURE OF RECORD</span>
+                <span class="font-mono font-bold text-[#006644] text-xs block mt-0.5">${d.temperatureOfRecord || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">SEALTIME</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${d.sealTime || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">CONSOLIDATOR</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${d.consolidator || '-'}</span>
+              </div>
+              <div class="sm:col-span-2">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">NAME OF THE REPRESENTATIVE</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${d.nameOfRepresentative || '-'}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 4: ISF FORM — Transhipment Table -->
+          <div class="bg-white rounded-xl">
+            <div class="flex items-center justify-between pb-2.5 mb-2 border-b border-[#F1F5F9]">
+              <div class="flex items-center gap-2">
+                <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">ISF FORM &mdash; Transhipment Routing Table</h4>
+              </div>
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD] uppercase">${transshipments.length} Transhipment Legs</span>
+            </div>
+            
+            <div class="overflow-x-auto max-h-[260px] rounded-lg border border-[#DFE1E6]">
+              <table class="w-full text-xs text-left border-collapse">
+                <thead>
+                  <tr class="bg-[#F8FAFC] border-b border-[#DFE1E6] text-[#5E6C84] uppercase font-bold text-[10px] tracking-wider">
+                    <th class="py-2.5 px-2.5 text-center">S.No</th>
+                    <th class="py-2.5 px-2.5">Departure Port</th>
+                    <th class="py-2.5 px-2.5">Arrival Port</th>
+                    <th class="py-2.5 px-2.5">Departure Date</th>
+                    <th class="py-2.5 px-2.5">Vessel Name</th>
+                    <th class="py-2.5 px-2.5">VOY#</th>
+                    <th class="py-2.5 px-2.5">Arrival Date</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-[#F1F5F9] bg-white">
+                  ${transshipments.length === 0 ? `
+                    <tr><td colspan="7" class="py-6 text-center text-xs text-[#5E6C84]">Direct shipment &mdash; no transshipment legs recorded.</td></tr>
+                  ` : transshipments.map((t, idx) => `
+                    <tr class="hover:bg-[#F8FAFC] transition-colors border-b border-[#F1F5F9] text-[#172B4D]">
+                      <td class="py-2.5 px-2.5 font-mono text-xs text-[#5E6C84] text-center">${idx + 1}</td>
+                      <td class="py-2.5 px-2.5 font-semibold text-[#172B4D]">${t.departurePort}</td>
+                      <td class="py-2.5 px-2.5 font-semibold text-[#172B4D]">${t.arrivalPort}</td>
+                      <td class="py-2.5 px-2.5 font-mono text-xs text-[#5E6C84]">${t.departureDate}</td>
+                      <td class="py-2.5 px-2.5 font-bold text-[#00A4B7]">${t.vesselName}</td>
+                      <td class="py-2.5 px-2.5 font-mono font-bold text-[#403294]">${t.voyNo}</td>
+                      <td class="py-2.5 px-2.5 font-mono text-xs text-[#5E6C84]">${t.arrivalDate}</td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      `,
+      buttons: [
+        {
+          label: 'Close',
+          type: 'secondary',
+          onClick: (modal) => modal.close()
+        },
+        {
+          label: 'Print ISF Report',
+          type: 'secondary',
+          onClick: () => Toast.show(`Printing ISF 10+2 report for ${d.invoiceNo}...`, 'info')
+        },
+        {
+          label: 'Edit ISF Record',
+          type: 'primary',
+          onClick: (modal) => {
+            modal.close();
+            this.showAddIsfModal(d);
+          }
         }
       ]
     });
   },
 
-  // Tab 4: Shipping Bill
+    // Tab 4: Shipping Bill
   renderShippingBill(container) {
     this.renderGenericTablePage({
       container,
