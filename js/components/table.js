@@ -1506,9 +1506,9 @@ export class DataTable {
             ${rowsHtml}
           </tbody>
         </table>
-        <script>
+        \x3Cscript>
           window.onload = function() { window.print(); }
-        <\/script>
+        \x3C/script>
       </body>
       </html>
     `);
