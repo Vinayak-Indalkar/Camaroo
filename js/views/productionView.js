@@ -2205,8 +2205,8 @@ export const ProductionView = {
           </div>
 
           <!-- Section 1: Batch & Plant Identification -->
-          <div class="space-y-3">
-            <div class="flex items-center gap-2">
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#0284C7] flex items-center justify-center font-bold text-xs">1</span>
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Batch &amp; Plant Identification</h4>
             </div>
@@ -2231,8 +2231,8 @@ export const ProductionView = {
           </div>
 
           <!-- Section 2: Timing, Shifts & Line Allocation -->
-          <div class="space-y-3">
-            <div class="flex items-center gap-2">
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#0284C7] flex items-center justify-center font-bold text-xs">2</span>
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Timing &amp; Line Allocation</h4>
             </div>
@@ -2257,8 +2257,8 @@ export const ProductionView = {
           </div>
 
           <!-- Section 3: Chemical & Salt Formulations -->
-          <div class="space-y-3">
-            <div class="flex items-center gap-2">
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#0284C7] flex items-center justify-center font-bold text-xs">3</span>
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Chemical &amp; Salt Formulation</h4>
             </div>
@@ -2283,8 +2283,8 @@ export const ProductionView = {
           </div>
 
           <!-- Section 4: Product Specifications & Yield -->
-          <div class="space-y-3">
-            <div class="flex items-center gap-2">
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#0284C7] flex items-center justify-center font-bold text-xs">4</span>
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Product Specifications, Yield &amp; Pickup</h4>
             </div>
@@ -2325,8 +2325,8 @@ export const ProductionView = {
           </div>
 
           <!-- Section 5: Temperatures & Remarks -->
-          <div class="space-y-3">
-            <div class="flex items-center gap-2">
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#0284C7] flex items-center justify-center font-bold text-xs">5</span>
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Temperature Controls &amp; Remarks</h4>
             </div>
@@ -3285,8 +3285,8 @@ export const ProductionView = {
           </div>
 
           <!-- Section 1: Primary Track & Facility Identification -->
-          <div class="space-y-3">
-            <div class="flex items-center gap-2">
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <span class="w-6 h-6 rounded-md bg-[#DCFCE7] text-[#166534] flex items-center justify-center font-bold text-xs">1</span>
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Batch &amp; Facility Identification</h4>
             </div>
@@ -3319,8 +3319,8 @@ export const ProductionView = {
           </div>
 
           <!-- Section 2: Production Operations & Timers -->
-          <div class="space-y-3">
-            <div class="flex items-center gap-2">
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <span class="w-6 h-6 rounded-md bg-[#DCFCE7] text-[#166534] flex items-center justify-center font-bold text-xs">2</span>
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Production Operations, Lines &amp; Timers</h4>
             </div>
@@ -3357,8 +3357,8 @@ export const ProductionView = {
           </div>
 
           <!-- Section 3: Product & Freezing Specifications -->
-          <div class="space-y-3">
-            <div class="flex items-center gap-2">
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <span class="w-6 h-6 rounded-md bg-[#DCFCE7] text-[#166534] flex items-center justify-center font-bold text-xs">3</span>
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Product &amp; Freezing Specifications</h4>
             </div>
@@ -3391,8 +3391,8 @@ export const ProductionView = {
           </div>
 
           <!-- Section 4: Packaging, Yield & Quality Audit -->
-          <div class="space-y-3">
-            <div class="flex items-center gap-2">
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <span class="w-6 h-6 rounded-md bg-[#DCFCE7] text-[#166534] flex items-center justify-center font-bold text-xs">4</span>
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Packaging, Yield &amp; Quality Audit</h4>
             </div>
@@ -3427,8 +3427,8 @@ export const ProductionView = {
           </div>
 
           <!-- Section 5: Operational Remarks & Notes -->
-          <div class="space-y-3">
-            <div class="flex items-center gap-2">
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <span class="w-6 h-6 rounded-md bg-[#DCFCE7] text-[#166534] flex items-center justify-center font-bold text-xs">5</span>
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Operational Remarks &amp; Notes</h4>
             </div>
@@ -4034,8 +4034,8 @@ export const ProductionView = {
           </div>
 
           <!-- Section 1: Standard Yield Specifications -->
-          <div class="space-y-3">
-            <div class="flex items-center gap-2">
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <span class="w-6 h-6 rounded-md bg-[#DCFCE7] text-[#166534] flex items-center justify-center font-bold text-xs">1</span>
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Standard Yield Benchmark Specifications</h4>
             </div>
@@ -4084,8 +4084,8 @@ export const ProductionView = {
           </div>
 
           <!-- Section 2: Quality & Compliance Notes -->
-          <div class="space-y-3">
-            <div class="flex items-center gap-2">
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <span class="w-6 h-6 rounded-md bg-[#DCFCE7] text-[#166534] flex items-center justify-center font-bold text-xs">2</span>
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Benchmark &amp; Compliance Notes</h4>
             </div>
@@ -4765,8 +4765,8 @@ export const ProductionView = {
           </div>
 
           <!-- Section 1: Detailed Log Parameters -->
-          <div class="space-y-3">
-            <div class="flex items-center gap-2">
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#0284C7] flex items-center justify-center font-bold text-xs">1</span>
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Batch &amp; Solution Information</h4>
             </div>
@@ -4843,8 +4843,8 @@ export const ProductionView = {
           </div>
 
           <!-- Section 2: Remarks -->
-          <div class="space-y-3">
-            <div class="flex items-center gap-2">
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#0284C7] flex items-center justify-center font-bold text-xs">2</span>
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Remarks &amp; Operational Notes</h4>
             </div>
@@ -5205,8 +5205,8 @@ export const ProductionView = {
           </div>
 
           <!-- Section 1: Soaking & Station Specifications -->
-          <div class="space-y-3">
-            <div class="flex items-center gap-2">
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <span class="w-6 h-6 rounded-md bg-[#DCFCE7] text-[#166534] flex items-center justify-center font-bold text-xs">1</span>
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Soaking &amp; Station Specifications</h4>
             </div>
@@ -5231,8 +5231,8 @@ export const ProductionView = {
           </div>
 
           <!-- Section 2: Chemical Formulation & Physics -->
-          <div class="space-y-3">
-            <div class="flex items-center gap-2">
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <span class="w-6 h-6 rounded-md bg-[#DCFCE7] text-[#166534] flex items-center justify-center font-bold text-xs">2</span>
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Chemical Dosing &amp; Bath Physics</h4>
             </div>
@@ -5257,8 +5257,8 @@ export const ProductionView = {
           </div>
 
           <!-- Section 3: Notes & Supervision -->
-          <div class="space-y-3">
-            <div class="flex items-center gap-2">
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <span class="w-6 h-6 rounded-md bg-[#DCFCE7] text-[#166534] flex items-center justify-center font-bold text-xs">3</span>
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Lot Supervision &amp; Notes</h4>
             </div>
@@ -5997,8 +5997,8 @@ export const ProductionView = {
           </div>
 
           <!-- Section 1: Production & Station Information -->
-          <div class="space-y-3">
-            <div class="flex items-center gap-2">
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <span class="w-6 h-6 rounded-md bg-[#DCFCE7] text-[#166534] flex items-center justify-center font-bold text-xs">1</span>
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Production &amp; Station Allocation</h4>
             </div>
@@ -6031,8 +6031,8 @@ export const ProductionView = {
           </div>
 
           <!-- Section 2: Product & Packaging Specifications -->
-          <div class="space-y-3">
-            <div class="flex items-center gap-2">
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <span class="w-6 h-6 rounded-md bg-[#DCFCE7] text-[#166534] flex items-center justify-center font-bold text-xs">2</span>
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Product &amp; Packaging Specifications</h4>
             </div>
@@ -6073,8 +6073,8 @@ export const ProductionView = {
           </div>
 
           <!-- Section 3: Quantity & Weights -->
-          <div class="space-y-3">
-            <div class="flex items-center gap-2">
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <span class="w-6 h-6 rounded-md bg-[#DCFCE7] text-[#166534] flex items-center justify-center font-bold text-xs">3</span>
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Quantity &amp; Weight Breakdown</h4>
             </div>
@@ -6099,8 +6099,8 @@ export const ProductionView = {
           </div>
 
           <!-- Section 4: Line Remarks -->
-          <div class="space-y-3">
-            <div class="flex items-center gap-2">
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <span class="w-6 h-6 rounded-md bg-[#DCFCE7] text-[#166534] flex items-center justify-center font-bold text-xs">4</span>
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Line Remarks</h4>
             </div>
