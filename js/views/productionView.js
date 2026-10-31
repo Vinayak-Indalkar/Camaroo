@@ -1157,7 +1157,6 @@ export const ProductionView = {
               <h1 class="text-xl font-extrabold text-[#172B4D] flex items-center gap-2">
                 <span>Production Operations Dashboard</span>
               </h1>
-              <p class="text-xs text-[#6B778C] mt-0.5">Real-time floor line tracking, tunnel freezing telemetry, soaking batches & yield analytics</p>
             </div>
             <div class="flex items-center gap-2 flex-wrap">
               <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E3FCEF] text-[#006644] text-xs font-bold border border-[#ABF5D1]">

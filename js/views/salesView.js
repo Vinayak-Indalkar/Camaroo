@@ -853,7 +853,6 @@ export const SalesView = {
         <div class="flex flex-wrap items-center justify-between gap-3 mb-1">
           <div>
             <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Sales &amp; Exports Commercial Dashboard</h1>
-            <p class="text-xs text-[#5E6C84] mt-0.5 font-medium">Export contracts, running shipments, global freight dispatch &amp; revenue realization</p>
           </div>
           <div class="inline-flex items-center gap-2">
             <button type="button" id="btn-export-sales-summary" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
@@ -1113,8 +1112,7 @@ export const SalesView = {
     this.renderGenericTablePage({
       container,
       pageTitle: 'Proforma Invoices (PI Register)',
-      subtitle: 'Issued commercial proforma invoices, price terms, packaging breakups & customer confirmations',
-      primaryBtnText: 'Generate Proforma Invoice',
+            primaryBtnText: 'Generate Proforma Invoice',
       onPrimaryClick: () => this.showAddProformaModal(),
       filterFields: [
         { id: 'pi-no', label: 'PI Number', placeholder: 'e.g. PI-2026' },
@@ -1150,8 +1148,7 @@ export const SalesView = {
     this.renderGenericTablePage({
       container,
       pageTitle: 'Custom Invoices (Customs Clearance)',
-      subtitle: 'Customs billing documentation, export assessment values & EDI port submission declarations',
-      primaryBtnText: 'Create Custom Invoice',
+            primaryBtnText: 'Create Custom Invoice',
       onPrimaryClick: () => Toast.show('Custom Invoice creation form opened', 'info'),
       filterFields: [
         { id: 'ci-no', label: 'Custom Invoice No', placeholder: 'e.g. CI-EXP' },
@@ -1186,8 +1183,7 @@ export const SalesView = {
     this.renderGenericTablePage({
       container,
       pageTitle: 'ISF Details (Importer Security Filing 10+2)',
-      subtitle: 'Mandatory US Customs and Border Protection (CBP) maritime security filing records for ocean cargo',
-      primaryBtnText: 'Submit ISF 10+2 Record',
+            primaryBtnText: 'Submit ISF 10+2 Record',
       onPrimaryClick: () => Toast.show('ISF Submission form opened', 'info'),
       filterFields: [
         { id: 'isf-no', label: 'ISF Reference No', placeholder: 'e.g. ISF-USA' },
@@ -1219,8 +1215,7 @@ export const SalesView = {
     this.renderGenericTablePage({
       container,
       pageTitle: 'Shipping Bill (Indian Customs Export EDI)',
-      subtitle: 'Electronic Shipping Bills, duty drawback benefits, RoDTEP incentives & Let Export Order (LEO) clearance',
-      primaryBtnText: 'Generate Shipping Bill',
+            primaryBtnText: 'Generate Shipping Bill',
       onPrimaryClick: () => Toast.show('Shipping Bill Generator opened', 'info'),
       filterFields: [
         { id: 'sb-no', label: 'Shipping Bill No', placeholder: 'e.g. SB-2026' },
@@ -1252,8 +1247,7 @@ export const SalesView = {
     this.renderGenericTablePage({
       container,
       pageTitle: 'Commercial Invoices (Final Export Settlement)',
-      subtitle: 'Final negotiable commercial invoices, Bill of Lading pairings, banking documents & foreign trade settlements',
-      primaryBtnText: 'Create Commercial Invoice',
+            primaryBtnText: 'Create Commercial Invoice',
       onPrimaryClick: () => Toast.show('Commercial Invoice generator opened', 'info'),
       filterFields: [
         { id: 'cinv-no', label: 'Invoice No', placeholder: 'e.g. CINV-EXP' },
@@ -1285,8 +1279,7 @@ export const SalesView = {
     this.renderGenericTablePage({
       container,
       pageTitle: 'ETA Status (Update FBD & Arrival Schedules)',
-      subtitle: 'Real-time ocean carrier vessel telemetry, final booking dates, transit coordinates & discharge berthing timelines',
-      primaryBtnText: 'Update Vessel ETA',
+            primaryBtnText: 'Update Vessel ETA',
       onPrimaryClick: () => Toast.show('Vessel tracking update modal opened', 'info'),
       filterFields: [
         { id: 'cont-no', label: 'Container Number', placeholder: 'e.g. ONEU' },
@@ -1319,8 +1312,7 @@ export const SalesView = {
     this.renderGenericTablePage({
       container,
       pageTitle: 'FDA Status (US FDA Prior Notice & Admissibility)',
-      subtitle: 'Prior Notice Confirmation (PNC), US Bioterrorism Act Compliance & Food Safety Modernization Act (FSMA) Verification',
-      primaryBtnText: 'Submit Prior Notice (FDA)',
+            primaryBtnText: 'Submit Prior Notice (FDA)',
       onPrimaryClick: () => Toast.show('FDA Prior Notice submission form opened', 'info'),
       filterFields: [
         { id: 'pnc-no', label: 'PNC Number', placeholder: 'e.g. PNC-FDA' },
@@ -1351,8 +1343,7 @@ export const SalesView = {
     this.renderGenericTablePage({
       container,
       pageTitle: 'Clearing Agent (Custom House Agents & Port Logistics)',
-      subtitle: 'Licensed Customs House Agents (CHA), port terminal handling contracts, cargo carting & gate pass authorizations',
-      primaryBtnText: 'Add Clearing Agent',
+            primaryBtnText: 'Add Clearing Agent',
       onPrimaryClick: () => Toast.show('New CHA onboarding form opened', 'info'),
       filterFields: [
         { id: 'cha-name', label: 'Agent Name', placeholder: 'e.g. Seaways' },
@@ -1411,8 +1402,7 @@ export const SalesView = {
     this.renderGenericTablePage({
       container,
       pageTitle: 'Forward Contracts (Foreign Currency Forex Hedging)',
-      subtitle: 'Bank forex forward contracts, currency hedges, exchange rate bookings, utilized lots & available balance reserves',
-      primaryBtnText: 'Book Forward Contract',
+            primaryBtnText: 'Book Forward Contract',
       onPrimaryClick: () => Toast.show('Booking form for Foreign Exchange Forward Contract opened', 'info'),
       filterFields: [
         { id: 'fwd-no', label: 'Contract No', placeholder: 'e.g. FWD-2026' },
@@ -1450,8 +1440,7 @@ export const SalesView = {
     this.renderGenericTablePage({
       container,
       pageTitle: 'Export Collections (Buyer Inward Remittances)',
-      subtitle: 'Tracking SWIFT MT103 remittances, Cash Against Documents (CAD) collections, bank charges & net proceeds realized',
-      primaryBtnText: 'Record Collection Advice',
+            primaryBtnText: 'Record Collection Advice',
       onPrimaryClick: () => Toast.show('Inward remittance collection recording modal opened', 'info'),
       filterFields: [
         { id: 'col-ref', label: 'Collection Ref', placeholder: 'e.g. COL-2026' },
@@ -1489,8 +1478,7 @@ export const SalesView = {
     this.renderGenericTablePage({
       container,
       pageTitle: 'Export Bill Negotiations (Bank LC Discounting)',
-      subtitle: 'Export bills lodged under Letters of Credit (LC), pre/post-shipment financing, discounting margins & discrepancy scrutiny',
-      primaryBtnText: 'Submit Bill for Negotiation',
+            primaryBtnText: 'Submit Bill for Negotiation',
       onPrimaryClick: () => Toast.show('Export bill lodgement / discounting form opened', 'info'),
       filterFields: [
         { id: 'neg-no', label: 'Negotiation No', placeholder: 'e.g. NEG-2026' },
@@ -1535,8 +1523,7 @@ export const SalesView = {
     this.renderGenericTablePage({
       container,
       pageTitle: 'Export Realization (RBI EDPMS Compliance & Aging)',
-      subtitle: 'RBI EDPMS export bill tracking, 9-month regulatory maturity window, unrealized receivables & aging surveillance',
-      primaryBtnText: 'Update EDPMS Realization',
+            primaryBtnText: 'Update EDPMS Realization',
       onPrimaryClick: () => Toast.show('Realization status update modal opened', 'info'),
       filterFields: [
         { id: 'real-sb', label: 'Shipping Bill No', placeholder: 'e.g. SB-2026' },
@@ -1580,8 +1567,7 @@ export const SalesView = {
     this.renderGenericTablePage({
       container,
       pageTitle: 'Realization Done (DGFT e-BRC Certificates & Closures)',
-      subtitle: 'Electronic Bank Realization Certificates (e-BRC) verified by DGFT for export incentive claims & RBI compliance closure',
-      primaryBtnText: 'Download e-BRC Bulk',
+            primaryBtnText: 'Download e-BRC Bulk',
       onPrimaryClick: () => Toast.show('Preparing e-BRC certified export package download...', 'success'),
       filterFields: [
         { id: 'brc-no', label: 'e-BRC Number', placeholder: 'e.g. eBRC-SBI' },
@@ -1641,8 +1627,7 @@ export const SalesView = {
     this.renderGenericTablePage({
       container,
       pageTitle: 'Pending Insurance (Marine Declarations & Coverage Underwriting)',
-      subtitle: 'Export lots staged for transit requiring Marine Open Cover declarations, underwriter quotation approvals & risk notes',
-      primaryBtnText: 'Generate Marine Declaration',
+            primaryBtnText: 'Generate Marine Declaration',
       onPrimaryClick: () => Toast.show('Marine Declaration generation modal opened', 'info'),
       filterFields: [
         { id: 'pi-lot', label: 'Cargo Lot Ref', placeholder: 'e.g. LOT-EXP' },
@@ -1680,8 +1665,7 @@ export const SalesView = {
     this.renderGenericTablePage({
       container,
       pageTitle: 'Insurance Templates (Marine Policy & Endorsement Presets)',
-      subtitle: 'Configured marine risk coverage templates, Institute Cargo Clauses, standard deductibles & destination underwriter tariffs',
-      primaryBtnText: 'Create Insurance Template',
+            primaryBtnText: 'Create Insurance Template',
       onPrimaryClick: () => Toast.show('New Marine Insurance Template creation modal opened', 'info'),
       filterFields: [
         { id: 'tpl-code', label: 'Template Code', placeholder: 'e.g. TPL-MAR' },
@@ -1714,8 +1698,7 @@ export const SalesView = {
     this.renderGenericTablePage({
       container,
       pageTitle: 'Insurance Payments (Marine Premium Disbursements)',
-      subtitle: 'Premium debit notes, policy invoices, statutory GST breakdowns, electronic bank transfers (NEFT/RTGS) & insurer payment receipts',
-      primaryBtnText: 'Record Premium Payment',
+            primaryBtnText: 'Record Premium Payment',
       onPrimaryClick: () => Toast.show('Premium payment disbursement form opened', 'info'),
       filterFields: [
         { id: 'ip-inv', label: 'Premium Invoice', placeholder: 'e.g. PREM-INV' },
@@ -1751,14 +1734,13 @@ export const SalesView = {
   // ----------------------------------------------------
   // REUSABLE ENTERPRISE TABLE VIEW GENERATOR
   // ----------------------------------------------------
-  renderGenericTablePage({ container, pageTitle, subtitle, primaryBtnText, onPrimaryClick, filterFields, data, keyField, tableTitle, columns }) {
+  renderGenericTablePage({ container, pageTitle, primaryBtnText, onPrimaryClick, filterFields, data, keyField, tableTitle, columns }) {
     container.innerHTML = `
       <div class="space-y-3 animate-fade-in">
         <!-- Page Title & Header Actions -->
         <div class="flex flex-wrap items-center justify-between gap-3 mb-1">
           <div>
             <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">${pageTitle}</h1>
-            <p class="text-xs text-[#5E6C84] mt-0.5 font-medium">${subtitle}</p>
           </div>
           ${primaryBtnText ? `
             <div class="inline-flex items-center gap-2">

@@ -1832,7 +1832,6 @@ export const ColdstoreView = {
       <div class="flex flex-wrap items-center justify-between gap-3 mb-2">
         <div>
           <h1 class="text-xl font-extrabold text-[#172B4D]">Coldstore & Warehouse Dashboard</h1>
-          <p class="text-xs text-[#6B778C] mt-0.5">Real-time cold chain telemetry, multi-chamber capacities & stock overview</p>
         </div>
         <div class="flex items-center gap-2">
           <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E3FCEF] text-[#006644] text-xs font-bold border border-[#ABF5D1]">

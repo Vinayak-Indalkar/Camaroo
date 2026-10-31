@@ -27,6 +27,7 @@ All screens, views, components, and user workflows MUST strictly conform to the 
   ```html
   <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Page Title</h1>
   ```
+- **NO Subheadings**: Never add a subheading, subtitle, or description paragraph (`<p class="...">...</p>`) beneath or accompanying the page title heading or section headings. The header must strictly remain clean with only the `<h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Title</h1>` (and optional contextual inputs / action buttons).
 - **Contextual Inputs on Heading Line** (e.g. Report Type dropdown):
   - Placed alongside heading in a flex container:
   ```html
