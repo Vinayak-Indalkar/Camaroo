@@ -7810,10 +7810,8 @@ export const SalesView = {
               <input type="date" id="flt-eta-to" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
             </div>
 
-            <div></div>
-
-            <!-- Search Button placed inside 4-col grid -->
-            <div class="flex items-end justify-end">
+            <!-- Search Button placed after the last input field -->
+            <div class="flex items-end">
               <button type="button" id="flt-eta-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
                 <span>Search</span>
@@ -8519,11 +8517,8 @@ export const SalesView = {
               </select>
             </div>
 
-            <div></div>
-            <div></div>
-
-            <!-- Search Button placed inside 4-col grid -->
-            <div class="flex items-end justify-end">
+            <!-- Search Button placed after the last input field -->
+            <div class="flex items-end">
               <button type="button" id="flt-fda-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
                 <span>Search</span>
@@ -9286,8 +9281,8 @@ export const SalesView = {
               </select>
             </div>
 
-            <!-- Search Button placed inside 4-col grid -->
-            <div class="sm:col-span-2 md:col-span-4 flex items-end justify-end">
+            <!-- Search Button placed after the last input field -->
+            <div class="flex items-end">
               <button type="button" id="flt-cha-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
                 <span>Search</span>
