@@ -1697,8 +1697,8 @@ export const PreprocessingView = {
         ],
         actions: [
           {
-            label: 'View Consumption',
-            icon: `<svg class="w-4 h-4 text-[#0284C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>`,
+            label: 'Consumption',
+            icon: `<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>`,
             onClick: () => { window.location.hash = '#/preprocessing/chemical-screens/chemicals-consumption'; }
           }
         ],
@@ -1771,7 +1771,7 @@ export const PreprocessingView = {
         <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200" style="margin-bottom: 12px !important;">
           <div class="flex items-center justify-between pb-1">
             <div class="flex items-center gap-2">
-              <svg class="w-4 h-4 text-[#0284C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+              <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
               <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
             </div>
 
@@ -1788,7 +1788,7 @@ export const PreprocessingView = {
           </div>
 
           <!-- Collapsible Filter Inputs Grid (Streamlined ERP Search Fields) -->
-          <div id="deheading-top-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
+          <div id="deheading-top-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
             <!-- 1. ARRIVAL/LOT CODE -->
             <div>
               <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">ARRIVAL / LOT CODE</label>
@@ -1874,7 +1874,7 @@ export const PreprocessingView = {
 
             <!-- 8. Search Button Slot -->
             <div class="flex items-end">
-              <button type="button" id="dh-filter-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]">
+              <button type="button" id="dh-filter-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px] bg-[#00A4B7] hover:bg-[#008F9F] text-white">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                 <span>Search</span>
               </button>
@@ -2403,7 +2403,7 @@ export const PreprocessingView = {
         <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200" style="margin-bottom: 12px !important;">
           <div class="flex items-center justify-between pb-1">
             <div class="flex items-center gap-2">
-              <svg class="w-4 h-4 text-[#0284C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+              <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
               <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
             </div>
 
@@ -2420,7 +2420,7 @@ export const PreprocessingView = {
           </div>
 
           <!-- Collapsible Filter Inputs Grid (14 Fields + Search Button) -->
-          <div id="grading-top-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
+          <div id="grading-top-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
             <!-- 1. ARRIVAL/LOT CODE -->
             <div>
               <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">ARRIVAL / LOT CODE</label>
@@ -2500,7 +2500,7 @@ export const PreprocessingView = {
 
             <!-- 8. Search Button Slot -->
             <div class="flex items-end">
-              <button type="button" id="gr-filter-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]">
+              <button type="button" id="gr-filter-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px] bg-[#00A4B7] hover:bg-[#008F9F] text-white">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                 <span>Search</span>
               </button>
@@ -2985,7 +2985,7 @@ export const PreprocessingView = {
         <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200" style="margin-bottom: 12px !important;">
           <div class="flex items-center justify-between pb-1">
             <div class="flex items-center gap-2">
-              <svg class="w-4 h-4 text-[#0284C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+              <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
               <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
             </div>
 
@@ -3002,7 +3002,7 @@ export const PreprocessingView = {
           </div>
 
           <!-- Collapsible Filter Inputs Grid (2 Balanced Rows × 4 Columns) -->
-          <div id="rmtrack-top-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
+          <div id="rmtrack-top-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
             <!-- 1. PRODUCTION PLANT -->
             <div>
               <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCTION PLANT</label>
@@ -3070,7 +3070,7 @@ export const PreprocessingView = {
 
             <!-- 8. Search Button Slot (Compact, Natural Width) -->
             <div class="flex items-end">
-              <button type="button" id="rmt-filter-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]">
+              <button type="button" id="rmt-filter-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px] bg-[#00A4B7] hover:bg-[#008F9F] text-white">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                 <span>Search</span>
               </button>
@@ -4557,7 +4557,7 @@ export const PreprocessingView = {
         <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200" style="margin-bottom: 12px !important;">
           <div class="flex items-center justify-between pb-1">
             <div class="flex items-center gap-2">
-              <svg class="w-4 h-4 text-[#0284C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+              <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
               <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
             </div>
 
@@ -4574,7 +4574,7 @@ export const PreprocessingView = {
           </div>
 
           <!-- Collapsible Filter Inputs Grid (2 Balanced Rows × 4 Columns) -->
-          <div id="dhtrack-top-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
+          <div id="dhtrack-top-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
             <!-- 1. PRODUCTION PLANT -->
             <div>
               <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCTION PLANT</label>
@@ -4644,7 +4644,7 @@ export const PreprocessingView = {
 
             <!-- 8. Search Button Slot (Compact, Natural Width) -->
             <div class="flex items-end">
-              <button type="button" id="dht-filter-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]">
+              <button type="button" id="dht-filter-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px] bg-[#00A4B7] hover:bg-[#008F9F] text-white">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                 <span>Search</span>
               </button>
@@ -5995,7 +5995,7 @@ export const PreprocessingView = {
         <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200" style="margin-bottom: 12px !important;">
           <div class="flex items-center justify-between pb-1">
             <div class="flex items-center gap-2">
-              <svg class="w-4 h-4 text-[#0284C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+              <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
               <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
             </div>
 
@@ -6012,7 +6012,7 @@ export const PreprocessingView = {
           </div>
 
           <!-- Collapsible Filter Inputs Grid (2 Balanced Rows × 4 Columns) -->
-          <div id="grtrack-top-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
+          <div id="grtrack-top-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
             <!-- 1. PRODUCTION PLANT -->
             <div>
               <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCTION PLANT</label>
@@ -6088,7 +6088,7 @@ export const PreprocessingView = {
 
             <!-- 8. Search Button Slot (Compact, Natural Width) -->
             <div class="flex items-end">
-              <button type="button" id="grt-filter-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]">
+              <button type="button" id="grt-filter-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px] bg-[#00A4B7] hover:bg-[#008F9F] text-white">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                 <span>Search</span>
               </button>
@@ -7148,7 +7148,7 @@ export const PreprocessingView = {
         <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200" style="margin-bottom: 12px !important;">
           <div class="flex items-center justify-between pb-1">
             <div class="flex items-center gap-2">
-              <svg class="w-4 h-4 text-[#0284C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+              <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
               <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
             </div>
 
@@ -7165,7 +7165,7 @@ export const PreprocessingView = {
           </div>
 
           <!-- Collapsible Filter Inputs Grid (2 Balanced Rows × 4 Columns) -->
-          <div id="vatrack-top-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
+          <div id="vatrack-top-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
             <!-- 1. PRODUCTION PLANT -->
             <div>
               <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCTION PLANT</label>
@@ -7240,7 +7240,7 @@ export const PreprocessingView = {
 
             <!-- 8. Search Button Slot (Compact, Natural Width) -->
             <div class="flex items-end">
-              <button type="button" id="vat-filter-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]">
+              <button type="button" id="vat-filter-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px] bg-[#00A4B7] hover:bg-[#008F9F] text-white">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                 <span>Search</span>
               </button>
@@ -8836,7 +8836,7 @@ export const PreprocessingView = {
         <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200" style="margin-bottom: 12px !important;">
           <div class="flex items-center justify-between pb-1">
             <div class="flex items-center gap-2">
-              <svg class="w-4 h-4 text-[#0284C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+              <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
               <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
             </div>
 
@@ -8853,7 +8853,7 @@ export const PreprocessingView = {
           </div>
 
           <!-- Collapsible Filter Inputs Grid (2 Balanced Rows × 4 Columns) -->
-          <div id="hontrack-top-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
+          <div id="hontrack-top-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
             <!-- 1. PRODUCTION PLANT -->
             <div>
               <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCTION PLANT</label>
@@ -8926,7 +8926,7 @@ export const PreprocessingView = {
 
             <!-- 8. Search Button Slot (Compact, Natural Width) -->
             <div class="flex items-end">
-              <button type="button" id="hnt-filter-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]">
+              <button type="button" id="hnt-filter-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px] bg-[#00A4B7] hover:bg-[#008F9F] text-white">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                 <span>Search</span>
               </button>
@@ -9870,7 +9870,7 @@ export const PreprocessingView = {
         <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200" style="margin-bottom: 12px !important;">
           <div class="flex items-center justify-between pb-1">
             <div class="flex items-center gap-2">
-              <svg class="w-4 h-4 text-[#0284C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+              <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
               <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
             </div>
 
@@ -9887,7 +9887,7 @@ export const PreprocessingView = {
           </div>
 
           <!-- Collapsible Filter Inputs Grid (2 Balanced Rows × 3 Columns) -->
-          <div id="cpo-top-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 text-xs transition-all duration-200">
+          <div id="cpo-top-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 text-xs transition-all duration-200" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
             <!-- 1. SUPPLIER -->
             <div>
               <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SUPPLIER</label>
@@ -9945,7 +9945,7 @@ export const PreprocessingView = {
 
             <!-- 6. Search Button Slot (Compact, Natural Width) -->
             <div class="flex items-end">
-              <button type="button" id="cpo-filter-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]">
+              <button type="button" id="cpo-filter-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px] bg-[#00A4B7] hover:bg-[#008F9F] text-white">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                 <span>Search</span>
               </button>
@@ -10586,7 +10586,7 @@ export const PreprocessingView = {
         <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200" style="margin-bottom: 12px !important;">
           <div class="flex items-center justify-between pb-1">
             <div class="flex items-center gap-2">
-              <svg class="w-4 h-4 text-[#0284C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+              <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
               <h3 class="text-xs font-bold text-[#172B4D] mb-0">Search &amp; Filters</h3>
             </div>
             <div class="inline-flex items-center" style="gap: 8px;">
@@ -10599,7 +10599,7 @@ export const PreprocessingView = {
             </div>
           </div>
 
-          <div id="rch-top-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+          <div id="rch-top-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
             <!-- 1. PLANT -->
             <div>
               <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PLANT</label>
@@ -10636,7 +10636,7 @@ export const PreprocessingView = {
 
             <!-- Search Button -->
             <div class="flex items-end">
-              <button type="button" id="rch-filter-search-btn" class="dt-top-filter-search-btn btn-primary border-0 px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]">
+              <button type="button" id="rch-filter-search-btn" class="dt-top-filter-search-btn btn-primary border-0 px-5 py-1.5 rounded-full text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px] bg-[#00A4B7] hover:bg-[#008F9F] text-white">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                 <span>Search</span>
               </button>
@@ -11291,7 +11291,7 @@ export const PreprocessingView = {
         <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200" style="margin-bottom: 12px !important;">
           <div class="flex items-center justify-between pb-1">
             <div class="flex items-center gap-2">
-              <svg class="w-4 h-4 text-[#0284C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+              <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
               <h3 class="text-xs font-bold text-[#172B4D] mb-0">Search &amp; Filters</h3>
             </div>
             <div class="inline-flex items-center" style="gap: 8px;">
@@ -11304,7 +11304,7 @@ export const PreprocessingView = {
             </div>
           </div>
 
-          <div id="csm-top-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+          <div id="csm-top-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
             <!-- 1. PLANT -->
             <div>
               <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PLANT</label>
@@ -11348,7 +11348,7 @@ export const PreprocessingView = {
 
             <!-- 5. Search Button (Second Row) -->
             <div class="sm:col-span-2 md:col-span-4 flex items-center justify-start pt-1">
-              <button type="button" id="csm-filter-search-btn" class="dt-top-filter-search-btn btn-primary border-0 px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]">
+              <button type="button" id="csm-filter-search-btn" class="dt-top-filter-search-btn btn-primary border-0 px-5 py-1.5 rounded-full text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px] bg-[#00A4B7] hover:bg-[#008F9F] text-white">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                 <span>Search</span>
               </button>
@@ -11893,7 +11893,7 @@ export const PreprocessingView = {
         <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200" style="margin-bottom: 12px !important;">
           <div class="flex items-center justify-between pb-1">
             <div class="flex items-center gap-2">
-              <svg class="w-4 h-4 text-[#0284C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+              <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
               <h3 class="text-xs font-bold text-[#172B4D] mb-0">Search &amp; Filters</h3>
             </div>
             <div class="inline-flex items-center" style="gap: 8px;">
@@ -11906,7 +11906,7 @@ export const PreprocessingView = {
             </div>
           </div>
 
-          <div id="crr-top-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+          <div id="crr-top-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
             <!-- 1. PLANT -->
             <div>
               <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PLANT</label>
@@ -11932,7 +11932,7 @@ export const PreprocessingView = {
 
             <!-- 3. Search Button Slot (Compact, Natural Width) -->
             <div class="flex items-end">
-              <button type="button" id="crr-filter-search-btn" class="dt-top-filter-search-btn btn-primary border-0 px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]">
+              <button type="button" id="crr-filter-search-btn" class="dt-top-filter-search-btn btn-primary border-0 px-5 py-1.5 rounded-full text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px] bg-[#00A4B7] hover:bg-[#008F9F] text-white">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                 <span>Search</span>
               </button>
@@ -12080,7 +12080,7 @@ export const PreprocessingView = {
         <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200" style="margin-bottom: 12px !important;">
           <div class="flex items-center justify-between pb-1">
             <div class="flex items-center gap-2">
-              <svg class="w-4 h-4 text-[#0284C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+              <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
               <h3 class="text-xs font-bold text-[#172B4D] mb-0">Search &amp; Filters</h3>
             </div>
             <div class="inline-flex items-center" style="gap: 8px;">
@@ -12093,7 +12093,7 @@ export const PreprocessingView = {
             </div>
           </div>
 
-          <div id="cob-top-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+          <div id="cob-top-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
             <!-- 1. PLANT -->
             <div>
               <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PLANT</label>
@@ -12129,7 +12129,7 @@ export const PreprocessingView = {
 
             <!-- 4. Search Button Slot (Compact, Natural Width) -->
             <div class="flex items-end">
-              <button type="button" id="cob-filter-search-btn" class="dt-top-filter-search-btn btn-primary border-0 px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]">
+              <button type="button" id="cob-filter-search-btn" class="dt-top-filter-search-btn btn-primary border-0 px-5 py-1.5 rounded-full text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px] bg-[#00A4B7] hover:bg-[#008F9F] text-white">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                 <span>Search</span>
               </button>
@@ -12402,7 +12402,7 @@ export const PreprocessingView = {
         <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200" style="margin-bottom: 12px !important;">
           <div class="flex items-center justify-between pb-1">
             <div class="flex items-center gap-2">
-              <svg class="w-4 h-4 text-[#0284C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+              <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
               <h3 class="text-xs font-bold text-[#172B4D] mb-0">Search &amp; Filters</h3>
             </div>
             <div class="inline-flex items-center" style="gap: 8px;">
@@ -12415,7 +12415,7 @@ export const PreprocessingView = {
             </div>
           </div>
 
-          <div id="cbl-top-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+          <div id="cbl-top-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
             <!-- 1. PLANT -->
             <div>
               <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PLANT</label>
@@ -12490,7 +12490,7 @@ export const PreprocessingView = {
 
             <!-- Search Button Slot -->
             <div class="sm:col-span-2 md:col-span-2 flex items-end">
-              <button type="button" id="cbl-filter-search-btn" class="dt-top-filter-search-btn btn-primary border-0 px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]">
+              <button type="button" id="cbl-filter-search-btn" class="dt-top-filter-search-btn btn-primary border-0 px-5 py-1.5 rounded-full text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px] bg-[#00A4B7] hover:bg-[#008F9F] text-white">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                 <span>Search</span>
               </button>
@@ -12705,7 +12705,7 @@ export const PreprocessingView = {
         <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200" style="margin-bottom: 12px !important;">
           <div class="flex items-center justify-between pb-1">
             <div class="flex items-center gap-2">
-              <svg class="w-4 h-4 text-[#0284C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+              <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
               <h3 class="text-xs font-bold text-[#172B4D] mb-0">Search &amp; Filters</h3>
             </div>
             <div class="inline-flex items-center" style="gap: 8px;">
@@ -12718,7 +12718,7 @@ export const PreprocessingView = {
             </div>
           </div>
 
-          <div id="cpay-top-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+          <div id="cpay-top-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
             <!-- 1. SUPPLIER -->
             <div>
               <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">SUPPLIER</label>
@@ -12745,7 +12745,7 @@ export const PreprocessingView = {
 
             <!-- 3. Search Button Slot (Compact, Natural Width) -->
             <div class="flex items-end">
-              <button type="button" id="cpay-filter-search-btn" class="dt-top-filter-search-btn btn-primary border-0 px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]">
+              <button type="button" id="cpay-filter-search-btn" class="dt-top-filter-search-btn btn-primary border-0 px-5 py-1.5 rounded-full text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px] bg-[#00A4B7] hover:bg-[#008F9F] text-white">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                 <span>Search</span>
               </button>

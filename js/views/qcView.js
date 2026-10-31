@@ -1192,7 +1192,7 @@ export const QCView = {
               <button type="button" id="qc-toggle-filters" class="dt-top-filter-toggle-btn inline-flex items-center justify-center bg-white border border-[#CBD5E1] text-[#334155] rounded-full cursor-pointer" title="Hide Filter" aria-label="Hide Filter" aria-expanded="true" aria-controls="qc-filters">${this.icon('ChevronDown')}</button>
             </div>
           </div>
-          <form id="qc-filters" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
+          <form id="qc-filters" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
             ${['food-audit-list', 'social-audit-list', 'farm-audit-list', 'hatchery-audit-list', 'feed-mill-audit-list'].includes(key) ? `
               <div>
                 <label for="qc-filter-plant" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCTION PLANT</label>
@@ -1299,7 +1299,7 @@ export const QCView = {
               <div><label for="qc-filter-to" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">TO DATE</label><div class="erp-date-wrapper"><input id="qc-filter-to" type="date" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" onclick="this.showPicker ? this.showPicker() : this.focus()" /></div></div>
             `}
             <div class="flex items-end">
-              <button type="submit" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 cursor-pointer">${this.icon('Search')}<span>${key === 'lab-report' ? 'Reports' : 'Search'}</span></button>
+              <button type="submit" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold flex items-center justify-center gap-1.5 cursor-pointer bg-[#00A4B7] hover:bg-[#008F9F] text-white">${this.icon('Search')}<span>${key === 'lab-report' ? 'Reports' : 'Search'}</span></button>
             </div>
           </form>
         </div>
@@ -3672,7 +3672,7 @@ export const QCView = {
         <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200" style="margin-bottom: 12px !important;">
           <div class="flex items-center justify-between pb-1">
             <div class="flex items-center gap-2">
-              <svg style="width: 16px; height: 16px; min-width: 16px; min-height: 16px; stroke: #0284C7; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+              <svg style="width: 16px; height: 16px; min-width: 16px; min-height: 16px; text-[#00A4B7]; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
               <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
             </div>
 
@@ -3703,7 +3703,7 @@ export const QCView = {
           </div>
 
           <!-- Collapsible Filter Inputs Grid (Matching Image 1: 7 Fields + Search) -->
-          <div id="qc-dash-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
+          <div id="qc-dash-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-3 text-xs transition-all duration-200" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
             <!-- 1. Financial Year -->
             <div>
               <label for="qc-filter-fy" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">FINANCIAL YEAR</label>
@@ -3803,7 +3803,7 @@ export const QCView = {
               <button 
                 type="button" 
                 id="qc-dash-search-btn" 
-                class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]"
+                class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px] bg-[#00A4B7] hover:bg-[#008F9F] text-white"
                 title="Search Filter Records"
               >
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
@@ -3940,7 +3940,7 @@ export const QCView = {
                 <label for="qc-lots-input" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0.5">LOTS</label>
                 <div class="flex items-center gap-2">
                   <input type="text" id="qc-lots-input" placeholder="Select or enter lot number..." class="w-64 text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7] font-mono text-[#172B4D]" />
-                  <button type="button" id="qc-lots-search-btn" class="btn-primary px-4 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]">
+                  <button type="button" id="qc-lots-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                     <span>Search Lots</span>
                   </button>

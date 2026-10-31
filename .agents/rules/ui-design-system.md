@@ -127,3 +127,4 @@ All screens, views, components, and user workflows MUST strictly conform to the 
 2. **Read**: Search & Filter + responsive DataTable with sorting, pagination, and column resizing.
 3. **Update**: Action button / click -> pre-populated modal -> update -> `Toast.show('... updated successfully', 'success')`.
 4. **Delete**: Action button -> `Modal.confirm` destructive popup -> removal from dataset -> table refresh -> `Toast.show('... deleted', 'success')`.
+

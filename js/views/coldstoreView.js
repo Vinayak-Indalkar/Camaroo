@@ -1948,7 +1948,7 @@ export const ColdstoreView = {
       <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200" style="margin-bottom: 12px !important;">
         <div class="flex items-center justify-between pb-1">
           <div class="flex items-center gap-2">
-            <svg class="w-4 h-4 text-[#0284C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+            <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
             <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
           </div>
 
@@ -1965,7 +1965,7 @@ export const ColdstoreView = {
         </div>
 
         <!-- Filter Inputs Grid: 6 Requested Fields + Action Slot -->
-        <div id="dp-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
+        <div id="dp-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
           
           <!-- 1. START DATE * -->
           <div>
@@ -2040,7 +2040,7 @@ export const ColdstoreView = {
 
           <!-- Search Button Slot -->
           <div class="flex items-end gap-2">
-            <button type="button" id="dp-filter-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]">
+            <button type="button" id="dp-filter-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px] bg-[#00A4B7] hover:bg-[#008F9F] text-white">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
               <span>Search</span>
             </button>
@@ -2321,7 +2321,7 @@ export const ColdstoreView = {
         <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200" style="margin-bottom: 12px !important;">
           <div class="flex items-center justify-between pb-1">
             <div class="flex items-center gap-2">
-              <svg style="width: 16px; height: 16px; min-width: 16px; min-height: 16px; stroke: #0284C7; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+              <svg style="width: 16px; height: 16px; min-width: 16px; min-height: 16px; text-[#00A4B7]; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
               <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
             </div>
 
@@ -2352,7 +2352,7 @@ export const ColdstoreView = {
           </div>
 
           <!-- Collapsible Filter Inputs Grid (4 Columns) -->
-          <div id="dso-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
+          <div id="dso-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-3 text-xs transition-all duration-200" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
             <!-- 1. STOCK OUT DATE * -->
             <div>
               <label for="dso-filter-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STOCK OUT DATE <span class="text-red-500 font-black">*</span></label>
@@ -2404,7 +2404,7 @@ export const ColdstoreView = {
               <button 
                 type="button" 
                 id="dso-filter-search-btn" 
-                class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]"
+                class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px] bg-[#00A4B7] hover:bg-[#008F9F] text-white"
                 title="Search Filter Records"
               >
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
@@ -2674,7 +2674,7 @@ export const ColdstoreView = {
         <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200" style="margin-bottom: 12px !important;">
           <div class="flex items-center justify-between pb-1">
             <div class="flex items-center gap-2">
-              <svg style="width: 16px; height: 16px; min-width: 16px; min-height: 16px; stroke: #0284C7; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+              <svg style="width: 16px; height: 16px; min-width: 16px; min-height: 16px; text-[#00A4B7]; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
               <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
             </div>
 
@@ -2705,7 +2705,7 @@ export const ColdstoreView = {
           </div>
 
           <!-- Collapsible Filter Inputs Grid -->
-          <div id="fz-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
+          <div id="fz-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
             <!-- 1. PRODUCTION DATE -->
             <div>
               <label for="fz-filter-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCTION DATE</label>
@@ -2793,7 +2793,7 @@ export const ColdstoreView = {
               <button 
                 type="button" 
                 id="fz-filter-search-btn" 
-                class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]"
+                class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px] bg-[#00A4B7] hover:bg-[#008F9F] text-white"
                 title="Search Filter Records"
               >
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
@@ -3115,7 +3115,7 @@ export const ColdstoreView = {
         <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200" style="margin-bottom: 12px !important;">
           <div class="flex items-center justify-between pb-1">
             <div class="flex items-center gap-2">
-              <svg style="width: 16px; height: 16px; min-width: 16px; min-height: 16px; stroke: #0284C7; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+              <svg style="width: 16px; height: 16px; min-width: 16px; min-height: 16px; text-[#00A4B7]; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
               <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
             </div>
 
@@ -3146,7 +3146,7 @@ export const ColdstoreView = {
           </div>
 
           <!-- Collapsible Filter Inputs Grid (4 Columns) -->
-          <div id="cs-inward-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
+          <div id="cs-inward-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-3 text-xs transition-all duration-200" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
             <!-- 1. PRODUCTION DATE -->
             <div>
               <label for="cs-inward-filter-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCTION DATE</label>
@@ -3227,7 +3227,7 @@ export const ColdstoreView = {
               <button 
                 type="button" 
                 id="cs-inward-filter-search-btn" 
-                class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]"
+                class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px] bg-[#00A4B7] hover:bg-[#008F9F] text-white"
                 title="Search Filter Records"
               >
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
@@ -3545,7 +3545,7 @@ export const ColdstoreView = {
         <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200" style="margin-bottom: 12px !important;">
           <div class="flex items-center justify-between pb-1">
             <div class="flex items-center gap-2">
-              <svg style="width: 16px; height: 16px; min-width: 16px; min-height: 16px; stroke: #0284C7; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+              <svg style="width: 16px; height: 16px; min-width: 16px; min-height: 16px; text-[#00A4B7]; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
               <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
             </div>
 
@@ -3576,7 +3576,7 @@ export const ColdstoreView = {
           </div>
 
           <!-- Collapsible Filter Inputs Grid (Matching 14 User-Specified Fields) -->
-          <div id="so-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
+          <div id="so-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
             <!-- 1. COLD STORES -->
             <div>
               <label for="so-filter-coldstore" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">COLD STORES</label>
@@ -3748,7 +3748,7 @@ export const ColdstoreView = {
               <button 
                 type="button" 
                 id="so-filter-search-btn" 
-                class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]"
+                class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px] bg-[#00A4B7] hover:bg-[#008F9F] text-white"
                 title="Search Filter Records"
               >
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
@@ -4857,7 +4857,7 @@ export const ColdstoreView = {
         <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200" style="margin-bottom: 12px !important;">
           <div class="flex items-center justify-between pb-1">
             <div class="flex items-center gap-2">
-              <svg style="width: 16px; height: 16px; min-width: 16px; min-height: 16px; stroke: #0284C7; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+              <svg style="width: 16px; height: 16px; min-width: 16px; min-height: 16px; text-[#00A4B7]; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
               <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
             </div>
 
@@ -4888,7 +4888,7 @@ export const ColdstoreView = {
           </div>
 
           <!-- Collapsible Filter Inputs Grid (Matching 5 User-Specified Fields) -->
-          <div id="ro-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
+          <div id="ro-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
             <!-- 1. COLD STORES -->
             <div>
               <label for="ro-filter-coldstore" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">COLD STORES</label>
@@ -4956,7 +4956,7 @@ export const ColdstoreView = {
               <button 
                 type="button" 
                 id="ro-filter-search-btn" 
-                class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]"
+                class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px] bg-[#00A4B7] hover:bg-[#008F9F] text-white"
                 title="Search Filter Records"
               >
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
@@ -5253,7 +5253,7 @@ export const ColdstoreView = {
         <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200" style="margin-bottom: 12px !important;">
           <div class="flex items-center justify-between pb-1">
             <div class="flex items-center gap-2">
-              <svg style="width: 16px; height: 16px; min-width: 16px; min-height: 16px; stroke: #0284C7; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+              <svg style="width: 16px; height: 16px; min-width: 16px; min-height: 16px; text-[#00A4B7]; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
               <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
             </div>
 
@@ -5284,7 +5284,7 @@ export const ColdstoreView = {
           </div>
 
           <!-- Collapsible Filter Inputs Grid (Matching 12 User-Specified Fields) -->
-          <div id="os-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
+          <div id="os-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
             <!-- 1. COLD STORES -->
             <div>
               <label for="os-filter-coldstore" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">COLD STORES</label>
@@ -5430,7 +5430,7 @@ export const ColdstoreView = {
               <button 
                 type="button" 
                 id="os-filter-search-btn" 
-                class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]"
+                class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px] bg-[#00A4B7] hover:bg-[#008F9F] text-white"
                 title="Search Filter Records"
               >
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
@@ -5909,7 +5909,7 @@ export const ColdstoreView = {
         <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200" style="margin-bottom: 12px !important;">
           <div class="flex items-center justify-between pb-1">
             <div class="flex items-center gap-2">
-              <svg style="width: 16px; height: 16px; min-width: 16px; min-height: 16px; stroke: #0284C7; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+              <svg style="width: 16px; height: 16px; min-width: 16px; min-height: 16px; text-[#00A4B7]; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
               <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
             </div>
 
@@ -5940,7 +5940,7 @@ export const ColdstoreView = {
           </div>
 
           <!-- Collapsible Filter Inputs Grid (Matching 5 User-Specified Fields) -->
-          <div id="sl-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
+          <div id="sl-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
             <!-- 1. COLD STORES -->
             <div>
               <label for="sl-filter-coldstore" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">COLD STORES</label>
@@ -6008,7 +6008,7 @@ export const ColdstoreView = {
               <button 
                 type="button" 
                 id="sl-filter-search-btn" 
-                class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]"
+                class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px] bg-[#00A4B7] hover:bg-[#008F9F] text-white"
                 title="Search Filter Records"
               >
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
@@ -6289,7 +6289,7 @@ export const ColdstoreView = {
         <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200" style="margin-bottom: 12px !important;">
           <div class="flex items-center justify-between pb-1">
             <div class="flex items-center gap-2">
-              <svg style="width: 16px; height: 16px; min-width: 16px; min-height: 16px; stroke: #0284C7; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+              <svg style="width: 16px; height: 16px; min-width: 16px; min-height: 16px; text-[#00A4B7]; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
               <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
             </div>
 
@@ -6320,7 +6320,7 @@ export const ColdstoreView = {
           </div>
 
           <!-- Collapsible Filter Inputs Grid (Matching 15 User-Specified Fields) -->
-          <div id="vs-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
+          <div id="vs-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
             <!-- 1. COLD STORES -->
             <div>
               <label for="vs-filter-coldstore" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">COLD STORES</label>
@@ -6504,7 +6504,7 @@ export const ColdstoreView = {
               <button 
                 type="button" 
                 id="vs-filter-search-btn" 
-                class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]"
+                class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px] bg-[#00A4B7] hover:bg-[#008F9F] text-white"
                 title="Search Filter Records"
               >
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
@@ -7083,7 +7083,7 @@ export const ColdstoreView = {
         <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200" style="margin-bottom: 12px !important;">
           <div class="flex items-center justify-between pb-1">
             <div class="flex items-center gap-2">
-              <svg style="width: 16px; height: 16px; min-width: 16px; min-height: 16px; stroke: #0284C7; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+              <svg style="width: 16px; height: 16px; min-width: 16px; min-height: 16px; text-[#00A4B7]; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
               <h3 class="text-xs font-bold text-[#172B4D]">Store &amp; Rack Search Filters</h3>
             </div>
 
@@ -7114,7 +7114,7 @@ export const ColdstoreView = {
           </div>
 
           <!-- Collapsible Filter Inputs Grid (Consistent 4 Columns Grid) -->
-          <div id="vsl-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
+          <div id="vsl-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
             <!-- 1. STORE ID * -->
             <div>
               <label for="vsl-filter-store" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STORE ID <span class="text-[#DE350B] font-bold">*</span></label>
@@ -7158,7 +7158,7 @@ export const ColdstoreView = {
               <button 
                 type="button" 
                 id="vsl-filter-search-btn" 
-                class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]"
+                class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px] bg-[#00A4B7] hover:bg-[#008F9F] text-white"
                 title="Search Filter Records"
               >
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
@@ -7898,7 +7898,7 @@ export const ColdstoreView = {
         <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200" style="margin-bottom: 12px !important;">
           <div class="flex items-center justify-between pb-1">
             <div class="flex items-center gap-2">
-              <svg style="width: 16px; height: 16px; min-width: 16px; min-height: 16px; stroke: #0284C7; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+              <svg style="width: 16px; height: 16px; min-width: 16px; min-height: 16px; text-[#00A4B7]; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
               <h3 class="text-xs font-bold text-[#172B4D]">Store &amp; Rack Configuration Search Filters</h3>
             </div>
 
@@ -7929,7 +7929,7 @@ export const ColdstoreView = {
           </div>
 
           <!-- Collapsible Filter Inputs Grid (Consistent 4 Columns Grid) -->
-          <div id="rn-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
+          <div id="rn-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
             <!-- 1. STORE ID * -->
             <div>
               <label for="rn-filter-store" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">STORE ID <span class="text-[#DE350B] font-bold">*</span></label>
@@ -7979,7 +7979,7 @@ export const ColdstoreView = {
               <button 
                 type="button" 
                 id="rn-filter-search-btn" 
-                class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]"
+                class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px] bg-[#00A4B7] hover:bg-[#008F9F] text-white"
                 title="Search &amp; Configure Rack Names"
               >
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
@@ -8371,7 +8371,7 @@ export const ColdstoreView = {
         <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200" style="margin-bottom: 12px !important;">
           <div class="flex items-center justify-between pb-1">
             <div class="flex items-center gap-2">
-              <svg style="width: 16px; height: 16px; min-width: 16px; min-height: 16px; stroke: #0284C7; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+              <svg style="width: 16px; height: 16px; min-width: 16px; min-height: 16px; text-[#00A4B7]; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
               <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
             </div>
 
@@ -8402,7 +8402,7 @@ export const ColdstoreView = {
           </div>
 
           <!-- Form Input Fields (Standard ERP 4-Column Grid) -->
-          <div id="dpl-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
+          <div id="dpl-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
             <!-- 1. PRODUCTION DATE * -->
             <div>
               <label for="dpl-filter-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">PRODUCTION DATE <span class="text-[#DE350B] font-bold">*</span></label>
@@ -8449,7 +8449,7 @@ export const ColdstoreView = {
               <button 
                 type="button" 
                 id="dpl-filter-search-btn" 
-                class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]" 
+                class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px] bg-[#00A4B7] hover:bg-[#008F9F] text-white" 
                 title="Search Filter Records"
               >
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
@@ -8875,7 +8875,7 @@ export const ColdstoreView = {
         <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200" style="margin-bottom: 12px !important;">
           <div class="flex items-center justify-between pb-1">
             <div class="flex items-center gap-2">
-              <svg style="width: 16px; height: 16px; min-width: 16px; min-height: 16px; stroke: #0284C7; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+              <svg style="width: 16px; height: 16px; min-width: 16px; min-height: 16px; text-[#00A4B7]; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
               <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
             </div>
 
@@ -8906,7 +8906,7 @@ export const ColdstoreView = {
           </div>
 
           <!-- Form Input Fields (Standard ERP 4-Column Grid) -->
-          <div id="ia-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
+          <div id="ia-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
             <!-- 1. COLD STORES -->
             <div>
               <label for="ia-filter-cold-store" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">COLD STORES</label>
@@ -9045,7 +9045,7 @@ export const ColdstoreView = {
               <button 
                 type="button" 
                 id="ia-filter-search-btn" 
-                class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]"
+                class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px] bg-[#00A4B7] hover:bg-[#008F9F] text-white"
                 title="Search Filter Records"
               >
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
@@ -9481,7 +9481,7 @@ export const ColdstoreView = {
       <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200" style="margin-bottom: 12px !important;">
         <div class="flex items-center justify-between pb-1">
           <div class="flex items-center gap-2">
-            <svg style="width: 16px; height: 16px; min-width: 16px; min-height: 16px; stroke: #0284C7; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+            <svg style="width: 16px; height: 16px; min-width: 16px; min-height: 16px; text-[#00A4B7]; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
             <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
           </div>
 
@@ -9498,7 +9498,7 @@ export const ColdstoreView = {
         </div>
 
         <!-- Form Input Fields (Standard 4-Column Grid) -->
-        <div id="ibt-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
+        <div id="ibt-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
           <!-- 1. COLD STORES -->
           <div>
             <label for="ibt-filter-coldstore" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">COLD STORES</label>
@@ -9570,7 +9570,7 @@ export const ColdstoreView = {
 
           <!-- Search Action Button Slot -->
           <div class="flex items-end">
-            <button type="button" id="ibt-filter-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]" title="Search Filter Records">
+            <button type="button" id="ibt-filter-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px] bg-[#00A4B7] hover:bg-[#008F9F] text-white" title="Search Filter Records">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
               <span>Search</span>
             </button>
@@ -9611,13 +9611,9 @@ export const ColdstoreView = {
             }
           }
         ],
+        onRowClick: (row) => this.showIbtDetailModal(row),
         actionsTitle: 'Actions',
         actions: [
-          {
-            label: 'View Details',
-            icon: `<svg class="w-4 h-4 text-[#0284C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>`,
-            onClick: (row) => this.showIbtDetailModal(row)
-          },
           {
             label: 'Print Gate Pass',
             icon: `<svg class="w-4 h-4 text-[#403294]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>`,
@@ -9906,7 +9902,7 @@ export const ColdstoreView = {
           <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs transition-all duration-200">
             <div class="flex items-center justify-between pb-1">
               <div class="flex items-center gap-2">
-                <svg style="width: 16px; height: 16px; min-width: 16px; min-height: 16px; stroke: #0284C7; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+                <svg style="width: 16px; height: 16px; min-width: 16px; min-height: 16px; text-[#00A4B7]; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
                 <h3 class="text-xs font-bold text-[#172B4D]">Search Available Stock for Transfer</h3>
               </div>
               <div class="inline-flex items-center" style="gap: 8px; display: inline-flex;">
@@ -9920,7 +9916,7 @@ export const ColdstoreView = {
             </div>
 
             <!-- Form Fields Grid (13 User-Specified Inputs + Search Button) -->
-            <div id="ibt-cr-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
+            <div id="ibt-cr-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
               <!-- 1. COLD STORES -->
               <div>
                 <label for="ibt-cr-coldstore" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">COLD STORES</label>
@@ -10082,7 +10078,7 @@ export const ColdstoreView = {
                 <button 
                   type="button" 
                   id="ibt-cr-search-btn" 
-                  class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]"
+                  class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px] bg-[#00A4B7] hover:bg-[#008F9F] text-white"
                   title="Search Filter Records"
                 >
                   <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
@@ -10668,7 +10664,7 @@ export const ColdstoreView = {
       <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200" style="margin-bottom: 12px !important;">
         <div class="flex items-center justify-between pb-1">
           <div class="flex items-center gap-2">
-            <svg style="width: 16px; height: 16px; min-width: 16px; min-height: 16px; stroke: #0284C7; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+            <svg style="width: 16px; height: 16px; min-width: 16px; min-height: 16px; text-[#00A4B7]; fill: none; display: inline-block;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
             <h3 class="text-xs font-bold text-[#172B4D]">Search & Filter</h3>
           </div>
           <div class="inline-flex items-center" style="gap: 8px; display: inline-flex;">
@@ -10682,7 +10678,7 @@ export const ColdstoreView = {
         </div>
 
         <!-- 6 User-Specified Form Fields Grid -->
-        <div id="cs-shp-filter-body" class="dt-top-filter-body mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200">
+        <div id="cs-shp-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs transition-all duration-200" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
           <!-- 1. COLD STORES -->
           <div>
             <label for="cs-shp-coldstore" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">COLD STORES</label>
@@ -10757,7 +10753,7 @@ export const ColdstoreView = {
 
           <!-- Search Button Slot in 2nd row -->
           <div class="flex items-end">
-            <button type="button" id="cs-shp-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px]" title="Search Filter Records">
+            <button type="button" id="cs-shp-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs hover:shadow cursor-pointer h-[31px] bg-[#00A4B7] hover:bg-[#008F9F] text-white" title="Search Filter Records">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
               <span>Search</span>
             </button>
@@ -10778,6 +10774,7 @@ export const ColdstoreView = {
         searchable: true,
         exportable: true,
         selectable: true,
+        showSelectedCount: false,
         pageSize: 10,
         onRowClick: (row) => this.showShipmentLotDetailModal(row),
         toolbarButtons: [

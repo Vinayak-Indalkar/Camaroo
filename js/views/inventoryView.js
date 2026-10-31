@@ -1120,7 +1120,7 @@ export const InventoryView = {
           </div>
         </div>
 
-        <div id="gs-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-3 border-t border-[#F1F5F9] mt-2 text-xs">
+        <div id="gs-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
           <!-- Filter: DOC NO -->
           <div>
             <label for="gs-filter-docno" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DOC NO</label>
@@ -1875,7 +1875,7 @@ export const InventoryView = {
           </div>
         </div>
 
-        <div id="gs-po-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-3 border-t border-[#F1F5F9] mt-2 text-xs">
+        <div id="gs-po-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
           <!-- Filter: DOC NO / CODE -->
           <div>
             <label for="po-flt-doc" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DOC NO / CODE</label>
@@ -1985,16 +1985,11 @@ export const InventoryView = {
             `
           }
         ],
+        onRowClick: (row) => {
+          this.showProformaOrderDetailModal(row);
+        },
         actionsTitle: 'Actions',
         actions: [
-          {
-            label: 'View',
-            title: 'View PO Details',
-            icon: `<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>`,
-            onClick: (row) => {
-              this.showProformaOrderDetailModal(row);
-            }
-          },
           {
             label: 'Edit',
             title: 'Edit Proforma Order',
@@ -2827,7 +2822,7 @@ export const InventoryView = {
           </div>
         </div>
 
-        <div id="grn-flt-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-3 border-t border-[#F1F5F9] mt-2 text-xs">
+        <div id="grn-flt-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
           <!-- 1. DOC NO / CODE / PO NO / INV NO -->
           <div>
             <label for="grn-flt-doc" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SEARCH</label>
@@ -2951,16 +2946,11 @@ export const InventoryView = {
             render: v => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer whitespace-nowrap" title="Click to view GRN details">${v || '-'}</span>`
           }
         ],
+        onRowClick: (row) => {
+          this.showGrnDetailModal(row);
+        },
         actionsTitle: 'Actions',
         actions: [
-          {
-            label: 'View',
-            title: 'View GRN Details',
-            icon: `<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>`,
-            onClick: (row) => {
-              this.showGrnDetailModal(row);
-            }
-          },
           {
             label: 'Edit',
             title: 'Edit Goods Receipt Note',
@@ -3847,7 +3837,7 @@ export const InventoryView = {
           </div>
         </div>
 
-        <div id="issue-flt-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-3 border-t border-[#F1F5F9] mt-2 text-xs">
+        <div id="issue-flt-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
           <!-- 1. Search Query -->
           <div>
             <label for="issue-flt-search" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SEARCH</label>
@@ -3975,16 +3965,11 @@ export const InventoryView = {
             }
           }
         ],
+        onRowClick: (row) => {
+          this.showMaterialIssueDetailModal(row);
+        },
         actionsTitle: 'Actions',
         actions: [
-          {
-            label: 'View',
-            title: 'View Issue Details',
-            icon: `<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>`,
-            onClick: (row) => {
-              this.showMaterialIssueDetailModal(row);
-            }
-          },
           {
             label: 'Edit',
             title: 'Edit Material Issue',
@@ -4743,7 +4728,7 @@ export const InventoryView = {
           </div>
         </div>
 
-        <div id="pm-pi-flt-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-3 border-t border-[#F1F5F9] mt-2 text-xs">
+        <div id="pm-pi-flt-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
           <!-- 1. DOC NO -->
           <div>
             <label for="pm-pi-flt-doc" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DOC NO</label>
@@ -4828,14 +4813,6 @@ export const InventoryView = {
           }
         ],
         actions: [
-          {
-            label: 'View',
-            title: 'View Proforma Invoice Details',
-            icon: `<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>`,
-            onClick: (row) => {
-              this.showPmPiDetailsModal(row);
-            }
-          },
           {
             label: 'Edit',
             title: 'Edit Proforma Invoice',
@@ -5715,7 +5692,7 @@ export const InventoryView = {
           </div>
         </div>
 
-        <div id="pm-po-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-3 border-t border-[#F1F5F9] mt-2 text-xs">
+        <div id="pm-po-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
           <!-- 1. From Date -->
           <div>
             <label for="pm-po-flt-from" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FROM DATE</label>
@@ -5831,16 +5808,11 @@ export const InventoryView = {
             render: v => getStatusBadge(v)
           }
         ],
+        onRowClick: (row) => {
+          this.showPmPoDetailModal(row);
+        },
         actionsTitle: 'Actions',
         actions: [
-          {
-            label: 'View',
-            title: 'View PO Details',
-            icon: `<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>`,
-            onClick: (row) => {
-              this.showPmPoDetailModal(row);
-            }
-          },
           {
             label: 'Edit',
             title: 'Edit Purchase Order',
@@ -6952,7 +6924,7 @@ export const InventoryView = {
           </div>
         </div>
 
-        <div id="pm-grn-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-3 border-t border-[#F1F5F9] mt-2 text-xs">
+        <div id="pm-grn-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
           <!-- 1. From Date -->
           <div>
             <label for="pm-grn-flt-from" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FROM DATE</label>
@@ -7072,16 +7044,11 @@ export const InventoryView = {
             render: v => getStatusBadge(v)
           }
         ],
+        onRowClick: (row) => {
+          this.showPmGrnDetailsModal(row);
+        },
         actionsTitle: 'Actions',
         actions: [
-          {
-            label: 'View',
-            title: 'View GRN Details',
-            icon: `<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>`,
-            onClick: (row) => {
-              this.showPmGrnDetailsModal(row);
-            }
-          },
           {
             label: 'Edit',
             title: 'Edit GRN',
@@ -8274,7 +8241,7 @@ export const InventoryView = {
           </div>
         </div>
 
-        <div id="pm-issue-flt-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-3 border-t border-[#F1F5F9] mt-2 text-xs">
+        <div id="pm-issue-flt-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
           <!-- 1. DOC NO / PRO NUMBER -->
           <div>
             <label for="pm-issue-flt-doc" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DOC NO / PRO NO</label>
@@ -8354,16 +8321,11 @@ export const InventoryView = {
             render: v => `<span class="whitespace-nowrap text-xs text-[#172B4D] font-medium font-mono">${v || '-'}</span>`
           }
         ],
+        onRowClick: (row) => {
+          this.showPmMaterialIssueDetailsModal(row);
+        },
         actionsTitle: 'Actions',
         actions: [
-          {
-            label: 'View',
-            title: 'View Issue Details',
-            icon: `<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>`,
-            onClick: (row) => {
-              this.showPmMaterialIssueDetailsModal(row);
-            }
-          },
           {
             label: 'Edit',
             title: 'Edit Material Issue',
@@ -9296,7 +9258,7 @@ export const InventoryView = {
           </div>
         </div>
 
-        <div id="reg-flt-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-3 border-t border-[#F1F5F9] mt-2 text-xs">
+        <div id="reg-flt-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
           <!-- 1. DATE OPTIONS -->
           <div>
             <label for="reg-flt-dateopt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DATE OPTIONS</label>
@@ -9456,16 +9418,11 @@ export const InventoryView = {
             render: v => `<span class="text-xs text-[#172B4D] font-medium whitespace-nowrap">${v || '-'}</span>`
           }
         ],
+        onRowClick: (row) => {
+          this.showProformaRegisterDetailsModal(row);
+        },
         actionsTitle: 'Actions',
         actions: [
-          {
-            label: 'View',
-            title: 'View Register Details',
-            icon: `<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>`,
-            onClick: (row) => {
-              this.showProformaRegisterDetailsModal(row);
-            }
-          },
           {
             label: 'Edit',
             title: 'Edit Register Entry',
