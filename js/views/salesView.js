@@ -127,6 +127,48 @@ export const SalesView = {
         noOfContainers: 1,
         referenceNumber: "REF-RL-2026-091",
         remarks: "Shipment subject to FDA Prior Notice clearance prior to vessel arrival.",
+                lineItems: [
+          {
+            id: 1,
+            variety: "Vannamei Shrimp HLSO IQF",
+            grade: "26/30",
+            packingStyle: "10x1 Kg Printed Bags",
+            treatment: "Non-Treated",
+            freezingType: "IQF",
+            brand: "Devi Gold",
+            mcs: 1200,
+            traysQty: 2400,
+            unitPriceBags: 8.85,
+            ddpPrice: 9.45,
+            amountUsd: 106200,
+            cups: 240,
+            cupsPriceBags: 0.65,
+            code: "PRD-VAN-2630",
+            fullName: "Frozen Raw Headless Shell-On White Shrimp 26/30",
+            description: "Individually Quick Frozen, 10x1kg bags per master carton",
+            buyerDescription: "Custom retail branded packing with UPC barcode"
+          },
+          {
+            id: 2,
+            variety: "Vannamei Cooked Tail-On IQF",
+            grade: "31/40",
+            packingStyle: "10x1 Kg Retail Pouch",
+            treatment: "STPP Treated",
+            freezingType: "IQF",
+            brand: "Ocean Pearl",
+            mcs: 600,
+            traysQty: 1200,
+            unitPriceBags: 9.60,
+            ddpPrice: 10.20,
+            amountUsd: 57600,
+            cups: 120,
+            cupsPriceBags: 0.70,
+            code: "PRD-CKD-3140",
+            fullName: "Cooked Peeled Tail-On White Shrimp 31/40",
+            description: "Blanched / Cooked IQF, ready to eat",
+            buyerDescription: "Foodservice label pack"
+          }
+        ],
         status: "APPROVED"
       },
       {
@@ -166,6 +208,48 @@ export const SalesView = {
         noOfContainers: 1,
         referenceNumber: "REF-MN-2026-114",
         remarks: "Strict antibiotic residual testing certificates to be attached with docs.",
+                lineItems: [
+          {
+            id: 1,
+            variety: "Black Tiger HOSO Semi-IQF",
+            grade: "16/20",
+            packingStyle: "6x2 Kg Blocks",
+            treatment: "Non-Treated",
+            freezingType: "Semi-IQF",
+            brand: "Devi Gold",
+            mcs: 1000,
+            traysQty: 2000,
+            unitPriceBags: 14.50,
+            ddpPrice: 15.20,
+            amountUsd: 145000,
+            cups: 100,
+            cupsPriceBags: 0.80,
+            code: "PRD-BT-1620",
+            fullName: "Black Tiger Shrimp Head-On Semi-IQF 16/20",
+            description: "6x2kg blocks, Japan export specification",
+            buyerDescription: "Japanese wholesale distribution packaging"
+          },
+          {
+            id: 2,
+            variety: "Vannamei Easy Peel IQF",
+            grade: "21/25",
+            packingStyle: "10x1 Kg Printed Bags",
+            treatment: "Citric Acid Treated",
+            freezingType: "IQF",
+            brand: "Devi Diamond",
+            mcs: 400,
+            traysQty: 800,
+            unitPriceBags: 11.00,
+            ddpPrice: 11.80,
+            amountUsd: 44000,
+            cups: 80,
+            cupsPriceBags: 0.75,
+            code: "PRD-EZP-2125",
+            fullName: "Easy Peel Vannamei Raw IQF 21/25",
+            description: "Slit back deveined raw frozen",
+            buyerDescription: "Retail pack"
+          }
+        ],
         status: "PENDING_APPROVAL"
       },
       {
@@ -205,6 +289,28 @@ export const SalesView = {
         noOfContainers: 1,
         referenceNumber: "REF-RG-2026-077",
         remarks: "EU Health Certificate and Catch Certificate original required.",
+                lineItems: [
+          {
+            id: 1,
+            variety: "Asian Seabass Fillet IQF",
+            grade: "500-800g",
+            packingStyle: "Bulk 10 Kg Master",
+            treatment: "Non-Treated",
+            freezingType: "IQF",
+            brand: "Devi Select",
+            mcs: 1200,
+            traysQty: 2400,
+            unitPriceBags: 11.20,
+            ddpPrice: 11.90,
+            amountUsd: 134400,
+            cups: 0,
+            cupsPriceBags: 0,
+            code: "PRD-SEABASS-FILLET",
+            fullName: "Asian Seabass Skin-on Boneless Fillet IQF",
+            description: "Individually wrapped skin-on fillets",
+            buyerDescription: "EU retail packaging"
+          }
+        ],
         status: "PENDING_APPROVAL"
       },
       {
@@ -244,6 +350,28 @@ export const SalesView = {
         noOfContainers: 2,
         referenceNumber: "REF-SYS-2026-304",
         remarks: "Palletized shrink-wrapped shipment with temp data-loggers.",
+                lineItems: [
+          {
+            id: 1,
+            variety: "Vannamei Cooked Tail-On IQF",
+            grade: "31/40",
+            packingStyle: "10x1 Kg Retail Pouch",
+            treatment: "STPP Treated",
+            freezingType: "IQF",
+            brand: "Ocean Pearl",
+            mcs: 2200,
+            traysQty: 4400,
+            unitPriceBags: 9.60,
+            ddpPrice: 10.30,
+            amountUsd: 211200,
+            cups: 440,
+            cupsPriceBags: 0.70,
+            code: "PRD-CKD-3140",
+            fullName: "Cooked Tail-On Vannamei IQF 31/40",
+            description: "10x1kg printed retail pouch with nutritional panel",
+            buyerDescription: "Sysco Imperial brand standard"
+          }
+        ],
         status: "APPROVED"
       },
       {
@@ -1176,6 +1304,7 @@ export const SalesView = {
         searchable: true,
         exportable: true,
         pageSize: 10,
+        onRowClick: (row) => this.showProformaDetailsModal(row),
         columns: [
           {
             field: 'contractNo',
@@ -1618,20 +1747,377 @@ export const SalesView = {
     Toast.show(`Proforma Invoice duplicated as ${nextNo}`, 'success');
   },
 
-  // Edit Proforma Invoice Modal
-  showEditProformaModal(row) {
-    this.openProformaFormModal({
-      title: `Edit Proforma Invoice: ${row.piNumber}`,
-      initialData: row,
-      submitButtonText: 'Update Proforma Invoice',
-      onSubmit: (formData, modal) => {
-        Object.assign(row, formData);
-        modal.close();
-        Toast.show(`Proforma Invoice ${row.piNumber} updated successfully!`, 'success');
-        const mainEl = document.getElementById('sales-view-main');
-        if (mainEl) this.renderProformaList(mainEl);
-      }
+  // Proforma Invoice Details Modal (Row Click) matching Generate Proforma Invoice
+  showProformaDetailsModal(row) {
+    const lineItems = row.lineItems || [];
+    const totMcs = lineItems.reduce((acc, i) => acc + (Number(i.mcs) || 0), 0) || (row.noOfContainers ? row.noOfContainers * 1200 : 1200);
+    const totTrays = lineItems.reduce((acc, i) => acc + (Number(i.traysQty) || 0), 0) || (totMcs * 2);
+    const totAmount = lineItems.reduce((acc, i) => acc + (Number(i.amountUsd) || 0), 0) || (totMcs * 10 * 8.85);
+
+    const statusVal = String(row.status || '').toUpperCase();
+    let statusClass = 'bg-[#F1F5F9] text-[#172B4D] border-[#DFE1E6]';
+    if (statusVal === 'APPROVED' || statusVal.includes('CONFIRMED')) {
+      statusClass = 'bg-[#E3FCEF] text-[#006644] border-[#ABF5D1]';
+    } else if (statusVal.includes('PENDING')) {
+      statusClass = 'bg-[#FFFAE6] text-[#FF8B00] border-[#FFE380]';
+    } else if (statusVal.includes('DRAFT')) {
+      statusClass = 'bg-[#F0F9FF] text-[#00A4B7] border-[#BAE6FD]';
+    }
+
+    Modal.open({
+      title: `Proforma Invoice Details - ${row.piNumber}`,
+      size: 'full',
+      content: `
+        <div class="space-y-4 text-xs animate-fade-in">
+          <!-- Top Hero / Summary Card -->
+          <div class="bg-gradient-to-r from-[#F0F9FF] to-[#F8FAFC] p-4 rounded-xl border border-[#BAE6FD] flex flex-wrap items-center justify-between gap-3 shadow-2xs">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-[#00A4B7] text-white flex items-center justify-center font-bold shadow-xs">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              </div>
+              <div>
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span class="font-mono font-extrabold text-[#0F172A] text-base">${row.piNumber}</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold tracking-wide uppercase border ${statusClass}">${statusVal.replace(/_/g, ' ')}</span>
+                  <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">${row.currency || 'USD ($)'}</span>
+                </div>
+                <div class="text-[11px] text-[#64748B] mt-0.5 font-medium flex items-center gap-1.5 flex-wrap">
+                  <span><strong>Processor:</strong> ${row.processor || row.exporter}</span>
+                  <span>•</span>
+                  <span><strong>Date:</strong> ${row.piDate || '-'}</span>
+                  <span>•</span>
+                  <span><strong>Buyer:</strong> ${row.buyerName || '-'}</span>
+                  <span>•</span>
+                  <span><strong>Port of Discharge:</strong> ${row.portOfDischarge || '-'}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Metrics Badges -->
+            <div class="flex items-center gap-2 shrink-0">
+              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[85px]">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Master Cartons</span>
+                <span class="font-mono font-extrabold text-[#172B4D] text-sm mt-0.5 block">${Number(totMcs).toLocaleString('en-IN')} Mcs</span>
+              </div>
+              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[85px]">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Trays Qty</span>
+                <span class="font-mono font-extrabold text-[#172B4D] text-sm mt-0.5 block">${Number(totTrays).toLocaleString('en-IN')}</span>
+              </div>
+              <div class="bg-white px-3.5 py-1.5 rounded-lg border border-[#ABF5D1] bg-[#F0FDF4] shadow-2xs text-center min-w-[100px]">
+                <span class="text-[10px] font-bold text-[#006644] uppercase tracking-wider block">Total Amount</span>
+                <span class="font-mono font-extrabold text-[#006644] text-sm mt-0.5 block">$${Number(totAmount).toLocaleString('en-IN')}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 1: Exporter, Processor & Reference -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Exporter, Processor &amp; Reference</h4>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">SELECT EXPORTER</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${row.exporter || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">SELECT PROCESSOR</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${row.processor || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">PRODUCTION PLANT</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${row.productionPlant || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">NO OF CONTAINERS</span>
+                <span class="font-mono font-bold text-[#172B4D] text-xs block mt-0.5">${row.noOfContainers || 1} FCL</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">REFERENCE NUMBER</span>
+                <span class="font-mono font-semibold text-[#00A4B7] text-xs block mt-0.5">${row.referenceNumber || '-'}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Proforma Invoice & Purchase Order -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Proforma Invoice &amp; PO Details</h4>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">PROFORMA INVOICE NO</span>
+                <span class="font-mono font-extrabold text-[#00A4B7] text-xs block mt-0.5">${row.piNumber || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">PROFORMA INVOICE DATE</span>
+                <span class="font-mono text-[#172B4D] text-xs block mt-0.5">${row.piDate || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">P.O NO</span>
+                <span class="font-mono font-bold text-[#172B4D] text-xs block mt-0.5">${row.poNumber || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">P.O DATE</span>
+                <span class="font-mono text-[#172B4D] text-xs block mt-0.5">${row.poDate || '-'}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 3: Buyer & Consignee Parties -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Buyer, Consignee &amp; Stakeholder Parties</h4>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">BUYER NAME</span>
+                <span class="font-bold text-[#172B4D] text-xs block mt-0.5">${row.buyerName || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">CONSIGNEE</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${row.consignee || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">ULTIMATE CONSIGNEE</span>
+                <span class="text-[#172B4D] text-xs block mt-0.5">${row.ultimateConsignee || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">NOTIFY PARTY</span>
+                <span class="text-[#172B4D] text-xs block mt-0.5">${row.notifyParty || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">IMPORTER OF RECORD</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${row.importerOfRecord || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">AGENT</span>
+                <span class="text-[#172B4D] text-xs block mt-0.5">${row.agent || '-'}</span>
+              </div>
+              <div class="sm:col-span-2">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">CERTIFICATION</span>
+                <span class="font-semibold text-[#00875A] text-xs block mt-0.5">${row.certification || '-'}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 4: Ports & Shipment Routing -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Port Routing &amp; Shipment Dates</h4>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">PORT OF LOADING</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${row.portOfLoading || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">DESTINATION COUNTRY</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${row.destinationCountry || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">PORT OF DISCHARGE</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${row.portOfDischarge || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">FINAL DESTINATION COUNTRY</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${row.finalDestinationCountry || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">FINAL DESTINATION</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${row.finalDestination || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">SHIPBY DATE</span>
+                <span class="font-mono font-bold text-[#172B4D] text-xs block mt-0.5">${row.shipByDate || '-'}</span>
+              </div>
+              <div class="sm:col-span-2">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">SHIPBY DATE 2 (TEXT)</span>
+                <span class="text-[#5E6C84] text-xs block mt-0.5">${row.shipByDate2 || '-'}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 5: Commercial Terms & Banking -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Commercial Terms, Banking &amp; Currency</h4>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+              <div class="sm:col-span-2">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">BANK DETAILS</span>
+                <span class="font-mono text-xs text-[#172B4D] block mt-0.5">${row.bankDetails || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">SHOW BANK</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${row.showBank || 'Yes'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">PAYMENT TERMS</span>
+                <span class="font-semibold text-[#00A4B7] text-xs block mt-0.5">${row.paymentTerms || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">SHIPMENT TERMS</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${row.shipmentTerms || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">DELIVERY TERMS</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${row.deliveryTerms || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">QUANTITY UNITS</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${row.quantityUnits || 'Kilograms (Kg)'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">CURRENCY</span>
+                <span class="font-bold text-[#403294] text-xs block mt-0.5">${row.currency || 'USD ($)'}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 6: Freight, Charges & Remarks -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Freight, Charges &amp; Remarks</h4>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">FREIGHT</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${row.freight || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">CHARGE NAME</span>
+                <span class="text-[#172B4D] text-xs block mt-0.5">${row.chargeName || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">CHARGE AMOUNT</span>
+                <span class="font-mono font-bold text-[#172B4D] text-xs block mt-0.5">$${Number(row.chargeAmount || 0).toLocaleString('en-IN')}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">STATUS</span>
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold border ${statusClass} uppercase block w-fit mt-0.5">${statusVal.replace(/_/g, ' ')}</span>
+              </div>
+              <div class="sm:col-span-4">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">REMARKS</span>
+                <p class="text-xs text-[#5E6C84] mt-0.5 bg-[#F8FAFC] p-2.5 rounded-lg border border-[#F1F5F9]">${row.remarks || 'No special remarks recorded.'}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 7: Data Table (Variety Line Items) matching Generate Proforma Invoice -->
+          <div class="bg-white rounded-xl">
+            <div class="flex items-center justify-between pb-2.5 mb-2 border-b border-[#F1F5F9]">
+              <div class="flex items-center gap-2">
+                <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Data Table (Variety Line Items)</h4>
+              </div>
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD] uppercase">${lineItems.length} Variety Items</span>
+            </div>
+            
+            <div class="overflow-x-auto max-h-[340px] rounded-lg border border-[#DFE1E6]">
+              <table class="w-full text-xs text-left border-collapse">
+                <thead>
+                  <tr class="bg-[#F8FAFC] border-b border-[#DFE1E6] text-[#5E6C84] uppercase font-bold text-[10px] tracking-wider">
+                    <th class="py-2.5 px-2.5">ID</th>
+                    <th class="py-2.5 px-2.5">Variety</th>
+                    <th class="py-2.5 px-2.5">Grade</th>
+                    <th class="py-2.5 px-2.5">Packing Style</th>
+                    <th class="py-2.5 px-2.5">Treatment</th>
+                    <th class="py-2.5 px-2.5">Freezing Type</th>
+                    <th class="py-2.5 px-2.5">Brand</th>
+                    <th class="py-2.5 px-2.5 text-right">Mcs</th>
+                    <th class="py-2.5 px-2.5 text-right">Trays Qty</th>
+                    <th class="py-2.5 px-2.5 text-right">Unit Price (BAGS)</th>
+                    <th class="py-2.5 px-2.5 text-right">Ddp Price</th>
+                    <th class="py-2.5 px-2.5 text-right">Amount in (USD)</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-[#F1F5F9] bg-white">
+                  ${lineItems.length === 0 ? `
+                    <tr><td colspan="12" class="py-6 text-center text-xs text-[#5E6C84]">No variety line items recorded for this invoice.</td></tr>
+                  ` : lineItems.map(item => `
+                    <tr class="hover:bg-[#F8FAFC] transition-colors border-b border-[#F1F5F9] text-[#172B4D]">
+                      <td class="py-2.5 px-2.5 font-mono font-bold text-[#00A4B7]">${item.id}</td>
+                      <td class="py-2.5 px-2.5 font-bold">${item.variety}</td>
+                      <td class="py-2.5 px-2.5 font-semibold text-[#5E6C84]">${item.grade}</td>
+                      <td class="py-2.5 px-2.5 text-[#5E6C84]">${item.packingStyle}</td>
+                      <td class="py-2.5 px-2.5 text-[#5E6C84]">${item.treatment}</td>
+                      <td class="py-2.5 px-2.5 text-[#5E6C84]">${item.freezingType}</td>
+                      <td class="py-2.5 px-2.5 font-medium">${item.brand}</td>
+                      <td class="py-2.5 px-2.5 text-right font-mono font-bold">${Number(item.mcs).toLocaleString('en-IN')}</td>
+                      <td class="py-2.5 px-2.5 text-right font-mono text-[#5E6C84]">${Number(item.traysQty).toLocaleString('en-IN')}</td>
+                      <td class="py-2.5 px-2.5 text-right font-mono font-semibold text-[#172B4D]">$${Number(item.unitPriceBags).toFixed(2)}</td>
+                      <td class="py-2.5 px-2.5 text-right font-mono text-[#5E6C84]">$${Number(item.ddpPrice).toFixed(2)}</td>
+                      <td class="py-2.5 px-2.5 text-right font-mono font-extrabold text-[#006644]">$${Number(item.amountUsd).toLocaleString('en-IN')}</td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+                <tfoot class="bg-[#F8FAFC] border-t-2 border-[#DFE1E6]">
+                  <tr>
+                    <td colspan="7" class="py-2.5 px-2.5 text-right uppercase tracking-wider text-[11px] font-extrabold text-[#172B4D]">Total:</td>
+                    <td class="py-2.5 px-2.5 text-right font-mono font-extrabold text-xs text-[#172B4D]">${Number(totMcs).toLocaleString('en-IN')}</td>
+                    <td class="py-2.5 px-2.5 text-right font-mono font-bold text-xs text-[#5E6C84]">${Number(totTrays).toLocaleString('en-IN')}</td>
+                    <td colspan="2" class="py-2.5 px-2.5"></td>
+                    <td class="py-2.5 px-2.5 text-right font-mono font-extrabold text-xs text-[#006644]">$${Number(totAmount).toLocaleString('en-IN')}</td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </div>
+      `,
+      buttons: [
+        {
+          label: 'Close',
+          type: 'secondary',
+          onClick: (modal) => modal.close()
+        },
+        {
+          label: 'Print PI',
+          type: 'secondary',
+          onClick: () => Toast.show(`Printing Proforma Invoice ${row.piNumber}...`, 'info')
+        },
+        {
+          label: 'Edit Proforma Invoice',
+          type: 'primary',
+          onClick: (modal) => {
+            modal.close();
+            this.showEditProformaModal(row);
+          }
+        }
+      ]
     });
+  },
+
+  // Edit Proforma Invoice 2-Step Wizard Modal (Matching Generate Proforma Invoice)
+  showEditProformaModal(row) {
+    // Clone lineItems and headerData so modifications are atomic
+    const lineItems = row.lineItems ? JSON.parse(JSON.stringify(row.lineItems)) : [
+      {
+        id: 1,
+        variety: "Vannamei Shrimp HLSO IQF",
+        grade: "26/30",
+        packingStyle: "10x1 Kg Printed Bags",
+        treatment: "Non-Treated",
+        freezingType: "IQF",
+        brand: "Devi Gold",
+        mcs: 1200,
+        traysQty: 2400,
+        unitPriceBags: 8.85,
+        ddpPrice: 9.45,
+        amountUsd: 106200,
+        cups: 240,
+        cupsPriceBags: 0.65,
+        code: "PRD-VAN-2630",
+        fullName: "Frozen Raw Headless Shell-On White Shrimp 26/30",
+        description: "Individually Quick Frozen, 10x1kg bags per master carton",
+        buyerDescription: "Custom retail branded packing with UPC barcode"
+      }
+    ];
+
+    const headerData = { ...row };
+
+    // Launch Step 1 of Edit Wizard
+    this.openStep1Modal(lineItems, headerData, true, row);
   },
 
   // Generate Proforma Invoice 2-Step Wizard Modal
@@ -1641,7 +2127,7 @@ export const SalesView = {
     const nextNo = `PI-2026-${905 + nextIdx}`;
     const today = new Date().toISOString().slice(0, 10);
 
-    // Initial line items in Step 1
+    // Initial default line items
     let lineItems = [
       {
         id: 1,
@@ -1685,7 +2171,6 @@ export const SalesView = {
       }
     ];
 
-    // Shared default header values for Step 2
     let headerData = {
       id: nextId,
       exporter: 'Devi Fisheries Limited',
@@ -1726,16 +2211,19 @@ export const SalesView = {
       status: 'PENDING_APPROVAL'
     };
 
-    // Open Step 1 (Line Items & Variety Table)
-    this.openStep1Modal(lineItems, headerData);
+    // Open Step 1 (34-field form)
+    this.openStep1Modal(lineItems, headerData, false, null);
   },
 
   // Wizard Step 1: Proforma Commercial & Shipping Details Form (34 Fields)
-  openStep1Modal(lineItems, headerData) {
+  openStep1Modal(lineItems, headerData, isEdit = false, targetRow = null) {
     const d = headerData || {};
+    const modalTitle = isEdit 
+      ? `Edit Proforma Invoice: ${d.piNumber} - Step 1: Proforma Invoice Details`
+      : 'Generate Proforma Invoice - Step 1: Proforma Invoice Details';
 
     Modal.open({
-      title: 'Generate Proforma Invoice - Step 1: Proforma Invoice Details',
+      title: modalTitle,
       size: 'full',
       content: `
         <form id="form-pi-details" class="space-y-4 text-xs">
@@ -2073,7 +2561,7 @@ export const SalesView = {
 
             modal.close();
             // Proceed to Step 2: Variety & Line Items Entry
-            this.openStep2Modal(lineItems, headerData);
+            this.openStep2Modal(lineItems, headerData, isEdit, targetRow);
           }
         }
       ]
@@ -2081,7 +2569,7 @@ export const SalesView = {
   },
 
   // Wizard Step 2: Variety Line Items Entry & Data Table (No border, No padding)
-  openStep2Modal(lineItems, headerData) {
+  openStep2Modal(lineItems, headerData, isEdit = false, targetRow = null) {
     const renderTableRows = () => {
       if (!lineItems || lineItems.length === 0) {
         return `<tr><td colspan="13" class="py-6 text-center text-xs text-[#5E6C84]">No variety line items added yet. Fill the inputs above and click "Add Line Item".</td></tr>`;
@@ -2125,8 +2613,14 @@ export const SalesView = {
       `;
     };
 
+    const modalTitle = isEdit 
+      ? `Edit Proforma Invoice: ${headerData.piNumber} - Step 2: Variety & Line Items Entry`
+      : 'Generate Proforma Invoice - Step 2: Variety & Line Items Entry';
+
+    const submitLabel = isEdit ? 'Update Proforma Invoice' : 'Create Proforma Invoice';
+
     Modal.open({
-      title: 'Generate Proforma Invoice - Step 2: Variety & Line Items Entry',
+      title: modalTitle,
       size: 'full',
       content: `
         <div class="space-y-4 text-xs">
@@ -2322,11 +2816,11 @@ export const SalesView = {
           onClick: (modal) => {
             modal.close();
             // Reopen Step 1 with preserved lineItems and headerData
-            this.openStep1Modal(lineItems, headerData);
+            this.openStep1Modal(lineItems, headerData, isEdit, targetRow);
           }
         },
         {
-          label: 'Create Proforma Invoice',
+          label: submitLabel,
           type: 'primary',
           onClick: (modal) => {
             if (!lineItems || lineItems.length === 0) {
@@ -2334,17 +2828,27 @@ export const SalesView = {
               return;
             }
 
-            const newRecord = {
-              ...headerData,
-              lineItems: [...lineItems],
-              status: 'PENDING_APPROVAL'
-            };
+            if (isEdit && targetRow) {
+              Object.assign(targetRow, headerData, {
+                lineItems: [...lineItems]
+              });
+              modal.close();
+              Toast.show(`Proforma Invoice ${targetRow.piNumber} updated successfully!`, 'success');
+              const mainEl = document.getElementById('sales-view-main');
+              if (mainEl) this.renderProformaList(mainEl);
+            } else {
+              const newRecord = {
+                ...headerData,
+                lineItems: [...lineItems],
+                status: 'PENDING_APPROVAL'
+              };
 
-            this.state.proformaList.unshift(newRecord);
-            modal.close();
-            Toast.show(`Proforma Invoice ${newRecord.piNumber} generated successfully!`, 'success');
-            const mainEl = document.getElementById('sales-view-main');
-            if (mainEl) this.renderProformaList(mainEl);
+              this.state.proformaList.unshift(newRecord);
+              modal.close();
+              Toast.show(`Proforma Invoice ${newRecord.piNumber} generated successfully!`, 'success');
+              const mainEl = document.getElementById('sales-view-main');
+              if (mainEl) this.renderProformaList(mainEl);
+            }
           }
         }
       ]
@@ -2426,356 +2930,8 @@ export const SalesView = {
       Toast.show(`Added ${variety} to line items`, 'success');
     });
   },
-  // Edit Proforma Modal: Direct 34-Field Editor
-  openProformaFormModal({ title, initialData, submitButtonText, onSubmit }) {
-    const d = initialData || {};
 
-    Modal.open({
-      title,
-      size: 'full',
-      content: `
-        <form id="form-pi-details" class="space-y-4 text-xs">
-          <!-- Section 1: Exporter & Processor Details -->
-          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
-              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Exporter, Processor &amp; Reference</h4>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-              <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SELECT EXPORTER <span class="text-[#DE350B]">*</span></label>
-                <select id="form-pi-exporter" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
-                  <option value="Devi Fisheries Limited" ${d.exporter === 'Devi Fisheries Limited' ? 'selected' : ''}>Devi Fisheries Limited</option>
-                  <option value="Devi Sea Foods Ltd" ${d.exporter === 'Devi Sea Foods Ltd' ? 'selected' : ''}>Devi Sea Foods Ltd</option>
-                  <option value="Devi Marine Processors" ${d.exporter === 'Devi Marine Processors' ? 'selected' : ''}>Devi Marine Processors</option>
-                </select>
-              </div>
-
-              <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SELECT PROCESSOR <span class="text-[#DE350B]">*</span></label>
-                <select id="form-pi-processor" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
-                  <option value="Devi Fisheries Limited - Unit 1" ${d.processor === 'Devi Fisheries Limited - Unit 1' ? 'selected' : ''}>Devi Fisheries Limited - Unit 1</option>
-                  <option value="Devi Sea Foods Ltd (Plant 2)" ${d.processor === 'Devi Sea Foods Ltd (Plant 2)' ? 'selected' : ''}>Devi Sea Foods Ltd (Plant 2)</option>
-                  <option value="Devi Marine Processors Unit-3" ${d.processor === 'Devi Marine Processors Unit-3' ? 'selected' : ''}>Devi Marine Processors Unit-3</option>
-                </select>
-              </div>
-
-              <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PRODUCTION PLANT</label>
-                <select id="form-pi-plant" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
-                  <option value="Unit 1 - Processing (Vizag)" ${d.productionPlant === 'Unit 1 - Processing (Vizag)' ? 'selected' : ''}>Unit 1 - Processing (Vizag)</option>
-                  <option value="Unit 2 - Value Added (Singarayakonda)" ${d.productionPlant === 'Unit 2 - Value Added (Singarayakonda)' ? 'selected' : ''}>Unit 2 - Value Added (Singarayakonda)</option>
-                  <option value="Unit 3 - Pre-processing (Kakinada)" ${d.productionPlant === 'Unit 3 - Pre-processing (Kakinada)' ? 'selected' : ''}>Unit 3 - Pre-processing (Kakinada)</option>
-                </select>
-              </div>
-
-              <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">NO OF CONTAINERS</label>
-                <input type="number" id="form-pi-containers" value="${d.noOfContainers || 1}" min="1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
-              </div>
-
-              <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">REFERENCE NUMBER</label>
-                <input type="text" id="form-pi-ref" value="${d.referenceNumber || ''}" placeholder="e.g. REF-2026-901" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
-              </div>
-            </div>
-          </div>
-
-          <!-- Section 2: Proforma Invoice & Purchase Order -->
-          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
-              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Proforma Invoice &amp; PO Details</h4>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
-              <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PROFORMA INVOICE NO <span class="text-[#DE350B]">*</span></label>
-                <input type="text" id="form-pi-number" value="${d.piNumber || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
-              </div>
-
-              <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PROFORMA INVOICE DATE <span class="text-[#DE350B]">*</span></label>
-                <input type="date" id="form-pi-date" value="${d.piDate || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
-              </div>
-
-              <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">P.O NO</label>
-                <input type="text" id="form-pi-po-no" value="${d.poNumber || ''}" placeholder="e.g. PO-8821" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
-              </div>
-
-              <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">P.O DATE</label>
-                <input type="date" id="form-pi-po-date" value="${d.poDate || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
-              </div>
-            </div>
-          </div>
-
-          <!-- Section 3: Buyer & Consignee Parties -->
-          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
-              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Buyer, Consignee &amp; Stakeholder Parties</h4>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
-              <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BUYER NAME</label>
-                <input type="text" id="form-pi-buyer" value="${d.buyerName || ''}" placeholder="Foreign Buyer / Client" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
-              </div>
-
-              <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CONSIGNEE <span class="text-[#DE350B]">*</span></label>
-                <input type="text" id="form-pi-consignee" value="${d.consignee || ''}" placeholder="Consignee Name" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
-              </div>
-
-              <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ULTIMATE CONSIGNEE</label>
-                <input type="text" id="form-pi-ult-consignee" value="${d.ultimateConsignee || ''}" placeholder="Destination Facility" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
-              </div>
-
-              <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">NOTIFY PARTY</label>
-                <input type="text" id="form-pi-notify" value="${d.notifyParty || ''}" placeholder="Freight Broker / Clearing Agency" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
-              </div>
-
-              <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">IMPORTER OF RECORD <span class="text-[#DE350B]">*</span></label>
-                <input type="text" id="form-pi-importer-record" value="${d.importerOfRecord || ''}" placeholder="IOR Entity" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
-              </div>
-
-              <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">AGENT</label>
-                <input type="text" id="form-pi-agent" value="${d.agent || ''}" placeholder="Shipping / Handling Agent" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
-              </div>
-
-              <div class="sm:col-span-2">
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CERTIFICATION</label>
-                <input type="text" id="form-pi-cert" value="${d.certification || ''}" placeholder="e.g. BAP 4-Star, ASC, MSC, HACCP, ISO 22000" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
-              </div>
-            </div>
-          </div>
-
-          <!-- Section 4: Ports & Shipment Routing -->
-          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
-              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Port Routing &amp; Shipment Dates</h4>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
-              <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PORT OF LOADING <span class="text-[#DE350B]">*</span></label>
-                <input type="text" id="form-pi-pol" value="${d.portOfLoading || 'Visakhapatnam Sea Port (INVTZ)'}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
-              </div>
-
-              <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DESTINATION COUNTRY <span class="text-[#DE350B]">*</span></label>
-                <input type="text" id="form-pi-dest-country" value="${d.destinationCountry || 'United States'}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
-              </div>
-
-              <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PORT OF DISCHARGE <span class="text-[#DE350B]">*</span></label>
-                <input type="text" id="form-pi-pod" value="${d.portOfDischarge || 'Long Beach Port, USA'}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
-              </div>
-
-              <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FINAL DESTINATION COUNTRY</label>
-                <input type="text" id="form-pi-final-dest-country" value="${d.finalDestinationCountry || 'United States'}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
-              </div>
-
-              <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FINAL DESTINATION <span class="text-[#DE350B]">*</span></label>
-                <input type="text" id="form-pi-final-dest" value="${d.finalDestination || 'Los Angeles Cold Storage, CA'}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
-              </div>
-
-              <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SHIPBY DATE</label>
-                <input type="date" id="form-pi-shipby" value="${d.shipByDate || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
-              </div>
-
-              <div class="sm:col-span-2">
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SHIPBY DATE 2 (TEXT)</label>
-                <input type="text" id="form-pi-shipby-text" value="${d.shipByDate2 || ''}" placeholder="e.g. Late November 2026 / Week 48" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
-              </div>
-            </div>
-          </div>
-
-          <!-- Section 5: Commercial Terms & Banking -->
-          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
-              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Commercial Terms, Banking &amp; Currency</h4>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-              <div class="sm:col-span-2">
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BANK DETAILS <span class="text-[#DE350B]">*</span></label>
-                <select id="form-pi-bank" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
-                  <option value="State Bank of India (Forex Cell, Vizag)" ${d.bankDetails?.includes('State Bank') ? 'selected' : ''}>State Bank of India - Overseas Branch Vizag (A/C: 30198821049, IFSC: SBIN0004128)</option>
-                  <option value="Canara Bank Overseas Branch" ${d.bankDetails?.includes('Canara') ? 'selected' : ''}>Canara Bank - Overseas Branch Vizag (A/C: 08452010992, IFSC: CNRB0000845)</option>
-                  <option value="HDFC Bank Trade Finance" ${d.bankDetails?.includes('HDFC') ? 'selected' : ''}>HDFC Bank Trade Services Vizag (A/C: 50200088921, IFSC: HDFC0000120)</option>
-                </select>
-              </div>
-
-              <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SHOW BANK <span class="text-[#DE350B]">*</span></label>
-                <select id="form-pi-show-bank" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
-                  <option value="Yes" ${d.showBank !== 'No' ? 'selected' : ''}>Yes</option>
-                  <option value="No" ${d.showBank === 'No' ? 'selected' : ''}>No</option>
-                </select>
-              </div>
-
-              <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PAYMENT TERMS <span class="text-[#DE350B]">*</span></label>
-                <select id="form-pi-payment-terms" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
-                  <option value="100% Irrevocable LC at Sight" ${d.paymentTerms === '100% Irrevocable LC at Sight' ? 'selected' : ''}>100% Irrevocable LC at Sight</option>
-                  <option value="30% Advance + 70% Against CAD" ${d.paymentTerms === '30% Advance + 70% Against CAD' ? 'selected' : ''}>30% Advance + 70% Against CAD</option>
-                  <option value="LC 60 Days from B/L Date" ${d.paymentTerms === 'LC 60 Days from B/L Date' ? 'selected' : ''}>LC 60 Days from B/L Date</option>
-                  <option value="Open Account 30 Days" ${d.paymentTerms === 'Open Account 30 Days' ? 'selected' : ''}>Open Account 30 Days</option>
-                </select>
-              </div>
-
-              <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SHIPMENT TERMS <span class="text-[#DE350B]">*</span></label>
-                <select id="form-pi-shipment-terms" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
-                  <option value="Full Container Load (FCL)" ${d.shipmentTerms !== 'Less than Container Load (LCL)' ? 'selected' : ''}>Full Container Load (FCL)</option>
-                  <option value="Less than Container Load (LCL)" ${d.shipmentTerms === 'Less than Container Load (LCL)' ? 'selected' : ''}>Less than Container Load (LCL)</option>
-                </select>
-              </div>
-
-              <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DELIVERY TERMS <span class="text-[#DE350B]">*</span></label>
-                <select id="form-pi-delivery-terms" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
-                  <option value="CIF Port of Destination" ${d.deliveryTerms === 'CIF Port of Destination' ? 'selected' : ''}>CIF Port of Destination</option>
-                  <option value="CFR Port of Destination" ${d.deliveryTerms === 'CFR Port of Destination' ? 'selected' : ''}>CFR Port of Destination</option>
-                  <option value="FOB Visakhapatnam Port" ${d.deliveryTerms === 'FOB Visakhapatnam Port' ? 'selected' : ''}>FOB Visakhapatnam Port (INVTZ)</option>
-                  <option value="DDP Destination" ${d.deliveryTerms === 'DDP Destination' ? 'selected' : ''}>DDP Destination</option>
-                </select>
-              </div>
-
-              <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">QUANTITY UNITS <span class="text-[#DE350B]">*</span></label>
-                <select id="form-pi-qty-units" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
-                  <option value="Kilograms (Kg)" ${d.quantityUnits !== 'Pounds (Lbs)' ? 'selected' : ''}>Kilograms (Kg)</option>
-                  <option value="Metric Tons (MT)" ${d.quantityUnits === 'Metric Tons (MT)' ? 'selected' : ''}>Metric Tons (MT)</option>
-                  <option value="Cartons / Cases" ${d.quantityUnits === 'Cartons / Cases' ? 'selected' : ''}>Cartons / Cases</option>
-                  <option value="Pounds (Lbs)" ${d.quantityUnits === 'Pounds (Lbs)' ? 'selected' : ''}>Pounds (Lbs)</option>
-                </select>
-              </div>
-
-              <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CURRENCY <span class="text-[#DE350B]">*</span></label>
-                <select id="form-pi-currency" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
-                  <option value="USD ($)" ${d.currency?.includes('USD') ? 'selected' : ''}>USD ($)</option>
-                  <option value="EUR (€)" ${d.currency?.includes('EUR') ? 'selected' : ''}>EUR (€)</option>
-                  <option value="JPY (¥)" ${d.currency?.includes('JPY') ? 'selected' : ''}>JPY (¥)</option>
-                  <option value="GBP (£)" ${d.currency?.includes('GBP') ? 'selected' : ''}>GBP (£)</option>
-                  <option value="INR (₹)" ${d.currency?.includes('INR') ? 'selected' : ''}>INR (₹)</option>
-                </select>
-              </div>
-            </div>
-          </div>
-
-          <!-- Section 6: Freight, Charges & Remarks -->
-          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
-              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Freight, Charges &amp; Remarks</h4>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-              <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FREIGHT</label>
-                <select id="form-pi-freight" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
-                  <option value="Freight Prepaid" ${d.freight !== 'Freight Collect' ? 'selected' : ''}>Freight Prepaid</option>
-                  <option value="Freight Collect" ${d.freight === 'Freight Collect' ? 'selected' : ''}>Freight Collect</option>
-                </select>
-              </div>
-
-              <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CHARGE NAME</label>
-                <input type="text" id="form-pi-charge-name" value="${d.chargeName || ''}" placeholder="e.g. Ocean Freight & THC Surcharge" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
-              </div>
-
-              <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CHARGE AMOUNT</label>
-                <input type="number" id="form-pi-charge-amount" value="${d.chargeAmount || 0}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
-              </div>
-
-              <div class="sm:col-span-3">
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">REMARKS</label>
-                <textarea id="form-pi-remarks" rows="2" placeholder="Special contractual conditions, testing mandates & packing instructions" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">${d.remarks || ''}</textarea>
-              </div>
-            </div>
-          </div>
-        </form>
-      `,
-      buttons: [
-        {
-          label: 'Cancel',
-          type: 'secondary',
-          onClick: (modal) => modal.close()
-        },
-        {
-          label: submitButtonText || 'Save Proforma Invoice',
-          type: 'primary',
-          onClick: (modal) => {
-            const getVal = (id) => document.getElementById(id)?.value?.trim() || '';
-
-            const piNo = getVal('form-pi-number');
-            const piDate = getVal('form-pi-date');
-            const exporter = getVal('form-pi-exporter');
-            const processor = getVal('form-pi-processor');
-            const consignee = getVal('form-pi-consignee');
-            const importerRecord = getVal('form-pi-importer-record');
-            const pol = getVal('form-pi-pol');
-            const destCountry = getVal('form-pi-dest-country');
-            const pod = getVal('form-pi-pod');
-            const finalDest = getVal('form-pi-final-dest');
-
-            if (!piNo || !piDate || !exporter || !processor || !consignee || !importerRecord || !pol || !destCountry || !pod || !finalDest) {
-              Toast.show('Please fill in all mandatory fields marked with *', 'warning');
-              return;
-            }
-
-            const payload = {
-              exporter,
-              processor,
-              productionPlant: getVal('form-pi-plant'),
-              noOfContainers: Number(getVal('form-pi-containers')) || 1,
-              referenceNumber: getVal('form-pi-ref'),
-              piNumber: piNo,
-              piDate,
-              poNumber: getVal('form-pi-po-no'),
-              poDate: getVal('form-pi-po-date'),
-              buyerName: getVal('form-pi-buyer') || consignee,
-              consignee,
-              ultimateConsignee: getVal('form-pi-ult-consignee'),
-              notifyParty: getVal('form-pi-notify'),
-              importerOfRecord: importerRecord,
-              agent: getVal('form-pi-agent'),
-              certification: getVal('form-pi-cert'),
-              portOfLoading: pol,
-              destinationCountry: destCountry,
-              country: destCountry,
-              portOfDischarge: pod,
-              finalDestinationCountry: getVal('form-pi-final-dest-country') || destCountry,
-              finalDestination: finalDest,
-              shipByDate: getVal('form-pi-shipby'),
-              shipByDate2: getVal('form-pi-shipby-text'),
-              bankDetails: getVal('form-pi-bank'),
-              showBank: getVal('form-pi-show-bank'),
-              paymentTerms: getVal('form-pi-payment-terms'),
-              shipmentTerms: getVal('form-pi-shipment-terms'),
-              deliveryTerms: getVal('form-pi-delivery-terms'),
-              quantityUnits: getVal('form-pi-qty-units'),
-              currency: getVal('form-pi-currency'),
-              freight: getVal('form-pi-freight'),
-              chargeName: getVal('form-pi-charge-name'),
-              chargeAmount: Number(getVal('form-pi-charge-amount')) || 0,
-              remarks: getVal('form-pi-remarks')
-            };
-
-            if (typeof onSubmit === 'function') {
-              onSubmit(payload, modal);
-            }
-          }
-        }
-      ]
-    });
-  },
-
-  // Tab 2: Custom Invoices (Customs Clearance)
+    // Tab 2: Custom Invoices (Customs Clearance)
   renderCustomInvoices(container) {
     container.innerHTML = `
       <div class="space-y-3 animate-fade-in">
