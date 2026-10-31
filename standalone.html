@@ -64582,63 +64582,175 @@ const SalesView = {
 
     fdaStatusList: [
       {
+        id: "FDA-001",
         pncNumber: "PNC-FDA-2026-789",
         fdaRegNumber: "18492019948",
         contractNo: "SC-USA-2026-441",
         consigneeName: "Red Lobster Supply Chain LLC",
-        productDescription: "Frozen IQF Raw Vannamei Shrimp",
+        productDescription: "Frozen IQF Raw Vannamei Shrimp HLSO",
         manufacturer: "Devi Fisheries Limited - Plant Unit 1 (FCI: 3004812)",
+        plant: "Plant Unit 1 (FCI: 3004812)",
+        exporter: "Devi Fisheries Limited",
+        year: "2026-2027",
+        fdaProductCode: "16AFA01",
+        lotCode: "LOT-BT-2026-901A",
+        quantityCartons: 1800,
+        netWeightKg: 21600.00,
+        submissionDate: "2026-10-18",
+        anticipatedArrivalDate: "2026-11-12",
+        portOfEntry: "Port of Los Angeles (USLAX)",
         priorNoticeStatus: "PRIOR_NOTICE_CONFIRMED",
-        clearanceStatus: "GREEN_LIST_SATISFIED"
+        clearanceStatus: "GREEN_LIST_SATISFIED",
+        filerName: "Expeditors International CHB (Reg: 4491)",
+        remarks: "Facility on Green List (Import Alert 16-131 exempted). Full prior notice confirmed."
       },
       {
+        id: "FDA-002",
         pncNumber: "PNC-FDA-2026-795",
         fdaRegNumber: "18492019948",
         contractNo: "SC-USA-2026-448",
         consigneeName: "Sysco Corporation International",
-        productDescription: "Frozen Cooked Tail-On Shrimp",
-        manufacturer: "Devi Fisheries Limited - Plant Unit 5 (FCI: 3004815)",
+        productDescription: "Frozen Cooked Tail-On Vannamei Shrimp",
+        manufacturer: "Devi Fisheries Limited - Plant Unit 4 (FCI: 3004815)",
+        plant: "Plant Unit 4 (FCI: 3004815)",
+        exporter: "Devi Fisheries Limited",
+        year: "2026-2027",
+        fdaProductCode: "16AGB03",
+        lotCode: "LOT-US-2026-440",
+        quantityCartons: 2000,
+        netWeightKg: 24000.00,
+        submissionDate: "2026-10-25",
+        anticipatedArrivalDate: "2026-11-22",
+        portOfEntry: "Houston Port (USHOU)",
         priorNoticeStatus: "PRIOR_NOTICE_CONFIRMED",
-        clearanceStatus: "ADMITTED_NO_HOLD"
+        clearanceStatus: "ADMITTED_NO_HOLD",
+        filerName: "K. R. Customs Brokers LLC",
+        remarks: "Cooked shrimp process audit compliant. 21 CFR Part 123 HACCP certificate on file."
+      },
+      {
+        id: "FDA-003",
+        pncNumber: "PNC-FDA-2026-802",
+        fdaRegNumber: "18492019948",
+        contractNo: "SC-USA-2026-455",
+        consigneeName: "US Foods Trading Co",
+        productDescription: "Frozen Raw White Shrimp Butterfly Tail-On",
+        manufacturer: "Devi Marine Processors - Plant Unit 1 (FCI: 3004812)",
+        plant: "Plant Unit 1 (FCI: 3004812)",
+        exporter: "Devi Marine Processors",
+        year: "2026-2027",
+        fdaProductCode: "16AFA04",
+        lotCode: "LOT-US-2026-550",
+        quantityCartons: 1400,
+        netWeightKg: 16800.00,
+        submissionDate: "2026-10-29",
+        anticipatedArrivalDate: "2026-11-26",
+        portOfEntry: "New York Port (USNYC)",
+        priorNoticeStatus: "PRIOR_NOTICE_CONFIRMED",
+        clearanceStatus: "GREEN_LIST_SATISFIED",
+        filerName: "Apex Logistics Customs Brokerage",
+        remarks: "Laboratory analysis for chloramphenicol & nitrofurans negative. Admitted."
+      },
+      {
+        id: "FDA-004",
+        pncNumber: "PNC-FDA-2026-810",
+        fdaRegNumber: "18492019948",
+        contractNo: "SC-USA-2026-460",
+        consigneeName: "Red Lobster Supply Chain LLC",
+        productDescription: "Frozen Raw Black Tiger Shrimp HLSO 16/20",
+        manufacturer: "Devi Fisheries Limited - Plant Unit 2 (FCI: 3004814)",
+        plant: "Plant Unit 2 (FCI: 3004814)",
+        exporter: "Devi Fisheries Limited",
+        year: "2026-2027",
+        fdaProductCode: "16AFA02",
+        lotCode: "LOT-RL-2026-701",
+        quantityCartons: 1600,
+        netWeightKg: 19200.00,
+        submissionDate: "2026-10-30",
+        anticipatedArrivalDate: "2026-11-28",
+        portOfEntry: "Port of Los Angeles (USLAX)",
+        priorNoticeStatus: "UNDER_REVIEW",
+        clearanceStatus: "PENDING_VERIFICATION",
+        filerName: "Expeditors International CHB",
+        remarks: "Prior notice submission receipt acknowledged; waiting for vessel arrival admissibility match."
       }
     ],
 
     clearingAgents: [
       {
+        id: "CHA-01",
         agentCode: "CHA-01",
         agentName: "Seaways Shipping & Logistics Ltd",
         licenseNo: "CHA-PAN-VSP-0044",
         contactPerson: "K. V. Subba Rao",
         phone: "+91 891 2568901",
         email: "vizag.cha@seawayshipping.in",
+        portLocation: "Visakhapatnam (INVTZ)",
+        address: "Seaways House, 5th Floor, Harbour Park Road, Visakhapatnam - 530003",
         activeContainers: 8,
         totalCleared: 142,
         rating: "4.9 / 5.0",
-        status: "ACTIVE_VERIFIED"
+        status: "ACTIVE_VERIFIED",
+        panGst: "AAACS8849GST001",
+        portRegNo: "VPA-CHA-REG-2021-99",
+        authorizedScope: "Frozen Marine Products, Reefer Container Specialized",
+        handlingLimit: "25 Containers / Week"
       },
       {
+        id: "CHA-02",
         agentCode: "CHA-02",
         agentName: "Evergreen Maritime Cargo Agency",
         licenseNo: "CHA-PAN-VSP-0089",
         contactPerson: "R. Muralidhar",
         phone: "+91 891 2781190",
         email: "murali@evergreencargo.co.in",
+        portLocation: "Visakhapatnam (INVTZ)",
+        address: "Maritime Towers, Near Port Area, Visakhapatnam - 530001",
         activeContainers: 4,
         totalCleared: 98,
         rating: "4.8 / 5.0",
-        status: "ACTIVE_VERIFIED"
+        status: "ACTIVE_VERIFIED",
+        panGst: "AABCE3321GST002",
+        portRegNo: "VPA-CHA-REG-2022-44",
+        authorizedScope: "General Cargo & Perishable Foods Customs Clearance",
+        handlingLimit: "15 Containers / Week"
       },
       {
+        id: "CHA-03",
         agentCode: "CHA-03",
         agentName: "Visakha Ocean Transports Pvt Ltd",
         licenseNo: "CHA-PAN-VSP-0112",
         contactPerson: "Ch. Satyanarayana",
         phone: "+91 891 2893450",
         email: "satya.vsp@votlogistics.com",
+        portLocation: "Visakhapatnam (INVTZ)",
+        address: "Plot 14, Industrial Estate, Autonagar, Visakhapatnam - 530012",
         activeContainers: 2,
         totalCleared: 64,
         rating: "4.7 / 5.0",
-        status: "ACTIVE_VERIFIED"
+        status: "ACTIVE_VERIFIED",
+        panGst: "AABCV9912GST003",
+        portRegNo: "VPA-CHA-REG-2023-12",
+        authorizedScope: "Port Handling, Stuffing Supervision & Customs EDI Clearing",
+        handlingLimit: "10 Containers / Week"
+      },
+      {
+        id: "CHA-04",
+        agentCode: "CHA-04",
+        agentName: "Transworld Clearing & Forwarding Corp",
+        licenseNo: "CHA-PAN-MAA-0077",
+        contactPerson: "V. Ramakrishnan",
+        phone: "+91 44 25223344",
+        email: "chennai@transworldcargo.in",
+        portLocation: "Chennai Port (INMAA)",
+        address: "Rajaji Salai, Chennai Port Commercial Corridor - 600001",
+        activeContainers: 3,
+        totalCleared: 52,
+        rating: "4.8 / 5.0",
+        status: "ACTIVE_VERIFIED",
+        panGst: "AAACT7721GST004",
+        portRegNo: "CHPA-CHA-REG-2022-88",
+        authorizedScope: "Southern Corridors & Ennore Port Transshipment Clearance",
+        handlingLimit: "12 Containers / Week"
       }
     ],
 
@@ -71383,65 +71495,1154 @@ const SalesView = {
     });
   },
 
-  // Tab 7: FDA Status
+  // Tab 7: FDA Status (US FDA Prior Notice & Admissibility)
   renderFdaStatus(container) {
-    this.renderGenericTablePage({
-      container,
-      pageTitle: 'FDA Status (US FDA Prior Notice & Admissibility)',
-            primaryBtnText: 'Submit Prior Notice (FDA)',
-      onPrimaryClick: () => Toast.show('FDA Prior Notice submission form opened', 'info'),
-      filterFields: [
-        { id: 'pnc-no', label: 'PNC Number', placeholder: 'e.g. PNC-FDA' },
-        { id: 'contract-no', label: 'Contract Ref', placeholder: 'e.g. SC-USA' },
-        { id: 'facility', label: 'Manufacturing Plant', type: 'select', options: ['All Facilities', 'Unit-1 Vizag (FCI: 3004812)', 'Unit-5 JPT (FCI: 3004815)'] }
-      ],
-      data: this.state.fdaStatusList,
-      keyField: 'pncNumber',
-      tableTitle: 'FDA Status Register',
-      columns: [
-        { field: 'pncNumber', header: 'PNC Confirmation No', render: (v) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${v}</span>` },
-        { field: 'fdaRegNumber', header: 'FDA Facility Reg No', render: (v) => `<span class="font-mono text-xs text-[#5E6C84]">${v}</span>` },
-        { field: 'contractNo', header: 'Contract No', render: (v) => `<span class="font-mono text-xs font-semibold text-[#172B4D]">${v}</span>` },
-        { field: 'consigneeName', header: 'US Consignee', render: (v) => `<span class="font-bold text-[#172B4D] text-xs">${v}</span>` },
-        { field: 'productDescription', header: 'Food Product Description', render: (v) => `<span class="text-xs text-[#172B4D] font-semibold">${v}</span>` },
-        { field: 'manufacturer', header: 'Registered Processor', render: (v) => `<span class="text-xs text-[#5E6C84]">${v}</span>` },
+    container.innerHTML = `
+      <div class="space-y-3 animate-fade-in">
+        <!-- Page Title & Header Actions (NO Subheading) -->
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-1">
+          <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">FDA Status (US FDA Prior Notice &amp; Admissibility)</h1>
+          <div class="inline-flex items-center gap-2">
+            <button type="button" id="btn-create-fda" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+              <span>Submit Prior Notice (FDA)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Search & Filter Card (4-column responsive grid) -->
+        <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200">
+          <div class="flex items-center justify-between pb-1">
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+              <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
+            </div>
+            <div class="inline-flex items-center gap-2">
+              <button type="button" id="flt-fda-reset-btn" class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Reset all filters">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+              </button>
+              <button type="button" id="flt-fda-toggle-btn" class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Hide Filter">
+                <svg class="w-3.5 h-3.5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              </button>
+            </div>
+          </div>
+          <div id="flt-fda-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
+            <!-- SELECT YEAR -->
+            <div>
+              <label for="flt-fda-year" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SELECT YEAR</label>
+              <select id="flt-fda-year" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="ALL">All Years</option>
+                <option value="2026-2027">2026-2027</option>
+                <option value="2025-2026">2025-2026</option>
+              </select>
+            </div>
+
+            <!-- SELECT EXPORTER -->
+            <div>
+              <label for="flt-fda-exporter" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SELECT EXPORTER</label>
+              <select id="flt-fda-exporter" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="ALL">All Exporters</option>
+                <option value="Devi Fisheries Limited">Devi Fisheries Limited</option>
+                <option value="Devi Sea Foods Ltd">Devi Sea Foods Ltd</option>
+                <option value="Devi Marine Processors">Devi Marine Processors</option>
+              </select>
+            </div>
+
+            <!-- SELECT CONSIGNEE -->
+            <div>
+              <label for="flt-fda-consignee" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SELECT CONSIGNEE</label>
+              <select id="flt-fda-consignee" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="ALL">All Consignees</option>
+                <option value="Red Lobster Supply Chain LLC">Red Lobster Supply Chain LLC</option>
+                <option value="Sysco Corporation International">Sysco Corporation International</option>
+                <option value="US Foods Trading Co">US Foods Trading Co</option>
+              </select>
+            </div>
+
+            <!-- MANUFACTURING PLANT -->
+            <div>
+              <label for="flt-fda-plant" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">MANUFACTURING PLANT</label>
+              <select id="flt-fda-plant" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="ALL">All Facilities</option>
+                <option value="Plant Unit 1 (FCI: 3004812)">Plant Unit 1 (FCI: 3004812)</option>
+                <option value="Plant Unit 2 (FCI: 3004814)">Plant Unit 2 (FCI: 3004814)</option>
+                <option value="Plant Unit 4 (FCI: 3004815)">Plant Unit 4 (FCI: 3004815)</option>
+              </select>
+            </div>
+
+            <!-- CLEARANCE STATUS -->
+            <div>
+              <label for="flt-fda-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CLEARANCE STATUS</label>
+              <select id="flt-fda-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="ALL">All Statuses</option>
+                <option value="GREEN_LIST_SATISFIED">Green List Satisfied</option>
+                <option value="ADMITTED_NO_HOLD">Admitted No Hold</option>
+                <option value="UNDER_REVIEW">Under Review</option>
+              </select>
+            </div>
+
+            <div></div>
+            <div></div>
+
+            <!-- Search Button placed inside 4-col grid -->
+            <div class="flex items-end justify-end">
+              <button type="button" id="flt-fda-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                <span>Search</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- DataTable Container -->
+        <div id="fda-status-table-container"></div>
+      </div>
+    `;
+
+    // Hook primary action button
+    container.querySelector('#btn-create-fda')?.addEventListener('click', () => {
+      this.showAddFdaModal(null);
+    });
+
+    // Toggle filter
+    const toggleBtn = container.querySelector('#flt-fda-toggle-btn');
+    const filterBody = container.querySelector('#flt-fda-body');
+    toggleBtn?.addEventListener('click', () => {
+      filterBody?.classList.toggle('hidden');
+      toggleBtn.querySelector('svg')?.classList.toggle('-rotate-90');
+    });
+
+    // Render table
+    const renderTable = (dataToDisplay) => {
+      new DataTable({
+        containerId: 'fda-status-table-container',
+        data: dataToDisplay,
+        keyField: 'id',
+        tableTitle: `FDA Status Records (${dataToDisplay.length})`,
+        searchable: true,
+        exportable: true,
+        pageSize: 10,
+        onRowClick: (row) => this.showFdaDetailsModal(row),
+        columns: [
+          {
+            field: '__sno__',
+            header: 'S.No',
+            render: (v, r, idx) => `<span class="font-mono text-xs text-[#5E6C84]">${idx + 1}</span>`
+          },
+          {
+            field: 'id',
+            header: 'ID',
+            render: (v) => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer">${v}</span>`
+          },
+          {
+            field: 'pncNumber',
+            header: 'PNC Number',
+            render: (v) => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer">${v || '-'}</span>`
+          },
+          {
+            field: 'fdaRegNumber',
+            header: 'FDA Facility Reg No',
+            render: (v) => `<span class="font-mono text-xs text-[#5E6C84]">${v || '-'}</span>`
+          },
+          {
+            field: 'contractNo',
+            header: 'Contract No',
+            render: (v) => `<span class="font-mono text-xs font-semibold text-[#172B4D]">${v || '-'}</span>`
+          },
+          {
+            field: 'consigneeName',
+            header: 'US Consignee',
+            render: (v) => `<span class="font-bold text-[#172B4D] text-xs">${v || '-'}</span>`
+          },
+          {
+            field: 'productDescription',
+            header: 'Food Product Description',
+            render: (v) => `<span class="text-xs font-semibold text-[#172B4D] truncate max-w-[160px] block" title="${v}">${v || '-'}</span>`
+          },
+          {
+            field: 'plant',
+            header: 'Manufacturing Plant',
+            render: (v) => `<span class="text-xs text-[#5E6C84] truncate max-w-[150px] block" title="${v}">${v || '-'}</span>`
+          },
+          {
+            field: 'priorNoticeStatus',
+            header: 'Prior Notice Status',
+            render: (v) => `<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF] uppercase">${String(v || '').replace(/_/g, ' ')}</span>`
+          },
+          {
+            field: 'clearanceStatus',
+            header: 'FDA Admissibility',
+            render: (v) => {
+              const val = String(v || '').toUpperCase();
+              let cls = 'bg-[#E3FCEF] text-[#006644] border-[#ABF5D1]';
+              if (val.includes('REVIEW') || val.includes('PENDING')) {
+                cls = 'bg-[#FFFAE6] text-[#FF8B00] border-[#FFE380]';
+              }
+              return `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold border ${cls} uppercase">${val.replace(/_/g, ' ')}</span>`;
+            }
+          }
+        ],
+        actions: [
+          {
+            label: 'Edit FDA Record',
+            icon: `<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>`,
+            onClick: (row) => this.showAddFdaModal(row)
+          }
+        ]
+      });
+    };
+
+    renderTable(this.state.fdaStatusList);
+
+    // Search and Reset handlers
+    const searchBtn = container.querySelector('#flt-fda-search-btn');
+    const resetBtn = container.querySelector('#flt-fda-reset-btn');
+
+    searchBtn?.addEventListener('click', () => {
+      const yr = container.querySelector('#flt-fda-year')?.value || 'ALL';
+      const exp = container.querySelector('#flt-fda-exporter')?.value || 'ALL';
+      const con = container.querySelector('#flt-fda-consignee')?.value || 'ALL';
+      const pl = container.querySelector('#flt-fda-plant')?.value || 'ALL';
+      const st = container.querySelector('#flt-fda-status')?.value || 'ALL';
+
+      let filtered = [...this.state.fdaStatusList];
+
+      if (yr !== 'ALL') {
+        filtered = filtered.filter(r => (r.year || '').includes(yr));
+      }
+      if (exp !== 'ALL') {
+        filtered = filtered.filter(r => (r.exporter || '').includes(exp));
+      }
+      if (con !== 'ALL') {
+        filtered = filtered.filter(r => (r.consigneeName || '').includes(con));
+      }
+      if (pl !== 'ALL') {
+        filtered = filtered.filter(r => (r.plant || r.manufacturer || '').includes(pl));
+      }
+      if (st !== 'ALL') {
+        filtered = filtered.filter(r => (r.clearanceStatus || '').toUpperCase().includes(st));
+      }
+
+      renderTable(filtered);
+      Toast.show(`Filtered ${filtered.length} FDA Prior Notice record(s)`, 'info');
+    });
+
+    resetBtn?.addEventListener('click', () => {
+      if (container.querySelector('#flt-fda-year')) container.querySelector('#flt-fda-year').value = 'ALL';
+      if (container.querySelector('#flt-fda-exporter')) container.querySelector('#flt-fda-exporter').value = 'ALL';
+      if (container.querySelector('#flt-fda-consignee')) container.querySelector('#flt-fda-consignee').value = 'ALL';
+      if (container.querySelector('#flt-fda-plant')) container.querySelector('#flt-fda-plant').value = 'ALL';
+      if (container.querySelector('#flt-fda-status')) container.querySelector('#flt-fda-status').value = 'ALL';
+      renderTable(this.state.fdaStatusList);
+      Toast.show('FDA filters reset', 'info');
+    });
+  },
+
+  // Modal: Submit / Edit FDA Prior Notice
+  showAddFdaModal(targetRow) {
+    const nextIdx = this.state.fdaStatusList.length + 1;
+    const isEdit = !!targetRow;
+    const d = targetRow || {
+      id: `FDA-${String(nextIdx).padStart(3, '0')}`,
+      pncNumber: `PNC-FDA-2026-${800 + nextIdx}`,
+      fdaRegNumber: "18492019948",
+      contractNo: `SC-USA-2026-${440 + nextIdx}`,
+      consigneeName: "Red Lobster Supply Chain LLC",
+      productDescription: "Frozen IQF Raw Vannamei Shrimp HLSO",
+      manufacturer: "Devi Fisheries Limited - Plant Unit 1 (FCI: 3004812)",
+      plant: "Plant Unit 1 (FCI: 3004812)",
+      exporter: "Devi Fisheries Limited",
+      year: "2026-2027",
+      fdaProductCode: "16AFA01",
+      lotCode: `LOT-FDA-2026-${900 + nextIdx}`,
+      quantityCartons: 1800,
+      netWeightKg: 21600.00,
+      submissionDate: new Date().toISOString().slice(0, 10),
+      anticipatedArrivalDate: new Date(Date.now() + 24 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10),
+      portOfEntry: "Port of Los Angeles (USLAX)",
+      priorNoticeStatus: "PRIOR_NOTICE_CONFIRMED",
+      clearanceStatus: "GREEN_LIST_SATISFIED",
+      filerName: "Expeditors International CHB (Reg: 4491)",
+      remarks: "Facility on Green List (Import Alert 16-131 exempted). Full prior notice confirmed."
+    };
+
+    Modal.open({
+      title: isEdit ? `Edit FDA Prior Notice - ${d.pncNumber}` : 'Submit US FDA Prior Notice (PNC)',
+      size: 'xl',
+      content: `
+        <form id="form-fda-modal" class="space-y-4 text-xs animate-fade-in">
+          <!-- Section 1: Facility Registration & Prior Notice Identifiers -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">FDA Facility Registration &amp; Identification</h4>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 pt-3">
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PNC CONFIRMATION NO <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="fda-form-pnc" value="${d.pncNumber || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FDA FACILITY REG NO <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="fda-form-reg-no" value="${d.fdaRegNumber || '18492019948'}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CONTRACT / PO REF <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="fda-form-contract" value="${d.contractNo || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">US CONSIGNEE <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="fda-form-consignee" value="${d.consigneeName || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
+              </div>
+
+              <div class="sm:col-span-2">
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">MANUFACTURING PLANT / PROCESSOR <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="fda-form-manufacturer" value="${d.manufacturer || d.plant || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Product & Food Safety Details -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Product &amp; Food Safety Specifications</h4>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-3">
+              <div class="sm:col-span-2">
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FOOD PRODUCT DESCRIPTION <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="fda-form-product" value="${d.productDescription || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FDA PRODUCT CODE</label>
+                <input type="text" id="fda-form-prod-code" value="${d.fdaProductCode || '16AFA01'}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#403294] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">LOT / BATCH CODE</label>
+                <input type="text" id="fda-form-lot" value="${d.lotCode || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">QUANTITY (CARTONS)</label>
+                <input type="number" id="fda-form-cartons" value="${d.quantityCartons || 1800}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">NET WEIGHT (KG)</label>
+                <input type="number" step="0.01" id="fda-form-net-wt" value="${d.netWeightKg || 21600}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SUBMISSION DATE <span class="text-[#DE350B]">*</span></label>
+                <input type="date" id="fda-form-submission-date" value="${d.submissionDate || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ANTICIPATED ARRIVAL DATE</label>
+                <input type="date" id="fda-form-arrival-date" value="${d.anticipatedArrivalDate || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <div class="sm:col-span-2">
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PORT OF ENTRY (US)</label>
+                <input type="text" id="fda-form-port" value="${d.portOfEntry || 'Port of Los Angeles (USLAX)'}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <div class="sm:col-span-2">
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CUSTOMS BROKER / FILER</label>
+                <input type="text" id="fda-form-filer" value="${d.filerName || 'Expeditors International CHB'}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 3: Admissibility Status & Compliance -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Admissibility Status &amp; Compliance Verification</h4>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-3">
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PRIOR NOTICE STATUS <span class="text-[#DE350B]">*</span></label>
+                <select id="fda-form-pn-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
+                  <option value="PRIOR_NOTICE_CONFIRMED" ${d.priorNoticeStatus === 'PRIOR_NOTICE_CONFIRMED' ? 'selected' : ''}>Prior Notice Confirmed</option>
+                  <option value="UNDER_REVIEW" ${d.priorNoticeStatus === 'UNDER_REVIEW' ? 'selected' : ''}>Under Review</option>
+                  <option value="PENDING_SUBMISSION" ${d.priorNoticeStatus === 'PENDING_SUBMISSION' ? 'selected' : ''}>Pending Submission</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FDA ADMISSIBILITY STATUS <span class="text-[#DE350B]">*</span></label>
+                <select id="fda-form-clearance-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
+                  <option value="GREEN_LIST_SATISFIED" ${d.clearanceStatus === 'GREEN_LIST_SATISFIED' ? 'selected' : ''}>Green List Satisfied (Import Alert 16-131 Exempt)</option>
+                  <option value="ADMITTED_NO_HOLD" ${d.clearanceStatus === 'ADMITTED_NO_HOLD' ? 'selected' : ''}>Admitted - No Hold</option>
+                  <option value="PENDING_VERIFICATION" ${d.clearanceStatus === 'PENDING_VERIFICATION' ? 'selected' : ''}>Pending Verification</option>
+                </select>
+              </div>
+
+              <div class="sm:col-span-2">
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">REMARKS / COMPLIANCE NOTES</label>
+                <textarea id="fda-form-remarks" rows="2" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">${d.remarks || ''}</textarea>
+              </div>
+            </div>
+          </div>
+        </form>
+      `,
+      buttons: [
         {
-          field: 'clearanceStatus',
-          header: 'FDA Admissibility',
-          render: (v) => `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1] uppercase">${v.replace(/_/g, ' ')}</span>`
+          label: 'Cancel',
+          type: 'secondary',
+          onClick: (modal) => modal.close()
+        },
+        {
+          label: isEdit ? 'Update FDA Record' : 'Save Prior Notice',
+          type: 'primary',
+          onClick: (modal) => {
+            const getVal = (id) => document.getElementById(id)?.value?.trim() || '';
+            const getNum = (id) => parseFloat(document.getElementById(id)?.value) || 0;
+
+            const pnc = getVal('fda-form-pnc');
+            const regNo = getVal('fda-form-reg-no');
+            const contract = getVal('fda-form-contract');
+            const consignee = getVal('fda-form-consignee');
+            const manufacturer = getVal('fda-form-manufacturer');
+            const product = getVal('fda-form-product');
+            const subDate = getVal('fda-form-submission-date');
+
+            if (!pnc || !regNo || !contract || !consignee || !manufacturer || !product || !subDate) {
+              Toast.show('Please fill in all mandatory fields marked with *', 'warning');
+              return;
+            }
+
+            const updatedData = {
+              ...d,
+              pncNumber: pnc,
+              fdaRegNumber: regNo,
+              contractNo: contract,
+              consigneeName: consignee,
+              manufacturer,
+              plant: manufacturer,
+              productDescription: product,
+              fdaProductCode: getVal('fda-form-prod-code'),
+              lotCode: getVal('fda-form-lot'),
+              quantityCartons: getNum('fda-form-cartons'),
+              netWeightKg: getNum('fda-form-net-wt'),
+              submissionDate: subDate,
+              anticipatedArrivalDate: getVal('fda-form-arrival-date'),
+              portOfEntry: getVal('fda-form-port'),
+              filerName: getVal('fda-form-filer'),
+              priorNoticeStatus: getVal('fda-form-pn-status'),
+              clearanceStatus: getVal('fda-form-clearance-status'),
+              remarks: getVal('fda-form-remarks')
+            };
+
+            if (isEdit && targetRow) {
+              Object.assign(targetRow, updatedData);
+              Toast.show(`FDA Prior Notice ${targetRow.pncNumber} updated successfully`, 'success');
+            } else {
+              this.state.fdaStatusList.unshift(updatedData);
+              Toast.show(`FDA Prior Notice ${updatedData.pncNumber} submitted successfully`, 'success');
+            }
+
+            modal.close();
+            const mainEl = document.getElementById('sales-view-main');
+            if (mainEl) this.renderFdaStatus(mainEl);
+          }
         }
       ]
     });
   },
 
-  // Tab 8: Clearing Agent
-  renderClearingAgent(container) {
-    this.renderGenericTablePage({
-      container,
-      pageTitle: 'Clearing Agent (Custom House Agents & Port Logistics)',
-            primaryBtnText: 'Add Clearing Agent',
-      onPrimaryClick: () => Toast.show('New CHA onboarding form opened', 'info'),
-      filterFields: [
-        { id: 'cha-name', label: 'Agent Name', placeholder: 'e.g. Seaways' },
-        { id: 'lic-no', label: 'CHA License No', placeholder: 'e.g. CHA-PAN' },
-        { id: 'status', label: 'Agent Status', type: 'select', options: ['All Status', 'Active & Verified', 'Pending Audit'] }
-      ],
-      data: this.state.clearingAgents,
-      keyField: 'agentCode',
-      tableTitle: 'Clearing Agents Directory',
-      columns: [
-        { field: 'agentCode', header: 'Code', render: (v) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${v}</span>` },
-        { field: 'agentName', header: 'Clearing Agency Name', render: (v) => `<span class="font-bold text-[#172B4D] text-xs">${v}</span>` },
-        { field: 'licenseNo', header: 'Customs License No', render: (v) => `<span class="font-mono text-xs text-[#5E6C84]">${v}</span>` },
-        { field: 'contactPerson', header: 'CHA Incharge', render: (v) => `<span class="text-xs font-semibold text-[#172B4D]">${v}</span>` },
-        { field: 'phone', header: 'Phone / Helpline', render: (v) => `<span class="font-mono text-xs text-[#5E6C84]">${v}</span>` },
-        { field: 'activeContainers', header: 'Active Shipments', render: (v) => `<span class="px-2 py-0.5 rounded text-[11px] font-bold bg-[#F0F9FF] text-[#00A4B7] border border-[#BAE6FD]">${v} Containers</span>` },
-        { field: 'totalCleared', header: 'Lifetime Cleared', render: (v) => `<span class="font-mono text-xs font-bold text-[#172B4D]">${v} TEUs</span>` },
-        { field: 'rating', header: 'Audit Score', render: (v) => `<span class="font-mono text-xs text-[#006644] font-bold">★ ${v}</span>` },
+  // Modal: FDA Prior Notice Details View (On Row Click)
+  showFdaDetailsModal(row) {
+    const d = row || {};
+    const val = String(d.clearanceStatus || '').toUpperCase();
+    let statusClass = 'bg-[#E3FCEF] text-[#006644] border-[#ABF5D1]';
+    if (val.includes('REVIEW') || val.includes('PENDING')) {
+      statusClass = 'bg-[#FFFAE6] text-[#FF8B00] border-[#FFE380]';
+    }
+
+    Modal.open({
+      title: `US FDA Prior Notice Details - ${d.pncNumber || d.id}`,
+      size: 'xl',
+      content: `
+        <div class="space-y-4 text-xs animate-fade-in">
+          <!-- Top Hero / Summary Card -->
+          <div class="bg-gradient-to-r from-[#F0F9FF] to-[#F8FAFC] p-4 rounded-xl border border-[#BAE6FD] flex flex-wrap items-center justify-between gap-3 shadow-2xs">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-[#00A4B7] text-white flex items-center justify-center font-bold shadow-xs">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+              <div>
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span class="font-mono font-extrabold text-[#0F172A] text-base">${d.pncNumber || d.id}</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold tracking-wide uppercase border ${statusClass}">${val.replace(/_/g, ' ')}</span>
+                  <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">${d.fdaProductCode || 'Seafood Food Code'}</span>
+                </div>
+                <div class="text-[11px] text-[#64748B] mt-0.5 font-medium flex items-center gap-1.5 flex-wrap">
+                  <span><strong>Contract:</strong> ${d.contractNo || '-'}</span>
+                  <span>•</span>
+                  <span><strong>Consignee:</strong> ${d.consigneeName || '-'}</span>
+                  <span>•</span>
+                  <span><strong>Port of Entry:</strong> ${d.portOfEntry || '-'}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Metrics Badges -->
+            <div class="flex items-center gap-2 shrink-0">
+              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[85px]">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Quantity</span>
+                <span class="font-mono font-extrabold text-[#172B4D] text-xs mt-0.5 block">${Number(d.quantityCartons || 0).toLocaleString('en-IN')} Cartons</span>
+              </div>
+              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[85px]">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Net Weight</span>
+                <span class="font-mono font-extrabold text-[#00A4B7] text-xs mt-0.5 block">${Number(d.netWeightKg || 0).toLocaleString('en-IN')} Kg</span>
+              </div>
+              <div class="bg-white px-3.5 py-1.5 rounded-lg border border-[#ABF5D1] bg-[#F0FDF4] shadow-2xs text-center min-w-[95px]">
+                <span class="text-[10px] font-bold text-[#006644] uppercase tracking-wider block">Arrival ETA</span>
+                <span class="font-mono font-extrabold text-[#006644] text-xs mt-0.5 block">${d.anticipatedArrivalDate || '-'}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 1: Registration & Facility Details -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Facility Registration &amp; Commercial Reference</h4>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5 pt-3">
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">PNC CONFIRMATION NO</span>
+                <span class="font-mono font-extrabold text-[#00A4B7] text-xs block mt-0.5">${d.pncNumber || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">FDA FACILITY REG NO</span>
+                <span class="font-mono font-bold text-[#172B4D] text-xs block mt-0.5">${d.fdaRegNumber || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">CONTRACT / PO NO</span>
+                <span class="font-mono font-semibold text-[#172B4D] text-xs block mt-0.5">${d.contractNo || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">US CONSIGNEE</span>
+                <span class="font-bold text-[#172B4D] text-xs block mt-0.5">${d.consigneeName || '-'}</span>
+              </div>
+              <div class="sm:col-span-2">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">MANUFACTURING PROCESSOR PLANT</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${d.manufacturer || d.plant || '-'}</span>
+              </div>
+              <div class="sm:col-span-2">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">CUSTOMS BROKER / FILER</span>
+                <span class="text-[#5E6C84] text-xs block mt-0.5">${d.filerName || '-'}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Product & Clearance Compliance -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Product Admissibility &amp; Food Safety Compliance</h4>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5 pt-3">
+              <div class="sm:col-span-2">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">FOOD PRODUCT DESCRIPTION</span>
+                <span class="font-bold text-[#172B4D] text-xs block mt-0.5">${d.productDescription || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">FDA PRODUCT CODE</span>
+                <span class="font-mono font-bold text-[#403294] text-xs block mt-0.5">${d.fdaProductCode || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">LOT / BATCH CODE</span>
+                <span class="font-mono font-semibold text-[#172B4D] text-xs block mt-0.5">${d.lotCode || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">SUBMISSION DATE</span>
+                <span class="font-mono text-[#172B4D] text-xs block mt-0.5">${d.submissionDate || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">ANTICIPATED ARRIVAL</span>
+                <span class="font-mono text-[#172B4D] text-xs block mt-0.5">${d.anticipatedArrivalDate || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">PRIOR NOTICE STATUS</span>
+                <span class="font-semibold text-[#00A4B7] text-xs block mt-0.5">${d.priorNoticeStatus || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">ADMISSIBILITY DECISION</span>
+                <span class="font-extrabold text-[#006644] text-xs block mt-0.5">${d.clearanceStatus || '-'}</span>
+              </div>
+              <div class="sm:col-span-4">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">REMARKS / COMPLIANCE VERIFICATION</span>
+                <span class="text-[#172B4D] text-xs block mt-0.5 bg-[#F8FAFC] p-2.5 rounded border border-[#F1F5F9]">${d.remarks || 'No issues noted. Prior notice transmitted electronically.'}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      `,
+      buttons: [
         {
-          field: 'status',
-          header: 'Status',
-          render: (v) => `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1] uppercase">${v.replace(/_/g, ' ')}</span>`
+          label: 'Close',
+          type: 'secondary',
+          onClick: (modal) => modal.close()
+        },
+        {
+          label: 'Print PNC Confirmation',
+          type: 'secondary',
+          onClick: () => Toast.show(`Printing official US FDA Prior Notice Confirmation for ${d.pncNumber}...`, 'info')
+        },
+        {
+          label: 'Edit FDA Record',
+          type: 'primary',
+          onClick: (modal) => {
+            modal.close();
+            this.showAddFdaModal(d);
+          }
+        }
+      ]
+    });
+  },
+
+  // Tab 8: Clearing Agent (Custom House Agents & Port Logistics)
+  renderClearingAgent(container) {
+    container.innerHTML = `
+      <div class="space-y-3 animate-fade-in">
+        <!-- Page Title & Header Actions (NO Subheading) -->
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-1">
+          <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Clearing Agent (Custom House Agents &amp; Port Logistics)</h1>
+          <div class="inline-flex items-center gap-2">
+            <button type="button" id="btn-create-cha" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+              <span>Add Clearing Agent</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Search & Filter Card (4-column responsive grid) -->
+        <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200">
+          <div class="flex items-center justify-between pb-1">
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+              <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
+            </div>
+            <div class="inline-flex items-center gap-2">
+              <button type="button" id="flt-cha-reset-btn" class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Reset all filters">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+              </button>
+              <button type="button" id="flt-cha-toggle-btn" class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Hide Filter">
+                <svg class="w-3.5 h-3.5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              </button>
+            </div>
+          </div>
+          <div id="flt-cha-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
+            <!-- Agent Name -->
+            <div>
+              <label for="flt-cha-name" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Agent Name</label>
+              <select id="flt-cha-name" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="ALL">All Agents</option>
+                <option value="Seaways Shipping">Seaways Shipping &amp; Logistics Ltd</option>
+                <option value="Evergreen Maritime">Evergreen Maritime Cargo Agency</option>
+                <option value="Visakha Ocean">Visakha Ocean Transports Pvt Ltd</option>
+                <option value="Transworld">Transworld Clearing &amp; Forwarding Corp</option>
+              </select>
+            </div>
+
+            <!-- Customs License No -->
+            <div>
+              <label for="flt-cha-lic" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Customs License No</label>
+              <input type="text" id="flt-cha-lic" placeholder="e.g. CHA-PAN" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+            </div>
+
+            <!-- Port Location -->
+            <div>
+              <label for="flt-cha-port" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Port Location</label>
+              <select id="flt-cha-port" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="ALL">All Ports</option>
+                <option value="Visakhapatnam">Visakhapatnam Port (INVTZ)</option>
+                <option value="Chennai">Chennai Port (INMAA)</option>
+                <option value="Krishnapatnam">Krishnapatnam Port (INKRI)</option>
+              </select>
+            </div>
+
+            <!-- Agent Status -->
+            <div>
+              <label for="flt-cha-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Agent Status</label>
+              <select id="flt-cha-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="ALL">All Statuses</option>
+                <option value="ACTIVE_VERIFIED">Active &amp; Verified</option>
+                <option value="PENDING_AUDIT">Pending Audit</option>
+              </select>
+            </div>
+
+            <!-- Search Button placed inside 4-col grid -->
+            <div class="sm:col-span-2 md:col-span-4 flex items-end justify-end">
+              <button type="button" id="flt-cha-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                <span>Search</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- DataTable Container -->
+        <div id="clearing-agent-table-container"></div>
+      </div>
+    `;
+
+    // Hook primary action button
+    container.querySelector('#btn-create-cha')?.addEventListener('click', () => {
+      this.showAddClearingAgentModal(null);
+    });
+
+    // Toggle filter
+    const toggleBtn = container.querySelector('#flt-cha-toggle-btn');
+    const filterBody = container.querySelector('#flt-cha-body');
+    toggleBtn?.addEventListener('click', () => {
+      filterBody?.classList.toggle('hidden');
+      toggleBtn.querySelector('svg')?.classList.toggle('-rotate-90');
+    });
+
+    // Render table
+    const renderTable = (dataToDisplay) => {
+      new DataTable({
+        containerId: 'clearing-agent-table-container',
+        data: dataToDisplay,
+        keyField: 'id',
+        tableTitle: `Clearing Agents Directory (${dataToDisplay.length})`,
+        searchable: true,
+        exportable: true,
+        pageSize: 10,
+        onRowClick: (row) => this.showClearingAgentDetailsModal(row),
+        columns: [
+          {
+            field: '__sno__',
+            header: 'S.No',
+            render: (v, r, idx) => `<span class="font-mono text-xs text-[#5E6C84]">${idx + 1}</span>`
+          },
+          {
+            field: 'agentCode',
+            header: 'Code',
+            render: (v) => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer">${v}</span>`
+          },
+          {
+            field: 'agentName',
+            header: 'Clearing Agency Name',
+            render: (v) => `<span class="font-bold text-[#172B4D] text-xs">${v || '-'}</span>`
+          },
+          {
+            field: 'licenseNo',
+            header: 'Customs License No',
+            render: (v) => `<span class="font-mono text-xs text-[#5E6C84]">${v || '-'}</span>`
+          },
+          {
+            field: 'contactPerson',
+            header: 'CHA Incharge',
+            render: (v) => `<span class="text-xs font-semibold text-[#172B4D]">${v || '-'}</span>`
+          },
+          {
+            field: 'phone',
+            header: 'Phone / Helpline',
+            render: (v) => `<span class="font-mono text-xs text-[#5E6C84]">${v || '-'}</span>`
+          },
+          {
+            field: 'activeContainers',
+            header: 'Active Shipments',
+            render: (v) => `<span class="px-2 py-0.5 rounded text-[11px] font-bold bg-[#F0F9FF] text-[#00A4B7] border border-[#BAE6FD]">${v || 0} Containers</span>`
+          },
+          {
+            field: 'totalCleared',
+            header: 'Lifetime Cleared',
+            render: (v) => `<span class="font-mono text-xs font-bold text-[#172B4D]">${Number(v || 0).toLocaleString('en-IN')} TEUs</span>`
+          },
+          {
+            field: 'rating',
+            header: 'Audit Score',
+            render: (v) => `<span class="font-mono text-xs text-[#006644] font-bold">${v || '★ 4.8'}</span>`
+          },
+          {
+            field: 'status',
+            header: 'Status',
+            render: (v) => {
+              const val = String(v || '').toUpperCase();
+              let cls = 'bg-[#E3FCEF] text-[#006644] border-[#ABF5D1]';
+              if (val.includes('AUDIT') || val.includes('PENDING')) {
+                cls = 'bg-[#FFFAE6] text-[#FF8B00] border-[#FFE380]';
+              }
+              return `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold border ${cls} uppercase">${val.replace(/_/g, ' ')}</span>`;
+            }
+          }
+        ],
+        actions: [
+          {
+            label: 'Edit Clearing Agent',
+            icon: `<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>`,
+            onClick: (row) => this.showAddClearingAgentModal(row)
+          }
+        ]
+      });
+    };
+
+    renderTable(this.state.clearingAgents);
+
+    // Search and Reset handlers
+    const searchBtn = container.querySelector('#flt-cha-search-btn');
+    const resetBtn = container.querySelector('#flt-cha-reset-btn');
+
+    searchBtn?.addEventListener('click', () => {
+      const name = container.querySelector('#flt-cha-name')?.value || 'ALL';
+      const lic = container.querySelector('#flt-cha-lic')?.value?.trim().toUpperCase() || '';
+      const port = container.querySelector('#flt-cha-port')?.value || 'ALL';
+      const st = container.querySelector('#flt-cha-status')?.value || 'ALL';
+
+      let filtered = [...this.state.clearingAgents];
+
+      if (name !== 'ALL') {
+        filtered = filtered.filter(r => (r.agentName || '').includes(name));
+      }
+      if (lic) {
+        filtered = filtered.filter(r => (r.licenseNo || '').toUpperCase().includes(lic));
+      }
+      if (port !== 'ALL') {
+        filtered = filtered.filter(r => (r.portLocation || '').includes(port));
+      }
+      if (st !== 'ALL') {
+        filtered = filtered.filter(r => (r.status || '').toUpperCase().includes(st));
+      }
+
+      renderTable(filtered);
+      Toast.show(`Filtered ${filtered.length} clearing agency record(s)`, 'info');
+    });
+
+    resetBtn?.addEventListener('click', () => {
+      if (container.querySelector('#flt-cha-name')) container.querySelector('#flt-cha-name').value = 'ALL';
+      if (container.querySelector('#flt-cha-lic')) container.querySelector('#flt-cha-lic').value = '';
+      if (container.querySelector('#flt-cha-port')) container.querySelector('#flt-cha-port').value = 'ALL';
+      if (container.querySelector('#flt-cha-status')) container.querySelector('#flt-cha-status').value = 'ALL';
+      renderTable(this.state.clearingAgents);
+      Toast.show('Clearing agent filters reset', 'info');
+    });
+  },
+
+  // Modal: Add / Onboard Clearing Agent (CHA)
+  showAddClearingAgentModal(targetRow) {
+    const nextIdx = this.state.clearingAgents.length + 1;
+    const isEdit = !!targetRow;
+    const d = targetRow || {
+      id: `CHA-${String(nextIdx).padStart(2, '0')}`,
+      agentCode: `CHA-${String(nextIdx).padStart(2, '0')}`,
+      agentName: "",
+      licenseNo: `CHA-PAN-VSP-${String(100 + nextIdx)}`,
+      contactPerson: "",
+      phone: "+91 891 ",
+      email: "@logistics.in",
+      portLocation: "Visakhapatnam (INVTZ)",
+      address: "Port Commercial Corridor, Visakhapatnam",
+      activeContainers: 0,
+      totalCleared: 0,
+      rating: "5.0 / 5.0",
+      status: "ACTIVE_VERIFIED",
+      panGst: "AABCS9920GST001",
+      portRegNo: `VPA-CHA-REG-2026-${10 + nextIdx}`,
+      authorizedScope: "Frozen Marine Seafood Cargo, Reefer Containers",
+      handlingLimit: "20 Containers / Week"
+    };
+
+    Modal.open({
+      title: isEdit ? `Edit Clearing Agent - ${d.agentName || d.agentCode}` : 'Onboard Custom House Agent (CHA)',
+      size: 'xl',
+      content: `
+        <form id="form-cha-modal" class="space-y-4 text-xs animate-fade-in">
+          <!-- Section 1: Agency Identification & Customs Licensing -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Agency Identification &amp; Customs Licensing</h4>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 pt-3">
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">AGENT CODE <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="cha-form-code" value="${d.agentCode || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
+              </div>
+
+              <div class="sm:col-span-2">
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CLEARING AGENCY NAME <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="cha-form-name" value="${d.agentName || ''}" placeholder="e.g. Seaways Shipping & Logistics Ltd" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CUSTOMS LICENSE NO <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="cha-form-lic" value="${d.licenseNo || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PORT REGISTRATION NO</label>
+                <input type="text" id="cha-form-port-reg" value="${d.portRegNo || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PAN / GST NUMBER</label>
+                <input type="text" id="cha-form-pan" value="${d.panGst || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Contact Person & Communication -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Contact Person &amp; Communication Channels</h4>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 pt-3">
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CHA INCHARGE / CONTACT PERSON <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="cha-form-contact" value="${d.contactPerson || ''}" placeholder="e.g. K. V. Subba Rao" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PHONE / DIRECT HELPLINE <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="cha-form-phone" value="${d.phone || ''}" placeholder="+91 891 2568901" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">OFFICIAL EMAIL <span class="text-[#DE350B]">*</span></label>
+                <input type="email" id="cha-form-email" value="${d.email || ''}" placeholder="ops@agency.com" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
+              </div>
+
+              <div class="sm:col-span-3">
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">OPERATIONS OFFICE ADDRESS</label>
+                <input type="text" id="cha-form-address" value="${d.address || ''}" placeholder="Harbour Park Road, Visakhapatnam" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 3: Operations & Compliance Scope -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Operations Capacity &amp; Compliance Verification</h4>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 pt-3">
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PRIMARY PORT OF OPERATION</label>
+                <select id="cha-form-port" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="Visakhapatnam (INVTZ)" ${d.portLocation?.includes('Visakhapatnam') ? 'selected' : ''}>Visakhapatnam Port (INVTZ)</option>
+                  <option value="Chennai Port (INMAA)" ${d.portLocation?.includes('Chennai') ? 'selected' : ''}>Chennai Port (INMAA)</option>
+                  <option value="Krishnapatnam Port (INKRI)" ${d.portLocation?.includes('Krishnapatnam') ? 'selected' : ''}>Krishnapatnam Port (INKRI)</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">HANDLING CAPACITY</label>
+                <input type="text" id="cha-form-limit" value="${d.handlingLimit || '25 Containers / Week'}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">AGENT STATUS <span class="text-[#DE350B]">*</span></label>
+                <select id="cha-form-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
+                  <option value="ACTIVE_VERIFIED" ${d.status === 'ACTIVE_VERIFIED' ? 'selected' : ''}>Active &amp; Verified</option>
+                  <option value="PENDING_AUDIT" ${d.status === 'PENDING_AUDIT' ? 'selected' : ''}>Pending Audit</option>
+                </select>
+              </div>
+
+              <div class="sm:col-span-3">
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">AUTHORIZED COMMODITY HANDLING SCOPE</label>
+                <input type="text" id="cha-form-scope" value="${d.authorizedScope || 'Frozen Marine Products, Reefer Container Specialized'}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+            </div>
+          </div>
+        </form>
+      `,
+      buttons: [
+        {
+          label: 'Cancel',
+          type: 'secondary',
+          onClick: (modal) => modal.close()
+        },
+        {
+          label: isEdit ? 'Update Clearing Agent' : 'Save Clearing Agent',
+          type: 'primary',
+          onClick: (modal) => {
+            const getVal = (id) => document.getElementById(id)?.value?.trim() || '';
+
+            const codeVal = getVal('cha-form-code');
+            const nameVal = getVal('cha-form-name');
+            const licVal = getVal('cha-form-lic');
+            const contactVal = getVal('cha-form-contact');
+            const phoneVal = getVal('cha-form-phone');
+            const emailVal = getVal('cha-form-email');
+
+            if (!codeVal || !nameVal || !licVal || !contactVal || !phoneVal || !emailVal) {
+              Toast.show('Please fill in all mandatory fields marked with *', 'warning');
+              return;
+            }
+
+            const updatedData = {
+              ...d,
+              agentCode: codeVal,
+              agentName: nameVal,
+              licenseNo: licVal,
+              portRegNo: getVal('cha-form-port-reg'),
+              panGst: getVal('cha-form-pan'),
+              contactPerson: contactVal,
+              phone: phoneVal,
+              email: emailVal,
+              address: getVal('cha-form-address'),
+              portLocation: getVal('cha-form-port'),
+              handlingLimit: getVal('cha-form-limit'),
+              status: getVal('cha-form-status'),
+              authorizedScope: getVal('cha-form-scope')
+            };
+
+            if (isEdit && targetRow) {
+              Object.assign(targetRow, updatedData);
+              Toast.show(`Clearing Agent ${targetRow.agentName} updated successfully`, 'success');
+            } else {
+              this.state.clearingAgents.unshift(updatedData);
+              Toast.show(`Clearing Agent ${updatedData.agentName} onboarded successfully`, 'success');
+            }
+
+            modal.close();
+            const mainEl = document.getElementById('sales-view-main');
+            if (mainEl) this.renderClearingAgent(mainEl);
+          }
+        }
+      ]
+    });
+  },
+
+  // Modal: Clearing Agent Details View (On Row Click)
+  showClearingAgentDetailsModal(row) {
+    const d = row || {};
+    const val = String(d.status || '').toUpperCase();
+    let statusClass = 'bg-[#E3FCEF] text-[#006644] border-[#ABF5D1]';
+    if (val.includes('AUDIT') || val.includes('PENDING')) {
+      statusClass = 'bg-[#FFFAE6] text-[#FF8B00] border-[#FFE380]';
+    }
+
+    Modal.open({
+      title: `Clearing Agent Profile - ${d.agentName || d.agentCode}`,
+      size: 'xl',
+      content: `
+        <div class="space-y-4 text-xs animate-fade-in">
+          <!-- Top Hero / Summary Card -->
+          <div class="bg-gradient-to-r from-[#F0F9FF] to-[#F8FAFC] p-4 rounded-xl border border-[#BAE6FD] flex flex-wrap items-center justify-between gap-3 shadow-2xs">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-[#00A4B7] text-white flex items-center justify-center font-bold shadow-xs">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+              </div>
+              <div>
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span class="font-bold text-[#0F172A] text-base">${d.agentName || d.agentCode}</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold tracking-wide uppercase border ${statusClass}">${val.replace(/_/g, ' ')}</span>
+                  <span class="px-2 py-0.5 rounded text-[11px] font-mono font-bold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">${d.agentCode}</span>
+                </div>
+                <div class="text-[11px] text-[#64748B] mt-0.5 font-medium flex items-center gap-1.5 flex-wrap">
+                  <span><strong>License:</strong> ${d.licenseNo || '-'}</span>
+                  <span>•</span>
+                  <span><strong>Port:</strong> ${d.portLocation || '-'}</span>
+                  <span>•</span>
+                  <span><strong>Incharge:</strong> ${d.contactPerson || '-'}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Metrics Badges -->
+            <div class="flex items-center gap-2 shrink-0">
+              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[85px]">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Active Shipments</span>
+                <span class="font-mono font-extrabold text-[#00A4B7] text-xs mt-0.5 block">${d.activeContainers || 0} Cont.</span>
+              </div>
+              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[85px]">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Lifetime Cleared</span>
+                <span class="font-mono font-extrabold text-[#172B4D] text-xs mt-0.5 block">${Number(d.totalCleared || 0).toLocaleString('en-IN')} TEUs</span>
+              </div>
+              <div class="bg-white px-3.5 py-1.5 rounded-lg border border-[#ABF5D1] bg-[#F0FDF4] shadow-2xs text-center min-w-[95px]">
+                <span class="text-[10px] font-bold text-[#006644] uppercase tracking-wider block">Audit Score</span>
+                <span class="font-mono font-extrabold text-[#006644] text-xs mt-0.5 block">${d.rating || '★ 4.9'}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 1: Customs License & Government Authorizations -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Customs License &amp; Government Registrations</h4>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5 pt-3">
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">AGENT CODE</span>
+                <span class="font-mono font-extrabold text-[#00A4B7] text-xs block mt-0.5">${d.agentCode || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">CUSTOMS LICENSE NO</span>
+                <span class="font-mono font-bold text-[#172B4D] text-xs block mt-0.5">${d.licenseNo || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">PORT AUTHORITY REG NO</span>
+                <span class="font-mono font-semibold text-[#172B4D] text-xs block mt-0.5">${d.portRegNo || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">PAN / GST NUMBER</span>
+                <span class="font-mono font-semibold text-[#172B4D] text-xs block mt-0.5">${d.panGst || '-'}</span>
+              </div>
+              <div class="sm:col-span-2">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">PRIMARY PORT LOCATION</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${d.portLocation || '-'}</span>
+              </div>
+              <div class="sm:col-span-2">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">AUTHORIZED COMMODITY SCOPE</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${d.authorizedScope || '-'}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Contact Information & Operations Base -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Contact Information &amp; Operational Base</h4>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5 pt-3">
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">CHA INCHARGE</span>
+                <span class="font-bold text-[#172B4D] text-xs block mt-0.5">${d.contactPerson || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">PHONE / DIRECT LINE</span>
+                <span class="font-mono font-bold text-[#00A4B7] text-xs block mt-0.5">${d.phone || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">OFFICIAL EMAIL</span>
+                <span class="text-[#172B4D] font-semibold text-xs block mt-0.5">${d.email || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">WEEKLY HANDLING CAPACITY</span>
+                <span class="font-bold text-[#006644] text-xs block mt-0.5">${d.handlingLimit || '-'}</span>
+              </div>
+              <div class="sm:col-span-4">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">OPERATIONS OFFICE ADDRESS</span>
+                <span class="text-[#5E6C84] text-xs block mt-0.5 bg-[#F8FAFC] p-2.5 rounded border border-[#F1F5F9]">${d.address || '-'}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      `,
+      buttons: [
+        {
+          label: 'Close',
+          type: 'secondary',
+          onClick: (modal) => modal.close()
+        },
+        {
+          label: 'Print CHA Profile',
+          type: 'secondary',
+          onClick: () => Toast.show(`Printing official agency dossier for ${d.agentName}...`, 'info')
+        },
+        {
+          label: 'Edit Agent Profile',
+          type: 'primary',
+          onClick: (modal) => {
+            modal.close();
+            this.showAddClearingAgentModal(d);
+          }
         }
       ]
     });
