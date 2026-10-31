@@ -70057,7 +70057,7 @@ const SalesView = {
 
     const renderItemsTableBody = () => {
       if (!items || items.length === 0) {
-        return `<tr><td colspan="9" class="py-6 text-center text-xs text-[#5E6C84]">No product specifications added yet. Fill in the fields above and click "Add Product Item".</td></tr>`;
+        return `<tr><td colspan="10" class="py-6 text-center text-xs text-[#5E6C84]">No product specifications added yet. Fill in the fields above and click "Add Product Item".</td></tr>`;
       }
       return items.map((it, idx) => `
         <tr class="hover:bg-[#F8FAFC] transition-colors border-b border-[#F1F5F9] text-[#172B4D]">
@@ -70080,10 +70080,10 @@ const SalesView = {
     };
 
     Modal.open({
-      title: `Product Specifications & Packaging &mdash; ${d.invoiceNo || d.id}`,
+      title: `Commercial Invoice & Product Specifications &mdash; ${d.invoiceNo || d.id}`,
       size: 'xl',
       content: `
-        <div class="space-y-4 text-xs animate-fade-in">
+        <form id="form-cinv-complete-modal" class="space-y-4 text-xs animate-fade-in">
           <!-- Reference Header Bar -->
           <div class="bg-[#F8FAFC] p-3 rounded-lg border border-[#DFE1E6] flex flex-wrap items-center justify-between gap-2">
             <div class="flex items-center gap-3">
@@ -70095,10 +70095,155 @@ const SalesView = {
               <span class="text-[#CBD5E1]">|</span>
               <span class="text-xs text-[#5E6C84]">Buyer: <strong class="text-[#172B4D]">${d.buyer || '-'}</strong></span>
             </div>
-            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD] uppercase">${d.status || 'Active'}</span>
+            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD] uppercase">${d.status || 'FINAL_SETTLED'}</span>
           </div>
 
-          <!-- Form Input Fields Section -->
+          <!-- Section 1: Commercial Invoice Form Input Fields -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Commercial Invoice &amp; Settlement Parameters</h4>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-3">
+              <!-- Custom Invoice -->
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Custom Invoice <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="ci-custom-invoice" value="${d.invoiceNo || d.invNo || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
+              </div>
+
+              <!-- PO No -->
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PO No</label>
+                <input type="text" id="ci-po-no" value="${d.poNo || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <!-- Consignee -->
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Consignee <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="ci-consignee" value="${d.consignee || d.buyer || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
+              </div>
+
+              <!-- Address -->
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Address</label>
+                <input type="text" id="ci-address" value="${d.address || '450 S Orange Ave, Orlando, FL 32801, USA'}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <!-- Payment Terms * -->
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Payment Terms <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="ci-payment-terms" value="${d.paymentTerms || '100% CAD against original documents via bank'}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
+              </div>
+
+              <!-- Shipment Terms * -->
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Shipment Terms <span class="text-[#DE350B]">*</span></label>
+                <select id="ci-shipment-terms" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
+                  <option value="DDP" ${(d.shipmentTerms || 'DDP') === 'DDP' ? 'selected' : ''}>DDP (Delivered Duty Paid)</option>
+                  <option value="CIF" ${d.shipmentTerms === 'CIF' ? 'selected' : ''}>CIF (Cost, Insurance & Freight)</option>
+                  <option value="CFR" ${d.shipmentTerms === 'CFR' ? 'selected' : ''}>CFR (Cost & Freight)</option>
+                  <option value="FOB" ${d.shipmentTerms === 'FOB' ? 'selected' : ''}>FOB (Free on Board)</option>
+                </select>
+              </div>
+
+              <!-- Shipment Terms Ext -->
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Shipment Terms Ext</label>
+                <input type="text" id="ci-shipment-terms-ext" value="${d.shipmentTermsExt || 'Port of Los Angeles / Long Beach Hub'}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <!-- Discount -->
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Discount ($)</label>
+                <input type="number" step="0.01" id="ci-discount" value="${d.discount || 0.00}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <!-- Freight * -->
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Freight ($) <span class="text-[#DE350B]">*</span></label>
+                <input type="number" step="0.01" id="ci-freight" value="${d.freight || 4800.00}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
+              </div>
+
+              <!-- ExRate * -->
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ExRate <span class="text-[#DE350B]">*</span></label>
+                <input type="number" step="0.01" id="ci-exrate" value="${d.exchangeRate || d.exRate || 84.50}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
+              </div>
+
+              <!-- Bank Details -->
+              <div class="sm:col-span-2">
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Bank Details</label>
+                <input type="text" id="ci-bank-details" value="${d.bankReference || 'State Bank of India Overseas Branch Visakhapatnam'}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <!-- Show Bank * -->
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Show Bank <span class="text-[#DE350B]">*</span></label>
+                <select id="ci-show-bank" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
+                  <option value="Yes" ${(d.showBank || 'Yes') === 'Yes' ? 'selected' : ''}>Yes</option>
+                  <option value="No" ${d.showBank === 'No' ? 'selected' : ''}>No</option>
+                </select>
+              </div>
+
+              <!-- Show BL No * -->
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Show BL No <span class="text-[#DE350B]">*</span></label>
+                <select id="ci-show-bl-no" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
+                  <option value="Yes" ${(d.showBlNo || 'Yes') === 'Yes' ? 'selected' : ''}>Yes</option>
+                  <option value="No" ${d.showBlNo === 'No' ? 'selected' : ''}>No</option>
+                </select>
+              </div>
+
+              <!-- Show BL Date * -->
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Show BL Date <span class="text-[#DE350B]">*</span></label>
+                <select id="ci-show-bl-date" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
+                  <option value="Yes" ${(d.showBlDate || 'Yes') === 'Yes' ? 'selected' : ''}>Yes</option>
+                  <option value="No" ${d.showBlDate === 'No' ? 'selected' : ''}>No</option>
+                </select>
+              </div>
+
+              <!-- Data Logger -->
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Data Logger</label>
+                <input type="text" id="ci-data-logger" value="${d.dataLogger || 'Sensitech TempTale Ultra Serial #TT-99420'}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <!-- Placed AT -->
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Placed AT</label>
+                <input type="text" id="ci-placed-at" value="${d.placedAt || 'Pallet #1 Top Box & Pallet #10 Middle Box'}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <!-- Issued By -->
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Issued By</label>
+                <input type="text" id="ci-issued-by" value="${d.issuedBy || 'Devi Fisheries QA Logistics Department'}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <!-- Show Shipping Details * -->
+              <div class="sm:col-span-2">
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Show Shipping Details <span class="text-[#DE350B]">*</span></label>
+                <select id="ci-show-shipping-details" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
+                  <option value="Yes" ${(d.showShippingDetails || 'Yes') === 'Yes' ? 'selected' : ''}>Yes</option>
+                  <option value="No" ${d.showShippingDetails === 'No' ? 'selected' : ''}>No</option>
+                </select>
+              </div>
+
+              <!-- Special Notes(Commercial Description) -->
+              <div class="sm:col-span-2">
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Special Notes (Commercial Description)</label>
+                <textarea id="ci-special-notes-comm" rows="2" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">${d.specialNotesComm || 'Indian Origin Farmed White Shrimp. Processed under US FDA & BRCGS Global Standard.'}</textarea>
+              </div>
+
+              <!-- Special Notes(Packing List Description) -->
+              <div class="sm:col-span-2">
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Special Notes (Packing List Description)</label>
+                <textarea id="ci-special-notes-pack" rows="2" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">${d.specialNotesPack || 'Cargo stuffed in pre-cooled reefer container at -18.5°C with High Security Bolt Seal.'}</textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Form Input Fields Section for Product Line Items -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
             <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Product Specifications &amp; Packaging Input Fields</h4>
@@ -70161,7 +70306,7 @@ const SalesView = {
             </div>
           </div>
 
-          <!-- Product Specifications Table Section -->
+          <!-- Section 3: Data Table Columns (Product Line Items) -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
             <div class="flex items-center justify-between pb-2.5 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Product Line Items &amp; Packaging Breakdown</h4>
@@ -70190,7 +70335,7 @@ const SalesView = {
               </table>
             </div>
           </div>
-        </div>
+        </form>
       `,
       buttons: [
         {
@@ -70199,13 +70344,53 @@ const SalesView = {
           onClick: (modal) => modal.close()
         },
         {
-          label: 'Save Product Line Items',
+          label: 'Save Commercial Invoice',
           type: 'primary',
           onClick: (modal) => {
+            const getVal = (id) => document.getElementById(id)?.value?.trim() || '';
+            const getNum = (id) => parseFloat(document.getElementById(id)?.value) || 0;
+
+            const customInvoice = getVal('ci-custom-invoice');
+            const consignee = getVal('ci-consignee');
+            const paymentTerms = getVal('ci-payment-terms');
+            const shipmentTerms = getVal('ci-shipment-terms');
+            const freight = getNum('ci-freight');
+            const exRate = getNum('ci-exrate');
+
+            if (!customInvoice || !consignee || !paymentTerms || !shipmentTerms) {
+              Toast.show('Please fill in mandatory fields: Custom Invoice, Consignee, Payment Terms, Shipment Terms', 'warning');
+              return;
+            }
+
+            // Update record
+            d.invoiceNo = customInvoice;
+            d.invNo = customInvoice;
+            d.poNo = getVal('ci-po-no');
+            d.consignee = consignee;
+            d.buyer = consignee;
+            d.address = getVal('ci-address');
+            d.paymentTerms = paymentTerms;
+            d.shipmentTerms = shipmentTerms;
+            d.shipmentTermsExt = getVal('ci-shipment-terms-ext');
+            d.discount = getNum('ci-discount');
+            d.freight = freight;
+            d.exchangeRate = exRate;
+            d.exRate = exRate;
+            d.bankReference = getVal('ci-bank-details');
+            d.showBank = getVal('ci-show-bank');
+            d.showBlNo = getVal('ci-show-bl-no');
+            d.showBlDate = getVal('ci-show-bl-date');
+            d.dataLogger = getVal('ci-data-logger');
+            d.placedAt = getVal('ci-placed-at');
+            d.issuedBy = getVal('ci-issued-by');
+            d.showShippingDetails = getVal('ci-show-shipping-details');
+            d.specialNotesComm = getVal('ci-special-notes-comm');
+            d.specialNotesPack = getVal('ci-special-notes-pack');
+
             d.items = [...items];
-            // Update total cartons
             d.totalCartons = items.reduce((sum, it) => sum + (parseInt(it.cartons, 10) || 0), 0);
-            Toast.show(`Saved ${items.length} product specification items for ${d.invoiceNo}`, 'success');
+
+            Toast.show(`Commercial Invoice ${d.invoiceNo} & product line items saved successfully`, 'success');
             modal.close();
             const mainEl = document.getElementById('sales-view-main');
             if (mainEl) this.renderCommercialInvoice(mainEl);
@@ -70346,48 +70531,80 @@ const SalesView = {
             </div>
           </div>
 
-          <!-- Commercial & Settlement Details Section -->
+          <!-- Section 1: Commercial & Settlement Parameters -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
             <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
-              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Commercial &amp; Settlement Parameters</h4>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Commercial Invoice &amp; Settlement Parameters</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5 pt-3">
               <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">INVOICE NO</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">CUSTOM INVOICE</span>
                 <span class="font-mono font-extrabold text-[#00A4B7] text-xs block mt-0.5">${d.invoiceNo || '-'}</span>
-              </div>
-              <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">INVOICE DATE</span>
-                <span class="font-mono text-[#172B4D] text-xs block mt-0.5">${d.invoiceDate || '-'}</span>
-              </div>
-              <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">P.INVOICE NO</span>
-                <span class="font-mono font-bold text-[#403294] text-xs block mt-0.5">${d.pInvoiceNo || '-'}</span>
               </div>
               <div>
                 <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">PO NO</span>
                 <span class="font-mono font-semibold text-[#172B4D] text-xs block mt-0.5">${d.poNo || '-'}</span>
               </div>
               <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">BUYER / CONSIGNEE</span>
-                <span class="font-bold text-[#172B4D] text-xs block mt-0.5">${d.buyer || d.consignee || '-'}</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">CONSIGNEE</span>
+                <span class="font-bold text-[#172B4D] text-xs block mt-0.5">${d.consignee || d.buyer || '-'}</span>
               </div>
               <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">DESTINATION PORT</span>
-                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${d.destinationPort || d.country || '-'}</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">PAYMENT TERMS</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${d.paymentTerms || '-'}</span>
               </div>
               <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">BILL OF LADING (B/L)</span>
-                <span class="font-mono font-bold text-[#00A4B7] text-xs block mt-0.5">${d.blNumber || '-'}</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">SHIPMENT TERMS</span>
+                <span class="font-bold text-[#172B4D] text-xs block mt-0.5">${d.shipmentTerms || 'DDP'}</span>
               </div>
               <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">BANK REFERENCE</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">SHIPMENT TERMS EXT</span>
+                <span class="text-[#5E6C84] text-xs block mt-0.5">${d.shipmentTermsExt || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">FREIGHT</span>
+                <span class="font-mono font-bold text-[#00A4B7] text-xs block mt-0.5">${Number(d.freight || 0).toLocaleString('en-IN')}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">EXCHANGE RATE</span>
+                <span class="font-mono font-bold text-[#403294] text-xs block mt-0.5">₹${d.exchangeRate || d.exRate || 84.50}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">DATA LOGGER</span>
+                <span class="text-[#172B4D] text-xs block mt-0.5 font-semibold">${d.dataLogger || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">PLACED AT</span>
+                <span class="text-[#5E6C84] text-xs block mt-0.5">${d.placedAt || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">ISSUED BY</span>
+                <span class="text-[#5E6C84] text-xs block mt-0.5">${d.issuedBy || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">SHOW SHIPPING DETAILS</span>
+                <span class="font-bold text-[#006644] text-xs block mt-0.5">${d.showShippingDetails || 'Yes'}</span>
+              </div>
+              <div class="sm:col-span-2">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">ADDRESS</span>
+                <span class="text-[#5E6C84] text-xs block mt-0.5">${d.address || '-'}</span>
+              </div>
+              <div class="sm:col-span-2">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">BANK DETAILS</span>
                 <span class="text-[#5E6C84] text-xs block mt-0.5">${d.bankReference || '-'}</span>
+              </div>
+              <div class="sm:col-span-2">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">SPECIAL NOTES (COMMERCIAL DESCRIPTION)</span>
+                <span class="text-[#172B4D] text-xs block mt-0.5 bg-[#F8FAFC] p-2 rounded border border-[#F1F5F9]">${d.specialNotesComm || 'Indian Origin Farmed White Shrimp. Processed under US FDA & BRCGS Global Standard.'}</span>
+              </div>
+              <div class="sm:col-span-2">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">SPECIAL NOTES (PACKING LIST DESCRIPTION)</span>
+                <span class="text-[#172B4D] text-xs block mt-0.5 bg-[#F8FAFC] p-2 rounded border border-[#F1F5F9]">${d.specialNotesPack || 'Cargo stuffed in pre-cooled reefer container at -18.5°C with High Security Bolt Seal.'}</span>
               </div>
             </div>
           </div>
 
-          <!-- Product Specifications Table Section -->
+          <!-- Section 2: Product Specifications Table -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
             <div class="flex items-center justify-between pb-2.5 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Product Specifications &amp; Packing Breakdown</h4>
@@ -70443,7 +70660,7 @@ const SalesView = {
           onClick: () => Toast.show(`Printing Final Commercial Invoice for ${d.invoiceNo}...`, 'info')
         },
         {
-          label: 'Edit Product Specs',
+          label: 'Edit Invoice & Specs',
           type: 'primary',
           onClick: (modal) => {
             modal.close();
