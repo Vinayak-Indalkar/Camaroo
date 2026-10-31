@@ -64813,7 +64813,11 @@ const SalesView = {
         invoiceValue: 148500.00,
         enteredInvoiceValue: 148500.00,
         total: 4160.00,
-        grandTotal: 152660.00
+        grandTotal: 152660.00,
+        moreTransactions: [
+          { category: "Customs Clearance Charges", billNumber: "BILL-CUS-88210", billDate: "2026-03-28", billAmount: 1850.00 },
+          { category: "Port & Handling Charges", billNumber: "BILL-PRT-44012", billDate: "2026-03-25", billAmount: 1400.00 }
+        ]
       },
       {
         id: "CHA-ENT-2026-002",
@@ -64839,7 +64843,11 @@ const SalesView = {
         invoiceValue: 124200.00,
         enteredInvoiceValue: 124200.00,
         total: 3590.00,
-        grandTotal: 127790.00
+        grandTotal: 127790.00,
+        moreTransactions: [
+          { category: "Terminal Inspection Fee", billNumber: "BILL-TRM-99104", billDate: "2026-03-30", billAmount: 950.00 },
+          { category: "Freight Forwarding Fee", billNumber: "BILL-FF-31024", billDate: "2026-03-28", billAmount: 1850.00 }
+        ]
       },
       {
         id: "CHA-ENT-2026-003",
@@ -64865,7 +64873,11 @@ const SalesView = {
         invoiceValue: 162000.00,
         enteredInvoiceValue: 162000.00,
         total: 5790.00,
-        grandTotal: 167790.00
+        grandTotal: 167790.00,
+        moreTransactions: [
+          { category: "Reefer Monitoring Charges", billNumber: "BILL-RF-55102", billDate: "2026-03-22", billAmount: 1200.00 },
+          { category: "Storage & Demurrage Charges", billNumber: "BILL-STM-10294", billDate: "2026-03-24", billAmount: 850.00 }
+        ]
       },
       {
         id: "CHA-ENT-2026-004",
@@ -64891,7 +64903,11 @@ const SalesView = {
         invoiceValue: 138000.00,
         enteredInvoiceValue: 138000.00,
         total: 3970.00,
-        grandTotal: 141970.00
+        grandTotal: 141970.00,
+        moreTransactions: [
+          { category: "Documentation & Survey Fee", billNumber: "BILL-DOC-77192", billDate: "2026-03-26", billAmount: 650.00 },
+          { category: "Customs Clearance Charges", billNumber: "BILL-CUS-88219", billDate: "2026-03-29", billAmount: 2100.00 }
+        ]
       },
       {
         id: "CHA-ENT-2026-005",
@@ -72644,6 +72660,36 @@ const SalesView = {
       status: "CLEARED_ADMITTED"
     };
 
+    let moreTransactions = Array.isArray(d.moreTransactions) ? [...d.moreTransactions] : [
+      { category: 'Customs Clearance Charges', billNumber: 'BILL-CUS-88210', billDate: d.entryDate || '2026-03-28', billAmount: 1850.00 },
+      { category: 'Port & Handling Charges', billNumber: 'BILL-PRT-44012', billDate: d.invDate || '2026-03-25', billAmount: 1400.00 }
+    ];
+
+    const renderTxRows = () => {
+      if (!moreTransactions.length) {
+        return `
+          <tr>
+            <td colspan="5" class="py-4 text-center text-xs text-[#5E6C84] italic">
+              No additional transactions recorded. Click "More Transaction" above to add bill entries.
+            </td>
+          </tr>
+        `;
+      }
+      return moreTransactions.map((tx, idx) => `
+        <tr class="hover:bg-[#F8FAFC] transition-colors border-b border-[#F1F5F9] text-[#172B4D]">
+          <td class="py-2.5 px-3 font-semibold text-[#172B4D]">${tx.category || '-'}</td>
+          <td class="py-2.5 px-3 font-mono font-bold text-[#00A4B7]">${tx.billNumber || '-'}</td>
+          <td class="py-2.5 px-3 font-mono text-xs text-[#5E6C84]">${tx.billDate || '-'}</td>
+          <td class="py-2.5 px-3 text-right font-mono font-bold text-[#006644]">$${Number(tx.billAmount || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+          <td class="py-2.5 px-3 text-center">
+            <button type="button" class="btn-remove-tx text-[#DE350B] hover:text-[#BF2600] p-1.5 rounded-full hover:bg-[#FFEBE6] transition-colors cursor-pointer inline-flex items-center justify-center" data-idx="${idx}" title="Remove transaction">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    };
+
     Modal.open({
       title: isEdit ? `Update Customs Clearing Entry — ${d.invNo}` : 'Add Customs Clearing Entry',
       size: 'full',
@@ -72688,11 +72734,19 @@ const SalesView = {
           </div>
 
           <!-- SECTION 2: CLEARING AGENT FORM — Transactions -->
-          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
-              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Transactions</h4>
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs space-y-3.5">
+            <div class="flex items-center justify-between border-b border-[#F1F5F9]">
+              <div class="flex items-center gap-2">
+                <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Transactions</h4>
+              </div>
+              <button type="button" id="btn-toggle-more-transactions" class="btn-secondary px-3 py-1.5 rounded-full text-xs font-bold inline-flex items-center gap-1.5 bg-[#F0F9FF] text-[#00A4B7] border border-[#BAE6FD] hover:bg-[#E0F2FE] transition-colors cursor-pointer select-none">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                <span>More Transaction</span>
+              </button>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-3">
+
+            <!-- Primary Transaction Fields: Entry Number & Entry Date -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-1">
               <div>
                 <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Entry Number <span class="text-[#DE350B]">*</span></label>
                 <input type="text" id="cha-entry-num" value="${d.entryNumber || ''}" placeholder="e.g. CUS-ENT-2026-90412" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
@@ -72702,6 +72756,69 @@ const SalesView = {
                 <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Entry Date</label>
                 <input type="date" id="cha-entry-date" value="${d.entryDate || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
               </div>
+            </div>
+
+            <!-- More Transaction — Form Fields (Hidden by default until More Transaction is clicked) -->
+            <div id="more-tx-form-card" class="hidden bg-[#F8FAFC] p-3.5 rounded-lg border border-[#E2E8F0] space-y-3">
+              <div class="text-[11px] font-bold text-[#172B4D] uppercase tracking-wider flex items-center justify-between">
+                <span>Enter Transaction Details</span>
+                <span class="text-[10px] text-[#5E6C84] font-medium">* Fill bill details to append transaction</span>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+                <div>
+                  <label class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SELECT CAT <span class="text-[#DE350B]">*</span></label>
+                  <select id="mtx-cat" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                    <option value="Customs Clearance Charges">Customs Clearance Charges</option>
+                    <option value="Port &amp; Handling Charges">Port &amp; Handling Charges</option>
+                    <option value="Freight Forwarding Fee">Freight Forwarding Fee</option>
+                    <option value="Terminal Inspection Fee">Terminal Inspection Fee</option>
+                    <option value="Reefer Monitoring Charges">Reefer Monitoring Charges</option>
+                    <option value="Storage &amp; Demurrage Charges">Storage &amp; Demurrage Charges</option>
+                    <option value="Documentation &amp; Survey Fee">Documentation &amp; Survey Fee</option>
+                    <option value="Quarantine &amp; Phytosanitary">Quarantine &amp; Phytosanitary</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BILL NUMBER <span class="text-[#DE350B]">*</span></label>
+                  <input type="text" id="mtx-bill-no" placeholder="e.g. BILL-CUS-88210" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                </div>
+
+                <div>
+                  <label class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BILL DATE <span class="text-[#DE350B]">*</span></label>
+                  <input type="date" id="mtx-bill-date" value="${new Date().toISOString().split('T')[0]}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                </div>
+
+                <div>
+                  <label class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BILL AMOUNT ($) <span class="text-[#DE350B]">*</span></label>
+                  <input type="number" step="0.01" id="mtx-bill-amount" placeholder="0.00" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                </div>
+
+                <div class="sm:col-span-2 md:col-span-4 flex justify-end">
+                  <button type="button" id="btn-add-more-tx" class="btn-primary px-4 py-1.5 rounded-full text-xs font-bold inline-flex items-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px]">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                    <span>Add Transaction</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- More Transaction — Data Table -->
+            <div class="overflow-x-auto rounded-lg border border-[#DFE1E6]">
+              <table class="w-full text-xs text-left border-collapse">
+                <thead>
+                  <tr class="bg-[#F8FAFC] border-b border-[#DFE1E6] text-[#5E6C84] uppercase font-bold text-[10px] tracking-wider">
+                    <th class="py-2.5 px-3">Category</th>
+                    <th class="py-2.5 px-3">Bill Number</th>
+                    <th class="py-2.5 px-3">Bill Date</th>
+                    <th class="py-2.5 px-3 text-right">Bill Amount</th>
+                    <th class="py-2.5 px-3 text-center w-20">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="more-tx-table-tbody" class="divide-y divide-[#F1F5F9] bg-white">
+                  ${renderTxRows()}
+                </tbody>
+              </table>
             </div>
           </div>
 
@@ -72838,6 +72955,7 @@ const SalesView = {
               entryDate: document.getElementById('cha-entry-date')?.value || d.entryDate,
               notifyParty,
               notifyPartyName: notifyParty,
+              moreTransactions: [...moreTransactions],
               cfCharges: cf,
               adDuty: ad,
               hmDuty: hm,
@@ -72866,8 +72984,78 @@ const SalesView = {
       ]
     });
 
-    // Wire up real-time duty & grand total recalculation in modal
+    // Wire up real-time duty & grand total recalculation and More Transactions in modal
     setTimeout(() => {
+      // Toggle More Transactions form card
+      const toggleTxBtn = document.getElementById('btn-toggle-more-transactions');
+      const txFormCard = document.getElementById('more-tx-form-card');
+      toggleTxBtn?.addEventListener('click', () => {
+        if (txFormCard) {
+          txFormCard.classList.toggle('hidden');
+          const isHidden = txFormCard.classList.contains('hidden');
+          toggleTxBtn.innerHTML = isHidden 
+            ? `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg><span>More Transaction</span>`
+            : `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"/></svg><span>Hide Transaction Form</span>`;
+        }
+      });
+
+      // Bind Remove Transaction buttons
+      const bindRemoveTx = () => {
+        document.querySelectorAll('.btn-remove-tx').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const idx = parseInt(btn.getAttribute('data-idx'), 10);
+            if (!isNaN(idx) && idx >= 0 && idx < moreTransactions.length) {
+              const removed = moreTransactions.splice(idx, 1);
+              const tbody = document.getElementById('more-tx-table-tbody');
+              if (tbody) tbody.innerHTML = renderTxRows();
+              bindRemoveTx();
+              Toast.show(`Removed transaction ${removed[0]?.billNumber || ''}`, 'info');
+            }
+          });
+        });
+      };
+
+      // Add Transaction button handler
+      const addTxBtn = document.getElementById('btn-add-more-tx');
+      addTxBtn?.addEventListener('click', () => {
+        const cat = document.getElementById('mtx-cat')?.value || 'Customs Clearance Charges';
+        const billNo = document.getElementById('mtx-bill-no')?.value?.trim();
+        const billDate = document.getElementById('mtx-bill-date')?.value || new Date().toISOString().split('T')[0];
+        const billAmount = parseFloat(document.getElementById('mtx-bill-amount')?.value);
+
+        if (!billNo) {
+          Toast.show('Please enter Bill Number', 'error');
+          document.getElementById('mtx-bill-no')?.focus();
+          return;
+        }
+        if (isNaN(billAmount) || billAmount <= 0) {
+          Toast.show('Please enter a valid Bill Amount', 'error');
+          document.getElementById('mtx-bill-amount')?.focus();
+          return;
+        }
+
+        moreTransactions.push({
+          category: cat,
+          billNumber: billNo,
+          billDate: billDate,
+          billAmount: billAmount
+        });
+
+        const tbody = document.getElementById('more-tx-table-tbody');
+        if (tbody) tbody.innerHTML = renderTxRows();
+        bindRemoveTx();
+
+        const bNoEl = document.getElementById('mtx-bill-no');
+        const bAmtEl = document.getElementById('mtx-bill-amount');
+        if (bNoEl) bNoEl.value = '';
+        if (bAmtEl) bAmtEl.value = '';
+
+        Toast.show(`Added bill ${billNo} to transactions`, 'success');
+      });
+
+      // Initial binding for existing transaction rows
+      bindRemoveTx();
+
       const calcInputs = document.querySelectorAll('.duty-calc-input');
       const recalc = () => {
         const cf = parseFloat(document.getElementById('cha-duty-cf')?.value) || 0;
@@ -72914,6 +73102,10 @@ const SalesView = {
     }
 
     const fmt = (num) => '$' + Number(num || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const moreTransactionsList = Array.isArray(d.moreTransactions) ? d.moreTransactions : [
+      { category: 'Customs Clearance Charges', billNumber: 'BILL-CUS-88210', billDate: d.entryDate || '2026-03-28', billAmount: 1850.00 },
+      { category: 'Port & Handling Charges', billNumber: 'BILL-PRT-44012', billDate: d.invDate || '2026-03-25', billAmount: 1400.00 }
+    ];
 
     Modal.open({
       title: `Customs Clearing Details — ${d.invNo || d.id}`,
@@ -72993,11 +73185,11 @@ const SalesView = {
           </div>
 
           <!-- Section 2: Transactions -->
-          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs space-y-3.5">
             <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Transactions</h4>
             </div>
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5 pt-3">
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5 pt-1">
               <div>
                 <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Entry Number</span>
                 <span class="font-mono font-bold text-[#00A4B7] text-xs block mt-0.5">${d.entryNumber || '-'}</span>
@@ -73013,6 +73205,42 @@ const SalesView = {
               <div>
                 <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Customs Status</span>
                 <span class="px-2 py-0.5 rounded text-[10px] font-bold border ${statusClass} inline-block mt-0.5">${d.status || 'RECORDED'}</span>
+              </div>
+            </div>
+
+            <!-- More Transactions Sub-table -->
+            <div class="pt-1">
+              <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-2 flex items-center justify-between">
+                <span>More Transactions (${moreTransactionsList.length})</span>
+              </div>
+              <div class="overflow-x-auto rounded-lg border border-[#DFE1E6]">
+                <table class="w-full text-xs text-left border-collapse">
+                  <thead>
+                    <tr class="bg-[#F8FAFC] border-b border-[#DFE1E6] text-[#5E6C84] uppercase font-bold text-[10px] tracking-wider">
+                      <th class="py-2.5 px-3">Category</th>
+                      <th class="py-2.5 px-3">Bill Number</th>
+                      <th class="py-2.5 px-3">Bill Date</th>
+                      <th class="py-2.5 px-3 text-right">Bill Amount</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-[#F1F5F9] bg-white">
+                    ${moreTransactionsList.length > 0 
+                      ? moreTransactionsList.map(tx => `
+                        <tr class="hover:bg-[#F8FAFC] transition-colors border-b border-[#F1F5F9] text-[#172B4D]">
+                          <td class="py-2.5 px-3 font-semibold text-[#172B4D]">${tx.category || '-'}</td>
+                          <td class="py-2.5 px-3 font-mono font-bold text-[#00A4B7]">${tx.billNumber || '-'}</td>
+                          <td class="py-2.5 px-3 font-mono text-xs text-[#5E6C84]">${tx.billDate || '-'}</td>
+                          <td class="py-2.5 px-3 text-right font-mono font-bold text-[#006644]">$${Number(tx.billAmount || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                        </tr>
+                      `).join('')
+                      : `
+                        <tr>
+                          <td colspan="4" class="py-3 text-center text-xs text-[#5E6C84] italic">No transaction bills recorded.</td>
+                        </tr>
+                      `
+                    }
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
