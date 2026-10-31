@@ -2161,7 +2161,7 @@ export const SalesView = {
 
           <!-- Section 1: Exporter, Processor & Reference -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Exporter, Processor &amp; Reference</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
@@ -2190,7 +2190,7 @@ export const SalesView = {
 
           <!-- Section 2: Proforma Invoice & Purchase Order -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Proforma Invoice &amp; PO Details</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
@@ -2215,7 +2215,7 @@ export const SalesView = {
 
           <!-- Section 3: Buyer & Consignee Parties -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Buyer, Consignee &amp; Stakeholder Parties</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
@@ -2252,7 +2252,7 @@ export const SalesView = {
 
           <!-- Section 4: Ports & Shipment Routing -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Port Routing &amp; Shipment Dates</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
@@ -2289,7 +2289,7 @@ export const SalesView = {
 
           <!-- Section 5: Commercial Terms & Banking -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Commercial Terms, Banking &amp; Currency</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
@@ -2326,7 +2326,7 @@ export const SalesView = {
 
           <!-- Section 6: Freight, Charges & Remarks -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Freight, Charges &amp; Remarks</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
@@ -2355,7 +2355,7 @@ export const SalesView = {
 
           <!-- Section 7: Data Table (Variety Line Items) matching Generate Proforma Invoice -->
           <div class="bg-white rounded-xl">
-            <div class="flex items-center justify-between pb-2.5 mb-2 border-b border-[#F1F5F9]">
+            <div class="flex items-center justify-between pb-2.5 border-b border-[#F1F5F9]">
               <div class="flex items-center gap-2">
                 <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Data Table (Variety Line Items)</h4>
               </div>
@@ -2578,7 +2578,7 @@ export const SalesView = {
         <form id="form-pi-details" class="space-y-4 text-xs">
           <!-- Section 1: Exporter & Processor Details -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Exporter, Processor &amp; Reference</h4>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
@@ -2623,7 +2623,7 @@ export const SalesView = {
 
           <!-- Section 2: Proforma Invoice & Purchase Order -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Proforma Invoice &amp; PO Details</h4>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
@@ -2651,7 +2651,7 @@ export const SalesView = {
 
           <!-- Section 3: Buyer & Consignee Parties -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Buyer, Consignee &amp; Stakeholder Parties</h4>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
@@ -2694,7 +2694,7 @@ export const SalesView = {
 
           <!-- Section 4: Ports & Shipment Routing -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Port Routing &amp; Shipment Dates</h4>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
@@ -2737,7 +2737,7 @@ export const SalesView = {
 
           <!-- Section 5: Commercial Terms & Banking -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Commercial Terms, Banking &amp; Currency</h4>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
@@ -2811,7 +2811,7 @@ export const SalesView = {
 
           <!-- Section 6: Freight, Charges & Remarks -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Freight, Charges &amp; Remarks</h4>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
@@ -2975,7 +2975,7 @@ export const SalesView = {
         <div class="space-y-4 text-xs">
           <!-- Step 2 Form Input Fields (No border, No padding) -->
           <div class="bg-white rounded-xl">
-            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Form Input Fields (Variety &amp; Pricing)</h4>
             </div>
 
@@ -3121,7 +3121,7 @@ export const SalesView = {
 
           <!-- Step 2 Data Table (No border, No padding) -->
           <div class="bg-white rounded-xl">
-            <div class="flex items-center justify-between pb-2.5 mb-2 border-b border-[#F1F5F9]">
+            <div class="flex items-center justify-between pb-2.5 border-b border-[#F1F5F9]">
               <div class="flex items-center gap-2">
                 <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Data Table (Variety Line Items)</h4>
               </div>
@@ -3645,7 +3645,7 @@ export const SalesView = {
 
           <!-- Section 1: Exporter, Processor & Reference -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Exporter, Processor &amp; Reference</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
@@ -3674,7 +3674,7 @@ export const SalesView = {
 
           <!-- Section 2: Customs & Proforma Invoice Identifiers -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Customs &amp; Invoice Identifiers</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
@@ -3727,7 +3727,7 @@ export const SalesView = {
 
           <!-- Section 3: Buyer & Consignee Parties -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Buyer, Consignee &amp; Stakeholder Parties</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
@@ -3768,7 +3768,7 @@ export const SalesView = {
 
           <!-- Section 4: Ports & Shipment Routing -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Port Routing &amp; Shipment Dates</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
@@ -3805,7 +3805,7 @@ export const SalesView = {
 
           <!-- Section 5: Commercial Terms & Banking -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Commercial Terms, Banking &amp; Currency</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
@@ -3842,7 +3842,7 @@ export const SalesView = {
 
           <!-- Section 6: Freight, Charges, Weights & Remarks -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Freight, Charges, Weights &amp; Valuation</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
@@ -3887,7 +3887,7 @@ export const SalesView = {
 
           <!-- Section 7: Data Table (Variety Line Items) -->
           <div class="bg-white rounded-xl">
-            <div class="flex items-center justify-between pb-2.5 mb-2 border-b border-[#F1F5F9]">
+            <div class="flex items-center justify-between pb-2.5 border-b border-[#F1F5F9]">
               <div class="flex items-center gap-2">
                 <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Data Table (Variety Line Items)</h4>
               </div>
@@ -4092,7 +4092,7 @@ export const SalesView = {
         <form id="form-ci-step1" class="space-y-4 text-xs">
           <!-- Section 1: Customs Invoice & Reference Numbers -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Customs Invoice &amp; Reference Numbers</h4>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
@@ -4120,7 +4120,7 @@ export const SalesView = {
 
           <!-- Section 2: Exporter, Buyer & Consignee Parties -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Parties &amp; Destination</h4>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
@@ -4156,7 +4156,7 @@ export const SalesView = {
 
           <!-- Section 3: Customs Bill Type, Shipping Bill & Stock Clearance -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Customs Bill Type, Shipping Bill &amp; Stock Status</h4>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
@@ -4196,7 +4196,7 @@ export const SalesView = {
 
           <!-- Section 4: Port Routing, Weights & Valuation -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Port Routing, Weights &amp; Valuation</h4>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
@@ -4352,7 +4352,7 @@ export const SalesView = {
         <div class="space-y-4 text-xs animate-fade-in">
           <!-- Form Input Fields (Variety & Pricing) - No border, No padding -->
           <div class="bg-white rounded-xl">
-            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Form Input Fields (Variety &amp; Pricing)</h4>
             </div>
 
@@ -4499,7 +4499,7 @@ export const SalesView = {
 
           <!-- Step 2 Data Table (No border, No padding) -->
           <div class="bg-white rounded-xl">
-            <div class="flex items-center justify-between pb-2.5 mb-2 border-b border-[#F1F5F9]">
+            <div class="flex items-center justify-between pb-2.5 border-b border-[#F1F5F9]">
               <div class="flex items-center gap-2">
                 <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Data Table (Variety Line Items)</h4>
               </div>
@@ -4968,7 +4968,7 @@ export const SalesView = {
         <form id="form-isf-modal" class="space-y-4 text-xs animate-fade-in">
           <!-- Section 1: Commercial & Invoice Identifiers -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Commercial &amp; Invoice Reference</h4>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
@@ -5011,7 +5011,7 @@ export const SalesView = {
 
           <!-- Section 2: Shipping Line, Bills of Lading & Container -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Shipping Line, Bills of Lading &amp; Container Specifications</h4>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
@@ -5079,7 +5079,7 @@ export const SalesView = {
 
           <!-- Section 3: Logistics, Transit & Verification -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Logistics, Transit &amp; Verification</h4>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
@@ -5122,7 +5122,7 @@ export const SalesView = {
 
           <!-- Section 4: Transshipment Routing Sub-Module -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center justify-between pb-2.5 mb-3 border-b border-[#F1F5F9]">
+            <div class="flex items-center justify-between pb-2.5 border-b border-[#F1F5F9]">
               <div class="flex items-center gap-2">
                 <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">ISF Form &mdash; Transhipment Routing</h4>
               </div>
@@ -5407,7 +5407,7 @@ export const SalesView = {
 
           <!-- Section 1: Commercial & Invoice Identifiers -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Commercial &amp; Invoice Reference</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
@@ -5444,7 +5444,7 @@ export const SalesView = {
 
           <!-- Section 2: Shipping Line, Bills of Lading & Container -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Shipping Line, Bills of Lading &amp; Container Specifications</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
@@ -5493,7 +5493,7 @@ export const SalesView = {
 
           <!-- Section 3: Logistics, Transit & Verification -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Logistics, Transit &amp; Verification</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
@@ -5530,7 +5530,7 @@ export const SalesView = {
 
           <!-- Section 4: ISF FORM — Transhipment Table -->
           <div class="bg-white rounded-xl">
-            <div class="flex items-center justify-between pb-2.5 mb-2 border-b border-[#F1F5F9]">
+            <div class="flex items-center justify-between pb-2.5 border-b border-[#F1F5F9]">
               <div class="flex items-center gap-2">
                 <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">ISF FORM &mdash; Transhipment Routing Table</h4>
               </div>
