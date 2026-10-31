@@ -72577,20 +72577,6 @@ const SalesView = {
             field: 'notifyPartyName',
             header: 'Notify party Name',
             render: (v) => `<span class="font-semibold text-xs text-[#172B4D]">${v || '-'}</span>`
-          },
-          {
-            field: 'status',
-            header: 'Status',
-            render: (v) => {
-              const val = String(v || '').toUpperCase();
-              let badgeCls = 'bg-[#E3FCEF] text-[#006644] border-[#ABF5D1]';
-              if (val.includes('HOLD') || val.includes('EXAM')) {
-                badgeCls = 'bg-[#FFEBE6] text-[#DE350B] border-[#FFBDAD]';
-              } else if (val.includes('PENDING') || val.includes('PROGRESS')) {
-                badgeCls = 'bg-[#FFFAE6] text-[#FF8B00] border-[#FFE380]';
-              }
-              return `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold border ${badgeCls}">${v || 'RECORDED'}</span>`;
-            }
           }
         ],
         actions: [
@@ -72756,7 +72742,7 @@ const SalesView = {
           <!-- SECTION 4: CLEARING AGENT FORM — Duty Section -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
             <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
-              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Duty Section &amp; Cost Settlement</h4>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Duty Section</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-3 pt-3">
               <div>
@@ -73066,7 +73052,7 @@ const SalesView = {
           <!-- Section 4: Duty Section -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
             <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
-              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Duty Section &amp; Valuation Settlement</h4>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Duty Section</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-5 gap-3.5 pt-3">
               <div>
