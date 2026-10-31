@@ -5888,6 +5888,7 @@ class DataTable {
     if (typeof this.onRowClick === 'function') {
       try {
         this.onRowClick(row, this);
+        return;
       } catch (error) {
         console.warn('Custom row details failed; showing standard record details.', error);
       }
@@ -64897,6 +64898,7 @@ const SalesView = {
         selectable: true,
         showSelectedCount: false,
         pageSize: 10,
+        onRowClick: (row) => this.showProformaDetailsModal(row),
         toolbarButtons: [
           {
             id: 'btn-bulk-approve',
@@ -66544,7 +66546,10 @@ const SalesView = {
 
   // Custom Invoice Details Modal (Row Click) matching Proforma Invoices (PI Register)
   showCustomInvoiceDetailsModal(row) {
-    const lineItems = row.lineItems || (this.state.proformaList?.find(p => p.piNumber === row.pInvoiceNo)?.lineItems) || [
+    const linkedPi = this.state.proformaList?.find(p => p.piNumber === row.pInvoiceNo) || {};
+    const d = { ...linkedPi, ...row };
+
+    const lineItems = row.lineItems || linkedPi.lineItems || [
       {
         id: 1,
         variety: "Vannamei Shrimp HLSO IQF",
@@ -66553,11 +66558,11 @@ const SalesView = {
         treatment: "Non-Treated",
         freezingType: "IQF",
         brand: "Devi Gold",
-        mcs: Math.round((row.netWeightKg || 18000) / 15),
-        traysQty: Math.round((row.netWeightKg || 18000) / 15) * 2,
+        mcs: Math.round((d.netWeightKg || 18000) / 15),
+        traysQty: Math.round((d.netWeightKg || 18000) / 15) * 2,
         unitPriceBags: 8.85,
         ddpPrice: 9.45,
-        amountUsd: Number(row.cifValueUsd || 159300),
+        amountUsd: Number(d.cifValueUsd || 159300),
         cups: 240,
         cupsPriceBags: 0.65,
         code: "PRD-VAN-2630",
@@ -66567,11 +66572,11 @@ const SalesView = {
       }
     ];
 
-    const totMcs = lineItems.reduce((acc, i) => acc + (Number(i.mcs) || 0), 0) || Math.round((row.netWeightKg || 18000) / 10);
+    const totMcs = lineItems.reduce((acc, i) => acc + (Number(i.mcs) || 0), 0) || Math.round((d.netWeightKg || 18000) / 10);
     const totTrays = lineItems.reduce((acc, i) => acc + (Number(i.traysQty) || 0), 0) || (totMcs * 2);
-    const totAmount = lineItems.reduce((acc, i) => acc + (Number(i.amountUsd) || 0), 0) || Number(row.cifValueUsd || 159300);
+    const totAmount = lineItems.reduce((acc, i) => acc + (Number(i.amountUsd) || 0), 0) || Number(d.cifValueUsd || 159300);
 
-    const stockStatusVal = String(row.stockStatus || '').toUpperCase();
+    const stockStatusVal = String(d.stockStatus || '').toUpperCase();
     let statusClass = 'bg-[#F1F5F9] text-[#172B4D] border-[#DFE1E6]';
     if (stockStatusVal.includes('PORT_CLEARED') || stockStatusVal.includes('DISPATCHED') || stockStatusVal.includes('ALLOCATED')) {
       statusClass = 'bg-[#E3FCEF] text-[#006644] border-[#ABF5D1]';
@@ -66582,7 +66587,7 @@ const SalesView = {
     }
 
     Modal.open({
-      title: `Custom Invoice Details - ${row.invoiceNo}`,
+      title: `Custom Invoice Details - ${d.invoiceNo}`,
       size: 'full',
       content: `
         <div class="space-y-4 text-xs animate-fade-in">
@@ -66594,20 +66599,22 @@ const SalesView = {
               </div>
               <div>
                 <div class="flex items-center gap-2 flex-wrap">
-                  <span class="font-mono font-extrabold text-[#0F172A] text-base">${row.invoiceNo}</span>
+                  <span class="font-mono font-extrabold text-[#0F172A] text-base">${d.invoiceNo}</span>
                   <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold tracking-wide uppercase border ${statusClass}">${stockStatusVal.replace(/_/g, ' ')}</span>
-                  <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">${row.billsType || 'Commercial Export'}</span>
+                  <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">${d.billsType || 'Commercial Export'}</span>
                 </div>
                 <div class="text-[11px] text-[#64748B] mt-0.5 font-medium flex items-center gap-1.5 flex-wrap">
-                  <span><strong>Exporter:</strong> ${row.exporter || '-'}</span>
+                  <span><strong>Exporter:</strong> ${d.exporter || '-'}</span>
                   <span>•</span>
-                  <span><strong>Date:</strong> ${row.invoiceDate || '-'}</span>
+                  <span><strong>Processor:</strong> ${d.processor || d.exporter || '-'}</span>
                   <span>•</span>
-                  <span><strong>Buyer:</strong> ${row.buyer || '-'}</span>
+                  <span><strong>Date:</strong> ${d.invoiceDate || '-'}</span>
                   <span>•</span>
-                  <span><strong>PI Link:</strong> ${row.pInvoiceNo || '-'}</span>
+                  <span><strong>Buyer:</strong> ${d.buyer || d.buyerName || '-'}</span>
                   <span>•</span>
-                  <span><strong>Port of Discharge:</strong> ${row.dischargePort || '-'}</span>
+                  <span><strong>PI Link:</strong> ${d.pInvoiceNo || d.piNumber || '-'}</span>
+                  <span>•</span>
+                  <span><strong>Discharge Port:</strong> ${d.dischargePort || d.portOfDischarge || '-'}</span>
                 </div>
               </div>
             </div>
@@ -66620,81 +66627,89 @@ const SalesView = {
               </div>
               <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[85px]">
                 <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Net Weight</span>
-                <span class="font-mono font-extrabold text-[#172B4D] text-sm mt-0.5 block">${Number(row.netWeightKg || totMcs * 10).toLocaleString('en-IN')} Kg</span>
+                <span class="font-mono font-extrabold text-[#172B4D] text-sm mt-0.5 block">${Number(d.netWeightKg || totMcs * 10).toLocaleString('en-IN')} Kg</span>
               </div>
               <div class="bg-white px-3.5 py-1.5 rounded-lg border border-[#ABF5D1] bg-[#F0FDF4] shadow-2xs text-center min-w-[100px]">
                 <span class="text-[10px] font-bold text-[#006644] uppercase tracking-wider block">Total CIF Value</span>
-                <span class="font-mono font-extrabold text-[#006644] text-sm mt-0.5 block">${Number(totAmount).toLocaleString('en-IN')}</span>
+                <span class="font-mono font-extrabold text-[#006644] text-sm mt-0.5 block">$${Number(totAmount).toLocaleString('en-IN')}</span>
               </div>
             </div>
           </div>
 
-          <!-- Section 1: Exporter, Consignee & Buyer Parties -->
+          <!-- Section 1: Exporter, Processor & Reference -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
             <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
-              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Exporter, Consignee &amp; Buyer Parties</h4>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Exporter, Processor &amp; Reference</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
               <div>
                 <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">SELECT EXPORTER</span>
-                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${row.exporter || '-'}</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${d.exporter || '-'}</span>
               </div>
               <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">CONSIGNEE</span>
-                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${row.consignee || row.buyer || '-'}</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">SELECT PROCESSOR</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${d.processor || d.exporter || '-'}</span>
               </div>
               <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">BUYER NAME</span>
-                <span class="font-bold text-[#172B4D] text-xs block mt-0.5">${row.buyer || '-'}</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">PRODUCTION PLANT</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${d.productionPlant || 'Unit 1 - Processing (Vizag)'}</span>
               </div>
               <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">DESTINATION COUNTRY</span>
-                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${row.country || '-'}</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">NO OF CONTAINERS</span>
+                <span class="font-mono font-bold text-[#172B4D] text-xs block mt-0.5">${d.noOfContainers || 1} FCL</span>
               </div>
               <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">FINANCIAL YEAR</span>
-                <span class="font-mono font-bold text-[#172B4D] text-xs block mt-0.5">${row.year || '2026-2027'}</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">REFERENCE NUMBER</span>
+                <span class="font-mono font-semibold text-[#00A4B7] text-xs block mt-0.5">${d.referenceNumber || d.shippingBillRef || '-'}</span>
               </div>
             </div>
           </div>
 
-          <!-- Section 2: Customs & Invoice Identifiers -->
+          <!-- Section 2: Customs & Proforma Invoice Identifiers -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
             <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Customs &amp; Invoice Identifiers</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
               <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">INVOICE NO</span>
-                <span class="font-mono font-extrabold text-[#00A4B7] text-xs block mt-0.5">${row.invoiceNo || '-'}</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">CUSTOMS INVOICE NO</span>
+                <span class="font-mono font-extrabold text-[#00A4B7] text-xs block mt-0.5">${d.invoiceNo || '-'}</span>
               </div>
               <div>
                 <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">INVOICE DATE</span>
-                <span class="font-mono text-[#172B4D] text-xs block mt-0.5">${row.invoiceDate || '-'}</span>
-              </div>
-              <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">P.O NO</span>
-                <span class="font-mono font-bold text-[#172B4D] text-xs block mt-0.5">${row.poNo || '-'}</span>
+                <span class="font-mono text-[#172B4D] text-xs block mt-0.5">${d.invoiceDate || '-'}</span>
               </div>
               <div>
                 <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">PROFORMA INVOICE NO</span>
-                <span class="font-mono font-bold text-[#403294] text-xs block mt-0.5">${row.pInvoiceNo || '-'}</span>
+                <span class="font-mono font-bold text-[#403294] text-xs block mt-0.5">${d.pInvoiceNo || d.piNumber || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">PROFORMA INVOICE DATE</span>
+                <span class="font-mono text-[#172B4D] text-xs block mt-0.5">${d.piDate || d.invoiceDate || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">P.O NO</span>
+                <span class="font-mono font-bold text-[#172B4D] text-xs block mt-0.5">${d.poNo || d.poNumber || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">P.O DATE</span>
+                <span class="font-mono text-[#172B4D] text-xs block mt-0.5">${d.poDate || d.invoiceDate || '-'}</span>
               </div>
               <div>
                 <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">BILLS TYPE</span>
-                <span class="font-semibold text-[#00A4B7] text-xs block mt-0.5">${row.billsType || '-'}</span>
+                <span class="font-semibold text-[#00A4B7] text-xs block mt-0.5">${d.billsType || '-'}</span>
               </div>
               <div>
                 <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">IEC CODE</span>
-                <span class="font-mono text-[#172B4D] text-xs block mt-0.5">${row.iecCode || '0391004812'}</span>
+                <span class="font-mono text-[#172B4D] text-xs block mt-0.5">${d.iecCode || '0391004812'}</span>
               </div>
               <div>
                 <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">SHIPPING BILL REF</span>
-                <span class="font-mono font-bold text-[#172B4D] text-xs block mt-0.5">${row.shippingBillRef || '-'}</span>
+                <span class="font-mono font-bold text-[#172B4D] text-xs block mt-0.5">${d.shippingBillRef || '-'}</span>
               </div>
               <div>
                 <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">CUSTOMS STATUS</span>
-                <span class="font-mono text-xs font-bold text-[#006644] block mt-0.5">${row.customsStatus || 'LEO_GRANTED'}</span>
+                <span class="font-mono text-xs font-bold text-[#006644] block mt-0.5">${d.customsStatus || 'LEO_GRANTED'}</span>
               </div>
               <div>
                 <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">STOCK STATUS</span>
@@ -66703,40 +66718,167 @@ const SalesView = {
             </div>
           </div>
 
-          <!-- Section 3: Port, Logistics & Financial Values -->
+          <!-- Section 3: Buyer & Consignee Parties -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
             <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
-              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Port Routing, Weights &amp; Valuation</h4>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Buyer, Consignee &amp; Stakeholder Parties</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
               <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">PORT OF LOADING</span>
-                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${row.loadingPort || 'Visakhapatnam Sea (INVTZ)'}</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">BUYER NAME</span>
+                <span class="font-bold text-[#172B4D] text-xs block mt-0.5">${d.buyer || d.buyerName || '-'}</span>
               </div>
               <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">PORT OF DISCHARGE</span>
-                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${row.dischargePort || '-'}</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">CONSIGNEE</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${d.consignee || d.buyer || '-'}</span>
               </div>
               <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">NET WEIGHT (KG)</span>
-                <span class="font-mono font-bold text-[#172B4D] text-xs block mt-0.5">${Number(row.netWeightKg || totMcs * 10).toLocaleString('en-IN')} Kg</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">ULTIMATE CONSIGNEE</span>
+                <span class="text-[#172B4D] text-xs block mt-0.5">${d.ultimateConsignee || d.consignee || d.buyer || '-'}</span>
               </div>
               <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">GROSS WEIGHT (KG)</span>
-                <span class="font-mono font-bold text-[#172B4D] text-xs block mt-0.5">${Number(row.grossWeightKg || Math.round((row.netWeightKg || totMcs * 10) * 1.08)).toLocaleString('en-IN')} Kg</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">NOTIFY PARTY</span>
+                <span class="text-[#172B4D] text-xs block mt-0.5">${d.notifyParty || 'Expeditors International USA Inc.'}</span>
               </div>
               <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">FOB VALUE (USD)</span>
-                <span class="font-mono font-bold text-[#172B4D] text-xs block mt-0.5">${Number(row.fobValueUsd || Math.round(totAmount * 0.96)).toLocaleString('en-IN')}</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">IMPORTER OF RECORD</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${d.importerOfRecord || d.consignee || d.buyer || '-'}</span>
               </div>
               <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">CIF VALUE (USD)</span>
-                <span class="font-mono font-extrabold text-[#006644] text-xs block mt-0.5">${Number(row.cifValueUsd || totAmount).toLocaleString('en-IN')}</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">AGENT</span>
+                <span class="text-[#172B4D] text-xs block mt-0.5">${d.agent || 'Seaways Global Logistics Ltd'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">FINANCIAL YEAR</span>
+                <span class="font-mono font-bold text-[#172B4D] text-xs block mt-0.5">${d.year || '2026-2027'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">CERTIFICATION</span>
+                <span class="font-semibold text-[#00875A] text-xs block mt-0.5">${d.certification || 'BAP 4-Star & ASC Certified'}</span>
               </div>
             </div>
           </div>
 
-          <!-- Section 4: Data Table (Variety Line Items) matching Proforma Invoices -->
+          <!-- Section 4: Ports & Shipment Routing -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Port Routing &amp; Shipment Dates</h4>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">PORT OF LOADING</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${d.loadingPort || d.portOfLoading || 'Visakhapatnam Sea (INVTZ)'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">DESTINATION COUNTRY</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${d.country || d.destinationCountry || 'United States'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">PORT OF DISCHARGE</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${d.dischargePort || d.portOfDischarge || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">FINAL DESTINATION COUNTRY</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${d.finalDestinationCountry || d.country || 'United States'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">FINAL DESTINATION</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${d.finalDestination || 'Port Terminal Cold Logistics'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">SHIPBY DATE</span>
+                <span class="font-mono font-bold text-[#172B4D] text-xs block mt-0.5">${d.shipByDate || d.invoiceDate || '-'}</span>
+              </div>
+              <div class="sm:col-span-2">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">SHIPBY DATE 2 (TEXT)</span>
+                <span class="text-[#5E6C84] text-xs block mt-0.5">${d.shipByDate2 || 'Prompt Export Loading'}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 5: Commercial Terms & Banking -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Commercial Terms, Banking &amp; Currency</h4>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+              <div class="sm:col-span-2">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">BANK DETAILS</span>
+                <span class="font-mono text-xs text-[#172B4D] block mt-0.5">${d.bankDetails || 'State Bank of India - Overseas Branch Vizag (A/C: 30198821049)'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">SHOW BANK</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${d.showBank || 'Yes'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">PAYMENT TERMS</span>
+                <span class="font-semibold text-[#00A4B7] text-xs block mt-0.5">${d.paymentTerms || '100% Irrevocable LC at Sight'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">SHIPMENT TERMS</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${d.shipmentTerms || 'Full Container Load (FCL)'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">DELIVERY TERMS</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${d.deliveryTerms || 'CIF Port of Destination'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">QUANTITY UNITS</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${d.quantityUnits || 'Kilograms (Kg)'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">CURRENCY</span>
+                <span class="font-bold text-[#403294] text-xs block mt-0.5">${d.currency || 'USD ($)'}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 6: Freight, Charges, Weights & Remarks -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Freight, Charges, Weights &amp; Valuation</h4>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">NET WEIGHT (KG)</span>
+                <span class="font-mono font-bold text-[#172B4D] text-xs block mt-0.5">${Number(d.netWeightKg || totMcs * 10).toLocaleString('en-IN')} Kg</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">GROSS WEIGHT (KG)</span>
+                <span class="font-mono font-bold text-[#172B4D] text-xs block mt-0.5">${Number(d.grossWeightKg || Math.round((d.netWeightKg || totMcs * 10) * 1.08)).toLocaleString('en-IN')} Kg</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">FOB VALUE (USD)</span>
+                <span class="font-mono font-bold text-[#172B4D] text-xs block mt-0.5">$${Number(d.fobValueUsd || Math.round(totAmount * 0.96)).toLocaleString('en-IN')}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">CIF VALUE (USD)</span>
+                <span class="font-mono font-extrabold text-[#006644] text-xs block mt-0.5">$${Number(d.cifValueUsd || totAmount).toLocaleString('en-IN')}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">FREIGHT</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${d.freight || 'Freight Prepaid'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">CHARGE NAME</span>
+                <span class="text-[#172B4D] text-xs block mt-0.5">${d.chargeName || 'Ocean Freight & THC'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">CHARGE AMOUNT</span>
+                <span class="font-mono font-bold text-[#172B4D] text-xs block mt-0.5">$${Number(d.chargeAmount || 4850).toLocaleString('en-IN')}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">STATUS</span>
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold border ${statusClass} uppercase block w-fit mt-0.5">${stockStatusVal.replace(/_/g, ' ')}</span>
+              </div>
+              <div class="sm:col-span-4">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">REMARKS</span>
+                <p class="text-xs text-[#5E6C84] mt-0.5 bg-[#F8FAFC] p-2.5 rounded-lg border border-[#F1F5F9]">${d.remarks || 'Customs export documentation cleared and shipping bill validated.'}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 7: Data Table (Variety Line Items) -->
           <div class="bg-white rounded-xl">
             <div class="flex items-center justify-between pb-2.5 mb-2 border-b border-[#F1F5F9]">
               <div class="flex items-center gap-2">
@@ -66777,9 +66919,9 @@ const SalesView = {
                       <td class="py-2.5 px-2.5 font-medium">${item.brand}</td>
                       <td class="py-2.5 px-2.5 text-right font-mono font-bold">${Number(item.mcs).toLocaleString('en-IN')}</td>
                       <td class="py-2.5 px-2.5 text-right font-mono text-[#5E6C84]">${Number(item.traysQty).toLocaleString('en-IN')}</td>
-                      <td class="py-2.5 px-2.5 text-right font-mono font-semibold text-[#172B4D]">${Number(item.unitPriceBags).toFixed(2)}</td>
-                      <td class="py-2.5 px-2.5 text-right font-mono text-[#5E6C84]">${Number(item.ddpPrice).toFixed(2)}</td>
-                      <td class="py-2.5 px-2.5 text-right font-mono font-extrabold text-[#006644]">${Number(item.amountUsd).toLocaleString('en-IN')}</td>
+                      <td class="py-2.5 px-2.5 text-right font-mono font-semibold text-[#172B4D]">$${Number(item.unitPriceBags).toFixed(2)}</td>
+                      <td class="py-2.5 px-2.5 text-right font-mono text-[#5E6C84]">$${Number(item.ddpPrice).toFixed(2)}</td>
+                      <td class="py-2.5 px-2.5 text-right font-mono font-extrabold text-[#006644]">$${Number(item.amountUsd).toLocaleString('en-IN')}</td>
                     </tr>
                   `).join('')}
                 </tbody>
@@ -66789,7 +66931,7 @@ const SalesView = {
                     <td class="py-2.5 px-2.5 text-right font-mono font-extrabold text-xs text-[#172B4D]">${Number(totMcs).toLocaleString('en-IN')}</td>
                     <td class="py-2.5 px-2.5 text-right font-mono font-bold text-xs text-[#5E6C84]">${Number(totTrays).toLocaleString('en-IN')}</td>
                     <td colspan="2" class="py-2.5 px-2.5"></td>
-                    <td class="py-2.5 px-2.5 text-right font-mono font-extrabold text-xs text-[#006644]">${Number(totAmount).toLocaleString('en-IN')}</td>
+                    <td class="py-2.5 px-2.5 text-right font-mono font-extrabold text-xs text-[#006644]">$${Number(totAmount).toLocaleString('en-IN')}</td>
                   </tr>
                 </tfoot>
               </table>
@@ -66806,7 +66948,7 @@ const SalesView = {
         {
           label: 'Print Custom Invoice',
           type: 'secondary',
-          onClick: () => Toast.show(`Printing Custom Invoice ${row.invoiceNo}...`, 'info')
+          onClick: () => Toast.show(`Printing Custom Invoice ${d.invoiceNo}...`, 'info')
         },
         {
           label: 'Edit Custom Invoice',
@@ -66820,7 +66962,7 @@ const SalesView = {
     });
   },
 
-  // Edit Custom Invoice 2-Step Wizard Modal (Matching Proforma Invoices)
+    // Edit Custom Invoice 2-Step Wizard Modal (Matching Proforma Invoices)
   showEditCustomInvoiceModal(row) {
     // Clone lineItems and headerData so modifications are atomic
     const lineItems = row.lineItems ? JSON.parse(JSON.stringify(row.lineItems)) : [

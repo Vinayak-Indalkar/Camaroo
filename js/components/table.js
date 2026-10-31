@@ -299,6 +299,7 @@ export class DataTable {
     if (typeof this.onRowClick === 'function') {
       try {
         this.onRowClick(row, this);
+        return;
       } catch (error) {
         console.warn('Custom row details failed; showing standard record details.', error);
       }
