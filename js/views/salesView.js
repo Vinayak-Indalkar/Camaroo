@@ -3268,7 +3268,7 @@ export const SalesView = {
 
     Modal.open({
       title: modalTitle,
-      size: 'xl',
+      size: 'full',
       content: `
         <form id="form-pi-details" class="space-y-4 text-xs">
           <!-- Section 1: Exporter & Processor Details -->
@@ -3665,7 +3665,7 @@ export const SalesView = {
 
     Modal.open({
       title: modalTitle,
-      size: 'xl',
+      size: 'full',
       content: `
         <div class="space-y-4 text-xs">
           <!-- Step 2 Form Input Fields (No border, No padding) -->
@@ -4782,7 +4782,7 @@ export const SalesView = {
 
     Modal.open({
       title: modalTitle,
-      size: 'xl',
+      size: 'full',
       content: `
         <form id="form-ci-step1" class="space-y-4 text-xs">
           <!-- Section 1: Customs Invoice & Reference Numbers -->
