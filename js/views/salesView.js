@@ -1060,24 +1060,59 @@ export const SalesView = {
 
     commercialInvoices: [
       {
-        cinvNumber: "CINV-EXP-2026-551",
+        id: "CINV-001",
+        pInvoiceNo: "PI-2026-901",
+        invoiceNo: "CINV-EXP-2026-551",
         invoiceDate: "2026-10-16",
-        contractNo: "SC-USA-2026-441",
-        customerName: "Red Lobster Supply Chain LLC",
-        destinationPort: "Long Beach Port, USA",
+        poNo: "PO-RL-8821",
+        buyer: "Red Lobster Supply Chain LLC",
+        consignee: "Red Lobster Supply Chain LLC",
+        status: "FINAL_SETTLED",
+        year: "2026-2027",
+        exporter: "Devi Fisheries Limited",
+        country: "United States",
+        destinationPort: "Port of Long Beach, USA",
         totalCartons: 1200,
         netWeightKg: 18000,
         grossWeightKg: 19440,
         totalValueUsd: 159300,
         blNumber: "ONE-VTZ-889021",
         bankReference: "SBI Overseas Branch Visakhapatnam",
-        status: "DISPATCHED_DOCS_IN_BANK"
+        items: [
+          {
+            productDescription: "Frozen Raw Black Tiger Shrimp HLSO",
+            specs: "Headless Shell-On, IQF, Block Frozen",
+            packing: "10 x 2 kg Master Cartons",
+            grade: "16/20",
+            cartons: 600,
+            codes: "LOT-BT-2026-901A",
+            productionDate: "2026-09-25",
+            bestBeforeDate: "2028-09-24"
+          },
+          {
+            productDescription: "Frozen Vannamei White Shrimp PDTO",
+            specs: "Peeled Deveined Tail-On, IQF",
+            packing: "5 x 2 lbs Master Carton",
+            grade: "26/30",
+            cartons: 600,
+            codes: "LOT-VN-2026-901B",
+            productionDate: "2026-09-28",
+            bestBeforeDate: "2028-09-27"
+          }
+        ]
       },
       {
-        cinvNumber: "CINV-EXP-2026-548",
+        id: "CINV-002",
+        pInvoiceNo: "PI-2026-902",
+        invoiceNo: "CINV-EXP-2026-548",
         invoiceDate: "2026-10-12",
-        contractNo: "SC-JPN-2026-112",
-        customerName: "Maruha Nichiro Corporation",
+        poNo: "PO-MN-9942",
+        buyer: "Maruha Nichiro Corporation",
+        consignee: "Maruha Nichiro Corporation",
+        status: "DOCS_SENT_TO_BUYER_BANK",
+        year: "2026-2027",
+        exporter: "Devi Fisheries Limited",
+        country: "Japan",
         destinationPort: "Tokyo Port, Japan",
         totalCartons: 950,
         netWeightKg: 14000,
@@ -1085,7 +1120,124 @@ export const SalesView = {
         totalValueUsd: 203000,
         blNumber: "MSK-VTZ-771902",
         bankReference: "Canara Bank Forex Cell Vizag",
-        status: "DOCS_SENT_TO_BUYER_BANK"
+        items: [
+          {
+            productDescription: "Frozen Cooked Vannamei Shrimp Ring",
+            specs: "Cooked Tail-On Shrimp with Cocktail Sauce Tray",
+            packing: "12 x 454g Retail Rings per Case",
+            grade: "31/40",
+            cartons: 950,
+            codes: "LOT-JP-2026-112C",
+            productionDate: "2026-09-20",
+            bestBeforeDate: "2028-09-19"
+          }
+        ]
+      },
+      {
+        id: "CINV-003",
+        pInvoiceNo: "PI-2026-903",
+        invoiceNo: "CINV-EXP-2026-555",
+        invoiceDate: "2026-10-24",
+        poNo: "PO-RG-7731",
+        buyer: "Royal Greenland Seafood A/S",
+        consignee: "Royal Greenland Seafood A/S",
+        status: "DISPATCHED_DOCS_IN_BANK",
+        year: "2026-2027",
+        exporter: "Devi Sea Foods Ltd",
+        country: "Netherlands",
+        destinationPort: "Rotterdam Port, Netherlands",
+        totalCartons: 1500,
+        netWeightKg: 18000,
+        grossWeightKg: 19500,
+        totalValueUsd: 131500,
+        blNumber: "CMA-VTZ-993012",
+        bankReference: "HDFC Forex Corporate Branch Vizag",
+        items: [
+          {
+            productDescription: "Frozen Raw Sea Tiger Head-On",
+            specs: "HOSO Semi-IQF Quick Frozen",
+            packing: "6 x 1.8 kg Waxed Carton",
+            grade: "U/10",
+            cartons: 750,
+            codes: "LOT-EU-2026-301",
+            productionDate: "2026-10-02",
+            bestBeforeDate: "2028-10-01"
+          },
+          {
+            productDescription: "Frozen Raw Vannamei Easy Peel",
+            specs: "EZ-Peel Backsplit IQF",
+            packing: "10 x 1 kg Polybag",
+            grade: "21/25",
+            cartons: 750,
+            codes: "LOT-EU-2026-302",
+            productionDate: "2026-10-05",
+            bestBeforeDate: "2028-10-04"
+          }
+        ]
+      },
+      {
+        id: "CINV-004",
+        pInvoiceNo: "PI-2026-904",
+        invoiceNo: "CINV-EXP-2026-560",
+        invoiceDate: "2026-10-27",
+        poNo: "PO-SY-6620",
+        buyer: "Sysco Corporation International",
+        consignee: "Sysco Corporation International",
+        status: "PAYMENT_RECEIVED",
+        year: "2026-2027",
+        exporter: "Devi Fisheries Limited",
+        country: "United States",
+        destinationPort: "Houston Port, USA",
+        totalCartons: 1800,
+        netWeightKg: 21600,
+        grossWeightKg: 23328,
+        totalValueUsd: 178000,
+        blNumber: "ONE-VTZ-992014",
+        bankReference: "SBI Overseas Branch Visakhapatnam",
+        items: [
+          {
+            productDescription: "Frozen Vannamei Shrimp PUD",
+            specs: "Peeled Un-Deveined Block Frozen",
+            packing: "6 x 1.8 kg Blocks",
+            grade: "41/50",
+            cartons: 1800,
+            codes: "LOT-US-2026-440",
+            productionDate: "2026-10-10",
+            bestBeforeDate: "2028-10-09"
+          }
+        ]
+      },
+      {
+        id: "CINV-005",
+        pInvoiceNo: "PI-2026-905",
+        invoiceNo: "CINV-EXP-2026-568",
+        invoiceDate: "2026-10-29",
+        poNo: "PO-UF-5511",
+        buyer: "US Foods Trading Co",
+        consignee: "US Foods Trading Co",
+        status: "PENDING_SETTLEMENT",
+        year: "2026-2027",
+        exporter: "Devi Marine Processors",
+        country: "United States",
+        destinationPort: "New York Port, USA",
+        totalCartons: 1400,
+        netWeightKg: 16800,
+        grossWeightKg: 18144,
+        totalValueUsd: 122000,
+        blNumber: "ONE-VTZ-995100",
+        bankReference: "Axis Bank Forex Vizag",
+        items: [
+          {
+            productDescription: "Frozen Raw White Shrimp Butterfly",
+            specs: "Butterfly Cut Tail-On IQF",
+            packing: "10 x 2 lbs Master Carton",
+            grade: "16/20",
+            cartons: 1400,
+            codes: "LOT-US-2026-550",
+            productionDate: "2026-10-15",
+            bestBeforeDate: "2028-10-14"
+          }
+        ]
       }
     ],
 
@@ -5709,13 +5861,7 @@ export const SalesView = {
         <!-- Page Title & Header Actions (NO Subheading) -->
         <div class="flex flex-wrap items-center justify-between gap-3 mb-1">
           <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Shipping Bill (Indian Customs Export EDI)</h1>
-          <div class="inline-flex items-center gap-2">
-            <button type="button" id="btn-create-sb" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-              <span>Add Shipping Bill</span>
-            </button>
           </div>
-        </div>
 
         <!-- Search & Filter Card (4-column responsive grid) -->
         <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200">
@@ -5820,10 +5966,7 @@ export const SalesView = {
       </div>
     `;
 
-    // Hook primary action button
-    container.querySelector('#btn-create-sb')?.addEventListener('click', () => {
-      this.showAddShippingBillModal(null);
-    });
+    // Primary action button removed as per requirements
 
     // Toggle filter
     const toggleBtn = container.querySelector('#flt-sb-toggle-btn');
@@ -6378,33 +6521,634 @@ export const SalesView = {
     });
   },
 
-  // Tab 5: Commercial Invoice
+  // Tab 5: Commercial Invoices (Final Export Settlement)
   renderCommercialInvoice(container) {
-    this.renderGenericTablePage({
-      container,
-      pageTitle: 'Commercial Invoices (Final Export Settlement)',
-            primaryBtnText: 'Create Commercial Invoice',
-      onPrimaryClick: () => Toast.show('Commercial Invoice generator opened', 'info'),
-      filterFields: [
-        { id: 'cinv-no', label: 'Invoice No', placeholder: 'e.g. CINV-EXP' },
-        { id: 'buyer', label: 'Buyer Name', placeholder: 'e.g. Red Lobster' },
-        { id: 'bl', label: 'Bill of Lading No', placeholder: 'e.g. ONE-VTZ' }
-      ],
-      data: this.state.commercialInvoices,
-      keyField: 'cinvNumber',
-      tableTitle: 'Commercial Invoices',
-      columns: [
-        { field: 'cinvNumber', header: 'Commercial Invoice No', render: (v) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${v}</span>` },
-        { field: 'invoiceDate', header: 'Date', render: (v) => `<span class="font-mono text-xs text-[#5E6C84]">${v}</span>` },
-        { field: 'contractNo', header: 'Contract No', render: (v) => `<span class="font-mono text-xs font-semibold text-[#172B4D]">${v}</span>` },
-        { field: 'customerName', header: 'Consignee / Importer', render: (v) => `<span class="font-bold text-[#172B4D] text-xs">${v}</span>` },
-        { field: 'blNumber', header: 'Bill of Lading No', render: (v) => `<span class="font-mono text-xs font-bold text-[#403294]">${v}</span>` },
-        { field: 'netWeightKg', header: 'Net Weight (Kg)', render: (v) => `<span class="font-mono text-xs text-[#172B4D] font-bold">${Number(v).toLocaleString('en-IN')} Kg</span>` },
-        { field: 'totalValueUsd', header: 'Invoice Amount (USD)', render: (v) => `<span class="font-mono font-extrabold text-xs text-[#006644]">$${Number(v).toLocaleString('en-IN')}</span>` },
+    container.innerHTML = `
+      <div class="space-y-3 animate-fade-in">
+        <!-- Page Title Header (NO Subheading, NO header button) -->
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-1">
+          <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Commercial Invoices (Final Export Settlement)</h1>
+        </div>
+
+        <!-- Search & Filter Card (4-column responsive grid) -->
+        <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200">
+          <div class="flex items-center justify-between pb-1">
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+              <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
+            </div>
+            <div class="inline-flex items-center gap-2">
+              <button type="button" id="flt-cinv-reset-btn" class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Reset all filters">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+              </button>
+              <button type="button" id="flt-cinv-toggle-btn" class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Hide Filter">
+                <svg class="w-3.5 h-3.5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              </button>
+            </div>
+          </div>
+          <div id="flt-cinv-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
+            <!-- SELECT YEAR -->
+            <div>
+              <label for="flt-cinv-year" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SELECT YEAR</label>
+              <select id="flt-cinv-year" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="ALL">All Years</option>
+                <option value="2026-2027">2026-2027</option>
+                <option value="2025-2026">2025-2026</option>
+                <option value="2024-2025">2024-2025</option>
+              </select>
+            </div>
+
+            <!-- SELECT EXPORTER -->
+            <div>
+              <label for="flt-cinv-exporter" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SELECT EXPORTER</label>
+              <select id="flt-cinv-exporter" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="ALL">All Exporters</option>
+                <option value="Devi Fisheries Limited">Devi Fisheries Limited</option>
+                <option value="Devi Sea Foods Ltd">Devi Sea Foods Ltd</option>
+                <option value="Devi Marine Processors">Devi Marine Processors</option>
+              </select>
+            </div>
+
+            <!-- SELECT CONSIGNEE -->
+            <div>
+              <label for="flt-cinv-consignee" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SELECT CONSIGNEE</label>
+              <select id="flt-cinv-consignee" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="ALL">All Consignees</option>
+                <option value="Red Lobster Supply Chain LLC">Red Lobster Supply Chain LLC</option>
+                <option value="Maruha Nichiro Corporation">Maruha Nichiro Corporation</option>
+                <option value="Royal Greenland Seafood A/S">Royal Greenland Seafood A/S</option>
+                <option value="Sysco Corporation International">Sysco Corporation International</option>
+                <option value="US Foods Trading Co">US Foods Trading Co</option>
+              </select>
+            </div>
+
+            <!-- SELECT COUNTRY -->
+            <div>
+              <label for="flt-cinv-country" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SELECT COUNTRY</label>
+              <select id="flt-cinv-country" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="ALL">All Countries</option>
+                <option value="United States">United States</option>
+                <option value="Japan">Japan</option>
+                <option value="Netherlands">Netherlands</option>
+                <option value="Canada">Canada</option>
+              </select>
+            </div>
+
+            <!-- INVOICE STATUS -->
+            <div>
+              <label for="flt-cinv-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">INVOICE STATUS</label>
+              <select id="flt-cinv-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="ALL">All Statuses</option>
+                <option value="FINAL_SETTLED">Final Settled</option>
+                <option value="PAYMENT_RECEIVED">Payment Received</option>
+                <option value="DISPATCHED_DOCS_IN_BANK">Dispatched Docs in Bank</option>
+                <option value="DOCS_SENT_TO_BUYER_BANK">Docs Sent to Buyer Bank</option>
+                <option value="PENDING_SETTLEMENT">Pending Settlement</option>
+              </select>
+            </div>
+
+            <!-- Search Button placed inside 4-col grid -->
+            <div class="flex items-end">
+              <button type="button" id="flt-cinv-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                <span>Search</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- DataTable Container -->
+        <div id="commercial-invoice-table-container"></div>
+      </div>
+    `;
+
+    // Toggle filter
+    const toggleBtn = container.querySelector('#flt-cinv-toggle-btn');
+    const filterBody = container.querySelector('#flt-cinv-body');
+    toggleBtn?.addEventListener('click', () => {
+      filterBody?.classList.toggle('hidden');
+      toggleBtn.querySelector('svg')?.classList.toggle('-rotate-90');
+    });
+
+    // Render table
+    const renderTable = (dataToDisplay) => {
+      new DataTable({
+        containerId: 'commercial-invoice-table-container',
+        data: dataToDisplay,
+        keyField: 'id',
+        tableTitle: `Commercial Invoices (${dataToDisplay.length})`,
+        searchable: true,
+        exportable: true,
+        pageSize: 10,
+        onRowClick: (row) => this.showCommercialInvoiceDetailsModal(row),
+        columns: [
+          {
+            field: '__sno__',
+            header: 'SNO',
+            render: (v, r, idx) => `<span class="font-mono text-xs text-[#5E6C84]">${idx + 1}</span>`
+          },
+          {
+            field: 'id',
+            header: 'ID',
+            render: (v) => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer">${v}</span>`
+          },
+          {
+            field: 'pInvoiceNo',
+            header: 'P.Invoice NO',
+            render: (v) => `<span class="font-mono font-bold text-xs text-[#403294]">${v || '-'}</span>`
+          },
+          {
+            field: 'invoiceNo',
+            header: 'Invoice NO',
+            render: (v) => `<span class="font-mono font-bold text-xs text-[#172B4D] hover:underline cursor-pointer">${v || '-'}</span>`
+          },
+          {
+            field: 'invoiceDate',
+            header: 'Invoice Date',
+            render: (v) => `<span class="font-mono text-xs text-[#5E6C84]">${v || '-'}</span>`
+          },
+          {
+            field: 'poNo',
+            header: 'Po NO',
+            render: (v) => `<span class="font-mono text-xs font-semibold text-[#172B4D]">${v || '-'}</span>`
+          },
+          {
+            field: 'buyer',
+            header: 'Buyer',
+            render: (v) => `<span class="font-bold text-[#172B4D] text-xs">${v || '-'}</span>`
+          },
+          {
+            field: 'status',
+            header: 'Status',
+            render: (v) => {
+              const val = String(v || '').toUpperCase();
+              let cls = 'bg-[#F1F5F9] text-[#172B4D] border-[#DFE1E6]';
+              if (val.includes('SETTLED') || val.includes('RECEIVED') || val.includes('FINAL')) {
+                cls = 'bg-[#E3FCEF] text-[#006644] border-[#ABF5D1]';
+              } else if (val.includes('DISPATCHED') || val.includes('SENT') || val.includes('BANK')) {
+                cls = 'bg-[#F0F9FF] text-[#00A4B7] border-[#BAE6FD]';
+              } else if (val.includes('PENDING')) {
+                cls = 'bg-[#FFFAE6] text-[#FF8B00] border-[#FFE380]';
+              }
+              return `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold border ${cls} uppercase">${val.replace(/_/g, ' ')}</span>`;
+            }
+          }
+        ],
+        actions: [
+          {
+            label: 'Add Product Specs & Batch Item',
+            icon: `<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>`,
+            onClick: (row) => this.showAddCommercialInvoiceProductModal(row)
+          }
+        ]
+      });
+    };
+
+    renderTable(this.state.commercialInvoices);
+
+    // Search and Reset handlers
+    const searchBtn = container.querySelector('#flt-cinv-search-btn');
+    const resetBtn = container.querySelector('#flt-cinv-reset-btn');
+
+    searchBtn?.addEventListener('click', () => {
+      const yr = container.querySelector('#flt-cinv-year')?.value || 'ALL';
+      const exp = container.querySelector('#flt-cinv-exporter')?.value || 'ALL';
+      const con = container.querySelector('#flt-cinv-consignee')?.value || 'ALL';
+      const cty = container.querySelector('#flt-cinv-country')?.value || 'ALL';
+      const st = container.querySelector('#flt-cinv-status')?.value || 'ALL';
+
+      let filtered = [...this.state.commercialInvoices];
+
+      if (yr !== 'ALL') {
+        filtered = filtered.filter(r => (r.year || '').includes(yr));
+      }
+      if (exp !== 'ALL') {
+        filtered = filtered.filter(r => (r.exporter || '').includes(exp));
+      }
+      if (con !== 'ALL') {
+        filtered = filtered.filter(r => (r.buyer || r.consignee || '').includes(con));
+      }
+      if (cty !== 'ALL') {
+        filtered = filtered.filter(r => (r.country || '').includes(cty));
+      }
+      if (st !== 'ALL') {
+        filtered = filtered.filter(r => (r.status || '').toUpperCase().includes(st));
+      }
+
+      renderTable(filtered);
+      Toast.show(`Filtered ${filtered.length} commercial invoice record(s)`, 'info');
+    });
+
+    resetBtn?.addEventListener('click', () => {
+      if (container.querySelector('#flt-cinv-year')) container.querySelector('#flt-cinv-year').value = 'ALL';
+      if (container.querySelector('#flt-cinv-exporter')) container.querySelector('#flt-cinv-exporter').value = 'ALL';
+      if (container.querySelector('#flt-cinv-consignee')) container.querySelector('#flt-cinv-consignee').value = 'ALL';
+      if (container.querySelector('#flt-cinv-country')) container.querySelector('#flt-cinv-country').value = 'ALL';
+      if (container.querySelector('#flt-cinv-status')) container.querySelector('#flt-cinv-status').value = 'ALL';
+      renderTable(this.state.commercialInvoices);
+      Toast.show('Commercial invoice filters reset', 'info');
+    });
+  },
+
+  // Modal: Commercial Invoice Product Specifications & Line Items Entry Form
+  showAddCommercialInvoiceProductModal(targetRow) {
+    const d = targetRow || {};
+    let items = d.items ? JSON.parse(JSON.stringify(d.items)) : [];
+
+    const renderItemsTableBody = () => {
+      if (!items || items.length === 0) {
+        return `<tr><td colspan="9" class="py-6 text-center text-xs text-[#5E6C84]">No product specifications added yet. Fill in the fields above and click "Add Product Item".</td></tr>`;
+      }
+      return items.map((it, idx) => `
+        <tr class="hover:bg-[#F8FAFC] transition-colors border-b border-[#F1F5F9] text-[#172B4D]">
+          <td class="py-2.5 px-2.5 font-mono text-xs text-[#5E6C84] text-center">${idx + 1}</td>
+          <td class="py-2.5 px-2.5 font-bold text-[#172B4D]">${it.productDescription || '-'}</td>
+          <td class="py-2.5 px-2.5 text-[#5E6C84]">${it.specs || '-'}</td>
+          <td class="py-2.5 px-2.5 font-semibold text-[#172B4D]">${it.packing || '-'}</td>
+          <td class="py-2.5 px-2.5 font-mono font-bold text-[#00A4B7]">${it.grade || '-'}</td>
+          <td class="py-2.5 px-2.5 font-mono font-bold text-[#172B4D] text-right">${Number(it.cartons || 0).toLocaleString('en-IN')}</td>
+          <td class="py-2.5 px-2.5 font-mono font-semibold text-[#403294]">${it.codes || '-'}</td>
+          <td class="py-2.5 px-2.5 font-mono text-xs text-[#5E6C84]">${it.productionDate || '-'}</td>
+          <td class="py-2.5 px-2.5 font-mono text-xs text-[#5E6C84]">${it.bestBeforeDate || '-'}</td>
+          <td class="py-2.5 px-2.5 text-center">
+            <button type="button" class="btn-remove-cinv-item text-[#DE350B] hover:text-[#BF2600] p-1 rounded hover:bg-[#FFEBE6] transition-colors cursor-pointer" data-idx="${idx}" title="Remove item">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    };
+
+    Modal.open({
+      title: `Product Specifications & Packaging &mdash; ${d.invoiceNo || d.id}`,
+      size: 'xl',
+      content: `
+        <div class="space-y-4 text-xs animate-fade-in">
+          <!-- Reference Header Bar -->
+          <div class="bg-[#F8FAFC] p-3 rounded-lg border border-[#DFE1E6] flex flex-wrap items-center justify-between gap-2">
+            <div class="flex items-center gap-3">
+              <span class="font-mono font-bold text-xs text-[#00A4B7]">${d.invoiceNo || '-'}</span>
+              <span class="text-[#CBD5E1]">|</span>
+              <span class="text-xs text-[#5E6C84]">P.Inv: <strong class="font-mono text-[#403294]">${d.pInvoiceNo || '-'}</strong></span>
+              <span class="text-[#CBD5E1]">|</span>
+              <span class="text-xs text-[#5E6C84]">PO: <strong class="text-[#172B4D]">${d.poNo || '-'}</strong></span>
+              <span class="text-[#CBD5E1]">|</span>
+              <span class="text-xs text-[#5E6C84]">Buyer: <strong class="text-[#172B4D]">${d.buyer || '-'}</strong></span>
+            </div>
+            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD] uppercase">${d.status || 'Active'}</span>
+          </div>
+
+          <!-- Form Input Fields Section -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Product Specifications &amp; Packaging Input Fields</h4>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-3">
+              <!-- Product Description -->
+              <div class="sm:col-span-2">
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Product Description <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="ci-item-desc" placeholder="e.g. Frozen Raw Black Tiger Shrimp HLSO" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <!-- Specs -->
+              <div class="sm:col-span-2">
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Specs</label>
+                <input type="text" id="ci-item-specs" placeholder="e.g. Headless Shell-On, IQF, Block Frozen" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <!-- Packing -->
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Packing <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="ci-item-packing" placeholder="e.g. 10 x 2 kg Master Cartons" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <!-- Grade -->
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Grade <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="ci-item-grade" placeholder="e.g. 16/20, 21/25, 26/30" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <!-- Cartons -->
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Cartons <span class="text-[#DE350B]">*</span></label>
+                <input type="number" id="ci-item-cartons" placeholder="e.g. 600" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <!-- Codes -->
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Codes</label>
+                <input type="text" id="ci-item-codes" placeholder="e.g. LOT-BT-2026-901A" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#403294] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <!-- ProductionDate -->
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ProductionDate <span class="text-[#DE350B]">*</span></label>
+                <input type="date" id="ci-item-prod-date" value="${new Date().toISOString().slice(0, 10)}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <!-- Best Before Date -->
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Best Before Date <span class="text-[#DE350B]">*</span></label>
+                <input type="date" id="ci-item-best-before" value="${new Date(Date.now() + 730 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10)}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <div class="sm:col-span-2 flex items-end justify-end">
+                <button type="button" id="btn-add-cinv-item" class="btn-primary px-4 py-1.5 rounded-full text-xs font-bold inline-flex items-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px]">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                  <span>Add Product Item</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product Specifications Table Section -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center justify-between pb-2.5 border-b border-[#F1F5F9]">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Product Line Items &amp; Packaging Breakdown</h4>
+              <span id="cinv-items-count-badge" class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD] uppercase">${items.length} Items</span>
+            </div>
+            
+            <div class="overflow-x-auto max-h-[260px] rounded-lg border border-[#DFE1E6] mt-3">
+              <table class="w-full text-xs text-left border-collapse">
+                <thead>
+                  <tr class="bg-[#F8FAFC] border-b border-[#DFE1E6] text-[#5E6C84] uppercase font-bold text-[10px] tracking-wider">
+                    <th class="py-2.5 px-2.5 text-center">S.No</th>
+                    <th class="py-2.5 px-2.5">Product Description</th>
+                    <th class="py-2.5 px-2.5">Specs</th>
+                    <th class="py-2.5 px-2.5">Packing</th>
+                    <th class="py-2.5 px-2.5">Grade</th>
+                    <th class="py-2.5 px-2.5 text-right">Cartons</th>
+                    <th class="py-2.5 px-2.5">Codes</th>
+                    <th class="py-2.5 px-2.5">ProductionDate</th>
+                    <th class="py-2.5 px-2.5">Best Before Date</th>
+                    <th class="py-2.5 px-2.5 text-center">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="cinv-items-tbody" class="divide-y divide-[#F1F5F9] bg-white">
+                  ${renderItemsTableBody()}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      `,
+      buttons: [
         {
-          field: 'status',
-          header: 'Bank Dispatch Status',
-          render: (v) => `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD] uppercase">${v.replace(/_/g, ' ')}</span>`
+          label: 'Cancel',
+          type: 'secondary',
+          onClick: (modal) => modal.close()
+        },
+        {
+          label: 'Save Product Line Items',
+          type: 'primary',
+          onClick: (modal) => {
+            d.items = [...items];
+            // Update total cartons
+            d.totalCartons = items.reduce((sum, it) => sum + (parseInt(it.cartons, 10) || 0), 0);
+            Toast.show(`Saved ${items.length} product specification items for ${d.invoiceNo}`, 'success');
+            modal.close();
+            const mainEl = document.getElementById('sales-view-main');
+            if (mainEl) this.renderCommercialInvoice(mainEl);
+          }
+        }
+      ]
+    });
+
+    const modalRoot = document.getElementById('erp-modal-root');
+    if (!modalRoot) return;
+
+    // Bind remove button listeners
+    const bindItemActions = () => {
+      modalRoot.querySelectorAll('.btn-remove-cinv-item').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const idx = parseInt(btn.dataset.idx, 10);
+          if (!isNaN(idx) && idx >= 0 && idx < items.length) {
+            const removed = items.splice(idx, 1);
+            const tbody = modalRoot.querySelector('#cinv-items-tbody');
+            if (tbody) tbody.innerHTML = renderItemsTableBody();
+            const badge = modalRoot.querySelector('#cinv-items-count-badge');
+            if (badge) badge.textContent = `${items.length} Items`;
+            bindItemActions();
+            Toast.show(`Removed ${removed[0]?.productDescription || 'item'}`, 'info');
+          }
+        });
+      });
+    };
+
+    bindItemActions();
+
+    // Bind add button listener
+    modalRoot.querySelector('#btn-add-cinv-item')?.addEventListener('click', () => {
+      const getVal = (id) => modalRoot.querySelector(`#${id}`)?.value?.trim() || '';
+
+      const desc = getVal('ci-item-desc');
+      const specs = getVal('ci-item-specs');
+      const packing = getVal('ci-item-packing');
+      const grade = getVal('ci-item-grade');
+      const cartons = parseInt(getVal('ci-item-cartons'), 10) || 0;
+      const codes = getVal('ci-item-codes');
+      const prodDate = getVal('ci-item-prod-date');
+      const bestBefore = getVal('ci-item-best-before');
+
+      if (!desc || !packing || !grade || !cartons || !prodDate || !bestBefore) {
+        Toast.show('Please fill in Product Description, Packing, Grade, Cartons, ProductionDate, and Best Before Date', 'warning');
+        return;
+      }
+
+      const newItem = {
+        productDescription: desc,
+        specs: specs || '-',
+        packing,
+        grade,
+        cartons,
+        codes: codes || '-',
+        productionDate: prodDate,
+        bestBeforeDate: bestBefore
+      };
+
+      items.push(newItem);
+
+      const tbody = modalRoot.querySelector('#cinv-items-tbody');
+      if (tbody) tbody.innerHTML = renderItemsTableBody();
+      const badge = modalRoot.querySelector('#cinv-items-count-badge');
+      if (badge) badge.textContent = `${items.length} Items`;
+
+      // Clear form inputs
+      if (modalRoot.querySelector('#ci-item-desc')) modalRoot.querySelector('#ci-item-desc').value = '';
+      if (modalRoot.querySelector('#ci-item-specs')) modalRoot.querySelector('#ci-item-specs').value = '';
+      if (modalRoot.querySelector('#ci-item-packing')) modalRoot.querySelector('#ci-item-packing').value = '';
+      if (modalRoot.querySelector('#ci-item-grade')) modalRoot.querySelector('#ci-item-grade').value = '';
+      if (modalRoot.querySelector('#ci-item-cartons')) modalRoot.querySelector('#ci-item-cartons').value = '';
+      if (modalRoot.querySelector('#ci-item-codes')) modalRoot.querySelector('#ci-item-codes').value = '';
+
+      bindItemActions();
+      Toast.show(`Added ${desc} (${grade})`, 'success');
+    });
+  },
+
+  // Modal: Commercial Invoice Details View (On Row Click)
+  showCommercialInvoiceDetailsModal(row) {
+    const d = row || {};
+    const items = d.items || [];
+    const val = String(d.status || '').toUpperCase();
+    let statusClass = 'bg-[#F1F5F9] text-[#172B4D] border-[#DFE1E6]';
+    if (val.includes('SETTLED') || val.includes('RECEIVED') || val.includes('FINAL')) {
+      statusClass = 'bg-[#E3FCEF] text-[#006644] border-[#ABF5D1]';
+    } else if (val.includes('DISPATCHED') || val.includes('SENT') || val.includes('BANK')) {
+      statusClass = 'bg-[#F0F9FF] text-[#00A4B7] border-[#BAE6FD]';
+    } else if (val.includes('PENDING')) {
+      statusClass = 'bg-[#FFFAE6] text-[#FF8B00] border-[#FFE380]';
+    }
+
+    Modal.open({
+      title: `Commercial Invoice Details - ${d.invoiceNo || d.id}`,
+      size: 'xl',
+      content: `
+        <div class="space-y-4 text-xs animate-fade-in">
+          <!-- Top Hero / Summary Card -->
+          <div class="bg-gradient-to-r from-[#F0F9FF] to-[#F8FAFC] p-4 rounded-xl border border-[#BAE6FD] flex flex-wrap items-center justify-between gap-3 shadow-2xs">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-[#00A4B7] text-white flex items-center justify-center font-bold shadow-xs">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              </div>
+              <div>
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span class="font-mono font-extrabold text-[#0F172A] text-base">${d.invoiceNo || d.id}</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold tracking-wide uppercase border ${statusClass}">${val.replace(/_/g, ' ')}</span>
+                  <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">${d.exporter || 'Devi Fisheries Limited'}</span>
+                </div>
+                <div class="text-[11px] text-[#64748B] mt-0.5 font-medium flex items-center gap-1.5 flex-wrap">
+                  <span><strong>P.Inv:</strong> ${d.pInvoiceNo || '-'}</span>
+                  <span>•</span>
+                  <span><strong>PO:</strong> ${d.poNo || '-'}</span>
+                  <span>•</span>
+                  <span><strong>Buyer:</strong> ${d.buyer || d.consignee || '-'}</span>
+                  <span>•</span>
+                  <span><strong>Destination:</strong> ${d.destinationPort || d.country || '-'}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Metrics Badges -->
+            <div class="flex items-center gap-2 shrink-0">
+              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[85px]">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Cartons</span>
+                <span class="font-mono font-extrabold text-[#172B4D] text-xs mt-0.5 block">${Number(d.totalCartons || 0).toLocaleString('en-IN')}</span>
+              </div>
+              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[85px]">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Net Wt</span>
+                <span class="font-mono font-extrabold text-[#00A4B7] text-xs mt-0.5 block">${Number(d.netWeightKg || 0).toLocaleString('en-IN')} Kg</span>
+              </div>
+              <div class="bg-white px-3.5 py-1.5 rounded-lg border border-[#ABF5D1] bg-[#F0FDF4] shadow-2xs text-center min-w-[100px]">
+                <span class="text-[10px] font-bold text-[#006644] uppercase tracking-wider block">Invoice USD</span>
+                <span class="font-mono font-extrabold text-[#006644] text-xs mt-0.5 block">${Number(d.totalValueUsd || 0).toLocaleString('en-IN')}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Commercial & Settlement Details Section -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Commercial &amp; Settlement Parameters</h4>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5 pt-3">
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">INVOICE NO</span>
+                <span class="font-mono font-extrabold text-[#00A4B7] text-xs block mt-0.5">${d.invoiceNo || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">INVOICE DATE</span>
+                <span class="font-mono text-[#172B4D] text-xs block mt-0.5">${d.invoiceDate || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">P.INVOICE NO</span>
+                <span class="font-mono font-bold text-[#403294] text-xs block mt-0.5">${d.pInvoiceNo || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">PO NO</span>
+                <span class="font-mono font-semibold text-[#172B4D] text-xs block mt-0.5">${d.poNo || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">BUYER / CONSIGNEE</span>
+                <span class="font-bold text-[#172B4D] text-xs block mt-0.5">${d.buyer || d.consignee || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">DESTINATION PORT</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${d.destinationPort || d.country || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">BILL OF LADING (B/L)</span>
+                <span class="font-mono font-bold text-[#00A4B7] text-xs block mt-0.5">${d.blNumber || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">BANK REFERENCE</span>
+                <span class="text-[#5E6C84] text-xs block mt-0.5">${d.bankReference || '-'}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product Specifications Table Section -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center justify-between pb-2.5 border-b border-[#F1F5F9]">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Product Specifications &amp; Packing Breakdown</h4>
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD] uppercase">${items.length} Product Items</span>
+            </div>
+            
+            <div class="overflow-x-auto max-h-[260px] rounded-lg border border-[#DFE1E6] mt-3">
+              <table class="w-full text-xs text-left border-collapse">
+                <thead>
+                  <tr class="bg-[#F8FAFC] border-b border-[#DFE1E6] text-[#5E6C84] uppercase font-bold text-[10px] tracking-wider">
+                    <th class="py-2.5 px-2.5 text-center">S.No</th>
+                    <th class="py-2.5 px-2.5">Product Description</th>
+                    <th class="py-2.5 px-2.5">Specs</th>
+                    <th class="py-2.5 px-2.5">Packing</th>
+                    <th class="py-2.5 px-2.5">Grade</th>
+                    <th class="py-2.5 px-2.5 text-right">Cartons</th>
+                    <th class="py-2.5 px-2.5">Codes</th>
+                    <th class="py-2.5 px-2.5">ProductionDate</th>
+                    <th class="py-2.5 px-2.5">Best Before Date</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-[#F1F5F9] bg-white">
+                  ${items.length === 0 ? `
+                    <tr><td colspan="9" class="py-6 text-center text-xs text-[#5E6C84]">No product specifications recorded.</td></tr>
+                  ` : items.map((it, idx) => `
+                    <tr class="hover:bg-[#F8FAFC] transition-colors border-b border-[#F1F5F9] text-[#172B4D]">
+                      <td class="py-2.5 px-2.5 font-mono text-xs text-[#5E6C84] text-center">${idx + 1}</td>
+                      <td class="py-2.5 px-2.5 font-bold text-[#172B4D]">${it.productDescription || '-'}</td>
+                      <td class="py-2.5 px-2.5 text-[#5E6C84]">${it.specs || '-'}</td>
+                      <td class="py-2.5 px-2.5 font-semibold text-[#172B4D]">${it.packing || '-'}</td>
+                      <td class="py-2.5 px-2.5 font-mono font-bold text-[#00A4B7]">${it.grade || '-'}</td>
+                      <td class="py-2.5 px-2.5 font-mono font-bold text-[#172B4D] text-right">${Number(it.cartons || 0).toLocaleString('en-IN')}</td>
+                      <td class="py-2.5 px-2.5 font-mono font-semibold text-[#403294]">${it.codes || '-'}</td>
+                      <td class="py-2.5 px-2.5 font-mono text-xs text-[#5E6C84]">${it.productionDate || '-'}</td>
+                      <td class="py-2.5 px-2.5 font-mono text-xs text-[#5E6C84]">${it.bestBeforeDate || '-'}</td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      `,
+      buttons: [
+        {
+          label: 'Close',
+          type: 'secondary',
+          onClick: (modal) => modal.close()
+        },
+        {
+          label: 'Print Commercial Invoice',
+          type: 'secondary',
+          onClick: () => Toast.show(`Printing Final Commercial Invoice for ${d.invoiceNo}...`, 'info')
+        },
+        {
+          label: 'Edit Product Specs',
+          type: 'primary',
+          onClick: (modal) => {
+            modal.close();
+            this.showAddCommercialInvoiceProductModal(d);
+          }
         }
       ]
     });
