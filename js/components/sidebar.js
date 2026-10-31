@@ -21,7 +21,7 @@ export const ADMIN_NAV_HIERARCHY = [
         title: "Orders",
         defaultTab: "proforma-list",
         tabs: [
-          { id: "proforma-list", label: "Proforma List", hash: "#/sales/orders/proforma-list" },
+          { id: "proforma-list", label: "Proforma Invoices (PI Register)", hash: "#/sales/orders/proforma-list" },
           { id: "custom-invoices", label: "Custom Invoices", hash: "#/sales/orders/custom-invoices" },
           { id: "isf-details", label: "ISF Details", hash: "#/sales/orders/isf-details" },
           { id: "shipping-bill", label: "Shipping Bill", hash: "#/sales/orders/shipping-bill" },

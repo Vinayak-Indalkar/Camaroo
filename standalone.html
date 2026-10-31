@@ -7273,7 +7273,7 @@ const ADMIN_NAV_HIERARCHY = [
         title: "Orders",
         defaultTab: "proforma-list",
         tabs: [
-          { id: "proforma-list", label: "Proforma List", hash: "#/sales/orders/proforma-list" },
+          { id: "proforma-list", label: "Proforma Invoices (PI Register)", hash: "#/sales/orders/proforma-list" },
           { id: "custom-invoices", label: "Custom Invoices", hash: "#/sales/orders/custom-invoices" },
           { id: "isf-details", label: "ISF Details", hash: "#/sales/orders/isf-details" },
           { id: "shipping-bill", label: "Shipping Bill", hash: "#/sales/orders/shipping-bill" },
@@ -63261,74 +63261,199 @@ const SalesView = {
     // 2. Orders Submenu (8 Tabs datasets)
     proformaList: [
       {
+        id: "PI-001",
+        exporter: "Devi Fisheries Limited",
+        processor: "Devi Fisheries Limited - Unit 1",
         piNumber: "PI-2026-901",
         piDate: "2026-10-05",
-        customerName: "Red Lobster Supply Chain LLC",
-        destinationPort: "Long Beach Port, USA",
-        productDescription: "Vannamei Shrimp HLSO 26/30 IQF",
-        cartons: 1200,
-        quantityKg: 18000,
-        unitPriceUsd: 8.85,
-        totalAmountUsd: 159300,
+        poNumber: "PO-RL-8821",
+        poDate: "2026-10-02",
+        buyerName: "Red Lobster Supply Chain LLC",
+        consignee: "Red Lobster Supply Chain LLC",
+        ultimateConsignee: "Red Lobster Distribution Center Orlando",
+        notifyParty: "Expeditors International USA Inc.",
+        importerOfRecord: "Red Lobster Supply Chain LLC",
+        agent: "Seaways Global Logistics Ltd",
+        certification: "BAP 4-Star & ASC Certified",
+        country: "United States",
+        portOfLoading: "Visakhapatnam Sea (INVTZ)",
+        destinationCountry: "United States",
+        portOfDischarge: "Long Beach Port, USA",
+        finalDestinationCountry: "United States",
+        finalDestination: "Los Angeles Cold Terminal, CA",
+        productionPlant: "Unit 1 - Processing (Vizag)",
+        shipByDate: "2026-11-15",
+        shipByDate2: "Week 46, Mid November 2026",
+        bankDetails: "State Bank of India (Forex Cell, Vizag)",
+        showBank: "Yes",
         paymentTerms: "100% Irrevocable LC at Sight",
-        validityDate: "2026-11-05",
-        status: "CONFIRMED_ACCEPTED"
+        shipmentTerms: "Full Container Load (FCL)",
+        deliveryTerms: "CIF Port of Destination",
+        quantityUnits: "Kilograms (Kg)",
+        currency: "USD ($)",
+        freight: "Freight Prepaid",
+        chargeName: "Ocean Freight & Reefer THC",
+        chargeAmount: 4850,
+        noOfContainers: 1,
+        referenceNumber: "REF-RL-2026-091",
+        remarks: "Shipment subject to FDA Prior Notice clearance prior to vessel arrival.",
+        status: "APPROVED"
       },
       {
+        id: "PI-002",
+        exporter: "Devi Sea Foods Ltd",
+        processor: "Devi Sea Foods Ltd (Plant 2)",
         piNumber: "PI-2026-902",
         piDate: "2026-10-08",
-        customerName: "Maruha Nichiro Corporation",
-        destinationPort: "Tokyo Port, Japan",
-        productDescription: "Black Tiger Shrimp HOSO 16/20 Semi-IQF",
-        cartons: 950,
-        quantityKg: 14000,
-        unitPriceUsd: 14.50,
-        totalAmountUsd: 203000,
+        poNumber: "PO-MN-4402",
+        poDate: "2026-10-04",
+        buyerName: "Maruha Nichiro Corporation",
+        consignee: "Maruha Nichiro Corporation",
+        ultimateConsignee: "Maruha Nichiro Tokyo Cold Center",
+        notifyParty: "Nippon Express Global Logistics",
+        importerOfRecord: "Maruha Nichiro Corporation",
+        agent: "Evergreen Maritime Agency",
+        certification: "BAP 4-Star & ISO 22000",
+        country: "Japan",
+        portOfLoading: "Visakhapatnam Sea (INVTZ)",
+        destinationCountry: "Japan",
+        portOfDischarge: "Tokyo Port, Japan",
+        finalDestinationCountry: "Japan",
+        finalDestination: "Tokyo Central Coldstore",
+        productionPlant: "Unit 2 - Value Added (Singarayakonda)",
+        shipByDate: "2026-11-20",
+        shipByDate2: "Late November 2026",
+        bankDetails: "Canara Bank Overseas Branch",
+        showBank: "Yes",
         paymentTerms: "30% Advance + 70% Against CAD",
-        validityDate: "2026-11-08",
-        status: "CONFIRMED_ACCEPTED"
+        shipmentTerms: "Full Container Load (FCL)",
+        deliveryTerms: "FOB Visakhapatnam Port",
+        quantityUnits: "Kilograms (Kg)",
+        currency: "USD ($)",
+        freight: "Freight Collect",
+        chargeName: "THC & Carting Charges",
+        chargeAmount: 2200,
+        noOfContainers: 1,
+        referenceNumber: "REF-MN-2026-114",
+        remarks: "Strict antibiotic residual testing certificates to be attached with docs.",
+        status: "PENDING_APPROVAL"
       },
       {
+        id: "PI-003",
+        exporter: "Devi Fisheries Limited",
+        processor: "Devi Fisheries Limited - Unit 1",
         piNumber: "PI-2026-903",
         piDate: "2026-10-12",
-        customerName: "Royal Greenland Seafood A/S",
-        destinationPort: "Rotterdam Port, Netherlands",
-        productDescription: "Asian Seabass Fillet 500-800g IQF",
-        cartons: 800,
-        quantityKg: 12000,
-        unitPriceUsd: 11.20,
-        totalAmountUsd: 134400,
+        poNumber: "PO-RG-9011",
+        poDate: "2026-10-09",
+        buyerName: "Royal Greenland Seafood A/S",
+        consignee: "Royal Greenland Seafood A/S",
+        ultimateConsignee: "Royal Greenland Euro Hub Rotterdam",
+        notifyParty: "Kuehne + Nagel Logistics BV",
+        importerOfRecord: "Royal Greenland Seafood A/S",
+        agent: "Seaways Global Logistics Ltd",
+        certification: "MSC & ASC Chain of Custody",
+        country: "Netherlands",
+        portOfLoading: "Visakhapatnam Sea (INVTZ)",
+        destinationCountry: "Netherlands",
+        portOfDischarge: "Rotterdam Port, Netherlands",
+        finalDestinationCountry: "Netherlands",
+        finalDestination: "Rotterdam Maasvlakte Cold Terminal",
+        productionPlant: "Unit 1 - Processing (Vizag)",
+        shipByDate: "2026-11-28",
+        shipByDate2: "Week 48, November 2026",
+        bankDetails: "HDFC Bank Trade Finance",
+        showBank: "Yes",
         paymentTerms: "LC 60 Days from B/L Date",
-        validityDate: "2026-11-12",
-        status: "ISSUED_PENDING"
+        shipmentTerms: "Full Container Load (FCL)",
+        deliveryTerms: "CFR Rotterdam Port",
+        quantityUnits: "Kilograms (Kg)",
+        currency: "EUR (€)",
+        freight: "Freight Prepaid",
+        chargeName: "Bunker Adjustment Factor (BAF)",
+        chargeAmount: 3100,
+        noOfContainers: 1,
+        referenceNumber: "REF-RG-2026-077",
+        remarks: "EU Health Certificate and Catch Certificate original required.",
+        status: "PENDING_APPROVAL"
       },
       {
+        id: "PI-004",
+        exporter: "Devi Fisheries Limited",
+        processor: "Devi Marine Processors Unit-3",
         piNumber: "PI-2026-904",
         piDate: "2026-10-15",
-        customerName: "Sysco Corporation International",
-        destinationPort: "New York Terminal, USA",
-        productDescription: "Vannamei Cooked Tail-On 31/40 IQF",
-        cartons: 1450,
-        quantityKg: 22000,
-        unitPriceUsd: 9.60,
-        totalAmountUsd: 211200,
+        poNumber: "PO-SYS-3319",
+        poDate: "2026-10-11",
+        buyerName: "Sysco Corporation International",
+        consignee: "Sysco Corporation International",
+        ultimateConsignee: "Sysco Northeast Logistics Terminal",
+        notifyParty: "C.H. Robinson Worldwide Inc.",
+        importerOfRecord: "Sysco Corporation International",
+        agent: "Evergreen Maritime Agency",
+        certification: "BAP 4-Star & BRCGS Food Safety",
+        country: "United States",
+        portOfLoading: "Visakhapatnam Sea (INVTZ)",
+        destinationCountry: "United States",
+        portOfDischarge: "New York Terminal, USA",
+        finalDestinationCountry: "United States",
+        finalDestination: "Newark Port Cold Terminal, NJ",
+        productionPlant: "Unit 3 - Pre-processing (Kakinada)",
+        shipByDate: "2026-12-05",
+        shipByDate2: "Early December 2026",
+        bankDetails: "State Bank of India (Forex Cell, Vizag)",
+        showBank: "Yes",
         paymentTerms: "100% LC at Sight",
-        validityDate: "2026-11-15",
-        status: "CONFIRMED_ACCEPTED"
+        shipmentTerms: "Full Container Load (FCL)",
+        deliveryTerms: "CIF New York Terminal",
+        quantityUnits: "Kilograms (Kg)",
+        currency: "USD ($)",
+        freight: "Freight Prepaid",
+        chargeName: "Reefer Monitoring & Peak Surcharge",
+        chargeAmount: 5200,
+        noOfContainers: 2,
+        referenceNumber: "REF-SYS-2026-304",
+        remarks: "Palletized shrink-wrapped shipment with temp data-loggers.",
+        status: "APPROVED"
       },
       {
+        id: "PI-005",
+        exporter: "Devi Sea Foods Ltd",
+        processor: "Devi Sea Foods Ltd (Plant 2)",
         piNumber: "PI-2026-905",
         piDate: "2026-10-18",
-        customerName: "US Foods Trading Co",
-        destinationPort: "Houston Sea Port, USA",
-        productDescription: "Vannamei Easy Peel 16/20 IQF",
-        cartons: 1100,
-        quantityKg: 16500,
-        unitPriceUsd: 9.90,
-        totalAmountUsd: 163350,
+        poNumber: "PO-USF-2210",
+        poDate: "2026-10-16",
+        buyerName: "US Foods Trading Co",
+        consignee: "US Foods Trading Co",
+        ultimateConsignee: "US Foods Southern Distribution Center",
+        notifyParty: "DB Schenker USA Inc.",
+        importerOfRecord: "US Foods Trading Co",
+        agent: "Seaways Global Logistics Ltd",
+        certification: "BAP 4-Star Certified",
+        country: "United States",
+        portOfLoading: "Visakhapatnam Sea (INVTZ)",
+        destinationCountry: "United States",
+        portOfDischarge: "Houston Sea Port, USA",
+        finalDestinationCountry: "United States",
+        finalDestination: "Houston Cold Logistics Facility",
+        productionPlant: "Unit 2 - Value Added (Singarayakonda)",
+        shipByDate: "2026-12-10",
+        shipByDate2: "Week 50, December 2026",
+        bankDetails: "State Bank of India (Forex Cell, Vizag)",
+        showBank: "Yes",
         paymentTerms: "100% LC at Sight",
-        validityDate: "2026-11-18",
-        status: "DRAFT_REVISED"
+        shipmentTerms: "Full Container Load (FCL)",
+        deliveryTerms: "CIF Houston Sea Port",
+        quantityUnits: "Kilograms (Kg)",
+        currency: "USD ($)",
+        freight: "Freight Prepaid",
+        chargeName: "Chassis & Demurrage Insurance",
+        chargeAmount: 1800,
+        noOfContainers: 1,
+        referenceNumber: "REF-USF-2026-551",
+        remarks: "Pre-shipment microbiology report to be emailed before vessel sailing.",
+        status: "DRAFT"
       }
     ],
 
@@ -64277,36 +64402,748 @@ const SalesView = {
     }
   },
 
-  // Tab 1: Proforma List
+  // Tab 1: Proforma List (PI Register)
   renderProformaList(container) {
-    this.renderGenericTablePage({
-      container,
-      pageTitle: 'Proforma Invoices (PI Register)',
-            primaryBtnText: 'Generate Proforma Invoice',
-      onPrimaryClick: () => this.showAddProformaModal(),
-      filterFields: [
-        { id: 'pi-no', label: 'PI Number', placeholder: 'e.g. PI-2026' },
-        { id: 'buyer', label: 'Buyer / Importer', placeholder: 'e.g. Red Lobster' },
-        { id: 'dest', label: 'Destination Port', type: 'select', options: ['All Ports', 'Long Beach Port, USA', 'Tokyo Port, Japan', 'Rotterdam Port, Netherlands'] }
-      ],
-      data: this.state.proformaList,
-      keyField: 'piNumber',
-      tableTitle: 'Proforma List',
-      columns: [
-        { field: 'piNumber', header: 'PI Number', render: (v) => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline">${v}</span>` },
-        { field: 'piDate', header: 'PI Date', render: (v) => `<span class="font-mono text-xs text-[#5E6C84]">${v}</span>` },
-        { field: 'customerName', header: 'Buyer / Importer', render: (v) => `<span class="font-bold text-[#172B4D] text-xs">${v}</span>` },
-        { field: 'productDescription', header: 'Product Variety', render: (v) => `<span class="font-semibold text-[#172B4D] text-xs">${v}</span>` },
-        { field: 'quantityKg', header: 'Quantity (Kg)', render: (v) => `<span class="font-mono font-bold text-xs text-[#172B4D]">${Number(v).toLocaleString('en-IN')} Kg</span>` },
-        { field: 'unitPriceUsd', header: 'Rate / Kg', render: (v) => `<span class="font-mono text-xs text-[#5E6C84]">$${Number(v).toFixed(2)}</span>` },
-        { field: 'totalAmountUsd', header: 'Total Value', render: (v) => `<span class="font-mono font-extrabold text-xs text-[#006644]">$${Number(v).toLocaleString('en-IN')}</span>` },
-        { field: 'paymentTerms', header: 'Payment Terms', render: (v) => `<span class="text-xs text-[#5E6C84] truncate max-w-[150px] block" title="${v}">${v}</span>` },
+    container.innerHTML = `
+      <div class="space-y-3 animate-fade-in">
+        <!-- Page Title & Header Actions (NO Subheading) -->
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-1">
+          <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Proforma Invoices (PI Register)</h1>
+          <div class="inline-flex items-center gap-2">
+            <button type="button" id="btn-generate-pi" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+              <span>Generate Proforma Invoice</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Search & Filter Card -->
+        <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200">
+          <div class="flex items-center justify-between pb-1">
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+              <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
+            </div>
+            <div class="inline-flex items-center gap-2">
+              <button type="button" id="flt-pi-reset-btn" class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Reset all filters">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+              </button>
+              <button type="button" id="flt-pi-toggle-btn" class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Hide Filter">
+                <svg class="w-3.5 h-3.5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              </button>
+            </div>
+          </div>
+          <div id="flt-pi-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3 text-xs" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
+            <!-- SELECT EXPORTER -->
+            <div>
+              <label for="flt-pi-exporter" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SELECT EXPORTER</label>
+              <select id="flt-pi-exporter" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="ALL">All Exporters</option>
+                <option value="Devi Fisheries Limited">Devi Fisheries Limited</option>
+                <option value="Devi Sea Foods Ltd">Devi Sea Foods Ltd</option>
+                <option value="Devi Marine Processors">Devi Marine Processors</option>
+              </select>
+            </div>
+
+            <!-- SELECT CONSIGNEE -->
+            <div>
+              <label for="flt-pi-consignee" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SELECT CONSIGNEE</label>
+              <select id="flt-pi-consignee" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="ALL">All Consignees</option>
+                <option value="Red Lobster Supply Chain LLC">Red Lobster Supply Chain LLC</option>
+                <option value="Maruha Nichiro Corporation">Maruha Nichiro Corporation</option>
+                <option value="Royal Greenland Seafood A/S">Royal Greenland Seafood A/S</option>
+                <option value="Sysco Corporation International">Sysco Corporation International</option>
+                <option value="US Foods Trading Co">US Foods Trading Co</option>
+              </select>
+            </div>
+
+            <!-- SELECT COUNTRY -->
+            <div>
+              <label for="flt-pi-country" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SELECT COUNTRY</label>
+              <select id="flt-pi-country" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="ALL">All Countries</option>
+                <option value="United States">United States</option>
+                <option value="Japan">Japan</option>
+                <option value="Netherlands">Netherlands</option>
+                <option value="Canada">Canada</option>
+                <option value="United Kingdom">United Kingdom</option>
+              </select>
+            </div>
+
+            <!-- STATUS -->
+            <div>
+              <label for="flt-pi-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">STATUS</label>
+              <select id="flt-pi-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="ALL">All Status</option>
+                <option value="APPROVED">Approved</option>
+                <option value="PENDING_APPROVAL">Pending Approval</option>
+                <option value="DRAFT">Draft</option>
+                <option value="CONFIRMED">Confirmed</option>
+              </select>
+            </div>
+
+            <!-- MANDATORY Search button placed after the last input field -->
+            <div class="flex items-end">
+              <button type="button" id="flt-pi-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                <span>Search</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- DataTable Container -->
+        <div id="proforma-table-container"></div>
+      </div>
+    `;
+
+    // Hook primary action button
+    container.querySelector('#btn-generate-pi')?.addEventListener('click', () => {
+      this.showAddProformaModal();
+    });
+
+    // Toggle filter
+    const toggleBtn = container.querySelector('#flt-pi-toggle-btn');
+    const filterBody = container.querySelector('#flt-pi-body');
+    toggleBtn?.addEventListener('click', () => {
+      filterBody?.classList.toggle('hidden');
+      toggleBtn.querySelector('svg')?.classList.toggle('-rotate-90');
+    });
+
+    // Table instance holder
+    let dtInstance = null;
+
+    const renderTable = (dataToDisplay) => {
+      dtInstance = new DataTable({
+        containerId: 'proforma-table-container',
+        data: dataToDisplay,
+        keyField: 'id',
+        tableTitle: `Proforma Invoices (${dataToDisplay.length})`,
+        searchable: true,
+        exportable: true,
+        selectable: true,
+        showSelectedCount: false,
+        pageSize: 10,
+        toolbarButtons: [
+          {
+            id: 'btn-bulk-approve',
+            label: 'Bulk Approve',
+            variant: 'primary',
+            className: 'btn-primary px-4 py-1.5 rounded-full text-xs font-bold shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all',
+            icon: `<svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>`,
+            requiresSelection: true,
+            onClick: (selectedKeys, selectedRows, dt) => {
+              if (!selectedKeys || selectedKeys.length === 0) return;
+              Modal.confirm({
+                title: 'Confirm Bulk Approval',
+                message: `Are you sure you want to approve the selected ${selectedKeys.length} Proforma Invoice(s)? This will update their status to APPROVED.`,
+                confirmText: 'Approve Selected',
+                cancelText: 'Cancel',
+                isDestructive: false,
+                onConfirm: () => {
+                  selectedRows.forEach(row => {
+                    row.status = 'APPROVED';
+                  });
+                  dt.selectedKeys.clear();
+                  dt.render();
+                  Toast.show(`${selectedKeys.length} Proforma Invoice(s) approved successfully!`, 'success');
+                }
+              });
+            }
+          }
+        ],
+        columns: [
+          {
+            field: '__sno__',
+            header: 'S.No',
+            render: (v, r, idx) => `<span class="font-mono text-xs text-[#5E6C84]">${idx + 1}</span>`
+          },
+          {
+            field: 'id',
+            header: 'ID',
+            render: (v) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${v}</span>`
+          },
+          {
+            field: 'processor',
+            header: 'Processor',
+            render: (v) => `<span class="font-semibold text-xs text-[#172B4D]">${v || '-'}</span>`
+          },
+          {
+            field: 'piNumber',
+            header: 'PInv Number',
+            render: (v) => `<span class="font-mono font-bold text-xs text-[#172B4D]">${v}</span>`
+          },
+          {
+            field: 'piDate',
+            header: 'PInv Date',
+            render: (v) => `<span class="font-mono text-xs text-[#5E6C84]">${v}</span>`
+          },
+          {
+            field: 'poNumber',
+            header: 'Po No',
+            render: (v) => `<span class="font-mono text-xs font-semibold text-[#172B4D]">${v || '-'}</span>`
+          },
+          {
+            field: 'buyerName',
+            header: 'Buyer',
+            render: (v) => `<span class="font-bold text-[#172B4D] text-xs">${v}</span>`
+          },
+          {
+            field: 'productionPlant',
+            header: 'Production Plant',
+            render: (v) => `<span class="text-xs text-[#5E6C84]">${v || '-'}</span>`
+          },
+          {
+            field: 'shipByDate',
+            header: 'ShipBy Date',
+            render: (v) => `<span class="font-mono text-xs text-[#5E6C84]">${v || '-'}</span>`
+          },
+          {
+            field: 'status',
+            header: 'Status',
+            render: (v) => {
+              const val = String(v || '').toUpperCase();
+              let cls = 'bg-[#F1F5F9] text-[#172B4D] border-[#DFE1E6]';
+              if (val === 'APPROVED' || val.includes('CONFIRMED')) {
+                cls = 'bg-[#E3FCEF] text-[#006644] border-[#ABF5D1]';
+              } else if (val.includes('PENDING')) {
+                cls = 'bg-[#FFFAE6] text-[#FF8B00] border-[#FFE380]';
+              } else if (val.includes('DRAFT')) {
+                cls = 'bg-[#F0F9FF] text-[#00A4B7] border-[#BAE6FD]';
+              }
+              return `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold border ${cls} uppercase">${val.replace(/_/g, ' ')}</span>`;
+            }
+          }
+        ],
+        actions: [
+          {
+            label: 'Print',
+            icon: `<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4H7v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>`,
+            onClick: (row) => Toast.show(`Printing Proforma Invoice ${row.piNumber}...`, 'info')
+          },
+          {
+            label: 'Copy',
+            icon: `<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>`,
+            onClick: (row) => this.copyProformaInvoice(row)
+          },
+          {
+            label: 'Edit',
+            icon: `<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>`,
+            onClick: (row) => this.showEditProformaModal(row)
+          },
+          {
+            label: 'Delete',
+            icon: `<svg class="w-4 h-4 text-[#DE350B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>`,
+            onClick: (row) => {
+              Modal.confirm({
+                title: 'Delete Proforma Invoice',
+                message: `Are you sure you want to delete Proforma Invoice ${row.piNumber}? This action cannot be undone.`,
+                confirmText: 'Delete PI',
+                cancelText: 'Cancel',
+                isDestructive: true,
+                onConfirm: () => {
+                  this.state.proformaList = this.state.proformaList.filter(item => item.id !== row.id);
+                  renderTable(this.state.proformaList);
+                  Toast.show(`Proforma Invoice ${row.piNumber} deleted successfully`, 'success');
+                }
+              });
+            }
+          }
+        ]
+      });
+    };
+
+    renderTable(this.state.proformaList);
+
+    // Search and Reset filters
+    const searchBtn = container.querySelector('#flt-pi-search-btn');
+    const resetBtn = container.querySelector('#flt-pi-reset-btn');
+
+    searchBtn?.addEventListener('click', () => {
+      const exp = container.querySelector('#flt-pi-exporter')?.value || 'ALL';
+      const con = container.querySelector('#flt-pi-consignee')?.value || 'ALL';
+      const cty = container.querySelector('#flt-pi-country')?.value || 'ALL';
+      const st = container.querySelector('#flt-pi-status')?.value || 'ALL';
+
+      let filtered = [...this.state.proformaList];
+
+      if (exp !== 'ALL') {
+        filtered = filtered.filter(r => (r.exporter || '').toLowerCase().includes(exp.toLowerCase()));
+      }
+      if (con !== 'ALL') {
+        filtered = filtered.filter(r => (r.consignee || r.buyerName || '').toLowerCase().includes(con.toLowerCase()));
+      }
+      if (cty !== 'ALL') {
+        filtered = filtered.filter(r => (r.country || r.destinationCountry || '').toLowerCase().includes(cty.toLowerCase()));
+      }
+      if (st !== 'ALL') {
+        filtered = filtered.filter(r => (r.status || '').toUpperCase() === st.toUpperCase());
+      }
+
+      renderTable(filtered);
+      Toast.show(`Filtered ${filtered.length} record(s)`, 'info');
+    });
+
+    resetBtn?.addEventListener('click', () => {
+      container.querySelector('#flt-pi-exporter').value = 'ALL';
+      container.querySelector('#flt-pi-consignee').value = 'ALL';
+      container.querySelector('#flt-pi-country').value = 'ALL';
+      container.querySelector('#flt-pi-status').value = 'ALL';
+      renderTable(this.state.proformaList);
+      Toast.show('Filters reset', 'info');
+    });
+  },
+
+  // Copy Proforma Invoice Helper
+  copyProformaInvoice(sourceRow) {
+    const nextIdx = this.state.proformaList.length + 1;
+    const nextId = `PI-${String(nextIdx).padStart(3, '0')}`;
+    const nextNo = `${sourceRow.piNumber}-COPY`;
+
+    const duplicated = {
+      ...sourceRow,
+      id: nextId,
+      piNumber: nextNo,
+      piDate: new Date().toISOString().slice(0, 10),
+      status: 'DRAFT'
+    };
+
+    this.state.proformaList.unshift(duplicated);
+    const mainEl = document.getElementById('sales-view-main');
+    if (mainEl) this.renderProformaList(mainEl);
+    Toast.show(`Proforma Invoice duplicated as ${nextNo}`, 'success');
+  },
+
+  // Edit Proforma Invoice Modal
+  showEditProformaModal(row) {
+    this.openProformaFormModal({
+      title: `Edit Proforma Invoice: ${row.piNumber}`,
+      initialData: row,
+      submitButtonText: 'Update Proforma Invoice',
+      onSubmit: (formData, modal) => {
+        Object.assign(row, formData);
+        modal.close();
+        Toast.show(`Proforma Invoice ${row.piNumber} updated successfully!`, 'success');
+        const mainEl = document.getElementById('sales-view-main');
+        if (mainEl) this.renderProformaList(mainEl);
+      }
+    });
+  },
+
+  // Generate Proforma Invoice Modal (All 34 User Fields)
+  showAddProformaModal() {
+    const nextIdx = this.state.proformaList.length + 1;
+    const nextId = `PI-${String(nextIdx).padStart(3, '0')}`;
+    const nextNo = `PI-2026-${905 + nextIdx}`;
+    const today = new Date().toISOString().slice(0, 10);
+
+    const defaultData = {
+      id: nextId,
+      exporter: 'Devi Fisheries Limited',
+      processor: 'Devi Fisheries Limited - Unit 1',
+      noOfContainers: 1,
+      referenceNumber: `REF-2026-${Math.floor(100 + Math.random() * 900)}`,
+      piNumber: nextNo,
+      piDate: today,
+      poNumber: '',
+      poDate: '',
+      consignee: 'Red Lobster Supply Chain LLC',
+      ultimateConsignee: 'Red Lobster Distribution Center',
+      buyerName: 'Red Lobster Supply Chain LLC',
+      notifyParty: 'Expeditors International USA Inc.',
+      importerOfRecord: 'Red Lobster Supply Chain LLC',
+      agent: 'Seaways Global Logistics Ltd',
+      certification: 'BAP 4-Star & ASC Certified',
+      portOfLoading: 'Visakhapatnam Sea Port (INVTZ)',
+      destinationCountry: 'United States',
+      portOfDischarge: 'Long Beach Port, USA',
+      finalDestinationCountry: 'United States',
+      finalDestination: 'Los Angeles Cold Storage, CA',
+      shipByDate: '2026-11-30',
+      shipByDate2: 'Late November 2026',
+      bankDetails: 'State Bank of India - Overseas Branch Vizag (A/C: 30198821049, IFSC: SBIN0004128)',
+      showBank: 'Yes',
+      paymentTerms: '100% Irrevocable LC at Sight',
+      shipmentTerms: 'Full Container Load (FCL)',
+      deliveryTerms: 'CIF Port of Destination',
+      quantityUnits: 'Kilograms (Kg)',
+      currency: 'USD ($)',
+      freight: 'Freight Prepaid',
+      chargeName: 'Ocean Freight & Reefer THC',
+      chargeAmount: 4850,
+      productionPlant: 'Unit 1 - Processing (Vizag)',
+      remarks: 'Pre-shipment quality clearance required.',
+      status: 'PENDING_APPROVAL'
+    };
+
+    this.openProformaFormModal({
+      title: 'Generate Proforma Invoice',
+      initialData: defaultData,
+      submitButtonText: 'Create Proforma Invoice',
+      onSubmit: (formData, modal) => {
+        const newRecord = {
+          ...defaultData,
+          ...formData
+        };
+        this.state.proformaList.unshift(newRecord);
+        modal.close();
+        Toast.show(`Proforma Invoice ${newRecord.piNumber} generated successfully!`, 'success');
+        const mainEl = document.getElementById('sales-view-main');
+        if (mainEl) this.renderProformaList(mainEl);
+      }
+    });
+  },
+
+  // Shared 34-Field Categorized Form Modal for Add / Edit
+  openProformaFormModal({ title, initialData, submitButtonText, onSubmit }) {
+    const d = initialData || {};
+
+    Modal.open({
+      title,
+      size: 'xl',
+      content: `
+        <form id="form-pi-details" class="space-y-4 text-xs">
+          <!-- Section 1: Exporter & Processor Details -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+              <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">1</span>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Exporter, Processor &amp; Reference</h4>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SELECT EXPORTER <span class="text-[#DE350B]">*</span></label>
+                <select id="form-pi-exporter" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
+                  <option value="Devi Fisheries Limited" ${d.exporter === 'Devi Fisheries Limited' ? 'selected' : ''}>Devi Fisheries Limited</option>
+                  <option value="Devi Sea Foods Ltd" ${d.exporter === 'Devi Sea Foods Ltd' ? 'selected' : ''}>Devi Sea Foods Ltd</option>
+                  <option value="Devi Marine Processors" ${d.exporter === 'Devi Marine Processors' ? 'selected' : ''}>Devi Marine Processors</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SELECT PROCESSOR <span class="text-[#DE350B]">*</span></label>
+                <select id="form-pi-processor" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
+                  <option value="Devi Fisheries Limited - Unit 1" ${d.processor === 'Devi Fisheries Limited - Unit 1' ? 'selected' : ''}>Devi Fisheries Limited - Unit 1</option>
+                  <option value="Devi Sea Foods Ltd (Plant 2)" ${d.processor === 'Devi Sea Foods Ltd (Plant 2)' ? 'selected' : ''}>Devi Sea Foods Ltd (Plant 2)</option>
+                  <option value="Devi Marine Processors Unit-3" ${d.processor === 'Devi Marine Processors Unit-3' ? 'selected' : ''}>Devi Marine Processors Unit-3</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PRODUCTION PLANT</label>
+                <select id="form-pi-plant" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+                  <option value="Unit 1 - Processing (Vizag)" ${d.productionPlant === 'Unit 1 - Processing (Vizag)' ? 'selected' : ''}>Unit 1 - Processing (Vizag)</option>
+                  <option value="Unit 2 - Value Added (Singarayakonda)" ${d.productionPlant === 'Unit 2 - Value Added (Singarayakonda)' ? 'selected' : ''}>Unit 2 - Value Added (Singarayakonda)</option>
+                  <option value="Unit 3 - Pre-processing (Kakinada)" ${d.productionPlant === 'Unit 3 - Pre-processing (Kakinada)' ? 'selected' : ''}>Unit 3 - Pre-processing (Kakinada)</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">NO OF CONTAINERS</label>
+                <input type="number" id="form-pi-containers" value="${d.noOfContainers || 1}" min="1" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">REFERENCE NUMBER</label>
+                <input type="text" id="form-pi-ref" value="${d.referenceNumber || ''}" placeholder="e.g. REF-2026-901" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Proforma Invoice & Purchase Order -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+              <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">2</span>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Proforma Invoice &amp; PO Details</h4>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PROFORMA INVOICE NO <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="form-pi-number" value="${d.piNumber || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PROFORMA INVOICE DATE <span class="text-[#DE350B]">*</span></label>
+                <input type="date" id="form-pi-date" value="${d.piDate || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">P.O NO</label>
+                <input type="text" id="form-pi-po-no" value="${d.poNumber || ''}" placeholder="e.g. PO-8821" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">P.O DATE</label>
+                <input type="date" id="form-pi-po-date" value="${d.poDate || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 3: Buyer & Consignee Parties -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+              <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">3</span>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Buyer, Consignee &amp; Stakeholder Parties</h4>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BUYER NAME</label>
+                <input type="text" id="form-pi-buyer" value="${d.buyerName || ''}" placeholder="Foreign Buyer / Client" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CONSIGNEE <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="form-pi-consignee" value="${d.consignee || ''}" placeholder="Consignee Name" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ULTIMATE CONSIGNEE</label>
+                <input type="text" id="form-pi-ult-consignee" value="${d.ultimateConsignee || ''}" placeholder="Destination Facility" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">NOTIFY PARTY</label>
+                <input type="text" id="form-pi-notify" value="${d.notifyParty || ''}" placeholder="Freight Broker / Clearing Agency" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">IMPORTER OF RECORD <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="form-pi-importer-record" value="${d.importerOfRecord || ''}" placeholder="IOR Entity" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">AGENT</label>
+                <input type="text" id="form-pi-agent" value="${d.agent || ''}" placeholder="Shipping / Handling Agent" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+              </div>
+
+              <div class="sm:col-span-2">
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CERTIFICATION</label>
+                <input type="text" id="form-pi-cert" value="${d.certification || ''}" placeholder="e.g. BAP 4-Star, ASC, MSC, HACCP, ISO 22000" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 4: Ports & Shipment Routing -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+              <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">4</span>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Port Routing &amp; Shipment Dates</h4>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PORT OF LOADING <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="form-pi-pol" value="${d.portOfLoading || 'Visakhapatnam Sea Port (INVTZ)'}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DESTINATION COUNTRY <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="form-pi-dest-country" value="${d.destinationCountry || 'United States'}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PORT OF DISCHARGE <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="form-pi-pod" value="${d.portOfDischarge || 'Long Beach Port, USA'}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FINAL DESTINATION COUNTRY</label>
+                <input type="text" id="form-pi-final-dest-country" value="${d.finalDestinationCountry || 'United States'}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FINAL DESTINATION <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="form-pi-final-dest" value="${d.finalDestination || 'Los Angeles Cold Storage, CA'}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SHIPBY DATE</label>
+                <input type="date" id="form-pi-shipby" value="${d.shipByDate || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+              </div>
+
+              <div class="sm:col-span-2">
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SHIPBY DATE 2 (TEXT)</label>
+                <input type="text" id="form-pi-shipby-text" value="${d.shipByDate2 || ''}" placeholder="e.g. Late November 2026 / Week 48" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 5: Commercial Terms & Banking -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+              <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">5</span>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Commercial Terms, Banking &amp; Currency</h4>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+              <div class="sm:col-span-2">
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BANK DETAILS <span class="text-[#DE350B]">*</span></label>
+                <select id="form-pi-bank" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
+                  <option value="State Bank of India (Forex Cell, Vizag)" ${d.bankDetails?.includes('State Bank') ? 'selected' : ''}>State Bank of India - Overseas Branch Vizag (A/C: 30198821049, IFSC: SBIN0004128)</option>
+                  <option value="Canara Bank Overseas Branch" ${d.bankDetails?.includes('Canara') ? 'selected' : ''}>Canara Bank - Overseas Branch Vizag (A/C: 08452010992, IFSC: CNRB0000845)</option>
+                  <option value="HDFC Bank Trade Finance" ${d.bankDetails?.includes('HDFC') ? 'selected' : ''}>HDFC Bank Trade Services Vizag (A/C: 50200088921, IFSC: HDFC0000120)</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SHOW BANK <span class="text-[#DE350B]">*</span></label>
+                <select id="form-pi-show-bank" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
+                  <option value="Yes" ${d.showBank !== 'No' ? 'selected' : ''}>Yes</option>
+                  <option value="No" ${d.showBank === 'No' ? 'selected' : ''}>No</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PAYMENT TERMS <span class="text-[#DE350B]">*</span></label>
+                <select id="form-pi-payment-terms" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
+                  <option value="100% Irrevocable LC at Sight" ${d.paymentTerms === '100% Irrevocable LC at Sight' ? 'selected' : ''}>100% Irrevocable LC at Sight</option>
+                  <option value="30% Advance + 70% Against CAD" ${d.paymentTerms === '30% Advance + 70% Against CAD' ? 'selected' : ''}>30% Advance + 70% Against CAD</option>
+                  <option value="LC 60 Days from B/L Date" ${d.paymentTerms === 'LC 60 Days from B/L Date' ? 'selected' : ''}>LC 60 Days from B/L Date</option>
+                  <option value="Open Account 30 Days" ${d.paymentTerms === 'Open Account 30 Days' ? 'selected' : ''}>Open Account 30 Days</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SHIPMENT TERMS <span class="text-[#DE350B]">*</span></label>
+                <select id="form-pi-shipment-terms" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
+                  <option value="Full Container Load (FCL)" ${d.shipmentTerms !== 'Less than Container Load (LCL)' ? 'selected' : ''}>Full Container Load (FCL)</option>
+                  <option value="Less than Container Load (LCL)" ${d.shipmentTerms === 'Less than Container Load (LCL)' ? 'selected' : ''}>Less than Container Load (LCL)</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DELIVERY TERMS <span class="text-[#DE350B]">*</span></label>
+                <select id="form-pi-delivery-terms" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
+                  <option value="CIF Port of Destination" ${d.deliveryTerms === 'CIF Port of Destination' ? 'selected' : ''}>CIF Port of Destination</option>
+                  <option value="CFR Port of Destination" ${d.deliveryTerms === 'CFR Port of Destination' ? 'selected' : ''}>CFR Port of Destination</option>
+                  <option value="FOB Visakhapatnam Port" ${d.deliveryTerms === 'FOB Visakhapatnam Port' ? 'selected' : ''}>FOB Visakhapatnam Port (INVTZ)</option>
+                  <option value="DDP Destination" ${d.deliveryTerms === 'DDP Destination' ? 'selected' : ''}>DDP Destination</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">QUANTITY UNITS <span class="text-[#DE350B]">*</span></label>
+                <select id="form-pi-qty-units" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
+                  <option value="Kilograms (Kg)" ${d.quantityUnits !== 'Pounds (Lbs)' ? 'selected' : ''}>Kilograms (Kg)</option>
+                  <option value="Metric Tons (MT)" ${d.quantityUnits === 'Metric Tons (MT)' ? 'selected' : ''}>Metric Tons (MT)</option>
+                  <option value="Cartons / Cases" ${d.quantityUnits === 'Cartons / Cases' ? 'selected' : ''}>Cartons / Cases</option>
+                  <option value="Pounds (Lbs)" ${d.quantityUnits === 'Pounds (Lbs)' ? 'selected' : ''}>Pounds (Lbs)</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CURRENCY <span class="text-[#DE350B]">*</span></label>
+                <select id="form-pi-currency" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
+                  <option value="USD ($)" ${d.currency?.includes('USD') ? 'selected' : ''}>USD ($)</option>
+                  <option value="EUR (€)" ${d.currency?.includes('EUR') ? 'selected' : ''}>EUR (€)</option>
+                  <option value="JPY (¥)" ${d.currency?.includes('JPY') ? 'selected' : ''}>JPY (¥)</option>
+                  <option value="GBP (£)" ${d.currency?.includes('GBP') ? 'selected' : ''}>GBP (£)</option>
+                  <option value="INR (₹)" ${d.currency?.includes('INR') ? 'selected' : ''}>INR (₹)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 6: Freight, Charges & Remarks -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+              <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">6</span>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Freight, Charges &amp; Remarks</h4>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FREIGHT</label>
+                <select id="form-pi-freight" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+                  <option value="Freight Prepaid" ${d.freight !== 'Freight Collect' ? 'selected' : ''}>Freight Prepaid</option>
+                  <option value="Freight Collect" ${d.freight === 'Freight Collect' ? 'selected' : ''}>Freight Collect</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CHARGE NAME</label>
+                <input type="text" id="form-pi-charge-name" value="${d.chargeName || ''}" placeholder="e.g. Ocean Freight & THC Surcharge" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CHARGE AMOUNT</label>
+                <input type="number" id="form-pi-charge-amount" value="${d.chargeAmount || 0}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+              </div>
+
+              <div class="sm:col-span-3">
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">REMARKS</label>
+                <textarea id="form-pi-remarks" rows="2" placeholder="Special contractual conditions, testing mandates & packing instructions" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">${d.remarks || ''}</textarea>
+              </div>
+            </div>
+          </div>
+        </form>
+      `,
+      buttons: [
         {
-          field: 'status',
-          header: 'Status',
-          render: (v) => {
-            const cls = v.includes('CONFIRMED') ? 'bg-[#E3FCEF] text-[#006644] border-[#ABF5D1]' : 'bg-[#FFFAE6] text-[#FF8B00] border-[#FFE380]';
-            return `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold border ${cls} uppercase">${v.replace(/_/g, ' ')}</span>`;
+          label: 'Cancel',
+          type: 'secondary',
+          onClick: (modal) => modal.close()
+        },
+        {
+          label: submitButtonText || 'Save Proforma Invoice',
+          type: 'primary',
+          onClick: (modal) => {
+            const getVal = (id) => document.getElementById(id)?.value?.trim() || '';
+
+            const piNo = getVal('form-pi-number');
+            const piDate = getVal('form-pi-date');
+            const exporter = getVal('form-pi-exporter');
+            const processor = getVal('form-pi-processor');
+            const consignee = getVal('form-pi-consignee');
+            const importerRecord = getVal('form-pi-importer-record');
+            const pol = getVal('form-pi-pol');
+            const destCountry = getVal('form-pi-dest-country');
+            const pod = getVal('form-pi-pod');
+            const finalDest = getVal('form-pi-final-dest');
+
+            if (!piNo || !piDate || !exporter || !processor || !consignee || !importerRecord || !pol || !destCountry || !pod || !finalDest) {
+              Toast.show('Please fill in all mandatory fields marked with *', 'warning');
+              return;
+            }
+
+            const payload = {
+              exporter,
+              processor,
+              productionPlant: getVal('form-pi-plant'),
+              noOfContainers: Number(getVal('form-pi-containers')) || 1,
+              referenceNumber: getVal('form-pi-ref'),
+              piNumber: piNo,
+              piDate,
+              poNumber: getVal('form-pi-po-no'),
+              poDate: getVal('form-pi-po-date'),
+              buyerName: getVal('form-pi-buyer') || consignee,
+              consignee,
+              ultimateConsignee: getVal('form-pi-ult-consignee'),
+              notifyParty: getVal('form-pi-notify'),
+              importerOfRecord: importerRecord,
+              agent: getVal('form-pi-agent'),
+              certification: getVal('form-pi-cert'),
+              portOfLoading: pol,
+              destinationCountry: destCountry,
+              country: destCountry,
+              portOfDischarge: pod,
+              finalDestinationCountry: getVal('form-pi-final-dest-country') || destCountry,
+              finalDestination: finalDest,
+              shipByDate: getVal('form-pi-shipby'),
+              shipByDate2: getVal('form-pi-shipby-text'),
+              bankDetails: getVal('form-pi-bank'),
+              showBank: getVal('form-pi-show-bank'),
+              paymentTerms: getVal('form-pi-payment-terms'),
+              shipmentTerms: getVal('form-pi-shipment-terms'),
+              deliveryTerms: getVal('form-pi-delivery-terms'),
+              quantityUnits: getVal('form-pi-qty-units'),
+              currency: getVal('form-pi-currency'),
+              freight: getVal('form-pi-freight'),
+              chargeName: getVal('form-pi-charge-name'),
+              chargeAmount: Number(getVal('form-pi-charge-amount')) || 0,
+              remarks: getVal('form-pi-remarks')
+            };
+
+            if (typeof onSubmit === 'function') {
+              onSubmit(payload, modal);
+            }
           }
         }
       ]
@@ -65030,114 +65867,6 @@ const SalesView = {
     });
   },
 
-  // Modal Dialog: Add Proforma Invoice
-  showAddProformaModal() {
-    Modal.open({
-      title: 'Generate New Proforma Invoice (PI)',
-      size: 'xl',
-      content: `
-        <form id="form-add-pi" class="space-y-4 text-xs">
-          <!-- Section 1: Customer & Buyer -->
-          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
-              <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">1</span>
-              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Buyer &amp; Delivery Destination</h4>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-              <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Customer / Importer <span class="text-[#DE350B]">*</span></label>
-                <select id="new-pi-customer" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
-                  <option value="Red Lobster Supply Chain LLC">Red Lobster Supply Chain LLC (USA)</option>
-                  <option value="Maruha Nichiro Corporation">Maruha Nichiro Corporation (Japan)</option>
-                  <option value="Royal Greenland Seafood A/S">Royal Greenland Seafood A/S (EU)</option>
-                  <option value="Sysco Corporation International">Sysco Corporation International (USA)</option>
-                  <option value="High Liner Foods Canada">High Liner Foods Canada</option>
-                </select>
-              </div>
-              <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Port of Discharge <span class="text-[#DE350B]">*</span></label>
-                <input type="text" id="new-pi-port" value="Long Beach Port, USA" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
-              </div>
-              <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Incoterms <span class="text-[#DE350B]">*</span></label>
-                <select id="new-pi-inco" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
-                  <option value="CIF Port of Destination">CIF Port of Destination</option>
-                  <option value="CFR Port of Destination">CFR Port of Destination</option>
-                  <option value="FOB Visakhapatnam Port">FOB Visakhapatnam Port (INVTZ)</option>
-                </select>
-              </div>
-            </div>
-          </div>
-
-          <!-- Section 2: Products & Quantities -->
-          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
-              <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">2</span>
-              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Product Specifications &amp; Pricing</h4>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
-              <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Species / Variety <span class="text-[#DE350B]">*</span></label>
-                <input type="text" id="new-pi-prod" value="Vannamei Shrimp HLSO 26/30 IQF" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
-              </div>
-              <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Quantity (Kg) <span class="text-[#DE350B]">*</span></label>
-                <input type="number" id="new-pi-qty" value="18000" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
-              </div>
-              <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Unit Price (USD / Kg) <span class="text-[#DE350B]">*</span></label>
-                <input type="number" step="0.01" id="new-pi-rate" value="8.95" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
-              </div>
-              <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Packing Cartons</label>
-                <input type="number" id="new-pi-cartons" value="1200" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
-              </div>
-            </div>
-          </div>
-        </form>
-      `,
-      buttons: [
-        {
-          label: 'Cancel',
-          type: 'secondary',
-          onClick: (modal) => modal.close()
-        },
-        {
-          label: 'Create Proforma Invoice',
-          type: 'primary',
-          onClick: (modal) => {
-            const nextNo = `PI-2026-${910 + this.state.proformaList.length}`;
-            const customer = document.getElementById('new-pi-customer')?.value || 'Red Lobster Supply Chain LLC';
-            const prod = document.getElementById('new-pi-prod')?.value || 'Vannamei Shrimp';
-            const qty = Number(document.getElementById('new-pi-qty')?.value) || 15000;
-            const rate = Number(document.getElementById('new-pi-rate')?.value) || 9.0;
-            const port = document.getElementById('new-pi-port')?.value || 'Long Beach Port, USA';
-
-            const newRecord = {
-              piNumber: nextNo,
-              piDate: new Date().toISOString().slice(0, 10),
-              customerName: customer,
-              destinationPort: port,
-              productDescription: prod,
-              cartons: Math.round(qty / 15),
-              quantityKg: qty,
-              unitPriceUsd: rate,
-              totalAmountUsd: Math.round(qty * rate),
-              paymentTerms: '100% Irrevocable LC at Sight',
-              validityDate: '2026-11-30',
-              status: 'CONFIRMED_ACCEPTED'
-            };
-
-            this.state.proformaList.unshift(newRecord);
-            modal.close();
-            Toast.show(`Proforma Invoice ${nextNo} generated successfully!`, 'success');
-            const mainEl = document.getElementById('sales-view-main');
-            if (mainEl) this.renderProformaList(mainEl);
-          }
-        }
-      ]
-    });
-  }
 };
 
   // Reports View Module for Enterprise Fisheries & Cold Storage Management
