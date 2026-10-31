@@ -98,17 +98,29 @@ All screens, views, components, and user workflows MUST strictly conform to the 
 
 ---
 
-## 5. Modals, Forms & Confirmation Popups
+## 5. Modals, Forms & Details Views Design System
 - **Confirmation Popups**:
   - Always use `Modal.confirm({ title, message, confirmText, cancelText, isDestructive, onConfirm })`.
   - Destructive actions (Delete, Void) must set `isDestructive: true`.
-- **Detail Views & Form Modals**:
-  - Always call `Modal.open({ title, size: 'md'|'lg'|'xl', content, buttons })`.
-  - `Modal.show` also supports passing an options object (`{ title, content, buttons }`) or `(title, content)`.
-  - Details modals display:
-    - Header card with entity identifier and status pill (`bg-[#E0F2FE] text-[#0284C7]`).
-    - Key-value list: `py-2.5 border-b border-[#F1F5F9] flex justify-between items-center text-xs`.
-    - Footer buttons: Cancel/Close (`type: 'secondary'`) and Confirm/Download (`type: 'primary'`).
+- **Details Views Modals**:
+  - Always open with `size: 'xl'` (`w-full max-w-5xl`).
+  - **Top Hero / Summary Card**:
+    - Gradient container: `bg-gradient-to-r from-[#F0F9FF] to-[#F8FAFC] p-4 rounded-xl border border-[#BAE6FD] flex flex-wrap items-center justify-between gap-3 shadow-2xs`
+    - Left side: 40x40 rounded-xl teal icon (`w-10 h-10 rounded-xl bg-[#00A4B7] text-white flex items-center justify-center font-bold shadow-xs`)
+    - Entity ID: `font-mono font-extrabold text-[#0F172A] text-base`
+    - Status pill: `px-2.5 py-0.5 rounded-full text-[10px] font-extrabold tracking-wide uppercase bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD]`
+    - Category / Type pill: `px-2 py-0.5 rounded text-[11px] font-semibold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]`
+    - Metadata subtitle line: `text-[11px] text-[#64748B] mt-0.5 font-medium flex items-center gap-1.5 flex-wrap` (Facility, Date, Supplier/Partner)
+    - Quick Metrics Badges on right: 2-3 key cards: `bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[80px]` with uppercase label and bold green/teal values (`text-[#006644]`).
+  - **Categorized Sections**:
+    - Container: `bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs`
+    - Section header: `flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]` with numbered badge (`w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs`) and title `text-xs font-bold text-[#172B4D] uppercase tracking-wider`
+    - 4-column responsive grid: `grid grid-cols-2 sm:grid-cols-4 gap-3.5`
+    - Field label: `text-[10px] font-bold text-[#64748B] uppercase tracking-wider block`
+    - Field value: `font-semibold text-[#172B4D] text-xs block mt-0.5 break-words`
+  - **Footer Buttons**:
+    - Close / Secondary button: `btn-secondary px-5 py-2 rounded-full text-xs font-semibold border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#172B4D] transition-all cursor-pointer`
+    - Primary action button: `btn-primary px-5 py-2 rounded-full text-xs font-bold shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer`
 
 ---
 

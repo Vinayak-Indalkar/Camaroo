@@ -100,28 +100,197 @@ export class DataTable {
   }
 
   showRowDetails(row) {
-    const details = document.createElement('dl');
-    details.className = 'grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm';
-    this.columns.forEach(column => {
-      const field = document.createElement('div');
-      field.className = 'min-w-0 border-b border-[#DFE1E6] pb-3';
-      const label = document.createElement('dt');
-      label.className = 'text-xs font-semibold text-[#5E6C84] mb-1';
-      label.textContent = column.header || column.field;
-      const value = document.createElement('dd');
-      value.className = 'text-[#172B4D] whitespace-pre-wrap break-words';
-      const rawValue = row[column.field];
-      value.textContent = rawValue === null || rawValue === undefined || rawValue === ''
-        ? '-'
-        : typeof rawValue === 'object' ? JSON.stringify(rawValue, null, 2) : String(rawValue);
-      field.append(label, value);
-      details.appendChild(field);
+    if (!row) return;
+
+    // Helper: Format field labels
+    const formatLabel = (key) => {
+      return String(key || '')
+        .replace(/([A-Z])/g, ' $1')
+        .replace(/^./, str => str.toUpperCase())
+        .replace(/\bRm\b/g, 'RM')
+        .replace(/\bPo\b/g, 'PO')
+        .replace(/\bPi\b/g, 'PI')
+        .replace(/\bGrn\b/g, 'GRN')
+        .replace(/\bQc\b/g, 'QC')
+        .replace(/\bId\b/g, 'ID')
+        .trim();
+    };
+
+    // Helper: Format field values
+    const formatValue = (key, val) => {
+      if (val === null || val === undefined || val === '') return '-';
+      const lk = String(key || '').toLowerCase();
+      if (typeof val === 'number' || (!isNaN(Number(val)) && String(val).trim() !== '')) {
+        const num = Number(val);
+        if (lk.includes('amount') || lk.includes('price') || lk.includes('rate') || lk.includes('cost') || lk.includes('fee')) {
+          return '₹' + num.toLocaleString('en-IN');
+        }
+        if (lk.includes('qty') || lk.includes('weight') || lk.includes('stock') || lk.includes('balance') || lk.includes('kgs')) {
+          return num.toLocaleString('en-IN') + ' Kg';
+        }
+        if (lk.includes('temp')) return num + '°C';
+        if (lk.includes('pickup') || lk.includes('yield')) return num + '%';
+      }
+      return String(val);
+    };
+
+    // Extract Identifier
+    const recordId = row.billNo || row.orderNo || row.docNo || row.lotNo || row.refNo || row.batchNo || row.trackId || row.trackCode || row.qcNo || row.rackNo || row.reqNo || row.code || row.name || 'Record Details';
+    
+    // Extract Facility, Date & Partner
+    const plant = row.arrivalPlant || row.productionPlant || row.plant || row.facility || row.coldStore || row.store || row.location || 'Central Facility';
+    const date = row.billDate || row.arrivalDate || row.date || row.harvestDate || row.shiftDate || row.soakingDate || row.freezingDate || row.createdAt || 'Current Period';
+    const partner = row.supplier || row.supplierName || row.buyer || row.customer || row.centerName || row.center || '';
+
+    // Status & Tags
+    const status = String(row.status || 'Active Record').toUpperCase();
+    const categoryTag = row.variety || row.species || row.type || row.productType || row.category || this.tableTitle || '';
+
+    // Extract Quick Metrics (Priority keys for top card)
+    const priorityMetricKeys = ['finalamount', 'amount', 'finalquantity', 'weight', 'balanceweight', 'rate', 'pickup', 'stock', 'balance', 'inqty', 'outtemp'];
+    const metricCandidates = [];
+
+    // Map visible columns first for proper headers
+    const colMap = {};
+    (this.columns || []).forEach(col => {
+      if (col.field && !col.isAction && col.field !== 'actions') {
+        colMap[col.field] = col.header || formatLabel(col.field);
+      }
     });
+
+    Object.entries(row).forEach(([k, v]) => {
+      if (k === 'id' || k.startsWith('__')) return;
+      const lk = k.toLowerCase();
+      if (typeof v === 'number' || (!isNaN(Number(v)) && String(v).trim() !== '')) {
+        const pIdx = priorityMetricKeys.findIndex(pk => lk.includes(pk));
+        if (pIdx !== -1) {
+          metricCandidates.push({
+            pIdx,
+            label: (colMap[k] || formatLabel(k)).toUpperCase(),
+            val: formatValue(k, v)
+          });
+        }
+      }
+    });
+
+    metricCandidates.sort((a, b) => a.pIdx - b.pIdx);
+    const topMetrics = metricCandidates.slice(0, 3);
+
+    // Group fields into 4 categorized sections
+    const sec1 = []; // Identification & Facility Logistics
+    const sec2 = []; // Product Specifications & Quality
+    const sec3 = []; // Quantities & Measurements
+    const sec4 = []; // Commercial & Financials
+    const secOther = [];
+
+    const fieldSource = Object.keys(colMap).length > 0 
+      ? Object.keys(colMap).map(k => [k, row[k]]) 
+      : Object.entries(row);
+
+    fieldSource.forEach(([k, v]) => {
+      if (k === 'id' || k.startsWith('__')) return;
+      const lk = k.toLowerCase();
+      const item = { key: k, label: colMap[k] || formatLabel(k), val: formatValue(k, v) };
+
+      if (lk.includes('amount') || lk.includes('price') || lk.includes('cost') || lk.includes('fee') || lk.includes('tax') || lk.includes('tds') || lk.includes('due') || lk.includes('payment') || (lk.includes('rate') && !lk.includes('arrival') && !lk.includes('corporate') && !lk.includes('generate'))) {
+        sec4.push(item);
+      } else if (lk.includes('qty') || lk.includes('quantity') || lk.includes('weight') || lk.includes('stock') || lk.includes('balance') || lk.includes('yield') || lk.includes('inward') || lk.includes('outward') || lk.includes('excess') || lk.includes('shortage') || lk.includes('carton') || lk.includes('crates')) {
+        sec3.push(item);
+      } else if (lk.includes('variety') || lk.includes('species') || lk.includes('grade') || lk.includes('count') || lk.includes('item') || lk.includes('product') || lk.includes('temp') || lk.includes('pickup') || lk.includes('chemical') || lk.includes('audit') || lk.includes('qc') || lk.includes('standard') || lk.includes('defect') || (lk.includes('harvest') && !lk.includes('amount'))) {
+        sec2.push(item);
+      } else if (lk.includes('bill') || lk.includes('plant') || lk.includes('date') || lk.includes('supplier') || lk.includes('center') || lk.includes('vehicle') || lk.includes('order') || lk.includes('code') || lk.includes('doc') || lk.includes('lot') || lk.includes('ref') || lk.includes('rack') || lk.includes('store') || lk.includes('buyer') || lk.includes('shift') || lk.includes('time') || lk.includes('line')) {
+        sec1.push(item);
+      } else {
+        secOther.push(item);
+      }
+    });
+
+    secOther.forEach(item => sec1.push(item));
+
+    const sections = [];
+    if (sec1.length > 0) sections.push({ title: 'Identification, Logistics & Facility', items: sec1 });
+    if (sec2.length > 0) sections.push({ title: 'Product Specifications & Quality Parameters', items: sec2 });
+    if (sec3.length > 0) sections.push({ title: 'Quantities, Inventory & Movement Logistics', items: sec3 });
+    if (sec4.length > 0) sections.push({ title: 'Commercial Valuation & Payment Settlement', items: sec4 });
+
+    if (sections.length === 0) {
+      const all = Object.entries(row).filter(([k]) => k !== 'id' && !k.startsWith('__')).map(([k, v]) => ({ label: formatLabel(k), val: formatValue(k, v) }));
+      sections.push({ title: 'Record Details & Parameters', items: all });
+    }
+
     Modal.open({
-      title: 'Record Details',
-      content: details.outerHTML,
-      size: 'lg',
-      footerButtons: [{ label: 'Close', type: 'secondary', onClick: modal => modal.close() }]
+      title: `${this.tableTitle || 'Record'} Details: ${recordId}`,
+      size: 'xl',
+      content: `
+        <div class="space-y-4 text-xs">
+          <!-- Top Hero / Batch Summary Card -->
+          <div class="bg-gradient-to-r from-[#F0F9FF] to-[#F8FAFC] p-4 rounded-xl border border-[#BAE6FD] flex flex-wrap items-center justify-between gap-3 shadow-2xs">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-[#00A4B7] text-white flex items-center justify-center font-bold shadow-xs">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              </div>
+              <div>
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span class="font-mono font-extrabold text-[#0F172A] text-base">${recordId}</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold tracking-wide uppercase bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD]">${status}</span>
+                  ${categoryTag ? `<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">${categoryTag}</span>` : ''}
+                </div>
+                <p class="text-[11px] text-[#64748B] mt-0.5 font-medium flex items-center gap-1.5 flex-wrap">
+                  <span>Facility: <strong class="text-[#334155]">${plant}</strong></span>
+                  <span>•</span>
+                  <span>Date: <strong class="text-[#334155]">${date}</strong></span>
+                  ${partner ? `<span>•</span><span>Partner: <strong class="text-[#334155]">${partner}</strong></span>` : ''}
+                </p>
+              </div>
+            </div>
+
+            ${topMetrics.length > 0 ? `
+              <!-- Quick Metrics Badges -->
+              <div class="flex items-center gap-2 flex-wrap">
+                ${topMetrics.map(m => `
+                  <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[80px]">
+                    <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">${m.label}</span>
+                    <span class="font-mono font-extrabold text-xs text-[#006644]">${m.val}</span>
+                  </div>
+                `).join('')}
+              </div>
+            ` : ''}
+          </div>
+
+          <!-- Categorized Sections -->
+          ${sections.map((sec, idx) => `
+            <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+              <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+                <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">${idx + 1}</span>
+                <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">${sec.title}</h4>
+              </div>
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+                ${sec.items.map(item => `
+                  <div>
+                    <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">${item.label}</span>
+                    <span class="font-semibold text-[#172B4D] text-xs block mt-0.5 break-words">${item.val}</span>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      `,
+      buttons: [
+        {
+          label: 'Close',
+          type: 'secondary',
+          onClick: (modal) => modal.close()
+        },
+        {
+          label: 'Download Record',
+          type: 'primary',
+          onClick: (modal) => {
+            modal.close();
+            Toast.show(`Downloading document for ${recordId}...`, 'success');
+          }
+        }
+      ]
     });
   }
 
