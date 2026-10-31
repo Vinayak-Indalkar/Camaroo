@@ -1,5 +1,4 @@
-import { LOGO_COLOR, LOGO_WHITE, LOGO_CAMAROO_WHITE } from '../data/logos.js';
-import { Modal } from './modal.js';
+import { LOGO_WHITE, LOGO_CAMAROO_WHITE } from '../data/logos.js';
 import { ERP_DATA } from '../data/mockData.js';
 
 export const ADMIN_NAV_HIERARCHY = [

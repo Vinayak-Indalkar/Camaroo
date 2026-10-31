@@ -1,8 +1,8 @@
 // Enterprise Login & Persona Switcher View
 
-import { ERP_DATA, setCurrentUserRole } from '../data/mockData.js';
+import { setCurrentUserRole } from '../data/mockData.js';
 import { Toast } from '../components/toast.js';
-import { LOGO_COLOR, LOGO_MILEDEEP, LOGO_CAMAROO, LOGIN_ILLUSTRATION } from '../data/logos.js';
+import { LOGO_CAMAROO, LOGIN_ILLUSTRATION } from '../data/logos.js';
 
 export const LoginView = {
   selectedRole: (typeof localStorage !== 'undefined' && localStorage.getItem('dfl_current_role') === 'Super Admin') ? 'Super Admin' : 'Admin',

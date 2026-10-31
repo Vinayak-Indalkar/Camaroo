@@ -1,10 +1,8 @@
 // Super Admin Reports View: Dedicated Client Section Reports UI for Super Admin
 // Comprehensive corporate clients report, database host connectivity, facility mapping, user allocations, and status audits.
-import { ERP_DATA } from '../data/mockData.js';
 import { Toast } from '../components/toast.js';
 import { Skeleton } from '../components/skeleton.js';
 import { DataTable } from '../components/table.js';
-import { Modal } from '../components/modal.js';
 import { SetupView } from './setupView.js';
 
 export const SuperAdminReportsView = {

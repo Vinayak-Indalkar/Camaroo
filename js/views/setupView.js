@@ -1,12 +1,10 @@
 // Setup Module Views - Client & Master Setup for Fisheries ERP
 // Configurable Multi-Company & Master Data Studio for Seafood Processing, Quality, Production, and Coldstore ERP.
 
-import { ERP_DATA } from '../data/mockData.js';
 import { TabBar } from '../components/tabBar.js';
 import { Toast } from '../components/toast.js';
 import { Modal } from '../components/modal.js';
 import { DataTable } from '../components/table.js';
-import { renderEmptyState } from '../components/emptyState.js';
 import { Skeleton } from '../components/skeleton.js';
 
 const STUDIO_STORAGE_KEY = 'dfl_erp_master_studio_state_v3';

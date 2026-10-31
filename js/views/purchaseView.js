@@ -7,7 +7,6 @@ import { Modal } from '../components/modal.js';
 import { Toast } from '../components/toast.js';
 import { TabBar } from '../components/tabBar.js';
 import { Skeleton } from '../components/skeleton.js';
-import { renderEmptyState } from '../components/emptyState.js';
 
 export const PurchaseView = {
   // Store local state for CRUD & filter presets

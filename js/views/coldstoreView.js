@@ -5,7 +5,6 @@ import { TabBar } from '../components/tabBar.js';
 import { DataTable } from '../components/table.js';
 import { Modal } from '../components/modal.js';
 import { Toast } from '../components/toast.js';
-import { NAV_HIERARCHY } from '../components/sidebar.js';
 
 export const ColdstoreView = {
   state: {

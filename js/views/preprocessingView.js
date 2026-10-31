@@ -4,7 +4,6 @@ import { TabBar } from '../components/tabBar.js';
 import { DataTable } from '../components/table.js';
 import { Modal } from '../components/modal.js';
 import { Toast } from '../components/toast.js';
-import { ERP_DATA } from '../data/mockData.js';
 
 export const PreprocessingView = {
   escape(value) {

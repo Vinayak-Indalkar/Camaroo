@@ -2,7 +2,6 @@
 
 import { ERP_DATA, setCurrentUserRole } from '../data/mockData.js';
 import { Toast } from './toast.js';
-import { Modal } from './modal.js';
 
 export const Header = {
   render(containerId) {
