@@ -63459,13 +63459,22 @@ const SalesView = {
 
     customInvoices: [
       {
-        customInvoiceNo: "CI-EXP-2026-441",
+        id: "CI-001",
+        invoiceNo: "CI-EXP-2026-441",
         invoiceDate: "2026-10-14",
+        poNo: "PO-RL-8821",
+        buyer: "Red Lobster Supply Chain LLC",
+        pInvoiceNo: "PI-2026-901",
+        stockStatus: "ALLOCATED",
+        year: "2026-2027",
+        exporter: "Devi Fisheries Limited",
+        consignee: "Red Lobster Supply Chain LLC",
+        country: "United States",
+        billsType: "Duty Drawback",
         shippingBillRef: "SB-2026-88401",
-        customerName: "Red Lobster Supply Chain LLC",
         iecCode: "0391004812",
         loadingPort: "Visakhapatnam Sea (INVTZ)",
-        dischargePort: "Long Beach, USA (USLGB)",
+        dischargePort: "Long Beach Port, USA",
         netWeightKg: 18000,
         grossWeightKg: 19440,
         fobValueUsd: 153000,
@@ -63473,13 +63482,22 @@ const SalesView = {
         customsStatus: "LEO_GRANTED"
       },
       {
-        customInvoiceNo: "CI-EXP-2026-112",
+        id: "CI-002",
+        invoiceNo: "CI-EXP-2026-112",
         invoiceDate: "2026-10-10",
+        poNo: "PO-MN-4402",
+        buyer: "Maruha Nichiro Corporation",
+        pInvoiceNo: "PI-2026-902",
+        stockStatus: "DISPATCHED_TO_PORT",
+        year: "2026-2027",
+        exporter: "Devi Sea Foods Ltd",
+        consignee: "Maruha Nichiro Corporation",
+        country: "Japan",
+        billsType: "Advance Authorization",
         shippingBillRef: "SB-2026-88390",
-        customerName: "Maruha Nichiro Corporation",
         iecCode: "0391004812",
         loadingPort: "Visakhapatnam Sea (INVTZ)",
-        dischargePort: "Tokyo Port, Japan (JPTYO)",
+        dischargePort: "Tokyo Port, Japan",
         netWeightKg: 14000,
         grossWeightKg: 15120,
         fobValueUsd: 203000,
@@ -63487,18 +63505,73 @@ const SalesView = {
         customsStatus: "ASSESSED_CLEARED"
       },
       {
-        customInvoiceNo: "CI-EXP-2026-079",
+        id: "CI-003",
+        invoiceNo: "CI-EXP-2026-079",
         invoiceDate: "2026-10-22",
+        poNo: "PO-RG-9011",
+        buyer: "Royal Greenland Seafood A/S",
+        pInvoiceNo: "PI-2026-903",
+        stockStatus: "IN_TRANSIT",
+        year: "2026-2027",
+        exporter: "Devi Fisheries Limited",
+        consignee: "Royal Greenland Seafood A/S",
+        country: "Netherlands",
+        billsType: "RoDTEP Scheme",
         shippingBillRef: "SB-2026-88455",
-        customerName: "Royal Greenland Seafood A/S",
         iecCode: "0391004812",
         loadingPort: "Visakhapatnam Sea (INVTZ)",
-        dischargePort: "Rotterdam, Netherlands (NLRTM)",
+        dischargePort: "Rotterdam Port, Netherlands",
         netWeightKg: 12000,
         grossWeightKg: 12960,
         fobValueUsd: 128000,
         cifValueUsd: 134400,
         customsStatus: "UNDER_EXAMINATION"
+      },
+      {
+        id: "CI-004",
+        invoiceNo: "CI-EXP-2026-448",
+        invoiceDate: "2026-10-26",
+        poNo: "PO-SYS-3319",
+        buyer: "Sysco Corporation International",
+        pInvoiceNo: "PI-2026-904",
+        stockStatus: "PORT_CLEARED",
+        year: "2026-2027",
+        exporter: "Devi Fisheries Limited",
+        consignee: "Sysco Corporation International",
+        country: "United States",
+        billsType: "Duty Drawback",
+        shippingBillRef: "SB-2026-88490",
+        iecCode: "0391004812",
+        loadingPort: "Visakhapatnam Sea (INVTZ)",
+        dischargePort: "New York Terminal, USA",
+        netWeightKg: 22000,
+        grossWeightKg: 23760,
+        fobValueUsd: 204000,
+        cifValueUsd: 211200,
+        customsStatus: "LEO_GRANTED"
+      },
+      {
+        id: "CI-005",
+        invoiceNo: "CI-EXP-2026-502",
+        invoiceDate: "2026-10-29",
+        poNo: "PO-USF-2210",
+        buyer: "US Foods Trading Co",
+        pInvoiceNo: "PI-2026-905",
+        stockStatus: "WAREHOUSE_STAGED",
+        year: "2025-2026",
+        exporter: "Devi Sea Foods Ltd",
+        consignee: "US Foods Trading Co",
+        country: "United States",
+        billsType: "EPCG Scheme",
+        shippingBillRef: "SB-2026-88512",
+        iecCode: "0391004812",
+        loadingPort: "Visakhapatnam Sea (INVTZ)",
+        dischargePort: "Houston Sea Port, USA",
+        netWeightKg: 16500,
+        grossWeightKg: 17820,
+        fobValueUsd: 156000,
+        cifValueUsd: 163350,
+        customsStatus: "DRAFT_REGISTERED"
       }
     ],
 
@@ -65150,35 +65223,501 @@ const SalesView = {
     });
   },
 
-  // Tab 2: Custom Invoices
+  // Tab 2: Custom Invoices (Customs Clearance)
   renderCustomInvoices(container) {
-    this.renderGenericTablePage({
-      container,
-      pageTitle: 'Custom Invoices (Customs Clearance)',
-            primaryBtnText: 'Create Custom Invoice',
-      onPrimaryClick: () => Toast.show('Custom Invoice creation form opened', 'info'),
-      filterFields: [
-        { id: 'ci-no', label: 'Custom Invoice No', placeholder: 'e.g. CI-EXP' },
-        { id: 'sb-ref', label: 'Shipping Bill Ref', placeholder: 'e.g. SB-2026' },
-        { id: 'port', label: 'Loading Port', type: 'select', options: ['All Ports', 'Visakhapatnam Sea (INVTZ)', 'Kakinada Sea Port', 'Chennai Sea Port'] }
-      ],
-      data: this.state.customInvoices,
-      keyField: 'customInvoiceNo',
-      tableTitle: 'Custom Invoices',
-      columns: [
-        { field: 'customInvoiceNo', header: 'Custom Invoice No', render: (v) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${v}</span>` },
-        { field: 'invoiceDate', header: 'Invoice Date', render: (v) => `<span class="font-mono text-xs text-[#5E6C84]">${v}</span>` },
-        { field: 'shippingBillRef', header: 'Shipping Bill Ref', render: (v) => `<span class="font-mono text-xs font-semibold text-[#172B4D]">${v}</span>` },
-        { field: 'customerName', header: 'Consignee / Buyer', render: (v) => `<span class="font-bold text-[#172B4D] text-xs">${v}</span>` },
-        { field: 'loadingPort', header: 'Port of Loading', render: (v) => `<span class="text-xs text-[#5E6C84]">${v}</span>` },
-        { field: 'dischargePort', header: 'Port of Discharge', render: (v) => `<span class="text-xs text-[#5E6C84]">${v}</span>` },
-        { field: 'fobValueUsd', header: 'FOB Value (USD)', render: (v) => `<span class="font-mono font-extrabold text-xs text-[#006644]">$${Number(v).toLocaleString('en-IN')}</span>` },
+    container.innerHTML = `
+      <div class="space-y-3 animate-fade-in">
+        <!-- Page Title & Header Actions (NO Subheading) -->
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-1">
+          <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Custom Invoices (Customs Clearance)</h1>
+          <div class="inline-flex items-center gap-2">
+            <button type="button" id="btn-create-ci" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+              <span>Create Custom Invoice</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Search & Filter Card -->
+        <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200">
+          <div class="flex items-center justify-between pb-1">
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+              <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
+            </div>
+            <div class="inline-flex items-center gap-2">
+              <button type="button" id="flt-ci-reset-btn" class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Reset all filters">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+              </button>
+              <button type="button" id="flt-ci-toggle-btn" class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Hide Filter">
+                <svg class="w-3.5 h-3.5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              </button>
+            </div>
+          </div>
+          <div id="flt-ci-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 gap-3 text-xs" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
+            <!-- SELECT YEAR -->
+            <div>
+              <label for="flt-ci-year" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SELECT YEAR</label>
+              <select id="flt-ci-year" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="ALL">All Years</option>
+                <option value="2026-2027">2026-2027</option>
+                <option value="2025-2026">2025-2026</option>
+                <option value="2024-2025">2024-2025</option>
+              </select>
+            </div>
+
+            <!-- SELECT EXPORTER -->
+            <div>
+              <label for="flt-ci-exporter" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SELECT EXPORTER</label>
+              <select id="flt-ci-exporter" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="ALL">All Exporters</option>
+                <option value="Devi Fisheries Limited">Devi Fisheries Limited</option>
+                <option value="Devi Sea Foods Ltd">Devi Sea Foods Ltd</option>
+                <option value="Devi Marine Processors">Devi Marine Processors</option>
+              </select>
+            </div>
+
+            <!-- SELECT CONSIGNEE -->
+            <div>
+              <label for="flt-ci-consignee" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SELECT CONSIGNEE</label>
+              <select id="flt-ci-consignee" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="ALL">All Consignees</option>
+                <option value="Red Lobster Supply Chain LLC">Red Lobster Supply Chain LLC</option>
+                <option value="Maruha Nichiro Corporation">Maruha Nichiro Corporation</option>
+                <option value="Royal Greenland Seafood A/S">Royal Greenland Seafood A/S</option>
+                <option value="Sysco Corporation International">Sysco Corporation International</option>
+                <option value="US Foods Trading Co">US Foods Trading Co</option>
+              </select>
+            </div>
+
+            <!-- SELECT COUNTRY -->
+            <div>
+              <label for="flt-ci-country" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SELECT COUNTRY</label>
+              <select id="flt-ci-country" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="ALL">All Countries</option>
+                <option value="United States">United States</option>
+                <option value="Japan">Japan</option>
+                <option value="Netherlands">Netherlands</option>
+                <option value="Canada">Canada</option>
+              </select>
+            </div>
+
+            <!-- BILLS TYPE -->
+            <div>
+              <label for="flt-ci-billstype" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BILLS TYPE</label>
+              <select id="flt-ci-billstype" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="ALL">All Bill Types</option>
+                <option value="Duty Drawback">Duty Drawback</option>
+                <option value="RoDTEP Scheme">RoDTEP Scheme</option>
+                <option value="EPCG Scheme">EPCG Scheme</option>
+                <option value="Advance Authorization">Advance Authorization</option>
+                <option value="Commercial Export">Commercial Export</option>
+              </select>
+            </div>
+
+            <!-- MANDATORY Search button placed after the last input field -->
+            <div class="flex items-end">
+              <button type="button" id="flt-ci-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                <span>Search</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- DataTable Container -->
+        <div id="custom-invoices-table-container"></div>
+      </div>
+    `;
+
+    // Hook primary action button
+    container.querySelector('#btn-create-ci')?.addEventListener('click', () => {
+      this.showAddCustomInvoiceModal();
+    });
+
+    // Toggle filter
+    const toggleBtn = container.querySelector('#flt-ci-toggle-btn');
+    const filterBody = container.querySelector('#flt-ci-body');
+    toggleBtn?.addEventListener('click', () => {
+      filterBody?.classList.toggle('hidden');
+      toggleBtn.querySelector('svg')?.classList.toggle('-rotate-90');
+    });
+
+    // Render table
+    const renderTable = (dataToDisplay) => {
+      new DataTable({
+        containerId: 'custom-invoices-table-container',
+        data: dataToDisplay,
+        keyField: 'id',
+        tableTitle: `Custom Invoices (${dataToDisplay.length})`,
+        searchable: true,
+        exportable: true,
+        pageSize: 10,
+        columns: [
+          {
+            field: '__sno__',
+            header: 'SNO',
+            render: (v, r, idx) => `<span class="font-mono text-xs text-[#5E6C84]">${idx + 1}</span>`
+          },
+          {
+            field: 'id',
+            header: 'ID',
+            render: (v) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${v}</span>`
+          },
+          {
+            field: 'invoiceNo',
+            header: 'Invoice No',
+            render: (v) => `<span class="font-mono font-bold text-xs text-[#172B4D]">${v}</span>`
+          },
+          {
+            field: 'invoiceDate',
+            header: 'Invoice Date',
+            render: (v) => `<span class="font-mono text-xs text-[#5E6C84]">${v}</span>`
+          },
+          {
+            field: 'poNo',
+            header: 'Po No',
+            render: (v) => `<span class="font-mono text-xs font-semibold text-[#172B4D]">${v || '-'}</span>`
+          },
+          {
+            field: 'buyer',
+            header: 'Buyer',
+            render: (v) => `<span class="font-bold text-[#172B4D] text-xs">${v}</span>`
+          },
+          {
+            field: 'pInvoiceNo',
+            header: 'PInvoice No',
+            render: (v) => `<span class="font-mono text-xs font-bold text-[#403294]">${v || '-'}</span>`
+          },
+          {
+            field: 'stockStatus',
+            header: 'Stock Status',
+            render: (v) => {
+              const val = String(v || '').toUpperCase();
+              let cls = 'bg-[#F1F5F9] text-[#172B4D] border-[#DFE1E6]';
+              if (val.includes('PORT_CLEARED') || val.includes('DISPATCHED') || val.includes('ALLOCATED')) {
+                cls = 'bg-[#E3FCEF] text-[#006644] border-[#ABF5D1]';
+              } else if (val.includes('TRANSIT')) {
+                cls = 'bg-[#F0F9FF] text-[#00A4B7] border-[#BAE6FD]';
+              } else if (val.includes('STAGED') || val.includes('PENDING')) {
+                cls = 'bg-[#FFFAE6] text-[#FF8B00] border-[#FFE380]';
+              }
+              return `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold border ${cls} uppercase">${val.replace(/_/g, ' ')}</span>`;
+            }
+          }
+        ],
+        actions: [
+          {
+            label: 'Edit',
+            icon: `<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>`,
+            onClick: (row) => this.showEditCustomInvoiceModal(row)
+          },
+          {
+            label: 'Copy',
+            icon: `<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>`,
+            onClick: (row) => this.copyCustomInvoice(row)
+          },
+          {
+            label: 'Print',
+            icon: `<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4H7v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>`,
+            onClick: (row) => Toast.show(`Printing Custom Invoice ${row.invoiceNo}...`, 'info')
+          }
+        ]
+      });
+    };
+
+    renderTable(this.state.customInvoices);
+
+    // Search and Reset handlers
+    const searchBtn = container.querySelector('#flt-ci-search-btn');
+    const resetBtn = container.querySelector('#flt-ci-reset-btn');
+
+    searchBtn?.addEventListener('click', () => {
+      const yr = container.querySelector('#flt-ci-year')?.value || 'ALL';
+      const exp = container.querySelector('#flt-ci-exporter')?.value || 'ALL';
+      const con = container.querySelector('#flt-ci-consignee')?.value || 'ALL';
+      const cty = container.querySelector('#flt-ci-country')?.value || 'ALL';
+      const bt = container.querySelector('#flt-ci-billstype')?.value || 'ALL';
+
+      let filtered = [...this.state.customInvoices];
+
+      if (yr !== 'ALL') {
+        filtered = filtered.filter(r => (r.year || '').includes(yr));
+      }
+      if (exp !== 'ALL') {
+        filtered = filtered.filter(r => (r.exporter || '').toLowerCase().includes(exp.toLowerCase()));
+      }
+      if (con !== 'ALL') {
+        filtered = filtered.filter(r => (r.consignee || r.buyer || '').toLowerCase().includes(con.toLowerCase()));
+      }
+      if (cty !== 'ALL') {
+        filtered = filtered.filter(r => (r.country || '').toLowerCase().includes(cty.toLowerCase()));
+      }
+      if (bt !== 'ALL') {
+        filtered = filtered.filter(r => (r.billsType || '').toLowerCase().includes(bt.toLowerCase()));
+      }
+
+      renderTable(filtered);
+      Toast.show(`Filtered ${filtered.length} Custom Invoice(s)`, 'info');
+    });
+
+    resetBtn?.addEventListener('click', () => {
+      container.querySelector('#flt-ci-year').value = 'ALL';
+      container.querySelector('#flt-ci-exporter').value = 'ALL';
+      container.querySelector('#flt-ci-consignee').value = 'ALL';
+      container.querySelector('#flt-ci-country').value = 'ALL';
+      container.querySelector('#flt-ci-billstype').value = 'ALL';
+      renderTable(this.state.customInvoices);
+      Toast.show('Filters reset', 'info');
+    });
+  },
+
+  // Copy Custom Invoice Helper
+  copyCustomInvoice(sourceRow) {
+    const nextIdx = this.state.customInvoices.length + 1;
+    const nextId = `CI-${String(nextIdx).padStart(3, '0')}`;
+    const nextNo = `${sourceRow.invoiceNo}-COPY`;
+
+    const duplicated = {
+      ...sourceRow,
+      id: nextId,
+      invoiceNo: nextNo,
+      invoiceDate: new Date().toISOString().slice(0, 10),
+      stockStatus: 'WAREHOUSE_STAGED'
+    };
+
+    this.state.customInvoices.unshift(duplicated);
+    const mainEl = document.getElementById('sales-view-main');
+    if (mainEl) this.renderCustomInvoices(mainEl);
+    Toast.show(`Custom Invoice duplicated as ${nextNo}`, 'success');
+  },
+
+  // Edit Custom Invoice Modal
+  showEditCustomInvoiceModal(row) {
+    this.openCustomInvoiceModal({
+      title: `Edit Custom Invoice: ${row.invoiceNo}`,
+      initialData: row,
+      submitButtonText: 'Update Custom Invoice',
+      onSubmit: (formData, modal) => {
+        Object.assign(row, formData);
+        modal.close();
+        Toast.show(`Custom Invoice ${row.invoiceNo} updated successfully!`, 'success');
+        const mainEl = document.getElementById('sales-view-main');
+        if (mainEl) this.renderCustomInvoices(mainEl);
+      }
+    });
+  },
+
+  // Create Custom Invoice Modal
+  showAddCustomInvoiceModal() {
+    const nextIdx = this.state.customInvoices.length + 1;
+    const nextId = `CI-${String(nextIdx).padStart(3, '0')}`;
+    const nextNo = `CI-EXP-2026-${500 + nextIdx}`;
+    const today = new Date().toISOString().slice(0, 10);
+
+    const defaultData = {
+      id: nextId,
+      invoiceNo: nextNo,
+      invoiceDate: today,
+      poNo: 'PO-RL-8825',
+      buyer: 'Red Lobster Supply Chain LLC',
+      pInvoiceNo: 'PI-2026-901',
+      stockStatus: 'ALLOCATED',
+      year: '2026-2027',
+      exporter: 'Devi Fisheries Limited',
+      consignee: 'Red Lobster Supply Chain LLC',
+      country: 'United States',
+      billsType: 'Duty Drawback',
+      shippingBillRef: `SB-2026-${88500 + nextIdx}`,
+      iecCode: '0391004812',
+      loadingPort: 'Visakhapatnam Sea (INVTZ)',
+      dischargePort: 'Long Beach Port, USA',
+      netWeightKg: 18000,
+      grossWeightKg: 19440,
+      fobValueUsd: 153000,
+      cifValueUsd: 159300,
+      customsStatus: 'LEO_GRANTED'
+    };
+
+    this.openCustomInvoiceModal({
+      title: 'Create Custom Invoice',
+      initialData: defaultData,
+      submitButtonText: 'Create Custom Invoice',
+      onSubmit: (formData, modal) => {
+        const newRecord = {
+          ...defaultData,
+          ...formData
+        };
+        this.state.customInvoices.unshift(newRecord);
+        modal.close();
+        Toast.show(`Custom Invoice ${newRecord.invoiceNo} created successfully!`, 'success');
+        const mainEl = document.getElementById('sales-view-main');
+        if (mainEl) this.renderCustomInvoices(mainEl);
+      }
+    });
+  },
+
+  // Categorized Custom Invoice Form Modal
+  openCustomInvoiceModal({ title, initialData, submitButtonText, onSubmit }) {
+    const d = initialData || {};
+
+    Modal.open({
+      title,
+      size: 'xl',
+      content: `
+        <form id="form-ci-details" class="space-y-4 text-xs">
+          <!-- Section 1: Invoice & PO Identifiers -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+              <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">1</span>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Customs Invoice &amp; Reference Numbers</h4>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">INVOICE NO <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="ci-modal-inv-no" value="${d.invoiceNo || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">INVOICE DATE <span class="text-[#DE350B]">*</span></label>
+                <input type="date" id="ci-modal-inv-date" value="${d.invoiceDate || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">P.O NO</label>
+                <input type="text" id="ci-modal-po-no" value="${d.poNo || ''}" placeholder="e.g. PO-8821" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PROFORMA INVOICE NO</label>
+                <input type="text" id="ci-modal-pi-no" value="${d.pInvoiceNo || ''}" placeholder="e.g. PI-2026-901" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#403294] focus:outline-none focus:border-[#00A4B7]">
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Exporter, Buyer & Consignee -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+              <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">2</span>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Parties &amp; Destination</h4>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">EXPORTER <span class="text-[#DE350B]">*</span></label>
+                <select id="ci-modal-exporter" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
+                  <option value="Devi Fisheries Limited" ${d.exporter === 'Devi Fisheries Limited' ? 'selected' : ''}>Devi Fisheries Limited</option>
+                  <option value="Devi Sea Foods Ltd" ${d.exporter === 'Devi Sea Foods Ltd' ? 'selected' : ''}>Devi Sea Foods Ltd</option>
+                  <option value="Devi Marine Processors" ${d.exporter === 'Devi Marine Processors' ? 'selected' : ''}>Devi Marine Processors</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BUYER / CONSIGNEE <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="ci-modal-buyer" value="${d.buyer || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DESTINATION COUNTRY <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="ci-modal-country" value="${d.country || 'United States'}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FINANCIAL YEAR</label>
+                <select id="ci-modal-year" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+                  <option value="2026-2027" ${d.year === '2026-2027' ? 'selected' : ''}>2026-2027</option>
+                  <option value="2025-2026" ${d.year === '2025-2026' ? 'selected' : ''}>2025-2026</option>
+                  <option value="2024-2025" ${d.year === '2024-2025' ? 'selected' : ''}>2024-2025</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 3: Customs & Stock Clearance -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#F1F5F9]">
+              <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">3</span>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Customs Bill Type &amp; Stock Status</h4>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BILLS TYPE <span class="text-[#DE350B]">*</span></label>
+                <select id="ci-modal-billstype" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
+                  <option value="Duty Drawback" ${d.billsType === 'Duty Drawback' ? 'selected' : ''}>Duty Drawback</option>
+                  <option value="RoDTEP Scheme" ${d.billsType === 'RoDTEP Scheme' ? 'selected' : ''}>RoDTEP Scheme</option>
+                  <option value="EPCG Scheme" ${d.billsType === 'EPCG Scheme' ? 'selected' : ''}>EPCG Scheme</option>
+                  <option value="Advance Authorization" ${d.billsType === 'Advance Authorization' ? 'selected' : ''}>Advance Authorization</option>
+                  <option value="Commercial Export" ${d.billsType === 'Commercial Export' ? 'selected' : ''}>Commercial Export</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">STOCK STATUS <span class="text-[#DE350B]">*</span></label>
+                <select id="ci-modal-stock-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" required>
+                  <option value="ALLOCATED" ${d.stockStatus === 'ALLOCATED' ? 'selected' : ''}>Allocated</option>
+                  <option value="DISPATCHED_TO_PORT" ${d.stockStatus === 'DISPATCHED_TO_PORT' ? 'selected' : ''}>Dispatched To Port</option>
+                  <option value="IN_TRANSIT" ${d.stockStatus === 'IN_TRANSIT' ? 'selected' : ''}>In Transit</option>
+                  <option value="PORT_CLEARED" ${d.stockStatus === 'PORT_CLEARED' ? 'selected' : ''}>Port Cleared</option>
+                  <option value="WAREHOUSE_STAGED" ${d.stockStatus === 'WAREHOUSE_STAGED' ? 'selected' : ''}>Warehouse Staged</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SHIPPING BILL REF</label>
+                <input type="text" id="ci-modal-sb-ref" value="${d.shippingBillRef || ''}" placeholder="e.g. SB-2026-88401" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PORT OF LOADING</label>
+                <input type="text" id="ci-modal-pol" value="${d.loadingPort || 'Visakhapatnam Sea (INVTZ)'}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+              </div>
+            </div>
+          </div>
+        </form>
+      `,
+      buttons: [
         {
-          field: 'customsStatus',
-          header: 'Customs Status',
-          render: (v) => {
-            const cls = v.includes('LEO') || v.includes('CLEARED') ? 'bg-[#E3FCEF] text-[#006644] border-[#ABF5D1]' : 'bg-[#FFFAE6] text-[#FF8B00] border-[#FFE380]';
-            return `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold border ${cls} uppercase">${v.replace(/_/g, ' ')}</span>`;
+          label: 'Cancel',
+          type: 'secondary',
+          onClick: (modal) => modal.close()
+        },
+        {
+          label: submitButtonText || 'Save Custom Invoice',
+          type: 'primary',
+          onClick: (modal) => {
+            const getVal = (id) => document.getElementById(id)?.value?.trim() || '';
+
+            const invNo = getVal('ci-modal-inv-no');
+            const invDate = getVal('ci-modal-inv-date');
+            const buyer = getVal('ci-modal-buyer');
+            const exporter = getVal('ci-modal-exporter');
+            const country = getVal('ci-modal-country');
+            const billsType = getVal('ci-modal-billstype');
+            const stockStatus = getVal('ci-modal-stock-status');
+
+            if (!invNo || !invDate || !buyer || !exporter || !country || !billsType || !stockStatus) {
+              Toast.show('Please fill in all mandatory fields marked with *', 'warning');
+              return;
+            }
+
+            const payload = {
+              invoiceNo: invNo,
+              invoiceDate: invDate,
+              poNo: getVal('ci-modal-po-no'),
+              pInvoiceNo: getVal('ci-modal-pi-no'),
+              buyer,
+              consignee: buyer,
+              exporter,
+              country,
+              year: getVal('ci-modal-year') || '2026-2027',
+              billsType,
+              stockStatus,
+              shippingBillRef: getVal('ci-modal-sb-ref'),
+              loadingPort: getVal('ci-modal-pol')
+            };
+
+            if (typeof onSubmit === 'function') {
+              onSubmit(payload, modal);
+            }
           }
         }
       ]
