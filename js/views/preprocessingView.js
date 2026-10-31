@@ -1490,7 +1490,7 @@ export const PreprocessingView = {
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <!-- Left: Operations Workflow Grid -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs">
-            <div class="flex items-center justify-between pb-2 border-b border-[#F1F5F9]">
+            <div class="flex items-center justify-between border-b border-[#F1F5F9]">
               <div class="flex items-center gap-2">
                 <span class="w-2.5 h-2.5 rounded-full bg-[#0284C7]"></span>
                 <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider mb-0">Floor Operations (7 Stages)</h3>
@@ -1545,7 +1545,7 @@ export const PreprocessingView = {
 
           <!-- Right: Chemical Screens Grid -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs">
-            <div class="flex items-center justify-between pb-2 border-b border-[#F1F5F9]">
+            <div class="flex items-center justify-between border-b border-[#F1F5F9]">
               <div class="flex items-center gap-2">
                 <span class="w-2.5 h-2.5 rounded-full bg-[#00875A]"></span>
                 <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider mb-0">Chemical Screens (7 Modules)</h3>

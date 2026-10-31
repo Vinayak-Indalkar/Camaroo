@@ -115,7 +115,7 @@ All screens, views, components, and user workflows MUST strictly conform to the 
     - Quick Metrics Badges on right: 2-3 key cards: `bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[80px]` with uppercase label and bold green/teal values (`text-[#006644]`).
   - **Categorized Sections**:
     - Container: `bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs`
-    - Section header: `flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]` with numbered badge (`w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs`) and title `text-xs font-bold text-[#172B4D] uppercase tracking-wider`
+    - Section header: `flex items-center gap-2 border-b border-[#F1F5F9]` with numbered badge (`w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs`) and title `text-xs font-bold text-[#172B4D] uppercase tracking-wider`
     - 4-column responsive grid: `grid grid-cols-2 sm:grid-cols-4 gap-3.5`
     - Field label: `text-[10px] font-bold text-[#64748B] uppercase tracking-wider block`
     - Field value: `font-semibold text-[#172B4D] text-xs block mt-0.5 break-words`

@@ -1619,80 +1619,160 @@ export const SalesView = {
 
     clearingAgents: [
       {
-        id: "CHA-01",
-        agentCode: "CHA-01",
-        agentName: "Seaways Shipping & Logistics Ltd",
-        licenseNo: "CHA-PAN-VSP-0044",
-        contactPerson: "K. V. Subba Rao",
-        phone: "+91 891 2568901",
-        email: "vizag.cha@seawayshipping.in",
-        portLocation: "Visakhapatnam (INVTZ)",
-        address: "Seaways House, 5th Floor, Harbour Park Road, Visakhapatnam - 530003",
-        activeContainers: 8,
-        totalCleared: 142,
-        rating: "4.9 / 5.0",
-        status: "ACTIVE_VERIFIED",
-        panGst: "AAACS8849GST001",
-        portRegNo: "VPA-CHA-REG-2021-99",
-        authorizedScope: "Frozen Marine Products, Reefer Container Specialized",
-        handlingLimit: "25 Containers / Week"
+        id: "CHA-ENT-2026-001",
+        invNo: "CINV-EXP-2026-551",
+        poNo: "PO-RL-8821",
+        buyer: "Red Lobster Supply Chain LLC",
+        consignee: "Red Lobster Supply Chain LLC",
+        invDate: "2026-03-12",
+        blNo: "MEDUST109284",
+        containerNo: "MSKU-9821034",
+        portOfDischarge: "Port of Los Angeles (USLAX)",
+        notifyPartyName: "Pacific Seafood Logistics Inc",
+        notifyParty: "Pacific Seafood Logistics Inc",
+        entryNumber: "CUS-ENT-2026-90412",
+        entryDate: "2026-03-28",
+        status: "CLEARED_ADMITTED",
+        cfCharges: 3250.00,
+        adDuty: 0.00,
+        hmDuty: 420.00,
+        mpDuty: 310.00,
+        cvDuty: 0.00,
+        rtDuty: 180.00,
+        invoiceValue: 148500.00,
+        enteredInvoiceValue: 148500.00,
+        total: 4160.00,
+        grandTotal: 152660.00
       },
       {
-        id: "CHA-02",
-        agentCode: "CHA-02",
-        agentName: "Evergreen Maritime Cargo Agency",
-        licenseNo: "CHA-PAN-VSP-0089",
-        contactPerson: "R. Muralidhar",
-        phone: "+91 891 2781190",
-        email: "murali@evergreencargo.co.in",
-        portLocation: "Visakhapatnam (INVTZ)",
-        address: "Maritime Towers, Near Port Area, Visakhapatnam - 530001",
-        activeContainers: 4,
-        totalCleared: 98,
-        rating: "4.8 / 5.0",
-        status: "ACTIVE_VERIFIED",
-        panGst: "AABCE3321GST002",
-        portRegNo: "VPA-CHA-REG-2022-44",
-        authorizedScope: "General Cargo & Perishable Foods Customs Clearance",
-        handlingLimit: "15 Containers / Week"
+        id: "CHA-ENT-2026-002",
+        invNo: "CINV-EXP-2026-552",
+        poNo: "PO-MN-4410",
+        buyer: "Maruha Nichiro Corporation",
+        consignee: "Maruha Nichiro Corporation",
+        invDate: "2026-03-15",
+        blNo: "ONEYMA290192",
+        containerNo: "ONEU-4410923",
+        portOfDischarge: "Port of Tokyo (JPTYO)",
+        notifyPartyName: "Nippon Express Global Food",
+        notifyParty: "Nippon Express Global Food",
+        entryNumber: "CUS-ENT-2026-90413",
+        entryDate: "2026-03-30",
+        status: "DUTY_PAID_PENDING_RELEASE",
+        cfCharges: 2800.00,
+        adDuty: 0.00,
+        hmDuty: 380.00,
+        mpDuty: 260.00,
+        cvDuty: 0.00,
+        rtDuty: 150.00,
+        invoiceValue: 124200.00,
+        enteredInvoiceValue: 124200.00,
+        total: 3590.00,
+        grandTotal: 127790.00
       },
       {
-        id: "CHA-03",
-        agentCode: "CHA-03",
-        agentName: "Visakha Ocean Transports Pvt Ltd",
-        licenseNo: "CHA-PAN-VSP-0112",
-        contactPerson: "Ch. Satyanarayana",
-        phone: "+91 891 2893450",
-        email: "satya.vsp@votlogistics.com",
-        portLocation: "Visakhapatnam (INVTZ)",
-        address: "Plot 14, Industrial Estate, Autonagar, Visakhapatnam - 530012",
-        activeContainers: 2,
-        totalCleared: 64,
-        rating: "4.7 / 5.0",
-        status: "ACTIVE_VERIFIED",
-        panGst: "AABCV9912GST003",
-        portRegNo: "VPA-CHA-REG-2023-12",
-        authorizedScope: "Port Handling, Stuffing Supervision & Customs EDI Clearing",
-        handlingLimit: "10 Containers / Week"
+        id: "CHA-ENT-2026-003",
+        invNo: "CINV-EXP-2026-553",
+        poNo: "PO-RG-7729",
+        buyer: "Royal Greenland Seafood A/S",
+        consignee: "Royal Greenland Seafood A/S",
+        invDate: "2026-03-18",
+        blNo: "MAEU99201940",
+        containerNo: "MNBU-8819203",
+        portOfDischarge: "Port of Rotterdam (NLRTM)",
+        notifyPartyName: "Scan-Shipping Rotterdam BV",
+        notifyParty: "Scan-Shipping Rotterdam BV",
+        entryNumber: "CUS-ENT-2026-90414",
+        entryDate: "2026-04-02",
+        status: "ASSESSMENT_IN_PROGRESS",
+        cfCharges: 3600.00,
+        adDuty: 1200.00,
+        hmDuty: 450.00,
+        mpDuty: 340.00,
+        cvDuty: 0.00,
+        rtDuty: 200.00,
+        invoiceValue: 162000.00,
+        enteredInvoiceValue: 162000.00,
+        total: 5790.00,
+        grandTotal: 167790.00
       },
       {
-        id: "CHA-04",
-        agentCode: "CHA-04",
-        agentName: "Transworld Clearing & Forwarding Corp",
-        licenseNo: "CHA-PAN-MAA-0077",
-        contactPerson: "V. Ramakrishnan",
-        phone: "+91 44 25223344",
-        email: "chennai@transworldcargo.in",
-        portLocation: "Chennai Port (INMAA)",
-        address: "Rajaji Salai, Chennai Port Commercial Corridor - 600001",
-        activeContainers: 3,
-        totalCleared: 52,
-        rating: "4.8 / 5.0",
-        status: "ACTIVE_VERIFIED",
-        panGst: "AAACT7721GST004",
-        portRegNo: "CHPA-CHA-REG-2022-88",
-        authorizedScope: "Southern Corridors & Ennore Port Transshipment Clearance",
-        handlingLimit: "12 Containers / Week"
+        id: "CHA-ENT-2026-004",
+        invNo: "CINV-EXP-2026-554",
+        poNo: "PO-SC-1102",
+        buyer: "Sysco Corporation International",
+        consignee: "Sysco Corporation International",
+        invDate: "2026-03-20",
+        blNo: "CMACGM881023",
+        containerNo: "CMAU-1109234",
+        portOfDischarge: "Port of New York / Newark (USNYC)",
+        notifyPartyName: "Amethyst Global Cold Logistics",
+        notifyParty: "Amethyst Global Cold Logistics",
+        entryNumber: "CUS-ENT-2026-90415",
+        entryDate: "2026-04-04",
+        status: "CLEARED_ADMITTED",
+        cfCharges: 3100.00,
+        adDuty: 0.00,
+        hmDuty: 410.00,
+        mpDuty: 290.00,
+        cvDuty: 0.00,
+        rtDuty: 170.00,
+        invoiceValue: 138000.00,
+        enteredInvoiceValue: 138000.00,
+        total: 3970.00,
+        grandTotal: 141970.00
+      },
+      {
+        id: "CHA-ENT-2026-005",
+        invNo: "CINV-EXP-2026-555",
+        poNo: "PO-UF-9034",
+        buyer: "US Foods Trading Co",
+        consignee: "US Foods Trading Co",
+        invDate: "2026-03-22",
+        blNo: "HLCU90218402",
+        containerNo: "HLXU-7720193",
+        portOfDischarge: "Port of Long Beach (USLGB)",
+        notifyPartyName: "Western States Reefer Brokers",
+        notifyParty: "Western States Reefer Brokers",
+        entryNumber: "CUS-ENT-2026-90416",
+        entryDate: "2026-04-06",
+        status: "CUSTOMS_HOLD_EXAM",
+        cfCharges: 3400.00,
+        adDuty: 0.00,
+        hmDuty: 430.00,
+        mpDuty: 320.00,
+        cvDuty: 0.00,
+        rtDuty: 190.00,
+        invoiceValue: 155000.00,
+        enteredInvoiceValue: 155000.00,
+        total: 4340.00,
+        grandTotal: 159340.00
+      },
+      {
+        id: "CHA-ENT-2026-006",
+        invNo: "CINV-EXP-2026-556",
+        poNo: "PO-TI-6651",
+        buyer: "Tai Foong USA Inc",
+        consignee: "Tai Foong USA Inc",
+        invDate: "2026-03-25",
+        blNo: "MSCU88109231",
+        containerNo: "MEDU-5510294",
+        portOfDischarge: "Port of Oakland (USOAK)",
+        notifyPartyName: "Harbor Intermodal Express LLC",
+        notifyParty: "Harbor Intermodal Express LLC",
+        entryNumber: "CUS-ENT-2026-90417",
+        entryDate: "2026-04-08",
+        status: "CLEARED_ADMITTED",
+        cfCharges: 3150.00,
+        adDuty: 0.00,
+        hmDuty: 395.00,
+        mpDuty: 285.00,
+        cvDuty: 0.00,
+        rtDuty: 165.00,
+        invoiceValue: 141000.00,
+        enteredInvoiceValue: 141000.00,
+        total: 3995.00,
+        grandTotal: 144995.00
       }
     ],
 
@@ -2730,7 +2810,7 @@ export const SalesView = {
 
     Modal.open({
       title: `Proforma Invoice Details - ${row.piNumber}`,
-      size: 'full',
+      size: 'xl',
       content: `
         <div class="space-y-4 text-xs animate-fade-in">
           <!-- Top Hero / Summary Card -->
@@ -2776,7 +2856,7 @@ export const SalesView = {
 
           <!-- Section 1: Exporter, Processor & Reference -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Exporter, Processor &amp; Reference</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
@@ -2805,7 +2885,7 @@ export const SalesView = {
 
           <!-- Section 2: Proforma Invoice & Purchase Order -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Proforma Invoice &amp; PO Details</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
@@ -2830,7 +2910,7 @@ export const SalesView = {
 
           <!-- Section 3: Buyer & Consignee Parties -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Buyer, Consignee &amp; Stakeholder Parties</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
@@ -2867,7 +2947,7 @@ export const SalesView = {
 
           <!-- Section 4: Ports & Shipment Routing -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Port Routing &amp; Shipment Dates</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
@@ -2904,7 +2984,7 @@ export const SalesView = {
 
           <!-- Section 5: Commercial Terms & Banking -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Commercial Terms, Banking &amp; Currency</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
@@ -2941,7 +3021,7 @@ export const SalesView = {
 
           <!-- Section 6: Freight, Charges & Remarks -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Freight, Charges &amp; Remarks</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
@@ -2970,7 +3050,7 @@ export const SalesView = {
 
           <!-- Section 7: Data Table (Variety Line Items) matching Generate Proforma Invoice -->
           <div class="bg-white rounded-xl">
-            <div class="flex items-center justify-between pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center justify-between border-b border-[#F1F5F9]">
               <div class="flex items-center gap-2">
                 <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Data Table (Variety Line Items)</h4>
               </div>
@@ -3188,12 +3268,12 @@ export const SalesView = {
 
     Modal.open({
       title: modalTitle,
-      size: 'full',
+      size: 'xl',
       content: `
         <form id="form-pi-details" class="space-y-4 text-xs">
           <!-- Section 1: Exporter & Processor Details -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Exporter, Processor &amp; Reference</h4>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
@@ -3238,7 +3318,7 @@ export const SalesView = {
 
           <!-- Section 2: Proforma Invoice & Purchase Order -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Proforma Invoice &amp; PO Details</h4>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
@@ -3266,7 +3346,7 @@ export const SalesView = {
 
           <!-- Section 3: Buyer & Consignee Parties -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Buyer, Consignee &amp; Stakeholder Parties</h4>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
@@ -3309,7 +3389,7 @@ export const SalesView = {
 
           <!-- Section 4: Ports & Shipment Routing -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Port Routing &amp; Shipment Dates</h4>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
@@ -3352,7 +3432,7 @@ export const SalesView = {
 
           <!-- Section 5: Commercial Terms & Banking -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Commercial Terms, Banking &amp; Currency</h4>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
@@ -3426,7 +3506,7 @@ export const SalesView = {
 
           <!-- Section 6: Freight, Charges & Remarks -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Freight, Charges &amp; Remarks</h4>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
@@ -3585,12 +3665,12 @@ export const SalesView = {
 
     Modal.open({
       title: modalTitle,
-      size: 'full',
+      size: 'xl',
       content: `
         <div class="space-y-4 text-xs">
           <!-- Step 2 Form Input Fields (No border, No padding) -->
           <div class="bg-white rounded-xl">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Form Input Fields (Variety &amp; Pricing)</h4>
             </div>
 
@@ -3736,7 +3816,7 @@ export const SalesView = {
 
           <!-- Step 2 Data Table (No border, No padding) -->
           <div class="bg-white rounded-xl">
-            <div class="flex items-center justify-between pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center justify-between border-b border-[#F1F5F9]">
               <div class="flex items-center gap-2">
                 <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Data Table (Variety Line Items)</h4>
               </div>
@@ -4210,7 +4290,7 @@ export const SalesView = {
 
     Modal.open({
       title: `Custom Invoice Details - ${d.invoiceNo}`,
-      size: 'full',
+      size: 'xl',
       content: `
         <div class="space-y-4 text-xs animate-fade-in">
           <!-- Top Hero / Summary Card -->
@@ -4260,7 +4340,7 @@ export const SalesView = {
 
           <!-- Section 1: Exporter, Processor & Reference -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Exporter, Processor &amp; Reference</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
@@ -4289,7 +4369,7 @@ export const SalesView = {
 
           <!-- Section 2: Customs & Proforma Invoice Identifiers -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Customs &amp; Invoice Identifiers</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
@@ -4342,7 +4422,7 @@ export const SalesView = {
 
           <!-- Section 3: Buyer & Consignee Parties -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Buyer, Consignee &amp; Stakeholder Parties</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
@@ -4383,7 +4463,7 @@ export const SalesView = {
 
           <!-- Section 4: Ports & Shipment Routing -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Port Routing &amp; Shipment Dates</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
@@ -4420,7 +4500,7 @@ export const SalesView = {
 
           <!-- Section 5: Commercial Terms & Banking -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Commercial Terms, Banking &amp; Currency</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
@@ -4457,7 +4537,7 @@ export const SalesView = {
 
           <!-- Section 6: Freight, Charges, Weights & Remarks -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Freight, Charges, Weights &amp; Valuation</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
@@ -4502,7 +4582,7 @@ export const SalesView = {
 
           <!-- Section 7: Data Table (Variety Line Items) -->
           <div class="bg-white rounded-xl">
-            <div class="flex items-center justify-between pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center justify-between border-b border-[#F1F5F9]">
               <div class="flex items-center gap-2">
                 <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Data Table (Variety Line Items)</h4>
               </div>
@@ -4702,12 +4782,12 @@ export const SalesView = {
 
     Modal.open({
       title: modalTitle,
-      size: 'full',
+      size: 'xl',
       content: `
         <form id="form-ci-step1" class="space-y-4 text-xs">
           <!-- Section 1: Customs Invoice & Reference Numbers -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Customs Invoice &amp; Reference Numbers</h4>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
@@ -4735,7 +4815,7 @@ export const SalesView = {
 
           <!-- Section 2: Exporter, Buyer & Consignee Parties -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Parties &amp; Destination</h4>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
@@ -4771,7 +4851,7 @@ export const SalesView = {
 
           <!-- Section 3: Customs Bill Type, Shipping Bill & Stock Clearance -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Customs Bill Type, Shipping Bill &amp; Stock Status</h4>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
@@ -4811,7 +4891,7 @@ export const SalesView = {
 
           <!-- Section 4: Port Routing, Weights & Valuation -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Port Routing, Weights &amp; Valuation</h4>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
@@ -4962,12 +5042,12 @@ export const SalesView = {
 
     Modal.open({
       title: modalTitle,
-      size: 'full',
+      size: 'xl',
       content: `
         <div class="space-y-4 text-xs animate-fade-in">
           <!-- Form Input Fields (Variety & Pricing) - No border, No padding -->
           <div class="bg-white rounded-xl">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Form Input Fields (Variety &amp; Pricing)</h4>
             </div>
 
@@ -5114,7 +5194,7 @@ export const SalesView = {
 
           <!-- Step 2 Data Table (No border, No padding) -->
           <div class="bg-white rounded-xl">
-            <div class="flex items-center justify-between pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center justify-between border-b border-[#F1F5F9]">
               <div class="flex items-center gap-2">
                 <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Data Table (Variety Line Items)</h4>
               </div>
@@ -5578,12 +5658,12 @@ export const SalesView = {
 
     Modal.open({
       title: isEdit ? `ISF 10+2 Filing Form - ${d.invoiceNo}` : 'Submit New ISF 10+2 Filing',
-      size: 'full',
+      size: 'xl',
       content: `
         <form id="form-isf-modal" class="space-y-4 text-xs animate-fade-in">
           <!-- Section 1: Commercial & Invoice Identifiers -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Commercial &amp; Invoice Reference</h4>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
@@ -5626,7 +5706,7 @@ export const SalesView = {
 
           <!-- Section 2: Shipping Line, Bills of Lading & Container -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Shipping Line, Bills of Lading &amp; Container Specifications</h4>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
@@ -5694,7 +5774,7 @@ export const SalesView = {
 
           <!-- Section 3: Logistics, Transit & Verification -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Logistics, Transit &amp; Verification</h4>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
@@ -5737,7 +5817,7 @@ export const SalesView = {
 
           <!-- Section 4: Transshipment Routing Sub-Module -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center justify-between pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center justify-between border-b border-[#F1F5F9]">
               <div class="flex items-center gap-2">
                 <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">ISF Form &mdash; Transhipment Routing</h4>
               </div>
@@ -5976,7 +6056,7 @@ export const SalesView = {
 
     Modal.open({
       title: `ISF 10+2 Filing Details - ${d.invoiceNo || d.id}`,
-      size: 'full',
+      size: 'xl',
       content: `
         <div class="space-y-4 text-xs animate-fade-in">
           <!-- Top Hero / Summary Card -->
@@ -6022,7 +6102,7 @@ export const SalesView = {
 
           <!-- Section 1: Commercial & Invoice Identifiers -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Commercial &amp; Invoice Reference</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
@@ -6059,7 +6139,7 @@ export const SalesView = {
 
           <!-- Section 2: Shipping Line, Bills of Lading & Container -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Shipping Line, Bills of Lading &amp; Container Specifications</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
@@ -6108,7 +6188,7 @@ export const SalesView = {
 
           <!-- Section 3: Logistics, Transit & Verification -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Logistics, Transit &amp; Verification</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
@@ -6145,7 +6225,7 @@ export const SalesView = {
 
           <!-- Section 4: ISF FORM — Transhipment Table -->
           <div class="bg-white rounded-xl">
-            <div class="flex items-center justify-between pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center justify-between border-b border-[#F1F5F9]">
               <div class="flex items-center gap-2">
                 <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">ISF FORM &mdash; Transhipment Routing Table</h4>
               </div>
@@ -6491,7 +6571,7 @@ export const SalesView = {
         <form id="form-sb-modal" class="space-y-4 text-xs animate-fade-in">
           <!-- SHIPPING BILLING — Form Input Fields (Top Section) -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">SHIPPING BILLING &mdash; Form Input Fields (Top Section)</h4>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 pt-3">
@@ -6559,7 +6639,7 @@ export const SalesView = {
 
           <!-- SHIPPING BILLING — Form Input Fields (Bottom Section) -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">SHIPPING BILLING &mdash; Form Input Fields (Bottom Section)</h4>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 pt-3">
@@ -6763,7 +6843,7 @@ export const SalesView = {
 
           <!-- Section 1: SHIPPING BILLING — Form Input Fields (Top Section) -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">SHIPPING BILLING &mdash; Parameters (Top Section)</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5 pt-3">
@@ -6820,7 +6900,7 @@ export const SalesView = {
 
           <!-- Section 2: SHIPPING BILLING — Form Input Fields (Bottom Section) -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">SHIPPING BILLING &mdash; Parameters (Bottom Section)</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-3 gap-3.5 pt-3">
@@ -7154,7 +7234,7 @@ export const SalesView = {
 
           <!-- Section 1: Commercial Invoice Form Input Fields -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Commercial Invoice &amp; Settlement Parameters</h4>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-3">
@@ -7299,7 +7379,7 @@ export const SalesView = {
 
           <!-- Section 2: Form Input Fields Section for Product Line Items -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Product Specifications &amp; Packaging Input Fields</h4>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-3">
@@ -7362,7 +7442,7 @@ export const SalesView = {
 
           <!-- Section 3: Data Table Columns (Product Line Items) -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center justify-between pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center justify-between border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Product Line Items &amp; Packaging Breakdown</h4>
               <span id="cinv-items-count-badge" class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD] uppercase">${items.length} Items</span>
             </div>
@@ -7587,7 +7667,7 @@ export const SalesView = {
 
           <!-- Section 1: Commercial & Settlement Parameters -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Commercial Invoice &amp; Settlement Parameters</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5 pt-3">
@@ -7660,7 +7740,7 @@ export const SalesView = {
 
           <!-- Section 2: Product Specifications Table -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center justify-between pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center justify-between border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Product Specifications &amp; Packing Breakdown</h4>
               <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD] uppercase">${items.length} Product Items</span>
             </div>
@@ -8159,7 +8239,7 @@ export const SalesView = {
 
           <!-- Live AIS Telemetry Coordinates Card -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Live Satellite AIS Telemetry &amp; Coordinates</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5 pt-3">
@@ -8184,7 +8264,7 @@ export const SalesView = {
 
           <!-- Milestones Stepper Track -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9] mb-4">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9] mb-4">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Shipment Milestones &amp; Journey Timeline</h4>
             </div>
             
@@ -8316,7 +8396,7 @@ export const SalesView = {
 
           <!-- Section 1: Commercial & Voyage Identifiers -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Commercial &amp; Container Specifications</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5 pt-3">
@@ -8369,7 +8449,7 @@ export const SalesView = {
 
           <!-- Section 2: Transit Schedule & Key Milestone Dates -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Transit Schedule &amp; Key Milestone Dates</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5 pt-3">
@@ -8704,7 +8784,7 @@ export const SalesView = {
         <form id="form-fda-31-fields" class="space-y-4 text-xs animate-fade-in">
           <!-- Section 1: Commercial, Invoice & Container Identifiers -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Commercial, Invoice &amp; Container Identifiers</h4>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-3">
@@ -8782,7 +8862,7 @@ export const SalesView = {
 
           <!-- Section 2: Container Movement, Discharge & Gate Out Dates -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Logistics, Container Movement &amp; Release Dates</h4>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 pt-3">
@@ -8815,7 +8895,7 @@ export const SalesView = {
 
           <!-- Section 3: FDA / Authority Examination & Admissibility -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">FDA / Regulatory Examination &amp; Admissibility</h4>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 pt-3">
@@ -8858,7 +8938,7 @@ export const SalesView = {
 
           <!-- Section 4: Notices, Compliance Records & Notes -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Notice Dates, Compliance Records &amp; Notes</h4>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-3">
@@ -9028,7 +9108,7 @@ export const SalesView = {
 
           <!-- Section 1: Commercial & Export Shipment Parameters -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Commercial, Invoice &amp; Container Identifiers</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5 pt-3">
@@ -9093,7 +9173,7 @@ export const SalesView = {
 
           <!-- Section 2: Logistics, Container Movement & Release Details -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Logistics, Container Movement &amp; Release Dates</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-5 gap-3.5 pt-3">
@@ -9122,7 +9202,7 @@ export const SalesView = {
 
           <!-- Section 3: FDA / Authority Examination & Admissibility -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">FDA / Regulatory Examination &amp; Admissibility</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5 pt-3">
@@ -9155,7 +9235,7 @@ export const SalesView = {
 
           <!-- Section 4: Notices, Compliance Records & Notes -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Notice Dates, Compliance Records &amp; Notes</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5 pt-3">
@@ -9214,18 +9294,12 @@ export const SalesView = {
   renderClearingAgent(container) {
     container.innerHTML = `
       <div class="space-y-3 animate-fade-in">
-        <!-- Page Title & Header Actions (NO Subheading) -->
+        <!-- Page Title (Strictly NO Subheading, Clean Heading) -->
         <div class="flex flex-wrap items-center justify-between gap-3 mb-1">
           <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Clearing Agent (Custom House Agents &amp; Port Logistics)</h1>
-          <div class="inline-flex items-center gap-2">
-            <button type="button" id="btn-create-cha" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-              <span>Add Clearing Agent</span>
-            </button>
-          </div>
         </div>
 
-        <!-- Search & Filter Card (4-column responsive grid) -->
+        <!-- CLEARING AGENT — Filter Fields (FROM DATE, TO DATE, STATUS) -->
         <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200">
           <div class="flex items-center justify-between pb-1">
             <div class="flex items-center gap-2">
@@ -9233,55 +9307,42 @@ export const SalesView = {
               <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
             </div>
             <div class="inline-flex items-center gap-2">
+              <!-- Circular 32x32 Reset Button -->
               <button type="button" id="flt-cha-reset-btn" class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Reset all filters">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
               </button>
+              <!-- Circular 32x32 Collapse/Expand Toggle Button -->
               <button type="button" id="flt-cha-toggle-btn" class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Hide Filter">
                 <svg class="w-3.5 h-3.5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
               </button>
             </div>
           </div>
           <div id="flt-cha-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
-            <!-- Agent Name -->
+            <!-- FROM DATE -->
             <div>
-              <label for="flt-cha-name" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Agent Name</label>
-              <select id="flt-cha-name" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                <option value="ALL">All Agents</option>
-                <option value="Seaways Shipping">Seaways Shipping &amp; Logistics Ltd</option>
-                <option value="Evergreen Maritime">Evergreen Maritime Cargo Agency</option>
-                <option value="Visakha Ocean">Visakha Ocean Transports Pvt Ltd</option>
-                <option value="Transworld">Transworld Clearing &amp; Forwarding Corp</option>
-              </select>
+              <label for="flt-cha-from" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FROM DATE</label>
+              <input type="date" id="flt-cha-from" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
             </div>
 
-            <!-- Customs License No -->
+            <!-- TO DATE -->
             <div>
-              <label for="flt-cha-lic" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Customs License No</label>
-              <input type="text" id="flt-cha-lic" placeholder="e.g. CHA-PAN" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <label for="flt-cha-to" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">TO DATE</label>
+              <input type="date" id="flt-cha-to" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
             </div>
 
-            <!-- Port Location -->
+            <!-- STATUS -->
             <div>
-              <label for="flt-cha-port" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Port Location</label>
-              <select id="flt-cha-port" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                <option value="ALL">All Ports</option>
-                <option value="Visakhapatnam">Visakhapatnam Port (INVTZ)</option>
-                <option value="Chennai">Chennai Port (INMAA)</option>
-                <option value="Krishnapatnam">Krishnapatnam Port (INKRI)</option>
-              </select>
-            </div>
-
-            <!-- Agent Status -->
-            <div>
-              <label for="flt-cha-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Agent Status</label>
+              <label for="flt-cha-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">STATUS</label>
               <select id="flt-cha-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
                 <option value="ALL">All Statuses</option>
-                <option value="ACTIVE_VERIFIED">Active &amp; Verified</option>
-                <option value="PENDING_AUDIT">Pending Audit</option>
+                <option value="CLEARED_ADMITTED">Cleared &amp; Admitted</option>
+                <option value="DUTY_PAID_PENDING_RELEASE">Duty Paid - Pending Release</option>
+                <option value="ASSESSMENT_IN_PROGRESS">Assessment In Progress</option>
+                <option value="CUSTOMS_HOLD_EXAM">Customs Hold / Exam</option>
               </select>
             </div>
 
-            <!-- Search Button placed after the last input field -->
+            <!-- Search Button placed right after last field -->
             <div class="flex items-end">
               <button type="button" id="flt-cha-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
@@ -9295,11 +9356,6 @@ export const SalesView = {
         <div id="clearing-agent-table-container"></div>
       </div>
     `;
-
-    // Hook primary action button
-    container.querySelector('#btn-create-cha')?.addEventListener('click', () => {
-      this.showAddClearingAgentModal(null);
-    });
 
     // Toggle filter
     const toggleBtn = container.querySelector('#flt-cha-toggle-btn');
@@ -9315,7 +9371,7 @@ export const SalesView = {
         containerId: 'clearing-agent-table-container',
         data: dataToDisplay,
         keyField: 'id',
-        tableTitle: `Clearing Agents Directory (${dataToDisplay.length})`,
+        tableTitle: `Clearing Agent Entries (${dataToDisplay.length})`,
         searchable: true,
         exportable: true,
         pageSize: 10,
@@ -9327,62 +9383,49 @@ export const SalesView = {
             render: (v, r, idx) => `<span class="font-mono text-xs text-[#5E6C84]">${idx + 1}</span>`
           },
           {
-            field: 'agentCode',
-            header: 'Code',
-            render: (v) => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer">${v}</span>`
+            field: 'invNo',
+            header: 'Inv No',
+            render: (v) => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer">${v || '-'}</span>`
           },
           {
-            field: 'agentName',
-            header: 'Clearing Agency Name',
+            field: 'buyer',
+            header: 'Buyer',
             render: (v) => `<span class="font-bold text-[#172B4D] text-xs">${v || '-'}</span>`
           },
           {
-            field: 'licenseNo',
-            header: 'Customs License No',
-            render: (v) => `<span class="font-mono text-xs text-[#5E6C84]">${v || '-'}</span>`
+            field: 'blNo',
+            header: 'BL No',
+            render: (v) => `<span class="font-mono text-xs text-[#172B4D]">${v || '-'}</span>`
           },
           {
-            field: 'contactPerson',
-            header: 'CHA Incharge',
-            render: (v) => `<span class="text-xs font-semibold text-[#172B4D]">${v || '-'}</span>`
+            field: 'portOfDischarge',
+            header: 'Port Of Discharge',
+            render: (v) => `<span class="text-xs text-[#5E6C84]">${v || '-'}</span>`
           },
           {
-            field: 'phone',
-            header: 'Phone / Helpline',
-            render: (v) => `<span class="font-mono text-xs text-[#5E6C84]">${v || '-'}</span>`
-          },
-          {
-            field: 'activeContainers',
-            header: 'Active Shipments',
-            render: (v) => `<span class="px-2 py-0.5 rounded text-[11px] font-bold bg-[#F0F9FF] text-[#00A4B7] border border-[#BAE6FD]">${v || 0} Containers</span>`
-          },
-          {
-            field: 'totalCleared',
-            header: 'Lifetime Cleared',
-            render: (v) => `<span class="font-mono text-xs font-bold text-[#172B4D]">${Number(v || 0).toLocaleString('en-IN')} TEUs</span>`
-          },
-          {
-            field: 'rating',
-            header: 'Audit Score',
-            render: (v) => `<span class="font-mono text-xs text-[#006644] font-bold">${v || '★ 4.8'}</span>`
+            field: 'notifyPartyName',
+            header: 'Notify party Name',
+            render: (v) => `<span class="font-semibold text-xs text-[#172B4D]">${v || '-'}</span>`
           },
           {
             field: 'status',
             header: 'Status',
             render: (v) => {
               const val = String(v || '').toUpperCase();
-              let cls = 'bg-[#E3FCEF] text-[#006644] border-[#ABF5D1]';
-              if (val.includes('AUDIT') || val.includes('PENDING')) {
-                cls = 'bg-[#FFFAE6] text-[#FF8B00] border-[#FFE380]';
+              let badgeCls = 'bg-[#E3FCEF] text-[#006644] border-[#ABF5D1]';
+              if (val.includes('HOLD') || val.includes('EXAM')) {
+                badgeCls = 'bg-[#FFEBE6] text-[#DE350B] border-[#FFBDAD]';
+              } else if (val.includes('PENDING') || val.includes('PROGRESS')) {
+                badgeCls = 'bg-[#FFFAE6] text-[#FF8B00] border-[#FFE380]';
               }
-              return `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold border ${cls} uppercase">${val.replace(/_/g, ' ')}</span>`;
+              return `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold border ${badgeCls}">${v || 'RECORDED'}</span>`;
             }
           }
         ],
         actions: [
           {
-            label: 'Edit Clearing Agent',
-            icon: `<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>`,
+            label: 'Add Clearing Details',
+            icon: `<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>`,
             onClick: (row) => this.showAddClearingAgentModal(row)
           }
         ]
@@ -9396,161 +9439,203 @@ export const SalesView = {
     const resetBtn = container.querySelector('#flt-cha-reset-btn');
 
     searchBtn?.addEventListener('click', () => {
-      const name = container.querySelector('#flt-cha-name')?.value || 'ALL';
-      const lic = container.querySelector('#flt-cha-lic')?.value?.trim().toUpperCase() || '';
-      const port = container.querySelector('#flt-cha-port')?.value || 'ALL';
+      const from = container.querySelector('#flt-cha-from')?.value || '';
+      const to = container.querySelector('#flt-cha-to')?.value || '';
       const st = container.querySelector('#flt-cha-status')?.value || 'ALL';
 
       let filtered = [...this.state.clearingAgents];
 
-      if (name !== 'ALL') {
-        filtered = filtered.filter(r => (r.agentName || '').includes(name));
+      if (from) {
+        filtered = filtered.filter(r => (r.invDate || '') >= from || (r.entryDate || '') >= from);
       }
-      if (lic) {
-        filtered = filtered.filter(r => (r.licenseNo || '').toUpperCase().includes(lic));
-      }
-      if (port !== 'ALL') {
-        filtered = filtered.filter(r => (r.portLocation || '').includes(port));
+      if (to) {
+        filtered = filtered.filter(r => (r.invDate || '') <= to || (r.entryDate || '') <= to);
       }
       if (st !== 'ALL') {
         filtered = filtered.filter(r => (r.status || '').toUpperCase().includes(st));
       }
 
       renderTable(filtered);
-      Toast.show(`Filtered ${filtered.length} clearing agency record(s)`, 'info');
+      Toast.show(`Filtered ${filtered.length} clearing agent record(s)`, 'info');
     });
 
     resetBtn?.addEventListener('click', () => {
-      if (container.querySelector('#flt-cha-name')) container.querySelector('#flt-cha-name').value = 'ALL';
-      if (container.querySelector('#flt-cha-lic')) container.querySelector('#flt-cha-lic').value = '';
-      if (container.querySelector('#flt-cha-port')) container.querySelector('#flt-cha-port').value = 'ALL';
+      if (container.querySelector('#flt-cha-from')) container.querySelector('#flt-cha-from').value = '';
+      if (container.querySelector('#flt-cha-to')) container.querySelector('#flt-cha-to').value = '';
       if (container.querySelector('#flt-cha-status')) container.querySelector('#flt-cha-status').value = 'ALL';
       renderTable(this.state.clearingAgents);
       Toast.show('Clearing agent filters reset', 'info');
     });
   },
 
-  // Modal: Add / Onboard Clearing Agent (CHA)
+  // Modal: Add / Update Clearing Agent Details (Invoice, Transactions, Notify & Duty)
   showAddClearingAgentModal(targetRow) {
-    const nextIdx = this.state.clearingAgents.length + 1;
     const isEdit = !!targetRow;
     const d = targetRow || {
-      id: `CHA-${String(nextIdx).padStart(2, '0')}`,
-      agentCode: `CHA-${String(nextIdx).padStart(2, '0')}`,
-      agentName: "",
-      licenseNo: `CHA-PAN-VSP-${String(100 + nextIdx)}`,
-      contactPerson: "",
-      phone: "+91 891 ",
-      email: "@logistics.in",
-      portLocation: "Visakhapatnam (INVTZ)",
-      address: "Port Commercial Corridor, Visakhapatnam",
-      activeContainers: 0,
-      totalCleared: 0,
-      rating: "5.0 / 5.0",
-      status: "ACTIVE_VERIFIED",
-      panGst: "AABCS9920GST001",
-      portRegNo: `VPA-CHA-REG-2026-${10 + nextIdx}`,
-      authorizedScope: "Frozen Marine Seafood Cargo, Reefer Containers",
-      handlingLimit: "20 Containers / Week"
+      id: `CHA-ENT-2026-${String(this.state.clearingAgents.length + 1).padStart(3, '0')}`,
+      invNo: "CINV-EXP-2026-" + Math.floor(550 + Math.random() * 100),
+      poNo: "PO-RL-" + Math.floor(1000 + Math.random() * 9000),
+      buyer: "Red Lobster Supply Chain LLC",
+      consignee: "Red Lobster Supply Chain LLC",
+      invDate: new Date().toISOString().split('T')[0],
+      blNo: "MEDUST" + Math.floor(100000 + Math.random() * 900000),
+      containerNo: "MSKU-" + Math.floor(1000000 + Math.random() * 9000000),
+      portOfDischarge: "Port of Los Angeles (USLAX)",
+      entryNumber: "CUS-ENT-2026-" + Math.floor(10000 + Math.random() * 90000),
+      entryDate: new Date().toISOString().split('T')[0],
+      notifyPartyName: "Pacific Seafood Logistics Inc",
+      notifyParty: "Pacific Seafood Logistics Inc",
+      cfCharges: 3250.00,
+      adDuty: 0.00,
+      hmDuty: 420.00,
+      mpDuty: 310.00,
+      cvDuty: 0.00,
+      rtDuty: 180.00,
+      invoiceValue: 148500.00,
+      enteredInvoiceValue: 148500.00,
+      total: 4160.00,
+      grandTotal: 152660.00,
+      status: "CLEARED_ADMITTED"
     };
 
     Modal.open({
-      title: isEdit ? `Edit Clearing Agent - ${d.agentName || d.agentCode}` : 'Onboard Custom House Agent (CHA)',
+      title: isEdit ? `Update Customs Clearing Entry — ${d.invNo}` : 'Add Customs Clearing Entry',
       size: 'xl',
       content: `
-        <form id="form-cha-modal" class="space-y-4 text-xs animate-fade-in">
-          <!-- Section 1: Agency Identification & Customs Licensing -->
+        <form id="form-cha-entry-modal" class="space-y-4 text-xs animate-fade-in">
+          <!-- SECTION 1: CLEARING AGENT FORM — Invoice Details Section -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
-              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Agency Identification &amp; Customs Licensing</h4>
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Invoice Details Section</h4>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 pt-3">
               <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">AGENT CODE <span class="text-[#DE350B]">*</span></label>
-                <input type="text" id="cha-form-code" value="${d.agentCode || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
-              </div>
-
-              <div class="sm:col-span-2">
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CLEARING AGENCY NAME <span class="text-[#DE350B]">*</span></label>
-                <input type="text" id="cha-form-name" value="${d.agentName || ''}" placeholder="e.g. Seaways Shipping & Logistics Ltd" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">INVOICE NO <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="cha-inv-no" value="${d.invNo || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
               </div>
 
               <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CUSTOMS LICENSE NO <span class="text-[#DE350B]">*</span></label>
-                <input type="text" id="cha-form-lic" value="${d.licenseNo || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PO NO</label>
+                <input type="text" id="cha-po-no" value="${d.poNo || ''}" placeholder="e.g. PO-RL-8821" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
               </div>
 
               <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PORT REGISTRATION NO</label>
-                <input type="text" id="cha-form-port-reg" value="${d.portRegNo || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CONSIGNEE</label>
+                <input type="text" id="cha-consignee" value="${d.consignee || d.buyer || ''}" placeholder="e.g. Red Lobster Supply Chain LLC" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
               </div>
 
               <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PAN / GST NUMBER</label>
-                <input type="text" id="cha-form-pan" value="${d.panGst || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">INV DATE</label>
+                <input type="date" id="cha-inv-date" value="${d.invDate || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BL NO</label>
+                <input type="text" id="cha-bl-no" value="${d.blNo || ''}" placeholder="e.g. MEDUST109284" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CONTAINER NO</label>
+                <input type="text" id="cha-container-no" value="${d.containerNo || ''}" placeholder="e.g. MSKU-9821034" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
               </div>
             </div>
           </div>
 
-          <!-- Section 2: Contact Person & Communication -->
+          <!-- SECTION 2: CLEARING AGENT FORM — Transactions Section -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
-              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Contact Person &amp; Communication Channels</h4>
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Transactions Section</h4>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 pt-3">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-3">
               <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CHA INCHARGE / CONTACT PERSON <span class="text-[#DE350B]">*</span></label>
-                <input type="text" id="cha-form-contact" value="${d.contactPerson || ''}" placeholder="e.g. K. V. Subba Rao" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Entry Number <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="cha-entry-num" value="${d.entryNumber || ''}" placeholder="e.g. CUS-ENT-2026-90412" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
               </div>
 
               <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PHONE / DIRECT HELPLINE <span class="text-[#DE350B]">*</span></label>
-                <input type="text" id="cha-form-phone" value="${d.phone || ''}" placeholder="+91 891 2568901" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
-              </div>
-
-              <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">OFFICIAL EMAIL <span class="text-[#DE350B]">*</span></label>
-                <input type="email" id="cha-form-email" value="${d.email || ''}" placeholder="ops@agency.com" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
-              </div>
-
-              <div class="sm:col-span-3">
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">OPERATIONS OFFICE ADDRESS</label>
-                <input type="text" id="cha-form-address" value="${d.address || ''}" placeholder="Harbour Park Road, Visakhapatnam" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Entry Date</label>
+                <input type="date" id="cha-entry-date" value="${d.entryDate || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
               </div>
             </div>
           </div>
 
-          <!-- Section 3: Operations & Compliance Scope -->
+          <!-- SECTION 3: CLEARING AGENT FORM — Notify Section -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
-              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Operations Capacity &amp; Compliance Verification</h4>
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Notify Section</h4>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 pt-3">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-3">
               <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PRIMARY PORT OF OPERATION</label>
-                <select id="cha-form-port" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                  <option value="Visakhapatnam (INVTZ)" ${d.portLocation?.includes('Visakhapatnam') ? 'selected' : ''}>Visakhapatnam Port (INVTZ)</option>
-                  <option value="Chennai Port (INMAA)" ${d.portLocation?.includes('Chennai') ? 'selected' : ''}>Chennai Port (INMAA)</option>
-                  <option value="Krishnapatnam Port (INKRI)" ${d.portLocation?.includes('Krishnapatnam') ? 'selected' : ''}>Krishnapatnam Port (INKRI)</option>
-                </select>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Notify Party <span class="text-[#DE350B]">*</span></label>
+                <input type="text" id="cha-notify-party" value="${d.notifyParty || d.notifyPartyName || ''}" placeholder="e.g. Pacific Seafood Logistics Inc" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
               </div>
 
               <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">HANDLING CAPACITY</label>
-                <input type="text" id="cha-form-limit" value="${d.handlingLimit || '25 Containers / Week'}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Invoice No</label>
+                <input type="text" id="cha-notify-inv-no" value="${d.invNo || ''}" class="w-full text-xs px-2.5 py-1.5 bg-[#F8FAFC] border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
               </div>
 
               <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">AGENT STATUS <span class="text-[#DE350B]">*</span></label>
-                <select id="cha-form-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
-                  <option value="ACTIVE_VERIFIED" ${d.status === 'ACTIVE_VERIFIED' ? 'selected' : ''}>Active &amp; Verified</option>
-                  <option value="PENDING_AUDIT" ${d.status === 'PENDING_AUDIT' ? 'selected' : ''}>Pending Audit</option>
-                </select>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Invoice Date</label>
+                <input type="date" id="cha-notify-inv-date" value="${d.invDate || ''}" class="w-full text-xs px-2.5 py-1.5 bg-[#F8FAFC] border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+            </div>
+          </div>
+
+          <!-- SECTION 4: CLEARING AGENT FORM — Duty Section -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Duty Section &amp; Cost Settlement</h4>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-3 pt-3">
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">C&amp;F Charges ($)</label>
+                <input type="number" step="0.01" id="cha-duty-cf" value="${d.cfCharges ?? 0}" class="duty-calc-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
               </div>
 
-              <div class="sm:col-span-3">
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">AUTHORIZED COMMODITY HANDLING SCOPE</label>
-                <input type="text" id="cha-form-scope" value="${d.authorizedScope || 'Frozen Marine Products, Reefer Container Specialized'}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">AD Duty ($)</label>
+                <input type="number" step="0.01" id="cha-duty-ad" value="${d.adDuty ?? 0}" class="duty-calc-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">HM Duty ($)</label>
+                <input type="number" step="0.01" id="cha-duty-hm" value="${d.hmDuty ?? 0}" class="duty-calc-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">MP Duty ($)</label>
+                <input type="number" step="0.01" id="cha-duty-mp" value="${d.mpDuty ?? 0}" class="duty-calc-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CV Duty ($)</label>
+                <input type="number" step="0.01" id="cha-duty-cv" value="${d.cvDuty ?? 0}" class="duty-calc-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">RT Duty ($)</label>
+                <input type="number" step="0.01" id="cha-duty-rt" value="${d.rtDuty ?? 0}" class="duty-calc-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Invoice Value ($)</label>
+                <input type="number" step="0.01" id="cha-duty-inv-val" value="${d.invoiceValue ?? 0}" class="w-full text-xs px-2.5 py-1.5 bg-[#F8FAFC] border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Entered Invoice Value ($)</label>
+                <input type="number" step="0.01" id="cha-duty-entered-val" value="${d.enteredInvoiceValue ?? 0}" class="duty-calc-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Total ($)</label>
+                <input type="number" step="0.01" id="cha-duty-total" value="${d.total ?? 0}" class="w-full text-xs px-2.5 py-1.5 bg-[#F0FDF4] border border-[#BBF7D0] rounded font-mono font-extrabold text-[#006644] focus:outline-none shadow-2xs" readonly>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#00A4B7] uppercase tracking-wider mb-1">Grand Total ($)</label>
+                <input type="number" step="0.01" id="cha-duty-grand-total" value="${d.grandTotal ?? 0}" class="w-full text-xs px-2.5 py-1.5 bg-[#F0F9FF] border border-[#BAE6FD] rounded font-mono font-extrabold text-[#00A4B7] focus:outline-none shadow-2xs" readonly>
               </div>
             </div>
           </div>
@@ -9563,68 +9648,129 @@ export const SalesView = {
           onClick: (modal) => modal.close()
         },
         {
-          label: isEdit ? 'Update Clearing Agent' : 'Save Clearing Agent',
+          label: isEdit ? 'Update Clearing Entry' : 'Save Clearing Entry',
           type: 'primary',
           onClick: (modal) => {
-            const getVal = (id) => document.getElementById(id)?.value?.trim() || '';
+            const invNo = document.getElementById('cha-inv-no')?.value?.trim();
+            const entryNum = document.getElementById('cha-entry-num')?.value?.trim();
+            const notifyParty = document.getElementById('cha-notify-party')?.value?.trim();
 
-            const codeVal = getVal('cha-form-code');
-            const nameVal = getVal('cha-form-name');
-            const licVal = getVal('cha-form-lic');
-            const contactVal = getVal('cha-form-contact');
-            const phoneVal = getVal('cha-form-phone');
-            const emailVal = getVal('cha-form-email');
-
-            if (!codeVal || !nameVal || !licVal || !contactVal || !phoneVal || !emailVal) {
-              Toast.show('Please fill in all mandatory fields marked with *', 'warning');
+            if (!invNo) {
+              Toast.show('Please enter INVOICE NO', 'error');
+              return;
+            }
+            if (!entryNum) {
+              Toast.show('Please enter Entry Number', 'error');
+              return;
+            }
+            if (!notifyParty) {
+              Toast.show('Please enter Notify Party', 'error');
               return;
             }
 
-            const updatedData = {
+            const cf = parseFloat(document.getElementById('cha-duty-cf')?.value) || 0;
+            const ad = parseFloat(document.getElementById('cha-duty-ad')?.value) || 0;
+            const hm = parseFloat(document.getElementById('cha-duty-hm')?.value) || 0;
+            const mp = parseFloat(document.getElementById('cha-duty-mp')?.value) || 0;
+            const cv = parseFloat(document.getElementById('cha-duty-cv')?.value) || 0;
+            const rt = parseFloat(document.getElementById('cha-duty-rt')?.value) || 0;
+            const enteredVal = parseFloat(document.getElementById('cha-duty-entered-val')?.value) || 0;
+            const invVal = parseFloat(document.getElementById('cha-duty-inv-val')?.value) || enteredVal;
+            const totalDuties = cf + ad + hm + mp + cv + rt;
+            const grandTotal = enteredVal + totalDuties;
+
+            const updatedRecord = {
               ...d,
-              agentCode: codeVal,
-              agentName: nameVal,
-              licenseNo: licVal,
-              portRegNo: getVal('cha-form-port-reg'),
-              panGst: getVal('cha-form-pan'),
-              contactPerson: contactVal,
-              phone: phoneVal,
-              email: emailVal,
-              address: getVal('cha-form-address'),
-              portLocation: getVal('cha-form-port'),
-              handlingLimit: getVal('cha-form-limit'),
-              status: getVal('cha-form-status'),
-              authorizedScope: getVal('cha-form-scope')
+              invNo,
+              poNo: document.getElementById('cha-po-no')?.value?.trim() || d.poNo,
+              consignee: document.getElementById('cha-consignee')?.value?.trim() || d.consignee,
+              buyer: document.getElementById('cha-consignee')?.value?.trim() || d.buyer,
+              invDate: document.getElementById('cha-inv-date')?.value || d.invDate,
+              blNo: document.getElementById('cha-bl-no')?.value?.trim() || d.blNo,
+              containerNo: document.getElementById('cha-container-no')?.value?.trim() || d.containerNo,
+              entryNumber: entryNum,
+              entryDate: document.getElementById('cha-entry-date')?.value || d.entryDate,
+              notifyParty,
+              notifyPartyName: notifyParty,
+              cfCharges: cf,
+              adDuty: ad,
+              hmDuty: hm,
+              mpDuty: mp,
+              cvDuty: cv,
+              rtDuty: rt,
+              invoiceValue: invVal,
+              enteredInvoiceValue: enteredVal,
+              total: totalDuties,
+              grandTotal: grandTotal,
+              status: d.status || 'CLEARED_ADMITTED'
             };
 
-            if (isEdit && targetRow) {
-              Object.assign(targetRow, updatedData);
-              Toast.show(`Clearing Agent ${targetRow.agentName} updated successfully`, 'success');
+            const existingIdx = this.state.clearingAgents.findIndex(x => x.id === d.id);
+            if (existingIdx >= 0) {
+              this.state.clearingAgents[existingIdx] = updatedRecord;
             } else {
-              this.state.clearingAgents.unshift(updatedData);
-              Toast.show(`Clearing Agent ${updatedData.agentName} onboarded successfully`, 'success');
+              this.state.clearingAgents.unshift(updatedRecord);
             }
 
             modal.close();
-            const mainEl = document.getElementById('sales-view-main');
-            if (mainEl) this.renderClearingAgent(mainEl);
+            this.renderClearingAgent(document.getElementById('sales-main-container'));
+            Toast.show(`Clearing record for ${invNo} saved successfully!`, 'success');
           }
         }
       ]
     });
+
+    // Wire up real-time duty & grand total recalculation in modal
+    setTimeout(() => {
+      const calcInputs = document.querySelectorAll('.duty-calc-input');
+      const recalc = () => {
+        const cf = parseFloat(document.getElementById('cha-duty-cf')?.value) || 0;
+        const ad = parseFloat(document.getElementById('cha-duty-ad')?.value) || 0;
+        const hm = parseFloat(document.getElementById('cha-duty-hm')?.value) || 0;
+        const mp = parseFloat(document.getElementById('cha-duty-mp')?.value) || 0;
+        const cv = parseFloat(document.getElementById('cha-duty-cv')?.value) || 0;
+        const rt = parseFloat(document.getElementById('cha-duty-rt')?.value) || 0;
+        const enteredVal = parseFloat(document.getElementById('cha-duty-entered-val')?.value) || 0;
+        const total = cf + ad + hm + mp + cv + rt;
+        const grandTotal = enteredVal + total;
+
+        const totalEl = document.getElementById('cha-duty-total');
+        const grandTotalEl = document.getElementById('cha-duty-grand-total');
+        if (totalEl) totalEl.value = total.toFixed(2);
+        if (grandTotalEl) grandTotalEl.value = grandTotal.toFixed(2);
+      };
+
+      calcInputs.forEach(inp => {
+        inp.addEventListener('input', recalc);
+      });
+
+      // Also mirror inv-no to notify-inv-no and inv-date to notify-inv-date
+      document.getElementById('cha-inv-no')?.addEventListener('input', (e) => {
+        const notInv = document.getElementById('cha-notify-inv-no');
+        if (notInv) notInv.value = e.target.value;
+      });
+      document.getElementById('cha-inv-date')?.addEventListener('input', (e) => {
+        const notDate = document.getElementById('cha-notify-inv-date');
+        if (notDate) notDate.value = e.target.value;
+      });
+    }, 50);
   },
 
-  // Modal: Clearing Agent Details View (On Row Click)
+  // Modal: View Full Details of Clearing Agent Record
   showClearingAgentDetailsModal(row) {
     const d = row || {};
     const val = String(d.status || '').toUpperCase();
     let statusClass = 'bg-[#E3FCEF] text-[#006644] border-[#ABF5D1]';
-    if (val.includes('AUDIT') || val.includes('PENDING')) {
+    if (val.includes('HOLD') || val.includes('EXAM')) {
+      statusClass = 'bg-[#FFEBE6] text-[#DE350B] border-[#FFBDAD]';
+    } else if (val.includes('PENDING') || val.includes('PROGRESS')) {
       statusClass = 'bg-[#FFFAE6] text-[#FF8B00] border-[#FFE380]';
     }
 
+    const fmt = (num) => '$' + Number(num || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
     Modal.open({
-      title: `Clearing Agent Profile - ${d.agentName || d.agentCode}`,
+      title: `Customs Clearing Details — ${d.invNo || d.id}`,
       size: 'xl',
       content: `
         <div class="space-y-4 text-xs animate-fade-in">
@@ -9632,99 +9778,165 @@ export const SalesView = {
           <div class="bg-gradient-to-r from-[#F0F9FF] to-[#F8FAFC] p-4 rounded-xl border border-[#BAE6FD] flex flex-wrap items-center justify-between gap-3 shadow-2xs">
             <div class="flex items-center gap-3">
               <div class="w-10 h-10 rounded-xl bg-[#00A4B7] text-white flex items-center justify-center font-bold shadow-xs">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
               </div>
               <div>
                 <div class="flex items-center gap-2 flex-wrap">
-                  <span class="font-bold text-[#0F172A] text-base">${d.agentName || d.agentCode}</span>
-                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold tracking-wide uppercase border ${statusClass}">${val.replace(/_/g, ' ')}</span>
-                  <span class="px-2 py-0.5 rounded text-[11px] font-mono font-bold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">${d.agentCode}</span>
+                  <span class="font-mono font-extrabold text-[#0F172A] text-base">${d.invNo || '-'}</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold tracking-wide uppercase border ${statusClass}">${d.status || 'RECORDED'}</span>
+                  <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">Entry: ${d.entryNumber || '-'}</span>
                 </div>
                 <div class="text-[11px] text-[#64748B] mt-0.5 font-medium flex items-center gap-1.5 flex-wrap">
-                  <span><strong>License:</strong> ${d.licenseNo || '-'}</span>
-                  <span>•</span>
-                  <span><strong>Port:</strong> ${d.portLocation || '-'}</span>
-                  <span>•</span>
-                  <span><strong>Incharge:</strong> ${d.contactPerson || '-'}</span>
+                  <span>Buyer: <strong class="text-[#172B4D]">${d.buyer || d.consignee || '-'}</strong></span>
+                  <span class="text-[#CBD5E1]">&bull;</span>
+                  <span>Port of Discharge: <strong class="text-[#172B4D]">${d.portOfDischarge || '-'}</strong></span>
+                  <span class="text-[#CBD5E1]">&bull;</span>
+                  <span>Date: <strong class="text-[#172B4D]">${d.invDate || '-'}</strong></span>
                 </div>
               </div>
             </div>
 
-            <!-- Quick Metrics Badges -->
-            <div class="flex items-center gap-2 shrink-0">
-              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[85px]">
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Active Shipments</span>
-                <span class="font-mono font-extrabold text-[#00A4B7] text-xs mt-0.5 block">${d.activeContainers || 0} Cont.</span>
+            <!-- Quick Metrics Badges on Right -->
+            <div class="flex items-center gap-2 flex-wrap">
+              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[90px]">
+                <div class="text-[9px] font-bold text-[#64748B] uppercase tracking-wider">C&amp;F CHARGES</div>
+                <div class="font-bold text-[#172B4D] text-xs">${fmt(d.cfCharges)}</div>
               </div>
-              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[85px]">
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Lifetime Cleared</span>
-                <span class="font-mono font-extrabold text-[#172B4D] text-xs mt-0.5 block">${Number(d.totalCleared || 0).toLocaleString('en-IN')} TEUs</span>
+              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[90px]">
+                <div class="text-[9px] font-bold text-[#64748B] uppercase tracking-wider">TOTAL DUTY</div>
+                <div class="font-bold text-[#DE350B] text-xs">${fmt(d.total)}</div>
               </div>
-              <div class="bg-white px-3.5 py-1.5 rounded-lg border border-[#ABF5D1] bg-[#F0FDF4] shadow-2xs text-center min-w-[95px]">
-                <span class="text-[10px] font-bold text-[#006644] uppercase tracking-wider block">Audit Score</span>
-                <span class="font-mono font-extrabold text-[#006644] text-xs mt-0.5 block">${d.rating || '★ 4.9'}</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Section 1: Customs License & Government Authorizations -->
-          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
-              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Customs License &amp; Government Registrations</h4>
-            </div>
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5 pt-3">
-              <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">AGENT CODE</span>
-                <span class="font-mono font-extrabold text-[#00A4B7] text-xs block mt-0.5">${d.agentCode || '-'}</span>
-              </div>
-              <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">CUSTOMS LICENSE NO</span>
-                <span class="font-mono font-bold text-[#172B4D] text-xs block mt-0.5">${d.licenseNo || '-'}</span>
-              </div>
-              <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">PORT AUTHORITY REG NO</span>
-                <span class="font-mono font-semibold text-[#172B4D] text-xs block mt-0.5">${d.portRegNo || '-'}</span>
-              </div>
-              <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">PAN / GST NUMBER</span>
-                <span class="font-mono font-semibold text-[#172B4D] text-xs block mt-0.5">${d.panGst || '-'}</span>
-              </div>
-              <div class="sm:col-span-2">
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">PRIMARY PORT LOCATION</span>
-                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${d.portLocation || '-'}</span>
-              </div>
-              <div class="sm:col-span-2">
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">AUTHORIZED COMMODITY SCOPE</span>
-                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${d.authorizedScope || '-'}</span>
+              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[100px]">
+                <div class="text-[9px] font-bold text-[#64748B] uppercase tracking-wider">GRAND TOTAL</div>
+                <div class="font-bold text-[#006644] text-xs">${fmt(d.grandTotal)}</div>
               </div>
             </div>
           </div>
 
-          <!-- Section 2: Contact Information & Operations Base -->
+          <!-- Section 1: Invoice Details Section -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 pb-2.5 border-b border-[#F1F5F9]">
-              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Contact Information &amp; Operational Base</h4>
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Invoice Details Section</h4>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3.5 pt-3">
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">INVOICE NO</span>
+                <span class="font-mono font-bold text-[#00A4B7] text-xs block mt-0.5">${d.invNo || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">PO NO</span>
+                <span class="font-mono font-semibold text-[#172B4D] text-xs block mt-0.5">${d.poNo || '-'}</span>
+              </div>
+              <div class="sm:col-span-2">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">CONSIGNEE</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${d.consignee || d.buyer || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">INV DATE</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${d.invDate || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">BL NO</span>
+                <span class="font-mono font-semibold text-[#172B4D] text-xs block mt-0.5">${d.blNo || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">CONTAINER NO</span>
+                <span class="font-mono font-bold text-[#172B4D] text-xs block mt-0.5">${d.containerNo || '-'}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Transactions Section -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Transactions Section</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5 pt-3">
               <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">CHA INCHARGE</span>
-                <span class="font-bold text-[#172B4D] text-xs block mt-0.5">${d.contactPerson || '-'}</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Entry Number</span>
+                <span class="font-mono font-bold text-[#00A4B7] text-xs block mt-0.5">${d.entryNumber || '-'}</span>
               </div>
               <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">PHONE / DIRECT LINE</span>
-                <span class="font-mono font-bold text-[#00A4B7] text-xs block mt-0.5">${d.phone || '-'}</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Entry Date</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${d.entryDate || '-'}</span>
               </div>
               <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">OFFICIAL EMAIL</span>
-                <span class="text-[#172B4D] font-semibold text-xs block mt-0.5">${d.email || '-'}</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Port of Discharge</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${d.portOfDischarge || '-'}</span>
               </div>
               <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">WEEKLY HANDLING CAPACITY</span>
-                <span class="font-bold text-[#006644] text-xs block mt-0.5">${d.handlingLimit || '-'}</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Customs Status</span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold border ${statusClass} inline-block mt-0.5">${d.status || 'RECORDED'}</span>
               </div>
-              <div class="sm:col-span-4">
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">OPERATIONS OFFICE ADDRESS</span>
-                <span class="text-[#5E6C84] text-xs block mt-0.5 bg-[#F8FAFC] p-2.5 rounded border border-[#F1F5F9]">${d.address || '-'}</span>
+            </div>
+          </div>
+
+          <!-- Section 3: Notify Section -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Notify Section</h4>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5 pt-3">
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Notify Party</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${d.notifyParty || d.notifyPartyName || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Invoice No</span>
+                <span class="font-mono font-semibold text-[#172B4D] text-xs block mt-0.5">${d.invNo || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Invoice Date</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${d.invDate || '-'}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 4: Duty Section -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Duty Section &amp; Valuation Settlement</h4>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-5 gap-3.5 pt-3">
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">C&amp;F Charges</span>
+                <span class="font-mono font-semibold text-[#172B4D] text-xs block mt-0.5">${fmt(d.cfCharges)}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">AD Duty</span>
+                <span class="font-mono font-semibold text-[#172B4D] text-xs block mt-0.5">${fmt(d.adDuty)}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">HM Duty</span>
+                <span class="font-mono font-semibold text-[#172B4D] text-xs block mt-0.5">${fmt(d.hmDuty)}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">MP Duty</span>
+                <span class="font-mono font-semibold text-[#172B4D] text-xs block mt-0.5">${fmt(d.mpDuty)}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">CV Duty</span>
+                <span class="font-mono font-semibold text-[#172B4D] text-xs block mt-0.5">${fmt(d.cvDuty)}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">RT Duty</span>
+                <span class="font-mono font-semibold text-[#172B4D] text-xs block mt-0.5">${fmt(d.rtDuty)}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Invoice Value</span>
+                <span class="font-mono font-semibold text-[#172B4D] text-xs block mt-0.5">${fmt(d.invoiceValue)}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Entered Invoice Value</span>
+                <span class="font-mono font-bold text-[#172B4D] text-xs block mt-0.5">${fmt(d.enteredInvoiceValue)}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Total</span>
+                <span class="font-mono font-extrabold text-[#006644] text-xs block mt-0.5">${fmt(d.total)}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#00A4B7] uppercase tracking-wider block">Grand Total</span>
+                <span class="font-mono font-extrabold text-[#00A4B7] text-xs block mt-0.5">${fmt(d.grandTotal)}</span>
               </div>
             </div>
           </div>
@@ -9737,12 +9949,7 @@ export const SalesView = {
           onClick: (modal) => modal.close()
         },
         {
-          label: 'Print CHA Profile',
-          type: 'secondary',
-          onClick: () => Toast.show(`Printing official agency dossier for ${d.agentName}...`, 'info')
-        },
-        {
-          label: 'Edit Agent Profile',
+          label: 'Update Clearing Details',
           type: 'primary',
           onClick: (modal) => {
             modal.close();
