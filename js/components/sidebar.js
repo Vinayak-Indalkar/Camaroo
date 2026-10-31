@@ -4,6 +4,55 @@ import { ERP_DATA } from '../data/mockData.js';
 
 export const ADMIN_NAV_HIERARCHY = [
   {
+    id: "sales",
+    title: "Sales & Exports",
+    icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`,
+    submenus: [
+      {
+        id: "dashboard",
+        title: "Dashboard",
+        defaultTab: "overview",
+        tabs: [
+          { id: "overview", label: "Overview", hash: "#/sales/dashboard/overview" }
+        ]
+      },
+      {
+        id: "orders",
+        title: "Orders",
+        defaultTab: "proforma-list",
+        tabs: [
+          { id: "proforma-list", label: "Proforma List", hash: "#/sales/orders/proforma-list" },
+          { id: "custom-invoices", label: "Custom Invoices", hash: "#/sales/orders/custom-invoices" },
+          { id: "isf-details", label: "ISF Details", hash: "#/sales/orders/isf-details" },
+          { id: "shipping-bill", label: "Shipping Bill", hash: "#/sales/orders/shipping-bill" },
+          { id: "commercial-invoice", label: "Commercial Invoice", hash: "#/sales/orders/commercial-invoice" },
+          { id: "eta-status", label: "ETA Status", hash: "#/sales/orders/eta-status" },
+          { id: "fda-status", label: "FDA Status", hash: "#/sales/orders/fda-status" },
+          { id: "clearing-agent", label: "Clearing Agent", hash: "#/sales/orders/clearing-agent" }
+        ]
+      },
+      {
+        id: "payments",
+        title: "Payments",
+        defaultTab: "payment-summary",
+        tabs: [
+          { id: "payment-summary", label: "Payment Summary", hash: "#/sales/payments/payment-summary" },
+          { id: "buyer-payments", label: "Buyer Payments", hash: "#/sales/payments/buyer-payments" },
+          { id: "realization", label: "Collections & Realization", hash: "#/sales/payments/realization" }
+        ]
+      },
+      {
+        id: "insurance",
+        title: "Insurance",
+        defaultTab: "cargo-insurance",
+        tabs: [
+          { id: "cargo-insurance", label: "Cargo Insurance", hash: "#/sales/insurance/cargo-insurance" },
+          { id: "claims-register", label: "Claims Register", hash: "#/sales/insurance/claims-register" }
+        ]
+      }
+    ]
+  },
+  {
     id: "purchase",
     title: "Purchase",
     icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>`,
@@ -296,61 +345,6 @@ export const ADMIN_NAV_HIERARCHY = [
         defaultTab: "proforma-register",
         tabs: [
           { id: "proforma-register", label: "Proforma Register", hash: "#/inventory/inventory/proforma-register" }
-        ]
-      }
-    ]
-  },
-  {
-    id: "sales",
-    title: "Sales & Exports",
-    icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`,
-    submenus: [
-      {
-        id: "dashboard",
-        title: "Dashboard",
-        defaultTab: "overview",
-        tabs: [
-          { id: "overview", label: "Overview", hash: "#/sales/dashboard/overview" }
-        ]
-      },
-      {
-        id: "master-data",
-        title: "Master Data",
-        defaultTab: "product-catalog",
-        tabs: [
-          { id: "product-catalog", label: "Product Catalog", hash: "#/sales/master-data/product-catalog" },
-          { id: "customers-parties", label: "Customers & Parties", hash: "#/sales/master-data/customers-parties" },
-          { id: "brands", label: "Brands", hash: "#/sales/master-data/brands" }
-        ]
-      },
-      {
-        id: "contracts-pricing",
-        title: "Contracts & Pricing",
-        defaultTab: "price-book",
-        tabs: [
-          { id: "price-book", label: "Price Book", hash: "#/sales/contracts-pricing/price-book" },
-          { id: "sales-contracts", label: "Sales Contracts", hash: "#/sales/contracts-pricing/sales-contracts" }
-        ]
-      },
-      {
-        id: "export-ops",
-        title: "Export Operations & Logistics",
-        defaultTab: "shipping-docs",
-        tabs: [
-          { id: "shipping-docs", label: "Shipping Documentation", hash: "#/sales/export-ops/shipping-docs" },
-          { id: "compliance-clearing", label: "Compliance & Clearing", hash: "#/sales/export-ops/compliance-clearing" },
-          { id: "shipments-tracking", label: "Shipments & Tracking", hash: "#/sales/export-ops/shipments-tracking" },
-          { id: "cargo-insurance", label: "Cargo Insurance", hash: "#/sales/export-ops/cargo-insurance" }
-        ]
-      },
-      {
-        id: "export-finance",
-        title: "Export Finance",
-        defaultTab: "bank-negotiations",
-        tabs: [
-          { id: "bank-negotiations", label: "Bank Negotiations", hash: "#/sales/export-finance/bank-negotiations" },
-          { id: "collections-realization", label: "Collections & Realization", hash: "#/sales/export-finance/collections-realization" },
-          { id: "forward-contracts", label: "Forward Contracts", hash: "#/sales/export-finance/forward-contracts" }
         ]
       }
     ]

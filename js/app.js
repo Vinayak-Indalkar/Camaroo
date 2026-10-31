@@ -97,7 +97,7 @@ export const App = {
           '5': '#/master/master-data/masters',
           '6': '#/super-reports/audit-logs/audit-trail'
         } : {
-          '1': '#/purchase/dashboard/rm-dashboard',
+          '1': '#/sales/dashboard/overview',
           '2': '#/preprocessing/dashboard/overview',
           '3': '#/quality/dashboard/qc-overview',
           '4': '#/production/dashboard/dashboard',
@@ -157,7 +157,7 @@ export const App = {
       if (ERP_DATA.currentUser?.role === 'Super Admin') {
         window.location.hash = '#/dashboard/overview/system-overview';
       } else {
-        window.location.hash = '#/purchase/dashboard/rm-dashboard';
+        window.location.hash = '#/sales/dashboard/overview';
       }
       return;
     }
