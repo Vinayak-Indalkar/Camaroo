@@ -3276,7 +3276,7 @@ export const SalesView = {
             <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Exporter, Processor &amp; Reference</h4>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
               <div>
                 <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SELECT EXPORTER <span class="text-[#DE350B]">*</span></label>
                 <select id="form-pi-exporter" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
@@ -3435,7 +3435,7 @@ export const SalesView = {
             <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Commercial Terms, Banking &amp; Currency</h4>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
               <div class="sm:col-span-2">
                 <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BANK DETAILS <span class="text-[#DE350B]">*</span></label>
                 <select id="form-pi-bank" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
@@ -3509,7 +3509,7 @@ export const SalesView = {
             <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Freight, Charges &amp; Remarks</h4>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
               <div>
                 <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FREIGHT</label>
                 <select id="form-pi-freight" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
@@ -3528,7 +3528,7 @@ export const SalesView = {
                 <input type="number" id="form-pi-charge-amount" value="${d.chargeAmount || 0}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
               </div>
 
-              <div class="sm:col-span-3">
+              <div class="sm:col-span-2 md:col-span-4">
                 <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">REMARKS</label>
                 <textarea id="form-pi-remarks" rows="2" placeholder="Special contractual conditions, testing mandates & packing instructions" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">${d.remarks || ''}</textarea>
               </div>
@@ -4290,7 +4290,7 @@ export const SalesView = {
 
     Modal.open({
       title: `Custom Invoice Details - ${d.invoiceNo}`,
-      size: 'xl',
+      size: 'full',
       content: `
         <div class="space-y-4 text-xs animate-fade-in">
           <!-- Top Hero / Summary Card -->
@@ -4894,7 +4894,7 @@ export const SalesView = {
             <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Port Routing, Weights &amp; Valuation</h4>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
               <div>
                 <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PORT OF LOADING</label>
                 <input type="text" id="ci-step1-pol" value="${d.loadingPort || 'Visakhapatnam Sea (INVTZ)'}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
@@ -5042,7 +5042,7 @@ export const SalesView = {
 
     Modal.open({
       title: modalTitle,
-      size: 'xl',
+      size: 'full',
       content: `
         <div class="space-y-4 text-xs animate-fade-in">
           <!-- Form Input Fields (Variety & Pricing) - No border, No padding -->
@@ -5658,7 +5658,7 @@ export const SalesView = {
 
     Modal.open({
       title: isEdit ? `ISF 10+2 Filing Form - ${d.invoiceNo}` : 'Submit New ISF 10+2 Filing',
-      size: 'xl',
+      size: 'full',
       content: `
         <form id="form-isf-modal" class="space-y-4 text-xs animate-fade-in">
           <!-- Section 1: Commercial & Invoice Identifiers -->
@@ -5666,7 +5666,7 @@ export const SalesView = {
             <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Commercial &amp; Invoice Reference</h4>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
               <div>
                 <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CUSTOM INVOICE <span class="text-[#DE350B]">*</span></label>
                 <input type="text" id="isf-custom-invoice" value="${d.invoiceNo || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
@@ -5692,12 +5692,12 @@ export const SalesView = {
                 <input type="text" id="isf-transaction-no" value="${d.isfTransactionNo || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
               </div>
 
-              <div class="sm:col-span-2 lg:col-span-1">
+              <div class="col-span-1">
                 <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">P.INVOICE NO</label>
                 <input type="text" id="isf-p-invoice-no" value="${d.pInvoiceNo || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#403294] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
               </div>
 
-              <div class="sm:col-span-3 lg:col-span-6">
+              <div class="sm:col-span-2 md:col-span-4">
                 <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ADDRESS</label>
                 <input type="text" id="isf-address" value="${d.address || ''}" placeholder="Consignee delivery address in USA" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
               </div>
@@ -5709,7 +5709,7 @@ export const SalesView = {
             <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Shipping Line, Bills of Lading &amp; Container Specifications</h4>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
               <div>
                 <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SHIPPING LINE <span class="text-[#DE350B]">*</span></label>
                 <select id="isf-shipping-line" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
@@ -5833,7 +5833,7 @@ export const SalesView = {
                 <span>Enter Transhipment Details</span>
                 <span class="text-[10px] text-[#5E6C84] font-medium">* Required for transshipment route</span>
               </div>
-              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
                 <div>
                   <label class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">DEPARTURE PORT</label>
                   <input type="text" id="ts-departure-port" value="Visakhapatnam (INVTZ)" placeholder="Port of Departure" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
@@ -5864,7 +5864,7 @@ export const SalesView = {
                   <input type="text" id="ts-voy-no" value="V.024W" placeholder="Voyage Number" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#403294] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
                 </div>
 
-                <div class="sm:col-span-2 lg:col-span-6 flex justify-end">
+                <div class="sm:col-span-2 md:col-span-4 flex justify-end">
                   <button type="button" id="btn-add-ts-leg" class="btn-primary px-4 py-1.5 rounded-full text-xs font-bold inline-flex items-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px]">
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
                     <span>Add Transhipment Leg</span>
@@ -6056,7 +6056,7 @@ export const SalesView = {
 
     Modal.open({
       title: `ISF 10+2 Filing Details - ${d.invoiceNo || d.id}`,
-      size: 'xl',
+      size: 'full',
       content: `
         <div class="space-y-4 text-xs animate-fade-in">
           <!-- Top Hero / Summary Card -->
@@ -6566,7 +6566,7 @@ export const SalesView = {
 
     Modal.open({
       title: isEdit ? `Edit Shipping Bill - ${d.shippingBillNo}` : 'Generate Shipping Bill (Indian Customs Export EDI)',
-      size: 'xl',
+      size: 'full',
       content: `
         <form id="form-sb-modal" class="space-y-4 text-xs animate-fade-in">
           <!-- SHIPPING BILLING — Form Input Fields (Top Section) -->
@@ -6574,7 +6574,7 @@ export const SalesView = {
             <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">SHIPPING BILLING &mdash; Form Input Fields (Top Section)</h4>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 pt-3">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-3">
               <div>
                 <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">INVOICE NO <span class="text-[#DE350B]">*</span></label>
                 <input type="text" id="sb-form-invoice-no" value="${d.invoiceNo || d.invNo || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
@@ -6642,7 +6642,7 @@ export const SalesView = {
             <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">SHIPPING BILLING &mdash; Form Input Fields (Bottom Section)</h4>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 pt-3">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-3">
               <div>
                 <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SHIPPING BILL NO <span class="text-[#DE350B]">*</span></label>
                 <input type="text" id="sb-form-sb-no" value="${d.shippingBillNo || ''}" placeholder="e.g. SB-2026-88401" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
@@ -6793,7 +6793,7 @@ export const SalesView = {
 
     Modal.open({
       title: `Shipping Bill Details - ${d.shippingBillNo || d.id}`,
-      size: 'xl',
+      size: 'full',
       content: `
         <div class="space-y-4 text-xs animate-fade-in">
           <!-- Top Hero / Summary Card -->
@@ -7621,7 +7621,7 @@ export const SalesView = {
 
     Modal.open({
       title: `Commercial Invoice Details - ${d.invoiceNo || d.id}`,
-      size: 'xl',
+      size: 'full',
       content: `
         <div class="space-y-4 text-xs animate-fade-in">
           <!-- Top Hero / Summary Card -->
@@ -8350,7 +8350,7 @@ export const SalesView = {
     const d = row || {};
     Modal.open({
       title: `ETA Schedule & Voyage Details &mdash; ${d.containerNo}`,
-      size: 'xl',
+      size: 'full',
       content: `
         <div class="space-y-4 text-xs animate-fade-in">
           <!-- Top Hero / Summary Card -->
@@ -8779,7 +8779,7 @@ export const SalesView = {
 
     Modal.open({
       title: isEdit ? `FDA Clearance & Admissibility - ${d.invNo || d.invoiceNo}` : 'Add FDA Status Record',
-      size: 'xl',
+      size: 'full',
       content: `
         <form id="form-fda-31-fields" class="space-y-4 text-xs animate-fade-in">
           <!-- Section 1: Commercial, Invoice & Container Identifiers -->
@@ -8865,7 +8865,7 @@ export const SalesView = {
             <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Logistics, Container Movement &amp; Release Dates</h4>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 pt-3">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-3">
               <div>
                 <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CONTAINER GATE OUT DATE</label>
                 <input type="date" id="fda-field-gate-out" value="${d.containerGateOutDate || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
@@ -8898,7 +8898,7 @@ export const SalesView = {
             <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">FDA / Regulatory Examination &amp; Admissibility</h4>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 pt-3">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-3">
               <div>
                 <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FDA ENTRY NUMBER</label>
                 <input type="text" id="fda-field-entry-no" value="${d.fdaEntryNumber || ''}" placeholder="e.g. 701-4491029-3" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
@@ -9062,7 +9062,7 @@ export const SalesView = {
 
     Modal.open({
       title: `FDA Admissibility & Clearance Details - ${d.invNo || d.invoiceNo}`,
-      size: 'xl',
+      size: 'full',
       content: `
         <div class="space-y-4 text-xs animate-fade-in">
           <!-- Top Hero / Summary Card -->
@@ -9486,7 +9486,7 @@ export const SalesView = {
 
     Modal.open({
       title: isEdit ? `Update Customs Clearing Entry — ${d.invNo}` : 'Add Customs Clearing Entry',
-      size: 'xl',
+      size: 'full',
       content: `
         <form id="form-cha-entry-modal" class="space-y-4 text-xs animate-fade-in">
           <!-- SECTION 1: CLEARING AGENT FORM — Invoice Details Section -->
@@ -9494,7 +9494,7 @@ export const SalesView = {
             <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Invoice Details Section</h4>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 pt-3">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-3">
               <div>
                 <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">INVOICE NO <span class="text-[#DE350B]">*</span></label>
                 <input type="text" id="cha-inv-no" value="${d.invNo || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
@@ -9532,7 +9532,7 @@ export const SalesView = {
             <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Transactions Section</h4>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-3">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-3">
               <div>
                 <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Entry Number <span class="text-[#DE350B]">*</span></label>
                 <input type="text" id="cha-entry-num" value="${d.entryNumber || ''}" placeholder="e.g. CUS-ENT-2026-90412" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
@@ -9550,7 +9550,7 @@ export const SalesView = {
             <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Notify Section</h4>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-3">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-3">
               <div>
                 <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Notify Party <span class="text-[#DE350B]">*</span></label>
                 <input type="text" id="cha-notify-party" value="${d.notifyParty || d.notifyPartyName || ''}" placeholder="e.g. Pacific Seafood Logistics Inc" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
@@ -9573,7 +9573,7 @@ export const SalesView = {
             <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Duty Section</h4>
             </div>
-            <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-3 pt-3">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-3">
               <div>
                 <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">C&amp;F Charges ($)</label>
                 <input type="number" step="0.01" id="cha-duty-cf" value="${d.cfCharges ?? 0}" class="duty-calc-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
@@ -9757,7 +9757,7 @@ export const SalesView = {
 
     Modal.open({
       title: `Customs Clearing Details — ${d.invNo || d.id}`,
-      size: 'xl',
+      size: 'full',
       content: `
         <div class="space-y-4 text-xs animate-fade-in">
           <!-- Top Hero / Summary Card -->
