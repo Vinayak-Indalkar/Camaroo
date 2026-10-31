@@ -34,20 +34,23 @@ export const ADMIN_NAV_HIERARCHY = [
       {
         id: "payments",
         title: "Payments",
-        defaultTab: "payment-summary",
+        defaultTab: "forward-contracts",
         tabs: [
-          { id: "payment-summary", label: "Payment Summary", hash: "#/sales/payments/payment-summary" },
-          { id: "buyer-payments", label: "Buyer Payments", hash: "#/sales/payments/buyer-payments" },
-          { id: "realization", label: "Collections & Realization", hash: "#/sales/payments/realization" }
+          { id: "forward-contracts", label: "Forward Contracts", hash: "#/sales/payments/forward-contracts" },
+          { id: "collections", label: "Collections", hash: "#/sales/payments/collections" },
+          { id: "negotiations", label: "Negotiations", hash: "#/sales/payments/negotiations" },
+          { id: "realization", label: "Realization", hash: "#/sales/payments/realization" },
+          { id: "realization-done", label: "Realization Done", hash: "#/sales/payments/realization-done" }
         ]
       },
       {
         id: "insurance",
         title: "Insurance",
-        defaultTab: "cargo-insurance",
+        defaultTab: "pending-insurance",
         tabs: [
-          { id: "cargo-insurance", label: "Cargo Insurance", hash: "#/sales/insurance/cargo-insurance" },
-          { id: "claims-register", label: "Claims Register", hash: "#/sales/insurance/claims-register" }
+          { id: "pending-insurance", label: "Pending Insurance", hash: "#/sales/insurance/pending-insurance" },
+          { id: "insurance-templates", label: "Insurance Templates", hash: "#/sales/insurance/insurance-templates" },
+          { id: "insurance-payments", label: "Insurance Payments", hash: "#/sales/insurance/insurance-payments" }
         ]
       }
     ]

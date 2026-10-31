@@ -7286,20 +7286,23 @@ const ADMIN_NAV_HIERARCHY = [
       {
         id: "payments",
         title: "Payments",
-        defaultTab: "payment-summary",
+        defaultTab: "forward-contracts",
         tabs: [
-          { id: "payment-summary", label: "Payment Summary", hash: "#/sales/payments/payment-summary" },
-          { id: "buyer-payments", label: "Buyer Payments", hash: "#/sales/payments/buyer-payments" },
-          { id: "realization", label: "Collections & Realization", hash: "#/sales/payments/realization" }
+          { id: "forward-contracts", label: "Forward Contracts", hash: "#/sales/payments/forward-contracts" },
+          { id: "collections", label: "Collections", hash: "#/sales/payments/collections" },
+          { id: "negotiations", label: "Negotiations", hash: "#/sales/payments/negotiations" },
+          { id: "realization", label: "Realization", hash: "#/sales/payments/realization" },
+          { id: "realization-done", label: "Realization Done", hash: "#/sales/payments/realization-done" }
         ]
       },
       {
         id: "insurance",
         title: "Insurance",
-        defaultTab: "cargo-insurance",
+        defaultTab: "pending-insurance",
         tabs: [
-          { id: "cargo-insurance", label: "Cargo Insurance", hash: "#/sales/insurance/cargo-insurance" },
-          { id: "claims-register", label: "Claims Register", hash: "#/sales/insurance/claims-register" }
+          { id: "pending-insurance", label: "Pending Insurance", hash: "#/sales/insurance/pending-insurance" },
+          { id: "insurance-templates", label: "Insurance Templates", hash: "#/sales/insurance/insurance-templates" },
+          { id: "insurance-payments", label: "Insurance Payments", hash: "#/sales/insurance/insurance-payments" }
         ]
       }
     ]
@@ -63577,101 +63580,391 @@ const SalesView = {
     ],
 
     // 3. Payments Submenu datasets
-    payments: [
+    forwardContracts: [
       {
+        contractNo: "FWD-2026-081",
+        bankName: "State Bank of India (Forex Cell)",
+        currencyPair: "USD/INR",
+        bookingDate: "2026-10-15",
+        maturityDate: "2026-12-31",
+        contractRate: 84.65,
+        bookedAmount: 250000,
+        utilizedAmount: 180000,
+        balanceAmount: 70000,
+        purpose: "Export Realization Hedge - US Shrimp Shipments",
+        status: "ACTIVE_OPEN"
+      },
+      {
+        contractNo: "FWD-2026-082",
+        bankName: "Canara Bank Overseas Branch",
+        currencyPair: "USD/INR",
+        bookingDate: "2026-10-10",
+        maturityDate: "2026-11-30",
+        contractRate: 84.78,
+        bookedAmount: 500000,
+        utilizedAmount: 500000,
+        balanceAmount: 0,
+        purpose: "Forward Sale Hedge - Japan Black Tiger Contract",
+        status: "FULLY_UTILIZED"
+      },
+      {
+        contractNo: "FWD-2026-083",
+        bankName: "HDFC Bank Trade Finance",
+        currencyPair: "EUR/INR",
+        bookingDate: "2026-10-20",
+        maturityDate: "2027-01-31",
+        contractRate: 91.40,
+        bookedAmount: 150000,
+        utilizedAmount: 35000,
+        balanceAmount: 115000,
+        purpose: "Seabass Fillets Hedge - EU Buyer Coverage",
+        status: "ACTIVE_OPEN"
+      },
+      {
+        contractNo: "FWD-2026-084",
+        bankName: "State Bank of India (Forex Cell)",
+        currencyPair: "USD/INR",
+        bookingDate: "2026-10-25",
+        maturityDate: "2027-02-28",
+        contractRate: 84.92,
+        bookedAmount: 350000,
+        utilizedAmount: 0,
+        balanceAmount: 350000,
+        purpose: "Sysco & Red Lobster Winter Export Hedge",
+        status: "ACTIVE_OPEN"
+      }
+    ],
+
+    collections: [
+      {
+        collectionRef: "COL-2026-401",
         invoiceNo: "INV-EXP-2026-301",
         contractNo: "SC-USA-2026-441",
         buyerName: "Red Lobster Supply Chain LLC",
+        collectionBank: "Citibank N.A. New York (via SBI)",
+        remittanceDate: "2026-10-22",
         currency: "USD",
-        invoiceValue: 159300,
-        realizedAmount: 159300,
-        balanceReceivable: 0,
-        dueDate: "2026-11-15",
-        bankName: "State Bank of India (Forex Cell)",
-        lcReference: "LC-CITI-US-991204",
-        status: "FULL_REALIZED"
+        billAmount: 159300,
+        amountCollected: 159300,
+        bankCharges: 120,
+        netReceived: 159180,
+        settlementMode: "SWIFT Wire MT103",
+        status: "RECEIVED_CREDITED"
       },
       {
+        collectionRef: "COL-2026-402",
         invoiceNo: "INV-EXP-2026-302",
         contractNo: "SC-JPN-2026-112",
         buyerName: "Maruha Nichiro Corporation",
+        collectionBank: "Bank of Tokyo-Mitsubishi (via Canara)",
+        remittanceDate: "2026-10-18",
         currency: "USD",
-        invoiceValue: 203000,
-        realizedAmount: 60900,
-        balanceReceivable: 142100,
-        dueDate: "2026-11-10",
-        bankName: "Canara Bank Overseas Branch",
-        lcReference: "CAD-BOT-JPN-4410",
-        status: "PARTIAL_ADVANCE_RECEIVED"
+        billAmount: 203000,
+        amountCollected: 60900,
+        bankCharges: 95,
+        netReceived: 60805,
+        settlementMode: "CAD Advance SWIFT",
+        status: "PARTIALLY_COLLECTED"
       },
       {
-        invoiceNo: "INV-EXP-2026-303",
-        contractNo: "SC-EU-2026-079",
-        buyerName: "Royal Greenland Seafood A/S",
-        currency: "USD",
-        invoiceValue: 134400,
-        realizedAmount: 0,
-        balanceReceivable: 134400,
-        dueDate: "2026-12-15",
-        bankName: "HDFC Bank Trade Finance",
-        lcReference: "LC-DAN-DK-331092",
-        status: "PENDING_MATURITY"
-      },
-      {
+        collectionRef: "COL-2026-403",
         invoiceNo: "INV-EXP-2026-304",
         contractNo: "SC-USA-2026-448",
         buyerName: "Sysco Corporation International",
+        collectionBank: "JPMorgan Chase Bank (via SBI)",
+        remittanceDate: "2026-10-28",
         currency: "USD",
-        invoiceValue: 211200,
-        realizedAmount: 211200,
-        balanceReceivable: 0,
-        dueDate: "2026-11-02",
-        bankName: "State Bank of India (Forex Cell)",
-        lcReference: "LC-CHASE-US-11029",
+        billAmount: 211200,
+        amountCollected: 211200,
+        bankCharges: 150,
+        netReceived: 211050,
+        settlementMode: "LC Negotiation Proceeds",
+        status: "RECEIVED_CREDITED"
+      },
+      {
+        collectionRef: "COL-2026-404",
+        invoiceNo: "INV-EXP-2026-303",
+        contractNo: "SC-EU-2026-079",
+        buyerName: "Royal Greenland Seafood A/S",
+        collectionBank: "Danske Bank Copenhagen (via HDFC)",
+        remittanceDate: "2026-11-05",
+        currency: "USD",
+        billAmount: 134400,
+        amountCollected: 0,
+        bankCharges: 0,
+        netReceived: 0,
+        settlementMode: "LC at Sight under Maturity",
+        status: "PENDING_COLLECTION"
+      }
+    ],
+
+    negotiations: [
+      {
+        negotiationNo: "NEG-2026-192",
+        lcNumber: "LC-CITI-US-991204",
+        invoiceNo: "CINV-EXP-2026-551",
+        negotiatingBank: "State Bank of India (Forex Cell)",
+        submissionDate: "2026-10-18",
+        billValueUsd: 159300,
+        discountRate: "SOFR + 1.25%",
+        netFinancedUsd: 156820,
+        tenorDays: "30 Days Sight",
+        discrepancyStatus: "CLEAN_DOCS_ACCEPTED",
+        status: "DISCOUNTED_CREDITED"
+      },
+      {
+        negotiationNo: "NEG-2026-193",
+        lcNumber: "LC-CHASE-US-11029",
+        invoiceNo: "CINV-EXP-2026-552",
+        negotiatingBank: "State Bank of India (Forex Cell)",
+        submissionDate: "2026-10-24",
+        billValueUsd: 211200,
+        discountRate: "SOFR + 1.20%",
+        netFinancedUsd: 207915,
+        tenorDays: "At Sight",
+        discrepancyStatus: "CLEAN_DOCS_ACCEPTED",
+        status: "DISCOUNTED_CREDITED"
+      },
+      {
+        negotiationNo: "NEG-2026-194",
+        lcNumber: "LC-DAN-DK-331092",
+        invoiceNo: "CINV-EXP-2026-549",
+        negotiatingBank: "HDFC Bank Trade Finance",
+        submissionDate: "2026-10-27",
+        billValueUsd: 134400,
+        discountRate: "Fixed 6.25%",
+        netFinancedUsd: 131880,
+        tenorDays: "60 Days Sight",
+        discrepancyStatus: "UNDER_SCRUTINY",
+        status: "LODGED_IN_BANK"
+      }
+    ],
+
+    realizations: [
+      {
+        realizationRef: "REAL-2026-551",
+        shippingBillNo: "SB-2026-88401",
+        sbDate: "2026-10-15",
+        invoiceNo: "INV-EXP-2026-301",
+        buyerName: "Red Lobster Supply Chain LLC",
+        destinationCountry: "United States",
+        invoiceValueUsd: 159300,
+        unrealizedUsd: 0,
+        dueDaysLeft: "0 Days (Settled)",
+        edpmsStatus: "RECONCILED_EDPMS",
         status: "FULL_REALIZED"
+      },
+      {
+        realizationRef: "REAL-2026-552",
+        shippingBillNo: "SB-2026-88390",
+        sbDate: "2026-10-11",
+        invoiceNo: "INV-EXP-2026-302",
+        buyerName: "Maruha Nichiro Corporation",
+        destinationCountry: "Japan",
+        invoiceValueUsd: 203000,
+        unrealizedUsd: 142100,
+        dueDaysLeft: "10 Days Remaining",
+        edpmsStatus: "PARTIAL_OUTSTANDING",
+        status: "PARTIALLY_REALIZED"
+      },
+      {
+        realizationRef: "REAL-2026-553",
+        shippingBillNo: "SB-2026-88455",
+        sbDate: "2026-10-23",
+        invoiceNo: "INV-EXP-2026-303",
+        buyerName: "Royal Greenland Seafood A/S",
+        destinationCountry: "Netherlands",
+        invoiceValueUsd: 134400,
+        unrealizedUsd: 134400,
+        dueDaysLeft: "45 Days Remaining",
+        edpmsStatus: "OPEN_EDPMS_BILL",
+        status: "PENDING_REALIZATION"
+      }
+    ],
+
+    realizationDone: [
+      {
+        doneRef: "BRC-2026-10081",
+        eBrcNumber: "eBRC-SBI-2026-99214",
+        shippingBillNo: "SB-2026-88401",
+        sbDate: "2026-10-15",
+        invoiceNo: "INV-EXP-2026-301",
+        buyerName: "Red Lobster Supply Chain LLC",
+        bankName: "State Bank of India (Forex Cell)",
+        realizedDate: "2026-10-24",
+        realizedUsd: 159300,
+        exchangeRate: 84.62,
+        realizedInr: 13479966,
+        dgftStatus: "TRANSMITTED_DGFT_VERIFIED",
+        status: "CLOSED_RECONCILED"
+      },
+      {
+        doneRef: "BRC-2026-10082",
+        eBrcNumber: "eBRC-SBI-2026-99215",
+        shippingBillNo: "SB-2026-88365",
+        sbDate: "2026-09-28",
+        invoiceNo: "INV-EXP-2026-289",
+        buyerName: "Sysco Corporation International",
+        bankName: "State Bank of India (Forex Cell)",
+        realizedDate: "2026-10-14",
+        realizedUsd: 211200,
+        exchangeRate: 84.45,
+        realizedInr: 17835840,
+        dgftStatus: "TRANSMITTED_DGFT_VERIFIED",
+        status: "CLOSED_RECONCILED"
+      },
+      {
+        doneRef: "BRC-2026-10083",
+        eBrcNumber: "eBRC-CNB-2026-38201",
+        shippingBillNo: "SB-2026-88310",
+        sbDate: "2026-09-15",
+        invoiceNo: "INV-EXP-2026-271",
+        buyerName: "Maruha Nichiro Corporation",
+        bankName: "Canara Bank Overseas Branch",
+        realizedDate: "2026-10-02",
+        realizedUsd: 185000,
+        exchangeRate: 84.30,
+        realizedInr: 15595500,
+        dgftStatus: "TRANSMITTED_DGFT_VERIFIED",
+        status: "CLOSED_RECONCILED"
       }
     ],
 
     // 4. Insurance Submenu datasets
-    insurancePolicies: [
+    pendingInsurance: [
       {
-        policyNo: "POL-MAR-2026-7701",
-        cargoLot: "LOT-2026-00125",
-        contractNo: "SC-USA-2026-441",
-        insuredParty: "Red Lobster Supply Chain LLC",
+        lotRef: "LOT-EXP-2026-088",
+        contractNo: "SC-USA-2026-448",
+        consignee: "Sysco Corporation International",
+        cargoDescription: "Vannamei Cooked Tail-On 31/40 IQF (22,000 Kg)",
+        cargoValueUsd: 211200,
+        loadingPort: "Visakhapatnam Sea (INVTZ)",
+        dischargePort: "New York Terminal, USA",
+        etdDate: "2026-11-02",
+        requiredClauses: "ICC (A) + Reefer Temp Deviation + War & Strikes",
+        assignedUnderwriter: "The New India Assurance Co. Ltd.",
+        status: "DECLARATION_PENDING"
+      },
+      {
+        lotRef: "LOT-EXP-2026-089",
+        contractNo: "SC-CAN-2026-033",
+        consignee: "High Liner Foods Canada",
+        cargoDescription: "Vannamei PDTO 21/25 IQF Bulk (16,500 Kg)",
+        cargoValueUsd: 171600,
+        loadingPort: "Visakhapatnam Sea (INVTZ)",
+        dischargePort: "Vancouver Port, Canada",
+        etdDate: "2026-11-08",
+        requiredClauses: "ICC (A) Frozen Food Clause + 24hr Machinery",
+        assignedUnderwriter: "United India Insurance Co. Ltd.",
+        status: "QUOTATION_UNDER_REVIEW"
+      },
+      {
+        lotRef: "LOT-EXP-2026-090",
+        contractNo: "SC-EU-2026-082",
+        consignee: "Direct Seafoods UK Ltd",
+        cargoDescription: "Asian Seabass Whole Gutted 400-600g (10,000 Kg)",
+        cargoValueUsd: 98000,
+        loadingPort: "Visakhapatnam Sea (INVTZ)",
+        dischargePort: "Felixstowe Port, UK",
+        etdDate: "2026-11-14",
+        requiredClauses: "ICC (A) Institute Frozen Food Clauses",
+        assignedUnderwriter: "Pending Underwriter Selection",
+        status: "DRAFT_CERT_PREPARED"
+      }
+    ],
+
+    insuranceTemplates: [
+      {
+        templateCode: "TPL-MAR-USA-01",
+        templateName: "USA Sea Container - Comprehensive All Risks",
         underwriter: "The New India Assurance Co. Ltd.",
-        sumInsuredUsd: 175230,
-        premiumAmountInr: 72800,
-        vesselName: "M/V ONE HARMONY V.082E",
-        dischargePort: "Port of Long Beach, USA",
-        coverageType: "Institute Cargo Clauses (A) All Risks + Reefer Breakdown",
-        status: "ACTIVE_IN_TRANSIT"
+        policyScope: "Visakhapatnam (INVTZ) to US East/West Coast Ports",
+        clausesSummary: "Institute Cargo Clauses (A) 2009, War & Strikes, Reefer Breakdown 24h",
+        premiumRate: "0.045% of CIF + 10%",
+        deductibleUsd: 1000,
+        currency: "USD",
+        status: "ACTIVE_DEFAULT"
       },
       {
-        policyNo: "POL-MAR-2026-7702",
-        cargoLot: "LOT-2026-00126",
-        contractNo: "SC-JPN-2026-112",
-        insuredParty: "Maruha Nichiro Corporation",
+        templateCode: "TPL-MAR-EU-02",
+        templateName: "EU Frozen Seafood Standard Policy Template",
         underwriter: "United India Insurance Co. Ltd.",
-        sumInsuredUsd: 223300,
-        premiumAmountInr: 91400,
-        vesselName: "M/V MAERSK MC-KINNEY MOLLER",
-        dischargePort: "Tokyo Port, Japan",
-        coverageType: "All Risks Marine Cargo + Coldstore Extension",
-        status: "DISCHARGED_SAFE"
+        policyScope: "Visakhapatnam (INVTZ) to Rotterdam / Antwerp / Hamburg",
+        clausesSummary: "Institute Frozen Food Clauses (A), Temperature Variation, Port Delays",
+        premiumRate: "0.048% of CIF + 10%",
+        deductibleUsd: 850,
+        currency: "EUR / USD",
+        status: "ACTIVE_DEFAULT"
       },
       {
-        policyNo: "POL-MAR-2026-7703",
-        cargoLot: "LOT-2026-00128",
-        contractNo: "SC-EU-2026-079",
-        insuredParty: "Royal Greenland Seafood A/S",
+        templateCode: "TPL-MAR-JPN-03",
+        templateName: "Japan HOSO / Sashimi Grade Transit Protocol",
         underwriter: "ICICI Lombard General Insurance",
+        policyScope: "Visakhapatnam (INVTZ) to Tokyo / Yokohama / Osaka",
+        clausesSummary: "All Risks Marine Cargo + Coldstore Pre-Shipment & Post-Discharge 15 Days",
+        premiumRate: "0.052% of Invoice Value",
+        deductibleUsd: 750,
+        currency: "USD",
+        status: "ACTIVE_VERIFIED"
+      }
+    ],
+
+    insurancePayments: [
+      {
+        premInvoiceNo: "PREM-INV-2026-104",
+        policyNo: "POL-MAR-2026-7701",
+        underwriter: "The New India Assurance Co. Ltd.",
+        cargoLot: "LOT-2026-00125",
+        sumInsuredUsd: 175230,
+        basicPremiumInr: 72800,
+        gstTaxInr: 13104,
+        totalPaidInr: 85904,
+        paymentDate: "2026-10-17",
+        paymentMode: "NEFT / Direct Debit",
+        utrNumber: "UBIN26101788210",
+        status: "PAID_RECEIPTED"
+      },
+      {
+        premInvoiceNo: "PREM-INV-2026-105",
+        policyNo: "POL-MAR-2026-7702",
+        underwriter: "United India Insurance Co. Ltd.",
+        cargoLot: "LOT-2026-00126",
+        sumInsuredUsd: 223300,
+        basicPremiumInr: 91400,
+        gstTaxInr: 16452,
+        totalPaidInr: 107852,
+        paymentDate: "2026-10-13",
+        paymentMode: "RTGS Bank Transfer",
+        utrNumber: "SBIN26101344102",
+        status: "PAID_RECEIPTED"
+      },
+      {
+        premInvoiceNo: "PREM-INV-2026-106",
+        policyNo: "POL-MAR-2026-7703",
+        underwriter: "ICICI Lombard General Insurance",
+        cargoLot: "LOT-2026-00128",
         sumInsuredUsd: 147840,
-        premiumAmountInr: 61500,
-        vesselName: "M/V CMA CGM JACQUES SAADE",
-        dischargePort: "Rotterdam Port, Netherlands",
-        coverageType: "ICC (A) All Risks + Transshipment Cover",
-        status: "ACTIVE_IN_TRANSIT"
+        basicPremiumInr: 61500,
+        gstTaxInr: 11070,
+        totalPaidInr: 72570,
+        paymentDate: "2026-10-26",
+        paymentMode: "Online Corporate Banking",
+        utrNumber: "ICIC26102609912",
+        status: "PAID_RECEIPTED"
+      },
+      {
+        premInvoiceNo: "PREM-INV-2026-107",
+        policyNo: "POL-MAR-2026-7704",
+        underwriter: "The New India Assurance Co. Ltd.",
+        cargoLot: "LOT-2026-00130",
+        sumInsuredUsd: 232320,
+        basicPremiumInr: 96500,
+        gstTaxInr: 17370,
+        totalPaidInr: 113870,
+        paymentDate: "2026-11-04",
+        paymentMode: "Treasury Cheque / Pending",
+        utrNumber: "PENDING_CLEARING",
+        status: "APPROVAL_PENDING"
       }
     ]
   },
@@ -64260,35 +64553,191 @@ const SalesView = {
   },
 
   // ----------------------------------------------------
-  // 3. PAYMENTS SUBMENU VIEW
+  // 3. PAYMENTS SUBMENU TABS
   // ----------------------------------------------------
-  renderPayments(container, currentTab) {
+  renderPayments(container, currentTab = 'forward-contracts') {
+    switch (currentTab) {
+      case 'forward-contracts':
+        this.renderForwardContracts(container);
+        break;
+      case 'collections':
+        this.renderCollections(container);
+        break;
+      case 'negotiations':
+        this.renderNegotiations(container);
+        break;
+      case 'realization':
+        this.renderRealization(container);
+        break;
+      case 'realization-done':
+        this.renderRealizationDone(container);
+        break;
+      default:
+        this.renderForwardContracts(container);
+        break;
+    }
+  },
+
+  // Payments Tab 1: Forward Contracts
+  renderForwardContracts(container) {
     this.renderGenericTablePage({
       container,
-      pageTitle: 'Export Payments & Foreign Exchange Realization',
-      subtitle: 'Letter of Credit (LC) negotiations, bank wire settlements, realization status & balance receivables in foreign currency',
-      primaryBtnText: 'Record Export Payment',
-      onPrimaryClick: () => Toast.show('Payment Entry modal opened', 'info'),
+      pageTitle: 'Forward Contracts (Foreign Currency Forex Hedging)',
+      subtitle: 'Bank forex forward contracts, currency hedges, exchange rate bookings, utilized lots & available balance reserves',
+      primaryBtnText: 'Book Forward Contract',
+      onPrimaryClick: () => Toast.show('Booking form for Foreign Exchange Forward Contract opened', 'info'),
       filterFields: [
-        { id: 'inv-no', label: 'Invoice No', placeholder: 'e.g. INV-EXP' },
-        { id: 'buyer', label: 'Buyer Name', placeholder: 'e.g. Red Lobster' },
-        { id: 'currency', label: 'Currency', type: 'select', options: ['All Currencies', 'USD ($)', 'EUR (€)', 'JPY (¥)'] }
+        { id: 'fwd-no', label: 'Contract No', placeholder: 'e.g. FWD-2026' },
+        { id: 'fwd-bank', label: 'Bank Name', placeholder: 'e.g. State Bank of India' },
+        { id: 'fwd-pair', label: 'Currency Pair', type: 'select', options: ['All Currency Pairs', 'USD/INR', 'EUR/INR', 'GBP/INR'] },
+        { id: 'fwd-status', label: 'Contract Status', type: 'select', options: ['All Status', 'Active & Open', 'Fully Utilized'] }
       ],
-      data: this.state.payments,
-      keyField: 'invoiceNo',
-      tableTitle: 'Export Payments & Realization',
+      data: this.state.forwardContracts,
+      keyField: 'contractNo',
+      tableTitle: 'Forward Contracts Register',
       columns: [
-        { field: 'invoiceNo', header: 'Invoice No', render: (v) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${v}</span>` },
-        { field: 'contractNo', header: 'Contract No', render: (v) => `<span class="font-mono text-xs font-semibold text-[#172B4D]">${v}</span>` },
-        { field: 'buyerName', header: 'Buyer / Importer', render: (v) => `<span class="font-bold text-[#172B4D] text-xs">${v}</span>` },
-        { field: 'lcReference', header: 'LC / CAD Reference', render: (v) => `<span class="font-mono text-xs text-[#403294] font-semibold">${v}</span>` },
-        { field: 'invoiceValue', header: 'Invoice Amount', render: (v, r) => `<span class="font-mono font-bold text-xs text-[#172B4D]">${r.currency} $${Number(v).toLocaleString('en-IN')}</span>` },
-        { field: 'realizedAmount', header: 'Realized Amount', render: (v, r) => `<span class="font-mono font-bold text-xs text-[#006644]">${r.currency} $${Number(v).toLocaleString('en-IN')}</span>` },
-        { field: 'balanceReceivable', header: 'Balance Receivable', render: (v, r) => `<span class="font-mono font-bold text-xs ${v > 0 ? 'text-[#DE350B]' : 'text-[#5E6C84]'}">${r.currency} $${Number(v).toLocaleString('en-IN')}</span>` },
-        { field: 'dueDate', header: 'Maturity Date', render: (v) => `<span class="font-mono text-xs text-[#5E6C84]">${v}</span>` },
+        { field: 'contractNo', header: 'Contract No', render: (v) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${v}</span>` },
+        { field: 'bankName', header: 'Treasury / Forex Bank', render: (v) => `<span class="font-bold text-[#172B4D] text-xs">${v}</span>` },
+        { field: 'currencyPair', header: 'Pair', render: (v) => `<span class="px-2 py-0.5 rounded text-[11px] font-bold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">${v}</span>` },
+        { field: 'contractRate', header: 'Booked Rate (INR)', render: (v) => `<span class="font-mono font-extrabold text-xs text-[#006644]">₹${Number(v).toFixed(2)}</span>` },
+        { field: 'bookedAmount', header: 'Booked (FC)', render: (v, r) => `<span class="font-mono font-bold text-xs text-[#172B4D]">$${Number(v).toLocaleString('en-IN')}</span>` },
+        { field: 'utilizedAmount', header: 'Utilized (FC)', render: (v) => `<span class="font-mono text-xs font-semibold text-[#5E6C84]">$${Number(v).toLocaleString('en-IN')}</span>` },
+        { field: 'balanceAmount', header: 'Available Balance', render: (v) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">$${Number(v).toLocaleString('en-IN')}</span>` },
+        { field: 'maturityDate', header: 'Maturity Date', render: (v) => `<span class="font-mono text-xs text-[#5E6C84]">${v}</span>` },
+        { field: 'purpose', header: 'Hedging Purpose', render: (v) => `<span class="text-[11px] text-[#5E6C84] truncate max-w-[200px] block" title="${v}">${v}</span>` },
         {
           field: 'status',
-          header: 'Settlement Status',
+          header: 'Status',
+          render: (v) => {
+            const cls = v.includes('ACTIVE') ? 'bg-[#E3FCEF] text-[#006644] border-[#ABF5D1]' : 'bg-[#F1F5F9] text-[#172B4D] border-[#DFE1E6]';
+            return `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold border ${cls} uppercase">${v.replace(/_/g, ' ')}</span>`;
+          }
+        }
+      ]
+    });
+  },
+
+  // Payments Tab 2: Collections
+  renderCollections(container) {
+    this.renderGenericTablePage({
+      container,
+      pageTitle: 'Export Collections (Buyer Inward Remittances)',
+      subtitle: 'Tracking SWIFT MT103 remittances, Cash Against Documents (CAD) collections, bank charges & net proceeds realized',
+      primaryBtnText: 'Record Collection Advice',
+      onPrimaryClick: () => Toast.show('Inward remittance collection recording modal opened', 'info'),
+      filterFields: [
+        { id: 'col-ref', label: 'Collection Ref', placeholder: 'e.g. COL-2026' },
+        { id: 'col-inv', label: 'Invoice No', placeholder: 'e.g. INV-EXP' },
+        { id: 'col-buyer', label: 'Buyer Name', placeholder: 'e.g. Red Lobster' },
+        { id: 'col-status', label: 'Collection Status', type: 'select', options: ['All Status', 'Received & Credited', 'Partially Collected', 'Pending Collection'] }
+      ],
+      data: this.state.collections,
+      keyField: 'collectionRef',
+      tableTitle: 'Export Inward Remittance Collections',
+      columns: [
+        { field: 'collectionRef', header: 'Collection Ref', render: (v) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${v}</span>` },
+        { field: 'invoiceNo', header: 'Invoice No', render: (v) => `<span class="font-mono text-xs font-semibold text-[#172B4D]">${v}</span>` },
+        { field: 'buyerName', header: 'Buyer / Consignee', render: (v) => `<span class="font-bold text-[#172B4D] text-xs">${v}</span>` },
+        { field: 'collectionBank', header: 'Remitting & Nostro Bank', render: (v) => `<span class="text-xs text-[#5E6C84]">${v}</span>` },
+        { field: 'billAmount', header: 'Gross Bill Value', render: (v, r) => `<span class="font-mono font-bold text-xs text-[#172B4D]">${r.currency} $${Number(v).toLocaleString('en-IN')}</span>` },
+        { field: 'bankCharges', header: 'Bank Charges', render: (v) => `<span class="font-mono text-xs text-[#DE350B] font-semibold">-$${Number(v)}</span>` },
+        { field: 'netReceived', header: 'Net Proceeds', render: (v, r) => `<span class="font-mono font-extrabold text-xs text-[#006644]">${r.currency} $${Number(v).toLocaleString('en-IN')}</span>` },
+        { field: 'settlementMode', header: 'Mode & Channel', render: (v) => `<span class="text-[11px] text-[#5E6C84] font-medium">${v}</span>` },
+        { field: 'remittanceDate', header: 'Value Date', render: (v) => `<span class="font-mono text-xs text-[#5E6C84]">${v}</span>` },
+        {
+          field: 'status',
+          header: 'Status',
+          render: (v) => {
+            const cls = v.includes('RECEIVED') ? 'bg-[#E3FCEF] text-[#006644] border-[#ABF5D1]' : (v.includes('PARTIAL') ? 'bg-[#FFFAE6] text-[#FF8B00] border-[#FFE380]' : 'bg-[#E0F2FE] text-[#00A4B7] border-[#BAE6FD]');
+            return `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold border ${cls} uppercase">${v.replace(/_/g, ' ')}</span>`;
+          }
+        }
+      ]
+    });
+  },
+
+  // Payments Tab 3: Negotiations
+  renderNegotiations(container) {
+    this.renderGenericTablePage({
+      container,
+      pageTitle: 'Export Bill Negotiations (Bank LC Discounting)',
+      subtitle: 'Export bills lodged under Letters of Credit (LC), pre/post-shipment financing, discounting margins & discrepancy scrutiny',
+      primaryBtnText: 'Submit Bill for Negotiation',
+      onPrimaryClick: () => Toast.show('Export bill lodgement / discounting form opened', 'info'),
+      filterFields: [
+        { id: 'neg-no', label: 'Negotiation No', placeholder: 'e.g. NEG-2026' },
+        { id: 'neg-lc', label: 'LC Reference', placeholder: 'e.g. LC-CITI' },
+        { id: 'neg-bank', label: 'Negotiating Bank', placeholder: 'e.g. State Bank of India' },
+        { id: 'neg-status', label: 'Negotiation Status', type: 'select', options: ['All Status', 'Discounted & Credited', 'Lodged in Bank', 'Discrepant'] }
+      ],
+      data: this.state.negotiations,
+      keyField: 'negotiationNo',
+      tableTitle: 'LC Export Bill Negotiations',
+      columns: [
+        { field: 'negotiationNo', header: 'Negotiation No', render: (v) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${v}</span>` },
+        { field: 'lcNumber', header: 'LC Reference', render: (v) => `<span class="font-mono text-xs font-bold text-[#403294]">${v}</span>` },
+        { field: 'invoiceNo', header: 'Commercial Invoice', render: (v) => `<span class="font-mono text-xs font-semibold text-[#172B4D]">${v}</span>` },
+        { field: 'negotiatingBank', header: 'Financing Bank', render: (v) => `<span class="font-semibold text-xs text-[#172B4D]">${v}</span>` },
+        { field: 'billValueUsd', header: 'Document Value', render: (v) => `<span class="font-mono font-bold text-xs text-[#172B4D]">$${Number(v).toLocaleString('en-IN')}</span>` },
+        { field: 'discountRate', header: 'Discount Rate', render: (v) => `<span class="font-mono text-xs font-semibold text-[#5E6C84]">${v}</span>` },
+        { field: 'netFinancedUsd', header: 'Net Financed Amount', render: (v) => `<span class="font-mono font-extrabold text-xs text-[#006644]">$${Number(v).toLocaleString('en-IN')}</span>` },
+        { field: 'tenorDays', header: 'LC Tenor', render: (v) => `<span class="text-xs text-[#5E6C84]">${v}</span>` },
+        {
+          field: 'discrepancyStatus',
+          header: 'Discrepancy Audit',
+          render: (v) => {
+            const cls = v.includes('CLEAN') ? 'bg-[#E3FCEF] text-[#006644] border-[#ABF5D1]' : 'bg-[#FFFAE6] text-[#FF8B00] border-[#FFE380]';
+            return `<span class="px-2 py-0.5 rounded text-[10px] font-bold border ${cls} uppercase">${v.replace(/_/g, ' ')}</span>`;
+          }
+        },
+        {
+          field: 'status',
+          header: 'Status',
+          render: (v) => {
+            const cls = v.includes('DISCOUNTED') ? 'bg-[#E3FCEF] text-[#006644] border-[#ABF5D1]' : 'bg-[#E0F2FE] text-[#00A4B7] border-[#BAE6FD]';
+            return `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold border ${cls} uppercase">${v.replace(/_/g, ' ')}</span>`;
+          }
+        }
+      ]
+    });
+  },
+
+  // Payments Tab 4: Realization
+  renderRealization(container) {
+    this.renderGenericTablePage({
+      container,
+      pageTitle: 'Export Realization (RBI EDPMS Compliance & Aging)',
+      subtitle: 'RBI EDPMS export bill tracking, 9-month regulatory maturity window, unrealized receivables & aging surveillance',
+      primaryBtnText: 'Update EDPMS Realization',
+      onPrimaryClick: () => Toast.show('Realization status update modal opened', 'info'),
+      filterFields: [
+        { id: 'real-sb', label: 'Shipping Bill No', placeholder: 'e.g. SB-2026' },
+        { id: 'real-inv', label: 'Invoice No', placeholder: 'e.g. INV-EXP' },
+        { id: 'real-buyer', label: 'Buyer / Country', placeholder: 'e.g. USA' },
+        { id: 'real-status', label: 'EDPMS Status', type: 'select', options: ['All Status', 'Full Realized', 'Partially Realized', 'Pending Realization'] }
+      ],
+      data: this.state.realizations,
+      keyField: 'realizationRef',
+      tableTitle: 'Export Realization & EDPMS Register',
+      columns: [
+        { field: 'realizationRef', header: 'Realization Ref', render: (v) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${v}</span>` },
+        { field: 'shippingBillNo', header: 'Shipping Bill No', render: (v, r) => `<span class="font-mono font-bold text-xs text-[#172B4D]">${v}</span><span class="text-[10px] text-[#5E6C84] block">${r.sbDate}</span>` },
+        { field: 'invoiceNo', header: 'Export Invoice', render: (v) => `<span class="font-mono text-xs font-semibold text-[#172B4D]">${v}</span>` },
+        { field: 'buyerName', header: 'Buyer / Destination', render: (v, r) => `<span class="font-bold text-[#172B4D] text-xs">${v}</span><span class="text-[10px] text-[#5E6C84] block">${r.destinationCountry}</span>` },
+        { field: 'invoiceValueUsd', header: 'FOB / CIF (USD)', render: (v) => `<span class="font-mono font-bold text-xs text-[#172B4D]">$${Number(v).toLocaleString('en-IN')}</span>` },
+        { field: 'unrealizedUsd', header: 'Unrealized Balance', render: (v) => `<span class="font-mono font-bold text-xs ${v > 0 ? 'text-[#DE350B]' : 'text-[#006644]'}">$${Number(v).toLocaleString('en-IN')}</span>` },
+        { field: 'dueDaysLeft', header: 'RBI Maturity Window', render: (v) => `<span class="text-xs font-semibold text-[#5E6C84]">${v}</span>` },
+        {
+          field: 'edpmsStatus',
+          header: 'EDPMS Bill Status',
+          render: (v) => {
+            const cls = v.includes('RECONCILED') ? 'bg-[#E3FCEF] text-[#006644] border-[#ABF5D1]' : 'bg-[#FFFAE6] text-[#FF8B00] border-[#FFE380]';
+            return `<span class="px-2 py-0.5 rounded text-[10px] font-bold border ${cls} uppercase">${v.replace(/_/g, ' ')}</span>`;
+          }
+        },
+        {
+          field: 'status',
+          header: 'Status',
           render: (v) => {
             const cls = v.includes('FULL') ? 'bg-[#E3FCEF] text-[#006644] border-[#ABF5D1]' : (v.includes('PARTIAL') ? 'bg-[#FFFAE6] text-[#FF8B00] border-[#FFE380]' : 'bg-[#E0F2FE] text-[#00A4B7] border-[#BAE6FD]');
             return `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold border ${cls} uppercase">${v.replace(/_/g, ' ')}</span>`;
@@ -64298,38 +64747,99 @@ const SalesView = {
     });
   },
 
-  // ----------------------------------------------------
-  // 4. INSURANCE SUBMENU VIEW
-  // ----------------------------------------------------
-  renderInsurance(container, currentTab) {
+  // Payments Tab 5: Realization Done
+  renderRealizationDone(container) {
     this.renderGenericTablePage({
       container,
-      pageTitle: 'Cargo Insurance (Marine Transit Risk Coverage)',
-      subtitle: 'Marine Open Cover policies, Voyage Insurance Certificates, refrigerated container breakdown cover & claims registers',
-      primaryBtnText: 'Add Insurance Policy',
-      onPrimaryClick: () => Toast.show('New Marine Insurance policy creation modal opened', 'info'),
+      pageTitle: 'Realization Done (DGFT e-BRC Certificates & Closures)',
+      subtitle: 'Electronic Bank Realization Certificates (e-BRC) verified by DGFT for export incentive claims & RBI compliance closure',
+      primaryBtnText: 'Download e-BRC Bulk',
+      onPrimaryClick: () => Toast.show('Preparing e-BRC certified export package download...', 'success'),
       filterFields: [
-        { id: 'pol-no', label: 'Policy No', placeholder: 'e.g. POL-MAR' },
-        { id: 'cargo', label: 'Cargo Lot', placeholder: 'e.g. LOT-2026' },
-        { id: 'underwriter', label: 'Insurance Company', type: 'select', options: ['All Companies', 'The New India Assurance Co. Ltd.', 'United India Insurance Co. Ltd.', 'ICICI Lombard General Insurance'] }
+        { id: 'brc-no', label: 'e-BRC Number', placeholder: 'e.g. eBRC-SBI' },
+        { id: 'brc-sb', label: 'Shipping Bill No', placeholder: 'e.g. SB-2026' },
+        { id: 'brc-buyer', label: 'Buyer Name', placeholder: 'e.g. Red Lobster' },
+        { id: 'brc-bank', label: 'Authorized Dealer Bank', type: 'select', options: ['All Banks', 'State Bank of India', 'Canara Bank', 'HDFC Bank'] }
       ],
-      data: this.state.insurancePolicies,
-      keyField: 'policyNo',
-      tableTitle: 'Marine & Cargo Insurance Policies',
+      data: this.state.realizationDone,
+      keyField: 'doneRef',
+      tableTitle: 'Closed Realizations & DGFT e-BRCs',
       columns: [
-        { field: 'policyNo', header: 'Policy No', render: (v) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${v}</span>` },
-        { field: 'cargoLot', header: 'Cargo Lot', render: (v) => `<span class="font-mono text-xs font-semibold text-[#172B4D]">${v}</span>` },
-        { field: 'insuredParty', header: 'Insured Consignee', render: (v) => `<span class="font-bold text-[#172B4D] text-xs">${v}</span>` },
-        { field: 'underwriter', header: 'Underwriter / Insurer', render: (v) => `<span class="text-xs font-semibold text-[#172B4D]">${v}</span>` },
-        { field: 'sumInsuredUsd', header: 'Sum Insured (USD)', render: (v) => `<span class="font-mono font-extrabold text-xs text-[#006644]">$${Number(v).toLocaleString('en-IN')}</span>` },
-        { field: 'premiumAmountInr', header: 'Premium (INR)', render: (v) => `<span class="font-mono text-xs text-[#5E6C84]">₹${Number(v).toLocaleString('en-IN')}</span>` },
-        { field: 'vesselName', header: 'Vessel / Voyage', render: (v) => `<span class="text-xs text-[#5E6C84]">${v}</span>` },
-        { field: 'coverageType', header: 'Coverage Scope', render: (v) => `<span class="text-[11px] text-[#5E6C84] truncate max-w-[200px] block" title="${v}">${v}</span>` },
+        { field: 'eBrcNumber', header: 'e-BRC Number', render: (v) => `<span class="font-mono font-extrabold text-xs text-[#00A4B7]">${v}</span>` },
+        { field: 'shippingBillNo', header: 'Shipping Bill No', render: (v, r) => `<span class="font-mono font-bold text-xs text-[#172B4D]">${v}</span><span class="text-[10px] text-[#5E6C84] block">${r.sbDate}</span>` },
+        { field: 'invoiceNo', header: 'Export Invoice', render: (v) => `<span class="font-mono text-xs font-semibold text-[#172B4D]">${v}</span>` },
+        { field: 'buyerName', header: 'Foreign Buyer', render: (v) => `<span class="font-bold text-[#172B4D] text-xs">${v}</span>` },
+        { field: 'bankName', header: 'AD Bank Branch', render: (v) => `<span class="text-xs text-[#5E6C84] font-medium">${v}</span>` },
+        { field: 'realizedUsd', header: 'Realized (USD)', render: (v) => `<span class="font-mono font-bold text-xs text-[#172B4D]">$${Number(v).toLocaleString('en-IN')}</span>` },
+        { field: 'exchangeRate', header: 'Realized Ex. Rate', render: (v) => `<span class="font-mono text-xs font-semibold text-[#5E6C84]">₹${Number(v).toFixed(2)}</span>` },
+        { field: 'realizedInr', header: 'Gross INR Realized', render: (v) => `<span class="font-mono font-extrabold text-xs text-[#006644]">₹${Number(v).toLocaleString('en-IN')}</span>` },
+        { field: 'realizedDate', header: 'Realized Date', render: (v) => `<span class="font-mono text-xs text-[#5E6C84]">${v}</span>` },
+        {
+          field: 'dgftStatus',
+          header: 'DGFT Integration',
+          render: (v) => `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1] uppercase">DGFT TRANSMITTED</span>`
+        },
         {
           field: 'status',
-          header: 'Policy Status',
+          header: 'Status',
+          render: (v) => `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1] uppercase">CLOSED</span>`
+        }
+      ]
+    });
+  },
+
+  // ----------------------------------------------------
+  // 4. INSURANCE SUBMENU TABS
+  // ----------------------------------------------------
+  renderInsurance(container, currentTab = 'pending-insurance') {
+    switch (currentTab) {
+      case 'pending-insurance':
+        this.renderPendingInsurance(container);
+        break;
+      case 'insurance-templates':
+        this.renderInsuranceTemplates(container);
+        break;
+      case 'insurance-payments':
+        this.renderInsurancePayments(container);
+        break;
+      default:
+        this.renderPendingInsurance(container);
+        break;
+    }
+  },
+
+  // Insurance Tab 1: Pending Insurance
+  renderPendingInsurance(container) {
+    this.renderGenericTablePage({
+      container,
+      pageTitle: 'Pending Insurance (Marine Declarations & Coverage Underwriting)',
+      subtitle: 'Export lots staged for transit requiring Marine Open Cover declarations, underwriter quotation approvals & risk notes',
+      primaryBtnText: 'Generate Marine Declaration',
+      onPrimaryClick: () => Toast.show('Marine Declaration generation modal opened', 'info'),
+      filterFields: [
+        { id: 'pi-lot', label: 'Cargo Lot Ref', placeholder: 'e.g. LOT-EXP' },
+        { id: 'pi-contract', label: 'Contract No', placeholder: 'e.g. SC-USA' },
+        { id: 'pi-consignee', label: 'Consignee / Importer', placeholder: 'e.g. Sysco' },
+        { id: 'pi-status', label: 'Insurance Status', type: 'select', options: ['All Status', 'Declaration Pending', 'Quotation Under Review', 'Draft Cert Prepared'] }
+      ],
+      data: this.state.pendingInsurance,
+      keyField: 'lotRef',
+      tableTitle: 'Pending Cargo Insurance Lots',
+      columns: [
+        { field: 'lotRef', header: 'Lot Ref', render: (v) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${v}</span>` },
+        { field: 'contractNo', header: 'Contract No', render: (v) => `<span class="font-mono text-xs font-semibold text-[#172B4D]">${v}</span>` },
+        { field: 'consignee', header: 'Buyer / Consignee', render: (v) => `<span class="font-bold text-[#172B4D] text-xs">${v}</span>` },
+        { field: 'cargoDescription', header: 'Cargo Specifications', render: (v) => `<span class="text-xs text-[#5E6C84] truncate max-w-[220px] block" title="${v}">${v}</span>` },
+        { field: 'cargoValueUsd', header: 'Declared CIF (USD)', render: (v) => `<span class="font-mono font-extrabold text-xs text-[#006644]">$${Number(v).toLocaleString('en-IN')}</span>` },
+        { field: 'dischargePort', header: 'Port of Discharge', render: (v) => `<span class="text-xs text-[#5E6C84] font-medium">${v}</span>` },
+        { field: 'etdDate', header: 'Planned ETD', render: (v) => `<span class="font-mono text-xs text-[#5E6C84]">${v}</span>` },
+        { field: 'assignedUnderwriter', header: 'Assigned Underwriter', render: (v) => `<span class="text-xs font-semibold text-[#172B4D]">${v}</span>` },
+        { field: 'requiredClauses', header: 'Requested Risk Scope', render: (v) => `<span class="text-[11px] text-[#5E6C84] truncate max-w-[200px] block" title="${v}">${v}</span>` },
+        {
+          field: 'status',
+          header: 'Status',
           render: (v) => {
-            const cls = v.includes('ACTIVE') ? 'bg-[#E3FCEF] text-[#006644] border-[#ABF5D1]' : 'bg-[#F0F9FF] text-[#00A4B7] border-[#BAE6FD]';
+            const cls = v.includes('PENDING') ? 'bg-[#FFFAE6] text-[#FF8B00] border-[#FFE380]' : 'bg-[#F0F9FF] text-[#00A4B7] border-[#BAE6FD]';
             return `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold border ${cls} uppercase">${v.replace(/_/g, ' ')}</span>`;
           }
         }
@@ -64337,6 +64847,79 @@ const SalesView = {
     });
   },
 
+  // Insurance Tab 2: Insurance Templates
+  renderInsuranceTemplates(container) {
+    this.renderGenericTablePage({
+      container,
+      pageTitle: 'Insurance Templates (Marine Policy & Endorsement Presets)',
+      subtitle: 'Configured marine risk coverage templates, Institute Cargo Clauses, standard deductibles & destination underwriter tariffs',
+      primaryBtnText: 'Create Insurance Template',
+      onPrimaryClick: () => Toast.show('New Marine Insurance Template creation modal opened', 'info'),
+      filterFields: [
+        { id: 'tpl-code', label: 'Template Code', placeholder: 'e.g. TPL-MAR' },
+        { id: 'tpl-name', label: 'Template Name', placeholder: 'e.g. Comprehensive' },
+        { id: 'tpl-underwriter', label: 'Underwriter', type: 'select', options: ['All Underwriters', 'The New India Assurance Co. Ltd.', 'United India Insurance Co. Ltd.', 'ICICI Lombard General Insurance'] },
+        { id: 'tpl-status', label: 'Status', type: 'select', options: ['All Status', 'Active & Default', 'Active & Verified'] }
+      ],
+      data: this.state.insuranceTemplates,
+      keyField: 'templateCode',
+      tableTitle: 'Marine Policy Templates Library',
+      columns: [
+        { field: 'templateCode', header: 'Template Code', render: (v) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${v}</span>` },
+        { field: 'templateName', header: 'Policy Template Name', render: (v) => `<span class="font-bold text-[#172B4D] text-xs">${v}</span>` },
+        { field: 'underwriter', header: 'Insurance Partner', render: (v) => `<span class="text-xs font-semibold text-[#172B4D]">${v}</span>` },
+        { field: 'policyScope', header: 'Voyage Scope', render: (v) => `<span class="text-xs text-[#5E6C84]">${v}</span>` },
+        { field: 'premiumRate', header: 'Tariff Premium Rate', render: (v) => `<span class="font-mono font-bold text-xs text-[#006644]">${v}</span>` },
+        { field: 'deductibleUsd', header: 'Policy Deductible', render: (v, r) => `<span class="font-mono text-xs text-[#5E6C84] font-semibold">$${v} (${r.currency})</span>` },
+        { field: 'clausesSummary', header: 'Standard Risk Endorsements', render: (v) => `<span class="text-[11px] text-[#5E6C84] truncate max-w-[240px] block" title="${v}">${v}</span>` },
+        {
+          field: 'status',
+          header: 'Template Status',
+          render: (v) => `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1] uppercase">${v.replace(/_/g, ' ')}</span>`
+        }
+      ]
+    });
+  },
+
+  // Insurance Tab 3: Insurance Payments
+  renderInsurancePayments(container) {
+    this.renderGenericTablePage({
+      container,
+      pageTitle: 'Insurance Payments (Marine Premium Disbursements)',
+      subtitle: 'Premium debit notes, policy invoices, statutory GST breakdowns, electronic bank transfers (NEFT/RTGS) & insurer payment receipts',
+      primaryBtnText: 'Record Premium Payment',
+      onPrimaryClick: () => Toast.show('Premium payment disbursement form opened', 'info'),
+      filterFields: [
+        { id: 'ip-inv', label: 'Premium Invoice', placeholder: 'e.g. PREM-INV' },
+        { id: 'ip-pol', label: 'Policy No', placeholder: 'e.g. POL-MAR' },
+        { id: 'ip-underwriter', label: 'Underwriter', type: 'select', options: ['All Underwriters', 'The New India Assurance Co. Ltd.', 'United India Insurance Co. Ltd.', 'ICICI Lombard General Insurance'] },
+        { id: 'ip-status', label: 'Payment Status', type: 'select', options: ['All Status', 'Paid & Receipted', 'Approval Pending'] }
+      ],
+      data: this.state.insurancePayments,
+      keyField: 'premInvoiceNo',
+      tableTitle: 'Marine Premium Payments Register',
+      columns: [
+        { field: 'premInvoiceNo', header: 'Premium Invoice', render: (v) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${v}</span>` },
+        { field: 'policyNo', header: 'Policy / Cover Note', render: (v) => `<span class="font-mono text-xs font-semibold text-[#172B4D]">${v}</span>` },
+        { field: 'underwriter', header: 'Underwriter', render: (v) => `<span class="font-bold text-[#172B4D] text-xs">${v}</span>` },
+        { field: 'cargoLot', header: 'Cargo Lot', render: (v) => `<span class="font-mono text-xs text-[#5E6C84] font-medium">${v}</span>` },
+        { field: 'sumInsuredUsd', header: 'Sum Insured', render: (v) => `<span class="font-mono font-bold text-xs text-[#172B4D]">$${Number(v).toLocaleString('en-IN')}</span>` },
+        { field: 'basicPremiumInr', header: 'Basic Premium', render: (v) => `<span class="font-mono text-xs text-[#5E6C84]">₹${Number(v).toLocaleString('en-IN')}</span>` },
+        { field: 'gstTaxInr', header: 'GST (18%)', render: (v) => `<span class="font-mono text-xs text-[#5E6C84]">₹${Number(v).toLocaleString('en-IN')}</span>` },
+        { field: 'totalPaidInr', header: 'Total Paid (INR)', render: (v) => `<span class="font-mono font-extrabold text-xs text-[#006644]">₹${Number(v).toLocaleString('en-IN')}</span>` },
+        { field: 'utrNumber', header: 'Bank UTR Ref', render: (v) => `<span class="font-mono text-[11px] text-[#403294] font-bold">${v}</span>` },
+        { field: 'paymentDate', header: 'Payment Date', render: (v) => `<span class="font-mono text-xs text-[#5E6C84]">${v}</span>` },
+        {
+          field: 'status',
+          header: 'Payment Status',
+          render: (v) => {
+            const cls = v.includes('PAID') ? 'bg-[#E3FCEF] text-[#006644] border-[#ABF5D1]' : 'bg-[#FFFAE6] text-[#FF8B00] border-[#FFE380]';
+            return `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold border ${cls} uppercase">${v.replace(/_/g, ' ')}</span>`;
+          }
+        }
+      ]
+    });
+  },
   // ----------------------------------------------------
   // REUSABLE ENTERPRISE TABLE VIEW GENERATOR
   // ----------------------------------------------------
