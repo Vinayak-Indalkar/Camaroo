@@ -1246,8 +1246,9 @@ export class DataTable {
     const actionBtns = this.container.querySelectorAll('.dt-action-btn');
     actionBtns.forEach(btn => {
       btn.addEventListener('click', (e) => {
-        e.stopPropagation();
         const actIdx = parseInt(btn.dataset.actionIdx, 10);
+        if (isNaN(actIdx)) return;
+        e.stopPropagation();
         const row = this.filteredData[Number(btn.closest('tr').dataset.rowIndex)];
         const action = this.actions[actIdx];
         if (action && action.onClick && row) {

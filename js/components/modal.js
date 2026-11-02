@@ -95,9 +95,11 @@ export const Modal = {
         </div>
 
         <!-- Modal Footer -->
+        ${activeFooterButtons.length > 0 ? `
         <div class="px-6 py-3.5 border-t border-[#DFE1E6] bg-[#FAFBFC] flex items-center justify-end gap-2.5">
           ${buttonsHtml}
         </div>
+        ` : ''}
       </div>
     `;
 

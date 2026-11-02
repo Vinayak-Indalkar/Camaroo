@@ -338,24 +338,34 @@ export const SettingsView = {
           header: 'Last Modified',
           sortable: true,
           render: (val) => `<span class="text-xs text-[#5E6C84] font-mono">${val}</span>`
+        }
+      ],
+      actions: [
+        {
+          label: 'Customize Fields',
+          icon: `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>`,
+          onClick: (row) => {
+            this.selectedFormCode = row.id;
+            window.location.hash = '#/settings/custom/fields-customizer';
+          }
         },
         {
-          field: 'actions',
-          header: 'Actions',
-          sortable: false,
-          render: (_, row) => `
-            <div class="flex items-center gap-1.5">
-              <button type="button" data-action="design-fields" data-id="${row.id}" class="dt-action-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] rounded-full text-[#334155] hover:text-[#00A4B7] transition-colors cursor-pointer" title="Customize Fields">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
-              </button>
-              <button type="button" data-action="assign-model" data-id="${row.id}" class="dt-action-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] rounded-full text-[#334155] hover:text-[#00A4B7] transition-colors cursor-pointer" title="Assign Database Model">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/></svg>
-              </button>
-              <button type="button" data-action="delete-form" data-id="${row.id}" class="dt-action-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#FFEBE6] border border-[#CBD5E1] hover:border-[#FFBDAD] rounded-full text-[#334155] hover:text-[#DE350B] transition-colors cursor-pointer" title="Delete Form">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-              </button>
-            </div>
-          `
+          label: 'Assign Database Model',
+          icon: `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/></svg>`,
+          onClick: (row) => {
+            this.openAssignModelModal(row.id);
+          }
+        },
+        {
+          label: 'Delete Form',
+          variant: 'danger',
+          icon: `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>`,
+          onClick: (row) => {
+            this.forms = this.forms.filter(f => f.id !== row.id);
+            delete this.formFields[row.id];
+            this.initFormsDataTable();
+            Toast.show('Form deleted successfully', 'success');
+          }
         }
       ]
     });
@@ -1393,34 +1403,7 @@ export const SettingsView = {
             `;
           }).join('')}
         </div>
-      `,
-      footerButtons: [
-        {
-          label: 'Cancel',
-          text: 'Cancel',
-          class: 'btn-secondary px-5 py-2 rounded-full text-xs font-semibold border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#172B4D] transition-all cursor-pointer',
-          onClick: () => Modal.close()
-        },
-        {
-          label: 'Customize Fields',
-          text: 'Customize Fields',
-          class: 'btn-secondary px-5 py-2 rounded-full text-xs font-bold border border-[#00A4B7] text-[#00A4B7] hover:bg-[#F0F9FF] transition-all cursor-pointer inline-flex items-center gap-1.5',
-          onClick: () => {
-            Modal.close();
-            this.selectedFormCode = form.id;
-            window.location.hash = '#/settings/custom/fields-customizer';
-          }
-        },
-        {
-          label: 'Save Record',
-          text: 'Save Record',
-          class: 'btn-primary px-5 py-2 rounded-full text-xs font-bold shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer inline-flex items-center gap-1.5',
-          onClick: () => {
-            Toast.show(`Record for "${form.name}" validated successfully (Preview Mode)`, 'success');
-            Modal.close();
-          }
-        }
-      ]
+      `
     });
   },
   openFormDetailsModal(formId) {
