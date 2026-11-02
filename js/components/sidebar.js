@@ -444,7 +444,7 @@ export const ADMIN_NAV_HIERARCHY = [
         defaultTab: "forms",
         tabs: [
           { id: "forms", label: "Forms", hash: "#/settings/custom/forms" },
-          { id: "fields-customizer", label: "Filds Customizer", hash: "#/settings/custom/fields-customizer" },
+          { id: "fields-customizer", label: "Fields Customizer", hash: "#/settings/custom/fields-customizer" },
           { id: "query-editor", label: "Query Editor", hash: "#/settings/custom/query-editor" }
         ]
       }
@@ -514,7 +514,7 @@ export const SUPER_ADMIN_NAV_HIERARCHY = [
         defaultTab: "forms",
         tabs: [
           { id: "forms", label: "Forms", hash: "#/settings/custom/forms" },
-          { id: "fields-customizer", label: "Filds Customizer", hash: "#/settings/custom/fields-customizer" },
+          { id: "fields-customizer", label: "Fields Customizer", hash: "#/settings/custom/fields-customizer" },
           { id: "query-editor", label: "Query Editor", hash: "#/settings/custom/query-editor" }
         ]
       }

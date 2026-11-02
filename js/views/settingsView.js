@@ -182,7 +182,7 @@ export const SettingsView = {
             <span class="select-none">Forms</span>
           </a>
           <a id="tab-fields-customizer" role="tab" href="#/settings/custom/fields-customizer" aria-selected="${isFieldsActive ? 'true' : 'false'}" tabindex="${isFieldsActive ? '0' : '-1'}" aria-controls="panel-fields-customizer" class="select-none px-4 pt-2.5 pb-1.5 text-xs font-semibold whitespace-nowrap transition-colors flex items-center gap-1.5 outline-none bg-transparent -mb-[1px] border-b-2 ${isFieldsActive ? 'tab-active text-[#00A4B7] border-[#00A4B7] font-bold' : 'text-[#5E6C84] hover:text-[#172B4D] border-transparent hover:border-[#DFE1E6]'}">
-            <span class="select-none">Filds Customizer</span>
+            <span class="select-none">Fields Customizer</span>
           </a>
           <a id="tab-query-editor" role="tab" href="#/settings/custom/query-editor" aria-selected="${isQueryActive ? 'true' : 'false'}" tabindex="${isQueryActive ? '0' : '-1'}" aria-controls="panel-query-editor" class="select-none px-4 pt-2.5 pb-1.5 text-xs font-semibold whitespace-nowrap transition-colors flex items-center gap-1.5 outline-none bg-transparent -mb-[1px] border-b-2 ${isQueryActive ? 'tab-active text-[#00A4B7] border-[#00A4B7] font-bold' : 'text-[#5E6C84] hover:text-[#172B4D] border-transparent hover:border-[#DFE1E6]'}">
             <span class="select-none">Query Editor</span>
@@ -499,7 +499,7 @@ export const SettingsView = {
         ${tabsBarHtml}
 
         <div class="flex items-center justify-between">
-          <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Filds Customizer</h1>
+          <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Fields Customizer</h1>
           <button type="button" id="btn-add-field" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
             <span>Add Custom Field</span>
@@ -652,23 +652,41 @@ export const SettingsView = {
           render: (val) => val
             ? `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">Enabled</span>`
             : `<span class="px-2 py-0.5 rounded text-[10px] font-medium text-[#5E6C84]">Disabled</span>`
+        }
+      ],
+      actions: [
+        {
+          label: 'Edit Field',
+          icon: `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>`,
+          onClick: (row) => {
+            this.openEditFieldModal(row.id, row.formId);
+          }
         },
         {
-          field: 'actions',
-          header: 'Actions',
-          sortable: false,
-          render: (_, row) => `
-            <div class="flex items-center gap-1.5">
-              <button type="button" data-action="edit-field" data-id="${row.id}" data-form="${row.formId}" class="dt-action-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] rounded-full text-[#334155] hover:text-[#00A4B7] transition-colors cursor-pointer" title="Edit Field">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
-              </button>
-              <button type="button" data-action="delete-field" data-id="${row.id}" data-form="${row.formId}" class="dt-action-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#FFEBE6] border border-[#CBD5E1] hover:border-[#FFBDAD] rounded-full text-[#334155] hover:text-[#DE350B] transition-colors cursor-pointer" title="Delete Field">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-              </button>
-            </div>
-          `
+          label: 'Delete Field',
+          variant: 'danger',
+          icon: `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>`,
+          onClick: (row) => {
+            Modal.confirm({
+              title: 'Delete Custom Field',
+              message: `Are you sure you want to remove field "${row.label}"? Any existing data in this column will be preserved in cold storage.`,
+              confirmText: 'Delete Field',
+              isDestructive: true,
+              onConfirm: () => {
+                const fields = this.formFields[row.formId] || [];
+                this.formFields[row.formId] = fields.filter(f => f.id !== row.id);
+                const targetForm = this.forms.find(f => f.id === row.formId);
+                if (targetForm) targetForm.fieldsCount = this.formFields[row.formId].length;
+                this.filterAndRenderFields();
+                Toast.show('Field removed successfully', 'success');
+              }
+            });
+          }
         }
-      ]
+      ],
+      onRowClick: (row) => {
+        this.openEditFieldModal(row.id, row.formId);
+      }
     });
   },
 
@@ -3329,8 +3347,10 @@ export const SettingsView = {
       updateLivePreview();
     }, 20);
   },
-  openEditFieldModal(fieldId) {
-    const fields = this.formFields[this.selectedFormCode] || [];
+  openEditFieldModal(fieldId, formId = null) {
+    const targetFormId = formId || this.selectedFormCode || 'FORM-PI';
+    this.selectedFormCode = targetFormId;
+    const fields = this.formFields[targetFormId] || [];
     const field = fields.find(f => f.id === fieldId);
     if (!field) return;
 
