@@ -1255,6 +1255,7 @@ export const SettingsView = {
               id="query-code-editor" 
               rows="5" 
               class="w-full bg-black text-white font-mono text-xs sm:text-sm p-2 focus:outline-none resize-y leading-relaxed border-0 outline-none selection:bg-[#00A4B7]/30" 
+              style="color: #FFFFFF !important; background-color: #000000 !important; caret-color: #FFFFFF !important; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;"
               spellcheck="false"
             >${initialContent}</textarea>
           </div>
