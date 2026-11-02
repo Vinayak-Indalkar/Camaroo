@@ -2959,6 +2959,17 @@ td.sticky-action-col > div {
   background: #94A3B8 !important;
 }
 
+/* Live Component Preview Header */
+.preview-header-gradient {
+  background: linear-gradient(135deg, #2563EB 0%, #4F46E5 100%) !important;
+  color: #FFFFFF !important;
+}
+.preview-header-gradient h4,
+.preview-header-gradient span {
+  color: #FFFFFF !important;
+}
+
+
   </style>
 </head>
 <body class="bg-[#F2F5F9] text-[#0F172A] antialiased overflow-x-hidden min-h-screen">
@@ -88511,12 +88522,12 @@ const SettingsView = {
             <div class="w-full lg:w-[370px] xl:w-[390px] shrink-0 lg:sticky lg:top-0 space-y-3">
               <div class="rounded-2xl border border-[#DFE1E6] bg-white shadow-xs overflow-hidden flex flex-col">
                 <!-- Preview Header Bar (Flush at top, matching reference screenshot) -->
-                <div class="bg-gradient-to-r from-[#2563EB] to-[#4F46E5] text-white px-4 py-3 flex items-center justify-between shadow-xs">
-                  <div class="flex items-center gap-2.5">
-                    <span class="w-2.5 h-2.5 rounded-full bg-[#10B981] inline-block shadow-[0_0_8px_rgba(16,185,129,0.9)] animate-pulse"></span>
-                    <h4 class="text-xs font-bold uppercase tracking-wider text-white">LIVE INTERACTIVE COMPONENT PREVIEW</h4>
+                <div class="preview-header-gradient bg-gradient-to-r from-[#2563EB] to-[#4F46E5] text-white px-4 py-3 flex items-center justify-between shadow-xs" style="background: linear-gradient(135deg, #2563EB 0%, #4F46E5 100%) !important; color: #FFFFFF !important; min-height: 44px !important; display: flex !important; align-items: center !important; justify-content: space-between !important; padding: 12px 16px !important; border-top-left-radius: 14px !important; border-top-right-radius: 14px !important;">
+                  <div class="flex items-center gap-2.5" style="display: flex !important; align-items: center !important; gap: 10px !important;">
+                    <span class="w-2.5 h-2.5 rounded-full bg-[#10B981] inline-block shadow-[0_0_8px_rgba(16,185,129,0.9)] animate-pulse" style="background-color: #10B981 !important; width: 10px !important; height: 10px !important; min-width: 10px !important; min-height: 10px !important; border-radius: 9999px !important; display: inline-block !important; box-shadow: 0 0 8px rgba(16, 185, 129, 0.9) !important; flex-shrink: 0 !important;"></span>
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-white" style="color: #FFFFFF !important; font-size: 12px !important; font-weight: 800 !important; letter-spacing: 0.05em !important; text-transform: uppercase !important; margin: 0 !important; padding: 0 !important; display: block !important; visibility: visible !important; opacity: 1 !important; line-height: 1.25 !important;">LIVE INTERACTIVE COMPONENT PREVIEW</h4>
                   </div>
-                  <span id="preview-type-pill" class="px-2 py-0.5 rounded text-[11px] font-bold bg-white/20 text-white lowercase tracking-normal backdrop-blur-xs">text</span>
+                  <span id="preview-type-pill" class="px-2 py-0.5 rounded text-[11px] font-bold bg-white/20 text-white lowercase tracking-normal backdrop-blur-xs" style="background-color: rgba(255, 255, 255, 0.22) !important; color: #FFFFFF !important; font-size: 11px !important; font-weight: 700 !important; border-radius: 6px !important; padding: 2px 8px !important; display: inline-block !important; border: 1px solid rgba(255, 255, 255, 0.25) !important;">text</span>
                 </div>
 
                 <div class="p-3.5 space-y-3.5 flex-1 bg-white">

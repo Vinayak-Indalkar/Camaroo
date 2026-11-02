@@ -2891,3 +2891,14 @@ td.sticky-action-col > div {
 .overflow-x-auto::-webkit-scrollbar-thumb:hover {
   background: #94A3B8 !important;
 }
+
+/* Live Component Preview Header */
+.preview-header-gradient {
+  background: linear-gradient(135deg, #2563EB 0%, #4F46E5 100%) !important;
+  color: #FFFFFF !important;
+}
+.preview-header-gradient h4,
+.preview-header-gradient span {
+  color: #FFFFFF !important;
+}
+
