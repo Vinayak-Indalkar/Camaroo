@@ -1373,7 +1373,7 @@ export const SettingsView = {
 
               <!-- CORE IDENTITY & PLACEMENT (3-Column Layout) -->
               <div class="space-y-3.5">
-                <div class="flex items-center justify-between pb-2 border-b border-[#F1F5F9] mb-3">
+                <div class="flex items-center justify-between pb-2 border-b border-[#F1F5F9]">
                   <div class="flex items-center gap-2">
                     <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
                     <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">CORE IDENTITY &amp; PLACEMENT</h3>
@@ -1429,19 +1429,6 @@ export const SettingsView = {
                     <input type="text" id="add-fld-helper" placeholder="Guidance tooltip shown to users..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
                   </div>
                 </div>
-              </div>
-
-              <!-- Query Editor Banner -->
-              <div class="p-4 bg-gradient-to-r from-indigo-900/40 via-blue-900/30 to-slate-900/40 border border-indigo-500/30 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-                <div class="flex items-center gap-3">
-                  <div class="w-9 h-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold shrink-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-terminal w-4 h-4" aria-hidden="true"><path d="M12 19h8"></path><path d="m4 17 6-6-6-6"></path></svg>
-                  </div>
-                  <div>
-                    <h4 class="text-xs font-bold text-slate-900 dark:text-white">Need Dynamic Formulas or SQL Data Extraction?</h4>
-                  </div>
-                </div>
-                <button type="button" id="btn-modal-open-query-editor" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-indigo-600 hover:bg-indigo-700 text-white transition-all shadow-xs shrink-0 cursor-pointer">Open Query Editor</button>
               </div>
 
               <!-- CHOICE OPTIONS CONFIGURATION (Conditional) -->
@@ -1664,15 +1651,6 @@ export const SettingsView = {
             sectionSelect.appendChild(opt);
             Toast.show(`Section "${secName.trim()}" added!`, 'success');
           }
-        });
-      }
-
-      // Open Query Editor from Banner
-      const btnOpenQuery = document.getElementById('btn-modal-open-query-editor');
-      if (btnOpenQuery) {
-        btnOpenQuery.addEventListener('click', () => {
-          Modal.close();
-          window.location.hash = '#/settings/custom/query-editor';
         });
       }
 
