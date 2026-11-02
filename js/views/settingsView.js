@@ -169,30 +169,22 @@ export const SettingsView = {
       this.activeTab = 'forms';
     }
 
-    // Top horizontal tabs bar markup as per Design System
+    const isFormsActive = this.activeTab === 'forms';
+    const isFieldsActive = this.activeTab === 'fields-customizer';
+    const isQueryActive = this.activeTab === 'query-editor';
+
+    // Top horizontal tabs bar matching Design System underline tablist
     const tabsBarHtml = `
       <div class="mb-4">
-        <div class="inline-flex items-center gap-1.5 p-1 bg-white border border-[#DFE1E6] rounded-xl shadow-2xs">
-          <a 
-            href="#/settings/custom/forms" 
-            class="px-4 py-2 rounded-lg text-xs font-bold transition-all inline-flex items-center gap-1.5 ${this.activeTab === 'forms' ? 'bg-[#00A4B7] text-white shadow-xs' : 'text-[#5E6C84] hover:text-[#172B4D] hover:bg-[#F4F5F7]'}"
-          >
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-            <span>Forms</span>
+        <div role="tablist" aria-label="Customizer views" id="settings-tab-bar-container-tablist" style="overflow-x: auto !important; -webkit-overflow-scrolling: touch; scrollbar-width: thin;" class="flex items-center gap-1 overflow-x-auto bg-transparent p-0 border-b border-[#DFE1E6] scrollbar-thin">
+          <a id="tab-forms" role="tab" href="#/settings/custom/forms" aria-selected="${isFormsActive ? 'true' : 'false'}" tabindex="${isFormsActive ? '0' : '-1'}" aria-controls="panel-forms" class="select-none px-4 py-2.5 text-xs font-semibold whitespace-nowrap transition-colors flex items-center gap-1.5 outline-none bg-transparent -mb-[1px] border-b-2 ${isFormsActive ? 'tab-active text-[#00A4B7] border-[#00A4B7] font-bold' : 'text-[#5E6C84] hover:text-[#172B4D] border-transparent hover:border-[#DFE1E6]'}">
+            <span class="select-none">Forms</span>
           </a>
-          <a 
-            href="#/settings/custom/fields-customizer" 
-            class="px-4 py-2 rounded-lg text-xs font-bold transition-all inline-flex items-center gap-1.5 ${this.activeTab === 'fields-customizer' ? 'bg-[#00A4B7] text-white shadow-xs' : 'text-[#5E6C84] hover:text-[#172B4D] hover:bg-[#F4F5F7]'}"
-          >
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
-            <span>Filds Customizer</span>
+          <a id="tab-fields-customizer" role="tab" href="#/settings/custom/fields-customizer" aria-selected="${isFieldsActive ? 'true' : 'false'}" tabindex="${isFieldsActive ? '0' : '-1'}" aria-controls="panel-fields-customizer" class="select-none px-4 py-2.5 text-xs font-semibold whitespace-nowrap transition-colors flex items-center gap-1.5 outline-none bg-transparent -mb-[1px] border-b-2 ${isFieldsActive ? 'tab-active text-[#00A4B7] border-[#00A4B7] font-bold' : 'text-[#5E6C84] hover:text-[#172B4D] border-transparent hover:border-[#DFE1E6]'}">
+            <span class="select-none">Filds Customizer</span>
           </a>
-          <a 
-            href="#/settings/custom/query-editor" 
-            class="px-4 py-2 rounded-lg text-xs font-bold transition-all inline-flex items-center gap-1.5 ${this.activeTab === 'query-editor' ? 'bg-[#00A4B7] text-white shadow-xs' : 'text-[#5E6C84] hover:text-[#172B4D] hover:bg-[#F4F5F7]'}"
-          >
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
-            <span>Query Editor</span>
+          <a id="tab-query-editor" role="tab" href="#/settings/custom/query-editor" aria-selected="${isQueryActive ? 'true' : 'false'}" tabindex="${isQueryActive ? '0' : '-1'}" aria-controls="panel-query-editor" class="select-none px-4 py-2.5 text-xs font-semibold whitespace-nowrap transition-colors flex items-center gap-1.5 outline-none bg-transparent -mb-[1px] border-b-2 ${isQueryActive ? 'tab-active text-[#00A4B7] border-[#00A4B7] font-bold' : 'text-[#5E6C84] hover:text-[#172B4D] border-transparent hover:border-[#DFE1E6]'}">
+            <span class="select-none">Query Editor</span>
           </a>
         </div>
       </div>
