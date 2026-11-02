@@ -85170,29 +85170,58 @@ const SetupView = {
           <div class="bg-transparent p-0 border-0 space-y-3.5 flex flex-col h-full">
             <div class="flex items-center justify-between border-b border-[#EBECF0] pb-2.5">
               <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Main Menu</span>
-              ${isEdit ? `<span class="text-[10px] font-bold text-[#0284C7] bg-[#F0F9FF] px-2.5 py-1 rounded border border-[#BAE6FD] font-mono">${mod.id}</span>` : ''}
+              ${isEdit ? `<span class="text-[10px] font-bold text-[#00A4B7] bg-[#F0F9FF] px-2.5 py-1 rounded border border-[#BAE6FD] font-mono">${mod.id}</span>` : ''}
             </div>
 
             <div class="space-y-3 flex-1 flex flex-col">
-              <!-- Menu Name & Status in 2 columns -->
-              <div class="grid grid-cols-12 gap-3 items-end">
-                <div class="col-span-8 sm:col-span-9">
-                  <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-0">
-                    Menu Name <span class="text-rose-500">*</span>
-                  </label>
-                  <input type="text" id="menu-modal-name" value="${currentName}" placeholder="e.g. Procurement & Inward" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D]" />
+              <!-- Menu Selection, Name & Status -->
+              <div class="space-y-3">
+                <!-- Row 1: Select Existing Menu Dropdown & Status Checkbox -->
+                <div class="grid grid-cols-12 gap-3 items-end">
+                  <div class="col-span-8 sm:col-span-9">
+                    <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1 flex items-center justify-between">
+                      <span class="flex items-center gap-1.5">
+                        <svg class="w-3.5 h-3.5 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
+                        <span>Select Existing Menu</span>
+                      </span>
+                      <span class="text-[10px] font-medium text-[#5E6C84] lowercase">(or create new)</span>
+                    </label>
+                    <select id="menu-modal-select-existing" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] cursor-pointer shadow-2xs">
+                      <option value="__NEW__" ${!isEdit ? 'selected' : ''}>✨ + Create New Menu</option>
+                      <optgroup label="── Existing Menus ──">
+                        ${this.state.modulesConfig.map(m => `
+                          <option value="${m.id}" ${mod && (mod.id === m.id || mod.key === m.key) ? 'selected' : ''}>
+                            ${m.label}${m.isProtected ? ' (System Default)' : ''}
+                          </option>
+                        `).join('')}
+                      </optgroup>
+                    </select>
+                  </div>
+
+                  <div class="col-span-4 sm:col-span-3">
+                    <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1">
+                      Status
+                    </label>
+                    <div class="flex items-center h-[38px]">
+                      <label class="inline-flex items-center cursor-pointer select-none">
+                        <input type="checkbox" id="menu-modal-status-cb" class="w-4.5 h-4.5 rounded border-[#DFE1E6] text-[#00A4B7] accent-[#00A4B7] cursor-pointer" ${currentStatus === 'Active' ? 'checked' : ''} title="Menu Status (Checked: Active, Unchecked: Inactive)" />
+                      </label>
+                      <input type="hidden" id="menu-modal-status" value="${currentStatus}" />
+                    </div>
+                  </div>
                 </div>
 
-                <div class="col-span-4 sm:col-span-3">
-                  <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-0">
-                    Status
-                  </label>
-                  <div class="flex items-center h-[38px]">
-                    <label class="inline-flex items-center cursor-pointer select-none">
-                      <input type="checkbox" id="menu-modal-status-cb" class="w-4.5 h-4.5 rounded border-[#DFE1E6] text-[#0284C7] accent-[#0284C7] cursor-pointer" ${currentStatus === 'Active' ? 'checked' : ''} title="Menu Status (Checked: Active, Unchecked: Inactive)" />
+                <!-- Row 2: Menu Name Text Input (Add new or edit existing) -->
+                <div>
+                  <div class="flex items-center justify-between mb-1">
+                    <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider">
+                      Menu Name <span class="text-rose-500">*</span>
                     </label>
-                    <input type="hidden" id="menu-modal-status" value="${currentStatus}" />
+                    <span id="menu-modal-mode-badge" class="text-[10px] font-semibold text-[#5E6C84]">
+                      ${isEdit ? `Editing: ${currentName}` : '✨ Creating New Menu'}
+                    </span>
                   </div>
+                  <input type="text" id="menu-modal-name" value="${currentName}" placeholder="e.g. Procurement & Inward" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] shadow-2xs" />
                 </div>
               </div>
 
@@ -85221,7 +85250,7 @@ const SetupView = {
               <div>
                 <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Sub Menu</span>
               </div>
-              <button type="button" id="btn-add-sub-item" class="btn-secondary px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 hover:bg-[#EBECF0] transition-colors cursor-pointer text-[#0284C7] border border-[#DFE1E6]">
+              <button type="button" id="btn-add-sub-item" class="btn-secondary px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 hover:bg-[#EBECF0] transition-colors cursor-pointer text-[#00A4B7] border border-[#DFE1E6]">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
                 <span>Add Sub Menu</span>
               </button>
@@ -85289,19 +85318,30 @@ const SetupView = {
               }
             });
 
-            if (isEdit) {
-              mod.label = menuName;
-              mod.icon = iconSvg;
-              mod.iconKey = iconKey;
-              mod.status = menuStatus;
-              mod.visible = isVisible;
-              mod.submenusCount = submenus.length;
+            const selectedMenuId = document.getElementById('menu-modal-select-existing')?.value;
+            const existingMatch = (selectedMenuId && selectedMenuId !== '__NEW__')
+              ? this.state.modulesConfig.find(m => m.id === selectedMenuId || m.key === selectedMenuId)
+              : null;
+            const targetMod = isEdit ? mod : existingMatch;
+
+            if (targetMod && (targetMod.isProtected || targetMod.isDefault || ['dashboard', 'master', 'reports', 'help'].includes(targetMod.id || targetMod.key))) {
+              Toast.show('System default menu is protected and cannot be modified.', 'warning');
+              return;
+            }
+
+            if (targetMod) {
+              targetMod.label = menuName;
+              targetMod.icon = iconSvg;
+              targetMod.iconKey = iconKey;
+              targetMod.status = menuStatus;
+              targetMod.visible = isVisible;
+              targetMod.submenusCount = submenus.length;
               if (submenus.length > 0 && submenus[0].url) {
-                mod.route = submenus[0].url;
+                targetMod.route = submenus[0].url;
               }
-              this.state.submenusConfig[mod.id] = submenus;
-              this.state.submenusConfig[mod.key] = submenus;
-              this.logAudit('Menu Setup', `Updated menu: ${menuName} (${mod.key}) with ${submenus.length} submenus`);
+              this.state.submenusConfig[targetMod.id] = submenus;
+              this.state.submenusConfig[targetMod.key] = submenus;
+              this.logAudit('Menu Setup', `Updated menu: ${menuName} (${targetMod.key}) with ${submenus.length} submenus`);
             } else {
               const newMod = {
                 id: modKey,
@@ -85348,6 +85388,11 @@ const SetupView = {
       ]
     });
 
+    // 0. Existing Menu Select & Name Input Synchronization
+    const existingSelect = document.getElementById('menu-modal-select-existing');
+    const menuNameInput = document.getElementById('menu-modal-name');
+    const modeBadge = document.getElementById('menu-modal-mode-badge');
+
     // 1. Status Checkbox for Main Menu
     const statusCb = document.getElementById('menu-modal-status-cb');
     const statusInput = document.getElementById('menu-modal-status');
@@ -85388,8 +85433,8 @@ const SetupView = {
         return `
           <button type="button" data-icon-id="${item.id}" class="lucide-icon-tile p-2 rounded-lg border text-left flex flex-col items-center justify-center gap-1 transition-all cursor-pointer ${
             isSelected 
-              ? 'border-[#0284C7] bg-[#F0F9FF] text-[#0284C7] ring-2 ring-[#0284C7]/20 shadow-2xs font-bold' 
-              : 'border-[#DFE1E6] bg-white hover:border-[#0284C7] hover:bg-[#F4F5F7] text-[#172B4D]'
+              ? 'border-[#00A4B7] bg-[#F0F9FF] text-[#00A4B7] ring-2 ring-[#00A4B7]/20 shadow-2xs font-bold' 
+              : 'border-[#DFE1E6] bg-white hover:border-[#00A4B7] hover:bg-[#F4F5F7] text-[#172B4D]'
           }" title="${item.label || item.name}">
             <div class="w-5 h-5 flex items-center justify-center shrink-0">
               ${item.svg}
@@ -85409,9 +85454,9 @@ const SetupView = {
 
         iconGrid.querySelectorAll('.lucide-icon-tile').forEach(t => {
           if (t.dataset.iconId === iconId) {
-            t.className = 'lucide-icon-tile p-2 rounded-lg border text-left flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#0284C7] bg-[#F0F9FF] text-[#0284C7] ring-2 ring-[#0284C7]/20 shadow-2xs font-bold';
+            t.className = 'lucide-icon-tile p-2 rounded-lg border text-left flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#00A4B7] bg-[#F0F9FF] text-[#00A4B7] ring-2 ring-[#00A4B7]/20 shadow-2xs font-bold';
           } else {
-            t.className = 'lucide-icon-tile p-2 rounded-lg border text-left flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#DFE1E6] bg-white hover:border-[#0284C7] hover:bg-[#F4F5F7] text-[#172B4D]';
+            t.className = 'lucide-icon-tile p-2 rounded-lg border text-left flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#DFE1E6] bg-white hover:border-[#00A4B7] hover:bg-[#F4F5F7] text-[#172B4D]';
           }
         });
       };
@@ -85428,19 +85473,19 @@ const SetupView = {
       rowEl.className = 'submenu-item-row grid grid-cols-12 gap-2 items-center py-1';
       rowEl.innerHTML = `
         <div class="col-span-5">
-          <input type="text" class="sub-item-name w-full text-xs px-2.5 py-1.5 border border-[#DFE1E6] rounded-md focus:outline-none focus:border-[#0284C7] font-semibold text-[#172B4D] bg-white" placeholder="Sub Menu Name" value="${sub.name || sub.title || ''}" />
+          <input type="text" class="sub-item-name w-full text-xs px-2.5 py-1.5 border border-[#DFE1E6] rounded-md focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] bg-white" placeholder="Sub Menu Name" value="${sub.name || sub.title || ''}" />
         </div>
         <div class="col-span-4">
-          <input type="text" class="sub-item-url w-full text-xs px-2.5 py-1.5 border border-[#DFE1E6] rounded-md focus:outline-none focus:border-[#0284C7] font-mono text-[#0284C7] bg-white" placeholder="Url" value="${sub.url || sub.hash || sub.route || ''}" />
+          <input type="text" class="sub-item-url w-full text-xs px-2.5 py-1.5 border border-[#DFE1E6] rounded-md focus:outline-none focus:border-[#00A4B7] font-mono text-[#00A4B7] bg-white" placeholder="Url" value="${sub.url || sub.hash || sub.route || ''}" />
         </div>
         <div class="col-span-2 flex items-center justify-center">
           <label class="inline-flex items-center cursor-pointer select-none">
-            <input type="checkbox" class="sub-item-status-cb w-4.5 h-4.5 rounded border-[#DFE1E6] text-[#0284C7] accent-[#0284C7] cursor-pointer" ${isActive ? 'checked' : ''} title="Submenu Status (Checked: Active, Unchecked: Inactive)" />
+            <input type="checkbox" class="sub-item-status-cb w-4.5 h-4.5 rounded border-[#DFE1E6] text-[#00A4B7] accent-[#00A4B7] cursor-pointer" ${isActive ? 'checked' : ''} title="Submenu Status (Checked: Active, Unchecked: Inactive)" />
           </label>
           <input type="hidden" class="sub-item-status" value="${sub.status || 'Active'}" />
         </div>
         <div class="col-span-1 flex items-center justify-center">
-          <button type="button" class="btn-remove-sub p-1.5 text-[#FF5630] hover:bg-rose-50 rounded-md transition-colors cursor-pointer" title="Remove Sub Menu">
+          <button type="button" class="btn-remove-sub p-1.5 text-[#DE350B] hover:bg-rose-50 rounded-md transition-colors cursor-pointer" title="Remove Sub Menu">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
           </button>
         </div>
@@ -85470,6 +85515,95 @@ const SetupView = {
     const addSubBtn = document.getElementById('btn-add-sub-item');
     if (addSubBtn) {
       addSubBtn.onclick = () => addSubRow({ name: '', url: '', status: 'Active' });
+    }
+
+    // Dynamic Select Existing Menu / Create New Menu handler
+    if (existingSelect && menuNameInput) {
+      existingSelect.onchange = () => {
+        const val = existingSelect.value;
+        if (val === '__NEW__') {
+          // User chose to create a new custom menu
+          if (modeBadge) modeBadge.textContent = '✨ Creating New Menu';
+          menuNameInput.value = '';
+          menuNameInput.placeholder = 'e.g. Procurement & Inward';
+          menuNameInput.focus();
+
+          // Reset submenus to 1 blank row
+          if (listContainer) {
+            listContainer.innerHTML = '';
+            addSubRow({ name: '', url: '', status: 'Active' });
+          }
+
+          // Reset status to Active
+          if (statusCb) statusCb.checked = true;
+          if (statusInput) statusInput.value = 'Active';
+
+          // Reset icon to default
+          const defaultIconId = 'shopping-cart';
+          if (selectedHiddenVal) selectedHiddenVal.value = defaultIconId;
+          if (iconGrid) {
+            iconGrid.querySelectorAll('.lucide-icon-tile').forEach(t => {
+              if (t.dataset.iconId === defaultIconId) {
+                t.className = 'lucide-icon-tile p-2 rounded-lg border text-left flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#00A4B7] bg-[#F0F9FF] text-[#00A4B7] ring-2 ring-[#00A4B7]/20 shadow-2xs font-bold';
+              } else {
+                t.className = 'lucide-icon-tile p-2 rounded-lg border text-left flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#DFE1E6] bg-white hover:border-[#00A4B7] hover:bg-[#F4F5F7] text-[#172B4D]';
+              }
+            });
+          }
+        } else {
+          // Existing menu chosen from dropdown
+          const found = this.state.modulesConfig.find(m => m.id === val || m.key === val);
+          if (found) {
+            if (modeBadge) {
+              modeBadge.textContent = found.isProtected ? '🔒 System Menu (Protected)' : `Existing Menu: ${found.label}`;
+            }
+            menuNameInput.value = found.label;
+
+            // Update status checkbox
+            const isAct = found.status === 'Active' || (found.status === undefined && found.visible);
+            if (statusCb) statusCb.checked = isAct;
+            if (statusInput) statusInput.value = isAct ? 'Active' : 'Inactive';
+
+            // Update icon in Lucide grid
+            const foundIconId = this.getModuleIconId(found);
+            if (selectedHiddenVal) selectedHiddenVal.value = foundIconId;
+            if (iconGrid) {
+              iconGrid.querySelectorAll('.lucide-icon-tile').forEach(t => {
+                if (t.dataset.iconId === foundIconId) {
+                  t.className = 'lucide-icon-tile p-2 rounded-lg border text-left flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#00A4B7] bg-[#F0F9FF] text-[#00A4B7] ring-2 ring-[#00A4B7]/20 shadow-2xs font-bold';
+                  t.scrollIntoView({ block: 'nearest' });
+                } else {
+                  t.className = 'lucide-icon-tile p-2 rounded-lg border text-left flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#DFE1E6] bg-white hover:border-[#00A4B7] hover:bg-[#F4F5F7] text-[#172B4D]';
+                }
+              });
+            }
+
+            // Populate existing submenus into submenus list
+            const subList = this.state.submenusConfig[found.id] || this.state.submenusConfig[found.key] || [];
+            if (listContainer) {
+              listContainer.innerHTML = '';
+              if (subList.length > 0) {
+                subList.forEach(s => addSubRow(s));
+              } else {
+                addSubRow({ name: '', url: '', status: 'Active' });
+              }
+            }
+          }
+        }
+      };
+
+      // When user edits or types directly into menuNameInput
+      menuNameInput.oninput = () => {
+        const typed = menuNameInput.value.trim().toLowerCase();
+        const matchingMod = this.state.modulesConfig.find(m => m.label.toLowerCase() === typed);
+        if (matchingMod) {
+          existingSelect.value = matchingMod.id;
+          if (modeBadge) modeBadge.textContent = `Existing Menu: ${matchingMod.label}`;
+        } else {
+          existingSelect.value = '__NEW__';
+          if (modeBadge) modeBadge.textContent = '✨ Custom / New Menu';
+        }
+      };
     }
   },
 
