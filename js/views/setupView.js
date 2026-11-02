@@ -16,6 +16,8 @@ const DEFAULT_MODULES_CONFIG = [
     "label": "DASHBOARD",
     "order": 1,
     "visible": true,
+    "isProtected": true,
+    "isDefault": true,
     "submenusCount": 7,
     "roles": [
       "System Administrator",
@@ -33,6 +35,8 @@ const DEFAULT_MODULES_CONFIG = [
     "label": "MASTER",
     "order": 2,
     "visible": true,
+    "isProtected": true,
+    "isDefault": true,
     "submenusCount": 46,
     "roles": [
       "System Administrator"
@@ -97,6 +101,8 @@ const DEFAULT_MODULES_CONFIG = [
     "label": "REPORTS",
     "order": 7,
     "visible": true,
+    "isProtected": true,
+    "isDefault": true,
     "submenusCount": 35,
     "roles": [
       "System Administrator",
@@ -144,6 +150,8 @@ const DEFAULT_MODULES_CONFIG = [
     "label": "HELP",
     "order": 10,
     "visible": true,
+    "isProtected": true,
+    "isDefault": true,
     "submenusCount": 1,
     "roles": [
       "System Administrator",
@@ -4196,6 +4204,13 @@ function getInitialStudioState() {
     try {
       const parsed = JSON.parse(saved);
       if (parsed.modulesConfig && parsed.modulesConfig.length >= 30) {
+        const defaultMenuKeys = ['dashboard', 'master', 'reports', 'help'];
+        parsed.modulesConfig.forEach(m => {
+          if (defaultMenuKeys.includes(m.id) || defaultMenuKeys.includes(m.key)) {
+            m.isProtected = true;
+            m.isDefault = true;
+          }
+        });
         if (parsed.roles && Array.isArray(parsed.roles)) {
           const defaultDeptMap = {
             'ROLE-ADMIN': 'Executive Management',
@@ -9190,7 +9205,20 @@ export const SetupView = {
         { 
           field: 'label', 
           header: 'Menu Name', 
-          render: (v) => `<span class="font-bold text-[#172B4D] text-xs">${v}</span>` 
+          render: (v, r) => {
+            const isProtected = Boolean(r && (r.isProtected || r.isDefault || ['dashboard', 'master', 'reports', 'help'].includes(r.id || r.key)));
+            return `
+              <div class="flex items-center gap-2">
+                <span class="font-bold text-[#172B4D] text-xs">${v}</span>
+                ${isProtected ? `
+                  <span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-bold bg-[#F1F5F9] text-[#5E6C84] border border-[#DFE1E6]" title="System default menu cannot be modified or deleted">
+                    <svg class="w-2.5 h-2.5 text-[#5E6C84]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                    <span>System Default</span>
+                  </span>
+                ` : ''}
+              </div>
+            `;
+          }
         },
         { 
           field: 'submenus', 
@@ -9236,15 +9264,29 @@ export const SetupView = {
       actions: [
         {
           label: 'Edit',
-          icon: `<svg class="w-4 h-4 text-[#0284C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>`,
-          onClick: (row) => this.showEditModuleModal(row, modulesTable)
+          icon: `<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>`,
+          disabled: (row) => Boolean(row && (row.isProtected || row.isDefault || ['dashboard', 'master', 'reports', 'help'].includes(row.id || row.key))),
+          disabledTooltip: 'System default menu cannot be edited',
+          onClick: (row) => {
+            if (row && (row.isProtected || row.isDefault || ['dashboard', 'master', 'reports', 'help'].includes(row.id || row.key))) {
+              Toast.show('System default menu is protected and cannot be edited.', 'warning');
+              return;
+            }
+            this.showEditModuleModal(row, modulesTable);
+          }
         },
         {
           label: (row) => (row.status === 'Active' || (row.status === undefined && row.visible)) ? 'Deactivate' : 'Activate',
           icon: (row) => (row.status === 'Active' || (row.status === undefined && row.visible))
-            ? `<svg class="w-4 h-4 text-[#FF5630]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg>`
-            : `<svg class="w-4 h-4 text-[#00875A]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`,
+            ? `<svg class="w-4 h-4 text-[#DE350B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg>`
+            : `<svg class="w-4 h-4 text-[#006644]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`,
+          disabled: (row) => Boolean(row && (row.isProtected || row.isDefault || ['dashboard', 'master', 'reports', 'help'].includes(row.id || row.key))),
+          disabledTooltip: 'System default menu cannot be deactivated',
           onClick: (row) => {
+            if (row && (row.isProtected || row.isDefault || ['dashboard', 'master', 'reports', 'help'].includes(row.id || row.key))) {
+              Toast.show('System default menu is protected and must remain active.', 'warning');
+              return;
+            }
             const isCurrentlyActive = row.status === 'Active' || (row.status === undefined && row.visible);
             if (isCurrentlyActive) {
               Modal.confirm({
@@ -9297,8 +9339,14 @@ export const SetupView = {
         },
         {
           label: 'Delete',
-          icon: `<svg class="w-4 h-4 text-[#FF5630]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>`,
+          icon: `<svg class="w-4 h-4 text-[#DE350B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>`,
+          disabled: (row) => Boolean(row && (row.isProtected || row.isDefault || ['dashboard', 'master', 'reports', 'help'].includes(row.id || row.key))),
+          disabledTooltip: 'System default menu cannot be deleted',
           onClick: (row) => {
+            if (row && (row.isProtected || row.isDefault || ['dashboard', 'master', 'reports', 'help'].includes(row.id || row.key))) {
+              Toast.show('System default menu is protected and cannot be deleted.', 'warning');
+              return;
+            }
             Modal.confirm({
               title: `Delete Menu ${row.label}`,
               message: `Are you sure you want to permanently delete menu <strong>${row.label}</strong> (${row.key}) and its configured submenus? This action cannot be undone.`,
@@ -9790,6 +9838,10 @@ export const SetupView = {
   },
 
   showEditModuleModal(mod, modulesTable = null) {
+    if (mod && (mod.isProtected || mod.isDefault || ['dashboard', 'master', 'reports', 'help'].includes(mod.id || mod.key))) {
+      Toast.show('System default menu is protected and cannot be modified.', 'warning');
+      return;
+    }
     this.showMenuFormModal(mod, true, modulesTable);
   },
 

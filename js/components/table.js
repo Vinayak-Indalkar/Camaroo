@@ -832,6 +832,10 @@ export class DataTable {
         this.actions.forEach((act, actIdx) => {
           const actLabel = typeof act.label === 'function' ? act.label(row) : (act.label || '');
           let actIcon = typeof act.icon === 'function' ? act.icon(row) : (act.icon || actLabel);
+          const isDisabled = typeof act.disabled === 'function' ? act.disabled(row) : Boolean(act.disabled);
+          const tooltip = isDisabled
+            ? (typeof act.disabledTooltip === 'function' ? act.disabledTooltip(row) : (act.disabledTooltip || (actLabel ? `${actLabel} (Disabled)` : 'Disabled')))
+            : actLabel;
 
           if (typeof actIcon === 'string') {
             actIcon = actIcon
@@ -839,19 +843,37 @@ export class DataTable {
               .replace(/text-(?:green|blue|red|amber|orange|purple|indigo|slate|gray)-\d+/g, 'text-current');
           }
 
-          rowsHtml += `
-            <button 
-              type="button"
-              data-action-idx="${actIdx}" 
-              data-key="${keyVal}" 
-              class="dt-action-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#0284C7] text-[#334155] hover:text-[#0284C7] rounded-full transition-colors cursor-pointer select-none" 
-              style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 9999px; border: 1px solid #CBD5E1; background: #ffffff; color: #334155; display: inline-flex; align-items: center; justify-content: center; padding: 0;"
-              title="${actLabel}" 
-              aria-label="${actLabel}"
-            >
-              ${actIcon}
-            </button>
-          `;
+          if (isDisabled) {
+            rowsHtml += `
+              <button 
+                type="button"
+                data-action-idx="${actIdx}" 
+                data-key="${keyVal}" 
+                disabled="disabled"
+                aria-disabled="true"
+                class="dt-action-btn dt-action-btn-disabled w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-[#F4F5F7] border border-[#DFE1E6] text-[#94A3B8] rounded-full select-none cursor-not-allowed opacity-35" 
+                style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 9999px; border: 1px solid #DFE1E6 !important; background: #F4F5F7 !important; color: #94A3B8 !important; display: inline-flex; align-items: center; justify-content: center; padding: 0; cursor: not-allowed !important; opacity: 0.35 !important;"
+                title="${tooltip.replace(/"/g, '&quot;')}" 
+                aria-label="${tooltip.replace(/"/g, '&quot;')}"
+              >
+                ${actIcon}
+              </button>
+            `;
+          } else {
+            rowsHtml += `
+              <button 
+                type="button"
+                data-action-idx="${actIdx}" 
+                data-key="${keyVal}" 
+                class="dt-action-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" 
+                style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 9999px; border: 1px solid #CBD5E1; background: #ffffff; color: #334155; display: inline-flex; align-items: center; justify-content: center; padding: 0;"
+                title="${tooltip.replace(/"/g, '&quot;')}" 
+                aria-label="${tooltip.replace(/"/g, '&quot;')}"
+              >
+                ${actIcon}
+              </button>
+            `;
+          }
         });
         rowsHtml += `</div></td>`;
       }
@@ -1246,6 +1268,11 @@ export class DataTable {
     const actionBtns = this.container.querySelectorAll('.dt-action-btn');
     actionBtns.forEach(btn => {
       btn.addEventListener('click', (e) => {
+        if (btn.disabled || btn.getAttribute('aria-disabled') === 'true' || btn.classList.contains('dt-action-btn-disabled')) {
+          e.stopPropagation();
+          e.preventDefault();
+          return;
+        }
         const actIdx = parseInt(btn.dataset.actionIdx, 10);
         if (isNaN(actIdx)) return;
         e.stopPropagation();
