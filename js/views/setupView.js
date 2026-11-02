@@ -9879,8 +9879,8 @@ export const SetupView = {
             </div>
 
             <div class="space-y-3 flex-1 flex flex-col">
-              <!-- Menu Selection, Name & Status -->
-              <div class="space-y-3">
+              <!-- Menu Selection, Name & Status Card with crisp visible border -->
+              <div class="space-y-3 p-3.5 bg-white rounded-xl border border-[#DFE1E6] shadow-2xs" style="border: 1px solid #DFE1E6 !important;">
                 <!-- Row 1: Select Existing Menu Dropdown & Status Checkbox -->
                 <div class="grid grid-cols-12 gap-3 items-end">
                   <div class="col-span-8 sm:col-span-9">
@@ -9891,7 +9891,7 @@ export const SetupView = {
                     
                     <!-- Custom Dropdown with Assigned Menu Icons -->
                     <div class="relative" id="menu-dropdown-wrapper">
-                      <button type="button" id="menu-modal-select-trigger" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] flex items-center justify-between cursor-pointer shadow-2xs hover:border-[#CBD5E1] transition-all">
+                      <button type="button" id="menu-modal-select-trigger" class="w-full text-xs px-3 py-2 bg-white border border-[#CBD5E1] rounded-lg focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] flex items-center justify-between cursor-pointer shadow-2xs hover:border-[#00A4B7] transition-all" style="border: 1px solid #CBD5E1 !important;">
                         <div class="flex items-center gap-2 truncate" id="menu-selected-display">
                           ${mod ? `
                             <div class="w-5 h-5 rounded-md bg-[#F0F9FF] border border-[#BAE6FD] text-[#00A4B7] flex items-center justify-center shrink-0 [&>svg]:w-3.5 [&>svg]:h-3.5">
@@ -9983,7 +9983,7 @@ export const SetupView = {
                       ${isEdit ? `Editing: ${currentName}` : '✨ Creating New Menu'}
                     </span>
                   </div>
-                  <input type="text" id="menu-modal-name" value="${currentName}" placeholder="e.g. Procurement & Inward" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] shadow-2xs" />
+                  <input type="text" id="menu-modal-name" value="${currentName}" placeholder="e.g. Procurement & Inward" class="w-full text-xs px-3 py-2 bg-white border border-[#CBD5E1] rounded-lg focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] shadow-2xs" style="border: 1px solid #CBD5E1 !important;" />
                 </div>
               </div>
 
