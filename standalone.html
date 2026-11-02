@@ -88625,7 +88625,6 @@ const SettingsView = {
                     const isSelected = idx === 0;
                     return `
                       <div class="data-type-card cursor-pointer p-3 rounded-xl border transition-all relative flex items-center gap-2.5 select-none ${isSelected ? 'border-2 border-[#00A4B7] bg-[#F0F9FF] shadow-xs' : 'border-[#DFE1E6] bg-white hover:border-[#00A4B7] hover:bg-[#F8FAFC]'}" data-type-id="${t.id}" data-type-title="${t.title}" data-category="${t.category}">
-                        <span class="selected-dot ${isSelected ? '' : 'hidden'} absolute top-2 right-2 w-2 h-2 rounded-full bg-[#00A4B7]"></span>
                         <div class="icon-box w-8 h-8 min-w-[32px] rounded-lg flex items-center justify-center font-bold text-xs shrink-0 transition-colors ${isSelected ? 'bg-[#00A4B7] text-white shadow-xs' : 'bg-[#F1F5F9] text-[#5E6C84]'}">
                           ${renderTypeIcon(t)}
                         </div>
@@ -88904,8 +88903,49 @@ const SettingsView = {
         });
       }
 
+      // Sample shipment mock mapping per target form
+      const formSampleRecords = {
+        'FORM-PI': [
+          'PI-2024-8841 — Apex Frozen Foods (USA - 40ft FCL Vannamei)',
+          'PI-2024-8902 — Marunaka Co Ltd (Japan - Black Tiger HOSO)',
+          'PI-2024-8935 — Ocean Harvest Corp (EU - Raw IQF PDTO)',
+          'PI-2024-8970 — Sysco International (USA - Block Frozen HLSO)'
+        ],
+        'FORM-CI': [
+          'CI-2024-5102 — Marunaka Co Ltd (Invoice USD 184,200)',
+          'CI-2024-5103 — Apex Frozen Foods (Invoice USD 242,500)',
+          'CI-2024-5104 — Ocean Harvest Corp (Invoice EUR 145,000)'
+        ],
+        'FORM-ISF': [
+          'ISF-2024-0981 — US Customs 10+2 Filing (Vessel MSC EVA)',
+          'ISF-2024-0982 — US Customs 10+2 Filing (Maersk Seletar)'
+        ],
+        'FORM-SB': [
+          'SB-2024-4410 — Shipping Bill Clear (Port: INVTZ1)',
+          'SB-2024-4411 — Customs LEO Granted (Port: INMAA1)'
+        ],
+        'FORM-COMM': [
+          'COMM-2024-882 — Realization Pending (HSBC Bank USD)',
+          'COMM-2024-883 — Full Realized (Citibank NA USD)'
+        ],
+        'FORM-FDA': [
+          'FDA-PN-2024-771 — Prior Notice Confirmation (USA Bound)',
+          'FDA-PN-2024-772 — Prior Notice Verified (US-FDA)'
+        ],
+        'FORM-CC': [
+          'CC-2024-118 — Clearing Agent Vizag Sea Entry Ref',
+          'CC-2024-119 — Clearing Agent Chennai Port Entry'
+        ],
+        'FORM-FC': [
+          'FC-2024-301 — Forward Contract USD/INR Booked @ 84.15',
+          'FC-2024-302 — Forward Contract USD/INR Booked @ 84.30'
+        ]
+      };
+
       // Live Component Preview Synchronization
       const updateLivePreview = () => {
+        const targetFormSelect = document.getElementById('add-fld-target-form');
+        const targetFormVal = targetFormSelect?.value || 'FORM-PI';
         const labelVal = labelInput?.value?.trim() || '';
         const keyVal = keyInput?.value?.trim() || (labelVal ? labelVal.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase()).replace(/[^a-zA-Z0-9]/g, '') : 'untitledKey');
         const sectionVal = sectionSelect?.value || 'Header Information';
@@ -88913,25 +88953,31 @@ const SettingsView = {
         const helperInput = document.getElementById('add-fld-helper');
         const permissionSelect = document.getElementById('add-fld-permission');
         const mandatoryCheckbox = document.getElementById('add-fld-mandatory');
+        const statusCheckbox = document.getElementById('add-fld-status');
         const optionsInput = document.getElementById('add-fld-options');
 
         const placeholderVal = placeholderInput?.value?.trim() || '';
         const helperVal = helperInput?.value?.trim() || '';
         const permissionVal = permissionSelect?.value || 'Export Documentation & Sales (Standard)';
         const isMandatory = mandatoryCheckbox?.checked || false;
+        const isActive = statusCheckbox ? statusCheckbox.checked : true;
         const optionsVal = optionsInput?.value?.trim() || '';
         const parsedOptions = optionsVal ? optionsVal.split(',').map(s => s.trim()).filter(Boolean) : ['Option 1', 'Option 2', 'Option 3'];
 
         // 1. Header pill
         const pill = document.getElementById('preview-type-pill');
-        if (pill) pill.textContent = selectedType.id || selectedType.title.toLowerCase();
+        if (pill) pill.textContent = (selectedType.id || selectedType.title || 'text').toLowerCase();
 
         // 2. Section & Permission tags
         const secEl = document.getElementById('preview-section-title');
         if (secEl) secEl.textContent = (sectionVal.includes('(') ? sectionVal.split('(')[0].trim() : sectionVal).toUpperCase();
 
         const permEl = document.getElementById('preview-permission-tag');
-        if (permEl) permEl.textContent = permissionVal.includes('(') ? permissionVal.split('(')[0].trim() : permissionVal;
+        if (permEl) {
+          const permText = permissionVal.includes('(') ? permissionVal.split('(')[0].trim() : permissionVal;
+          permEl.textContent = isActive ? permText : `${permText} (Inactive)`;
+          permEl.className = isActive ? 'text-xs text-[#64748B] font-medium shrink-0' : 'text-xs text-[#DE350B] font-bold shrink-0';
+        }
 
         // 3. Label & Mandatory star
         const lblEl = document.getElementById('preview-field-label');
@@ -88960,15 +89006,19 @@ const SettingsView = {
 
         // 6. Field Engine
         const engineEl = document.getElementById('preview-field-engine');
-        if (engineEl) {
-          if (['dropdown', 'multi-select', 'radio'].includes(selectedType.id)) {
-            engineEl.textContent = 'Choice Engine';
-          } else if (selectedType.id === 'currency' || selectedType.id === 'number') {
-            engineEl.textContent = 'Numeric Engine';
-          } else {
-            engineEl.textContent = 'Standard Static';
-          }
+        let engineName = 'Standard Text Engine';
+        if (['dropdown', 'multi-select', 'radio'].includes(selectedType.id)) {
+          engineName = 'Choice Engine';
+        } else if (selectedType.id === 'currency' || selectedType.id === 'number') {
+          engineName = 'Numeric Engine';
+        } else if (['date', 'time', 'datetime'].includes(selectedType.id)) {
+          engineName = 'Date & Time Engine';
+        } else if (selectedType.id === 'file') {
+          engineName = 'Binary File Engine';
+        } else if (['rating', 'color'].includes(selectedType.id)) {
+          engineName = 'Interactive Engine';
         }
+        if (engineEl) engineEl.textContent = engineName;
 
         // 7. Interactive Input Element
         const inputContainer = document.getElementById('preview-input-container');
@@ -88978,23 +89028,48 @@ const SettingsView = {
           const currentOutput = document.getElementById('preview-active-output');
 
           switch (selectedType.id) {
+            case 'multi-line-text':
             case 'textarea':
-              html = `<textarea id="live-user-input" rows="3" placeholder="${phText}" class="w-full text-xs px-2.5 py-1.5 bg-[#F8FAFC] border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] focus:bg-white transition-all"></textarea>`;
+              html = `<textarea id="live-user-input" rows="3" placeholder="${phText}" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-medium text-[#0F172A] focus:outline-none focus:border-[#2563EB] transition-all"></textarea>`;
+              break;
+            case 'email':
+              html = `
+                <div class="relative flex items-center">
+                  <span class="absolute left-3 text-xs text-[#64748B]">@</span>
+                  <input type="email" id="live-user-input" placeholder="${phText}" style="padding-left: 28px;" class="w-full text-xs py-2 pr-3 bg-white border border-[#DFE1E6] rounded-lg font-medium text-[#0F172A] focus:outline-none focus:border-[#2563EB] transition-all" />
+                </div>
+              `;
+              break;
+            case 'phone':
+              html = `
+                <div class="relative flex items-center">
+                  <span class="absolute left-3 text-xs text-[#64748B]">📞</span>
+                  <input type="tel" id="live-user-input" placeholder="${phText}" style="padding-left: 30px;" class="w-full text-xs py-2 pr-3 bg-white border border-[#DFE1E6] rounded-lg font-medium text-[#0F172A] focus:outline-none focus:border-[#2563EB] transition-all" />
+                </div>
+              `;
+              break;
+            case 'website':
+              html = `
+                <div class="relative flex items-center">
+                  <span class="absolute left-3 text-[11px] font-mono text-[#64748B]">https://</span>
+                  <input type="url" id="live-user-input" placeholder="${phText}" style="padding-left: 60px;" class="w-full text-xs py-2 pr-3 bg-white border border-[#DFE1E6] rounded-lg font-medium text-[#0F172A] focus:outline-none focus:border-[#2563EB] transition-all" />
+                </div>
+              `;
               break;
             case 'number':
-              html = `<input type="number" id="live-user-input" placeholder="${placeholderVal || '0'}" class="w-full text-xs px-2.5 py-1.5 bg-[#F8FAFC] border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] focus:bg-white transition-all" />`;
+              html = `<input type="number" id="live-user-input" placeholder="${placeholderVal || '0'}" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-medium text-[#0F172A] focus:outline-none focus:border-[#2563EB] transition-all" />`;
               break;
             case 'currency':
               html = `
                 <div class="relative flex items-center">
-                  <span class="absolute left-2.5 text-xs font-bold text-[#5E6C84]">$</span>
-                  <input type="number" id="live-user-input" placeholder="${placeholderVal || '0.00'}" style="padding-left: 24px;" class="w-full text-xs py-1.5 pr-2.5 bg-[#F8FAFC] border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] focus:bg-white transition-all" />
+                  <span class="absolute left-3 text-xs font-bold text-[#64748B]">$</span>
+                  <input type="number" id="live-user-input" placeholder="${placeholderVal || '0.00'}" style="padding-left: 26px;" class="w-full text-xs py-2 pr-3 bg-white border border-[#DFE1E6] rounded-lg font-medium text-[#0F172A] focus:outline-none focus:border-[#2563EB] transition-all" />
                 </div>
               `;
               break;
             case 'dropdown':
               html = `
-                <select id="live-user-input" class="w-full text-xs px-2.5 py-1.5 bg-[#F8FAFC] border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] focus:bg-white transition-all cursor-pointer">
+                <select id="live-user-input" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-medium text-[#0F172A] focus:outline-none focus:border-[#2563EB] transition-all cursor-pointer">
                   ${parsedOptions.map(o => `<option value="${o}">${o}</option>`).join('')}
                 </select>
               `;
@@ -89003,8 +89078,8 @@ const SettingsView = {
               html = `
                 <div class="space-y-1.5 pt-1">
                   ${parsedOptions.map((o, i) => `
-                    <label class="flex items-center gap-2 text-xs text-[#172B4D] font-semibold cursor-pointer">
-                      <input type="radio" name="live-radio-preview" value="${o}" ${i === 0 ? 'checked' : ''} class="text-[#00A4B7] focus:ring-[#00A4B7] cursor-pointer">
+                    <label class="flex items-center gap-2 text-xs text-[#0F172A] font-medium cursor-pointer">
+                      <input type="radio" name="live-radio-preview" value="${o}" ${i === 0 ? 'checked' : ''} class="text-[#2563EB] focus:ring-[#2563EB] cursor-pointer">
                       <span>${o}</span>
                     </label>
                   `).join('')}
@@ -89013,9 +89088,9 @@ const SettingsView = {
               break;
             case 'multi-select':
               html = `
-                <div class="flex flex-wrap gap-1.5 p-2 bg-[#F8FAFC] border border-[#DFE1E6] rounded-lg min-h-[36px]">
-                  ${parsedOptions.slice(0, 3).map(o => `
-                    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-semibold bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD]">
+                <div class="flex flex-wrap gap-1.5 p-2 bg-[#F8FAFC] border border-[#DFE1E6] rounded-lg min-h-[38px]">
+                  ${parsedOptions.map(o => `
+                    <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md text-[11px] font-semibold bg-[#E0F2FE] text-[#0284C7] border border-[#BAE6FD]">
                       ${o}
                     </span>
                   `).join('')}
@@ -89026,19 +89101,19 @@ const SettingsView = {
               html = `
                 <label class="relative inline-flex items-center cursor-pointer gap-2.5 pt-1">
                   <input type="checkbox" id="live-user-input" class="sr-only peer">
-                  <div class="w-11 h-6 bg-[#CBD5E1] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-[#DFE1E6] after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#00A4B7]"></div>
-                  <span class="text-xs font-semibold text-[#172B4D]">Toggle active/inactive</span>
+                  <div class="w-11 h-6 bg-[#CBD5E1] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-[#DFE1E6] after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#2563EB]"></div>
+                  <span class="text-xs font-medium text-[#0F172A]">Toggle active / inactive</span>
                 </label>
               `;
               break;
             case 'date':
-              html = `<input type="date" id="live-user-input" class="w-full text-xs px-2.5 py-1.5 bg-[#F8FAFC] border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] focus:bg-white transition-all cursor-pointer" />`;
+              html = `<input type="date" id="live-user-input" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-medium text-[#0F172A] focus:outline-none focus:border-[#2563EB] transition-all cursor-pointer" />`;
               break;
             case 'time':
-              html = `<input type="time" id="live-user-input" class="w-full text-xs px-2.5 py-1.5 bg-[#F8FAFC] border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] focus:bg-white transition-all cursor-pointer" />`;
+              html = `<input type="time" id="live-user-input" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-medium text-[#0F172A] focus:outline-none focus:border-[#2563EB] transition-all cursor-pointer" />`;
               break;
             case 'datetime':
-              html = `<input type="datetime-local" id="live-user-input" class="w-full text-xs px-2.5 py-1.5 bg-[#F8FAFC] border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] focus:bg-white transition-all cursor-pointer" />`;
+              html = `<input type="datetime-local" id="live-user-input" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-medium text-[#0F172A] focus:outline-none focus:border-[#2563EB] transition-all cursor-pointer" />`;
               break;
             case 'rating':
               html = `
@@ -89051,22 +89126,22 @@ const SettingsView = {
               break;
             case 'color':
               html = `
-                <div class="flex items-center gap-2">
+                <div class="flex items-center gap-2.5">
                   <input type="color" id="live-user-input" value="#00A4B7" class="w-9 h-8 rounded-lg border border-[#DFE1E6] cursor-pointer bg-white" />
-                  <span id="live-color-val" class="text-xs font-mono font-semibold text-[#172B4D]">#00A4B7</span>
+                  <span id="live-color-val" class="text-xs font-mono font-bold text-[#0F172A]">#00A4B7</span>
                 </div>
               `;
               break;
             case 'file':
               html = `
-                <div class="border-2 border-dashed border-[#DFE1E6] hover:border-[#00A4B7] rounded-lg p-3 text-center bg-[#F8FAFC] transition-colors cursor-pointer">
-                  <svg class="w-5 h-5 text-[#00A4B7] mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
-                  <span class="text-xs font-semibold text-[#00A4B7]">Browse or drag & drop files</span>
+                <div class="border-2 border-dashed border-[#CBD5E1] hover:border-[#2563EB] rounded-lg p-3 text-center bg-[#F8FAFC] transition-colors cursor-pointer">
+                  <svg class="w-5 h-5 text-[#2563EB] mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                  <span class="text-xs font-semibold text-[#2563EB]">Browse or drag & drop files</span>
                 </div>
               `;
               break;
             default:
-              html = `<input type="text" id="live-user-input" placeholder="${phText}" class="w-full text-xs px-2.5 py-1.5 bg-[#F8FAFC] border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] focus:bg-white transition-all" />`;
+              html = `<input type="text" id="live-user-input" placeholder="${phText}" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-medium text-[#0F172A] focus:outline-none focus:border-[#2563EB] transition-all" />`;
               break;
           }
 
@@ -89106,6 +89181,17 @@ const SettingsView = {
             });
           }
 
+          // Color picker live sync
+          const colorInput = inputContainer.querySelector('input[type="color"]');
+          const colorValSpan = document.getElementById('live-color-val');
+          if (colorInput && colorValSpan) {
+            colorInput.addEventListener('input', () => {
+              colorValSpan.textContent = colorInput.value;
+              if (currentOutput) currentOutput.textContent = JSON.stringify(colorInput.value);
+              updateJsonSpec();
+            });
+          }
+
           // Radio preview click
           document.querySelectorAll('input[name="live-radio-preview"]').forEach(r => {
             r.addEventListener('change', () => {
@@ -89115,11 +89201,18 @@ const SettingsView = {
           });
         }
 
+        // Active placement modules
+        const activePlacements = [];
+        if (document.getElementById('matrix-add-form')?.checked) activePlacements.push('New PI / Order Entry Form');
+        if (document.getElementById('matrix-onboarding')?.checked) activePlacements.push('Export Documentation Hub');
+        if (document.getElementById('matrix-profile')?.checked) activePlacements.push('Buyer Confirmation & Realization');
+
         // 8. Update JSON Specification
         const updateJsonSpec = () => {
           const jsonEl = document.getElementById('preview-json-code');
           if (jsonEl) {
             const spec = {
+              targetForm: targetFormVal,
               label: labelVal || 'Untitled Field',
               key: keyVal,
               type: selectedType.title,
@@ -89128,9 +89221,11 @@ const SettingsView = {
               placeholder: placeholderVal || undefined,
               helper: helperVal || undefined,
               required: isMandatory,
+              status: isActive ? 'Active' : 'Inactive',
               permission: permissionVal,
+              placements: activePlacements,
               options: ['dropdown', 'multi-select', 'radio'].includes(selectedType.id) ? parsedOptions : undefined,
-              engine: (['dropdown', 'multi-select', 'radio'].includes(selectedType.id)) ? 'ChoiceEngine' : 'StandardStatic'
+              engine: engineName
             };
             jsonEl.textContent = JSON.stringify(spec, null, 2);
           }
@@ -89140,20 +89235,25 @@ const SettingsView = {
       };
 
       // Connect event listeners on form inputs to update live preview
-      if (labelInput) {
-        labelInput.addEventListener('input', updateLivePreview);
+      const formEl = document.getElementById('modal-form-add-field');
+      if (formEl) {
+        formEl.addEventListener('input', updateLivePreview);
+        formEl.addEventListener('change', updateLivePreview);
+        formEl.addEventListener('keyup', updateLivePreview);
+        formEl.addEventListener('paste', () => setTimeout(updateLivePreview, 10));
       }
-      if (keyInput) {
-        keyInput.addEventListener('input', updateLivePreview);
+
+      // Target Form selector change updates sample records and preview
+      const targetFormSelect = document.getElementById('add-fld-target-form');
+      const sampleSelect = document.getElementById('preview-sample-record');
+      if (targetFormSelect && sampleSelect) {
+        targetFormSelect.addEventListener('change', () => {
+          const formVal = targetFormSelect.value;
+          const records = formSampleRecords[formVal] || formSampleRecords['FORM-PI'];
+          sampleSelect.innerHTML = records.map((r, i) => `<option value="${formVal}_${i + 1}">${r}</option>`).join('');
+          updateLivePreview();
+        });
       }
-      if (sectionSelect) {
-        sectionSelect.addEventListener('change', updateLivePreview);
-      }
-      document.getElementById('add-fld-placeholder')?.addEventListener('input', updateLivePreview);
-      document.getElementById('add-fld-helper')?.addEventListener('input', updateLivePreview);
-      document.getElementById('add-fld-permission')?.addEventListener('change', updateLivePreview);
-      document.getElementById('add-fld-mandatory')?.addEventListener('change', updateLivePreview);
-      document.getElementById('add-fld-options')?.addEventListener('input', updateLivePreview);
 
       // JSON toggle accordion
       const toggleJsonBtn = document.getElementById('preview-toggle-json');
@@ -89191,8 +89291,6 @@ const SettingsView = {
           typeGrid.querySelectorAll('.data-type-card').forEach(c => {
             c.classList.remove('border-2', 'border-[#00A4B7]', 'bg-[#F0F9FF]', 'shadow-xs');
             c.classList.add('border-[#DFE1E6]', 'bg-white');
-            const dot = c.querySelector('.selected-dot');
-            if (dot) dot.classList.add('hidden');
             const iconBox = c.querySelector('.icon-box');
             if (iconBox) {
               iconBox.classList.remove('bg-[#00A4B7]', 'text-white', 'shadow-xs');
@@ -89202,17 +89300,10 @@ const SettingsView = {
 
           card.classList.remove('border-[#DFE1E6]', 'bg-white');
           card.classList.add('border-2', 'border-[#00A4B7]', 'bg-[#F0F9FF]', 'shadow-xs');
-          const activeDot = card.querySelector('.selected-dot');
-          if (activeDot) activeDot.classList.remove('hidden');
           const activeIconBox = card.querySelector('.icon-box');
           if (activeIconBox) {
             activeIconBox.classList.remove('bg-[#F1F5F9]', 'text-[#5E6C84]');
             activeIconBox.classList.add('bg-[#00A4B7]', 'text-white', 'shadow-xs');
-          }
-
-          // Update badge
-          if (badge) {
-            badge.textContent = `Selected: ${selectedType.title}`;
           }
 
           // Toggle choice options
