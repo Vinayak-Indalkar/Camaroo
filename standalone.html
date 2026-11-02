@@ -88603,6 +88603,18 @@ const SettingsView = {
             </div>
           </div>
 
+          <div class="p-4 bg-gradient-to-r from-indigo-900/40 via-blue-900/30 to-slate-900/40 border border-indigo-500/30 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-terminal w-4 h-4" aria-hidden="true"><path d="M12 19h8"></path><path d="m4 17 6-6-6-6"></path></svg>
+              </div>
+              <div>
+                <h4 class="text-xs font-bold text-slate-900 dark:text-white">Need Dynamic Formulas or SQL Data Extraction?</h4>
+              </div>
+            </div>
+            <button type="button" id="btn-modal-open-query-editor" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-indigo-600 hover:bg-indigo-700 text-white transition-all shadow-xs shrink-0 cursor-pointer">Open Query Editor</button>
+          </div>
+
           <!-- 3. CHOICE OPTIONS CONFIGURATION (Conditional) -->
           <div id="section-choice-options" class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs space-y-3 hidden">
             <div class="flex items-center justify-between pb-1 border-b border-[#F1F5F9]">
@@ -88798,6 +88810,15 @@ const SettingsView = {
             sectionSelect.appendChild(opt);
             Toast.show(`Section "${secName.trim()}" added!`, 'success');
           }
+        });
+      }
+
+      // Open Query Editor from Banner
+      const btnOpenQuery = document.getElementById('btn-modal-open-query-editor');
+      if (btnOpenQuery) {
+        btnOpenQuery.addEventListener('click', () => {
+          Modal.close();
+          window.location.hash = '#/settings/custom/query-editor';
         });
       }
 
