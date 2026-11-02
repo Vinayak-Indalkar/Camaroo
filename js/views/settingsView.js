@@ -1329,6 +1329,7 @@ export const SettingsView = {
     tableContainer.innerHTML = '';
 
     const records = data || this.sampleRecords;
+    this.currentQueryRecords = records;
 
     new DataTable({
       containerId: 'query-execution-results-container',
@@ -1338,6 +1339,9 @@ export const SettingsView = {
       searchable: true,
       exportable: true,
       data: records,
+      onRowClick: (row) => {
+        this.openRecordDetailModal(row);
+      },
       columns: [
         {
           field: 'id',
@@ -1661,25 +1665,58 @@ export const SettingsView = {
           btnRun.innerHTML = originalHtml;
           btnRun.disabled = false;
 
+          const queryText = (editor ? editor.value : '').trim();
+          let matched = [...this.sampleRecords];
+
+          if (!queryText) {
+            matched = [];
+          } else {
+            const lower = queryText.toLowerCase();
+            if (lower.includes('black tiger')) {
+              matched = matched.filter(r => r.species.toLowerCase().includes('black tiger'));
+            } else if (lower.includes('vannamei')) {
+              matched = matched.filter(r => r.species.toLowerCase().includes('vannamei'));
+            } else if (lower.includes('wire') || lower.includes('pending wire')) {
+              matched = matched.filter(r => r.payment.toLowerCase().includes('wire'));
+            } else if (lower.includes('japan') || lower.includes('tokyo') || lower.includes('kobe') || lower.includes('yokohama')) {
+              matched = matched.filter(r => r.port.toLowerCase().includes('japan'));
+            } else if (lower.includes('usa') || lower.includes('united states') || lower.includes('los angeles') || lower.includes('houston') || lower.includes('savannah') || lower.includes('seattle')) {
+              matched = matched.filter(r => r.port.toLowerCase().includes('usa'));
+            } else if (lower.includes('europe') || lower.includes('france') || lower.includes('netherlands')) {
+              matched = matched.filter(r => r.port.toLowerCase().includes('netherlands') || r.port.toLowerCase().includes('france'));
+            } else if (lower.includes('ocean harvest')) {
+              matched = matched.filter(r => r.buyer.toLowerCase().includes('ocean harvest'));
+            } else if (lower.includes('sysco')) {
+              matched = matched.filter(r => r.buyer.toLowerCase().includes('sysco'));
+            } else if (lower.includes('red lobster')) {
+              matched = matched.filter(r => r.buyer.toLowerCase().includes('red lobster'));
+            } else if (lower.includes('reefer container') || lower.includes('leo issued')) {
+              matched = matched.filter(r => r.icegate.includes('LEO'));
+            }
+          }
+
+          this.currentQueryRecords = matched;
           const duration = '0.3 ms';
           this.queryEditorState.executionDuration = duration;
           if (durationEl) durationEl.textContent = duration;
           if (consoleDurationEl) consoleDurationEl.textContent = `Duration: ${duration}`;
 
-          const count = this.sampleRecords.length;
+          const count = matched.length;
           this.queryEditorState.matchedCount = count;
           if (consoleMatchedCount) consoleMatchedCount.textContent = count;
 
-          const outputVal = this.queryEditorState.activeMode === 'formula'
-            ? '"Ocean Harvest Global LLC — Vannamei White (44,000 LBS) [USD $246,400]"'
-            : `[${count} Records Matched]`;
+          let outputVal = `[${count} Records Matched]`;
+          if (this.queryEditorState.activeMode === 'formula') {
+            const currentRec = this.sampleRecords.find(r => r.id === this.queryEditorState.selectedRecordId) || this.sampleRecords[0];
+            outputVal = `"${currentRec.buyer} — ${currentRec.species} (${currentRec.qty}) [USD ${currentRec.amount}]"`;
+          }
 
           this.queryEditorState.outputResult = outputVal;
           if (displayBox) displayBox.textContent = outputVal;
           if (activeOutputText) activeOutputText.textContent = `"${outputVal}"`;
           if (jsonPre) jsonPre.textContent = this.generateJsonSpec();
 
-          this.initQueryResultsDataTable();
+          this.initQueryResultsDataTable(matched);
           Toast.show(`Query executed successfully: ${count} records matched in ${duration}`, 'success');
         }, 250);
       });
@@ -1689,10 +1726,161 @@ export const SettingsView = {
     const btnExportCsv = document.getElementById('btn-export-query-csv');
     if (btnExportCsv) {
       btnExportCsv.addEventListener('click', () => {
-        Toast.show('Exporting 9 matched records to CSV...', 'success');
+        const records = this.currentQueryRecords || this.sampleRecords;
+        const headers = ['ID', 'Buyer / Client', 'Species / Grade', 'Container / Reefer', 'Destination Port', 'Quantity', 'FOB Value (USD)', 'ICEGATE Status', 'Payment Status'];
+        const rows = records.map(r => [
+          r.id,
+          `"${r.buyer.replace(/"/g, '""')}"`,
+          `"${r.species.replace(/"/g, '""')}"`,
+          `"${r.container.replace(/"/g, '""')}"`,
+          `"${r.port.replace(/"/g, '""')}"`,
+          `"${r.qty}"`,
+          `"${r.amount}"`,
+          `"${r.icegate}"`,
+          `"${r.payment}"`
+        ]);
+        const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement('a');
+        link.setAttribute('href', encodedUri);
+        link.setAttribute('download', `Devi_Fisheries_Query_Export_${Date.now()}.csv`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        Toast.show(`Successfully exported ${records.length} records to CSV!`, 'success');
       });
     }
   },
+  openRecordDetailModal(record) {
+    if (!record) return;
+
+    Modal.open({
+      title: `Export Record Details: ${record.id}`,
+      size: 'xl',
+      content: `
+        <div class="space-y-4">
+          <!-- Top Hero Summary Card -->
+          <div class="bg-gradient-to-r from-[#F0F9FF] to-[#F8FAFC] p-4 rounded-xl border border-[#BAE6FD] flex flex-wrap items-center justify-between gap-3 shadow-2xs">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-[#00A4B7] text-white flex items-center justify-center font-bold shadow-xs">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              </div>
+              <div>
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span class="font-mono font-extrabold text-[#0F172A] text-base">${record.id}</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold tracking-wide uppercase bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD]">${record.icegate}</span>
+                  <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">${record.payment}</span>
+                </div>
+                <div class="text-[11px] text-[#64748B] mt-0.5 font-medium flex items-center gap-1.5 flex-wrap">
+                  <span>${record.buyer}</span>
+                  <span>•</span>
+                  <span>${record.port}</span>
+                </div>
+              </div>
+            </div>
+            <!-- Quick Metrics Badges -->
+            <div class="flex items-center gap-2">
+              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[90px]">
+                <div class="text-[9px] font-bold text-[#64748B] uppercase tracking-wider">FOB USD</div>
+                <div class="text-xs font-extrabold text-[#006644] font-mono">${record.amount}</div>
+              </div>
+              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[90px]">
+                <div class="text-[9px] font-bold text-[#64748B] uppercase tracking-wider">Net Weight</div>
+                <div class="text-xs font-extrabold text-[#172B4D] font-mono">${record.qty}</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 1: Commercial & Buyer Details -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9] pb-2 mb-3">
+              <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">1</span>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Commercial &amp; Buyer Information</h4>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Buyer / Client</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${record.buyer}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Proforma Invoice</span>
+                <span class="font-mono font-semibold text-[#00A4B7] text-xs block mt-0.5">${record.id}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Exporter Entity</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">Devi Fisheries Limited — Unit I</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Realization Term</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${record.payment}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Cargo & Specifications -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9] pb-2 mb-3">
+              <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">2</span>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Product &amp; Cargo Specifications</h4>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Species / Grade</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${record.species}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Total Net Quantity</span>
+                <span class="font-mono font-semibold text-[#172B4D] text-xs block mt-0.5">${record.qty}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Total FOB Amount</span>
+                <span class="font-mono font-bold text-[#006644] text-xs block mt-0.5">${record.amount}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Packing Type</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">Master Carton (6x2 KG)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 3: Logistics & Customs -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9] pb-2 mb-3">
+              <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">3</span>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Logistics &amp; Port Clearance</h4>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Container / Seal</span>
+                <span class="font-mono font-semibold text-[#172B4D] text-xs block mt-0.5">${record.container}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Destination Port</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${record.port}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Customs ICEGATE Status</span>
+                <span class="font-semibold text-[#00A4B7] text-xs block mt-0.5">${record.icegate}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">CHA Clearing Agent</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">Vanguard Customs Logistics Vizag</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      `,
+      footerButtons: [
+        {
+          label: 'Close',
+          text: 'Close',
+          class: 'btn-secondary px-5 py-2 rounded-full text-xs font-semibold border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#172B4D] transition-all cursor-pointer',
+          onClick: () => Modal.close()
+        }
+      ]
+    });
+  },
+
   // -------------------------------------------------------------
   // Modals (Design System compliant: Modal.open & Modal.confirm)
   // -------------------------------------------------------------
