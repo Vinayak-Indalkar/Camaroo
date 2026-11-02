@@ -1347,7 +1347,7 @@ export const SettingsView = {
           <!-- RIGHT: Form Configuration Fields (Scrollable area) -->
           <div class="flex-1 min-w-0 space-y-4 max-h-[82vh] overflow-y-auto pr-2">
             <!-- Target Form Selector -->
-            <div class="flex items-center justify-end gap-2">
+            <div class="flex items-center justify-start gap-2">
               <label for="add-fld-target-form" class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider whitespace-nowrap">Target Form:</label>
               <select id="add-fld-target-form" class="text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs min-w-[220px]">
                 ${this.forms.map(f => `
