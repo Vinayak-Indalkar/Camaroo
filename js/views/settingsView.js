@@ -157,6 +157,7 @@ export const SettingsView = {
   },
 
   render(containerId, tabName = 'forms', resolvedHash = '#/settings/custom/forms') {
+    this.lastContainerId = containerId;
     const container = document.getElementById(containerId);
     if (!container) return;
 
@@ -779,16 +780,234 @@ export const SettingsView = {
 
 
   // -------------------------------------------------------------
-  // TAB 3: Query Editor
+  // TAB 3: Query Editor (Enterprise Dynamic Query & Field Engine)
   // -------------------------------------------------------------
+  queryEditorState: {
+    enabled: true,
+    activeMode: 'jql', // 'formula' | 'sql' | 'jql'
+    activeTemplateId: 'tmpl-jql-reefer',
+    activeTokenCategory: 'All',
+    selectedRecordId: 'PI-2026-891',
+    editorContent: "shipmentType = 'Reefer Container' AND icegateStatus ~ 'LEO Issued' AND status = 'IN_TRANSIT'",
+    outputResult: '[9 Records Matched]',
+    executionDuration: '0.4 ms',
+    matchedCount: 9,
+    jsonOpen: false
+  },
+
+  queryModes: [
+    {
+      id: 'formula',
+      title: 'Calculated Formula',
+      subtitle: 'IF / CONCAT / DATEDIF',
+      filename: 'CALCULATED_FORMULA.expr',
+      icon: '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>',
+      defaultQuery: 'CONCAT(buyerName, " — ", species, " (", quantityLbs, " LBS) [USD $", ROUND(fobValueUsd, 2), "]")',
+      engineLabel: 'Computed (Formula)'
+    },
+    {
+      id: 'sql',
+      title: 'SQL Data Query',
+      subtitle: 'SELECT ... FROM ...',
+      filename: 'SQL_QUERY_EDITOR.sql',
+      icon: '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/></svg>',
+      defaultQuery: "SELECT pi_number, buyer_name, species, container_no, destination_port, fob_value_usd, icegate_status \nFROM dfl_proforma_invoices \nWHERE status = 'ACTIVE' AND fob_value_usd > 200000 \nORDER BY fob_value_usd DESC LIMIT 25;",
+      engineLabel: 'Computed (SQL)'
+    },
+    {
+      id: 'jql',
+      title: 'JQL Filter Rule',
+      subtitle: "status = 'ACTIVE' ...",
+      filename: 'JQL_EDITOR.jql',
+      icon: '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>',
+      defaultQuery: "shipmentType = 'Reefer Container' AND icegateStatus ~ 'LEO Issued' AND status = 'IN_TRANSIT'",
+      engineLabel: 'Computed (JQL)'
+    }
+  ],
+
+  queryTemplates: [
+    {
+      id: 'tmpl-jql-reefer',
+      mode: 'jql',
+      badge: 'JQL',
+      title: 'High Priority Reefer Shipments',
+      desc: 'Enterprise filter query matching reefer containers in-transit with issued ICEGATE customs LEO.',
+      query: "shipmentType = 'Reefer Container' AND icegateStatus ~ 'LEO Issued' AND status = 'IN_TRANSIT'"
+    },
+    {
+      id: 'tmpl-sql-banking',
+      mode: 'sql',
+      badge: 'SQL',
+      title: 'Export LC Banking Realization (>30 Days)',
+      desc: 'Aggregate unrealized commercial export invoices exceeding standard 30-day banking LC realization cycle.',
+      query: "SELECT pi_number, buyer_name, fob_value_usd, species, payment_status, lc_reference \nFROM dfl_proforma_invoices \nWHERE payment_status = 'Pending Wire' AND lc_days > 30 \nORDER BY fob_value_usd DESC;"
+    },
+    {
+      id: 'tmpl-formula-netfob',
+      mode: 'formula',
+      badge: 'Formula',
+      title: 'Net FOB Realization per Metric Ton',
+      desc: 'Auto-computes realized USD rate per Metric Ton after freight, cess and cold packing deductions.',
+      query: "ROUND((fobValueUsd - coldFreightCost - packingCess) / (quantityLbs / 2204.62), 2)"
+    },
+    {
+      id: 'tmpl-jql-fda',
+      mode: 'jql',
+      badge: 'JQL',
+      title: 'US-FDA Prior Notice Compliance',
+      desc: 'Consignments flagged for mandatory US-FDA food safety prior notice and Bioterrorism Act clearance.',
+      query: "destinationCountry = 'United States' AND fdaPriorNoticeStatus = 'VERIFIED' AND status = 'ACTIVE'"
+    }
+  ],
+
+  queryTokens: [
+    { key: '{order.piNumber}', label: '{order.piNumber}', category: 'Orders' },
+    { key: '{order.buyerName}', label: '{order.buyerName}', category: 'Orders' },
+    { key: '{order.species}', label: '{order.species}', category: 'Orders' },
+    { key: '{order.fobValueUsd}', label: '{order.fobValueUsd}', category: 'Orders' },
+    { key: '{order.quantityLbs}', label: '{order.quantityLbs}', category: 'Orders' },
+    { key: '{shipment.containerNo}', label: '{shipment.containerNo}', category: 'Shipping' },
+    { key: '{shipment.sealNo}', label: '{shipment.sealNo}', category: 'Shipping' },
+    { key: '{shipment.vesselName}', label: '{shipment.vesselName}', category: 'Shipping' },
+    { key: '{shipment.destinationPort}', label: '{shipment.destinationPort}', category: 'Shipping' },
+    { key: '{customs.icegateStatus}', label: '{customs.icegateStatus}', category: 'Customs' },
+    { key: '{customs.shippingBillNo}', label: '{customs.shippingBillNo}', category: 'Customs' },
+    { key: '{customs.leoDate}', label: '{customs.leoDate}', category: 'Customs' },
+    { key: '{banking.lcReference}', label: '{banking.lcReference}', category: 'Finance' },
+    { key: '{banking.paymentStatus}', label: '{banking.paymentStatus}', category: 'Finance' },
+    { key: '{forex.bookedRate}', label: '{forex.bookedRate}', category: 'Finance' },
+    { key: 'IF(condition, true_val, false_val)', label: 'IF(condition, true_val, false_val)', category: 'Function' },
+    { key: 'CONCAT(str1, str2, ...)', label: 'CONCAT(str1, str2, ...)', category: 'Function' },
+    { key: 'LOWER(text)', label: 'LOWER(text)', category: 'Function' },
+    { key: 'UPPER(text)', label: 'UPPER(text)', category: 'Function' },
+    { key: 'ROUND(number, decimals)', label: 'ROUND(number, decimals)', category: 'Function' },
+    { key: 'DATEDIF(start, end, "days")', label: 'DATEDIF(start, end, "days")', category: 'Function' },
+    { key: 'NOW()', label: 'NOW()', category: 'Function' },
+    { key: 'COALESCE(val1, val2, ...)', label: 'COALESCE(val1, val2, ...)', category: 'Function' }
+  ],
+
+  sampleRecords: [
+    {
+      id: 'PI-2026-891',
+      buyer: 'Ocean Harvest Global LLC',
+      label: 'Ocean Harvest Global LLC (PI-2026-891 — Vannamei White)',
+      species: 'Vannamei White 16/20 IQF',
+      port: 'Port of Los Angeles, USA',
+      container: 'MEDU-9928174 / Seal #9921',
+      qty: '44,000 LBS',
+      amount: '$246,400',
+      icegate: 'LEO Issued',
+      payment: 'LC Realized'
+    },
+    {
+      id: 'PI-2026-892',
+      buyer: 'Pacific Catch Seafoods Inc',
+      label: 'Pacific Catch Seafoods Inc (PI-2026-892 — Black Tiger)',
+      species: 'Black Tiger 21/25 Block',
+      port: 'Port of Tokyo, Japan',
+      container: 'MSCU-4410293 / Seal #8812',
+      qty: '38,500 LBS',
+      amount: '$288,750',
+      icegate: 'Inspection Cleared',
+      payment: 'Pending Wire'
+    },
+    {
+      id: 'PI-2026-893',
+      buyer: 'Apex Mariculture Int',
+      label: 'Apex Mariculture Int (PI-2026-893 — Vannamei White)',
+      species: 'Vannamei White 26/30 HLSO',
+      port: 'Port of Rotterdam, Netherlands',
+      container: 'CMAU-7718290 / Seal #5541',
+      qty: '42,000 LBS',
+      amount: '$231,000',
+      icegate: 'LEO Issued',
+      payment: 'Realized'
+    },
+    {
+      id: 'PI-2026-894',
+      buyer: 'Red Lobster Supply Corp',
+      label: 'Red Lobster Supply Corp (PI-2026-894 — Easy Peel)',
+      species: 'Vannamei Easy Peel 31/40',
+      port: 'Port of Houston, USA',
+      container: 'ONEU-5529182 / Seal #1209',
+      qty: '40,000 LBS',
+      amount: '$260,000',
+      icegate: 'LEO Issued',
+      payment: 'LC Confirmed'
+    },
+    {
+      id: 'PI-2026-895',
+      buyer: 'Sysco Global Exports',
+      label: 'Sysco Global Exports (PI-2026-895 — Peeled Tail-On)',
+      species: 'Vannamei Peeled Tail-On',
+      port: 'Port of Savannah, USA',
+      container: 'HLCU-1192837 / Seal #7712',
+      qty: '44,000 LBS',
+      amount: '$272,800',
+      icegate: 'Under Scrutiny',
+      payment: 'Pending Wire'
+    },
+    {
+      id: 'PI-2026-896',
+      buyer: 'Maruha Nichiro Corporation',
+      label: 'Maruha Nichiro Corp (PI-2026-896 — Black Tiger)',
+      species: 'Black Tiger Head-On 13/15',
+      port: 'Port of Yokohama, Japan',
+      container: 'NYKU-3301928 / Seal #4410',
+      qty: '36,000 LBS',
+      amount: '$312,000',
+      icegate: 'LEO Issued',
+      payment: 'LC Realized'
+    },
+    {
+      id: 'PI-2026-897',
+      buyer: 'Nippon Suisan Kaisha Ltd',
+      label: 'Nissui Seafoods (PI-2026-897 — Nobashi Ebi)',
+      species: 'Vannamei Nobashi 21/25',
+      port: 'Port of Kobe, Japan',
+      container: 'MOLU-8820192 / Seal #3301',
+      qty: '41,500 LBS',
+      amount: '$298,800',
+      icegate: 'LEO Issued',
+      payment: 'Advance Received'
+    },
+    {
+      id: 'PI-2026-898',
+      buyer: 'Aqua Star Global Procurement',
+      label: 'Aqua Star Global (PI-2026-898 — Cooked Tail-On)',
+      species: 'Vannamei Cooked Tail-On 41/50',
+      port: 'Port of Seattle, USA',
+      container: 'EGLU-6610291 / Seal #9901',
+      qty: '45,000 LBS',
+      amount: '$324,000',
+      icegate: 'LEO Issued',
+      payment: 'LC Confirmed'
+    },
+    {
+      id: 'PI-2026-899',
+      buyer: 'Direct Ocean France SAS',
+      label: 'Direct Ocean France (PI-2026-899 — Organic White)',
+      species: 'Organic Vannamei White 30/40',
+      port: 'Port of Le Havre, France',
+      container: 'MSCU-9018274 / Seal #6610',
+      qty: '39,000 LBS',
+      amount: '$273,000',
+      icegate: 'LEO Issued',
+      payment: 'Realized'
+    }
+  ],
+
   renderQueryEditorTab(container, tabsBarHtml) {
-    const currentForm = this.forms.find(f => f.id === this.selectedFormCode) || this.forms[0];
-    const initialSql = `SELECT \n  f.buyer_name,\n  f.pi_number,\n  f.exporter_entity,\n  f.species,\n  f.quantity_net,\n  f.total_value_usd\nFROM ${currentForm.model} f\nWHERE f.status = 'ACTIVE'\nORDER BY f.created_at DESC\nLIMIT 25;`;
+    const currentMode = this.queryModes.find(m => m.id === this.queryEditorState.activeMode) || this.queryModes[2];
+    const initialContent = this.queryEditorState.editorContent || currentMode.defaultQuery;
+    const linesCount = (initialContent.match(/\n/g) || []).length + 1;
+    const charsCount = initialContent.length;
 
     container.innerHTML = `
       <div class="space-y-4">
         ${tabsBarHtml}
 
+        <!-- Page Header -->
         <div class="flex items-center justify-between">
           <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Query Editor</h1>
           <div class="flex items-center gap-2">
@@ -796,90 +1015,270 @@ export const SettingsView = {
               <svg class="w-3.5 h-3.5 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
               <span>Export CSV</span>
             </button>
-            <button type="button" id="btn-run-query" class="btn-primary px-5 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-              <span>Execute SQL</span>
+            <button type="button" id="btn-reset-query-defaults" class="btn-secondary px-4 py-2 rounded-full text-xs font-semibold inline-flex items-center gap-1.5 border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#172B4D] transition-all cursor-pointer">
+              <svg class="w-3.5 h-3.5 text-[#5E6C84]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+              <span>Reset</span>
             </button>
           </div>
         </div>
 
-        <!-- Search & Filter Card -->
-        <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center gap-2">
-              <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
-              <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
+        <!-- TOP 2-COLUMN SECTION -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+          <!-- LEFT COLUMN: Mode, Templates, Schema Tokens (col-span-7) -->
+          <div class="lg:col-span-7 space-y-3.5">
+            <!-- 1. DYNAMIC QUERY & CALCULATED FIELD MODE -->
+            <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs">
+              <div class="flex items-start justify-between gap-3">
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span class="font-mono text-xs font-bold text-[#00A4B7]">&gt;_</span>
+                    <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">1. Dynamic Query &amp; Calculated Field Mode</h3>
+                  </div>
+                  <p class="text-[11px] text-[#5E6C84] mt-0.5">When enabled, this field is computed automatically via SQL or logical formula expressions.</p>
+                </div>
+                <label class="flex items-center gap-2 cursor-pointer select-none shrink-0 mt-0.5">
+                  <span id="query-mode-enabled-label" class="text-xs font-bold text-[#172B4D]">Enabled</span>
+                  <input type="checkbox" id="toggle-query-mode" ${this.queryEditorState.enabled ? 'checked' : ''} class="sr-only peer">
+                  <div class="w-9 h-5 bg-[#CBD5E1] peer-checked:bg-[#00A4B7] rounded-full peer-focus:outline-none relative transition-colors after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:after:translate-x-4"></div>
+                </label>
+              </div>
+
+              <!-- 3 Mode Cards Grid -->
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 mt-3.5" id="query-modes-container">
+                ${this.queryModes.map(m => {
+                  const isActive = m.id === this.queryEditorState.activeMode;
+                  return `
+                    <div class="query-mode-card cursor-pointer p-3 rounded-xl border transition-all text-center select-none flex flex-col items-center justify-center gap-1.5 ${isActive ? 'border-2 border-[#00A4B7] bg-[#F0F9FF] shadow-xs' : 'border-[#DFE1E6] bg-white hover:border-[#00A4B7] hover:bg-[#F8FAFC]'}" data-mode-id="${m.id}">
+                      <div class="w-8 h-8 rounded-lg flex items-center justify-center ${isActive ? 'bg-[#00A4B7] text-white shadow-xs' : 'bg-[#F1F5F9] text-[#5E6C84]'}">
+                        ${m.icon}
+                      </div>
+                      <div class="text-xs font-bold text-[#172B4D]">${m.title}</div>
+                      <div class="text-[10px] font-mono text-[#5E6C84] truncate w-full">${m.subtitle}</div>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
             </div>
-            <div class="inline-flex items-center gap-2">
-              <!-- Circular 32x32 Reset Button -->
-              <button type="button" id="query-filter-reset" class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Reset all filters">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-              </button>
-              <!-- Circular 32x32 Collapse/Expand Toggle Button -->
-              <button type="button" id="query-filter-toggle" class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Hide Filter">
-                <svg class="w-3.5 h-3.5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-              </button>
+
+            <!-- 2. READY-TO-USE ENTERPRISE QUERY TEMPLATES -->
+            <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs">
+              <div class="flex items-center justify-between pb-2 border-b border-[#F1F5F9]">
+                <div class="flex items-center gap-2">
+                  <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                  <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">2. Ready-to-Use Enterprise Query Templates</h3>
+                </div>
+                <span class="text-[11px] font-semibold text-[#5E6C84]">Click to load instantly</span>
+              </div>
+
+              <!-- Template Cards Grid -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mt-3" id="query-templates-container">
+                ${this.queryTemplates.map(t => {
+                  const isSelected = t.id === this.queryEditorState.activeTemplateId;
+                  return `
+                    <div class="query-template-card cursor-pointer p-3 rounded-xl border transition-all select-none ${isSelected ? 'border-2 border-[#00A4B7] bg-[#F0F9FF] shadow-xs' : 'border-[#DFE1E6] bg-white hover:border-[#00A4B7] hover:bg-[#F8FAFC]'}" data-template-id="${t.id}">
+                      <div class="flex items-center justify-between gap-2">
+                        <div class="flex items-center gap-1.5 min-w-0">
+                          <span class="text-xs font-bold text-[#172B4D] truncate">${t.title}</span>
+                        </div>
+                        <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase ${t.badge === 'JQL' ? 'bg-[#E0F2FE] text-[#0284C7] border border-[#BAE6FD]' : t.badge === 'SQL' ? 'bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]' : 'bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]'}">${t.badge}</span>
+                      </div>
+                      <p class="text-[11px] text-[#5E6C84] mt-1 line-clamp-2 leading-relaxed">${t.desc}</p>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+
+            <!-- 3. SCHEMA TOKENS & FUNCTIONS PALETTE -->
+            <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs">
+              <div class="flex items-center justify-between pb-2 border-b border-[#F1F5F9] gap-2 flex-wrap">
+                <div class="flex items-center gap-2">
+                  <span class="font-mono text-xs font-bold text-[#00A4B7]">{ }</span>
+                  <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">3. Schema Tokens &amp; Functions Palette</h3>
+                </div>
+                <!-- Filter Pills -->
+                <div class="flex items-center gap-1 overflow-x-auto select-none" id="token-category-pills">
+                  ${['All', 'Orders', 'Shipping', 'Customs', 'Finance', 'Function'].map(cat => {
+                    const isCatActive = cat === this.queryEditorState.activeTokenCategory;
+                    return `
+                      <button type="button" class="token-filter-pill px-2.5 py-1 rounded-full text-[11px] transition-colors cursor-pointer ${isCatActive ? 'bg-[#00A4B7] text-white font-bold' : 'text-[#5E6C84] font-semibold hover:bg-[#EBECF0]'}" data-category="${cat}">
+                        ${cat}
+                      </button>
+                    `;
+                  }).join('')}
+                </div>
+              </div>
+
+              <!-- Tokens Chips -->
+              <div class="flex flex-wrap gap-1.5 mt-3 max-h-36 overflow-y-auto pr-1" id="tokens-chips-container">
+                ${this.renderTokenChips()}
+              </div>
             </div>
           </div>
-          <!-- Body: Margin-top 0, border-top none -->
-          <div id="query-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
-            <div>
-              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Target Entity / Table</label>
-              <select id="flt-query-table" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs font-mono">
-                <option value="">All Tables</option>
-                ${this.forms.map(f => `
-                  <option value="${f.model}" ${f.id === this.selectedFormCode ? 'selected' : ''}>${f.model} (${f.code})</option>
-                `).join('')}
-              </select>
-            </div>
-            <div>
-              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Search Results</label>
-              <input type="text" id="flt-query-keyword" placeholder="e.g. Ocean Harvest, PI-2026..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
-            </div>
-            <div>
-              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Form Category</label>
-              <select id="flt-query-category" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                <option value="">All Categories</option>
-                <option value="Orders">Orders</option>
-                <option value="Shipping & Logistics">Shipping & Logistics</option>
-                <option value="Commercial">Commercial</option>
-                <option value="Compliance & Customs">Compliance & Customs</option>
-                <option value="Payments">Payments</option>
-              </select>
-            </div>
-            <!-- MANDATORY Search button always placed after the last input field -->
-            <div class="flex items-end">
-              <button type="button" id="btn-query-search-exec" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                <span>Search</span>
-              </button>
+
+          <!-- RIGHT COLUMN: LIVE INTERACTIVE COMPONENT PREVIEW (col-span-5) -->
+          <div class="lg:col-span-5">
+            <div class="bg-white rounded-xl border border-[#DFE1E6] shadow-xs overflow-hidden sticky top-4">
+              <!-- Gradient Header -->
+              <div class="bg-gradient-to-r from-[#00A4B7] to-[#0284C7] px-4 py-3 text-white flex items-center justify-between shadow-xs">
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-white animate-pulse"></span>
+                  <span class="text-xs font-extrabold tracking-wide uppercase">Live Interactive Component Preview</span>
+                </div>
+                <span class="bg-white/20 text-white text-[10px] font-mono px-2 py-0.5 rounded font-extrabold tracking-wider uppercase backdrop-blur-xs flex items-center gap-1">
+                  <span>⚡</span>
+                  <span>QUERY_ENGINE</span>
+                </span>
+              </div>
+
+              <!-- Preview Body -->
+              <div class="p-4 space-y-3.5">
+                <!-- Test Record Dropdown -->
+                <div>
+                  <label for="preview-sample-record-select" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                    <svg class="w-3.5 h-3.5 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                    <span>Test Against Sample Record:</span>
+                  </label>
+                  <select id="preview-sample-record-select" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-xl font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs cursor-pointer">
+                    ${this.sampleRecords.map(r => `
+                      <option value="${r.id}" ${r.id === this.queryEditorState.selectedRecordId ? 'selected' : ''}>${r.label}</option>
+                    `).join('')}
+                  </select>
+                </div>
+
+                <!-- Preview Output Container Card -->
+                <div class="bg-[#F8FAFC] p-4 rounded-xl border border-[#DFE1E6] space-y-2.5">
+                  <div class="flex items-center justify-between text-[11px]">
+                    <span class="font-bold text-[#00A4B7] uppercase tracking-wider">Export Documentation &amp; Sales</span>
+                    <span class="text-[#5E6C84] font-medium">Real-time Computed</span>
+                  </div>
+
+                  <div>
+                    <div class="flex items-center gap-2 mb-1.5">
+                      <span class="text-xs font-bold text-[#172B4D]">Dynamic Enterprise Status Generator</span>
+                      <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#FEF3C7] text-[#92400E] border border-[#FDE68A] flex items-center gap-1">
+                        <svg class="w-3 h-3 text-[#D97706]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"/></svg>
+                        <span>Computed Query</span>
+                      </span>
+                    </div>
+                    <div id="preview-active-display-box" class="w-full text-xs px-3 py-2.5 bg-white border border-[#DFE1E6] rounded-lg font-mono font-bold text-[#172B4D] shadow-2xs">
+                      ${this.queryEditorState.outputResult}
+                    </div>
+                  </div>
+
+                  <div class="flex items-center justify-between text-xs pt-1.5 border-t border-[#EBECF0]">
+                    <div class="text-[11px] text-[#5E6C84]">
+                      <span>Active Output: </span>
+                      <code id="preview-active-output-text" class="font-mono font-bold text-[#00A4B7]">"${this.queryEditorState.outputResult}"</code>
+                    </div>
+                    <button type="button" id="btn-preview-clear-output" class="text-[11px] font-bold text-[#5E6C84] hover:text-[#DE350B] cursor-pointer">Clear</button>
+                  </div>
+                </div>
+
+                <!-- Database Key & Field Engine Badges -->
+                <div class="grid grid-cols-2 gap-3">
+                  <div class="p-2.5 rounded-lg border border-[#DFE1E6] bg-white">
+                    <div class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">Database Key:</div>
+                    <div class="font-mono text-xs font-bold text-[#00A4B7] mt-0.5 truncate">dynamicEnterpriseStatus</div>
+                  </div>
+                  <div class="p-2.5 rounded-lg border border-[#DFE1E6] bg-white">
+                    <div class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">Field Engine:</div>
+                    <div id="preview-field-engine-label" class="text-xs font-bold text-[#172B4D] mt-0.5">${currentMode.engineLabel}</div>
+                  </div>
+                </div>
+
+                <!-- Collapsible JSON Spec -->
+                <div class="border border-[#DFE1E6] rounded-xl overflow-hidden bg-white">
+                  <button type="button" id="btn-toggle-json-spec" class="w-full px-3.5 py-2.5 flex items-center justify-between text-xs font-bold text-[#172B4D] hover:bg-[#F8FAFC] transition-colors cursor-pointer select-none">
+                    <span class="flex items-center gap-2">
+                      <svg class="w-3.5 h-3.5 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+                      <span>Data Model &amp; JSON Specification</span>
+                    </span>
+                    <svg id="icon-json-arrow" class="w-4 h-4 text-[#5E6C84] transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                  </button>
+                  <div id="json-spec-body" class="p-3 bg-[#0B132B] text-[#38BDF8] font-mono text-[11px] leading-relaxed border-t border-[#1E293B] hidden overflow-x-auto max-h-48">
+                    <pre id="json-spec-pre">${this.generateJsonSpec()}</pre>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- SQL Query Console Card -->
-        <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-          <div class="flex items-center justify-between pb-2 border-b border-[#F1F5F9] mb-2.5">
-            <div class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-[#00A4B7]"></span>
-              <label for="query-sql-input" class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">SQL Query Console</label>
+        <!-- BOTTOM CODE EDITOR WINDOW (Mac IDE Style) -->
+        <div class="bg-[#0F172A] rounded-2xl border border-[#1E293B] shadow-md overflow-hidden">
+          <!-- Window Header Bar -->
+          <div class="px-4 py-3 bg-[#1E293B]/70 border-b border-[#334155] flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <!-- 3 Mac Window Dots -->
+              <div class="flex items-center gap-1.5">
+                <span class="w-3 h-3 rounded-full bg-[#EF4444] inline-block"></span>
+                <span class="w-3 h-3 rounded-full bg-[#F59E0B] inline-block"></span>
+                <span class="w-3 h-3 rounded-full bg-[#10B981] inline-block"></span>
+              </div>
+              <span id="editor-filename" class="font-mono text-xs font-bold text-[#E2E8F0] tracking-wide">${currentMode.filename}</span>
             </div>
+            <!-- Actions: Copy & Clear -->
             <div class="flex items-center gap-2">
-              <button type="button" id="btn-quick-sample" class="text-[11px] font-bold text-[#00A4B7] hover:underline cursor-pointer">Load Sample</button>
-              <span class="text-[#DFE1E6]">|</span>
-              <button type="button" id="btn-clear-query" class="text-[11px] font-semibold text-[#5E6C84] hover:text-[#DE350B] cursor-pointer">Clear</button>
+              <button type="button" id="btn-copy-query" class="px-3 py-1.5 rounded-lg bg-[#334155] hover:bg-[#475569] text-xs font-semibold text-[#E2E8F0] inline-flex items-center gap-1.5 transition-colors cursor-pointer select-none">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                <span>Copy</span>
+              </button>
+              <button type="button" id="btn-clear-query" class="px-3 py-1.5 rounded-lg bg-[#334155] hover:bg-[#475569] text-xs font-semibold text-[#E2E8F0] inline-flex items-center gap-1.5 transition-colors cursor-pointer select-none">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                <span>Clear</span>
+              </button>
             </div>
           </div>
 
-          <textarea 
-            id="query-sql-input" 
-            rows="4" 
-            class="w-full font-mono text-xs px-3 py-2 bg-[#0F172A] text-[#38BDF8] rounded-lg border border-[#1E293B] focus:outline-none focus:ring-1 focus:ring-[#00A4B7] shadow-inner resize-y leading-relaxed"
-          >${initialSql}</textarea>
+          <!-- Code Textarea -->
+          <div class="p-3 bg-[#0B132B]">
+            <textarea 
+              id="query-code-editor" 
+              rows="5" 
+              class="w-full bg-[#0B132B] text-[#10B981] font-mono text-xs sm:text-sm p-2 focus:outline-none resize-y leading-relaxed border-0 outline-none selection:bg-[#00A4B7]/30" 
+              spellcheck="false"
+            >${initialContent}</textarea>
+          </div>
+
+          <!-- Window Status & Run Footer -->
+          <div class="px-4 py-2.5 bg-[#1E293B]/90 border-t border-[#334155] flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-3 text-[11px] font-mono text-[#94A3B8] flex-wrap">
+              <span id="editor-lines-count">Lines: ${linesCount}</span>
+              <span class="text-[#475569]">|</span>
+              <span id="editor-chars-count">Length: ${charsCount} chars</span>
+              <span class="text-[#475569]">|</span>
+              <span id="editor-syntax-status" class="inline-flex items-center gap-1 text-[#10B981] font-semibold">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span>Valid Syntax (${this.queryEditorState.executionDuration})</span>
+              </span>
+            </div>
+
+            <button type="button" id="btn-run-query" class="px-5 py-2 rounded-xl text-xs font-bold inline-flex items-center gap-2 shadow-md bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer">
+              <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              <span>Run Query / Test Expression</span>
+            </button>
+          </div>
         </div>
 
-        <!-- Execution Results Full Width DataTable Container -->
-        <div id="query-results-container"></div>
+        <!-- QUERY EXECUTION CONSOLE OUTPUT -->
+        <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs">
+          <div class="flex items-center justify-between pb-3 border-b border-[#F1F5F9] mb-3">
+            <div class="flex items-center gap-2">
+              <span class="font-mono text-sm font-extrabold text-[#00A4B7]">&gt;_</span>
+              <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Query Execution Console Output</h3>
+            </div>
+            <span id="console-execution-duration" class="text-xs font-mono font-semibold text-[#5E6C84]">Duration: ${this.queryEditorState.executionDuration}</span>
+          </div>
+
+          <div class="text-xs font-bold text-[#172B4D] mb-3 flex items-center gap-1.5">
+            <span>Matched Records:</span>
+            <span id="console-matched-records-count" class="font-mono font-extrabold text-[#00A4B7] text-sm">${this.queryEditorState.matchedCount}</span>
+          </div>
+
+          <!-- Console Output Table Container -->
+          <div id="query-execution-results-container"></div>
+        </div>
       </div>
     `;
 
@@ -887,136 +1286,413 @@ export const SettingsView = {
     this.bindQueryEditorEvents();
   },
 
+  renderTokenChips() {
+    const activeCategory = this.queryEditorState.activeTokenCategory;
+    const filteredTokens = activeCategory === 'All' 
+      ? this.queryTokens 
+      : this.queryTokens.filter(t => t.category === activeCategory);
+
+    return filteredTokens.map(tok => `
+      <button type="button" class="schema-token-chip px-2.5 py-1 rounded-lg text-xs font-mono font-semibold border border-[#DFE1E6] bg-white hover:border-[#00A4B7] hover:bg-[#F0F9FF] text-[#172B4D] hover:text-[#00A4B7] transition-all cursor-pointer inline-flex items-center gap-1 select-none shadow-2xs" data-token="${tok.key}">
+        <span class="text-[#00A4B7] font-bold">+</span>
+        <span>${tok.label}</span>
+      </button>
+    `).join('');
+  },
+
+  generateJsonSpec() {
+    const selectedRecord = this.sampleRecords.find(r => r.id === this.queryEditorState.selectedRecordId) || this.sampleRecords[0];
+    const spec = {
+      fieldId: "dynamicEnterpriseStatus",
+      engine: "v2_query_runtime",
+      mode: this.queryEditorState.activeMode.toUpperCase(),
+      enabled: this.queryEditorState.enabled,
+      expression: this.queryEditorState.editorContent || "",
+      testRecord: {
+        id: selectedRecord.id,
+        buyer: selectedRecord.buyer,
+        species: selectedRecord.species,
+        amount: selectedRecord.amount,
+        icegateStatus: selectedRecord.icegate
+      },
+      cached: true,
+      refreshInterval: "5m",
+      lastEvaluated: "Just now"
+    };
+    return JSON.stringify(spec, null, 2);
+  },
+
   initQueryResultsDataTable(data = null) {
-    const tableContainer = document.getElementById('query-results-container');
+    const tableContainer = document.getElementById('query-execution-results-container');
     if (!tableContainer) return;
 
     tableContainer.innerHTML = '';
 
-    const queryData = data || [
-      { buyer: 'Ocean Harvest Global LLC', pi_no: 'PI-2026-891', exporter: 'Devi Fisheries Limited', species: 'Vannamei White', qty: '44,000 LBS', amount: '$246,400', status: 'Cleared' },
-      { buyer: 'Pacific Catch Seafoods Inc', pi_no: 'PI-2026-892', exporter: 'Devi Fisheries Limited', species: 'Black Tiger', qty: '38,500 LBS', amount: '$288,750', status: 'In Transit' },
-      { buyer: 'Apex Mariculture Int', pi_no: 'PI-2026-893', exporter: 'Devi Marine Processors', species: 'Vannamei White', qty: '42,000 LBS', amount: '$231,000', status: 'Booked' },
-      { buyer: 'Red Lobster Supply Corp', pi_no: 'PI-2026-894', exporter: 'Devi Fisheries Limited', species: 'Vannamei Easy Peel', qty: '40,000 LBS', amount: '$260,000', status: 'Cleared' },
-      { buyer: 'Sysco Global Exports', pi_no: 'PI-2026-895', exporter: 'Devi Sea Foods Ltd', species: 'Vannamei Peeled Tail-On', qty: '44,000 LBS', amount: '$272,800', status: 'Delivered' }
-    ];
+    const records = data || this.sampleRecords;
 
     new DataTable({
-      containerId: 'query-results-container',
-      keyField: 'pi_no',
-      tableTitle: 'Query Results',
+      containerId: 'query-execution-results-container',
+      keyField: 'id',
+      tableTitle: `Matched Records (${records.length})`,
       selectable: false,
       searchable: true,
       exportable: true,
-      data: queryData,
+      data: records,
       columns: [
-        { field: 'buyer', header: 'Buyer Name', sortable: true },
-        { field: 'pi_no', header: 'PI Number', sortable: true, render: (v) => `<span class="font-mono font-bold text-[#00A4B7]">${v}</span>` },
-        { field: 'exporter', header: 'Exporter Entity', sortable: true },
-        { field: 'species', header: 'Species / Product', sortable: true },
-        { field: 'qty', header: 'Quantity', sortable: true, render: (v) => `<span class="font-mono">${v}</span>` },
-        { field: 'amount', header: 'Total USD', sortable: true, render: (v) => `<span class="font-mono font-bold text-[#006644]">${v}</span>` },
-        { field: 'status', header: 'Status', sortable: true, render: (v) => `<span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">${v}</span>` }
+        {
+          field: 'id',
+          header: 'ID',
+          sortable: true,
+          render: (val) => `<span class="font-mono font-bold text-[#00A4B7] bg-[#F0F9FF] px-2 py-0.5 rounded border border-[#BAE6FD] text-[11px]">${val}</span>`
+        },
+        {
+          field: 'buyer',
+          header: 'Buyer / Client',
+          sortable: true,
+          render: (val) => `<div class="font-bold text-[#172B4D]">${val}</div>`
+        },
+        {
+          field: 'species',
+          header: 'Species / Grade',
+          sortable: true,
+          render: (val) => `<span class="font-medium text-[#334155]">${val}</span>`
+        },
+        {
+          field: 'container',
+          header: 'Container / Reefer',
+          sortable: true,
+          render: (val) => `<span class="font-mono text-[11px] text-[#5E6C84]">${val}</span>`
+        },
+        {
+          field: 'port',
+          header: 'Destination Port',
+          sortable: true,
+          render: (val) => `<span class="text-xs text-[#334155]">${val}</span>`
+        },
+        {
+          field: 'qty',
+          header: 'Quantity',
+          sortable: true,
+          render: (val) => `<span class="font-mono font-semibold text-[#172B4D]">${val}</span>`
+        },
+        {
+          field: 'amount',
+          header: 'FOB Value (USD)',
+          sortable: true,
+          render: (val) => `<span class="font-mono font-bold text-[#006644]">${val}</span>`
+        },
+        {
+          field: 'icegate',
+          header: 'ICEGATE Status',
+          sortable: true,
+          render: (val) => {
+            const isCleared = val.includes('LEO') || val.includes('Cleared');
+            return `<span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase ${isCleared ? 'bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]' : 'bg-[#FFFAE6] text-[#FF8B00] border border-[#FFE380]'}">${val}</span>`;
+          }
+        },
+        {
+          field: 'payment',
+          header: 'Payment Status',
+          sortable: true,
+          render: (val) => {
+            const isRealized = val.includes('Realized') || val.includes('Received') || val.includes('Confirmed');
+            return `<span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase ${isRealized ? 'bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]' : 'bg-[#FFFAE6] text-[#FF8B00] border border-[#FFE380]'}">${val}</span>`;
+          }
+        }
       ]
     });
   },
 
   bindQueryEditorEvents() {
+    const editor = document.getElementById('query-code-editor');
+    const filenameEl = document.getElementById('editor-filename');
+    const linesEl = document.getElementById('editor-lines-count');
+    const charsEl = document.getElementById('editor-chars-count');
+    const durationEl = document.getElementById('editor-duration-text');
+    const consoleDurationEl = document.getElementById('console-execution-duration');
+    const consoleMatchedCount = document.getElementById('console-matched-records-count');
+    const displayBox = document.getElementById('preview-active-display-box');
+    const activeOutputText = document.getElementById('preview-active-output-text');
+    const fieldEngineLabel = document.getElementById('preview-field-engine-label');
+    const jsonPre = document.getElementById('json-spec-pre');
+
+    const updateStats = () => {
+      if (!editor) return;
+      const text = editor.value;
+      this.queryEditorState.editorContent = text;
+      const lines = (text.match(/\n/g) || []).length + (text.length > 0 ? 1 : 0);
+      if (linesEl) linesEl.textContent = `Lines: ${lines}`;
+      if (charsEl) charsEl.textContent = `Length: ${text.length} chars`;
+    };
+
+    if (editor) {
+      editor.addEventListener('input', updateStats);
+    }
+
+    // Toggle query mode enabled switch
+    const toggleMode = document.getElementById('toggle-query-mode');
+    const enabledLabel = document.getElementById('query-mode-enabled-label');
+    if (toggleMode) {
+      toggleMode.addEventListener('change', () => {
+        this.queryEditorState.enabled = toggleMode.checked;
+        if (enabledLabel) enabledLabel.textContent = toggleMode.checked ? 'Enabled' : 'Disabled';
+        Toast.show(toggleMode.checked ? 'Dynamic Query Mode Enabled' : 'Dynamic Query Mode Disabled', toggleMode.checked ? 'success' : 'info');
+      });
+    }
+
+    // Mode cards selection
+    const modeCards = document.querySelectorAll('.query-mode-card');
+    modeCards.forEach(card => {
+      card.addEventListener('click', () => {
+        const modeId = card.dataset.modeId;
+        const targetMode = this.queryModes.find(m => m.id === modeId);
+        if (!targetMode) return;
+
+        this.queryEditorState.activeMode = modeId;
+        this.queryEditorState.editorContent = targetMode.defaultQuery;
+
+        modeCards.forEach(c => {
+          const isThis = c.dataset.modeId === modeId;
+          c.className = `query-mode-card cursor-pointer p-3 rounded-xl border transition-all text-center select-none flex flex-col items-center justify-center gap-1.5 ${isThis ? 'border-2 border-[#00A4B7] bg-[#F0F9FF] shadow-xs' : 'border-[#DFE1E6] bg-white hover:border-[#00A4B7] hover:bg-[#F8FAFC]'}`;
+          const iconBox = c.querySelector('div');
+          if (iconBox) {
+            iconBox.className = `w-8 h-8 rounded-lg flex items-center justify-center ${isThis ? 'bg-[#00A4B7] text-white shadow-xs' : 'bg-[#F1F5F9] text-[#5E6C84]'}`;
+          }
+        });
+
+        if (filenameEl) filenameEl.textContent = targetMode.filename;
+        if (editor) editor.value = targetMode.defaultQuery;
+        if (fieldEngineLabel) fieldEngineLabel.textContent = targetMode.engineLabel;
+
+        const outputVal = modeId === 'formula' 
+          ? '"Ocean Harvest Global LLC — Vannamei White 16/20 (44,000 LBS) [USD $246,400.00]"'
+          : '[9 Records Matched]';
+        this.queryEditorState.outputResult = outputVal;
+        if (displayBox) displayBox.textContent = outputVal;
+        if (activeOutputText) activeOutputText.textContent = `"${outputVal}"`;
+        if (jsonPre) jsonPre.textContent = this.generateJsonSpec();
+
+        updateStats();
+        Toast.show(`Switched to ${targetMode.title}`, 'info');
+      });
+    });
+
+    // Template cards selection
+    const templateCards = document.querySelectorAll('.query-template-card');
+    templateCards.forEach(card => {
+      card.addEventListener('click', () => {
+        const tmplId = card.dataset.templateId;
+        const tmpl = this.queryTemplates.find(t => t.id === tmplId);
+        if (!tmpl) return;
+
+        this.queryEditorState.activeTemplateId = tmplId;
+        this.queryEditorState.activeMode = tmpl.mode;
+        this.queryEditorState.editorContent = tmpl.query;
+
+        templateCards.forEach(c => {
+          const isThis = c.dataset.templateId === tmplId;
+          c.className = `query-template-card cursor-pointer p-3 rounded-xl border transition-all select-none ${isThis ? 'border-2 border-[#00A4B7] bg-[#F0F9FF] shadow-xs' : 'border-[#DFE1E6] bg-white hover:border-[#00A4B7] hover:bg-[#F8FAFC]'}`;
+        });
+
+        // Also sync mode cards
+        modeCards.forEach(c => {
+          const isThis = c.dataset.modeId === tmpl.mode;
+          c.className = `query-mode-card cursor-pointer p-3 rounded-xl border transition-all text-center select-none flex flex-col items-center justify-center gap-1.5 ${isThis ? 'border-2 border-[#00A4B7] bg-[#F0F9FF] shadow-xs' : 'border-[#DFE1E6] bg-white hover:border-[#00A4B7] hover:bg-[#F8FAFC]'}`;
+          const iconBox = c.querySelector('div');
+          if (iconBox) {
+            iconBox.className = `w-8 h-8 rounded-lg flex items-center justify-center ${isThis ? 'bg-[#00A4B7] text-white shadow-xs' : 'bg-[#F1F5F9] text-[#5E6C84]'}`;
+          }
+        });
+
+        const targetMode = this.queryModes.find(m => m.id === tmpl.mode);
+        if (filenameEl && targetMode) filenameEl.textContent = targetMode.filename;
+        if (editor) editor.value = tmpl.query;
+        if (fieldEngineLabel && targetMode) fieldEngineLabel.textContent = targetMode.engineLabel;
+
+        const outputVal = tmpl.mode === 'formula' 
+          ? 'USD $5.28 / KG (Realized Rate)'
+          : '[9 Records Matched]';
+        this.queryEditorState.outputResult = outputVal;
+        if (displayBox) displayBox.textContent = outputVal;
+        if (activeOutputText) activeOutputText.textContent = `"${outputVal}"`;
+        if (jsonPre) jsonPre.textContent = this.generateJsonSpec();
+
+        updateStats();
+        Toast.show(`Loaded Template: ${tmpl.title}`, 'success');
+      });
+    });
+
+    // Token category filter pills
+    const catPills = document.querySelectorAll('.token-filter-pill');
+    const chipsContainer = document.getElementById('tokens-chips-container');
+    catPills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        const cat = pill.dataset.category;
+        this.queryEditorState.activeTokenCategory = cat;
+
+        catPills.forEach(p => {
+          const isThis = p.dataset.category === cat;
+          p.className = `token-filter-pill px-2.5 py-1 rounded-full text-[11px] transition-colors cursor-pointer ${isThis ? 'bg-[#00A4B7] text-white font-bold' : 'text-[#5E6C84] font-semibold hover:bg-[#EBECF0]'}`;
+        });
+
+        if (chipsContainer) {
+          chipsContainer.innerHTML = this.renderTokenChips();
+          bindTokenChips();
+        }
+      });
+    });
+
+    // Token chips insertion into editor
+    const bindTokenChips = () => {
+      const chips = document.querySelectorAll('.schema-token-chip');
+      chips.forEach(chip => {
+        chip.addEventListener('click', () => {
+          const token = chip.dataset.token;
+          if (!editor || !token) return;
+
+          const start = editor.selectionStart || 0;
+          const end = editor.selectionEnd || 0;
+          const curVal = editor.value;
+
+          editor.value = curVal.substring(0, start) + token + curVal.substring(end);
+          editor.focus();
+          editor.selectionStart = editor.selectionEnd = start + token.length;
+
+          updateStats();
+          Toast.show(`Inserted ${token}`, 'info');
+        });
+      });
+    };
+    bindTokenChips();
+
+    // Sample record selection
+    const sampleRecordSel = document.getElementById('preview-sample-record-select');
+    if (sampleRecordSel) {
+      sampleRecordSel.addEventListener('change', () => {
+        const recId = sampleRecordSel.value;
+        this.queryEditorState.selectedRecordId = recId;
+        const rec = this.sampleRecords.find(r => r.id === recId) || this.sampleRecords[0];
+
+        if (this.queryEditorState.activeMode === 'formula') {
+          const val = `"${rec.buyer} — ${rec.species} (${rec.qty}) [USD ${rec.amount}]"`;
+          this.queryEditorState.outputResult = val;
+          if (displayBox) displayBox.textContent = val;
+          if (activeOutputText) activeOutputText.textContent = val;
+        }
+
+        if (jsonPre) jsonPre.textContent = this.generateJsonSpec();
+        Toast.show(`Evaluating against record ${recId}`, 'info');
+      });
+    }
+
+    // Clear preview output
+    const btnClearPreview = document.getElementById('btn-preview-clear-output');
+    if (btnClearPreview) {
+      btnClearPreview.addEventListener('click', () => {
+        this.queryEditorState.outputResult = '—';
+        if (displayBox) displayBox.textContent = '—';
+        if (activeOutputText) activeOutputText.textContent = '"—"';
+        Toast.show('Preview output cleared', 'info');
+      });
+    }
+
+    // JSON Spec Toggle
+    const btnToggleJson = document.getElementById('btn-toggle-json-spec');
+    const jsonBody = document.getElementById('json-spec-body');
+    const jsonArrow = document.getElementById('icon-json-arrow');
+    if (btnToggleJson && jsonBody) {
+      btnToggleJson.addEventListener('click', () => {
+        const isHidden = jsonBody.classList.toggle('hidden');
+        if (jsonArrow) jsonArrow.classList.toggle('rotate-180', !isHidden);
+      });
+    }
+
+    // Copy query button
+    const btnCopy = document.getElementById('btn-copy-query');
+    if (btnCopy && editor) {
+      btnCopy.addEventListener('click', () => {
+        navigator.clipboard.writeText(editor.value).then(() => {
+          Toast.show('Query copied to clipboard!', 'success');
+        }).catch(() => {
+          Toast.show('Copied query to clipboard', 'success');
+        });
+      });
+    }
+
+    // Clear query button
+    const btnClearQuery = document.getElementById('btn-clear-query');
+    if (btnClearQuery && editor) {
+      btnClearQuery.addEventListener('click', () => {
+        editor.value = '';
+        editor.focus();
+        updateStats();
+        Toast.show('Editor cleared', 'info');
+      });
+    }
+
+    // Reset defaults button
+    const btnReset = document.getElementById('btn-reset-query-defaults');
+    if (btnReset) {
+      btnReset.addEventListener('click', () => {
+        const defaultMode = this.queryModes[2];
+        this.queryEditorState.activeMode = 'jql';
+        this.queryEditorState.activeTemplateId = 'tmpl-jql-reefer';
+        this.queryEditorState.editorContent = defaultMode.defaultQuery;
+        this.queryEditorState.outputResult = '[9 Records Matched]';
+        this.queryEditorState.executionDuration = '0.4 ms';
+        this.queryEditorState.matchedCount = 9;
+        this.render(this.lastContainerId || 'app-content', 'query-editor');
+        Toast.show('Reset query editor to enterprise defaults', 'success');
+      });
+    }
+
+    // Run Query / Test Expression button
     const btnRun = document.getElementById('btn-run-query');
     if (btnRun) {
       btnRun.addEventListener('click', () => {
-        Toast.show('Executing query...', 'info');
+        const originalHtml = btnRun.innerHTML;
+        btnRun.innerHTML = `
+          <svg class="w-3.5 h-3.5 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg>
+          <span>Executing...</span>
+        `;
+        btnRun.disabled = true;
+
         setTimeout(() => {
+          btnRun.innerHTML = originalHtml;
+          btnRun.disabled = false;
+
+          const duration = '0.3 ms';
+          this.queryEditorState.executionDuration = duration;
+          if (durationEl) durationEl.textContent = duration;
+          if (consoleDurationEl) consoleDurationEl.textContent = `Duration: ${duration}`;
+
+          const count = this.sampleRecords.length;
+          this.queryEditorState.matchedCount = count;
+          if (consoleMatchedCount) consoleMatchedCount.textContent = count;
+
+          const outputVal = this.queryEditorState.activeMode === 'formula'
+            ? '"Ocean Harvest Global LLC — Vannamei White (44,000 LBS) [USD $246,400]"'
+            : `[${count} Records Matched]`;
+
+          this.queryEditorState.outputResult = outputVal;
+          if (displayBox) displayBox.textContent = outputVal;
+          if (activeOutputText) activeOutputText.textContent = `"${outputVal}"`;
+          if (jsonPre) jsonPre.textContent = this.generateJsonSpec();
+
           this.initQueryResultsDataTable();
-          Toast.show('Query executed successfully: 5 rows returned in 12ms', 'success');
-        }, 300);
+          Toast.show(`Query executed successfully: ${count} records matched in ${duration}`, 'success');
+        }, 250);
       });
     }
 
-    const btnClear = document.getElementById('btn-clear-query');
-    const sqlTextarea = document.getElementById('query-sql-input');
-    if (btnClear && sqlTextarea) {
-      btnClear.addEventListener('click', () => {
-        sqlTextarea.value = '';
-        sqlTextarea.focus();
-      });
-    }
-
-    const btnSample = document.getElementById('btn-quick-sample');
-    if (btnSample && sqlTextarea) {
-      btnSample.addEventListener('click', () => {
-        const currentForm = this.forms.find(f => f.id === this.selectedFormCode) || this.forms[0];
-        sqlTextarea.value = `SELECT \n  f.buyer_name,\n  f.pi_number,\n  f.exporter_entity,\n  f.species,\n  f.quantity_net,\n  f.total_value_usd\nFROM ${currentForm.model} f\nWHERE f.status = 'ACTIVE'\nORDER BY f.created_at DESC\nLIMIT 50;`;
-      });
-    }
-
-    // Table selection in filter
-    const selectTbl = document.getElementById('flt-query-table');
-    if (selectTbl) {
-      selectTbl.addEventListener('change', (e) => {
-        const model = e.target.value;
-        if (model && sqlTextarea) {
-          sqlTextarea.value = `SELECT * FROM ${model} LIMIT 25;`;
-          Toast.show(`Loaded table "${model}" into SQL console`, 'info');
-        }
-      });
-    }
-
-    // Search filter execute
-    const btnSearch = document.getElementById('btn-query-search-exec');
-    if (btnSearch) {
-      btnSearch.addEventListener('click', () => {
-        const keyword = (document.getElementById('flt-query-keyword')?.value || '').toLowerCase();
-        const baseData = [
-          { buyer: 'Ocean Harvest Global LLC', pi_no: 'PI-2026-891', exporter: 'Devi Fisheries Limited', species: 'Vannamei White', qty: '44,000 LBS', amount: '$246,400', status: 'Cleared' },
-          { buyer: 'Pacific Catch Seafoods Inc', pi_no: 'PI-2026-892', exporter: 'Devi Fisheries Limited', species: 'Black Tiger', qty: '38,500 LBS', amount: '$288,750', status: 'In Transit' },
-          { buyer: 'Apex Mariculture Int', pi_no: 'PI-2026-893', exporter: 'Devi Marine Processors', species: 'Vannamei White', qty: '42,000 LBS', amount: '$231,000', status: 'Booked' },
-          { buyer: 'Red Lobster Supply Corp', pi_no: 'PI-2026-894', exporter: 'Devi Fisheries Limited', species: 'Vannamei Easy Peel', qty: '40,000 LBS', amount: '$260,000', status: 'Cleared' },
-          { buyer: 'Sysco Global Exports', pi_no: 'PI-2026-895', exporter: 'Devi Sea Foods Ltd', species: 'Vannamei Peeled Tail-On', qty: '44,000 LBS', amount: '$272,800', status: 'Delivered' }
-        ];
-
-        const filtered = baseData.filter(d => {
-          return !keyword || d.buyer.toLowerCase().includes(keyword) || d.pi_no.toLowerCase().includes(keyword) || d.species.toLowerCase().includes(keyword) || d.exporter.toLowerCase().includes(keyword);
-        });
-
-        this.initQueryResultsDataTable(filtered);
-      });
-    }
-
-    // Filter reset
-    const btnReset = document.getElementById('query-filter-reset');
-    if (btnReset) {
-      btnReset.addEventListener('click', () => {
-        const tblSel = document.getElementById('flt-query-table');
-        const kwInput = document.getElementById('flt-query-keyword');
-        const catSel = document.getElementById('flt-query-category');
-        if (tblSel) tblSel.value = '';
-        if (kwInput) kwInput.value = '';
-        if (catSel) catSel.value = '';
-        this.initQueryResultsDataTable();
-      });
-    }
-
-    // Collapse toggle
-    const filterToggle = document.getElementById('query-filter-toggle');
-    const filterBody = document.getElementById('query-filter-body');
-    if (filterToggle && filterBody) {
-      filterToggle.addEventListener('click', () => {
-        const isHidden = filterBody.classList.toggle('hidden');
-        const svg = filterToggle.querySelector('svg');
-        if (svg) svg.classList.toggle('rotate-180', isHidden);
-      });
-    }
-
-    const btnCsv = document.getElementById('btn-export-query-csv');
-    if (btnCsv) {
-      btnCsv.addEventListener('click', () => {
-        Toast.show('Exporting query results to CSV...', 'success');
+    // Export CSV
+    const btnExportCsv = document.getElementById('btn-export-query-csv');
+    if (btnExportCsv) {
+      btnExportCsv.addEventListener('click', () => {
+        Toast.show('Exporting 9 matched records to CSV...', 'success');
       });
     }
   },
-
-
   // -------------------------------------------------------------
   // Modals (Design System compliant: Modal.open & Modal.confirm)
   // -------------------------------------------------------------
