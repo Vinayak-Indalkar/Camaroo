@@ -1813,7 +1813,6 @@ export const SettingsView = {
           <!-- Section 1: Commercial & Buyer Details -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
             <div class="flex items-center gap-2 border-b border-[#F1F5F9] pb-2 mb-3">
-              <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">1</span>
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Commercial &amp; Buyer Information</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
@@ -1839,7 +1838,6 @@ export const SettingsView = {
           <!-- Section 2: Cargo & Specifications -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
             <div class="flex items-center gap-2 border-b border-[#F1F5F9] pb-2 mb-3">
-              <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">2</span>
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Product &amp; Cargo Specifications</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
@@ -1865,7 +1863,6 @@ export const SettingsView = {
           <!-- Section 3: Logistics & Customs -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
             <div class="flex items-center gap-2 border-b border-[#F1F5F9] pb-2 mb-3">
-              <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">3</span>
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Logistics &amp; Port Clearance</h4>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
@@ -2335,7 +2332,6 @@ export const SettingsView = {
           <div>
             <div class="flex items-center justify-between pb-2 border-b border-[#F1F5F9] mb-3">
               <div class="flex items-center gap-2">
-                <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">1</span>
                 <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Configured Form Fields (${fields.length})</h4>
               </div>
               <span class="text-[11px] text-[#5E6C84]">Active data points</span>
