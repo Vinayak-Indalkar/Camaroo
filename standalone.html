@@ -87866,15 +87866,21 @@ const SettingsView = {
           header: 'Field Type',
           sortable: true,
           render: (val) => {
-            const colors = {
-              'Text': 'bg-[#E0F2FE] text-[#00A4B7] border-[#BAE6FD]',
-              'Number': 'bg-[#EAE6FF] text-[#403294] border-[#D3C7FF]',
-              'Dropdown': 'bg-[#E3FCEF] text-[#006644] border-[#ABF5D1]',
-              'Date': 'bg-[#FFFAE6] text-[#FF8B00] border-[#FFE380]',
-              'Currency': 'bg-[#F0FDF4] text-[#15803D] border-[#BBF7D0]',
-              'Formula': 'bg-[#FDF4FF] text-[#A21CAF] border-[#F5D0FE]'
-            };
-            const style = colors[val] || 'bg-[#F1F5F9] text-[#172B4D] border-[#DFE1E6]';
+            const vLower = (val || '').toLowerCase();
+            let style = 'bg-[#F1F5F9] text-[#172B4D] border-[#DFE1E6]';
+            if (vLower.includes('text') || vLower.includes('email') || vLower.includes('phone') || vLower.includes('url')) {
+              style = 'bg-[#E0F2FE] text-[#00A4B7] border-[#BAE6FD]';
+            } else if (vLower.includes('number') || vLower.includes('counter')) {
+              style = 'bg-[#EAE6FF] text-[#403294] border-[#D3C7FF]';
+            } else if (vLower.includes('currency') || vLower.includes('monetary')) {
+              style = 'bg-[#F0FDF4] text-[#15803D] border-[#BBF7D0]';
+            } else if (vLower.includes('dropdown') || vLower.includes('select') || vLower.includes('choice') || vLower.includes('radio') || vLower.includes('toggle')) {
+              style = 'bg-[#E3FCEF] text-[#006644] border-[#ABF5D1]';
+            } else if (vLower.includes('date') || vLower.includes('time') || vLower.includes('calendar') || vLower.includes('clock')) {
+              style = 'bg-[#FFFAE6] text-[#FF8B00] border-[#FFE380]';
+            } else if (vLower.includes('upload') || vLower.includes('file') || vLower.includes('rating') || vLower.includes('color')) {
+              style = 'bg-[#FDF4FF] text-[#A21CAF] border-[#F5D0FE]';
+            }
             return `<span class="px-2 py-0.5 rounded text-[10px] font-bold border ${style}">${val}</span>`;
           }
         },
@@ -88438,57 +88444,249 @@ const SettingsView = {
   },
 
   openAddFieldModal() {
+    const defaultFormCode = this.selectedFormCode || 'FORM-PI';
+    const targetForm = this.forms.find(f => f.id === defaultFormCode) || this.forms[0];
+
+    const DATA_TYPES = [
+      { id: 'single-line-text', title: 'Single Line Text', category: 'Text', icon: 'text', badge: 'T' },
+      { id: 'multi-line-text', title: 'Multi-Line Text Area', category: 'Text', icon: 'textarea' },
+      { id: 'email', title: 'Email Address', category: 'Text', icon: 'email' },
+      { id: 'phone', title: 'Phone Number', category: 'Text', icon: 'phone' },
+      { id: 'website', title: 'Website Link (URL)', category: 'Text', icon: 'website' },
+      { id: 'number', title: 'Numeric Counter', category: 'Number', icon: 'number', badge: '#' },
+      { id: 'currency', title: 'Monetary Currency', category: 'Number', icon: 'currency', badge: '$' },
+      { id: 'dropdown', title: 'Dropdown Menu', category: 'Choice', icon: 'dropdown' },
+      { id: 'multi-select', title: 'Multi-Select Tags', category: 'Choice', icon: 'multi-select' },
+      { id: 'radio', title: 'Radio Choice Buttons', category: 'Choice', icon: 'radio' },
+      { id: 'toggle', title: 'Toggle Switch / Checkbox', category: 'Choice', icon: 'toggle' },
+      { id: 'date', title: 'Calendar Date', category: 'Date & Time', icon: 'date' },
+      { id: 'time', title: 'Clock Time', category: 'Date & Time', icon: 'time' },
+      { id: 'datetime', title: 'Date & Time Combo', category: 'Date & Time', icon: 'datetime' },
+      { id: 'file', title: 'File & Document Upload', category: 'Media', icon: 'file' },
+      { id: 'rating', title: 'Star Rating', category: 'Advanced', icon: 'rating' },
+      { id: 'color', title: 'Color Picker', category: 'Advanced', icon: 'color' }
+    ];
+
+    const renderTypeIcon = (type) => {
+      if (type.badge) {
+        return `<span class="font-bold text-xs">${type.badge}</span>`;
+      }
+      switch (type.icon) {
+        case 'textarea':
+          return `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h9"/></svg>`;
+        case 'email':
+          return `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>`;
+        case 'phone':
+          return `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>`;
+        case 'website':
+          return `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>`;
+        case 'dropdown':
+          return `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 11h16M4 16h10"/></svg>`;
+        case 'multi-select':
+          return `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>`;
+        case 'radio':
+          return `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.636 18.364a9 9 0 010-12.728m12.728 0a9 9 0 010 12.728m-9.9-2.828a5 5 0 010-7.072m7.072 0a5 5 0 010 7.072M13 12a1 1 0 11-2 0 1 1 0 012 0z"/></svg>`;
+        case 'toggle':
+          return `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>`;
+        case 'date':
+          return `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>`;
+        case 'time':
+          return `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`;
+        case 'datetime':
+          return `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2zM12 14v3l2 1"/></svg>`;
+        case 'file':
+          return `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>`;
+        case 'rating':
+          return `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>`;
+        case 'color':
+          return `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4 7 7 0 017-7h.09A5.986 5.986 0 0116 8c3.314 0 6 2.686 6 6 0 2.21-1.79 4-4 4h-1a2 2 0 00-2 2c0 1.1-.9 2-2 2z"/></svg>`;
+        default:
+          return `<span class="font-bold text-xs">T</span>`;
+      }
+    };
+
+    let selectedType = DATA_TYPES[0];
+
     Modal.open({
       title: 'Add Custom Field',
       size: 'xl',
       content: `
-        <form id="modal-form-add-field" class="space-y-4">
-          <div class="bg-gradient-to-r from-[#F0F9FF] to-[#F8FAFC] p-4 rounded-xl border border-[#BAE6FD] flex items-center gap-3 shadow-2xs">
-            <div class="w-10 h-10 rounded-xl bg-[#00A4B7] text-white flex items-center justify-center font-bold shadow-xs">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+        <form id="modal-form-add-field" class="space-y-4 max-h-[82vh] overflow-y-auto pr-1">
+          <!-- Target Form Header Bar -->
+          <div class="flex flex-wrap items-center justify-between gap-3 bg-gradient-to-r from-[#F0F9FF] to-[#F8FAFC] p-3 rounded-xl border border-[#BAE6FD] shadow-2xs">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-lg bg-[#00A4B7] text-white flex items-center justify-center font-bold text-xs shadow-xs">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+              </div>
+              <div>
+                <div class="font-extrabold text-[#0F172A] text-xs">Form Field Studio</div>
+                <div class="text-[11px] text-[#5E6C84]">Configure custom data point schema</div>
+              </div>
             </div>
-            <div>
-              <div class="font-extrabold text-[#0F172A] text-sm">Add New Field to Form</div>
-              <div class="text-[11px] text-[#5E6C84]">Target Form: <span class="font-mono font-bold text-[#00A4B7]">${this.selectedFormCode}</span></div>
+
+            <div class="flex items-center gap-2">
+              <label for="add-fld-target-form" class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider whitespace-nowrap">Target Form:</label>
+              <select id="add-fld-target-form" class="text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs min-w-[220px]">
+                ${this.forms.map(f => `
+                  <option value="${f.id}" ${f.id === (targetForm?.id || defaultFormCode) ? 'selected' : ''}>${f.code} — ${f.name}</option>
+                `).join('')}
+              </select>
             </div>
           </div>
 
+          <!-- 1. SELECT INPUT DATA TYPE -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center justify-between pb-2 border-b border-[#F1F5F9] mb-3">
+              <div class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">1. SELECT INPUT DATA TYPE</h3>
+              </div>
+              <span id="selected-type-badge" class="px-3 py-1 rounded-full text-xs font-bold bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD]">
+                Selected: Single Line Text
+              </span>
+            </div>
+
+            <!-- 17 Data Type Cards Grid -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2.5" id="data-type-grid">
+              ${DATA_TYPES.map((t, idx) => {
+                const isSelected = idx === 0;
+                return `
+                  <div class="data-type-card cursor-pointer p-3 rounded-xl border transition-all relative flex flex-col justify-between select-none ${isSelected ? 'border-2 border-[#00A4B7] bg-[#F0F9FF] shadow-xs' : 'border-[#DFE1E6] bg-white hover:border-[#00A4B7] hover:bg-[#F8FAFC]'}" data-type-id="${t.id}" data-type-title="${t.title}" data-category="${t.category}">
+                    <span class="selected-dot ${isSelected ? '' : 'hidden'} absolute top-2 right-2 w-2 h-2 rounded-full bg-[#00A4B7]"></span>
+                    <div class="icon-box w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs mb-2 transition-colors ${isSelected ? 'bg-[#00A4B7] text-white shadow-xs' : 'bg-[#F1F5F9] text-[#5E6C84]'}">
+                      ${renderTypeIcon(t)}
+                    </div>
+                    <div>
+                      <div class="text-xs font-bold text-[#172B4D] leading-tight">${t.title}</div>
+                      <div class="text-[10px] text-[#5E6C84] mt-0.5">${t.category}</div>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+
+          <!-- 2. CORE IDENTITY & PLACEMENT -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs space-y-3.5">
+            <div class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">2. CORE IDENTITY &amp; PLACEMENT</div>
+
+            <div>
+              <div class="flex items-center justify-between mb-1">
+                <label class="block text-[11px] font-bold text-[#172B4D]">Field Label <span class="text-[#DE350B]">*</span></label>
+                <span class="text-[11px] text-[#5E6C84]">User-facing title</span>
+              </div>
+              <input type="text" id="add-fld-label" required placeholder="e.g. Workstation Preference, Github Profile, Dietary Restrictions" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            </div>
+
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
               <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Field Label <span class="text-[#DE350B]">*</span></label>
-                <input type="text" id="add-fld-label" required placeholder="e.g. Vessel IMO Number" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                <div class="flex items-center justify-between mb-1">
+                  <label class="block text-[11px] font-bold text-[#172B4D]">Database Key</label>
+                  <button type="button" id="btn-copy-fld-key" class="text-[11px] font-bold text-[#00A4B7] hover:underline cursor-pointer inline-flex items-center gap-1">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                    <span>Copy Key</span>
+                  </button>
+                </div>
+                <input type="text" id="add-fld-key" placeholder="e.g. workstationPreference" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs font-mono" />
               </div>
+
               <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Field Key (Internal DB) <span class="text-[#DE350B]">*</span></label>
-                <input type="text" id="add-fld-key" required placeholder="e.g. vessel_imo_number" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs font-mono" />
-              </div>
-              <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Field Type <span class="text-[#DE350B]">*</span></label>
-                <select id="add-fld-type" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                  <option value="Text">Text</option>
-                  <option value="Number">Number</option>
-                  <option value="Dropdown">Dropdown / Select</option>
-                  <option value="Date">Date</option>
-                  <option value="Currency">Currency</option>
-                  <option value="Formula">Formula</option>
+                <div class="flex items-center justify-between mb-1">
+                  <label class="block text-[11px] font-bold text-[#172B4D]">Form Section</label>
+                  <button type="button" id="btn-new-section" class="text-[11px] font-bold text-[#00A4B7] hover:underline cursor-pointer">+ New Section</button>
+                </div>
+                <select id="add-fld-section" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="Personal Info (Standard)" selected>Personal Info (Standard)</option>
+                  <option value="General Information">General Information</option>
+                  <option value="Commercial Terms">Commercial Terms</option>
+                  <option value="Shipping & Logistics">Shipping &amp; Logistics</option>
+                  <option value="Customs & Clearance">Customs &amp; Clearance</option>
+                  <option value="Banking & Finance">Banking &amp; Finance</option>
+                  <option value="Quality Compliance">Quality Compliance</option>
                 </select>
-              </div>
-              <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Section / Group <span class="text-[#DE350B]">*</span></label>
-                <input type="text" id="add-fld-section" required placeholder="e.g. Shipping Details" value="General Information" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
               </div>
             </div>
 
-            <div class="flex items-center gap-6 mt-4 pt-3 border-t border-[#F1F5F9]">
-              <label class="flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" id="add-fld-required" class="rounded text-[#00A4B7] focus:ring-[#00A4B7]" />
-                <span class="text-xs font-bold text-[#172B4D]">Mandatory / Required Field</span>
-              </label>
-              <label class="flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" id="add-fld-filter" checked class="rounded text-[#00A4B7] focus:ring-[#00A4B7]" />
-                <span class="text-xs font-bold text-[#172B4D]">Enable in Search &amp; Filter Card</span>
-              </label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+              <div>
+                <label class="block text-[11px] font-bold text-[#172B4D] mb-1">Placeholder Text</label>
+                <input type="text" id="add-fld-placeholder" placeholder="Placeholder example hint..." class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-[#172B4D] mb-1">Helper / Description Text</label>
+                <input type="text" id="add-fld-helper" placeholder="Guidance tooltip shown to users..." class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. CHOICE OPTIONS CONFIGURATION (Conditional) -->
+          <div id="section-choice-options" class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs space-y-3 hidden">
+            <div class="flex items-center justify-between pb-1 border-b border-[#F1F5F9]">
+              <div class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">3. CHOICE OPTIONS CONFIGURATION</div>
+              <span class="text-[11px] text-[#5E6C84]">Comma separated options</span>
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-[#172B4D] mb-1">Options List</label>
+              <input type="text" id="add-fld-options" placeholder="e.g. Option A, Option B, Option C" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            </div>
+          </div>
+
+          <!-- 4. VALIDATION, PERMISSIONS & FORM VISIBILITY -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs space-y-4">
+            <div class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">4. VALIDATION, PERMISSIONS &amp; FORM VISIBILITY</div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+              <!-- Mandatory Policy -->
+              <div class="p-3 rounded-xl border border-[#DFE1E6] bg-[#F8FAFC] flex items-center justify-between">
+                <div>
+                  <div class="text-xs font-bold text-[#172B4D]">Mandatory Policy</div>
+                  <div class="text-[11px] text-[#5E6C84] mt-0.5">Blocks submission if empty</div>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                  <input type="checkbox" id="add-fld-mandatory" class="sr-only peer">
+                  <div class="w-11 h-6 bg-[#CBD5E1] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-[#DFE1E6] after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#00A4B7]"></div>
+                </label>
+              </div>
+
+              <!-- Field Status -->
+              <div class="p-3 rounded-xl border border-[#DFE1E6] bg-[#F8FAFC] flex items-center justify-between">
+                <div>
+                  <div class="text-xs font-bold text-[#172B4D]">Field Status</div>
+                  <div class="text-[11px] text-[#5E6C84] mt-0.5">Active in forms</div>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                  <input type="checkbox" id="add-fld-status" checked class="sr-only peer">
+                  <div class="w-11 h-6 bg-[#CBD5E1] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-[#DFE1E6] after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#00A4B7]"></div>
+                </label>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#172B4D] mb-1">Access &amp; Edit Permission</label>
+              <select id="add-fld-permission" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="Employee & Candidate Editable (Standard)" selected>Employee &amp; Candidate Editable (Standard)</option>
+                <option value="All Authorized Roles (Standard)">All Authorized Roles (Standard)</option>
+                <option value="Admin & Manager Only (Restricted)">Admin &amp; Manager Only (Restricted)</option>
+                <option value="Read-Only System Field (Display Only)">Read-Only System Field (Display Only)</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#172B4D] mb-2">Portal Module Placement Matrix:</label>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <label class="flex items-center gap-2.5 p-2.5 rounded-xl border border-[#DFE1E6] bg-white hover:bg-[#F8FAFC] cursor-pointer transition-colors">
+                  <input type="checkbox" id="matrix-add-form" checked class="rounded border-[#DFE1E6] text-[#00A4B7] focus:ring-[#00A4B7] cursor-pointer w-4 h-4">
+                  <span class="text-xs font-semibold text-[#172B4D]">Add Employee Form</span>
+                </label>
+                <label class="flex items-center gap-2.5 p-2.5 rounded-xl border border-[#DFE1E6] bg-white hover:bg-[#F8FAFC] cursor-pointer transition-colors">
+                  <input type="checkbox" id="matrix-onboarding" checked class="rounded border-[#DFE1E6] text-[#00A4B7] focus:ring-[#00A4B7] cursor-pointer w-4 h-4">
+                  <span class="text-xs font-semibold text-[#172B4D]">Onboarding Flow</span>
+                </label>
+                <label class="flex items-center gap-2.5 p-2.5 rounded-xl border border-[#DFE1E6] bg-white hover:bg-[#F8FAFC] cursor-pointer transition-colors">
+                  <input type="checkbox" id="matrix-profile" checked class="rounded border-[#DFE1E6] text-[#00A4B7] focus:ring-[#00A4B7] cursor-pointer w-4 h-4">
+                  <span class="text-xs font-semibold text-[#172B4D]">Profile &amp; Directory</span>
+                </label>
+              </div>
             </div>
           </div>
         </form>
@@ -88505,43 +88703,169 @@ const SettingsView = {
           text: 'Save Field',
           class: 'btn-primary px-5 py-2 rounded-full text-xs font-bold shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer',
           onClick: () => {
+            const formCode = document.getElementById('add-fld-target-form')?.value || defaultFormCode;
             const label = document.getElementById('add-fld-label')?.value?.trim();
-            const key = document.getElementById('add-fld-key')?.value?.trim();
-            const type = document.getElementById('add-fld-type')?.value;
-            const section = document.getElementById('add-fld-section')?.value?.trim();
-            const required = document.getElementById('add-fld-required')?.checked || false;
-            const isFilter = document.getElementById('add-fld-filter')?.checked || false;
+            let key = document.getElementById('add-fld-key')?.value?.trim();
+            const section = document.getElementById('add-fld-section')?.value?.trim() || 'General Information';
+            const placeholder = document.getElementById('add-fld-placeholder')?.value?.trim() || '';
+            const helper = document.getElementById('add-fld-helper')?.value?.trim() || '';
+            const mandatory = document.getElementById('add-fld-mandatory')?.checked || false;
+            const status = document.getElementById('add-fld-status')?.checked ? 'Active' : 'Inactive';
+            const permission = document.getElementById('add-fld-permission')?.value || 'Employee & Candidate Editable (Standard)';
+            const options = document.getElementById('add-fld-options')?.value?.trim() || '';
 
-            if (!label || !key) {
-              Toast.show('Please fill in label and key', 'warning');
+            if (!label) {
+              Toast.show('Please enter a Field Label', 'warning');
+              document.getElementById('add-fld-label')?.focus();
               return false;
             }
 
-            if (!this.formFields[this.selectedFormCode]) {
-              this.formFields[this.selectedFormCode] = [];
+            if (!key) {
+              key = label.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase()).replace(/[^a-zA-Z0-9]/g, '');
+            }
+
+            if (!this.formFields[formCode]) {
+              this.formFields[formCode] = [];
             }
 
             const newField = {
-              id: `f_${Date.now().toString().slice(-4)}`,
+              id: `fld_${Date.now().toString().slice(-5)}`,
               label,
               key,
-              type,
-              section: section || 'General Information',
-              required,
-              isFilter
+              type: selectedType.title,
+              category: selectedType.category,
+              section,
+              placeholder,
+              helper,
+              required: mandatory,
+              status,
+              permission,
+              options: options ? options.split(',').map(s => s.trim()).filter(Boolean) : [],
+              isFilter: true
             };
 
-            this.formFields[this.selectedFormCode].push(newField);
-            const targetForm = this.forms.find(f => f.id === this.selectedFormCode);
-            if (targetForm) targetForm.fieldsCount = this.formFields[this.selectedFormCode].length;
+            this.formFields[formCode].push(newField);
+            const targetFormObj = this.forms.find(f => f.id === formCode);
+            if (targetFormObj) {
+              targetFormObj.fieldsCount = this.formFields[formCode].length;
+            }
 
             Modal.close();
-            this.initFieldsDataTable(this.formFields[this.selectedFormCode]);
-            Toast.show(`Field "${label}" added successfully!`, 'success');
+            this.selectedFormCode = formCode;
+            this.filterAndRenderFields();
+            Toast.show(`Field "${label}" (${selectedType.title}) added successfully!`, 'success');
           }
         }
       ]
     });
+
+    // Wire up interactive events
+    setTimeout(() => {
+      const typeGrid = document.getElementById('data-type-grid');
+      const badge = document.getElementById('selected-type-badge');
+      const choiceSection = document.getElementById('section-choice-options');
+      const labelInput = document.getElementById('add-fld-label');
+      const keyInput = document.getElementById('add-fld-key');
+      let keyManuallyChanged = false;
+
+      if (keyInput) {
+        keyInput.addEventListener('input', () => {
+          keyManuallyChanged = true;
+        });
+      }
+
+      if (labelInput && keyInput) {
+        labelInput.addEventListener('input', () => {
+          if (!keyManuallyChanged) {
+            const raw = labelInput.value.trim();
+            // Convert to camelCase
+            const camel = raw.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase()).replace(/[^a-zA-Z0-9]/g, '');
+            keyInput.value = camel;
+          }
+        });
+      }
+
+      // Copy Key button
+      const btnCopyKey = document.getElementById('btn-copy-fld-key');
+      if (btnCopyKey && keyInput) {
+        btnCopyKey.addEventListener('click', () => {
+          if (keyInput.value) {
+            navigator.clipboard?.writeText(keyInput.value);
+            Toast.show(`Key "${keyInput.value}" copied to clipboard!`, 'info');
+          } else {
+            Toast.show('No database key to copy yet', 'warning');
+          }
+        });
+      }
+
+      // New Section button
+      const btnNewSection = document.getElementById('btn-new-section');
+      const sectionSelect = document.getElementById('add-fld-section');
+      if (btnNewSection && sectionSelect) {
+        btnNewSection.addEventListener('click', () => {
+          const secName = window.prompt('Enter new Form Section name:');
+          if (secName && secName.trim()) {
+            const opt = document.createElement('option');
+            opt.value = secName.trim();
+            opt.textContent = secName.trim();
+            opt.selected = true;
+            sectionSelect.appendChild(opt);
+            Toast.show(`Section "${secName.trim()}" added!`, 'success');
+          }
+        });
+      }
+
+      // Data Type Selection
+      if (typeGrid) {
+        typeGrid.addEventListener('click', (e) => {
+          const card = e.target.closest('.data-type-card');
+          if (!card) return;
+
+          const typeId = card.dataset.typeId;
+          const found = DATA_TYPES.find(d => d.id === typeId);
+          if (!found) return;
+
+          selectedType = found;
+
+          // Update cards styles
+          typeGrid.querySelectorAll('.data-type-card').forEach(c => {
+            c.classList.remove('border-2', 'border-[#00A4B7]', 'bg-[#F0F9FF]', 'shadow-xs');
+            c.classList.add('border-[#DFE1E6]', 'bg-white');
+            const dot = c.querySelector('.selected-dot');
+            if (dot) dot.classList.add('hidden');
+            const iconBox = c.querySelector('.icon-box');
+            if (iconBox) {
+              iconBox.classList.remove('bg-[#00A4B7]', 'text-white', 'shadow-xs');
+              iconBox.classList.add('bg-[#F1F5F9]', 'text-[#5E6C84]');
+            }
+          });
+
+          card.classList.remove('border-[#DFE1E6]', 'bg-white');
+          card.classList.add('border-2', 'border-[#00A4B7]', 'bg-[#F0F9FF]', 'shadow-xs');
+          const activeDot = card.querySelector('.selected-dot');
+          if (activeDot) activeDot.classList.remove('hidden');
+          const activeIconBox = card.querySelector('.icon-box');
+          if (activeIconBox) {
+            activeIconBox.classList.remove('bg-[#F1F5F9]', 'text-[#5E6C84]');
+            activeIconBox.classList.add('bg-[#00A4B7]', 'text-white', 'shadow-xs');
+          }
+
+          // Update badge
+          if (badge) {
+            badge.textContent = `Selected: ${selectedType.title}`;
+          }
+
+          // Toggle choice options
+          if (choiceSection) {
+            if (['dropdown', 'multi-select', 'radio'].includes(selectedType.id)) {
+              choiceSection.classList.remove('hidden');
+            } else {
+              choiceSection.classList.add('hidden');
+            }
+          }
+        });
+      }
+    }, 20);
   },
 
   openEditFieldModal(fieldId) {
