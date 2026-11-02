@@ -206,16 +206,14 @@ export const SettingsView = {
   renderFormsTab(container, tabsBarHtml) {
     container.innerHTML = `
       <div class="space-y-4">
-        <!-- Strictly Heading Only with Primary Action Button (NO subheadings) -->
-        <div class="flex items-center justify-between">
-          <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Forms</h1>
+        ${tabsBarHtml}
+
+        <div class="flex items-center justify-end">
           <button type="button" id="btn-add-form" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
             <span>Add Form</span>
           </button>
         </div>
-
-        ${tabsBarHtml}
 
         <!-- Search & Filter Card -->
         <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200">
@@ -267,7 +265,7 @@ export const SettingsView = {
         </div>
 
         <!-- DataTable Container -->
-        <div id="forms-datatable-container" class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs"></div>
+        <div id="forms-datatable-container"></div>
       </div>
     `;
 
@@ -486,16 +484,14 @@ export const SettingsView = {
   renderFieldsCustomizerTab(container, tabsBarHtml) {
     container.innerHTML = `
       <div class="space-y-4">
-        <!-- Strictly Heading Only with Primary Action Button (NO subheadings) -->
-        <div class="flex items-center justify-between">
-          <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Filds Customizer</h1>
+        ${tabsBarHtml}
+
+        <div class="flex items-center justify-end">
           <button type="button" id="btn-add-field" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
             <span>Add Custom Field</span>
           </button>
         </div>
-
-        ${tabsBarHtml}
 
         <!-- Search & Filter Card -->
         <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200">
@@ -553,7 +549,7 @@ export const SettingsView = {
         </div>
 
         <!-- Full Width DataTable Container -->
-        <div id="fields-datatable-container" class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs"></div>
+        <div id="fields-datatable-container"></div>
       </div>
     `;
 
@@ -773,9 +769,9 @@ export const SettingsView = {
 
     container.innerHTML = `
       <div class="space-y-4">
-        <!-- Strictly Heading Only with Action Buttons (NO subheadings) -->
-        <div class="flex items-center justify-between">
-          <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Query Editor</h1>
+        ${tabsBarHtml}
+
+        <div class="flex items-center justify-end">
           <div class="flex items-center gap-2">
             <button type="button" id="btn-export-query-csv" class="btn-secondary px-4 py-2 rounded-full text-xs font-semibold inline-flex items-center gap-1.5 border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#172B4D] transition-all cursor-pointer">
               <svg class="w-3.5 h-3.5 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
@@ -787,8 +783,6 @@ export const SettingsView = {
             </button>
           </div>
         </div>
-
-        ${tabsBarHtml}
 
         <!-- Search & Filter Card -->
         <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200">
@@ -865,10 +859,8 @@ export const SettingsView = {
           >${initialSql}</textarea>
         </div>
 
-        <!-- Execution Results Full Width DataTable Card -->
-        <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-          <div id="query-results-container"></div>
-        </div>
+        <!-- Execution Results Full Width DataTable Container -->
+        <div id="query-results-container"></div>
       </div>
     `;
 
