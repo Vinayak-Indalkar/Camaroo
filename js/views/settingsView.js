@@ -836,7 +836,7 @@ export const SettingsView = {
       id: 'jql',
       title: 'JQL Filter Rule',
       subtitle: "status = 'ACTIVE' ...",
-      filename: 'JQL_EDITOR.jql',
+      filename: 'JQL_EDITOR.sql',
       icon: '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>',
       defaultQuery: "shipmentType = 'Reefer Container' AND icegateStatus ~ 'LEO Issued' AND status = 'IN_TRANSIT'",
       engineLabel: 'Computed (JQL)'
@@ -1096,9 +1096,9 @@ export const SettingsView = {
                     <div class="query-template-card cursor-pointer p-3 rounded-xl border transition-all select-none ${isSelected ? 'border-2 border-[#00A4B7] bg-[#F0F9FF] shadow-xs' : 'border-[#DFE1E6] bg-white hover:border-[#00A4B7] hover:bg-[#F8FAFC]'}" data-template-id="${t.id}">
                       <div class="flex items-center justify-between gap-2">
                         <div class="flex items-center gap-1.5 min-w-0">
-                          <span class="text-xs font-bold text-[#172B4D] truncate">${t.title}</span>
+                          <svg class="w-3.5 h-3.5 text-[#00A4B7] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                          <span class="text-xs font-bold text-[#172B4D] truncate">${t.badge}: ${t.title}</span>
                         </div>
-                        <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase ${t.badge === 'JQL' ? 'bg-[#E0F2FE] text-[#0284C7] border border-[#BAE6FD]' : t.badge === 'SQL' ? 'bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]' : 'bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]'}">${t.badge}</span>
                       </div>
                       <p class="text-[11px] text-[#5E6C84] mt-1 line-clamp-2 leading-relaxed">${t.desc}</p>
                     </div>
@@ -1138,12 +1138,12 @@ export const SettingsView = {
           <div class="lg:col-span-5">
             <div class="bg-white rounded-xl border border-[#DFE1E6] shadow-xs overflow-hidden sticky top-4">
               <!-- Gradient Header -->
-              <div class="bg-gradient-to-r from-[#00A4B7] to-[#0284C7] px-4 py-3 text-white flex items-center justify-between shadow-xs">
+              <div class="bg-gradient-to-r from-[#2563EB] to-[#7C3AED] px-4 py-3 text-white flex items-center justify-between shadow-xs" style="background: linear-gradient(90deg, #2563EB 0%, #4F46E5 60%, #7C3AED 100%) !important;">
                 <div class="flex items-center gap-2">
                   <span class="w-2.5 h-2.5 rounded-full bg-white animate-pulse"></span>
                   <span class="text-xs font-extrabold tracking-wide uppercase">Live Interactive Component Preview</span>
                 </div>
-                <span class="bg-white/20 text-white text-[10px] font-mono px-2 py-0.5 rounded font-extrabold tracking-wider uppercase backdrop-blur-xs flex items-center gap-1">
+                <span class="bg-[#4338CA]/70 text-white text-[10px] font-mono px-2 py-0.5 rounded font-extrabold tracking-wider uppercase backdrop-blur-xs flex items-center gap-1">
                   <span>⚡</span>
                   <span>QUERY_ENGINE</span>
                 </span>
@@ -1254,8 +1254,8 @@ export const SettingsView = {
             <textarea 
               id="query-code-editor" 
               rows="5" 
-              class="w-full bg-black text-white font-mono text-xs sm:text-sm p-2 focus:outline-none resize-y leading-relaxed border-0 outline-none selection:bg-[#00A4B7]/30" 
-              style="color: #FFFFFF !important; background-color: #000000 !important; caret-color: #FFFFFF !important; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;"
+              class="w-full bg-black text-[#10B981] font-mono text-xs sm:text-sm p-3 focus:outline-none resize-y leading-relaxed border-0 outline-none selection:bg-[#10B981]/30" 
+              style="color: #10B981 !important; background-color: #000000 !important; caret-color: #10B981 !important; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;"
               spellcheck="false"
             >${initialContent}</textarea>
           </div>
@@ -1273,7 +1273,7 @@ export const SettingsView = {
               </span>
             </div>
 
-            <button type="button" id="btn-run-query" class="px-5 py-2 rounded-xl text-xs font-bold inline-flex items-center gap-2 shadow-md bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer">
+            <button type="button" id="btn-run-query" class="px-5 py-2 rounded-xl text-xs font-bold inline-flex items-center gap-2 shadow-md bg-[#10B981] hover:bg-[#059669] text-white transition-all cursor-pointer">
               <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
               <span>Run Query / Test Expression</span>
             </button>

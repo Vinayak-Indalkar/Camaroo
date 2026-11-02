@@ -1232,17 +1232,18 @@ textarea::placeholder {
 /* Code Editor Specific overrides */
 #query-code-editor,
 .code-editor-textarea {
-  color: #FFFFFF !important;
+  color: #10B981 !important;
   background-color: #000000 !important;
-  caret-color: #FFFFFF !important;
+  caret-color: #10B981 !important;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
   border: 0 !important;
 }
 
 #query-code-editor:focus,
 .code-editor-textarea:focus {
-  color: #FFFFFF !important;
+  color: #10B981 !important;
   background-color: #000000 !important;
+  caret-color: #10B981 !important;
   border-color: transparent !important;
   box-shadow: none !important;
 }
