@@ -34,6 +34,7 @@ const setupView = fs.readFileSync(path.join(__dirname, 'js', 'views', 'setupView
 const helpView = fs.readFileSync(path.join(__dirname, 'js', 'views', 'helpView.js'), 'utf-8');
 const superAdminDashboardView = fs.readFileSync(path.join(__dirname, 'js', 'views', 'superAdminDashboardView.js'), 'utf-8');
 const superAdminReportsView = fs.readFileSync(path.join(__dirname, 'js', 'views', 'superAdminReportsView.js'), 'utf-8');
+const settingsView = fs.readFileSync(path.join(__dirname, 'js', 'views', 'settingsView.js'), 'utf-8');
 const app = fs.readFileSync(path.join(__dirname, 'js', 'app.js'), 'utf-8');
 
 function cleanCode(code) {

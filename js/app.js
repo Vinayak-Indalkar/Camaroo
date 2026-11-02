@@ -24,6 +24,7 @@ import { SetupView } from './views/setupView.js';
 import { HelpView } from './views/helpView.js';
 import { SuperAdminDashboardView } from './views/superAdminDashboardView.js';
 import { SuperAdminReportsView } from './views/superAdminReportsView.js';
+import { SettingsView } from './views/settingsView.js';
 
 export const App = {
   routeVersion: 0,
@@ -178,8 +179,8 @@ export const App = {
       : '#/purchase/dashboard/rm-dashboard';
 
     // Keep direct URL navigation subject to the same module restrictions as the sidebar.
-    const operationalModules = ['purchase', 'preprocessing', 'quality', 'production', 'coldstore', 'inventory', 'sales', 'reports', 'help', 'master'];
-    const superAdminModules = ['dashboard', 'general', 'super-reports'];
+    const operationalModules = ['purchase', 'preprocessing', 'quality', 'production', 'coldstore', 'inventory', 'sales', 'reports', 'help', 'master', 'settings'];
+    const superAdminModules = ['dashboard', 'general', 'super-reports', 'settings'];
     if ((isSuperAdmin && operationalModules.includes(moduleName)) || (!isSuperAdmin && superAdminModules.includes(moduleName))) {
       this.renderRouteError(403, 'Access denied', 'You do not have permission to access this section.', homeHash);
       return;
