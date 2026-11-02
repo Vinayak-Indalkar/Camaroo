@@ -1264,22 +1264,22 @@ export const SettingsView = {
                 <!-- Test Against Sample Record -->
                 <div class="p-3 bg-white rounded-xl border border-[#DFE1E6] shadow-2xs">
                   <div class="flex items-center gap-1.5 text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1.5">
-                    <svg class="w-3.5 h-3.5 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-                    <span>Test Against Sample Employee:</span>
+                    <svg class="w-3.5 h-3.5 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+                    <span>Test Against Sample Shipment / PI:</span>
                   </div>
                   <select id="preview-sample-record" class="w-full text-xs px-2.5 py-1.5 bg-[#F8FAFC] border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] cursor-pointer">
-                    <option value="emp1">John Doe (Software Engineer - EMP-2024-0847)</option>
-                    <option value="emp2">Dr. Y.S. Prasad (Managing Director - ADM-001)</option>
-                    <option value="emp3">Michael Vance (Sales Manager - US-007)</option>
-                    <option value="emp4">P. Rajesh (Quality Control Lead - QC-019)</option>
+                    <option value="pi1">PI-2024-8841 — Apex Frozen Foods (USA - 40ft FCL Vannamei)</option>
+                    <option value="pi2">PI-2024-8902 — Marunaka Co Ltd (Japan - Black Tiger HOSO)</option>
+                    <option value="pi3">PI-2024-8935 — Ocean Harvest Corp (EU - Raw IQF PDTO)</option>
+                    <option value="pi4">PI-2024-8970 — Sysco International (USA - Block Frozen HLSO)</option>
                   </select>
                 </div>
 
                 <!-- Main Live Interactive Component Card -->
                 <div class="p-4 bg-white rounded-xl border border-[#DFE1E6] shadow-2xs space-y-3">
                   <div class="flex items-center justify-between pb-1.5 border-b border-[#F1F5F9] gap-2">
-                    <span id="preview-section-title" class="text-[11px] font-bold text-[#00A4B7] uppercase tracking-wider truncate">PERSONAL INFO</span>
-                    <span id="preview-permission-tag" class="text-[10px] font-semibold text-[#5E6C84] shrink-0">Employee Editable</span>
+                    <span id="preview-section-title" class="text-[11px] font-bold text-[#00A4B7] uppercase tracking-wider truncate">HEADER INFORMATION</span>
+                    <span id="preview-permission-tag" class="text-[10px] font-semibold text-[#5E6C84] shrink-0">Export Documentation &amp; Sales</span>
                   </div>
 
                   <div>
@@ -1346,9 +1346,6 @@ export const SettingsView = {
                     <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
                     <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">SELECT INPUT DATA TYPE</h3>
                   </div>
-                  <span id="selected-type-badge" class="px-3 py-1 rounded-full text-xs font-bold bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD]">
-                    Selected: Single Line Text
-                  </span>
                 </div>
 
                 <!-- 17 Data Type Cards Grid (3-Column Layout) -->
@@ -1386,7 +1383,7 @@ export const SettingsView = {
                       <label class="block text-[11px] font-bold text-[#172B4D]">Field Label <span class="text-[#DE350B]">*</span></label>
                       <span class="text-[10px] text-[#5E6C84]">User title</span>
                     </div>
-                    <input type="text" id="add-fld-label" required placeholder="e.g. Workstation Preference" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                    <input type="text" id="add-fld-label" required placeholder="e.g. Container Temperature (°C)" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
                   </div>
 
                   <div>
@@ -1397,7 +1394,7 @@ export const SettingsView = {
                         <span>Copy</span>
                       </button>
                     </div>
-                    <input type="text" id="add-fld-key" placeholder="e.g. workstationPreference" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs font-mono" />
+                    <input type="text" id="add-fld-key" placeholder="e.g. containerTemperature" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs font-mono" />
                   </div>
 
                   <div>
@@ -1406,8 +1403,8 @@ export const SettingsView = {
                       <button type="button" id="btn-new-section" class="text-[11px] font-bold text-[#00A4B7] hover:underline cursor-pointer">+ New</button>
                     </div>
                     <select id="add-fld-section" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                      <option value="Personal Info (Standard)" selected>Personal Info (Standard)</option>
-                      <option value="General Information">General Information</option>
+                      <option value="Header Information" selected>Header Information</option>
+                      <option value="Product & Pricing">Product &amp; Pricing</option>
                       <option value="Commercial Terms">Commercial Terms</option>
                       <option value="Shipping & Logistics">Shipping &amp; Logistics</option>
                       <option value="Customs & Clearance">Customs &amp; Clearance</option>
@@ -1421,12 +1418,12 @@ export const SettingsView = {
                       <label class="block text-[11px] font-bold text-[#172B4D]">Placeholder Text</label>
                       <span class="text-[10px] text-[#5E6C84]">Input hint</span>
                     </div>
-                    <input type="text" id="add-fld-placeholder" placeholder="Placeholder example hint..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                    <input type="text" id="add-fld-placeholder" placeholder="e.g. -18°C or below" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
                   </div>
 
                   <div class="col-span-1 sm:col-span-2 lg:col-span-2">
                     <label class="block text-[11px] font-bold text-[#172B4D] mb-1">Helper / Description Text</label>
-                    <input type="text" id="add-fld-helper" placeholder="Guidance tooltip shown to users..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                    <input type="text" id="add-fld-helper" placeholder="e.g. Required for reefer cold-chain compliance reporting..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
                   </div>
                 </div>
               </div>
@@ -1481,10 +1478,11 @@ export const SettingsView = {
                   <div>
                     <label class="block text-[11px] font-bold text-[#172B4D] mb-1.5">Access &amp; Edit Permission</label>
                     <select id="add-fld-permission" class="w-full text-xs px-2.5 py-2.5 bg-white border border-[#DFE1E6] rounded-xl font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs h-[42px]">
-                      <option value="Employee & Candidate Editable (Standard)" selected>Employee &amp; Candidate Editable (Standard)</option>
-                      <option value="All Authorized Roles (Standard)">All Authorized Roles (Standard)</option>
-                      <option value="Admin & Manager Only (Restricted)">Admin &amp; Manager Only (Restricted)</option>
-                      <option value="Read-Only System Field (Display Only)">Read-Only System Field (Display Only)</option>
+                      <option value="Export Documentation & Sales (Standard)" selected>Export Documentation &amp; Sales (Standard)</option>
+                      <option value="Commercial & Finance Team (Restricted)">Commercial &amp; Finance Team (Restricted)</option>
+                      <option value="Shipping & Logistics Officers">Shipping &amp; Logistics Officers</option>
+                      <option value="Quality Control & Plant Officers">Quality Control &amp; Plant Officers</option>
+                      <option value="Read-Only System Generated (Display Only)">Read-Only System Generated (Display Only)</option>
                     </select>
                   </div>
 
@@ -1494,33 +1492,15 @@ export const SettingsView = {
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                       <label class="flex items-center gap-2.5 p-3 rounded-xl border border-[#DFE1E6] bg-white hover:bg-[#F8FAFC] cursor-pointer transition-colors">
                         <input type="checkbox" id="matrix-add-form" checked class="rounded border-[#DFE1E6] text-[#00A4B7] focus:ring-[#00A4B7] cursor-pointer w-4 h-4">
-                        <span class="text-xs font-semibold text-[#172B4D]">Add Employee Form</span>
+                        <span class="text-xs font-semibold text-[#172B4D]">New PI / Order Entry Form</span>
                       </label>
                       <label class="flex items-center gap-2.5 p-3 rounded-xl border border-[#DFE1E6] bg-white hover:bg-[#F8FAFC] cursor-pointer transition-colors">
                         <input type="checkbox" id="matrix-onboarding" checked class="rounded border-[#DFE1E6] text-[#00A4B7] focus:ring-[#00A4B7] cursor-pointer w-4 h-4">
-                        <span class="text-xs font-semibold text-[#172B4D]">Onboarding Flow</span>
+                        <span class="text-xs font-semibold text-[#172B4D]">Export Documentation Hub</span>
                       </label>
                       <label class="flex items-center gap-2.5 p-3 rounded-xl border border-[#DFE1E6] bg-white hover:bg-[#F8FAFC] cursor-pointer transition-colors">
                         <input type="checkbox" id="matrix-profile" checked class="rounded border-[#DFE1E6] text-[#00A4B7] focus:ring-[#00A4B7] cursor-pointer w-4 h-4">
-                        <span class="text-xs font-semibold text-[#172B4D]">Profile &amp; Directory</span>
-                      </label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-                    <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-2">Portal Module Placement Matrix:</label>
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                      <label class="flex items-center gap-2.5 p-3 rounded-xl border border-[#DFE1E6] bg-white hover:bg-[#F8FAFC] cursor-pointer transition-colors">
-                        <input type="checkbox" id="matrix-add-form" checked class="rounded border-[#DFE1E6] text-[#00A4B7] focus:ring-[#00A4B7] cursor-pointer w-4 h-4">
-                        <span class="text-xs font-semibold text-[#172B4D]">Add Employee Form</span>
-                      </label>
-                      <label class="flex items-center gap-2.5 p-3 rounded-xl border border-[#DFE1E6] bg-white hover:bg-[#F8FAFC] cursor-pointer transition-colors">
-                        <input type="checkbox" id="matrix-onboarding" checked class="rounded border-[#DFE1E6] text-[#00A4B7] focus:ring-[#00A4B7] cursor-pointer w-4 h-4">
-                        <span class="text-xs font-semibold text-[#172B4D]">Onboarding Flow</span>
-                      </label>
-                      <label class="flex items-center gap-2.5 p-3 rounded-xl border border-[#DFE1E6] bg-white hover:bg-[#F8FAFC] cursor-pointer transition-colors">
-                        <input type="checkbox" id="matrix-profile" checked class="rounded border-[#DFE1E6] text-[#00A4B7] focus:ring-[#00A4B7] cursor-pointer w-4 h-4">
-                        <span class="text-xs font-semibold text-[#172B4D]">Profile &amp; Directory</span>
+                        <span class="text-xs font-semibold text-[#172B4D]">Buyer Confirmation &amp; Realization</span>
                       </label>
                     </div>
                   </div>
@@ -1545,12 +1525,12 @@ export const SettingsView = {
             const formCode = document.getElementById('add-fld-target-form')?.value || defaultFormCode;
             const label = document.getElementById('add-fld-label')?.value?.trim();
             let key = document.getElementById('add-fld-key')?.value?.trim();
-            const section = document.getElementById('add-fld-section')?.value?.trim() || 'General Information';
+            const section = document.getElementById('add-fld-section')?.value?.trim() || 'Header Information';
             const placeholder = document.getElementById('add-fld-placeholder')?.value?.trim() || '';
             const helper = document.getElementById('add-fld-helper')?.value?.trim() || '';
             const mandatory = document.getElementById('add-fld-mandatory')?.checked || false;
             const status = document.getElementById('add-fld-status')?.checked ? 'Active' : 'Inactive';
-            const permission = document.getElementById('add-fld-permission')?.value || 'Employee & Candidate Editable (Standard)';
+            const permission = document.getElementById('add-fld-permission')?.value || 'Export Documentation & Sales (Standard)';
             const options = document.getElementById('add-fld-options')?.value?.trim() || '';
 
             if (!label) {
@@ -1658,7 +1638,7 @@ export const SettingsView = {
       const updateLivePreview = () => {
         const labelVal = labelInput?.value?.trim() || '';
         const keyVal = keyInput?.value?.trim() || (labelVal ? labelVal.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase()).replace(/[^a-zA-Z0-9]/g, '') : 'untitledKey');
-        const sectionVal = sectionSelect?.value || 'Personal Info';
+        const sectionVal = sectionSelect?.value || 'Header Information';
         const placeholderInput = document.getElementById('add-fld-placeholder');
         const helperInput = document.getElementById('add-fld-helper');
         const permissionSelect = document.getElementById('add-fld-permission');
@@ -1667,7 +1647,7 @@ export const SettingsView = {
 
         const placeholderVal = placeholderInput?.value?.trim() || '';
         const helperVal = helperInput?.value?.trim() || '';
-        const permissionVal = permissionSelect?.value || 'Employee & Candidate Editable (Standard)';
+        const permissionVal = permissionSelect?.value || 'Export Documentation & Sales (Standard)';
         const isMandatory = mandatoryCheckbox?.checked || false;
         const optionsVal = optionsInput?.value?.trim() || '';
         const parsedOptions = optionsVal ? optionsVal.split(',').map(s => s.trim()).filter(Boolean) : ['Option 1', 'Option 2', 'Option 3'];
