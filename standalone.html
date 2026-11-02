@@ -87617,8 +87617,8 @@ const SettingsView = {
               <button type="button" data-action="design-fields" data-id="${row.id}" class="dt-action-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] rounded-full text-[#334155] hover:text-[#00A4B7] transition-colors cursor-pointer" title="Customize Fields">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
               </button>
-              <button type="button" data-action="query-table" data-id="${row.id}" class="dt-action-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] rounded-full text-[#334155] hover:text-[#00A4B7] transition-colors cursor-pointer" title="Query in SQL Editor">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+              <button type="button" data-action="assign-model" data-id="${row.id}" class="dt-action-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] rounded-full text-[#334155] hover:text-[#00A4B7] transition-colors cursor-pointer" title="Assign Database Model">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/></svg>
               </button>
               <button type="button" data-action="delete-form" data-id="${row.id}" class="dt-action-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#FFEBE6] border border-[#CBD5E1] hover:border-[#FFBDAD] rounded-full text-[#334155] hover:text-[#DE350B] transition-colors cursor-pointer" title="Delete Form">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
@@ -87642,14 +87642,11 @@ const SettingsView = {
           return;
         }
 
-        const btnQuery = e.target.closest('[data-action="query-table"]');
-        if (btnQuery) {
-          const formId = btnQuery.dataset.id;
-          const form = this.forms.find(f => f.id === formId);
-          if (form) {
-            this.selectedFormCode = formId;
-            window.location.hash = '#/settings/custom/query-editor';
-          }
+        const btnAssignModel = e.target.closest('[data-action="assign-model"]');
+        if (btnAssignModel) {
+          e.stopPropagation();
+          const formId = btnAssignModel.dataset.id;
+          this.openAssignModelModal(formId);
           return;
         }
 
@@ -88356,6 +88353,178 @@ const SettingsView = {
         }
       ]
     });
+  },
+
+  openAssignModelModal(formId) {
+    const form = this.forms.find(f => f.id === formId);
+    if (!form) return;
+
+    const AVAILABLE_MODELS = [
+      { id: 'dfl_proforma_invoices', name: 'Proforma Invoices Table', category: 'Orders & Sales', recordsCount: 142, desc: 'Stores export buyer POs, contract lines, commercial realization & pricing terms' },
+      { id: 'dfl_custom_invoices', name: 'Customs & Commercial Invoices', category: 'Customs & Port', recordsCount: 89, desc: 'Master clearance invoices, net/gross weights, reefer container seals & cargo manifest' },
+      { id: 'dfl_isf_filings', name: 'US Customs ISF 10+2 Filings', category: 'Compliance', recordsCount: 45, desc: 'Mandatory CBP security filings, importer of record EINs, stuffing locations & AMS BLs' },
+      { id: 'dfl_shipping_bills', name: 'Export Shipping Bills (ICEGATE)', category: 'Customs & Port', recordsCount: 96, desc: 'Indian Customs ICEGATE filings, port clearing agent entries, FOB valuations & LEO orders' },
+      { id: 'dfl_commercial_invoices', name: 'Commercial Realizations (Banking)', category: 'Finance', recordsCount: 78, desc: 'Foreign bank remittance tracking, export LC realizations, BRC advice & inward wires' },
+      { id: 'dfl_fda_prior_notice', name: 'US-FDA Prior Notices', category: 'Compliance', recordsCount: 38, desc: 'FDA food safety prior notice verifications, Bioterrorism Act registrations & port inspections' },
+      { id: 'dfl_clearing_entries', name: 'Customs House Clearing Entries', category: 'Logistics', recordsCount: 62, desc: 'Authorized CHA clearing entries, port handling charges, wharfage & cess duty vouchers' },
+      { id: 'dfl_forex_contracts', name: 'Forex Forward Hedging Contracts', category: 'Finance', recordsCount: 54, desc: 'Bank forward exchange rate bookings, maturity dates & USD/INR currency hedging' },
+      { id: 'dfl_inventory_batches', name: 'Processing Plant Cold Batches', category: 'Operations', recordsCount: 210, desc: 'Raw shrimp batch lot numbers, processing line QC inspections & blast-freezer records' },
+      { id: 'dfl_lab_inspections', name: 'EIC / Quality Lab Test Reports', category: 'Quality', recordsCount: 124, desc: 'Microbiological culture tests, antibiotic residue screenings & export health certs' }
+    ];
+
+    let selectedModel = form.model || AVAILABLE_MODELS[0].id;
+
+    Modal.open({
+      title: `Assign Database Model: ${form.name}`,
+      size: 'lg',
+      content: `
+        <div class="space-y-4 max-h-[75vh] overflow-y-auto pr-1">
+          <!-- Form Header Context -->
+          <div class="bg-gradient-to-r from-[#F0F9FF] to-[#F8FAFC] p-4 rounded-xl border border-[#BAE6FD] flex items-center justify-between gap-3 shadow-2xs">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-[#00A4B7] text-white flex items-center justify-center font-bold shadow-xs">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/></svg>
+              </div>
+              <div>
+                <div class="flex items-center gap-2">
+                  <span class="font-mono font-extrabold text-[#0F172A] text-sm">${form.code}</span>
+                  <span class="font-bold text-[#172B4D] text-sm">${form.name}</span>
+                </div>
+                <div class="text-[11px] text-[#5E6C84] mt-0.5 flex items-center gap-2">
+                  <span>Current Model:</span>
+                  <code id="current-assigned-model-badge" class="font-mono font-bold text-[#00A4B7] bg-white px-2 py-0.5 rounded border border-[#BAE6FD]">${form.model || 'None'}</code>
+                </div>
+              </div>
+            </div>
+            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold tracking-wide uppercase bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">${form.category}</span>
+          </div>
+
+          <!-- Search Model Filter -->
+          <div class="relative">
+            <svg class="w-4 h-4 text-[#5E6C84] absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            <input type="text" id="filter-model-input" placeholder="Search database models by table name or category..." class="w-full text-xs pl-9 pr-3 py-2 bg-white border border-[#DFE1E6] rounded-xl font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+
+          <!-- Model List Options -->
+          <div class="space-y-2" id="available-models-container">
+            ${AVAILABLE_MODELS.map(m => {
+              const isSelected = m.id === selectedModel;
+              return `
+                <div class="model-selection-card cursor-pointer p-3 rounded-xl border transition-all flex items-start justify-between gap-3 select-none ${isSelected ? 'border-2 border-[#00A4B7] bg-[#F0F9FF] shadow-xs' : 'border-[#DFE1E6] bg-white hover:border-[#00A4B7] hover:bg-[#F8FAFC]'}" data-model-id="${m.id}">
+                  <div class="flex items-start gap-3 min-w-0">
+                    <div class="model-radio-circle w-5 h-5 rounded-full border-2 mt-0.5 flex items-center justify-center shrink-0 transition-colors ${isSelected ? 'border-[#00A4B7] bg-[#00A4B7]' : 'border-[#CBD5E1] bg-white'}">
+                      <div class="w-2 h-2 rounded-full bg-white ${isSelected ? '' : 'hidden'}"></div>
+                    </div>
+                    <div class="min-w-0">
+                      <div class="flex items-center gap-2 flex-wrap">
+                        <span class="font-mono font-bold text-xs text-[#0F172A]">${m.id}</span>
+                        <span class="text-xs font-semibold text-[#172B4D]">— ${m.name}</span>
+                        <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-[#F1F5F9] text-[#5E6C84] border border-[#DFE1E6]">${m.category}</span>
+                      </div>
+                      <p class="text-[11px] text-[#5E6C84] mt-1 leading-snug">${m.desc}</p>
+                    </div>
+                  </div>
+                  <span class="text-[10px] font-mono font-bold text-[#00A4B7] bg-white px-2 py-0.5 rounded-full border border-[#DFE1E6] shrink-0 whitespace-nowrap">${m.recordsCount} rows</span>
+                </div>
+              `;
+            }).join('')}
+          </div>
+
+          <!-- Custom Model Table Input Accordion -->
+          <div class="p-3 bg-[#F8FAFC] border border-[#DFE1E6] rounded-xl space-y-1.5">
+            <div class="flex items-center justify-between">
+              <label for="custom-model-input" class="text-[11px] font-bold text-[#172B4D]">Or Specify Custom / New Table Key:</label>
+              <span class="text-[10px] text-[#5E6C84] font-mono">e.g. dfl_export_manifests</span>
+            </div>
+            <input type="text" id="custom-model-input" placeholder="Enter custom table key..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+        </div>
+      `,
+      footerButtons: [
+        {
+          label: 'Cancel',
+          text: 'Cancel',
+          class: 'btn-secondary px-5 py-2 rounded-full text-xs font-semibold border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#172B4D] transition-all cursor-pointer',
+          onClick: () => Modal.close()
+        },
+        {
+          label: 'Assign Model',
+          text: 'Assign Model',
+          class: 'btn-primary px-5 py-2 rounded-full text-xs font-bold shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer inline-flex items-center gap-1.5',
+          onClick: () => {
+            const customInput = document.getElementById('custom-model-input')?.value?.trim();
+            const finalModel = customInput || selectedModel;
+
+            if (!finalModel) {
+              Toast.show('Please select or enter a database model', 'warning');
+              return false;
+            }
+
+            form.model = finalModel;
+            this.initFormsDataTable();
+            Modal.close();
+            Toast.show(`Model "${finalModel}" assigned to "${form.name}"!`, 'success');
+          }
+        }
+      ]
+    });
+
+    setTimeout(() => {
+      const container = document.getElementById('available-models-container');
+      const searchInput = document.getElementById('filter-model-input');
+      const customInput = document.getElementById('custom-model-input');
+
+      if (container) {
+        container.addEventListener('click', (e) => {
+          const card = e.target.closest('.model-selection-card');
+          if (!card) return;
+
+          selectedModel = card.dataset.modelId;
+          if (customInput) customInput.value = '';
+
+          container.querySelectorAll('.model-selection-card').forEach(c => {
+            const isThis = c.dataset.modelId === selectedModel;
+            if (isThis) {
+              c.className = 'model-selection-card cursor-pointer p-3 rounded-xl border transition-all flex items-start justify-between gap-3 select-none border-2 border-[#00A4B7] bg-[#F0F9FF] shadow-xs';
+              const circle = c.querySelector('.model-radio-circle');
+              if (circle) circle.className = 'model-radio-circle w-5 h-5 rounded-full border-2 mt-0.5 flex items-center justify-center shrink-0 transition-colors border-[#00A4B7] bg-[#00A4B7]';
+              const dot = c.querySelector('.model-radio-circle div');
+              if (dot) dot.classList.remove('hidden');
+            } else {
+              c.className = 'model-selection-card cursor-pointer p-3 rounded-xl border transition-all flex items-start justify-between gap-3 select-none border-[#DFE1E6] bg-white hover:border-[#00A4B7] hover:bg-[#F8FAFC]';
+              const circle = c.querySelector('.model-radio-circle');
+              if (circle) circle.className = 'model-radio-circle w-5 h-5 rounded-full border-2 mt-0.5 flex items-center justify-center shrink-0 transition-colors border-[#CBD5E1] bg-white';
+              const dot = c.querySelector('.model-radio-circle div');
+              if (dot) dot.classList.add('hidden');
+            }
+          });
+        });
+      }
+
+      if (searchInput && container) {
+        searchInput.addEventListener('input', () => {
+          const query = searchInput.value.toLowerCase().trim();
+          container.querySelectorAll('.model-selection-card').forEach(c => {
+            const text = c.textContent.toLowerCase();
+            c.style.display = text.includes(query) ? '' : 'none';
+          });
+        });
+      }
+
+      if (customInput) {
+        customInput.addEventListener('input', () => {
+          if (customInput.value.trim()) {
+            container?.querySelectorAll('.model-selection-card').forEach(c => {
+              c.className = 'model-selection-card cursor-pointer p-3 rounded-xl border transition-all flex items-start justify-between gap-3 select-none border-[#DFE1E6] bg-white hover:border-[#00A4B7] hover:bg-[#F8FAFC]';
+              const circle = c.querySelector('.model-radio-circle');
+              if (circle) circle.className = 'model-radio-circle w-5 h-5 rounded-full border-2 mt-0.5 flex items-center justify-center shrink-0 transition-colors border-[#CBD5E1] bg-white';
+              const dot = c.querySelector('.model-radio-circle div');
+              if (dot) dot.classList.add('hidden');
+            });
+          }
+        });
+      }
+    }, 20);
   },
 
   openFormPreviewModal(formId) {
