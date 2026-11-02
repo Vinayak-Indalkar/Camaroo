@@ -1278,7 +1278,7 @@ export const SettingsView = {
       pi_number: 'PI-2024-8841',
       pi_date: '2026-10-25',
       exporter_entity: 'Devi Fisheries Limited — Unit I',
-      processing_plant: 'Vizag Marine Processing Center #2',
+      processing_plant: 'Unit-1 VSP (Harbour)',
       species: 'Vannamei White Shrimp (Penaeus vannamei)',
       grade_variety: 'Raw IQF Easy Peel 16/20 count',
       quantity_net: '38,500',
@@ -1320,224 +1320,109 @@ export const SettingsView = {
 
     const renderFieldInput = (f) => {
       const typeLower = (f.type || '').toLowerCase();
-      const ph = f.placeholder || `Enter ${f.label.toLowerCase()}...`;
+      const ph = f.placeholder || `e.g. ${f.label}`;
       const val = sampleRecordValues[f.key] || '';
 
       if (typeLower.includes('date')) {
-        return `<input type="date" data-field-key="${f.key}" value="${val}" class="form-preview-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />`;
+        return `<input type="date" value="${val}" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg text-[#172B4D] focus:outline-none focus:border-[#00A4B7] font-medium shadow-2xs mt-1" />`;
       } else if (typeLower.includes('currency')) {
         return `
-          <div class="relative flex items-center">
-            <span class="absolute left-2.5 text-xs font-bold text-[#00A4B7]">$</span>
-            <input type="text" data-field-key="${f.key}" value="${val}" placeholder="${ph}" style="padding-left: 24px;" class="form-preview-input w-full text-xs py-1.5 pr-2.5 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          <div class="relative mt-1">
+            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-bold text-[#00A4B7]">$</span>
+            <input type="text" value="${val}" placeholder="0.00" style="padding-left: 26px;" class="w-full text-xs pr-3 py-2 bg-white border border-[#DFE1E6] rounded-lg text-[#172B4D] focus:outline-none focus:border-[#00A4B7] font-medium shadow-2xs" />
           </div>
         `;
       } else if (typeLower.includes('number')) {
-        return `<input type="number" data-field-key="${f.key}" value="${val}" placeholder="0" class="form-preview-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />`;
+        return `<input type="number" value="${val}" placeholder="0" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg text-[#172B4D] focus:outline-none focus:border-[#00A4B7] font-medium shadow-2xs mt-1" />`;
       } else if (typeLower.includes('dropdown') || typeLower.includes('choice')) {
-        const defaultOptions = f.options && f.options.length ? f.options : (val ? [val, 'Alternate Option A', 'Alternate Option B'] : ['Option 1', 'Option 2', 'Option 3']);
+        const defaultOptions = f.options && f.options.length ? f.options : (val ? [val, 'Alternate Option A', 'Alternate Option B'] : ['Select option', 'Option 1', 'Option 2', 'Option 3']);
         return `
-          <select data-field-key="${f.key}" class="form-preview-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs cursor-pointer">
-            <option value="">-- Select ${f.label} --</option>
+          <select class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7] font-medium text-[#172B4D] shadow-2xs mt-1 cursor-pointer">
             ${defaultOptions.map(opt => `<option value="${opt}" ${opt === val ? 'selected' : ''}>${opt}</option>`).join('')}
           </select>
         `;
       } else if (typeLower.includes('textarea') || typeLower.includes('multi-line')) {
-        return `<textarea data-field-key="${f.key}" rows="2" placeholder="${ph}" class="form-preview-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">${val}</textarea>`;
+        return `<textarea rows="2" placeholder="${ph}" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs mt-1">${val}</textarea>`;
       } else if (typeLower.includes('toggle') || typeLower.includes('checkbox')) {
         return `
-          <label class="relative inline-flex items-center cursor-pointer gap-2 pt-1">
-            <input type="checkbox" data-field-key="${f.key}" checked class="form-preview-input sr-only peer">
-            <div class="w-9 h-5 bg-[#CBD5E1] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-[#DFE1E6] after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#00A4B7]"></div>
+          <div class="mt-2.5 flex items-center gap-2.5">
+            <label class="relative inline-flex items-center cursor-pointer">
+              <input type="checkbox" checked class="sr-only peer">
+              <div class="w-9 h-5 bg-[#CBD5E1] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-[#DFE1E6] after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#00A4B7]"></div>
+            </label>
             <span class="text-xs font-semibold text-[#172B4D]">Active</span>
-          </label>
+          </div>
         `;
       } else if (typeLower.includes('formula')) {
         return `
-          <div class="w-full text-xs px-2.5 py-1.5 bg-[#F0F9FF] border border-[#BAE6FD] rounded-lg font-mono text-[#00A4B7] font-semibold flex items-center justify-between">
-            <span id="preview-calc-${f.key}">${val || '0.00'}</span>
+          <div class="w-full text-xs px-3 py-2 bg-[#F0F9FF] border border-[#BAE6FD] rounded-lg font-mono text-[#00A4B7] font-bold flex items-center justify-between shadow-2xs mt-1">
+            <span>$${val || '225,225.00'}</span>
             <span class="text-[9px] font-bold text-[#00A4B7] uppercase tracking-wider bg-white px-1.5 py-0.5 rounded border border-[#BAE6FD]">Auto-Calculated</span>
           </div>
         `;
       } else {
-        return `<input type="text" data-field-key="${f.key}" value="${val}" placeholder="${ph}" class="form-preview-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />`;
+        return `<input type="text" value="${val}" placeholder="${ph}" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg text-[#172B4D] focus:outline-none focus:border-[#00A4B7] font-medium shadow-2xs mt-1" />`;
       }
     };
 
     Modal.open({
-      title: `Interactive Form Preview: ${form.name}`,
+      title: `Add Record: ${form.name}`,
       size: 'xl',
       content: `
-        <div class="space-y-4 max-h-[82vh] overflow-y-auto pr-1">
-          <!-- Top Hero / Summary Card -->
-          <div class="bg-gradient-to-r from-[#F0F9FF] to-[#F8FAFC] p-4 rounded-xl border border-[#BAE6FD] flex flex-wrap items-center justify-between gap-3 shadow-2xs">
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl bg-[#00A4B7] text-white flex items-center justify-center font-bold shadow-xs">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-              </div>
-              <div>
-                <div class="flex items-center gap-2">
-                  <span class="font-mono font-extrabold text-[#0F172A] text-base">${form.code}</span>
-                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold tracking-wide uppercase bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">${form.status}</span>
-                  <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">${form.category}</span>
+        <div class="bg-transparent p-0 border-0 space-y-6 max-h-[80vh] overflow-y-auto pr-1">
+          ${sectionNames.map((secName) => {
+            const secFields = sectionsMap[secName] || [];
+            return `
+              <div class="space-y-3.5">
+                <div class="flex items-center justify-between border-b border-[#EBECF0] pb-2.5">
+                  <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">${secName}</span>
                 </div>
-                <div class="text-[11px] text-[#64748B] mt-0.5 font-medium flex items-center gap-2 flex-wrap">
-                  <span>Model: <code class="font-mono font-bold text-[#172B4D]">${form.model}</code></span>
-                  <span>•</span>
-                  <span>Interactive Runtime Sandbox</span>
-                </div>
-              </div>
-            </div>
 
-            <!-- Action buttons & Metrics -->
-            <div class="flex items-center gap-2 flex-wrap">
-              <button type="button" id="btn-preview-fill-sample" class="px-3 py-1.5 bg-white hover:bg-[#F0F9FF] border border-[#00A4B7] text-[#00A4B7] rounded-full text-xs font-bold transition-all shadow-2xs cursor-pointer inline-flex items-center gap-1.5">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-                <span>Fill Sample Data</span>
-              </button>
-              <button type="button" id="btn-preview-clear-inputs" class="px-3 py-1.5 bg-white hover:bg-gray-100 border border-[#CBD5E1] text-[#5E6C84] rounded-full text-xs font-semibold transition-all shadow-2xs cursor-pointer">
-                <span>Clear Form</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- Categorized Sections Container -->
-          <div class="space-y-4">
-            ${sectionNames.map((secName, idx) => {
-              const secFields = sectionsMap[secName] || [];
-              return `
-                <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs space-y-3.5">
-                  <div class="flex items-center justify-between pb-2 border-b border-[#F1F5F9]">
-                    <div class="flex items-center gap-2">
-                      <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">${idx + 1}</span>
-                      <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">${secName}</h4>
+                <!-- 4 Columns Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                  ${secFields.map(f => `
+                    <div class="${(f.type || '').toLowerCase().includes('textarea') || (f.type || '').toLowerCase().includes('multi-line') ? 'col-span-1 sm:col-span-2 lg:col-span-4' : ''}">
+                      <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-0">
+                        ${f.label} ${f.required ? '<span class="text-rose-500">*</span>' : ''}
+                      </label>
+                      ${renderFieldInput(f)}
                     </div>
-                    <span class="text-[11px] font-semibold text-[#5E6C84] bg-[#F1F5F9] px-2 py-0.5 rounded-full">${secFields.length} field${secFields.length === 1 ? '' : 's'}</span>
-                  </div>
-
-                  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
-                    ${secFields.map(f => `
-                      <div class="space-y-1">
-                        <div class="flex items-center justify-between">
-                          <label class="block text-[11px] font-bold text-[#172B4D] truncate" title="${f.label}">
-                            ${f.label} ${f.required ? '<span class="text-[#DE350B] font-bold">*</span>' : ''}
-                          </label>
-                          <span class="text-[9px] font-mono text-[#00A4B7] bg-[#F0F9FF] px-1.5 py-0.5 rounded border border-[#BAE6FD] shrink-0">${f.key}</span>
-                        </div>
-                        ${renderFieldInput(f)}
-                        ${f.helper ? `<p class="text-[10px] text-[#5E6C84] truncate">${f.helper}</p>` : ''}
-                      </div>
-                    `).join('')}
-                  </div>
+                  `).join('')}
                 </div>
-              `;
-            }).join('')}
-          </div>
-
-          <!-- Live Form Payload Sandbox (Collapsible) -->
-          <div class="border border-[#DFE1E6] rounded-xl bg-white overflow-hidden shadow-2xs">
-            <button type="button" id="btn-toggle-payload" class="w-full px-4 py-3 flex items-center justify-between text-left hover:bg-[#F8FAFC] transition-colors cursor-pointer select-none">
-              <div class="flex items-center gap-2 text-xs font-semibold text-[#172B4D]">
-                <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
-                <span>Live Form Payload (Active JSON Schema)</span>
               </div>
-              <svg id="chevron-preview-payload" class="w-3.5 h-3.5 text-[#64748B] transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-            </button>
-            <div id="content-preview-payload" class="hidden px-4 pb-4 pt-1 border-t border-[#F1F5F9] bg-[#FAFBFC]">
-              <pre id="code-preview-payload" class="text-[11px] font-mono text-[#0F172A] p-3 bg-white rounded-lg border border-[#DFE1E6] overflow-x-auto max-h-48 whitespace-pre leading-relaxed"></pre>
-            </div>
-          </div>
+            `;
+          }).join('')}
         </div>
       `,
       footerButtons: [
         {
-          label: 'Close Preview',
-          text: 'Close Preview',
+          label: 'Cancel',
+          text: 'Cancel',
           class: 'btn-secondary px-5 py-2 rounded-full text-xs font-semibold border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#172B4D] transition-all cursor-pointer',
           onClick: () => Modal.close()
         },
         {
           label: 'Customize Fields',
           text: 'Customize Fields',
-          class: 'btn-primary px-5 py-2 rounded-full text-xs font-bold shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer inline-flex items-center gap-1.5',
+          class: 'btn-secondary px-5 py-2 rounded-full text-xs font-bold border border-[#00A4B7] text-[#00A4B7] hover:bg-[#F0F9FF] transition-all cursor-pointer inline-flex items-center gap-1.5',
           onClick: () => {
             Modal.close();
             this.selectedFormCode = form.id;
             window.location.hash = '#/settings/custom/fields-customizer';
           }
+        },
+        {
+          label: 'Save Record',
+          text: 'Save Record',
+          class: 'btn-primary px-5 py-2 rounded-full text-xs font-bold shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer inline-flex items-center gap-1.5',
+          onClick: () => {
+            Toast.show(`Record for "${form.name}" validated successfully (Preview Mode)`, 'success');
+            Modal.close();
+          }
         }
       ]
     });
-
-    // Wire up interactive live payload updater in modal
-    setTimeout(() => {
-      const inputs = document.querySelectorAll('.form-preview-input');
-      const payloadCode = document.getElementById('code-preview-payload');
-      const btnFill = document.getElementById('btn-preview-fill-sample');
-      const btnClear = document.getElementById('btn-preview-clear-inputs');
-      const btnTogglePayload = document.getElementById('btn-toggle-payload');
-      const contentPayload = document.getElementById('content-preview-payload');
-      const chevronPayload = document.getElementById('chevron-preview-payload');
-
-      const updatePayload = () => {
-        if (!payloadCode) return;
-        const payload = {};
-        document.querySelectorAll('.form-preview-input').forEach(inp => {
-          const key = inp.dataset.fieldKey;
-          if (key) {
-            payload[key] = inp.type === 'checkbox' ? inp.checked : inp.value;
-          }
-        });
-        payloadCode.textContent = JSON.stringify(payload, null, 2);
-      };
-
-      inputs.forEach(inp => {
-        inp.addEventListener('input', updatePayload);
-        inp.addEventListener('change', updatePayload);
-      });
-
-      if (btnFill) {
-        btnFill.addEventListener('click', () => {
-          document.querySelectorAll('.form-preview-input').forEach(inp => {
-            const key = inp.dataset.fieldKey;
-            if (sampleRecordValues[key] !== undefined) {
-              if (inp.type === 'checkbox') inp.checked = true;
-              else inp.value = sampleRecordValues[key];
-            }
-          });
-          updatePayload();
-          Toast.show('Sample record loaded into form fields', 'info');
-        });
-      }
-
-      if (btnClear) {
-        btnClear.addEventListener('click', () => {
-          document.querySelectorAll('.form-preview-input').forEach(inp => {
-            if (inp.type === 'checkbox') inp.checked = false;
-            else inp.value = '';
-          });
-          updatePayload();
-          Toast.show('Form inputs cleared', 'info');
-        });
-      }
-
-      if (btnTogglePayload && contentPayload) {
-        btnTogglePayload.addEventListener('click', () => {
-          const isHidden = contentPayload.classList.contains('hidden');
-          if (isHidden) {
-            contentPayload.classList.remove('hidden');
-            chevronPayload?.classList.add('rotate-180');
-          } else {
-            contentPayload.classList.add('hidden');
-            chevronPayload?.classList.remove('rotate-180');
-          }
-        });
-      }
-
-      updatePayload();
-    }, 30);
   },
-
   openFormDetailsModal(formId) {
     const form = this.forms.find(f => f.id === formId);
     if (!form) return;
