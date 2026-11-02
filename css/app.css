@@ -2894,7 +2894,7 @@ td.sticky-action-col > div {
 
 /* Live Component Preview Header */
 .preview-header-gradient {
-  background: linear-gradient(135deg, #2563EB 0%, #4F46E5 100%) !important;
+  background: linear-gradient(135deg, #00A4B7 0%, #007A87 100%) !important;
   color: #FFFFFF !important;
 }
 .preview-header-gradient h4,

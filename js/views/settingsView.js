@@ -1179,10 +1179,8 @@ export const SettingsView = {
     });
   },
 
-  openAddFieldModal() {
-    const defaultFormCode = this.selectedFormCode || 'FORM-PI';
-    const targetForm = this.forms.find(f => f.id === defaultFormCode) || this.forms[0];
-
+  openAddFieldModal(targetForm = null) {
+    const defaultFormCode = targetForm?.id || this.selectedFormCode || 'FORM-PI';
     const DATA_TYPES = [
       { id: 'single-line-text', title: 'Single Line Text', category: 'Text', icon: 'text', badge: 'T' },
       { id: 'multi-line-text', title: 'Multi-Line Text Area', category: 'Text', icon: 'textarea' },
@@ -1247,275 +1245,307 @@ export const SettingsView = {
       title: 'Add Custom Field',
       size: 'full',
       content: `
-        <form id="modal-form-add-field" class="max-h-[84vh] overflow-y-auto pr-1">
-          <div class="flex flex-col lg:flex-row gap-5 items-stretch">
-            <!-- LEFT: Fixed / Sticky Live Interactive Component Preview (As in reference UI) -->
-            <div class="w-full lg:w-[370px] xl:w-[390px] shrink-0 flex flex-col">
-              <div class="rounded-2xl border border-[#DFE1E6] bg-white shadow-xs overflow-hidden flex flex-col flex-1 h-full">
-                <!-- Preview Header Bar (Flush at top, matching reference screenshot) -->
-                <div class="preview-header-gradient bg-gradient-to-r from-[#2563EB] to-[#4F46E5] text-white px-4 py-3 flex items-center justify-between shadow-xs shrink-0" style="background: linear-gradient(135deg, #2563EB 0%, #4F46E5 100%) !important; color: #FFFFFF !important; min-height: 44px !important; display: flex !important; align-items: center !important; justify-content: space-between !important; padding: 12px 16px !important; border-top-left-radius: 14px !important; border-top-right-radius: 14px !important;">
-                  <div class="flex items-center gap-2.5" style="display: flex !important; align-items: center !important; gap: 10px !important;">
-                    <span class="w-2.5 h-2.5 rounded-full bg-[#10B981] inline-block shadow-[0_0_8px_rgba(16,185,129,0.9)] animate-pulse" style="background-color: #10B981 !important; width: 10px !important; height: 10px !important; min-width: 10px !important; min-height: 10px !important; border-radius: 9999px !important; display: inline-block !important; box-shadow: 0 0 8px rgba(16, 185, 129, 0.9) !important; flex-shrink: 0 !important;"></span>
-                    <h4 class="text-xs font-bold uppercase tracking-wider text-white" style="color: #FFFFFF !important; font-size: 12px !important; font-weight: 800 !important; letter-spacing: 0.05em !important; text-transform: uppercase !important; margin: 0 !important; padding: 0 !important; display: block !important; visibility: visible !important; opacity: 1 !important; line-height: 1.25 !important;">LIVE INTERACTIVE COMPONENT PREVIEW</h4>
+        <form id="modal-form-add-field" class="flex flex-col lg:flex-row gap-5 items-start">
+          <!-- LEFT: Sticky / Fixed-Height Live Interactive Component Preview -->
+          <div class="w-full lg:w-[370px] xl:w-[390px] shrink-0 lg:sticky lg:top-0 self-start">
+            <div class="rounded-2xl border border-[#DFE1E6] bg-white shadow-xs overflow-hidden">
+              <!-- Preview Header Bar (Teal brand gradient) -->
+              <div class="preview-header-gradient bg-gradient-to-r from-[#00A4B7] to-[#007A87] text-white px-4 py-3 flex items-center shadow-xs shrink-0" style="background: linear-gradient(135deg, #00A4B7 0%, #007A87 100%) !important; color: #FFFFFF !important; min-height: 44px !important; display: flex !important; align-items: center !important; padding: 12px 16px !important; border-top-left-radius: 14px !important; border-top-right-radius: 14px !important;">
+                <div class="flex items-center gap-2.5" style="display: flex !important; align-items: center !important; gap: 10px !important;">
+                  <span class="w-2.5 h-2.5 rounded-full bg-[#10B981] inline-block shadow-[0_0_8px_rgba(16,185,129,0.9)] animate-pulse" style="background-color: #10B981 !important; width: 10px !important; height: 10px !important; min-width: 10px !important; min-height: 10px !important; border-radius: 9999px !important; display: inline-block !important; box-shadow: 0 0 8px rgba(16, 185, 129, 0.9) !important; flex-shrink: 0 !important;"></span>
+                  <h4 class="text-xs font-bold uppercase tracking-wider text-white" style="color: #FFFFFF !important; font-size: 12px !important; font-weight: 800 !important; letter-spacing: 0.05em !important; text-transform: uppercase !important; margin: 0 !important; padding: 0 !important; display: block !important; visibility: visible !important; opacity: 1 !important; line-height: 1.25 !important;">LIVE INTERACTIVE COMPONENT PREVIEW</h4>
+                </div>
+              </div>
+
+              <div class="p-3.5 space-y-3 bg-white">
+                <!-- Test Against Sample Record -->
+                <div class="p-3.5 bg-white rounded-xl border border-[#DFE1E6] shadow-2xs space-y-2">
+                  <div class="flex items-center gap-2 text-xs font-semibold text-[#475569]">
+                    <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                    <span>Test Against Sample Shipment / PI:</span>
                   </div>
-                  <span id="preview-type-pill" class="px-2 py-0.5 rounded text-[11px] font-bold bg-white/20 text-white tracking-wide backdrop-blur-xs" style="background-color: rgba(255, 255, 255, 0.22) !important; color: #FFFFFF !important; font-size: 11px !important; font-weight: 700 !important; border-radius: 6px !important; padding: 2px 8px !important; display: inline-block !important; border: 1px solid rgba(255, 255, 255, 0.25) !important;">Single Line Text</span>
+                  <select id="preview-sample-record" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#0F172A] focus:outline-none focus:border-[#00A4B7] cursor-pointer">
+                    <option value="pi1">PI-2024-8841 — Apex Frozen Foods (USA - 40ft FCL Vannamei)</option>
+                    <option value="pi2">PI-2024-8902 — Marunaka Co Ltd (Japan - Black Tiger HOSO)</option>
+                    <option value="pi3">PI-2024-8935 — Ocean Harvest Corp (EU - Raw IQF PDTO)</option>
+                    <option value="pi4">PI-2024-8970 — Sysco International (USA - Block Frozen HLSO)</option>
+                  </select>
                 </div>
 
-                <div class="p-3.5 space-y-3.5 flex-1 bg-white flex flex-col justify-between">
-                  <!-- Test Against Sample Record -->
-                  <div class="p-3.5 bg-white rounded-xl border border-[#DFE1E6] shadow-2xs space-y-2 shrink-0">
-                    <div class="flex items-center gap-2 text-xs font-semibold text-[#475569]">
-                      <svg class="w-4 h-4 text-[#2563EB]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-                      <span>Test Against Sample Shipment / PI:</span>
-                    </div>
-                    <select id="preview-sample-record" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#0F172A] focus:outline-none focus:border-[#2563EB] cursor-pointer">
-                      <option value="pi1">PI-2024-8841 — Apex Frozen Foods (USA - 40ft FCL Vannamei)</option>
-                      <option value="pi2">PI-2024-8902 — Marunaka Co Ltd (Japan - Black Tiger HOSO)</option>
-                      <option value="pi3">PI-2024-8935 — Ocean Harvest Corp (EU - Raw IQF PDTO)</option>
-                      <option value="pi4">PI-2024-8970 — Sysco International (USA - Block Frozen HLSO)</option>
-                    </select>
-                  </div>
-
-                  <!-- Main Live Interactive Component Card (Expands to fill height) -->
-                  <div class="p-4 bg-white rounded-xl border border-[#DFE1E6] shadow-2xs flex-1 flex flex-col justify-between space-y-3 min-h-[160px]">
-                    <div>
-                      <div class="flex items-center justify-between text-xs pb-2 border-b border-[#F1F5F9] gap-2">
-                        <div class="flex items-center gap-2 min-w-0">
-                          <span id="preview-section-title" class="font-bold text-[#2563EB] uppercase tracking-wider truncate">HEADER INFORMATION</span>
-                          <span id="preview-type-badge" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD] shrink-0">Single Line Text</span>
-                        </div>
-                        <span id="preview-permission-tag" class="text-xs text-[#64748B] font-medium shrink-0">Export Documentation &amp; Sales</span>
+                <!-- Main Live Interactive Component Card -->
+                <div class="p-3.5 bg-white rounded-xl border border-[#DFE1E6] shadow-2xs space-y-3">
+                  <div>
+                    <div class="flex items-center justify-between text-xs pb-2 border-b border-[#F1F5F9] gap-2">
+                      <div class="flex items-center gap-2 min-w-0">
+                        <span id="preview-section-title" class="font-bold text-[#00A4B7] uppercase tracking-wider truncate">HEADER INFORMATION</span>
+                        <span id="preview-type-badge" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD] shrink-0">Single Line Text</span>
                       </div>
+                      <span id="preview-permission-tag" class="text-xs text-[#64748B] font-medium shrink-0">Export Documentation &amp; Sales</span>
+                    </div>
 
-                      <div class="space-y-1.5 pt-3">
-                        <label class="block text-sm font-bold text-[#0F172A]">
-                          <span id="preview-field-label">Untitled Field</span>
-                          <span id="preview-mandatory-star" class="text-[#DE350B] hidden">*</span>
-                        </label>
-                        <div id="preview-input-container">
-                          <!-- Rendered dynamically -->
-                        </div>
-                        <p id="preview-helper-text" class="text-xs text-[#64748B] hidden"></p>
+                    <div class="space-y-1.5 pt-3">
+                      <label class="block text-sm font-bold text-[#0F172A]">
+                        <span id="preview-field-label">Untitled Field</span>
+                        <span id="preview-mandatory-star" class="text-[#DE350B] hidden">*</span>
+                      </label>
+                      <div id="preview-input-container">
+                        <!-- Rendered dynamically -->
                       </div>
-                    </div>
-
-                    <div class="pt-2 text-xs text-[#64748B] flex items-center justify-between border-t border-[#F1F5F9]">
-                      <span>Active Output:</span>
-                      <code id="preview-active-output" class="font-mono text-xs text-[#475569] font-medium">""</code>
+                      <p id="preview-helper-text" class="text-xs text-[#64748B] hidden"></p>
                     </div>
                   </div>
 
-                  <!-- Bottom Metadata Dual Cards -->
-                  <div class="grid grid-cols-2 gap-3 shrink-0">
-                    <div class="p-3 bg-white rounded-xl border border-[#DFE1E6] shadow-2xs">
-                      <span class="text-xs text-[#64748B] block font-medium">Database Key:</span>
-                      <span id="preview-db-key" class="font-mono font-bold text-xs text-[#2563EB] block mt-1 truncate">untitledKey</span>
-                    </div>
-                    <div class="p-3 bg-white rounded-xl border border-[#DFE1E6] shadow-2xs">
-                      <span class="text-xs text-[#64748B] block font-medium">Field Engine:</span>
-                      <span id="preview-field-engine" class="font-bold text-xs text-[#0F172A] block mt-1">Standard Text Engine</span>
-                    </div>
+                  <div class="pt-2 text-xs text-[#64748B] flex items-center justify-between border-t border-[#F1F5F9]">
+                    <span>Active Output:</span>
+                    <code id="preview-active-output" class="font-mono text-xs text-[#475569] font-medium">""</code>
                   </div>
                 </div>
 
-                <!-- Collapsible Data Model & JSON Specification (Border top, flush at bottom) -->
-                <div class="border-t border-[#DFE1E6] bg-white overflow-hidden shrink-0">
-                  <button type="button" id="preview-toggle-json" class="w-full px-4 py-3 flex items-center justify-between text-left hover:bg-[#F8FAFC] transition-colors cursor-pointer select-none">
-                    <div class="flex items-center gap-2 text-xs font-semibold text-[#475569]">
-                      <svg class="w-3.5 h-3.5 text-[#2563EB]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
-                      <span>Data Model &amp; JSON Specification</span>
-                    </div>
-                    <svg id="preview-json-chevron" class="w-3.5 h-3.5 text-[#64748B] transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                  </button>
-                  <div id="preview-json-content" class="hidden px-4 pb-4 pt-1 border-t border-[#F1F5F9] bg-[#FAFBFC]">
-                    <pre id="preview-json-code" class="text-[11px] font-mono text-[#0F172A] p-2.5 bg-white rounded-lg border border-[#DFE1E6] overflow-x-auto max-h-48 whitespace-pre leading-relaxed"></pre>
+                <!-- Bottom Metadata Dual Cards -->
+                <div class="grid grid-cols-2 gap-3 shrink-0">
+                  <div class="p-3 bg-white rounded-xl border border-[#DFE1E6] shadow-2xs">
+                    <span class="text-xs text-[#64748B] block font-medium">Database Key:</span>
+                    <span id="preview-db-key" class="font-mono font-bold text-xs text-[#00A4B7] block mt-1 truncate">untitledKey</span>
                   </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- RIGHT: Form Configuration Fields -->
-            <div class="flex-1 min-w-0 space-y-4">
-              <!-- Target Form Selector -->
-              <div class="flex items-center justify-end gap-2">
-                <label for="add-fld-target-form" class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider whitespace-nowrap">Target Form:</label>
-                <select id="add-fld-target-form" class="text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs min-w-[220px]">
-                  ${this.forms.map(f => `
-                    <option value="${f.id}" ${f.id === (targetForm?.id || defaultFormCode) ? 'selected' : ''}>${f.code} — ${f.name}</option>
-                  `).join('')}
-                </select>
-              </div>
-
-              <!-- SELECT INPUT DATA TYPE (3-Column Layout) -->
-              <div class="space-y-3">
-                <div class="flex items-center justify-between pb-2 border-b border-[#F1F5F9] mb-3">
-                  <div class="flex items-center gap-2">
-                    <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
-                    <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">SELECT INPUT DATA TYPE</h3>
-                  </div>
-                </div>
-
-                <!-- 17 Data Type Cards Grid (3-Column Layout) -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3" id="data-type-grid">
-                  ${DATA_TYPES.map((t, idx) => {
-                    const isSelected = idx === 0;
-                    return `
-                      <div class="data-type-card cursor-pointer p-3 rounded-xl border transition-all relative flex items-center gap-2.5 select-none ${isSelected ? 'border-2 border-[#00A4B7] bg-[#F0F9FF] shadow-xs' : 'border-[#DFE1E6] bg-white hover:border-[#00A4B7] hover:bg-[#F8FAFC]'}" data-type-id="${t.id}" data-type-title="${t.title}" data-category="${t.category}">
-                        <div class="icon-box w-8 h-8 min-w-[32px] rounded-lg flex items-center justify-center font-bold text-xs shrink-0 transition-colors ${isSelected ? 'bg-[#00A4B7] text-white shadow-xs' : 'bg-[#F1F5F9] text-[#5E6C84]'}">
-                          ${renderTypeIcon(t)}
-                        </div>
-                        <div class="min-w-0 flex-1">
-                          <div class="text-xs font-bold text-[#172B4D] leading-snug truncate" title="${t.title}">${t.title}</div>
-                        </div>
-                      </div>
-                    `;
-                  }).join('')}
-                </div>
-              </div>
-
-              <!-- CORE IDENTITY & PLACEMENT (3-Column Layout) -->
-              <div class="space-y-3.5">
-                <div class="flex items-center justify-between border-b border-[#F1F5F9]">
-                  <div class="flex items-center gap-2">
-                    <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
-                    <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">CORE IDENTITY &amp; PLACEMENT</h3>
-                  </div>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
-                  <div>
-                    <div class="flex items-center justify-between mb-1">
-                      <label class="block text-[11px] font-bold text-[#172B4D]">Field Label <span class="text-[#DE350B]">*</span></label>
-                      <span class="text-[10px] text-[#5E6C84]">User title</span>
-                    </div>
-                    <input type="text" id="add-fld-label" required placeholder="e.g. Container Temperature (°C)" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
-                  </div>
-
-                  <div>
-                    <div class="flex items-center justify-between mb-1">
-                      <label class="block text-[11px] font-bold text-[#172B4D]">Database Key</label>
-                      <button type="button" id="btn-copy-fld-key" class="text-[11px] font-bold text-[#00A4B7] hover:underline cursor-pointer inline-flex items-center gap-1">
-                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-                        <span>Copy</span>
-                      </button>
-                    </div>
-                    <input type="text" id="add-fld-key" placeholder="e.g. containerTemperature" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs font-mono" />
-                  </div>
-
-                  <div>
-                    <div class="flex items-center justify-between mb-1">
-                      <label class="block text-[11px] font-bold text-[#172B4D]">Form Section</label>
-                      <button type="button" id="btn-new-section" class="text-[11px] font-bold text-[#00A4B7] hover:underline cursor-pointer">+ New</button>
-                    </div>
-                    <select id="add-fld-section" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                      <option value="Header Information" selected>Header Information</option>
-                      <option value="Product & Pricing">Product &amp; Pricing</option>
-                      <option value="Commercial Terms">Commercial Terms</option>
-                      <option value="Shipping & Logistics">Shipping &amp; Logistics</option>
-                      <option value="Customs & Clearance">Customs &amp; Clearance</option>
-                      <option value="Banking & Finance">Banking &amp; Finance</option>
-                      <option value="Quality Compliance">Quality Compliance</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <div class="flex items-center justify-between mb-1">
-                      <label class="block text-[11px] font-bold text-[#172B4D]">Placeholder Text</label>
-                      <span class="text-[10px] text-[#5E6C84]">Input hint</span>
-                    </div>
-                    <input type="text" id="add-fld-placeholder" placeholder="e.g. -18°C or below" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
-                  </div>
-
-                  <div class="col-span-1 sm:col-span-2 lg:col-span-2">
-                    <label class="block text-[11px] font-bold text-[#172B4D] mb-1">Helper / Description Text</label>
-                    <input type="text" id="add-fld-helper" placeholder="e.g. Required for reefer cold-chain compliance reporting..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                  <div class="p-3 bg-white rounded-xl border border-[#DFE1E6] shadow-2xs">
+                    <span class="text-xs text-[#64748B] block font-medium">Field Engine:</span>
+                    <span id="preview-field-engine" class="font-bold text-xs text-[#0F172A] block mt-1">Single Line Text (Standard Text Engine)</span>
                   </div>
                 </div>
               </div>
 
-              <!-- CHOICE OPTIONS CONFIGURATION (Conditional) -->
-              <div id="section-choice-options" class="space-y-3 hidden">
-                <div class="flex items-center justify-between pb-1 border-b border-[#F1F5F9]">
-                  <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">CHOICE OPTIONS CONFIGURATION</h3>
-                  <span class="text-[11px] text-[#5E6C84]">Comma separated options</span>
-                </div>
-                <div>
-                  <label class="block text-[11px] font-bold text-[#172B4D] mb-1">Options List</label>
-                  <input type="text" id="add-fld-options" placeholder="e.g. Option A, Option B, Option C" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
-                </div>
-              </div>
-
-              <!-- VALIDATION, PERMISSIONS & FORM VISIBILITY (3-Column Layout) -->
-              <div class="space-y-4">
-                <div class="flex items-center justify-between pb-2 border-b border-[#F1F5F9] mb-3">
-                  <div class="flex items-center gap-2">
-                    <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-                    <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">VALIDATION, PERMISSIONS &amp; FORM VISIBILITY</h3>
+              <!-- Collapsible Assign to Tab Accordion -->
+              <div class="border-t border-[#DFE1E6] bg-white overflow-hidden">
+                <button type="button" id="preview-toggle-json" class="w-full px-4 py-3 flex items-center justify-between text-left hover:bg-[#F8FAFC] transition-colors cursor-pointer select-none">
+                  <div class="flex items-center gap-2 text-xs font-semibold text-[#475569]">
+                    <svg class="w-3.5 h-3.5 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg>
+                    <span>Assign to Tab</span>
                   </div>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 items-end">
-                  <!-- Mandatory Policy -->
-                  <div class="p-3 rounded-xl border border-[#DFE1E6] bg-[#F8FAFC] flex items-center justify-between h-[64px]">
-                    <div>
-                      <div class="text-xs font-bold text-[#172B4D]">Mandatory Policy</div>
-                      <div class="text-[11px] text-[#5E6C84] mt-0.5">Blocks submission if empty</div>
-                    </div>
-                    <label class="relative inline-flex items-center cursor-pointer">
-                      <input type="checkbox" id="add-fld-mandatory" class="sr-only peer">
-                      <div class="w-11 h-6 bg-[#CBD5E1] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-[#DFE1E6] after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#00A4B7]"></div>
-                    </label>
+                  <svg id="preview-json-chevron" class="w-3.5 h-3.5 text-[#64748B] transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <div id="preview-json-content" class="hidden px-4 pb-4 pt-2 border-t border-[#F1F5F9] bg-[#FAFBFC] space-y-2">
+                  <div class="flex items-center justify-between text-xs">
+                    <span class="text-[#5E6C84] font-medium">Assigned Tab / Section:</span>
+                    <span id="preview-assigned-tab-val" class="font-bold text-[#00A4B7] bg-[#E0F2FE] px-2 py-0.5 rounded text-[11px] border border-[#BAE6FD]">Header Information</span>
                   </div>
-
-                  <!-- Field Status -->
-                  <div class="p-3 rounded-xl border border-[#DFE1E6] bg-[#F8FAFC] flex items-center justify-between h-[64px]">
-                    <div>
-                      <div class="text-xs font-bold text-[#172B4D]">Field Status</div>
-                      <div class="text-[11px] text-[#5E6C84] mt-0.5">Active in forms</div>
-                    </div>
-                    <label class="relative inline-flex items-center cursor-pointer">
-                      <input type="checkbox" id="add-fld-status" checked class="sr-only peer">
-                      <div class="w-11 h-6 bg-[#CBD5E1] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-[#DFE1E6] after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#00A4B7]"></div>
-                    </label>
+                  <div class="flex items-center justify-between text-xs">
+                    <span class="text-[#5E6C84] font-medium">Target Form:</span>
+                    <span id="preview-assigned-form-val" class="font-semibold text-[#172B4D]">FORM-PI</span>
                   </div>
-
-                  <!-- Access & Edit Permission -->
-                  <div>
-                    <label class="block text-[11px] font-bold text-[#172B4D] mb-1.5">Access &amp; Edit Permission</label>
-                    <select id="add-fld-permission" class="w-full text-xs px-2.5 py-2.5 bg-white border border-[#DFE1E6] rounded-xl font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs h-[42px]">
-                      <option value="Export Documentation & Sales (Standard)" selected>Export Documentation &amp; Sales (Standard)</option>
-                      <option value="Commercial & Finance Team (Restricted)">Commercial &amp; Finance Team (Restricted)</option>
-                      <option value="Shipping & Logistics Officers">Shipping &amp; Logistics Officers</option>
-                      <option value="Quality Control & Plant Officers">Quality Control &amp; Plant Officers</option>
-                      <option value="Read-Only System Generated (Display Only)">Read-Only System Generated (Display Only)</option>
-                    </select>
-                  </div>
-
-                  <!-- Portal Module Placement Matrix (Spans across all 3 columns) -->
-                  <div class="col-span-1 sm:col-span-2 lg:col-span-3 pt-1">
-                    <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-2">Portal Module Placement Matrix:</label>
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                      <label class="flex items-center gap-2.5 p-3 rounded-xl border border-[#DFE1E6] bg-white hover:bg-[#F8FAFC] cursor-pointer transition-colors">
-                        <input type="checkbox" id="matrix-add-form" checked class="rounded border-[#DFE1E6] text-[#00A4B7] focus:ring-[#00A4B7] cursor-pointer w-4 h-4">
-                        <span class="text-xs font-semibold text-[#172B4D]">New PI / Order Entry Form</span>
-                      </label>
-                      <label class="flex items-center gap-2.5 p-3 rounded-xl border border-[#DFE1E6] bg-white hover:bg-[#F8FAFC] cursor-pointer transition-colors">
-                        <input type="checkbox" id="matrix-onboarding" checked class="rounded border-[#DFE1E6] text-[#00A4B7] focus:ring-[#00A4B7] cursor-pointer w-4 h-4">
-                        <span class="text-xs font-semibold text-[#172B4D]">Export Documentation Hub</span>
-                      </label>
-                      <label class="flex items-center gap-2.5 p-3 rounded-xl border border-[#DFE1E6] bg-white hover:bg-[#F8FAFC] cursor-pointer transition-colors">
-                        <input type="checkbox" id="matrix-profile" checked class="rounded border-[#DFE1E6] text-[#00A4B7] focus:ring-[#00A4B7] cursor-pointer w-4 h-4">
-                        <span class="text-xs font-semibold text-[#172B4D]">Buyer Confirmation &amp; Realization</span>
-                      </label>
+                  <div class="pt-1">
+                    <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block mb-1">Active Placements:</span>
+                    <div id="preview-assigned-placements" class="flex flex-wrap gap-1.5">
+                      <span class="px-2 py-0.5 bg-white border border-[#DFE1E6] rounded text-[10px] font-medium text-[#172B4D]">PI / Order Entry</span>
+                      <span class="px-2 py-0.5 bg-white border border-[#DFE1E6] rounded text-[10px] font-medium text-[#172B4D]">Documentation Hub</span>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+
+          <!-- RIGHT: Form Configuration Fields (Scrollable area) -->
+          <div class="flex-1 min-w-0 space-y-4 max-h-[82vh] overflow-y-auto pr-2">
+            <!-- Target Form Selector -->
+            <div class="flex items-center justify-end gap-2">
+              <label for="add-fld-target-form" class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider whitespace-nowrap">Target Form:</label>
+              <select id="add-fld-target-form" class="text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs min-w-[220px]">
+                ${this.forms.map(f => `
+                  <option value="${f.id}" ${f.id === (targetForm?.id || defaultFormCode) ? 'selected' : ''}>${f.code} — ${f.name}</option>
+                `).join('')}
+              </select>
+            </div>
+
+            <!-- SELECT INPUT DATA TYPE (3-Column Layout) -->
+            <div class="space-y-3">
+              <div class="flex items-center justify-between pb-2 border-b border-[#F1F5F9] mb-3">
+                <div class="flex items-center gap-2">
+                  <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                  <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">SELECT INPUT DATA TYPE</h3>
+                </div>
+              </div>
+
+              <!-- 17 Data Type Cards Grid (3-Column Layout) -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3" id="data-type-grid">
+                ${DATA_TYPES.map((t, idx) => {
+                  const isSelected = idx === 0;
+                  return `
+                    <div class="data-type-card cursor-pointer p-3 rounded-xl border transition-all relative flex items-center gap-2.5 select-none ${isSelected ? 'border-2 border-[#00A4B7] bg-[#F0F9FF] shadow-xs' : 'border-[#DFE1E6] bg-white hover:border-[#00A4B7] hover:bg-[#F8FAFC]'}"
+                         data-type-id="${t.id}"
+                         data-type-title="${t.title}"
+                         data-category="${t.category}"
+                         onclick="window.__selectCustomFieldType && window.__selectCustomFieldType('${t.id}')">
+                      <div class="icon-box w-8 h-8 min-w-[32px] rounded-lg flex items-center justify-center font-bold text-xs shrink-0 transition-colors pointer-events-none ${isSelected ? 'bg-[#00A4B7] text-white shadow-xs' : 'bg-[#F1F5F9] text-[#5E6C84]'}">
+                        ${renderTypeIcon(t)}
+                      </div>
+                      <div class="min-w-0 flex-1 pointer-events-none">
+                        <div class="text-xs font-bold text-[#172B4D] leading-snug truncate" title="${t.title}">${t.title}</div>
+                      </div>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+
+            <!-- CORE IDENTITY & PLACEMENT (3-Column Layout) -->
+            <div class="space-y-3.5">
+              <div class="flex items-center justify-between border-b border-[#F1F5F9]">
+                <div class="flex items-center gap-2">
+                  <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                  <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">CORE IDENTITY &amp; PLACEMENT</h3>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+                <div>
+                  <div class="flex items-center justify-between">
+                    <label class="block text-[11px] font-bold text-[#172B4D]">Field Label <span class="text-[#DE350B]">*</span></label>
+                    <span class="text-[10px] text-[#5E6C84]">User title</span>
+                  </div>
+                  <input type="text" id="add-fld-label" required placeholder="e.g. Container Temperature (°C)" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs mt-1" />
+                </div>
+
+                <div>
+                  <div class="flex items-center justify-between">
+                    <label class="block text-[11px] font-bold text-[#172B4D]">Database Key</label>
+                    <button type="button" id="btn-copy-fld-key" class="text-[11px] font-bold text-[#00A4B7] hover:underline cursor-pointer inline-flex items-center gap-1">
+                      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                      <span>Copy</span>
+                    </button>
+                  </div>
+                  <input type="text" id="add-fld-key" placeholder="e.g. containerTemperature" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs font-mono mt-1" />
+                </div>
+
+                <div>
+                  <div class="flex items-center justify-between">
+                    <label class="block text-[11px] font-bold text-[#172B4D]">Form Section</label>
+                    <button type="button" id="btn-new-section" class="text-[11px] font-bold text-[#00A4B7] hover:underline cursor-pointer">+ New</button>
+                  </div>
+                  <select id="add-fld-section" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs mt-1">
+                    <option value="Header Information" selected>Header Information</option>
+                    <option value="Product & Pricing">Product &amp; Pricing</option>
+                    <option value="Commercial Terms">Commercial Terms</option>
+                    <option value="Shipping & Logistics">Shipping &amp; Logistics</option>
+                    <option value="Customs & Clearance">Customs &amp; Clearance</option>
+                    <option value="Banking & Finance">Banking &amp; Finance</option>
+                    <option value="Quality Compliance">Quality Compliance</option>
+                  </select>
+                  <!-- Inline quick add new section container -->
+                  <div id="new-section-inline-box" class="hidden mt-1.5 flex items-center gap-1.5">
+                    <input type="text" id="new-section-inline-input" placeholder="New section name..." class="flex-1 text-xs px-2.5 py-1 bg-white border border-[#00A4B7] rounded-lg font-semibold text-[#172B4D] focus:outline-none shadow-2xs" />
+                    <button type="button" id="btn-save-inline-sec" class="px-2.5 py-1 bg-[#00A4B7] hover:bg-[#008F9F] text-white text-[11px] font-bold rounded-lg cursor-pointer transition-colors shadow-2xs">Add</button>
+                    <button type="button" id="btn-cancel-inline-sec" class="px-2 py-1 bg-gray-100 hover:bg-gray-200 text-[#5E6C84] text-[11px] font-bold rounded-lg cursor-pointer transition-colors">✕</button>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex items-center justify-between mb-1">
+                    <label class="block text-[11px] font-bold text-[#172B4D]">Placeholder Text</label>
+                    <span class="text-[10px] text-[#5E6C84]">Input hint</span>
+                  </div>
+                  <input type="text" id="add-fld-placeholder" placeholder="e.g. -18°C or below" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                </div>
+
+                <div class="col-span-1 sm:col-span-2 lg:col-span-2">
+                  <label class="block text-[11px] font-bold text-[#172B4D] mb-1">Helper / Description Text</label>
+                  <input type="text" id="add-fld-helper" placeholder="e.g. Required for reefer cold-chain compliance reporting..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                </div>
+              </div>
+            </div>
+
+            <!-- CHOICE OPTIONS (Conditioned on Choice Types) -->
+            <div id="section-choice-options" class="space-y-2 hidden p-3.5 bg-[#F8FAFC] rounded-xl border border-[#DFE1E6]">
+              <div class="flex items-center justify-between">
+                <label class="block text-[11px] font-bold text-[#172B4D]">Choice Options (Comma separated)</label>
+                <span class="text-[10px] text-[#5E6C84]">For Dropdown / Radios</span>
+              </div>
+              <input type="text" id="add-fld-options" placeholder="e.g. Option A, Option B, Option C" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            </div>
+
+            <!-- VALIDATION & ACCESS RULES (4-Column Layout) -->
+            <div class="space-y-3.5">
+              <div class="flex items-center justify-between border-b border-[#F1F5F9]">
+                <div class="flex items-center gap-2">
+                  <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                  <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">VALIDATION &amp; ACCESS RULES</h3>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 items-end">
+                <div class="p-3 bg-white border border-[#DFE1E6] rounded-xl flex items-center justify-between shadow-2xs">
+                  <div>
+                    <span class="text-xs font-bold text-[#172B4D] block">Mandatory Field</span>
+                    <span class="text-[10px] text-[#5E6C84] block">Required on submit</span>
+                  </div>
+                  <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" id="add-fld-mandatory" class="sr-only peer">
+                    <div class="w-9 h-5 bg-[#CBD5E1] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-[#DFE1E6] after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#00A4B7]"></div>
+                  </label>
+                </div>
+
+                <div class="p-3 bg-white border border-[#DFE1E6] rounded-xl flex items-center justify-between shadow-2xs">
+                  <div>
+                    <span class="text-xs font-bold text-[#172B4D] block">Active Status</span>
+                    <span class="text-[10px] text-[#5E6C84] block">Visible across forms</span>
+                  </div>
+                  <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" id="add-fld-status" checked class="sr-only peer">
+                    <div class="w-9 h-5 bg-[#CBD5E1] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-[#DFE1E6] after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#00A4B7]"></div>
+                  </label>
+                </div>
+
+                <div class="col-span-1 sm:col-span-2">
+                  <label class="block text-[11px] font-bold text-[#172B4D] mb-1">Field Level Role Access</label>
+                  <select id="add-fld-permission" class="w-full text-xs px-2.5 py-2.5 bg-white border border-[#DFE1E6] rounded-xl font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs h-[42px]">
+                    <option value="Export Documentation & Sales (Standard)" selected>Export Documentation &amp; Sales (Standard)</option>
+                    <option value="Finance & Accounts Only">Finance &amp; Accounts Only</option>
+                    <option value="Quality Control & Labs">Quality Control &amp; Labs</option>
+                    <option value="Logistics & Port Clearing">Logistics &amp; Port Clearing</option>
+                    <option value="System Administrators Only">System Administrators Only</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- MODULE VISIBILITY MATRIX -->
+            <div class="space-y-3.5">
+              <div class="flex items-center justify-between border-b border-[#F1F5F9]">
+                <div class="flex items-center gap-2">
+                  <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"/></svg>
+                  <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">MODULE VISIBILITY MATRIX</h3>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <label class="p-3 bg-white border border-[#DFE1E6] rounded-xl flex items-center justify-between cursor-pointer hover:bg-[#F8FAFC] shadow-2xs">
+                  <div>
+                    <span class="text-xs font-bold text-[#172B4D] block">PI / Order Entry</span>
+                    <span class="text-[10px] text-[#5E6C84] block">Show on initial entry</span>
+                  </div>
+                  <input type="checkbox" id="matrix-add-form" checked class="rounded border-[#CBD5E1] text-[#00A4B7] focus:ring-[#00A4B7] w-4 h-4 cursor-pointer" />
+                </label>
+
+                <label class="p-3 bg-white border border-[#DFE1E6] rounded-xl flex items-center justify-between cursor-pointer hover:bg-[#F8FAFC] shadow-2xs">
+                  <div>
+                    <span class="text-xs font-bold text-[#172B4D] block">Documentation Hub</span>
+                    <span class="text-[10px] text-[#5E6C84] block">Include on export docs</span>
+                  </div>
+                  <input type="checkbox" id="matrix-onboarding" checked class="rounded border-[#CBD5E1] text-[#00A4B7] focus:ring-[#00A4B7] w-4 h-4 cursor-pointer" />
+                </label>
+
+                <label class="p-3 bg-white border border-[#DFE1E6] rounded-xl flex items-center justify-between cursor-pointer hover:bg-[#F8FAFC] shadow-2xs">
+                  <div>
+                    <span class="text-xs font-bold text-[#172B4D] block">Buyer Realization</span>
+                    <span class="text-[10px] text-[#5E6C84] block">Display in summary cards</span>
+                  </div>
+                  <input type="checkbox" id="matrix-profile" class="rounded border-[#CBD5E1] text-[#00A4B7] focus:ring-[#00A4B7] w-4 h-4 cursor-pointer" />
+                </label>
+              </div>
+            </div>
+          </div>
         </form>
       `,
-      buttons: [
+      footerButtons: [
         {
           label: 'Cancel',
           text: 'Cancel',
@@ -1586,7 +1616,6 @@ export const SettingsView = {
     // Wire up interactive events
     setTimeout(() => {
       const typeGrid = document.getElementById('data-type-grid');
-      const badge = document.getElementById('selected-type-badge');
       const choiceSection = document.getElementById('section-choice-options');
       const labelInput = document.getElementById('add-fld-label');
       const keyInput = document.getElementById('add-fld-key');
@@ -1622,19 +1651,62 @@ export const SettingsView = {
         });
       }
 
-      // New Section button
+      // New Section button with inline quick-add
       const btnNewSection = document.getElementById('btn-new-section');
       const sectionSelect = document.getElementById('add-fld-section');
-      if (btnNewSection && sectionSelect) {
+      const inlineSecBox = document.getElementById('new-section-inline-box');
+      const inlineSecInput = document.getElementById('new-section-inline-input');
+      const btnSaveInlineSec = document.getElementById('btn-save-inline-sec');
+      const btnCancelInlineSec = document.getElementById('btn-cancel-inline-sec');
+
+      const applyNewSection = (rawName) => {
+        const secName = (rawName || '').trim();
+        if (!secName) return;
+        let existing = Array.from(sectionSelect.options).find(o => o.value.toLowerCase() === secName.toLowerCase());
+        if (existing) {
+          sectionSelect.value = existing.value;
+        } else {
+          const opt = document.createElement('option');
+          opt.value = secName;
+          opt.textContent = secName;
+          sectionSelect.appendChild(opt);
+          sectionSelect.value = secName;
+        }
+        sectionSelect.dispatchEvent(new Event('change'));
+        updateLivePreview();
+        Toast.show(`Section "${secName}" added!`, 'success');
+        if (inlineSecBox) inlineSecBox.classList.add('hidden');
+        if (inlineSecInput) inlineSecInput.value = '';
+      };
+
+      if (btnNewSection && inlineSecBox && inlineSecInput) {
         btnNewSection.addEventListener('click', () => {
-          const secName = window.prompt('Enter new Form Section name:');
-          if (secName && secName.trim()) {
-            const opt = document.createElement('option');
-            opt.value = secName.trim();
-            opt.textContent = secName.trim();
-            opt.selected = true;
-            sectionSelect.appendChild(opt);
-            Toast.show(`Section "${secName.trim()}" added!`, 'success');
+          inlineSecBox.classList.toggle('hidden');
+          if (!inlineSecBox.classList.contains('hidden')) {
+            inlineSecInput.focus();
+          }
+        });
+
+        if (btnSaveInlineSec) {
+          btnSaveInlineSec.addEventListener('click', () => {
+            applyNewSection(inlineSecInput.value);
+          });
+        }
+
+        if (btnCancelInlineSec) {
+          btnCancelInlineSec.addEventListener('click', () => {
+            inlineSecBox.classList.add('hidden');
+            inlineSecInput.value = '';
+          });
+        }
+
+        inlineSecInput.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            applyNewSection(inlineSecInput.value);
+          } else if (e.key === 'Escape') {
+            inlineSecBox.classList.add('hidden');
+            inlineSecInput.value = '';
           }
         });
       }
@@ -1700,16 +1772,14 @@ export const SettingsView = {
         const optionsVal = optionsInput?.value?.trim() || '';
         const parsedOptions = optionsVal ? optionsVal.split(',').map(s => s.trim()).filter(Boolean) : ['Option 1', 'Option 2', 'Option 3'];
 
-        // 1. Header pill & Data Type badge in live preview
-        const pill = document.getElementById('preview-type-pill');
-        if (pill) pill.textContent = selectedType.title;
-
+        // 1. Data Type badge in live preview
         const typeBadge = document.getElementById('preview-type-badge');
         if (typeBadge) typeBadge.textContent = selectedType.title;
 
         // 2. Section & Permission tags
+        const cleanSection = sectionVal.includes('(') ? sectionVal.split('(')[0].trim() : sectionVal;
         const secEl = document.getElementById('preview-section-title');
-        if (secEl) secEl.textContent = (sectionVal.includes('(') ? sectionVal.split('(')[0].trim() : sectionVal).toUpperCase();
+        if (secEl) secEl.textContent = cleanSection.toUpperCase();
 
         const permEl = document.getElementById('preview-permission-tag');
         if (permEl) {
@@ -1769,46 +1839,46 @@ export const SettingsView = {
           switch (selectedType.id) {
             case 'multi-line-text':
             case 'textarea':
-              html = `<textarea id="live-user-input" rows="3" placeholder="${phText}" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-medium text-[#0F172A] focus:outline-none focus:border-[#2563EB] transition-all"></textarea>`;
+              html = `<textarea id="live-user-input" rows="3" placeholder="${phText}" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-medium text-[#0F172A] focus:outline-none focus:border-[#00A4B7] transition-all"></textarea>`;
               break;
             case 'email':
               html = `
                 <div class="relative flex items-center">
-                  <span class="absolute left-3 text-xs text-[#64748B]">@</span>
-                  <input type="email" id="live-user-input" placeholder="${phText}" style="padding-left: 28px;" class="w-full text-xs py-2 pr-3 bg-white border border-[#DFE1E6] rounded-lg font-medium text-[#0F172A] focus:outline-none focus:border-[#2563EB] transition-all" />
+                  <span class="absolute left-3 text-xs text-[#00A4B7] font-bold">@</span>
+                  <input type="email" id="live-user-input" placeholder="${phText}" style="padding-left: 28px;" class="w-full text-xs py-2 pr-3 bg-white border border-[#DFE1E6] rounded-lg font-medium text-[#0F172A] focus:outline-none focus:border-[#00A4B7] transition-all" />
                 </div>
               `;
               break;
             case 'phone':
               html = `
                 <div class="relative flex items-center">
-                  <span class="absolute left-3 text-xs text-[#64748B]">📞</span>
-                  <input type="tel" id="live-user-input" placeholder="${phText}" style="padding-left: 30px;" class="w-full text-xs py-2 pr-3 bg-white border border-[#DFE1E6] rounded-lg font-medium text-[#0F172A] focus:outline-none focus:border-[#2563EB] transition-all" />
+                  <span class="absolute left-3 text-xs text-[#00A4B7]">📞</span>
+                  <input type="tel" id="live-user-input" placeholder="${phText}" style="padding-left: 30px;" class="w-full text-xs py-2 pr-3 bg-white border border-[#DFE1E6] rounded-lg font-medium text-[#0F172A] focus:outline-none focus:border-[#00A4B7] transition-all" />
                 </div>
               `;
               break;
             case 'website':
               html = `
                 <div class="relative flex items-center">
-                  <span class="absolute left-3 text-[11px] font-mono text-[#64748B]">https://</span>
-                  <input type="url" id="live-user-input" placeholder="${phText}" style="padding-left: 60px;" class="w-full text-xs py-2 pr-3 bg-white border border-[#DFE1E6] rounded-lg font-medium text-[#0F172A] focus:outline-none focus:border-[#2563EB] transition-all" />
+                  <span class="absolute left-3 text-[11px] font-mono text-[#00A4B7]">https://</span>
+                  <input type="url" id="live-user-input" placeholder="${phText}" style="padding-left: 60px;" class="w-full text-xs py-2 pr-3 bg-white border border-[#DFE1E6] rounded-lg font-medium text-[#0F172A] focus:outline-none focus:border-[#00A4B7] transition-all" />
                 </div>
               `;
               break;
             case 'number':
-              html = `<input type="number" id="live-user-input" placeholder="${placeholderVal || '0'}" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-medium text-[#0F172A] focus:outline-none focus:border-[#2563EB] transition-all" />`;
+              html = `<input type="number" id="live-user-input" placeholder="${placeholderVal || '0'}" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-medium text-[#0F172A] focus:outline-none focus:border-[#00A4B7] transition-all" />`;
               break;
             case 'currency':
               html = `
                 <div class="relative flex items-center">
-                  <span class="absolute left-3 text-xs font-bold text-[#64748B]">$</span>
-                  <input type="number" id="live-user-input" placeholder="${placeholderVal || '0.00'}" style="padding-left: 26px;" class="w-full text-xs py-2 pr-3 bg-white border border-[#DFE1E6] rounded-lg font-medium text-[#0F172A] focus:outline-none focus:border-[#2563EB] transition-all" />
+                  <span class="absolute left-3 text-xs font-bold text-[#00A4B7]">$</span>
+                  <input type="number" id="live-user-input" placeholder="${placeholderVal || '0.00'}" style="padding-left: 26px;" class="w-full text-xs py-2 pr-3 bg-white border border-[#DFE1E6] rounded-lg font-medium text-[#0F172A] focus:outline-none focus:border-[#00A4B7] transition-all" />
                 </div>
               `;
               break;
             case 'dropdown':
               html = `
-                <select id="live-user-input" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-medium text-[#0F172A] focus:outline-none focus:border-[#2563EB] transition-all cursor-pointer">
+                <select id="live-user-input" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-medium text-[#0F172A] focus:outline-none focus:border-[#00A4B7] transition-all cursor-pointer">
                   ${parsedOptions.map(o => `<option value="${o}">${o}</option>`).join('')}
                 </select>
               `;
@@ -1818,7 +1888,7 @@ export const SettingsView = {
                 <div class="space-y-1.5 pt-1">
                   ${parsedOptions.map((o, i) => `
                     <label class="flex items-center gap-2 text-xs text-[#0F172A] font-medium cursor-pointer">
-                      <input type="radio" name="live-radio-preview" value="${o}" ${i === 0 ? 'checked' : ''} class="text-[#2563EB] focus:ring-[#2563EB] cursor-pointer">
+                      <input type="radio" name="live-radio-preview" value="${o}" ${i === 0 ? 'checked' : ''} class="text-[#00A4B7] focus:ring-[#00A4B7] cursor-pointer">
                       <span>${o}</span>
                     </label>
                   `).join('')}
@@ -1829,7 +1899,7 @@ export const SettingsView = {
               html = `
                 <div class="flex flex-wrap gap-1.5 p-2 bg-[#F8FAFC] border border-[#DFE1E6] rounded-lg min-h-[38px]">
                   ${parsedOptions.map(o => `
-                    <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md text-[11px] font-semibold bg-[#E0F2FE] text-[#0284C7] border border-[#BAE6FD]">
+                    <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md text-[11px] font-semibold bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD]">
                       ${o}
                     </span>
                   `).join('')}
@@ -1840,19 +1910,19 @@ export const SettingsView = {
               html = `
                 <label class="relative inline-flex items-center cursor-pointer gap-2.5 pt-1">
                   <input type="checkbox" id="live-user-input" class="sr-only peer">
-                  <div class="w-11 h-6 bg-[#CBD5E1] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-[#DFE1E6] after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#2563EB]"></div>
+                  <div class="w-11 h-6 bg-[#CBD5E1] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-[#DFE1E6] after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#00A4B7]"></div>
                   <span class="text-xs font-medium text-[#0F172A]">Toggle active / inactive</span>
                 </label>
               `;
               break;
             case 'date':
-              html = `<input type="date" id="live-user-input" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-medium text-[#0F172A] focus:outline-none focus:border-[#2563EB] transition-all cursor-pointer" />`;
+              html = `<input type="date" id="live-user-input" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-medium text-[#0F172A] focus:outline-none focus:border-[#00A4B7] transition-all cursor-pointer" />`;
               break;
             case 'time':
-              html = `<input type="time" id="live-user-input" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-medium text-[#0F172A] focus:outline-none focus:border-[#2563EB] transition-all cursor-pointer" />`;
+              html = `<input type="time" id="live-user-input" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-medium text-[#0F172A] focus:outline-none focus:border-[#00A4B7] transition-all cursor-pointer" />`;
               break;
             case 'datetime':
-              html = `<input type="datetime-local" id="live-user-input" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-medium text-[#0F172A] focus:outline-none focus:border-[#2563EB] transition-all cursor-pointer" />`;
+              html = `<input type="datetime-local" id="live-user-input" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-medium text-[#0F172A] focus:outline-none focus:border-[#00A4B7] transition-all cursor-pointer" />`;
               break;
             case 'rating':
               html = `
@@ -1873,14 +1943,14 @@ export const SettingsView = {
               break;
             case 'file':
               html = `
-                <div class="border-2 border-dashed border-[#CBD5E1] hover:border-[#2563EB] rounded-lg p-3 text-center bg-[#F8FAFC] transition-colors cursor-pointer">
-                  <svg class="w-5 h-5 text-[#2563EB] mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
-                  <span class="text-xs font-semibold text-[#2563EB]">Browse or drag & drop files</span>
+                <div class="border-2 border-dashed border-[#CBD5E1] hover:border-[#00A4B7] rounded-lg p-3 text-center bg-[#F8FAFC] transition-colors cursor-pointer">
+                  <svg class="w-5 h-5 text-[#00A4B7] mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                  <span class="text-xs font-semibold text-[#00A4B7]">Browse or drag & drop files</span>
                 </div>
               `;
               break;
             default:
-              html = `<input type="text" id="live-user-input" placeholder="${phText}" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-medium text-[#0F172A] focus:outline-none focus:border-[#2563EB] transition-all" />`;
+              html = `<input type="text" id="live-user-input" placeholder="${phText}" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-medium text-[#0F172A] focus:outline-none focus:border-[#00A4B7] transition-all" />`;
               break;
           }
 
@@ -1897,7 +1967,7 @@ export const SettingsView = {
                   currentOutput.textContent = JSON.stringify(liveInput.value || '');
                 }
               }
-              updateJsonSpec();
+              updateAssignTabDetails();
             };
             liveInput.addEventListener('input', syncOutput);
             liveInput.addEventListener('change', syncOutput);
@@ -1915,7 +1985,7 @@ export const SettingsView = {
                   s.style.color = sVal <= val ? '#FFAB00' : '#CBD5E1';
                 });
                 if (currentOutput) currentOutput.textContent = `${val} / 5 stars`;
-                updateJsonSpec();
+                updateAssignTabDetails();
               });
             });
           }
@@ -1927,7 +1997,7 @@ export const SettingsView = {
             colorInput.addEventListener('input', () => {
               colorValSpan.textContent = colorInput.value;
               if (currentOutput) currentOutput.textContent = JSON.stringify(colorInput.value);
-              updateJsonSpec();
+              updateAssignTabDetails();
             });
           }
 
@@ -1935,42 +2005,33 @@ export const SettingsView = {
           document.querySelectorAll('input[name="live-radio-preview"]').forEach(r => {
             r.addEventListener('change', () => {
               if (currentOutput) currentOutput.textContent = JSON.stringify(r.value);
-              updateJsonSpec();
+              updateAssignTabDetails();
             });
           });
         }
 
-        // Active placement modules
-        const activePlacements = [];
-        if (document.getElementById('matrix-add-form')?.checked) activePlacements.push('New PI / Order Entry Form');
-        if (document.getElementById('matrix-onboarding')?.checked) activePlacements.push('Export Documentation Hub');
-        if (document.getElementById('matrix-profile')?.checked) activePlacements.push('Buyer Confirmation & Realization');
+        // 8. Update Assign to Tab Details
+        const updateAssignTabDetails = () => {
+          const tabValEl = document.getElementById('preview-assigned-tab-val');
+          if (tabValEl) tabValEl.textContent = cleanSection;
 
-        // 8. Update JSON Specification
-        const updateJsonSpec = () => {
-          const jsonEl = document.getElementById('preview-json-code');
-          if (jsonEl) {
-            const spec = {
-              targetForm: targetFormVal,
-              label: labelVal || 'Untitled Field',
-              key: keyVal,
-              type: selectedType.title,
-              category: selectedType.category,
-              section: sectionVal,
-              placeholder: placeholderVal || undefined,
-              helper: helperVal || undefined,
-              required: isMandatory,
-              status: isActive ? 'Active' : 'Inactive',
-              permission: permissionVal,
-              placements: activePlacements,
-              options: ['dropdown', 'multi-select', 'radio'].includes(selectedType.id) ? parsedOptions : undefined,
-              engine: engineName
-            };
-            jsonEl.textContent = JSON.stringify(spec, null, 2);
+          const formValEl = document.getElementById('preview-assigned-form-val');
+          if (formValEl) formValEl.textContent = targetFormVal;
+
+          const placementsContainer = document.getElementById('preview-assigned-placements');
+          if (placementsContainer) {
+            const activePlacements = [];
+            if (document.getElementById('matrix-add-form')?.checked) activePlacements.push('PI / Order Entry');
+            if (document.getElementById('matrix-onboarding')?.checked) activePlacements.push('Documentation Hub');
+            if (document.getElementById('matrix-profile')?.checked) activePlacements.push('Buyer Realization');
+
+            placementsContainer.innerHTML = activePlacements.length
+              ? activePlacements.map(p => `<span class="px-2 py-0.5 bg-white border border-[#DFE1E6] rounded text-[10px] font-medium text-[#172B4D] shadow-2xs">${p}</span>`).join('')
+              : '<span class="text-[10px] text-[#5E6C84]">None selected</span>';
           }
         };
 
-        updateJsonSpec();
+        updateAssignTabDetails();
       };
 
       // Connect event listeners on form inputs to update live preview
@@ -1994,7 +2055,7 @@ export const SettingsView = {
         });
       }
 
-      // JSON toggle accordion
+      // Assign to Tab toggle accordion
       const toggleJsonBtn = document.getElementById('preview-toggle-json');
       const jsonContent = document.getElementById('preview-json-content');
       const jsonChevron = document.getElementById('preview-json-chevron');
@@ -2011,56 +2072,80 @@ export const SettingsView = {
         });
       }
 
-      // Initial live preview render
-      updateLivePreview();
+      // Data Type Selection - robust multi-layer selection handler
+      const selectDataType = (typeId) => {
+        const found = DATA_TYPES.find(d => d.id === typeId);
+        if (!found) return;
 
-      // Data Type Selection
-      if (typeGrid) {
-        typeGrid.addEventListener('click', (e) => {
-          const card = e.target.closest('.data-type-card');
-          if (!card) return;
+        selectedType = found;
 
-          const typeId = card.dataset.typeId;
-          const found = DATA_TYPES.find(d => d.id === typeId);
-          if (!found) return;
-
-          selectedType = found;
-
-          // Update cards styles
-          typeGrid.querySelectorAll('.data-type-card').forEach(c => {
-            c.classList.remove('border-2', 'border-[#00A4B7]', 'bg-[#F0F9FF]', 'shadow-xs');
-            c.classList.add('border-[#DFE1E6]', 'bg-white');
+        const allCards = typeGrid ? typeGrid.querySelectorAll('.data-type-card') : document.querySelectorAll('.data-type-card');
+        allCards.forEach(c => {
+          const isThis = c.dataset.typeId === typeId;
+          if (isThis) {
+            c.className = 'data-type-card cursor-pointer p-3 rounded-xl border transition-all relative flex items-center gap-2.5 select-none border-2 border-[#00A4B7] bg-[#F0F9FF] shadow-xs';
+            c.style.borderColor = '#00A4B7';
+            c.style.backgroundColor = '#F0F9FF';
+            c.style.borderWidth = '2px';
             const iconBox = c.querySelector('.icon-box');
             if (iconBox) {
-              iconBox.classList.remove('bg-[#00A4B7]', 'text-white', 'shadow-xs');
-              iconBox.classList.add('bg-[#F1F5F9]', 'text-[#5E6C84]');
+              iconBox.className = 'icon-box w-8 h-8 min-w-[32px] rounded-lg flex items-center justify-center font-bold text-xs shrink-0 transition-colors bg-[#00A4B7] text-white shadow-xs';
+              iconBox.style.backgroundColor = '#00A4B7';
+              iconBox.style.color = '#FFFFFF';
+            }
+          } else {
+            c.className = 'data-type-card cursor-pointer p-3 rounded-xl border transition-all relative flex items-center gap-2.5 select-none border-[#DFE1E6] bg-white hover:border-[#00A4B7] hover:bg-[#F8FAFC]';
+            c.style.borderColor = '#DFE1E6';
+            c.style.backgroundColor = '#FFFFFF';
+            c.style.borderWidth = '1px';
+            const iconBox = c.querySelector('.icon-box');
+            if (iconBox) {
+              iconBox.className = 'icon-box w-8 h-8 min-w-[32px] rounded-lg flex items-center justify-center font-bold text-xs shrink-0 transition-colors bg-[#F1F5F9] text-[#5E6C84]';
+              iconBox.style.backgroundColor = '#F1F5F9';
+              iconBox.style.color = '#5E6C84';
+            }
+          }
+        });
+
+        // Toggle choice options
+        if (choiceSection) {
+          if (['dropdown', 'multi-select', 'radio'].includes(selectedType.id)) {
+            choiceSection.classList.remove('hidden');
+          } else {
+            choiceSection.classList.add('hidden');
+          }
+        }
+
+        // Update live preview with new type
+        updateLivePreview();
+      };
+
+      // Expose globally so onclick handler always works
+      window.__selectCustomFieldType = selectDataType;
+
+      // Also attach event listeners directly
+      if (typeGrid) {
+        typeGrid.querySelectorAll('.data-type-card').forEach(card => {
+          card.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (card.dataset.typeId) {
+              selectDataType(card.dataset.typeId);
             }
           });
+        });
 
-          card.classList.remove('border-[#DFE1E6]', 'bg-white');
-          card.classList.add('border-2', 'border-[#00A4B7]', 'bg-[#F0F9FF]', 'shadow-xs');
-          const activeIconBox = card.querySelector('.icon-box');
-          if (activeIconBox) {
-            activeIconBox.classList.remove('bg-[#F1F5F9]', 'text-[#5E6C84]');
-            activeIconBox.classList.add('bg-[#00A4B7]', 'text-white', 'shadow-xs');
+        typeGrid.addEventListener('click', (e) => {
+          const card = e.target.closest('.data-type-card');
+          if (card && card.dataset.typeId) {
+            selectDataType(card.dataset.typeId);
           }
-
-          // Toggle choice options
-          if (choiceSection) {
-            if (['dropdown', 'multi-select', 'radio'].includes(selectedType.id)) {
-              choiceSection.classList.remove('hidden');
-            } else {
-              choiceSection.classList.add('hidden');
-            }
-          }
-
-          // Update live preview with new type
-          updateLivePreview();
         });
       }
+
+      // Initial live preview render
+      updateLivePreview();
     }, 20);
   },
-
   openEditFieldModal(fieldId) {
     const fields = this.formFields[this.selectedFormCode] || [];
     const field = fields.find(f => f.id === fieldId);
