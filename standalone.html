@@ -85183,16 +85183,76 @@ const SetupView = {
                       <span>Select Existing Menu</span>
                       <span class="text-[10px] font-medium text-[#5E6C84] lowercase">(or create new)</span>
                     </label>
-                    <select id="menu-modal-select-existing" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] cursor-pointer shadow-2xs">
-                      <option value="__NEW__" ${!isEdit ? 'selected' : ''}>✨ + Create New Menu</option>
-                      <optgroup label="── Existing Menus ──">
-                        ${this.state.modulesConfig.map(m => `
-                          <option value="${m.id}" ${mod && (mod.id === m.id || mod.key === m.key) ? 'selected' : ''}>
-                            ${m.label}${m.isProtected ? ' (System Default)' : ''}
-                          </option>
-                        `).join('')}
-                      </optgroup>
-                    </select>
+                    
+                    <!-- Custom Dropdown with Assigned Menu Icons -->
+                    <div class="relative" id="menu-dropdown-wrapper">
+                      <button type="button" id="menu-modal-select-trigger" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] flex items-center justify-between cursor-pointer shadow-2xs hover:border-[#CBD5E1] transition-all">
+                        <div class="flex items-center gap-2 truncate" id="menu-selected-display">
+                          ${mod ? `
+                            <div class="w-5 h-5 rounded-md bg-[#F0F9FF] border border-[#BAE6FD] text-[#00A4B7] flex items-center justify-center shrink-0 [&>svg]:w-3.5 [&>svg]:h-3.5">
+                              ${this.getModuleIconSvg(mod)}
+                            </div>
+                            <span class="truncate font-bold text-[#172B4D] text-xs">${mod.label}${mod.isProtected ? ' (System Default)' : ''}</span>
+                          ` : `
+                            <div class="w-5 h-5 rounded-md bg-[#F0FDF4] border border-[#DCFCE7] text-[#16A34A] flex items-center justify-center shrink-0">
+                              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                            </div>
+                            <span class="truncate font-bold text-[#16A34A] text-xs">✨ + Create New Menu</span>
+                          `}
+                        </div>
+                        <svg id="menu-dropdown-chevron" class="w-3.5 h-3.5 text-[#5E6C84] shrink-0 ml-2 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                      </button>
+
+                      <input type="hidden" id="menu-modal-select-existing" value="${mod ? mod.id : '__NEW__'}" />
+
+                      <!-- Dropdown Menu List with assigned icons -->
+                      <div id="menu-custom-dropdown-list" class="hidden absolute left-0 right-0 top-full mt-1 bg-white border border-[#DFE1E6] rounded-xl shadow-xl z-50 max-h-[260px] overflow-y-auto divide-y divide-[#F1F5F9] p-1.5 animate-fade-in">
+                        <!-- Quick Filter / Search input -->
+                        <div class="p-1 mb-1 sticky top-0 bg-white z-10">
+                          <div class="relative">
+                            <input type="text" id="menu-dropdown-search" placeholder="Search menu..." class="w-full text-xs pl-7 pr-2 py-1.5 bg-[#F8FAFC] border border-[#DFE1E6] rounded-md focus:outline-none focus:border-[#00A4B7] font-medium text-[#172B4D]" />
+                            <svg class="w-3.5 h-3.5 text-[#94A3B8] absolute left-2 top-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                          </div>
+                        </div>
+
+                        <!-- Option 1: Create New Menu -->
+                        <div class="menu-dropdown-item flex items-center justify-between p-2 rounded-lg cursor-pointer hover:bg-[#F0FDF4] transition-colors ${!mod ? 'bg-[#F0FDF4] border border-[#BBF7D0]' : ''}" data-value="__NEW__" data-label="✨ + Create New Menu">
+                          <div class="flex items-center gap-2.5">
+                            <div class="w-6 h-6 rounded-md bg-[#F0FDF4] border border-[#DCFCE7] text-[#16A34A] flex items-center justify-center shrink-0">
+                              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                            </div>
+                            <div class="flex flex-col">
+                              <span class="font-bold text-xs text-[#16A34A]">✨ + Create New Menu</span>
+                              <span class="text-[10px] text-[#5E6C84]">Start from a blank template</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Section: Existing Menus -->
+                        <div class="px-2 py-1 text-[9.5px] font-bold text-[#5E6C84] uppercase tracking-wider bg-[#F8FAFC] rounded my-1">
+                          Existing Menus (${this.state.modulesConfig.length})
+                        </div>
+
+                        <!-- Module items with assigned icons -->
+                        <div id="menu-dropdown-items-container" class="space-y-0.5">
+                          ${this.state.modulesConfig.map(m => {
+                            const svg = this.getModuleIconSvg(m);
+                            const isSelected = mod && (mod.id === m.id || mod.key === m.key);
+                            return `
+                              <div class="menu-dropdown-item flex items-center justify-between p-2 rounded-lg cursor-pointer hover:bg-[#F0F9FF] transition-colors ${isSelected ? 'bg-[#F0F9FF] border border-[#BAE6FD]' : ''}" data-value="${m.id}" data-label="${m.label}">
+                                <div class="flex items-center gap-2.5 truncate">
+                                  <div class="w-6 h-6 rounded-md bg-[#F0F9FF] border border-[#BAE6FD] text-[#00A4B7] flex items-center justify-center shrink-0 [&>svg]:w-3.5 [&>svg]:h-3.5">
+                                    ${svg}
+                                  </div>
+                                  <span class="font-bold text-xs text-[#172B4D] truncate">${m.label}</span>
+                                </div>
+                                ${m.isProtected ? `<span class="ml-2 text-[9.5px] font-bold text-[#5E6C84] bg-[#F1F5F9] px-1.5 py-0.5 rounded border border-[#DFE1E6] shrink-0">System</span>` : ''}
+                              </div>
+                            `;
+                          }).join('')}
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
                   <div class="col-span-4 sm:col-span-3">
@@ -85234,7 +85294,7 @@ const SetupView = {
                 </div>
 
                 <!-- Visual Grid of Lucide Icons showing all icons -->
-                <div id="lucide-icon-grid" class="grid grid-cols-4 sm:grid-cols-5 gap-2 max-h-[210px] overflow-y-auto p-2 border border-[#DFE1E6] rounded-lg bg-white shadow-2xs">
+                <div id="lucide-icon-grid" class="grid grid-cols-4 sm:grid-cols-5 gap-2 h-[240px] max-h-[240px] overflow-y-auto p-2 border border-[#DFE1E6] rounded-lg bg-white shadow-2xs">
                   <!-- Populated by JavaScript below -->
                 </div>
               </div>
@@ -85262,7 +85322,7 @@ const SetupView = {
                 <div class="col-span-1 text-center">Action</div>
               </div>
 
-              <div id="submenus-list-container" class="space-y-2 max-h-[300px] overflow-y-auto pr-1 flex-1">
+              <div id="submenus-list-container" class="space-y-2 h-[375px] max-h-[375px] overflow-y-auto p-2.5 border border-[#DFE1E6] rounded-lg bg-white shadow-2xs flex-1">
                 <!-- Dynamic Rows Inserted Here -->
               </div>
             </div>
@@ -85514,90 +85574,174 @@ const SetupView = {
       addSubBtn.onclick = () => addSubRow({ name: '', url: '', status: 'Active' });
     }
 
-    // Dynamic Select Existing Menu / Create New Menu handler
-    if (existingSelect && menuNameInput) {
-      existingSelect.onchange = () => {
-        const val = existingSelect.value;
-        if (val === '__NEW__') {
-          // User chose to create a new custom menu
-          if (modeBadge) modeBadge.textContent = '✨ Creating New Menu';
-          menuNameInput.value = '';
-          menuNameInput.placeholder = 'e.g. Procurement & Inward';
-          menuNameInput.focus();
+    // Custom Dropdown with Assigned Menu Icons & Synchronization
+    const dropdownWrapper = document.getElementById('menu-dropdown-wrapper');
+    const dropdownTrigger = document.getElementById('menu-modal-select-trigger');
+    const dropdownList = document.getElementById('menu-custom-dropdown-list');
+    const dropdownChevron = document.getElementById('menu-dropdown-chevron');
+    const dropdownSearch = document.getElementById('menu-dropdown-search');
+    const selectedDisplay = document.getElementById('menu-selected-display');
 
-          // Reset submenus to 1 blank row
-          if (listContainer) {
-            listContainer.innerHTML = '';
-            addSubRow({ name: '', url: '', status: 'Active' });
+    const updateDisplayForMenu = (val) => {
+      if (!selectedDisplay) return;
+      if (val === '__NEW__') {
+        selectedDisplay.innerHTML = `
+          <div class="w-5 h-5 rounded-md bg-[#F0FDF4] border border-[#DCFCE7] text-[#16A34A] flex items-center justify-center shrink-0">
+            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+          </div>
+          <span class="truncate font-bold text-[#16A34A] text-xs">✨ + Create New Menu</span>
+        `;
+      } else {
+        const found = this.state.modulesConfig.find(m => m.id === val || m.key === val);
+        if (found) {
+          const svg = this.getModuleIconSvg(found);
+          selectedDisplay.innerHTML = `
+            <div class="w-5 h-5 rounded-md bg-[#F0F9FF] border border-[#BAE6FD] text-[#00A4B7] flex items-center justify-center shrink-0 [&>svg]:w-3.5 [&>svg]:h-3.5">
+              ${svg}
+            </div>
+            <span class="truncate font-bold text-[#172B4D] text-xs">${found.label}${found.isProtected ? ' (System Default)' : ''}</span>
+          `;
+        }
+      }
+    };
+
+    const applySelection = (val) => {
+      if (existingSelect) existingSelect.value = val;
+      updateDisplayForMenu(val);
+
+      if (val === '__NEW__') {
+        if (modeBadge) modeBadge.textContent = '✨ Creating New Menu';
+        menuNameInput.value = '';
+        menuNameInput.placeholder = 'e.g. Procurement & Inward';
+        menuNameInput.focus();
+
+        if (listContainer) {
+          listContainer.innerHTML = '';
+          addSubRow({ name: '', url: '', status: 'Active' });
+        }
+
+        if (statusCb) statusCb.checked = true;
+        if (statusInput) statusInput.value = 'Active';
+
+        const defaultIconId = 'shopping-cart';
+        if (selectedHiddenVal) selectedHiddenVal.value = defaultIconId;
+        if (iconGrid) {
+          iconGrid.querySelectorAll('.lucide-icon-tile').forEach(t => {
+            if (t.dataset.iconId === defaultIconId) {
+              t.className = 'lucide-icon-tile p-2 rounded-lg border text-left flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#00A4B7] bg-[#F0F9FF] text-[#00A4B7] ring-2 ring-[#00A4B7]/20 shadow-2xs font-bold';
+            } else {
+              t.className = 'lucide-icon-tile p-2 rounded-lg border text-left flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#DFE1E6] bg-white hover:border-[#00A4B7] hover:bg-[#F4F5F7] text-[#172B4D]';
+            }
+          });
+        }
+      } else {
+        const found = this.state.modulesConfig.find(m => m.id === val || m.key === val);
+        if (found) {
+          if (modeBadge) {
+            modeBadge.textContent = found.isProtected ? '🔒 System Menu (Protected)' : `Existing Menu: ${found.label}`;
           }
+          menuNameInput.value = found.label;
 
-          // Reset status to Active
-          if (statusCb) statusCb.checked = true;
-          if (statusInput) statusInput.value = 'Active';
+          const isAct = found.status === 'Active' || (found.status === undefined && found.visible);
+          if (statusCb) statusCb.checked = isAct;
+          if (statusInput) statusInput.value = isAct ? 'Active' : 'Inactive';
 
-          // Reset icon to default
-          const defaultIconId = 'shopping-cart';
-          if (selectedHiddenVal) selectedHiddenVal.value = defaultIconId;
+          const foundIconId = this.getModuleIconId(found);
+          if (selectedHiddenVal) selectedHiddenVal.value = foundIconId;
           if (iconGrid) {
             iconGrid.querySelectorAll('.lucide-icon-tile').forEach(t => {
-              if (t.dataset.iconId === defaultIconId) {
+              if (t.dataset.iconId === foundIconId) {
                 t.className = 'lucide-icon-tile p-2 rounded-lg border text-left flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#00A4B7] bg-[#F0F9FF] text-[#00A4B7] ring-2 ring-[#00A4B7]/20 shadow-2xs font-bold';
+                t.scrollIntoView({ block: 'nearest' });
               } else {
                 t.className = 'lucide-icon-tile p-2 rounded-lg border text-left flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#DFE1E6] bg-white hover:border-[#00A4B7] hover:bg-[#F4F5F7] text-[#172B4D]';
               }
             });
           }
+
+          const subList = this.state.submenusConfig[found.id] || this.state.submenusConfig[found.key] || [];
+          if (listContainer) {
+            listContainer.innerHTML = '';
+            if (subList.length > 0) {
+              subList.forEach(s => addSubRow(s));
+            } else {
+              addSubRow({ name: '', url: '', status: 'Active' });
+            }
+          }
+        }
+      }
+    };
+
+    if (dropdownTrigger && dropdownList) {
+      dropdownTrigger.onclick = (e) => {
+        e.stopPropagation();
+        const isOpen = !dropdownList.classList.contains('hidden');
+        if (isOpen) {
+          dropdownList.classList.add('hidden');
+          dropdownChevron?.classList.remove('rotate-180');
         } else {
-          // Existing menu chosen from dropdown
-          const found = this.state.modulesConfig.find(m => m.id === val || m.key === val);
-          if (found) {
-            if (modeBadge) {
-              modeBadge.textContent = found.isProtected ? '🔒 System Menu (Protected)' : `Existing Menu: ${found.label}`;
-            }
-            menuNameInput.value = found.label;
-
-            // Update status checkbox
-            const isAct = found.status === 'Active' || (found.status === undefined && found.visible);
-            if (statusCb) statusCb.checked = isAct;
-            if (statusInput) statusInput.value = isAct ? 'Active' : 'Inactive';
-
-            // Update icon in Lucide grid
-            const foundIconId = this.getModuleIconId(found);
-            if (selectedHiddenVal) selectedHiddenVal.value = foundIconId;
-            if (iconGrid) {
-              iconGrid.querySelectorAll('.lucide-icon-tile').forEach(t => {
-                if (t.dataset.iconId === foundIconId) {
-                  t.className = 'lucide-icon-tile p-2 rounded-lg border text-left flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#00A4B7] bg-[#F0F9FF] text-[#00A4B7] ring-2 ring-[#00A4B7]/20 shadow-2xs font-bold';
-                  t.scrollIntoView({ block: 'nearest' });
-                } else {
-                  t.className = 'lucide-icon-tile p-2 rounded-lg border text-left flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#DFE1E6] bg-white hover:border-[#00A4B7] hover:bg-[#F4F5F7] text-[#172B4D]';
-                }
-              });
-            }
-
-            // Populate existing submenus into submenus list
-            const subList = this.state.submenusConfig[found.id] || this.state.submenusConfig[found.key] || [];
-            if (listContainer) {
-              listContainer.innerHTML = '';
-              if (subList.length > 0) {
-                subList.forEach(s => addSubRow(s));
-              } else {
-                addSubRow({ name: '', url: '', status: 'Active' });
-              }
-            }
+          dropdownList.classList.remove('hidden');
+          dropdownChevron?.classList.add('rotate-180');
+          if (dropdownSearch) {
+            dropdownSearch.value = '';
+            dropdownSearch.focus();
+            dropdownList.querySelectorAll('.menu-dropdown-item').forEach(item => item.style.display = '');
           }
         }
       };
 
-      // When user edits or types directly into menuNameInput
+      if (dropdownSearch) {
+        dropdownSearch.onclick = (e) => e.stopPropagation();
+        dropdownSearch.oninput = () => {
+          const q = dropdownSearch.value.trim().toLowerCase();
+          dropdownList.querySelectorAll('.menu-dropdown-item').forEach(item => {
+            const lbl = (item.dataset.label || '').toLowerCase();
+            const val = (item.dataset.value || '').toLowerCase();
+            item.style.display = (lbl.includes(q) || val.includes(q)) ? '' : 'none';
+          });
+        };
+      }
+
+      dropdownList.onclick = (e) => {
+        const item = e.target.closest('.menu-dropdown-item');
+        if (!item) return;
+        e.stopPropagation();
+        const val = item.dataset.value;
+        applySelection(val);
+        dropdownList.classList.add('hidden');
+        dropdownChevron?.classList.remove('rotate-180');
+
+        dropdownList.querySelectorAll('.menu-dropdown-item').forEach(i => {
+          if (i === item) {
+            i.classList.add('bg-[#F0F9FF]', 'border', 'border-[#BAE6FD]');
+          } else {
+            i.classList.remove('bg-[#F0F9FF]', 'border', 'border-[#BAE6FD]');
+          }
+        });
+      };
+
+      // Close on outside click
+      const closeDropdownHandler = (e) => {
+        if (!dropdownWrapper?.contains(e.target)) {
+          dropdownList.classList.add('hidden');
+          dropdownChevron?.classList.remove('rotate-180');
+        }
+      };
+      document.addEventListener('click', closeDropdownHandler);
+    }
+
+    // When user edits or types directly into menuNameInput
+    if (menuNameInput) {
       menuNameInput.oninput = () => {
         const typed = menuNameInput.value.trim().toLowerCase();
         const matchingMod = this.state.modulesConfig.find(m => m.label.toLowerCase() === typed);
         if (matchingMod) {
-          existingSelect.value = matchingMod.id;
+          if (existingSelect) existingSelect.value = matchingMod.id;
+          updateDisplayForMenu(matchingMod.id);
           if (modeBadge) modeBadge.textContent = `Existing Menu: ${matchingMod.label}`;
         } else {
-          existingSelect.value = '__NEW__';
+          if (existingSelect) existingSelect.value = '__NEW__';
+          updateDisplayForMenu('__NEW__');
           if (modeBadge) modeBadge.textContent = '✨ Custom / New Menu';
         }
       };
