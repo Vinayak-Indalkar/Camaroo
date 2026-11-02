@@ -283,22 +283,23 @@ export const SettingsView = {
     tableContainer.innerHTML = '';
 
     new DataTable({
-      container: '#forms-datatable-container',
-      title: `Forms Directory (${data.length})`,
+      containerId: 'forms-datatable-container',
+      keyField: 'id',
+      tableTitle: `Forms Directory (${data.length})`,
       selectable: false,
       searchable: true,
       exportable: true,
       data: data,
       columns: [
         {
-          key: 'code',
-          title: 'Form Code',
+          field: 'code',
+          header: 'Form Code',
           sortable: true,
           render: (val) => `<span class="font-mono font-bold text-[#00A4B7] bg-[#F0F9FF] px-2 py-0.5 rounded border border-[#BAE6FD] text-[11px]">${val}</span>`
         },
         {
-          key: 'name',
-          title: 'Form Name',
+          field: 'name',
+          header: 'Form Name',
           sortable: true,
           render: (val, row) => `
             <div class="cursor-pointer group" data-action="view-details" data-id="${row.id}">
@@ -308,14 +309,14 @@ export const SettingsView = {
           `
         },
         {
-          key: 'category',
-          title: 'Category',
+          field: 'category',
+          header: 'Category',
           sortable: true,
           render: (val) => `<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">${val}</span>`
         },
         {
-          key: 'fieldsCount',
-          title: 'Configured Fields',
+          field: 'fieldsCount',
+          header: 'Configured Fields',
           sortable: true,
           render: (val, row) => `
             <button type="button" class="btn-design-fields px-2.5 py-1 rounded-full text-xs font-bold bg-[#E0F2FE] hover:bg-[#BAE6FD] text-[#00A4B7] border border-[#BAE6FD] transition-colors inline-flex items-center gap-1 cursor-pointer" data-id="${row.id}">
@@ -325,20 +326,20 @@ export const SettingsView = {
           `
         },
         {
-          key: 'status',
-          title: 'Status',
+          field: 'status',
+          header: 'Status',
           sortable: true,
           render: (val) => `<span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">${val}</span>`
         },
         {
-          key: 'updatedAt',
-          title: 'Last Modified',
+          field: 'updatedAt',
+          header: 'Last Modified',
           sortable: true,
           render: (val) => `<span class="text-xs text-[#5E6C84] font-mono">${val}</span>`
         },
         {
-          key: 'actions',
-          title: 'Actions',
+          field: 'actions',
+          header: 'Actions',
           sortable: false,
           render: (_, row) => `
             <div class="flex items-center gap-1.5">
@@ -568,16 +569,17 @@ export const SettingsView = {
     tableContainer.innerHTML = '';
 
     new DataTable({
-      container: '#fields-datatable-container',
-      title: `Form Fields Configuration (${fields.length})`,
+      containerId: 'fields-datatable-container',
+      keyField: 'id',
+      tableTitle: `Form Fields Configuration (${fields.length})`,
       selectable: false,
       searchable: true,
       exportable: true,
       data: fields,
       columns: [
         {
-          key: 'formCode',
-          title: 'Form',
+          field: 'formCode',
+          header: 'Form',
           sortable: true,
           render: (val, row) => `
             <div>
@@ -587,8 +589,8 @@ export const SettingsView = {
           `
         },
         {
-          key: 'label',
-          title: 'Field Label',
+          field: 'label',
+          header: 'Field Label',
           sortable: true,
           render: (val, row) => `
             <div>
@@ -598,8 +600,8 @@ export const SettingsView = {
           `
         },
         {
-          key: 'type',
-          title: 'Field Type',
+          field: 'type',
+          header: 'Field Type',
           sortable: true,
           render: (val) => {
             const colors = {
@@ -615,30 +617,30 @@ export const SettingsView = {
           }
         },
         {
-          key: 'section',
-          title: 'Section / Group',
+          field: 'section',
+          header: 'Section / Group',
           sortable: true,
           render: (val) => `<span class="text-xs text-[#172B4D] font-semibold">${val}</span>`
         },
         {
-          key: 'required',
-          title: 'Validation',
+          field: 'required',
+          header: 'Validation',
           sortable: true,
           render: (val) => val
             ? `<span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase bg-[#FFEBE6] text-[#DE350B] border border-[#FFBDAD]">Required</span>`
             : `<span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#F1F5F9] text-[#5E6C84] border border-[#DFE1E6]">Optional</span>`
         },
         {
-          key: 'isFilter',
-          title: 'Search Filter',
+          field: 'isFilter',
+          header: 'Search Filter',
           sortable: true,
           render: (val) => val
             ? `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">Enabled</span>`
             : `<span class="px-2 py-0.5 rounded text-[10px] font-medium text-[#5E6C84]">Disabled</span>`
         },
         {
-          key: 'actions',
-          title: 'Actions',
+          field: 'actions',
+          header: 'Actions',
           sortable: false,
           render: (_, row) => `
             <div class="flex items-center gap-1.5">
@@ -889,20 +891,21 @@ export const SettingsView = {
     ];
 
     new DataTable({
-      container: '#query-results-container',
-      title: `Query Results (${queryData.length} records, 14ms)`,
+      containerId: 'query-results-container',
+      keyField: 'pi_no',
+      tableTitle: `Query Results (${queryData.length} records, 14ms)`,
       selectable: false,
       searchable: true,
       exportable: true,
       data: queryData,
       columns: [
-        { key: 'buyer', title: 'Buyer Name', sortable: true },
-        { key: 'pi_no', title: 'PI Number', sortable: true, render: (v) => `<span class="font-mono font-bold text-[#00A4B7]">${v}</span>` },
-        { key: 'exporter', title: 'Exporter Entity', sortable: true },
-        { key: 'species', title: 'Species / Product', sortable: true },
-        { key: 'qty', title: 'Quantity', sortable: true, render: (v) => `<span class="font-mono">${v}</span>` },
-        { key: 'amount', title: 'Total USD', sortable: true, render: (v) => `<span class="font-mono font-bold text-[#006644]">${v}</span>` },
-        { key: 'status', title: 'Status', sortable: true, render: (v) => `<span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">${v}</span>` }
+        { field: 'buyer', header: 'Buyer Name', sortable: true },
+        { field: 'pi_no', header: 'PI Number', sortable: true, render: (v) => `<span class="font-mono font-bold text-[#00A4B7]">${v}</span>` },
+        { field: 'exporter', header: 'Exporter Entity', sortable: true },
+        { field: 'species', header: 'Species / Product', sortable: true },
+        { field: 'qty', header: 'Quantity', sortable: true, render: (v) => `<span class="font-mono">${v}</span>` },
+        { field: 'amount', header: 'Total USD', sortable: true, render: (v) => `<span class="font-mono font-bold text-[#006644]">${v}</span>` },
+        { field: 'status', header: 'Status', sortable: true, render: (v) => `<span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">${v}</span>` }
       ]
     });
   },
@@ -1052,11 +1055,13 @@ export const SettingsView = {
       `,
       buttons: [
         {
+          label: 'Cancel',
           text: 'Cancel',
           class: 'btn-secondary px-5 py-2 rounded-full text-xs font-semibold border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#172B4D] transition-all cursor-pointer',
           onClick: () => Modal.close()
         },
         {
+          label: 'Create Form',
           text: 'Create Form',
           class: 'btn-primary px-5 py-2 rounded-full text-xs font-bold shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer',
           onClick: () => {
@@ -1155,11 +1160,13 @@ export const SettingsView = {
       `,
       buttons: [
         {
+          label: 'Close',
           text: 'Close',
           class: 'btn-secondary px-5 py-2 rounded-full text-xs font-semibold border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#172B4D] transition-all cursor-pointer',
           onClick: () => Modal.close()
         },
         {
+          label: 'Design in Fields Customizer',
           text: 'Design in Fields Customizer',
           class: 'btn-primary px-5 py-2 rounded-full text-xs font-bold shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer',
           onClick: () => {
@@ -1230,11 +1237,13 @@ export const SettingsView = {
       `,
       buttons: [
         {
+          label: 'Cancel',
           text: 'Cancel',
           class: 'btn-secondary px-5 py-2 rounded-full text-xs font-semibold border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#172B4D] transition-all cursor-pointer',
           onClick: () => Modal.close()
         },
         {
+          label: 'Save Field',
           text: 'Save Field',
           class: 'btn-primary px-5 py-2 rounded-full text-xs font-bold shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer',
           onClick: () => {
@@ -1339,11 +1348,13 @@ export const SettingsView = {
       `,
       buttons: [
         {
+          label: 'Cancel',
           text: 'Cancel',
           class: 'btn-secondary px-5 py-2 rounded-full text-xs font-semibold border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#172B4D] transition-all cursor-pointer',
           onClick: () => Modal.close()
         },
         {
+          label: 'Update Field',
           text: 'Update Field',
           class: 'btn-primary px-5 py-2 rounded-full text-xs font-bold shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer',
           onClick: () => {

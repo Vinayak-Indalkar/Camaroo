@@ -74,7 +74,7 @@ export const Modal = {
         : btnType === 'danger'
         ? 'btn-danger px-5 py-2 rounded-full text-sm font-semibold shadow-xs bg-[#DE350B] hover:bg-[#BF2600] text-white transition-all cursor-pointer' 
         : 'btn-secondary px-5 py-2 rounded-full text-sm font-semibold border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#172B4D] transition-all cursor-pointer');
-      buttonsHtml += `<button id="modal-btn-${idx}" type="button" class="${cls}">${btn.label}</button>`;
+      buttonsHtml += `<button id="modal-btn-${idx}" type="button" class="${cls}">${btn.label || btn.text || ""}</button>`;
     });
 
     modalEl.innerHTML = `
@@ -117,7 +117,7 @@ export const Modal = {
       if (btnEl && btn.onClick) {
         btnEl.addEventListener('click', () => {
           const action = () => btn.onClick(this);
-          if (!confirmActions || this.confirmedActionDepth || !this.isMutationAction(btn.label)) {
+          if (!confirmActions || this.confirmedActionDepth || !this.isMutationAction(btn.label || btn.text || "")) {
             action();
             return;
           }
