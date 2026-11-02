@@ -1248,26 +1248,14 @@ export const SettingsView = {
       size: 'full',
       content: `
         <form id="modal-form-add-field" class="space-y-4 max-h-[84vh] overflow-y-auto pr-1">
-          <!-- Target Form Header Bar -->
-          <div class="flex flex-wrap items-center justify-between gap-3 bg-gradient-to-r from-[#F0F9FF] to-[#F8FAFC] p-3 rounded-xl border border-[#BAE6FD] shadow-2xs">
-            <div class="flex items-center gap-2.5">
-              <div class="w-8 h-8 rounded-lg bg-[#00A4B7] text-white flex items-center justify-center font-bold text-xs shadow-xs">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
-              </div>
-              <div>
-                <div class="font-extrabold text-[#0F172A] text-xs">Form Field Studio</div>
-                <div class="text-[11px] text-[#5E6C84]">Configure custom data point schema</div>
-              </div>
-            </div>
-
-            <div class="flex items-center gap-2">
-              <label for="add-fld-target-form" class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider whitespace-nowrap">Target Form:</label>
-              <select id="add-fld-target-form" class="text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs min-w-[220px]">
-                ${this.forms.map(f => `
-                  <option value="${f.id}" ${f.id === (targetForm?.id || defaultFormCode) ? 'selected' : ''}>${f.code} — ${f.name}</option>
-                `).join('')}
-              </select>
-            </div>
+          <!-- Target Form Selector -->
+          <div class="flex items-center justify-end gap-2">
+            <label for="add-fld-target-form" class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider whitespace-nowrap">Target Form:</label>
+            <select id="add-fld-target-form" class="text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs min-w-[220px]">
+              ${this.forms.map(f => `
+                <option value="${f.id}" ${f.id === (targetForm?.id || defaultFormCode) ? 'selected' : ''}>${f.code} — ${f.name}</option>
+              `).join('')}
+            </select>
           </div>
 
           <!-- 1. SELECT INPUT DATA TYPE -->

@@ -13,17 +13,9 @@ export const Header = {
 
     container.innerHTML = `
       <header class="bg-white border-b border-[#E2E8F0] h-14 px-5 flex items-center justify-between select-none rounded-t-2xl">
-        <!-- Left: Welcome -->
-        <div class="flex items-center gap-2.5 text-xs sm:text-sm">
-          <div class="flex items-center gap-1.5 text-[#64748B]">
-            <span>Welcome,</span>
-            <span class="font-bold text-[#0F172A] text-sm sm:text-base">${ERP_DATA.currentUser.name}</span>
-          </div>
-        </div>
-
-        <!-- Center: Global Inline Search (Direct typing, no popup modal) -->
-        <div class="relative mx-3" id="header-search-container">
-          <div class="w-52 sm:w-64 relative flex items-center">
+        <!-- Left: Global Inline Search (Direct typing, no popup modal) -->
+        <div class="relative" id="header-search-container">
+          <div class="w-64 sm:w-80 relative flex items-center">
             <svg class="w-4 h-4 text-[#94A3B8] pointer-events-none" style="left: 12px; width: 16px; height: 16px; position: absolute; top: 50%; transform: translateY(-50%); pointer-events: none; z-index: 5;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
             <input 
               type="text" 
