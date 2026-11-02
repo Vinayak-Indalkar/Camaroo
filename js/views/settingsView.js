@@ -1374,7 +1374,7 @@ export const SettingsView = {
             const secFields = sectionsMap[secName] || [];
             return `
               <div class="space-y-3.5">
-                <div class="flex items-center justify-between border-b border-[#EBECF0] pb-2.5">
+                <div class="flex items-center justify-between border-b border-[#EBECF0]">
                   <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">${secName}</span>
                 </div>
 
