@@ -284,7 +284,7 @@ export const SettingsView = {
     new DataTable({
       containerId: 'forms-datatable-container',
       keyField: 'id',
-      tableTitle: `Forms Directory (${data.length})`,
+      tableTitle: 'Forms Directory',
       selectable: false,
       searchable: true,
       exportable: true,
@@ -569,7 +569,7 @@ export const SettingsView = {
     new DataTable({
       containerId: 'fields-datatable-container',
       keyField: 'id',
-      tableTitle: `Form Fields Configuration (${fields.length})`,
+      tableTitle: 'Form Fields Configuration',
       selectable: false,
       searchable: true,
       exportable: true,
@@ -894,7 +894,7 @@ export const SettingsView = {
     new DataTable({
       containerId: 'query-results-container',
       keyField: 'pi_no',
-      tableTitle: `Query Results (${queryData.length} records, 14ms)`,
+      tableTitle: 'Query Results',
       selectable: false,
       searchable: true,
       exportable: true,
@@ -1013,43 +1013,31 @@ export const SettingsView = {
   openAddFormModal() {
     Modal.open({
       title: 'Add New Form Definition',
-      size: 'xl',
+      size: 'lg',
       content: `
         <form id="modal-form-add-form" class="space-y-4">
-          <div class="bg-gradient-to-r from-[#F0F9FF] to-[#F8FAFC] p-4 rounded-xl border border-[#BAE6FD] flex items-center gap-3 shadow-2xs">
-            <div class="w-10 h-10 rounded-xl bg-[#00A4B7] text-white flex items-center justify-center font-bold shadow-xs">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Form Name <span class="text-[#DE350B]">*</span></label>
+              <input type="text" id="add-form-name" required placeholder="e.g. Export Inspection Record" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
             </div>
             <div>
-              <div class="font-extrabold text-[#0F172A] text-sm">Enterprise Form Customizer</div>
-              <div class="text-[11px] text-[#5E6C84]">Define form metadata and underlying database model</div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Form Code <span class="text-[#DE350B]">*</span></label>
+              <input type="text" id="add-form-code" required placeholder="e.g. EIR-FORM" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs font-mono uppercase" />
             </div>
-          </div>
-
-          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-              <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Form Name <span class="text-[#DE350B]">*</span></label>
-                <input type="text" id="add-form-name" required placeholder="e.g. Export Inspection Record" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
-              </div>
-              <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Form Code <span class="text-[#DE350B]">*</span></label>
-                <input type="text" id="add-form-code" required placeholder="e.g. EIR-FORM" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs font-mono uppercase" />
-              </div>
-              <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Category <span class="text-[#DE350B]">*</span></label>
-                <select id="add-form-category" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                  <option value="Orders">Orders</option>
-                  <option value="Shipping & Logistics">Shipping & Logistics</option>
-                  <option value="Commercial">Commercial</option>
-                  <option value="Compliance & Customs">Compliance & Customs</option>
-                  <option value="Payments">Payments</option>
-                </select>
-              </div>
-              <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Database Model Key <span class="text-[#DE350B]">*</span></label>
-                <input type="text" id="add-form-model" required placeholder="e.g. dfl_inspection_records" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs font-mono" />
-              </div>
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Category <span class="text-[#DE350B]">*</span></label>
+              <select id="add-form-category" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="Orders">Orders</option>
+                <option value="Shipping & Logistics">Shipping & Logistics</option>
+                <option value="Commercial">Commercial</option>
+                <option value="Compliance & Customs">Compliance & Customs</option>
+                <option value="Payments">Payments</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Database Model Key <span class="text-[#DE350B]">*</span></label>
+              <input type="text" id="add-form-model" required placeholder="e.g. dfl_inspection_records" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs font-mono" />
             </div>
           </div>
         </form>
@@ -1108,54 +1096,65 @@ export const SettingsView = {
       size: 'xl',
       content: `
         <div class="space-y-4">
-          <!-- Top Hero / Summary Card -->
-          <div class="bg-gradient-to-r from-[#F0F9FF] to-[#F8FAFC] p-4 rounded-xl border border-[#BAE6FD] flex flex-wrap items-center justify-between gap-3 shadow-2xs">
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl bg-[#00A4B7] text-white flex items-center justify-center font-bold shadow-xs">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-              </div>
-              <div>
-                <div class="flex items-center gap-2">
-                  <span class="font-mono font-extrabold text-[#0F172A] text-base">${form.code}</span>
-                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold tracking-wide uppercase bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD]">${form.status}</span>
-                  <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">${form.category}</span>
-                </div>
-                <div class="text-[11px] text-[#64748B] mt-0.5 font-medium flex items-center gap-1.5 flex-wrap">
-                  <span>${form.name}</span>
-                  <span>•</span>
-                  <span class="font-mono text-[#00A4B7]">${form.model}</span>
-                </div>
-              </div>
+          <!-- Form Metadata Grid -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5 pb-3 border-b border-[#F1F5F9]">
+            <div>
+              <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Form Code</span>
+              <span class="font-mono font-bold text-[#00A4B7] text-xs block mt-0.5">${form.code}</span>
             </div>
-
-            <div class="flex items-center gap-2">
-              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[80px]">
-                <div class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider">Fields</div>
-                <div class="font-extrabold text-[#006644] text-xs">${fields.length}</div>
-              </div>
-              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[80px]">
-                <div class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider">Status</div>
-                <div class="font-extrabold text-[#00A4B7] text-xs">Active</div>
-              </div>
+            <div>
+              <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Form Name</span>
+              <span class="font-bold text-[#172B4D] text-xs block mt-0.5">${form.name}</span>
+            </div>
+            <div>
+              <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Category</span>
+              <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF] inline-block mt-0.5">${form.category}</span>
+            </div>
+            <div>
+              <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Database Model</span>
+              <span class="font-mono text-xs text-[#172B4D] block mt-0.5">${form.model}</span>
+            </div>
+            <div>
+              <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Status</span>
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1] inline-block mt-0.5">${form.status}</span>
+            </div>
+            <div>
+              <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Total Fields</span>
+              <span class="font-bold text-[#006644] text-xs block mt-0.5">${fields.length} Configured</span>
+            </div>
+            <div>
+              <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Last Modified</span>
+              <span class="font-mono text-xs text-[#5E6C84] block mt-0.5">${form.updatedAt || 'Recently'}</span>
             </div>
           </div>
 
           <!-- Fields Breakdown Section -->
-          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 border-b border-[#F1F5F9] pb-2 mb-3">
-              <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">1</span>
-              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Bound Form Fields</h4>
+          <div>
+            <div class="flex items-center justify-between pb-2 border-b border-[#F1F5F9] mb-3">
+              <div class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">1</span>
+                <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Configured Form Fields (${fields.length})</h4>
+              </div>
+              <span class="text-[11px] text-[#5E6C84]">Active data points</span>
             </div>
 
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
-              ${fields.map(f => `
-                <div class="p-2.5 rounded-lg bg-[#F8FAFC] border border-[#E2E8F0]">
-                  <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">${f.type}</span>
-                  <span class="font-semibold text-[#172B4D] text-xs block mt-0.5 break-words">${f.label}</span>
-                  <span class="text-[10px] font-mono text-[#00A4B7] block mt-0.5">${f.key}</span>
-                </div>
-              `).join('')}
-            </div>
+            ${fields.length > 0 ? `
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                ${fields.map(f => `
+                  <div class="p-2.5 rounded-lg bg-[#F8FAFC] border border-[#E2E8F0]">
+                    <div class="flex items-center justify-between">
+                      <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider">${f.type}</span>
+                      ${f.required ? '<span class="text-[9px] font-bold text-[#DE350B] uppercase">Req</span>' : ''}
+                    </div>
+                    <span class="font-semibold text-[#172B4D] text-xs block mt-0.5 break-words">${f.label}</span>
+                    <span class="text-[10px] font-mono text-[#00A4B7] block mt-0.5">${f.key}</span>
+                    <span class="text-[10px] text-[#5E6C84] block mt-0.5 truncate">${f.section || 'General'}</span>
+                  </div>
+                `).join('')}
+              </div>
+            ` : `
+              <div class="text-center py-6 text-xs text-[#5E6C84]">No fields configured yet for this form.</div>
+            `}
           </div>
         </div>
       `,
