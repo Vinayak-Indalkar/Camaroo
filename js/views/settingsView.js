@@ -1138,12 +1138,12 @@ export const SettingsView = {
           <div class="lg:col-span-5">
             <div class="bg-white rounded-xl border border-[#DFE1E6] shadow-xs overflow-hidden sticky top-4">
               <!-- Gradient Header -->
-              <div class="bg-gradient-to-r from-[#2563EB] to-[#7C3AED] px-4 py-3 text-white flex items-center justify-between shadow-xs" style="background: linear-gradient(90deg, #2563EB 0%, #4F46E5 60%, #7C3AED 100%) !important;">
+              <div class="px-4 py-3 text-white flex items-center justify-between shadow-xs" style="background: linear-gradient(135deg, #00A4B7 0%, #007A87 100%) !important;">
                 <div class="flex items-center gap-2">
                   <span class="w-2.5 h-2.5 rounded-full bg-white animate-pulse"></span>
                   <span class="text-xs font-extrabold tracking-wide uppercase">Live Interactive Component Preview</span>
                 </div>
-                <span class="bg-[#4338CA]/70 text-white text-[10px] font-mono px-2 py-0.5 rounded font-extrabold tracking-wider uppercase backdrop-blur-xs flex items-center gap-1">
+                <span class="bg-white/20 text-white text-[10px] font-mono px-2 py-0.5 rounded font-extrabold tracking-wider uppercase backdrop-blur-xs flex items-center gap-1 border border-white/20">
                   <span>⚡</span>
                   <span>QUERY_ENGINE</span>
                 </span>
@@ -2449,104 +2449,7 @@ export const SettingsView = {
       size: 'full',
       content: `
         <form id="modal-form-add-field" class="flex flex-col lg:flex-row gap-5 items-start">
-          <!-- LEFT: Sticky / Fixed-Height Live Interactive Component Preview -->
-          <div class="w-full lg:w-[370px] xl:w-[390px] shrink-0 lg:sticky lg:top-0 self-start">
-            <div class="rounded-2xl border border-[#DFE1E6] bg-white shadow-xs overflow-hidden">
-              <!-- Preview Header Bar (Teal brand gradient) -->
-              <div class="preview-header-gradient bg-gradient-to-r from-[#00A4B7] to-[#007A87] text-white px-4 py-3 flex items-center shadow-xs shrink-0" style="background: linear-gradient(135deg, #00A4B7 0%, #007A87 100%) !important; color: #FFFFFF !important; min-height: 44px !important; display: flex !important; align-items: center !important; padding: 12px 16px !important; border-top-left-radius: 14px !important; border-top-right-radius: 14px !important;">
-                <div class="flex items-center gap-2.5" style="display: flex !important; align-items: center !important; gap: 10px !important;">
-                  <span class="w-2.5 h-2.5 rounded-full bg-[#10B981] inline-block shadow-[0_0_8px_rgba(16,185,129,0.9)] animate-pulse" style="background-color: #10B981 !important; width: 10px !important; height: 10px !important; min-width: 10px !important; min-height: 10px !important; border-radius: 9999px !important; display: inline-block !important; box-shadow: 0 0 8px rgba(16, 185, 129, 0.9) !important; flex-shrink: 0 !important;"></span>
-                  <h4 class="text-xs font-bold uppercase tracking-wider text-white" style="color: #FFFFFF !important; font-size: 12px !important; font-weight: 800 !important; letter-spacing: 0.05em !important; text-transform: uppercase !important; margin: 0 !important; padding: 0 !important; display: block !important; visibility: visible !important; opacity: 1 !important; line-height: 1.25 !important;">LIVE INTERACTIVE COMPONENT PREVIEW</h4>
-                </div>
-              </div>
-
-              <div class="p-3.5 space-y-3 bg-[#172B4D]">
-                <!-- Test Against Sample Record -->
-                <div class="p-3.5 bg-white rounded-xl border border-[#DFE1E6] shadow-2xs space-y-2">
-                  <div class="flex items-center gap-2 text-xs font-semibold text-[#475569]">
-                    <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-                    <span>Test Against Sample Shipment / PI:</span>
-                  </div>
-                  <select id="preview-sample-record" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#0F172A] focus:outline-none focus:border-[#00A4B7] cursor-pointer">
-                    <option value="pi1">PI-2024-8841 — Apex Frozen Foods (USA - 40ft FCL Vannamei)</option>
-                    <option value="pi2">PI-2024-8902 — Marunaka Co Ltd (Japan - Black Tiger HOSO)</option>
-                    <option value="pi3">PI-2024-8935 — Ocean Harvest Corp (EU - Raw IQF PDTO)</option>
-                    <option value="pi4">PI-2024-8970 — Sysco International (USA - Block Frozen HLSO)</option>
-                  </select>
-                </div>
-
-                <!-- Main Live Interactive Component Card -->
-                <div class="p-3.5 bg-white rounded-xl border border-[#DFE1E6] shadow-2xs space-y-3">
-                  <div>
-                    <div class="flex items-center justify-between text-xs pb-2 border-b border-[#F1F5F9] gap-2">
-                      <div class="flex items-center gap-2 min-w-0">
-                        <span id="preview-section-title" class="font-bold text-[#00A4B7] uppercase tracking-wider truncate">HEADER INFORMATION</span>
-                        <span id="preview-type-badge" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD] shrink-0">Single Line Text</span>
-                      </div>
-                    </div>
-
-                    <div class="space-y-1.5 pt-3">
-                      <label class="block text-sm font-bold text-[#0F172A]">
-                        <span id="preview-field-label">Untitled Field</span>
-                        <span id="preview-mandatory-star" class="text-[#DE350B] hidden">*</span>
-                      </label>
-                      <div id="preview-input-container">
-                        <!-- Rendered dynamically -->
-                      </div>
-                      <p id="preview-helper-text" class="text-xs text-[#64748B] hidden"></p>
-                    </div>
-                  </div>
-
-                  <div class="pt-2 text-xs text-[#64748B] flex items-center justify-between border-t border-[#F1F5F9]">
-                    <span>Active Output:</span>
-                    <code id="preview-active-output" class="font-mono text-xs text-[#475569] font-medium">""</code>
-                  </div>
-                </div>
-
-                <!-- Bottom Metadata Dual Cards -->
-                <div class="grid grid-cols-2 gap-3 shrink-0">
-                  <div class="p-3 bg-white rounded-xl border border-[#DFE1E6] shadow-2xs">
-                    <span class="text-xs text-[#64748B] block font-medium">Database Key:</span>
-                    <span id="preview-db-key" class="font-mono font-bold text-xs text-[#00A4B7] block mt-1 truncate">untitledKey</span>
-                  </div>
-                  <div class="p-3 bg-white rounded-xl border border-[#DFE1E6] shadow-2xs">
-                    <span class="text-xs text-[#64748B] block font-medium">Field Engine:</span>
-                    <span id="preview-field-engine" class="font-bold text-xs text-[#0F172A] block mt-1">Single Line Text (Standard Text Engine)</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Collapsible Assign to Tab Accordion -->
-              <div class="border-t border-[#1E293B] bg-[#172B4D] overflow-hidden">
-                <button type="button" id="preview-toggle-json" class="w-full px-4 py-3 flex items-center justify-between text-left bg-[#172B4D] hover:bg-[#1E3A5F] transition-colors cursor-pointer select-none">
-                  <div class="flex items-center gap-2 text-xs font-semibold text-white">
-                    <svg class="w-3.5 h-3.5 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg>
-                    <span>Assign to Tab</span>
-                  </div>
-                  <svg id="preview-json-chevron" class="w-3.5 h-3.5 text-[#94A3B8] transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                </button>
-                <div id="preview-json-content" class="hidden px-4 pb-4 pt-2 border-t border-[#1E293B] bg-[#172B4D] space-y-2">
-                  <div class="flex items-center justify-between text-xs">
-                    <span class="text-[#94A3B8] font-medium">Assigned Tab / Section:</span>
-                    <span id="preview-assigned-tab-val" class="font-bold text-[#00A4B7] bg-[#E0F2FE] px-2 py-0.5 rounded text-[11px] border border-[#BAE6FD]">Header Information</span>
-                  </div>
-                  <div class="flex items-center justify-between text-xs">
-                    <span class="text-[#94A3B8] font-medium">Target Form:</span>
-                    <span id="preview-assigned-form-val" class="font-semibold text-white">FORM-PI</span>
-                  </div>
-                  <div class="pt-1">
-                    <span class="text-[10px] font-bold text-[#94A3B8] uppercase tracking-wider block mb-1">Active Placements:</span>
-                    <div id="preview-assigned-placements" class="flex flex-wrap gap-1.5">
-                      <span class="px-2 py-0.5 bg-[#0F172A] border border-[#334155] rounded text-[10px] font-medium text-white">PI / Order Entry</span>
-                      <span class="px-2 py-0.5 bg-[#0F172A] border border-[#334155] rounded text-[10px] font-medium text-white">Documentation Hub</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- RIGHT: Form Configuration Fields (Scrollable area) -->
+          <!-- LEFT: Form Configuration Fields (Scrollable area) -->
           <div class="flex-1 min-w-0 space-y-4 max-h-[82vh] overflow-y-auto pr-2">
             <!-- Target Form Selector -->
             <div class="flex items-center justify-start gap-2">
@@ -2742,6 +2645,103 @@ export const SettingsView = {
                   </div>
                   <input type="checkbox" id="matrix-profile" class="rounded border-[#CBD5E1] text-[#00A4B7] focus:ring-[#00A4B7] w-4 h-4 cursor-pointer" />
                 </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT: Sticky / Fixed-Height Live Interactive Component Preview -->
+          <div class="w-full lg:w-[370px] xl:w-[390px] shrink-0 lg:sticky lg:top-0 self-start">
+            <div class="rounded-2xl border border-[#DFE1E6] bg-white shadow-xs overflow-hidden">
+              <!-- Preview Header Bar (Teal brand gradient) -->
+              <div class="preview-header-gradient bg-gradient-to-r from-[#00A4B7] to-[#007A87] text-white px-4 py-3 flex items-center shadow-xs shrink-0" style="background: linear-gradient(135deg, #00A4B7 0%, #007A87 100%) !important; color: #FFFFFF !important; min-height: 44px !important; display: flex !important; align-items: center !important; padding: 12px 16px !important; border-top-left-radius: 14px !important; border-top-right-radius: 14px !important;">
+                <div class="flex items-center gap-2.5" style="display: flex !important; align-items: center !important; gap: 10px !important;">
+                  <span class="w-2.5 h-2.5 rounded-full bg-[#10B981] inline-block shadow-[0_0_8px_rgba(16,185,129,0.9)] animate-pulse" style="background-color: #10B981 !important; width: 10px !important; height: 10px !important; min-width: 10px !important; min-height: 10px !important; border-radius: 9999px !important; display: inline-block !important; box-shadow: 0 0 8px rgba(16, 185, 129, 0.9) !important; flex-shrink: 0 !important;"></span>
+                  <h4 class="text-xs font-bold uppercase tracking-wider text-white" style="color: #FFFFFF !important; font-size: 12px !important; font-weight: 800 !important; letter-spacing: 0.05em !important; text-transform: uppercase !important; margin: 0 !important; padding: 0 !important; display: block !important; visibility: visible !important; opacity: 1 !important; line-height: 1.25 !important;">LIVE INTERACTIVE COMPONENT PREVIEW</h4>
+                </div>
+              </div>
+
+              <div class="p-3.5 space-y-3 bg-[#172B4D]">
+                <!-- Test Against Sample Record -->
+                <div class="p-3.5 bg-white rounded-xl border border-[#DFE1E6] shadow-2xs space-y-2">
+                  <div class="flex items-center gap-2 text-xs font-semibold text-[#475569]">
+                    <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                    <span>Test Against Sample Shipment / PI:</span>
+                  </div>
+                  <select id="preview-sample-record" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#0F172A] focus:outline-none focus:border-[#00A4B7] cursor-pointer">
+                    <option value="pi1">PI-2024-8841 — Apex Frozen Foods (USA - 40ft FCL Vannamei)</option>
+                    <option value="pi2">PI-2024-8902 — Marunaka Co Ltd (Japan - Black Tiger HOSO)</option>
+                    <option value="pi3">PI-2024-8935 — Ocean Harvest Corp (EU - Raw IQF PDTO)</option>
+                    <option value="pi4">PI-2024-8970 — Sysco International (USA - Block Frozen HLSO)</option>
+                  </select>
+                </div>
+
+                <!-- Main Live Interactive Component Card -->
+                <div class="p-3.5 bg-white rounded-xl border border-[#DFE1E6] shadow-2xs space-y-3">
+                  <div>
+                    <div class="flex items-center justify-between text-xs pb-2 border-b border-[#F1F5F9] gap-2">
+                      <div class="flex items-center gap-2 min-w-0">
+                        <span id="preview-section-title" class="font-bold text-[#00A4B7] uppercase tracking-wider truncate">HEADER INFORMATION</span>
+                        <span id="preview-type-badge" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD] shrink-0">Single Line Text</span>
+                      </div>
+                    </div>
+
+                    <div class="space-y-1.5 pt-3">
+                      <label class="block text-sm font-bold text-[#0F172A]">
+                        <span id="preview-field-label">Untitled Field</span>
+                        <span id="preview-mandatory-star" class="text-[#DE350B] hidden">*</span>
+                      </label>
+                      <div id="preview-input-container">
+                        <!-- Rendered dynamically -->
+                      </div>
+                      <p id="preview-helper-text" class="text-xs text-[#64748B] hidden"></p>
+                    </div>
+                  </div>
+
+                  <div class="pt-2 text-xs text-[#64748B] flex items-center justify-between border-t border-[#F1F5F9]">
+                    <span>Active Output:</span>
+                    <code id="preview-active-output" class="font-mono text-xs text-[#475569] font-medium">""</code>
+                  </div>
+                </div>
+
+                <!-- Bottom Metadata Dual Cards -->
+                <div class="grid grid-cols-2 gap-3 shrink-0">
+                  <div class="p-3 bg-white rounded-xl border border-[#DFE1E6] shadow-2xs">
+                    <span class="text-xs text-[#64748B] block font-medium">Database Key:</span>
+                    <span id="preview-db-key" class="font-mono font-bold text-xs text-[#00A4B7] block mt-1 truncate">untitledKey</span>
+                  </div>
+                  <div class="p-3 bg-white rounded-xl border border-[#DFE1E6] shadow-2xs">
+                    <span class="text-xs text-[#64748B] block font-medium">Field Engine:</span>
+                    <span id="preview-field-engine" class="font-bold text-xs text-[#0F172A] block mt-1">Single Line Text (Standard Text Engine)</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Collapsible Assign to Tab Accordion -->
+              <div class="border-t border-[#1E293B] bg-[#172B4D] overflow-hidden">
+                <button type="button" id="preview-toggle-json" class="w-full px-4 py-3 flex items-center justify-between text-left bg-[#172B4D] hover:bg-[#1E3A5F] transition-colors cursor-pointer select-none">
+                  <div class="flex items-center gap-2 text-xs font-semibold text-white">
+                    <svg class="w-3.5 h-3.5 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg>
+                    <span>Assign to Tab</span>
+                  </div>
+                  <svg id="preview-json-chevron" class="w-3.5 h-3.5 text-[#94A3B8] transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <div id="preview-json-content" class="hidden px-4 pb-4 pt-2 border-t border-[#1E293B] bg-[#172B4D] space-y-2">
+                  <div class="flex items-center justify-between text-xs">
+                    <span class="text-[#94A3B8] font-medium">Assigned Tab / Section:</span>
+                    <span id="preview-assigned-tab-val" class="font-bold text-[#00A4B7] bg-[#E0F2FE] px-2 py-0.5 rounded text-[11px] border border-[#BAE6FD]">Header Information</span>
+                  </div>
+                  <div class="flex items-center justify-between text-xs">
+                    <span class="text-[#94A3B8] font-medium">Target Form:</span>
+                    <span id="preview-assigned-form-val" class="font-semibold text-white">FORM-PI</span>
+                  </div>
+                  <div class="pt-1">
+                    <span class="text-[10px] font-bold text-[#94A3B8] uppercase tracking-wider block mb-1">Active Placements:</span>
+                    <div id="preview-assigned-placements" class="flex flex-wrap gap-1.5">
+                      <span class="px-2 py-0.5 bg-[#0F172A] border border-[#334155] rounded text-[10px] font-medium text-white">PI / Order Entry</span>
+                      <span class="px-2 py-0.5 bg-[#0F172A] border border-[#334155] rounded text-[10px] font-medium text-white">Documentation Hub</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
