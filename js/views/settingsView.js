@@ -2460,7 +2460,7 @@ export const SettingsView = {
                 </div>
               </div>
 
-              <div class="p-3.5 space-y-3 bg-white">
+              <div class="p-3.5 space-y-3 bg-[#172B4D]">
                 <!-- Test Against Sample Record -->
                 <div class="p-3.5 bg-white rounded-xl border border-[#DFE1E6] shadow-2xs space-y-2">
                   <div class="flex items-center gap-2 text-xs font-semibold text-[#475569]">
