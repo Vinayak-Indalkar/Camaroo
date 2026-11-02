@@ -1245,9 +1245,9 @@ export const SettingsView = {
 
     Modal.open({
       title: 'Add Custom Field',
-      size: 'xl',
+      size: 'full',
       content: `
-        <form id="modal-form-add-field" class="space-y-4 max-h-[82vh] overflow-y-auto pr-1">
+        <form id="modal-form-add-field" class="space-y-4 max-h-[84vh] overflow-y-auto pr-1">
           <!-- Target Form Header Bar -->
           <div class="flex flex-wrap items-center justify-between gap-3 bg-gradient-to-r from-[#F0F9FF] to-[#F8FAFC] p-3 rounded-xl border border-[#BAE6FD] shadow-2xs">
             <div class="flex items-center gap-2.5">
@@ -1283,7 +1283,7 @@ export const SettingsView = {
             </div>
 
             <!-- 17 Data Type Cards Grid -->
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2.5" id="data-type-grid">
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-6 gap-2.5" id="data-type-grid">
               ${DATA_TYPES.map((t, idx) => {
                 const isSelected = idx === 0;
                 return `
@@ -1302,36 +1302,36 @@ export const SettingsView = {
             </div>
           </div>
 
-          <!-- 2. CORE IDENTITY & PLACEMENT -->
+          <!-- 2. CORE IDENTITY & PLACEMENT (Four Column Layout) -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs space-y-3.5">
             <div class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">2. CORE IDENTITY &amp; PLACEMENT</div>
 
-            <div>
-              <div class="flex items-center justify-between mb-1">
-                <label class="block text-[11px] font-bold text-[#172B4D]">Field Label <span class="text-[#DE350B]">*</span></label>
-                <span class="text-[11px] text-[#5E6C84]">User-facing title</span>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3.5">
+              <div>
+                <div class="flex items-center justify-between mb-1">
+                  <label class="block text-[11px] font-bold text-[#172B4D]">Field Label <span class="text-[#DE350B]">*</span></label>
+                  <span class="text-[10px] text-[#5E6C84]">User title</span>
+                </div>
+                <input type="text" id="add-fld-label" required placeholder="e.g. Workstation Preference" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
               </div>
-              <input type="text" id="add-fld-label" required placeholder="e.g. Workstation Preference, Github Profile, Dietary Restrictions" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
-            </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
               <div>
                 <div class="flex items-center justify-between mb-1">
                   <label class="block text-[11px] font-bold text-[#172B4D]">Database Key</label>
                   <button type="button" id="btn-copy-fld-key" class="text-[11px] font-bold text-[#00A4B7] hover:underline cursor-pointer inline-flex items-center gap-1">
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-                    <span>Copy Key</span>
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                    <span>Copy</span>
                   </button>
                 </div>
-                <input type="text" id="add-fld-key" placeholder="e.g. workstationPreference" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs font-mono" />
+                <input type="text" id="add-fld-key" placeholder="e.g. workstationPreference" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs font-mono" />
               </div>
 
               <div>
                 <div class="flex items-center justify-between mb-1">
                   <label class="block text-[11px] font-bold text-[#172B4D]">Form Section</label>
-                  <button type="button" id="btn-new-section" class="text-[11px] font-bold text-[#00A4B7] hover:underline cursor-pointer">+ New Section</button>
+                  <button type="button" id="btn-new-section" class="text-[11px] font-bold text-[#00A4B7] hover:underline cursor-pointer">+ New</button>
                 </div>
-                <select id="add-fld-section" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <select id="add-fld-section" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
                   <option value="Personal Info (Standard)" selected>Personal Info (Standard)</option>
                   <option value="General Information">General Information</option>
                   <option value="Commercial Terms">Commercial Terms</option>
@@ -1341,16 +1341,18 @@ export const SettingsView = {
                   <option value="Quality Compliance">Quality Compliance</option>
                 </select>
               </div>
-            </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
               <div>
-                <label class="block text-[11px] font-bold text-[#172B4D] mb-1">Placeholder Text</label>
-                <input type="text" id="add-fld-placeholder" placeholder="Placeholder example hint..." class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                <div class="flex items-center justify-between mb-1">
+                  <label class="block text-[11px] font-bold text-[#172B4D]">Placeholder Text</label>
+                  <span class="text-[10px] text-[#5E6C84]">Input hint</span>
+                </div>
+                <input type="text" id="add-fld-placeholder" placeholder="Placeholder example hint..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
               </div>
-              <div>
+
+              <div class="col-span-1 sm:col-span-2 md:col-span-4">
                 <label class="block text-[11px] font-bold text-[#172B4D] mb-1">Helper / Description Text</label>
-                <input type="text" id="add-fld-helper" placeholder="Guidance tooltip shown to users..." class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                <input type="text" id="add-fld-helper" placeholder="Guidance tooltip shown to users..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
               </div>
             </div>
           </div>
@@ -1363,17 +1365,17 @@ export const SettingsView = {
             </div>
             <div>
               <label class="block text-[11px] font-bold text-[#172B4D] mb-1">Options List</label>
-              <input type="text" id="add-fld-options" placeholder="e.g. Option A, Option B, Option C" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              <input type="text" id="add-fld-options" placeholder="e.g. Option A, Option B, Option C" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
             </div>
           </div>
 
-          <!-- 4. VALIDATION, PERMISSIONS & FORM VISIBILITY -->
+          <!-- 4. VALIDATION, PERMISSIONS & FORM VISIBILITY (Four Column Layout) -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs space-y-4">
             <div class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">4. VALIDATION, PERMISSIONS &amp; FORM VISIBILITY</div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3.5 items-end">
               <!-- Mandatory Policy -->
-              <div class="p-3 rounded-xl border border-[#DFE1E6] bg-[#F8FAFC] flex items-center justify-between">
+              <div class="p-3 rounded-xl border border-[#DFE1E6] bg-[#F8FAFC] flex items-center justify-between h-[64px]">
                 <div>
                   <div class="text-xs font-bold text-[#172B4D]">Mandatory Policy</div>
                   <div class="text-[11px] text-[#5E6C84] mt-0.5">Blocks submission if empty</div>
@@ -1385,7 +1387,7 @@ export const SettingsView = {
               </div>
 
               <!-- Field Status -->
-              <div class="p-3 rounded-xl border border-[#DFE1E6] bg-[#F8FAFC] flex items-center justify-between">
+              <div class="p-3 rounded-xl border border-[#DFE1E6] bg-[#F8FAFC] flex items-center justify-between h-[64px]">
                 <div>
                   <div class="text-xs font-bold text-[#172B4D]">Field Status</div>
                   <div class="text-[11px] text-[#5E6C84] mt-0.5">Active in forms</div>
@@ -1395,33 +1397,35 @@ export const SettingsView = {
                   <div class="w-11 h-6 bg-[#CBD5E1] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-[#DFE1E6] after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#00A4B7]"></div>
                 </label>
               </div>
-            </div>
 
-            <div>
-              <label class="block text-[11px] font-bold text-[#172B4D] mb-1">Access &amp; Edit Permission</label>
-              <select id="add-fld-permission" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                <option value="Employee & Candidate Editable (Standard)" selected>Employee &amp; Candidate Editable (Standard)</option>
-                <option value="All Authorized Roles (Standard)">All Authorized Roles (Standard)</option>
-                <option value="Admin & Manager Only (Restricted)">Admin &amp; Manager Only (Restricted)</option>
-                <option value="Read-Only System Field (Display Only)">Read-Only System Field (Display Only)</option>
-              </select>
-            </div>
+              <!-- Access & Edit Permission -->
+              <div class="col-span-1 sm:col-span-2 md:col-span-2">
+                <label class="block text-[11px] font-bold text-[#172B4D] mb-1.5">Access &amp; Edit Permission</label>
+                <select id="add-fld-permission" class="w-full text-xs px-2.5 py-2.5 bg-white border border-[#DFE1E6] rounded-xl font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs h-[42px]">
+                  <option value="Employee & Candidate Editable (Standard)" selected>Employee &amp; Candidate Editable (Standard)</option>
+                  <option value="All Authorized Roles (Standard)">All Authorized Roles (Standard)</option>
+                  <option value="Admin & Manager Only (Restricted)">Admin &amp; Manager Only (Restricted)</option>
+                  <option value="Read-Only System Field (Display Only)">Read-Only System Field (Display Only)</option>
+                </select>
+              </div>
 
-            <div>
-              <label class="block text-[11px] font-bold text-[#172B4D] mb-2">Portal Module Placement Matrix:</label>
-              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                <label class="flex items-center gap-2.5 p-2.5 rounded-xl border border-[#DFE1E6] bg-white hover:bg-[#F8FAFC] cursor-pointer transition-colors">
-                  <input type="checkbox" id="matrix-add-form" checked class="rounded border-[#DFE1E6] text-[#00A4B7] focus:ring-[#00A4B7] cursor-pointer w-4 h-4">
-                  <span class="text-xs font-semibold text-[#172B4D]">Add Employee Form</span>
-                </label>
-                <label class="flex items-center gap-2.5 p-2.5 rounded-xl border border-[#DFE1E6] bg-white hover:bg-[#F8FAFC] cursor-pointer transition-colors">
-                  <input type="checkbox" id="matrix-onboarding" checked class="rounded border-[#DFE1E6] text-[#00A4B7] focus:ring-[#00A4B7] cursor-pointer w-4 h-4">
-                  <span class="text-xs font-semibold text-[#172B4D]">Onboarding Flow</span>
-                </label>
-                <label class="flex items-center gap-2.5 p-2.5 rounded-xl border border-[#DFE1E6] bg-white hover:bg-[#F8FAFC] cursor-pointer transition-colors">
-                  <input type="checkbox" id="matrix-profile" checked class="rounded border-[#DFE1E6] text-[#00A4B7] focus:ring-[#00A4B7] cursor-pointer w-4 h-4">
-                  <span class="text-xs font-semibold text-[#172B4D]">Profile &amp; Directory</span>
-                </label>
+              <!-- Portal Module Placement Matrix (Spans across all 4 columns) -->
+              <div class="col-span-1 sm:col-span-2 md:col-span-4 pt-1">
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-2">Portal Module Placement Matrix:</label>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <label class="flex items-center gap-2.5 p-3 rounded-xl border border-[#DFE1E6] bg-white hover:bg-[#F8FAFC] cursor-pointer transition-colors">
+                    <input type="checkbox" id="matrix-add-form" checked class="rounded border-[#DFE1E6] text-[#00A4B7] focus:ring-[#00A4B7] cursor-pointer w-4 h-4">
+                    <span class="text-xs font-semibold text-[#172B4D]">Add Employee Form</span>
+                  </label>
+                  <label class="flex items-center gap-2.5 p-3 rounded-xl border border-[#DFE1E6] bg-white hover:bg-[#F8FAFC] cursor-pointer transition-colors">
+                    <input type="checkbox" id="matrix-onboarding" checked class="rounded border-[#DFE1E6] text-[#00A4B7] focus:ring-[#00A4B7] cursor-pointer w-4 h-4">
+                    <span class="text-xs font-semibold text-[#172B4D]">Onboarding Flow</span>
+                  </label>
+                  <label class="flex items-center gap-2.5 p-3 rounded-xl border border-[#DFE1E6] bg-white hover:bg-[#F8FAFC] cursor-pointer transition-colors">
+                    <input type="checkbox" id="matrix-profile" checked class="rounded border-[#DFE1E6] text-[#00A4B7] focus:ring-[#00A4B7] cursor-pointer w-4 h-4">
+                    <span class="text-xs font-semibold text-[#172B4D]">Profile &amp; Directory</span>
+                  </label>
+                </div>
               </div>
             </div>
           </div>
