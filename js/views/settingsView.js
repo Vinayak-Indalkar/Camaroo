@@ -1324,28 +1324,28 @@ export const SettingsView = {
       const val = sampleRecordValues[f.key] || '';
 
       if (typeLower.includes('date')) {
-        return `<input type="date" value="${val}" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg text-[#172B4D] focus:outline-none focus:border-[#00A4B7] font-medium shadow-2xs mt-1" />`;
+        return `<input type="date" value="${val}" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg text-[#172B4D] focus:outline-none focus:border-[#00A4B7] font-medium shadow-2xs" />`;
       } else if (typeLower.includes('currency')) {
         return `
-          <div class="relative mt-1">
+          <div class="relative">
             <span class="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-bold text-[#00A4B7]">$</span>
             <input type="text" value="${val}" placeholder="0.00" style="padding-left: 26px;" class="w-full text-xs pr-3 py-2 bg-white border border-[#DFE1E6] rounded-lg text-[#172B4D] focus:outline-none focus:border-[#00A4B7] font-medium shadow-2xs" />
           </div>
         `;
       } else if (typeLower.includes('number')) {
-        return `<input type="number" value="${val}" placeholder="0" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg text-[#172B4D] focus:outline-none focus:border-[#00A4B7] font-medium shadow-2xs mt-1" />`;
+        return `<input type="number" value="${val}" placeholder="0" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg text-[#172B4D] focus:outline-none focus:border-[#00A4B7] font-medium shadow-2xs" />`;
       } else if (typeLower.includes('dropdown') || typeLower.includes('choice')) {
         const defaultOptions = f.options && f.options.length ? f.options : (val ? [val, 'Alternate Option A', 'Alternate Option B'] : ['Select option', 'Option 1', 'Option 2', 'Option 3']);
         return `
-          <select class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7] font-medium text-[#172B4D] shadow-2xs mt-1 cursor-pointer">
+          <select class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7] font-medium text-[#172B4D] shadow-2xs cursor-pointer">
             ${defaultOptions.map(opt => `<option value="${opt}" ${opt === val ? 'selected' : ''}>${opt}</option>`).join('')}
           </select>
         `;
       } else if (typeLower.includes('textarea') || typeLower.includes('multi-line')) {
-        return `<textarea rows="2" placeholder="${ph}" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs mt-1">${val}</textarea>`;
+        return `<textarea rows="2" placeholder="${ph}" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">${val}</textarea>`;
       } else if (typeLower.includes('toggle') || typeLower.includes('checkbox')) {
         return `
-          <div class="mt-2.5 flex items-center gap-2.5">
+          <div class="py-1 flex items-center gap-2.5">
             <label class="relative inline-flex items-center cursor-pointer">
               <input type="checkbox" checked class="sr-only peer">
               <div class="w-9 h-5 bg-[#CBD5E1] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-[#DFE1E6] after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#00A4B7]"></div>
@@ -1355,13 +1355,13 @@ export const SettingsView = {
         `;
       } else if (typeLower.includes('formula')) {
         return `
-          <div class="w-full text-xs px-3 py-2 bg-[#F0F9FF] border border-[#BAE6FD] rounded-lg font-mono text-[#00A4B7] font-bold flex items-center justify-between shadow-2xs mt-1">
+          <div class="w-full text-xs px-3 py-2 bg-[#F0F9FF] border border-[#BAE6FD] rounded-lg font-mono text-[#00A4B7] font-bold flex items-center justify-between shadow-2xs">
             <span>$${val || '225,225.00'}</span>
             <span class="text-[9px] font-bold text-[#00A4B7] uppercase tracking-wider bg-white px-1.5 py-0.5 rounded border border-[#BAE6FD]">Auto-Calculated</span>
           </div>
         `;
       } else {
-        return `<input type="text" value="${val}" placeholder="${ph}" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg text-[#172B4D] focus:outline-none focus:border-[#00A4B7] font-medium shadow-2xs mt-1" />`;
+        return `<input type="text" value="${val}" placeholder="${ph}" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg text-[#172B4D] focus:outline-none focus:border-[#00A4B7] font-medium shadow-2xs" />`;
       }
     };
 
