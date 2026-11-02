@@ -179,13 +179,22 @@ export const App = {
       : '#/purchase/dashboard/rm-dashboard';
 
     // Keep direct URL navigation subject to the same module restrictions as the sidebar.
-    const operationalModules = ['purchase', 'preprocessing', 'quality', 'production', 'coldstore', 'inventory', 'sales', 'reports', 'help', 'master', 'settings'];
-    const superAdminModules = ['dashboard', 'general', 'super-reports', 'settings'];
-    if ((isSuperAdmin && operationalModules.includes(moduleName)) || (!isSuperAdmin && superAdminModules.includes(moduleName))) {
-      this.renderRouteError(403, 'Access denied', 'You do not have permission to access this section.', homeHash);
-      return;
+    // Keep direct URL navigation subject to the same module restrictions as the sidebar.
+    const operationalModules = ['purchase', 'preprocessing', 'quality', 'production', 'coldstore', 'inventory', 'sales', 'reports', 'help', 'master'];
+    const superAdminModules = ['dashboard', 'general', 'super-reports'];
+    if (moduleName !== 'settings') {
+      if ((isSuperAdmin && operationalModules.includes(moduleName)) || (!isSuperAdmin && superAdminModules.includes(moduleName))) {
+        this.renderRouteError(403, 'Access denied', 'You do not have permission to access this section.', homeHash);
+        return;
+      }
     }
 
+    if (moduleName === 'settings') {
+      if (!submenuName || submenuName === 'customizer') submenuName = 'custom';
+      if (!tabName || tabName === 'form' || tabName === 'form-list' || tabName === 'forms-list') tabName = 'forms';
+      if (tabName === 'custom-fields' || tabName === 'field-builder' || tabName === 'fields' || tabName === 'filds-customizer') tabName = 'fields-customizer';
+      if (tabName === 'query-editer') tabName = 'query-editor';
+    }
     const modObj = NAV_HIERARCHY.find(m => m.id === moduleName);
     if (!modObj) {
       this.renderRouteError(404, 'Page not found', 'The requested application page does not exist.', homeHash);
@@ -274,6 +283,9 @@ export const App = {
             break;
           case 'sales':
             SalesView.render(mainContainer, tabName, resolvedHash);
+            break;
+          case 'settings':
+            SettingsView.render(mainContainer, tabName, resolvedHash);
             break;
           case 'reports':
             if (isSuperAdmin) {

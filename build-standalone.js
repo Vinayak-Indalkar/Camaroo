@@ -81,6 +81,7 @@ const combinedJS = `
   ${cleanCode(helpView)}
   ${cleanCode(superAdminDashboardView)}
   ${cleanCode(superAdminReportsView)}
+  ${cleanCode(settingsView)}
 
   // App Controller
   ${cleanCode(app)}
