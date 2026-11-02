@@ -1247,184 +1247,278 @@ export const SettingsView = {
       title: 'Add Custom Field',
       size: 'full',
       content: `
-        <form id="modal-form-add-field" class="space-y-4 max-h-[84vh] overflow-y-auto pr-1">
-          <!-- Target Form Selector -->
-          <div class="flex items-center justify-end gap-2">
-            <label for="add-fld-target-form" class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider whitespace-nowrap">Target Form:</label>
-            <select id="add-fld-target-form" class="text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs min-w-[220px]">
-              ${this.forms.map(f => `
-                <option value="${f.id}" ${f.id === (targetForm?.id || defaultFormCode) ? 'selected' : ''}>${f.code} — ${f.name}</option>
-              `).join('')}
-            </select>
-          </div>
+        <form id="modal-form-add-field" class="max-h-[84vh] overflow-y-auto pr-1">
+          <div class="flex flex-col lg:flex-row gap-5 items-start">
+            <!-- LEFT: Fixed / Sticky Live Interactive Component Preview (As in reference UI) -->
+            <div class="w-full lg:w-[380px] xl:w-[410px] shrink-0 lg:sticky lg:top-0 space-y-3">
+              <div class="rounded-2xl border border-[#DFE1E6] bg-[#F8FAFC] p-3.5 space-y-3 shadow-xs">
+                <!-- Preview Header Bar -->
+                <div class="bg-gradient-to-r from-[#00A4B7] to-[#007A87] text-white px-3.5 py-2.5 rounded-xl flex items-center justify-between shadow-xs">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-[#ABF5D1] animate-pulse"></span>
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-white">Live Interactive Component Preview</h4>
+                  </div>
+                  <span id="preview-type-pill" class="px-2 py-0.5 rounded text-[10px] font-bold bg-white/20 text-white uppercase tracking-wider backdrop-blur-xs">text</span>
+                </div>
 
-          <!-- 1. SELECT INPUT DATA TYPE -->
-          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center justify-between pb-2 border-b border-[#F1F5F9] mb-3">
-              <div class="flex items-center gap-2">
-                <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
-                <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">1. SELECT INPUT DATA TYPE</h3>
+                <!-- Test Against Sample Record -->
+                <div class="p-3 bg-white rounded-xl border border-[#DFE1E6] shadow-2xs">
+                  <div class="flex items-center gap-1.5 text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1.5">
+                    <svg class="w-3.5 h-3.5 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                    <span>Test Against Sample Employee:</span>
+                  </div>
+                  <select id="preview-sample-record" class="w-full text-xs px-2.5 py-1.5 bg-[#F8FAFC] border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] cursor-pointer">
+                    <option value="emp1">John Doe (Software Engineer - EMP-2024-0847)</option>
+                    <option value="emp2">Dr. Y.S. Prasad (Managing Director - ADM-001)</option>
+                    <option value="emp3">Michael Vance (Sales Manager - US-007)</option>
+                    <option value="emp4">P. Rajesh (Quality Control Lead - QC-019)</option>
+                  </select>
+                </div>
+
+                <!-- Main Live Interactive Component Card -->
+                <div class="p-4 bg-white rounded-xl border border-[#DFE1E6] shadow-2xs space-y-3">
+                  <div class="flex items-center justify-between pb-1.5 border-b border-[#F1F5F9]">
+                    <span id="preview-section-title" class="text-[11px] font-bold text-[#00A4B7] uppercase tracking-wider">PERSONAL INFO</span>
+                    <span id="preview-permission-tag" class="text-[10px] font-semibold text-[#5E6C84]">Employee Editable</span>
+                  </div>
+
+                  <div>
+                    <label class="block text-xs font-bold text-[#172B4D] mb-1">
+                      <span id="preview-field-label">Untitled Field</span>
+                      <span id="preview-mandatory-star" class="text-[#DE350B] hidden">*</span>
+                    </label>
+                    <div id="preview-input-container">
+                      <!-- Rendered dynamically -->
+                    </div>
+                    <p id="preview-helper-text" class="text-[10px] text-[#5E6C84] mt-1.5 hidden"></p>
+                  </div>
+
+                  <div class="pt-2 border-t border-[#F1F5F9] flex items-center justify-between text-[11px]">
+                    <span class="text-[#5E6C84] font-medium">Active Output:</span>
+                    <code id="preview-active-output" class="font-mono text-xs text-[#00A4B7] font-semibold">""</code>
+                  </div>
+                </div>
+
+                <!-- Bottom Metadata Dual Cards -->
+                <div class="grid grid-cols-2 gap-2.5">
+                  <div class="p-3 bg-white rounded-xl border border-[#DFE1E6] shadow-2xs">
+                    <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">Database Key:</span>
+                    <span id="preview-db-key" class="font-mono font-bold text-xs text-[#00A4B7] block mt-0.5 truncate">untitledKey</span>
+                  </div>
+                  <div class="p-3 bg-white rounded-xl border border-[#DFE1E6] shadow-2xs">
+                    <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">Field Engine:</span>
+                    <span id="preview-field-engine" class="font-bold text-xs text-[#172B4D] block mt-0.5">Standard Static</span>
+                  </div>
+                </div>
+
+                <!-- Collapsible Data Model & JSON Specification -->
+                <div class="bg-white rounded-xl border border-[#DFE1E6] shadow-2xs overflow-hidden">
+                  <button type="button" id="preview-toggle-json" class="w-full p-3 flex items-center justify-between text-left hover:bg-[#F8FAFC] transition-colors cursor-pointer select-none">
+                    <div class="flex items-center gap-2 text-xs font-bold text-[#172B4D]">
+                      <svg class="w-3.5 h-3.5 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+                      <span>Data Model &amp; JSON Specification</span>
+                    </div>
+                    <svg id="preview-json-chevron" class="w-3.5 h-3.5 text-[#5E6C84] transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                  </button>
+                  <div id="preview-json-content" class="hidden px-3.5 pb-3.5 pt-1 border-t border-[#F1F5F9] bg-[#FAFBFC]">
+                    <pre id="preview-json-code" class="text-[11px] font-mono text-[#0F172A] p-2.5 bg-white rounded-lg border border-[#DFE1E6] overflow-x-auto max-h-48 whitespace-pre leading-relaxed"></pre>
+                  </div>
+                </div>
               </div>
-              <span id="selected-type-badge" class="px-3 py-1 rounded-full text-xs font-bold bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD]">
-                Selected: Single Line Text
-              </span>
             </div>
 
-            <!-- 17 Data Type Cards Grid -->
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-6 gap-2.5" id="data-type-grid">
-              ${DATA_TYPES.map((t, idx) => {
-                const isSelected = idx === 0;
-                return `
-                  <div class="data-type-card cursor-pointer p-3 rounded-xl border transition-all relative flex flex-col justify-between select-none ${isSelected ? 'border-2 border-[#00A4B7] bg-[#F0F9FF] shadow-xs' : 'border-[#DFE1E6] bg-white hover:border-[#00A4B7] hover:bg-[#F8FAFC]'}" data-type-id="${t.id}" data-type-title="${t.title}" data-category="${t.category}">
-                    <span class="selected-dot ${isSelected ? '' : 'hidden'} absolute top-2 right-2 w-2 h-2 rounded-full bg-[#00A4B7]"></span>
-                    <div class="icon-box w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs mb-2 transition-colors ${isSelected ? 'bg-[#00A4B7] text-white shadow-xs' : 'bg-[#F1F5F9] text-[#5E6C84]'}">
-                      ${renderTypeIcon(t)}
+            <!-- RIGHT: Form Configuration Fields -->
+            <div class="flex-1 min-w-0 space-y-4">
+              <!-- Target Form Selector -->
+              <div class="flex items-center justify-end gap-2">
+                <label for="add-fld-target-form" class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider whitespace-nowrap">Target Form:</label>
+                <select id="add-fld-target-form" class="text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs min-w-[220px]">
+                  ${this.forms.map(f => `
+                    <option value="${f.id}" ${f.id === (targetForm?.id || defaultFormCode) ? 'selected' : ''}>${f.code} — ${f.name}</option>
+                  `).join('')}
+                </select>
+              </div>
+
+              <!-- 1. SELECT INPUT DATA TYPE -->
+              <div class="space-y-3">
+                <div class="flex items-center justify-between pb-2 border-b border-[#F1F5F9] mb-3">
+                  <div class="flex items-center gap-2">
+                    <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                    <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">1. SELECT INPUT DATA TYPE</h3>
+                  </div>
+                  <span id="selected-type-badge" class="px-3 py-1 rounded-full text-xs font-bold bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD]">
+                    Selected: Single Line Text
+                  </span>
+                </div>
+
+                <!-- 17 Data Type Cards Grid -->
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-6 gap-2.5" id="data-type-grid">
+                  ${DATA_TYPES.map((t, idx) => {
+                    const isSelected = idx === 0;
+                    return `
+                      <div class="data-type-card cursor-pointer p-3 rounded-xl border transition-all relative flex flex-col justify-between select-none ${isSelected ? 'border-2 border-[#00A4B7] bg-[#F0F9FF] shadow-xs' : 'border-[#DFE1E6] bg-white hover:border-[#00A4B7] hover:bg-[#F8FAFC]'}" data-type-id="${t.id}" data-type-title="${t.title}" data-category="${t.category}">
+                        <span class="selected-dot ${isSelected ? '' : 'hidden'} absolute top-2 right-2 w-2 h-2 rounded-full bg-[#00A4B7]"></span>
+                        <div class="icon-box w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs mb-2 transition-colors ${isSelected ? 'bg-[#00A4B7] text-white shadow-xs' : 'bg-[#F1F5F9] text-[#5E6C84]'}">
+                          ${renderTypeIcon(t)}
+                        </div>
+                        <div>
+                          <div class="text-xs font-bold text-[#172B4D] leading-tight">${t.title}</div>
+                          <div class="text-[10px] text-[#5E6C84] mt-0.5">${t.category}</div>
+                        </div>
+                      </div>
+                    `;
+                  }).join('')}
+                </div>
+              </div>
+
+              <!-- 2. CORE IDENTITY & PLACEMENT (Four Column Layout) -->
+              <div class="space-y-3.5">
+                <div class="flex items-center justify-between pb-2 border-b border-[#F1F5F9] mb-3">
+                  <div class="flex items-center gap-2">
+                    <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                    <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">2. CORE IDENTITY &amp; PLACEMENT</h3>
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3.5">
+                  <div>
+                    <div class="flex items-center justify-between mb-1">
+                      <label class="block text-[11px] font-bold text-[#172B4D]">Field Label <span class="text-[#DE350B]">*</span></label>
+                      <span class="text-[10px] text-[#5E6C84]">User title</span>
                     </div>
+                    <input type="text" id="add-fld-label" required placeholder="e.g. Workstation Preference" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                  </div>
+
+                  <div>
+                    <div class="flex items-center justify-between mb-1">
+                      <label class="block text-[11px] font-bold text-[#172B4D]">Database Key</label>
+                      <button type="button" id="btn-copy-fld-key" class="text-[11px] font-bold text-[#00A4B7] hover:underline cursor-pointer inline-flex items-center gap-1">
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                        <span>Copy</span>
+                      </button>
+                    </div>
+                    <input type="text" id="add-fld-key" placeholder="e.g. workstationPreference" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs font-mono" />
+                  </div>
+
+                  <div>
+                    <div class="flex items-center justify-between mb-1">
+                      <label class="block text-[11px] font-bold text-[#172B4D]">Form Section</label>
+                      <button type="button" id="btn-new-section" class="text-[11px] font-bold text-[#00A4B7] hover:underline cursor-pointer">+ New</button>
+                    </div>
+                    <select id="add-fld-section" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                      <option value="Personal Info (Standard)" selected>Personal Info (Standard)</option>
+                      <option value="General Information">General Information</option>
+                      <option value="Commercial Terms">Commercial Terms</option>
+                      <option value="Shipping & Logistics">Shipping &amp; Logistics</option>
+                      <option value="Customs & Clearance">Customs &amp; Clearance</option>
+                      <option value="Banking & Finance">Banking &amp; Finance</option>
+                      <option value="Quality Compliance">Quality Compliance</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <div class="flex items-center justify-between mb-1">
+                      <label class="block text-[11px] font-bold text-[#172B4D]">Placeholder Text</label>
+                      <span class="text-[10px] text-[#5E6C84]">Input hint</span>
+                    </div>
+                    <input type="text" id="add-fld-placeholder" placeholder="Placeholder example hint..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                  </div>
+
+                  <div class="col-span-1 sm:col-span-2 md:col-span-4">
+                    <label class="block text-[11px] font-bold text-[#172B4D] mb-1">Helper / Description Text</label>
+                    <input type="text" id="add-fld-helper" placeholder="Guidance tooltip shown to users..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Query Editor Banner -->
+              <div class="p-4 bg-gradient-to-r from-indigo-900/40 via-blue-900/30 to-slate-900/40 border border-indigo-500/30 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                <div class="flex items-center gap-3">
+                  <div class="w-9 h-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-terminal w-4 h-4" aria-hidden="true"><path d="M12 19h8"></path><path d="m4 17 6-6-6-6"></path></svg>
+                  </div>
+                  <div>
+                    <h4 class="text-xs font-bold text-slate-900 dark:text-white">Need Dynamic Formulas or SQL Data Extraction?</h4>
+                  </div>
+                </div>
+                <button type="button" id="btn-modal-open-query-editor" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-indigo-600 hover:bg-indigo-700 text-white transition-all shadow-xs shrink-0 cursor-pointer">Open Query Editor</button>
+              </div>
+
+              <!-- 3. CHOICE OPTIONS CONFIGURATION (Conditional) -->
+              <div id="section-choice-options" class="space-y-3 hidden">
+                <div class="flex items-center justify-between pb-1 border-b border-[#F1F5F9]">
+                  <div class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">3. CHOICE OPTIONS CONFIGURATION</div>
+                  <span class="text-[11px] text-[#5E6C84]">Comma separated options</span>
+                </div>
+                <div>
+                  <label class="block text-[11px] font-bold text-[#172B4D] mb-1">Options List</label>
+                  <input type="text" id="add-fld-options" placeholder="e.g. Option A, Option B, Option C" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                </div>
+              </div>
+
+              <!-- 4. VALIDATION, PERMISSIONS & FORM VISIBILITY (Four Column Layout) -->
+              <div class="space-y-4">
+                <div class="flex items-center justify-between pb-2 border-b border-[#F1F5F9] mb-3">
+                  <div class="flex items-center gap-2">
+                    <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                    <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">4. VALIDATION, PERMISSIONS &amp; FORM VISIBILITY</h3>
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3.5 items-end">
+                  <!-- Mandatory Policy -->
+                  <div class="p-3 rounded-xl border border-[#DFE1E6] bg-[#F8FAFC] flex items-center justify-between h-[64px]">
                     <div>
-                      <div class="text-xs font-bold text-[#172B4D] leading-tight">${t.title}</div>
-                      <div class="text-[10px] text-[#5E6C84] mt-0.5">${t.category}</div>
+                      <div class="text-xs font-bold text-[#172B4D]">Mandatory Policy</div>
+                      <div class="text-[11px] text-[#5E6C84] mt-0.5">Blocks submission if empty</div>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                      <input type="checkbox" id="add-fld-mandatory" class="sr-only peer">
+                      <div class="w-11 h-6 bg-[#CBD5E1] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-[#DFE1E6] after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#00A4B7]"></div>
+                    </label>
+                  </div>
+
+                  <!-- Field Status -->
+                  <div class="p-3 rounded-xl border border-[#DFE1E6] bg-[#F8FAFC] flex items-center justify-between h-[64px]">
+                    <div>
+                      <div class="text-xs font-bold text-[#172B4D]">Field Status</div>
+                      <div class="text-[11px] text-[#5E6C84] mt-0.5">Active in forms</div>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                      <input type="checkbox" id="add-fld-status" checked class="sr-only peer">
+                      <div class="w-11 h-6 bg-[#CBD5E1] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-[#DFE1E6] after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#00A4B7]"></div>
+                    </label>
+                  </div>
+
+                  <!-- Access & Edit Permission -->
+                  <div class="col-span-1 sm:col-span-2 md:col-span-2">
+                    <label class="block text-[11px] font-bold text-[#172B4D] mb-1.5">Access &amp; Edit Permission</label>
+                    <select id="add-fld-permission" class="w-full text-xs px-2.5 py-2.5 bg-white border border-[#DFE1E6] rounded-xl font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs h-[42px]">
+                      <option value="Employee & Candidate Editable (Standard)" selected>Employee &amp; Candidate Editable (Standard)</option>
+                      <option value="All Authorized Roles (Standard)">All Authorized Roles (Standard)</option>
+                      <option value="Admin & Manager Only (Restricted)">Admin &amp; Manager Only (Restricted)</option>
+                      <option value="Read-Only System Field (Display Only)">Read-Only System Field (Display Only)</option>
+                    </select>
+                  </div>
+
+                  <!-- Portal Module Placement Matrix (Spans across all 4 columns) -->
+                  <div class="col-span-1 sm:col-span-2 md:col-span-4 pt-1">
+                    <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-2">Portal Module Placement Matrix:</label>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                      <label class="flex items-center gap-2.5 p-3 rounded-xl border border-[#DFE1E6] bg-white hover:bg-[#F8FAFC] cursor-pointer transition-colors">
+                        <input type="checkbox" id="matrix-add-form" checked class="rounded border-[#DFE1E6] text-[#00A4B7] focus:ring-[#00A4B7] cursor-pointer w-4 h-4">
+                        <span class="text-xs font-semibold text-[#172B4D]">Add Employee Form</span>
+                      </label>
+                      <label class="flex items-center gap-2.5 p-3 rounded-xl border border-[#DFE1E6] bg-white hover:bg-[#F8FAFC] cursor-pointer transition-colors">
+                        <input type="checkbox" id="matrix-onboarding" checked class="rounded border-[#DFE1E6] text-[#00A4B7] focus:ring-[#00A4B7] cursor-pointer w-4 h-4">
+                        <span class="text-xs font-semibold text-[#172B4D]">Onboarding Flow</span>
+                      </label>
+                      <label class="flex items-center gap-2.5 p-3 rounded-xl border border-[#DFE1E6] bg-white hover:bg-[#F8FAFC] cursor-pointer transition-colors">
+                        <input type="checkbox" id="matrix-profile" checked class="rounded border-[#DFE1E6] text-[#00A4B7] focus:ring-[#00A4B7] cursor-pointer w-4 h-4">
+                        <span class="text-xs font-semibold text-[#172B4D]">Profile &amp; Directory</span>
+                      </label>
                     </div>
                   </div>
-                `;
-              }).join('')}
-            </div>
-          </div>
-
-          <!-- 2. CORE IDENTITY & PLACEMENT (Four Column Layout) -->
-          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs space-y-3.5">
-            <div class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">2. CORE IDENTITY &amp; PLACEMENT</div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3.5">
-              <div>
-                <div class="flex items-center justify-between mb-1">
-                  <label class="block text-[11px] font-bold text-[#172B4D]">Field Label <span class="text-[#DE350B]">*</span></label>
-                  <span class="text-[10px] text-[#5E6C84]">User title</span>
-                </div>
-                <input type="text" id="add-fld-label" required placeholder="e.g. Workstation Preference" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
-              </div>
-
-              <div>
-                <div class="flex items-center justify-between mb-1">
-                  <label class="block text-[11px] font-bold text-[#172B4D]">Database Key</label>
-                  <button type="button" id="btn-copy-fld-key" class="text-[11px] font-bold text-[#00A4B7] hover:underline cursor-pointer inline-flex items-center gap-1">
-                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-                    <span>Copy</span>
-                  </button>
-                </div>
-                <input type="text" id="add-fld-key" placeholder="e.g. workstationPreference" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs font-mono" />
-              </div>
-
-              <div>
-                <div class="flex items-center justify-between mb-1">
-                  <label class="block text-[11px] font-bold text-[#172B4D]">Form Section</label>
-                  <button type="button" id="btn-new-section" class="text-[11px] font-bold text-[#00A4B7] hover:underline cursor-pointer">+ New</button>
-                </div>
-                <select id="add-fld-section" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                  <option value="Personal Info (Standard)" selected>Personal Info (Standard)</option>
-                  <option value="General Information">General Information</option>
-                  <option value="Commercial Terms">Commercial Terms</option>
-                  <option value="Shipping & Logistics">Shipping &amp; Logistics</option>
-                  <option value="Customs & Clearance">Customs &amp; Clearance</option>
-                  <option value="Banking & Finance">Banking &amp; Finance</option>
-                  <option value="Quality Compliance">Quality Compliance</option>
-                </select>
-              </div>
-
-              <div>
-                <div class="flex items-center justify-between mb-1">
-                  <label class="block text-[11px] font-bold text-[#172B4D]">Placeholder Text</label>
-                  <span class="text-[10px] text-[#5E6C84]">Input hint</span>
-                </div>
-                <input type="text" id="add-fld-placeholder" placeholder="Placeholder example hint..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
-              </div>
-
-              <div class="col-span-1 sm:col-span-2 md:col-span-4">
-                <label class="block text-[11px] font-bold text-[#172B4D] mb-1">Helper / Description Text</label>
-                <input type="text" id="add-fld-helper" placeholder="Guidance tooltip shown to users..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
-              </div>
-            </div>
-          </div>
-
-          <div class="p-4 bg-gradient-to-r from-indigo-900/40 via-blue-900/30 to-slate-900/40 border border-indigo-500/30 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-            <div class="flex items-center gap-3">
-              <div class="w-9 h-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold shrink-0">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-terminal w-4 h-4" aria-hidden="true"><path d="M12 19h8"></path><path d="m4 17 6-6-6-6"></path></svg>
-              </div>
-              <div>
-                <h4 class="text-xs font-bold text-slate-900 dark:text-white">Need Dynamic Formulas or SQL Data Extraction?</h4>
-              </div>
-            </div>
-            <button type="button" id="btn-modal-open-query-editor" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-indigo-600 hover:bg-indigo-700 text-white transition-all shadow-xs shrink-0 cursor-pointer">Open Query Editor</button>
-          </div>
-
-          <!-- 3. CHOICE OPTIONS CONFIGURATION (Conditional) -->
-          <div id="section-choice-options" class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs space-y-3 hidden">
-            <div class="flex items-center justify-between pb-1 border-b border-[#F1F5F9]">
-              <div class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">3. CHOICE OPTIONS CONFIGURATION</div>
-              <span class="text-[11px] text-[#5E6C84]">Comma separated options</span>
-            </div>
-            <div>
-              <label class="block text-[11px] font-bold text-[#172B4D] mb-1">Options List</label>
-              <input type="text" id="add-fld-options" placeholder="e.g. Option A, Option B, Option C" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
-            </div>
-          </div>
-
-          <!-- 4. VALIDATION, PERMISSIONS & FORM VISIBILITY (Four Column Layout) -->
-          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs space-y-4">
-            <div class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">4. VALIDATION, PERMISSIONS &amp; FORM VISIBILITY</div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3.5 items-end">
-              <!-- Mandatory Policy -->
-              <div class="p-3 rounded-xl border border-[#DFE1E6] bg-[#F8FAFC] flex items-center justify-between h-[64px]">
-                <div>
-                  <div class="text-xs font-bold text-[#172B4D]">Mandatory Policy</div>
-                  <div class="text-[11px] text-[#5E6C84] mt-0.5">Blocks submission if empty</div>
-                </div>
-                <label class="relative inline-flex items-center cursor-pointer">
-                  <input type="checkbox" id="add-fld-mandatory" class="sr-only peer">
-                  <div class="w-11 h-6 bg-[#CBD5E1] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-[#DFE1E6] after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#00A4B7]"></div>
-                </label>
-              </div>
-
-              <!-- Field Status -->
-              <div class="p-3 rounded-xl border border-[#DFE1E6] bg-[#F8FAFC] flex items-center justify-between h-[64px]">
-                <div>
-                  <div class="text-xs font-bold text-[#172B4D]">Field Status</div>
-                  <div class="text-[11px] text-[#5E6C84] mt-0.5">Active in forms</div>
-                </div>
-                <label class="relative inline-flex items-center cursor-pointer">
-                  <input type="checkbox" id="add-fld-status" checked class="sr-only peer">
-                  <div class="w-11 h-6 bg-[#CBD5E1] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-[#DFE1E6] after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#00A4B7]"></div>
-                </label>
-              </div>
-
-              <!-- Access & Edit Permission -->
-              <div class="col-span-1 sm:col-span-2 md:col-span-2">
-                <label class="block text-[11px] font-bold text-[#172B4D] mb-1.5">Access &amp; Edit Permission</label>
-                <select id="add-fld-permission" class="w-full text-xs px-2.5 py-2.5 bg-white border border-[#DFE1E6] rounded-xl font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs h-[42px]">
-                  <option value="Employee & Candidate Editable (Standard)" selected>Employee &amp; Candidate Editable (Standard)</option>
-                  <option value="All Authorized Roles (Standard)">All Authorized Roles (Standard)</option>
-                  <option value="Admin & Manager Only (Restricted)">Admin &amp; Manager Only (Restricted)</option>
-                  <option value="Read-Only System Field (Display Only)">Read-Only System Field (Display Only)</option>
-                </select>
-              </div>
-
-              <!-- Portal Module Placement Matrix (Spans across all 4 columns) -->
-              <div class="col-span-1 sm:col-span-2 md:col-span-4 pt-1">
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-2">Portal Module Placement Matrix:</label>
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                  <label class="flex items-center gap-2.5 p-3 rounded-xl border border-[#DFE1E6] bg-white hover:bg-[#F8FAFC] cursor-pointer transition-colors">
-                    <input type="checkbox" id="matrix-add-form" checked class="rounded border-[#DFE1E6] text-[#00A4B7] focus:ring-[#00A4B7] cursor-pointer w-4 h-4">
-                    <span class="text-xs font-semibold text-[#172B4D]">Add Employee Form</span>
-                  </label>
-                  <label class="flex items-center gap-2.5 p-3 rounded-xl border border-[#DFE1E6] bg-white hover:bg-[#F8FAFC] cursor-pointer transition-colors">
-                    <input type="checkbox" id="matrix-onboarding" checked class="rounded border-[#DFE1E6] text-[#00A4B7] focus:ring-[#00A4B7] cursor-pointer w-4 h-4">
-                    <span class="text-xs font-semibold text-[#172B4D]">Onboarding Flow</span>
-                  </label>
-                  <label class="flex items-center gap-2.5 p-3 rounded-xl border border-[#DFE1E6] bg-white hover:bg-[#F8FAFC] cursor-pointer transition-colors">
-                    <input type="checkbox" id="matrix-profile" checked class="rounded border-[#DFE1E6] text-[#00A4B7] focus:ring-[#00A4B7] cursor-pointer w-4 h-4">
-                    <span class="text-xs font-semibold text-[#172B4D]">Profile &amp; Directory</span>
-                  </label>
                 </div>
               </div>
             </div>
@@ -1564,6 +1658,277 @@ export const SettingsView = {
         });
       }
 
+      // Live Component Preview Synchronization
+      const updateLivePreview = () => {
+        const labelVal = labelInput?.value?.trim() || '';
+        const keyVal = keyInput?.value?.trim() || (labelVal ? labelVal.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase()).replace(/[^a-zA-Z0-9]/g, '') : 'untitledKey');
+        const sectionVal = sectionSelect?.value || 'Personal Info';
+        const placeholderInput = document.getElementById('add-fld-placeholder');
+        const helperInput = document.getElementById('add-fld-helper');
+        const permissionSelect = document.getElementById('add-fld-permission');
+        const mandatoryCheckbox = document.getElementById('add-fld-mandatory');
+        const optionsInput = document.getElementById('add-fld-options');
+
+        const placeholderVal = placeholderInput?.value?.trim() || '';
+        const helperVal = helperInput?.value?.trim() || '';
+        const permissionVal = permissionSelect?.value || 'Employee & Candidate Editable (Standard)';
+        const isMandatory = mandatoryCheckbox?.checked || false;
+        const optionsVal = optionsInput?.value?.trim() || '';
+        const parsedOptions = optionsVal ? optionsVal.split(',').map(s => s.trim()).filter(Boolean) : ['Option 1', 'Option 2', 'Option 3'];
+
+        // 1. Header pill
+        const pill = document.getElementById('preview-type-pill');
+        if (pill) pill.textContent = selectedType.id || selectedType.title.toLowerCase();
+
+        // 2. Section & Permission tags
+        const secEl = document.getElementById('preview-section-title');
+        if (secEl) secEl.textContent = sectionVal.toUpperCase();
+
+        const permEl = document.getElementById('preview-permission-tag');
+        if (permEl) permEl.textContent = permissionVal.includes('(') ? permissionVal.split('(')[0].trim() : permissionVal;
+
+        // 3. Label & Mandatory star
+        const lblEl = document.getElementById('preview-field-label');
+        if (lblEl) lblEl.textContent = labelVal || 'Untitled Field';
+
+        const starEl = document.getElementById('preview-mandatory-star');
+        if (starEl) {
+          if (isMandatory) starEl.classList.remove('hidden');
+          else starEl.classList.add('hidden');
+        }
+
+        // 4. Helper text
+        const hlpEl = document.getElementById('preview-helper-text');
+        if (hlpEl) {
+          if (helperVal) {
+            hlpEl.textContent = helperVal;
+            hlpEl.classList.remove('hidden');
+          } else {
+            hlpEl.classList.add('hidden');
+          }
+        }
+
+        // 5. Database Key
+        const dbKeyEl = document.getElementById('preview-db-key');
+        if (dbKeyEl) dbKeyEl.textContent = keyVal;
+
+        // 6. Field Engine
+        const engineEl = document.getElementById('preview-field-engine');
+        if (engineEl) {
+          if (['dropdown', 'multi-select', 'radio'].includes(selectedType.id)) {
+            engineEl.textContent = 'Choice Engine';
+          } else if (selectedType.id === 'currency' || selectedType.id === 'number') {
+            engineEl.textContent = 'Numeric Engine';
+          } else {
+            engineEl.textContent = 'Standard Static';
+          }
+        }
+
+        // 7. Interactive Input Element
+        const inputContainer = document.getElementById('preview-input-container');
+        if (inputContainer) {
+          const phText = placeholderVal || `Enter ${(labelVal || 'untitled field').toLowerCase()}...`;
+          let html = '';
+          const currentOutput = document.getElementById('preview-active-output');
+
+          switch (selectedType.id) {
+            case 'textarea':
+              html = `<textarea id="live-user-input" rows="3" placeholder="${phText}" class="w-full text-xs px-2.5 py-1.5 bg-[#F8FAFC] border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] focus:bg-white transition-all"></textarea>`;
+              break;
+            case 'number':
+              html = `<input type="number" id="live-user-input" placeholder="${placeholderVal || '0'}" class="w-full text-xs px-2.5 py-1.5 bg-[#F8FAFC] border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] focus:bg-white transition-all" />`;
+              break;
+            case 'currency':
+              html = `
+                <div class="relative flex items-center">
+                  <span class="absolute left-2.5 text-xs font-bold text-[#5E6C84]">$</span>
+                  <input type="number" id="live-user-input" placeholder="${placeholderVal || '0.00'}" style="padding-left: 24px;" class="w-full text-xs py-1.5 pr-2.5 bg-[#F8FAFC] border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] focus:bg-white transition-all" />
+                </div>
+              `;
+              break;
+            case 'dropdown':
+              html = `
+                <select id="live-user-input" class="w-full text-xs px-2.5 py-1.5 bg-[#F8FAFC] border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] focus:bg-white transition-all cursor-pointer">
+                  ${parsedOptions.map(o => `<option value="${o}">${o}</option>`).join('')}
+                </select>
+              `;
+              break;
+            case 'radio':
+              html = `
+                <div class="space-y-1.5 pt-1">
+                  ${parsedOptions.map((o, i) => `
+                    <label class="flex items-center gap-2 text-xs text-[#172B4D] font-semibold cursor-pointer">
+                      <input type="radio" name="live-radio-preview" value="${o}" ${i === 0 ? 'checked' : ''} class="text-[#00A4B7] focus:ring-[#00A4B7] cursor-pointer">
+                      <span>${o}</span>
+                    </label>
+                  `).join('')}
+                </div>
+              `;
+              break;
+            case 'multi-select':
+              html = `
+                <div class="flex flex-wrap gap-1.5 p-2 bg-[#F8FAFC] border border-[#DFE1E6] rounded-lg min-h-[36px]">
+                  ${parsedOptions.slice(0, 3).map(o => `
+                    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-semibold bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD]">
+                      ${o}
+                    </span>
+                  `).join('')}
+                </div>
+              `;
+              break;
+            case 'toggle':
+              html = `
+                <label class="relative inline-flex items-center cursor-pointer gap-2.5 pt-1">
+                  <input type="checkbox" id="live-user-input" class="sr-only peer">
+                  <div class="w-11 h-6 bg-[#CBD5E1] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-[#DFE1E6] after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#00A4B7]"></div>
+                  <span class="text-xs font-semibold text-[#172B4D]">Toggle active/inactive</span>
+                </label>
+              `;
+              break;
+            case 'date':
+              html = `<input type="date" id="live-user-input" class="w-full text-xs px-2.5 py-1.5 bg-[#F8FAFC] border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] focus:bg-white transition-all cursor-pointer" />`;
+              break;
+            case 'time':
+              html = `<input type="time" id="live-user-input" class="w-full text-xs px-2.5 py-1.5 bg-[#F8FAFC] border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] focus:bg-white transition-all cursor-pointer" />`;
+              break;
+            case 'datetime':
+              html = `<input type="datetime-local" id="live-user-input" class="w-full text-xs px-2.5 py-1.5 bg-[#F8FAFC] border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] focus:bg-white transition-all cursor-pointer" />`;
+              break;
+            case 'rating':
+              html = `
+                <div class="flex items-center gap-1.5 py-1" id="live-star-rating">
+                  ${[1, 2, 3, 4, 5].map(v => `
+                    <button type="button" data-val="${v}" class="star-item text-lg text-[#CBD5E1] hover:text-[#FFAB00] transition-colors cursor-pointer">★</button>
+                  `).join('')}
+                </div>
+              `;
+              break;
+            case 'color':
+              html = `
+                <div class="flex items-center gap-2">
+                  <input type="color" id="live-user-input" value="#00A4B7" class="w-9 h-8 rounded-lg border border-[#DFE1E6] cursor-pointer bg-white" />
+                  <span id="live-color-val" class="text-xs font-mono font-semibold text-[#172B4D]">#00A4B7</span>
+                </div>
+              `;
+              break;
+            case 'file':
+              html = `
+                <div class="border-2 border-dashed border-[#DFE1E6] hover:border-[#00A4B7] rounded-lg p-3 text-center bg-[#F8FAFC] transition-colors cursor-pointer">
+                  <svg class="w-5 h-5 text-[#00A4B7] mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                  <span class="text-xs font-semibold text-[#00A4B7]">Browse or drag & drop files</span>
+                </div>
+              `;
+              break;
+            default:
+              html = `<input type="text" id="live-user-input" placeholder="${phText}" class="w-full text-xs px-2.5 py-1.5 bg-[#F8FAFC] border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] focus:bg-white transition-all" />`;
+              break;
+          }
+
+          inputContainer.innerHTML = html;
+
+          // Wire live typing in preview
+          const liveInput = document.getElementById('live-user-input');
+          if (liveInput) {
+            const syncOutput = () => {
+              if (currentOutput) {
+                if (liveInput.type === 'checkbox') {
+                  currentOutput.textContent = liveInput.checked ? 'true' : 'false';
+                } else {
+                  currentOutput.textContent = JSON.stringify(liveInput.value || '');
+                }
+              }
+              updateJsonSpec();
+            };
+            liveInput.addEventListener('input', syncOutput);
+            liveInput.addEventListener('change', syncOutput);
+            syncOutput();
+          }
+
+          // Stars rating click
+          const starContainer = document.getElementById('live-star-rating');
+          if (starContainer) {
+            starContainer.querySelectorAll('.star-item').forEach(btn => {
+              btn.addEventListener('click', () => {
+                const val = parseInt(btn.dataset.val);
+                starContainer.querySelectorAll('.star-item').forEach(s => {
+                  const sVal = parseInt(s.dataset.val);
+                  s.style.color = sVal <= val ? '#FFAB00' : '#CBD5E1';
+                });
+                if (currentOutput) currentOutput.textContent = `${val} / 5 stars`;
+                updateJsonSpec();
+              });
+            });
+          }
+
+          // Radio preview click
+          document.querySelectorAll('input[name="live-radio-preview"]').forEach(r => {
+            r.addEventListener('change', () => {
+              if (currentOutput) currentOutput.textContent = JSON.stringify(r.value);
+              updateJsonSpec();
+            });
+          });
+        }
+
+        // 8. Update JSON Specification
+        const updateJsonSpec = () => {
+          const jsonEl = document.getElementById('preview-json-code');
+          if (jsonEl) {
+            const spec = {
+              label: labelVal || 'Untitled Field',
+              key: keyVal,
+              type: selectedType.title,
+              category: selectedType.category,
+              section: sectionVal,
+              placeholder: placeholderVal || undefined,
+              helper: helperVal || undefined,
+              required: isMandatory,
+              permission: permissionVal,
+              options: ['dropdown', 'multi-select', 'radio'].includes(selectedType.id) ? parsedOptions : undefined,
+              engine: (['dropdown', 'multi-select', 'radio'].includes(selectedType.id)) ? 'ChoiceEngine' : 'StandardStatic'
+            };
+            jsonEl.textContent = JSON.stringify(spec, null, 2);
+          }
+        };
+
+        updateJsonSpec();
+      };
+
+      // Connect event listeners on form inputs to update live preview
+      if (labelInput) {
+        labelInput.addEventListener('input', updateLivePreview);
+      }
+      if (keyInput) {
+        keyInput.addEventListener('input', updateLivePreview);
+      }
+      if (sectionSelect) {
+        sectionSelect.addEventListener('change', updateLivePreview);
+      }
+      document.getElementById('add-fld-placeholder')?.addEventListener('input', updateLivePreview);
+      document.getElementById('add-fld-helper')?.addEventListener('input', updateLivePreview);
+      document.getElementById('add-fld-permission')?.addEventListener('change', updateLivePreview);
+      document.getElementById('add-fld-mandatory')?.addEventListener('change', updateLivePreview);
+      document.getElementById('add-fld-options')?.addEventListener('input', updateLivePreview);
+
+      // JSON toggle accordion
+      const toggleJsonBtn = document.getElementById('preview-toggle-json');
+      const jsonContent = document.getElementById('preview-json-content');
+      const jsonChevron = document.getElementById('preview-json-chevron');
+      if (toggleJsonBtn && jsonContent) {
+        toggleJsonBtn.addEventListener('click', () => {
+          const isHidden = jsonContent.classList.contains('hidden');
+          if (isHidden) {
+            jsonContent.classList.remove('hidden');
+            jsonChevron?.classList.add('rotate-180');
+          } else {
+            jsonContent.classList.add('hidden');
+            jsonChevron?.classList.remove('rotate-180');
+          }
+        });
+      }
+
+      // Initial live preview render
+      updateLivePreview();
+
       // Data Type Selection
       if (typeGrid) {
         typeGrid.addEventListener('click', (e) => {
@@ -1612,6 +1977,9 @@ export const SettingsView = {
               choiceSection.classList.add('hidden');
             }
           }
+
+          // Update live preview with new type
+          updateLivePreview();
         });
       }
     }, 20);
