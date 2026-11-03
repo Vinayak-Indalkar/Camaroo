@@ -9370,18 +9370,129 @@ export const SetupView = {
     return item ? item.svg : lib[0].svg;
   },
 
+  getTabsForMenu(menuKey) {
+    if (!menuKey) return [];
+    const k = String(menuKey).toLowerCase();
+    const tabs = [];
+    const seen = new Set();
+
+    // 1. Check this.state.tabsConfig
+    if (Array.isArray(this.state.tabsConfig)) {
+      this.state.tabsConfig.forEach(t => {
+        if (t.menuKey && String(t.menuKey).toLowerCase() === k) {
+          const tid = t.id || t.key || t.slug;
+          if (tid && !seen.has(tid)) {
+            seen.add(tid);
+            tabs.push({
+              id: tid,
+              key: tid,
+              label: t.label || tid,
+              submenuId: t.submenuId || 'overview',
+              submenuTitle: t.submenuTitle || t.submenuId || 'Overview',
+              route: t.route || `#/${k}/${t.submenuId || 'overview'}/${tid}`,
+              type: t.type || 'standard',
+              badge: t.badge || '',
+              status: t.status || 'Active',
+              isProtected: Boolean(t.isProtected)
+            });
+          }
+        }
+      });
+    }
+
+    // 2. Check this.state.submenusConfig for embedded tabs
+    const subList = this.state.submenusConfig[k] || this.state.submenusConfig[menuKey] || [];
+    if (Array.isArray(subList)) {
+      subList.forEach(sm => {
+        const smId = sm.id || sm.key || 'overview';
+        const smTitle = sm.title || sm.name || smId;
+        if (Array.isArray(sm.tabs)) {
+          sm.tabs.forEach(t => {
+            const tid = t.id || t.key || t.slug;
+            if (tid && !seen.has(tid)) {
+              seen.add(tid);
+              tabs.push({
+                id: tid,
+                key: tid,
+                label: t.label || t.title || tid,
+                submenuId: smId,
+                submenuTitle: smTitle,
+                route: t.hash || t.route || `#/${k}/${smId}/${tid}`,
+                type: t.type || 'standard',
+                badge: t.badge || '',
+                status: t.status || sm.status || 'Active',
+                isProtected: Boolean(t.isProtected)
+              });
+            }
+          });
+        }
+      });
+    }
+
+    return tabs;
+  },
+
   renderModuleStudioTab(container) {
     container.innerHTML = `
       <div class="space-y-4 animate-fade-in">
+        <!-- Page Header (AGENTS.md Section 2) -->
         <div class="flex flex-wrap items-center justify-between gap-3 mb-0">
           <div>
-            <h1 class="text-xl font-extrabold text-[#172B4D]">Menus Management</h1>
+            <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Menus Management</h1>
           </div>
           <div class="flex items-center gap-2">
-            <button id="btn-add-module" class="btn-primary px-3 py-1.5 rounded text-xs flex items-center gap-1.5 shadow-xs cursor-pointer">
+            <button id="btn-add-module" type="button" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
               <span>Add Menu</span>
             </button>
+          </div>
+        </div>
+
+        <!-- Search & Filter Card (AGENTS.md Section 3) -->
+        <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200">
+          <div class="flex items-center justify-between pb-1">
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+              <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
+            </div>
+            <div class="inline-flex items-center gap-2">
+              <!-- Circular 32x32 Reset Button -->
+              <button type="button" id="flt-menu-reset-btn" class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Reset all filters">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+              </button>
+              <!-- Circular 32x32 Collapse/Expand Toggle Button -->
+              <button type="button" id="flt-menu-toggle-btn" class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Hide Filter">
+                <svg id="flt-menu-toggle-chevron" class="w-3.5 h-3.5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              </button>
+            </div>
+          </div>
+          <div id="flt-menu-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
+            <div>
+              <label for="flt-menu-search" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Search Menu</label>
+              <input type="text" id="flt-menu-search" placeholder="Search menu name, key, url..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            </div>
+            <div>
+              <label for="flt-menu-type" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Classification</label>
+              <select id="flt-menu-type" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="">All Classifications</option>
+                <option value="system">System Default</option>
+                <option value="custom">Custom Menus</option>
+              </select>
+            </div>
+            <div>
+              <label for="flt-menu-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Status</label>
+              <select id="flt-menu-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="">All Statuses</option>
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+              </select>
+            </div>
+            <div class="flex items-end">
+              <button type="button" id="flt-menu-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                <span>Search</span>
+              </button>
+            </div>
           </div>
         </div>
 
@@ -9395,14 +9506,37 @@ export const SetupView = {
       }
     });
 
+    this.menuFilterState = { query: '', type: '', status: '' };
+
+    const getFilteredModules = () => {
+      let list = Array.isArray(this.state.modulesConfig) ? [...this.state.modulesConfig] : [];
+      const { query, type, status } = this.menuFilterState;
+      if (query) {
+        const q = query.toLowerCase();
+        list = list.filter(m => (m.label && m.label.toLowerCase().includes(q)) || (m.key && m.key.toLowerCase().includes(q)) || (m.id && m.id.toLowerCase().includes(q)));
+      }
+      if (type) {
+        if (type === 'system') {
+          list = list.filter(m => Boolean(m.isProtected || m.isDefault || ['dashboard', 'master', 'reports', 'help'].includes(m.id || m.key)));
+        } else if (type === 'custom') {
+          list = list.filter(m => !Boolean(m.isProtected || m.isDefault || ['dashboard', 'master', 'reports', 'help'].includes(m.id || m.key)));
+        }
+      }
+      if (status) {
+        list = list.filter(m => (m.status || (m.visible !== false ? 'Active' : 'Inactive')) === status);
+      }
+      return list;
+    };
+
     const modulesTable = new DataTable({
       containerId: 'modules-table-container',
-      data: this.state.modulesConfig,
+      data: getFilteredModules(),
       keyField: 'id',
-      tableTitle: 'Menus Registry',
+      tableTitle: `Menus Registry (${this.state.modulesConfig.length})`,
       searchable: true,
       exportable: true,
       pageSize: 10,
+      onRowClick: (row) => this.showMenuDetailsModal(row, modulesTable),
       columns: [
         { 
           field: 'sNo', 
@@ -9416,7 +9550,7 @@ export const SetupView = {
             const svg = this.getModuleIconSvg(r);
             return `
               <div class="flex items-center">
-                <div class="w-8 h-8 rounded-lg bg-[#F0F9FF] border border-[#BAE6FD] flex items-center justify-center text-[#0284C7] shadow-2xs shrink-0">
+                <div class="w-8 h-8 rounded-lg bg-[#F0F9FF] border border-[#BAE6FD] flex items-center justify-center text-[#00A4B7] shadow-2xs shrink-0 [&>svg]:w-4 [&>svg]:h-4">
                   ${svg}
                 </div>
               </div>
@@ -9425,18 +9559,22 @@ export const SetupView = {
         },
         { 
           field: 'label', 
-          header: 'Menu Name', 
+          header: 'Menu Name & Route', 
           render: (v, r) => {
             const isProtected = Boolean(r && (r.isProtected || r.isDefault || ['dashboard', 'master', 'reports', 'help'].includes(r.id || r.key)));
+            const modKey = r.key || r.id;
             return `
-              <div class="flex items-center gap-2">
-                <span class="font-bold text-[#172B4D] text-xs">${v}</span>
-                ${isProtected ? `
-                  <span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-bold bg-[#F1F5F9] text-[#5E6C84] border border-[#DFE1E6]" title="System default menu cannot be modified or deleted">
-                    <svg class="w-2.5 h-2.5 text-[#5E6C84]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-                    <span>System Default</span>
-                  </span>
-                ` : ''}
+              <div>
+                <div class="flex items-center gap-2">
+                  <span class="font-bold text-[#172B4D] text-xs hover:text-[#00A4B7] transition-colors cursor-pointer">${v}</span>
+                  ${isProtected ? `
+                    <span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-bold bg-[#F1F5F9] text-[#5E6C84] border border-[#DFE1E6]" title="System default menu cannot be deleted">
+                      <svg class="w-2.5 h-2.5 text-[#5E6C84]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                      <span>System</span>
+                    </span>
+                  ` : ''}
+                </div>
+                <div class="font-mono text-[10.5px] text-[#00A4B7] mt-0.5 font-medium">#/${modKey}</div>
               </div>
             `;
           }
@@ -9456,20 +9594,45 @@ export const SetupView = {
 
             return `
               <div class="flex items-center flex-nowrap gap-1.5 whitespace-nowrap overflow-hidden">
+                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#F0FDF4] text-[#16A34A] border border-[#DCFCE7] shrink-0 font-mono">
+                  ${list.length} Sub
+                </span>
                 ${displayList.map(sm => `
-                  <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-medium bg-[#FAFBFC] border border-[#DFE1E6] text-[#172B4D] whitespace-nowrap shrink-0 truncate max-w-[140px]" title="${sm.title || sm.name}">
+                  <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-medium bg-[#FAFBFC] border border-[#DFE1E6] text-[#172B4D] whitespace-nowrap shrink-0 truncate max-w-[120px]" title="${sm.title || sm.name}">
                     <span class="w-1.5 h-1.5 rounded-full ${sm.status === 'Inactive' ? 'bg-[#FF5630]' : 'bg-[#00875A]'} shrink-0"></span>
                     <span class="font-semibold truncate">${sm.title || sm.name}</span>
                   </span>
                 `).join('')}
                 ${hasMore ? `
-                  <button type="button" class="btn-show-all-submenus inline-flex items-center text-[11px] font-bold text-[#0284C7] hover:underline cursor-pointer shrink-0 p-0 m-0 border-0 bg-transparent" data-menu-id="${r.id}" onclick="event.stopPropagation(); (window.SetupView || SetupView).showAllSubmenusModal('${r.id}')" title="Click to view all ${list.length} submenus in popup">
+                  <button type="button" class="btn-show-all-submenus inline-flex items-center text-[11px] font-bold text-[#00A4B7] hover:underline cursor-pointer shrink-0 p-0 m-0 border-0 bg-transparent" data-menu-id="${r.id}" onclick="event.stopPropagation(); (window.SetupView || SetupView).showAllSubmenusModal('${r.id}')" title="Click to view all ${list.length} submenus in popup">
                     +${remainingCount}
                   </button>
                 ` : ''}
               </div>
             `;
           } 
+        },
+        {
+          field: 'tabsCount',
+          header: 'Tab Menus',
+          render: (v, r) => {
+            const tabs = this.getTabsForMenu(r.id || r.key);
+            return `
+              <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10.5px] font-bold bg-[#F0F9FF] text-[#00A4B7] border border-[#BAE6FD] font-mono">
+                ${tabs.length} Tabs
+              </span>
+            `;
+          }
+        },
+        {
+          field: 'classification',
+          header: 'Classification',
+          render: (v, r) => {
+            const isProtected = Boolean(r && (r.isProtected || r.isDefault || ['dashboard', 'master', 'reports', 'help'].includes(r.id || r.key)));
+            return isProtected
+              ? `<span class="px-2 py-0.5 rounded text-[10.5px] font-semibold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">System Default</span>`
+              : `<span class="px-2 py-0.5 rounded text-[10.5px] font-semibold bg-[#F0F9FF] text-[#00A4B7] border border-[#BAE6FD]">Custom Menu</span>`;
+          }
         },
         { 
           field: 'status', 
@@ -9519,17 +9682,10 @@ export const SetupView = {
                 onConfirm: () => {
                   row.status = 'Inactive';
                   row.visible = false;
-                  modulesTable.setData(this.state.modulesConfig);
+                  modulesTable.setData(getFilteredModules());
                   this.saveState();
                   this.logAudit('Menu Setup', `Deactivated menu ${row.label} (${row.key})`);
-                  Modal.success({
-                    title: 'Menu Deactivated',
-                    message: `Menu <strong>${row.label}</strong> has been deactivated.`,
-                    details: [
-                      { label: 'Menu Name', value: row.label },
-                      { label: 'Status', value: 'Inactive' }
-                    ]
-                  });
+                  Toast.show(`Menu "${row.label}" deactivated.`, 'success');
                 }
               });
             } else {
@@ -9542,17 +9698,10 @@ export const SetupView = {
                 onConfirm: () => {
                   row.status = 'Active';
                   row.visible = true;
-                  modulesTable.setData(this.state.modulesConfig);
+                  modulesTable.setData(getFilteredModules());
                   this.saveState();
                   this.logAudit('Menu Setup', `Activated menu ${row.label} (${row.key})`);
-                  Modal.success({
-                    title: 'Menu Activated',
-                    message: `Menu <strong>${row.label}</strong> is now Active.`,
-                    details: [
-                      { label: 'Menu Name', value: row.label },
-                      { label: 'Status', value: 'Active' }
-                    ]
-                  });
+                  Toast.show(`Menu "${row.label}" activated.`, 'success');
                 }
               });
             }
@@ -9580,17 +9729,10 @@ export const SetupView = {
                   this.state.modulesConfig.splice(idx, 1);
                   delete this.state.submenusConfig[row.id];
                   this.state.modulesConfig.forEach((m, i) => m.order = i + 1);
-                  modulesTable.setData(this.state.modulesConfig);
+                  modulesTable.setData(getFilteredModules());
                   this.saveState();
                   this.logAudit('Menu Setup', `Deleted menu: ${row.label} (${row.key})`);
-                  Modal.success({
-                    title: 'Menu Deleted',
-                    message: `Menu <strong>${row.label}</strong> and its submenus were successfully deleted.`,
-                    details: [
-                      { label: 'Deleted Menu', value: row.label },
-                      { label: 'Key', value: row.key }
-                    ]
-                  });
+                  Toast.show(`Menu "${row.label}" deleted successfully.`, 'success');
                 }
               }
             });
@@ -9599,77 +9741,318 @@ export const SetupView = {
       ]
     });
 
-    // Wire up Status Checkbox click & View All Submenus popup click from the table
-    const tableContainer = document.getElementById('modules-table-container');
-    if (tableContainer) {
-      tableContainer.onclick = (e) => {
-        const moreSubBtn = e.target.closest('.btn-show-all-submenus');
-        if (moreSubBtn) {
-          e.preventDefault();
-          this.showAllSubmenusModal(moreSubBtn.dataset.menuId, modulesTable);
-          return;
-        }
+    // Wire up Search & Filter controls
+    const fltSearch = document.getElementById('flt-menu-search');
+    const fltType = document.getElementById('flt-menu-type');
+    const fltStatus = document.getElementById('flt-menu-status');
+    const fltSearchBtn = document.getElementById('flt-menu-search-btn');
+    const fltResetBtn = document.getElementById('flt-menu-reset-btn');
+    const fltToggleBtn = document.getElementById('flt-menu-toggle-btn');
+    const fltBody = document.getElementById('flt-menu-body');
+    const fltChevron = document.getElementById('flt-menu-toggle-chevron');
 
-        const statusBox = e.target.closest('.menu-table-status-cb, .menu-table-toggle-btn');
-        if (!statusBox) return;
-        e.preventDefault();
-        const menuId = statusBox.dataset.menuId;
-        const row = this.state.modulesConfig.find(m => m.id === menuId);
-        if (!row) return;
+    const applyFilters = () => {
+      this.menuFilterState = {
+        query: fltSearch ? fltSearch.value.trim() : '',
+        type: fltType ? fltType.value : '',
+        status: fltStatus ? fltStatus.value : ''
+      };
+      modulesTable.setData(getFilteredModules());
+    };
 
-        const isCurrentlyActive = row.status === 'Active' || (row.status === undefined && row.visible);
-        if (isCurrentlyActive) {
-          Modal.confirm({
-            title: `Deactivate Menu ${row.label}`,
-            message: `Are you sure you want to deactivate menu <strong>${row.label}</strong>? It will be hidden from the active navigation.`,
-            confirmText: 'Deactivate',
-            cancelText: 'Cancel',
-            isDestructive: true,
-            onConfirm: () => {
-              row.status = 'Inactive';
-              row.visible = false;
-              modulesTable.setData(this.state.modulesConfig);
-              this.saveState();
-              this.logAudit('Menu Setup', `Deactivated menu ${row.label} (${row.key})`);
-              Modal.success({
-                title: 'Menu Deactivated',
-                message: `Menu <strong>${row.label}</strong> has been deactivated.`,
-                details: [
-                  { label: 'Menu Name', value: row.label },
-                  { label: 'Status', value: 'Inactive' }
-                ]
-              });
-            }
-          });
-        } else {
-          Modal.confirm({
-            title: `Activate Menu ${row.label}`,
-            message: `Are you sure you want to activate menu <strong>${row.label}</strong>?`,
-            confirmText: 'Activate',
-            cancelText: 'Cancel',
-            isDestructive: false,
-            onConfirm: () => {
-              row.status = 'Active';
-              row.visible = true;
-              modulesTable.setData(this.state.modulesConfig);
-              this.saveState();
-              this.logAudit('Menu Setup', `Activated menu ${row.label} (${row.key})`);
-              Modal.success({
-                title: 'Menu Activated',
-                message: `Menu <strong>${row.label}</strong> is now Active.`,
-                details: [
-                  { label: 'Menu Name', value: row.label },
-                  { label: 'Status', value: 'Active' }
-                ]
-              });
-            }
-          });
+    if (fltSearch) {
+      fltSearch.onkeydown = (e) => {
+        if (e.key === 'Enter') applyFilters();
+      };
+    }
+    if (fltType) fltType.onchange = applyFilters;
+    if (fltStatus) fltStatus.onchange = applyFilters;
+    if (fltSearchBtn) fltSearchBtn.onclick = applyFilters;
+    if (fltResetBtn) {
+      fltResetBtn.onclick = () => {
+        if (fltSearch) fltSearch.value = '';
+        if (fltType) fltType.value = '';
+        if (fltStatus) fltStatus.value = '';
+        applyFilters();
+      };
+    }
+    if (fltToggleBtn && fltBody) {
+      fltToggleBtn.onclick = () => {
+        const isCollapsed = fltBody.classList.toggle('hidden');
+        if (fltChevron) {
+          fltChevron.style.transform = isCollapsed ? 'rotate(180deg)' : 'rotate(0deg)';
         }
       };
     }
 
+    // Wire up Add Menu button
     const addBtn = document.getElementById('btn-add-module');
     if (addBtn) addBtn.onclick = () => this.showAddModuleModal(modulesTable);
+  },
+
+  showMenuDetailsModal(mod, modulesTable = null) {
+    if (!mod) return;
+    const isAct = String(mod.status).toUpperCase() === 'ACTIVE' || (mod.status === undefined && mod.visible !== false);
+    const isProtected = Boolean(mod.isProtected || mod.isDefault || ['dashboard', 'master', 'reports', 'help'].includes(mod.id || mod.key));
+    const iconSvg = this.getModuleIconSvg(mod);
+    const iconId = this.getModuleIconId(mod);
+    const modKey = mod.key || mod.id;
+
+    // Submenus
+    const submenusList = this.state.submenusConfig[mod.id] || this.state.submenusConfig[mod.key] || [];
+
+    // Tabs
+    const tabsList = this.getTabsForMenu(modKey);
+
+    Modal.show({
+      title: 'Menu Details',
+      size: 'xl',
+      content: `
+        <div class="space-y-4 text-xs animate-fade-in">
+          <!-- Top Hero / Summary Card (AGENTS.md Section 5) -->
+          <div class="bg-gradient-to-r from-[#F0F9FF] to-[#F8FAFC] p-4 rounded-xl border border-[#BAE6FD] flex flex-wrap items-center justify-between gap-3 shadow-2xs">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-[#00A4B7] text-white flex items-center justify-center font-bold shadow-xs [&>svg]:w-5 [&>svg]:h-5">
+                ${iconSvg}
+              </div>
+              <div>
+                <div class="flex items-center gap-2">
+                  <span class="font-mono font-extrabold text-[#0F172A] text-base">${mod.label}</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold tracking-wide uppercase ${isAct ? 'bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]' : 'bg-[#FFEBE6] text-[#DE350B] border border-[#FFBDAD]'}">
+                    ${isAct ? 'Active' : 'Inactive'}
+                  </span>
+                  <span class="px-2 py-0.5 rounded text-[11px] font-semibold ${isProtected ? 'bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]' : 'bg-[#F0F9FF] text-[#00A4B7] border border-[#BAE6FD]'}">
+                    ${isProtected ? 'System Default' : 'Custom Menu'}
+                  </span>
+                </div>
+                <div class="text-[11px] text-[#64748B] mt-0.5 font-medium flex items-center gap-1.5 flex-wrap">
+                  <span class="font-mono font-bold text-[#00A4B7]">#/${modKey}</span>
+                  <span>&bull;</span>
+                  <span>Icon: <code class="font-mono text-[#172B4D]">${iconId}</code></span>
+                  <span>&bull;</span>
+                  <span>Order: <strong class="text-[#172B4D]">#${mod.order || 1}</strong></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Metrics Badges on right -->
+            <div class="flex items-center gap-2">
+              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[80px]">
+                <div class="text-[10px] uppercase font-bold text-[#5E6C84]">Sub Menus</div>
+                <div class="font-extrabold text-[#006644] text-sm">${submenusList.length}</div>
+              </div>
+              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[80px]">
+                <div class="text-[10px] uppercase font-bold text-[#5E6C84]">Tab Menus</div>
+                <div class="font-extrabold text-[#00A4B7] text-sm">${tabsList.length}</div>
+              </div>
+              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[80px]">
+                <div class="text-[10px] uppercase font-bold text-[#5E6C84]">Status</div>
+                <div class="font-extrabold ${isAct ? 'text-[#006644]' : 'text-[#DE350B]'} text-xs uppercase">${isAct ? 'Active' : 'Inactive'}</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 1: Main Menu Configuration -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs space-y-3.5">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9] pb-2">
+              <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">1</span>
+              <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Main Menu Configuration</span>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Menu Name</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${mod.label}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Menu Key / Slug</span>
+                <span class="font-mono text-xs text-[#00A4B7] font-bold block mt-0.5">${modKey}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Base Route</span>
+                <span class="font-mono text-xs text-[#172B4D] font-semibold block mt-0.5">#/${modKey}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Menu Icon</span>
+                <span class="font-mono text-xs text-[#5E6C84] block mt-0.5 flex items-center gap-1.5">
+                  <span class="w-4 h-4 inline-flex items-center justify-center text-[#00A4B7] [&>svg]:w-3.5 [&>svg]:h-3.5">${iconSvg}</span>
+                  <span>${iconId}</span>
+                </span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Classification</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${isProtected ? 'System Core Menu' : 'Custom Configured Menu'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Visibility</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${mod.visible !== false ? 'Visible in Navigation' : 'Hidden from Sidebar'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Status</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5 flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full ${isAct ? 'bg-[#00875A]' : 'bg-[#FF5630]'}"></span>
+                  <span>${isAct ? 'Active' : 'Inactive'}</span>
+                </span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Display Sequence</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">Position #${mod.order || 1}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Configured Sub Menus -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs space-y-3">
+            <div class="flex items-center justify-between border-b border-[#F1F5F9] pb-2">
+              <div class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">2</span>
+                <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Configured Sub Menus (${submenusList.length})</span>
+              </div>
+            </div>
+
+            <div class="border border-[#DFE1E6] rounded-lg overflow-hidden shadow-2xs">
+              <table class="w-full text-left text-xs">
+                <thead class="bg-[#F8FAFC] border-b border-[#DFE1E6] text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">
+                  <tr>
+                    <th class="py-2.5 px-3 w-12 text-center">#</th>
+                    <th class="py-2.5 px-3">Sub Menu Name</th>
+                    <th class="py-2.5 px-3">Route URL</th>
+                    <th class="py-2.5 px-3 text-center">Attached Tabs</th>
+                    <th class="py-2.5 px-3 text-center">Status</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-[#F1F5F9] bg-white">
+                  ${submenusList.length === 0 ? `
+                    <tr>
+                      <td colspan="5" class="py-6 text-center text-xs text-[#8993A4] italic">
+                        No submenus currently configured for this menu.
+                      </td>
+                    </tr>
+                  ` : submenusList.map((sm, idx) => {
+                    const smId = sm.id || sm.key || 'overview';
+                    const smTitle = sm.title || sm.name || smId;
+                    const smRoute = sm.route || sm.url || sm.hash || `#/${modKey}/${smId}`;
+                    const smStatus = sm.status || 'Active';
+                    const smIsAct = String(smStatus).toUpperCase() === 'ACTIVE';
+                    const smTabs = tabsList.filter(t => t.submenuId === smId || t.submenuTitle === smTitle);
+
+                    return `
+                      <tr class="hover:bg-[#F8FAFC] transition-colors">
+                        <td class="py-2.5 px-3 text-center font-bold text-[#8993A4] font-mono text-[11px]">${idx + 1}</td>
+                        <td class="py-2.5 px-3 font-semibold text-[#172B4D]">
+                          <div class="flex items-center gap-1.5">
+                            <span class="w-1.5 h-1.5 rounded-full ${smIsAct ? 'bg-[#00875A]' : 'bg-[#FF5630]'}"></span>
+                            <span>${smTitle}</span>
+                          </div>
+                        </td>
+                        <td class="py-2.5 px-3 font-mono text-[11px] text-[#00A4B7]">${smRoute}</td>
+                        <td class="py-2.5 px-3 text-center font-mono">
+                          <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD]">
+                            ${smTabs.length} Tabs
+                          </span>
+                        </td>
+                        <td class="py-2.5 px-3 text-center">
+                          <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold ${smIsAct ? 'bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]' : 'bg-[#FFEBE6] text-[#DE350B] border border-[#FFBDAD]'}">
+                            ${smStatus}
+                          </span>
+                        </td>
+                      </tr>
+                    `;
+                  }).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Section 3: Tab Menus & Mapping -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs space-y-3">
+            <div class="flex items-center justify-between border-b border-[#F1F5F9] pb-2">
+              <div class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">3</span>
+                <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Tab Menus &amp; Route Mapping (${tabsList.length})</span>
+              </div>
+            </div>
+
+            <div class="border border-[#DFE1E6] rounded-lg overflow-hidden shadow-2xs">
+              <table class="w-full text-left text-xs">
+                <thead class="bg-[#F8FAFC] border-b border-[#DFE1E6] text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">
+                  <tr>
+                    <th class="py-2.5 px-3 w-12 text-center">#</th>
+                    <th class="py-2.5 px-3">Tab Name / Label</th>
+                    <th class="py-2.5 px-3">Parent Sub Menu</th>
+                    <th class="py-2.5 px-3">Mapping Type</th>
+                    <th class="py-2.5 px-3">Route URL Hash</th>
+                    <th class="py-2.5 px-3 text-center">Badge Tag</th>
+                    <th class="py-2.5 px-3 text-center">Status</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-[#F1F5F9] bg-white">
+                  ${tabsList.length === 0 ? `
+                    <tr>
+                      <td colspan="7" class="py-6 text-center text-xs text-[#8993A4] italic">
+                        No specific tabs configured under this menu's submenus.
+                      </td>
+                    </tr>
+                  ` : tabsList.map((tb, idx) => {
+                    const tbStatus = tb.status || 'Active';
+                    const tbIsAct = String(tbStatus).toUpperCase() === 'ACTIVE';
+                    const typeStr = (tb.type || 'system').toLowerCase();
+                    let typeBadgeClass = 'bg-[#F1F5F9] text-[#172B4D] border-[#DFE1E6]';
+                    if (typeStr === 'system') typeBadgeClass = 'bg-[#EAE6FF] text-[#403294] border-[#D3C7FF]';
+                    else if (typeStr === 'report') typeBadgeClass = 'bg-[#E0F2FE] text-[#00A4B7] border-[#BAE6FD]';
+                    else if (typeStr === 'dynamic-form') typeBadgeClass = 'bg-[#FEF3C7] text-[#92400E] border-[#FDE68A]';
+                    else if (typeStr === 'standard') typeBadgeClass = 'bg-[#ECFDF5] text-[#065F46] border-[#A7F3D0]';
+
+                    return `
+                      <tr class="hover:bg-[#F8FAFC] transition-colors">
+                        <td class="py-2.5 px-3 text-center font-bold text-[#8993A4] font-mono text-[11px]">${idx + 1}</td>
+                        <td class="py-2.5 px-3 font-semibold text-[#172B4D]">
+                          <div class="flex items-center gap-1.5">
+                            <span>${tb.label}</span>
+                            <span class="font-mono text-[10px] text-[#5E6C84]">(${tb.key || tb.id})</span>
+                          </div>
+                        </td>
+                        <td class="py-2.5 px-3 text-[#172B4D] font-medium">${tb.submenuTitle || tb.submenuId}</td>
+                        <td class="py-2.5 px-3">
+                          <span class="px-2 py-0.5 rounded text-[10.5px] font-semibold border ${typeBadgeClass} uppercase">
+                            ${tb.type || 'system'}
+                          </span>
+                        </td>
+                        <td class="py-2.5 px-3 font-mono text-[11px] text-[#00A4B7] truncate max-w-[200px]" title="${tb.route}">${tb.route}</td>
+                        <td class="py-2.5 px-3 text-center">
+                          ${tb.badge ? `<span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD]">${tb.badge}</span>` : '<span class="text-[#8993A4]">—</span>'}
+                        </td>
+                        <td class="py-2.5 px-3 text-center">
+                          <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold ${tbIsAct ? 'bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]' : 'bg-[#FFEBE6] text-[#DE350B] border border-[#FFBDAD]'}">
+                            ${tbStatus}
+                          </span>
+                        </td>
+                      </tr>
+                    `;
+                  }).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      `,
+      footerButtons: [
+        { label: 'Close', type: 'secondary', onClick: (m) => m.close() },
+        {
+          label: 'Edit Menu',
+          type: 'primary',
+          disabled: isProtected,
+          onClick: (m) => {
+            m.close();
+            this.showEditModuleModal(mod, modulesTable);
+          }
+        }
+      ]
+    });
+  },
+
+  showModuleDetailsModal(mod, modulesTable = null) {
+    this.showMenuDetailsModal(mod, modulesTable);
   },
 
   showAllSubmenusModal(menuId, modulesTable = null) {
