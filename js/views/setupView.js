@@ -9873,7 +9873,7 @@ export const SetupView = {
         <form id="menu-setup-form" class="grid grid-cols-1 lg:grid-cols-2 gap-5 items-start text-xs" onsubmit="return false;">
           <!-- 1. Main Menu Section -->
           <div class="bg-transparent p-0 border-0 space-y-3.5 flex flex-col h-full">
-            <div class="flex items-center justify-between border-b border-[#EBECF0] pb-2.5">
+            <div class="flex items-center justify-between border-b border-[#EBECF0] pb-0">
               <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Main Menu</span>
               ${isEdit ? `<span class="text-[10px] font-bold text-[#00A4B7] bg-[#F0F9FF] px-2.5 py-1 rounded border border-[#BAE6FD] font-mono">${mod.id}</span>` : ''}
             </div>
