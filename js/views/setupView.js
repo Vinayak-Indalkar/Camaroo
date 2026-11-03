@@ -10458,9 +10458,8 @@ export const SetupView = {
               <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 items-end">
                 <!-- Column 1: Select Existing Menu -->
                 <div>
-                  <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1 flex items-center justify-between">
-                    <span>Select Existing Menu</span>
-                    <span class="text-[10px] font-medium text-[#5E6C84] lowercase">(or create new)</span>
+                  <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1">
+                    Select Existing Menu
                   </label>
                   
                   <!-- Custom Dropdown with Assigned Menu Icons -->
@@ -10473,10 +10472,7 @@ export const SetupView = {
                           </div>
                           <span class="truncate font-bold text-[#172B4D] text-xs">${mod.label}${mod.isProtected ? ' (System)' : ''}</span>
                         ` : `
-                          <div class="w-5 h-5 rounded-md bg-[#F0FDF4] border border-[#DCFCE7] text-[#16A34A] flex items-center justify-center shrink-0">
-                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                          </div>
-                          <span class="truncate font-bold text-[#16A34A] text-xs">✨ + Create New Menu</span>
+                          <span class="truncate font-bold text-[#00A4B7] text-xs">+ Create New Menu</span>
                         `}
                       </div>
                       <svg id="menu-dropdown-chevron" class="w-3.5 h-3.5 text-[#5E6C84] shrink-0 ml-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
@@ -10493,12 +10489,9 @@ export const SetupView = {
                         </div>
                       </div>
 
-                      <div class="menu-dropdown-item flex items-center justify-between p-2 rounded-lg cursor-pointer hover:bg-[#F0FDF4] transition-colors ${!mod ? 'bg-[#F0FDF4] border border-[#BBF7D0]' : ''}" data-value="__NEW__" data-label="✨ + Create New Menu">
+                      <div class="menu-dropdown-item flex items-center justify-between p-2 rounded-lg cursor-pointer hover:bg-[#F0F9FF] transition-colors ${!mod ? 'bg-[#F0F9FF] border border-[#BAE6FD]' : ''}" data-value="__NEW__" data-label="+ Create New Menu">
                         <div class="flex items-center gap-2">
-                          <div class="w-5 h-5 rounded-md bg-[#F0FDF4] border border-[#DCFCE7] text-[#16A34A] flex items-center justify-center shrink-0">
-                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                          </div>
-                          <span class="font-bold text-xs text-[#16A34A]">✨ + Create New Menu</span>
+                          <span class="font-bold text-xs text-[#00A4B7]">+ Create New Menu</span>
                         </div>
                       </div>
 
@@ -10529,14 +10522,9 @@ export const SetupView = {
 
                 <!-- Column 2: Menu Name -->
                 <div>
-                  <div class="flex items-center justify-between mb-1">
-                    <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider">
-                      Menu Name <span class="text-rose-500">*</span>
-                    </label>
-                    <span id="menu-modal-mode-badge" class="text-[10px] font-semibold text-[#5E6C84]">
-                      ${isEdit ? `Editing: ${currentName}` : '✨ New Menu'}
-                    </span>
-                  </div>
+                  <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1">
+                    Menu Name <span class="text-rose-500">*</span>
+                  </label>
                   <input type="text" id="menu-modal-name" value="${currentName}" placeholder="e.g. Procurement & Inward" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] shadow-2xs" style="border: 1px solid #CBD5E1 !important;" />
                 </div>
 
@@ -10864,7 +10852,7 @@ export const SetupView = {
     // 0. Reference elements
     const existingSelect = document.getElementById('menu-modal-select-existing');
     const menuNameInput = document.getElementById('menu-modal-name');
-    const modeBadge = document.getElementById('menu-modal-mode-badge');
+    
     const statusCb = document.getElementById('menu-modal-status-cb');
     const statusInput = document.getElementById('menu-modal-status');
 
@@ -11277,10 +11265,7 @@ export const SetupView = {
       if (!selectedDisplay) return;
       if (val === '__NEW__') {
         selectedDisplay.innerHTML = `
-          <div class="w-5 h-5 rounded-md bg-[#F0FDF4] border border-[#DCFCE7] text-[#16A34A] flex items-center justify-center shrink-0">
-            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-          </div>
-          <span class="truncate font-bold text-[#16A34A] text-xs">✨ + Create New Menu</span>
+          <span class="truncate font-bold text-[#00A4B7] text-xs">+ Create New Menu</span>
         `;
       } else {
         const found = this.state.modulesConfig.find(m => m.id === val || m.key === val);
@@ -11301,7 +11286,7 @@ export const SetupView = {
       updateDisplayForMenu(val);
 
       if (val === '__NEW__') {
-        if (modeBadge) modeBadge.textContent = '✨ New Menu';
+        
         menuNameInput.value = '';
         menuNameInput.placeholder = 'e.g. Procurement & Inward';
         menuNameInput.focus();
@@ -11328,9 +11313,7 @@ export const SetupView = {
       } else {
         const found = this.state.modulesConfig.find(m => m.id === val || m.key === val);
         if (found) {
-          if (modeBadge) {
-            modeBadge.textContent = found.isProtected ? '🔒 System Menu (Protected)' : `Existing Menu: ${found.label}`;
-          }
+          
           menuNameInput.value = found.label;
 
           const isAct = found.status === 'Active' || (found.status === undefined && found.visible);
@@ -11431,11 +11414,11 @@ export const SetupView = {
         if (matchingMod) {
           if (existingSelect) existingSelect.value = matchingMod.id;
           updateDisplayForMenu(matchingMod.id);
-          if (modeBadge) modeBadge.textContent = `Existing Menu: ${matchingMod.label}`;
+          
         } else {
           if (existingSelect) existingSelect.value = '__NEW__';
           updateDisplayForMenu('__NEW__');
-          if (modeBadge) modeBadge.textContent = '✨ Custom / New Menu';
+          
         }
         if (typeof syncHierarchyDisplay === 'function') syncHierarchyDisplay();
       };
