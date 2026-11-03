@@ -4284,22 +4284,6 @@ function extractInitialTabsConfig(submenusConfig, modulesConfig) {
       status: 'Active',
       isProtected: true,
       description: 'Centralized registry and configuration for all application tabs'
-    },
-    {
-      id: 'audit-history',
-      key: 'audit-history',
-      label: 'Audit History',
-      menuKey: 'general',
-      menuLabel: 'GENERAL',
-      submenuId: 'configuration',
-      submenuTitle: 'Configuration',
-      route: '#/general/configuration/audit-history',
-      type: 'system',
-      badge: '',
-      order: 6,
-      status: 'Active',
-      isProtected: true,
-      description: 'Immutable system audit timeline and compliance event logs'
     }
   ];
 
@@ -4471,6 +4455,7 @@ function getInitialStudioState() {
         } else {
           // Ensure settings tabs are present in tabsConfig
           const hasSettings = parsed.tabsConfig.some(t => t.menuKey === 'settings' && t.submenuId === 'custom');
+          parsed.tabsConfig = parsed.tabsConfig.filter(t => t.id !== 'audit-history' && t.key !== 'audit-history');
           if (!hasSettings) {
             const extraSettingsTabs = [
               { id: 'forms', key: 'forms', label: 'Forms', menuKey: 'settings', menuLabel: 'SETTING', submenuId: 'custom', submenuTitle: 'Customizer', route: '#/settings/custom/forms', type: 'system', badge: '', order: 1, status: 'Active', isProtected: false, description: 'Dynamic form definitions and layout configurator' },
@@ -12460,12 +12445,11 @@ export const SetupView = {
         <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-none space-y-4">
           <div class="flex flex-wrap items-center justify-between gap-3 border-b border-[#EBECF0] pb-3">
             <div class="flex items-center gap-3">
-              <div class="w-9 h-9 rounded-xl bg-[#F0F9FF] border border-[#BAE6FD] flex items-center justify-center text-[#0284C7] shrink-0">
+              <div class="w-9 h-9 rounded-xl bg-[#F0F9FF] border border-[#BAE6FD] flex items-center justify-center text-[#00A4B7] shrink-0">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
               </div>
               <div>
                 <h3 class="text-sm font-bold text-[#172B4D]">Audit History & Activity Timeline</h3>
-                <p class="text-[11px] text-[#5E6C84]">Chronological trail of configuration updates, role assignments, and governance changes</p>
               </div>
             </div>
 

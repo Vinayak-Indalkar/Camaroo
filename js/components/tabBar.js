@@ -30,30 +30,64 @@ export const TabBar = {
 
     const currentTabId = tabId || submenu.defaultTab;
 
+    // Filter out audit-history from regular tabs list
+    const visibleTabs = submenu.tabs.filter(t => t.id !== 'audit-history');
+
+    // Check for extra action icon (e.g. Audit History on General Configuration)
+    const isGeneralConfig = (modId === 'general' && (subId === 'configuration' || subId === 'general'));
+    const extraAction = submenu.extraAction || (isGeneralConfig ? {
+      id: "audit-history",
+      label: "Audit History",
+      hash: "#/general/configuration/audit-history",
+      icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`
+    } : null);
+
+    const isExtraActive = extraAction && currentTabId === extraAction.id;
+
     container.innerHTML = `
       <nav aria-label="${submenu.title} tabs navigation" class="mb-4">
-        <div 
-          role="tablist" 
-          aria-label="${submenu.title} views" 
-          id="${containerId}-tablist" style="overflow-x: auto !important; -webkit-overflow-scrolling: touch; scrollbar-width: thin;"
-          class="flex items-center gap-1 overflow-x-auto bg-transparent p-0 border-b border-[#DFE1E6] scrollbar-thin"
-        >
-          ${submenu.tabs.map(tab => {
-            const isActive = tab.id === currentTabId;
-            return `
+        <div class="flex items-center justify-between border-b border-[#DFE1E6] gap-2">
+          <div 
+            role="tablist" 
+            aria-label="${submenu.title} views" 
+            id="${containerId}-tablist" style="overflow-x: auto !important; -webkit-overflow-scrolling: touch; scrollbar-width: thin;"
+            class="flex items-center gap-1 overflow-x-auto bg-transparent p-0 scrollbar-thin flex-1 min-w-0 -mb-[1px]"
+          >
+            ${visibleTabs.map(tab => {
+              const isActive = tab.id === currentTabId;
+              return `
+                <a 
+                  id="tab-${tab.id}"
+                  role="tab"
+                  href="${tab.hash}" 
+                  aria-selected="${isActive ? 'true' : 'false'}"
+                  tabindex="${isActive ? '0' : '-1'}"
+                  aria-controls="panel-${tab.id}"
+                  class="select-none px-4 py-2.5 text-xs font-semibold whitespace-nowrap transition-colors flex items-center gap-1.5 outline-none bg-transparent -mb-[1px] border-b-2 ${isActive ? 'tab-active text-[#00A4B7] border-[#00A4B7] font-bold' : 'text-[#5E6C84] hover:text-[#172B4D] border-transparent hover:border-[#DFE1E6]'}"
+                >
+                  <span class="select-none">${tab.label}</span>
+                </a>
+              `;
+            }).join('')}
+          </div>
+
+          ${extraAction ? `
+            <div class="flex items-center shrink-0 pr-1 py-1 -mt-0.5">
               <a 
-                id="tab-${tab.id}"
-                role="tab"
-                href="${tab.hash}" 
-                aria-selected="${isActive ? 'true' : 'false'}"
-                tabindex="${isActive ? '0' : '-1'}"
-                aria-controls="panel-${tab.id}"
-                class="select-none px-4 py-2.5 text-xs font-semibold whitespace-nowrap transition-colors flex items-center gap-1.5 outline-none bg-transparent -mb-[1px] border-b-2 ${isActive ? 'tab-active text-[#00A4B7] border-[#00A4B7] font-bold' : 'text-[#5E6C84] hover:text-[#172B4D] border-transparent hover:border-[#DFE1E6]'}"
+                id="btn-tab-extra-${extraAction.id}"
+                href="${extraAction.hash}"
+                title="${extraAction.label}"
+                aria-label="${extraAction.label}"
+                class="dt-action-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center rounded-full transition-all cursor-pointer select-none ${
+                  isExtraActive
+                    ? 'bg-[#E0F2FE] border border-[#00A4B7] text-[#00A4B7] shadow-xs'
+                    : 'bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7]'
+                }"
               >
-                <span class="select-none">${tab.label}</span>
+                ${extraAction.icon}
               </a>
-            `;
-          }).join('')}
+            </div>
+          ` : ''}
         </div>
       </nav>
     `;
@@ -82,6 +116,27 @@ export const TabBar = {
       clicked.tabIndex = 0;
       clicked.classList.remove('text-[#5E6C84]', 'hover:text-[#172B4D]', 'border-transparent', 'hover:border-[#DFE1E6]');
       clicked.classList.add('tab-active', 'text-[#00A4B7]', 'border-[#00A4B7]', 'font-bold');
+
+      // Unselect any extra action button
+      const extraBtns = document.querySelectorAll('[id^="btn-tab-extra-"]');
+      extraBtns.forEach(btn => {
+        btn.classList.remove('bg-[#E0F2FE]', 'border-[#00A4B7]', 'text-[#00A4B7]', 'shadow-xs');
+        btn.classList.add('bg-white', 'border-[#CBD5E1]', 'text-[#334155]');
+      });
+    });
+
+    const extraBtns = document.querySelectorAll('[id^="btn-tab-extra-"]');
+    extraBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tablistEl.querySelectorAll('[role="tab"]').forEach(t => {
+          t.setAttribute('aria-selected', 'false');
+          t.tabIndex = -1;
+          t.classList.remove('tab-active', 'text-[#00A4B7]', 'border-[#00A4B7]', 'font-bold');
+          t.classList.add('text-[#5E6C84]', 'hover:text-[#172B4D]', 'border-transparent', 'hover:border-[#DFE1E6]');
+        });
+        btn.classList.remove('bg-white', 'border-[#CBD5E1]', 'text-[#334155]');
+        btn.classList.add('bg-[#E0F2FE]', 'border-[#00A4B7]', 'text-[#00A4B7]', 'shadow-xs');
+      });
     });
   },
 

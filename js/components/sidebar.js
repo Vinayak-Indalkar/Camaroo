@@ -483,9 +483,14 @@ export const SUPER_ADMIN_NAV_HIERARCHY = [
           { id: "users", label: "Users", hash: "#/general/configuration/users" },
           { id: "roles", label: "Roles", hash: "#/general/configuration/roles" },
           { id: "menus", label: "Menus", hash: "#/general/configuration/menus" },
-          { id: "tabs", label: "Tabs", hash: "#/general/configuration/tabs" },
-          { id: "audit-history", label: "Audit History", hash: "#/general/configuration/audit-history" }
-        ]
+          { id: "tabs", label: "Tabs", hash: "#/general/configuration/tabs" }
+        ],
+        extraAction: {
+          id: "audit-history",
+          label: "Audit History",
+          hash: "#/general/configuration/audit-history",
+          icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`
+        }
       }
     ]
   },

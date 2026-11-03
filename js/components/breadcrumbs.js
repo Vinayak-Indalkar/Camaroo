@@ -30,6 +30,10 @@ export const Breadcrumbs = {
         const tab = submenu.tabs.find(t => t.id === tabId);
         if (tab && tab.label !== submenu.title && tab.label !== module.title) {
           crumbs.push({ label: tab.label, hash: tab.hash, active: !customLeaf });
+        } else if (submenu.extraAction && submenu.extraAction.id === tabId) {
+          crumbs.push({ label: submenu.extraAction.label, hash: submenu.extraAction.hash, active: !customLeaf });
+        } else if (tabId === 'audit-history') {
+          crumbs.push({ label: 'Audit History', hash: '#/general/configuration/audit-history', active: !customLeaf });
         }
       }
     }
@@ -47,7 +51,7 @@ export const Breadcrumbs = {
           if (c.active || isLast || !c.hash) {
             return `<span class="font-semibold text-[#0F172A] truncate max-w-xs">${c.label}</span> ${separator}`;
           } else {
-            return `<a href="${c.hash}" class="text-[#64748B] hover:text-[#0284C7] font-medium transition-colors truncate max-w-xs">${c.label}</a> ${separator}`;
+            return `<a href="${c.hash}" class="text-[#64748B] hover:text-[#00A4B7] font-medium transition-colors truncate max-w-xs">${c.label}</a> ${separator}`;
           }
         }).join('')}
       </nav>
