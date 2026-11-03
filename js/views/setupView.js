@@ -10007,8 +10007,8 @@ export const SetupView = {
           </div>
 
           <!-- 2. Sub Menu Section (Multiple Sub Menus) -->
-          <div class="bg-transparent p-0 border-0 space-y-3.5 flex flex-col h-full">
-            <div class="flex items-center justify-between border-b border-[#EBECF0] pb-2.5">
+          <div class="bg-transparent p-0 border-0 flex flex-col h-full">
+            <div class="flex items-center justify-between border-b border-[#EBECF0] pb-2.5 mb-0" style="margin-bottom: 0px !important;">
               <div>
                 <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Sub Menu</span>
               </div>
@@ -10019,7 +10019,7 @@ export const SetupView = {
             </div>
 
             <!-- Submenus Header & Rows Container -->
-            <div class="space-y-2 flex-1 flex flex-col">
+            <div class="space-y-2 flex-1 flex flex-col mt-0" style="margin-top: 0px !important;">
               <div class="grid grid-cols-12 gap-2 px-1 text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">
                 <div class="col-span-5">Sub Menu Name</div>
                 <div class="col-span-4">Url</div>
