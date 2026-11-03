@@ -483,6 +483,7 @@ export const SUPER_ADMIN_NAV_HIERARCHY = [
           { id: "users", label: "Users", hash: "#/general/configuration/users" },
           { id: "roles", label: "Roles", hash: "#/general/configuration/roles" },
           { id: "menus", label: "Menus", hash: "#/general/configuration/menus" },
+          { id: "tabs", label: "Tabs", hash: "#/general/configuration/tabs" },
           { id: "audit-history", label: "Audit History", hash: "#/general/configuration/audit-history" }
         ]
       }
