@@ -79599,6 +79599,63 @@ function extractInitialTabsConfig(submenusConfig, modulesConfig) {
     }
   ];
 
+  // 1b. Setting Customizer Tabs (3rd level tabs under Setting > Customizer)
+  const settingTabs = [
+    {
+      id: 'forms',
+      key: 'forms',
+      label: 'Forms',
+      menuKey: 'settings',
+      menuLabel: 'SETTING',
+      submenuId: 'custom',
+      submenuTitle: 'Customizer',
+      route: '#/settings/custom/forms',
+      type: 'system',
+      badge: '',
+      order: 1,
+      status: 'Active',
+      isProtected: false,
+      description: 'Dynamic form definitions and layout configurator'
+    },
+    {
+      id: 'fields-customizer',
+      key: 'fields-customizer',
+      label: 'Fields Customizer',
+      menuKey: 'settings',
+      menuLabel: 'SETTING',
+      submenuId: 'custom',
+      submenuTitle: 'Customizer',
+      route: '#/settings/custom/fields-customizer',
+      type: 'system',
+      badge: '',
+      order: 2,
+      status: 'Active',
+      isProtected: false,
+      description: 'Dynamic field collections, validation schemas, and metadata builder'
+    },
+    {
+      id: 'query-editor',
+      key: 'query-editor',
+      label: 'Query Editor',
+      menuKey: 'settings',
+      menuLabel: 'SETTING',
+      submenuId: 'custom',
+      submenuTitle: 'Customizer',
+      route: '#/settings/custom/query-editor',
+      type: 'system',
+      badge: '',
+      order: 3,
+      status: 'Active',
+      isProtected: false,
+      description: 'Advanced reporting query generator and SQL expression builder'
+    }
+  ];
+
+  settingTabs.forEach(t => {
+    tabs.push(t);
+    addedKeys.add(`${t.menuKey}-${t.submenuId}-${t.key}`);
+  });
+
   generalTabs.forEach(t => {
     tabs.push(t);
     addedKeys.add(`${t.menuKey}-${t.submenuId}-${t.key}`);
@@ -79689,8 +79746,35 @@ function getInitialStudioState() {
             if (!r.assignedSubmenus) r.assignedSubmenus = [];
           });
         }
-                if (!parsed.tabsConfig || !Array.isArray(parsed.tabsConfig) || parsed.tabsConfig.length === 0) {
+                if (!parsed.submenusConfig || typeof parsed.submenusConfig !== 'object') {
+          parsed.submenusConfig = DEFAULT_SUBMENUS_CONFIG;
+        }
+        if (!parsed.submenusConfig.settings) {
+          parsed.submenusConfig.settings = [
+            {
+              id: 'custom',
+              title: 'Customizer',
+              tabs: [
+                { id: 'forms', label: 'Forms', route: '#/settings/custom/forms', type: 'system', badge: '' },
+                { id: 'fields-customizer', label: 'Fields Customizer', route: '#/settings/custom/fields-customizer', type: 'system', badge: '' },
+                { id: 'query-editor', label: 'Query Editor', route: '#/settings/custom/query-editor', type: 'system', badge: '' }
+              ]
+            }
+          ];
+        }
+        if (!parsed.tabsConfig || !Array.isArray(parsed.tabsConfig) || parsed.tabsConfig.length === 0) {
           parsed.tabsConfig = extractInitialTabsConfig(parsed.submenusConfig || DEFAULT_SUBMENUS_CONFIG, parsed.modulesConfig || DEFAULT_MODULES_CONFIG);
+        } else {
+          // Ensure settings tabs are present in tabsConfig
+          const hasSettings = parsed.tabsConfig.some(t => t.menuKey === 'settings' && t.submenuId === 'custom');
+          if (!hasSettings) {
+            const extraSettingsTabs = [
+              { id: 'forms', key: 'forms', label: 'Forms', menuKey: 'settings', menuLabel: 'SETTING', submenuId: 'custom', submenuTitle: 'Customizer', route: '#/settings/custom/forms', type: 'system', badge: '', order: 1, status: 'Active', isProtected: false, description: 'Dynamic form definitions and layout configurator' },
+              { id: 'fields-customizer', key: 'fields-customizer', label: 'Fields Customizer', menuKey: 'settings', menuLabel: 'SETTING', submenuId: 'custom', submenuTitle: 'Customizer', route: '#/settings/custom/fields-customizer', type: 'system', badge: '', order: 2, status: 'Active', isProtected: false, description: 'Dynamic field collections, validation schemas, and metadata builder' },
+              { id: 'query-editor', key: 'query-editor', label: 'Query Editor', menuKey: 'settings', menuLabel: 'SETTING', submenuId: 'custom', submenuTitle: 'Customizer', route: '#/settings/custom/query-editor', type: 'system', badge: '', order: 3, status: 'Active', isProtected: false, description: 'Advanced reporting query generator and SQL expression builder' }
+            ];
+            parsed.tabsConfig.unshift(...extraSettingsTabs);
+          }
         }
         return parsed;
       }
@@ -86118,15 +86202,26 @@ const SetupView = {
               </button>
             </div>
           </div>
-          <!-- Body: Margin-top 0, border-top none -->
-          <div id="flt-tab-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
+          <!-- Body: 5 Columns for 3-Level Hierarchy Filters -->
+          <div id="flt-tab-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3 text-xs" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
+            <!-- 1st Level: Main Menu -->
             <div>
-              <label for="flt-tab-menu" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Parent Menu</label>
+              <label for="flt-tab-menu" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">1st Level: Main Menu</label>
               <select id="flt-tab-menu" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                <option value="">All Menus</option>
+                <option value="">All Main Menus</option>
                 ${allMenus.map(m => `<option value="${m.key}">${m.label}</option>`).join('')}
               </select>
             </div>
+
+            <!-- 2nd Level: Sub Menu (Dynamically Updated based on Main Menu) -->
+            <div>
+              <label for="flt-tab-submenu" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">2nd Level: Sub Menu</label>
+              <select id="flt-tab-submenu" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="">All Sub Menus</option>
+              </select>
+            </div>
+
+            <!-- Status Filter -->
             <div>
               <label for="flt-tab-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Status</label>
               <select id="flt-tab-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
@@ -86135,22 +86230,14 @@ const SetupView = {
                 <option value="Inactive">Inactive</option>
               </select>
             </div>
-            <div>
-              <label for="flt-tab-type" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Tab Type</label>
-              <select id="flt-tab-type" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                <option value="">All Types</option>
-                <option value="system">System</option>
-                <option value="standard">Standard View</option>
-                <option value="report">Report</option>
-                <option value="studio">Studio</option>
-                <option value="customizer">Customizer</option>
-              </select>
-            </div>
+
+            <!-- Search Keyword -->
             <div>
               <label for="flt-tab-search" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Search Keyword</label>
-              <input type="text" id="flt-tab-search" placeholder="Search by name, key, or route..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              <input type="text" id="flt-tab-search" placeholder="Search tab name, slug, route..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
             </div>
-            <!-- MANDATORY Search button always placed after the last input field -->
+
+            <!-- Search Button -->
             <div class="flex items-end">
               <button type="button" id="flt-tab-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
@@ -86184,7 +86271,7 @@ const SetupView = {
         },
         {
           field: 'label',
-          header: 'Tab Name',
+          header: 'Tab Name (3rd Level)',
           render: (v, r) => `
             <div class="flex items-center gap-2">
               <span class="font-bold text-[#172B4D] text-xs">${v || r.id}</span>
@@ -86200,12 +86287,12 @@ const SetupView = {
         },
         {
           field: 'key',
-          header: 'Tab Key / ID',
+          header: 'Tab Slug / ID',
           render: (v, r) => `<span class="font-mono text-xs font-semibold text-[#00A4B7]">${v || r.id}</span>`
         },
         {
           field: 'menuLabel',
-          header: 'Parent Menu',
+          header: '1st Level: Main Menu',
           render: (v, r) => `
             <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#F0F9FF] text-[#00A4B7] border border-[#BAE6FD]">
               ${v || (r.menuKey ? r.menuKey.toUpperCase() : 'GENERAL')}
@@ -86214,7 +86301,7 @@ const SetupView = {
         },
         {
           field: 'submenuTitle',
-          header: 'Parent Submenu',
+          header: '2nd Level: Sub Menu',
           render: (v, r) => `
             <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-[#FAFBFC] border border-[#DFE1E6] text-[#172B4D]">
               ${v || r.submenuId || 'Configuration'}
@@ -86223,7 +86310,7 @@ const SetupView = {
         },
         {
           field: 'route',
-          header: 'Route URL',
+          header: 'Route URL Hash',
           render: (v) => `<span class="font-mono text-[11px] text-[#5E6C84] block truncate max-w-[200px]" title="${v || ''}">${v || '—'}</span>`
         },
         {
@@ -86324,8 +86411,8 @@ const SetupView = {
 
     // Wire up Filter Card events
     const fltMenu = document.getElementById('flt-tab-menu');
+    const fltSubmenu = document.getElementById('flt-tab-submenu');
     const fltStatus = document.getElementById('flt-tab-status');
-    const fltType = document.getElementById('flt-tab-type');
     const fltSearch = document.getElementById('flt-tab-search');
     const fltSearchBtn = document.getElementById('flt-tab-search-btn');
     const fltResetBtn = document.getElementById('flt-tab-reset-btn');
@@ -86333,312 +86420,316 @@ const SetupView = {
     const fltBody = document.getElementById('flt-tab-body');
     const fltChevron = document.getElementById('flt-tab-toggle-chevron');
 
-    const applyFilters = () => {
-      this.tabFilterState.menu = fltMenu?.value || '';
-      this.tabFilterState.status = fltStatus?.value || '';
-      this.tabFilterState.type = fltType?.value || '';
-      this.tabFilterState.query = fltSearch?.value || '';
-      const filtered = this.getFilteredTabs();
-      tabsTable.setData(filtered);
+    const updateSubmenuFilterDropdown = (selectedMenuKey) => {
+      if (!fltSubmenu) return;
+      if (!selectedMenuKey) {
+        fltSubmenu.innerHTML = '<option value="">All Sub Menus</option>';
+        return;
+      }
+      const smList = this.getSubmenusForMenu(selectedMenuKey);
+      let html = '<option value="">All Sub Menus</option>';
+      smList.forEach(s => {
+        html += `<option value="${s.id}">${s.title}</option>`;
+      });
+      fltSubmenu.innerHTML = html;
     };
 
-    if (fltSearchBtn) fltSearchBtn.onclick = applyFilters;
-    if (fltMenu) fltMenu.onchange = applyFilters;
-    if (fltStatus) fltStatus.onchange = applyFilters;
-    if (fltType) fltType.onchange = applyFilters;
+    const applyFilters = () => {
+      this.tabFilterState = {
+        menu: fltMenu ? fltMenu.value : '',
+        submenu: fltSubmenu ? fltSubmenu.value : '',
+        status: fltStatus ? fltStatus.value : '',
+        type: '',
+        query: fltSearch ? fltSearch.value.trim() : ''
+      };
+      const refreshed = this.getFilteredTabs();
+      tabsTable.setData(refreshed);
+    };
+
+    if (fltMenu) {
+      fltMenu.onchange = () => {
+        updateSubmenuFilterDropdown(fltMenu.value);
+        applyFilters();
+      };
+    }
+    if (fltSubmenu) {
+      fltSubmenu.onchange = applyFilters;
+    }
+    if (fltStatus) {
+      fltStatus.onchange = applyFilters;
+    }
     if (fltSearch) {
       fltSearch.onkeydown = (e) => {
         if (e.key === 'Enter') applyFilters();
       };
     }
-
+    if (fltSearchBtn) {
+      fltSearchBtn.onclick = applyFilters;
+    }
     if (fltResetBtn) {
       fltResetBtn.onclick = () => {
         if (fltMenu) fltMenu.value = '';
+        if (fltSubmenu) {
+          fltSubmenu.innerHTML = '<option value="">All Sub Menus</option>';
+          fltSubmenu.value = '';
+        }
         if (fltStatus) fltStatus.value = '';
-        if (fltType) fltType.value = '';
         if (fltSearch) fltSearch.value = '';
-        this.tabFilterState = { menu: '', submenu: '', status: '', type: '', query: '' };
-        tabsTable.setData(this.getFilteredTabs());
+        applyFilters();
       };
     }
-
     if (fltToggleBtn && fltBody) {
       fltToggleBtn.onclick = () => {
-        const isHidden = fltBody.classList.toggle('hidden');
+        const isCollapsed = fltBody.classList.toggle('hidden');
         if (fltChevron) {
-          fltChevron.style.transform = isHidden ? 'rotate(180deg)' : '';
+          fltChevron.style.transform = isCollapsed ? 'rotate(180deg)' : 'rotate(0deg)';
         }
       };
     }
   },
 
-  showAddTabModal(tabsTable = null) {
-    this.showTabFormModal(null, tabsTable);
+  getFilteredTabs() {
+    let list = Array.isArray(this.state.tabsConfig) ? [...this.state.tabsConfig] : [];
+    const { menu, submenu, status, type, query } = this.tabFilterState || {};
+
+    if (menu) {
+      list = list.filter(t => (t.menuKey || '').toLowerCase() === menu.toLowerCase());
+    }
+    if (submenu) {
+      list = list.filter(t => (t.submenuId || '').toLowerCase() === submenu.toLowerCase());
+    }
+    if (status) {
+      list = list.filter(t => (t.status || 'Active').toLowerCase() === status.toLowerCase());
+    }
+    if (type) {
+      list = list.filter(t => (t.type || 'system').toLowerCase() === type.toLowerCase());
+    }
+    if (query) {
+      const q = query.toLowerCase().trim();
+      list = list.filter(t => 
+        (t.label || '').toLowerCase().includes(q) ||
+        (t.key || t.id || '').toLowerCase().includes(q) ||
+        (t.route || '').toLowerCase().includes(q) ||
+        (t.menuLabel || '').toLowerCase().includes(q) ||
+        (t.submenuTitle || '').toLowerCase().includes(q)
+      );
+    }
+
+    return list;
   },
 
-  showEditTabModal(tab, tabsTable = null) {
-    this.showTabFormModal(tab, tabsTable);
+  getAllMenusForTabs() {
+    const list = [];
+    const seen = new Set();
+
+    const addMenu = (id, label, icon) => {
+      if (!id) return;
+      const k = String(id).toLowerCase();
+      if (seen.has(k)) return;
+      seen.add(k);
+      list.push({
+        id: id,
+        key: id,
+        label: label || id.toUpperCase(),
+        icon: icon || 'layers'
+      });
+    };
+
+    // 1. Setting (1st level)
+    addMenu('settings', 'Setting', 'settings');
+
+    // 2. General
+    addMenu('general', 'General', 'sliders');
+
+    // 3. Super Admin & Admin hierarchies if available
+    if (typeof window !== 'undefined') {
+      if (Array.isArray(window.SUPER_ADMIN_NAV_HIERARCHY)) {
+        window.SUPER_ADMIN_NAV_HIERARCHY.forEach(m => addMenu(m.id, m.title, m.icon));
+      }
+      if (Array.isArray(window.NAV_HIERARCHY)) {
+        window.NAV_HIERARCHY.forEach(m => addMenu(m.id, m.title, m.icon));
+      }
+      if (Array.isArray(window.ADMIN_NAV_HIERARCHY)) {
+        window.ADMIN_NAV_HIERARCHY.forEach(m => addMenu(m.id, m.title, m.icon));
+      }
+    }
+
+    // 4. All modules from modulesConfig in state
+    if (this.state && Array.isArray(this.state.modulesConfig)) {
+      this.state.modulesConfig.forEach(m => {
+        const id = m.id || m.key;
+        addMenu(id, m.label || id.toUpperCase(), m.iconKey || m.icon || 'layers');
+      });
+    }
+
+    return list;
   },
 
-  showTabFormModal(tab = null, tabsTable = null) {
-    const isEdit = Boolean(tab);
-    const allMenus = this.getAllMenusForTabs();
-    const currentMenuKey = tab ? (tab.menuKey || 'general') : (allMenus[0]?.key || 'general');
-    const submenus = this.getSubmenusForMenu(currentMenuKey);
-    const currentSubmenuId = tab ? (tab.submenuId || submenus[0]?.id || 'configuration') : (submenus[0]?.id || 'configuration');
+  getSubmenusForMenu(menuKey) {
+    if (!menuKey) return [];
+    const key = String(menuKey).toLowerCase();
+    const submenus = [];
+    const seen = new Set();
 
-    const modal = Modal.show({
-      title: isEdit ? `Edit Tab: ${tab.label}` : 'Add Tab',
-      size: 'xl',
-      content: `
-        <form id="tab-studio-form" class="space-y-4 text-xs" onsubmit="return false;">
-          <!-- Top summary banner -->
-          <div class="bg-gradient-to-r from-[#F0F9FF] to-[#F8FAFC] p-3.5 rounded-xl border border-[#BAE6FD] flex items-center justify-between">
-            <div class="flex items-center gap-3">
-              <div class="w-9 h-9 rounded-xl bg-[#00A4B7] text-white flex items-center justify-center font-bold shadow-xs shrink-0">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"/></svg>
-              </div>
-              <div>
-                <h3 class="font-bold text-[#172B4D] text-xs">${isEdit ? 'Modify Application Tab' : 'Configure New Application Tab'}</h3>
-                <p class="text-[11px] text-[#5E6C84]">Configure navigation route, parent menu hierarchy, and permission type.</p>
-              </div>
-            </div>
-            ${isEdit ? `<span class="px-2.5 py-1 rounded font-mono text-[10px] font-bold bg-white border border-[#BAE6FD] text-[#00A4B7]">${tab.key || tab.id}</span>` : ''}
-          </div>
+    const addSm = (id, title) => {
+      if (!id) return;
+      const k = String(id).toLowerCase();
+      if (seen.has(k)) return;
+      seen.add(k);
+      submenus.push({ id, title: title || id });
+    };
 
-          <!-- 2-Column Responsive Form Grid -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <!-- Left Column: Core Identity & Routing -->
-            <div class="space-y-3.5 bg-white p-4 rounded-xl border border-[#DFE1E6] shadow-2xs">
-              <div class="flex items-center gap-2 border-b border-[#F1F5F9] pb-2">
-                <span class="w-5 h-5 rounded bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-[10px]">1</span>
-                <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Tab Identity &amp; Routing</span>
-              </div>
+    // 1. Check state.submenusConfig
+    if (this.state && this.state.submenusConfig) {
+      const stateSmList = this.state.submenusConfig[key] || this.state.submenusConfig[menuKey];
+      if (Array.isArray(stateSmList)) {
+        stateSmList.forEach(s => addSm(s.id || s.key, s.title || s.name || s.id));
+      }
+    }
 
-              <div>
-                <label for="tab-modal-label" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
-                  Tab Name <span class="text-rose-500">*</span>
-                </label>
-                <input type="text" id="tab-modal-label" value="${tab ? (tab.label || '') : ''}" placeholder="e.g. Active Orders" class="w-full text-xs px-3 py-2 bg-white border border-[#CBD5E1] rounded-lg focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] shadow-2xs" />
-              </div>
-
-              <div>
-                <label for="tab-modal-key" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
-                  Tab Key / Slug <span class="text-rose-500">*</span>
-                </label>
-                <input type="text" id="tab-modal-key" value="${tab ? (tab.key || tab.id || '') : ''}" placeholder="e.g. active-orders" ${tab && tab.isProtected ? 'readonly' : ''} class="w-full text-xs px-3 py-2 ${tab && tab.isProtected ? 'bg-[#F8FAFC] cursor-not-allowed' : 'bg-white'} border border-[#CBD5E1] rounded-lg focus:outline-none focus:border-[#00A4B7] font-mono text-[#00A4B7] font-semibold shadow-2xs" />
-                ${tab && tab.isProtected ? '<p class="text-[10px] text-[#5E6C84] mt-1">System default key cannot be altered.</p>' : ''}
-              </div>
-
-              <div>
-                <label for="tab-modal-route" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
-                  Route URL Hash <span class="text-rose-500">*</span>
-                </label>
-                <input type="text" id="tab-modal-route" value="${tab ? (tab.route || '') : '#/general/configuration/new-tab'}" placeholder="e.g. #/purchase/orders/active-orders" class="w-full text-xs px-3 py-2 bg-white border border-[#CBD5E1] rounded-lg focus:outline-none focus:border-[#00A4B7] font-mono text-[#172B4D] shadow-2xs" />
-              </div>
-
-              <div class="grid grid-cols-2 gap-3">
-                <div>
-                  <label for="tab-modal-badge" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Badge Tag</label>
-                  <input type="text" id="tab-modal-badge" value="${tab ? (tab.badge || '') : ''}" placeholder="e.g. New, Pro" class="w-full text-xs px-3 py-2 bg-white border border-[#CBD5E1] rounded-lg focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] shadow-2xs" />
-                </div>
-                <div>
-                  <label for="tab-modal-order" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Display Sequence</label>
-                  <input type="number" id="tab-modal-order" value="${tab ? (tab.order || 1) : 1}" min="1" max="99" class="w-full text-xs px-3 py-2 bg-white border border-[#CBD5E1] rounded-lg focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] shadow-2xs" />
-                </div>
-              </div>
-            </div>
-
-            <!-- Right Column: Menu Hierarchy & Attributes -->
-            <div class="space-y-3.5 bg-white p-4 rounded-xl border border-[#DFE1E6] shadow-2xs">
-              <div class="flex items-center gap-2 border-b border-[#F1F5F9] pb-2">
-                <span class="w-5 h-5 rounded bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-[10px]">2</span>
-                <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Hierarchy &amp; Governance</span>
-              </div>
-
-              <div>
-                <label for="tab-modal-menu" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
-                  Parent Menu <span class="text-rose-500">*</span>
-                </label>
-                <select id="tab-modal-menu" ${tab && tab.isProtected ? 'disabled' : ''} class="w-full text-xs px-3 py-2 ${tab && tab.isProtected ? 'bg-[#F8FAFC] cursor-not-allowed' : 'bg-white'} border border-[#CBD5E1] rounded-lg focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] shadow-2xs">
-                  ${allMenus.map(m => `<option value="${m.key}" ${m.key === currentMenuKey ? 'selected' : ''}>${m.label}</option>`).join('')}
-                </select>
-              </div>
-
-              <div>
-                <label for="tab-modal-submenu" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
-                  Parent Submenu <span class="text-rose-500">*</span>
-                </label>
-                <select id="tab-modal-submenu" ${tab && tab.isProtected ? 'disabled' : ''} class="w-full text-xs px-3 py-2 ${tab && tab.isProtected ? 'bg-[#F8FAFC] cursor-not-allowed' : 'bg-white'} border border-[#CBD5E1] rounded-lg focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] shadow-2xs">
-                  ${submenus.map(s => `<option value="${s.id}" ${s.id === currentSubmenuId ? 'selected' : ''}>${s.title}</option>`).join('')}
-                </select>
-              </div>
-
-              <div class="grid grid-cols-2 gap-3 items-end">
-                <div>
-                  <label for="tab-modal-type" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Tab Type</label>
-                  <select id="tab-modal-type" class="w-full text-xs px-3 py-2 bg-white border border-[#CBD5E1] rounded-lg focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] shadow-2xs">
-                    <option value="system" ${tab && tab.type === 'system' ? 'selected' : ''}>System View</option>
-                    <option value="standard" ${tab && tab.type === 'standard' ? 'selected' : ''}>Standard View</option>
-                    <option value="report" ${tab && tab.type === 'report' ? 'selected' : ''}>Report</option>
-                    <option value="studio" ${tab && tab.type === 'studio' ? 'selected' : ''}>Studio / Builder</option>
-                    <option value="customizer" ${tab && tab.type === 'customizer' ? 'selected' : ''}>Customizer</option>
-                  </select>
-                </div>
-                <div>
-                  <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Active Status</label>
-                  <div class="flex items-center h-[38px] px-3 py-2 bg-[#F8FAFC] rounded-lg border border-[#DFE1E6]">
-                    <label class="inline-flex items-center gap-2 cursor-pointer select-none">
-                      <input type="checkbox" id="tab-modal-status-cb" class="w-4.5 h-4.5 rounded border-[#DFE1E6] text-[#00A4B7] accent-[#00A4B7] cursor-pointer" ${(!tab || tab.status === 'Active') ? 'checked' : ''} />
-                      <span class="text-xs font-semibold text-[#172B4D]">Active Tab</span>
-                    </label>
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <label for="tab-modal-desc" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Description / Notes</label>
-                <textarea id="tab-modal-desc" rows="2" placeholder="Brief description of the tab capability..." class="w-full text-xs px-3 py-2 bg-white border border-[#CBD5E1] rounded-lg focus:outline-none focus:border-[#00A4B7] font-medium text-[#172B4D] shadow-2xs">${tab ? (tab.description || '') : ''}</textarea>
-              </div>
-            </div>
-          </div>
-        </form>
-      `,
-      footerButtons: [
-        { label: 'Cancel', type: 'secondary', onClick: (m) => m.close() },
-        {
-          label: isEdit ? 'Save Changes' : 'Save Tab',
-          type: 'primary',
-          onClick: (m) => {
-            const labelInput = document.getElementById('tab-modal-label');
-            const keyInput = document.getElementById('tab-modal-key');
-            const routeInput = document.getElementById('tab-modal-route');
-            const menuSelect = document.getElementById('tab-modal-menu');
-            const smSelect = document.getElementById('tab-modal-submenu');
-            const typeSelect = document.getElementById('tab-modal-type');
-            const badgeInput = document.getElementById('tab-modal-badge');
-            const orderInput = document.getElementById('tab-modal-order');
-            const statusCb = document.getElementById('tab-modal-status-cb');
-            const descInput = document.getElementById('tab-modal-desc');
-
-            const label = labelInput?.value.trim();
-            let key = keyInput?.value.trim();
-            const route = routeInput?.value.trim();
-            const menuKey = menuSelect?.value || 'general';
-            const submenuId = smSelect?.value || 'configuration';
-            const type = typeSelect?.value || 'system';
-            const badge = badgeInput?.value.trim() || '';
-            const order = parseInt(orderInput?.value, 10) || 1;
-            const status = statusCb?.checked ? 'Active' : 'Inactive';
-            const description = descInput?.value.trim() || '';
-
-            if (!label) {
-              Toast.show('Please enter a Tab Name.', 'warning');
-              labelInput?.focus();
-              return;
-            }
-
-            if (!key) {
-              key = label.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
-            }
-
-            if (!route) {
-              Toast.show('Please specify a Route URL hash.', 'warning');
-              routeInput?.focus();
-              return;
-            }
-
-            const menuObj = allMenus.find(m => m.key === menuKey);
-            const menuLabel = menuObj ? menuObj.label : menuKey.toUpperCase();
-            const submenusList = this.getSubmenusForMenu(menuKey);
-            const smObj = submenusList.find(s => s.id === submenuId);
-            const submenuTitle = smObj ? smObj.title : submenuId;
-
-            if (isEdit && tab) {
-              tab.label = label;
-              tab.key = key;
-              tab.route = route;
-              tab.menuKey = menuKey;
-              tab.menuLabel = menuLabel;
-              tab.submenuId = submenuId;
-              tab.submenuTitle = submenuTitle;
-              tab.type = type;
-              tab.badge = badge;
-              tab.order = order;
-              tab.status = status;
-              tab.description = description;
-
-              this.syncTabUpdate(tab);
-              this.saveState();
-              this.logAudit('Tabs Setup', `Updated tab ${tab.label} (${tab.key}) under ${menuLabel} > ${submenuTitle}`);
-              Toast.show(`Tab "${tab.label}" updated successfully.`, 'success');
-            } else {
-              const newTab = {
-                id: key,
-                key: key,
-                label: label,
-                menuKey: menuKey,
-                menuLabel: menuLabel,
-                submenuId: submenuId,
-                submenuTitle: submenuTitle,
-                route: route,
-                type: type,
-                badge: badge,
-                order: order,
-                status: status,
-                isProtected: false,
-                description: description
-              };
-
-              if (!Array.isArray(this.state.tabsConfig)) {
-                this.state.tabsConfig = [];
-              }
-              this.state.tabsConfig.unshift(newTab);
-              this.syncTabUpdate(newTab);
-              this.saveState();
-              this.logAudit('Tabs Setup', `Added new tab ${newTab.label} (${newTab.key}) to ${menuLabel} > ${submenuTitle}`);
-              Toast.show(`Tab "${newTab.label}" added successfully.`, 'success');
-            }
-
-            if (tabsTable) {
-              tabsTable.setData(this.getFilteredTabs());
-            }
-
-            m.close();
+    // 2. Check window hierarchies
+    if (typeof window !== 'undefined') {
+      const hierarchies = [
+        window.SUPER_ADMIN_NAV_HIERARCHY,
+        window.NAV_HIERARCHY,
+        window.ADMIN_NAV_HIERARCHY
+      ];
+      hierarchies.forEach(h => {
+        if (Array.isArray(h)) {
+          const found = h.find(m => m.id && String(m.id).toLowerCase() === key);
+          if (found && Array.isArray(found.submenus)) {
+            found.submenus.forEach(s => addSm(s.id, s.title));
           }
         }
-      ]
-    });
-
-    // Auto-update submenu dropdown when parent menu changes
-    const menuSelectEl = document.getElementById('tab-modal-menu');
-    const smSelectEl = document.getElementById('tab-modal-submenu');
-    const labelInputEl = document.getElementById('tab-modal-label');
-    const keyInputEl = document.getElementById('tab-modal-key');
-    const routeInputEl = document.getElementById('tab-modal-route');
-
-    if (menuSelectEl && smSelectEl) {
-      menuSelectEl.onchange = () => {
-        const selectedMenu = menuSelectEl.value;
-        const newSmList = this.getSubmenusForMenu(selectedMenu);
-        smSelectEl.innerHTML = newSmList.map(s => `<option value="${s.id}">${s.title}</option>`).join('');
-        if (!isEdit && keyInputEl && routeInputEl) {
-          const k = keyInputEl.value.trim() || 'new-tab';
-          const sm = smSelectEl.value || 'default';
-          routeInputEl.value = `#/${selectedMenu}/${sm}/${k}`;
-        }
-      };
+      });
     }
 
-    if (!isEdit && labelInputEl && keyInputEl && routeInputEl) {
-      labelInputEl.oninput = () => {
-        const slug = labelInputEl.value.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
-        keyInputEl.value = slug;
-        const m = menuSelectEl?.value || 'general';
-        const sm = smSelectEl?.value || 'configuration';
-        routeInputEl.value = `#/${m}/${sm}/${slug || 'new-tab'}`;
-      };
+    // 3. Fallbacks for standard modules
+    if (submenus.length === 0) {
+      if (key === 'settings') {
+        addSm('custom', 'Customizer');
+      } else if (key === 'general') {
+        addSm('configuration', 'Configuration');
+      } else if (key === 'super-reports') {
+        addSm('client-reports', 'Client Reports');
+      } else if (key === 'dashboard') {
+        addSm('overview', 'Dashboard');
+      } else {
+        addSm('default', 'Default');
+      }
+    }
+
+    return submenus;
+  },
+
+  syncTabUpdate(tab) {
+    if (!tab || !tab.menuKey) return;
+    const mKey = String(tab.menuKey).toLowerCase();
+
+    if (mKey === 'general') {
+      if (typeof window !== 'undefined' && window.NAV_HIERARCHY) {
+        const genMod = window.NAV_HIERARCHY.find(m => m.id === 'general');
+        if (genMod && genMod.submenus) {
+          const cfg = genMod.submenus.find(s => s.id === (tab.submenuId || 'configuration'));
+          if (cfg && cfg.tabs) {
+            const existing = cfg.tabs.find(t => t.id === tab.key || t.id === tab.id);
+            if (existing) {
+              existing.label = tab.label;
+              existing.hash = tab.route;
+            } else {
+              cfg.tabs.push({ id: tab.key || tab.id, label: tab.label, hash: tab.route });
+            }
+          }
+        }
+      }
+      return;
+    }
+
+    if (mKey === 'settings') {
+      if (typeof window !== 'undefined' && window.SUPER_ADMIN_NAV_HIERARCHY) {
+        const setMod = window.SUPER_ADMIN_NAV_HIERARCHY.find(m => m.id === 'settings');
+        if (setMod && setMod.submenus) {
+          const cst = setMod.submenus.find(s => s.id === (tab.submenuId || 'custom'));
+          if (cst && cst.tabs) {
+            const existing = cst.tabs.find(t => t.id === tab.key || t.id === tab.id);
+            if (existing) {
+              existing.label = tab.label;
+              existing.hash = tab.route;
+            } else {
+              cst.tabs.push({ id: tab.key || tab.id, label: tab.label, hash: tab.route });
+            }
+          }
+        }
+      }
+    }
+
+    // Sync into submenusConfig
+    if (!this.state.submenusConfig[tab.menuKey]) {
+      this.state.submenusConfig[tab.menuKey] = [];
+    }
+    const smList = this.state.submenusConfig[tab.menuKey];
+    let targetSm = smList.find(s => s.id === tab.submenuId);
+    if (!targetSm) {
+      targetSm = { id: tab.submenuId, title: tab.submenuTitle || tab.submenuId, tabs: [] };
+      smList.push(targetSm);
+    }
+    if (!Array.isArray(targetSm.tabs)) targetSm.tabs = [];
+    const tIdx = targetSm.tabs.findIndex(t => t.id === tab.key || t.id === tab.id);
+    if (tIdx > -1) {
+      targetSm.tabs[tIdx] = Object.assign(targetSm.tabs[tIdx], {
+        id: tab.key || tab.id,
+        label: tab.label,
+        route: tab.route,
+        type: tab.type,
+        badge: tab.badge,
+        status: tab.status
+      });
+    } else {
+      targetSm.tabs.push({
+        id: tab.key || tab.id,
+        label: tab.label,
+        route: tab.route,
+        type: tab.type,
+        badge: tab.badge,
+        status: tab.status
+      });
+    }
+  },
+
+  syncTabDelete(tab) {
+    if (!tab || !tab.menuKey) return;
+    const mKey = String(tab.menuKey).toLowerCase();
+
+    if (mKey === 'general') {
+      if (typeof window !== 'undefined' && window.NAV_HIERARCHY) {
+        const genMod = window.NAV_HIERARCHY.find(m => m.id === 'general');
+        if (genMod && genMod.submenus) {
+          const cfg = genMod.submenus.find(s => s.id === (tab.submenuId || 'configuration'));
+          if (cfg && cfg.tabs) {
+            cfg.tabs = cfg.tabs.filter(t => t.id !== tab.key && t.id !== tab.id);
+          }
+        }
+      }
+      return;
+    }
+
+    if (mKey === 'settings') {
+      if (typeof window !== 'undefined' && window.SUPER_ADMIN_NAV_HIERARCHY) {
+        const setMod = window.SUPER_ADMIN_NAV_HIERARCHY.find(m => m.id === 'settings');
+        if (setMod && setMod.submenus) {
+          const cst = setMod.submenus.find(s => s.id === (tab.submenuId || 'custom'));
+          if (cst && cst.tabs) {
+            cst.tabs = cst.tabs.filter(t => t.id !== tab.key && t.id !== tab.id);
+          }
+        }
+      }
+    }
+
+    if (this.state.submenusConfig[tab.menuKey]) {
+      const sm = this.state.submenusConfig[tab.menuKey].find(s => s.id === tab.submenuId);
+      if (sm && Array.isArray(sm.tabs)) {
+        sm.tabs = sm.tabs.filter(t => t.id !== tab.key && t.id !== tab.id);
+      }
     }
   },
 
@@ -86650,118 +86741,67 @@ const SetupView = {
       title: 'Tab Details',
       size: 'xl',
       content: `
-        <div class="space-y-4">
-          <!-- Top Hero / Summary Card (Section 5 Design System) -->
+        <div class="space-y-4 text-xs">
+          <!-- Top Hero Card (AGENTS.md Section 5) -->
           <div class="bg-gradient-to-r from-[#F0F9FF] to-[#F8FAFC] p-4 rounded-xl border border-[#BAE6FD] flex flex-wrap items-center justify-between gap-3 shadow-2xs">
-            <div class="flex items-center gap-3.5">
+            <div class="flex items-center gap-3">
               <div class="w-10 h-10 rounded-xl bg-[#00A4B7] text-white flex items-center justify-center font-bold shadow-xs">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"/></svg>
               </div>
               <div>
-                <div class="flex items-center gap-2 flex-wrap">
-                  <h2 class="font-extrabold text-[#0F172A] text-base">${tab.label}</h2>
-                  <span class="font-mono text-xs text-[#00A4B7] font-bold px-2 py-0.5 rounded bg-white border border-[#BAE6FD]">${tab.key || tab.id}</span>
-                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold tracking-wide uppercase ${isAct ? 'bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]' : 'bg-[#FFEBE6] text-[#DE350B] border border-[#FFBDAD]'}">
-                    ${tab.status || 'Active'}
-                  </span>
-                  ${tab.badge ? `<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">${tab.badge}</span>` : ''}
+                <div class="flex items-center gap-2">
+                  <span class="font-mono font-extrabold text-[#0F172A] text-base">${tab.label}</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold tracking-wide uppercase ${isAct ? 'bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]' : 'bg-[#FFEBE6] text-[#DE350B] border border-[#FFBDAD]'}">${tab.status || 'Active'}</span>
+                  ${tab.isProtected ? '<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">System Default</span>' : ''}
                 </div>
                 <div class="text-[11px] text-[#64748B] mt-0.5 font-medium flex items-center gap-1.5 flex-wrap">
-                  <span>Menu: <strong class="text-[#172B4D]">${tab.menuLabel || tab.menuKey}</strong></span>
-                  <span>•</span>
-                  <span>Submenu: <strong class="text-[#172B4D]">${tab.submenuTitle || tab.submenuId}</strong></span>
-                  ${tab.isProtected ? '<span>•</span><span class="text-[#00A4B7] font-semibold">System Default Tab</span>' : ''}
+                  <span class="font-bold text-[#172B4D]">${tab.menuLabel || tab.menuKey?.toUpperCase()}</span>
+                  <span>&bull;</span>
+                  <span>${tab.submenuTitle || tab.submenuId}</span>
+                  <span>&bull;</span>
+                  <span class="font-mono text-[#00A4B7]">${tab.key || tab.id}</span>
                 </div>
               </div>
             </div>
-
-            <!-- Quick Metrics Badges -->
             <div class="flex items-center gap-2">
               <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[80px]">
-                <div class="text-[9.5px] font-bold text-[#64748B] uppercase tracking-wider">MENU</div>
-                <div class="font-extrabold text-xs text-[#00A4B7] mt-0.5 truncate max-w-[100px]">${tab.menuLabel || tab.menuKey}</div>
+                <div class="text-[10px] uppercase font-bold text-[#5E6C84]">Type</div>
+                <div class="font-extrabold text-[#006644] text-xs uppercase">${tab.type || 'System'}</div>
               </div>
               <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[80px]">
-                <div class="text-[9.5px] font-bold text-[#64748B] uppercase tracking-wider">TYPE</div>
-                <div class="font-extrabold text-xs text-[#006644] mt-0.5 uppercase">${tab.type || 'SYSTEM'}</div>
-              </div>
-              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[80px]">
-                <div class="text-[9.5px] font-bold text-[#64748B] uppercase tracking-wider">ORDER</div>
-                <div class="font-extrabold text-xs text-[#172B4D] mt-0.5 font-mono">#${tab.order || 1}</div>
+                <div class="text-[10px] uppercase font-bold text-[#5E6C84]">Order</div>
+                <div class="font-extrabold text-[#172B4D] text-xs">#${tab.order || 1}</div>
               </div>
             </div>
           </div>
 
-          <!-- Section 1: Navigation & Routing -->
-          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 border-b border-[#F1F5F9] pb-2 mb-3">
+          <!-- Categorized Detail Sections -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs space-y-4">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9] pb-2">
               <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">1</span>
-              <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Routing &amp; URL Configuration</span>
+              <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Navigation Hierarchy &amp; Routing</span>
             </div>
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
-              <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Tab Label</span>
-                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${tab.label}</span>
-              </div>
-              <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Key / Slug</span>
-                <span class="font-mono text-xs font-semibold text-[#00A4B7] block mt-0.5">${tab.key || tab.id}</span>
-              </div>
-              <div class="col-span-2">
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Route Hash URL</span>
-                <span class="font-mono text-xs text-[#172B4D] block mt-0.5 break-all bg-[#F8FAFC] px-2 py-1 rounded border border-[#DFE1E6]">${tab.route || '—'}</span>
-              </div>
-            </div>
-          </div>
 
-          <!-- Section 2: Hierarchy Placement -->
-          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 border-b border-[#F1F5F9] pb-2 mb-3">
-              <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">2</span>
-              <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Hierarchy Placement</span>
-            </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
               <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Parent Menu Name</span>
-                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${tab.menuLabel || tab.menuKey}</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">1st Level: Main Menu</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${tab.menuLabel || tab.menuKey?.toUpperCase()}</span>
               </div>
               <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Menu ID / Key</span>
-                <span class="font-mono text-xs text-[#5E6C84] block mt-0.5">${tab.menuKey || 'general'}</span>
-              </div>
-              <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Parent Submenu</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">2nd Level: Sub Menu</span>
                 <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${tab.submenuTitle || tab.submenuId}</span>
               </div>
               <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Submenu ID</span>
-                <span class="font-mono text-xs text-[#5E6C84] block mt-0.5">${tab.submenuId || 'configuration'}</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Section 3: Governance & Controls -->
-          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-            <div class="flex items-center gap-2 border-b border-[#F1F5F9] pb-2 mb-3">
-              <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">3</span>
-              <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Governance &amp; Controls</span>
-            </div>
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
-              <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Tab Type</span>
-                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5 uppercase">${tab.type || 'system'}</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">3rd Level: Tab Slug</span>
+                <span class="font-mono text-xs text-[#00A4B7] font-bold block mt-0.5">${tab.key || tab.id}</span>
               </div>
               <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">System Protection</span>
-                <span class="font-semibold text-xs block mt-0.5 ${tab.isProtected ? 'text-[#00A4B7]' : 'text-[#5E6C84]'}>${tab.isProtected ? 'Protected Default' : 'Custom / Editable'}</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Badge Tag</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${tab.badge || 'None'}</span>
               </div>
-              <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Display Order</span>
-                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5 font-mono">${tab.order || 1}</span>
-              </div>
-              <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Status</span>
-                <span class="font-semibold text-xs block mt-0.5 ${isAct ? 'text-[#006644]' : 'text-[#DE350B]'}>${tab.status || 'Active'}</span>
+              <div class="col-span-2 sm:col-span-4">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Full Route URL Hash</span>
+                <span class="font-mono text-xs text-[#172B4D] font-semibold block mt-0.5 bg-[#F8FAFC] p-2 rounded border border-[#DFE1E6]">${tab.route || '—'}</span>
               </div>
               ${tab.description ? `
                 <div class="col-span-2 sm:col-span-4 pt-2 border-t border-[#F1F5F9]">
@@ -86798,107 +86838,21 @@ const SetupView = {
       <div class="space-y-4 animate-fade-in">
         <div class="flex flex-wrap items-center justify-between gap-3 mb-0">
           <div>
-            <h1 class="text-xl font-extrabold text-[#172B4D]">Submenus & Dynamic Tabs Studio</h1>
+            <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Submenu &amp; Tab Studio</h1>
           </div>
           <div class="flex items-center gap-2">
-            <div class="flex items-center gap-1.5 mr-2">
-              <span class="text-xs font-bold text-[#172B4D]">Module:</span>
-              <select id="studio-mod-select" class="px-2.5 py-1.5 border border-[#DFE1E6] rounded text-xs font-bold text-[#172B4D] bg-white cursor-pointer hover:border-[#0284C7] focus:outline-none">
-                ${this.state.modulesConfig.map(m => `
-                  <option value="${m.id}" ${m.id === selectedModKey ? 'selected' : ''}>${m.label} (${(this.state.submenusConfig[m.id] || []).length} Submenus)</option>
-                `).join('')}
-              </select>
-            </div>
-            <button id="btn-add-submenu" class="btn-primary px-3 py-1.5 rounded text-xs flex items-center gap-1.5 shadow-xs cursor-pointer">
+            <label for="flt-mod-substudio" class="text-xs font-bold text-[#5E6C84] whitespace-nowrap uppercase tracking-wider">Module:</label>
+            <select id="flt-mod-substudio" class="text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] min-w-[200px]">
+              ${this.state.modulesConfig.map(m => `<option value="${m.id}" ${m.id === selectedModKey ? 'selected' : ''}>${m.label || m.name}</option>`).join('')}
+            </select>
+            <button id="btn-add-submenu" type="button" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all ml-2">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
               <span>Add Submenu</span>
             </button>
           </div>
         </div>
 
-        <!-- Submenus DataTable -->
         <div id="submenus-table-container"></div>
-
-        <!-- Tabs Management Details Header -->
-        <div class="pt-2">
-          <div class="flex items-center justify-between mb-2">
-            <h2 class="text-sm font-bold text-[#172B4D]">Configured Tabs by Submenu (${selectedMod?.label || selectedModKey})</h2>
-            <span class="text-xs text-[#5E6C84]">Use the actions on each submenu or tab to add, edit, or remove items</span>
-          </div>
-
-          <div class="space-y-3">
-            ${submenus.length === 0 ? `
-              <div class="bg-white rounded-xl border border-[#DFE1E6] p-8 text-center text-xs text-[#5E6C84]">
-                No submenus found for ${selectedMod?.label || selectedModKey}. Click "Add Submenu" to create one.
-              </div>
-            ` : submenus.map(sm => `
-              <div class="bg-white rounded-xl border border-[#DFE1E6] shadow-none p-3.5">
-                <div class="flex items-center justify-between pb-2.5 mb-2.5 border-b border-[#EBECF0]">
-                  <div class="flex items-center gap-2">
-                    <span class="font-bold text-xs text-[#172B4D]">${sm.title}</span>
-                    <span class="lozenge lozenge-default text-[9.5px]">${(sm.tabs || []).length} Tabs</span>
-                  </div>
-                  <div class="flex items-center gap-1.5">
-                    <button data-action="add-tab" data-sm-id="${sm.id}" class="btn-primary px-2.5 py-1 rounded text-[11px] font-semibold flex items-center gap-1 cursor-pointer">
-                      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                      <span>Add Tab</span>
-                    </button>
-                    <button data-action="edit-sm" data-sm-id="${sm.id}" class="dt-action-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#0284C7] text-[#334155] hover:text-[#0284C7] rounded-full transition-colors cursor-pointer select-none" style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 9999px; border: 1px solid #CBD5E1; background: #ffffff; color: #334155; display: inline-flex; align-items: center; justify-content: center; padding: 0;" title="Edit Submenu">
-                      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
-                    </button>
-                    <button data-action="del-sm" data-sm-id="${sm.id}" class="dt-action-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#0284C7] text-[#334155] hover:text-[#0284C7] rounded-full transition-colors cursor-pointer select-none" style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 9999px; border: 1px solid #CBD5E1; background: #ffffff; color: #334155; display: inline-flex; align-items: center; justify-content: center; padding: 0;" title="Delete Submenu">
-                      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-                    </button>
-                  </div>
-                </div>
-
-                ${(sm.tabs || []).length === 0 ? `
-                  <div class="py-3 text-center text-xs text-[#5E6C84]">No tabs configured under this submenu yet. Click "Add Tab" to create one.</div>
-                ` : `
-                  <div class="overflow-x-auto">
-                    <table class="erp-table text-xs w-full">
-                      <thead>
-                        <tr>
-                          <th class="w-12 text-center">#</th>
-                          <th>Tab Label</th>
-                          <th>Route Hash</th>
-                          <th>Mapping Type</th>
-                          <th>Badge Tag</th>
-                          <th class="text-center w-24">Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody class="divide-y divide-[#EBECF0]">
-                        ${sm.tabs.map((tab, idx) => `
-                          <tr class="hover:bg-[#FAFBFC]">
-                            <td class="text-center font-bold text-[#5E6C84]">${idx + 1}</td>
-                            <td class="font-bold text-[#172B4D]">${tab.label}</td>
-                            <td class="font-mono text-[11px] text-[#0284C7]">${tab.route}</td>
-                            <td>
-                              <span class="lozenge ${tab.type === 'dynamic-form' ? 'lozenge-purple' : tab.type === 'custom-list' ? 'lozenge-warning' : 'lozenge-default'} text-[9.5px]">
-                                ${tab.type || 'system'}
-                              </span>
-                            </td>
-                            <td>${tab.badge ? `<span class="lozenge lozenge-default text-[9.5px] font-mono">${tab.badge}</span>` : '—'}</td>
-                            <td class="text-center" style="min-width: 80px;">
-                              <div class="inline-flex items-center justify-center" style="gap: 8px;">
-                                <button data-action="edit-tab" data-sm-id="${sm.id}" data-tab-id="${tab.id}" class="dt-action-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#0284C7] text-[#334155] hover:text-[#0284C7] rounded-full transition-colors cursor-pointer select-none" style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 9999px; border: 1px solid #CBD5E1; background: #ffffff; color: #334155; display: inline-flex; align-items: center; justify-content: center; padding: 0;" title="Edit Tab">
-                                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
-                                </button>
-                                <button data-action="del-tab" data-sm-id="${sm.id}" data-tab-id="${tab.id}" class="dt-action-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#0284C7] text-[#334155] hover:text-[#0284C7] rounded-full transition-colors cursor-pointer select-none" style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 9999px; border: 1px solid #CBD5E1; background: #ffffff; color: #334155; display: inline-flex; align-items: center; justify-content: center; padding: 0;" title="Delete Tab">
-                                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-                                </button>
-                              </div>
-                            </td>
-                          </tr>
-                        `).join('')}
-                      </tbody>
-                    </table>
-                  </div>
-                `}
-              </div>
-            `)}
-          </div>
-        </div>
       </div>
     `;
 
@@ -86906,52 +86860,79 @@ const SetupView = {
       containerId: 'submenus-table-container',
       data: submenus,
       keyField: 'id',
-      tableTitle: `Submenus in ${selectedMod?.label || selectedModKey}`,
+      tableTitle: `Submenus in ${selectedMod ? (selectedMod.label || selectedModKey) : selectedModKey} (${submenus.length})`,
       searchable: true,
-      exportable: true,
-      pageSize: 10,
       columns: [
-        { field: 'title', header: 'Submenu Title', render: (v) => `<span class="font-bold text-[#172B4D]">${v}</span>` },
-        { field: 'id', header: 'Submenu Key / Slug', render: (v) => `<span class="font-mono text-xs text-[#5E6C84]">${v}</span>` },
-        { 
-          field: 'tabs', 
-          header: 'Configured Tabs', 
-          render: (v) => `<div class="flex flex-wrap gap-1">${(v || []).map(t => `<span class="lozenge lozenge-default text-[9.5px]">${t.label}</span>`).join('')}</div>` 
+        {
+          field: 'sNo',
+          header: 'SNO',
+          render: (v, r, i) => `<span class="font-bold text-[#5E6C84]">${i !== undefined ? i + 1 : 1}</span>`
         },
-        { field: 'tabsCount', header: 'Total Tabs', render: (v, r) => `<span class="font-bold text-[#172B4D]">${(r.tabs || []).length} Tabs</span>` }
+        {
+          field: 'title',
+          header: 'Submenu Name',
+          render: (v, r) => `
+            <div class="flex items-center gap-2">
+              <span class="font-bold text-[#172B4D] text-xs">${v || r.id}</span>
+              <span class="text-[10px] text-[#5E6C84] font-mono">${r.id}</span>
+            </div>
+          `
+        },
+        {
+          field: 'tabs',
+          header: 'Tabs Configuration',
+          render: (v, r) => {
+            const tabsList = Array.isArray(v) ? v : [];
+            if (tabsList.length === 0) return '<span class="text-xs text-[#5E6C84] italic">No tabs configured</span>';
+            return `
+              <div class="flex flex-wrap gap-1.5 max-w-md">
+                ${tabsList.map(t => `
+                  <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10.5px] font-semibold bg-[#F0F9FF] text-[#00A4B7] border border-[#BAE6FD]">
+                    <span>${t.label || t.id}</span>
+                    <button type="button" class="btn-edit-sub-tab text-[#00A4B7] hover:text-[#007A87]" data-sm-id="${r.id}" data-tab-id="${t.id}" title="Edit Tab">
+                      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+                    </button>
+                  </span>
+                `).join('')}
+              </div>
+            `;
+          }
+        },
+        {
+          field: 'tabsCount',
+          header: 'Total Tabs',
+          render: (v, r) => `<span class="font-extrabold text-[#172B4D]">${(r.tabs || []).length}</span>`
+        }
       ],
       actions: [
         {
           label: 'Add Tab',
-          icon: `<svg class="w-4 h-4 text-[#00875A]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>`,
+          icon: `<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>`,
           onClick: (row) => this.showAddTabModal(selectedModKey, row.id, container)
         },
         {
-          label: 'Edit',
-          icon: `<svg class="w-4 h-4 text-[#0284C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>`,
+          label: 'Edit Submenu',
+          icon: `<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>`,
           onClick: (row) => this.showEditSubmenuModal(selectedModKey, row, container)
         },
         {
           label: 'Delete',
-          icon: `<svg class="w-4 h-4 text-[#FF5630]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>`,
+          icon: `<svg class="w-4 h-4 text-[#DE350B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>`,
           onClick: (row) => {
             Modal.confirm({
               title: `Delete Submenu ${row.title}`,
-              message: `Are you sure you want to permanently delete submenu <strong>${row.title}</strong> (${row.id}) and all its associated tabs? This action cannot be undone.`,
+              message: `Are you sure you want to delete submenu <strong>${row.title}</strong>? All associated tabs will also be removed.`,
               confirmText: 'Delete Submenu',
               cancelText: 'Cancel',
               isDestructive: true,
               onConfirm: () => {
-                const list = this.state.submenusConfig[selectedModKey] || [];
-                const idx = list.findIndex(s => s.id === row.id);
-                if (idx > -1) {
-                  list.splice(idx, 1);
-                  const mod = this.state.modulesConfig.find(m => m.id === selectedModKey);
-                  if (mod) mod.submenusCount = list.length;
+                const sIdx = submenus.findIndex(s => s.id === row.id);
+                if (sIdx > -1) {
+                  submenus.splice(sIdx, 1);
                   this.saveState();
                   this.logAudit('Submenu Studio', `Deleted submenu ${row.title} from ${selectedModKey}`);
-                  Toast.show(`Submenu "${row.title}" deleted successfully`, 'success', 'Deleted');
                   this.renderSubmenuTabStudioTab(container);
+                  Toast.show(`Submenu "${row.title}" deleted`, 'success');
                 }
               }
             });
@@ -86960,93 +86941,43 @@ const SetupView = {
       ]
     });
 
-    const modSel = document.getElementById('studio-mod-select');
-    if (modSel) {
-      modSel.onchange = (e) => {
+    const fltMod = document.getElementById('flt-mod-substudio');
+    if (fltMod) {
+      fltMod.onchange = (e) => {
         this.selectedModuleForSubmenuStudio = e.target.value;
         this.renderSubmenuTabStudioTab(container);
       };
     }
 
-    const addSmBtn = document.getElementById('btn-add-submenu');
-    if (addSmBtn) addSmBtn.onclick = () => this.showAddSubmenuModal(selectedModKey, container);
+    const btnAddSub = document.getElementById('btn-add-submenu');
+    if (btnAddSub) {
+      btnAddSub.onclick = () => this.showAddSubmenuModal(selectedModKey, container);
+    }
 
-    container.querySelectorAll('[data-action="add-tab"]').forEach(btn => {
-      btn.onclick = () => this.showAddTabModal(selectedModKey, btn.dataset.smId, container);
-    });
-
-    container.querySelectorAll('[data-action="edit-sm"]').forEach(btn => {
-      btn.onclick = () => {
-        const sm = this.state.submenusConfig[selectedModKey]?.find(s => s.id === btn.dataset.smId);
-        if (sm) this.showEditSubmenuModal(selectedModKey, sm, container);
-      };
-    });
-
-    container.querySelectorAll('[data-action="del-sm"]').forEach(btn => {
-      btn.onclick = () => {
-        const sm = this.state.submenusConfig[selectedModKey]?.find(s => s.id === btn.dataset.smId);
-        if (!sm) return;
-        Modal.confirm({
-          title: `Delete Submenu ${sm.title}`,
-          message: `Are you sure you want to delete submenu <strong>${sm.title}</strong> and all its tabs?`,
-          confirmText: 'Delete Submenu',
-          cancelText: 'Cancel',
-          isDestructive: true,
-          onConfirm: () => {
-            this.state.submenusConfig[selectedModKey] = this.state.submenusConfig[selectedModKey].filter(s => s.id !== sm.id);
-            const mod = this.state.modulesConfig.find(m => m.id === selectedModKey);
-            if (mod) mod.submenusCount = this.state.submenusConfig[selectedModKey].length;
-            this.saveState();
-            Toast.show(`Submenu "${sm.title}" deleted`, 'success', 'Deleted');
-            this.renderSubmenuTabStudioTab(container);
-          }
-        });
-      };
-    });
-
-    container.querySelectorAll('[data-action="edit-tab"]').forEach(btn => {
-      btn.onclick = () => {
-        const sm = this.state.submenusConfig[selectedModKey]?.find(s => s.id === btn.dataset.smId);
-        const tab = sm?.tabs.find(t => t.id === btn.dataset.tabId);
+    // Attach click events to inline edit tab buttons
+    container.querySelectorAll('.btn-edit-sub-tab').forEach(btn => {
+      btn.onclick = (e) => {
+        e.stopPropagation();
+        const sm = submenus.find(s => s.id === btn.dataset.smId);
+        const tab = sm ? sm.tabs.find(t => t.id === btn.dataset.tabId) : null;
         if (tab) this.showEditTabModal(selectedModKey, btn.dataset.smId, tab, container);
-      };
-    });
-
-    container.querySelectorAll('[data-action="del-tab"]').forEach(btn => {
-      btn.onclick = () => {
-        const sm = this.state.submenusConfig[selectedModKey]?.find(s => s.id === btn.dataset.smId);
-        const tab = sm?.tabs.find(t => t.id === btn.dataset.tabId);
-        if (!tab || !sm) return;
-        Modal.confirm({
-          title: `Delete Tab ${tab.label}`,
-          message: `Are you sure you want to remove tab <strong>${tab.label}</strong>? This action cannot be undone.`,
-          confirmText: 'Delete Tab',
-          cancelText: 'Cancel',
-          isDestructive: true,
-          onConfirm: () => {
-            sm.tabs = sm.tabs.filter(t => t.id !== tab.id);
-            this.saveState();
-            Toast.show(`Tab "${tab.label}" removed`, 'success', 'Deleted');
-            this.renderSubmenuTabStudioTab(container);
-          }
-        });
       };
     });
   },
 
   showAddSubmenuModal(modKey, container) {
     Modal.open({
-      title: 'Create New Submenu',
+      title: 'Add Submenu',
       size: 'md',
       content: `
         <form class="space-y-3" onsubmit="return false;">
           <div>
-            <label class="block text-xs font-semibold text-[#172B4D] mb-0">Submenu Title <span class="text-rose-500">*</span></label>
-            <input type="text" id="sm-title" required class="w-full text-xs px-3 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" placeholder="e.g. Inward Catch Inspection" />
+            <label class="block text-xs font-semibold text-[#172B4D] mb-1">Submenu Name <span class="text-rose-500">*</span></label>
+            <input type="text" id="sub-title" required class="w-full text-xs px-3 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#00A4B7]" placeholder="e.g. Inward Operations" />
           </div>
           <div>
-            <label class="block text-xs font-semibold text-[#172B4D] mb-0">Submenu Key / Slug <span class="text-rose-500">*</span></label>
-            <input type="text" id="sm-slug" required class="w-full text-xs px-3 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono lowercase focus:outline-none focus:border-[#0284C7]" placeholder="inward-inspection" />
+            <label class="block text-xs font-semibold text-[#172B4D] mb-1">Submenu ID / Slug <span class="text-rose-500">*</span></label>
+            <input type="text" id="sub-id" required class="w-full text-xs px-3 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono lowercase focus:outline-none focus:border-[#00A4B7]" placeholder="e.g. inward-operations" />
           </div>
         </form>
       `,
@@ -87056,45 +86987,34 @@ const SetupView = {
           label: 'Create Submenu',
           type: 'primary',
           onClick: (m) => {
-            const title = document.getElementById('sm-title')?.value.trim();
-            const id = document.getElementById('sm-slug')?.value.trim().toLowerCase();
-
+            const title = document.getElementById('sub-title')?.value.trim();
+            const id = document.getElementById('sub-id')?.value.trim().toLowerCase();
             if (!title || !id) {
-              Toast.show('Please provide both Submenu Title and Key', 'warning', 'Missing Fields');
+              Toast.show('Please fill in both Name and ID', 'warning');
               return;
             }
-
             if (!this.state.submenusConfig[modKey]) this.state.submenusConfig[modKey] = [];
             this.state.submenusConfig[modKey].push({ id, title, tabs: [] });
-
-            const mod = this.state.modulesConfig.find(m => m.id === modKey);
-            if (mod) mod.submenusCount = this.state.submenusConfig[modKey].length;
-
-            this.logAudit('Submenu Studio', `Created submenu "${title}" in ${modKey}`);
             this.saveState();
+            this.logAudit('Submenu Studio', `Added submenu "${title}" to ${modKey}`);
             m.close();
-            Toast.show(`Submenu "${title}" created successfully`, 'success', 'Saved');
-            const c = container || document.getElementById('setup-subpage-content');
-            if (c) this.renderSubmenuTabStudioTab(c);
+            Toast.show(`Submenu "${title}" added successfully`, 'success');
+            this.renderSubmenuTabStudioTab(container);
           }
         }
       ]
     });
   },
 
-  showEditSubmenuModal(modKey, sm, container) {
+  showEditSubmenuModal(modKey, submenu, container) {
     Modal.open({
-      title: `Edit Submenu: ${sm.title}`,
+      title: `Edit Submenu: ${submenu.title}`,
       size: 'md',
       content: `
         <form class="space-y-3" onsubmit="return false;">
           <div>
-            <label class="block text-xs font-semibold text-[#172B4D] mb-0">Submenu Title <span class="text-rose-500">*</span></label>
-            <input type="text" id="edit-sm-title" required value="${sm.title}" class="w-full text-xs px-3 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold focus:outline-none focus:border-[#0284C7]" />
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-[#172B4D] mb-0">Submenu Key / Slug</label>
-            <input type="text" id="edit-sm-slug" value="${sm.id}" class="w-full text-xs px-3 py-1.5 bg-[#EBECF0] border border-[#DFE1E6] rounded font-mono text-[#5E6C84]" readonly />
+            <label class="block text-xs font-semibold text-[#172B4D] mb-1">Submenu Name <span class="text-rose-500">*</span></label>
+            <input type="text" id="edit-sub-title" required value="${submenu.title}" class="w-full text-xs px-3 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#00A4B7]" />
           </div>
         </form>
       `,
@@ -87104,150 +87024,363 @@ const SetupView = {
           label: 'Save Changes',
           type: 'primary',
           onClick: (m) => {
-            const title = document.getElementById('edit-sm-title')?.value.trim();
+            const title = document.getElementById('edit-sub-title')?.value.trim();
             if (!title) {
-              Toast.show('Submenu title cannot be empty', 'warning');
+              Toast.show('Please enter Submenu Name', 'warning');
               return;
             }
-
-            sm.title = title;
-            this.logAudit('Submenu Studio', `Updated submenu "${sm.title}" in ${modKey}`);
+            submenu.title = title;
             this.saveState();
+            this.logAudit('Submenu Studio', `Updated submenu "${title}" in ${modKey}`);
             m.close();
-            Toast.show(`Submenu "${sm.title}" updated successfully`, 'success', 'Saved');
-            const c = container || document.getElementById('setup-subpage-content');
-            if (c) this.renderSubmenuTabStudioTab(c);
+            Toast.show(`Submenu "${title}" updated`, 'success');
+            this.renderSubmenuTabStudioTab(container);
           }
         }
       ]
     });
   },
 
-  showAddTabModal(modKey, smId, container) {
+  showAddTabModal(arg1, arg2, arg3) {
+    let modKey = null;
+    let smId = null;
+    let container = null;
+    let tabsTable = null;
+
+    if (arg1 && typeof arg1 === 'object' && arg1.containerId) {
+      tabsTable = arg1;
+    } else {
+      modKey = typeof arg1 === 'string' ? arg1 : null;
+      smId = typeof arg2 === 'string' ? arg2 : null;
+      container = arg3 || null;
+    }
+
+    this.openUniversalTabModal({ isEdit: false, modKey, smId, tab: null, container, tabsTable });
+  },
+
+  showEditTabModal(arg1, arg2, arg3, arg4) {
+    let modKey = null;
+    let smId = null;
+    let tab = null;
+    let container = null;
+    let tabsTable = null;
+
+    if (arg1 && typeof arg1 === 'object' && (arg1.key || arg1.id)) {
+      tab = arg1;
+      tabsTable = arg2 && arg2.containerId ? arg2 : null;
+      modKey = tab.menuKey;
+      smId = tab.submenuId;
+    } else {
+      modKey = typeof arg1 === 'string' ? arg1 : null;
+      smId = typeof arg2 === 'string' ? arg2 : null;
+      tab = arg3 || null;
+      container = arg4 || null;
+    }
+
+    this.openUniversalTabModal({ isEdit: true, modKey, smId, tab, container, tabsTable });
+  },
+
+  openUniversalTabModal({ isEdit = false, modKey = null, smId = null, tab = null, container = null, tabsTable = null }) {
+    const allMenus = this.getAllMenusForTabs ? this.getAllMenusForTabs() : [];
+    const currentMenuKey = tab ? (tab.menuKey || 'settings') : (modKey || 'settings');
+    const submenus = this.getSubmenusForMenu ? this.getSubmenusForMenu(currentMenuKey) : [];
+    const currentSubmenuId = tab ? (tab.submenuId || submenus[0]?.id || 'custom') : (smId || submenus[0]?.id || 'custom');
+
     Modal.open({
-      title: 'Register New View Tab',
-      size: 'md',
+      title: isEdit ? `Edit Tab: ${tab?.label || 'Tab'}` : 'Register New View Tab',
+      size: 'lg',
       content: `
-        <form class="space-y-3" onsubmit="return false;">
-          <div>
-            <label class="block text-xs font-semibold text-[#172B4D] mb-0">Tab Label <span class="text-rose-500">*</span></label>
-            <input type="text" id="tab-label" required class="w-full text-xs px-3 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" placeholder="e.g. Catch Inward Register" />
-          </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-            <div>
-              <label class="block text-xs font-semibold text-[#172B4D] mb-0">Tab Slug <span class="text-rose-500">*</span></label>
-              <input type="text" id="tab-slug" required class="w-full text-xs px-3 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono lowercase focus:outline-none focus:border-[#0284C7]" placeholder="catch-inward" />
+        <form class="space-y-3.5 text-xs" onsubmit="return false;">
+          <!-- Hierarchy Navigation Selector Box (3-Level Architecture) -->
+          <div class="p-3 bg-gradient-to-r from-[#F0F9FF] to-[#F8FAFC] rounded-xl border border-[#BAE6FD] space-y-2.5">
+            <div class="flex items-center justify-between border-b border-[#E0F2FE] pb-1.5">
+              <div class="flex items-center gap-2">
+                <span class="w-5 h-5 rounded-md bg-[#00A4B7] text-white flex items-center justify-center font-bold text-[10px]">
+                  <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"/></svg>
+                </span>
+                <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Navigation Hierarchy</span>
+              </div>
+              <span class="text-[10.5px] font-semibold text-[#00A4B7] bg-white px-2 py-0.5 rounded border border-[#BAE6FD]">
+                1st Level &rarr; 2nd Level &rarr; 3rd Level
+              </span>
             </div>
-            <div>
-              <label class="block text-xs font-semibold text-[#172B4D] mb-0">Mapping Type</label>
-              <select id="tab-type" class="w-full text-xs px-3 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]">
-                <option value="system">System Page</option>
-                <option value="dynamic-form">Dynamic Form</option>
-                <option value="custom-list">Custom List</option>
-              </select>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <!-- 1st Level: Main Menu -->
+              <div>
+                <label for="tab-modal-menu" class="block text-xs font-bold text-[#172B4D] mb-1">
+                  1st Level: Main Menu <span class="text-rose-500">*</span>
+                </label>
+                <select id="tab-modal-menu" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] shadow-2xs">
+                  ${allMenus.map(m => `<option value="${m.key}" ${m.key === currentMenuKey ? 'selected' : ''}>${m.label}</option>`).join('')}
+                </select>
+              </div>
+
+              <!-- 2nd Level: Sub Menu -->
+              <div>
+                <label for="tab-modal-submenu" class="block text-xs font-bold text-[#172B4D] mb-1">
+                  2nd Level: Sub Menu <span class="text-rose-500">*</span>
+                </label>
+                <select id="tab-modal-submenu" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] shadow-2xs">
+                  ${submenus.map(s => `<option value="${s.id}" ${s.id === currentSubmenuId ? 'selected' : ''}>${s.title}</option>`).join('')}
+                </select>
+              </div>
             </div>
           </div>
-          <div>
-            <label class="block text-xs font-semibold text-[#172B4D] mb-0">Badge Tag (Optional)</label>
-            <input type="text" id="tab-badge" class="w-full text-xs px-3 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" placeholder="e.g. 5 New" />
+
+          <!-- 3rd Level: Tab Details -->
+          <div class="bg-white p-3.5 rounded-xl border border-[#DFE1E6] space-y-3 shadow-2xs">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9] pb-1.5">
+              <span class="w-5 h-5 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-[10px]">3</span>
+              <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">3rd Level: Tab Menu Details</span>
+            </div>
+
+            <!-- Tab Name / Label -->
+            <div>
+              <label for="tab-modal-label" class="block text-xs font-semibold text-[#172B4D] mb-1">
+                Tab Name / Label <span class="text-rose-500">*</span>
+              </label>
+              <input type="text" id="tab-modal-label" required value="${tab ? (tab.label || '') : ''}" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] shadow-2xs" placeholder="e.g. Fields Customizer, Forms, Query Editor" />
+            </div>
+
+            <!-- Tab Slug & Mapping Type -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div>
+                <label for="tab-modal-slug" class="block text-xs font-semibold text-[#172B4D] mb-1">
+                  Tab Slug / Key <span class="text-rose-500">*</span>
+                </label>
+                <input type="text" id="tab-modal-slug" required value="${tab ? (tab.key || tab.id || '') : ''}" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-mono lowercase focus:outline-none focus:border-[#00A4B7] text-[#00A4B7] font-bold shadow-2xs" placeholder="e.g. fields-customizer" />
+              </div>
+              <div>
+                <label for="tab-modal-type" class="block text-xs font-semibold text-[#172B4D] mb-1">
+                  Mapping Type
+                </label>
+                <select id="tab-modal-type" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] shadow-2xs">
+                  <option value="system" ${tab && tab.type === 'system' ? 'selected' : ''}>System Page</option>
+                  <option value="standard" ${tab && tab.type === 'standard' ? 'selected' : ''}>Standard View</option>
+                  <option value="dynamic-form" ${tab && tab.type === 'dynamic-form' ? 'selected' : ''}>Dynamic Form</option>
+                  <option value="report" ${tab && tab.type === 'report' ? 'selected' : ''}>Report</option>
+                  <option value="custom-list" ${tab && tab.type === 'custom-list' ? 'selected' : ''}>Custom List</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Route URL Hash -->
+            <div>
+              <label for="tab-modal-route" class="block text-xs font-semibold text-[#172B4D] mb-1 flex items-center justify-between">
+                <span>Route URL Hash <span class="text-rose-500">*</span></span>
+                <span class="text-[10px] text-[#5E6C84] font-normal font-mono">Format: #/{menu}/{submenu}/{slug}</span>
+              </label>
+              <input type="text" id="tab-modal-route" required value="${tab ? (tab.route || '') : `#/${currentMenuKey}/${currentSubmenuId}/new-tab`}" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-mono focus:outline-none focus:border-[#00A4B7] text-[#172B4D] shadow-2xs" placeholder="e.g. #/settings/custom/fields-customizer" />
+            </div>
+
+            <!-- Badge Tag & Status Checkbox -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 items-end">
+              <div>
+                <label for="tab-modal-badge" class="block text-xs font-semibold text-[#172B4D] mb-1">
+                  Badge Tag (Optional)
+                </label>
+                <input type="text" id="tab-modal-badge" value="${tab ? (tab.badge || '') : ''}" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] shadow-2xs" placeholder="e.g. 5 New, Pro" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-[#172B4D] mb-1">Status</label>
+                <div class="flex items-center h-[38px] px-3 py-2 bg-[#F8FAFC] rounded-lg border border-[#DFE1E6]">
+                  <label class="inline-flex items-center gap-2 cursor-pointer select-none">
+                    <input type="checkbox" id="tab-modal-status-cb" class="w-4.5 h-4.5 rounded border-[#DFE1E6] text-[#00A4B7] accent-[#00A4B7] cursor-pointer" ${(!tab || tab.status === 'Active') ? 'checked' : ''} />
+                    <span class="text-xs font-semibold text-[#172B4D]">Active Tab</span>
+                  </label>
+                </div>
+              </div>
+            </div>
           </div>
         </form>
       `,
       footerButtons: [
         { label: 'Cancel', type: 'secondary', onClick: (m) => m.close() },
         {
-          label: 'Create Tab',
+          label: isEdit ? 'Save Changes' : 'Create Tab',
           type: 'primary',
           onClick: (m) => {
-            const label = document.getElementById('tab-label')?.value.trim();
-            const id = document.getElementById('tab-slug')?.value.trim().toLowerCase();
-            const type = document.getElementById('tab-type')?.value;
-            const badge = document.getElementById('tab-badge')?.value.trim();
+            const labelInput = document.getElementById('tab-modal-label');
+            const slugInput = document.getElementById('tab-modal-slug');
+            const menuSelect = document.getElementById('tab-modal-menu');
+            const smSelect = document.getElementById('tab-modal-submenu');
+            const typeSelect = document.getElementById('tab-modal-type');
+            const routeInput = document.getElementById('tab-modal-route');
+            const badgeInput = document.getElementById('tab-modal-badge');
+            const statusCb = document.getElementById('tab-modal-status-cb');
+
+            const label = labelInput?.value.trim();
+            const id = slugInput?.value.trim().toLowerCase().replace(/[^a-z0-9_-]+/g, '-');
+            const selectedMenuKey = menuSelect?.value || 'settings';
+            const selectedSmId = smSelect?.value || 'custom';
+            const type = typeSelect?.value || 'system';
+            const route = routeInput?.value.trim() || `#/${selectedMenuKey}/${selectedSmId}/${id}`;
+            const badge = badgeInput?.value.trim() || '';
+            const status = statusCb?.checked ? 'Active' : 'Inactive';
 
             if (!label || !id) {
-              Toast.show('Please provide both Tab Label and Slug', 'warning', 'Missing Fields');
+              Toast.show('Please provide both Tab Name and Slug', 'warning', 'Missing Fields');
               return;
             }
 
-            const sm = this.state.submenusConfig[modKey]?.find(s => s.id === smId);
-            if (sm) {
-              sm.tabs.push({ id, label, route: `#/${modKey}/${smId}/${id}`, type, badge });
-              this.saveState();
-              m.close();
-              Toast.show(`Tab "${label}" added successfully`, 'success', 'Saved');
-              const c = container || document.getElementById('setup-subpage-content');
-              if (c) this.renderSubmenuTabStudioTab(c);
-            }
-          }
-        }
-      ]
-    });
-  },
-
-  showEditTabModal(modKey, smId, tab, container) {
-    Modal.open({
-      title: `Edit Tab: ${tab.label}`,
-      size: 'md',
-      content: `
-        <form class="space-y-3" onsubmit="return false;">
-          <div>
-            <label class="block text-xs font-semibold text-[#172B4D] mb-0">Tab Label <span class="text-rose-500">*</span></label>
-            <input type="text" id="edit-tab-label" required value="${tab.label}" class="w-full text-xs px-3 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold focus:outline-none focus:border-[#0284C7]" />
-          </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-            <div>
-              <label class="block text-xs font-semibold text-[#172B4D] mb-0">Route Hash <span class="text-rose-500">*</span></label>
-              <input type="text" id="edit-tab-route" required value="${tab.route}" class="w-full text-xs px-3 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono focus:outline-none focus:border-[#0284C7]" />
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-[#172B4D] mb-0">Mapping Type</label>
-              <select id="edit-tab-type" class="w-full text-xs px-3 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]">
-                <option value="system" ${tab.type === 'system' ? 'selected' : ''}>System Page</option>
-                <option value="dynamic-form" ${tab.type === 'dynamic-form' ? 'selected' : ''}>Dynamic Form</option>
-                <option value="custom-list" ${tab.type === 'custom-list' ? 'selected' : ''}>Custom List</option>
-              </select>
-            </div>
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-[#172B4D] mb-0">Badge Tag (Optional)</label>
-            <input type="text" id="edit-tab-badge" value="${tab.badge || ''}" class="w-full text-xs px-3 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" placeholder="e.g. 5 New" />
-          </div>
-        </form>
-      `,
-      footerButtons: [
-        { label: 'Cancel', type: 'secondary', onClick: (m) => m.close() },
-        {
-          label: 'Save Changes',
-          type: 'primary',
-          onClick: (m) => {
-            const label = document.getElementById('edit-tab-label')?.value.trim();
-            const route = document.getElementById('edit-tab-route')?.value.trim();
-            const type = document.getElementById('edit-tab-type')?.value;
-            const badge = document.getElementById('edit-tab-badge')?.value.trim();
-
-            if (!label || !route) {
-              Toast.show('Please provide both Tab Label and Route', 'warning', 'Missing Fields');
+            if (!selectedMenuKey || !selectedSmId) {
+              Toast.show('Please select Parent Menu and Parent Sub Menu', 'warning', 'Missing Fields');
               return;
             }
 
-            tab.label = label;
-            tab.route = route;
-            tab.type = type;
-            tab.badge = badge;
+            const menuObj = allMenus.find(m => m.key === selectedMenuKey);
+            const menuLabel = menuObj ? menuObj.label : selectedMenuKey.toUpperCase();
+            const smList = this.getSubmenusForMenu(selectedMenuKey);
+            const smObj = smList.find(s => s.id === selectedSmId);
+            const submenuTitle = smObj ? smObj.title : selectedSmId;
 
-            this.logAudit('Submenu Studio', `Updated tab "${tab.label}" in ${smId}`);
+            // 1. Sync into submenusConfig
+            if (selectedMenuKey === 'general') {
+              if (typeof window !== 'undefined' && window.NAV_HIERARCHY) {
+                const genMod = window.NAV_HIERARCHY.find(m => m.id === 'general');
+                if (genMod && genMod.submenus) {
+                  const cfg = genMod.submenus.find(s => s.id === selectedSmId);
+                  if (cfg && cfg.tabs) {
+                    const ex = cfg.tabs.find(t => t.id === id);
+                    if (ex) { ex.label = label; ex.hash = route; }
+                    else { cfg.tabs.push({ id, label, hash: route }); }
+                  }
+                }
+              }
+            } else if (selectedMenuKey === 'settings') {
+              if (typeof window !== 'undefined' && window.SUPER_ADMIN_NAV_HIERARCHY) {
+                const setMod = window.SUPER_ADMIN_NAV_HIERARCHY.find(m => m.id === 'settings');
+                if (setMod && setMod.submenus) {
+                  const cst = setMod.submenus.find(s => s.id === selectedSmId);
+                  if (cst && cst.tabs) {
+                    const ex = cst.tabs.find(t => t.id === id);
+                    if (ex) { ex.label = label; ex.hash = route; }
+                    else { cst.tabs.push({ id, label, hash: route }); }
+                  }
+                }
+              }
+            }
+
+            if (!this.state.submenusConfig[selectedMenuKey]) {
+              this.state.submenusConfig[selectedMenuKey] = [];
+            }
+            let targetSm = this.state.submenusConfig[selectedMenuKey].find(s => s.id === selectedSmId);
+            if (!targetSm) {
+              targetSm = { id: selectedSmId, title: submenuTitle, tabs: [] };
+              this.state.submenusConfig[selectedMenuKey].push(targetSm);
+            }
+            if (!Array.isArray(targetSm.tabs)) targetSm.tabs = [];
+            const tIdx = targetSm.tabs.findIndex(t => t.id === id);
+            if (tIdx > -1) {
+              targetSm.tabs[tIdx] = Object.assign(targetSm.tabs[tIdx], { id, label, route, type, badge, status });
+            } else {
+              targetSm.tabs.push({ id, label, route, type, badge, status });
+            }
+
+            // 2. Sync into tabsConfig
+            if (!Array.isArray(this.state.tabsConfig)) {
+              this.state.tabsConfig = [];
+            }
+            const existingTabIdx = this.state.tabsConfig.findIndex(t => t.id === id || (t.key === id && t.menuKey === selectedMenuKey));
+            const tabRecord = {
+              id,
+              key: id,
+              label,
+              menuKey: selectedMenuKey,
+              menuLabel,
+              submenuId: selectedSmId,
+              submenuTitle,
+              route,
+              type,
+              badge,
+              status,
+              order: (tab && tab.order) ? tab.order : 1,
+              isProtected: (tab && tab.isProtected) ? true : false,
+              description: `Tab for ${label} under ${menuLabel} > ${submenuTitle}`
+            };
+
+            if (existingTabIdx > -1) {
+              this.state.tabsConfig[existingTabIdx] = Object.assign(this.state.tabsConfig[existingTabIdx], tabRecord);
+            } else {
+              this.state.tabsConfig.unshift(tabRecord);
+            }
+
             this.saveState();
+            this.logAudit('Tabs Setup', `${isEdit ? 'Updated' : 'Added'} tab "${label}" (${id}) under ${menuLabel} > ${submenuTitle}`);
             m.close();
-            Toast.show(`Tab "${tab.label}" updated successfully`, 'success', 'Saved');
-            const c = container || document.getElementById('setup-subpage-content');
-            if (c) this.renderSubmenuTabStudioTab(c);
+            Toast.show(`Tab "${label}" ${isEdit ? 'updated' : 'added'} successfully`, 'success', 'Saved');
+
+            // Refresh UI
+            if (tabsTable) {
+              tabsTable.setData(this.getFilteredTabs());
+            } else {
+              const tableContainer = document.getElementById('tabs-table-container');
+              if (tableContainer) {
+                this.renderTabsStudioTab(document.getElementById('setup-subpage-content'));
+              }
+            }
+            if (container) {
+              this.renderSubmenuTabStudioTab(container);
+            }
           }
         }
       ]
     });
+
+    // Wire up dynamic menu -> submenu -> route changes in the modal
+    const menuSelectEl = document.getElementById('tab-modal-menu');
+    const smSelectEl = document.getElementById('tab-modal-submenu');
+    const labelInputEl = document.getElementById('tab-modal-label');
+    const slugInputEl = document.getElementById('tab-modal-slug');
+    const routeInputEl = document.getElementById('tab-modal-route');
+
+    if (menuSelectEl && smSelectEl) {
+      menuSelectEl.onchange = () => {
+        const mKey = menuSelectEl.value;
+        const newSmList = this.getSubmenusForMenu(mKey);
+        smSelectEl.innerHTML = newSmList.map(s => `<option value="${s.id}">${s.title}</option>`).join('');
+        const curSm = smSelectEl.value || (newSmList[0] ? newSmList[0].id : 'default');
+        const curSlug = slugInputEl?.value.trim() || 'new-tab';
+        if (routeInputEl) {
+          routeInputEl.value = `#/${mKey}/${curSm}/${curSlug}`;
+        }
+      };
+
+      smSelectEl.onchange = () => {
+        const mKey = menuSelectEl.value;
+        const curSm = smSelectEl.value || 'default';
+        const curSlug = slugInputEl?.value.trim() || 'new-tab';
+        if (routeInputEl) {
+          routeInputEl.value = `#/${mKey}/${curSm}/${curSlug}`;
+        }
+      };
+    }
+
+    if (labelInputEl && slugInputEl && routeInputEl) {
+      labelInputEl.oninput = () => {
+        if (!isEdit || !slugInputEl.value || slugInputEl.dataset.custom !== 'true') {
+          const generatedSlug = labelInputEl.value
+            .trim()
+            .toLowerCase()
+            .replace(/[^a-z0-9_-]+/g, '-')
+            .replace(/^-+|-+$/g, '');
+          slugInputEl.value = generatedSlug;
+          const mKey = menuSelectEl?.value || 'settings';
+          const sKey = smSelectEl?.value || 'custom';
+          routeInputEl.value = `#/${mKey}/${sKey}/${generatedSlug || 'new-tab'}`;
+        }
+      };
+
+      slugInputEl.oninput = () => {
+        slugInputEl.dataset.custom = 'true';
+        const mKey = menuSelectEl?.value || 'settings';
+        const sKey = smSelectEl?.value || 'custom';
+        routeInputEl.value = `#/${mKey}/${sKey}/${slugInputEl.value.trim() || 'new-tab'}`;
+      };
+    }
   },
 
-  // =========================================================================
   // 6. DYNAMIC FIELD & FORM BUILDER TAB
   // =========================================================================
   renderFieldFormBuilderTab(container) {
