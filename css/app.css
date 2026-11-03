@@ -2953,3 +2953,19 @@ td.sticky-action-col > div {
   color: #FFFFFF !important;
 }
 
+
+/* Add Menu Popup Custom 1-Column Grid & Container Padding */
+#erp-modal-root:has(#menu-setup-form),
+#erp-modal-root.menu-setup-modal-container {
+  padding: 20rem !important;
+  padding-top: 2rem !important;
+  padding-right: 1rem !important;
+  padding-bottom: 2rem !important;
+  padding-left: 20rem !important;
+}
+
+#erp-modal-root:has(#menu-setup-form) .md\:grid-cols-3,
+#menu-setup-form.md\:grid-cols-3,
+#menu-setup-form {
+  grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+}
