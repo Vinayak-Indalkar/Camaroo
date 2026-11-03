@@ -348,7 +348,7 @@ div:has(> [role="tab"])::-webkit-scrollbar-thumb:hover {
   transform: scale(0.98) !important;
 }
 
-/* Text Tab Button with Active Line Indicator Below */
+/* Text Tab Button without Bottom Line and without Bottom Padding */
 .tab-active,
 a.tab-active,
 button.tab-active,
@@ -359,12 +359,12 @@ a[role="tab"][aria-selected="true"],
   color: #00A4B7 !important;
   border-radius: 0 !important;
   border: none !important;
-  border-bottom: 2px solid #00A4B7 !important;
+  border-bottom: none !important;
   font-weight: 700 !important;
   user-select: none !important;
   -webkit-user-select: none !important;
   box-shadow: none !important;
-  margin-bottom: -1px !important;
+  margin-bottom: 0 !important;
 }
 .tab-active *,
 a.tab-active *,
@@ -381,15 +381,15 @@ button.tab-active *,
 [role="tab"] {
   border-radius: 0 !important;
   border: none !important;
-  border-bottom: 2px solid transparent !important;
+  border-bottom: none !important;
   background-color: transparent !important;
   background: transparent !important;
   color: #5E6C84 !important;
   user-select: none !important;
   -webkit-user-select: none !important;
   transition: all 0.15s ease-in-out !important;
-  margin-bottom: -1px !important;
-  padding: 8px 14px !important;
+  margin-bottom: 0 !important;
+  padding: 4px 10px 0px 10px !important;
   box-shadow: none !important;
 }
 
@@ -397,7 +397,7 @@ button.tab-active *,
   background-color: transparent !important;
   background: transparent !important;
   color: #172B4D !important;
-  border-bottom: 2px solid #DFE1E6 !important;
+  border-bottom: none !important;
 }
 
 [role="tab"]:focus:not(:focus-visible) {
@@ -517,9 +517,9 @@ button.tab-active *,
   color: #00A4B7 !important;
   border-radius: 0 !important;
   border: none !important;
-  border-bottom: 2px solid #00A4B7 !important;
+  border-bottom: none !important;
   font-weight: 700 !important;
-  margin-bottom: -1px !important;
+  margin-bottom: 0 !important;
 }
 .tab-active span {
   background-color: transparent !important;
@@ -672,7 +672,7 @@ input[type="month"]::-webkit-calendar-picker-indicator:hover {
   opacity: 1;
 }
 
-/* Active Tab: Text button with active line below */
+/* Active Tab: Text button without active line below */
 .tab-active,
 a.tab-active,
 a.tab-active:visited,
@@ -683,9 +683,9 @@ a[role="tab"][aria-selected="true"],
   color: #00A4B7 !important;
   border-radius: 0 !important;
   border: none !important;
-  border-bottom: 2px solid #00A4B7 !important;
+  border-bottom: none !important;
   font-weight: 700 !important;
-  margin-bottom: -1px !important;
+  margin-bottom: 0 !important;
   box-shadow: none !important;
 }
 .tab-active *,

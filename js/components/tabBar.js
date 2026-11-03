@@ -45,13 +45,13 @@ export const TabBar = {
     const isExtraActive = extraAction && currentTabId === extraAction.id;
 
     container.innerHTML = `
-      <nav aria-label="${submenu.title} tabs navigation" class="mb-4">
-        <div class="flex items-center justify-between border-b border-[#DFE1E6] gap-2">
+      <nav aria-label="${submenu.title} tabs navigation" class="mb-1">
+        <div class="flex items-center justify-between gap-2">
           <div 
             role="tablist" 
             aria-label="${submenu.title} views" 
             id="${containerId}-tablist" style="overflow-x: auto !important; -webkit-overflow-scrolling: touch; scrollbar-width: thin;"
-            class="flex items-center gap-1 overflow-x-auto bg-transparent p-0 scrollbar-thin flex-1 min-w-0 -mb-[1px]"
+            class="flex items-center gap-2 overflow-x-auto bg-transparent p-0 scrollbar-thin flex-1 min-w-0"
           >
             ${visibleTabs.map(tab => {
               const isActive = tab.id === currentTabId;
@@ -63,7 +63,7 @@ export const TabBar = {
                   aria-selected="${isActive ? 'true' : 'false'}"
                   tabindex="${isActive ? '0' : '-1'}"
                   aria-controls="panel-${tab.id}"
-                  class="select-none px-4 py-2.5 text-xs font-semibold whitespace-nowrap transition-colors flex items-center gap-1.5 outline-none bg-transparent -mb-[1px] border-b-2 ${isActive ? 'tab-active text-[#00A4B7] border-[#00A4B7] font-bold' : 'text-[#5E6C84] hover:text-[#172B4D] border-transparent hover:border-[#DFE1E6]'}"
+                  class="select-none px-2.5 pt-1.5 pb-0 text-xs font-semibold whitespace-nowrap transition-colors flex items-center gap-1.5 outline-none bg-transparent border-0 ${isActive ? 'tab-active text-[#00A4B7] font-bold' : 'text-[#5E6C84] hover:text-[#172B4D]'}"
                 >
                   <span class="select-none">${tab.label}</span>
                 </a>
@@ -111,12 +111,12 @@ export const TabBar = {
         t.setAttribute('aria-selected', 'false');
         t.tabIndex = -1;
         t.classList.remove('tab-active', 'text-[#00A4B7]', 'border-[#00A4B7]', 'font-bold');
-        t.classList.add('text-[#5E6C84]', 'hover:text-[#172B4D]', 'border-transparent', 'hover:border-[#DFE1E6]');
+        t.classList.add('text-[#5E6C84]', 'hover:text-[#172B4D]');
       });
       clicked.setAttribute('aria-selected', 'true');
       clicked.tabIndex = 0;
       clicked.classList.remove('text-[#5E6C84]', 'hover:text-[#172B4D]', 'border-transparent', 'hover:border-[#DFE1E6]');
-      clicked.classList.add('tab-active', 'text-[#00A4B7]', 'border-[#00A4B7]', 'font-bold');
+      clicked.classList.add('tab-active', 'text-[#00A4B7]', 'font-bold');
 
       // Unselect any extra action button
       const extraBtns = document.querySelectorAll('[id^="btn-tab-extra-"]');
@@ -142,7 +142,7 @@ export const TabBar = {
           t.setAttribute('aria-selected', 'false');
           t.tabIndex = -1;
           t.classList.remove('tab-active', 'text-[#00A4B7]', 'border-[#00A4B7]', 'font-bold');
-          t.classList.add('text-[#5E6C84]', 'hover:text-[#172B4D]', 'border-transparent', 'hover:border-[#DFE1E6]');
+          t.classList.add('text-[#5E6C84]', 'hover:text-[#172B4D]');
         });
         btn.classList.remove('bg-white', 'border-[#CBD5E1]', 'text-[#334155]');
         btn.classList.add('bg-[#E0F2FE]', 'border-[#00A4B7]', 'text-[#00A4B7]', 'shadow-xs');
