@@ -10788,13 +10788,27 @@ export const SetupView = {
 
     renderLucideGrid();
 
-    // 3. Populate dynamic Submenu Rows & event listeners
+    // 3. Populate dynamic Submenu Rows with click-to-configure Tab binding
     const listContainer = document.getElementById('submenus-list-container');
-    const addSubRow = (sub = { name: '', url: '', status: 'Active' }) => {
+    const addSubRow = (sub = { name: '', url: '', status: 'Active', tabs: [] }) => {
       if (!listContainer) return;
       const isActive = sub.status !== 'Inactive';
       const rowEl = document.createElement('div');
-      rowEl.className = 'submenu-item-row grid grid-cols-12 gap-2 items-center py-1';
+      rowEl.className = 'submenu-item-row grid grid-cols-12 gap-2 items-center p-1.5 rounded-lg border border-[#DFE1E6] bg-white transition-all cursor-pointer';
+
+      // Preload existing tab data if present
+      if (Array.isArray(sub.tabs) && sub.tabs.length > 0) {
+        const firstTab = sub.tabs[0];
+        rowEl._tabData = {
+          id: firstTab.id,
+          label: firstTab.label || firstTab.name || '',
+          route: firstTab.route || firstTab.hash || '',
+          type: firstTab.type || 'system',
+          badge: firstTab.badge || '',
+          status: firstTab.status || 'Active'
+        };
+      }
+
       rowEl.innerHTML = `
         <div class="col-span-5">
           <input type="text" class="sub-item-name w-full text-xs px-2.5 py-1.5 border border-[#DFE1E6] rounded-md focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] bg-white" placeholder="Sub Menu Name" value="${sub.name || sub.title || ''}" />
@@ -10815,8 +10829,34 @@ export const SetupView = {
         </div>
       `;
 
+      const subNameInput = rowEl.querySelector('.sub-item-name');
+      const subUrlInput = rowEl.querySelector('.sub-item-url');
       const subCb = rowEl.querySelector('.sub-item-status-cb');
       const subInput = rowEl.querySelector('.sub-item-status');
+
+      // Click or focus anywhere on the row selects it for Tab configuration
+      rowEl.onclick = () => {
+        setActiveSubmenuRow(rowEl);
+      };
+
+      if (subNameInput) {
+        subNameInput.onfocus = () => setActiveSubmenuRow(rowEl);
+        subNameInput.oninput = () => {
+          const mKey = getCurrentMenuKey();
+          const sName = subNameInput.value.trim();
+          const sId = (sName || 'sub').toLowerCase().replace(/[^a-z0-9]/g, '-');
+          if (subUrlInput && (!subUrlInput.value || subUrlInput.value.startsWith(`#/${mKey}/`))) {
+            subUrlInput.value = `#/${mKey}/${sId}`;
+          }
+          if (activeSubRow === rowEl) {
+            syncHierarchyDisplay();
+          }
+        };
+      }
+
+      if (subUrlInput) {
+        subUrlInput.onfocus = () => setActiveSubmenuRow(rowEl);
+      }
 
       if (subCb && subInput) {
         subCb.onchange = () => {
@@ -10824,35 +10864,37 @@ export const SetupView = {
         };
       }
 
-      const subNameInput = rowEl.querySelector('.sub-item-name');
-      if (subNameInput) {
-        subNameInput.oninput = () => {
-          refreshTabSubmenuSelect();
-        };
-      }
-
-      rowEl.querySelector('.btn-remove-sub').onclick = () => {
+      rowEl.querySelector('.btn-remove-sub').onclick = (e) => {
+        e.stopPropagation();
+        const wasActive = activeSubRow === rowEl;
         rowEl.remove();
         if (listContainer.children.length === 0) {
           addSubRow();
+        } else if (wasActive) {
+          setActiveSubmenuRow(listContainer.children[0]);
         }
-        refreshTabSubmenuSelect();
       };
 
       listContainer.appendChild(rowEl);
+      return rowEl;
     };
 
     existingSubmenus.forEach(s => addSubRow(s));
 
-    // Initialize Tab Menu and Submenu dropdowns
-    refreshTabMenuSelect();
-    refreshTabSubmenuSelect();
+    // Set first row as active by default
+    if (listContainer && listContainer.children.length > 0) {
+      setActiveSubmenuRow(listContainer.children[0]);
+    } else {
+      syncHierarchyDisplay();
+    }
 
     const addSubBtn = document.getElementById('btn-add-sub-item');
     if (addSubBtn) {
       addSubBtn.onclick = () => {
-        addSubRow({ name: '', url: '', status: 'Active' });
-        refreshTabSubmenuSelect();
+        const newRow = addSubRow({ name: '', url: '', status: 'Active' });
+        setActiveSubmenuRow(newRow);
+        const nameInp = newRow.querySelector('.sub-item-name');
+        if (nameInp) nameInp.focus();
       };
     }
 
@@ -10953,8 +10995,7 @@ export const SetupView = {
         }
       }
 
-      refreshTabMenuSelect();
-      refreshTabSubmenuSelect();
+      syncHierarchyDisplay();
     };
 
     if (dropdownTrigger && dropdownList) {
@@ -11029,8 +11070,7 @@ export const SetupView = {
           updateDisplayForMenu('__NEW__');
           if (modeBadge) modeBadge.textContent = '✨ Custom / New Menu';
         }
-        refreshTabMenuSelect();
-        refreshTabSubmenuSelect();
+        syncHierarchyDisplay();
       };
     }
   },
