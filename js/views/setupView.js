@@ -4303,7 +4303,7 @@ function extractInitialTabsConfig(submenusConfig, modulesConfig) {
     }
   ];
 
-  // 1b. Setting Customizer Tabs (3rd level tabs under Setting > Customizer)
+  // 1b. Setting Customizer Tabs (Setting > Customizer)
   const settingTabs = [
     {
       id: 'forms',
@@ -10906,20 +10906,20 @@ export const SetupView = {
               </button>
             </div>
           </div>
-          <!-- Body: 5 Columns for 3-Level Hierarchy Filters -->
+          <!-- Body: 5 Columns for Hierarchy Filters -->
           <div id="flt-tab-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3 text-xs" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
-            <!-- 1st Level: Main Menu -->
+            <!-- Main Menu -->
             <div>
-              <label for="flt-tab-menu" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">1st Level: Main Menu</label>
+              <label for="flt-tab-menu" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Main Menu</label>
               <select id="flt-tab-menu" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
                 <option value="">All Main Menus</option>
                 ${allMenus.map(m => `<option value="${m.key}">${m.label}</option>`).join('')}
               </select>
             </div>
 
-            <!-- 2nd Level: Sub Menu (Dynamically Updated based on Main Menu) -->
+            <!-- Sub Menu (Dynamically Updated based on Main Menu) -->
             <div>
-              <label for="flt-tab-submenu" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">2nd Level: Sub Menu</label>
+              <label for="flt-tab-submenu" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Sub Menu</label>
               <select id="flt-tab-submenu" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
                 <option value="">All Sub Menus</option>
               </select>
@@ -10975,7 +10975,7 @@ export const SetupView = {
         },
         {
           field: 'label',
-          header: 'Tab Name (3rd Level)',
+          header: 'Tab Name',
           render: (v, r) => `
             <div class="flex items-center gap-2">
               <span class="font-bold text-[#172B4D] text-xs">${v || r.id}</span>
@@ -10996,7 +10996,7 @@ export const SetupView = {
         },
         {
           field: 'menuLabel',
-          header: '1st Level: Main Menu',
+          header: 'Main Menu',
           render: (v, r) => `
             <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#F0F9FF] text-[#00A4B7] border border-[#BAE6FD]">
               ${v || (r.menuKey ? r.menuKey.toUpperCase() : 'GENERAL')}
@@ -11005,7 +11005,7 @@ export const SetupView = {
         },
         {
           field: 'submenuTitle',
-          header: '2nd Level: Sub Menu',
+          header: 'Sub Menu',
           render: (v, r) => `
             <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-[#FAFBFC] border border-[#DFE1E6] text-[#172B4D]">
               ${v || r.submenuId || 'Configuration'}
@@ -11239,7 +11239,7 @@ export const SetupView = {
       });
     };
 
-    // 1. Setting (1st level)
+    // 1. Setting
     addMenu('settings', 'Setting', 'settings');
 
     // 2. General
@@ -11488,15 +11488,15 @@ export const SetupView = {
 
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
               <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">1st Level: Main Menu</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Main Menu</span>
                 <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${tab.menuLabel || tab.menuKey?.toUpperCase()}</span>
               </div>
               <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">2nd Level: Sub Menu</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Sub Menu</span>
                 <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${tab.submenuTitle || tab.submenuId}</span>
               </div>
               <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">3rd Level: Tab Slug</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Tab Slug</span>
                 <span class="font-mono text-xs text-[#00A4B7] font-bold block mt-0.5">${tab.key || tab.id}</span>
               </div>
               <div>
@@ -11795,7 +11795,7 @@ export const SetupView = {
       size: 'lg',
       content: `
         <form class="space-y-3.5 text-xs" onsubmit="return false;">
-          <!-- Hierarchy Navigation Selector Box (3-Level Architecture) -->
+          <!-- Hierarchy Navigation Selector Box -->
           <div class="p-3 bg-gradient-to-r from-[#F0F9FF] to-[#F8FAFC] rounded-xl border border-[#BAE6FD] space-y-2.5">
             <div class="flex items-center justify-between border-b border-[#E0F2FE] pb-1.5">
               <div class="flex items-center gap-2">
@@ -11805,25 +11805,25 @@ export const SetupView = {
                 <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Navigation Hierarchy</span>
               </div>
               <span class="text-[10.5px] font-semibold text-[#00A4B7] bg-white px-2 py-0.5 rounded border border-[#BAE6FD]">
-                1st Level &rarr; 2nd Level &rarr; 3rd Level
+                Main Menu &rarr; Sub Menu &rarr; Tab
               </span>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-              <!-- 1st Level: Main Menu -->
+              <!-- Main Menu -->
               <div>
                 <label for="tab-modal-menu" class="block text-xs font-bold text-[#172B4D] mb-1">
-                  1st Level: Main Menu <span class="text-rose-500">*</span>
+                  Main Menu <span class="text-rose-500">*</span>
                 </label>
                 <select id="tab-modal-menu" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] shadow-2xs">
                   ${allMenus.map(m => `<option value="${m.key}" ${m.key === currentMenuKey ? 'selected' : ''}>${m.label}</option>`).join('')}
                 </select>
               </div>
 
-              <!-- 2nd Level: Sub Menu -->
+              <!-- Sub Menu -->
               <div>
                 <label for="tab-modal-submenu" class="block text-xs font-bold text-[#172B4D] mb-1">
-                  2nd Level: Sub Menu <span class="text-rose-500">*</span>
+                  Sub Menu <span class="text-rose-500">*</span>
                 </label>
                 <select id="tab-modal-submenu" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] shadow-2xs">
                   ${submenus.map(s => `<option value="${s.id}" ${s.id === currentSubmenuId ? 'selected' : ''}>${s.title}</option>`).join('')}
@@ -11832,11 +11832,11 @@ export const SetupView = {
             </div>
           </div>
 
-          <!-- 3rd Level: Tab Details -->
+          <!-- Tab Details -->
           <div class="bg-white p-3.5 rounded-xl border border-[#DFE1E6] space-y-3 shadow-2xs">
             <div class="flex items-center gap-2 border-b border-[#F1F5F9] pb-1.5">
               <span class="w-5 h-5 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-[10px]">3</span>
-              <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">3rd Level: Tab Menu Details</span>
+              <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Tab Details</span>
             </div>
 
             <!-- Tab Name / Label -->
