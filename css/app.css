@@ -1817,9 +1817,9 @@ button:not(.sidebar-mod-btn).bg-\[\#00A4B7\]:hover * {
 /* 4. Secondary Outline */
 .btn-secondary,
 .btn-outline,
-button.border-neutral-300,
-button.border-[\#CBD5E1],
-button.border-[\#DFE1E6] {
+button.border-neutral-300:not(#menu-modal-select-trigger),
+button.border-\[\#CBD5E1\]:not(#menu-modal-select-trigger),
+button.border-\[\#DFE1E6\]:not(#menu-modal-select-trigger) {
   background-color: #FFFFFF !important;
   color: #1E293B !important;
   border: 1px solid #CBD5E1 !important;
@@ -2818,9 +2818,9 @@ button.btn-secondary,
 .btn-outline,
 button.btn-outline,
 button.border,
-button[class*="border-[#DFE1E6]"],
-button[class*="border-[#CBD5E1]"],
-button.border-neutral-300 {
+button[class*="border-[#DFE1E6]"]:not(#menu-modal-select-trigger),
+button[class*="border-[#CBD5E1]"]:not(#menu-modal-select-trigger),
+button.border-neutral-300:not(#menu-modal-select-trigger) {
   border: 1px solid #CBD5E1 !important;
   border-width: 1px !important;
   border-style: solid !important;
