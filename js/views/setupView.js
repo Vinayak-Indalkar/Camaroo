@@ -11792,6 +11792,363 @@ export const SetupView = {
 
     Modal.open({
       title: isEdit ? `Edit Tab: ${tab?.label || 'Tab'}` : 'Register New View Tab',
+      size: 'md',
+      content: `
+        <form class="space-y-3.5 text-xs" onsubmit="return false;">
+          <!-- Menu and Submenu Row -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div>
+              <label for="tab-modal-menu" class="block text-xs font-bold text-[#172B4D] mb-1">
+                Main Menu <span class="text-rose-500">*</span>
+              </label>
+              <select id="tab-modal-menu" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] shadow-2xs">
+                ${allMenus.map(m => `<option value="${m.key}" ${m.key === currentMenuKey ? 'selected' : ''}>${m.label}</option>`).join('')}
+              </select>
+            </div>
+
+            <div>
+              <label for="tab-modal-submenu" class="block text-xs font-bold text-[#172B4D] mb-1">
+                Sub Menu <span class="text-rose-500">*</span>
+              </label>
+              <select id="tab-modal-submenu" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] shadow-2xs">
+                ${submenus.map(s => `<option value="${s.id}" ${s.id === currentSubmenuId ? 'selected' : ''}>${s.title}</option>`).join('')}
+              </select>
+            </div>
+          </div>
+
+          <!-- Tab Name / Label -->
+          <div>
+            <label for="tab-modal-label" class="block text-xs font-semibold text-[#172B4D] mb-1">
+              Tab Name / Label <span class="text-rose-500">*</span>
+            </label>
+            <input type="text" id="tab-modal-label" required value="${tab ? (tab.label || '') : ''}" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] shadow-2xs" placeholder="e.g. Fields Customizer, Forms, Query Editor" />
+          </div>
+
+          <!-- Tab Slug & Mapping Type -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div>
+              <label for="tab-modal-slug" class="block text-xs font-semibold text-[#172B4D] mb-1">
+                Tab Slug / Key <span class="text-rose-500">*</span>
+              </label>
+              <input type="text" id="tab-modal-slug" required value="${tab ? (tab.key || tab.id || '') : ''}" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-mono lowercase focus:outline-none focus:border-[#00A4B7] text-[#00A4B7] font-bold shadow-2xs" placeholder="e.g. fields-customizer" />
+            </div>
+            <div>
+              <label for="tab-modal-type" class="block text-xs font-semibold text-[#172B4D] mb-1">
+                Mapping Type
+              </label>
+              <select id="tab-modal-type" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] shadow-2xs">
+                <option value="system" ${tab && tab.type === 'system' ? 'selected' : ''}>System Page</option>
+                <option value="standard" ${tab && tab.type === 'standard' ? 'selected' : ''}>Standard View</option>
+                <option value="dynamic-form" ${tab && tab.type === 'dynamic-form' ? 'selected' : ''}>Dynamic Form</option>
+                <option value="report" ${tab && tab.type === 'report' ? 'selected' : ''}>Report</option>
+                <option value="custom-list" ${tab && tab.type === 'custom-list' ? 'selected' : ''}>Custom List</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Route URL Hash -->
+          <div>
+            <label for="tab-modal-route" class="block text-xs font-semibold text-[#172B4D] mb-1 flex items-center justify-between">
+              <span>Route URL Hash <span class="text-rose-500">*</span></span>
+              <span class="text-[10px] text-[#5E6C84] font-normal font-mono">Format: #/{menu}/{submenu}/{slug}</span>
+            </label>
+            <input type="text" id="tab-modal-route" required value="${tab ? (tab.route || '') : `#/${currentMenuKey}/${currentSubmenuId}/new-tab`}" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-mono focus:outline-none focus:border-[#00A4B7] text-[#172B4D] shadow-2xs" placeholder="e.g. #/settings/custom/fields-customizer" />
+          </div>
+
+          <!-- Badge Tag & Status Checkbox -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 items-end">
+            <div>
+              <label for="tab-modal-badge" class="block text-xs font-semibold text-[#172B4D] mb-1">
+                Badge Tag (Optional)
+              </label>
+              <input type="text" id="tab-modal-badge" value="${tab ? (tab.badge || '') : ''}" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] shadow-2xs" placeholder="e.g. 5 New, Pro" />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-[#172B4D] mb-1">Status</label>
+              <div class="flex items-center h-[38px] px-3 py-2 bg-[#F8FAFC] rounded-lg border border-[#DFE1E6]">
+                <label class="inline-flex items-center gap-2 cursor-pointer select-none">
+                  <input type="checkbox" id="tab-modal-status-cb" class="w-4.5 h-4.5 rounded border-[#DFE1E6] text-[#00A4B7] accent-[#00A4B7] cursor-pointer" ${(!tab || tab.status === 'Active') ? 'checked' : ''} />
+                  <span class="text-xs font-semibold text-[#172B4D]">Active Tab</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </form>      `,
+      footerButtons: [
+        { label: 'Close', type: 'secondary', onClick: (m) => m.close() },
+        {
+          label: 'Edit Tab',
+          type: 'primary',
+          onClick: (m) => {
+            m.close();
+            this.showEditTabModal(tab, tabsTable);
+          }
+        }
+      ]
+    });
+  },
+
+  // 5. DYNAMIC SUBMENU & TAB STUDIO TAB (FULL CRUD WITH DATATABLE)
+  // =========================================================================
+  renderSubmenuTabStudioTab(container) {
+    const selectedModKey = this.selectedModuleForSubmenuStudio || 'purchase';
+    const submenus = this.state.submenusConfig[selectedModKey] || [];
+    const selectedMod = this.state.modulesConfig.find(m => m.id === selectedModKey);
+
+    container.innerHTML = `
+      <div class="space-y-4 animate-fade-in">
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-0">
+          <div>
+            <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Submenu &amp; Tab Studio</h1>
+          </div>
+          <div class="flex items-center gap-2">
+            <label for="flt-mod-substudio" class="text-xs font-bold text-[#5E6C84] whitespace-nowrap uppercase tracking-wider">Module:</label>
+            <select id="flt-mod-substudio" class="text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] min-w-[200px]">
+              ${this.state.modulesConfig.map(m => `<option value="${m.id}" ${m.id === selectedModKey ? 'selected' : ''}>${m.label || m.name}</option>`).join('')}
+            </select>
+            <button id="btn-add-submenu" type="button" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all ml-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+              <span>Add Submenu</span>
+            </button>
+          </div>
+        </div>
+
+        <div id="submenus-table-container"></div>
+      </div>
+    `;
+
+    const submenusTable = new DataTable({
+      containerId: 'submenus-table-container',
+      data: submenus,
+      keyField: 'id',
+      tableTitle: `Submenus in ${selectedMod ? (selectedMod.label || selectedModKey) : selectedModKey} (${submenus.length})`,
+      searchable: true,
+      columns: [
+        {
+          field: 'sNo',
+          header: 'SNO',
+          render: (v, r, i) => `<span class="font-bold text-[#5E6C84]">${i !== undefined ? i + 1 : 1}</span>`
+        },
+        {
+          field: 'title',
+          header: 'Submenu Name',
+          render: (v, r) => `
+            <div class="flex items-center gap-2">
+              <span class="font-bold text-[#172B4D] text-xs">${v || r.id}</span>
+              <span class="text-[10px] text-[#5E6C84] font-mono">${r.id}</span>
+            </div>
+          `
+        },
+        {
+          field: 'tabs',
+          header: 'Tabs Configuration',
+          render: (v, r) => {
+            const tabsList = Array.isArray(v) ? v : [];
+            if (tabsList.length === 0) return '<span class="text-xs text-[#5E6C84] italic">No tabs configured</span>';
+            return `
+              <div class="flex flex-wrap gap-1.5 max-w-md">
+                ${tabsList.map(t => `
+                  <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10.5px] font-semibold bg-[#F0F9FF] text-[#00A4B7] border border-[#BAE6FD]">
+                    <span>${t.label || t.id}</span>
+                    <button type="button" class="btn-edit-sub-tab text-[#00A4B7] hover:text-[#007A87]" data-sm-id="${r.id}" data-tab-id="${t.id}" title="Edit Tab">
+                      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+                    </button>
+                  </span>
+                `).join('')}
+              </div>
+            `;
+          }
+        },
+        {
+          field: 'tabsCount',
+          header: 'Total Tabs',
+          render: (v, r) => `<span class="font-extrabold text-[#172B4D]">${(r.tabs || []).length}</span>`
+        }
+      ],
+      actions: [
+        {
+          label: 'Add Tab',
+          icon: `<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>`,
+          onClick: (row) => this.showAddTabModal(selectedModKey, row.id, container)
+        },
+        {
+          label: 'Edit Submenu',
+          icon: `<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>`,
+          onClick: (row) => this.showEditSubmenuModal(selectedModKey, row, container)
+        },
+        {
+          label: 'Delete',
+          icon: `<svg class="w-4 h-4 text-[#DE350B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>`,
+          onClick: (row) => {
+            Modal.confirm({
+              title: `Delete Submenu ${row.title}`,
+              message: `Are you sure you want to delete submenu <strong>${row.title}</strong>? All associated tabs will also be removed.`,
+              confirmText: 'Delete Submenu',
+              cancelText: 'Cancel',
+              isDestructive: true,
+              onConfirm: () => {
+                const sIdx = submenus.findIndex(s => s.id === row.id);
+                if (sIdx > -1) {
+                  submenus.splice(sIdx, 1);
+                  this.saveState();
+                  this.logAudit('Submenu Studio', `Deleted submenu ${row.title} from ${selectedModKey}`);
+                  this.renderSubmenuTabStudioTab(container);
+                  Toast.show(`Submenu "${row.title}" deleted`, 'success');
+                }
+              }
+            });
+          }
+        }
+      ]
+    });
+
+    const fltMod = document.getElementById('flt-mod-substudio');
+    if (fltMod) {
+      fltMod.onchange = (e) => {
+        this.selectedModuleForSubmenuStudio = e.target.value;
+        this.renderSubmenuTabStudioTab(container);
+      };
+    }
+
+    const btnAddSub = document.getElementById('btn-add-submenu');
+    if (btnAddSub) {
+      btnAddSub.onclick = () => this.showAddSubmenuModal(selectedModKey, container);
+    }
+
+    // Attach click events to inline edit tab buttons
+    container.querySelectorAll('.btn-edit-sub-tab').forEach(btn => {
+      btn.onclick = (e) => {
+        e.stopPropagation();
+        const sm = submenus.find(s => s.id === btn.dataset.smId);
+        const tab = sm ? sm.tabs.find(t => t.id === btn.dataset.tabId) : null;
+        if (tab) this.showEditTabModal(selectedModKey, btn.dataset.smId, tab, container);
+      };
+    });
+  },
+
+  showAddSubmenuModal(modKey, container) {
+    Modal.open({
+      title: 'Add Submenu',
+      size: 'md',
+      content: `
+        <form class="space-y-3" onsubmit="return false;">
+          <div>
+            <label class="block text-xs font-semibold text-[#172B4D] mb-1">Submenu Name <span class="text-rose-500">*</span></label>
+            <input type="text" id="sub-title" required class="w-full text-xs px-3 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#00A4B7]" placeholder="e.g. Inward Operations" />
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-[#172B4D] mb-1">Submenu ID / Slug <span class="text-rose-500">*</span></label>
+            <input type="text" id="sub-id" required class="w-full text-xs px-3 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono lowercase focus:outline-none focus:border-[#00A4B7]" placeholder="e.g. inward-operations" />
+          </div>
+        </form>
+      `,
+      footerButtons: [
+        { label: 'Cancel', type: 'secondary', onClick: (m) => m.close() },
+        {
+          label: 'Create Submenu',
+          type: 'primary',
+          onClick: (m) => {
+            const title = document.getElementById('sub-title')?.value.trim();
+            const id = document.getElementById('sub-id')?.value.trim().toLowerCase();
+            if (!title || !id) {
+              Toast.show('Please fill in both Name and ID', 'warning');
+              return;
+            }
+            if (!this.state.submenusConfig[modKey]) this.state.submenusConfig[modKey] = [];
+            this.state.submenusConfig[modKey].push({ id, title, tabs: [] });
+            this.saveState();
+            this.logAudit('Submenu Studio', `Added submenu "${title}" to ${modKey}`);
+            m.close();
+            Toast.show(`Submenu "${title}" added successfully`, 'success');
+            this.renderSubmenuTabStudioTab(container);
+          }
+        }
+      ]
+    });
+  },
+
+  showEditSubmenuModal(modKey, submenu, container) {
+    Modal.open({
+      title: `Edit Submenu: ${submenu.title}`,
+      size: 'md',
+      content: `
+        <form class="space-y-3" onsubmit="return false;">
+          <div>
+            <label class="block text-xs font-semibold text-[#172B4D] mb-1">Submenu Name <span class="text-rose-500">*</span></label>
+            <input type="text" id="edit-sub-title" required value="${submenu.title}" class="w-full text-xs px-3 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#00A4B7]" />
+          </div>
+        </form>
+      `,
+      footerButtons: [
+        { label: 'Cancel', type: 'secondary', onClick: (m) => m.close() },
+        {
+          label: 'Save Changes',
+          type: 'primary',
+          onClick: (m) => {
+            const title = document.getElementById('edit-sub-title')?.value.trim();
+            if (!title) {
+              Toast.show('Please enter Submenu Name', 'warning');
+              return;
+            }
+            submenu.title = title;
+            this.saveState();
+            this.logAudit('Submenu Studio', `Updated submenu "${title}" in ${modKey}`);
+            m.close();
+            Toast.show(`Submenu "${title}" updated`, 'success');
+            this.renderSubmenuTabStudioTab(container);
+          }
+        }
+      ]
+    });
+  },
+
+  showAddTabModal(arg1, arg2, arg3) {
+    let modKey = null;
+    let smId = null;
+    let container = null;
+    let tabsTable = null;
+
+    if (arg1 && typeof arg1 === 'object' && arg1.containerId) {
+      tabsTable = arg1;
+    } else {
+      modKey = typeof arg1 === 'string' ? arg1 : null;
+      smId = typeof arg2 === 'string' ? arg2 : null;
+      container = arg3 || null;
+    }
+
+    this.openUniversalTabModal({ isEdit: false, modKey, smId, tab: null, container, tabsTable });
+  },
+
+  showEditTabModal(arg1, arg2, arg3, arg4) {
+    let modKey = null;
+    let smId = null;
+    let tab = null;
+    let container = null;
+    let tabsTable = null;
+
+    if (arg1 && typeof arg1 === 'object' && (arg1.key || arg1.id)) {
+      tab = arg1;
+      tabsTable = arg2 && arg2.containerId ? arg2 : null;
+      modKey = tab.menuKey;
+      smId = tab.submenuId;
+    } else {
+      modKey = typeof arg1 === 'string' ? arg1 : null;
+      smId = typeof arg2 === 'string' ? arg2 : null;
+      tab = arg3 || null;
+      container = arg4 || null;
+    }
+
+    this.openUniversalTabModal({ isEdit: true, modKey, smId, tab, container, tabsTable });
+  },
+
+  openUniversalTabModal({ isEdit = false, modKey = null, smId = null, tab = null, container = null, tabsTable = null }) {
+    const allMenus = this.getAllMenusForTabs ? this.getAllMenusForTabs() : [];
+    const currentMenuKey = tab ? (tab.menuKey || 'settings') : (modKey || 'settings');
+    const submenus = this.getSubmenusForMenu ? this.getSubmenusForMenu(currentMenuKey) : [];
+    const currentSubmenuId = tab ? (tab.submenuId || submenus[0]?.id || 'custom') : (smId || submenus[0]?.id || 'custom');
+
+    Modal.open({
+      title: isEdit ? `Edit Tab: ${tab?.label || 'Tab'}` : 'Register New View Tab',
       size: 'lg',
       content: `
         <form class="space-y-3.5 text-xs" onsubmit="return false;">
