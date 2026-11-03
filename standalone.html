@@ -85475,157 +85475,150 @@ const SetupView = {
       title: isEdit ? `Edit Menu: ${currentName}` : 'Add Menu',
       size: '3xl',
       content: `
-        <form id="menu-setup-form" class="grid grid-cols-1 lg:grid-cols-3 gap-5 items-stretch text-xs" onsubmit="return false;">
+        <form id="menu-setup-form" class="grid grid-cols-1 md:grid-cols-3 gap-5 items-stretch text-xs min-w-0" onsubmit="return false;">
           <!-- 1. Main Menu Section -->
-          <div class="bg-transparent p-0 border-0 space-y-3.5 flex flex-col h-full">
-            <div class="flex items-center justify-between border-b border-[#EBECF0] pb-0">
+          <div class="min-w-0 bg-transparent p-0 border-0 flex flex-col h-full space-y-2">
+            <div class="flex items-center justify-between border-b border-[#EBECF0] pb-2 mb-0">
               <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Main Menu</span>
-              ${isEdit ? `<span class="text-[10px] font-bold text-[#00A4B7] bg-[#F0F9FF] px-2.5 py-1 rounded border border-[#BAE6FD] font-mono">${mod.id}</span>` : ''}
+              ${isEdit ? `<span class="text-[10px] font-bold text-[#00A4B7] bg-[#F0F9FF] px-2.5 py-0.5 rounded border border-[#BAE6FD] font-mono">${mod.id}</span>` : ''}
             </div>
 
-            <div class="space-y-3 flex-1 flex flex-col">
-              <!-- Menu Selection, Name & Status Card with crisp visible border -->
-              <div class="space-y-3 p-3.5 bg-white rounded-xl border border-[#DFE1E6] shadow-2xs" style="border: 1px solid #DFE1E6 !important;">
-                <!-- Row 1: Select Existing Menu Dropdown & Status Checkbox -->
-                <div class="grid grid-cols-12 gap-3 items-end">
-                  <div class="col-span-8 sm:col-span-9">
-                    <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1 flex items-center justify-between">
-                      <span>Select Existing Menu</span>
-                      <span class="text-[10px] font-medium text-[#5E6C84] lowercase">(or create new)</span>
-                    </label>
-                    
-                    <!-- Custom Dropdown with Assigned Menu Icons -->
-                    <div class="relative" id="menu-dropdown-wrapper">
-                      <button type="button" id="menu-modal-select-trigger" class="w-full text-xs px-3 py-2 bg-white border border-[#CBD5E1] rounded-lg focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] flex items-center justify-between cursor-pointer shadow-2xs hover:border-[#00A4B7] transition-all" style="border: 1px solid #CBD5E1 !important;">
-                        <div class="flex items-center gap-2 truncate" id="menu-selected-display">
-                          ${mod ? `
-                            <div class="w-5 h-5 rounded-md bg-[#F0F9FF] border border-[#BAE6FD] text-[#00A4B7] flex items-center justify-center shrink-0 [&>svg]:w-3.5 [&>svg]:h-3.5">
-                              ${this.getModuleIconSvg(mod)}
-                            </div>
-                            <span class="truncate font-bold text-[#172B4D] text-xs">${mod.label}${mod.isProtected ? ' (System Default)' : ''}</span>
-                          ` : `
-                            <div class="w-5 h-5 rounded-md bg-[#F0FDF4] border border-[#DCFCE7] text-[#16A34A] flex items-center justify-center shrink-0">
-                              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                            </div>
-                            <span class="truncate font-bold text-[#16A34A] text-xs">✨ + Create New Menu</span>
-                          `}
-                        </div>
-                        <svg id="menu-dropdown-chevron" class="w-3.5 h-3.5 text-[#5E6C84] shrink-0 ml-2 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                      </button>
-
-                      <input type="hidden" id="menu-modal-select-existing" value="${mod ? mod.id : '__NEW__'}" />
-
-                      <!-- Dropdown Menu List with assigned icons -->
-                      <div id="menu-custom-dropdown-list" class="hidden absolute left-0 right-0 top-full mt-1 bg-white border border-[#DFE1E6] rounded-xl shadow-xl z-50 max-h-[260px] overflow-y-auto divide-y divide-[#F1F5F9] p-1.5 animate-fade-in">
-                        <!-- Quick Filter / Search input -->
-                        <div class="p-1 mb-1 sticky top-0 bg-white z-10">
-                          <div class="relative">
-                            <input type="text" id="menu-dropdown-search" placeholder="Search menu..." class="w-full text-xs pr-2 py-1.5 bg-[#F8FAFC] border border-[#DFE1E6] rounded-md focus:outline-none focus:border-[#00A4B7] font-medium text-[#172B4D]" style="padding-left: 34px !important;" />
-                            <svg class="w-3.5 h-3.5 text-[#94A3B8] absolute left-2 top-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            <!-- Main Menu Card Box matching height of other columns -->
+            <div class="flex-1 flex flex-col h-[440px] max-h-[440px] border border-[#DFE1E6] rounded-lg bg-white shadow-2xs overflow-hidden p-3 space-y-3" style="border: 1px solid #DFE1E6 !important;">
+              <!-- Existing Menu Dropdown & Status -->
+              <div class="grid grid-cols-12 gap-2.5 items-end">
+                <div class="col-span-8 sm:col-span-9">
+                  <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1 flex items-center justify-between">
+                    <span>Select Existing Menu</span>
+                    <span class="text-[10px] font-medium text-[#5E6C84] lowercase">(or create new)</span>
+                  </label>
+                  
+                  <!-- Custom Dropdown with Assigned Menu Icons -->
+                  <div class="relative" id="menu-dropdown-wrapper">
+                    <button type="button" id="menu-modal-select-trigger" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] flex items-center justify-between cursor-pointer shadow-2xs hover:border-[#00A4B7] transition-all" style="border: 1px solid #CBD5E1 !important;">
+                      <div class="flex items-center gap-2 truncate" id="menu-selected-display">
+                        ${mod ? `
+                          <div class="w-5 h-5 rounded-md bg-[#F0F9FF] border border-[#BAE6FD] text-[#00A4B7] flex items-center justify-center shrink-0 [&>svg]:w-3.5 [&>svg]:h-3.5">
+                            ${this.getModuleIconSvg(mod)}
                           </div>
-                        </div>
-
-                        <!-- Option 1: Create New Menu -->
-                        <div class="menu-dropdown-item flex items-center justify-between p-2 rounded-lg cursor-pointer hover:bg-[#F0FDF4] transition-colors ${!mod ? 'bg-[#F0FDF4] border border-[#BBF7D0]' : ''}" data-value="__NEW__" data-label="✨ + Create New Menu">
-                          <div class="flex items-center gap-2.5">
-                            <div class="w-6 h-6 rounded-md bg-[#F0FDF4] border border-[#DCFCE7] text-[#16A34A] flex items-center justify-center shrink-0">
-                              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                            </div>
-                            <div class="flex flex-col">
-                              <span class="font-bold text-xs text-[#16A34A]">✨ + Create New Menu</span>
-                              <span class="text-[10px] text-[#5E6C84]">Start from a blank template</span>
-                            </div>
+                          <span class="truncate font-bold text-[#172B4D] text-xs">${mod.label}${mod.isProtected ? ' (System)' : ''}</span>
+                        ` : `
+                          <div class="w-5 h-5 rounded-md bg-[#F0FDF4] border border-[#DCFCE7] text-[#16A34A] flex items-center justify-center shrink-0">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
                           </div>
-                        </div>
+                          <span class="truncate font-bold text-[#16A34A] text-xs">✨ + Create New Menu</span>
+                        `}
+                      </div>
+                      <svg id="menu-dropdown-chevron" class="w-3.5 h-3.5 text-[#5E6C84] shrink-0 ml-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
 
-                        <!-- Section: Existing Menus -->
-                        <div class="px-2 py-1 text-[9.5px] font-bold text-[#5E6C84] uppercase tracking-wider bg-[#F8FAFC] rounded my-1">
-                          Existing Menus (${this.state.modulesConfig.length})
-                        </div>
+                    <input type="hidden" id="menu-modal-select-existing" value="${mod ? mod.id : '__NEW__'}" />
 
-                        <!-- Module items with assigned icons -->
-                        <div id="menu-dropdown-items-container" class="space-y-0.5">
-                          ${this.state.modulesConfig.map(m => {
-                            const svg = this.getModuleIconSvg(m);
-                            const isSelected = mod && (mod.id === m.id || mod.key === m.key);
-                            return `
-                              <div class="menu-dropdown-item flex items-center justify-between p-2 rounded-lg cursor-pointer hover:bg-[#F0F9FF] transition-colors ${isSelected ? 'bg-[#F0F9FF] border border-[#BAE6FD]' : ''}" data-value="${m.id}" data-label="${m.label}">
-                                <div class="flex items-center gap-2.5 truncate">
-                                  <div class="w-6 h-6 rounded-md bg-[#F0F9FF] border border-[#BAE6FD] text-[#00A4B7] flex items-center justify-center shrink-0 [&>svg]:w-3.5 [&>svg]:h-3.5">
-                                    ${svg}
-                                  </div>
-                                  <span class="font-bold text-xs text-[#172B4D] truncate">${m.label}</span>
+                    <!-- Dropdown Menu List -->
+                    <div id="menu-custom-dropdown-list" class="hidden absolute left-0 right-0 top-full mt-1 bg-white border border-[#DFE1E6] rounded-xl shadow-xl z-50 max-h-[240px] overflow-y-auto divide-y divide-[#F1F5F9] p-1.5 animate-fade-in">
+                      <div class="p-1 mb-1 sticky top-0 bg-white z-10">
+                        <div class="relative">
+                          <input type="text" id="menu-dropdown-search" placeholder="Search menu..." class="w-full text-xs pr-2 py-1.5 bg-[#F8FAFC] border border-[#DFE1E6] rounded-md focus:outline-none focus:border-[#00A4B7] font-medium text-[#172B4D]" style="padding-left: 32px !important;" />
+                          <svg class="w-3.5 h-3.5 text-[#94A3B8] absolute left-2 top-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                        </div>
+                      </div>
+
+                      <div class="menu-dropdown-item flex items-center justify-between p-2 rounded-lg cursor-pointer hover:bg-[#F0FDF4] transition-colors ${!mod ? 'bg-[#F0FDF4] border border-[#BBF7D0]' : ''}" data-value="__NEW__" data-label="✨ + Create New Menu">
+                        <div class="flex items-center gap-2">
+                          <div class="w-5 h-5 rounded-md bg-[#F0FDF4] border border-[#DCFCE7] text-[#16A34A] flex items-center justify-center shrink-0">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                          </div>
+                          <span class="font-bold text-xs text-[#16A34A]">✨ + Create New Menu</span>
+                        </div>
+                      </div>
+
+                      <div class="px-2 py-1 text-[9.5px] font-bold text-[#5E6C84] uppercase tracking-wider bg-[#F8FAFC] rounded my-1">
+                        Existing Menus (${this.state.modulesConfig.length})
+                      </div>
+
+                      <div id="menu-dropdown-items-container" class="space-y-0.5">
+                        ${this.state.modulesConfig.map(m => {
+                          const svg = this.getModuleIconSvg(m);
+                          const isSelected = mod && (mod.id === m.id || mod.key === m.key);
+                          return `
+                            <div class="menu-dropdown-item flex items-center justify-between p-2 rounded-lg cursor-pointer hover:bg-[#F0F9FF] transition-colors ${isSelected ? 'bg-[#F0F9FF] border border-[#BAE6FD]' : ''}" data-value="${m.id}" data-label="${m.label}">
+                              <div class="flex items-center gap-2 truncate">
+                                <div class="w-5 h-5 rounded-md bg-[#F0F9FF] border border-[#BAE6FD] text-[#00A4B7] flex items-center justify-center shrink-0 [&>svg]:w-3.5 [&>svg]:h-3.5">
+                                  ${svg}
                                 </div>
-                                ${m.isProtected ? `<span class="ml-2 text-[9.5px] font-bold text-[#5E6C84] bg-[#F1F5F9] px-1.5 py-0.5 rounded border border-[#DFE1E6] shrink-0">System</span>` : ''}
+                                <span class="font-bold text-xs text-[#172B4D] truncate">${m.label}</span>
                               </div>
-                            `;
-                          }).join('')}
-                        </div>
+                              ${m.isProtected ? `<span class="ml-1 text-[9px] font-bold text-[#5E6C84] bg-[#F1F5F9] px-1 py-0.5 rounded border border-[#DFE1E6] shrink-0">System</span>` : ''}
+                            </div>
+                          `;
+                        }).join('')}
                       </div>
                     </div>
                   </div>
-
-                  <div class="col-span-4 sm:col-span-3">
-                    <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1">
-                      Status
-                    </label>
-                    <div class="flex items-center h-[38px]">
-                      <label class="inline-flex items-center cursor-pointer select-none">
-                        <input type="checkbox" id="menu-modal-status-cb" class="w-4.5 h-4.5 rounded border-[#DFE1E6] text-[#00A4B7] accent-[#00A4B7] cursor-pointer" ${currentStatus === 'Active' ? 'checked' : ''} title="Menu Status (Checked: Active, Unchecked: Inactive)" />
-                      </label>
-                      <input type="hidden" id="menu-modal-status" value="${currentStatus}" />
-                    </div>
-                  </div>
                 </div>
 
-                <!-- Row 2: Menu Name Text Input (Add new or edit existing) -->
-                <div>
-                  <div class="flex items-center justify-between mb-1">
-                    <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider">
-                      Menu Name <span class="text-rose-500">*</span>
+                <div class="col-span-4 sm:col-span-3">
+                  <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1">
+                    Status
+                  </label>
+                  <div class="flex items-center h-[32px]">
+                    <label class="inline-flex items-center gap-1.5 cursor-pointer select-none">
+                      <input type="checkbox" id="menu-modal-status-cb" class="w-4 h-4 rounded border-[#DFE1E6] text-[#00A4B7] accent-[#00A4B7] cursor-pointer" ${currentStatus === 'Active' ? 'checked' : ''} />
+                      <span class="text-xs font-semibold text-[#172B4D]">Active</span>
                     </label>
-                    <span id="menu-modal-mode-badge" class="text-[10px] font-semibold text-[#5E6C84]">
-                      ${isEdit ? `Editing: ${currentName}` : '✨ Creating New Menu'}
-                    </span>
+                    <input type="hidden" id="menu-modal-status" value="${currentStatus}" />
                   </div>
-                  <input type="text" id="menu-modal-name" value="${currentName}" placeholder="e.g. Procurement & Inward" class="w-full text-xs px-3 py-2 bg-white border border-[#CBD5E1] rounded-lg focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] shadow-2xs" style="border: 1px solid #CBD5E1 !important;" />
                 </div>
+              </div>
+
+              <!-- Menu Name -->
+              <div>
+                <div class="flex items-center justify-between mb-1">
+                  <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider">
+                    Menu Name <span class="text-rose-500">*</span>
+                  </label>
+                  <span id="menu-modal-mode-badge" class="text-[10px] font-semibold text-[#5E6C84]">
+                    ${isEdit ? `Editing: ${currentName}` : '✨ New Menu'}
+                  </span>
+                </div>
+                <input type="text" id="menu-modal-name" value="${currentName}" placeholder="e.g. Procurement & Inward" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] shadow-2xs" style="border: 1px solid #CBD5E1 !important;" />
               </div>
 
               <input type="hidden" id="menu-modal-icon-val" value="${currentIconItem.id}" />
 
-              <!-- Menu Icon -->
-              <div class="flex-1 flex flex-col space-y-2">
-                <div class="flex items-center justify-between">
+              <!-- Menu Icon with Search -->
+              <div class="flex-1 flex flex-col min-h-0 space-y-1.5 pt-1 border-t border-[#F1F5F9]">
+                <div class="flex items-center justify-between gap-1.5 shrink-0">
                   <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider">
                     Menu Icon
                   </label>
-                  <span id="lucide-count-badge" class="text-[10px] text-[#5E6C84] font-medium font-mono">${lucideIcons.length} icons</span>
+                  <div class="flex items-center gap-1.5">
+                    <input type="text" id="lucide-search-input" placeholder="Search icon..." class="text-xs px-2 py-0.5 bg-white border border-[#DFE1E6] rounded-md focus:outline-none focus:border-[#00A4B7] w-28 shadow-2xs font-normal" />
+                    <span id="lucide-count-badge" class="text-[10px] text-[#5E6C84] font-medium font-mono whitespace-nowrap">${lucideIcons.length} icons</span>
+                  </div>
                 </div>
 
-                <!-- Visual Grid of Lucide Icons showing all icons -->
-                <div id="lucide-icon-grid" class="grid grid-cols-4 sm:grid-cols-5 gap-2 h-[240px] max-h-[240px] overflow-y-auto p-2 border border-[#DFE1E6] rounded-lg bg-white shadow-2xs">
-                  <!-- Populated by JavaScript below -->
+                <!-- Visual Grid of Lucide Icons -->
+                <div id="lucide-icon-grid" class="grid grid-cols-4 sm:grid-cols-5 gap-1.5 flex-1 overflow-y-auto p-1.5 border border-[#DFE1E6] rounded-lg bg-[#FAFBFC] shadow-2xs">
+                  <!-- Populated by JavaScript -->
                 </div>
               </div>
             </div>
           </div>
 
           <!-- 2. Sub Menu Section (Multiple Sub Menus) -->
-          <div class="bg-transparent p-0 border-0 flex flex-col h-full">
-            <div class="flex items-center justify-between border-b border-[#EBECF0] pb-2.5 mb-0" style="margin-bottom: 0px !important;">
-              <div>
-                <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Sub Menu</span>
-              </div>
-              <button type="button" id="btn-add-sub-item" class="btn-secondary px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 hover:bg-[#EBECF0] transition-colors cursor-pointer text-[#00A4B7] border border-[#DFE1E6]">
+          <div class="min-w-0 bg-transparent p-0 border-0 flex flex-col h-full space-y-2">
+            <div class="flex items-center justify-between border-b border-[#EBECF0] pb-2 mb-0">
+              <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Sub Menu</span>
+              <button type="button" id="btn-add-sub-item" class="btn-secondary px-2.5 py-1 rounded-lg text-xs font-semibold flex items-center gap-1 hover:bg-[#EBECF0] transition-colors cursor-pointer text-[#00A4B7] border border-[#DFE1E6]">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
                 <span>Add Sub Menu</span>
               </button>
             </div>
 
-            <!-- Submenus Box Container with Header inside -->
-            <div class="flex-1 flex flex-col h-[440px] max-h-[440px] border border-[#DFE1E6] rounded-lg bg-white shadow-2xs overflow-hidden mt-0" style="margin-top: 0px !important; border: 1px solid #DFE1E6 !important;">
-              <!-- Sticky / Fixed Table Header inside the box -->
+            <!-- Submenus Box Container with Fixed Header inside -->
+            <div class="flex-1 flex flex-col h-[440px] max-h-[440px] border border-[#DFE1E6] rounded-lg bg-white shadow-2xs overflow-hidden" style="border: 1px solid #DFE1E6 !important;">
+              <!-- Sticky Table Header -->
               <div class="grid grid-cols-12 gap-2 px-3 py-2 text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider bg-[#F8FAFC] border-b border-[#DFE1E6] shrink-0">
                 <div class="col-span-5">Sub Menu Name</div>
                 <div class="col-span-4">Url</div>
@@ -85633,16 +85626,16 @@ const SetupView = {
                 <div class="col-span-1 text-center">Action</div>
               </div>
 
-              <!-- Scrollable rows container inside the box -->
+              <!-- Scrollable rows container -->
               <div id="submenus-list-container" class="space-y-2 overflow-y-auto p-2.5 flex-1">
                 <!-- Dynamic Rows Inserted Here -->
               </div>
             </div>
           </div>
 
-          <!-- 3. Tab Menu Section (Parent is Submenu) -->
-          <div class="bg-transparent p-0 border-0 flex flex-col h-full">
-            <div class="flex items-center justify-between border-b border-[#EBECF0] pb-2.5 mb-0" style="margin-bottom: 0px !important;">
+          <!-- 3. Tab Menu Section (Parent is Sub Menu) -->
+          <div class="min-w-0 bg-transparent p-0 border-0 flex flex-col h-full space-y-2">
+            <div class="flex items-center justify-between border-b border-[#EBECF0] pb-2 mb-0">
               <div class="flex items-center gap-2">
                 <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Tab Menu</span>
                 <span class="text-[10px] font-bold text-[#00A4B7] bg-[#F0F9FF] px-2 py-0.5 rounded border border-[#BAE6FD]">Parent: Sub Menu</span>
@@ -85650,27 +85643,29 @@ const SetupView = {
             </div>
 
             <!-- Tab Form Box matching height of other columns -->
-            <div class="flex-1 flex flex-col h-[440px] max-h-[440px] border border-[#DFE1E6] rounded-lg bg-white shadow-2xs overflow-y-auto p-3.5 space-y-3 mt-0" style="margin-top: 0px !important; border: 1px solid #DFE1E6 !important;">
-              <!-- Menu and Submenu Row -->
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div>
-                  <label for="tab-modal-menu" class="block text-xs font-bold text-[#172B4D] mb-1">
-                    Main Menu <span class="text-rose-500">*</span>
-                  </label>
-                  <select id="tab-modal-menu" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] shadow-2xs">
-                    <!-- Populated dynamically -->
-                  </select>
+            <div class="flex-1 flex flex-col h-[440px] max-h-[440px] border border-[#DFE1E6] rounded-lg bg-white shadow-2xs overflow-y-auto p-3.5 space-y-3" style="border: 1px solid #DFE1E6 !important;">
+              
+              <!-- Hierarchy Link Banner (Replaces redundant Main Menu & Sub Menu dropdowns) -->
+              <div class="p-2.5 bg-gradient-to-r from-[#F0F9FF] to-[#F8FAFC] rounded-lg border border-[#BAE6FD] flex items-center justify-between gap-2 shadow-2xs shrink-0">
+                <div class="flex items-center gap-2.5 min-w-0">
+                  <div class="w-7 h-7 rounded-md bg-[#00A4B7] text-white flex items-center justify-center shrink-0 shadow-2xs">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+                  </div>
+                  <div class="flex flex-col min-w-0">
+                    <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">Attached Parent Target</span>
+                    <div class="flex items-center gap-1.5 text-xs font-bold text-[#172B4D] truncate">
+                      <span id="tab-parent-menu-display" class="text-[#00A4B7] truncate">${currentName || 'Menu'}</span>
+                      <svg class="w-3 h-3 text-[#5E6C84] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                      <span id="tab-parent-submenu-display" class="text-[#172B4D] truncate">Overview</span>
+                    </div>
+                  </div>
                 </div>
-
-                <div>
-                  <label for="tab-modal-submenu" class="block text-xs font-bold text-[#172B4D] mb-1">
-                    Sub Menu <span class="text-rose-500">*</span>
-                  </label>
-                  <select id="tab-modal-submenu" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] shadow-2xs">
-                    <!-- Populated dynamically -->
-                  </select>
-                </div>
+                <span class="text-[9.5px] font-bold text-[#006644] bg-[#E3FCEF] border border-[#ABF5D1] px-2 py-0.5 rounded-full shrink-0">Auto-Linked</span>
               </div>
+
+              <!-- Hidden inputs to retain IDs for compatibility and save handlers -->
+              <input type="hidden" id="tab-modal-menu" value="" />
+              <input type="hidden" id="tab-modal-submenu" value="" />
 
               <!-- Tab Name / Label -->
               <div>
@@ -85708,7 +85703,7 @@ const SetupView = {
                   <span>Route URL Hash</span>
                   <span class="text-[10px] text-[#5E6C84] font-normal font-mono">Format: #/{menu}/{submenu}/{slug}</span>
                 </label>
-                <input type="text" id="tab-modal-route" value="" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-mono focus:outline-none focus:border-[#00A4B7] text-[#172B4D] shadow-2xs" placeholder="e.g. #/settings/custom/fields-customizer" />
+                <input type="text" id="tab-modal-route" value="" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-mono focus:outline-none focus:border-[#00A4B7] text-[#172B4D] shadow-2xs" placeholder="e.g. #/settings/overview/fields-customizer" />
               </div>
 
               <!-- Badge Tag & Status Checkbox -->
@@ -85764,6 +85759,23 @@ const SetupView = {
               if (sName || sUrl) {
                 const sId = (sName || 'sub').toLowerCase().replace(/[^a-z0-9]/g, '-');
                 const finalUrl = sUrl || `#/${modKey}/${sId}`;
+                
+                // Inherit tabs if stored on this row
+                let rowTabs = [];
+                if (row._tabData && row._tabData.label) {
+                  const tSlug = row._tabData.slug || sId;
+                  rowTabs = [{
+                    id: tSlug,
+                    label: row._tabData.label,
+                    route: row._tabData.route || `#/${modKey}/${sId}/${tSlug}`,
+                    type: row._tabData.type || 'system',
+                    badge: row._tabData.badge || '',
+                    status: row._tabData.status || 'Active'
+                  }];
+                } else if (Array.isArray(row._tabData?.tabs)) {
+                  rowTabs = row._tabData.tabs;
+                }
+
                 submenus.push({
                   id: sId,
                   title: sName || sId,
@@ -85772,9 +85784,7 @@ const SetupView = {
                   route: finalUrl,
                   hash: finalUrl,
                   status: sStatus,
-                  tabs: [
-                    { id: sId, label: sName || sId, route: finalUrl, type: 'custom', badge: '' }
-                  ]
+                  tabs: rowTabs
                 });
               }
             });
@@ -85804,7 +85814,7 @@ const SetupView = {
               });
             }
 
-            // Collect Tab Menu
+            // Collect Tab Menu from Column 3
             const tabLabel = document.getElementById('tab-modal-label')?.value.trim();
             const tabSlugRaw = document.getElementById('tab-modal-slug')?.value.trim();
             const tabSlug = tabSlugRaw ? tabSlugRaw.toLowerCase().replace(/[^a-z0-9_-]+/g, '-') : (tabLabel ? tabLabel.toLowerCase().replace(/[^a-z0-9_-]+/g, '-') : '');
@@ -85812,13 +85822,13 @@ const SetupView = {
             const tabBadge = document.getElementById('tab-modal-badge')?.value.trim() || '';
             const tabStatus = document.getElementById('tab-modal-status-cb')?.checked ? 'Active' : 'Inactive';
             const selectedTabMenu = document.getElementById('tab-modal-menu')?.value || modKey;
-            const selectedTabSub = document.getElementById('tab-modal-submenu')?.value || submenus[0].id;
+            const selectedTabSub = document.getElementById('tab-modal-submenu')?.value || submenus[0]?.id;
             const tabRoute = document.getElementById('tab-modal-route')?.value.trim() || `#/${selectedTabMenu}/${selectedTabSub}/${tabSlug || 'tab'}`;
 
             let attachedTabInfo = null;
 
             if (tabLabel) {
-              // User specified a Tab Menu to be attached to Sub Menu!
+              // User specified a Tab Menu to be attached to the active Sub Menu
               let targetSm = submenus.find(s => s.id === selectedTabSub || (s.name && s.name.toLowerCase() === selectedTabSub.toLowerCase()));
               if (!targetSm) {
                 targetSm = submenus[0];
@@ -85844,7 +85854,7 @@ const SetupView = {
                 targetSm.tabs.push(tabObject);
               }
 
-              // Also register into this.state.tabsConfig
+              // Also register into this.state.tabsConfig for tabs studio
               if (!Array.isArray(this.state.tabsConfig)) {
                 this.state.tabsConfig = [];
               }
@@ -85960,30 +85970,43 @@ const SetupView = {
       ]
     });
 
-    // 0. Existing Menu Select & Name Input Synchronization
+    // =========================================================================
+    // MODAL INTERACTIVE WIRING (MAIN MENU, SUB MENU, TAB MENU DEPENDENCY)
+    // =========================================================================
+
+    // 0. Reference elements
     const existingSelect = document.getElementById('menu-modal-select-existing');
     const menuNameInput = document.getElementById('menu-modal-name');
     const modeBadge = document.getElementById('menu-modal-mode-badge');
-
-    // 1. Status Checkbox for Main Menu
     const statusCb = document.getElementById('menu-modal-status-cb');
     const statusInput = document.getElementById('menu-modal-status');
 
+    // Tab hierarchy elements
+    const tabMenuInput = document.getElementById('tab-modal-menu');
+    const tabSubmenuInput = document.getElementById('tab-modal-submenu');
+    const tabParentMenuDisplay = document.getElementById('tab-parent-menu-display');
+    const tabParentSubmenuDisplay = document.getElementById('tab-parent-submenu-display');
+    const tabLabelInput = document.getElementById('tab-modal-label');
+    const tabSlugInput = document.getElementById('tab-modal-slug');
+    const tabTypeSelect = document.getElementById('tab-modal-type');
+    const tabRouteInput = document.getElementById('tab-modal-route');
+    const tabBadgeInput = document.getElementById('tab-modal-badge');
+    const tabStatusCb = document.getElementById('tab-modal-status-cb');
+
+    // Submenu container
+    const listContainer = document.getElementById('submenus-list-container');
+    let activeSubRow = null;
+
+    // 1. Status Checkbox for Main Menu
     if (statusCb && statusInput) {
       statusCb.onchange = () => {
         statusInput.value = statusCb.checked ? 'Active' : 'Inactive';
       };
     }
 
-    // 2. Tab Menu Elements & Dynamic Synchronization
-    const tabMenuSelect = document.getElementById('tab-modal-menu');
-    const tabSubmenuSelect = document.getElementById('tab-modal-submenu');
-    const tabLabelInput = document.getElementById('tab-modal-label');
-    const tabSlugInput = document.getElementById('tab-modal-slug');
-    const tabRouteInput = document.getElementById('tab-modal-route');
-
+    // 2. Helper functions for hierarchy sync
     const getCurrentMenuKey = () => {
-      const selectedExisting = document.getElementById('menu-modal-select-existing')?.value;
+      const selectedExisting = existingSelect?.value;
       if (selectedExisting && selectedExisting !== '__NEW__') {
         return selectedExisting;
       }
@@ -85991,114 +86014,140 @@ const SetupView = {
       if (typedName) {
         return typedName.toLowerCase().replace(/[^a-z0-9]/g, '-');
       }
-      return isEdit && mod ? mod.key : 'settings';
+      return isEdit && mod ? (mod.key || mod.id) : 'menu';
     };
 
-    const refreshTabMenuSelect = () => {
-      if (!tabMenuSelect) return;
-      const curMenuKey = getCurrentMenuKey();
-      const curMenuLabel = menuNameInput?.value.trim() || curMenuKey.toUpperCase();
+    const getCurrentMenuLabel = () => {
+      const typedName = menuNameInput?.value.trim();
+      if (typedName) return typedName;
+      const selectedExisting = existingSelect?.value;
+      if (selectedExisting && selectedExisting !== '__NEW__') {
+        const found = this.state.modulesConfig.find(m => m.id === selectedExisting || m.key === selectedExisting);
+        if (found) return found.label;
+      }
+      return isEdit && mod ? mod.label : 'New Menu';
+    };
 
-      const seenKeys = new Set();
-      const options = [];
+    const getActiveSubmenuInfo = () => {
+      if (activeSubRow) {
+        const sName = activeSubRow.querySelector('.sub-item-name')?.value.trim();
+        const sUrl = activeSubRow.querySelector('.sub-item-url')?.value.trim();
+        const sId = (sName || 'overview').toLowerCase().replace(/[^a-z0-9]/g, '-');
+        return { id: sId, name: sName || 'Overview', url: sUrl };
+      }
+      return { id: 'overview', name: 'Overview', url: '' };
+    };
 
-      // Current active menu option at top
-      if (curMenuKey) {
-        options.push({ key: curMenuKey, label: `${curMenuLabel} (Current Menu)` });
-        seenKeys.add(curMenuKey.toLowerCase());
+    const syncHierarchyDisplay = () => {
+      const mKey = getCurrentMenuKey();
+      const mLabel = getCurrentMenuLabel();
+      const subInfo = getActiveSubmenuInfo();
+
+      if (tabMenuInput) tabMenuInput.value = mKey;
+      if (tabSubmenuInput) tabSubmenuInput.value = subInfo.id;
+      if (tabParentMenuDisplay) tabParentMenuDisplay.textContent = mLabel;
+      if (tabParentSubmenuDisplay) tabParentSubmenuDisplay.textContent = subInfo.name;
+
+      if (tabRouteInput) {
+        const curSlug = tabSlugInput?.value.trim() || 'tab';
+        tabRouteInput.value = `#/${mKey}/${subInfo.id}/${curSlug}`;
+      }
+    };
+
+    const setActiveSubmenuRow = (rowEl) => {
+      if (!rowEl || !listContainer) return;
+
+      // Save tab inputs to previous active row
+      if (activeSubRow && activeSubRow !== rowEl) {
+        activeSubRow._tabData = {
+          label: tabLabelInput?.value.trim() || '',
+          slug: tabSlugInput?.value.trim() || '',
+          type: tabTypeSelect?.value || 'system',
+          route: tabRouteInput?.value.trim() || '',
+          badge: tabBadgeInput?.value.trim() || '',
+          status: tabStatusCb?.checked ? 'Active' : 'Inactive'
+        };
       }
 
-      // Add all menus from state/system
-      const allMenus = this.getAllMenusForTabs ? this.getAllMenusForTabs() : [];
-      allMenus.forEach(m => {
-        const k = (m.key || m.id || '').toLowerCase();
-        if (!seenKeys.has(k)) {
-          seenKeys.add(k);
-          options.push({ key: m.key || m.id, label: m.label || m.name || k.toUpperCase() });
+      activeSubRow = rowEl;
+
+      // Highlight active row
+      listContainer.querySelectorAll('.submenu-item-row').forEach(r => {
+        if (r === rowEl) {
+          r.classList.add('border-[#00A4B7]', 'bg-[#F0F9FF]', 'ring-1', 'ring-[#00A4B7]/30');
+          r.classList.remove('border-[#DFE1E6]', 'bg-white');
+        } else {
+          r.classList.remove('border-[#00A4B7]', 'bg-[#F0F9FF]', 'ring-1', 'ring-[#00A4B7]/30');
+          r.classList.add('border-[#DFE1E6]', 'bg-white');
         }
       });
 
-      const prevSelected = tabMenuSelect.value || curMenuKey;
-      tabMenuSelect.innerHTML = options.map(o => `<option value="${o.key}" ${o.key === prevSelected ? 'selected' : ''}>${o.label}</option>`).join('');
-      if (!options.some(o => o.key === tabMenuSelect.value)) {
-        tabMenuSelect.value = curMenuKey;
+      // Load tab inputs from row if saved
+      if (rowEl._tabData) {
+        if (tabLabelInput) tabLabelInput.value = rowEl._tabData.label || '';
+        if (tabSlugInput) tabSlugInput.value = rowEl._tabData.slug || '';
+        if (tabTypeSelect) tabTypeSelect.value = rowEl._tabData.type || 'system';
+        if (tabBadgeInput) tabBadgeInput.value = rowEl._tabData.badge || '';
+        if (tabStatusCb) tabStatusCb.checked = (rowEl._tabData.status !== 'Inactive');
       }
+
+      syncHierarchyDisplay();
     };
 
-    const refreshTabSubmenuSelect = () => {
-      if (!tabSubmenuSelect) return;
-      const curMenuKey = tabMenuSelect?.value || getCurrentMenuKey();
-      const isCurMenu = curMenuKey === getCurrentMenuKey();
-
-      let subOptions = [];
-      if (isCurMenu && listContainer) {
-        const rows = listContainer.querySelectorAll('.submenu-item-row');
-        rows.forEach(r => {
-          const sName = r.querySelector('.sub-item-name')?.value.trim();
-          const sUrl = r.querySelector('.sub-item-url')?.value.trim();
-          if (sName || sUrl) {
-            const sId = (sName || 'sub').toLowerCase().replace(/[^a-z0-9]/g, '-');
-            subOptions.push({ id: sId, title: sName || sId });
-          }
-        });
-      }
-
-      if (subOptions.length === 0) {
-        const smFromState = this.getSubmenusForMenu ? this.getSubmenusForMenu(curMenuKey) : [];
-        if (smFromState && smFromState.length > 0) {
-          subOptions = smFromState.map(s => ({ id: s.id, title: s.title || s.name || s.id }));
-        }
-      }
-
-      if (subOptions.length === 0) {
-        subOptions.push({ id: 'overview', title: 'Overview' });
-      }
-
-      const prevSelected = tabSubmenuSelect.value;
-      tabSubmenuSelect.innerHTML = subOptions.map(s => `<option value="${s.id}" ${s.id === prevSelected ? 'selected' : ''}>${s.title}</option>`).join('');
-      if (!subOptions.some(s => s.id === tabSubmenuSelect.value)) {
-        tabSubmenuSelect.value = subOptions[0].id;
-      }
-
-      updateTabRoutePreview();
-    };
-
-    const updateTabRoutePreview = () => {
-      if (!tabRouteInput) return;
-      const mKey = tabMenuSelect?.value || getCurrentMenuKey() || 'menu';
-      const smKey = tabSubmenuSelect?.value || 'overview';
-      const curSlug = tabSlugInput?.value.trim() || 'new-tab';
-      tabRouteInput.value = `#/${mKey}/${smKey}/${curSlug}`;
-    };
-
-    if (tabMenuSelect) {
-      tabMenuSelect.onchange = () => {
-        refreshTabSubmenuSelect();
-      };
-    }
-
-    if (tabSubmenuSelect) {
-      tabSubmenuSelect.onchange = () => {
-        updateTabRoutePreview();
-      };
-    }
-
+    // 3. Tab Input Listeners
     if (tabLabelInput && tabSlugInput) {
       tabLabelInput.oninput = () => {
         const generated = tabLabelInput.value.trim().toLowerCase().replace(/[^a-z0-9_-]+/g, '-').replace(/^-+|-+$/g, '');
         tabSlugInput.value = generated;
-        updateTabRoutePreview();
+        syncHierarchyDisplay();
+        if (activeSubRow) {
+          if (!activeSubRow._tabData) activeSubRow._tabData = {};
+          activeSubRow._tabData.label = tabLabelInput.value.trim();
+          activeSubRow._tabData.slug = generated;
+        }
       };
 
       tabSlugInput.oninput = () => {
-        updateTabRoutePreview();
+        syncHierarchyDisplay();
+        if (activeSubRow) {
+          if (!activeSubRow._tabData) activeSubRow._tabData = {};
+          activeSubRow._tabData.slug = tabSlugInput.value.trim();
+        }
       };
     }
 
-    // 3. Populate dynamic Lucide Icon Grid showing all icons + search
+    if (tabTypeSelect) {
+      tabTypeSelect.onchange = () => {
+        if (activeSubRow) {
+          if (!activeSubRow._tabData) activeSubRow._tabData = {};
+          activeSubRow._tabData.type = tabTypeSelect.value;
+        }
+      };
+    }
+
+    if (tabBadgeInput) {
+      tabBadgeInput.oninput = () => {
+        if (activeSubRow) {
+          if (!activeSubRow._tabData) activeSubRow._tabData = {};
+          activeSubRow._tabData.badge = tabBadgeInput.value.trim();
+        }
+      };
+    }
+
+    if (tabStatusCb) {
+      tabStatusCb.onchange = () => {
+        if (activeSubRow) {
+          if (!activeSubRow._tabData) activeSubRow._tabData = {};
+          activeSubRow._tabData.status = tabStatusCb.checked ? 'Active' : 'Inactive';
+        }
+      };
+    }
+
+    // 4. Lucide Icon Grid & Search
     const iconGrid = document.getElementById('lucide-icon-grid');
     const selectedHiddenVal = document.getElementById('menu-modal-icon-val');
     const countBadge = document.getElementById('lucide-count-badge');
+    const searchInput = document.getElementById('lucide-search-input');
 
     const renderLucideGrid = (filterTerm = '') => {
       if (!iconGrid) return;
@@ -86123,15 +86172,15 @@ const SetupView = {
       iconGrid.innerHTML = filtered.map(item => {
         const isSelected = item.id === selectedHiddenVal?.value;
         return `
-          <button type="button" data-icon-id="${item.id}" class="lucide-icon-tile p-2 rounded-lg border text-left flex flex-col items-center justify-center gap-1 transition-all cursor-pointer ${
+          <button type="button" data-icon-id="${item.id}" class="lucide-icon-tile p-1.5 rounded-lg border text-left flex flex-col items-center justify-center gap-1 transition-all cursor-pointer ${
             isSelected 
               ? 'border-[#00A4B7] bg-[#F0F9FF] text-[#00A4B7] ring-2 ring-[#00A4B7]/20 shadow-2xs font-bold' 
               : 'border-[#DFE1E6] bg-white hover:border-[#00A4B7] hover:bg-[#F4F5F7] text-[#172B4D]'
           }" title="${item.label || item.name}">
-            <div class="w-5 h-5 flex items-center justify-center shrink-0">
+            <div class="w-4 h-4 flex items-center justify-center shrink-0">
               ${item.svg}
             </div>
-            <span class="text-[9.5px] font-mono truncate w-full text-center">${item.name}</span>
+            <span class="text-[9px] font-mono truncate w-full text-center">${item.name}</span>
           </button>
         `;
       }).join('');
@@ -86146,18 +86195,23 @@ const SetupView = {
 
         iconGrid.querySelectorAll('.lucide-icon-tile').forEach(t => {
           if (t.dataset.iconId === iconId) {
-            t.className = 'lucide-icon-tile p-2 rounded-lg border text-left flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#00A4B7] bg-[#F0F9FF] text-[#00A4B7] ring-2 ring-[#00A4B7]/20 shadow-2xs font-bold';
+            t.className = 'lucide-icon-tile p-1.5 rounded-lg border text-left flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#00A4B7] bg-[#F0F9FF] text-[#00A4B7] ring-2 ring-[#00A4B7]/20 shadow-2xs font-bold';
           } else {
-            t.className = 'lucide-icon-tile p-2 rounded-lg border text-left flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#DFE1E6] bg-white hover:border-[#00A4B7] hover:bg-[#F4F5F7] text-[#172B4D]';
+            t.className = 'lucide-icon-tile p-1.5 rounded-lg border text-left flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#DFE1E6] bg-white hover:border-[#00A4B7] hover:bg-[#F4F5F7] text-[#172B4D]';
           }
         });
       };
     }
 
+    if (searchInput) {
+      searchInput.oninput = () => {
+        renderLucideGrid(searchInput.value);
+      };
+    }
+
     renderLucideGrid();
 
-    // 3. Populate dynamic Submenu Rows with click-to-configure Tab binding
-    const listContainer = document.getElementById('submenus-list-container');
+    // 5. Dynamic Submenu Rows
     const addSubRow = (sub = { name: '', url: '', status: 'Active', tabs: [] }) => {
       if (!listContainer) return;
       const isActive = sub.status !== 'Inactive';
@@ -86170,6 +86224,7 @@ const SetupView = {
         rowEl._tabData = {
           id: firstTab.id,
           label: firstTab.label || firstTab.name || '',
+          slug: firstTab.id || '',
           route: firstTab.route || firstTab.hash || '',
           type: firstTab.type || 'system',
           badge: firstTab.badge || '',
@@ -86178,7 +86233,7 @@ const SetupView = {
       }
 
       rowEl.innerHTML = `
-        <div class="col-span-5">
+        <div class="col-span-5 flex items-center">
           <input type="text" class="sub-item-name w-full text-xs px-2.5 py-1.5 border border-[#DFE1E6] rounded-md focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] bg-white" placeholder="Sub Menu Name" value="${sub.name || sub.title || ''}" />
         </div>
         <div class="col-span-4">
@@ -86186,12 +86241,12 @@ const SetupView = {
         </div>
         <div class="col-span-2 flex items-center justify-center">
           <label class="inline-flex items-center cursor-pointer select-none">
-            <input type="checkbox" class="sub-item-status-cb w-4.5 h-4.5 rounded border-[#DFE1E6] text-[#00A4B7] accent-[#00A4B7] cursor-pointer" ${isActive ? 'checked' : ''} title="Submenu Status (Checked: Active, Unchecked: Inactive)" />
+            <input type="checkbox" class="sub-item-status-cb w-4 h-4 rounded border-[#DFE1E6] text-[#00A4B7] accent-[#00A4B7] cursor-pointer" ${isActive ? 'checked' : ''} title="Submenu Status" />
           </label>
           <input type="hidden" class="sub-item-status" value="${sub.status || 'Active'}" />
         </div>
         <div class="col-span-1 flex items-center justify-center">
-          <button type="button" class="btn-remove-sub p-1.5 text-[#DE350B] hover:bg-rose-50 rounded-md transition-colors cursor-pointer" title="Remove Sub Menu">
+          <button type="button" class="btn-remove-sub p-1 text-[#DE350B] hover:bg-rose-50 rounded-md transition-colors cursor-pointer" title="Remove Sub Menu">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
           </button>
         </div>
@@ -86202,10 +86257,8 @@ const SetupView = {
       const subCb = rowEl.querySelector('.sub-item-status-cb');
       const subInput = rowEl.querySelector('.sub-item-status');
 
-      // Click or focus anywhere on the row selects it for Tab configuration
-      rowEl.onclick = () => {
-        setActiveSubmenuRow(rowEl);
-      };
+      // Click or focus selects row for Tab configuration
+      rowEl.onclick = () => setActiveSubmenuRow(rowEl);
 
       if (subNameInput) {
         subNameInput.onfocus = () => setActiveSubmenuRow(rowEl);
@@ -86266,7 +86319,7 @@ const SetupView = {
       };
     }
 
-    // Custom Dropdown with Assigned Menu Icons & Synchronization
+    // 6. Custom Dropdown with Assigned Menu Icons & Synchronization
     const dropdownWrapper = document.getElementById('menu-dropdown-wrapper');
     const dropdownTrigger = document.getElementById('menu-modal-select-trigger');
     const dropdownList = document.getElementById('menu-custom-dropdown-list');
@@ -86291,7 +86344,7 @@ const SetupView = {
             <div class="w-5 h-5 rounded-md bg-[#F0F9FF] border border-[#BAE6FD] text-[#00A4B7] flex items-center justify-center shrink-0 [&>svg]:w-3.5 [&>svg]:h-3.5">
               ${svg}
             </div>
-            <span class="truncate font-bold text-[#172B4D] text-xs">${found.label}${found.isProtected ? ' (System Default)' : ''}</span>
+            <span class="truncate font-bold text-[#172B4D] text-xs">${found.label}${found.isProtected ? ' (System)' : ''}</span>
           `;
         }
       }
@@ -86302,7 +86355,7 @@ const SetupView = {
       updateDisplayForMenu(val);
 
       if (val === '__NEW__') {
-        if (modeBadge) modeBadge.textContent = '✨ Creating New Menu';
+        if (modeBadge) modeBadge.textContent = '✨ New Menu';
         menuNameInput.value = '';
         menuNameInput.placeholder = 'e.g. Procurement & Inward';
         menuNameInput.focus();
@@ -86320,9 +86373,9 @@ const SetupView = {
         if (iconGrid) {
           iconGrid.querySelectorAll('.lucide-icon-tile').forEach(t => {
             if (t.dataset.iconId === defaultIconId) {
-              t.className = 'lucide-icon-tile p-2 rounded-lg border text-left flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#00A4B7] bg-[#F0F9FF] text-[#00A4B7] ring-2 ring-[#00A4B7]/20 shadow-2xs font-bold';
+              t.className = 'lucide-icon-tile p-1.5 rounded-lg border text-left flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#00A4B7] bg-[#F0F9FF] text-[#00A4B7] ring-2 ring-[#00A4B7]/20 shadow-2xs font-bold';
             } else {
-              t.className = 'lucide-icon-tile p-2 rounded-lg border text-left flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#DFE1E6] bg-white hover:border-[#00A4B7] hover:bg-[#F4F5F7] text-[#172B4D]';
+              t.className = 'lucide-icon-tile p-1.5 rounded-lg border text-left flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#DFE1E6] bg-white hover:border-[#00A4B7] hover:bg-[#F4F5F7] text-[#172B4D]';
             }
           });
         }
@@ -86343,10 +86396,10 @@ const SetupView = {
           if (iconGrid) {
             iconGrid.querySelectorAll('.lucide-icon-tile').forEach(t => {
               if (t.dataset.iconId === foundIconId) {
-                t.className = 'lucide-icon-tile p-2 rounded-lg border text-left flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#00A4B7] bg-[#F0F9FF] text-[#00A4B7] ring-2 ring-[#00A4B7]/20 shadow-2xs font-bold';
+                t.className = 'lucide-icon-tile p-1.5 rounded-lg border text-left flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#00A4B7] bg-[#F0F9FF] text-[#00A4B7] ring-2 ring-[#00A4B7]/20 shadow-2xs font-bold';
                 t.scrollIntoView({ block: 'nearest' });
               } else {
-                t.className = 'lucide-icon-tile p-2 rounded-lg border text-left flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#DFE1E6] bg-white hover:border-[#00A4B7] hover:bg-[#F4F5F7] text-[#172B4D]';
+                t.className = 'lucide-icon-tile p-1.5 rounded-lg border text-left flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#DFE1E6] bg-white hover:border-[#00A4B7] hover:bg-[#F4F5F7] text-[#172B4D]';
               }
             });
           }
@@ -86424,7 +86477,7 @@ const SetupView = {
       document.addEventListener('click', closeDropdownHandler);
     }
 
-    // When user edits or types directly into menuNameInput
+    // When user types directly into menuNameInput
     if (menuNameInput) {
       menuNameInput.oninput = () => {
         const typed = menuNameInput.value.trim().toLowerCase();
@@ -86442,8 +86495,6 @@ const SetupView = {
       };
     }
   },
-
-  // =========================================================================
 
   // =========================================================================
   // 4B. TABS MANAGEMENT STUDIO (FULL CRUD WITH DATATABLE, SEARCH & FILTERS)
