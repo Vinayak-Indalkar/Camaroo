@@ -12330,6 +12330,48 @@ export const SetupView = {
     };
   },
 
+  openAuditHistoryModal() {
+    const btn = document.getElementById('btn-tab-extra-audit-history');
+    if (btn) {
+      btn.classList.remove('bg-white', 'border-[#CBD5E1]', 'text-[#334155]');
+      btn.classList.add('bg-[#E0F2FE]', 'border-[#00A4B7]', 'text-[#00A4B7]', 'shadow-xs');
+    }
+
+    Modal.open({
+      title: `
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-[#F0F9FF] border border-[#BAE6FD] flex items-center justify-center text-[#00A4B7] shrink-0">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <div>
+            <h3 class="text-sm font-extrabold text-[#172B4D] tracking-tight">Audit History & Activity Timeline</h3>
+          </div>
+        </div>
+      `,
+      content: '<div id="audit-history-modal-body" class="w-full"></div>',
+      size: 'full',
+      onClose: () => {
+        if (btn) {
+          btn.classList.remove('bg-[#E0F2FE]', 'border-[#00A4B7]', 'text-[#00A4B7]', 'shadow-xs');
+          btn.classList.add('bg-white', 'border-[#CBD5E1]', 'text-[#334155]');
+        }
+      },
+      footerButtons: [
+        {
+          label: 'Close',
+          type: 'secondary',
+          class: 'btn-secondary px-5 py-2 rounded-full text-xs font-semibold border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#172B4D] transition-all cursor-pointer',
+          onClick: () => Modal.close()
+        }
+      ]
+    });
+
+    const modalBody = document.getElementById('audit-history-modal-body');
+    if (modalBody) {
+      this.renderAuditLogsTab(modalBody);
+    }
+  },
+
   // =========================================================================
   // 7. AUDIT & CONFIGURATION LOGS TAB
   // =========================================================================
@@ -12740,6 +12782,17 @@ if (typeof window !== 'undefined') {
         SetupView.showAllSubmenusModal(menuId);
       } else if (menuId && window.SetupView && window.SetupView.showAllSubmenusModal) {
         window.SetupView.showAllSubmenusModal(menuId);
+      }
+    }
+
+    const auditBtn = e.target.closest('#btn-tab-extra-audit-history, [data-action="open-audit-history"]');
+    if (auditBtn) {
+      e.preventDefault();
+      e.stopPropagation();
+      if (typeof SetupView !== 'undefined' && SetupView.openAuditHistoryModal) {
+        SetupView.openAuditHistoryModal();
+      } else if (window.SetupView && window.SetupView.openAuditHistoryModal) {
+        window.SetupView.openAuditHistoryModal();
       }
     }
   }, true);

@@ -38,7 +38,7 @@ export const TabBar = {
     const extraAction = submenu.extraAction || (isGeneralConfig ? {
       id: "audit-history",
       label: "Audit History",
-      hash: "#/general/configuration/audit-history",
+      hash: "javascript:void(0)",
       icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`
     } : null);
 
@@ -75,7 +75,8 @@ export const TabBar = {
             <div class="flex items-center shrink-0 pr-1 py-1 -mt-0.5">
               <a 
                 id="btn-tab-extra-${extraAction.id}"
-                href="${extraAction.hash}"
+                href="javascript:void(0)"
+                data-action="${extraAction.id === 'audit-history' ? 'open-audit-history' : ''}"
                 title="${extraAction.label}"
                 aria-label="${extraAction.label}"
                 class="dt-action-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center rounded-full transition-all cursor-pointer select-none ${
@@ -127,7 +128,16 @@ export const TabBar = {
 
     const extraBtns = document.querySelectorAll('[id^="btn-tab-extra-"]');
     extraBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
+      btn.addEventListener('click', (e) => {
+        if (btn.id === 'btn-tab-extra-audit-history' || btn.getAttribute('data-action') === 'open-audit-history') {
+          e.preventDefault();
+          e.stopPropagation();
+          const sv = (typeof window !== 'undefined' && window.SetupView) ? window.SetupView : (typeof SetupView !== 'undefined' ? SetupView : null);
+          if (sv && typeof sv.openAuditHistoryModal === 'function') {
+            sv.openAuditHistoryModal();
+          }
+          return;
+        }
         tablistEl.querySelectorAll('[role="tab"]').forEach(t => {
           t.setAttribute('aria-selected', 'false');
           t.tabIndex = -1;
