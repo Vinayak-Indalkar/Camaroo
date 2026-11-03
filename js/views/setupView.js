@@ -10604,76 +10604,33 @@ export const SetupView = {
             </div>
           </div>
 
-          <!-- 3. Tab Menu Section (Parent is Sub Menu) -->
+          <!-- 3. Tab Menu Section (Multiple Tab Menus) -->
           <div class="min-w-0 bg-transparent p-0 border-0 flex flex-col h-full space-y-2">
             <div class="flex items-center justify-between border-b border-[#EBECF0] pb-0 mb-0">
-              <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Tab Menu</span>
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Tab Menu</span>
+                <span id="tab-parent-submenu-badge" class="text-[10px] font-bold text-[#00A4B7] bg-[#F0F9FF] border border-[#BAE6FD] px-2 py-0.5 rounded">Submenu: Overview</span>
+              </div>
+              <button type="button" id="btn-add-tab-item" class="btn-secondary px-2.5 py-1 rounded-lg text-xs font-semibold flex items-center gap-1 hover:bg-[#EBECF0] transition-colors cursor-pointer text-[#00A4B7] border border-[#DFE1E6]">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                <span>Add Tab Menu</span>
+              </button>
             </div>
 
-            <!-- Tab Form Box matching height of other columns -->
-            <div class="flex-1 flex flex-col h-[440px] max-h-[440px] border border-[#DFE1E6] rounded-lg bg-white shadow-2xs overflow-y-auto p-3.5 space-y-3" style="border: 1px solid #DFE1E6 !important;">
-              
-              
-              <!-- Hidden inputs to retain IDs for compatibility and save handlers -->
-              <input type="hidden" id="tab-modal-menu" value="" />
-              <input type="hidden" id="tab-modal-submenu" value="" />
-
-              <!-- Tab Name / Label -->
-              <div>
-                <label for="tab-modal-label" class="block text-xs font-semibold text-[#172B4D] mb-1">
-                  Tab Name / Label
-                </label>
-                <input type="text" id="tab-modal-label" value="" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] shadow-2xs" placeholder="e.g. Fields Customizer, Forms, Query Editor" />
+            <!-- Tab Box Container matching Submenu style -->
+            <div class="flex-1 flex flex-col h-[440px] max-h-[440px] border border-[#DFE1E6] rounded-lg bg-white shadow-2xs overflow-hidden" style="border: 1px solid #DFE1E6 !important;">
+              <!-- Sticky Table Header -->
+              <div class="grid grid-cols-12 gap-2 px-3 py-2 text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider bg-[#F8FAFC] border-b border-[#DFE1E6] shrink-0">
+                <div class="col-span-4">Tab Name / Label</div>
+                <div class="col-span-4">Url / Route</div>
+                <div class="col-span-2">Type</div>
+                <div class="col-span-1 text-center">Status</div>
+                <div class="col-span-1 text-center">Action</div>
               </div>
 
-              <!-- Tab Slug & Mapping Type -->
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div>
-                  <label for="tab-modal-slug" class="block text-xs font-semibold text-[#172B4D] mb-1">
-                    Tab Slug / Key
-                  </label>
-                  <input type="text" id="tab-modal-slug" value="" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-mono lowercase focus:outline-none focus:border-[#00A4B7] text-[#00A4B7] font-bold shadow-2xs" placeholder="e.g. fields-customizer" />
-                </div>
-                <div>
-                  <label for="tab-modal-type" class="block text-xs font-semibold text-[#172B4D] mb-1">
-                    Mapping Type
-                  </label>
-                  <select id="tab-modal-type" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] shadow-2xs">
-                    <option value="system">System Page</option>
-                    <option value="standard">Standard View</option>
-                    <option value="dynamic-form">Dynamic Form</option>
-                    <option value="report">Report</option>
-                    <option value="custom-list">Custom List</option>
-                  </select>
-                </div>
-              </div>
-
-              <!-- Route URL Hash -->
-              <div>
-                <label for="tab-modal-route" class="block text-xs font-semibold text-[#172B4D] mb-1 flex items-center justify-between">
-                  <span>Route URL Hash</span>
-                  <span class="text-[10px] text-[#5E6C84] font-normal font-mono">Format: #/{menu}/{submenu}/{slug}</span>
-                </label>
-                <input type="text" id="tab-modal-route" value="" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-mono focus:outline-none focus:border-[#00A4B7] text-[#172B4D] shadow-2xs" placeholder="e.g. #/settings/overview/fields-customizer" />
-              </div>
-
-              <!-- Badge Tag & Status Checkbox -->
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 items-end">
-                <div>
-                  <label for="tab-modal-badge" class="block text-xs font-semibold text-[#172B4D] mb-1">
-                    Badge Tag (Optional)
-                  </label>
-                  <input type="text" id="tab-modal-badge" value="" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] shadow-2xs" placeholder="e.g. 5 New, Pro" />
-                </div>
-                <div>
-                  <label class="block text-xs font-semibold text-[#172B4D] mb-1">Status</label>
-                  <div class="flex items-center h-[34px]">
-                    <label class="inline-flex items-center gap-2 cursor-pointer select-none">
-                      <input type="checkbox" id="tab-modal-status-cb" class="w-4.5 h-4.5 rounded border-[#DFE1E6] text-[#00A4B7] accent-[#00A4B7] cursor-pointer" checked />
-                      <span class="text-xs font-semibold text-[#172B4D]">Active Tab</span>
-                    </label>
-                  </div>
-                </div>
+              <!-- Scrollable rows container -->
+              <div id="tabs-list-container" class="space-y-2 overflow-y-auto p-2.5 flex-1">
+                <!-- Dynamic Rows Inserted Here -->
               </div>
             </div>
           </div>
@@ -10699,6 +10656,7 @@ export const SetupView = {
             const isVisible = menuStatus === 'Active';
 
             // Collect submenus
+            syncCurrentTabsToActiveSubRow();
             const subRows = document.querySelectorAll('.submenu-item-row');
             const submenus = [];
             const modKey = isEdit ? mod.key : menuName.toLowerCase().replace(/[^a-z0-9]/g, '-');
@@ -10765,82 +10723,50 @@ export const SetupView = {
               });
             }
 
-            // Collect Tab Menu from Column 3
-            const tabLabel = document.getElementById('tab-modal-label')?.value.trim();
-            const tabSlugRaw = document.getElementById('tab-modal-slug')?.value.trim();
-            const tabSlug = tabSlugRaw ? tabSlugRaw.toLowerCase().replace(/[^a-z0-9_-]+/g, '-') : (tabLabel ? tabLabel.toLowerCase().replace(/[^a-z0-9_-]+/g, '-') : '');
-            const tabType = document.getElementById('tab-modal-type')?.value || 'system';
-            const tabBadge = document.getElementById('tab-modal-badge')?.value.trim() || '';
-            const tabStatus = document.getElementById('tab-modal-status-cb')?.checked ? 'Active' : 'Inactive';
-            const selectedTabMenu = document.getElementById('tab-modal-menu')?.value || modKey;
-            const selectedTabSub = document.getElementById('tab-modal-submenu')?.value || submenus[0]?.id;
-            const tabRoute = document.getElementById('tab-modal-route')?.value.trim() || `#/${selectedTabMenu}/${selectedTabSub}/${tabSlug || 'tab'}`;
-
-            let attachedTabInfo = null;
-
-            if (tabLabel) {
-              // User specified a Tab Menu to be attached to the active Sub Menu
-              let targetSm = submenus.find(s => s.id === selectedTabSub || (s.name && s.name.toLowerCase() === selectedTabSub.toLowerCase()));
-              if (!targetSm) {
-                targetSm = submenus[0];
-              }
-
-              if (!Array.isArray(targetSm.tabs)) {
-                targetSm.tabs = [];
-              }
-
-              const existingTabIdx = targetSm.tabs.findIndex(t => t.id === tabSlug);
-              const tabObject = {
-                id: tabSlug,
-                label: tabLabel,
-                route: tabRoute,
-                type: tabType,
-                badge: tabBadge,
-                status: tabStatus
-              };
-
-              if (existingTabIdx > -1) {
-                targetSm.tabs[existingTabIdx] = tabObject;
-              } else {
-                targetSm.tabs.push(tabObject);
-              }
-
-              // Also register into this.state.tabsConfig for tabs studio
-              if (!Array.isArray(this.state.tabsConfig)) {
-                this.state.tabsConfig = [];
-              }
-              const existingGlobalTabIdx = this.state.tabsConfig.findIndex(t => t.id === tabSlug && (t.menuKey === selectedTabMenu || t.menuKey === modKey));
-              const fullTabRecord = {
-                id: tabSlug,
-                key: tabSlug,
-                label: tabLabel,
-                menuKey: selectedTabMenu,
-                menuLabel: menuName,
-                submenuId: targetSm.id || selectedTabSub,
-                submenuTitle: targetSm.title || targetSm.name || selectedTabSub,
-                route: tabRoute,
-                type: tabType,
-                badge: tabBadge,
-                status: tabStatus,
-                order: (existingTabIdx > -1) ? (existingTabIdx + 1) : 1,
-                isProtected: false,
-                description: `Tab for ${tabLabel} under ${menuName} > ${targetSm.title || targetSm.name}`
-              };
-
-              if (existingGlobalTabIdx > -1) {
-                this.state.tabsConfig[existingGlobalTabIdx] = Object.assign(this.state.tabsConfig[existingGlobalTabIdx], fullTabRecord);
-              } else {
-                this.state.tabsConfig.unshift(fullTabRecord);
-              }
-
-              attachedTabInfo = {
-                label: tabLabel,
-                slug: tabSlug,
-                route: tabRoute,
-                status: tabStatus,
-                submenuTitle: targetSm.title || targetSm.name || selectedTabSub
-              };
+            // Sync tabs into this.state.tabsConfig for tabs studio
+            if (!Array.isArray(this.state.tabsConfig)) {
+              this.state.tabsConfig = [];
             }
+            const oldKeys = [modKey, mod?.key, mod?.id].filter(Boolean);
+            this.state.tabsConfig = this.state.tabsConfig.filter(t => !oldKeys.includes(t.menuKey));
+
+            let totalTabsCount = 0;
+            const allAttachedTabs = [];
+
+            submenus.forEach(sm => {
+              if (Array.isArray(sm.tabs)) {
+                sm.tabs.forEach((tabItem, idx) => {
+                  const tLabel = tabItem.label || tabItem.name;
+                  if (!tLabel && !tabItem.route) return;
+                  const tSlug = (tabItem.slug || tabItem.id || tLabel.toLowerCase().replace(/[^a-z0-9_-]+/g, '-')).replace(/^-+|-+$/g, '') || `tab-${idx + 1}`;
+                  const tRoute = tabItem.route || `#/${modKey}/${sm.id}/${tSlug}`;
+                  const tType = tabItem.type || 'system';
+                  const tStatus = tabItem.status || 'Active';
+                  const tBadge = tabItem.badge || '';
+
+                  const tabRecord = {
+                    id: tSlug,
+                    key: tSlug,
+                    label: tLabel || tSlug,
+                    menuKey: modKey,
+                    menuLabel: menuName,
+                    submenuId: sm.id,
+                    submenuTitle: sm.title || sm.name,
+                    route: tRoute,
+                    type: tType,
+                    badge: tBadge,
+                    status: tStatus,
+                    order: idx + 1,
+                    isProtected: false,
+                    description: `Tab for ${tLabel} under ${menuName} > ${sm.title || sm.name}`
+                  };
+
+                  this.state.tabsConfig.push(tabRecord);
+                  totalTabsCount++;
+                  allAttachedTabs.push(tabRecord);
+                });
+              }
+            });
 
             if (targetMod) {
               targetMod.label = menuName;
@@ -10854,7 +10780,7 @@ export const SetupView = {
               }
               this.state.submenusConfig[targetMod.id] = submenus;
               this.state.submenusConfig[targetMod.key] = submenus;
-              this.logAudit('Menu Setup', `Updated menu: ${menuName} (${targetMod.key}) with ${submenus.length} submenus${attachedTabInfo ? ` and tab "${attachedTabInfo.label}"` : ''}`);
+              this.logAudit('Menu Setup', `Updated menu: ${menuName} (${targetMod.key}) with ${submenus.length} submenus and ${totalTabsCount} tab(s)`);
             } else {
               const newMod = {
                 id: modKey,
@@ -10871,7 +10797,7 @@ export const SetupView = {
               };
               this.state.modulesConfig.push(newMod);
               this.state.submenusConfig[modKey] = submenus;
-              this.logAudit('Menu Setup', `Registered menu: ${menuName} (${modKey}) with ${submenus.length} submenus${attachedTabInfo ? ` and tab "${attachedTabInfo.label}"` : ''}`);
+              this.logAudit('Menu Setup', `Registered menu: ${menuName} (${modKey}) with ${submenus.length} submenus and ${totalTabsCount} tab(s)`);
             }
 
             this.saveState();
@@ -10900,20 +10826,20 @@ export const SetupView = {
               { label: 'Sub Menus', value: submenus.map(s => `${s.title || s.name}${s.url ? ` (${s.url})` : ''} [${s.status}]`).join('; ') || 'None' }
             ];
 
-            if (attachedTabInfo) {
+            if (totalTabsCount > 0) {
               detailsList.push({
-                label: 'Tab Menu',
-                value: `${attachedTabInfo.label} (${attachedTabInfo.slug}) [${attachedTabInfo.status}] -> ${attachedTabInfo.route}`
+                label: 'Configured Tabs',
+                value: `${totalTabsCount} Tab Menu(s)`
               });
               detailsList.push({
-                label: 'Hierarchy',
-                value: `Main Menu: ${menuName}  ➔  Sub Menu: ${attachedTabInfo.submenuTitle}  ➔  Tab: ${attachedTabInfo.label}`
+                label: 'Tab Details',
+                value: allAttachedTabs.map(t => `${t.submenuTitle} ➔ ${t.label} (${t.route}) [${t.status}]`).join('; ')
               });
             }
 
             Modal.success({
               title: isEdit ? 'Menu Updated Successfully' : 'Menu Registered Successfully',
-              message: `Menu <strong>${menuName}</strong> has been configured with <strong>${submenus.length}</strong> sub menu(s)${attachedTabInfo ? ` and tab <strong>${attachedTabInfo.label}</strong>` : ''}.`,
+              message: `Menu <strong>${menuName}</strong> has been configured with <strong>${submenus.length}</strong> sub menu(s)${totalTabsCount > 0 ? ` and <strong>${totalTabsCount}</strong> tab(s)` : ''}.`,
               details: detailsList
             });
           }
@@ -10942,17 +10868,10 @@ export const SetupView = {
     const statusCb = document.getElementById('menu-modal-status-cb');
     const statusInput = document.getElementById('menu-modal-status');
 
-    // Tab hierarchy elements
-    const tabMenuInput = document.getElementById('tab-modal-menu');
-    const tabSubmenuInput = document.getElementById('tab-modal-submenu');
-    const tabParentMenuDisplay = document.getElementById('tab-parent-menu-display');
-    const tabParentSubmenuDisplay = document.getElementById('tab-parent-submenu-display');
-    const tabLabelInput = document.getElementById('tab-modal-label');
-    const tabSlugInput = document.getElementById('tab-modal-slug');
-    const tabTypeSelect = document.getElementById('tab-modal-type');
-    const tabRouteInput = document.getElementById('tab-modal-route');
-    const tabBadgeInput = document.getElementById('tab-modal-badge');
-    const tabStatusCb = document.getElementById('tab-modal-status-cb');
+    // Tab elements & containers
+    const tabsContainer = document.getElementById('tabs-list-container');
+    const tabParentSubmenuBadge = document.getElementById('tab-parent-submenu-badge');
+    const addTabBtn = document.getElementById('btn-add-tab-item');
 
     // Submenu container
     const listContainer = document.getElementById('submenus-list-container');
@@ -10999,20 +10918,107 @@ export const SetupView = {
       return { id: 'overview', name: 'Overview', url: '' };
     };
 
-    const syncHierarchyDisplay = () => {
-      const mKey = getCurrentMenuKey();
-      const mLabel = getCurrentMenuLabel();
-      const subInfo = getActiveSubmenuInfo();
+    const getTabsFromContainer = () => {
+      if (!tabsContainer) return [];
+      const tabRows = tabsContainer.querySelectorAll('.tab-item-row');
+      const tabs = [];
+      tabRows.forEach(row => {
+        const label = row.querySelector('.tab-item-name')?.value.trim();
+        const route = row.querySelector('.tab-item-route')?.value.trim();
+        const type = row.querySelector('.tab-item-type')?.value || 'system';
+        const status = row.querySelector('.tab-item-status')?.value || 'Active';
+        if (label || route) {
+          const slug = (label || 'tab').toLowerCase().replace(/[^a-z0-9_-]+/g, '-').replace(/^-+|-+$/g, '');
+          tabs.push({ id: slug, label: label || slug, route, type, status });
+        }
+      });
+      return tabs;
+    };
 
-      if (tabMenuInput) tabMenuInput.value = mKey;
-      if (tabSubmenuInput) tabSubmenuInput.value = subInfo.id;
-      if (tabParentMenuDisplay) tabParentMenuDisplay.textContent = mLabel;
-      if (tabParentSubmenuDisplay) tabParentSubmenuDisplay.textContent = subInfo.name;
-
-      if (tabRouteInput) {
-        const curSlug = tabSlugInput?.value.trim() || 'tab';
-        tabRouteInput.value = `#/${mKey}/${subInfo.id}/${curSlug}`;
+    const syncCurrentTabsToActiveSubRow = () => {
+      if (activeSubRow && tabsContainer) {
+        if (!activeSubRow._tabData) activeSubRow._tabData = {};
+        activeSubRow._tabData.tabs = getTabsFromContainer();
       }
+    };
+
+    // Helper: Add dynamic Tab row
+    const addTabRow = (tab = { label: '', route: '', type: 'system', status: 'Active' }) => {
+      if (!tabsContainer) return null;
+      const isActive = tab.status !== 'Inactive';
+      const rowEl = document.createElement('div');
+      rowEl.className = 'tab-item-row grid grid-cols-12 gap-2 items-center p-1.5 rounded-lg border border-[#DFE1E6] bg-white transition-all';
+      rowEl.innerHTML = `
+        <div class="col-span-4 flex items-center">
+          <input type="text" class="tab-item-name w-full text-xs px-2.5 py-1.5 border border-[#DFE1E6] rounded-md focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] bg-white" placeholder="Tab Name / Label" value="${tab.label || tab.name || ''}" />
+        </div>
+        <div class="col-span-4">
+          <input type="text" class="tab-item-route w-full text-xs px-2.5 py-1.5 border border-[#DFE1E6] rounded-md focus:outline-none focus:border-[#00A4B7] font-mono text-[#00A4B7] bg-white" placeholder="Url / Route" value="${tab.route || tab.url || ''}" />
+        </div>
+        <div class="col-span-2">
+          <select class="tab-item-type w-full text-xs px-2 py-1.5 border border-[#DFE1E6] rounded-md focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] bg-white">
+            <option value="system" ${tab.type === 'system' ? 'selected' : ''}>System</option>
+            <option value="standard" ${tab.type === 'standard' ? 'selected' : ''}>Standard</option>
+            <option value="dynamic-form" ${tab.type === 'dynamic-form' ? 'selected' : ''}>Form</option>
+            <option value="report" ${tab.type === 'report' ? 'selected' : ''}>Report</option>
+            <option value="custom-list" ${tab.type === 'custom-list' ? 'selected' : ''}>List</option>
+          </select>
+        </div>
+        <div class="col-span-1 flex items-center justify-center">
+          <label class="inline-flex items-center cursor-pointer select-none">
+            <input type="checkbox" class="tab-item-status-cb w-4 h-4 rounded border-[#DFE1E6] text-[#00A4B7] accent-[#00A4B7] cursor-pointer" ${isActive ? 'checked' : ''} title="Tab Status" />
+          </label>
+          <input type="hidden" class="tab-item-status" value="${tab.status || 'Active'}" />
+        </div>
+        <div class="col-span-1 flex items-center justify-center">
+          <button type="button" class="btn-remove-tab p-1 text-[#DE350B] hover:bg-rose-50 rounded-md transition-colors cursor-pointer" title="Remove Tab">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+          </button>
+        </div>
+      `;
+
+      const tNameInput = rowEl.querySelector('.tab-item-name');
+      const tRouteInput = rowEl.querySelector('.tab-item-route');
+      const tCb = rowEl.querySelector('.tab-item-status-cb');
+      const tStatusInp = rowEl.querySelector('.tab-item-status');
+
+      if (tNameInput) {
+        tNameInput.oninput = () => {
+          const mKey = getCurrentMenuKey();
+          const subInfo = getActiveSubmenuInfo();
+          const tName = tNameInput.value.trim();
+          const tSlug = tName.toLowerCase().replace(/[^a-z0-9_-]+/g, '-').replace(/^-+|-+$/g, '');
+          if (tRouteInput && (!tRouteInput.value || tRouteInput.value.startsWith(`#/${mKey}/${subInfo.id}/`))) {
+            tRouteInput.value = `#/${mKey}/${subInfo.id}/${tSlug || 'tab'}`;
+          }
+          syncCurrentTabsToActiveSubRow();
+        };
+      }
+
+      if (tRouteInput) {
+        tRouteInput.oninput = () => syncCurrentTabsToActiveSubRow();
+      }
+
+      const tTypeSelect = rowEl.querySelector('.tab-item-type');
+      if (tTypeSelect) {
+        tTypeSelect.onchange = () => syncCurrentTabsToActiveSubRow();
+      }
+
+      if (tCb && tStatusInp) {
+        tCb.onchange = () => {
+          tStatusInp.value = tCb.checked ? 'Active' : 'Inactive';
+          syncCurrentTabsToActiveSubRow();
+        };
+      }
+
+      rowEl.querySelector('.btn-remove-tab').onclick = (e) => {
+        e.stopPropagation();
+        rowEl.remove();
+        syncCurrentTabsToActiveSubRow();
+      };
+
+      tabsContainer.appendChild(rowEl);
+      return rowEl;
     };
 
     const setActiveSubmenuRow = (rowEl) => {
@@ -11020,14 +11026,7 @@ export const SetupView = {
 
       // Save tab inputs to previous active row
       if (activeSubRow && activeSubRow !== rowEl) {
-        activeSubRow._tabData = {
-          label: tabLabelInput?.value.trim() || '',
-          slug: tabSlugInput?.value.trim() || '',
-          type: tabTypeSelect?.value || 'system',
-          route: tabRouteInput?.value.trim() || '',
-          badge: tabBadgeInput?.value.trim() || '',
-          status: tabStatusCb?.checked ? 'Active' : 'Inactive'
-        };
+        activeSubRow._tabData = { tabs: getTabsFromContainer() };
       }
 
       activeSubRow = rowEl;
@@ -11043,64 +11042,38 @@ export const SetupView = {
         }
       });
 
-      // Load tab inputs from row if saved
-      if (rowEl._tabData) {
-        if (tabLabelInput) tabLabelInput.value = rowEl._tabData.label || '';
-        if (tabSlugInput) tabSlugInput.value = rowEl._tabData.slug || '';
-        if (tabTypeSelect) tabTypeSelect.value = rowEl._tabData.type || 'system';
-        if (tabBadgeInput) tabBadgeInput.value = rowEl._tabData.badge || '';
-        if (tabStatusCb) tabStatusCb.checked = (rowEl._tabData.status !== 'Inactive');
+      // Update Submenu badge in Section 3 header
+      const subInfo = getActiveSubmenuInfo();
+      if (tabParentSubmenuBadge) {
+        tabParentSubmenuBadge.textContent = `Submenu: ${subInfo.name}`;
       }
 
-      syncHierarchyDisplay();
+      // Render tab rows for this submenu
+      if (tabsContainer) {
+        tabsContainer.innerHTML = '';
+        let rowTabs = [];
+        if (Array.isArray(rowEl._tabData?.tabs)) {
+          rowTabs = rowEl._tabData.tabs;
+        } else if (rowEl._tabData && (rowEl._tabData.label || rowEl._tabData.route)) {
+          rowTabs = [rowEl._tabData];
+        }
+
+        if (rowTabs.length > 0) {
+          rowTabs.forEach(t => addTabRow(t));
+        } else {
+          addTabRow();
+        }
+      }
     };
 
-    // 3. Tab Input Listeners
-    if (tabLabelInput && tabSlugInput) {
-      tabLabelInput.oninput = () => {
-        const generated = tabLabelInput.value.trim().toLowerCase().replace(/[^a-z0-9_-]+/g, '-').replace(/^-+|-+$/g, '');
-        tabSlugInput.value = generated;
-        syncHierarchyDisplay();
-        if (activeSubRow) {
-          if (!activeSubRow._tabData) activeSubRow._tabData = {};
-          activeSubRow._tabData.label = tabLabelInput.value.trim();
-          activeSubRow._tabData.slug = generated;
+    if (addTabBtn) {
+      addTabBtn.onclick = () => {
+        const newTabRow = addTabRow();
+        if (newTabRow) {
+          const nameInp = newTabRow.querySelector('.tab-item-name');
+          if (nameInp) nameInp.focus();
         }
-      };
-
-      tabSlugInput.oninput = () => {
-        syncHierarchyDisplay();
-        if (activeSubRow) {
-          if (!activeSubRow._tabData) activeSubRow._tabData = {};
-          activeSubRow._tabData.slug = tabSlugInput.value.trim();
-        }
-      };
-    }
-
-    if (tabTypeSelect) {
-      tabTypeSelect.onchange = () => {
-        if (activeSubRow) {
-          if (!activeSubRow._tabData) activeSubRow._tabData = {};
-          activeSubRow._tabData.type = tabTypeSelect.value;
-        }
-      };
-    }
-
-    if (tabBadgeInput) {
-      tabBadgeInput.oninput = () => {
-        if (activeSubRow) {
-          if (!activeSubRow._tabData) activeSubRow._tabData = {};
-          activeSubRow._tabData.badge = tabBadgeInput.value.trim();
-        }
-      };
-    }
-
-    if (tabStatusCb) {
-      tabStatusCb.onchange = () => {
-        if (activeSubRow) {
-          if (!activeSubRow._tabData) activeSubRow._tabData = {};
-          activeSubRow._tabData.status = tabStatusCb.checked ? 'Active' : 'Inactive';
-        }
+        syncCurrentTabsToActiveSubRow();
       };
     }
 
@@ -11180,19 +11153,31 @@ export const SetupView = {
       rowEl.className = 'submenu-item-row grid grid-cols-12 gap-2 items-center p-1.5 rounded-lg border border-[#DFE1E6] bg-white transition-all cursor-pointer';
 
       // Preload existing tab data if present
+      let initialTabs = [];
       if (Array.isArray(sub.tabs) && sub.tabs.length > 0) {
-        const firstTab = sub.tabs[0];
-        rowEl._tabData = {
-          id: firstTab.id,
-          label: firstTab.label || firstTab.name || '',
-          slug: firstTab.id || '',
-          route: firstTab.route || firstTab.hash || '',
-          type: firstTab.type || 'system',
-          badge: firstTab.badge || '',
-          status: firstTab.status || 'Active'
-        };
+        initialTabs = sub.tabs;
+      } else if (Array.isArray(this.state.tabsConfig)) {
+        const subId = (sub.id || sub.key || sub.name || '').toLowerCase().replace(/[^a-z0-9_-]+/g, '-');
+        const mKey = getCurrentMenuKey();
+        const matched = this.state.tabsConfig.filter(t => 
+          (t.menuKey === mKey || t.menuKey === mod?.key || t.menuKey === mod?.id) && 
+          (t.submenuId === subId || t.submenuId === sub.id || (t.submenuTitle && t.submenuTitle.toLowerCase() === (sub.name || sub.title || '').toLowerCase()))
+        );
+        if (matched.length > 0) {
+          initialTabs = matched;
+        }
       }
 
+      rowEl._tabData = {
+        tabs: initialTabs.map(t => ({
+          id: t.id || t.key || (t.label || '').toLowerCase().replace(/[^a-z0-9_-]+/g, '-'),
+          label: t.label || t.name || '',
+          slug: t.id || t.key || '',
+          route: t.route || t.hash || '',
+          type: t.type || 'system',
+          status: t.status || 'Active'
+        }))
+      };
       rowEl.innerHTML = `
         <div class="col-span-5 flex items-center">
           <input type="text" class="sub-item-name w-full text-xs px-2.5 py-1.5 border border-[#DFE1E6] rounded-md focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] bg-white" placeholder="Sub Menu Name" value="${sub.name || sub.title || ''}" />
@@ -11230,8 +11215,8 @@ export const SetupView = {
           if (subUrlInput && (!subUrlInput.value || subUrlInput.value.startsWith(`#/${mKey}/`))) {
             subUrlInput.value = `#/${mKey}/${sId}`;
           }
-          if (activeSubRow === rowEl) {
-            syncHierarchyDisplay();
+          if (activeSubRow === rowEl && tabParentSubmenuBadge) {
+            tabParentSubmenuBadge.textContent = `Submenu: ${sName || 'Overview'}`;
           }
         };
       }
@@ -11267,7 +11252,7 @@ export const SetupView = {
     if (listContainer && listContainer.children.length > 0) {
       setActiveSubmenuRow(listContainer.children[0]);
     } else {
-      syncHierarchyDisplay();
+      if (typeof syncHierarchyDisplay === 'function') syncHierarchyDisplay();
     }
 
     const addSubBtn = document.getElementById('btn-add-sub-item');
@@ -11377,7 +11362,7 @@ export const SetupView = {
         }
       }
 
-      syncHierarchyDisplay();
+      if (typeof syncHierarchyDisplay === 'function') syncHierarchyDisplay();
     };
 
     if (dropdownTrigger && dropdownList) {
@@ -11452,7 +11437,7 @@ export const SetupView = {
           updateDisplayForMenu('__NEW__');
           if (modeBadge) modeBadge.textContent = '✨ Custom / New Menu';
         }
-        syncHierarchyDisplay();
+        if (typeof syncHierarchyDisplay === 'function') syncHierarchyDisplay();
       };
     }
   },
