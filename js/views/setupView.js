@@ -10424,6 +10424,17 @@ export const SetupView = {
           button#menu-modal-select-trigger {
             border-radius: 0.5rem !important;
           }
+          #lucide-icon-grid .lucide-icon-tile,
+          button.lucide-icon-tile,
+          .lucide-icon-tile {
+            border-radius: 0.5rem !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: center !important;
+            text-align: center !important;
+            width: auto !important;
+          }
         </style>
         <form id="menu-setup-form" class="grid grid-cols-1 md:grid-cols-3 gap-5 items-stretch text-xs min-w-0" style="grid-template-columns: repeat(1, minmax(0, 1fr)) !important;" onsubmit="return false;">
           <!-- 1. Main Menu Section -->
@@ -11075,7 +11086,7 @@ export const SetupView = {
       iconGrid.innerHTML = filtered.map(item => {
         const isSelected = item.id === selectedHiddenVal?.value;
         return `
-          <button type="button" data-icon-id="${item.id}" class="lucide-icon-tile p-1.5 rounded-lg border text-left flex flex-col items-center justify-center gap-1 transition-all cursor-pointer ${
+          <button type="button" data-icon-id="${item.id}" class="lucide-icon-tile p-1.5 rounded-lg border flex flex-col items-center justify-center gap-1 transition-all cursor-pointer ${
             isSelected 
               ? 'border-[#00A4B7] bg-[#F0F9FF] text-[#00A4B7] ring-2 ring-[#00A4B7]/20 shadow-2xs font-bold' 
               : 'border-[#DFE1E6] bg-white hover:border-[#00A4B7] hover:bg-[#F4F5F7] text-[#172B4D]'
@@ -11098,9 +11109,9 @@ export const SetupView = {
 
         iconGrid.querySelectorAll('.lucide-icon-tile').forEach(t => {
           if (t.dataset.iconId === iconId) {
-            t.className = 'lucide-icon-tile p-1.5 rounded-lg border text-left flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#00A4B7] bg-[#F0F9FF] text-[#00A4B7] ring-2 ring-[#00A4B7]/20 shadow-2xs font-bold';
+            t.className = 'lucide-icon-tile p-1.5 rounded-lg border flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#00A4B7] bg-[#F0F9FF] text-[#00A4B7] ring-2 ring-[#00A4B7]/20 shadow-2xs font-bold';
           } else {
-            t.className = 'lucide-icon-tile p-1.5 rounded-lg border text-left flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#DFE1E6] bg-white hover:border-[#00A4B7] hover:bg-[#F4F5F7] text-[#172B4D]';
+            t.className = 'lucide-icon-tile p-1.5 rounded-lg border flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#DFE1E6] bg-white hover:border-[#00A4B7] hover:bg-[#F4F5F7] text-[#172B4D]';
           }
         });
       };
@@ -11285,9 +11296,9 @@ export const SetupView = {
         if (iconGrid) {
           iconGrid.querySelectorAll('.lucide-icon-tile').forEach(t => {
             if (t.dataset.iconId === defaultIconId) {
-              t.className = 'lucide-icon-tile p-1.5 rounded-lg border text-left flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#00A4B7] bg-[#F0F9FF] text-[#00A4B7] ring-2 ring-[#00A4B7]/20 shadow-2xs font-bold';
+              t.className = 'lucide-icon-tile p-1.5 rounded-lg border flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#00A4B7] bg-[#F0F9FF] text-[#00A4B7] ring-2 ring-[#00A4B7]/20 shadow-2xs font-bold';
             } else {
-              t.className = 'lucide-icon-tile p-1.5 rounded-lg border text-left flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#DFE1E6] bg-white hover:border-[#00A4B7] hover:bg-[#F4F5F7] text-[#172B4D]';
+              t.className = 'lucide-icon-tile p-1.5 rounded-lg border flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#DFE1E6] bg-white hover:border-[#00A4B7] hover:bg-[#F4F5F7] text-[#172B4D]';
             }
           });
         }
@@ -11306,10 +11317,10 @@ export const SetupView = {
           if (iconGrid) {
             iconGrid.querySelectorAll('.lucide-icon-tile').forEach(t => {
               if (t.dataset.iconId === foundIconId) {
-                t.className = 'lucide-icon-tile p-1.5 rounded-lg border text-left flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#00A4B7] bg-[#F0F9FF] text-[#00A4B7] ring-2 ring-[#00A4B7]/20 shadow-2xs font-bold';
+                t.className = 'lucide-icon-tile p-1.5 rounded-lg border flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#00A4B7] bg-[#F0F9FF] text-[#00A4B7] ring-2 ring-[#00A4B7]/20 shadow-2xs font-bold';
                 t.scrollIntoView({ block: 'nearest' });
               } else {
-                t.className = 'lucide-icon-tile p-1.5 rounded-lg border text-left flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#DFE1E6] bg-white hover:border-[#00A4B7] hover:bg-[#F4F5F7] text-[#172B4D]';
+                t.className = 'lucide-icon-tile p-1.5 rounded-lg border flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#DFE1E6] bg-white hover:border-[#00A4B7] hover:bg-[#F4F5F7] text-[#172B4D]';
               }
             });
           }

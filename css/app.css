@@ -1817,9 +1817,9 @@ button:not(.sidebar-mod-btn).bg-\[\#00A4B7\]:hover * {
 /* 4. Secondary Outline */
 .btn-secondary,
 .btn-outline,
-button.border-neutral-300:not(#menu-modal-select-trigger),
-button.border-\[\#CBD5E1\]:not(#menu-modal-select-trigger),
-button.border-\[\#DFE1E6\]:not(#menu-modal-select-trigger) {
+button.border-neutral-300:not(#menu-modal-select-trigger):not(.lucide-icon-tile),
+button.border-\[\#CBD5E1\]:not(#menu-modal-select-trigger):not(.lucide-icon-tile),
+button.border-\[\#DFE1E6\]:not(#menu-modal-select-trigger):not(.lucide-icon-tile) {
   background-color: #FFFFFF !important;
   color: #1E293B !important;
   border: 1px solid #CBD5E1 !important;
@@ -2457,8 +2457,8 @@ input[readonly]:focus,
 .dropdown-menu button:not(.btn-primary):not(.btn-danger),
 .dt-dropdown-menu button:not(.btn-primary):not(.btn-danger),
 .dropdown-item,
-button.text-left,
-button[class*="text-left"] {
+button.text-left:not(.lucide-icon-tile),
+button[class*="text-left"]:not(.lucide-icon-tile) {
   border-radius: 0 !important;
   min-height: auto !important;
   height: auto !important;
@@ -2484,8 +2484,8 @@ button[class*="text-left"] {
 .dropdown-menu button:hover:not(.btn-primary):not(.btn-danger),
 .dt-dropdown-menu button:hover:not(.btn-primary):not(.btn-danger),
 .dropdown-item:hover,
-button.text-left:hover:not(.btn-primary):not(.btn-danger),
-button[class*="text-left"]:hover:not(.btn-primary):not(.btn-danger) {
+button.text-left:not(.lucide-icon-tile):hover:not(.btn-primary):not(.btn-danger),
+button[class*="text-left"]:not(.lucide-icon-tile):hover:not(.btn-primary):not(.btn-danger) {
   background-color: #F4F5F7 !important;
   color: #0F172A !important;
   border-radius: 0 !important;
@@ -2818,9 +2818,9 @@ button.btn-secondary,
 .btn-outline,
 button.btn-outline,
 button.border,
-button[class*="border-[#DFE1E6]"]:not(#menu-modal-select-trigger),
-button[class*="border-[#CBD5E1]"]:not(#menu-modal-select-trigger),
-button.border-neutral-300:not(#menu-modal-select-trigger) {
+button[class*="border-[#DFE1E6]"]:not(#menu-modal-select-trigger):not(.lucide-icon-tile),
+button[class*="border-[#CBD5E1]"]:not(#menu-modal-select-trigger):not(.lucide-icon-tile),
+button.border-neutral-300:not(#menu-modal-select-trigger):not(.lucide-icon-tile) {
   border: 1px solid #CBD5E1 !important;
   border-width: 1px !important;
   border-style: solid !important;
@@ -2968,4 +2968,18 @@ td.sticky-action-col > div {
 #menu-setup-form.md\:grid-cols-3,
 #menu-setup-form {
   grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+}
+
+/* Lucide Icon Grid Tiles - Strict rounded corner tile geometry */
+.lucide-icon-tile,
+button.lucide-icon-tile,
+#lucide-icon-grid button {
+  border-radius: 0.5rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  width: auto !important;
+  box-sizing: border-box !important;
 }
