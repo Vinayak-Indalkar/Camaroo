@@ -10167,7 +10167,7 @@ export const SetupView = {
                         <!-- Quick Filter / Search input -->
                         <div class="p-1 mb-1 sticky top-0 bg-white z-10">
                           <div class="relative">
-                            <input type="text" id="menu-dropdown-search" placeholder="Search menu..." class="w-full text-xs pl-7 pr-2 py-1.5 bg-[#F8FAFC] border border-[#DFE1E6] rounded-md focus:outline-none focus:border-[#00A4B7] font-medium text-[#172B4D]" />
+                            <input type="text" id="menu-dropdown-search" placeholder="Search menu..." class="w-full text-xs pr-2 py-1.5 bg-[#F8FAFC] border border-[#DFE1E6] rounded-md focus:outline-none focus:border-[#00A4B7] font-medium text-[#172B4D]" style="padding-left: 34px !important;" />
                             <svg class="w-3.5 h-3.5 text-[#94A3B8] absolute left-2 top-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
                           </div>
                         </div>
@@ -12502,7 +12502,7 @@ export const SetupView = {
                   id="audit-search-input" 
                   placeholder="Search timeline by keyword, user, action or entity..." 
                   value="${this.auditSearchQuery || ''}"
-                  class="w-full text-xs pl-8 pr-3 py-1.5 bg-[#FAFBFC] border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#0284C7] focus:bg-white text-[#172B4D]" 
+                  class="w-full text-xs pr-3 py-1.5 bg-[#FAFBFC] border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#0284C7] focus:bg-white text-[#172B4D]" style="padding-left: 36px !important;" 
                 />
                 <svg class="w-3.5 h-3.5 text-[#8993A4] absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
               </div>

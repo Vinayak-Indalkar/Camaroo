@@ -2704,6 +2704,38 @@ form .bg-white.border.rounded-xl.p-4.shadow-2xs,
   padding-left: 28px !important;
 }
 
+/* Search inputs and left-icon inputs: Guarantee icon and placeholder never overlap */
+.relative:has(> svg.absolute) > input,
+.relative:has(> svg[class*="absolute"]) > input,
+.relative:has(> .absolute > svg) > input,
+.relative:has(> span.absolute > svg) > input,
+input.pl-7,
+input[class*="pl-7"],
+input.pl-8,
+input[class*="pl-8"],
+input.pl-9,
+input[class*="pl-9"],
+input.pl-10,
+input[class*="pl-10"],
+input#audit-search-input,
+input#menu-dropdown-search,
+input[type="search"],
+.search-input {
+  padding-left: 36px !important;
+}
+
+/* Right-icon inputs (e.g. eye password toggles) */
+.relative:has(> button.absolute) > input,
+.relative:has(> .absolute:not(:first-child)) > input,
+input.pr-8,
+input[class*="pr-8"],
+input.pr-9,
+input[class*="pr-9"],
+input.pr-10,
+input[class*="pr-10"] {
+  padding-right: 38px !important;
+}
+
 /* Number input spinners alignment */
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
