@@ -10454,9 +10454,10 @@ export const SetupView = {
 
             <!-- Main Menu Card Box matching height of other columns -->
             <div class="flex-1 flex flex-col h-[440px] max-h-[440px] border border-[#DFE1E6] rounded-lg bg-white shadow-2xs overflow-hidden p-3 space-y-3" style="border: 1px solid #DFE1E6 !important;">
-              <!-- Existing Menu Dropdown & Status -->
-              <div class="grid grid-cols-12 gap-2.5 items-end">
-                <div class="col-span-8 sm:col-span-9">
+              <!-- Existing Menu Dropdown, Menu Name & Status in 3 Columns -->
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 items-end">
+                <!-- Column 1: Select Existing Menu -->
+                <div>
                   <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1 flex items-center justify-between">
                     <span>Select Existing Menu</span>
                     <span class="text-[10px] font-medium text-[#5E6C84] lowercase">(or create new)</span>
@@ -10481,23 +10482,10 @@ export const SetupView = {
                       <svg id="menu-dropdown-chevron" class="w-3.5 h-3.5 text-[#5E6C84] shrink-0 ml-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </button>
 
-                    <!-- Menu Name -->
-                    <div class="mt-2.5">
-                      <div class="flex items-center justify-between mb-1">
-                        <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider">
-                          Menu Name <span class="text-rose-500">*</span>
-                        </label>
-                        <span id="menu-modal-mode-badge" class="text-[10px] font-semibold text-[#5E6C84]">
-                          ${isEdit ? `Editing: ${currentName}` : '✨ New Menu'}
-                        </span>
-                      </div>
-                      <input type="text" id="menu-modal-name" value="${currentName}" placeholder="e.g. Procurement & Inward" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] shadow-2xs" style="border: 1px solid #CBD5E1 !important;" />
-                    </div>
-
                     <input type="hidden" id="menu-modal-select-existing" value="${mod ? mod.id : '__NEW__'}" />
 
                     <!-- Dropdown Menu List -->
-                    <div id="menu-custom-dropdown-list" class="hidden absolute left-0 right-0 top-[38px] mt-1 bg-white border border-[#DFE1E6] rounded-xl shadow-xl z-50 max-h-[240px] overflow-y-auto divide-y divide-[#F1F5F9] p-1.5 animate-fade-in">
+                    <div id="menu-custom-dropdown-list" class="hidden absolute left-0 right-0 top-full mt-1 bg-white border border-[#DFE1E6] rounded-xl shadow-xl z-50 max-h-[240px] overflow-y-auto divide-y divide-[#F1F5F9] p-1.5 animate-fade-in">
                       <div class="p-1 mb-1 sticky top-0 bg-white z-10">
                         <div class="relative">
                           <input type="text" id="menu-dropdown-search" placeholder="Search menu..." class="w-full text-xs pr-2 py-1.5 bg-[#F8FAFC] border border-[#DFE1E6] rounded-md focus:outline-none focus:border-[#00A4B7] font-medium text-[#172B4D]" style="padding-left: 32px !important;" />
@@ -10539,7 +10527,21 @@ export const SetupView = {
                   </div>
                 </div>
 
-                <div class="col-span-4 sm:col-span-3">
+                <!-- Column 2: Menu Name -->
+                <div>
+                  <div class="flex items-center justify-between mb-1">
+                    <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider">
+                      Menu Name <span class="text-rose-500">*</span>
+                    </label>
+                    <span id="menu-modal-mode-badge" class="text-[10px] font-semibold text-[#5E6C84]">
+                      ${isEdit ? `Editing: ${currentName}` : '✨ New Menu'}
+                    </span>
+                  </div>
+                  <input type="text" id="menu-modal-name" value="${currentName}" placeholder="e.g. Procurement & Inward" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] shadow-2xs" style="border: 1px solid #CBD5E1 !important;" />
+                </div>
+
+                <!-- Column 3: Status -->
+                <div>
                   <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1">
                     Status
                   </label>
