@@ -10018,16 +10018,18 @@ export const SetupView = {
               </button>
             </div>
 
-            <!-- Submenus Header & Rows Container -->
-            <div class="space-y-2 flex-1 flex flex-col mt-0" style="margin-top: 0px !important;">
-              <div class="grid grid-cols-12 gap-2 px-1 text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">
+            <!-- Submenus Box Container with Header inside -->
+            <div class="flex-1 flex flex-col h-[375px] max-h-[375px] border border-[#DFE1E6] rounded-lg bg-white shadow-2xs overflow-hidden mt-0" style="margin-top: 0px !important; border: 1px solid #DFE1E6 !important;">
+              <!-- Sticky / Fixed Table Header inside the box -->
+              <div class="grid grid-cols-12 gap-2 px-3 py-2 text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider bg-[#F8FAFC] border-b border-[#DFE1E6] shrink-0">
                 <div class="col-span-5">Sub Menu Name</div>
                 <div class="col-span-4">Url</div>
                 <div class="col-span-2 text-center">Status</div>
                 <div class="col-span-1 text-center">Action</div>
               </div>
 
-              <div id="submenus-list-container" class="space-y-2 h-[375px] max-h-[375px] overflow-y-auto p-2.5 border border-[#DFE1E6] rounded-lg bg-white shadow-2xs flex-1">
+              <!-- Scrollable rows container inside the box -->
+              <div id="submenus-list-container" class="space-y-2 overflow-y-auto p-2.5 flex-1">
                 <!-- Dynamic Rows Inserted Here -->
               </div>
             </div>
