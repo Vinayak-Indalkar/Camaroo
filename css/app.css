@@ -2970,11 +2970,11 @@ td.sticky-action-col > div {
   grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
 }
 
-/* Lucide Icon Grid Tiles - Strict rounded corner tile geometry */
+/* Lucide Icon Grid Tiles - Strict rectangular 3px border-radius geometry */
 .lucide-icon-tile,
 button.lucide-icon-tile,
 #lucide-icon-grid button {
-  border-radius: 0.5rem !important;
+  border-radius: 3px !important;
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
@@ -2982,4 +2982,9 @@ button.lucide-icon-tile,
   text-align: center !important;
   width: auto !important;
   box-sizing: border-box !important;
+}
+
+#lucide-icon-grid {
+  max-height: 180px !important;
+  height: 180px !important;
 }
