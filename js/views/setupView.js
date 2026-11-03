@@ -9532,7 +9532,7 @@ export const SetupView = {
       containerId: 'modules-table-container',
       data: getFilteredModules(),
       keyField: 'id',
-      tableTitle: `Menus Registry (${this.state.modulesConfig.length})`,
+      tableTitle: 'Menus Registry',
       searchable: true,
       exportable: true,
       pageSize: 10,
@@ -9809,49 +9809,6 @@ export const SetupView = {
       size: 'xl',
       content: `
         <div class="space-y-4 text-xs animate-fade-in">
-          <!-- Top Hero / Summary Card (AGENTS.md Section 5) -->
-          <div class="bg-gradient-to-r from-[#F0F9FF] to-[#F8FAFC] p-4 rounded-xl border border-[#BAE6FD] flex flex-wrap items-center justify-between gap-3 shadow-2xs">
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl bg-[#00A4B7] text-white flex items-center justify-center font-bold shadow-xs [&>svg]:w-5 [&>svg]:h-5">
-                ${iconSvg}
-              </div>
-              <div>
-                <div class="flex items-center gap-2">
-                  <span class="font-mono font-extrabold text-[#0F172A] text-base">${mod.label}</span>
-                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold tracking-wide uppercase ${isAct ? 'bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]' : 'bg-[#FFEBE6] text-[#DE350B] border border-[#FFBDAD]'}">
-                    ${isAct ? 'Active' : 'Inactive'}
-                  </span>
-                  <span class="px-2 py-0.5 rounded text-[11px] font-semibold ${isProtected ? 'bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]' : 'bg-[#F0F9FF] text-[#00A4B7] border border-[#BAE6FD]'}">
-                    ${isProtected ? 'System Default' : 'Custom Menu'}
-                  </span>
-                </div>
-                <div class="text-[11px] text-[#64748B] mt-0.5 font-medium flex items-center gap-1.5 flex-wrap">
-                  <span class="font-mono font-bold text-[#00A4B7]">#/${modKey}</span>
-                  <span>&bull;</span>
-                  <span>Icon: <code class="font-mono text-[#172B4D]">${iconId}</code></span>
-                  <span>&bull;</span>
-                  <span>Order: <strong class="text-[#172B4D]">#${mod.order || 1}</strong></span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Quick Metrics Badges on right -->
-            <div class="flex items-center gap-2">
-              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[80px]">
-                <div class="text-[10px] uppercase font-bold text-[#5E6C84]">Sub Menus</div>
-                <div class="font-extrabold text-[#006644] text-sm">${submenusList.length}</div>
-              </div>
-              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[80px]">
-                <div class="text-[10px] uppercase font-bold text-[#5E6C84]">Tab Menus</div>
-                <div class="font-extrabold text-[#00A4B7] text-sm">${tabsList.length}</div>
-              </div>
-              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[80px]">
-                <div class="text-[10px] uppercase font-bold text-[#5E6C84]">Status</div>
-                <div class="font-extrabold ${isAct ? 'text-[#006644]' : 'text-[#DE350B]'} text-xs uppercase">${isAct ? 'Active' : 'Inactive'}</div>
-              </div>
-            </div>
-          </div>
-
           <!-- Section 1: Main Menu Configuration -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs space-y-3.5">
             <div class="flex items-center gap-2 border-b border-[#F1F5F9] pb-2">
@@ -10472,298 +10429,263 @@ export const SetupView = {
 
     Modal.open({
       title: isEdit ? `Edit Menu: ${currentName}` : 'Add Menu',
-      size: '2xl',
+      size: '3xl',
       content: `
-        <div id="menu-setup-wizard" class="space-y-4 text-xs">
-          <!-- Stepper Tab Bar -->
-          <div class="flex items-center justify-between border-b border-[#DFE1E6] pb-3 mb-2 flex-wrap gap-2">
-            <div class="flex items-center gap-1.5 sm:gap-2" id="menu-wizard-stepper-tabs" role="tablist">
-              <!-- Step 1 Button -->
-              <button type="button" class="wizard-step-tab px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer bg-[#00A4B7] text-white shadow-xs flex items-center gap-1.5" data-step="1">
-                <span class="step-num-badge w-4 h-4 rounded-full bg-white/25 text-white flex items-center justify-center text-[10px] font-bold">1</span>
-                <span>Main Menu</span>
-              </button>
-
-              <!-- Chevron Divider -->
-              <svg class="w-3.5 h-3.5 text-[#A5B4CB]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-
-              <!-- Step 2 Button -->
-              <button type="button" class="wizard-step-tab px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer text-[#5E6C84] hover:text-[#172B4D] hover:bg-[#EBECF0] flex items-center gap-1.5" data-step="2">
-                <span class="step-num-badge w-4 h-4 rounded-full bg-[#DFE1E6] text-[#5E6C84] flex items-center justify-center text-[10px] font-bold">2</span>
-                <span>Sub Menu</span>
-                <span id="step-submenus-count-badge" class="text-[9.5px] font-mono px-1.5 py-0.2 rounded-full bg-[#F1F5F9] text-[#5E6C84] border border-[#DFE1E6]">${existingSubmenus.length}</span>
-              </button>
-
-              <!-- Chevron Divider -->
-              <svg class="w-3.5 h-3.5 text-[#A5B4CB]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-
-              <!-- Step 3 Button -->
-              <button type="button" class="wizard-step-tab px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer text-[#5E6C84] hover:text-[#172B4D] hover:bg-[#EBECF0] flex items-center gap-1.5" data-step="3">
-                <span class="step-num-badge w-4 h-4 rounded-full bg-[#DFE1E6] text-[#5E6C84] flex items-center justify-center text-[10px] font-bold">3</span>
-                <span>Tab Menu</span>
-              </button>
+        <form id="menu-setup-form" class="grid grid-cols-1 md:grid-cols-3 gap-5 items-stretch text-xs min-w-0" onsubmit="return false;">
+          <!-- 1. Main Menu Section -->
+          <div class="min-w-0 bg-transparent p-0 border-0 flex flex-col h-full space-y-2">
+            <div class="flex items-center justify-between border-b border-[#EBECF0] pb-2 mb-0">
+              <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Main Menu</span>
+              ${isEdit ? `<span class="text-[10px] font-bold text-[#00A4B7] bg-[#F0F9FF] px-2.5 py-0.5 rounded border border-[#BAE6FD] font-mono">${mod.id}</span>` : ''}
             </div>
 
-            <!-- Live Hierarchy Breadcrumb Preview -->
-            <div class="hidden sm:flex items-center gap-1.5 text-[11px] text-[#5E6C84] bg-[#F8FAFC] px-2.5 py-1 rounded-lg border border-[#E2E8F0]">
-              <span class="font-medium">Hierarchy:</span>
-              <div class="flex items-center gap-1 font-bold">
-                <span id="wizard-summary-menu" class="text-[#00A4B7]">${currentName || 'New Menu'}</span>
-                <span class="text-[#94A3B8]">➔</span>
-                <span id="wizard-summary-submenu" class="text-[#172B4D]">Overview</span>
-                <span class="text-[#94A3B8]">➔</span>
-                <span id="wizard-summary-tab" class="text-[#006644]">Tab</span>
-              </div>
-            </div>
-          </div>
-
-          <form id="menu-setup-form" onsubmit="return false;">
-            <!-- ============================================================= -->
-            <!-- STEP 1: MAIN MENU PANEL -->
-            <!-- ============================================================= -->
-            <div id="wizard-panel-1" class="wizard-step-panel space-y-4">
-              <!-- Top Card: Menu Selection, Name & Status -->
-              <div class="p-3.5 bg-white rounded-xl border border-[#DFE1E6] shadow-2xs space-y-3" style="border: 1px solid #DFE1E6 !important;">
-                <div class="grid grid-cols-12 gap-3 items-end">
-                  <!-- Existing Menu Select Dropdown -->
-                  <div class="col-span-8 sm:col-span-9">
-                    <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1 flex items-center justify-between">
-                      <span>Select Existing Menu</span>
-                      <span class="text-[10px] font-medium text-[#5E6C84] lowercase">(or create new)</span>
-                    </label>
-
-                    <div class="relative" id="menu-dropdown-wrapper">
-                      <button type="button" id="menu-modal-select-trigger" class="w-full text-xs px-3 py-2 bg-white border border-[#CBD5E1] rounded-lg focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] flex items-center justify-between cursor-pointer shadow-2xs hover:border-[#00A4B7] transition-all" style="border: 1px solid #CBD5E1 !important;">
-                        <div class="flex items-center gap-2 truncate" id="menu-selected-display">
-                          ${mod ? `
-                            <div class="w-5 h-5 rounded-md bg-[#F0F9FF] border border-[#BAE6FD] text-[#00A4B7] flex items-center justify-center shrink-0 [&>svg]:w-3.5 [&>svg]:h-3.5">
-                              ${this.getModuleIconSvg(mod)}
-                            </div>
-                            <span class="truncate font-bold text-[#172B4D] text-xs">${mod.label}${mod.isProtected ? ' (System)' : ''}</span>
-                          ` : `
-                            <div class="w-5 h-5 rounded-md bg-[#F0FDF4] border border-[#DCFCE7] text-[#16A34A] flex items-center justify-center shrink-0">
-                              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                            </div>
-                            <span class="truncate font-bold text-[#16A34A] text-xs">✨ + Create New Menu</span>
-                          `}
-                        </div>
-                        <svg id="menu-dropdown-chevron" class="w-3.5 h-3.5 text-[#5E6C84] shrink-0 ml-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                      </button>
-
-                      <input type="hidden" id="menu-modal-select-existing" value="${mod ? mod.id : '__NEW__'}" />
-
-                      <!-- Dropdown Menu List -->
-                      <div id="menu-custom-dropdown-list" class="hidden absolute left-0 right-0 top-full mt-1 bg-white border border-[#DFE1E6] rounded-xl shadow-xl z-50 max-h-[240px] overflow-y-auto divide-y divide-[#F1F5F9] p-1.5 animate-fade-in">
-                        <div class="p-1 mb-1 sticky top-0 bg-white z-10">
-                          <div class="relative">
-                            <input type="text" id="menu-dropdown-search" placeholder="Search menu..." class="w-full text-xs pr-2 py-1.5 bg-[#F8FAFC] border border-[#DFE1E6] rounded-md focus:outline-none focus:border-[#00A4B7] font-medium text-[#172B4D]" style="padding-left: 32px !important;" />
-                            <svg class="w-3.5 h-3.5 text-[#94A3B8] absolute left-2 top-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            <!-- Main Menu Card Box matching height of other columns -->
+            <div class="flex-1 flex flex-col h-[440px] max-h-[440px] border border-[#DFE1E6] rounded-lg bg-white shadow-2xs overflow-hidden p-3 space-y-3" style="border: 1px solid #DFE1E6 !important;">
+              <!-- Existing Menu Dropdown & Status -->
+              <div class="grid grid-cols-12 gap-2.5 items-end">
+                <div class="col-span-8 sm:col-span-9">
+                  <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1 flex items-center justify-between">
+                    <span>Select Existing Menu</span>
+                    <span class="text-[10px] font-medium text-[#5E6C84] lowercase">(or create new)</span>
+                  </label>
+                  
+                  <!-- Custom Dropdown with Assigned Menu Icons -->
+                  <div class="relative" id="menu-dropdown-wrapper">
+                    <button type="button" id="menu-modal-select-trigger" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] flex items-center justify-between cursor-pointer shadow-2xs hover:border-[#00A4B7] transition-all" style="border: 1px solid #CBD5E1 !important;">
+                      <div class="flex items-center gap-2 truncate" id="menu-selected-display">
+                        ${mod ? `
+                          <div class="w-5 h-5 rounded-md bg-[#F0F9FF] border border-[#BAE6FD] text-[#00A4B7] flex items-center justify-center shrink-0 [&>svg]:w-3.5 [&>svg]:h-3.5">
+                            ${this.getModuleIconSvg(mod)}
                           </div>
-                        </div>
-
-                        <div class="menu-dropdown-item flex items-center justify-between p-2 rounded-lg cursor-pointer hover:bg-[#F0FDF4] transition-colors ${!mod ? 'bg-[#F0FDF4] border border-[#BBF7D0]' : ''}" data-value="__NEW__" data-label="✨ + Create New Menu">
-                          <div class="flex items-center gap-2">
-                            <div class="w-5 h-5 rounded-md bg-[#F0FDF4] border border-[#DCFCE7] text-[#16A34A] flex items-center justify-center shrink-0">
-                              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                            </div>
-                            <span class="font-bold text-xs text-[#16A34A]">✨ + Create New Menu</span>
+                          <span class="truncate font-bold text-[#172B4D] text-xs">${mod.label}${mod.isProtected ? ' (System)' : ''}</span>
+                        ` : `
+                          <div class="w-5 h-5 rounded-md bg-[#F0FDF4] border border-[#DCFCE7] text-[#16A34A] flex items-center justify-center shrink-0">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
                           </div>
-                        </div>
+                          <span class="truncate font-bold text-[#16A34A] text-xs">✨ + Create New Menu</span>
+                        `}
+                      </div>
+                      <svg id="menu-dropdown-chevron" class="w-3.5 h-3.5 text-[#5E6C84] shrink-0 ml-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
 
-                        <div class="px-2 py-1 text-[9.5px] font-bold text-[#5E6C84] uppercase tracking-wider bg-[#F8FAFC] rounded my-1">
-                          Existing Menus (${this.state.modulesConfig.length})
-                        </div>
+                    <input type="hidden" id="menu-modal-select-existing" value="${mod ? mod.id : '__NEW__'}" />
 
-                        <div id="menu-dropdown-items-container" class="space-y-0.5">
-                          ${this.state.modulesConfig.map(m => {
-                            const svg = this.getModuleIconSvg(m);
-                            const isSelected = mod && (mod.id === m.id || mod.key === m.key);
-                            return `
-                              <div class="menu-dropdown-item flex items-center justify-between p-2 rounded-lg cursor-pointer hover:bg-[#F0F9FF] transition-colors ${isSelected ? 'bg-[#F0F9FF] border border-[#BAE6FD]' : ''}" data-value="${m.id}" data-label="${m.label}">
-                                <div class="flex items-center gap-2 truncate">
-                                  <div class="w-5 h-5 rounded-md bg-[#F0F9FF] border border-[#BAE6FD] text-[#00A4B7] flex items-center justify-center shrink-0 [&>svg]:w-3.5 [&>svg]:h-3.5">
-                                    ${svg}
-                                  </div>
-                                  <span class="font-bold text-xs text-[#172B4D] truncate">${m.label}</span>
+                    <!-- Dropdown Menu List -->
+                    <div id="menu-custom-dropdown-list" class="hidden absolute left-0 right-0 top-full mt-1 bg-white border border-[#DFE1E6] rounded-xl shadow-xl z-50 max-h-[240px] overflow-y-auto divide-y divide-[#F1F5F9] p-1.5 animate-fade-in">
+                      <div class="p-1 mb-1 sticky top-0 bg-white z-10">
+                        <div class="relative">
+                          <input type="text" id="menu-dropdown-search" placeholder="Search menu..." class="w-full text-xs pr-2 py-1.5 bg-[#F8FAFC] border border-[#DFE1E6] rounded-md focus:outline-none focus:border-[#00A4B7] font-medium text-[#172B4D]" style="padding-left: 32px !important;" />
+                          <svg class="w-3.5 h-3.5 text-[#94A3B8] absolute left-2 top-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                        </div>
+                      </div>
+
+                      <div class="menu-dropdown-item flex items-center justify-between p-2 rounded-lg cursor-pointer hover:bg-[#F0FDF4] transition-colors ${!mod ? 'bg-[#F0FDF4] border border-[#BBF7D0]' : ''}" data-value="__NEW__" data-label="✨ + Create New Menu">
+                        <div class="flex items-center gap-2">
+                          <div class="w-5 h-5 rounded-md bg-[#F0FDF4] border border-[#DCFCE7] text-[#16A34A] flex items-center justify-center shrink-0">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                          </div>
+                          <span class="font-bold text-xs text-[#16A34A]">✨ + Create New Menu</span>
+                        </div>
+                      </div>
+
+                      <div class="px-2 py-1 text-[9.5px] font-bold text-[#5E6C84] uppercase tracking-wider bg-[#F8FAFC] rounded my-1">
+                        Existing Menus (${this.state.modulesConfig.length})
+                      </div>
+
+                      <div id="menu-dropdown-items-container" class="space-y-0.5">
+                        ${this.state.modulesConfig.map(m => {
+                          const svg = this.getModuleIconSvg(m);
+                          const isSelected = mod && (mod.id === m.id || mod.key === m.key);
+                          return `
+                            <div class="menu-dropdown-item flex items-center justify-between p-2 rounded-lg cursor-pointer hover:bg-[#F0F9FF] transition-colors ${isSelected ? 'bg-[#F0F9FF] border border-[#BAE6FD]' : ''}" data-value="${m.id}" data-label="${m.label}">
+                              <div class="flex items-center gap-2 truncate">
+                                <div class="w-5 h-5 rounded-md bg-[#F0F9FF] border border-[#BAE6FD] text-[#00A4B7] flex items-center justify-center shrink-0 [&>svg]:w-3.5 [&>svg]:h-3.5">
+                                  ${svg}
                                 </div>
-                                ${m.isProtected ? `<span class="ml-1 text-[9px] font-bold text-[#5E6C84] bg-[#F1F5F9] px-1 py-0.5 rounded border border-[#DFE1E6] shrink-0">System</span>` : ''}
+                                <span class="font-bold text-xs text-[#172B4D] truncate">${m.label}</span>
                               </div>
-                            `;
-                          }).join('')}
-                        </div>
+                              ${m.isProtected ? `<span class="ml-1 text-[9px] font-bold text-[#5E6C84] bg-[#F1F5F9] px-1 py-0.5 rounded border border-[#DFE1E6] shrink-0">System</span>` : ''}
+                            </div>
+                          `;
+                        }).join('')}
                       </div>
                     </div>
                   </div>
-
-                  <!-- Status Toggle -->
-                  <div class="col-span-4 sm:col-span-3">
-                    <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1">
-                      Status
-                    </label>
-                    <div class="flex items-center h-[34px]">
-                      <label class="inline-flex items-center gap-1.5 cursor-pointer select-none">
-                        <input type="checkbox" id="menu-modal-status-cb" class="w-4 h-4 rounded border-[#DFE1E6] text-[#00A4B7] accent-[#00A4B7] cursor-pointer" ${currentStatus === 'Active' ? 'checked' : ''} />
-                        <span class="text-xs font-semibold text-[#172B4D]">Active Menu</span>
-                      </label>
-                      <input type="hidden" id="menu-modal-status" value="${currentStatus}" />
-                    </div>
-                  </div>
                 </div>
 
-                <!-- Menu Name Input -->
-                <div>
-                  <div class="flex items-center justify-between mb-1">
-                    <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider">
-                      Menu Name <span class="text-rose-500">*</span>
+                <div class="col-span-4 sm:col-span-3">
+                  <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1">
+                    Status
+                  </label>
+                  <div class="flex items-center h-[32px]">
+                    <label class="inline-flex items-center gap-1.5 cursor-pointer select-none">
+                      <input type="checkbox" id="menu-modal-status-cb" class="w-4 h-4 rounded border-[#DFE1E6] text-[#00A4B7] accent-[#00A4B7] cursor-pointer" ${currentStatus === 'Active' ? 'checked' : ''} />
+                      <span class="text-xs font-semibold text-[#172B4D]">Active</span>
                     </label>
-                    <span id="menu-modal-mode-badge" class="text-[10px] font-semibold text-[#5E6C84]">
-                      ${isEdit ? `Editing: ${currentName}` : '✨ New Menu'}
-                    </span>
+                    <input type="hidden" id="menu-modal-status" value="${currentStatus}" />
                   </div>
-                  <input type="text" id="menu-modal-name" value="${currentName}" placeholder="e.g. Procurement & Inward" class="w-full text-xs px-3 py-2 bg-white border border-[#CBD5E1] rounded-lg focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] shadow-2xs" style="border: 1px solid #CBD5E1 !important;" />
                 </div>
+              </div>
+
+              <!-- Menu Name -->
+              <div>
+                <div class="flex items-center justify-between mb-1">
+                  <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider">
+                    Menu Name <span class="text-rose-500">*</span>
+                  </label>
+                  <span id="menu-modal-mode-badge" class="text-[10px] font-semibold text-[#5E6C84]">
+                    ${isEdit ? `Editing: ${currentName}` : '✨ New Menu'}
+                  </span>
+                </div>
+                <input type="text" id="menu-modal-name" value="${currentName}" placeholder="e.g. Procurement & Inward" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] shadow-2xs" style="border: 1px solid #CBD5E1 !important;" />
               </div>
 
               <input type="hidden" id="menu-modal-icon-val" value="${currentIconItem.id}" />
 
-              <!-- Bottom Card: Menu Icon Selector -->
-              <div class="p-3.5 bg-white rounded-xl border border-[#DFE1E6] shadow-2xs space-y-2.5" style="border: 1px solid #DFE1E6 !important;">
-                <div class="flex items-center justify-between gap-2 flex-wrap">
-                  <div class="flex items-center gap-2">
-                    <div class="w-6 h-6 rounded-md bg-[#F0F9FF] border border-[#BAE6FD] text-[#00A4B7] flex items-center justify-center shrink-0">
-                      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                    </div>
-                    <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider">
-                      Select Menu Icon
-                    </label>
-                  </div>
-                  <div class="flex items-center gap-2">
-                    <input type="text" id="lucide-search-input" placeholder="Search icons..." class="text-xs px-2.5 py-1 bg-[#F8FAFC] border border-[#DFE1E6] rounded-md focus:outline-none focus:border-[#00A4B7] w-36 shadow-2xs font-normal" />
+              <!-- Menu Icon with Search -->
+              <div class="flex-1 flex flex-col min-h-0 space-y-1.5 pt-1 border-t border-[#F1F5F9]">
+                <div class="flex items-center justify-between gap-1.5 shrink-0">
+                  <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider">
+                    Menu Icon
+                  </label>
+                  <div class="flex items-center gap-1.5">
+                    <input type="text" id="lucide-search-input" placeholder="Search icon..." class="text-xs px-2 py-0.5 bg-white border border-[#DFE1E6] rounded-md focus:outline-none focus:border-[#00A4B7] w-28 shadow-2xs font-normal" />
                     <span id="lucide-count-badge" class="text-[10px] text-[#5E6C84] font-medium font-mono whitespace-nowrap">${lucideIcons.length} icons</span>
                   </div>
                 </div>
 
                 <!-- Visual Grid of Lucide Icons -->
-                <div id="lucide-icon-grid" class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-2 h-[260px] max-h-[260px] overflow-y-auto p-2 border border-[#DFE1E6] rounded-lg bg-[#FAFBFC] shadow-2xs">
-                  <!-- Populated by JavaScript below -->
+                <div id="lucide-icon-grid" class="grid grid-cols-4 sm:grid-cols-5 gap-1.5 flex-1 overflow-y-auto p-1.5 border border-[#DFE1E6] rounded-lg bg-[#FAFBFC] shadow-2xs">
+                  <!-- Populated by JavaScript -->
                 </div>
               </div>
             </div>
+          </div>
 
-            <!-- ============================================================= -->
-            <!-- STEP 2: SUB MENU PANEL -->
-            <!-- ============================================================= -->
-            <div id="wizard-panel-2" class="wizard-step-panel hidden space-y-3">
-              <div class="flex items-center justify-between border-b border-[#EBECF0] pb-2 mb-1">
-                <div class="flex items-center gap-2">
-                  <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Sub Menus for:</span>
-                  <span id="step2-menu-name-display" class="font-bold text-[#00A4B7] text-xs">${currentName || 'New Menu'}</span>
-                </div>
-                <button type="button" id="btn-add-sub-item" class="btn-secondary px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 hover:bg-[#EBECF0] transition-colors cursor-pointer text-[#00A4B7] border border-[#DFE1E6]">
-                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                  <span>Add Sub Menu</span>
-                </button>
+          <!-- 2. Sub Menu Section (Multiple Sub Menus) -->
+          <div class="min-w-0 bg-transparent p-0 border-0 flex flex-col h-full space-y-2">
+            <div class="flex items-center justify-between border-b border-[#EBECF0] pb-2 mb-0">
+              <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Sub Menu</span>
+              <button type="button" id="btn-add-sub-item" class="btn-secondary px-2.5 py-1 rounded-lg text-xs font-semibold flex items-center gap-1 hover:bg-[#EBECF0] transition-colors cursor-pointer text-[#00A4B7] border border-[#DFE1E6]">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                <span>Add Sub Menu</span>
+              </button>
+            </div>
+
+            <!-- Submenus Box Container with Fixed Header inside -->
+            <div class="flex-1 flex flex-col h-[440px] max-h-[440px] border border-[#DFE1E6] rounded-lg bg-white shadow-2xs overflow-hidden" style="border: 1px solid #DFE1E6 !important;">
+              <!-- Sticky Table Header -->
+              <div class="grid grid-cols-12 gap-2 px-3 py-2 text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider bg-[#F8FAFC] border-b border-[#DFE1E6] shrink-0">
+                <div class="col-span-5">Sub Menu Name</div>
+                <div class="col-span-4">Url</div>
+                <div class="col-span-2 text-center">Status</div>
+                <div class="col-span-1 text-center">Action</div>
               </div>
 
-              <!-- Submenus Table Container -->
-              <div class="border border-[#DFE1E6] rounded-xl bg-white shadow-2xs overflow-hidden" style="border: 1px solid #DFE1E6 !important;">
-                <div class="grid grid-cols-12 gap-2 px-3 py-2.5 text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider bg-[#F8FAFC] border-b border-[#DFE1E6]">
-                  <div class="col-span-5">Sub Menu Name</div>
-                  <div class="col-span-4">Url Hash</div>
-                  <div class="col-span-2 text-center">Status</div>
-                  <div class="col-span-1 text-center">Action</div>
-                </div>
-
-                <!-- Dynamic Rows Container -->
-                <div id="submenus-list-container" class="space-y-2 p-2.5 max-h-[340px] overflow-y-auto">
-                  <!-- Dynamic Rows Inserted Here -->
-                </div>
+              <!-- Scrollable rows container -->
+              <div id="submenus-list-container" class="space-y-2 overflow-y-auto p-2.5 flex-1">
+                <!-- Dynamic Rows Inserted Here -->
               </div>
+            </div>
+          </div>
 
-              <div class="text-[11px] text-[#5E6C84] flex items-center gap-1.5 pt-1">
-                <svg class="w-4 h-4 text-[#00A4B7] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                <span>Clicking any Sub Menu row selects it as the active parent for Tab configuration in Step 3.</span>
+          <!-- 3. Tab Menu Section (Parent is Sub Menu) -->
+          <div class="min-w-0 bg-transparent p-0 border-0 flex flex-col h-full space-y-2">
+            <div class="flex items-center justify-between border-b border-[#EBECF0] pb-2 mb-0">
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Tab Menu</span>
+                <span class="text-[10px] font-bold text-[#00A4B7] bg-[#F0F9FF] px-2 py-0.5 rounded border border-[#BAE6FD]">Parent: Sub Menu</span>
               </div>
             </div>
 
-            <!-- ============================================================= -->
-            <!-- STEP 3: TAB MENU PANEL -->
-            <!-- ============================================================= -->
-            <div id="wizard-panel-3" class="wizard-step-panel hidden space-y-3.5">
-              <!-- Hidden inputs to retain IDs for compatibility -->
-              <input type="hidden" id="tab-modal-menu" value="" />
-              <input type="hidden" id="tab-modal-submenu" value="" />
-
-              <!-- Tab Configuration Card (4 Column Layout) -->
-              <div class="p-4 bg-white rounded-xl border border-[#DFE1E6] shadow-2xs" style="border: 1px solid #DFE1E6 !important;">
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-end">
-                  <!-- Col 1: Tab Name / Label -->
-                  <div>
-                    <label for="tab-modal-label" class="block text-xs font-bold text-[#172B4D] mb-1">
-                      Tab Name / Label
-                    </label>
-                    <input type="text" id="tab-modal-label" value="" class="w-full text-xs px-3 py-2 bg-white border border-[#CBD5E1] rounded-lg focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] shadow-2xs" placeholder="e.g. Overview" />
+            <!-- Tab Form Box matching height of other columns -->
+            <div class="flex-1 flex flex-col h-[440px] max-h-[440px] border border-[#DFE1E6] rounded-lg bg-white shadow-2xs overflow-y-auto p-3.5 space-y-3" style="border: 1px solid #DFE1E6 !important;">
+              
+              <!-- Hierarchy Link Banner (Replaces redundant Main Menu & Sub Menu dropdowns) -->
+              <div class="p-2.5 bg-gradient-to-r from-[#F0F9FF] to-[#F8FAFC] rounded-lg border border-[#BAE6FD] flex items-center justify-between gap-2 shadow-2xs shrink-0">
+                <div class="flex items-center gap-2.5 min-w-0">
+                  <div class="w-7 h-7 rounded-md bg-[#00A4B7] text-white flex items-center justify-center shrink-0 shadow-2xs">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
                   </div>
-
-                  <!-- Col 2: Tab Slug / Key -->
-                  <div>
-                    <label for="tab-modal-slug" class="block text-xs font-semibold text-[#172B4D] mb-1">
-                      Tab Slug / Key
-                    </label>
-                    <input type="text" id="tab-modal-slug" value="" class="w-full text-xs px-3 py-2 bg-white border border-[#CBD5E1] rounded-lg font-mono lowercase focus:outline-none focus:border-[#00A4B7] text-[#00A4B7] font-bold shadow-2xs" placeholder="e.g. overview" />
-                  </div>
-
-                  <!-- Col 3: Mapping Type -->
-                  <div>
-                    <label for="tab-modal-type" class="block text-xs font-semibold text-[#172B4D] mb-1">
-                      Mapping Type
-                    </label>
-                    <select id="tab-modal-type" class="w-full text-xs px-3 py-2 bg-white border border-[#CBD5E1] rounded-lg focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] shadow-2xs">
-                      <option value="system">System Page</option>
-                      <option value="standard">Standard View</option>
-                      <option value="dynamic-form">Dynamic Form</option>
-                      <option value="report">Report</option>
-                      <option value="custom-list">Custom List</option>
-                    </select>
-                  </div>
-
-                  <!-- Col 4: Badge Tag (Optional) -->
-                  <div>
-                    <label for="tab-modal-badge" class="block text-xs font-semibold text-[#172B4D] mb-1">
-                      Badge Tag (Optional)
-                    </label>
-                    <input type="text" id="tab-modal-badge" value="" class="w-full text-xs px-3 py-2 bg-white border border-[#CBD5E1] rounded-lg focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] shadow-2xs" placeholder="e.g. 5 New, Pro" />
-                  </div>
-
-                  <!-- Row 2, Col 1-3: Route URL Hash -->
-                  <div class="sm:col-span-2 lg:col-span-3">
-                    <label for="tab-modal-route" class="block text-xs font-semibold text-[#172B4D] mb-1 flex items-center justify-between">
-                      <span>Route URL Hash</span>
-                      <span class="text-[10px] text-[#5E6C84] font-normal font-mono">Format: #/{menu}/{submenu}/{slug}</span>
-                    </label>
-                    <input type="text" id="tab-modal-route" value="" class="w-full text-xs px-3 py-2 bg-white border border-[#CBD5E1] rounded-lg font-mono focus:outline-none focus:border-[#00A4B7] text-[#172B4D] shadow-2xs" placeholder="e.g. #/settings/overview/fields-customizer" />
-                  </div>
-
-                  <!-- Row 2, Col 4: Status Checkbox -->
-                  <div>
-                    <label class="block text-xs font-semibold text-[#172B4D] mb-1">Tab Status</label>
-                    <div class="flex items-center h-[38px]">
-                      <label class="inline-flex items-center gap-2 cursor-pointer select-none">
-                        <input type="checkbox" id="tab-modal-status-cb" class="w-4.5 h-4.5 rounded border-[#DFE1E6] text-[#00A4B7] accent-[#00A4B7] cursor-pointer" checked />
-                        <span class="text-xs font-semibold text-[#172B4D]">Active Tab</span>
-                      </label>
+                  <div class="flex flex-col min-w-0">
+                    <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">Attached Parent Target</span>
+                    <div class="flex items-center gap-1.5 text-xs font-bold text-[#172B4D] truncate">
+                      <span id="tab-parent-menu-display" class="text-[#00A4B7] truncate">${currentName || 'Menu'}</span>
+                      <svg class="w-3 h-3 text-[#5E6C84] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                      <span id="tab-parent-submenu-display" class="text-[#172B4D] truncate">Overview</span>
                     </div>
                   </div>
                 </div>
+                <span class="text-[9.5px] font-bold text-[#006644] bg-[#E3FCEF] border border-[#ABF5D1] px-2 py-0.5 rounded-full shrink-0">Auto-Linked</span>
+              </div>
+
+              <!-- Hidden inputs to retain IDs for compatibility and save handlers -->
+              <input type="hidden" id="tab-modal-menu" value="" />
+              <input type="hidden" id="tab-modal-submenu" value="" />
+
+              <!-- Tab Name / Label -->
+              <div>
+                <label for="tab-modal-label" class="block text-xs font-semibold text-[#172B4D] mb-1">
+                  Tab Name / Label
+                </label>
+                <input type="text" id="tab-modal-label" value="" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] shadow-2xs" placeholder="e.g. Fields Customizer, Forms, Query Editor" />
+              </div>
+
+              <!-- Tab Slug & Mapping Type -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label for="tab-modal-slug" class="block text-xs font-semibold text-[#172B4D] mb-1">
+                    Tab Slug / Key
+                  </label>
+                  <input type="text" id="tab-modal-slug" value="" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-mono lowercase focus:outline-none focus:border-[#00A4B7] text-[#00A4B7] font-bold shadow-2xs" placeholder="e.g. fields-customizer" />
+                </div>
+                <div>
+                  <label for="tab-modal-type" class="block text-xs font-semibold text-[#172B4D] mb-1">
+                    Mapping Type
+                  </label>
+                  <select id="tab-modal-type" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] shadow-2xs">
+                    <option value="system">System Page</option>
+                    <option value="standard">Standard View</option>
+                    <option value="dynamic-form">Dynamic Form</option>
+                    <option value="report">Report</option>
+                    <option value="custom-list">Custom List</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Route URL Hash -->
+              <div>
+                <label for="tab-modal-route" class="block text-xs font-semibold text-[#172B4D] mb-1 flex items-center justify-between">
+                  <span>Route URL Hash</span>
+                  <span class="text-[10px] text-[#5E6C84] font-normal font-mono">Format: #/{menu}/{submenu}/{slug}</span>
+                </label>
+                <input type="text" id="tab-modal-route" value="" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-mono focus:outline-none focus:border-[#00A4B7] text-[#172B4D] shadow-2xs" placeholder="e.g. #/settings/overview/fields-customizer" />
+              </div>
+
+              <!-- Badge Tag & Status Checkbox -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 items-end">
+                <div>
+                  <label for="tab-modal-badge" class="block text-xs font-semibold text-[#172B4D] mb-1">
+                    Badge Tag (Optional)
+                  </label>
+                  <input type="text" id="tab-modal-badge" value="" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7] font-semibold text-[#172B4D] shadow-2xs" placeholder="e.g. 5 New, Pro" />
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold text-[#172B4D] mb-1">Status</label>
+                  <div class="flex items-center h-[34px]">
+                    <label class="inline-flex items-center gap-2 cursor-pointer select-none">
+                      <input type="checkbox" id="tab-modal-status-cb" class="w-4.5 h-4.5 rounded border-[#DFE1E6] text-[#00A4B7] accent-[#00A4B7] cursor-pointer" checked />
+                      <span class="text-xs font-semibold text-[#172B4D]">Active Tab</span>
+                    </label>
+                  </div>
+                </div>
               </div>
             </div>
-          </form>
-        </div>
+          </div>
+        </form>
       `,
       footerButtons: [
         { label: 'Cancel', type: 'secondary', onClick: (m) => m.close() },
-        { label: '← Back', type: 'secondary', class: 'hidden btn-wizard-back px-4 py-2 rounded-full text-xs font-semibold border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#172B4D] transition-all cursor-pointer', onClick: () => {} },
-        { label: 'Next: Sub Menu →', type: 'secondary', class: 'btn-wizard-next px-4 py-2 rounded-full text-xs font-bold border border-[#00A4B7] bg-[#F0F9FF] text-[#00A4B7] hover:bg-[#00A4B7] hover:text-white transition-all cursor-pointer shadow-2xs', onClick: () => {} },
         {
           label: isEdit ? 'Save Changes' : 'Save Menu',
           type: 'primary',
@@ -10771,7 +10693,6 @@ export const SetupView = {
             const menuName = document.getElementById('menu-modal-name')?.value.trim();
             if (!menuName) {
               Toast.show('Please enter a Menu Name', 'warning', 'Missing Field');
-              goToStep(1);
               document.getElementById('menu-modal-name')?.focus();
               return;
             }
@@ -10849,7 +10770,7 @@ export const SetupView = {
               });
             }
 
-            // Collect Tab Menu from Step 3
+            // Collect Tab Menu from Column 3
             const tabLabel = document.getElementById('tab-modal-label')?.value.trim();
             const tabSlugRaw = document.getElementById('tab-modal-slug')?.value.trim();
             const tabSlug = tabSlugRaw ? tabSlugRaw.toLowerCase().replace(/[^a-z0-9_-]+/g, '-') : (tabLabel ? tabLabel.toLowerCase().replace(/[^a-z0-9_-]+/g, '-') : '');
@@ -11006,21 +10927,15 @@ export const SetupView = {
     });
 
     // =========================================================================
-    // STEPPER / TABS WIZARD WIRING & INTERACTIVITY
+    // MODAL INTERACTIVE WIRING (MAIN MENU, SUB MENU, TAB MENU DEPENDENCY)
     // =========================================================================
 
-    // Reference elements
+    // 0. Reference elements
     const existingSelect = document.getElementById('menu-modal-select-existing');
     const menuNameInput = document.getElementById('menu-modal-name');
     const modeBadge = document.getElementById('menu-modal-mode-badge');
     const statusCb = document.getElementById('menu-modal-status-cb');
     const statusInput = document.getElementById('menu-modal-status');
-
-    // Breadcrumb / summary display elements
-    const summaryMenuEl = document.getElementById('wizard-summary-menu');
-    const summarySubmenuEl = document.getElementById('wizard-summary-submenu');
-    const summaryTabEl = document.getElementById('wizard-summary-tab');
-    const step2MenuNameDisplay = document.getElementById('step2-menu-name-display');
 
     // Tab hierarchy elements
     const tabMenuInput = document.getElementById('tab-modal-menu');
@@ -11036,10 +10951,16 @@ export const SetupView = {
 
     // Submenu container
     const listContainer = document.getElementById('submenus-list-container');
-    const subCountBadge = document.getElementById('step-submenus-count-badge');
     let activeSubRow = null;
 
-    // Helper functions
+    // 1. Status Checkbox for Main Menu
+    if (statusCb && statusInput) {
+      statusCb.onchange = () => {
+        statusInput.value = statusCb.checked ? 'Active' : 'Inactive';
+      };
+    }
+
+    // 2. Helper functions for hierarchy sync
     const getCurrentMenuKey = () => {
       const selectedExisting = existingSelect?.value;
       if (selectedExisting && selectedExisting !== '__NEW__') {
@@ -11070,13 +10991,6 @@ export const SetupView = {
         const sId = (sName || 'overview').toLowerCase().replace(/[^a-z0-9]/g, '-');
         return { id: sId, name: sName || 'Overview', url: sUrl };
       }
-      if (listContainer && listContainer.children.length > 0) {
-        const first = listContainer.children[0];
-        const sName = first.querySelector('.sub-item-name')?.value.trim();
-        const sUrl = first.querySelector('.sub-item-url')?.value.trim();
-        const sId = (sName || 'overview').toLowerCase().replace(/[^a-z0-9]/g, '-');
-        return { id: sId, name: sName || 'Overview', url: sUrl };
-      }
       return { id: 'overview', name: 'Overview', url: '' };
     };
 
@@ -11084,131 +10998,22 @@ export const SetupView = {
       const mKey = getCurrentMenuKey();
       const mLabel = getCurrentMenuLabel();
       const subInfo = getActiveSubmenuInfo();
-      const curTabLabel = tabLabelInput?.value.trim() || 'Tab';
-      const curSlug = tabSlugInput?.value.trim() || (curTabLabel ? curTabLabel.toLowerCase().replace(/[^a-z0-9_-]+/g, '-') : 'tab');
 
       if (tabMenuInput) tabMenuInput.value = mKey;
       if (tabSubmenuInput) tabSubmenuInput.value = subInfo.id;
       if (tabParentMenuDisplay) tabParentMenuDisplay.textContent = mLabel;
       if (tabParentSubmenuDisplay) tabParentSubmenuDisplay.textContent = subInfo.name;
-      if (step2MenuNameDisplay) step2MenuNameDisplay.textContent = mLabel;
-
-      if (summaryMenuEl) summaryMenuEl.textContent = mLabel;
-      if (summarySubmenuEl) summarySubmenuEl.textContent = subInfo.name;
-      if (summaryTabEl) summaryTabEl.textContent = curTabLabel;
 
       if (tabRouteInput) {
+        const curSlug = tabSlugInput?.value.trim() || 'tab';
         tabRouteInput.value = `#/${mKey}/${subInfo.id}/${curSlug}`;
       }
-
-      if (subCountBadge && listContainer) {
-        subCountBadge.textContent = listContainer.children.length;
-      }
     };
 
-    // Stepper Navigation Management
-    let currentStep = 1;
-    const btnBack = document.querySelector('.btn-wizard-back');
-    const btnNext = document.querySelector('.btn-wizard-next');
-
-    const goToStep = (stepNumber) => {
-      currentStep = Math.max(1, Math.min(3, stepNumber));
-
-      // Update Stepper Tabs Styling
-      document.querySelectorAll('.wizard-step-tab').forEach(btn => {
-        const step = parseInt(btn.dataset.step, 10);
-        const numBadge = btn.querySelector('.step-num-badge');
-        if (step === currentStep) {
-          btn.className = 'wizard-step-tab px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer bg-[#00A4B7] text-white shadow-xs flex items-center gap-1.5';
-          if (numBadge) {
-            numBadge.className = 'step-num-badge w-4 h-4 rounded-full bg-white/25 text-white flex items-center justify-center text-[10px] font-bold';
-          }
-        } else if (step < currentStep) {
-          btn.className = 'wizard-step-tab px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1] flex items-center gap-1.5';
-          if (numBadge) {
-            numBadge.className = 'step-num-badge w-4 h-4 rounded-full bg-[#006644] text-white flex items-center justify-center text-[10px] font-bold';
-          }
-        } else {
-          btn.className = 'wizard-step-tab px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer text-[#5E6C84] hover:text-[#172B4D] hover:bg-[#EBECF0] flex items-center gap-1.5';
-          if (numBadge) {
-            numBadge.className = 'step-num-badge w-4 h-4 rounded-full bg-[#DFE1E6] text-[#5E6C84] flex items-center justify-center text-[10px] font-bold';
-          }
-        }
-      });
-
-      // Show/Hide Panels
-      for (let i = 1; i <= 3; i++) {
-        const panel = document.getElementById(`wizard-panel-${i}`);
-        if (panel) {
-          if (i === currentStep) {
-            panel.classList.remove('hidden');
-          } else {
-            panel.classList.add('hidden');
-          }
-        }
-      }
-
-      // Update Wizard Navigation Buttons
-      if (btnBack) {
-        if (currentStep > 1) {
-          btnBack.classList.remove('hidden');
-          btnBack.textContent = currentStep === 2 ? '← Main Menu' : '← Sub Menu';
-        } else {
-          btnBack.classList.add('hidden');
-        }
-      }
-
-      if (btnNext) {
-        if (currentStep === 1) {
-          btnNext.classList.remove('hidden');
-          btnNext.textContent = 'Next: Sub Menu →';
-        } else if (currentStep === 2) {
-          btnNext.classList.remove('hidden');
-          btnNext.textContent = 'Next: Tab Menu →';
-        } else {
-          btnNext.classList.add('hidden');
-        }
-      }
-
-      syncHierarchyDisplay();
-    };
-
-    // Tab buttons click listeners
-    document.querySelectorAll('.wizard-step-tab').forEach(btn => {
-      btn.onclick = () => {
-        const step = parseInt(btn.dataset.step, 10);
-        goToStep(step);
-      };
-    });
-
-    if (btnBack) {
-      btnBack.onclick = () => goToStep(currentStep - 1);
-    }
-    if (btnNext) {
-      btnNext.onclick = () => {
-        if (currentStep === 1) {
-          const mName = menuNameInput?.value.trim();
-          if (!mName) {
-            Toast.show('Please enter a Menu Name before continuing', 'warning', 'Required');
-            menuNameInput?.focus();
-            return;
-          }
-        }
-        goToStep(currentStep + 1);
-      };
-    }
-
-    // Main Menu Status Toggle
-    if (statusCb && statusInput) {
-      statusCb.onchange = () => {
-        statusInput.value = statusCb.checked ? 'Active' : 'Inactive';
-      };
-    }
-
-    // Active Submenu Row Handler
     const setActiveSubmenuRow = (rowEl) => {
       if (!rowEl || !listContainer) return;
 
+      // Save tab inputs to previous active row
       if (activeSubRow && activeSubRow !== rowEl) {
         activeSubRow._tabData = {
           label: tabLabelInput?.value.trim() || '',
@@ -11222,6 +11027,7 @@ export const SetupView = {
 
       activeSubRow = rowEl;
 
+      // Highlight active row
       listContainer.querySelectorAll('.submenu-item-row').forEach(r => {
         if (r === rowEl) {
           r.classList.add('border-[#00A4B7]', 'bg-[#F0F9FF]', 'ring-1', 'ring-[#00A4B7]/30');
@@ -11232,6 +11038,7 @@ export const SetupView = {
         }
       });
 
+      // Load tab inputs from row if saved
       if (rowEl._tabData) {
         if (tabLabelInput) tabLabelInput.value = rowEl._tabData.label || '';
         if (tabSlugInput) tabSlugInput.value = rowEl._tabData.slug || '';
@@ -11243,7 +11050,7 @@ export const SetupView = {
       syncHierarchyDisplay();
     };
 
-    // Tab Input Listeners
+    // 3. Tab Input Listeners
     if (tabLabelInput && tabSlugInput) {
       tabLabelInput.oninput = () => {
         const generated = tabLabelInput.value.trim().toLowerCase().replace(/[^a-z0-9_-]+/g, '-').replace(/^-+|-+$/g, '');
@@ -11292,7 +11099,7 @@ export const SetupView = {
       };
     }
 
-    // Lucide Icon Grid & Search
+    // 4. Lucide Icon Grid & Search
     const iconGrid = document.getElementById('lucide-icon-grid');
     const selectedHiddenVal = document.getElementById('menu-modal-icon-val');
     const countBadge = document.getElementById('lucide-count-badge');
@@ -11311,7 +11118,7 @@ export const SetupView = {
 
       if (filtered.length === 0) {
         iconGrid.innerHTML = `
-          <div class="col-span-full py-8 text-center text-xs text-[#8993A4]">
+          <div class="col-span-full py-6 text-center text-xs text-[#8993A4]">
             No icons match "<strong>${filterTerm}</strong>"
           </div>
         `;
@@ -11321,15 +11128,15 @@ export const SetupView = {
       iconGrid.innerHTML = filtered.map(item => {
         const isSelected = item.id === selectedHiddenVal?.value;
         return `
-          <button type="button" data-icon-id="${item.id}" class="lucide-icon-tile p-2 rounded-lg border text-left flex flex-col items-center justify-center gap-1 transition-all cursor-pointer ${
+          <button type="button" data-icon-id="${item.id}" class="lucide-icon-tile p-1.5 rounded-lg border text-left flex flex-col items-center justify-center gap-1 transition-all cursor-pointer ${
             isSelected 
               ? 'border-[#00A4B7] bg-[#F0F9FF] text-[#00A4B7] ring-2 ring-[#00A4B7]/20 shadow-2xs font-bold' 
               : 'border-[#DFE1E6] bg-white hover:border-[#00A4B7] hover:bg-[#F4F5F7] text-[#172B4D]'
           }" title="${item.label || item.name}">
-            <div class="w-5 h-5 flex items-center justify-center shrink-0">
+            <div class="w-4 h-4 flex items-center justify-center shrink-0">
               ${item.svg}
             </div>
-            <span class="text-[9.5px] font-mono truncate w-full text-center">${item.name}</span>
+            <span class="text-[9px] font-mono truncate w-full text-center">${item.name}</span>
           </button>
         `;
       }).join('');
@@ -11344,9 +11151,9 @@ export const SetupView = {
 
         iconGrid.querySelectorAll('.lucide-icon-tile').forEach(t => {
           if (t.dataset.iconId === iconId) {
-            t.className = 'lucide-icon-tile p-2 rounded-lg border text-left flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#00A4B7] bg-[#F0F9FF] text-[#00A4B7] ring-2 ring-[#00A4B7]/20 shadow-2xs font-bold';
+            t.className = 'lucide-icon-tile p-1.5 rounded-lg border text-left flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#00A4B7] bg-[#F0F9FF] text-[#00A4B7] ring-2 ring-[#00A4B7]/20 shadow-2xs font-bold';
           } else {
-            t.className = 'lucide-icon-tile p-2 rounded-lg border text-left flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#DFE1E6] bg-white hover:border-[#00A4B7] hover:bg-[#F4F5F7] text-[#172B4D]';
+            t.className = 'lucide-icon-tile p-1.5 rounded-lg border text-left flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#DFE1E6] bg-white hover:border-[#00A4B7] hover:bg-[#F4F5F7] text-[#172B4D]';
           }
         });
       };
@@ -11360,13 +11167,14 @@ export const SetupView = {
 
     renderLucideGrid();
 
-    // Submenu Rows Builder
+    // 5. Dynamic Submenu Rows
     const addSubRow = (sub = { name: '', url: '', status: 'Active', tabs: [] }) => {
       if (!listContainer) return;
       const isActive = sub.status !== 'Inactive';
       const rowEl = document.createElement('div');
-      rowEl.className = 'submenu-item-row grid grid-cols-12 gap-2 items-center p-2 rounded-lg border border-[#DFE1E6] bg-white transition-all cursor-pointer';
+      rowEl.className = 'submenu-item-row grid grid-cols-12 gap-2 items-center p-1.5 rounded-lg border border-[#DFE1E6] bg-white transition-all cursor-pointer';
 
+      // Preload existing tab data if present
       if (Array.isArray(sub.tabs) && sub.tabs.length > 0) {
         const firstTab = sub.tabs[0];
         rowEl._tabData = {
@@ -11394,7 +11202,7 @@ export const SetupView = {
           <input type="hidden" class="sub-item-status" value="${sub.status || 'Active'}" />
         </div>
         <div class="col-span-1 flex items-center justify-center">
-          <button type="button" class="btn-remove-sub p-1.5 text-[#DE350B] hover:bg-rose-50 rounded-md transition-colors cursor-pointer" title="Remove Sub Menu">
+          <button type="button" class="btn-remove-sub p-1 text-[#DE350B] hover:bg-rose-50 rounded-md transition-colors cursor-pointer" title="Remove Sub Menu">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
           </button>
         </div>
@@ -11405,6 +11213,7 @@ export const SetupView = {
       const subCb = rowEl.querySelector('.sub-item-status-cb');
       const subInput = rowEl.querySelector('.sub-item-status');
 
+      // Click or focus selects row for Tab configuration
       rowEl.onclick = () => setActiveSubmenuRow(rowEl);
 
       if (subNameInput) {
@@ -11441,16 +11250,15 @@ export const SetupView = {
         } else if (wasActive) {
           setActiveSubmenuRow(listContainer.children[0]);
         }
-        syncHierarchyDisplay();
       };
 
       listContainer.appendChild(rowEl);
-      syncHierarchyDisplay();
       return rowEl;
     };
 
     existingSubmenus.forEach(s => addSubRow(s));
 
+    // Set first row as active by default
     if (listContainer && listContainer.children.length > 0) {
       setActiveSubmenuRow(listContainer.children[0]);
     } else {
@@ -11467,7 +11275,7 @@ export const SetupView = {
       };
     }
 
-    // Custom Dropdown with Assigned Menu Icons & Synchronization
+    // 6. Custom Dropdown with Assigned Menu Icons & Synchronization
     const dropdownWrapper = document.getElementById('menu-dropdown-wrapper');
     const dropdownTrigger = document.getElementById('menu-modal-select-trigger');
     const dropdownList = document.getElementById('menu-custom-dropdown-list');
@@ -11521,9 +11329,9 @@ export const SetupView = {
         if (iconGrid) {
           iconGrid.querySelectorAll('.lucide-icon-tile').forEach(t => {
             if (t.dataset.iconId === defaultIconId) {
-              t.className = 'lucide-icon-tile p-2 rounded-lg border text-left flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#00A4B7] bg-[#F0F9FF] text-[#00A4B7] ring-2 ring-[#00A4B7]/20 shadow-2xs font-bold';
+              t.className = 'lucide-icon-tile p-1.5 rounded-lg border text-left flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#00A4B7] bg-[#F0F9FF] text-[#00A4B7] ring-2 ring-[#00A4B7]/20 shadow-2xs font-bold';
             } else {
-              t.className = 'lucide-icon-tile p-2 rounded-lg border text-left flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#DFE1E6] bg-white hover:border-[#00A4B7] hover:bg-[#F4F5F7] text-[#172B4D]';
+              t.className = 'lucide-icon-tile p-1.5 rounded-lg border text-left flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#DFE1E6] bg-white hover:border-[#00A4B7] hover:bg-[#F4F5F7] text-[#172B4D]';
             }
           });
         }
@@ -11544,10 +11352,10 @@ export const SetupView = {
           if (iconGrid) {
             iconGrid.querySelectorAll('.lucide-icon-tile').forEach(t => {
               if (t.dataset.iconId === foundIconId) {
-                t.className = 'lucide-icon-tile p-2 rounded-lg border text-left flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#00A4B7] bg-[#F0F9FF] text-[#00A4B7] ring-2 ring-[#00A4B7]/20 shadow-2xs font-bold';
+                t.className = 'lucide-icon-tile p-1.5 rounded-lg border text-left flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#00A4B7] bg-[#F0F9FF] text-[#00A4B7] ring-2 ring-[#00A4B7]/20 shadow-2xs font-bold';
                 t.scrollIntoView({ block: 'nearest' });
               } else {
-                t.className = 'lucide-icon-tile p-2 rounded-lg border text-left flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#DFE1E6] bg-white hover:border-[#00A4B7] hover:bg-[#F4F5F7] text-[#172B4D]';
+                t.className = 'lucide-icon-tile p-1.5 rounded-lg border text-left flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#DFE1E6] bg-white hover:border-[#00A4B7] hover:bg-[#F4F5F7] text-[#172B4D]';
               }
             });
           }
@@ -11615,6 +11423,7 @@ export const SetupView = {
         });
       };
 
+      // Close on outside click
       const closeDropdownHandler = (e) => {
         if (!dropdownWrapper?.contains(e.target)) {
           dropdownList.classList.add('hidden');
@@ -11624,6 +11433,7 @@ export const SetupView = {
       document.addEventListener('click', closeDropdownHandler);
     }
 
+    // When user types directly into menuNameInput
     if (menuNameInput) {
       menuNameInput.oninput = () => {
         const typed = menuNameInput.value.trim().toLowerCase();
@@ -11640,9 +11450,6 @@ export const SetupView = {
         syncHierarchyDisplay();
       };
     }
-
-    // Initialize on step 1
-    goToStep(1);
   },
 
   // =========================================================================
