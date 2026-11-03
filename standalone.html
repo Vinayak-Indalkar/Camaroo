@@ -5516,6 +5516,7 @@ class DataTable {
     topFilterTitle = '',
     hideTopFilterBar = true,
     minWidth = null,
+    disableRowClick = false,
     onRowClick = null,
     onDataChange = null,
     toolbarButtons = []
@@ -5536,6 +5537,7 @@ class DataTable {
     this.filterable = filterable;
     this.selectable = Boolean(selectable);
     this.showSelectedCount = Boolean(showSelectedCount);
+    this.disableRowClick = Boolean(disableRowClick);
     // Global safeguard: Never add a view eye icon in actions column anywhere in the application
     this.actions = (actions || []).filter(act => {
       const label = String(act.label || '').toLowerCase().trim();
@@ -6277,7 +6279,9 @@ class DataTable {
       const keyVal = row[this.keyField] || `row-${idx}`;
       const isSelected = this.selectedKeys.has(keyVal);
 
-      rowsHtml += `<tr data-key="${keyVal}" data-row-index="${startIdx + idx}" tabindex="0" aria-label="View record details" class="${isSelected ? 'bg-[#F4F5F7]' : ''} cursor-pointer hover:bg-[#FAFBFC]">`;
+      const rowCursorClass = this.disableRowClick ? 'cursor-default' : 'cursor-pointer hover:bg-[#FAFBFC]';
+      const rowAria = this.disableRowClick ? '' : 'tabindex="0" aria-label="View record details"';
+      rowsHtml += `<tr data-key="${keyVal}" data-row-index="${startIdx + idx}" ${rowAria} class="${isSelected ? 'bg-[#F4F5F7]' : ''} ${rowCursorClass}">`;
 
       if (this.selectable) {
         rowsHtml += `
@@ -6786,6 +6790,7 @@ class DataTable {
       });
     });
 
+    if (!this.disableRowClick) {
     const rows = this.container.querySelectorAll('#dt-tbody tr[data-key]');
     rows.forEach(tr => {
       tr.addEventListener('click', event => {
@@ -6798,6 +6803,7 @@ class DataTable {
         this.openRowDetails(this.filteredData[Number(tr.dataset.rowIndex)]);
       });
     });
+    }
   }
 
   updateBulkBar() {
@@ -18649,51 +18655,51 @@ const PreprocessingView = {
                 <span class="w-2.5 h-2.5 rounded-full bg-[#0284C7]"></span>
                 <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider mb-0">Floor Operations (7 Stages)</h3>
               </div>
-              <a href="#/preprocessing/operations/deheading" class="text-[11px] font-bold text-[#0284C7] hover:underline">View All &rarr;</a>
+              <span class="text-[11px] font-bold text-[#5E6C84]">Active Monitors</span>
             </div>
 
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
-              <a href="#/preprocessing/operations/deheading" class="p-2.5 rounded-lg border border-[#E2E8F0] hover:border-[#0284C7] hover:bg-[#F0F9FF] transition-all group block">
+              <div class="p-2.5 rounded-lg border border-[#E2E8F0] bg-[#FAFBFC] select-none block">
                 <span class="text-[10px] font-bold text-[#5E6C84] uppercase block">1. Deheading</span>
                 <span class="text-xs font-extrabold text-[#172B4D] group-hover:text-[#0284C7] block mt-0.5">${this.state.deheadingBatches.length} Batches</span>
                 <span class="text-[10px] text-[#00875A] font-semibold block">${avgRecovery}% Yield</span>
-              </a>
+              </div>
 
-              <a href="#/preprocessing/operations/grading" class="p-2.5 rounded-lg border border-[#E2E8F0] hover:border-[#0284C7] hover:bg-[#F0F9FF] transition-all group block">
+              <div class="p-2.5 rounded-lg border border-[#E2E8F0] bg-[#FAFBFC] select-none block">
                 <span class="text-[10px] font-bold text-[#5E6C84] uppercase block">2. Grading</span>
                 <span class="text-xs font-extrabold text-[#172B4D] group-hover:text-[#0284C7] block mt-0.5">${this.state.gradingRuns.length} Runs</span>
                 <span class="text-[10px] text-[#00A4B7] font-semibold block">${totalGraded.toLocaleString()} KG</span>
-              </a>
+              </div>
 
-              <a href="#/preprocessing/operations/rm-received-trackid" class="p-2.5 rounded-lg border border-[#E2E8F0] hover:border-[#0284C7] hover:bg-[#F0F9FF] transition-all group block">
+              <div class="p-2.5 rounded-lg border border-[#E2E8F0] bg-[#FAFBFC] select-none block">
                 <span class="text-[10px] font-bold text-[#5E6C84] uppercase block">3. RM TrackID</span>
                 <span class="text-xs font-extrabold text-[#172B4D] group-hover:text-[#0284C7] block mt-0.5">${this.state.rmReceivedTrackIds ? this.state.rmReceivedTrackIds.length : 6} IDs</span>
                 <span class="text-[10px] text-[#5E6C84] font-medium block">Lot verified</span>
-              </a>
+              </div>
 
-              <a href="#/preprocessing/operations/de-heading-trackid" class="p-2.5 rounded-lg border border-[#E2E8F0] hover:border-[#0284C7] hover:bg-[#F0F9FF] transition-all group block">
+              <div class="p-2.5 rounded-lg border border-[#E2E8F0] bg-[#FAFBFC] select-none block">
                 <span class="text-[10px] font-bold text-[#5E6C84] uppercase block">4. DH TrackID</span>
                 <span class="text-xs font-extrabold text-[#172B4D] group-hover:text-[#0284C7] block mt-0.5">${this.state.deheadingTrackIds ? this.state.deheadingTrackIds.length : 6} IDs</span>
                 <span class="text-[10px] text-[#00875A] font-medium block">Yield mapped</span>
-              </a>
+              </div>
 
-              <a href="#/preprocessing/operations/grading-trackid" class="p-2.5 rounded-lg border border-[#E2E8F0] hover:border-[#0284C7] hover:bg-[#F0F9FF] transition-all group block">
+              <div class="p-2.5 rounded-lg border border-[#E2E8F0] bg-[#FAFBFC] select-none block">
                 <span class="text-[10px] font-bold text-[#5E6C84] uppercase block">5. Grade TrackID</span>
                 <span class="text-xs font-extrabold text-[#172B4D] group-hover:text-[#0284C7] block mt-0.5">${this.state.gradingTrackIds ? this.state.gradingTrackIds.length : 6} IDs</span>
                 <span class="text-[10px] text-[#00A4B7] font-medium block">Categorized</span>
-              </a>
+              </div>
 
-              <a href="#/preprocessing/operations/value-addition-trackid" class="p-2.5 rounded-lg border border-[#E2E8F0] hover:border-[#0284C7] hover:bg-[#F0F9FF] transition-all group block">
+              <div class="p-2.5 rounded-lg border border-[#E2E8F0] bg-[#FAFBFC] select-none block">
                 <span class="text-[10px] font-bold text-[#5E6C84] uppercase block">6. VA TrackID</span>
                 <span class="text-xs font-extrabold text-[#172B4D] group-hover:text-[#0284C7] block mt-0.5">${this.state.valueAdditionTrackIds ? this.state.valueAdditionTrackIds.length : 5} Batches</span>
                 <span class="text-[10px] text-[#5E6C84] font-medium block">Soaking / Dipping</span>
-              </a>
+              </div>
 
-              <a href="#/preprocessing/operations/hon-qty-transfer-after-va" class="p-2.5 rounded-lg border border-[#E2E8F0] hover:border-[#0284C7] hover:bg-[#F0F9FF] transition-all group col-span-2 sm:col-span-2 block">
+              <div class="p-2.5 rounded-lg border border-[#E2E8F0] bg-[#FAFBFC] select-none col-span-2 sm:col-span-2 block">
                 <span class="text-[10px] font-bold text-[#5E6C84] uppercase block">7. HON Qty Transfer After VA</span>
                 <span class="text-xs font-extrabold text-[#172B4D] group-hover:text-[#0284C7] block mt-0.5">${this.state.honQtyTransfers ? this.state.honQtyTransfers.length : 4} Transfer Logs</span>
                 <span class="text-[10px] text-[#00875A] font-semibold block">Transferred to Freezing Tunnels</span>
-              </a>
+              </div>
             </div>
           </div>
 
@@ -18704,51 +18710,51 @@ const PreprocessingView = {
                 <span class="w-2.5 h-2.5 rounded-full bg-[#00875A]"></span>
                 <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider mb-0">Chemical Screens (7 Modules)</h3>
               </div>
-              <a href="#/preprocessing/chemical-screens/chemical-pos" class="text-[11px] font-bold text-[#00875A] hover:underline">View All &rarr;</a>
+              <span class="text-[11px] font-bold text-[#5E6C84]">Active Monitors</span>
             </div>
 
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
-              <a href="#/preprocessing/chemical-screens/chemical-pos" class="p-2.5 rounded-lg border border-[#E2E8F0] hover:border-[#00875A] hover:bg-[#F0FDF4] transition-all group block">
+              <div class="p-2.5 rounded-lg border border-[#E2E8F0] bg-[#FAFBFC] select-none block">
                 <span class="text-[10px] font-bold text-[#5E6C84] uppercase block">1. POs</span>
                 <span class="text-xs font-extrabold text-[#172B4D] group-hover:text-[#00875A] block mt-0.5">${totalPOs} Active POs</span>
                 <span class="text-[10px] text-[#0284C7] font-semibold block">Import Orders</span>
-              </a>
+              </div>
 
-              <a href="#/preprocessing/chemical-screens/received-chemicals" class="p-2.5 rounded-lg border border-[#E2E8F0] hover:border-[#00875A] hover:bg-[#F0FDF4] transition-all group block">
+              <div class="p-2.5 rounded-lg border border-[#E2E8F0] bg-[#FAFBFC] select-none block">
                 <span class="text-[10px] font-bold text-[#5E6C84] uppercase block">2. Received</span>
                 <span class="text-xs font-extrabold text-[#172B4D] group-hover:text-[#00875A] block mt-0.5">Receipts</span>
                 <span class="text-[10px] text-[#00875A] font-semibold block">BL &amp; BOE Clear</span>
-              </a>
+              </div>
 
-              <a href="#/preprocessing/chemical-screens/chemicals-consumption" class="p-2.5 rounded-lg border border-[#E2E8F0] hover:border-[#00875A] hover:bg-[#F0FDF4] transition-all group block">
+              <div class="p-2.5 rounded-lg border border-[#E2E8F0] bg-[#FAFBFC] select-none block">
                 <span class="text-[10px] font-bold text-[#5E6C84] uppercase block">3. Usage</span>
                 <span class="text-xs font-extrabold text-[#172B4D] group-hover:text-[#00875A] block mt-0.5">Consumption</span>
                 <span class="text-[10px] text-[#00A4B7] font-semibold block">${totalConsumedKg.toLocaleString()} KG used</span>
-              </a>
+              </div>
 
-              <a href="#/preprocessing/chemical-screens/chemical-received-report" class="p-2.5 rounded-lg border border-[#E2E8F0] hover:border-[#00875A] hover:bg-[#F0FDF4] transition-all group block">
+              <div class="p-2.5 rounded-lg border border-[#E2E8F0] bg-[#FAFBFC] select-none block">
                 <span class="text-[10px] font-bold text-[#5E6C84] uppercase block">4. Received Rep</span>
                 <span class="text-xs font-extrabold text-[#172B4D] group-hover:text-[#00875A] block mt-0.5">Receipts Rep</span>
                 <span class="text-[10px] text-[#5E6C84] font-medium block">Annual Summary</span>
-              </a>
+              </div>
 
-              <a href="#/preprocessing/chemical-screens/chemical-opening-balance-report" class="p-2.5 rounded-lg border border-[#E2E8F0] hover:border-[#00875A] hover:bg-[#F0FDF4] transition-all group block">
+              <div class="p-2.5 rounded-lg border border-[#E2E8F0] bg-[#FAFBFC] select-none block">
                 <span class="text-[10px] font-bold text-[#5E6C84] uppercase block">5. Opening Rep</span>
                 <span class="text-xs font-extrabold text-[#172B4D] group-hover:text-[#00875A] block mt-0.5">Opening Bal</span>
                 <span class="text-[10px] text-[#5E6C84] font-medium block">Audit Baselines</span>
-              </a>
+              </div>
 
-              <a href="#/preprocessing/chemical-screens/chemical-balance-report" class="p-2.5 rounded-lg border border-[#E2E8F0] hover:border-[#00875A] hover:bg-[#F0FDF4] transition-all group block">
+              <div class="p-2.5 rounded-lg border border-[#E2E8F0] bg-[#FAFBFC] select-none block">
                 <span class="text-[10px] font-bold text-[#5E6C84] uppercase block">6. Balance Rep</span>
                 <span class="text-xs font-extrabold text-[#172B4D] group-hover:text-[#00875A] block mt-0.5">Balance Rep</span>
                 <span class="text-[10px] text-[#00875A] font-semibold block">Monthly Closing</span>
-              </a>
+              </div>
 
-              <a href="#/preprocessing/chemical-screens/chemical-payments-list" class="p-2.5 rounded-lg border border-[#E2E8F0] hover:border-[#00875A] hover:bg-[#F0FDF4] transition-all group col-span-2 sm:col-span-2 block">
+              <div class="p-2.5 rounded-lg border border-[#E2E8F0] bg-[#FAFBFC] select-none col-span-2 sm:col-span-2 block">
                 <span class="text-[10px] font-bold text-[#5E6C84] uppercase block">7. Payments List</span>
                 <span class="text-xs font-extrabold text-[#172B4D] group-hover:text-[#00875A] block mt-0.5">Disbursements &amp; UTRs</span>
                 <span class="text-[10px] text-[#00875A] font-semibold block">₹${totalPaidAmount.toLocaleString('en-IN')} Settled</span>
-              </a>
+              </div>
             </div>
           </div>
         </div>
@@ -18790,6 +18796,7 @@ const PreprocessingView = {
         searchable: true,
         exportable: true,
         pageSize: 10,
+        disableRowClick: true,
         columns: [
           { field: 'id', header: 'Batch ID', render: (v) => `<span class="font-bold text-[#00A4B7] font-mono">${v}</span>` },
           { field: 'lotNo', header: 'Lot Number', render: (v) => `<span class="font-bold text-[#172B4D] font-mono">${v}</span>` },
@@ -18800,24 +18807,7 @@ const PreprocessingView = {
           { field: 'recoveryPct', header: 'Recovery %', render: (v) => `<span class="px-2 py-0.5 rounded text-xs font-bold ${v >= 65 ? 'bg-[#E3FCEF] text-[#006644]' : 'bg-[#FFF0B3] text-[#172B4D]'} whitespace-nowrap">${v}%</span>` },
           { field: 'supervisor', header: 'Floor Supervisor', render: (v) => `<span class="text-[#5E6C84] whitespace-nowrap">${v}</span>` },
           { field: 'status', header: 'Status', render: (v) => `<span class="lozenge ${v === 'COMPLETED' ? 'lozenge-success' : v === 'IN_PROGRESS' ? 'lozenge-primary' : 'lozenge-default'} whitespace-nowrap">${v}</span>` }
-        ],
-        actions: [
-          {
-            label: 'Print Batch Sheet',
-            icon: `<svg class="w-4 h-4 text-[#0284C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>`,
-            onClick: (row) => {
-              Modal.confirm({
-                title: 'Print Batch Sheet',
-                message: `Are you sure you want to generate and print the batch sheet for <strong class="text-[#00A4B7]">${row.id}</strong> (${row.lotNo})?`,
-                confirmText: 'Print Sheet',
-                cancelText: 'Cancel',
-                isDestructive: false,
-                onConfirm: () => Toast.show(`Printing Batch Sheet for ${row.id}`, 'success')
-              });
-            }
-          }
-        ],
-        onRowClick: (row) => Toast.show(`Batch ${row.id}: Input ${row.inputHonWt} KG &bull; Recovery ${row.recoveryPct}%`, 'info')
+        ]
       });
     };
 
@@ -18831,6 +18821,7 @@ const PreprocessingView = {
         searchable: true,
         exportable: true,
         pageSize: 10,
+        disableRowClick: true,
         columns: [
           { field: 'code', header: 'Code', render: (v) => `<span class="font-mono font-bold text-[#00A4B7] bg-[#F0F9FF] px-2 py-0.5 rounded border border-[#BAE6FD] whitespace-nowrap">${v}</span>` },
           { field: 'name', header: 'Chemical Name', render: (v) => `<span class="font-bold text-[#172B4D] whitespace-nowrap">${v}</span>` },
@@ -18848,15 +18839,7 @@ const PreprocessingView = {
               return `<span class="lozenge ${badgeClass} whitespace-nowrap">${v === 'OPTIMAL' ? 'OPTIMAL' : 'REORDER NOW'}</span>`;
             }
           }
-        ],
-        actions: [
-          {
-            label: 'Consumption',
-            icon: `<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>`,
-            onClick: () => { window.location.hash = '#/preprocessing/chemical-screens/chemicals-consumption'; }
-          }
-        ],
-        onRowClick: (row) => Toast.show(`${row.name}: In Hand ${row.stockInHandKg} KG &bull; Supplier: ${row.supplier}`, 'info')
+        ]
       });
     };
 

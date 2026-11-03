@@ -24,6 +24,7 @@ export class DataTable {
     topFilterTitle = '',
     hideTopFilterBar = true,
     minWidth = null,
+    disableRowClick = false,
     onRowClick = null,
     onDataChange = null,
     toolbarButtons = []
@@ -44,6 +45,7 @@ export class DataTable {
     this.filterable = filterable;
     this.selectable = Boolean(selectable);
     this.showSelectedCount = Boolean(showSelectedCount);
+    this.disableRowClick = Boolean(disableRowClick);
     // Global safeguard: Never add a view eye icon in actions column anywhere in the application
     this.actions = (actions || []).filter(act => {
       const label = String(act.label || '').toLowerCase().trim();
@@ -785,7 +787,9 @@ export class DataTable {
       const keyVal = row[this.keyField] || `row-${idx}`;
       const isSelected = this.selectedKeys.has(keyVal);
 
-      rowsHtml += `<tr data-key="${keyVal}" data-row-index="${startIdx + idx}" tabindex="0" aria-label="View record details" class="${isSelected ? 'bg-[#F4F5F7]' : ''} cursor-pointer hover:bg-[#FAFBFC]">`;
+      const rowCursorClass = this.disableRowClick ? 'cursor-default' : 'cursor-pointer hover:bg-[#FAFBFC]';
+      const rowAria = this.disableRowClick ? '' : 'tabindex="0" aria-label="View record details"';
+      rowsHtml += `<tr data-key="${keyVal}" data-row-index="${startIdx + idx}" ${rowAria} class="${isSelected ? 'bg-[#F4F5F7]' : ''} ${rowCursorClass}">`;
 
       if (this.selectable) {
         rowsHtml += `
@@ -1294,6 +1298,7 @@ export class DataTable {
       });
     });
 
+    if (!this.disableRowClick) {
     const rows = this.container.querySelectorAll('#dt-tbody tr[data-key]');
     rows.forEach(tr => {
       tr.addEventListener('click', event => {
@@ -1306,6 +1311,7 @@ export class DataTable {
         this.openRowDetails(this.filteredData[Number(tr.dataset.rowIndex)]);
       });
     });
+    }
   }
 
   updateBulkBar() {
