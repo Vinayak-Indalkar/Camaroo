@@ -4268,22 +4268,6 @@ function extractInitialTabsConfig(submenusConfig, modulesConfig) {
       status: 'Active',
       isProtected: true,
       description: 'Module registry, navigation icons, and menu visibility controls'
-    },
-    {
-      id: 'tabs',
-      key: 'tabs',
-      label: 'Tabs',
-      menuKey: 'general',
-      menuLabel: 'GENERAL',
-      submenuId: 'configuration',
-      submenuTitle: 'Configuration',
-      route: '#/general/configuration/tabs',
-      type: 'system',
-      badge: 'New',
-      order: 5,
-      status: 'Active',
-      isProtected: true,
-      description: 'Centralized registry and configuration for all application tabs'
     }
   ];
 
@@ -4455,7 +4439,7 @@ function getInitialStudioState() {
         } else {
           // Ensure settings tabs are present in tabsConfig
           const hasSettings = parsed.tabsConfig.some(t => t.menuKey === 'settings' && t.submenuId === 'custom');
-          parsed.tabsConfig = parsed.tabsConfig.filter(t => t.id !== 'audit-history' && t.key !== 'audit-history');
+          parsed.tabsConfig = parsed.tabsConfig.filter(t => t.id !== 'audit-history' && t.key !== 'audit-history' && !( (t.id === 'tabs' || t.key === 'tabs') && (t.submenuId === 'configuration' || t.route === '#/general/configuration/tabs') ));
           if (!hasSettings) {
             const extraSettingsTabs = [
               { id: 'forms', key: 'forms', label: 'Forms', menuKey: 'settings', menuLabel: 'SETTING', submenuId: 'custom', submenuTitle: 'Customizer', route: '#/settings/custom/forms', type: 'system', badge: '', order: 1, status: 'Active', isProtected: false, description: 'Dynamic form definitions and layout configurator' },
@@ -5035,7 +5019,7 @@ export const SetupView = {
       case 'tabs-registry':
       case 'tabs-studio':
       case 'tab-management':
-        this.renderTabsStudioTab(container);
+        window.location.hash = '#/general/configuration/menus';
         break;
       case 'menus':
       case 'modules':
