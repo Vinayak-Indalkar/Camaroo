@@ -2959,9 +2959,9 @@ td.sticky-action-col > div {
 #erp-modal-root.menu-setup-modal-container {
   padding: 20rem !important;
   padding-top: 2rem !important;
-  padding-right: 1rem !important;
+  padding-right: 10rem !important;
   padding-bottom: 2rem !important;
-  padding-left: 20rem !important;
+  padding-left: 10rem !important;
 }
 
 #erp-modal-root:has(#menu-setup-form) .md\:grid-cols-3,

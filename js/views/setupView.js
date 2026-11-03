@@ -10434,9 +10434,9 @@ export const SetupView = {
           #erp-modal-root.p-4 {
             padding: 20rem !important;
             padding-top: 2rem !important;
-            padding-right: 1rem !important;
+            padding-right: 10rem !important;
             padding-bottom: 2rem !important;
-            padding-left: 20rem !important;
+            padding-left: 10rem !important;
           }
           #erp-modal-root:has(#menu-setup-form) .md\:grid-cols-3,
           #menu-setup-form.md\:grid-cols-3,
@@ -10924,9 +10924,9 @@ export const SetupView = {
       modalRootEl.classList.add('menu-setup-modal-container');
       modalRootEl.style.padding = '20rem';
       modalRootEl.style.paddingTop = '2rem';
-      modalRootEl.style.paddingRight = '1rem';
+      modalRootEl.style.paddingRight = '10rem';
       modalRootEl.style.paddingBottom = '2rem';
-      modalRootEl.style.paddingLeft = '20rem';
+      modalRootEl.style.paddingLeft = '10rem';
     }
 
     // =========================================================================
