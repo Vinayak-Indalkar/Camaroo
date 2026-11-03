@@ -10554,7 +10554,7 @@ export const SetupView = {
                 </div>
 
                 <!-- Visual Grid of Lucide Icons -->
-                <div id="lucide-icon-grid" class="grid grid-cols-4 sm:grid-cols-5 gap-1.5 h-[180px] max-h-[180px] overflow-y-auto p-1.5 border border-[#DFE1E6] rounded-lg bg-[#FAFBFC] shadow-2xs">
+                <div id="lucide-icon-grid" class="grid grid-cols-6 sm:grid-cols-8 gap-1.5 h-[180px] max-h-[180px] overflow-y-auto p-1.5 border border-[#DFE1E6] rounded-lg bg-[#FAFBFC] shadow-2xs">
                   <!-- Populated by JavaScript -->
                 </div>
               </div>
@@ -11087,15 +11087,14 @@ export const SetupView = {
       iconGrid.innerHTML = filtered.map(item => {
         const isSelected = item.id === selectedHiddenVal?.value;
         return `
-          <button type="button" data-icon-id="${item.id}" class="lucide-icon-tile p-1.5 rounded-[3px] border flex flex-col items-center justify-center gap-1 transition-all cursor-pointer ${
+          <button type="button" data-icon-id="${item.id}" class="lucide-icon-tile p-2 rounded-[3px] border flex items-center justify-center transition-all cursor-pointer ${
             isSelected 
               ? 'border-[#00A4B7] bg-[#F0F9FF] text-[#00A4B7] ring-2 ring-[#00A4B7]/20 shadow-2xs font-bold' 
               : 'border-[#DFE1E6] bg-white hover:border-[#00A4B7] hover:bg-[#F4F5F7] text-[#172B4D]'
-          }" style="border-radius: 3px !important;" title="${item.label || item.name}">
+          }" style="border-radius: 3px !important; min-height: 34px;" title="${item.label || item.name}">
             <div class="w-4 h-4 flex items-center justify-center shrink-0">
               ${item.svg}
             </div>
-            <span class="text-[9px] font-mono truncate w-full text-center">${item.name}</span>
           </button>
         `;
       }).join('');
@@ -11110,10 +11109,10 @@ export const SetupView = {
 
         iconGrid.querySelectorAll('.lucide-icon-tile').forEach(t => {
           if (t.dataset.iconId === iconId) {
-            t.className = 'lucide-icon-tile p-1.5 rounded-[3px] border flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#00A4B7] bg-[#F0F9FF] text-[#00A4B7] ring-2 ring-[#00A4B7]/20 shadow-2xs font-bold';
+            t.className = 'lucide-icon-tile p-2 rounded-[3px] border flex items-center justify-center transition-all cursor-pointer border-[#00A4B7] bg-[#F0F9FF] text-[#00A4B7] ring-2 ring-[#00A4B7]/20 shadow-2xs font-bold';
             t.style.borderRadius = '3px';
           } else {
-            t.className = 'lucide-icon-tile p-1.5 rounded-[3px] border flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#DFE1E6] bg-white hover:border-[#00A4B7] hover:bg-[#F4F5F7] text-[#172B4D]';
+            t.className = 'lucide-icon-tile p-2 rounded-[3px] border flex items-center justify-center transition-all cursor-pointer border-[#DFE1E6] bg-white hover:border-[#00A4B7] hover:bg-[#F4F5F7] text-[#172B4D]';
             t.style.borderRadius = '3px';
           }
         });
@@ -11299,10 +11298,10 @@ export const SetupView = {
         if (iconGrid) {
           iconGrid.querySelectorAll('.lucide-icon-tile').forEach(t => {
             if (t.dataset.iconId === defaultIconId) {
-              t.className = 'lucide-icon-tile p-1.5 rounded-[3px] border flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#00A4B7] bg-[#F0F9FF] text-[#00A4B7] ring-2 ring-[#00A4B7]/20 shadow-2xs font-bold';
+              t.className = 'lucide-icon-tile p-2 rounded-[3px] border flex items-center justify-center transition-all cursor-pointer border-[#00A4B7] bg-[#F0F9FF] text-[#00A4B7] ring-2 ring-[#00A4B7]/20 shadow-2xs font-bold';
               t.style.borderRadius = '3px';
             } else {
-              t.className = 'lucide-icon-tile p-1.5 rounded-[3px] border flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#DFE1E6] bg-white hover:border-[#00A4B7] hover:bg-[#F4F5F7] text-[#172B4D]';
+              t.className = 'lucide-icon-tile p-2 rounded-[3px] border flex items-center justify-center transition-all cursor-pointer border-[#DFE1E6] bg-white hover:border-[#00A4B7] hover:bg-[#F4F5F7] text-[#172B4D]';
               t.style.borderRadius = '3px';
             }
           });
@@ -11322,11 +11321,11 @@ export const SetupView = {
           if (iconGrid) {
             iconGrid.querySelectorAll('.lucide-icon-tile').forEach(t => {
               if (t.dataset.iconId === foundIconId) {
-                t.className = 'lucide-icon-tile p-1.5 rounded-[3px] border flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#00A4B7] bg-[#F0F9FF] text-[#00A4B7] ring-2 ring-[#00A4B7]/20 shadow-2xs font-bold';
+                t.className = 'lucide-icon-tile p-2 rounded-[3px] border flex items-center justify-center transition-all cursor-pointer border-[#00A4B7] bg-[#F0F9FF] text-[#00A4B7] ring-2 ring-[#00A4B7]/20 shadow-2xs font-bold';
                 t.style.borderRadius = '3px';
                 t.scrollIntoView({ block: 'nearest' });
               } else {
-                t.className = 'lucide-icon-tile p-1.5 rounded-[3px] border flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border-[#DFE1E6] bg-white hover:border-[#00A4B7] hover:bg-[#F4F5F7] text-[#172B4D]';
+                t.className = 'lucide-icon-tile p-2 rounded-[3px] border flex items-center justify-center transition-all cursor-pointer border-[#DFE1E6] bg-white hover:border-[#00A4B7] hover:bg-[#F4F5F7] text-[#172B4D]';
                 t.style.borderRadius = '3px';
               }
             });
