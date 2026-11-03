@@ -10591,10 +10591,7 @@ export const SetupView = {
           <!-- 3. Tab Menu Section (Multiple Tab Menus) -->
           <div class="min-w-0 bg-transparent p-0 border-0 flex flex-col h-full space-y-2">
             <div class="flex items-center justify-between border-b border-[#EBECF0] pb-0 mb-0">
-              <div class="flex items-center gap-2">
-                <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Tab Menu</span>
-                <span id="tab-parent-submenu-badge" class="text-[10px] font-bold text-[#00A4B7] bg-[#F0F9FF] border border-[#BAE6FD] px-2 py-0.5 rounded">Submenu: Overview</span>
-              </div>
+              <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Tab Menu</span>
               <button type="button" id="btn-add-tab-item" class="btn-secondary px-2.5 py-1 rounded-lg text-xs font-semibold flex items-center gap-1 hover:bg-[#EBECF0] transition-colors cursor-pointer text-[#00A4B7] border border-[#DFE1E6]">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
                 <span>Add Tab Menu</span>
