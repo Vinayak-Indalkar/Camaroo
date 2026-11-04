@@ -187,6 +187,28 @@ body {
   background-color: #00A4B7 !important;
 }
 
+/* Submenu Border Guide Lines */
+#erp-sidebar .nav-submenu-block.border-\[\#00A4B7\],
+#erp-sidebar [class*="border-\[\#00A4B7\]"] {
+  border-left-color: #00A4B7 !important;
+}
+#erp-sidebar .nav-submenu-block.border-\[\#334155\],
+#erp-sidebar [class*="border-\[\#334155\]"] {
+  border-left-color: #334155 !important;
+}
+
+/* Side Main Menu Inactive & Expanded Styling - Gray text and icon matching icon color */
+#erp-sidebar .sidebar-mod-btn:not([class*="bg-\[\#00A4B7\]"]) {
+  color: #94A3B8 !important;
+}
+#erp-sidebar .sidebar-mod-btn:not([class*="bg-\[\#00A4B7\]"]):hover {
+  color: #FFFFFF !important;
+}
+#erp-sidebar .sidebar-mod-btn:not([class*="bg-\[\#00A4B7\]"]) * {
+  color: inherit !important;
+}
+
+
 
 #main-layout-wrapper {
   margin-left: calc(var(--erp-sidebar-offset) + var(--erp-sidebar-width) + var(--erp-sidebar-gap)) !important;

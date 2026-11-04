@@ -690,13 +690,13 @@ export const Sidebar = {
       let submenusHtml = '';
       if (isExpanded) {
         submenusHtml = `
-          <div class="nav-submenus-list mt-1 ml-4 pl-3 py-1 space-y-1 border-l-2 border-[#00A4B7]">
+          <div class="nav-submenus-list mt-1 ml-4 py-1 space-y-0.5">
             ${mod.submenus.map(sub => {
               const isSubActive = sub.id === this.activeSubmenuId;
               const defaultHash = sub.tabs[0]?.hash || `/#/${mod.id}/${sub.id}`;
 
               return `
-                <div class="nav-submenu-block">
+                <div class="nav-submenu-block border-l-2 ${isSubActive ? 'border-[#00A4B7]' : 'border-[#334155] hover:border-[#64748B]'} pl-2.5 transition-colors">
                   <a 
                     href="${defaultHash}" 
                     class="flex items-center px-2.5 py-1.5 rounded-md text-xs font-semibold transition-all ${isSubActive ? 'text-[#00A4B7] font-bold' : 'text-[#94A3B8] hover:bg-white/5 hover:text-white'}"
@@ -717,14 +717,14 @@ export const Sidebar = {
         <div class="${groupWrapperClass}">
           <button 
             data-module-id="${mod.id}" 
-            class="sidebar-mod-btn w-full px-3 py-2 rounded-lg text-xs font-bold flex items-center justify-between transition-colors cursor-pointer ${isExpanded ? 'bg-[#00A4B7] text-white' : 'text-[#CBD5E1] hover:bg-white/5 hover:text-white'}"
+            class="sidebar-mod-btn w-full px-3 py-2 rounded-lg text-xs font-bold flex items-center justify-between transition-colors cursor-pointer text-[#94A3B8] hover:bg-white/5 hover:text-white ${isExpanded ? 'bg-white/5' : ''}"
           >
             <div class="flex items-center gap-2.5 truncate">
-              <span class="w-4 h-4 flex items-center justify-center shrink-0 ${isExpanded ? 'text-white' : 'text-[#64748B]'}">${mod.icon}</span>
-              <span class="text-xs tracking-tight truncate">${mod.title}</span>
+              <span class="w-4 h-4 flex items-center justify-center shrink-0 text-[#94A3B8]">${mod.icon}</span>
+              <span class="text-xs tracking-tight truncate text-[#94A3B8]">${mod.title}</span>
             </div>
             <div class="flex items-center gap-1 shrink-0">
-              <svg class="w-3.5 h-3.5 transform transition-transform duration-200 ${isExpanded ? 'rotate-90 text-white' : 'text-[#64748B]'}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+              <svg class="w-3.5 h-3.5 transform transition-transform duration-200 text-[#94A3B8] ${isExpanded ? 'rotate-90' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
             </div>
           </button>
           ${submenusHtml}
@@ -780,17 +780,19 @@ export const Sidebar = {
             </div>
 
             <!-- Submenus List in Flyout -->
-            <div class="space-y-1">
+            <div class="space-y-0.5">
               ${mod.submenus.map(sub => {
                 const isSubActive = isCurrentMod && (sub.id === this.activeSubmenuId);
                 const defaultHash = sub.tabs[0]?.hash || `/#/${mod.id}/${sub.id}`;
                 return `
-                  <a 
-                    href="${defaultHash}" 
-                    class="flex items-center px-2.5 py-1.5 rounded-md text-xs font-medium transition-all ${isSubActive ? 'text-[#00A4B7] font-bold' : 'text-[#94A3B8] hover:bg-white/5 hover:text-white'}"
-                  >
-                    <span>${sub.title}</span>
-                  </a>
+                  <div class="border-l-2 ${isSubActive ? 'border-[#00A4B7]' : 'border-[#334155] hover:border-[#64748B]'} pl-2 transition-colors">
+                    <a 
+                      href="${defaultHash}" 
+                      class="flex items-center px-2 py-1.5 rounded-md text-xs font-medium transition-all ${isSubActive ? 'text-[#00A4B7] font-bold' : 'text-[#94A3B8] hover:bg-white/5 hover:text-white'}"
+                    >
+                      <span>${sub.title}</span>
+                    </a>
+                  </div>
                 `;
               }).join('')}
             </div>
@@ -810,13 +812,13 @@ export const Sidebar = {
     let submenusHtml = '';
     if (isExpanded) {
       submenusHtml = `
-        <div class="nav-submenus-list mt-1 ml-4 pl-3 py-1 space-y-1 border-l-2 border-[#00A4B7]">
+        <div class="nav-submenus-list mt-1 ml-4 py-1 space-y-0.5">
           ${settingsMod.submenus.map(sub => {
             const isSubActive = sub.id === this.activeSubmenuId;
             const defaultHash = sub.tabs[0]?.hash || `/#/settings/${sub.id}`;
 
             return `
-              <div class="nav-submenu-block">
+              <div class="nav-submenu-block border-l-2 ${isSubActive ? 'border-[#00A4B7]' : 'border-[#334155] hover:border-[#64748B]'} pl-2.5 transition-colors">
                 <a 
                   href="${defaultHash}" 
                   class="flex items-center px-2.5 py-1.5 rounded-md text-xs font-semibold transition-all ${isSubActive ? 'text-[#00A4B7] font-bold' : 'text-[#94A3B8] hover:bg-white/5 hover:text-white'}"
@@ -837,14 +839,14 @@ export const Sidebar = {
       <div class="nav-module-group">
         <button 
           data-module-id="settings" 
-          class="sidebar-mod-btn w-full px-3 py-2 rounded-lg text-xs font-bold flex items-center justify-between transition-colors cursor-pointer ${isExpanded ? 'bg-[#00A4B7] text-white' : 'text-[#CBD5E1] hover:bg-white/5 hover:text-white'}"
+          class="sidebar-mod-btn w-full px-3 py-2 rounded-lg text-xs font-bold flex items-center justify-between transition-colors cursor-pointer text-[#94A3B8] hover:bg-white/5 hover:text-white ${isExpanded ? 'bg-white/5' : ''}"
         >
           <div class="flex items-center gap-2.5 truncate">
-            <span class="w-4 h-4 flex items-center justify-center shrink-0 ${isExpanded ? 'text-white' : 'text-[#64748B]'}">${settingsMod.icon}</span>
-            <span class="text-xs tracking-tight truncate">${settingsMod.title}</span>
+            <span class="w-4 h-4 flex items-center justify-center shrink-0 text-[#94A3B8]">${settingsMod.icon}</span>
+            <span class="text-xs tracking-tight truncate text-[#94A3B8]">${settingsMod.title}</span>
           </div>
           <div class="flex items-center gap-1 shrink-0">
-            <svg class="w-3.5 h-3.5 transform transition-transform duration-200 ${isExpanded ? 'rotate-90 text-white' : 'text-[#64748B]'}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            <svg class="w-3.5 h-3.5 transform transition-transform duration-200 text-[#94A3B8] ${isExpanded ? 'rotate-90' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
           </div>
         </button>
         ${submenusHtml}
@@ -880,17 +882,19 @@ export const Sidebar = {
           </div>
 
           <!-- Submenus List in Flyout -->
-          <div class="space-y-1">
+          <div class="space-y-0.5">
             ${settingsMod.submenus.map(sub => {
               const isSubActive = isCurrentMod && (sub.id === this.activeSubmenuId);
               const defaultHash = sub.tabs[0]?.hash || `/#/settings/${sub.id}`;
               return `
-                <a 
-                  href="${defaultHash}" 
-                  class="flex items-center px-2.5 py-1.5 rounded-md text-xs font-medium transition-all ${isSubActive ? 'text-[#00A4B7] font-bold' : 'text-[#94A3B8] hover:bg-white/5 hover:text-white'}"
-                >
-                  <span>${sub.title}</span>
-                </a>
+                <div class="border-l-2 ${isSubActive ? 'border-[#00A4B7]' : 'border-[#334155] hover:border-[#64748B]'} pl-2 transition-colors">
+                  <a 
+                    href="${defaultHash}" 
+                    class="flex items-center px-2 py-1.5 rounded-md text-xs font-medium transition-all ${isSubActive ? 'text-[#00A4B7] font-bold' : 'text-[#94A3B8] hover:bg-white/5 hover:text-white'}"
+                  >
+                    <span>${sub.title}</span>
+                  </a>
+                </div>
               `;
             }).join('')}
           </div>
