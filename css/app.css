@@ -96,7 +96,7 @@ body {
 /* ERP App Shell: Fixed Geometry & Anti-Overlap */
 :root {
   --erp-sidebar-width: 272px;
-  --erp-sidebar-collapsed-width: 68px;
+  --erp-sidebar-collapsed-width: 72px;
   --erp-sidebar-offset: 12px;
   --erp-sidebar-gap: 16px;
 }
@@ -118,6 +118,23 @@ body {
 #sidebar-container #erp-sidebar {
   width: 100% !important;
   height: 100% !important;
+  border-radius: 28px !important;
+  background-color: #0B132B !important;
+  border: 1px solid rgba(30, 41, 59, 0.8) !important;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Side Menu Active Item Styling */
+#erp-sidebar .sidebar-mod-btn.is-active,
+#erp-sidebar button.sidebar-mod-btn.is-active {
+  background-color: #182337 !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(39, 53, 79, 0.6) !important;
+}
+
+#erp-sidebar .nav-submenu-block a.is-sub-active {
+  background-color: #00A4B7 !important;
+  color: #FFFFFF !important;
 }
 
 /* Side Menu Active Item Styling - Pure White text and icon on #00A4B7 / rgb(0 163 182) */
