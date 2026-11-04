@@ -20090,116 +20090,171 @@ const PreprocessingView = {
 
   // =========================================================================
   showBatchDetailsModal(row) {
-    const defaultSpecies = row.species || 'Vannamei (White Shrimp)';
+    const defaultSpecies = row.species || 'Vannamei Shrimp';
     const honQty = Number(row.honQuantityKgs || row.inputHonWt || 4200);
     const hlQty = Number(row.hlQuantityKgs || row.outputDhWt || 2772);
-    const yieldPct = row.countNetYieldPct || row.yieldPct || row.recoveryPct || 66.0;
+    const yieldPct = Number(row.countNetYieldPct || row.yieldPct || row.recoveryPct || ((hlQty / honQty) * 100).toFixed(1));
     const wasteWt = Number(row.wasteHeadWt || Math.max(0, honQty - hlQty));
+    const checkingCount2 = row.checkingCount2 !== undefined && row.checkingCount2 !== null && row.checkingCount2 !== '' ? row.checkingCount2 : '-';
+    const honCount = row.honCount !== undefined && row.honCount !== null && row.honCount !== '' ? row.honCount : '-';
+    const hlCount = row.hlCount !== undefined && row.hlCount !== null && row.hlCount !== '' ? row.hlCount : '-';
 
     Modal.open({
-      title: `De-Heading Batch Registry: ${row.id}`,
-      size: 'full',
+      title: `De-Heading Batch Details: ${this.escape(row.id || row.arrivalCode || 'DH-BATCH')}`,
+      size: 'xl',
       content: `
         <div class="space-y-4 text-xs">
-          <!-- Key Details Grid (12 Fields) -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 bg-[#F8FAFC] p-3.5 rounded-xl border border-[#DFE1E6]">
-            <div>
-              <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Production Plant</span>
-              <span class="font-semibold text-[#172B4D] block mt-0.5">${row.productionPlant || 'DFL UNIT-5 (JPT)'}</span>
+          <!-- Top Hero / Summary Card -->
+          <div class="bg-gradient-to-r from-[#F0F9FF] to-[#F8FAFC] p-4 rounded-xl border border-[#BAE6FD] flex flex-wrap items-center justify-between gap-3 shadow-2xs">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-[#00A4B7] text-white flex items-center justify-center font-bold shadow-xs shrink-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+              </div>
+              <div>
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span class="font-mono font-extrabold text-[#0F172A] text-base">${this.escape(row.id || 'DH-BATCH')}</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold tracking-wide uppercase bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">${this.escape(row.status || 'COMPLETED')}</span>
+                  <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">${this.escape(defaultSpecies)}</span>
+                </div>
+                <p class="text-[11px] text-[#64748B] mt-0.5 font-medium flex items-center gap-1.5 flex-wrap">
+                  <span>Plant: <strong class="text-[#334155]">${this.escape(row.productionPlant || 'DFL UNIT-5 (JPT)')}</strong></span>
+                  <span>&bull;</span>
+                  <span>Center: <strong class="text-[#334155]">${this.escape(row.center || 'Bhimavaram Center #1')}</strong></span>
+                  <span>&bull;</span>
+                  <span>Date: <strong class="text-[#334155]">${this.escape(row.deheadingDate || row.arrivalDate || '-')}</strong> (${this.escape(row.shift || 'Shift A')})</span>
+                </p>
+              </div>
             </div>
-            <div>
-              <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Arrival Lot Code</span>
-              <span class="font-mono font-bold text-[#00A4B7] block mt-0.5">${row.arrivalCode || row.lotNo || 'LOT-2026-00125'}</span>
-            </div>
-            <div>
-              <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">De-Heading Station</span>
-              <span class="font-semibold text-[#172B4D] block mt-0.5">${row.deheadingStation || 'Table #1 & #2'}</span>
-            </div>
-            <div>
-              <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Shift & Supervisor</span>
-              <span class="font-medium text-[#172B4D] block mt-0.5">${row.shift || 'Shift A (Day)'} &bull; ${row.supervisor || 'Laxmi Narayana'}</span>
-            </div>
-            <div>
-              <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">De-Heading Date</span>
-              <span class="font-medium text-[#172B4D] block mt-0.5">${row.deheadingDate || row.arrivalDate || '06/10/2026'}</span>
-            </div>
-            <div>
-              <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Species / Variety</span>
-              <span class="font-semibold text-[#172B4D] block mt-0.5">${defaultSpecies}</span>
-            </div>
-            <div>
-              <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">HON Count</span>
-              <span class="font-mono font-bold text-[#172B4D] block mt-0.5">${row.honCount || 42}</span>
-            </div>
-            <div>
-              <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">HL Count</span>
-              <span class="font-mono font-bold text-[#00A4B7] block mt-0.5">${row.hlCount || 28}</span>
-            </div>
-            <div>
-              <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">HON Input Quantity</span>
-              <span class="font-mono font-bold text-[#172B4D] block mt-0.5">${honQty.toLocaleString()} Kgs</span>
-            </div>
-            <div>
-              <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">HL Output Quantity</span>
-              <span class="font-mono font-bold text-[#00875A] block mt-0.5">${hlQty.toLocaleString()} Kgs</span>
-            </div>
-            <div>
-              <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Recovery Yield (%)</span>
-              <span class="font-mono font-extrabold text-[#00875A] block mt-0.5">${yieldPct}%</span>
-            </div>
-            <div>
-              <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Ice Consumption / Waste</span>
-              <span class="font-medium text-[#172B4D] block mt-0.5">${row.iceConsumption || '450 Kg'} (${wasteWt} Kg Waste)</span>
+
+            <!-- Quick Metrics Badges -->
+            <div class="flex items-center gap-2">
+              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[85px]">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Yield</span>
+                <span class="font-mono font-extrabold text-xs text-[#00875A]">${yieldPct}%</span>
+              </div>
+              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[85px]">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">HON Input</span>
+                <span class="font-mono font-bold text-xs text-[#172B4D]">${honQty.toLocaleString()} Kg</span>
+              </div>
+              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[85px]">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">HL Output</span>
+                <span class="font-mono font-bold text-xs text-[#00875A]">${hlQty.toLocaleString()} Kg</span>
+              </div>
             </div>
           </div>
 
-          <!-- Itemized Breakdown Table -->
-          <div class="space-y-2">
-            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">De-Heading Lot Processing & Yield Analysis</h4>
-            <div class="bg-white rounded-xl border border-[#DFE1E6] shadow-2xs overflow-hidden">
-              <div class="overflow-x-auto" style="overflow-x: auto !important; -webkit-overflow-scrolling: touch;">
-                <table class="w-full text-left text-xs border-collapse" style="min-width: 1000px;">
-                  <thead class="bg-[#F8FAFC] border-b border-[#DFE1E6] text-[#475569] font-bold uppercase tracking-wider text-[11px]">
-                    <tr>
-                      <th class="py-2.5 px-3 w-12 text-center">S.No</th>
-                      <th class="py-2.5 px-3 min-w-[140px]">Arrival Lot Code</th>
-                      <th class="py-2.5 px-3 min-w-[160px]">Species / Variety</th>
-                      <th class="py-2.5 px-3 min-w-[100px] text-right">HON Count</th>
-                      <th class="py-2.5 px-3 min-w-[100px] text-right">HL Count</th>
-                      <th class="py-2.5 px-3 min-w-[120px] text-right">HON Input</th>
-                      <th class="py-2.5 px-3 min-w-[120px] text-right">HL Output</th>
-                      <th class="py-2.5 px-3 min-w-[110px] text-right">Recovery Yield</th>
-                      <th class="py-2.5 px-3 min-w-[110px] text-right">Head Waste</th>
-                      <th class="py-2.5 px-3 w-24 text-center">Status</th>
-                    </tr>
-                  </thead>
-                  <tbody class="divide-y divide-[#E2E8F0] text-[#1E293B]">
-                    <tr class="hover:bg-[#F8FAFC] transition-colors">
-                      <td class="py-2.5 px-3 text-center font-bold text-[#5E6C84] bg-[#FAFBFC] border-r border-[#E2E8F0]">1</td>
-                      <td class="py-2.5 px-3 font-mono font-bold text-[#00A4B7]">${row.arrivalCode || row.lotNo || 'LOT-2026-00125'}</td>
-                      <td class="py-2.5 px-3 font-semibold text-[#172B4D]">${defaultSpecies}</td>
-                      <td class="py-2.5 px-3 text-right font-mono font-medium">${row.honCount || 42}</td>
-                      <td class="py-2.5 px-3 text-right font-mono font-bold text-[#172B4D]">${row.hlCount || 28}</td>
-                      <td class="py-2.5 px-3 text-right font-mono font-bold text-[#172B4D]">${honQty.toFixed(2)} Kgs</td>
-                      <td class="py-2.5 px-3 text-right font-mono font-bold text-[#00875A]">${hlQty.toFixed(2)} Kgs</td>
-                      <td class="py-2.5 px-3 text-right font-mono font-extrabold text-[#00875A]">${yieldPct}%</td>
-                      <td class="py-2.5 px-3 text-right font-mono font-medium text-[#BF2600]">${wasteWt.toFixed(2)} Kgs</td>
-                      <td class="py-2.5 px-3 text-center">
-                        <span class="inline-flex px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#E3FCEF] text-[#006644]">COMPLETED</span>
-                      </td>
-                    </tr>
-                  </tbody>
-                  <tfoot class="bg-[#F8FAFC] border-t-2 border-[#DFE1E6] font-bold text-xs text-[#0F172A]">
-                    <tr>
-                      <td colspan="5" class="py-3 px-3 text-right uppercase tracking-wider text-[#475569]">Total Aggregates:</td>
-                      <td class="py-3 px-3 text-right font-mono text-sm text-[#172B4D]">${honQty.toFixed(2)} Kgs</td>
-                      <td class="py-3 px-3 text-right font-mono text-sm text-[#00875A]">${hlQty.toFixed(2)} Kgs</td>
-                      <td class="py-3 px-3 text-right font-mono text-sm text-[#00875A]">${yieldPct}%</td>
-                      <td class="py-3 px-3 text-right font-mono text-sm text-[#BF2600]">${wasteWt.toFixed(2)} Kgs</td>
-                      <td></td>
-                    </tr>
-                  </tfoot>
-                </table>
+          <!-- Section 1: Facility & Station Allocation -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9] pb-2 mb-3">
+              <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">1</span>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Facility &amp; Station Allocation</h4>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Arrival / Lot Code</span>
+                <span class="font-mono font-bold text-[#00A4B7] text-xs block mt-0.5">${this.escape(row.arrivalCode || row.lotNo || '-')}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Arrival Date</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.arrivalDate || row.deheadingDate || '-')}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Production Plant</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.productionPlant || '-')}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Center</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.center || '-')}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Operation & Shift Details -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9] pb-2 mb-3">
+              <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">2</span>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Operation &amp; Shift Details</h4>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Deheading Station</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.deheadingStation || row.lineNo || '-')}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Deheading Date</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.deheadingDate || '-')}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Shift</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.shift || '-')}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Supervisor</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.supervisor || '-')}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 3: Count & Quantity Analysis -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9] pb-2 mb-3">
+              <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">3</span>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Count &amp; Quantity Analysis</h4>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Species</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(defaultSpecies)}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Checking Count-2</span>
+                <span class="font-mono font-bold text-[#172B4D] text-xs block mt-0.5">${checkingCount2}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">HON Count</span>
+                <span class="font-mono font-semibold text-[#42526E] text-xs block mt-0.5">${honCount}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">HL Count</span>
+                <span class="font-mono font-bold text-[#00A4B7] text-xs block mt-0.5">${hlCount}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">HON Quantity (Kgs)</span>
+                <span class="font-mono font-bold text-[#172B4D] text-xs block mt-0.5">${honQty.toLocaleString()} Kg</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">HL Quantity (Kgs)</span>
+                <span class="font-mono font-bold text-[#00875A] text-xs block mt-0.5">${hlQty.toLocaleString()} Kg</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Count Net Yield (%)</span>
+                <span class="font-mono font-bold text-[#00A4B7] text-xs block mt-0.5">${row.countNetYieldPct || yieldPct}%</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Recovery Yield (%)</span>
+                <span class="font-mono font-extrabold text-xs block mt-0.5 ${yieldPct >= 65 ? 'text-[#00875A]' : 'text-[#FF8B00]'}">${yieldPct}%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 4: Auxiliary & Processing Remarks -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9] pb-2 mb-3">
+              <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">4</span>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Auxiliary &amp; Processing Remarks</h4>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Ice Consumption</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.iceConsumption || '-')}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Head Waste (Est.)</span>
+                <span class="font-mono font-bold text-[#DE350B] text-xs block mt-0.5">${wasteWt.toLocaleString()} Kg</span>
+              </div>
+              <div class="col-span-2">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Remarks</span>
+                <span class="font-medium text-[#172B4D] text-xs block mt-0.5 break-words">${this.escape(row.remarks || 'None')}</span>
               </div>
             </div>
           </div>
@@ -20209,20 +20264,20 @@ const PreprocessingView = {
         {
           label: 'Print Batch Sheet',
           type: 'secondary',
-          class: 'btn btn-outline rounded-full px-5 py-2 font-semibold',
+          class: 'btn-secondary px-5 py-2 rounded-full text-xs font-semibold border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#172B4D] transition-all cursor-pointer',
           onClick: () => window.print()
         },
         {
           label: 'Close',
-          type: 'secondary',
-          class: 'btn btn-secondary rounded-full px-5 py-2 font-semibold',
+          type: 'primary',
+          class: 'btn-primary px-5 py-2 rounded-full text-xs font-bold shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer',
           onClick: modal => modal.close()
         }
       ]
     });
   },
 
-  showGradingDetailsModal(row) {
+    showGradingDetailsModal(row) {
     const defaultVariety = row.variety || row.species || 'Vannamei (VM)';
     const totalGraded = Number(row.hlWeightKgs || row.totalGradedKg || 2750);
     const noOfCrates = Number(row.noOfCrates || 110);
