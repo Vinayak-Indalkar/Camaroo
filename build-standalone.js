@@ -21,6 +21,7 @@ const charts = fs.readFileSync(path.join(__dirname, 'js', 'components', 'charts.
 const skeleton = fs.readFileSync(path.join(__dirname, 'js', 'components', 'skeleton.js'), 'utf-8');
 
 
+const homeView = fs.readFileSync(path.join(__dirname, 'js', 'views', 'homeView.js'), 'utf-8');
 const loginView = fs.readFileSync(path.join(__dirname, 'js', 'views', 'loginView.js'), 'utf-8');
 const purchaseView = fs.readFileSync(path.join(__dirname, 'js', 'views', 'purchaseView.js'), 'utf-8');
 const preprocessingView = fs.readFileSync(path.join(__dirname, 'js', 'views', 'preprocessingView.js'), 'utf-8');
@@ -68,6 +69,7 @@ const combinedJS = `
   ${cleanCode(skeleton)}
 
   // Views
+  ${cleanCode(homeView)}
   ${cleanCode(loginView)}
   ${cleanCode(purchaseView)}
   ${cleanCode(preprocessingView)}

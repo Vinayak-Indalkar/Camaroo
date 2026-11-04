@@ -12,6 +12,7 @@ import { Breadcrumbs } from './components/breadcrumbs.js';
 
 // Views
 import { LoginView } from './views/loginView.js';
+import { HomeView } from './views/homeView.js';
 import { PurchaseView } from './views/purchaseView.js';
 import { PreprocessingView } from './views/preprocessingView.js';
 import { QCView } from './views/qcView.js';
@@ -251,7 +252,7 @@ export const App = {
       try {
         switch (modObj.id) {
           case 'dashboard':
-            SuperAdminDashboardView.render(mainContainer, tabName, resolvedHash);
+            HomeView.render(mainContainer, tabName, resolvedHash);
             break;
           case 'general':
             SetupView.render(mainContainer, tabName, resolvedHash);

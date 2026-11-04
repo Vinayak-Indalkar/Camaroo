@@ -4,15 +4,15 @@ import { ERP_DATA } from '../data/mockData.js';
 export const ADMIN_NAV_HIERARCHY = [
   {
     id: "dashboard",
-    title: "Dashboard",
+    title: "Home",
     icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>`,
     submenus: [
       {
         id: "overview",
-        title: "Dashboard",
+        title: "Home",
         defaultTab: "system-overview",
         tabs: [
-          { id: "system-overview", label: "Dashboard", hash: "#/dashboard/overview/system-overview" }
+          { id: "system-overview", label: "Home", hash: "#/dashboard/overview/system-overview" }
         ]
       }
     ]
@@ -442,7 +442,7 @@ export const ADMIN_NAV_HIERARCHY = [
 export const SUPER_ADMIN_NAV_HIERARCHY = [
   {
     id: "dashboard",
-    title: "Dashboard",
+    title: "Home",
     icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>`,
     submenus: [
       {
@@ -669,6 +669,25 @@ export const Sidebar = {
       const isExpanded = mod.id === this.activeModuleId;
       const groupWrapperClass = 'nav-module-group mb-1';
 
+      // Home: Direct navigation button without submenus or chevron
+      if (mod.id === 'dashboard') {
+        return `
+          <div class="${groupWrapperClass}">
+            <button 
+              data-module-id="dashboard" 
+              class="sidebar-mod-btn w-full px-3 py-2 rounded-lg text-xs font-bold flex items-center justify-between transition-colors cursor-pointer ${isExpanded ? 'bg-white/10 text-white font-bold' : 'text-[#94A3B8] hover:bg-white/5 hover:text-white'}"
+              title="Home"
+            >
+              <div class="flex items-center gap-2.5 truncate">
+                <span class="w-4 h-4 flex items-center justify-center shrink-0 ${isExpanded ? 'text-[#00A4B7]' : 'text-[#94A3B8]'}">${mod.icon}</span>
+                <span class="text-xs tracking-tight truncate ${isExpanded ? 'text-white' : 'text-[#94A3B8]'}">Home</span>
+              </div>
+              ${isExpanded ? `<span class="w-1.5 h-1.5 rounded-full bg-[#00A4B7] shrink-0"></span>` : ''}
+            </button>
+          </div>
+        `;
+      }
+
       // Super Admin: Clean direct menu buttons for non-settings modules
       if (isSuperAdmin && mod.id !== 'settings') {
         return `
@@ -742,6 +761,24 @@ export const Sidebar = {
       const isCurrentMod = mod.id === this.activeModuleId;
       const groupWrapperClass = 'relative group flex justify-center nav-module-group';
       const firstTabHash = mod.submenus[0]?.tabs[0]?.hash || '#/';
+
+      // Home in collapsed mode: clean icon with tooltip, no submenus flyout
+      if (mod.id === 'dashboard') {
+        return `
+          <div class="${groupWrapperClass}">
+            <button 
+              data-module-id="dashboard" 
+              class="sidebar-mod-btn w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-200 cursor-pointer ${isCurrentMod ? 'bg-[#00A4B7] text-white ring-2 ring-[#00A4B7] font-bold' : 'text-[#94A3B8] hover:bg-white/5 hover:text-white'}"
+              title="Home"
+            >
+              <span class="w-4 h-4 flex items-center justify-center ${isCurrentMod ? 'text-white' : ''}">${mod.icon}</span>
+            </button>
+            <div class="absolute left-full top-0 ml-3 px-2 py-1 bg-[#0F172A] border border-[#1E293B] rounded-lg text-white font-bold text-xs whitespace-nowrap hidden group-hover:block z-50 pointer-events-none">
+              Home
+            </div>
+          </div>
+        `;
+      }
 
       if (isSuperAdmin && mod.id !== 'settings') {
         return `
