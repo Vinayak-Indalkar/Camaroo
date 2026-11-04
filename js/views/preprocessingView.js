@@ -2111,7 +2111,7 @@ export const PreprocessingView = {
           <!-- Save Button directly below form -->
           <div class="flex items-center justify-end pt-1 pb-1">
             <button type="submit" form="form-add-deheading" id="btn-save-deheading-form" class="btn-primary px-5 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/></svg>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 21v-8H7v8"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 3v5h8V3"></path></svg>
               <span>Save</span>
             </button>
           </div>
@@ -2218,7 +2218,7 @@ export const PreprocessingView = {
           <td class="py-2 px-3 text-center whitespace-nowrap sticky right-0 bg-white group-hover:bg-[#F8FAFC] z-10 border-l border-[#DFE1E6] shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.06)]" style="position: sticky; right: 0;">
             <div class="inline-flex items-center gap-1.5 justify-center">
               <button type="button" data-idx="${idx}" class="btn-save-ndh-entry dt-action-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none p-0" title="Save Record">
-                <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/></svg>
+                <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 21v-8H7v8"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 3v5h8V3"></path></svg>
               </button>
               <button type="button" data-idx="${idx}" class="btn-remove-ndh-entry dt-action-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#FFEBE6] border border-[#CBD5E1] hover:border-[#DE350B] text-[#DE350B] rounded-full transition-colors cursor-pointer select-none p-0" title="Delete Record">
                 <svg class="w-4 h-4 text-[#DE350B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
