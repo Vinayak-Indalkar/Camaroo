@@ -2087,33 +2087,157 @@ export const PreprocessingView = {
       { name: 'iceConsumption', label: 'Ice Consumption', optional: true },
       { name: 'remarks', label: 'Remarks', optional: true }
     ];
+
+    // List of batches added during this modal session
+    const batchEntries = [];
+
     Modal.open({
       title: 'Add Deheading',
       size: 'full',
-      content: `<form id="form-add-deheading" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs">
-        ${fields.map(field => `<div>
-          <label for="ndh-${field.name}" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">${field.label}${field.optional ? '' : ' <span class="text-[#DE350B]">*</span>'}</label>
-          ${field.options
-            ? `<select id="ndh-${field.name}" name="${field.name}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>${field.options.map(option => `<option></option>`).join('')}</select>`
-            : field.type === 'date'
-              ? `<div class="erp-date-wrapper"><input id="ndh-${field.name}" name="${field.name}" type="date" value="${field.value || ''}" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" required onclick="this.showPicker ? this.showPicker() : this.focus()" /></div>`
-              : `<input id="ndh-${field.name}" name="${field.name}" type="${field.type || 'text'}" value="${field.value || ''}" ${field.type === 'number' ? `min="${field.min || '0'}" step="any"` : ''} ${field.optional ? '' : 'required'} class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" />`}
-        </div>`).join('')}
-      </form>`,
+      content: `
+        <div class="space-y-4">
+          <!-- Form Section -->
+          <form id="form-add-deheading" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs">
+            ${fields.map(field => `<div>
+              <label for="ndh-${field.name}" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">${field.label}${field.optional ? '' : ' <span class="text-[#DE350B]">*</span>'}</label>
+              ${field.options
+                ? `<select id="ndh-${field.name}" name="${field.name}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>${field.options.map(option => `<option></option>`).join('')}</select>`
+                : field.type === 'date'
+                  ? `<div class="erp-date-wrapper"><input id="ndh-${field.name}" name="${field.name}" type="date" value="${field.value || ''}" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" required onclick="this.showPicker ? this.showPicker() : this.focus()" /></div>`
+                  : `<input id="ndh-${field.name}" name="${field.name}" type="${field.type || 'text'}" value="${field.value || ''}" ${field.type === 'number' ? `min="${field.min || '0'}" step="any"` : ''} ${field.optional ? '' : 'required'} class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" />`}
+            </div>`).join('')}
+          </form>
+
+          <!-- Deheading Records Table Inside Modal -->
+          <div class="border-t border-[#DFE1E6] pt-3 flex flex-col space-y-2">
+            <div class="flex items-center justify-between">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Deheading Records &amp; Batch Output</h4>
+              <span id="ndh-table-count" class="text-[11px] font-semibold text-[#5E6C84]">0 records</span>
+            </div>
+
+            <!-- Table Card Container -->
+            <div class="bg-white rounded-none border border-[#DFE1E6] shadow-sm flex flex-col overflow-hidden">
+              <div class="overflow-x-auto min-h-[160px] max-h-[320px] overflow-y-auto">
+                <table class="erp-table w-full text-left text-xs border-collapse" style="min-width: 1300px;">
+                  <thead class="bg-[#FAFBFC] border-b border-[#DFE1E6] text-[#475569] font-bold uppercase tracking-wider text-[11px] sticky top-0 z-10">
+                    <tr>
+                      <th class="py-2.5 px-3 min-w-[50px]">S.No</th>
+                      <th class="py-2.5 px-3 min-w-[120px]">Arrival Code</th>
+                      <th class="py-2.5 px-3 min-w-[130px]">Production Plant</th>
+                      <th class="py-2.5 px-3 min-w-[140px]">Center</th>
+                      <th class="py-2.5 px-3 min-w-[105px]">De Heading Date</th>
+                      <th class="py-2.5 px-3 min-w-[100px]">Shift</th>
+                      <th class="py-2.5 px-3 min-w-[120px]">SuperVisor</th>
+                      <th class="py-2.5 px-3 min-w-[90px]">Checking Count-2</th>
+                      <th class="py-2.5 px-3 min-w-[75px]">HL Count</th>
+                      <th class="py-2.5 px-3 min-w-[85px]">HON Count</th>
+                      <th class="py-2.5 px-3 min-w-[110px]">HON Quantity(Kgs)</th>
+                      <th class="py-2.5 px-3 min-w-[110px]">HL Quantity(Kgs)</th>
+                      <th class="py-2.5 px-3 min-w-[100px]">Count Net Yield(%)</th>
+                      <th class="py-2.5 px-3 min-w-[80px]">Yield(%)</th>
+                      <th class="py-2.5 px-3 min-w-[100px]">Ice Consumption</th>
+                      <th class="py-2.5 px-3 min-w-[140px]">Remarks</th>
+                      <th class="py-2.5 px-3 min-w-[70px] text-center">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="ndh-modal-tbody" class="divide-y divide-[#E2E8F0] text-[#1E293B]">
+                    <tr>
+                      <td colspan="17" class="py-8 text-center text-xs text-[#8993A4] bg-[#FAFBFC]">
+                        No deheading record added yet. Fill the form above and click <strong>Save Deheading</strong> to display here.
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      `,
       footerButtons: [
         { label: 'Cancel', type: 'secondary', onClick: modal => modal.close() },
         { label: 'Save Deheading', type: 'primary', onClick: () => document.getElementById('form-add-deheading')?.requestSubmit() }
       ]
     });
+
     const form = document.getElementById('form-add-deheading');
     fields.filter(field => field.options).forEach(field => {
-      const select = form.elements.namedItem(field.name);
-      field.options.forEach((value, index) => {
-        select.options[index].textContent = value;
-        select.options[index].value = value;
-      });
+      const select = form?.elements.namedItem(field.name);
+      if (select) {
+        field.options.forEach((value, index) => {
+          if (select.options[index]) {
+            select.options[index].textContent = value;
+            select.options[index].value = value;
+          }
+        });
+      }
     });
-    form.addEventListener('submit', event => {
+
+    const renderInnerTable = () => {
+      const tbody = document.getElementById('ndh-modal-tbody');
+      const countEl = document.getElementById('ndh-table-count');
+      if (!tbody) return;
+
+      if (countEl) {
+        countEl.textContent = `${batchEntries.length} ${batchEntries.length === 1 ? 'record' : 'records'}`;
+      }
+
+      if (batchEntries.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="17" class="py-8 text-center text-xs text-[#8993A4] bg-[#FAFBFC]">
+              No deheading record added yet. Fill the form above and click <strong>Save Deheading</strong> to display here.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = batchEntries.map((row, idx) => `
+        <tr class="hover:bg-[#F8FAFC] transition-colors">
+          <td class="py-2 px-3 font-semibold text-[#5E6C84]">${idx + 1}</td>
+          <td class="py-2 px-3 font-bold text-[#00A4B7] whitespace-nowrap">${this.escape(row.arrivalCode)}</td>
+          <td class="py-2 px-3 font-semibold text-[#172B4D] whitespace-nowrap">${this.escape(row.productionPlant)}</td>
+          <td class="py-2 px-3 text-[#42526E] whitespace-nowrap">${this.escape(row.center)}</td>
+          <td class="py-2 px-3 text-[#172B4D] whitespace-nowrap">${this.escape(row.deheadingDate)}</td>
+          <td class="py-2 px-3 whitespace-nowrap"><span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#F4F5F7] text-[#42526E] border border-[#DFE1E6]">${this.escape(row.shift)}</span></td>
+          <td class="py-2 px-3 font-medium text-[#172B4D] whitespace-nowrap">${this.escape(row.supervisor)}</td>
+          <td class="py-2 px-3 font-mono text-xs font-bold text-[#172B4D]">${row.checkingCount2}</td>
+          <td class="py-2 px-3 font-mono text-xs font-bold text-[#0284C7]">${row.hlCount}</td>
+          <td class="py-2 px-3 font-mono text-xs font-semibold text-[#42526E]">${row.honCount}</td>
+          <td class="py-2 px-3 font-bold text-[#172B4D] whitespace-nowrap">${Number(row.honQuantityKgs).toLocaleString()} Kg</td>
+          <td class="py-2 px-3 font-bold text-[#00875A] whitespace-nowrap">${Number(row.hlQuantityKgs).toLocaleString()} Kg</td>
+          <td class="py-2 px-3 font-bold text-[#00A4B7]">${row.countNetYieldPct}%</td>
+          <td class="py-2 px-3 whitespace-nowrap"><span class="px-2 py-0.5 rounded text-xs font-bold ${row.yieldPct >= 65 ? 'bg-[#E3FCEF] text-[#006644]' : 'bg-[#FFF0B3] text-[#172B4D]'}">${row.yieldPct}%</span></td>
+          <td class="py-2 px-3 text-[#5E6C84] font-medium whitespace-nowrap">${this.escape(row.iceConsumption || '-')}</td>
+          <td class="py-2 px-3 text-xs text-[#5E6C84] truncate max-w-[160px]" title="${this.escape(row.remarks || '-')}">${this.escape(row.remarks || '-')}</td>
+          <td class="py-2 px-3 text-center whitespace-nowrap">
+            <button type="button" data-idx="${idx}" class="btn-remove-ndh-entry dt-action-btn w-7 h-7 min-w-[28px] min-h-[28px] inline-flex items-center justify-center bg-white hover:bg-[#FFEBE6] border border-[#CBD5E1] hover:border-[#DE350B] text-[#DE350B] rounded-full transition-colors cursor-pointer select-none p-0" title="Delete record">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+            </button>
+          </td>
+        </tr>
+      `).join('');
+
+      tbody.querySelectorAll('.btn-remove-ndh-entry').forEach(btn => {
+        btn.addEventListener('click', e => {
+          const entryIdx = parseInt(e.currentTarget.getAttribute('data-idx'), 10);
+          const removed = batchEntries.splice(entryIdx, 1)[0];
+          // Also remove from global state
+          if (removed) {
+            const stateIdx = this.state.deheadingBatches.findIndex(b => b.id === removed.id);
+            if (stateIdx !== -1) {
+              this.state.deheadingBatches.splice(stateIdx, 1);
+              this.state.deheadingBatches.forEach((batch, index) => { batch.sNo = index + 1; });
+              this.renderDeheadingScreen(container);
+            }
+          }
+          renderInnerTable();
+          Toast.show('Deheading entry removed', 'info');
+        });
+      });
+    };
+
+    form?.addEventListener('submit', event => {
       event.preventDefault();
       const values = Object.fromEntries(new FormData(form));
       const inputWeight = Number(values.honQuantityKgs);
@@ -2148,11 +2272,44 @@ export const PreprocessingView = {
         startTime: new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }),
         endTime: ''
       };
+
+      // Push to modal table batch entries
+      batchEntries.unshift(entry);
+
+      // Add to overall application state
       this.state.deheadingBatches.unshift(entry);
       this.state.deheadingBatches.forEach((batch, index) => { batch.sNo = index + 1; });
-      Modal.close();
+
+      // Refresh the background page table
       this.renderDeheadingScreen(container);
-      Toast.show(`Deheading batch ${entry.id} added`, 'success');
+
+      // Render the updated table inside the modal
+      renderInnerTable();
+
+      // Reset numeric & remarks form fields so user can immediately add another entry if needed
+      const checkingCount2Input = document.getElementById('ndh-checkingCount2');
+      const honCountInput = document.getElementById('ndh-honCount');
+      const hlCountInput = document.getElementById('ndh-hlCount');
+      const honQtyInput = document.getElementById('ndh-honQuantityKgs');
+      const hlQtyInput = document.getElementById('ndh-hlQuantityKgs');
+      const iceInput = document.getElementById('ndh-iceConsumption');
+      const remarksInput = document.getElementById('ndh-remarks');
+
+      if (checkingCount2Input) checkingCount2Input.value = '';
+      if (honCountInput) honCountInput.value = '';
+      if (hlCountInput) hlCountInput.value = '';
+      if (honQtyInput) honQtyInput.value = '';
+      if (hlQtyInput) hlQtyInput.value = '';
+      if (iceInput) iceInput.value = '';
+      if (remarksInput) remarksInput.value = '';
+
+      // Scroll modal body smoothly down to show the newly added row
+      const modalBody = form?.closest('.overflow-y-auto');
+      if (modalBody) {
+        modalBody.scrollTo({ top: modalBody.scrollHeight, behavior: 'smooth' });
+      }
+
+      Toast.show(`Deheading batch ${entry.id} saved & displayed in table`, 'success');
     });
   },
 
