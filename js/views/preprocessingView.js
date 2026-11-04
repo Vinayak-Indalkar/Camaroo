@@ -2187,6 +2187,11 @@ export const PreprocessingView = {
       }
     });
 
+    const plantsList = [...new Set(this.state.deheadingBatches.map(b => b.productionPlant))];
+    const centersList = [...new Set(this.state.deheadingBatches.map(b => b.center))];
+    const shiftsList = ['Shift A (Day)', 'Shift B (Evening)', 'Shift C (Night)'];
+    const supervisorsList = [...new Set(this.state.deheadingBatches.map(b => b.supervisor))];
+
     const renderInnerTable = () => {
       const tbody = document.getElementById('ndh-modal-tbody');
       const countEl = document.getElementById('ndh-table-count');
@@ -2208,51 +2213,171 @@ export const PreprocessingView = {
       }
 
       tbody.innerHTML = batchEntries.map((row, idx) => `
-        <tr class="hover:bg-[#F8FAFC] transition-colors group">
-          <td class="py-2 px-3 font-semibold text-[#5E6C84]">${idx + 1}</td>
-          <td class="py-2 px-3 font-bold text-[#00A4B7] whitespace-nowrap">${this.escape(row.arrivalCode)}</td>
-          <td class="py-2 px-3 font-semibold text-[#172B4D] whitespace-nowrap">${this.escape(row.productionPlant)}</td>
-          <td class="py-2 px-3 text-[#42526E] whitespace-nowrap">${this.escape(row.center)}</td>
-          <td class="py-2 px-3 text-[#172B4D] whitespace-nowrap">${this.escape(row.deheadingDate)}</td>
-          <td class="py-2 px-3 whitespace-nowrap"><span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#F4F5F7] text-[#42526E] border border-[#DFE1E6]">${this.escape(row.shift)}</span></td>
-          <td class="py-2 px-3 font-medium text-[#172B4D] whitespace-nowrap">${this.escape(row.supervisor)}</td>
-          <td class="py-2 px-3 font-mono text-xs font-bold text-[#172B4D]">${row.checkingCount2}</td>
-          <td class="py-2 px-3 font-mono text-xs font-bold text-[#0284C7]">${row.hlCount}</td>
-          <td class="py-2 px-3 font-mono text-xs font-semibold text-[#42526E]">${row.honCount}</td>
-          <td class="py-2 px-3 font-bold text-[#172B4D] whitespace-nowrap">${Number(row.honQuantityKgs).toLocaleString()} Kg</td>
-          <td class="py-2 px-3 font-bold text-[#00875A] whitespace-nowrap">${Number(row.hlQuantityKgs).toLocaleString()} Kg</td>
-          <td class="py-2 px-3 font-bold text-[#00A4B7]">${row.countNetYieldPct}%</td>
-          <td class="py-2 px-3 whitespace-nowrap"><span class="px-2 py-0.5 rounded text-xs font-bold ${row.yieldPct >= 65 ? 'bg-[#E3FCEF] text-[#006644]' : 'bg-[#FFF0B3] text-[#172B4D]'}">${row.yieldPct}%</span></td>
-          <td class="py-2 px-3 text-[#5E6C84] font-medium whitespace-nowrap">${this.escape(row.iceConsumption || '-')}</td>
-          <td class="py-2 px-3 text-xs text-[#5E6C84] truncate max-w-[160px]" title="${this.escape(row.remarks || '-')}">${this.escape(row.remarks || '-')}</td>
+        <tr class="hover:bg-[#F8FAFC] transition-colors group ndh-editable-row" data-row-idx="${idx}">
+          <td class="py-2 px-3 font-semibold text-[#5E6C84] text-center">${idx + 1}</td>
+          <td class="py-1.5 px-2 whitespace-nowrap">
+            <input type="text" data-field="arrivalCode" value="${this.escape(row.arrivalCode)}" class="w-24 text-xs px-2 py-1 bg-white border border-[#DFE1E6] rounded font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </td>
+          <td class="py-1.5 px-2 whitespace-nowrap">
+            <select data-field="productionPlant" class="w-36 text-xs px-2 py-1 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              ${plantsList.map(p => `<option value="${this.escape(p)}" ${p === row.productionPlant ? 'selected' : ''}>${this.escape(p)}</option>`).join('')}
+            </select>
+          </td>
+          <td class="py-1.5 px-2 whitespace-nowrap">
+            <select data-field="center" class="w-36 text-xs px-2 py-1 bg-white border border-[#DFE1E6] rounded font-medium text-[#42526E] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              ${centersList.map(c => `<option value="${this.escape(c)}" ${c === row.center ? 'selected' : ''}>${this.escape(c)}</option>`).join('')}
+            </select>
+          </td>
+          <td class="py-1.5 px-2 whitespace-nowrap">
+            <input type="text" data-field="deheadingDate" value="${this.escape(row.deheadingDate)}" class="w-24 text-xs px-2 py-1 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </td>
+          <td class="py-1.5 px-2 whitespace-nowrap">
+            <select data-field="shift" class="w-28 text-xs px-2 py-1 bg-white border border-[#DFE1E6] rounded font-medium text-[#42526E] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              ${shiftsList.map(s => `<option value="${this.escape(s)}" ${s === row.shift ? 'selected' : ''}>${this.escape(s)}</option>`).join('')}
+            </select>
+          </td>
+          <td class="py-1.5 px-2 whitespace-nowrap">
+            <select data-field="supervisor" class="w-32 text-xs px-2 py-1 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              ${supervisorsList.map(sv => `<option value="${this.escape(sv)}" ${sv === row.supervisor ? 'selected' : ''}>${this.escape(sv)}</option>`).join('')}
+            </select>
+          </td>
+          <td class="py-1.5 px-2 whitespace-nowrap">
+            <input type="number" step="any" min="0" data-field="checkingCount2" value="${row.checkingCount2}" class="w-16 text-xs px-2 py-1 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs text-right" />
+          </td>
+          <td class="py-1.5 px-2 whitespace-nowrap">
+            <input type="number" step="any" min="0" data-field="hlCount" value="${row.hlCount}" class="w-16 text-xs px-2 py-1 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#0284C7] focus:outline-none focus:border-[#00A4B7] shadow-2xs text-right" />
+          </td>
+          <td class="py-1.5 px-2 whitespace-nowrap">
+            <input type="number" step="any" min="0" data-field="honCount" value="${row.honCount}" class="w-16 text-xs px-2 py-1 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#42526E] focus:outline-none focus:border-[#00A4B7] shadow-2xs text-right" />
+          </td>
+          <td class="py-1.5 px-2 whitespace-nowrap">
+            <input type="number" step="any" min="0.01" data-field="honQuantityKgs" value="${row.honQuantityKgs}" class="ndh-edit-hon w-20 text-xs px-2 py-1 bg-white border border-[#DFE1E6] rounded font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs text-right" />
+          </td>
+          <td class="py-1.5 px-2 whitespace-nowrap">
+            <input type="number" step="any" min="0.01" data-field="hlQuantityKgs" value="${row.hlQuantityKgs}" class="ndh-edit-hl w-20 text-xs px-2 py-1 bg-white border border-[#DFE1E6] rounded font-bold text-[#00875A] focus:outline-none focus:border-[#00A4B7] shadow-2xs text-right" />
+          </td>
+          <td class="py-2 px-3 whitespace-nowrap text-center">
+            <span class="ndh-edit-net-yield font-bold text-[#00A4B7]">${row.countNetYieldPct}%</span>
+          </td>
+          <td class="py-2 px-3 whitespace-nowrap text-center">
+            <span class="ndh-edit-yield px-2 py-0.5 rounded text-xs font-bold ${row.yieldPct >= 65 ? 'bg-[#E3FCEF] text-[#006644]' : 'bg-[#FFF0B3] text-[#172B4D]'}">${row.yieldPct}%</span>
+          </td>
+          <td class="py-1.5 px-2 whitespace-nowrap">
+            <input type="text" data-field="iceConsumption" value="${this.escape(row.iceConsumption || '')}" placeholder="-" class="w-20 text-xs px-2 py-1 bg-white border border-[#DFE1E6] rounded font-medium text-[#5E6C84] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </td>
+          <td class="py-1.5 px-2 whitespace-nowrap">
+            <input type="text" data-field="remarks" value="${this.escape(row.remarks || '')}" placeholder="-" class="w-28 text-xs px-2 py-1 bg-white border border-[#DFE1E6] rounded text-[#5E6C84] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </td>
           <td class="py-2 px-3 text-center whitespace-nowrap sticky right-0 bg-white group-hover:bg-[#F8FAFC] z-10 border-l border-[#DFE1E6] shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.06)]" style="position: sticky; right: 0;">
             <div class="inline-flex items-center gap-1.5 justify-center">
               <button type="button" data-idx="${idx}" class="btn-save-ndh-entry dt-action-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none p-0" title="Save Record">
                 <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 21v-8H7v8"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 3v5h8V3"></path></svg>
               </button>
               <button type="button" data-idx="${idx}" class="btn-remove-ndh-entry dt-action-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#FFEBE6] border border-[#CBD5E1] hover:border-[#DE350B] text-[#DE350B] rounded-full transition-colors cursor-pointer select-none p-0" title="Delete Record">
-                <svg class="w-4 h-4 text-[#DE350B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                <svg class="w-4 h-4 text-[#DE350B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
               </button>
             </div>
           </td>
         </tr>
       `).join('');
 
+      // Live recalculation when editing HON or HL quantity
+      tbody.querySelectorAll('.ndh-editable-row').forEach(rowEl => {
+        const honInput = rowEl.querySelector('.ndh-edit-hon');
+        const hlInput = rowEl.querySelector('.ndh-edit-hl');
+        const yieldEl = rowEl.querySelector('.ndh-edit-yield');
+        const netYieldEl = rowEl.querySelector('.ndh-edit-net-yield');
+
+        const recalc = () => {
+          const hon = parseFloat(honInput?.value) || 0;
+          const hl = parseFloat(hlInput?.value) || 0;
+          if (hon > 0) {
+            const y = Number(((hl / hon) * 100).toFixed(1));
+            if (yieldEl) {
+              yieldEl.textContent = `${y}%`;
+              yieldEl.className = `ndh-edit-yield px-2 py-0.5 rounded text-xs font-bold ${y >= 65 ? 'bg-[#E3FCEF] text-[#006644]' : 'bg-[#FFF0B3] text-[#172B4D]'}`;
+            }
+            if (netYieldEl) {
+              netYieldEl.textContent = `${y}%`;
+            }
+          }
+        };
+
+        honInput?.addEventListener('input', recalc);
+        hlInput?.addEventListener('input', recalc);
+      });
+
+      // Save row edits on clicking floppy disk Save button
       tbody.querySelectorAll('.btn-save-ndh-entry').forEach(btn => {
         btn.addEventListener('click', e => {
           const entryIdx = parseInt(e.currentTarget.getAttribute('data-idx'), 10);
+          const rowEl = tbody.querySelector(`.ndh-editable-row[data-row-idx="${entryIdx}"]`);
+          if (!rowEl) return;
+
           const row = batchEntries[entryIdx];
-          if (row) {
-            Toast.show(`Record ${row.id} (${row.arrivalCode}) saved successfully`, 'success');
+          if (!row) return;
+
+          const arrivalCode = rowEl.querySelector('[data-field="arrivalCode"]')?.value || row.arrivalCode;
+          const productionPlant = rowEl.querySelector('[data-field="productionPlant"]')?.value || row.productionPlant;
+          const center = rowEl.querySelector('[data-field="center"]')?.value || row.center;
+          const deheadingDate = rowEl.querySelector('[data-field="deheadingDate"]')?.value || row.deheadingDate;
+          const shift = rowEl.querySelector('[data-field="shift"]')?.value || row.shift;
+          const supervisor = rowEl.querySelector('[data-field="supervisor"]')?.value || row.supervisor;
+          const checkingCount2 = Number(rowEl.querySelector('[data-field="checkingCount2"]')?.value) || 0;
+          const hlCount = Number(rowEl.querySelector('[data-field="hlCount"]')?.value) || 0;
+          const honCount = Number(rowEl.querySelector('[data-field="honCount"]')?.value) || 0;
+          const honQty = Number(rowEl.querySelector('[data-field="honQuantityKgs"]')?.value) || 0;
+          const hlQty = Number(rowEl.querySelector('[data-field="hlQuantityKgs"]')?.value) || 0;
+          const iceConsumption = rowEl.querySelector('[data-field="iceConsumption"]')?.value || '';
+          const remarks = rowEl.querySelector('[data-field="remarks"]')?.value || '';
+
+          if (hlQty > honQty) {
+            Toast.show('HL quantity cannot exceed HON quantity', 'error');
+            return;
           }
+
+          const yieldPct = honQty > 0 ? Number(((hlQty / honQty) * 100).toFixed(1)) : 0;
+
+          Object.assign(row, {
+            arrivalCode,
+            lotNo: arrivalCode,
+            productionPlant,
+            center,
+            deheadingDate,
+            shift,
+            supervisor,
+            checkingCount2,
+            hlCount,
+            honCount,
+            honQuantityKgs: honQty,
+            hlQuantityKgs: hlQty,
+            inputHonWt: honQty,
+            outputDhWt: hlQty,
+            yieldPct,
+            countNetYieldPct: yieldPct,
+            recoveryPct: yieldPct,
+            sampleYieldPct: yieldPct,
+            wasteHeadWt: Math.max(0, honQty - hlQty),
+            iceConsumption,
+            remarks
+          });
+
+          // Sync with state.deheadingBatches
+          const stateBatch = this.state.deheadingBatches.find(b => b.id === row.id);
+          if (stateBatch) {
+            Object.assign(stateBatch, row);
+            this.renderDeheadingScreen(container);
+          }
+
+          Toast.show(`Record ${row.id} (${arrivalCode}) saved successfully`, 'success');
         });
       });
 
+      // Delete row button
       tbody.querySelectorAll('.btn-remove-ndh-entry').forEach(btn => {
         btn.addEventListener('click', e => {
           const entryIdx = parseInt(e.currentTarget.getAttribute('data-idx'), 10);
           const removed = batchEntries.splice(entryIdx, 1)[0];
-          // Also remove from global state
           if (removed) {
             const stateIdx = this.state.deheadingBatches.findIndex(b => b.id === removed.id);
             if (stateIdx !== -1) {
@@ -2266,7 +2391,6 @@ export const PreprocessingView = {
         });
       });
     };
-
     let shouldCloseOnSubmit = false;
 
     const saveBtn = document.getElementById('btn-save-deheading-form');
