@@ -163,7 +163,7 @@ body {
 /* ERP App Shell: Fixed Geometry & Anti-Overlap */
 :root {
   --erp-sidebar-width: 272px;
-  --erp-sidebar-collapsed-width: 72px;
+  --erp-sidebar-collapsed-width: 68px;
   --erp-sidebar-offset: 12px;
   --erp-sidebar-gap: 16px;
 }
@@ -185,23 +185,6 @@ body {
 #sidebar-container #erp-sidebar {
   width: 100% !important;
   height: 100% !important;
-  border-radius: 28px !important;
-  background-color: #0B132B !important;
-  border: 1px solid rgba(30, 41, 59, 0.8) !important;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5) !important;
-}
-
-/* Side Menu Active Item Styling */
-#erp-sidebar .sidebar-mod-btn.is-active,
-#erp-sidebar button.sidebar-mod-btn.is-active {
-  background-color: #182337 !important;
-  color: #FFFFFF !important;
-  border: 1px solid rgba(39, 53, 79, 0.6) !important;
-}
-
-#erp-sidebar .nav-submenu-block a.is-sub-active {
-  background-color: #00A4B7 !important;
-  color: #FFFFFF !important;
 }
 
 /* Side Menu Active Item Styling - Pure White text and icon on #00A4B7 / rgb(0 163 182) */
@@ -7247,7 +7230,6 @@ const ADMIN_NAV_HIERARCHY = [
   {
     id: "dashboard",
     title: "Dashboard",
-    category: "ENTERPRISE OPERATIONS",
     icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>`,
     submenus: [
       {
@@ -7263,8 +7245,7 @@ const ADMIN_NAV_HIERARCHY = [
   {
     id: "sales",
     title: "Sales & Exports",
-    category: "ENTERPRISE OPERATIONS",
-    icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>`,
+    icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`,
     submenus: [
       {
         id: "dashboard",
@@ -7316,7 +7297,6 @@ const ADMIN_NAV_HIERARCHY = [
   {
     id: "purchase",
     title: "Purchase",
-    category: "ENTERPRISE OPERATIONS",
     icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>`,
     submenus: [
       {
@@ -7362,8 +7342,7 @@ const ADMIN_NAV_HIERARCHY = [
   {
     id: "preprocessing",
     title: "Pre-Processing",
-    category: "ENTERPRISE OPERATIONS",
-    icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11L12 15L5 11M19 15L12 19L5 15M12 3L2 8L12 13L22 8L12 3Z"/></svg>`,
+    icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>`,
     submenus: [
       {
         id: "dashboard",
@@ -7406,7 +7385,6 @@ const ADMIN_NAV_HIERARCHY = [
   {
     id: "quality",
     title: "Quality Control",
-    category: "ENTERPRISE OPERATIONS",
     icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>`,
     submenus: [
       {
@@ -7465,8 +7443,7 @@ const ADMIN_NAV_HIERARCHY = [
   {
     id: "production",
     title: "Production",
-    category: "ENTERPRISE OPERATIONS",
-    icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21h18M3 21V10l6 4V10l6 4V7l6 4v10"/></svg>`,
+    icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>`,
     submenus: [
       {
         id: "dashboard",
@@ -7501,8 +7478,7 @@ const ADMIN_NAV_HIERARCHY = [
   {
     id: "coldstore",
     title: "Coldstore",
-    category: "ENTERPRISE OPERATIONS",
-    icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v18m0-18l-3 3m3-3l3 3m-3 15l-3-3m3 3l3-3M3 12h18m-18 0l3-3m-3 3l3 3m15-3l-3-3m3 3l-3 3"/></svg>`,
+    icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>`,
     submenus: [
       {
         id: "dashboard",
@@ -7581,7 +7557,6 @@ const ADMIN_NAV_HIERARCHY = [
   {
     id: "inventory",
     title: "Inventory",
-    category: "ENTERPRISE OPERATIONS",
     icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>`,
     submenus: [
       {
@@ -7619,7 +7594,6 @@ const ADMIN_NAV_HIERARCHY = [
   {
     id: "reports",
     title: "Reports",
-    category: "INTELLIGENCE & REPORTS",
     icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>`,
     submenus: [
       {
@@ -7675,7 +7649,6 @@ const ADMIN_NAV_HIERARCHY = [
   {
     id: "settings",
     title: "Settings",
-    category: "SYSTEM & GOVERNANCE",
     icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>`,
     submenus: [
       {
@@ -7695,7 +7668,6 @@ const SUPER_ADMIN_NAV_HIERARCHY = [
   {
     id: "dashboard",
     title: "Dashboard",
-    category: "ENTERPRISE OPERATIONS",
     icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>`,
     submenus: [
       {
@@ -7711,7 +7683,6 @@ const SUPER_ADMIN_NAV_HIERARCHY = [
   {
     id: "general",
     title: "General",
-    category: "SYSTEM & GOVERNANCE",
     icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>`,
     submenus: [
       {
@@ -7736,7 +7707,6 @@ const SUPER_ADMIN_NAV_HIERARCHY = [
   {
     id: "super-reports",
     title: "Reports",
-    category: "INTELLIGENCE & REPORTS",
     icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>`,
     submenus: [
       {
@@ -7752,7 +7722,6 @@ const SUPER_ADMIN_NAV_HIERARCHY = [
   {
     id: "settings",
     title: "Settings",
-    category: "SYSTEM & GOVERNANCE",
     icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>`,
     submenus: [
       {
@@ -7832,109 +7801,73 @@ const Sidebar = {
     const isSuperAdmin = ERP_DATA.currentUser?.role === 'Super Admin';
 
     if (this.isCollapsed) {
-      // Collapsed Icon-Only Floated Sidebar Mode (Width: 72px, Rounded Corners 28px - Matching Image 1)
+      // Collapsed Icon-Only Floated Sidebar Mode (Width: 68px, Rounded Corners)
       container.innerHTML = `
         <div class="relative h-full w-full">
-          <aside id="erp-sidebar" class="bg-[#0B132B] text-[#94A3B8] w-full h-full flex flex-col justify-between transition-all duration-300 select-none border border-[#1E293B]/80 rounded-[28px] shadow-2xl overflow-hidden py-3 px-2">
-            <!-- Top: Logo badge + Expand button -->
-            <div class="flex flex-col items-center shrink-0">
-              <div class="w-10 h-10 rounded-xl bg-white flex items-center justify-center p-1.5 shadow-md">
-                <img src="${isSuperAdmin ? LOGO_CAMAROO_WHITE : LOGO_WHITE}" alt="Logo" class="h-7 w-auto object-contain" />
-              </div>
-              <button 
-                id="sidebar-toggle-expand-btn" 
-                class="w-8 h-8 rounded-xl bg-[#151F32] hover:bg-[#1E293B] text-[#00A4B7] hover:text-white flex items-center justify-center cursor-pointer transition-colors border border-[#1E293B] mt-2.5 shadow-xs" 
-                title="Expand Sidebar"
-              >
-                <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
-              </button>
+          <aside id="erp-sidebar" class="bg-[#0F172A] text-[#94A3B8] w-full h-full flex flex-col transition-all duration-300 select-none border border-[#1E293B] rounded-2xl overflow-hidden">
+            <!-- Collapsed Logo Icon Header -->
+            <div class="h-14 px-2 py-2 flex items-center justify-center border-b border-[#1E293B] bg-[#0B0F19] shrink-0" title="${isSuperAdmin ? 'Camaroo ERP' : 'Devi Fisheries'}">
+              ${isSuperAdmin ? `
+                <div class="w-9 h-9 rounded-lg bg-[#0284C7] border border-[#38BDF8]/30 flex items-center justify-center font-black text-white text-xs">
+                  CMR
+                </div>
+              ` : `
+                <img src="${LOGO_WHITE}" alt="Devi Fisheries" class="h-8 w-8 object-contain shrink-0" />
+              `}
             </div>
 
             <!-- Navigation Scrollable Icons Area -->
-            <div class="flex-1 flex flex-col items-center space-y-2 py-3 w-full overflow-y-auto overflow-x-visible scrollbar-none" id="sidebar-nav-groups">
+            <div class="flex-1 flex flex-col overflow-y-auto py-3 px-2 space-y-2 overflow-x-visible bg-[#0F172A]" id="sidebar-nav-groups">
               ${this.renderCollapsedNavHierarchy()}
             </div>
-
-            <!-- Bottom: Pinned Settings Squircle Button with flyout -->
-            <div class="pt-2 border-t border-[#1E293B]/70 shrink-0 relative group">
-              <button 
-                data-module-id="settings" 
-                class="sidebar-mod-btn w-11 h-11 rounded-2xl bg-[#121B2D] border border-[#1E293B] text-[#00A4B7] hover:text-white hover:border-[#00A4B7] flex items-center justify-center shadow-md transition-colors cursor-pointer mx-auto" 
-                title="Settings"
-              >
-                <svg class="w-5 h-5 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-width="2"/><circle cx="12" cy="12" r="4" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83m0-14.14l-2.83 2.83m-8.48 8.48l-2.83 2.83"/></svg>
-              </button>
-              <div class="absolute left-[70px] bottom-0 w-60 bg-[#162032] border border-[#27354F] rounded-2xl p-3 shadow-2xl z-50 text-white backdrop-blur-md hidden group-hover:block transition-all pointer-events-auto">
-                <div class="flex items-center gap-2.5 pb-2 mb-2 border-b border-[#27354F]/70">
-                  <div class="w-7 h-7 rounded-lg bg-[#223049] text-[#00A4B7] flex items-center justify-center shrink-0">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-width="2"/><circle cx="12" cy="12" r="4" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83m0-14.14l-2.83 2.83m-8.48 8.48l-2.83 2.83"/></svg>
-                  </div>
-                  <div class="flex flex-col min-w-0">
-                    <span class="text-xs font-bold text-white tracking-tight truncate">Settings</span>
-                    <span class="text-[10px] text-[#64748B] font-medium truncate">${isSuperAdmin ? 'Customizer' : 'Master Setup & Config'}</span>
-                  </div>
-                </div>
-                <div class="space-y-1">
-                  <a 
-                    href="${isSuperAdmin ? '#/settings/custom/forms' : '#/settings/master-setup/masters'}" 
-                    class="flex items-center justify-between px-2.5 py-2 rounded-lg text-xs font-medium text-[#94A3B8] hover:text-white hover:bg-white/5 transition-colors"
-                  >
-                    <span>${isSuperAdmin ? 'Customizer' : 'Master Setup'}</span>
-                    <svg class="w-3.5 h-3.5 text-[#64748B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                  </a>
-                </div>
-              </div>
-            </div>
           </aside>
+
+          <!-- Toggle Button: Half inside, half outside right edge -->
+          <button 
+            id="sidebar-edge-toggle-btn" 
+            class="absolute -right-3 top-4 w-6 h-6 rounded-full bg-white border border-[#CBD5E1] text-[#475569] hover:text-[#0284C7] hover:border-[#0284C7] flex items-center justify-center z-50 cursor-pointer shadow-xs transition-colors" 
+            title="Expand Sidebar"
+          >
+            <svg class="w-3.5 h-3.5 rotate-180 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/></svg>
+          </button>
         </div>
       `;
     } else {
-      // Expanded Full Floated Sidebar Mode (Width: 272px, Rounded Corners 28px - Matching Image 2)
+      // Expanded Full Floated Sidebar Mode (Width: 272px, Rounded Corners)
       container.innerHTML = `
         <div class="relative h-full w-full">
-          <aside id="erp-sidebar" class="bg-[#0B132B] text-[#94A3B8] w-full h-full flex flex-col justify-between transition-all duration-300 select-none border border-[#1E293B]/80 rounded-[28px] shadow-2xl overflow-hidden p-3">
-            <!-- Header: Logo + Title + Collapse Button (<) -->
-            <div class="flex items-center justify-between px-1 pt-1 pb-3 mb-1 shrink-0">
-              <div class="flex items-center gap-3 min-w-0">
-                <div class="w-10 h-10 rounded-xl bg-white flex items-center justify-center p-1.5 shadow-sm shrink-0">
-                  <img src="${isSuperAdmin ? LOGO_CAMAROO_WHITE : LOGO_WHITE}" alt="Logo" class="h-7 w-auto object-contain" />
+          <aside id="erp-sidebar" class="bg-[#0F172A] text-[#94A3B8] w-full h-full flex flex-col transition-all duration-300 select-none border border-[#1E293B] rounded-2xl overflow-hidden">
+            <!-- Logo Branding Header -->
+            <div class="h-14 px-4 py-2 flex items-center justify-between border-b border-[#1E293B] bg-[#0B0F19] shrink-0">
+              ${isSuperAdmin ? `
+                <div class="flex items-center gap-2.5">
+                  <img src="${LOGO_CAMAROO_WHITE}" alt="Camaroo" class="h-7 w-auto max-w-[160px] object-contain shrink-0" />
                 </div>
-                <div class="leading-tight flex flex-col justify-center min-w-0">
-                  <span class="text-sm font-bold text-white tracking-tight truncate">${isSuperAdmin ? 'Camaroo ERP' : 'Devi Fisheries'}</span>
-                  <span class="text-[10px] text-[#64748B] font-medium tracking-normal truncate mt-0.5">Powered by Camaroo</span>
+              ` : `
+                <div class="flex items-center gap-2.5 min-w-0">
+                  <img src="${LOGO_WHITE}" alt="Devi Fisheries" class="h-9 w-auto object-contain shrink-0" />
+                  <div class="leading-tight flex flex-col justify-center min-w-0">
+                    <span class="text-sm font-bold text-white tracking-wide truncate">Devi Fisheries</span>
+                    <span class="text-[9.5px] font-bold text-[#00A3BF] tracking-wider uppercase font-mono truncate">POWERED BY CAMAROO</span>
+                  </div>
                 </div>
-              </div>
-              <button 
-                id="sidebar-toggle-collapse-btn" 
-                class="w-8 h-8 rounded-xl bg-[#151F32] hover:bg-[#1E293B] text-[#00A4B7] hover:text-white flex items-center justify-center cursor-pointer transition-colors border border-[#1E293B] shrink-0" 
-                title="Collapse Sidebar"
-              >
-                <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
-              </button>
+              `}
             </div>
 
-            <!-- Scrollable Navigation Area with Category Headers -->
-            <div class="flex-1 flex flex-col overflow-y-auto px-1 space-y-1 scrollbar-none" id="sidebar-nav-groups">
+            <!-- Navigation Scrollable Area -->
+            <div class="flex-1 flex flex-col overflow-y-auto py-3 px-3 space-y-1 bg-[#0F172A]" id="sidebar-nav-groups">
               ${this.renderNavHierarchy()}
             </div>
-
-            <!-- Bottom: Pinned Settings Card (matching Image 2 bottom card) -->
-            <div class="pt-2 border-t border-[#1E293B]/70 shrink-0">
-              <a 
-                href="${isSuperAdmin ? '#/settings/custom/forms' : '#/settings/master-setup/masters'}" 
-                id="sidebar-bottom-settings-card" 
-                class="bg-[#121B2D] border border-[#1E293B] hover:border-[#334155] rounded-2xl p-2.5 flex items-center gap-3 transition-colors cursor-pointer group"
-              >
-                <div class="w-9 h-9 rounded-xl bg-[#0D1526] border border-[#1E293B] flex items-center justify-center text-[#00A4B7] group-hover:border-[#00A4B7] transition-colors shrink-0">
-                  <svg class="w-5 h-5 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-width="2"/><circle cx="12" cy="12" r="4" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83m0-14.14l-2.83 2.83m-8.48 8.48l-2.83 2.83"/></svg>
-                </div>
-                <div class="flex flex-col min-w-0">
-                  <span class="text-xs font-bold text-white leading-tight truncate">Settings</span>
-                  <span class="text-[10px] text-[#64748B] font-medium leading-tight truncate mt-0.5">${isSuperAdmin ? 'Customizer' : 'Master Setup & Config'}</span>
-                </div>
-              </a>
-            </div>
           </aside>
+
+          <!-- Toggle Button: Half inside, half outside right edge -->
+          <button 
+            id="sidebar-edge-toggle-btn" 
+            class="absolute -right-3 top-4 w-6 h-6 rounded-full bg-white border border-[#CBD5E1] text-[#475569] hover:text-[#0284C7] hover:border-[#0284C7] flex items-center justify-center z-50 cursor-pointer shadow-xs transition-colors" 
+            title="Collapse Sidebar"
+          >
+            <svg class="w-3.5 h-3.5 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/></svg>
+          </button>
         </div>
       `;
     }
@@ -7945,50 +7878,32 @@ const Sidebar = {
   renderNavHierarchy() {
     const isSuperAdmin = ERP_DATA.currentUser?.role === 'Super Admin';
     const modules = isSuperAdmin ? SUPER_ADMIN_NAV_HIERARCHY : ADMIN_NAV_HIERARCHY;
-    let lastCategory = '';
 
     return modules.map(mod => {
       const isExpanded = mod.id === this.activeModuleId;
-      const isSingleLevel = mod.submenus.length === 1 && (mod.id === 'dashboard' || mod.submenus[0].title === mod.title);
+      const isSettings = mod.id === 'settings';
+      const groupWrapperClass = isSettings ? 'nav-module-group mb-1 mt-auto pt-2 border-t border-[#1E293B]/70' : 'nav-module-group mb-1';
 
-      // Section Category Header when category changes
-      let categoryHeaderHtml = '';
-      if (mod.category && mod.category !== lastCategory) {
-        lastCategory = mod.category;
-        categoryHeaderHtml = `
-          <div class="px-3 pt-3.5 pb-1 text-[10px] font-extrabold tracking-wider text-[#475569] uppercase select-none">
-            ${mod.category}
-          </div>
-        `;
-      }
-
-      // Active pill style matching attached Image 2
-      const activeClass = isExpanded 
-        ? 'bg-[#182337] text-white font-bold border border-[#27354F]/50 shadow-xs' 
-        : 'text-[#94A3B8] hover:bg-white/5 hover:text-white font-medium';
-
-      // Super Admin: Direct single-click button for non-settings
+      // Super Admin: Clean direct menu buttons for non-settings modules
       if (isSuperAdmin && mod.id !== 'settings') {
         return `
-          ${categoryHeaderHtml}
-          <div class="nav-module-group mb-1">
+          <div class="${groupWrapperClass}">
             <button 
               data-module-id="${mod.id}" 
-              class="sidebar-mod-btn w-full px-3 py-2.5 rounded-xl text-xs flex items-center justify-between transition-colors cursor-pointer ${activeClass}"
+              class="sidebar-mod-btn w-full px-3 py-2.5 rounded-lg text-xs font-bold flex items-center transition-colors cursor-pointer ${isExpanded ? 'bg-[#00A4B7] text-white shadow-xs' : 'text-[#CBD5E1] hover:bg-white/5 hover:text-white'}"
             >
-              <div class="flex items-center gap-3 truncate">
+              <div class="flex items-center gap-2.5 truncate">
                 <span class="w-4 h-4 flex items-center justify-center shrink-0 ${isExpanded ? 'text-white' : 'text-[#64748B]'}">${mod.icon}</span>
                 <span class="text-xs tracking-tight truncate">${mod.title}</span>
               </div>
-              ${isExpanded ? '<span class="w-1.5 h-1.5 rounded-full bg-[#00A4B7] shadow-[0_0_8px_#00A4B7] shrink-0"></span>' : ''}
             </button>
           </div>
         `;
       }
       
-      // Standard accordion with submenus list
+      // Admin: Standard accordion with submenus list
       let submenusHtml = '';
-      if (isExpanded && !isSingleLevel) {
+      if (isExpanded) {
         submenusHtml = `
           <div class="nav-submenus-list mt-1 ml-4 pl-3 py-1 space-y-1 border-l-2 border-[#00A4B7]">
             ${mod.submenus.map(sub => {
@@ -7999,7 +7914,7 @@ const Sidebar = {
                 <div class="nav-submenu-block">
                   <a 
                     href="${defaultHash}" 
-                    class="flex items-center px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${isSubActive ? 'bg-[#00A4B7] text-white font-bold shadow-xs' : 'text-[#94A3B8] hover:bg-white/5 hover:text-white'}"
+                    class="flex items-center px-2.5 py-1.5 rounded-md text-xs font-semibold transition-all ${isSubActive ? 'bg-[#00A4B7] text-white font-bold' : 'text-[#94A3B8] hover:bg-white/5 hover:text-white'}"
                   >
                     <div class="flex items-center gap-2 truncate">
                       <span class="w-1.5 h-1.5 rounded-full ${isSubActive ? 'bg-white' : 'bg-[#475569]'} shrink-0"></span>
@@ -8014,22 +7929,17 @@ const Sidebar = {
       }
 
       return `
-        ${categoryHeaderHtml}
-        <div class="nav-module-group mb-1">
+        <div class="${groupWrapperClass}">
           <button 
             data-module-id="${mod.id}" 
-            class="sidebar-mod-btn w-full px-3 py-2.5 rounded-xl text-xs flex items-center justify-between transition-colors cursor-pointer ${activeClass}"
+            class="sidebar-mod-btn w-full px-3 py-2 rounded-lg text-xs font-bold flex items-center justify-between transition-colors cursor-pointer ${isExpanded ? 'bg-[#00A4B7] text-white' : 'text-[#CBD5E1] hover:bg-white/5 hover:text-white'}"
           >
-            <div class="flex items-center gap-3 truncate">
+            <div class="flex items-center gap-2.5 truncate">
               <span class="w-4 h-4 flex items-center justify-center shrink-0 ${isExpanded ? 'text-white' : 'text-[#64748B]'}">${mod.icon}</span>
               <span class="text-xs tracking-tight truncate">${mod.title}</span>
             </div>
             <div class="flex items-center gap-1 shrink-0">
-              ${isSingleLevel ? (
-                isExpanded ? '<span class="w-1.5 h-1.5 rounded-full bg-[#00A4B7] shadow-[0_0_8px_#00A4B7] shrink-0"></span>' : ''
-              ) : (
-                `<svg class="w-3.5 h-3.5 transform transition-transform duration-200 ${isExpanded ? 'rotate-180 text-white' : 'text-[#64748B]'}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>`
-              )}
+              <svg class="w-3.5 h-3.5 transform transition-transform duration-200 ${isExpanded ? 'rotate-90 text-white' : 'text-[#64748B]'}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
             </div>
           </button>
           ${submenusHtml}
@@ -8044,23 +7954,21 @@ const Sidebar = {
 
     return modules.map(mod => {
       const isCurrentMod = mod.id === this.activeModuleId;
-      const isSingleLevel = mod.submenus.length === 1 && (mod.id === 'dashboard' || mod.submenus[0].title === mod.title);
+      const isSettings = mod.id === 'settings';
+      const groupWrapperClass = isSettings ? 'relative group flex justify-center nav-module-group mt-auto pt-2 border-t border-[#1E293B]/70' : 'relative group flex justify-center nav-module-group';
+      const firstTabHash = mod.submenus[0]?.tabs[0]?.hash || '#/';
 
-      const activeBtnClass = isCurrentMod 
-        ? 'w-11 h-11 rounded-2xl bg-[#182337] text-white shadow-md border border-[#27354F] ring-1 ring-[#00A4B7]/40' 
-        : 'w-10 h-10 rounded-xl text-[#94A3B8] hover:bg-white/5 hover:text-white';
-
-      if (isSingleLevel) {
+      if (isSuperAdmin && mod.id !== 'settings') {
         return `
-          <div class="relative group flex justify-center nav-module-group">
+          <div class="${groupWrapperClass}">
             <button 
               data-module-id="${mod.id}" 
-              class="sidebar-mod-btn ${activeBtnClass} flex items-center justify-center transition-all duration-200 cursor-pointer"
+              class="sidebar-mod-btn w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-200 cursor-pointer ${isCurrentMod ? 'bg-[#00A4B7] text-white ring-2 ring-[#00A4B7] font-bold' : 'text-[#94A3B8] hover:bg-white/5 hover:text-white'}"
               title="${mod.title}"
             >
               <span class="w-4 h-4 flex items-center justify-center ${isCurrentMod ? 'text-white' : ''}">${mod.icon}</span>
             </button>
-            <div class="absolute left-[70px] top-1/2 -translate-y-1/2 px-2.5 py-1.5 bg-[#162032] border border-[#27354F] rounded-xl text-white font-bold text-xs whitespace-nowrap hidden group-hover:block z-50 shadow-xl pointer-events-none">
+            <div class="absolute left-full top-0 ml-3 px-2 py-1 bg-[#0F172A] border border-[#1E293B] rounded-lg text-white font-bold text-xs whitespace-nowrap hidden group-hover:block z-50 pointer-events-none">
               ${mod.title}
             </div>
           </div>
@@ -8068,24 +7976,22 @@ const Sidebar = {
       }
 
       return `
-        <div class="relative group flex justify-center nav-module-group">
-          <!-- Icon Button (Matching Image 1 active squircle) -->
+        <div class="${groupWrapperClass}">
+          <!-- Icon Button -->
           <button 
             data-module-id="${mod.id}" 
-            class="sidebar-mod-btn ${activeBtnClass} flex items-center justify-center transition-all duration-200 cursor-pointer"
+            class="sidebar-mod-btn w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-200 cursor-pointer ${isCurrentMod ? 'bg-[#00A4B7] text-white ring-2 ring-[#00A4B7] font-bold' : 'text-[#94A3B8] hover:bg-white/5 hover:text-white'}"
             title="${mod.title}"
           >
             <span class="w-4 h-4 flex items-center justify-center ${isCurrentMod ? 'text-white' : ''}">${mod.icon}</span>
           </button>
 
-          <!-- Floating Flyout Menu on Hover (matching attached Image 1) -->
-          <div class="absolute left-[70px] top-0 w-60 bg-[#162032] border border-[#27354F] rounded-2xl p-3 shadow-2xl z-50 text-white backdrop-blur-md hidden group-hover:block transition-all pointer-events-auto">
+          <!-- Floating Flyout Menu on Hover -->
+          <div class="absolute left-full top-0 ml-3 w-60 bg-[#0F172A] border border-[#1E293B] rounded-xl p-2.5 hidden group-hover:block z-50 transition-all pointer-events-auto">
             <!-- Module Title in Flyout -->
-            <div class="flex items-center gap-2.5 pb-2 mb-2 border-b border-[#27354F]/70">
-              <div class="w-7 h-7 rounded-lg bg-[#223049] text-white flex items-center justify-center shrink-0">
-                <span class="w-4 h-4 flex items-center justify-center">${mod.icon}</span>
-              </div>
-              <span class="text-xs font-bold text-white tracking-tight truncate">${mod.title}</span>
+            <div class="flex items-center gap-2 px-2.5 py-1.5 border-b border-[#1E293B] mb-1.5 text-white font-bold text-xs">
+              <span class="text-[#00A4B7]">${mod.icon}</span>
+              <span class="tracking-wide">${mod.title}</span>
             </div>
 
             <!-- Submenus List in Flyout -->
@@ -8096,10 +8002,9 @@ const Sidebar = {
                 return `
                   <a 
                     href="${defaultHash}" 
-                    class="flex items-center justify-between px-2.5 py-2 rounded-lg text-xs font-medium transition-all ${isSubActive ? 'bg-[#223049] text-[#00A4B7] font-bold' : 'text-[#94A3B8] hover:bg-white/5 hover:text-white'}"
+                    class="flex items-center px-2.5 py-1.5 rounded-md text-xs font-medium transition-all ${isSubActive ? 'bg-[#00A4B7] text-white font-bold' : 'text-[#94A3B8] hover:bg-white/5 hover:text-white'}"
                   >
-                    <span class="truncate">${sub.title}</span>
-                    <svg class="w-3.5 h-3.5 text-[#64748B] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    <span>${sub.title}</span>
                   </a>
                 `;
               }).join('')}
@@ -8153,7 +8058,7 @@ const Sidebar = {
           if (subGroup && subGroup.classList.contains('nav-submenus-list')) {
             subGroup.classList.toggle('hidden');
             const arrow = btn.querySelector('svg.transform');
-            if (arrow) arrow.classList.toggle('rotate-180');
+            if (arrow) arrow.classList.toggle('rotate-90');
           }
           return;
         }
@@ -8167,25 +8072,6 @@ const Sidebar = {
       });
     });
 
-    // Collapse toggle button (< in header, matching Image 2)
-    const collapseBtn = document.getElementById('sidebar-toggle-collapse-btn');
-    if (collapseBtn) {
-      collapseBtn.onclick = (e) => {
-        e.stopPropagation();
-        this.toggleCollapse();
-      };
-    }
-
-    // Expand toggle button (> below logo, matching Image 1)
-    const expandBtn = document.getElementById('sidebar-toggle-expand-btn');
-    if (expandBtn) {
-      expandBtn.onclick = (e) => {
-        e.stopPropagation();
-        this.toggleCollapse();
-      };
-    }
-
-    // Edge toggle button (if present)
     const edgeToggleBtn = document.getElementById('sidebar-edge-toggle-btn');
     if (edgeToggleBtn) {
       edgeToggleBtn.onclick = (e) => {
