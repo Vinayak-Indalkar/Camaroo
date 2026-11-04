@@ -20224,7 +20224,7 @@ const PreprocessingView = {
     const hlCount = row.hlCount !== undefined && row.hlCount !== null && row.hlCount !== '' ? row.hlCount : '-';
 
     Modal.open({
-      title: `De-Heading Batch Details: ${this.escape(row.id || row.arrivalCode || 'DH-BATCH')}`,
+      title: `Deheading Records & Batch Output Details: ${this.escape(row.id || row.arrivalCode || 'DH-BATCH')}`,
       size: 'xl',
       content: `
         <div class="space-y-4 text-xs">
@@ -20382,6 +20382,75 @@ const PreprocessingView = {
               </div>
             </div>
           </div>
+
+          <!-- Section 5: Deheading Records & Batch Output Itemized Summary Table -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs space-y-2">
+            <div class="flex items-center justify-between border-b border-[#F1F5F9] pb-2 mb-1">
+              <div class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">5</span>
+                <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Deheading Records &amp; Batch Output Summary</h4>
+              </div>
+              <span class="text-[11px] font-semibold text-[#5E6C84]">Batch ${this.escape(row.id || 'DH-BATCH')}</span>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="erp-table w-full text-left text-xs border-collapse" style="min-width: 1200px;">
+                <thead class="bg-[#FAFBFC] border-b border-[#DFE1E6] text-[#475569] font-bold uppercase tracking-wider text-[11px]">
+                  <tr>
+                    <th class="py-2.5 px-3 min-w-[50px]">S.No</th>
+                    <th class="py-2.5 px-3 min-w-[120px]">Arrival Code</th>
+                    <th class="py-2.5 px-3 min-w-[130px]">Production Plant</th>
+                    <th class="py-2.5 px-3 min-w-[140px]">Center</th>
+                    <th class="py-2.5 px-3 min-w-[105px]">De Heading Date</th>
+                    <th class="py-2.5 px-3 min-w-[100px]">Shift</th>
+                    <th class="py-2.5 px-3 min-w-[120px]">SuperVisor</th>
+                    <th class="py-2.5 px-3 min-w-[90px]">Checking Count-2</th>
+                    <th class="py-2.5 px-3 min-w-[75px]">HL Count</th>
+                    <th class="py-2.5 px-3 min-w-[85px]">HON Count</th>
+                    <th class="py-2.5 px-3 min-w-[110px]">HON Quantity(Kgs)</th>
+                    <th class="py-2.5 px-3 min-w-[110px]">HL Quantity(Kgs)</th>
+                    <th class="py-2.5 px-3 min-w-[100px]">Count Net Yield(%)</th>
+                    <th class="py-2.5 px-3 min-w-[80px]">Yield(%)</th>
+                    <th class="py-2.5 px-3 min-w-[100px]">Ice Consumption</th>
+                    <th class="py-2.5 px-3 min-w-[140px]">Remarks</th>
+                    <th class="py-2.5 px-3 min-w-[80px] text-center">Status</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-[#E2E8F0] text-[#1E293B]">
+                  <tr class="hover:bg-[#F8FAFC] transition-colors">
+                    <td class="py-2 px-3 font-semibold text-[#5E6C84]">1</td>
+                    <td class="py-2 px-3 font-bold text-[#00A4B7] whitespace-nowrap">${this.escape(row.arrivalCode || row.lotNo || '-')}</td>
+                    <td class="py-2 px-3 font-semibold text-[#172B4D] whitespace-nowrap">${this.escape(row.productionPlant || '-')}</td>
+                    <td class="py-2 px-3 text-[#42526E] whitespace-nowrap">${this.escape(row.center || '-')}</td>
+                    <td class="py-2 px-3 text-[#172B4D] whitespace-nowrap">${this.escape(row.deheadingDate || '-')}</td>
+                    <td class="py-2 px-3 whitespace-nowrap"><span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#F4F5F7] text-[#42526E] border border-[#DFE1E6]">${this.escape(row.shift || '-')}</span></td>
+                    <td class="py-2 px-3 font-medium text-[#172B4D] whitespace-nowrap">${this.escape(row.supervisor || '-')}</td>
+                    <td class="py-2 px-3 font-mono text-xs font-bold text-[#172B4D]">${checkingCount2}</td>
+                    <td class="py-2 px-3 font-mono text-xs font-bold text-[#0284C7]">${hlCount}</td>
+                    <td class="py-2 px-3 font-mono text-xs font-semibold text-[#42526E]">${honCount}</td>
+                    <td class="py-2 px-3 font-bold text-[#172B4D] whitespace-nowrap">${honQty.toLocaleString()} Kg</td>
+                    <td class="py-2 px-3 font-bold text-[#00875A] whitespace-nowrap">${hlQty.toLocaleString()} Kg</td>
+                    <td class="py-2 px-3 font-bold text-[#00A4B7]">${row.countNetYieldPct || yieldPct}%</td>
+                    <td class="py-2 px-3 whitespace-nowrap"><span class="px-2 py-0.5 rounded text-xs font-bold ${yieldPct >= 65 ? 'bg-[#E3FCEF] text-[#006644]' : 'bg-[#FFF0B3] text-[#172B4D]'}">${yieldPct}%</span></td>
+                    <td class="py-2 px-3 text-[#5E6C84] font-medium whitespace-nowrap">${this.escape(row.iceConsumption || '-')}</td>
+                    <td class="py-2 px-3 text-xs text-[#5E6C84] truncate max-w-[160px]" title="${this.escape(row.remarks || '-')}">${this.escape(row.remarks || '-')}</td>
+                    <td class="py-2 px-3 text-center whitespace-nowrap">
+                      <span class="inline-flex px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#E3FCEF] text-[#006644]">${this.escape(row.status || 'COMPLETED')}</span>
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot class="bg-[#FAFBFC] border-t-2 border-[#DFE1E6] font-bold text-xs text-[#0F172A]">
+                  <tr>
+                    <td colspan="10" class="py-2.5 px-3 text-right uppercase tracking-wider text-[#475569]">Total Aggregates:</td>
+                    <td class="py-2.5 px-3 font-mono text-xs font-bold text-[#172B4D]">${honQty.toLocaleString()} Kg</td>
+                    <td class="py-2.5 px-3 font-mono text-xs font-bold text-[#00875A]">${hlQty.toLocaleString()} Kg</td>
+                    <td class="py-2.5 px-3 font-mono text-xs font-bold text-[#00A4B7]">${row.countNetYieldPct || yieldPct}%</td>
+                    <td class="py-2.5 px-3 font-mono text-xs font-bold text-[#00875A]">${yieldPct}%</td>
+                    <td colspan="3"></td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
         </div>
       `,
       footerButtons: [
@@ -20401,7 +20470,7 @@ const PreprocessingView = {
     });
   },
 
-    showGradingDetailsModal(row) {
+      showGradingDetailsModal(row) {
     const defaultVariety = row.variety || row.species || 'Vannamei (VM)';
     const totalGraded = Number(row.hlWeightKgs || row.totalGradedKg || 2750);
     const noOfCrates = Number(row.noOfCrates || 110);
