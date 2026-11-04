@@ -3,6 +3,21 @@ import { ERP_DATA } from '../data/mockData.js';
 
 export const ADMIN_NAV_HIERARCHY = [
   {
+    id: "dashboard",
+    title: "Dashboard",
+    icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>`,
+    submenus: [
+      {
+        id: "overview",
+        title: "Dashboard",
+        defaultTab: "system-overview",
+        tabs: [
+          { id: "system-overview", label: "Dashboard", hash: "#/dashboard/overview/system-overview" }
+        ]
+      }
+    ]
+  },
+  {
     id: "sales",
     title: "Sales & Exports",
     icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`,
@@ -407,35 +422,8 @@ export const ADMIN_NAV_HIERARCHY = [
     ]
   },
   {
-    id: "help",
-    title: "Help",
-    icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`,
-    submenus: [
-      {
-        id: "documentation",
-        title: "Documentation & SOPs",
-        defaultTab: "compliance-manual",
-        tabs: [
-          { id: "compliance-manual", label: "Compliance & SOP Manual", hash: "#/help/documentation/compliance-manual" },
-          { id: "user-guides", label: "Module User Guides", hash: "#/help/documentation/user-guides" },
-          { id: "antibiotic-protocols", label: "Antibiotic & Testing Protocols", hash: "#/help/documentation/antibiotic-protocols" }
-        ]
-      },
-      {
-        id: "support-tickets",
-        title: "Support & Helpdesk",
-        defaultTab: "it-support",
-        tabs: [
-          { id: "it-support", label: "IT Helpdesk & Tickets", hash: "#/help/support-tickets/it-support" },
-          { id: "system-status", label: "System Health & Status", hash: "#/help/support-tickets/system-status" },
-          { id: "release-notes", label: "Release Notes & Changelog", hash: "#/help/support-tickets/release-notes" }
-        ]
-      }
-    ]
-  },
-  {
     id: "settings",
-    title: "Setting",
+    title: "Settings",
     icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>`,
     submenus: [
       {
@@ -508,7 +496,7 @@ export const SUPER_ADMIN_NAV_HIERARCHY = [
   },
   {
     id: "settings",
-    title: "Setting",
+    title: "Settings",
     icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>`,
     submenus: [
       {
@@ -604,8 +592,7 @@ export const Sidebar = {
             </div>
 
             <!-- Navigation Scrollable Icons Area -->
-            <!-- Navigation Scrollable Icons Area -->
-            <div class="flex-1 overflow-y-auto py-3 px-2 space-y-2 overflow-x-visible bg-[#0F172A]" id="sidebar-nav-groups">
+            <div class="flex-1 flex flex-col overflow-y-auto py-3 px-2 space-y-2 overflow-x-visible bg-[#0F172A]" id="sidebar-nav-groups">
               ${this.renderCollapsedNavHierarchy()}
             </div>
           </aside>
@@ -643,7 +630,7 @@ export const Sidebar = {
             </div>
 
             <!-- Navigation Scrollable Area -->
-            <div class="flex-1 overflow-y-auto py-3 px-3 space-y-1 bg-[#0F172A]" id="sidebar-nav-groups">
+            <div class="flex-1 flex flex-col overflow-y-auto py-3 px-3 space-y-1 bg-[#0F172A]" id="sidebar-nav-groups">
               ${this.renderNavHierarchy()}
             </div>
           </aside>
@@ -669,11 +656,13 @@ export const Sidebar = {
 
     return modules.map(mod => {
       const isExpanded = mod.id === this.activeModuleId;
+      const isSettings = mod.id === 'settings';
+      const groupWrapperClass = isSettings ? 'nav-module-group mb-1 mt-auto pt-2 border-t border-[#1E293B]/70' : 'nav-module-group mb-1';
 
       // Super Admin: Clean direct menu buttons for non-settings modules
       if (isSuperAdmin && mod.id !== 'settings') {
         return `
-          <div class="nav-module-group mb-1">
+          <div class="${groupWrapperClass}">
             <button 
               data-module-id="${mod.id}" 
               class="sidebar-mod-btn w-full px-3 py-2.5 rounded-lg text-xs font-bold flex items-center transition-colors cursor-pointer ${isExpanded ? 'bg-[#00A4B7] text-white shadow-xs' : 'text-[#CBD5E1] hover:bg-white/5 hover:text-white'}"
@@ -715,7 +704,7 @@ export const Sidebar = {
       }
 
       return `
-        <div class="nav-module-group mb-1">
+        <div class="${groupWrapperClass}">
           <button 
             data-module-id="${mod.id}" 
             class="sidebar-mod-btn w-full px-3 py-2 rounded-lg text-xs font-bold flex items-center justify-between transition-colors cursor-pointer ${isExpanded ? 'bg-[#00A4B7] text-white' : 'text-[#CBD5E1] hover:bg-white/5 hover:text-white'}"
@@ -740,11 +729,13 @@ export const Sidebar = {
 
     return modules.map(mod => {
       const isCurrentMod = mod.id === this.activeModuleId;
+      const isSettings = mod.id === 'settings';
+      const groupWrapperClass = isSettings ? 'relative group flex justify-center nav-module-group mt-auto pt-2 border-t border-[#1E293B]/70' : 'relative group flex justify-center nav-module-group';
       const firstTabHash = mod.submenus[0]?.tabs[0]?.hash || '#/';
 
       if (isSuperAdmin && mod.id !== 'settings') {
         return `
-          <div class="relative group flex justify-center nav-module-group">
+          <div class="${groupWrapperClass}">
             <button 
               data-module-id="${mod.id}" 
               class="sidebar-mod-btn w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-200 cursor-pointer ${isCurrentMod ? 'bg-[#00A4B7] text-white ring-2 ring-[#00A4B7] font-bold' : 'text-[#94A3B8] hover:bg-white/5 hover:text-white'}"
@@ -760,7 +751,7 @@ export const Sidebar = {
       }
 
       return `
-        <div class="relative group flex justify-center nav-module-group">
+        <div class="${groupWrapperClass}">
           <!-- Icon Button -->
           <button 
             data-module-id="${mod.id}" 
@@ -807,6 +798,21 @@ export const Sidebar = {
         const isSuperAdmin = ERP_DATA.currentUser?.role === 'Super Admin';
         const targetHierarchy = isSuperAdmin ? SUPER_ADMIN_NAV_HIERARCHY : ADMIN_NAV_HIERARCHY;
         const targetMod = targetHierarchy.find(m => m.id === modId) || NAV_HIERARCHY.find(m => m.id === modId);
+
+        // Dashboard direct click navigation
+        if (modId === 'dashboard') {
+          this.activeModuleId = 'dashboard';
+          window.location.hash = '#/dashboard/overview/system-overview';
+          return;
+        }
+
+        // Direct single-click navigation for settings when not currently active
+        if (modId === 'settings' && this.activeModuleId !== 'settings') {
+          this.activeModuleId = 'settings';
+          const defaultHash = isSuperAdmin ? '#/settings/custom/forms' : '#/settings/master-setup/masters';
+          window.location.hash = defaultHash;
+          return;
+        }
 
         // Super Admin: Direct single-click navigation for non-settings modules
         if (isSuperAdmin && modId !== 'settings') {

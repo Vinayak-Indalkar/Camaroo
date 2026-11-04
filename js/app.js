@@ -153,13 +153,9 @@ export const App = {
       return;
     }
 
-    // If empty hash, default to main dashboard or settings depending on role
+    // If empty hash, default to main dashboard
     if (rawHash === '' || rawHash === '#' || rawHash === '#/') {
-      if (ERP_DATA.currentUser?.role === 'Super Admin') {
-        window.location.hash = '#/dashboard/overview/system-overview';
-      } else {
-        window.location.hash = '#/sales/dashboard/overview';
-      }
+      window.location.hash = '#/dashboard/overview/system-overview';
       return;
     }
 
@@ -174,15 +170,12 @@ export const App = {
     const moduleName = parts[0] || defaultModule;
     let submenuName = parts[1] || '';
     let tabName = parts[2] || '';
-    const homeHash = isSuperAdmin
-      ? '#/dashboard/overview/system-overview'
-      : '#/purchase/dashboard/rm-dashboard';
+    const homeHash = '#/dashboard/overview/system-overview';
 
     // Keep direct URL navigation subject to the same module restrictions as the sidebar.
-    // Keep direct URL navigation subject to the same module restrictions as the sidebar.
-    const operationalModules = ['purchase', 'preprocessing', 'quality', 'production', 'coldstore', 'inventory', 'sales', 'reports', 'help', 'master'];
-    const superAdminModules = ['dashboard', 'general', 'super-reports'];
-    if (moduleName !== 'settings') {
+    const operationalModules = ['dashboard', 'purchase', 'preprocessing', 'quality', 'production', 'coldstore', 'inventory', 'sales', 'reports', 'master'];
+    const superAdminModules = ['general', 'super-reports'];
+    if (moduleName !== 'settings' && moduleName !== 'dashboard') {
       if ((isSuperAdmin && operationalModules.includes(moduleName)) || (!isSuperAdmin && superAdminModules.includes(moduleName))) {
         this.renderRouteError(403, 'Access denied', 'You do not have permission to access this section.', homeHash);
         return;

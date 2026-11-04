@@ -48,11 +48,6 @@ export const Header = {
 
         <!-- Right: Actions, Notifications & Profile -->
         <div class="flex items-center gap-2">
-          <!-- Help Icon Button -->
-          <button id="header-help-btn" class="p-2 text-[#64748B] hover:text-[#0284C7] hover:bg-[#F8FAFC] rounded-full transition-colors flex items-center justify-center cursor-pointer border border-[#E2E8F0]" title="Help & Compliance Manual">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-          </button>
-
           <!-- Notifications -->
           <div class="relative">
             <button id="header-notifications-btn" class="p-2 text-[#64748B] hover:text-[#0F172A] hover:bg-[#F8FAFC] rounded-full relative transition-colors cursor-pointer border border-[#E2E8F0]" title="Notifications">
@@ -295,14 +290,6 @@ export const Header = {
         if (existing) existing.remove();
         window.location.hash = '#/login';
       };
-    }
-
-    // Help Button: navigates to Help module screen (Under Construction as per other screens)
-    const helpBtn = document.getElementById('header-help-btn');
-    if (helpBtn) {
-      helpBtn.addEventListener('click', () => {
-        window.location.hash = '#/help/documentation/compliance-manual';
-      });
     }
   }
 };
