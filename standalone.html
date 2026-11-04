@@ -19768,88 +19768,391 @@ const PreprocessingView = {
     });
   },
 
-  // Add Grading Modal (4-Column Grid)
+  // Add Grading Modal (Full Flow matching Add Deheading)
   showNewGradingModal(container) {
     const today = new Date().toLocaleDateString('en-CA');
+    const plantsList = [...new Set(this.state.gradingRuns.map(r => r.productionPlant))];
+    const stationsList = [...new Set(this.state.gradingRuns.map(r => r.gradingStation))];
+    const machinesList = [...new Set(this.state.gradingRuns.map(r => r.gradingMachine || r.machineId))];
+    const varietiesList = [...new Set(this.state.gradingRuns.map(r => r.variety))];
+    const statusesList = ['COMPLETED', 'IN_PROGRESS', 'PENDING'];
+
     const fields = [
       { name: 'arrivalCode', label: 'Arrival / Lot Code', value: 'LOT-2026-00125' },
-      { name: 'productionPlant', label: 'Production Plant', options: ['DFL UNIT-5 (JPT)', 'DFL UNIT-3 (PSP)', 'DFL UNIT-4 (PND)', 'DFL UNIT-1 (VSP)', 'DFL UNIT-6 (JPT-II)', 'DFL UNIT-2 (KKD)'] },
-      { name: 'gradingStation', label: 'Grading Station', options: ['Grading Line #1', 'Grading Line #2', 'Grading Line #3', 'Fish Sizing Table #1'] },
+      { name: 'arrivalDate', label: 'Arrival Date', type: 'date', value: today },
+      { name: 'productionPlant', label: 'Production Plant', options: plantsList.length ? plantsList : ['DFL UNIT-5 (JPT)', 'DFL UNIT-3 (PSP)', 'DFL UNIT-4 (PND)', 'DFL UNIT-1 (VSP)', 'DFL UNIT-6 (JPT-II)', 'DFL UNIT-2 (KKD)'] },
+      { name: 'gradingStation', label: 'Grading Station', options: stationsList.length ? stationsList : ['Grading Line #1', 'Grading Line #2', 'Grading Line #3', 'Fish Sizing Table #1'] },
       { name: 'gradingDate', label: 'Grading Date', type: 'date', value: today },
-      { name: 'gradingMachine', label: 'Grading Machine', options: ['Auto Grader #1', 'Auto Grader #2', 'Manual Sizing Table', 'Shrimp Sorter 2000'] },
-      { name: 'variety', label: 'Variety / Species', options: ['Vannamei (VM)', 'Black Tiger (BT)', 'Sea White', 'Scampi'] },
-      { name: 'hlCountPerLb', label: 'HL Count / Lb', value: '21/25 Count' },
-      { name: 'hlWeightKgs', label: 'Total Graded Wt (Kgs)', type: 'number', min: '0.01', value: 2750 },
-      { name: 'noOfCrates', label: 'No of Crates', type: 'number', min: '1', value: 110 },
+      { name: 'gradingMachine', label: 'Grading Machine', options: machinesList.length ? machinesList : ['Auto Grader #1', 'Auto Grader #2', 'Manual Sizing Table', 'Shrimp Sorter 2000'] },
       { name: 'startTime', label: 'Start Time', value: '08:30' },
       { name: 'endTime', label: 'End Time', value: '12:30' },
       { name: 'breakTimeMinutes', label: 'Break (Mins)', type: 'number', value: 30 },
-      { name: 'status', label: 'Status', options: ['COMPLETED', 'IN_PROGRESS', 'PENDING'] },
+      { name: 'variety', label: 'Variety / Species', options: varietiesList.length ? varietiesList : ['Vannamei (VM)', 'Black Tiger (BT)', 'Sea White', 'Scampi', 'Asian Seabass'] },
+      { name: 'hlCountPerLb', label: 'HL Count / Lb', value: '21/25 Count' },
+      { name: 'hlWeightKgs', label: 'Total Graded Wt (Kgs)', type: 'number', min: '0.01', value: 2750 },
+      { name: 'noOfCrates', label: 'No of Crates', type: 'number', min: '1', value: 110 },
+      { name: 'status', label: 'Status', options: statusesList },
       { name: 'remarks', label: 'Remarks', optional: true, value: 'Calibrated for size uniformity' }
     ];
+
+    // List of runs added during this modal session
+    const batchEntries = [];
+
     Modal.open({
-      title: 'Add Grading Run',
+      title: 'Add Grading',
       size: 'full',
-      content: `<form id="form-add-grading" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs">
-        ${fields.map(field => `<div>
-          <label for="ngr-${field.name}" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">${field.label}${field.optional ? '' : ' <span class="text-[#DE350B]">*</span>'}</label>
-          ${field.options
-            ? `<select id="ngr-${field.name}" name="${field.name}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>${field.options.map(option => `<option value="${this.escape(option)}">${this.escape(option)}</option>`).join('')}</select>`
-            : field.type === 'date'
-              ? `<div class="erp-date-wrapper"><input id="ngr-${field.name}" name="${field.name}" type="date" value="${field.value || ''}" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" required onclick="this.showPicker ? this.showPicker() : this.focus()" /></div>`
-              : `<input id="ngr-${field.name}" name="${field.name}" type="${field.type || 'text'}" value="${field.value ?? ''}" ${field.type === 'number' ? `min="${field.min || '0'}" step="any"` : ''} ${field.optional ? '' : 'required'} class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" />`}
-        </div>`).join('')}
-      </form>`,
-      footerButtons: [
-        { label: 'Cancel', type: 'secondary', onClick: modal => modal.close() },
-        {
-          label: 'Save Grading Run',
-          type: 'primary',
-          onClick: () => {
-            const form = document.getElementById('form-add-grading');
-            if (!form || !form.reportValidity()) return;
-            const values = Object.fromEntries(new FormData(form));
-            const nextSeq = Math.max(200, ...this.state.gradingRuns.map(r => Number(r.id.split('-').pop()) || 0)) + 1;
-            const entry = {
-              ...values,
-              sNo: this.state.gradingRuns.length + 1,
-              id: `GR-2026-${nextSeq}`,
-              lotNo: values.arrivalCode,
-              arrivalDate: values.gradingDate,
-              gradingDate: values.gradingDate.includes('-') ? values.gradingDate.split('-').reverse().join('/') : values.gradingDate,
-              hlWeightKgs: Number(values.hlWeightKgs),
-              totalGradedKg: Number(values.hlWeightKgs),
-              noOfCrates: Number(values.noOfCrates),
-              breakTimeMinutes: Number(values.breakTimeMinutes) || 0,
-              machineId: values.gradingMachine,
-              species: values.variety.includes('Vannamei') ? 'Vannamei Shrimp' : 'Black Tiger Shrimp'
-            };
-            this.state.gradingRuns.unshift(entry);
-            this.state.gradingRuns.forEach((r, idx) => { r.sNo = idx + 1; });
-            Modal.close();
-            this.renderGradingScreen(container);
-            Toast.show(`Grading run ${entry.id} saved successfully`, 'success');
+      content: `
+        <div class="space-y-3.5">
+          <!-- Form Section -->
+          <form id="form-add-grading" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs">
+            ${fields.map(field => `<div>
+              <label for="ngr-${field.name}" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">${field.label}${field.optional ? '' : ' <span class="text-[#DE350B]">*</span>'}</label>
+              ${field.options
+                ? `<select id="ngr-${field.name}" name="${field.name}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" required>${field.options.map(option => `<option value="${this.escape(option)}">${this.escape(option)}</option>`).join('')}</select>`
+                : field.type === 'date'
+                  ? `<div class="erp-date-wrapper"><input id="ngr-${field.name}" name="${field.name}" type="date" value="${field.value || ''}" class="erp-date-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded focus:outline-none focus:border-[#0284C7]" required onclick="this.showPicker ? this.showPicker() : this.focus()" /></div>`
+                  : `<input id="ngr-${field.name}" name="${field.name}" type="${field.type || 'text'}" value="${field.value ?? ''}" ${field.type === 'number' ? `min="${field.min || '0'}" step="any"` : ''} ${field.optional ? '' : 'required'} class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" />`}
+            </div>`).join('')}
+          </form>
+
+          <!-- Save Button directly below form -->
+          <div class="flex items-center justify-end pt-1 pb-1">
+            <button type="submit" form="form-add-grading" id="btn-save-grading-form" class="btn-primary px-5 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 21v-8H7v8"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 3v5h8V3"></path></svg>
+              <span>Save</span>
+            </button>
+          </div>
+
+          <!-- Grading Records Table Inside Modal -->
+          <div class="flex flex-col space-y-2 pt-1">
+            <div class="flex items-center justify-between">
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Grading Records &amp; Batch Output</h4>
+              <span id="ngr-table-count" class="text-[11px] font-semibold text-[#5E6C84]">0 records</span>
+            </div>
+
+            <!-- Table Card Container -->
+            <div class="bg-white rounded-none border border-[#DFE1E6] shadow-sm flex flex-col overflow-hidden">
+              <div class="overflow-x-auto min-h-[160px] max-h-[320px] overflow-y-auto">
+                <table class="erp-table w-full text-left text-xs border-collapse" style="min-width: 1450px;">
+                  <thead class="bg-[#FAFBFC] border-b border-[#DFE1E6] text-[#475569] font-bold uppercase tracking-wider text-[11px] sticky top-0 z-10">
+                    <tr>
+                      <th class="py-2.5 px-3 min-w-[50px]">S.No</th>
+                      <th class="py-2.5 px-3 min-w-[120px]">Arrival Code</th>
+                      <th class="py-2.5 px-3 min-w-[130px]">Production Plant</th>
+                      <th class="py-2.5 px-3 min-w-[130px]">Grading Station</th>
+                      <th class="py-2.5 px-3 min-w-[105px]">Grading Date</th>
+                      <th class="py-2.5 px-3 min-w-[120px]">Grading Machine</th>
+                      <th class="py-2.5 px-3 min-w-[85px]">Start Time</th>
+                      <th class="py-2.5 px-3 min-w-[85px]">End Time</th>
+                      <th class="py-2.5 px-3 min-w-[90px]">Break (Mins)</th>
+                      <th class="py-2.5 px-3 min-w-[130px]">Variety</th>
+                      <th class="py-2.5 px-3 min-w-[105px]">HL Count/Lb</th>
+                      <th class="py-2.5 px-3 min-w-[110px]">Graded Wt(Kg)</th>
+                      <th class="py-2.5 px-3 min-w-[90px]">No of Crates</th>
+                      <th class="py-2.5 px-3 min-w-[130px]">Remarks</th>
+                      <th class="py-2.5 px-3 min-w-[90px] text-center sticky right-0 bg-[#FAFBFC] z-20 border-l border-[#DFE1E6] shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.06)]" style="position: sticky; right: 0;">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="ngr-modal-tbody" class="divide-y divide-[#E2E8F0] text-[#1E293B]">
+                    <tr>
+                      <td colspan="15" class="py-8 text-center text-xs text-[#8993A4] bg-[#FAFBFC]">
+                        No grading record added yet. Fill the form above and click <strong>Save</strong> to display here.
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Cancel & Save Grading Buttons below table -->
+            <div class="flex items-center justify-end gap-2.5 pt-3 border-t border-[#DFE1E6]">
+              <button type="button" id="btn-cancel-grading-modal" class="btn-secondary px-5 py-2 rounded-full text-xs font-semibold border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#172B4D] transition-all cursor-pointer">
+                Cancel
+              </button>
+              <button type="button" id="btn-save-all-grading" class="btn-primary px-5 py-2 rounded-full text-xs font-bold shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer">
+                Save Grading
+              </button>
+            </div>
+          </div>
+        </div>
+      `,
+      footerButtons: []
+    });
+
+    const form = document.getElementById('form-add-grading');
+    fields.filter(field => field.options).forEach(field => {
+      const select = form?.elements.namedItem(field.name);
+      if (select) {
+        field.options.forEach((value, index) => {
+          if (select.options[index]) {
+            select.options[index].textContent = value;
+            select.options[index].value = value;
           }
-        }
-      ]
+        });
+      }
+    });
+
+    const renderInnerTable = () => {
+      const tbody = document.getElementById('ngr-modal-tbody');
+      const countEl = document.getElementById('ngr-table-count');
+      if (!tbody) return;
+
+      if (countEl) {
+        countEl.textContent = `${batchEntries.length} ${batchEntries.length === 1 ? 'record' : 'records'}`;
+      }
+
+      if (batchEntries.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="15" class="py-8 text-center text-xs text-[#8993A4] bg-[#FAFBFC]">
+              No grading record added yet. Fill the form above and click <strong>Save</strong> to display here.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = batchEntries.map((row, idx) => `
+        <tr class="hover:bg-[#F8FAFC] transition-colors group ngr-editable-row" data-row-idx="${idx}">
+          <td class="py-2 px-3 font-semibold text-[#5E6C84] text-center">${idx + 1}</td>
+          <td class="py-1.5 px-2 whitespace-nowrap">
+            <input type="text" data-field="arrivalCode" value="${this.escape(row.arrivalCode)}" class="w-24 text-xs px-2 py-1 bg-white border border-[#DFE1E6] rounded font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </td>
+          <td class="py-1.5 px-2 whitespace-nowrap">
+            <select data-field="productionPlant" class="w-36 text-xs px-2 py-1 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              ${plantsList.map(p => `<option value="${this.escape(p)}" ${p === row.productionPlant ? 'selected' : ''}>${this.escape(p)}</option>`).join('')}
+            </select>
+          </td>
+          <td class="py-1.5 px-2 whitespace-nowrap">
+            <select data-field="gradingStation" class="w-36 text-xs px-2 py-1 bg-white border border-[#DFE1E6] rounded font-medium text-[#42526E] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              ${stationsList.map(s => `<option value="${this.escape(s)}" ${s === row.gradingStation ? 'selected' : ''}>${this.escape(s)}</option>`).join('')}
+            </select>
+          </td>
+          <td class="py-1.5 px-2 whitespace-nowrap">
+            <input type="text" data-field="gradingDate" value="${this.escape(row.gradingDate)}" class="w-24 text-xs px-2 py-1 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </td>
+          <td class="py-1.5 px-2 whitespace-nowrap">
+            <select data-field="gradingMachine" class="w-32 text-xs px-2 py-1 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              ${machinesList.map(m => `<option value="${this.escape(m)}" ${m === row.gradingMachine ? 'selected' : ''}>${this.escape(m)}</option>`).join('')}
+            </select>
+          </td>
+          <td class="py-1.5 px-2 whitespace-nowrap">
+            <input type="text" data-field="startTime" value="${this.escape(row.startTime)}" class="w-16 text-xs px-2 py-1 bg-white border border-[#DFE1E6] rounded text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs text-center" />
+          </td>
+          <td class="py-1.5 px-2 whitespace-nowrap">
+            <input type="text" data-field="endTime" value="${this.escape(row.endTime)}" class="w-16 text-xs px-2 py-1 bg-white border border-[#DFE1E6] rounded text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs text-center" />
+          </td>
+          <td class="py-1.5 px-2 whitespace-nowrap">
+            <input type="number" data-field="breakTimeMinutes" value="${row.breakTimeMinutes}" min="0" class="w-16 text-xs px-2 py-1 bg-white border border-[#DFE1E6] rounded font-mono text-[#5E6C84] focus:outline-none focus:border-[#00A4B7] shadow-2xs text-right" />
+          </td>
+          <td class="py-1.5 px-2 whitespace-nowrap">
+            <select data-field="variety" class="w-32 text-xs px-2 py-1 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              ${varietiesList.map(v => `<option value="${this.escape(v)}" ${v === row.variety ? 'selected' : ''}>${this.escape(v)}</option>`).join('')}
+            </select>
+          </td>
+          <td class="py-1.5 px-2 whitespace-nowrap">
+            <input type="text" data-field="hlCountPerLb" value="${this.escape(row.hlCountPerLb)}" class="w-24 text-xs px-2 py-1 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#0284C7] focus:outline-none focus:border-[#00A4B7] shadow-2xs text-center" />
+          </td>
+          <td class="py-1.5 px-2 whitespace-nowrap">
+            <input type="number" step="any" min="0.01" data-field="hlWeightKgs" value="${row.hlWeightKgs}" class="w-20 text-xs px-2 py-1 bg-white border border-[#DFE1E6] rounded font-bold text-[#00875A] focus:outline-none focus:border-[#00A4B7] shadow-2xs text-right" />
+          </td>
+          <td class="py-1.5 px-2 whitespace-nowrap">
+            <input type="number" min="1" data-field="noOfCrates" value="${row.noOfCrates}" class="w-16 text-xs px-2 py-1 bg-white border border-[#DFE1E6] rounded font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs text-right" />
+          </td>
+          <td class="py-1.5 px-2 whitespace-nowrap">
+            <input type="text" data-field="remarks" value="${this.escape(row.remarks || '')}" placeholder="-" class="w-28 text-xs px-2 py-1 bg-white border border-[#DFE1E6] rounded text-[#5E6C84] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </td>
+          <td class="py-2 px-3 text-center whitespace-nowrap sticky right-0 bg-white group-hover:bg-[#F8FAFC] z-10 border-l border-[#DFE1E6] shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.06)]" style="position: sticky; right: 0;">
+            <div class="inline-flex items-center gap-1.5 justify-center">
+              <button type="button" data-idx="${idx}" class="btn-save-ngr-entry dt-action-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none p-0" title="Save Record">
+                <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 21v-8H7v8"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 3v5h8V3"></path></svg>
+              </button>
+              <button type="button" data-idx="${idx}" class="btn-remove-ngr-entry dt-action-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#FFEBE6] border border-[#CBD5E1] hover:border-[#DE350B] text-[#DE350B] rounded-full transition-colors cursor-pointer select-none p-0" title="Delete Record">
+                <svg class="w-4 h-4 text-[#DE350B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+              </button>
+            </div>
+          </td>
+        </tr>
+      `).join('');
+
+      // Save row edits on clicking floppy disk Save button
+      tbody.querySelectorAll('.btn-save-ngr-entry').forEach(btn => {
+        btn.addEventListener('click', e => {
+          const entryIdx = parseInt(e.currentTarget.getAttribute('data-idx'), 10);
+          const rowEl = tbody.querySelector(`.ngr-editable-row[data-row-idx="${entryIdx}"]`);
+          if (!rowEl) return;
+
+          const row = batchEntries[entryIdx];
+          if (!row) return;
+
+          const arrivalCode = rowEl.querySelector('[data-field="arrivalCode"]')?.value || row.arrivalCode;
+          const productionPlant = rowEl.querySelector('[data-field="productionPlant"]')?.value || row.productionPlant;
+          const gradingStation = rowEl.querySelector('[data-field="gradingStation"]')?.value || row.gradingStation;
+          const gradingDate = rowEl.querySelector('[data-field="gradingDate"]')?.value || row.gradingDate;
+          const gradingMachine = rowEl.querySelector('[data-field="gradingMachine"]')?.value || row.gradingMachine;
+          const startTime = rowEl.querySelector('[data-field="startTime"]')?.value || row.startTime;
+          const endTime = rowEl.querySelector('[data-field="endTime"]')?.value || row.endTime;
+          const breakTimeMinutes = Number(rowEl.querySelector('[data-field="breakTimeMinutes"]')?.value) || 0;
+          const variety = rowEl.querySelector('[data-field="variety"]')?.value || row.variety;
+          const hlCountPerLb = rowEl.querySelector('[data-field="hlCountPerLb"]')?.value || row.hlCountPerLb;
+          const hlWeightKgs = Number(rowEl.querySelector('[data-field="hlWeightKgs"]')?.value) || 0;
+          const noOfCrates = Number(rowEl.querySelector('[data-field="noOfCrates"]')?.value) || 0;
+          const remarks = rowEl.querySelector('[data-field="remarks"]')?.value || '';
+
+          Object.assign(row, {
+            arrivalCode,
+            lotNo: arrivalCode,
+            productionPlant,
+            gradingStation,
+            gradingDate,
+            gradingMachine,
+            machineId: gradingMachine,
+            startTime,
+            endTime,
+            breakTimeMinutes,
+            variety,
+            hlCountPerLb,
+            hlWeightKgs,
+            totalGradedKg: hlWeightKgs,
+            noOfCrates,
+            remarks
+          });
+
+          // Sync with state.gradingRuns
+          const stateRun = this.state.gradingRuns.find(r => r.id === row.id);
+          if (stateRun) {
+            Object.assign(stateRun, row);
+            this.renderGradingScreen(container);
+          }
+
+          Toast.show(`Record ${row.id} (${arrivalCode}) saved successfully`, 'success');
+        });
+      });
+
+      // Delete row button
+      tbody.querySelectorAll('.btn-remove-ngr-entry').forEach(btn => {
+        btn.addEventListener('click', e => {
+          const entryIdx = parseInt(e.currentTarget.getAttribute('data-idx'), 10);
+          const removed = batchEntries.splice(entryIdx, 1)[0];
+          if (removed) {
+            const stateIdx = this.state.gradingRuns.findIndex(r => r.id === removed.id);
+            if (stateIdx !== -1) {
+              this.state.gradingRuns.splice(stateIdx, 1);
+              this.state.gradingRuns.forEach((r, index) => { r.sNo = index + 1; });
+              this.renderGradingScreen(container);
+            }
+          }
+          renderInnerTable();
+          Toast.show('Grading entry removed', 'info');
+        });
+      });
+    };
+
+    let shouldCloseOnSubmit = false;
+
+    const saveBtn = document.getElementById('btn-save-grading-form');
+    saveBtn?.addEventListener('click', (e) => {
+      e.preventDefault();
+      shouldCloseOnSubmit = false;
+      form?.requestSubmit();
+    });
+
+    const cancelBtn = document.getElementById('btn-cancel-grading-modal');
+    cancelBtn?.addEventListener('click', () => {
+      Modal.close();
+    });
+
+    const saveAllBtn = document.getElementById('btn-save-all-grading');
+    saveAllBtn?.addEventListener('click', () => {
+      if (batchEntries.length > 0) {
+        Toast.show(`${batchEntries.length} grading run(s) saved successfully`, 'success');
+        Modal.close();
+      } else {
+        shouldCloseOnSubmit = true;
+        form?.requestSubmit();
+      }
+    });
+
+    form?.addEventListener('submit', event => {
+      event.preventDefault();
+      const values = Object.fromEntries(new FormData(form));
+      const nextSeq = Math.max(200, ...this.state.gradingRuns.map(r => Number(r.id.split('-').pop()) || 0)) + 1;
+      const entry = {
+        ...values,
+        sNo: this.state.gradingRuns.length + 1,
+        id: `GR-2026-${nextSeq}`,
+        lotNo: values.arrivalCode,
+        arrivalDate: values.arrivalDate || values.gradingDate,
+        gradingDate: values.gradingDate.includes('-') ? values.gradingDate.split('-').reverse().join('/') : values.gradingDate,
+        hlWeightKgs: Number(values.hlWeightKgs),
+        totalGradedKg: Number(values.hlWeightKgs),
+        noOfCrates: Number(values.noOfCrates),
+        breakTimeMinutes: Number(values.breakTimeMinutes) || 0,
+        gradingMachine: values.gradingMachine,
+        machineId: values.gradingMachine,
+        species: values.variety.includes('Vannamei') ? 'Vannamei Shrimp' : (values.variety.includes('Black Tiger') ? 'Black Tiger Shrimp' : values.variety)
+      };
+
+      // Push to modal table batch entries
+      batchEntries.unshift(entry);
+
+      // Add to overall application state
+      this.state.gradingRuns.unshift(entry);
+      this.state.gradingRuns.forEach((r, index) => { r.sNo = index + 1; });
+
+      // Refresh the background page table
+      this.renderGradingScreen(container);
+
+      // Render the updated table inside the modal
+      renderInnerTable();
+
+      // Reset numeric & remarks form fields so user can immediately add another entry if needed
+      const hlCountInput = document.getElementById('ngr-hlCountPerLb');
+      const hlWeightInput = document.getElementById('ngr-hlWeightKgs');
+      const cratesInput = document.getElementById('ngr-noOfCrates');
+      const remarksInput = document.getElementById('ngr-remarks');
+
+      if (hlCountInput) hlCountInput.value = '';
+      if (hlWeightInput) hlWeightInput.value = '';
+      if (cratesInput) cratesInput.value = '';
+      if (remarksInput) remarksInput.value = '';
+
+      // Scroll modal body smoothly down to show the newly added row
+      const modalBody = form?.closest('.overflow-y-auto');
+      if (modalBody) {
+        modalBody.scrollTo({ top: modalBody.scrollHeight, behavior: 'smooth' });
+      }
+
+      if (shouldCloseOnSubmit) {
+        Modal.close();
+        Toast.show(`Grading run ${entry.id} saved`, 'success');
+      } else {
+        Toast.show(`Grading run ${entry.id} saved & displayed in table`, 'success');
+      }
     });
   },
 
   // Edit Grading Modal (4-Column Grid)
   showEditGradingModal(row, container) {
+    const plantsList = [...new Set(this.state.gradingRuns.map(r => r.productionPlant))];
+    const stationsList = [...new Set(this.state.gradingRuns.map(r => r.gradingStation))];
+    const machinesList = [...new Set(this.state.gradingRuns.map(r => r.gradingMachine || r.machineId))];
+    const varietiesList = [...new Set(this.state.gradingRuns.map(r => r.variety))];
+
     const fields = [
       { name: 'arrivalCode', label: 'Arrival / Lot Code', value: row.arrivalCode || row.lotNo },
-      { name: 'productionPlant', label: 'Production Plant', value: row.productionPlant, options: ['DFL UNIT-5 (JPT)', 'DFL UNIT-3 (PSP)', 'DFL UNIT-4 (PND)', 'DFL UNIT-1 (VSP)', 'DFL UNIT-6 (JPT-II)', 'DFL UNIT-2 (KKD)'] },
-      { name: 'gradingStation', label: 'Grading Station', value: row.gradingStation, options: ['Grading Line #1', 'Grading Line #2', 'Grading Line #3', 'Fish Sizing Table #1'] },
+      { name: 'arrivalDate', label: 'Arrival Date', type: 'date', value: row.arrivalDate || '2026-10-06' },
+      { name: 'productionPlant', label: 'Production Plant', value: row.productionPlant, options: plantsList.length ? plantsList : ['DFL UNIT-5 (JPT)', 'DFL UNIT-3 (PSP)', 'DFL UNIT-4 (PND)', 'DFL UNIT-1 (VSP)', 'DFL UNIT-6 (JPT-II)', 'DFL UNIT-2 (KKD)'] },
+      { name: 'gradingStation', label: 'Grading Station', value: row.gradingStation, options: stationsList.length ? stationsList : ['Grading Line #1', 'Grading Line #2', 'Grading Line #3', 'Fish Sizing Table #1'] },
       { name: 'gradingDate', label: 'Grading Date', type: 'date', value: row.gradingDate ? (row.gradingDate.includes('/') ? row.gradingDate.split('/').reverse().join('-') : row.gradingDate) : '2026-10-27' },
-      { name: 'gradingMachine', label: 'Grading Machine', value: row.gradingMachine || row.machineId, options: ['Auto Grader #1', 'Auto Grader #2', 'Manual Sizing Table', 'Shrimp Sorter 2000'] },
-      { name: 'variety', label: 'Variety / Species', value: row.variety, options: ['Vannamei (VM)', 'Black Tiger (BT)', 'Sea White', 'Scampi'] },
+      { name: 'gradingMachine', label: 'Grading Machine', value: row.gradingMachine || row.machineId, options: machinesList.length ? machinesList : ['Auto Grader #1', 'Auto Grader #2', 'Manual Sizing Table', 'Shrimp Sorter 2000'] },
+      { name: 'startTime', label: 'Start Time', value: row.startTime || '08:30' },
+      { name: 'endTime', label: 'End Time', value: row.endTime || '12:30' },
+      { name: 'breakTimeMinutes', label: 'Break (Mins)', type: 'number', value: row.breakTimeMinutes ?? 30 },
+      { name: 'variety', label: 'Variety / Species', value: row.variety, options: varietiesList.length ? varietiesList : ['Vannamei (VM)', 'Black Tiger (BT)', 'Sea White', 'Scampi', 'Asian Seabass'] },
       { name: 'hlCountPerLb', label: 'HL Count / Lb', value: row.hlCountPerLb },
       { name: 'hlWeightKgs', label: 'Total Graded Wt (Kgs)', type: 'number', min: '0.01', value: row.hlWeightKgs || row.totalGradedKg },
       { name: 'noOfCrates', label: 'No of Crates', type: 'number', min: '1', value: row.noOfCrates },
-      { name: 'startTime', label: 'Start Time', value: row.startTime || '08:30' },
-      { name: 'endTime', label: 'End Time', value: row.endTime || '12:30' },
-      { name: 'breakTimeMinutes', label: 'Break (Mins)', type: 'number', value: 30 },
       { name: 'status', label: 'Status', value: row.status, options: ['COMPLETED', 'IN_PROGRESS', 'PENDING'] },
       { name: 'remarks', label: 'Remarks', optional: true, value: row.remarks || '' }
     ];
@@ -19877,11 +20180,13 @@ const PreprocessingView = {
             const values = Object.fromEntries(new FormData(form));
             Object.assign(row, values, {
               lotNo: values.arrivalCode,
+              arrivalDate: values.arrivalDate,
               gradingDate: values.gradingDate.includes('-') ? values.gradingDate.split('-').reverse().join('/') : values.gradingDate,
               hlWeightKgs: Number(values.hlWeightKgs),
               totalGradedKg: Number(values.hlWeightKgs),
               noOfCrates: Number(values.noOfCrates),
               breakTimeMinutes: Number(values.breakTimeMinutes) || 0,
+              gradingMachine: values.gradingMachine,
               machineId: values.gradingMachine
             });
             Modal.close();
@@ -20066,7 +20371,7 @@ const PreprocessingView = {
         containerId: 'grading-table-container',
         data: data,
         keyField: 'id',
-        tableTitle: 'Grading Runs & Output Breakdown',
+        tableTitle: 'Grading Records & Batch Output',
         searchable: true,
         exportable: true,
         pageSize: 10,
@@ -20470,114 +20775,222 @@ const PreprocessingView = {
     });
   },
 
-      showGradingDetailsModal(row) {
+  showGradingDetailsModal(row) {
     const defaultVariety = row.variety || row.species || 'Vannamei (VM)';
     const totalGraded = Number(row.hlWeightKgs || row.totalGradedKg || 2750);
     const noOfCrates = Number(row.noOfCrates || 110);
+    const avgCrateWt = noOfCrates > 0 ? (totalGraded / noOfCrates).toFixed(1) : '0.0';
 
     Modal.open({
-      title: `Grading Batch Run Registry: ${row.id}`,
-      size: 'full',
+      title: `Grading Records & Batch Output Details: ${this.escape(row.id || row.arrivalCode || 'GR-RUN')}`,
+      size: 'xl',
       content: `
         <div class="space-y-4 text-xs">
-          <!-- Key Details Grid (12 Fields) -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 bg-[#F8FAFC] p-3.5 rounded-xl border border-[#DFE1E6]">
-            <div>
-              <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Production Plant</span>
-              <span class="font-semibold text-[#172B4D] block mt-0.5">${row.productionPlant || 'DFL UNIT-5 (JPT)'}</span>
+          <!-- Top Hero / Summary Card -->
+          <div class="bg-gradient-to-r from-[#F0F9FF] to-[#F8FAFC] p-4 rounded-xl border border-[#BAE6FD] flex flex-wrap items-center justify-between gap-3 shadow-2xs">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-[#00A4B7] text-white flex items-center justify-center font-bold shadow-xs">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h18M3 8h18M3 12h18M3 16h18M3 20h18" /></svg>
+              </div>
+              <div>
+                <div class="flex items-center gap-2">
+                  <span class="font-mono font-extrabold text-[#0F172A] text-base">${this.escape(row.id || 'GR-2026-001')}</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold tracking-wide uppercase bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">
+                    ${this.escape(row.status || 'COMPLETED')}
+                  </span>
+                  <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">
+                    ${this.escape(defaultVariety)}
+                  </span>
+                </div>
+                <div class="text-[11px] text-[#64748B] mt-0.5 font-medium flex items-center gap-1.5 flex-wrap">
+                  <span>Plant: ${this.escape(row.productionPlant || 'DFL UNIT-5 (JPT)')}</span>
+                  <span>•</span>
+                  <span>Station: ${this.escape(row.gradingStation || 'Grading Line #1')}</span>
+                  <span>•</span>
+                  <span>Machine: ${this.escape(row.gradingMachine || row.machineId || 'Auto Grader #1')}</span>
+                  <span>•</span>
+                  <span>Date: ${this.escape(row.gradingDate || row.arrivalDate || '06/10/2026')}</span>
+                  <span>•</span>
+                  <span>Hours: ${this.escape(row.startTime || '08:30')} - ${this.escape(row.endTime || '12:15')}</span>
+                </div>
+              </div>
             </div>
-            <div>
-              <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Arrival Lot Code</span>
-              <span class="font-mono font-bold text-[#00A4B7] block mt-0.5">${row.arrivalCode || row.lotNo || 'LOT-2026-00125'}</span>
-            </div>
-            <div>
-              <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Grading Station</span>
-              <span class="font-semibold text-[#172B4D] block mt-0.5">${row.gradingStation || 'Grading Line #1'}</span>
-            </div>
-            <div>
-              <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Grading Machine / Sizer</span>
-              <span class="font-mono font-bold text-[#172B4D] block mt-0.5">${row.gradingMachine || row.machineId || 'Auto Grader #1'}</span>
-            </div>
-            <div>
-              <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Grading Date</span>
-              <span class="font-medium text-[#172B4D] block mt-0.5">${row.gradingDate || row.arrivalDate || '06/10/2026'}</span>
-            </div>
-            <div>
-              <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Operating Hours</span>
-              <span class="font-mono font-semibold text-[#172B4D] block mt-0.5">${row.startTime || '08:30'} - ${row.endTime || '12:15'}</span>
-            </div>
-            <div>
-              <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Variety / Species</span>
-              <span class="font-semibold text-[#172B4D] block mt-0.5">${defaultVariety}</span>
-            </div>
-            <div>
-              <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">HL Count (Per Lb)</span>
-              <span class="font-mono font-bold text-[#00A4B7] block mt-0.5">${row.hlCountPerLb || '21/25 Count'}</span>
-            </div>
-            <div>
-              <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Total Graded Quantity</span>
-              <span class="font-mono font-bold text-[#00875A] block mt-0.5">${totalGraded.toLocaleString()} Kgs</span>
-            </div>
-            <div>
-              <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Total Crates Sized</span>
-              <span class="font-mono font-bold text-[#172B4D] block mt-0.5">${noOfCrates} Crates</span>
-            </div>
-            <div>
-              <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Break Time / Downtime</span>
-              <span class="font-medium text-[#172B4D] block mt-0.5">${row.breakTimeMinutes || 30} Minutes</span>
-            </div>
-            <div>
-              <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider block">Inspection Status</span>
-              <span class="inline-flex mt-0.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#E3FCEF] text-[#006644]">COMPLETED</span>
+            <div class="flex items-center gap-2">
+              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[90px]">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Graded Qty</span>
+                <span class="font-mono font-bold text-[#00875A] text-xs">${totalGraded.toLocaleString()} Kg</span>
+              </div>
+              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[80px]">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Total Crates</span>
+                <span class="font-mono font-bold text-[#172B4D] text-xs">${noOfCrates}</span>
+              </div>
+              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[85px]">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Avg Crate Wt</span>
+                <span class="font-mono font-bold text-[#00A4B7] text-xs">${avgCrateWt} Kg</span>
+              </div>
             </div>
           </div>
 
-          <!-- Itemized Breakdown Table -->
-          <div class="space-y-2">
-            <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Mechanical Sizing & Crate Allocation Breakdown</h4>
-            <div class="bg-white rounded-xl border border-[#DFE1E6] shadow-2xs overflow-hidden">
-              <div class="overflow-x-auto" style="overflow-x: auto !important; -webkit-overflow-scrolling: touch;">
-                <table class="w-full text-left text-xs border-collapse" style="min-width: 1000px;">
-                  <thead class="bg-[#F8FAFC] border-b border-[#DFE1E6] text-[#475569] font-bold uppercase tracking-wider text-[11px]">
-                    <tr>
-                      <th class="py-2.5 px-3 w-12 text-center">S.No</th>
-                      <th class="py-2.5 px-3 min-w-[140px]">Arrival Lot Code</th>
-                      <th class="py-2.5 px-3 min-w-[160px]">Variety</th>
-                      <th class="py-2.5 px-3 min-w-[120px]">HL Count (Per Lb)</th>
-                      <th class="py-2.5 px-3 min-w-[100px] text-center">Grade</th>
-                      <th class="py-2.5 px-3 min-w-[140px]">Grading Machine</th>
-                      <th class="py-2.5 px-3 min-w-[100px] text-right">No of Crates</th>
-                      <th class="py-2.5 px-3 min-w-[120px] text-right">Graded Qty</th>
-                      <th class="py-2.5 px-3 w-24 text-center">Status</th>
-                    </tr>
-                  </thead>
-                  <tbody class="divide-y divide-[#E2E8F0] text-[#1E293B]">
-                    <tr class="hover:bg-[#F8FAFC] transition-colors">
-                      <td class="py-2.5 px-3 text-center font-bold text-[#5E6C84] bg-[#FAFBFC] border-r border-[#E2E8F0]">1</td>
-                      <td class="py-2.5 px-3 font-mono font-bold text-[#00A4B7]">${row.arrivalCode || row.lotNo || 'LOT-2026-00125'}</td>
-                      <td class="py-2.5 px-3 font-semibold text-[#172B4D]">${defaultVariety}</td>
-                      <td class="py-2.5 px-3 font-mono font-medium text-[#172B4D]">${row.hlCountPerLb || '21/25 Count'}</td>
-                      <td class="py-2.5 px-3 text-center">
-                        <span class="font-mono font-bold text-[#00A4B7] bg-[#F0F9FF] px-2.5 py-0.5 rounded border border-[#BAE6FD]">21/25</span>
-                      </td>
-                      <td class="py-2.5 px-3 font-semibold text-[#475569]">${row.gradingMachine || 'Auto Grader #1'}</td>
-                      <td class="py-2.5 px-3 text-right font-mono font-bold text-[#172B4D]">${noOfCrates}</td>
-                      <td class="py-2.5 px-3 text-right font-mono font-bold text-[#00875A]">${totalGraded.toFixed(2)} Kgs</td>
-                      <td class="py-2.5 px-3 text-center">
-                        <span class="inline-flex px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#E3FCEF] text-[#006644]">PASSED</span>
-                      </td>
-                    </tr>
-                  </tbody>
-                  <tfoot class="bg-[#F8FAFC] border-t-2 border-[#DFE1E6] font-bold text-xs text-[#0F172A]">
-                    <tr>
-                      <td colspan="6" class="py-3 px-3 text-right uppercase tracking-wider text-[#475569]">Total Aggregates:</td>
-                      <td class="py-3 px-3 text-right font-mono text-sm text-[#172B4D]">${noOfCrates}</td>
-                      <td class="py-3 px-3 text-right font-mono text-sm text-[#00875A]">${totalGraded.toFixed(2)} Kgs</td>
-                      <td></td>
-                    </tr>
-                  </tfoot>
-                </table>
+          <!-- Section 1: Facility & Station Allocation -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs space-y-2">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9] pb-2">
+              <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">1</span>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Facility &amp; Station Allocation</h4>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Arrival / Lot Code</span>
+                <span class="font-mono font-bold text-[#00A4B7] text-xs block mt-0.5">${this.escape(row.arrivalCode || row.lotNo || '-')}</span>
               </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Arrival Date</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.arrivalDate || row.gradingDate || '-')}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Production Plant</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.productionPlant || '-')}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Grading Station</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.gradingStation || '-')}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Operation & Machine Details -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs space-y-2">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9] pb-2">
+              <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">2</span>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Operation &amp; Machine Details</h4>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Grading Machine</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.gradingMachine || row.machineId || '-')}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Grading Date</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.gradingDate || '-')}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Operating Hours</span>
+                <span class="font-mono font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(row.startTime || '08:30')} - ${this.escape(row.endTime || '12:15')}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Break / Downtime</span>
+                <span class="font-semibold text-[#5E6C84] text-xs block mt-0.5">${row.breakTimeMinutes ?? 30} Minutes</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 3: Grading & Sizing Analysis -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs space-y-2">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9] pb-2">
+              <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">3</span>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Grading &amp; Sizing Analysis</h4>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Variety / Species</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${this.escape(defaultVariety)}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">HL Count (Per Lb)</span>
+                <span class="font-mono font-bold text-[#0284C7] text-xs block mt-0.5">${this.escape(row.hlCountPerLb || '-')}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Total Graded Quantity</span>
+                <span class="font-mono font-bold text-[#00875A] text-xs block mt-0.5">${totalGraded.toLocaleString()} Kg</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Total Crates Sized</span>
+                <span class="font-mono font-bold text-[#172B4D] text-xs block mt-0.5">${noOfCrates} Crates</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 4: Auxiliary & Quality Remarks -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs space-y-2">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9] pb-2">
+              <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">4</span>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Auxiliary &amp; Quality Remarks</h4>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Avg Crate Weight</span>
+                <span class="font-mono font-bold text-[#00A4B7] text-xs block mt-0.5">${avgCrateWt} Kg / Crate</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Inspection Status</span>
+                <span class="inline-flex mt-0.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#E3FCEF] text-[#006644]">
+                  ${this.escape(row.status || 'COMPLETED')}
+                </span>
+              </div>
+              <div class="col-span-2">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Remarks</span>
+                <span class="font-medium text-[#172B4D] text-xs block mt-0.5 break-words">${this.escape(row.remarks || 'None')}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 5: Grading Records & Batch Output Itemized Summary Table -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs space-y-2">
+            <div class="flex items-center justify-between border-b border-[#F1F5F9] pb-2 mb-1">
+              <div class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">5</span>
+                <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Grading Records &amp; Batch Output Summary</h4>
+              </div>
+              <span class="text-[11px] font-semibold text-[#5E6C84]">Run ${this.escape(row.id || 'GR-RUN')}</span>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="erp-table w-full text-left text-xs border-collapse" style="min-width: 1300px;">
+                <thead class="bg-[#FAFBFC] border-b border-[#DFE1E6] text-[#475569] font-bold uppercase tracking-wider text-[11px]">
+                  <tr>
+                    <th class="py-2.5 px-3 min-w-[50px]">S.No</th>
+                    <th class="py-2.5 px-3 min-w-[120px]">Arrival Code</th>
+                    <th class="py-2.5 px-3 min-w-[130px]">Production Plant</th>
+                    <th class="py-2.5 px-3 min-w-[130px]">Grading Station</th>
+                    <th class="py-2.5 px-3 min-w-[105px]">Grading Date</th>
+                    <th class="py-2.5 px-3 min-w-[120px]">Grading Machine</th>
+                    <th class="py-2.5 px-3 min-w-[95px]">Shift / Time</th>
+                    <th class="py-2.5 px-3 min-w-[90px]">Break (Mins)</th>
+                    <th class="py-2.5 px-3 min-w-[130px]">Variety</th>
+                    <th class="py-2.5 px-3 min-w-[105px]">HL Count/Lb</th>
+                    <th class="py-2.5 px-3 min-w-[110px]">Graded Wt(Kg)</th>
+                    <th class="py-2.5 px-3 min-w-[90px]">No of Crates</th>
+                    <th class="py-2.5 px-3 min-w-[130px]">Remarks</th>
+                    <th class="py-2.5 px-3 min-w-[80px] text-center">Status</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-[#E2E8F0] text-[#1E293B]">
+                  <tr class="hover:bg-[#F8FAFC] transition-colors">
+                    <td class="py-2 px-3 font-semibold text-[#5E6C84]">1</td>
+                    <td class="py-2 px-3 font-bold text-[#00A4B7] whitespace-nowrap">${this.escape(row.arrivalCode || row.lotNo || '-')}</td>
+                    <td class="py-2 px-3 font-semibold text-[#172B4D] whitespace-nowrap">${this.escape(row.productionPlant || '-')}</td>
+                    <td class="py-2 px-3 text-[#42526E] whitespace-nowrap">${this.escape(row.gradingStation || '-')}</td>
+                    <td class="py-2 px-3 text-[#172B4D] whitespace-nowrap">${this.escape(row.gradingDate || '-')}</td>
+                    <td class="py-2 px-3 whitespace-nowrap"><span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#F4F5F7] text-[#42526E] border border-[#DFE1E6]">${this.escape(row.gradingMachine || row.machineId || '-')}</span></td>
+                    <td class="py-2 px-3 font-medium text-[#172B4D] whitespace-nowrap">${this.escape(row.startTime || '08:30')} - ${this.escape(row.endTime || '12:15')}</td>
+                    <td class="py-2 px-3 font-mono text-xs text-[#5E6C84]">${row.breakTimeMinutes ?? 30} mins</td>
+                    <td class="py-2 px-3 font-medium text-[#172B4D] whitespace-nowrap">${this.escape(defaultVariety)}</td>
+                    <td class="py-2 px-3 font-mono text-xs font-bold text-[#0284C7] whitespace-nowrap">${this.escape(row.hlCountPerLb || '-')}</td>
+                    <td class="py-2 px-3 font-bold text-[#00875A] whitespace-nowrap">${totalGraded.toLocaleString()} Kg</td>
+                    <td class="py-2 px-3 font-bold text-[#172B4D] whitespace-nowrap">${noOfCrates}</td>
+                    <td class="py-2 px-3 text-xs text-[#5E6C84] truncate max-w-[150px]" title="${this.escape(row.remarks || '-')}">${this.escape(row.remarks || '-')}</td>
+                    <td class="py-2 px-3 text-center whitespace-nowrap">
+                      <span class="inline-flex px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#E3FCEF] text-[#006644]">${this.escape(row.status || 'COMPLETED')}</span>
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot class="bg-[#FAFBFC] border-t-2 border-[#DFE1E6] font-bold text-xs text-[#0F172A]">
+                  <tr>
+                    <td colspan="10" class="py-2.5 px-3 text-right uppercase tracking-wider text-[#475569]">Total Aggregates:</td>
+                    <td class="py-2.5 px-3 font-mono text-xs font-bold text-[#00875A]">${totalGraded.toLocaleString()} Kg</td>
+                    <td class="py-2.5 px-3 font-mono text-xs font-bold text-[#172B4D]">${noOfCrates} Crates</td>
+                    <td colspan="2"></td>
+                  </tr>
+                </tfoot>
+              </table>
             </div>
           </div>
         </div>
@@ -20586,14 +20999,14 @@ const PreprocessingView = {
         {
           label: 'Print Grading Sheet',
           type: 'secondary',
-          class: 'btn btn-outline rounded-full px-5 py-2 font-semibold',
+          class: 'btn-secondary px-5 py-2 rounded-full text-xs font-semibold border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#172B4D] transition-all cursor-pointer',
           onClick: () => window.print()
         },
         {
           label: 'Close',
-          type: 'secondary',
-          class: 'btn btn-secondary rounded-full px-5 py-2 font-semibold',
-          onClick: modal => modal.close()
+          type: 'primary',
+          class: 'btn-primary px-5 py-2 rounded-full text-xs font-bold shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer',
+          onClick: (m) => m.close()
         }
       ]
     });
