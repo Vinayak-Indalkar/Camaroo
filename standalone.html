@@ -7835,6 +7835,11 @@ const Sidebar = {
             <div class="flex-1 flex flex-col overflow-y-auto py-3 px-2 space-y-2 overflow-x-visible bg-[#0F172A]" id="sidebar-nav-groups">
               ${this.renderCollapsedNavHierarchy()}
             </div>
+
+            <!-- Bottom Sticky Settings -->
+            <div class="shrink-0 py-3 px-2 border-t border-[#1E293B] flex justify-center bg-[#0F172A]" id="sidebar-bottom-settings-collapsed">
+              ${this.renderCollapsedSettingsModule()}
+            </div>
           </aside>
 
           <!-- Toggle Button: Half inside, half outside right edge -->
@@ -7873,6 +7878,11 @@ const Sidebar = {
             <div class="flex-1 flex flex-col overflow-y-auto py-3 px-3 space-y-1 bg-[#0F172A]" id="sidebar-nav-groups">
               ${this.renderNavHierarchy()}
             </div>
+
+            <!-- Bottom Sticky Settings -->
+            <div class="shrink-0 p-3 border-t border-[#1E293B] bg-[#0F172A]" id="sidebar-bottom-settings">
+              ${this.renderSettingsModule()}
+            </div>
           </aside>
 
           <!-- Toggle Button: Half inside, half outside right edge -->
@@ -7892,12 +7902,12 @@ const Sidebar = {
 
   renderNavHierarchy() {
     const isSuperAdmin = ERP_DATA.currentUser?.role === 'Super Admin';
-    const modules = isSuperAdmin ? SUPER_ADMIN_NAV_HIERARCHY : ADMIN_NAV_HIERARCHY;
+    const allModules = isSuperAdmin ? SUPER_ADMIN_NAV_HIERARCHY : ADMIN_NAV_HIERARCHY;
+    const modules = allModules.filter(m => m.id !== 'settings');
 
     return modules.map(mod => {
       const isExpanded = mod.id === this.activeModuleId;
-      const isSettings = mod.id === 'settings';
-      const groupWrapperClass = isSettings ? 'nav-module-group mb-1 mt-auto pt-2 border-t border-[#1E293B]/70' : 'nav-module-group mb-1';
+      const groupWrapperClass = 'nav-module-group mb-1';
 
       // Super Admin: Clean direct menu buttons for non-settings modules
       if (isSuperAdmin && mod.id !== 'settings') {
@@ -7965,12 +7975,12 @@ const Sidebar = {
 
   renderCollapsedNavHierarchy() {
     const isSuperAdmin = ERP_DATA.currentUser?.role === 'Super Admin';
-    const modules = isSuperAdmin ? SUPER_ADMIN_NAV_HIERARCHY : ADMIN_NAV_HIERARCHY;
+    const allModules = isSuperAdmin ? SUPER_ADMIN_NAV_HIERARCHY : ADMIN_NAV_HIERARCHY;
+    const modules = allModules.filter(m => m.id !== 'settings');
 
     return modules.map(mod => {
       const isCurrentMod = mod.id === this.activeModuleId;
-      const isSettings = mod.id === 'settings';
-      const groupWrapperClass = isSettings ? 'relative group flex justify-center nav-module-group mt-auto pt-2 border-t border-[#1E293B]/70' : 'relative group flex justify-center nav-module-group';
+      const groupWrapperClass = 'relative group flex justify-center nav-module-group';
       const firstTabHash = mod.submenus[0]?.tabs[0]?.hash || '#/';
 
       if (isSuperAdmin && mod.id !== 'settings') {
@@ -8028,6 +8038,105 @@ const Sidebar = {
         </div>
       `;
     }).join('');
+  },
+
+  renderSettingsModule() {
+    const isSuperAdmin = ERP_DATA.currentUser?.role === 'Super Admin';
+    const hierarchy = isSuperAdmin ? SUPER_ADMIN_NAV_HIERARCHY : ADMIN_NAV_HIERARCHY;
+    const settingsMod = hierarchy.find(m => m.id === 'settings');
+    if (!settingsMod) return '';
+
+    const isExpanded = settingsMod.id === this.activeModuleId;
+    let submenusHtml = '';
+    if (isExpanded) {
+      submenusHtml = `
+        <div class="nav-submenus-list mt-1 ml-4 pl-3 py-1 space-y-1 border-l-2 border-[#00A4B7]">
+          ${settingsMod.submenus.map(sub => {
+            const isSubActive = sub.id === this.activeSubmenuId;
+            const defaultHash = sub.tabs[0]?.hash || `/#/settings/${sub.id}`;
+
+            return `
+              <div class="nav-submenu-block">
+                <a 
+                  href="${defaultHash}" 
+                  class="flex items-center px-2.5 py-1.5 rounded-md text-xs font-semibold transition-all ${isSubActive ? 'text-[#00A4B7] font-bold' : 'text-[#94A3B8] hover:bg-white/5 hover:text-white'}"
+                >
+                  <div class="flex items-center gap-2 truncate">
+                    <span class="w-1.5 h-1.5 rounded-full ${isSubActive ? 'bg-[#00A4B7]' : 'bg-[#475569]'} shrink-0"></span>
+                    <span class="truncate">${sub.title}</span>
+                  </div>
+                </a>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      `;
+    }
+
+    return `
+      <div class="nav-module-group">
+        <button 
+          data-module-id="settings" 
+          class="sidebar-mod-btn w-full px-3 py-2 rounded-lg text-xs font-bold flex items-center justify-between transition-colors cursor-pointer ${isExpanded ? 'bg-[#00A4B7] text-white' : 'text-[#CBD5E1] hover:bg-white/5 hover:text-white'}"
+        >
+          <div class="flex items-center gap-2.5 truncate">
+            <span class="w-4 h-4 flex items-center justify-center shrink-0 ${isExpanded ? 'text-white' : 'text-[#64748B]'}">${settingsMod.icon}</span>
+            <span class="text-xs tracking-tight truncate">${settingsMod.title}</span>
+          </div>
+          <div class="flex items-center gap-1 shrink-0">
+            <svg class="w-3.5 h-3.5 transform transition-transform duration-200 ${isExpanded ? 'rotate-90 text-white' : 'text-[#64748B]'}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </div>
+        </button>
+        ${submenusHtml}
+      </div>
+    `;
+  },
+
+  renderCollapsedSettingsModule() {
+    const isSuperAdmin = ERP_DATA.currentUser?.role === 'Super Admin';
+    const hierarchy = isSuperAdmin ? SUPER_ADMIN_NAV_HIERARCHY : ADMIN_NAV_HIERARCHY;
+    const settingsMod = hierarchy.find(m => m.id === 'settings');
+    if (!settingsMod) return '';
+
+    const isCurrentMod = settingsMod.id === this.activeModuleId;
+
+    return `
+      <div class="relative group flex justify-center nav-module-group w-full">
+        <!-- Icon Button -->
+        <button 
+          data-module-id="settings" 
+          class="sidebar-mod-btn w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-200 cursor-pointer ${isCurrentMod ? 'bg-[#00A4B7] text-white ring-2 ring-[#00A4B7] font-bold' : 'text-[#94A3B8] hover:bg-white/5 hover:text-white'}"
+          title="${settingsMod.title}"
+        >
+          <span class="w-4 h-4 flex items-center justify-center ${isCurrentMod ? 'text-white' : ''}">${settingsMod.icon}</span>
+        </button>
+
+        <!-- Floating Flyout Menu on Hover -->
+        <div class="absolute left-full bottom-0 ml-3 w-60 bg-[#0F172A] border border-[#1E293B] rounded-xl p-2.5 hidden group-hover:block z-50 transition-all pointer-events-auto shadow-2xl">
+          <!-- Module Title in Flyout -->
+          <div class="flex items-center gap-2 px-2.5 py-1.5 border-b border-[#1E293B] mb-1.5 text-white font-bold text-xs">
+            <span class="text-[#00A4B7]">${settingsMod.icon}</span>
+            <span class="tracking-wide">${settingsMod.title}</span>
+          </div>
+
+          <!-- Submenus List in Flyout -->
+          <div class="space-y-1">
+            ${settingsMod.submenus.map(sub => {
+              const isSubActive = isCurrentMod && (sub.id === this.activeSubmenuId);
+              const defaultHash = sub.tabs[0]?.hash || `/#/settings/${sub.id}`;
+              return `
+                <a 
+                  href="${defaultHash}" 
+                  class="flex items-center px-2.5 py-1.5 rounded-md text-xs font-medium transition-all ${isSubActive ? 'text-[#00A4B7] font-bold' : 'text-[#94A3B8] hover:bg-white/5 hover:text-white'}"
+                >
+                  <span>${sub.title}</span>
+                </a>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      </div>
+    `;
   },
 
   bindEvents() {
