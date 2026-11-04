@@ -2145,7 +2145,7 @@ export const PreprocessingView = {
                       <th class="py-2.5 px-3 min-w-[80px]">Yield(%)</th>
                       <th class="py-2.5 px-3 min-w-[100px]">Ice Consumption</th>
                       <th class="py-2.5 px-3 min-w-[140px]">Remarks</th>
-                      <th class="py-2.5 px-3 min-w-[70px] text-center sticky right-0 bg-[#FAFBFC] z-20 border-l border-[#DFE1E6] shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.06)]" style="position: sticky; right: 0;">Action</th>
+                      <th class="py-2.5 px-3 min-w-[90px] text-center sticky right-0 bg-[#FAFBFC] z-20 border-l border-[#DFE1E6] shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.06)]" style="position: sticky; right: 0;">Action</th>
                     </tr>
                   </thead>
                   <tbody id="ndh-modal-tbody" class="divide-y divide-[#E2E8F0] text-[#1E293B]">
@@ -2216,9 +2216,14 @@ export const PreprocessingView = {
           <td class="py-2 px-3 text-[#5E6C84] font-medium whitespace-nowrap">${this.escape(row.iceConsumption || '-')}</td>
           <td class="py-2 px-3 text-xs text-[#5E6C84] truncate max-w-[160px]" title="${this.escape(row.remarks || '-')}">${this.escape(row.remarks || '-')}</td>
           <td class="py-2 px-3 text-center whitespace-nowrap sticky right-0 bg-white group-hover:bg-[#F8FAFC] z-10 border-l border-[#DFE1E6] shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.06)]" style="position: sticky; right: 0;">
-            <button type="button" data-idx="${idx}" class="btn-save-ndh-entry dt-action-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none p-0" title="Save Record">
-              <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/></svg>
-            </button>
+            <div class="inline-flex items-center gap-1.5 justify-center">
+              <button type="button" data-idx="${idx}" class="btn-save-ndh-entry dt-action-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none p-0" title="Save Record">
+                <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/></svg>
+              </button>
+              <button type="button" data-idx="${idx}" class="btn-remove-ndh-entry dt-action-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#FFEBE6] border border-[#CBD5E1] hover:border-[#DE350B] text-[#DE350B] rounded-full transition-colors cursor-pointer select-none p-0" title="Delete Record">
+                <svg class="w-4 h-4 text-[#DE350B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+              </button>
+            </div>
           </td>
         </tr>
       `).join('');
@@ -2230,6 +2235,24 @@ export const PreprocessingView = {
           if (row) {
             Toast.show(`Record ${row.id} (${row.arrivalCode}) saved successfully`, 'success');
           }
+        });
+      });
+
+      tbody.querySelectorAll('.btn-remove-ndh-entry').forEach(btn => {
+        btn.addEventListener('click', e => {
+          const entryIdx = parseInt(e.currentTarget.getAttribute('data-idx'), 10);
+          const removed = batchEntries.splice(entryIdx, 1)[0];
+          // Also remove from global state
+          if (removed) {
+            const stateIdx = this.state.deheadingBatches.findIndex(b => b.id === removed.id);
+            if (stateIdx !== -1) {
+              this.state.deheadingBatches.splice(stateIdx, 1);
+              this.state.deheadingBatches.forEach((batch, index) => { batch.sNo = index + 1; });
+              this.renderDeheadingScreen(container);
+            }
+          }
+          renderInnerTable();
+          Toast.show('Deheading entry removed', 'info');
         });
       });
     };
