@@ -2117,7 +2117,7 @@ export const PreprocessingView = {
           </div>
 
           <!-- Deheading Records Table Inside Modal -->
-          <div class="border-t border-[#DFE1E6] pt-3 flex flex-col space-y-2">
+          <div class="flex flex-col space-y-2 pt-1">
             <div class="flex items-center justify-between">
               <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Deheading Records &amp; Batch Output</h4>
               <span id="ndh-table-count" class="text-[11px] font-semibold text-[#5E6C84]">0 records</span>
@@ -2157,6 +2157,16 @@ export const PreprocessingView = {
                   </tbody>
                 </table>
               </div>
+            </div>
+
+            <!-- Cancel & Save Deheading Buttons below table -->
+            <div class="flex items-center justify-end gap-2.5 pt-3 border-t border-[#DFE1E6]">
+              <button type="button" id="btn-cancel-deheading-modal" class="btn-secondary px-5 py-2 rounded-full text-xs font-semibold border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#172B4D] transition-all cursor-pointer">
+                Cancel
+              </button>
+              <button type="button" id="btn-save-all-deheading" class="btn-primary px-5 py-2 rounded-full text-xs font-bold shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer">
+                Save Deheading
+              </button>
             </div>
           </div>
         </div>
@@ -2257,10 +2267,29 @@ export const PreprocessingView = {
       });
     };
 
+    let shouldCloseOnSubmit = false;
+
     const saveBtn = document.getElementById('btn-save-deheading-form');
     saveBtn?.addEventListener('click', (e) => {
       e.preventDefault();
+      shouldCloseOnSubmit = false;
       form?.requestSubmit();
+    });
+
+    const cancelBtn = document.getElementById('btn-cancel-deheading-modal');
+    cancelBtn?.addEventListener('click', () => {
+      Modal.close();
+    });
+
+    const saveAllBtn = document.getElementById('btn-save-all-deheading');
+    saveAllBtn?.addEventListener('click', () => {
+      if (batchEntries.length > 0) {
+        Toast.show(`${batchEntries.length} deheading batch(es) saved successfully`, 'success');
+        Modal.close();
+      } else {
+        shouldCloseOnSubmit = true;
+        form?.requestSubmit();
+      }
     });
 
     form?.addEventListener('submit', event => {
@@ -2335,7 +2364,12 @@ export const PreprocessingView = {
         modalBody.scrollTo({ top: modalBody.scrollHeight, behavior: 'smooth' });
       }
 
-      Toast.show(`Deheading batch ${entry.id} saved & displayed in table`, 'success');
+      if (shouldCloseOnSubmit) {
+        Modal.close();
+        Toast.show(`Deheading batch ${entry.id} saved`, 'success');
+      } else {
+        Toast.show(`Deheading batch ${entry.id} saved & displayed in table`, 'success');
+      }
     });
   },
 
