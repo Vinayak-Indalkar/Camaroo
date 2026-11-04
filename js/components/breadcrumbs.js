@@ -1,6 +1,7 @@
 // Dynamic Breadcrumb Navigation Component for Main Menu -> Sub Menu -> Tab
 
-import { NAV_HIERARCHY } from './sidebar.js';
+import { NAV_HIERARCHY, ADMIN_NAV_HIERARCHY, SUPER_ADMIN_NAV_HIERARCHY } from './sidebar.js';
+import { ERP_DATA } from '../data/mockData.js';
 
 export const Breadcrumbs = {
   render(containerId, activeHash, customLeaf = null) {
@@ -15,7 +16,9 @@ export const Breadcrumbs = {
     const subId = parts[1] || 'dashboard';
     const tabId = parts[2] || '';
 
-    const module = NAV_HIERARCHY.find(m => m.id === modId);
+    const isSuperAdmin = ERP_DATA.currentUser?.role === 'Super Admin';
+    const targetHierarchy = isSuperAdmin ? SUPER_ADMIN_NAV_HIERARCHY : ADMIN_NAV_HIERARCHY;
+    const module = targetHierarchy.find(m => m.id === modId) || NAV_HIERARCHY.find(m => m.id === modId);
     if (module) {
       const defaultModHash = module.submenus[0]?.tabs[0]?.hash || `/${modId}`;
       crumbs.push({ label: module.title, hash: defaultModHash });

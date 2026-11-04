@@ -5,6 +5,7 @@ import { ERP_DATA } from '../data/mockData.js';
 import { DataTable } from '../components/table.js';
 import { Modal } from '../components/modal.js';
 import { Toast } from '../components/toast.js';
+import { SEAFOOD_MASTERS } from './setupView.js';
 
 export const SettingsView = {
   activeTab: 'forms', // 'forms' | 'fields-customizer' | 'query-editor'
@@ -160,6 +161,12 @@ export const SettingsView = {
     this.lastContainerId = containerId;
     const container = document.getElementById(containerId);
     if (!container) return;
+
+    // Route to Master Setup for Admin role or when hash requests master-setup
+    if (tabName === 'masters' || tabName === 'master-setup' || resolvedHash.includes('master-setup') || (ERP_DATA.currentUser?.role !== 'Super Admin')) {
+      this.renderMasterSetupTab(container);
+      return;
+    }
 
     // Normalize active tab
     if (tabName === 'filds-customizer' || tabName === 'fields-customizer' || tabName === 'field-builder' || tabName === 'custom-fields') {
@@ -3443,5 +3450,392 @@ export const SettingsView = {
       ]
     });
   }
-};
 
+  // =========================================================================
+  // MASTER SETUP VIEW (FOR ADMIN ROLE)
+  // =========================================================================
+  selectedMasterCategory: 'All',
+  selectedMasterId: 'exporter',
+  masterSearchQuery: '',
+  mastersList: null,
+
+  initMasterData() {
+    if (!this.mastersList) {
+      const source = (typeof SEAFOOD_MASTERS !== 'undefined' && Array.isArray(SEAFOOD_MASTERS))
+        ? SEAFOOD_MASTERS
+        : (window.SEAFOOD_MASTERS || []);
+      this.mastersList = source.map(m => ({
+        ...m,
+        records: Array.isArray(m.records) ? m.records.map(r => ({ ...r })) : []
+      }));
+    }
+  },
+
+  renderMasterSetupTab(container) {
+    this.initMasterData();
+
+    const categories = ['All', 'Logistics', 'Processing', 'Commercial', 'Quality', 'Aquaculture', 'Compliance', 'Operations'];
+
+    // Filter masters list by category
+    const filteredMasters = (this.mastersList || []).filter(m => {
+      if (this.selectedMasterCategory === 'All') return true;
+      return m.category === this.selectedMasterCategory;
+    });
+
+    // Resolve selected master
+    let selectedMaster = filteredMasters.find(m => m.id === this.selectedMasterId);
+    if (!selectedMaster && filteredMasters.length > 0) {
+      selectedMaster = filteredMasters[0];
+      this.selectedMasterId = selectedMaster.id;
+    }
+    if (!selectedMaster && this.mastersList && this.mastersList.length > 0) {
+      selectedMaster = this.mastersList[0];
+      this.selectedMasterId = selectedMaster.id;
+    }
+    if (!selectedMaster) {
+      selectedMaster = { id: 'exporter', label: 'Exporter', category: 'Logistics', records: [] };
+    }
+
+    // Filter records by search query
+    const q = (this.masterSearchQuery || '').toLowerCase().trim();
+    const records = (selectedMaster.records || []).filter(r => {
+      if (!q) return true;
+      return (
+        (r.code && r.code.toLowerCase().includes(q)) ||
+        (r.name && r.name.toLowerCase().includes(q)) ||
+        (r.details && r.details.toLowerCase().includes(q)) ||
+        (r.status && r.status.toLowerCase().includes(q))
+      );
+    });
+
+    container.innerHTML = `
+      <div class="space-y-3">
+        <!-- Page Header (Clean H1, strictly no subheading per AGENTS.md Rule 2) -->
+        <div class="flex items-center justify-between gap-3 mb-1">
+          <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Master Setup</h1>
+          <button type="button" id="btn-add-master-record" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+            <span>Add Record</span>
+          </button>
+        </div>
+
+        <!-- Search & Filter Card (AGENTS.md Rule 3) -->
+        <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200">
+          <div class="flex items-center justify-between pb-1">
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+              <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
+            </div>
+            <div class="inline-flex items-center gap-2">
+              <!-- Circular 32x32 Reset Button -->
+              <button type="button" id="master-filter-reset-btn" class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Reset all filters">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+              </button>
+              <!-- Circular 32x32 Collapse/Expand Toggle Button -->
+              <button type="button" id="master-filter-toggle-btn" class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Hide Filter">
+                <svg class="w-3.5 h-3.5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              </button>
+            </div>
+          </div>
+          <div id="master-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
+            <div>
+              <label for="master-cat-select" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Domain / Category</label>
+              <select id="master-cat-select" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                ${categories.map(c => `<option value="${c}" ${c === this.selectedMasterCategory ? 'selected' : ''}>${c}</option>`).join('')}
+              </select>
+            </div>
+            <div>
+              <label for="master-entity-select" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Master Entity</label>
+              <select id="master-entity-select" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                ${filteredMasters.map(m => `<option value="${m.id}" ${m.id === selectedMaster.id ? 'selected' : ''}>${m.label} (${m.records ? m.records.length : 0} records)</option>`).join('')}
+              </select>
+            </div>
+            <div>
+              <label for="master-search-input" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Search Record</label>
+              <input type="text" id="master-search-input" value="${this.escape(this.masterSearchQuery || '')}" placeholder="Search code, name, details..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            </div>
+            <div class="flex items-end">
+              <button type="button" id="master-filter-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                <span>Search</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Master Entity Summary Banner -->
+        <div class="bg-gradient-to-r from-[#F0F9FF] to-[#F8FAFC] p-3.5 rounded-xl border border-[#BAE6FD] flex flex-wrap items-center justify-between gap-3 shadow-2xs">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-[#00A4B7] text-white flex items-center justify-center font-bold shadow-xs">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="font-extrabold text-[#172B4D] text-sm">${selectedMaster.label}</span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF] uppercase">${selectedMaster.category}</span>
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD]">${records.length} Records</span>
+              </div>
+              <span class="text-[11px] text-[#5E6C84] mt-0.5 block">Configure operational master registry and dropdown values for ${selectedMaster.label}.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- DataTable Container -->
+        <div id="master-records-table-container"></div>
+      </div>
+    `;
+
+    // Filter toggle handler
+    const toggleBtn = document.getElementById('master-filter-toggle-btn');
+    toggleBtn?.addEventListener('click', () => {
+      const body = document.getElementById('master-filter-body');
+      const icon = toggleBtn.querySelector('svg');
+      if (body) {
+        body.classList.toggle('hidden');
+        if (body.classList.contains('hidden')) {
+          toggleBtn.title = 'Show Filter';
+          icon?.classList.add('-rotate-90');
+        } else {
+          toggleBtn.title = 'Hide Filter';
+          icon?.classList.remove('-rotate-90');
+        }
+      }
+    });
+
+    // Reset button handler
+    const resetBtn = document.getElementById('master-filter-reset-btn');
+    resetBtn?.addEventListener('click', () => {
+      this.selectedMasterCategory = 'All';
+      this.masterSearchQuery = '';
+      this.renderMasterSetupTab(container);
+      Toast.show('Filters reset', 'info');
+    });
+
+    // Category change handler
+    const catSelect = document.getElementById('master-cat-select');
+    catSelect?.addEventListener('change', (e) => {
+      this.selectedMasterCategory = e.target.value;
+      const nextFiltered = (this.mastersList || []).filter(m => this.selectedMasterCategory === 'All' || m.category === this.selectedMasterCategory);
+      if (nextFiltered.length > 0 && !nextFiltered.some(m => m.id === this.selectedMasterId)) {
+        this.selectedMasterId = nextFiltered[0].id;
+      }
+      this.renderMasterSetupTab(container);
+    });
+
+    // Entity change handler
+    const entitySelect = document.getElementById('master-entity-select');
+    entitySelect?.addEventListener('change', (e) => {
+      this.selectedMasterId = e.target.value;
+      this.renderMasterSetupTab(container);
+    });
+
+    // Search button handler
+    const searchBtn = document.getElementById('master-filter-search-btn');
+    const searchInput = document.getElementById('master-search-input');
+    const doSearch = () => {
+      this.masterSearchQuery = (searchInput?.value || '').trim();
+      this.renderMasterSetupTab(container);
+    };
+    searchBtn?.addEventListener('click', doSearch);
+    searchInput?.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        doSearch();
+      }
+    });
+
+    // Add Record button handler
+    const addBtn = document.getElementById('btn-add-master-record');
+    addBtn?.addEventListener('click', () => {
+      this.showAddMasterModal(selectedMaster, container);
+    });
+
+    // Render DataTable strictly following AGENTS.md Rule 4
+    new DataTable({
+      containerId: 'master-records-table-container',
+      data: records,
+      keyField: 'code',
+      tableTitle: `${selectedMaster.label} (${records.length})`,
+      searchable: true,
+      exportable: true,
+      pageSize: 10,
+      columns: [
+        {
+          field: 'code',
+          header: 'Code / ID',
+          render: (v) => `<span class="font-bold text-[#00A4B7] font-mono">${this.escape(v)}</span>`
+        },
+        {
+          field: 'name',
+          header: 'Name / Entity Description',
+          render: (v) => `<span class="font-bold text-[#172B4D]">${this.escape(v)}</span>`
+        },
+        {
+          field: 'details',
+          header: 'Details / Metadata',
+          render: (v) => `<span class="text-xs text-[#5E6C84]">${this.escape(v || '-')}</span>`
+        },
+        {
+          field: 'category',
+          header: 'Domain',
+          render: () => `<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">${this.escape(selectedMaster.category)}</span>`
+        },
+        {
+          field: 'status',
+          header: 'Status',
+          render: (v) => `<span class="inline-flex px-2 py-0.5 rounded-full text-[10px] font-extrabold tracking-wide uppercase ${(v === 'Inactive' || v === 'Disabled') ? 'bg-[#FFEBE6] text-[#DE350B] border border-[#FFBDAD]' : 'bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]'}">${this.escape(v || 'Active')}</span>`
+        }
+      ],
+      actions: [
+        {
+          label: 'Edit',
+          icon: `<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>`,
+          onClick: (row) => this.showEditMasterModal(selectedMaster, row, container)
+        },
+        {
+          label: 'Delete',
+          icon: `<svg class="w-4 h-4 text-[#DE350B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>`,
+          onClick: (row) => {
+            Modal.confirm({
+              title: `Delete ${selectedMaster.label} Record`,
+              message: `Are you sure you want to delete <strong class="text-[#DE350B]">${this.escape(row.name)}</strong> (${this.escape(row.code)})? This action cannot be undone.`,
+              confirmText: 'Delete Record',
+              cancelText: 'Cancel',
+              isDestructive: true,
+              onConfirm: () => {
+                const idx = selectedMaster.records.findIndex(r => r.code === row.code);
+                if (idx !== -1) {
+                  selectedMaster.records.splice(idx, 1);
+                  selectedMaster.count = selectedMaster.records.length;
+                  this.renderMasterSetupTab(container);
+                  Toast.show(`Record ${row.code} deleted successfully`, 'success');
+                }
+              }
+            });
+          }
+        }
+      ]
+    });
+  },
+
+  showAddMasterModal(selectedMaster, container) {
+    const defaultCode = `${selectedMaster.id.substring(0, 3).toUpperCase()}-${Math.floor(100 + Math.random() * 900)}`;
+
+    Modal.open({
+      title: `Add ${selectedMaster.label} Record`,
+      size: 'md',
+      content: `
+        <form id="form-add-master-rec" class="space-y-3.5 text-xs">
+          <div>
+            <label for="mrec-code" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Code / Identifier <span class="text-[#DE350B]">*</span></label>
+            <input type="text" id="mrec-code" name="code" value="${defaultCode}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+          <div>
+            <label for="mrec-name" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Name / Entity Description <span class="text-[#DE350B]">*</span></label>
+            <input type="text" id="mrec-name" name="name" required placeholder="e.g. Master record name..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+          <div>
+            <label for="mrec-details" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Configuration &amp; Details</label>
+            <textarea id="mrec-details" name="details" rows="3" placeholder="Enter configuration metadata, address, or specifications..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs"></textarea>
+          </div>
+          <div>
+            <label for="mrec-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Status</label>
+            <select id="mrec-status" name="status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="Active" selected>Active</option>
+              <option value="Inactive">Inactive</option>
+            </select>
+          </div>
+        </form>
+      `,
+      footerButtons: [
+        {
+          label: 'Cancel',
+          type: 'secondary',
+          class: 'btn-secondary px-5 py-2 rounded-full text-xs font-semibold border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#172B4D] transition-all cursor-pointer',
+          onClick: (m) => m.close()
+        },
+        {
+          label: 'Save Record',
+          type: 'primary',
+          class: 'btn-primary px-5 py-2 rounded-full text-xs font-bold shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer',
+          onClick: (m) => {
+            const form = document.getElementById('form-add-master-rec');
+            if (!form || !form.reportValidity()) return;
+            const values = Object.fromEntries(new FormData(form));
+
+            selectedMaster.records.unshift({
+              code: values.code.trim(),
+              name: values.name.trim(),
+              details: values.details.trim(),
+              status: values.status || 'Active'
+            });
+            selectedMaster.count = selectedMaster.records.length;
+
+            m.close();
+            this.renderMasterSetupTab(container);
+            Toast.show(`Added record ${values.code} to ${selectedMaster.label}`, 'success');
+          }
+        }
+      ]
+    });
+  },
+
+  showEditMasterModal(selectedMaster, record, container) {
+    Modal.open({
+      title: `Edit ${selectedMaster.label} - ${record.code}`,
+      size: 'md',
+      content: `
+        <form id="form-edit-master-rec" class="space-y-3.5 text-xs">
+          <div>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Code / Identifier</label>
+            <input type="text" value="${this.escape(record.code)}" disabled class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#5E6C84] cursor-not-allowed shadow-2xs" />
+          </div>
+          <div>
+            <label for="emrec-name" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Name / Entity Description <span class="text-[#DE350B]">*</span></label>
+            <input type="text" id="emrec-name" name="name" value="${this.escape(record.name)}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+          <div>
+            <label for="emrec-details" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Configuration &amp; Details</label>
+            <textarea id="emrec-details" name="details" rows="3" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">${this.escape(record.details || '')}</textarea>
+          </div>
+          <div>
+            <label for="emrec-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Status</label>
+            <select id="emrec-status" name="status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="Active" ${record.status === 'Active' ? 'selected' : ''}>Active</option>
+              <option value="Inactive" ${record.status === 'Inactive' ? 'selected' : ''}>Inactive</option>
+            </select>
+          </div>
+        </form>
+      `,
+      footerButtons: [
+        {
+          label: 'Cancel',
+          type: 'secondary',
+          class: 'btn-secondary px-5 py-2 rounded-full text-xs font-semibold border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#172B4D] transition-all cursor-pointer',
+          onClick: (m) => m.close()
+        },
+        {
+          label: 'Save Changes',
+          type: 'primary',
+          class: 'btn-primary px-5 py-2 rounded-full text-xs font-bold shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer',
+          onClick: (m) => {
+            const form = document.getElementById('form-edit-master-rec');
+            if (!form || !form.reportValidity()) return;
+            const values = Object.fromEntries(new FormData(form));
+
+            Object.assign(record, {
+              name: values.name.trim(),
+              details: values.details.trim(),
+              status: values.status || 'Active'
+            });
+
+            m.close();
+            this.renderMasterSetupTab(container);
+            Toast.show(`Updated record ${record.code}`, 'success');
+          }
+        }
+      ]
+    });
+  }
+
+};

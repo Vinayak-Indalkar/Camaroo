@@ -7,7 +7,7 @@ import { Modal } from './components/modal.js';
 import { Skeleton } from './components/skeleton.js';
 import { renderRouteMessage } from './components/emptyState.js';
 import { Header } from './components/header.js';
-import { Sidebar, NAV_HIERARCHY } from './components/sidebar.js';
+import { Sidebar, NAV_HIERARCHY, ADMIN_NAV_HIERARCHY, SUPER_ADMIN_NAV_HIERARCHY } from './components/sidebar.js';
 import { Breadcrumbs } from './components/breadcrumbs.js';
 
 // Views
@@ -190,12 +190,18 @@ export const App = {
     }
 
     if (moduleName === 'settings') {
-      if (!submenuName || submenuName === 'customizer') submenuName = 'custom';
-      if (!tabName || tabName === 'form' || tabName === 'form-list' || tabName === 'forms-list') tabName = 'forms';
-      if (tabName === 'custom-fields' || tabName === 'field-builder' || tabName === 'fields' || tabName === 'filds-customizer') tabName = 'fields-customizer';
-      if (tabName === 'query-editer') tabName = 'query-editor';
+      if (isSuperAdmin) {
+        if (!submenuName || submenuName === 'customizer' || submenuName === 'master-setup') submenuName = 'custom';
+        if (!tabName || tabName === 'form' || tabName === 'form-list' || tabName === 'forms-list' || tabName === 'masters') tabName = 'forms';
+        if (tabName === 'custom-fields' || tabName === 'field-builder' || tabName === 'fields' || tabName === 'filds-customizer') tabName = 'fields-customizer';
+        if (tabName === 'query-editer') tabName = 'query-editor';
+      } else {
+        if (!submenuName || submenuName === 'custom' || submenuName === 'customizer' || submenuName === 'master') submenuName = 'master-setup';
+        if (!tabName || tabName === 'forms' || tabName === 'fields-customizer' || tabName === 'query-editor') tabName = 'masters';
+      }
     }
-    const modObj = NAV_HIERARCHY.find(m => m.id === moduleName);
+    const targetHierarchy = isSuperAdmin ? SUPER_ADMIN_NAV_HIERARCHY : ADMIN_NAV_HIERARCHY;
+    const modObj = targetHierarchy.find(m => m.id === moduleName) || NAV_HIERARCHY.find(m => m.id === moduleName);
     if (!modObj) {
       this.renderRouteError(404, 'Page not found', 'The requested application page does not exist.', homeHash);
       return;

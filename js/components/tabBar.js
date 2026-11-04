@@ -1,6 +1,7 @@
 // On-Screen Horizontal Tab Bar Component
 
-import { NAV_HIERARCHY } from './sidebar.js';
+import { NAV_HIERARCHY, ADMIN_NAV_HIERARCHY, SUPER_ADMIN_NAV_HIERARCHY } from './sidebar.js';
+import { ERP_DATA } from '../data/mockData.js';
 
 export const TabBar = {
   render(containerId, activeHash) {
@@ -13,7 +14,9 @@ export const TabBar = {
     let subId = parts[1] || 'dashboard';
     let tabId = parts[2] || '';
 
-    const module = NAV_HIERARCHY.find(m => m.id === modId);
+    const isSuperAdmin = ERP_DATA.currentUser?.role === 'Super Admin';
+    const targetHierarchy = isSuperAdmin ? SUPER_ADMIN_NAV_HIERARCHY : ADMIN_NAV_HIERARCHY;
+    const module = targetHierarchy.find(m => m.id === modId) || NAV_HIERARCHY.find(m => m.id === modId);
     if (!module) return null;
 
     let submenu = module.submenus.find(s => s.id === subId);

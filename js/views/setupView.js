@@ -5533,8 +5533,6 @@ export const SetupView = {
   },
 
   renderMastersTab(container) {
-    this.renderUnderConstruction(container);
-    return;
     const selectedMaster = this.state.masters.find(m => m.id === this.state.selectedMasterId) || this.state.masters[0];
     const categories = ['All', 'Logistics', 'Processing', 'Commercial', 'Quality', 'Aquaculture', 'Compliance', 'Operations'];
 
