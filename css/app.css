@@ -127,8 +127,6 @@ body {
 #erp-sidebar button.sidebar-mod-btn.bg-\[\#0284C7\],
 #erp-sidebar button.sidebar-mod-btn[class*="bg-\[\#00A4B7\]"],
 #erp-sidebar button.sidebar-mod-btn[class*="bg-\[\#0284C7\]"],
-#erp-sidebar .nav-submenu-block a.bg-\[\#00A4B7\],
-#erp-sidebar .nav-submenus-list a.bg-\[\#00A4B7\],
 #erp-sidebar [class*="bg-\[\#00A4B7\]"],
 #erp-sidebar a[class*="bg-\[\#00A4B7\]"],
 #erp-sidebar button.bg-\[\#00A4B7\],
@@ -142,8 +140,6 @@ body {
 #erp-sidebar button.sidebar-mod-btn.bg-\[\#0284C7\] *,
 #erp-sidebar button.sidebar-mod-btn[class*="bg-\[\#00A4B7\]"] *,
 #erp-sidebar button.sidebar-mod-btn[class*="bg-\[\#0284C7\]"] *,
-#erp-sidebar .nav-submenu-block a.bg-\[\#00A4B7\] *,
-#erp-sidebar .nav-submenus-list a.bg-\[\#00A4B7\] *,
 #erp-sidebar [class*="bg-\[\#00A4B7\]"] *,
 #erp-sidebar a[class*="bg-\[\#00A4B7\]"] *,
 #erp-sidebar button.bg-\[\#00A4B7\] *,
@@ -157,8 +153,6 @@ body {
 #erp-sidebar button.sidebar-mod-btn.bg-\[\#0284C7\] svg,
 #erp-sidebar button.sidebar-mod-btn[class*="bg-\[\#00A4B7\]"] svg,
 #erp-sidebar button.sidebar-mod-btn[class*="bg-\[\#0284C7\]"] svg,
-#erp-sidebar .nav-submenu-block a.bg-\[\#00A4B7\] svg,
-#erp-sidebar .nav-submenus-list a.bg-\[\#00A4B7\] svg,
 #erp-sidebar [class*="bg-\[\#00A4B7\]"] svg,
 #erp-sidebar a[class*="bg-\[\#00A4B7\]"] svg,
 #erp-sidebar button.bg-\[\#00A4B7\] svg,
@@ -172,6 +166,27 @@ body {
 #erp-sidebar [class*="bg-\[\#0284C7\]"] {
   background-color: #00A4B7 !important;
 }
+
+/* Submenu Active State - Brand teal text without background */
+#erp-sidebar .nav-submenu-block a.text-\[\#00A4B7\],
+#erp-sidebar .nav-submenus-list a.text-\[\#00A4B7\],
+#erp-sidebar a[class*="text-\[\#00A4B7\]"] {
+  color: #00A4B7 !important;
+  background-color: transparent !important;
+}
+
+#erp-sidebar .nav-submenu-block a.text-\[\#00A4B7\] *:not(.rounded-full),
+#erp-sidebar .nav-submenus-list a.text-\[\#00A4B7\] *:not(.rounded-full),
+#erp-sidebar a[class*="text-\[\#00A4B7\]"] *:not(.rounded-full) {
+  color: #00A4B7 !important;
+}
+
+#erp-sidebar .nav-submenu-block a.text-\[\#00A4B7\] .rounded-full,
+#erp-sidebar .nav-submenus-list a.text-\[\#00A4B7\] .rounded-full,
+#erp-sidebar a[class*="text-\[\#00A4B7\]"] .rounded-full {
+  background-color: #00A4B7 !important;
+}
+
 
 #main-layout-wrapper {
   margin-left: calc(var(--erp-sidebar-offset) + var(--erp-sidebar-width) + var(--erp-sidebar-gap)) !important;

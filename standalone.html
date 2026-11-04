@@ -194,8 +194,6 @@ body {
 #erp-sidebar button.sidebar-mod-btn.bg-\[\#0284C7\],
 #erp-sidebar button.sidebar-mod-btn[class*="bg-\[\#00A4B7\]"],
 #erp-sidebar button.sidebar-mod-btn[class*="bg-\[\#0284C7\]"],
-#erp-sidebar .nav-submenu-block a.bg-\[\#00A4B7\],
-#erp-sidebar .nav-submenus-list a.bg-\[\#00A4B7\],
 #erp-sidebar [class*="bg-\[\#00A4B7\]"],
 #erp-sidebar a[class*="bg-\[\#00A4B7\]"],
 #erp-sidebar button.bg-\[\#00A4B7\],
@@ -209,8 +207,6 @@ body {
 #erp-sidebar button.sidebar-mod-btn.bg-\[\#0284C7\] *,
 #erp-sidebar button.sidebar-mod-btn[class*="bg-\[\#00A4B7\]"] *,
 #erp-sidebar button.sidebar-mod-btn[class*="bg-\[\#0284C7\]"] *,
-#erp-sidebar .nav-submenu-block a.bg-\[\#00A4B7\] *,
-#erp-sidebar .nav-submenus-list a.bg-\[\#00A4B7\] *,
 #erp-sidebar [class*="bg-\[\#00A4B7\]"] *,
 #erp-sidebar a[class*="bg-\[\#00A4B7\]"] *,
 #erp-sidebar button.bg-\[\#00A4B7\] *,
@@ -224,8 +220,6 @@ body {
 #erp-sidebar button.sidebar-mod-btn.bg-\[\#0284C7\] svg,
 #erp-sidebar button.sidebar-mod-btn[class*="bg-\[\#00A4B7\]"] svg,
 #erp-sidebar button.sidebar-mod-btn[class*="bg-\[\#0284C7\]"] svg,
-#erp-sidebar .nav-submenu-block a.bg-\[\#00A4B7\] svg,
-#erp-sidebar .nav-submenus-list a.bg-\[\#00A4B7\] svg,
 #erp-sidebar [class*="bg-\[\#00A4B7\]"] svg,
 #erp-sidebar a[class*="bg-\[\#00A4B7\]"] svg,
 #erp-sidebar button.bg-\[\#00A4B7\] svg,
@@ -239,6 +233,27 @@ body {
 #erp-sidebar [class*="bg-\[\#0284C7\]"] {
   background-color: #00A4B7 !important;
 }
+
+/* Submenu Active State - Brand teal text without background */
+#erp-sidebar .nav-submenu-block a.text-\[\#00A4B7\],
+#erp-sidebar .nav-submenus-list a.text-\[\#00A4B7\],
+#erp-sidebar a[class*="text-\[\#00A4B7\]"] {
+  color: #00A4B7 !important;
+  background-color: transparent !important;
+}
+
+#erp-sidebar .nav-submenu-block a.text-\[\#00A4B7\] *:not(.rounded-full),
+#erp-sidebar .nav-submenus-list a.text-\[\#00A4B7\] *:not(.rounded-full),
+#erp-sidebar a[class*="text-\[\#00A4B7\]"] *:not(.rounded-full) {
+  color: #00A4B7 !important;
+}
+
+#erp-sidebar .nav-submenu-block a.text-\[\#00A4B7\] .rounded-full,
+#erp-sidebar .nav-submenus-list a.text-\[\#00A4B7\] .rounded-full,
+#erp-sidebar a[class*="text-\[\#00A4B7\]"] .rounded-full {
+  background-color: #00A4B7 !important;
+}
+
 
 #main-layout-wrapper {
   margin-left: calc(var(--erp-sidebar-offset) + var(--erp-sidebar-width) + var(--erp-sidebar-gap)) !important;
@@ -7914,10 +7929,10 @@ const Sidebar = {
                 <div class="nav-submenu-block">
                   <a 
                     href="${defaultHash}" 
-                    class="flex items-center px-2.5 py-1.5 rounded-md text-xs font-semibold transition-all ${isSubActive ? 'bg-[#00A4B7] text-white font-bold' : 'text-[#94A3B8] hover:bg-white/5 hover:text-white'}"
+                    class="flex items-center px-2.5 py-1.5 rounded-md text-xs font-semibold transition-all ${isSubActive ? 'text-[#00A4B7] font-bold' : 'text-[#94A3B8] hover:bg-white/5 hover:text-white'}"
                   >
                     <div class="flex items-center gap-2 truncate">
-                      <span class="w-1.5 h-1.5 rounded-full ${isSubActive ? 'bg-white' : 'bg-[#475569]'} shrink-0"></span>
+                      <span class="w-1.5 h-1.5 rounded-full ${isSubActive ? 'bg-[#00A4B7]' : 'bg-[#475569]'} shrink-0"></span>
                       <span class="truncate">${sub.title}</span>
                     </div>
                   </a>
@@ -8002,7 +8017,7 @@ const Sidebar = {
                 return `
                   <a 
                     href="${defaultHash}" 
-                    class="flex items-center px-2.5 py-1.5 rounded-md text-xs font-medium transition-all ${isSubActive ? 'bg-[#00A4B7] text-white font-bold' : 'text-[#94A3B8] hover:bg-white/5 hover:text-white'}"
+                    class="flex items-center px-2.5 py-1.5 rounded-md text-xs font-medium transition-all ${isSubActive ? 'text-[#00A4B7] font-bold' : 'text-[#94A3B8] hover:bg-white/5 hover:text-white'}"
                   >
                     <span>${sub.title}</span>
                   </a>
