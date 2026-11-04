@@ -427,11 +427,16 @@ export const ADMIN_NAV_HIERARCHY = [
     icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>`,
     submenus: [
       {
-        id: "master-setup",
-        title: "Master Setup",
-        defaultTab: "masters",
+        id: "setup",
+        title: "Settings",
+        defaultTab: "general-setup",
         tabs: [
-          { id: "masters", label: "Master Setup", hash: "#/settings/master-setup/masters" }
+          { id: "general-setup", label: "General Setup", hash: "#/settings/setup/general-setup" },
+          { id: "profile-setup", label: "Profile Setup", hash: "#/settings/setup/profile-setup" },
+          { id: "master-setup", label: "Master Setup", hash: "#/settings/setup/master-setup" },
+          { id: "transaction-setup", label: "Transaction Setup", hash: "#/settings/setup/transaction-setup" },
+          { id: "customizer", label: "Customizer", hash: "#/settings/setup/customizer" },
+          { id: "notifications", label: "Notifications & Alerts", hash: "#/settings/setup/notifications" }
         ]
       }
     ]
@@ -500,13 +505,16 @@ export const SUPER_ADMIN_NAV_HIERARCHY = [
     icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>`,
     submenus: [
       {
-        id: "custom",
-        title: "Customizer",
-        defaultTab: "forms",
+        id: "setup",
+        title: "Settings",
+        defaultTab: "general-setup",
         tabs: [
-          { id: "forms", label: "Forms", hash: "#/settings/custom/forms" },
-          { id: "fields-customizer", label: "Fields Customizer", hash: "#/settings/custom/fields-customizer" },
-          { id: "query-editor", label: "Query Editor", hash: "#/settings/custom/query-editor" }
+          { id: "general-setup", label: "General Setup", hash: "#/settings/setup/general-setup" },
+          { id: "profile-setup", label: "Profile Setup", hash: "#/settings/setup/profile-setup" },
+          { id: "master-setup", label: "Master Setup", hash: "#/settings/setup/master-setup" },
+          { id: "transaction-setup", label: "Transaction Setup", hash: "#/settings/setup/transaction-setup" },
+          { id: "customizer", label: "Customizer", hash: "#/settings/setup/customizer" },
+          { id: "notifications", label: "Notifications & Alerts", hash: "#/settings/setup/notifications" }
         ]
       }
     ]
@@ -845,48 +853,21 @@ export const Sidebar = {
     const settingsMod = hierarchy.find(m => m.id === 'settings');
     if (!settingsMod) return '';
 
-    const isExpanded = settingsMod.id === this.activeModuleId;
-    let submenusHtml = '';
-    if (isExpanded) {
-      submenusHtml = `
-        <div class="nav-submenus-list mt-1 ml-4 py-1 space-y-0.5">
-          ${settingsMod.submenus.map(sub => {
-            const isSubActive = sub.id === this.activeSubmenuId;
-            const defaultHash = sub.tabs[0]?.hash || `/#/settings/${sub.id}`;
-
-            return `
-              <div class="nav-submenu-block border-l-2 ${isSubActive ? 'border-[#00A4B7]' : 'border-[#334155] hover:border-[#64748B]'} pl-2.5 transition-colors">
-                <a 
-                  href="${defaultHash}" 
-                  class="flex items-center px-2.5 py-1.5 rounded-md text-xs font-semibold transition-all ${isSubActive ? 'text-[#00A4B7] font-bold' : 'text-[#94A3B8] hover:bg-white/5 hover:text-white'}"
-                >
-                  <div class="flex items-center gap-2 truncate">
-                    <span class="w-1.5 h-1.5 rounded-full ${isSubActive ? 'bg-[#00A4B7]' : 'bg-[#475569]'} shrink-0"></span>
-                    <span class="truncate">${sub.title}</span>
-                  </div>
-                </a>
-              </div>
-            `;
-          }).join('')}
-        </div>
-      `;
-    }
+    const isCurrentMod = this.activeModuleId === 'settings';
 
     return `
       <div class="nav-module-group">
         <button 
           data-module-id="settings" 
-          class="sidebar-mod-btn w-full px-3 py-2 rounded-lg text-xs font-bold flex items-center justify-between transition-colors cursor-pointer text-[#94A3B8] hover:bg-white/5 hover:text-white ${isExpanded ? 'bg-white/5' : ''}"
+          class="sidebar-mod-btn w-full px-3 py-2 rounded-lg text-xs font-bold flex items-center justify-between transition-colors cursor-pointer ${isCurrentMod ? 'bg-white/10 text-white font-bold' : 'text-[#94A3B8] hover:bg-white/5 hover:text-white'}"
+          title="Settings"
         >
           <div class="flex items-center gap-2.5 truncate">
-            <span class="w-4 h-4 flex items-center justify-center shrink-0 text-[#94A3B8]">${settingsMod.icon}</span>
-            <span class="text-xs tracking-tight truncate text-[#94A3B8]">${settingsMod.title}</span>
+            <span class="w-4 h-4 flex items-center justify-center shrink-0 ${isCurrentMod ? 'text-[#00A4B7]' : 'text-[#94A3B8]'}">${settingsMod.icon}</span>
+            <span class="text-xs tracking-tight truncate ${isCurrentMod ? 'text-white' : 'text-[#94A3B8]'}">${settingsMod.title}</span>
           </div>
-          <div class="flex items-center gap-1 shrink-0">
-            <svg class="w-3.5 h-3.5 transform transition-transform duration-200 text-[#94A3B8] ${isExpanded ? 'rotate-90' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-          </div>
+          ${isCurrentMod ? `<span class="w-1.5 h-1.5 rounded-full bg-[#00A4B7] shrink-0"></span>` : ''}
         </button>
-        ${submenusHtml}
       </div>
     `;
   },
@@ -905,36 +886,12 @@ export const Sidebar = {
         <button 
           data-module-id="settings" 
           class="sidebar-mod-btn w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-200 cursor-pointer ${isCurrentMod ? 'bg-[#00A4B7] text-white ring-2 ring-[#00A4B7] font-bold' : 'text-[#94A3B8] hover:bg-white/5 hover:text-white'}"
-          title="${settingsMod.title}"
+          title="Settings"
         >
           <span class="w-4 h-4 flex items-center justify-center ${isCurrentMod ? 'text-white' : ''}">${settingsMod.icon}</span>
         </button>
-
-        <!-- Floating Flyout Menu on Hover -->
-        <div class="absolute left-full bottom-0 ml-3 w-60 bg-[#0F172A] border border-[#1E293B] rounded-xl p-2.5 hidden group-hover:block z-50 transition-all pointer-events-auto shadow-2xl">
-          <!-- Module Title in Flyout -->
-          <div class="flex items-center gap-2 px-2.5 py-1.5 border-b border-[#1E293B] mb-1.5 text-white font-bold text-xs">
-            <span class="text-[#00A4B7]">${settingsMod.icon}</span>
-            <span class="tracking-wide">${settingsMod.title}</span>
-          </div>
-
-          <!-- Submenus List in Flyout -->
-          <div class="space-y-0.5">
-            ${settingsMod.submenus.map(sub => {
-              const isSubActive = isCurrentMod && (sub.id === this.activeSubmenuId);
-              const defaultHash = sub.tabs[0]?.hash || `/#/settings/${sub.id}`;
-              return `
-                <div class="border-l-2 ${isSubActive ? 'border-[#00A4B7]' : 'border-[#334155] hover:border-[#64748B]'} pl-2 transition-colors">
-                  <a 
-                    href="${defaultHash}" 
-                    class="flex items-center px-2 py-1.5 rounded-md text-xs font-medium transition-all ${isSubActive ? 'text-[#00A4B7] font-bold' : 'text-[#94A3B8] hover:bg-white/5 hover:text-white'}"
-                  >
-                    <span>${sub.title}</span>
-                  </a>
-                </div>
-              `;
-            }).join('')}
-          </div>
+        <div class="absolute left-full bottom-0 ml-3 px-2 py-1 bg-[#0F172A] border border-[#1E293B] rounded-lg text-white font-bold text-xs whitespace-nowrap hidden group-hover:block z-50 pointer-events-none">
+          Settings
         </div>
       </div>
     `;
@@ -956,11 +913,10 @@ export const Sidebar = {
           return;
         }
 
-        // Direct single-click navigation for settings when not currently active
-        if (modId === 'settings' && this.activeModuleId !== 'settings') {
+        // Direct single-click navigation for settings
+        if (modId === 'settings') {
           this.activeModuleId = 'settings';
-          const defaultHash = isSuperAdmin ? '#/settings/custom/forms' : '#/settings/master-setup/masters';
-          window.location.hash = defaultHash;
+          window.location.hash = '#/settings/setup/general-setup';
           return;
         }
 
