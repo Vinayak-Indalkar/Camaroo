@@ -19291,7 +19291,7 @@ const PreprocessingView = {
       title: 'Add Deheading',
       size: 'full',
       content: `
-        <div class="space-y-4">
+        <div class="space-y-3.5">
           <!-- Form Section -->
           <form id="form-add-deheading" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs">
             ${fields.map(field => `<div>
@@ -19303,6 +19303,14 @@ const PreprocessingView = {
                   : `<input id="ndh-${field.name}" name="${field.name}" type="${field.type || 'text'}" value="${field.value || ''}" ${field.type === 'number' ? `min="${field.min || '0'}" step="any"` : ''} ${field.optional ? '' : 'required'} class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#0284C7]" />`}
             </div>`).join('')}
           </form>
+
+          <!-- Save Button directly below form -->
+          <div class="flex items-center justify-end pt-1 pb-1">
+            <button type="submit" form="form-add-deheading" id="btn-save-deheading-form" class="btn-primary px-5 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/></svg>
+              <span>Save</span>
+            </button>
+          </div>
 
           <!-- Deheading Records Table Inside Modal -->
           <div class="border-t border-[#DFE1E6] pt-3 flex flex-col space-y-2">
@@ -19333,13 +19341,13 @@ const PreprocessingView = {
                       <th class="py-2.5 px-3 min-w-[80px]">Yield(%)</th>
                       <th class="py-2.5 px-3 min-w-[100px]">Ice Consumption</th>
                       <th class="py-2.5 px-3 min-w-[140px]">Remarks</th>
-                      <th class="py-2.5 px-3 min-w-[70px] text-center">Action</th>
+                      <th class="py-2.5 px-3 min-w-[70px] text-center sticky right-0 bg-[#FAFBFC] z-20 border-l border-[#DFE1E6] shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.06)]" style="position: sticky; right: 0;">Action</th>
                     </tr>
                   </thead>
                   <tbody id="ndh-modal-tbody" class="divide-y divide-[#E2E8F0] text-[#1E293B]">
                     <tr>
                       <td colspan="17" class="py-8 text-center text-xs text-[#8993A4] bg-[#FAFBFC]">
-                        No deheading record added yet. Fill the form above and click <strong>Save Deheading</strong> to display here.
+                        No deheading record added yet. Fill the form above and click <strong>Save</strong> to display here.
                       </td>
                     </tr>
                   </tbody>
@@ -19349,10 +19357,7 @@ const PreprocessingView = {
           </div>
         </div>
       `,
-      footerButtons: [
-        { label: 'Cancel', type: 'secondary', onClick: modal => modal.close() },
-        { label: 'Save Deheading', type: 'primary', onClick: () => document.getElementById('form-add-deheading')?.requestSubmit() }
-      ]
+      footerButtons: []
     });
 
     const form = document.getElementById('form-add-deheading');
@@ -19381,7 +19386,7 @@ const PreprocessingView = {
         tbody.innerHTML = `
           <tr>
             <td colspan="17" class="py-8 text-center text-xs text-[#8993A4] bg-[#FAFBFC]">
-              No deheading record added yet. Fill the form above and click <strong>Save Deheading</strong> to display here.
+              No deheading record added yet. Fill the form above and click <strong>Save</strong> to display here.
             </td>
           </tr>
         `;
@@ -19389,7 +19394,7 @@ const PreprocessingView = {
       }
 
       tbody.innerHTML = batchEntries.map((row, idx) => `
-        <tr class="hover:bg-[#F8FAFC] transition-colors">
+        <tr class="hover:bg-[#F8FAFC] transition-colors group">
           <td class="py-2 px-3 font-semibold text-[#5E6C84]">${idx + 1}</td>
           <td class="py-2 px-3 font-bold text-[#00A4B7] whitespace-nowrap">${this.escape(row.arrivalCode)}</td>
           <td class="py-2 px-3 font-semibold text-[#172B4D] whitespace-nowrap">${this.escape(row.productionPlant)}</td>
@@ -19406,32 +19411,30 @@ const PreprocessingView = {
           <td class="py-2 px-3 whitespace-nowrap"><span class="px-2 py-0.5 rounded text-xs font-bold ${row.yieldPct >= 65 ? 'bg-[#E3FCEF] text-[#006644]' : 'bg-[#FFF0B3] text-[#172B4D]'}">${row.yieldPct}%</span></td>
           <td class="py-2 px-3 text-[#5E6C84] font-medium whitespace-nowrap">${this.escape(row.iceConsumption || '-')}</td>
           <td class="py-2 px-3 text-xs text-[#5E6C84] truncate max-w-[160px]" title="${this.escape(row.remarks || '-')}">${this.escape(row.remarks || '-')}</td>
-          <td class="py-2 px-3 text-center whitespace-nowrap">
-            <button type="button" data-idx="${idx}" class="btn-remove-ndh-entry dt-action-btn w-7 h-7 min-w-[28px] min-h-[28px] inline-flex items-center justify-center bg-white hover:bg-[#FFEBE6] border border-[#CBD5E1] hover:border-[#DE350B] text-[#DE350B] rounded-full transition-colors cursor-pointer select-none p-0" title="Delete record">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+          <td class="py-2 px-3 text-center whitespace-nowrap sticky right-0 bg-white group-hover:bg-[#F8FAFC] z-10 border-l border-[#DFE1E6] shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.06)]" style="position: sticky; right: 0;">
+            <button type="button" data-idx="${idx}" class="btn-save-ndh-entry dt-action-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none p-0" title="Save Record">
+              <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/></svg>
             </button>
           </td>
         </tr>
       `).join('');
 
-      tbody.querySelectorAll('.btn-remove-ndh-entry').forEach(btn => {
+      tbody.querySelectorAll('.btn-save-ndh-entry').forEach(btn => {
         btn.addEventListener('click', e => {
           const entryIdx = parseInt(e.currentTarget.getAttribute('data-idx'), 10);
-          const removed = batchEntries.splice(entryIdx, 1)[0];
-          // Also remove from global state
-          if (removed) {
-            const stateIdx = this.state.deheadingBatches.findIndex(b => b.id === removed.id);
-            if (stateIdx !== -1) {
-              this.state.deheadingBatches.splice(stateIdx, 1);
-              this.state.deheadingBatches.forEach((batch, index) => { batch.sNo = index + 1; });
-              this.renderDeheadingScreen(container);
-            }
+          const row = batchEntries[entryIdx];
+          if (row) {
+            Toast.show(`Record ${row.id} (${row.arrivalCode}) saved successfully`, 'success');
           }
-          renderInnerTable();
-          Toast.show('Deheading entry removed', 'info');
         });
       });
     };
+
+    const saveBtn = document.getElementById('btn-save-deheading-form');
+    saveBtn?.addEventListener('click', (e) => {
+      e.preventDefault();
+      form?.requestSubmit();
+    });
 
     form?.addEventListener('submit', event => {
       event.preventDefault();
