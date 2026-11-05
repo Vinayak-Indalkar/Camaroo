@@ -121,7 +121,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Heading icons styling - 36x36 rounded-xl (w-9 h-9 rounded-xl bg-[#00A4B7] text-white) */
+/* Card Heading Icons - Default: bg-[#F1F5F9] text-[#00A4B7], On Hover: bg-[#00A4B7] text-white */
 .card-heading-icon {
   display: inline-flex !important;
   align-items: center !important;
@@ -130,22 +130,22 @@ body {
   width: 36px !important;
   height: 36px !important;
   border-radius: 12px !important;
-  background-color: #00A4B7 !important;
-  color: #FFFFFF !important;
+  background-color: #F1F5F9 !important;
+  color: #00A4B7 !important;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important;
-  transition: all 0.25s ease-in-out !important;
+  transition: all 0.2s ease-in-out !important;
 }
 .card-heading-icon svg {
   display: block !important;
-  width: 18px !important;
-  height: 18px !important;
-  color: #FFFFFF !important;
-  stroke: #FFFFFF !important;
-  transition: all 0.25s ease-in-out !important;
+  width: 16px !important;
+  height: 16px !important;
+  color: #00A4B7 !important;
+  stroke: #00A4B7 !important;
+  transition: all 0.2s ease-in-out !important;
 }
 .group:hover .card-heading-icon,
 .card-heading-icon:hover {
-  background-color: #008F9F !important;
+  background-color: #00A4B7 !important;
   color: #FFFFFF !important;
 }
 .group:hover .card-heading-icon svg,
