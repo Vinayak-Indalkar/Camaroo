@@ -93106,10 +93106,12 @@ const SettingsView = {
           </div>
           <div>
             <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Status</label>
-            <select id="dept-modal-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
-              <option value="Active" ${!dept || dept.status === 'Active' ? 'selected' : ''}>Active</option>
-              <option value="Inactive" ${dept && dept.status === 'Inactive' ? 'selected' : ''}>Inactive</option>
-            </select>
+            <div class="flex items-center h-[32px]">
+              <label class="inline-flex items-center gap-2 cursor-pointer select-none">
+                <input type="checkbox" id="dept-modal-status-cb" class="w-4 h-4 rounded text-[#00A4B7] accent-[#00A4B7] cursor-pointer" ${!dept || dept.status === 'Active' ? 'checked' : ''} />
+                <span id="dept-modal-status-label" class="text-xs font-semibold text-[#172B4D]">${!dept || dept.status === 'Active' ? 'Active' : 'Inactive'}</span>
+              </label>
+            </div>
           </div>
         </form>
       `,
@@ -93128,7 +93130,7 @@ const SettingsView = {
             const name = document.getElementById('dept-modal-name')?.value.trim();
             const code = document.getElementById('dept-modal-code')?.value.trim();
             const desc = document.getElementById('dept-modal-desc')?.value.trim() || '';
-            const status = document.getElementById('dept-modal-status')?.value || 'Active';
+            const status = document.getElementById('dept-modal-status-cb')?.checked ? 'Active' : 'Inactive';
 
             if (!name || !code) {
               Toast.show('Please fill in required department fields', 'warning');
@@ -93159,6 +93161,14 @@ const SettingsView = {
         }
       ]
     });
+
+    setTimeout(() => {
+      const cb = document.getElementById('dept-modal-status-cb');
+      const lbl = document.getElementById('dept-modal-status-label');
+      cb?.addEventListener('change', () => {
+        if (lbl) lbl.textContent = cb.checked ? 'Active' : 'Inactive';
+      });
+    }, 0);
   },
 
 getRoleNavTree() {
@@ -93483,10 +93493,12 @@ openRoleModal(role = null, onSaved) {
             </div>
             <div>
               <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Status</label>
-              <select id="role-modal-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                <option value="Active" ${!role || role.status === 'Active' ? 'selected' : ''}>Active</option>
-                <option value="Inactive" ${role && role.status === 'Inactive' ? 'selected' : ''}>Inactive</option>
-              </select>
+              <div class="flex items-center h-[32px]">
+                <label class="inline-flex items-center gap-2 cursor-pointer select-none">
+                  <input type="checkbox" id="role-modal-status-cb" class="w-4 h-4 rounded text-[#00A4B7] accent-[#00A4B7] cursor-pointer" ${!role || role.status === 'Active' ? 'checked' : ''} />
+                  <span id="role-modal-status-label" class="text-xs font-semibold text-[#172B4D]">${!role || role.status === 'Active' ? 'Active' : 'Inactive'}</span>
+                </label>
+              </div>
             </div>
             <div>
               <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Module Permissions &amp; Authority</label>
@@ -93573,7 +93585,7 @@ openRoleModal(role = null, onSaved) {
             const name = document.getElementById('role-modal-name')?.value.trim();
             const department = document.getElementById('role-modal-dept')?.value || 'All Departments';
             const level = document.getElementById('role-modal-level')?.value;
-            const status = document.getElementById('role-modal-status')?.value || 'Active';
+            const status = document.getElementById('role-modal-status-cb')?.checked ? 'Active' : 'Inactive';
             let permissions = document.getElementById('role-modal-permissions')?.value.trim();
             const description = document.getElementById('role-modal-desc')?.value.trim();
 
@@ -93671,6 +93683,12 @@ openRoleModal(role = null, onSaved) {
     setTimeout(() => {
       const modalRoot = document.getElementById('erp-modal-root');
       if (!modalRoot) return;
+
+      const roleStatusCb = document.getElementById('role-modal-status-cb');
+      const roleStatusLbl = document.getElementById('role-modal-status-label');
+      roleStatusCb?.addEventListener('change', () => {
+        if (roleStatusLbl) roleStatusLbl.textContent = roleStatusCb.checked ? 'Active' : 'Inactive';
+      });
 
       const actions = ['add', 'edit', 'delete', 'read'];
 
@@ -94293,6 +94311,15 @@ openRoleModal(role = null, onSaved) {
                 `).join('')}
               </select>
             </div>
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Status</label>
+              <div class="flex items-center h-[32px]">
+                <label class="inline-flex items-center gap-2 cursor-pointer select-none">
+                  <input type="checkbox" id="usr-modal-status-cb" class="w-4 h-4 rounded text-[#00A4B7] accent-[#00A4B7] cursor-pointer" ${(!user || user.status === 'Active') ? 'checked' : ''} />
+                  <span id="usr-modal-status-label" class="text-xs font-semibold text-[#172B4D]">${(!user || user.status === 'Active') ? 'Active' : 'Inactive'}</span>
+                </label>
+              </div>
+            </div>
           </div>
         </form>
       `,
@@ -94314,6 +94341,7 @@ openRoleModal(role = null, onSaved) {
             const phone = document.getElementById('usr-modal-phone')?.value.trim();
             const department = document.getElementById('usr-modal-dept')?.value;
             const role = document.getElementById('usr-modal-role')?.value;
+            const status = document.getElementById('usr-modal-status-cb')?.checked ? 'Active' : 'Inactive';
 
             if (!name || !email || !empId) {
               Toast.show('Please fill in all mandatory fields', 'warning');
@@ -94327,6 +94355,7 @@ openRoleModal(role = null, onSaved) {
               user.phone = phone;
               user.department = department;
               user.role = role;
+              user.status = status;
               user.photo = currentPhoto;
               const matchedRole = this.roles.find(r => r.name === role);
               user.roleCode = matchedRole ? matchedRole.code : '';
@@ -94342,7 +94371,7 @@ openRoleModal(role = null, onSaved) {
                 role,
                 roleCode: (this.roles.find(r => r.name === role)?.code || ''),
                 photo: currentPhoto,
-                status: 'Active',
+                status,
                 lastActive: 'Just now'
               });
               Toast.show(`User ${name} added successfully`, 'success');
@@ -94357,8 +94386,13 @@ openRoleModal(role = null, onSaved) {
       ]
     });
 
-    // Wire up Photo Upload events
+    // Wire up Photo Upload and Status events
     setTimeout(() => {
+      const usrStatusCb = document.getElementById('usr-modal-status-cb');
+      const usrStatusLbl = document.getElementById('usr-modal-status-label');
+      usrStatusCb?.addEventListener('change', () => {
+        if (usrStatusLbl) usrStatusLbl.textContent = usrStatusCb.checked ? 'Active' : 'Inactive';
+      });
       const fileInput = document.getElementById('usr-modal-photo-input');
       const triggerBtn = document.getElementById('btn-trigger-photo-upload');
       const removeBtn = document.getElementById('btn-remove-photo');
@@ -98723,11 +98757,13 @@ openRoleModal(role = null, onSaved) {
             <input type="text" id="mrec-code" name="code" value="${defaultCode}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
           </div>
           <div>
-            <label for="mrec-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Status</label>
-            <select id="mrec-status" name="status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-              <option value="Active" selected>Active</option>
-              <option value="Inactive">Inactive</option>
-            </select>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Status</label>
+            <div class="flex items-center h-[32px]">
+              <label class="inline-flex items-center gap-2 cursor-pointer select-none">
+                <input type="checkbox" id="mrec-status-cb" class="w-4 h-4 rounded text-[#00A4B7] accent-[#00A4B7] cursor-pointer" checked />
+                <span id="mrec-status-label" class="text-xs font-semibold text-[#172B4D]">Active</span>
+              </label>
+            </div>
           </div>
           <div>
             <label for="mrec-name" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Name / Entity Description <span class="text-[#DE350B]">*</span></label>
@@ -98754,12 +98790,13 @@ openRoleModal(role = null, onSaved) {
             const form = document.getElementById('form-add-master-rec');
             if (!form || !form.reportValidity()) return;
             const values = Object.fromEntries(new FormData(form));
+            const status = document.getElementById('mrec-status-cb')?.checked ? 'Active' : 'Inactive';
 
             selectedMaster.records.unshift({
               code: values.code.trim(),
               name: values.name.trim(),
               details: values.details.trim(),
-              status: values.status || 'Active'
+              status
             });
             selectedMaster.count = selectedMaster.records.length;
 
@@ -98770,6 +98807,14 @@ openRoleModal(role = null, onSaved) {
         }
       ]
     });
+
+    setTimeout(() => {
+      const cb = document.getElementById('mrec-status-cb');
+      const lbl = document.getElementById('mrec-status-label');
+      cb?.addEventListener('change', () => {
+        if (lbl) lbl.textContent = cb.checked ? 'Active' : 'Inactive';
+      });
+    }, 0);
   },
 
   showEditMasterModal(selectedMaster, record, container) {
@@ -98783,11 +98828,13 @@ openRoleModal(role = null, onSaved) {
             <input type="text" value="${this.escape(record.code)}" disabled class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#5E6C84] cursor-not-allowed shadow-2xs" />
           </div>
           <div>
-            <label for="emrec-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Status</label>
-            <select id="emrec-status" name="status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-              <option value="Active" ${record.status === 'Active' ? 'selected' : ''}>Active</option>
-              <option value="Inactive" ${record.status === 'Inactive' ? 'selected' : ''}>Inactive</option>
-            </select>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Status</label>
+            <div class="flex items-center h-[32px]">
+              <label class="inline-flex items-center gap-2 cursor-pointer select-none">
+                <input type="checkbox" id="emrec-status-cb" class="w-4 h-4 rounded text-[#00A4B7] accent-[#00A4B7] cursor-pointer" ${record.status === 'Active' ? 'checked' : ''} />
+                <span id="emrec-status-label" class="text-xs font-semibold text-[#172B4D]">${record.status === 'Active' ? 'Active' : 'Inactive'}</span>
+              </label>
+            </div>
           </div>
           <div>
             <label for="emrec-name" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Name / Entity Description <span class="text-[#DE350B]">*</span></label>
@@ -98814,11 +98861,12 @@ openRoleModal(role = null, onSaved) {
             const form = document.getElementById('form-edit-master-rec');
             if (!form || !form.reportValidity()) return;
             const values = Object.fromEntries(new FormData(form));
+            const status = document.getElementById('emrec-status-cb')?.checked ? 'Active' : 'Inactive';
 
             Object.assign(record, {
               name: values.name.trim(),
               details: values.details.trim(),
-              status: values.status || 'Active'
+              status
             });
 
             m.close();
@@ -98828,6 +98876,14 @@ openRoleModal(role = null, onSaved) {
         }
       ]
     });
+
+    setTimeout(() => {
+      const cb = document.getElementById('emrec-status-cb');
+      const lbl = document.getElementById('emrec-status-label');
+      cb?.addEventListener('change', () => {
+        if (lbl) lbl.textContent = cb.checked ? 'Active' : 'Inactive';
+      });
+    }, 0);
   },
   escape(str) {
     if (str === null || str === undefined) return '';
