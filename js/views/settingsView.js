@@ -4947,7 +4947,7 @@ export const SettingsView = {
               <div class="master-accordion-card bg-white rounded-xl border border-[#DFE1E6] overflow-hidden shadow-2xs transition-all duration-200">
                 <!-- Accordion Header Row -->
                 <div 
-                  class="master-accordion-header w-full px-4 py-3.5 flex items-center justify-between transition-colors cursor-pointer select-none bg-white hover:bg-[#F8FAFC] ${isExpanded ? 'border-b border-[#DFE1E6]' : ''}"
+                  class="master-accordion-header w-full p-3 flex items-center justify-between transition-colors cursor-pointer select-none bg-white hover:bg-[#F8FAFC] ${isExpanded ? 'border-b border-[#DFE1E6]' : ''}"
                   data-module-id="${mod.id}"
                 >
                   <!-- Left: Icon + Module Title + Sub Master Dropdown (immediately after Title) -->
