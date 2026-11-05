@@ -322,18 +322,20 @@ export const App = {
       const collapsedClass = isCollapsed ? 'is-collapsed' : '';
 
       document.getElementById('app-root').innerHTML = `
-        <div id="erp-app-shell" data-layout="option1" class="min-h-screen bg-[#F8FAFC]">
+        <div id="erp-app-shell" data-layout="option1" class="min-h-screen bg-[#F2F5F9]">
           <!-- Left Floated Sidebar (Floating with rounded corners) -->
           <div id="sidebar-container" class="${collapsedClass}"></div>
 
           <!-- Main Layout Wrapper (offset by floating sidebar width + margins) -->
           <div id="main-layout-wrapper" class="${collapsedClass} flex flex-col min-h-screen">
-            <!-- Fixed / Sticky Top Header & Breadcrumbs Wrapper (Option 1) -->
-            <div class="sticky top-3 z-30 mt-3 rounded-2xl border border-[#E2E8F0] bg-white">
-              <div id="header-container" class="bg-white rounded-t-2xl"></div>
-              <!-- Breadcrumbs Bar (Fixed in position right below Header) -->
-              <div class="px-6 py-2 bg-[#F8FAFC] border-t border-[#E2E8F0] flex items-center justify-between rounded-b-2xl">
-                <div id="breadcrumbs-container"></div>
+            <!-- Fixed / Sticky Top Header & Breadcrumbs Wrapper (Masked to prevent scrolled content leakage) -->
+            <div id="top-nav-wrapper" class="sticky top-0 z-30 pt-3 pb-1 bg-[#F2F5F9]">
+              <div class="rounded-2xl border border-[#E2E8F0] bg-white overflow-hidden shadow-2xs">
+                <div id="header-container" class="bg-white"></div>
+                <!-- Breadcrumbs Bar (Fixed in position right below Header) -->
+                <div class="px-6 py-2 bg-[#F8FAFC] border-t border-[#E2E8F0] flex items-center justify-between">
+                  <div id="breadcrumbs-container"></div>
+                </div>
               </div>
             </div>
 
