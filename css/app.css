@@ -3096,3 +3096,10 @@ button.lucide-icon-tile,
     transform: translateY(0);
   }
 }
+
+/* Master Setup Tables - Hide DataTable Toolbar Header per user instruction */
+#master-records-table-container .bg-\[\#FAFBFC\].border-b.border-\[\#DFE1E6\],
+#master-records-table-container div:has(> #dt-download-btn),
+#master-records-table-container div:has(> #dt-columns-btn) {
+  display: none !important;
+}

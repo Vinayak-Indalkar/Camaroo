@@ -27,7 +27,8 @@ export class DataTable {
     disableRowClick = false,
     onRowClick = null,
     onDataChange = null,
-    toolbarButtons = []
+    toolbarButtons = [],
+    hideToolbar = false
   }) {
     const target = containerId || container;
     this.container = typeof target === 'string' ? document.getElementById(target) : target;
@@ -59,6 +60,7 @@ export class DataTable {
     this.actionsTitle = actionsTitle;
     this.bulkActions = bulkActions;
     this.toolbarButtons = toolbarButtons || [];
+    this.hideToolbar = hideToolbar;
     this.exportable = exportable;
     this.showCopy = showCopy;
     const derivedTitle = typeof containerId === 'string' ? containerId.replace(/^[a-z0-9]+-/, '').replace(/-table$/, '').split('-').filter(Boolean).map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ') : '';
@@ -506,7 +508,7 @@ export class DataTable {
 
         <!-- Table Card Container -->
         <div class="bg-white rounded-none border border-[#DFE1E6] shadow-sm flex flex-col overflow-hidden">
-          <!-- Table Control Toolbar (Column visibility, Download, Copy, Search) -->
+          ${!this.hideToolbar ? `<!-- Table Control Toolbar (Column visibility, Download, Copy, Search) -->
           <div class="px-4 py-2.5 border-b border-[#DFE1E6] bg-[#FAFBFC] flex flex-wrap items-center justify-between gap-3">
             <div class="flex items-center gap-2.5 flex-wrap">
               ${this.tableTitle ? `<h3 class="font-bold text-[#172B4D] text-xs">${this.tableTitle}</h3>` : ''}
@@ -568,7 +570,7 @@ export class DataTable {
                 </div>
               </div>
             </div>
-          </div>
+          </div>` : ''}
 
           <!-- Selected Rows Bulk Bar -->
           <div id="dt-bulk-bar" class="hidden px-4 py-2 bg-[#F0F9FF] border-b border-[#BAE6FD] items-center justify-between text-xs text-[#00A4B7]">

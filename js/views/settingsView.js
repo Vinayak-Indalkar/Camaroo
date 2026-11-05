@@ -4877,6 +4877,7 @@ export const SettingsView = {
         data: filteredRecords,
         keyField: 'code',
         tableTitle: `${currentSubmaster.label} (${filteredRecords.length})`,
+        hideToolbar: true,
         searchable: true,
         exportable: true,
         pageSize: 10,
