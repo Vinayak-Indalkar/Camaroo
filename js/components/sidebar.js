@@ -591,9 +591,7 @@ export const Sidebar = {
                   CMR
                 </div>
               ` : `
-                <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center p-1 shadow-xs">
-                  <img src="${LOGO_WHITE}" alt="Devi Fisheries" class="h-8 w-8 object-contain shrink-0 rounded-md" />
-                </div>
+                <img src="${LOGO_WHITE}" alt="Devi Fisheries" class="h-8 w-8 object-contain shrink-0" />
               `}
             </div>
 
