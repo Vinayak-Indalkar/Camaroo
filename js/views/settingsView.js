@@ -501,133 +501,296 @@ export const SettingsView = {
   },
 
   // -------------------------------------------------------------
-  // TAB 2: User & Roles
+  // TAB 2: User & Roles (Dual Accordions: Users & Roles)
   // -------------------------------------------------------------
+  activeUserRolesSection: 'users', // 'users' | 'roles' | null
+  roles: [
+    { id: 'role-1', code: 'ROL-ADM', name: 'Super / System Admin', level: 'Full Access', description: 'Unrestricted CRUD & approvals across all 8 ERP operational modules and settings.', usersCount: 1, permissions: 'All Modules (Full Access)', status: 'Active' },
+    { id: 'role-2', code: 'ROL-MGR', name: 'Operations / Sales Manager', level: 'Departmental', description: 'Full PO creation, Lot allocation, Production batch logs, and export dispatch authority.', usersCount: 3, permissions: 'Sales, Purchase, Coldstore, Production', status: 'Active' },
+    { id: 'role-3', code: 'ROL-SUP', name: 'Quality & Line Supervisor', level: 'Verification', description: 'Lab chemical screening entries, raw material weighment verification, and grading logs.', usersCount: 1, permissions: 'Preprocessing, Quality Control, Weighbridge', status: 'Active' },
+    { id: 'role-4', code: 'ROL-OPR', name: 'Floor & Logistics Operator', level: 'Read / Log', description: 'Coldstore pallet in/out logging, container stuffing checklists, and receiving tally entries.', usersCount: 2, permissions: 'Coldstore, Inventory, Dispatch (Data Entry)', status: 'Active' },
+    { id: 'role-5', code: 'ROL-VIE', name: 'Finance / Audit Viewer', level: 'Read Only', description: 'Auditor inspection view, financial reports generation, and read-only invoice analytics.', usersCount: 1, permissions: 'Reports, Finance, Traceability (Read Only)', status: 'Active' }
+  ],
+  roleSearchQuery: '',
+  roleFilterLevel: 'All',
+
   renderUserAccessTab(container, tabsBarHtml) {
     return this.renderUserRolesTab(container, tabsBarHtml);
   },
 
   renderUserRolesTab(container, tabsBarHtml) {
+    this.cachedTabsBarHtml = tabsBarHtml || this.cachedTabsBarHtml || this.renderAdminSettingsTabs('user-roles');
+    const effectiveTabsBar = this.cachedTabsBarHtml;
+
+    const isUsersExpanded = this.activeUserRolesSection === 'users';
+    const isRolesExpanded = this.activeUserRolesSection === 'roles';
+
     container.innerHTML = `
       <div class="space-y-4 animate-fade-in pb-10">
-        ${tabsBarHtml}
+        ${effectiveTabsBar}
 
-        <div class="flex items-center justify-between gap-3">
+        <!-- Page Header (Clean H1, strictly no subheading per AGENTS.md Rule 2) -->
+        <div class="flex items-center justify-between gap-3 mb-1">
           <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">User &amp; Roles</h1>
-          <button type="button" id="btn-add-user" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-            <span>Add User</span>
-          </button>
         </div>
 
-        <!-- Search & Filter Card -->
-        <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200">
-          <div class="flex items-center justify-between pb-1">
-            <div class="flex items-center gap-2">
-              <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
-              <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
+        <!-- Accordions Group (Layout referenced from Masters) -->
+        <div class="space-y-3" id="user-roles-accordion-group">
+          
+          <!-- ACCORDION 1: Users Directory -->
+          <div class="user-roles-accordion-card bg-white rounded-xl border border-[#DFE1E6] overflow-hidden shadow-2xs transition-all duration-200">
+            <!-- Accordion Header Row (12px padding all sides, p-3) -->
+            <div 
+              class="user-roles-accordion-header w-full p-3 flex items-center justify-between transition-colors cursor-pointer select-none bg-white hover:bg-[#F8FAFC] ${isUsersExpanded ? 'border-b border-[#DFE1E6]' : ''}"
+              data-section="users"
+            >
+              <!-- Left: Icon + Title -->
+              <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl flex items-center justify-center font-bold shadow-xs bg-[#F1F5F9] text-[#00A4B7]">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                </div>
+                <div class="flex items-center gap-2.5">
+                  <span class="font-extrabold text-[#172B4D] text-sm tracking-tight">Users Directory</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD]">${this.users.length} Users</span>
+                </div>
+              </div>
+
+              <!-- Right: Chevron on far right -->
+              <div class="w-7 h-7 rounded-full flex items-center justify-center bg-[#F1F5F9] text-[#64748B] transition-colors">
+                <svg class="w-4 h-4 transform transition-transform duration-300 ${isUsersExpanded ? 'rotate-180' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              </div>
             </div>
-            <div class="inline-flex items-center gap-2">
-              <button type="button" id="users-filter-reset" class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Reset all filters">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-              </button>
-              <button type="button" id="users-filter-toggle" class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Toggle Filter">
-                <svg class="w-3.5 h-3.5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-              </button>
-            </div>
+
+            <!-- Accordion Body -->
+            ${isUsersExpanded ? `
+              <div class="user-roles-accordion-body p-4 bg-[#FAFBFC] space-y-3.5 border-t border-[#DFE1E6] animate-accordion-expand">
+                <!-- Search & Filter Card (AGENTS.md Rule 3) -->
+                <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs transition-all duration-200">
+                  <div class="flex items-center justify-between pb-1">
+                    <div class="flex items-center gap-2">
+                      <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+                      <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters — Users</h3>
+                    </div>
+                    <div class="inline-flex items-center gap-2">
+                      <!-- Circular 32x32 Reset Button -->
+                      <button type="button" id="users-filter-reset" class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Reset all filters">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                      </button>
+                      <!-- Circular 32x32 Collapse/Expand Toggle Button -->
+                      <button type="button" id="users-filter-toggle" class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Toggle Filter">
+                        <svg class="w-3.5 h-3.5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div id="users-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
+                    <div>
+                      <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Search User / Email</label>
+                      <input type="text" id="flt-user-search" value="${this.userSearchQuery || ''}" placeholder="Filter by name, email, ID..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                    </div>
+
+                    <div>
+                      <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Department</label>
+                      <select id="flt-user-dept" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                        <option value="All" ${this.userFilterDept === 'All' ? 'selected' : ''}>All Departments</option>
+                        <option value="Executive Management" ${this.userFilterDept === 'Executive Management' ? 'selected' : ''}>Executive Management</option>
+                        <option value="Procurement & Farm Sourcing" ${this.userFilterDept === 'Procurement & Farm Sourcing' ? 'selected' : ''}>Procurement & Sourcing</option>
+                        <option value="Plant Operations (Unit 1)" ${this.userFilterDept === 'Plant Operations (Unit 1)' ? 'selected' : ''}>Plant Operations (Unit 1)</option>
+                        <option value="Quality Control & Lab" ${this.userFilterDept === 'Quality Control & Lab' ? 'selected' : ''}>Quality Control & Lab</option>
+                        <option value="Cold Storage & Logistics" ${this.userFilterDept === 'Cold Storage & Logistics' ? 'selected' : ''}>Cold Storage & Logistics</option>
+                        <option value="Commercial & Export Sales" ${this.userFilterDept === 'Commercial & Export Sales' ? 'selected' : ''}>Commercial & Export Sales</option>
+                        <option value="Inventory & Materials" ${this.userFilterDept === 'Inventory & Materials' ? 'selected' : ''}>Inventory & Materials</option>
+                        <option value="Finance & Realization" ${this.userFilterDept === 'Finance & Realization' ? 'selected' : ''}>Finance & Realization</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Role / Access Level</label>
+                      <select id="flt-user-role" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                        <option value="All" ${this.userFilterRole === 'All' ? 'selected' : ''}>All Roles</option>
+                        <option value="Admin" ${this.userFilterRole === 'Admin' ? 'selected' : ''}>Admin</option>
+                        <option value="Manager" ${this.userFilterRole === 'Manager' ? 'selected' : ''}>Manager</option>
+                        <option value="Supervisor" ${this.userFilterRole === 'Supervisor' ? 'selected' : ''}>Supervisor</option>
+                        <option value="Operator" ${this.userFilterRole === 'Operator' ? 'selected' : ''}>Operator</option>
+                        <option value="Viewer" ${this.userFilterRole === 'Viewer' ? 'selected' : ''}>Viewer</option>
+                      </select>
+                    </div>
+
+                    <div class="flex items-end">
+                      <button type="button" id="users-filter-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                        <span>Search</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Header Row with Add User Button -->
+                <div class="flex items-center justify-between gap-3 pt-1">
+                  <div class="flex items-center gap-2">
+                    <span class="font-extrabold text-[#172B4D] text-sm tracking-tight">Users Directory</span>
+                    <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD]">${this.users.length} Records</span>
+                  </div>
+                  <button type="button" id="btn-add-user" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                    <span>Add User</span>
+                  </button>
+                </div>
+
+                <!-- Users DataTable Container -->
+                <div id="users-datatable-container"></div>
+              </div>
+            ` : ''}
           </div>
 
-          <div id="users-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
-            <div>
-              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Search User / Email</label>
-              <input type="text" id="flt-user-search" value="${this.userSearchQuery || ''}" placeholder="Filter by name, email, ID..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+          <!-- ACCORDION 2: Roles & Permissions -->
+          <div class="user-roles-accordion-card bg-white rounded-xl border border-[#DFE1E6] overflow-hidden shadow-2xs transition-all duration-200">
+            <!-- Accordion Header Row (12px padding all sides, p-3) -->
+            <div 
+              class="user-roles-accordion-header w-full p-3 flex items-center justify-between transition-colors cursor-pointer select-none bg-white hover:bg-[#F8FAFC] ${isRolesExpanded ? 'border-b border-[#DFE1E6]' : ''}"
+              data-section="roles"
+            >
+              <!-- Left: Icon + Title -->
+              <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl flex items-center justify-center font-bold shadow-xs bg-[#F1F5F9] text-[#00A4B7]">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                </div>
+                <div class="flex items-center gap-2.5">
+                  <span class="font-extrabold text-[#172B4D] text-sm tracking-tight">Roles &amp; Permissions</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD]">${this.roles.length} Roles</span>
+                </div>
+              </div>
+
+              <!-- Right: Chevron on far right -->
+              <div class="w-7 h-7 rounded-full flex items-center justify-center bg-[#F1F5F9] text-[#64748B] transition-colors">
+                <svg class="w-4 h-4 transform transition-transform duration-300 ${isRolesExpanded ? 'rotate-180' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              </div>
             </div>
 
-            <div>
-              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Department</label>
-              <select id="flt-user-dept" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                <option value="All">All Departments</option>
-                <option value="Executive Management">Executive Management</option>
-                <option value="Procurement & Farm Sourcing">Procurement & Sourcing</option>
-                <option value="Plant Operations (Unit 1)">Plant Operations (Unit 1)</option>
-                <option value="Quality Control & Lab">Quality Control & Lab</option>
-                <option value="Cold Storage & Logistics">Cold Storage & Logistics</option>
-                <option value="Commercial & Export Sales">Commercial & Export Sales</option>
-                <option value="Inventory & Materials">Inventory & Materials</option>
-                <option value="Finance & Realization">Finance & Realization</option>
-              </select>
-            </div>
+            <!-- Accordion Body -->
+            ${isRolesExpanded ? `
+              <div class="user-roles-accordion-body p-4 bg-[#FAFBFC] space-y-3.5 border-t border-[#DFE1E6] animate-accordion-expand">
+                <!-- Search & Filter Card (AGENTS.md Rule 3) -->
+                <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs transition-all duration-200">
+                  <div class="flex items-center justify-between pb-1">
+                    <div class="flex items-center gap-2">
+                      <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+                      <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters — Roles</h3>
+                    </div>
+                    <div class="inline-flex items-center gap-2">
+                      <!-- Circular 32x32 Reset Button -->
+                      <button type="button" id="roles-filter-reset" class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Reset all filters">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                      </button>
+                      <!-- Circular 32x32 Collapse/Expand Toggle Button -->
+                      <button type="button" id="roles-filter-toggle" class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Toggle Filter">
+                        <svg class="w-3.5 h-3.5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                      </button>
+                    </div>
+                  </div>
 
-            <div>
-              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Role / Access Level</label>
-              <select id="flt-user-role" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                <option value="All">All Roles</option>
-                <option value="Admin">Admin</option>
-                <option value="Manager">Manager</option>
-                <option value="Supervisor">Supervisor</option>
-                <option value="Operator">Operator</option>
-                <option value="Viewer">Viewer</option>
-              </select>
-            </div>
+                  <div id="roles-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
+                    <div>
+                      <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Search Role / Code / Permissions</label>
+                      <input type="text" id="flt-role-search" value="${this.roleSearchQuery || ''}" placeholder="Filter by role name, code, description..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                    </div>
 
-            <div class="flex items-end">
-              <button type="button" id="users-filter-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                <span>Search</span>
-              </button>
-            </div>
+                    <div class="flex items-end gap-2">
+                      <div class="flex-1">
+                        <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Access Level</label>
+                        <select id="flt-role-level" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                          <option value="All" ${this.roleFilterLevel === 'All' ? 'selected' : ''}>All Levels</option>
+                          <option value="Full Access" ${this.roleFilterLevel === 'Full Access' ? 'selected' : ''}>Full Access</option>
+                          <option value="Departmental" ${this.roleFilterLevel === 'Departmental' ? 'selected' : ''}>Departmental</option>
+                          <option value="Verification" ${this.roleFilterLevel === 'Verification' ? 'selected' : ''}>Verification</option>
+                          <option value="Read / Log" ${this.roleFilterLevel === 'Read / Log' ? 'selected' : ''}>Read / Log</option>
+                          <option value="Read Only" ${this.roleFilterLevel === 'Read Only' ? 'selected' : ''}>Read Only</option>
+                        </select>
+                      </div>
+                      <button type="button" id="roles-filter-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto shrink-0">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                        <span>Search</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Header Row with Add Role Button -->
+                <div class="flex items-center justify-between gap-3 pt-1">
+                  <div class="flex items-center gap-2">
+                    <span class="font-extrabold text-[#172B4D] text-sm tracking-tight">Roles List</span>
+                    <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD]">${this.roles.length} Records</span>
+                  </div>
+                  <button type="button" id="btn-add-role" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                    <span>Add Role</span>
+                  </button>
+                </div>
+
+                <!-- Roles DataTable Container -->
+                <div id="roles-datatable-container"></div>
+
+                <!-- Departmental Matrix Summary Badges -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs pt-2">
+                  <div class="p-3 rounded-xl border border-[#BAE6FD] bg-[#F0F9FF] space-y-1.5">
+                    <div class="flex items-center justify-between">
+                      <span class="font-extrabold text-[#00A4B7] text-xs">Admin</span>
+                      <span class="px-2 py-0.5 rounded text-[10px] font-extrabold bg-[#E0F2FE] text-[#00A4B7]">Full Access</span>
+                    </div>
+                    <p class="text-[11px] text-[#5E6C84]">Unrestricted CRUD &amp; approvals across all 8 ERP operational modules and settings.</p>
+                  </div>
+
+                  <div class="p-3 rounded-xl border border-[#CBD5E1] bg-[#F8FAFC] space-y-1.5">
+                    <div class="flex items-center justify-between">
+                      <span class="font-extrabold text-[#172B4D] text-xs">Manager</span>
+                      <span class="px-2 py-0.5 rounded text-[10px] font-extrabold bg-[#EAE6FF] text-[#403294]">Departmental</span>
+                    </div>
+                    <p class="text-[11px] text-[#5E6C84]">Full PO creation, Lot allocation, Production batch logs, and export dispatch authority.</p>
+                  </div>
+
+                  <div class="p-3 rounded-xl border border-[#CBD5E1] bg-[#F8FAFC] space-y-1.5">
+                    <div class="flex items-center justify-between">
+                      <span class="font-extrabold text-[#172B4D] text-xs">Supervisor</span>
+                      <span class="px-2 py-0.5 rounded text-[10px] font-extrabold bg-[#FFFAE6] text-[#FF8B00]">Verification</span>
+                    </div>
+                    <p class="text-[11px] text-[#5E6C84]">Lab chemical screening entries, raw material weighment verification, and grading logs.</p>
+                  </div>
+
+                  <div class="p-3 rounded-xl border border-[#CBD5E1] bg-[#F8FAFC] space-y-1.5">
+                    <div class="flex items-center justify-between">
+                      <span class="font-extrabold text-[#172B4D] text-xs">Operator / Viewer</span>
+                      <span class="px-2 py-0.5 rounded text-[10px] font-extrabold bg-[#F1F5F9] text-[#5E6C84]">Read / Log</span>
+                    </div>
+                    <p class="text-[11px] text-[#5E6C84]">Coldstore pallet in/out logging, container stuffing checklists, and read-only reports.</p>
+                  </div>
+                </div>
+              </div>
+            ` : ''}
           </div>
-        </div>
 
-        <!-- Users DataTable Container -->
-        <div id="users-datatable-container" class="bg-white rounded-xl border border-[#DFE1E6] shadow-xs"></div>
-
-        <!-- Roles & Permissions Matrix Overview -->
-        <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs space-y-3 mt-4">
-          <div class="flex items-center gap-2 border-b border-[#F1F5F9] pb-2">
-            <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-            <h2 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Access Roles &amp; Departmental Permissions Matrix</h2>
-          </div>
-
-          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs">
-            <div class="p-3 rounded-xl border border-[#BAE6FD] bg-[#F0F9FF] space-y-1.5">
-              <div class="flex items-center justify-between">
-                <span class="font-extrabold text-[#00A4B7] text-xs">Admin</span>
-                <span class="px-2 py-0.5 rounded text-[10px] font-extrabold bg-[#E0F2FE] text-[#00A4B7]">Full Access</span>
-              </div>
-              <p class="text-[11px] text-[#5E6C84]">Unrestricted CRUD &amp; approvals across all 8 ERP operational modules and settings.</p>
-            </div>
-
-            <div class="p-3 rounded-xl border border-[#CBD5E1] bg-[#F8FAFC] space-y-1.5">
-              <div class="flex items-center justify-between">
-                <span class="font-extrabold text-[#172B4D] text-xs">Manager</span>
-                <span class="px-2 py-0.5 rounded text-[10px] font-extrabold bg-[#EAE6FF] text-[#403294]">Departmental</span>
-              </div>
-              <p class="text-[11px] text-[#5E6C84]">Full PO creation, Lot allocation, Production batch logs, and export dispatch authority.</p>
-            </div>
-
-            <div class="p-3 rounded-xl border border-[#CBD5E1] bg-[#F8FAFC] space-y-1.5">
-              <div class="flex items-center justify-between">
-                <span class="font-extrabold text-[#172B4D] text-xs">Supervisor</span>
-                <span class="px-2 py-0.5 rounded text-[10px] font-extrabold bg-[#FFFAE6] text-[#FF8B00]">Verification</span>
-              </div>
-              <p class="text-[11px] text-[#5E6C84]">Lab chemical screening entries, raw material weighment verification, and grading logs.</p>
-            </div>
-
-            <div class="p-3 rounded-xl border border-[#CBD5E1] bg-[#F8FAFC] space-y-1.5">
-              <div class="flex items-center justify-between">
-                <span class="font-extrabold text-[#172B4D] text-xs">Operator / Viewer</span>
-                <span class="px-2 py-0.5 rounded text-[10px] font-extrabold bg-[#F1F5F9] text-[#5E6C84]">Read / Log</span>
-              </div>
-              <p class="text-[11px] text-[#5E6C84]">Coldstore pallet in/out logging, container stuffing checklists, and read-only reports.</p>
-            </div>
-          </div>
         </div>
       </div>
     `;
 
-    this.renderUsersTable();
-    this.bindUserAccessEvents(container, tabsBarHtml);
+    // Bind Accordion Header clicks (strictly one open at a time like Masters)
+    const headerBtns = container.querySelectorAll('.user-roles-accordion-header');
+    headerBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const sec = btn.dataset.section;
+        this.activeUserRolesSection = (this.activeUserRolesSection === sec) ? null : sec;
+        this.renderUserRolesTab(container, this.cachedTabsBarHtml);
+      });
+    });
+
+    if (isUsersExpanded) {
+      this.renderUsersTable();
+      this.bindUsersEvents(container);
+    }
+
+    if (isRolesExpanded) {
+      this.renderRolesTable();
+      this.bindRolesEvents(container);
+    }
   },
 
   renderUsersTable() {
@@ -657,7 +820,7 @@ export const SettingsView = {
       containerId: 'users-datatable-container',
       keyField: 'id',
       tableTitle: `Users Directory (${filtered.length})`,
-      selectable: false,
+      hideToolbar: true,
       searchable: true,
       exportable: true,
       data: filtered,
@@ -672,8 +835,8 @@ export const SettingsView = {
                 ${val.split(' ').map(n => n[0]).join('').substring(0, 2)}
               </div>
               <div class="min-w-0">
-                <span class="font-bold text-[#172B4D] block truncate">${val}</span>
-                <span class="font-mono text-[10.5px] text-[#64748B] block">${row.empId}</span>
+                <span class="font-bold text-[#172B4D] block truncate">${this.escape(val)}</span>
+                <span class="font-mono text-[10.5px] text-[#64748B] block">${this.escape(row.empId)}</span>
               </div>
             </div>
           `
@@ -684,8 +847,8 @@ export const SettingsView = {
           sortable: true,
           render: (val, row) => `
             <div>
-              <span class="text-xs text-[#172B4D] font-medium block truncate">${val}</span>
-              <span class="text-[10.5px] text-[#64748B] block">${row.phone}</span>
+              <span class="text-xs text-[#172B4D] font-medium block truncate">${this.escape(val)}</span>
+              <span class="text-[10.5px] text-[#64748B] block">${this.escape(row.phone)}</span>
             </div>
           `
         },
@@ -693,14 +856,14 @@ export const SettingsView = {
           field: 'department',
           header: 'Department',
           sortable: true,
-          render: (val) => `<span class="font-medium text-xs text-[#172B4D]">${val}</span>`
+          render: (val) => `<span class="font-medium text-xs text-[#172B4D]">${this.escape(val)}</span>`
         },
         {
           field: 'role',
           header: 'Role',
           sortable: true,
           render: (val) => `
-            <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">${val}</span>
+            <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">${this.escape(val)}</span>
           `
         },
         {
@@ -708,42 +871,59 @@ export const SettingsView = {
           header: 'Status',
           sortable: true,
           render: (val) => `
-            <span class="px-2.5 py-0.5 rounded-full text-[10.5px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">${val}</span>
+            <span class="px-2.5 py-0.5 rounded-full text-[10.5px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">${this.escape(val)}</span>
           `
         },
         {
           field: 'lastActive',
           header: 'Last Active',
           sortable: true,
-          render: (val) => `<span class="text-xs text-[#64748B] font-mono">${val}</span>`
+          render: (val) => `<span class="text-xs text-[#64748B] font-mono">${this.escape(val)}</span>`
+        }
+      ],
+      actions: [
+        {
+          label: 'Edit',
+          icon: '<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>',
+          onClick: (row) => this.openUserModal(row, () => this.renderUsersTable())
         },
         {
-          field: 'id',
-          header: 'Actions',
-          sortable: false,
-          align: 'right',
-          render: (val, row) => `
-            <div class="inline-flex items-center gap-1.5 justify-end">
-              <button type="button" class="dt-action-btn edit-user-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white border border-[#CBD5E1] rounded-full text-[#00A4B7] hover:bg-[#F0F9FF] cursor-pointer" data-id="${row.id}" title="Edit User">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
-              </button>
-              <button type="button" class="dt-action-btn delete-user-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white border border-[#CBD5E1] rounded-full text-[#DE350B] hover:bg-[#FFEBE6] cursor-pointer" data-id="${row.id}" title="Delete User">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-              </button>
-            </div>
-          `
+          label: 'Delete',
+          icon: '<svg class="w-4 h-4 text-[#DE350B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>',
+          onClick: (row) => {
+            Modal.confirm({
+              title: 'Delete User Account',
+              message: `Are you sure you want to delete user account for <strong class="text-[#DE350B]">${this.escape(row.name)}</strong> (${this.escape(row.empId)})? This action cannot be undone.`,
+              confirmText: 'Delete User',
+              cancelText: 'Cancel',
+              isDestructive: true,
+              onConfirm: () => {
+                this.users = this.users.filter(u => u.id !== row.id);
+                this.renderUsersTable();
+                Toast.show(`User ${row.name} removed successfully`, 'success');
+              }
+            });
+          }
         }
       ]
     });
   },
 
-  bindUserAccessEvents(container, tabsBarHtml) {
-    // Search & Filters
+  bindUsersEvents(container) {
     document.getElementById('users-filter-search-btn')?.addEventListener('click', () => {
       this.userSearchQuery = document.getElementById('flt-user-search')?.value.trim() || '';
       this.userFilterDept = document.getElementById('flt-user-dept')?.value || 'All';
       this.userFilterRole = document.getElementById('flt-user-role')?.value || 'All';
       this.renderUsersTable();
+    });
+
+    document.getElementById('flt-user-search')?.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        this.userSearchQuery = e.target.value.trim();
+        this.userFilterDept = document.getElementById('flt-user-dept')?.value || 'All';
+        this.userFilterRole = document.getElementById('flt-user-role')?.value || 'All';
+        this.renderUsersTable();
+      }
     });
 
     document.getElementById('users-filter-reset')?.addEventListener('click', () => {
@@ -754,6 +934,7 @@ export const SettingsView = {
       if (document.getElementById('flt-user-dept')) document.getElementById('flt-user-dept').value = 'All';
       if (document.getElementById('flt-user-role')) document.getElementById('flt-user-role').value = 'All';
       this.renderUsersTable();
+      Toast.show('User filters reset', 'info');
     });
 
     document.getElementById('users-filter-toggle')?.addEventListener('click', () => {
@@ -761,42 +942,241 @@ export const SettingsView = {
       if (body) body.classList.toggle('hidden');
     });
 
-    // Add User
     document.getElementById('btn-add-user')?.addEventListener('click', () => {
       this.openUserModal(null, () => this.renderUsersTable());
     });
+  },
 
-    // Delegate Edit and Delete on table
-    container.addEventListener('click', (e) => {
-      const editBtn = e.target.closest('.edit-user-btn');
-      if (editBtn) {
-        const id = editBtn.dataset.id;
-        const user = this.users.find(u => u.id === id);
-        if (user) {
-          this.openUserModal(user, () => this.renderUsersTable());
+  renderRolesTable() {
+    const tableContainer = document.getElementById('roles-datatable-container');
+    if (!tableContainer) return;
+
+    let filtered = [...this.roles];
+    if (this.roleSearchQuery) {
+      const q = this.roleSearchQuery.toLowerCase();
+      filtered = filtered.filter(r => 
+        r.name.toLowerCase().includes(q) ||
+        r.code.toLowerCase().includes(q) ||
+        r.description.toLowerCase().includes(q) ||
+        r.permissions.toLowerCase().includes(q)
+      );
+    }
+    if (this.roleFilterLevel && this.roleFilterLevel !== 'All') {
+      filtered = filtered.filter(r => r.level === this.roleFilterLevel);
+    }
+
+    tableContainer.innerHTML = '';
+
+    new DataTable({
+      containerId: 'roles-datatable-container',
+      keyField: 'id',
+      tableTitle: `Roles Directory (${filtered.length})`,
+      hideToolbar: true,
+      searchable: true,
+      exportable: true,
+      data: filtered,
+      columns: [
+        {
+          field: 'code',
+          header: 'Role Code',
+          sortable: true,
+          render: (val) => `<span class="font-bold text-[#00A4B7] font-mono">${this.escape(val)}</span>`
+        },
+        {
+          field: 'name',
+          header: 'Role Name',
+          sortable: true,
+          render: (val) => `<span class="font-bold text-[#172B4D]">${this.escape(val)}</span>`
+        },
+        {
+          field: 'level',
+          header: 'Access Level',
+          sortable: true,
+          render: (val) => {
+            let colorCls = 'bg-[#F1F5F9] text-[#5E6C84] border-[#DFE1E6]';
+            if (val === 'Full Access') colorCls = 'bg-[#E0F2FE] text-[#00A4B7] border-[#BAE6FD]';
+            else if (val === 'Departmental') colorCls = 'bg-[#EAE6FF] text-[#403294] border-[#D3C7FF]';
+            else if (val === 'Verification') colorCls = 'bg-[#FFFAE6] text-[#FF8B00] border-[#FFE380]';
+            else if (val === 'Read / Log') colorCls = 'bg-[#E3FCEF] text-[#006644] border-[#ABF5D1]';
+            return `<span class="px-2 py-0.5 rounded text-[11px] font-bold border ${colorCls}">${this.escape(val)}</span>`;
+          }
+        },
+        {
+          field: 'permissions',
+          header: 'Module Scope / Permissions',
+          sortable: true,
+          render: (val) => `<span class="text-xs text-[#5E6C84] font-medium">${this.escape(val)}</span>`
+        },
+        {
+          field: 'usersCount',
+          header: 'Assigned Users',
+          sortable: true,
+          render: (val) => `<span class="px-2 py-0.5 rounded-full text-[10.5px] font-bold bg-[#F1F5F9] text-[#172B4D] border border-[#DFE1E6]">${val} Users</span>`
+        },
+        {
+          field: 'status',
+          header: 'Status',
+          sortable: true,
+          render: (val) => `<span class="px-2.5 py-0.5 rounded-full text-[10.5px] font-bold ${val === 'Inactive' ? 'bg-[#FFEBE6] text-[#DE350B] border border-[#FFBDAD]' : 'bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]'}">${this.escape(val || 'Active')}</span>`
         }
-        return;
-      }
+      ],
+      actions: [
+        {
+          label: 'Edit',
+          icon: '<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>',
+          onClick: (row) => this.openRoleModal(row, () => this.renderRolesTable())
+        },
+        {
+          label: 'Delete',
+          icon: '<svg class="w-4 h-4 text-[#DE350B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>',
+          onClick: (row) => {
+            Modal.confirm({
+              title: 'Delete Access Role',
+              message: `Are you sure you want to delete role <strong class="text-[#DE350B]">${this.escape(row.name)}</strong> (${this.escape(row.code)})? Users assigned to this role will need re-assignment.`,
+              confirmText: 'Delete Role',
+              cancelText: 'Cancel',
+              isDestructive: true,
+              onConfirm: () => {
+                this.roles = this.roles.filter(r => r.id !== row.id);
+                this.renderRolesTable();
+                Toast.show(`Role ${row.name} deleted successfully`, 'success');
+              }
+            });
+          }
+        }
+      ]
+    });
+  },
 
-      const delBtn = e.target.closest('.delete-user-btn');
-      if (delBtn) {
-        const id = delBtn.dataset.id;
-        const user = this.users.find(u => u.id === id);
-        if (user) {
-          Modal.confirm({
-            title: 'Delete User Account',
-            message: `Are you sure you want to delete user account for "${user.name}" (${user.empId})? This action cannot be undone.`,
-            confirmText: 'Delete User',
-            cancelText: 'Cancel',
-            isDestructive: true,
-            onConfirm: () => {
-              this.users = this.users.filter(u => u.id !== id);
-              this.renderUsersTable();
-              Toast.show(`User ${user.name} removed successfully`, 'success');
+  bindRolesEvents(container) {
+    document.getElementById('roles-filter-search-btn')?.addEventListener('click', () => {
+      this.roleSearchQuery = document.getElementById('flt-role-search')?.value.trim() || '';
+      this.roleFilterLevel = document.getElementById('flt-role-level')?.value || 'All';
+      this.renderRolesTable();
+    });
+
+    document.getElementById('flt-role-search')?.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        this.roleSearchQuery = e.target.value.trim();
+        this.roleFilterLevel = document.getElementById('flt-role-level')?.value || 'All';
+        this.renderRolesTable();
+      }
+    });
+
+    document.getElementById('roles-filter-reset')?.addEventListener('click', () => {
+      this.roleSearchQuery = '';
+      this.roleFilterLevel = 'All';
+      if (document.getElementById('flt-role-search')) document.getElementById('flt-role-search').value = '';
+      if (document.getElementById('flt-role-level')) document.getElementById('flt-role-level').value = 'All';
+      this.renderRolesTable();
+      Toast.show('Role filters reset', 'info');
+    });
+
+    document.getElementById('roles-filter-toggle')?.addEventListener('click', () => {
+      const body = document.getElementById('roles-filter-body');
+      if (body) body.classList.toggle('hidden');
+    });
+
+    document.getElementById('btn-add-role')?.addEventListener('click', () => {
+      this.openRoleModal(null, () => this.renderRolesTable());
+    });
+  },
+
+  openRoleModal(role = null, onSaved) {
+    const isEdit = !!role;
+    const title = isEdit ? `Edit Role - ${role.code}` : 'Add New Access Role';
+    const defaultCode = isEdit ? role.code : `ROL-${Math.floor(100 + Math.random() * 900)}`;
+
+    Modal.open({
+      title,
+      size: 'lg',
+      content: `
+        <form id="form-role-modal" class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+          <div>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Role Code <span class="text-[#DE350B]">*</span></label>
+            <input type="text" id="role-modal-code" value="${this.escape(defaultCode)}" ${isEdit ? 'disabled' : 'required'} class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs ${isEdit ? 'bg-[#F4F5F7] cursor-not-allowed' : ''}" />
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Status</label>
+            <select id="role-modal-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="Active" ${!role || role.status === 'Active' ? 'selected' : ''}>Active</option>
+              <option value="Inactive" ${role && role.status === 'Inactive' ? 'selected' : ''}>Inactive</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Role Name <span class="text-[#DE350B]">*</span></label>
+            <input type="text" id="role-modal-name" value="${this.escape(role ? role.name : '')}" required placeholder="e.g. Production Line Supervisor" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Access Level / Scope <span class="text-[#DE350B]">*</span></label>
+            <select id="role-modal-level" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              <option value="Full Access" ${role && role.level === 'Full Access' ? 'selected' : ''}>Full Access (Super Admin)</option>
+              <option value="Departmental" ${!role || role.level === 'Departmental' ? 'selected' : ''}>Departmental (Operations / Sales)</option>
+              <option value="Verification" ${role && role.level === 'Verification' ? 'selected' : ''}>Verification (Supervisor / QC)</option>
+              <option value="Read / Log" ${role && role.level === 'Read / Log' ? 'selected' : ''}>Read / Log (Floor Operator)</option>
+              <option value="Read Only" ${role && role.level === 'Read Only' ? 'selected' : ''}>Read Only (Auditor / Viewer)</option>
+            </select>
+          </div>
+          <div class="sm:col-span-2">
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Module Permissions &amp; Authority</label>
+            <input type="text" id="role-modal-permissions" value="${this.escape(role ? role.permissions : 'Sales, Purchase, Coldstore, Production')}" placeholder="e.g. Sales, Purchase, Coldstore, Production" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+          <div class="sm:col-span-2">
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Role Description &amp; Scope Responsibilities</label>
+            <textarea id="role-modal-desc" rows="2" placeholder="Define operational responsibility boundaries..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">${this.escape(role ? role.description : '')}</textarea>
+          </div>
+        </form>
+      `,
+      footerButtons: [
+        {
+          label: 'Cancel',
+          type: 'secondary',
+          class: 'btn-secondary px-5 py-2 rounded-full text-xs font-semibold border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#172B4D] transition-all cursor-pointer',
+          onClick: (m) => m.close()
+        },
+        {
+          label: isEdit ? 'Save Changes' : 'Create Role',
+          type: 'primary',
+          class: 'btn-primary px-5 py-2 rounded-full text-xs font-bold shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer',
+          onClick: (m) => {
+            const code = document.getElementById('role-modal-code')?.value.trim();
+            const name = document.getElementById('role-modal-name')?.value.trim();
+            const level = document.getElementById('role-modal-level')?.value;
+            const status = document.getElementById('role-modal-status')?.value || 'Active';
+            const permissions = document.getElementById('role-modal-permissions')?.value.trim() || 'General Operations';
+            const description = document.getElementById('role-modal-desc')?.value.trim();
+
+            if (!name || !code) {
+              Toast.show('Please fill in Role Code and Role Name', 'warning');
+              return;
             }
-          });
+
+            if (isEdit) {
+              role.name = name;
+              role.level = level;
+              role.status = status;
+              role.permissions = permissions;
+              role.description = description;
+              Toast.show(`Role ${name} updated successfully`, 'success');
+            } else {
+              this.roles.unshift({
+                id: `role-${Date.now()}`,
+                code,
+                name,
+                level,
+                description,
+                usersCount: 0,
+                permissions,
+                status
+              });
+              Toast.show(`Role ${name} created successfully`, 'success');
+            }
+
+            m.close();
+            if (onSaved) onSaved();
+          }
         }
-      }
+      ]
     });
   },
 
@@ -804,27 +1184,29 @@ export const SettingsView = {
     const isEdit = !!user;
     const title = isEdit ? 'Edit User Profile' : 'Add New User';
 
-    const contentHtml = `
-      <form id="form-user-modal" class="space-y-3.5 text-xs">
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+    Modal.open({
+      title,
+      size: 'lg',
+      content: `
+        <form id="form-user-modal" class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
           <div>
-            <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Full Name *</label>
-            <input type="text" id="usr-modal-name" value="${user ? user.name : ''}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" placeholder="e.g. Anand Murugan">
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Full Name <span class="text-[#DE350B]">*</span></label>
+            <input type="text" id="usr-modal-name" value="${this.escape(user ? user.name : '')}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" placeholder="e.g. Anand Murugan">
           </div>
           <div>
-            <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Employee ID *</label>
-            <input type="text" id="usr-modal-empid" value="${user ? user.empId : `EMP-${Math.floor(100 + Math.random() * 900)}`}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Employee ID <span class="text-[#DE350B]">*</span></label>
+            <input type="text" id="usr-modal-empid" value="${this.escape(user ? user.empId : `EMP-${Math.floor(100 + Math.random() * 900)}`)}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
           </div>
           <div>
-            <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Email Address *</label>
-            <input type="email" id="usr-modal-email" value="${user ? user.email : ''}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" placeholder="name@devifisheries.com">
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Email Address <span class="text-[#DE350B]">*</span></label>
+            <input type="email" id="usr-modal-email" value="${this.escape(user ? user.email : '')}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" placeholder="name@devifisheries.com">
           </div>
           <div>
-            <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Phone Number</label>
-            <input type="text" id="usr-modal-phone" value="${user ? user.phone : '+91 98480 '}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Phone Number</label>
+            <input type="text" id="usr-modal-phone" value="${this.escape(user ? user.phone : '+91 98480 11223')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
           </div>
           <div>
-            <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Department *</label>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Department <span class="text-[#DE350B]">*</span></label>
             <select id="usr-modal-dept" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
               <option value="Executive Management" ${user && user.department === 'Executive Management' ? 'selected' : ''}>Executive Management</option>
               <option value="Procurement & Farm Sourcing" ${user && user.department === 'Procurement & Farm Sourcing' ? 'selected' : ''}>Procurement & Farm Sourcing</option>
@@ -837,7 +1219,7 @@ export const SettingsView = {
             </select>
           </div>
           <div>
-            <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Access Role *</label>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Access Role <span class="text-[#DE350B]">*</span></label>
             <select id="usr-modal-role" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
               <option value="Admin" ${user && user.role === 'Admin' ? 'selected' : ''}>Admin (Full Access)</option>
               <option value="Manager" ${user && user.role === 'Manager' ? 'selected' : ''}>Manager (Departmental)</option>
@@ -846,58 +1228,63 @@ export const SettingsView = {
               <option value="Viewer" ${user && user.role === 'Viewer' ? 'selected' : ''}>Viewer (Read-only)</option>
             </select>
           </div>
-        </div>
-      </form>
-    `;
+        </form>
+      `,
+      footerButtons: [
+        {
+          label: 'Cancel',
+          type: 'secondary',
+          class: 'btn-secondary px-5 py-2 rounded-full text-xs font-semibold border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#172B4D] transition-all cursor-pointer',
+          onClick: (m) => m.close()
+        },
+        {
+          label: isEdit ? 'Save Changes' : 'Create User',
+          type: 'primary',
+          class: 'btn-primary px-5 py-2 rounded-full text-xs font-bold shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer',
+          onClick: (m) => {
+            const name = document.getElementById('usr-modal-name')?.value.trim();
+            const empId = document.getElementById('usr-modal-empid')?.value.trim();
+            const email = document.getElementById('usr-modal-email')?.value.trim();
+            const phone = document.getElementById('usr-modal-phone')?.value.trim();
+            const department = document.getElementById('usr-modal-dept')?.value;
+            const role = document.getElementById('usr-modal-role')?.value;
 
-    Modal.show({
-      title,
-      content: contentHtml,
-      size: 'lg',
-      confirmText: isEdit ? 'Save Changes' : 'Create User',
-      onConfirm: () => {
-        const name = document.getElementById('usr-modal-name')?.value.trim();
-        const empId = document.getElementById('usr-modal-empid')?.value.trim();
-        const email = document.getElementById('usr-modal-email')?.value.trim();
-        const phone = document.getElementById('usr-modal-phone')?.value.trim();
-        const department = document.getElementById('usr-modal-dept')?.value;
-        const role = document.getElementById('usr-modal-role')?.value;
+            if (!name || !email || !empId) {
+              Toast.show('Please fill in all mandatory fields', 'warning');
+              return;
+            }
 
-        if (!name || !email || !empId) {
-          Toast.show('Please fill in all mandatory fields', 'warning');
-          return false;
+            if (isEdit) {
+              user.name = name;
+              user.empId = empId;
+              user.email = email;
+              user.phone = phone;
+              user.department = department;
+              user.role = role;
+              Toast.show(`User ${name} updated successfully`, 'success');
+            } else {
+              this.users.unshift({
+                id: `usr-${Date.now()}`,
+                empId,
+                name,
+                email,
+                phone,
+                department,
+                role,
+                status: 'Active',
+                lastActive: 'Just now'
+              });
+              Toast.show(`User ${name} added successfully`, 'success');
+            }
+
+            m.close();
+            if (onSaved) onSaved();
+          }
         }
-
-        if (isEdit) {
-          user.name = name;
-          user.empId = empId;
-          user.email = email;
-          user.phone = phone;
-          user.department = department;
-          user.role = role;
-          Toast.show(`User ${name} updated successfully`, 'success');
-        } else {
-          this.users.unshift({
-            id: `usr-${Date.now()}`,
-            empId,
-            name,
-            email,
-            phone,
-            department,
-            role,
-            status: 'Active',
-            lastActive: 'Just now'
-          });
-          Toast.show(`User ${name} added successfully`, 'success');
-        }
-
-        if (onSaved) onSaved();
-        return true;
-      }
+      ]
     });
   },
-
-  // -------------------------------------------------------------
+// -------------------------------------------------------------
   // TAB 3: General
   // -------------------------------------------------------------
   renderGeneralTab(container, tabsBarHtml) {

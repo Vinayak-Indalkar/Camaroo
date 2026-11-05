@@ -157,7 +157,7 @@ export const UIEnhancements = {
       html += `
         <div class="erp-dropdown-search-wrapper p-2 border-b border-[#E2E8F0] bg-[#F8FAFC]">
           <div class="relative flex items-center w-full">
-            <span class="absolute inset-y-0 left-0 flex items-center pl-2.5 pointer-events-none text-[#94A3B8]">
+            <span class="absolute inset-y-0 left-0 w-8 flex items-center justify-center pointer-events-none text-[#94A3B8] z-10" style="width: 32px !important; padding-left: 0 !important; left: 0 !important;">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
               </svg>
@@ -168,7 +168,7 @@ export const UIEnhancements = {
               placeholder="Search..." 
               autocomplete="off" 
               spellcheck="false" 
-              class="w-full text-xs pl-8 pr-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg focus:outline-none focus:border-[#00A4B7]"
+              class="w-full text-xs pl-9 pr-2.5 py-1.5 bg-white border border-[#CBD5E1] rounded-lg focus:outline-none focus:border-[#00A4B7]" style="padding-left: 36px !important;"
             />
           </div>
         </div>
