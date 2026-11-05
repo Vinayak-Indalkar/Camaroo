@@ -84096,7 +84096,7 @@ const SetupView = {
         // 1. Client Information
         wizardState.client.name = document.getElementById('w-cmp-name')?.value.trim() || wizardState.client.name;
         wizardState.client.shortName = document.getElementById('w-cmp-short-name')?.value.trim().toUpperCase() || (wizardState.client.name ? wizardState.client.name.slice(0, 3).toUpperCase() : '');
-        wizardState.client.logo = document.getElementById('w-cmp-logo')?.value.trim() || wizardState.client.logo;
+        wizardState.client.logo = document.getElementById('w-cmp-logo')?.dataset?.dataUrl || document.getElementById('w-cmp-logo')?.value.trim() || wizardState.client.logo;
         wizardState.client.address = document.getElementById('w-cmp-address')?.value.trim() || wizardState.client.address;
         wizardState.client.contactPerson = document.getElementById('w-cmp-contact-person')?.value.trim() || wizardState.client.contactPerson;
         wizardState.client.phone = document.getElementById('w-cmp-phone')?.value.trim() || wizardState.client.phone;
@@ -84113,11 +84113,11 @@ const SetupView = {
         wizardState.client.plants = wizardState.client.plantName || wizardState.client.plants;
 
         // 3. Application Add-ons
-        wizardState.client.appIcon = document.getElementById('w-app-icon')?.value.trim() || wizardState.client.appIcon;
-        wizardState.client.appLogo = document.getElementById('w-app-logo')?.value.trim() || wizardState.client.appLogo;
-        wizardState.client.headingImg = document.getElementById('w-app-heading-img')?.value.trim() || wizardState.client.headingImg;
-        wizardState.client.reportHeaderImg = document.getElementById('w-app-report-header')?.value.trim() || wizardState.client.reportHeaderImg;
-        wizardState.client.reportFooterImg = document.getElementById('w-app-report-footer')?.value.trim() || wizardState.client.reportFooterImg;
+        wizardState.client.appIcon = document.getElementById('w-app-icon')?.dataset?.dataUrl || document.getElementById('w-app-icon')?.value.trim() || wizardState.client.appIcon;
+        wizardState.client.appLogo = document.getElementById('w-app-logo')?.dataset?.dataUrl || document.getElementById('w-app-logo')?.value.trim() || wizardState.client.appLogo;
+        wizardState.client.headingImg = document.getElementById('w-app-heading-img')?.dataset?.dataUrl || document.getElementById('w-app-heading-img')?.value.trim() || wizardState.client.headingImg;
+        wizardState.client.reportHeaderImg = document.getElementById('w-app-report-header')?.dataset?.dataUrl || document.getElementById('w-app-report-header')?.value.trim() || wizardState.client.reportHeaderImg;
+        wizardState.client.reportFooterImg = document.getElementById('w-app-report-footer')?.dataset?.dataUrl || document.getElementById('w-app-report-footer')?.value.trim() || wizardState.client.reportFooterImg;
         wizardState.client.primaryColor = document.getElementById('w-app-primary-color')?.value.trim() || wizardState.client.primaryColor;
         wizardState.client.secondaryColor = document.getElementById('w-app-secondary-color')?.value.trim() || wizardState.client.secondaryColor;
         wizardState.client.bgColor = document.getElementById('w-app-bg-color')?.value.trim() || wizardState.client.bgColor;
@@ -84262,9 +84262,6 @@ const SetupView = {
                   <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">1</span>
                   <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Client Information</span>
                 </div>
-                <span class="text-[10px] font-bold text-[#00A4B7] bg-[#E0F2FE] px-2.5 py-1 rounded-full border border-[#BAE6FD] font-mono">
-                  ${wizardState.client.id}
-                </span>
               </div>
 
               <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
@@ -85156,26 +85153,103 @@ const SetupView = {
         syncColor('w-app-bg-color-picker', 'w-app-bg-color');
 
         const bindImageUpload = (fileId, textId, previewId) => {
+          window.__bindImageUpload = bindImageUpload;
           const fileInput = document.getElementById(fileId);
           const textInput = document.getElementById(textId);
           const preview = document.getElementById(previewId);
           if (!fileInput || !textInput || !preview) return;
 
+          // Check or create progress container
+          let progressWrap = document.getElementById(fileId + '-progress-wrap');
+          if (!progressWrap) {
+            const container = fileInput.closest('.flex.items-center.gap-2')?.parentElement || textInput.parentElement;
+            progressWrap = document.createElement('div');
+            progressWrap.id = fileId + '-progress-wrap';
+            progressWrap.className = 'hidden mt-1.5 w-full transition-all';
+            progressWrap.innerHTML = `
+              <div class="flex items-center justify-between text-[10px] font-semibold text-[#00A4B7] mb-1">
+                <span class="upload-status-text">Uploading...</span>
+                <span class="upload-pct-text">0%</span>
+              </div>
+              <div class="w-full bg-[#E2E8F0] rounded-full h-1.5 overflow-hidden">
+                <div class="upload-progress-bar bg-[#00A4B7] h-full rounded-full transition-all duration-150" style="width: 0%"></div>
+              </div>
+            `;
+            container.appendChild(progressWrap);
+          }
+
+          const progressBar = progressWrap.querySelector('.upload-progress-bar');
+          const statusText = progressWrap.querySelector('.upload-status-text');
+          const pctText = progressWrap.querySelector('.upload-pct-text');
+
           fileInput.onchange = (e) => {
             const file = e.target.files && e.target.files[0];
-            if (file) {
-              const reader = new FileReader();
-              reader.onload = (evt) => {
-                const dataUrl = evt.target.result;
-                textInput.value = dataUrl;
-                preview.innerHTML = `<img src="${dataUrl}" class="w-full h-full object-contain" />`;
-              };
+            if (!file) return;
+
+            // Show progress bar & show uploaded file name in placeholder
+            progressWrap.classList.remove('hidden');
+            progressBar.style.width = '15%';
+            pctText.textContent = '15%';
+            statusText.textContent = 'Uploading ' + file.name + '...';
+            statusText.classList.remove('text-[#00875A]', 'text-rose-500');
+            statusText.classList.add('text-[#00A4B7]');
+            textInput.placeholder = file.name;
+            textInput.value = file.name;
+
+            let progress = 15;
+            const interval = setInterval(() => {
+              if (progress < 90) {
+                progress += Math.floor(Math.random() * 20) + 12;
+                if (progress > 90) progress = 90;
+                progressBar.style.width = progress + '%';
+                pctText.textContent = progress + '%';
+              }
+            }, 80);
+
+            const reader = new FileReader();
+
+            reader.onload = (evt) => {
+              clearInterval(interval);
+              const dataUrl = evt.target.result;
+
+              progressBar.style.width = '100%';
+              pctText.textContent = '100%';
+              statusText.innerHTML = '✓ Uploaded ' + file.name;
+              statusText.classList.remove('text-[#00A4B7]');
+              statusText.classList.add('text-[#00875A]');
+
+              textInput.dataset.dataUrl = dataUrl;
+              textInput.placeholder = file.name;
+              textInput.value = file.name;
+
+              preview.innerHTML = `<img src="${dataUrl}" class="w-full h-full object-contain" />`;
+
+              setTimeout(() => {
+                if (progressWrap) {
+                  progressWrap.classList.add('hidden');
+                  progressBar.style.width = '0%';
+                  statusText.classList.remove('text-[#00875A]');
+                  statusText.classList.add('text-[#00A4B7]');
+                  statusText.textContent = 'Uploading...';
+                  pctText.textContent = '0%';
+                }
+              }, 2000);
+            };
+
+            reader.onerror = () => {
+              clearInterval(interval);
+              statusText.textContent = 'Upload failed';
+              statusText.classList.add('text-rose-500');
+            };
+
+            setTimeout(() => {
               reader.readAsDataURL(file);
-            }
+            }, 120);
           };
 
           textInput.oninput = (e) => {
             const v = e.target.value.trim();
+            delete textInput.dataset.dataUrl;
             if (v) {
               preview.innerHTML = `<img src="${v}" class="w-full h-full object-contain" onerror="this.parentElement.innerHTML='🖼️'" />`;
             }
@@ -85221,7 +85295,6 @@ const SetupView = {
                 <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">1</span>
                 <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Client Information</span>
               </div>
-              ${company.id ? `<span class="text-[10px] font-bold text-[#00A4B7] bg-[#E0F2FE] px-2.5 py-1 rounded-full border border-[#BAE6FD] font-mono">${company.id}</span>` : ''}
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
@@ -85494,7 +85567,7 @@ const SetupView = {
           onClick: (m) => {
             const name = document.getElementById('cmp-name')?.value.trim() || 'New Client';
             const shortName = (company.code || company.shortName || (name ? name.slice(0, 3).toUpperCase() : 'CLI'));
-            const logo = document.getElementById('cmp-logo')?.value.trim() || '';
+            const logo = document.getElementById('cmp-logo')?.dataset?.dataUrl || document.getElementById('cmp-logo')?.value.trim() || '';
             const address = document.getElementById('cmp-address')?.value.trim() || '';
             const contactPerson = document.getElementById('cmp-contact-person')?.value.trim() || '';
             const phone = document.getElementById('cmp-phone')?.value.trim() || '';
@@ -85508,11 +85581,11 @@ const SetupView = {
             const plantPhone = document.getElementById('cmp-plant-phone')?.value.trim() || '';
             const plantAddress = document.getElementById('cmp-plant-address')?.value.trim() || '';
 
-            const appIcon = document.getElementById('cmp-app-icon')?.value.trim() || '';
-            const appLogo = document.getElementById('cmp-app-logo')?.value.trim() || '';
-            const headingImg = document.getElementById('cmp-app-heading-img')?.value.trim() || '';
-            const reportHeaderImg = document.getElementById('cmp-app-report-header')?.value.trim() || '';
-            const reportFooterImg = document.getElementById('cmp-app-report-footer')?.value.trim() || '';
+            const appIcon = document.getElementById('cmp-app-icon')?.dataset?.dataUrl || document.getElementById('cmp-app-icon')?.value.trim() || '';
+            const appLogo = document.getElementById('cmp-app-logo')?.dataset?.dataUrl || document.getElementById('cmp-app-logo')?.value.trim() || '';
+            const headingImg = document.getElementById('cmp-app-heading-img')?.dataset?.dataUrl || document.getElementById('cmp-app-heading-img')?.value.trim() || '';
+            const reportHeaderImg = document.getElementById('cmp-app-report-header')?.dataset?.dataUrl || document.getElementById('cmp-app-report-header')?.value.trim() || '';
+            const reportFooterImg = document.getElementById('cmp-app-report-footer')?.dataset?.dataUrl || document.getElementById('cmp-app-report-footer')?.value.trim() || '';
             const fontSize = document.getElementById('cmp-app-font-size')?.value || '13.5px';
             const primaryColor = document.getElementById('cmp-app-primary-color')?.value.trim() || '#00A4B7';
             const secondaryColor = document.getElementById('cmp-app-secondary-color')?.value.trim() || '#0284C7';
@@ -85580,6 +85653,32 @@ const SetupView = {
         }
       ]
     });
+
+    setTimeout(() => {
+      const syncColor = (pickerId, textId) => {
+        const picker = document.getElementById(pickerId);
+        const text = document.getElementById(textId);
+        if (picker && text) {
+          picker.oninput = (e) => { text.value = e.target.value.toUpperCase(); };
+          text.oninput = (e) => {
+            const v = e.target.value.trim();
+            if (/^#[0-9A-Fa-f]{6}$/.test(v)) picker.value = v;
+          };
+        }
+      };
+      syncColor('cmp-app-primary-color-picker', 'cmp-app-primary-color');
+      syncColor('cmp-app-secondary-color-picker', 'cmp-app-secondary-color');
+      syncColor('cmp-app-bg-color-picker', 'cmp-app-bg-color');
+
+      if (typeof window.__bindImageUpload === 'function') {
+        window.__bindImageUpload('cmp-logo-file', 'cmp-logo', 'cmp-logo-preview');
+        window.__bindImageUpload('cmp-app-icon-file', 'cmp-app-icon', 'cmp-app-icon-preview');
+        window.__bindImageUpload('cmp-app-logo-file', 'cmp-app-logo', 'cmp-app-logo-preview');
+        window.__bindImageUpload('cmp-app-heading-file', 'cmp-app-heading-img', 'cmp-app-heading-preview');
+        window.__bindImageUpload('cmp-app-report-header-file', 'cmp-app-report-header', 'cmp-app-report-header-preview');
+        window.__bindImageUpload('cmp-app-report-footer-file', 'cmp-app-report-footer', 'cmp-app-report-footer-preview');
+      }
+    }, 60);
   },
 
   showAssignDatabaseModal(company, companyTable) {
