@@ -518,6 +518,28 @@ export const SUPER_ADMIN_NAV_HIERARCHY = [
 
 export const NAV_HIERARCHY = [...ADMIN_NAV_HIERARCHY, ...SUPER_ADMIN_NAV_HIERARCHY];
 
+export function getAssignedModuleIdsForRole(roleCode, roleName) {
+  const code = (roleCode || '').toUpperCase();
+  const name = (roleName || '').toLowerCase();
+  
+  if (code === 'ROL-ADM' || name.includes('super / system admin') || name.includes('system admin') || name === 'admin') {
+    return ['dashboard', 'sales', 'purchase', 'preprocessing', 'quality', 'production', 'coldstore', 'inventory', 'reports', 'setup', 'settings'];
+  }
+  if (code === 'ROL-MGR' || name.includes('operations / sales manager') || name.includes('manager')) {
+    return ['dashboard', 'purchase', 'preprocessing', 'production', 'coldstore', 'sales', 'reports'];
+  }
+  if (code === 'ROL-SUP' || name.includes('quality & line supervisor') || name.includes('supervisor') || name.includes('quality')) {
+    return ['dashboard', 'purchase', 'preprocessing', 'quality'];
+  }
+  if (code === 'ROL-OPR' || name.includes('floor & logistics operator') || name.includes('operator')) {
+    return ['dashboard', 'production', 'coldstore', 'inventory'];
+  }
+  if (code === 'ROL-VIE' || name.includes('finance / audit viewer') || name.includes('viewer') || name.includes('audit')) {
+    return ['dashboard', 'sales', 'reports'];
+  }
+  return ['dashboard', 'sales', 'purchase', 'preprocessing', 'quality', 'production', 'coldstore', 'inventory', 'reports', 'setup', 'settings'];
+}
+
 
 export const Sidebar = {
   isCollapsed: localStorage.getItem('dfl_sidebar_collapsed') === 'true' || window.innerWidth <= 767,
@@ -665,7 +687,11 @@ export const Sidebar = {
 
   renderNavHierarchy() {
     const isSuperAdmin = ERP_DATA.currentUser?.role === 'Super Admin';
-    const allModules = isSuperAdmin ? SUPER_ADMIN_NAV_HIERARCHY : ADMIN_NAV_HIERARCHY;
+    let allModules = isSuperAdmin ? SUPER_ADMIN_NAV_HIERARCHY : ADMIN_NAV_HIERARCHY;
+    if (!isSuperAdmin && (ERP_DATA.currentUser?.roleCode || ERP_DATA.currentUser?.role)) {
+      const allowedModuleIds = getAssignedModuleIdsForRole(ERP_DATA.currentUser?.roleCode, ERP_DATA.currentUser?.role);
+      allModules = allModules.filter(m => allowedModuleIds.includes(m.id));
+    }
     const modules = allModules.filter(m => m.id !== 'settings');
 
     return modules.map(mod => {
@@ -757,7 +783,11 @@ export const Sidebar = {
 
   renderCollapsedNavHierarchy() {
     const isSuperAdmin = ERP_DATA.currentUser?.role === 'Super Admin';
-    const allModules = isSuperAdmin ? SUPER_ADMIN_NAV_HIERARCHY : ADMIN_NAV_HIERARCHY;
+    let allModules = isSuperAdmin ? SUPER_ADMIN_NAV_HIERARCHY : ADMIN_NAV_HIERARCHY;
+    if (!isSuperAdmin && (ERP_DATA.currentUser?.roleCode || ERP_DATA.currentUser?.role)) {
+      const allowedModuleIds = getAssignedModuleIdsForRole(ERP_DATA.currentUser?.roleCode, ERP_DATA.currentUser?.role);
+      allModules = allModules.filter(m => allowedModuleIds.includes(m.id));
+    }
     const modules = allModules.filter(m => m.id !== 'settings');
 
     return modules.map((mod, index) => {
@@ -853,6 +883,10 @@ export const Sidebar = {
 
   renderSettingsModule() {
     const isSuperAdmin = ERP_DATA.currentUser?.role === 'Super Admin';
+    if (!isSuperAdmin && (ERP_DATA.currentUser?.roleCode || ERP_DATA.currentUser?.role)) {
+      const allowedModuleIds = getAssignedModuleIdsForRole(ERP_DATA.currentUser?.roleCode, ERP_DATA.currentUser?.role);
+      if (!allowedModuleIds.includes('settings')) return '';
+    }
     const hierarchy = isSuperAdmin ? SUPER_ADMIN_NAV_HIERARCHY : ADMIN_NAV_HIERARCHY;
     const settingsMod = hierarchy.find(m => m.id === 'settings');
     if (!settingsMod) return '';
@@ -922,6 +956,10 @@ export const Sidebar = {
 
   renderCollapsedSettingsModule() {
     const isSuperAdmin = ERP_DATA.currentUser?.role === 'Super Admin';
+    if (!isSuperAdmin && (ERP_DATA.currentUser?.roleCode || ERP_DATA.currentUser?.role)) {
+      const allowedModuleIds = getAssignedModuleIdsForRole(ERP_DATA.currentUser?.roleCode, ERP_DATA.currentUser?.role);
+      if (!allowedModuleIds.includes('settings')) return '';
+    }
     const hierarchy = isSuperAdmin ? SUPER_ADMIN_NAV_HIERARCHY : ADMIN_NAV_HIERARCHY;
     const settingsMod = hierarchy.find(m => m.id === 'settings');
     if (!settingsMod) return '';

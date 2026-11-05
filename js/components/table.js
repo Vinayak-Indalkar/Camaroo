@@ -631,7 +631,7 @@ export class DataTable {
     if (this.selectable) {
       const selW = this.colWidths['__select__'] ? `style="width: ${this.colWidths['__select__']}px; min-width: ${this.colWidths['__select__']}px;"` : '';
       html += `
-        <th class="w-10 text-center select-none sticky top-0 z-20" data-field="__select__" ${selW}>
+        <th class="w-10 text-center relative select-none" data-field="__select__" ${selW}>
           <input type="checkbox" id="dt-select-all-checkbox" class="rounded border-[#DFE1E6] text-[#0284C7] focus:ring-0 cursor-pointer" />
           <div class="dt-col-resizer" title="Drag to resize column (Double-click to reset)"></div>
         </th>
@@ -648,11 +648,11 @@ export class DataTable {
       const sortClass = col.sortable !== false && !isAction ? 'cursor-pointer hover:bg-[#EBECF0] transition-colors select-none' : '';
       const actionClass = isAction ? 'sticky-action-col text-center' : '';
       const customWidth = this.colWidths[col.field] 
-        ? `style="width: ${this.colWidths[col.field]}px; min-width: ${this.colWidths[col.field]}px; max-width: ${this.colWidths[col.field]}px; ${isAction ? 'position: sticky !important; right: 0 !important; top: 0 !important; z-index: 30 !important;' : ''}"` 
-        : (isAction ? 'style="min-width: 120px; position: sticky !important; right: 0 !important; top: 0 !important; z-index: 30 !important;"' : '');
+        ? `style="width: ${this.colWidths[col.field]}px; min-width: ${this.colWidths[col.field]}px; max-width: ${this.colWidths[col.field]}px; ${isAction ? 'position: sticky !important; right: 0 !important; z-index: 20 !important;' : ''}"` 
+        : (isAction ? 'style="min-width: 120px; position: sticky !important; right: 0 !important; z-index: 20 !important;"' : '');
 
       html += `
-        <th data-field="${col.field}" class="${sortClass} ${actionClass} sticky top-0 z-20" ${customWidth}>
+        <th data-field="${col.field}" class="${sortClass} ${actionClass} relative" ${customWidth}>
           <div class="flex items-center gap-1.5 pr-2 ${isAction ? 'justify-center w-full' : ''}">
             <span>${col.header}</span>
             ${sortIcon ? `<span class="text-xs text-[#0284C7] font-bold">${sortIcon}</span>` : ''}
@@ -663,9 +663,9 @@ export class DataTable {
     });
 
     if (this.actions.length > 0) {
-      const actionsW = this.colWidths['__actions__'] ? `style="width: ${this.colWidths['__actions__']}px; min-width: ${this.colWidths['__actions__']}px; position: sticky !important; top: 0 !important; right: 0 !important; z-index: 30 !important; overflow: visible !important;"` : 'style="min-width: 130px; position: sticky !important; top: 0 !important; right: 0 !important; z-index: 30 !important; overflow: visible !important;"';
+      const actionsW = this.colWidths['__actions__'] ? `style="width: ${this.colWidths['__actions__']}px; min-width: ${this.colWidths['__actions__']}px; overflow: visible !important;"` : 'style="min-width: 130px; overflow: visible !important;"';
       html += `
-        <th class="text-center sticky-action-col sticky top-0 z-30" data-field="__actions__" ${actionsW}>
+        <th class="text-center sticky-action-col relative" data-field="__actions__" ${actionsW}>
           <div class="text-center w-full">${this.actionsTitle || 'Actions'}</div>
           <div class="dt-col-resizer" title="Drag to resize column (Double-click to reset)"></div>
         </th>
@@ -1568,10 +1568,7 @@ export function makeTableResizable(table) {
   ths.forEach(th => {
     if (th.querySelector('.dt-col-resizer')) return;
 
-    if (!th.style.position || th.style.position === 'static' || th.style.position === 'relative') {
-      th.style.position = 'sticky';
-      th.style.top = '0px';
-    }
+    th.style.position = 'relative';
     const resizer = document.createElement('div');
     resizer.className = 'dt-col-resizer';
     resizer.title = 'Drag to resize column (Double-click to reset)';

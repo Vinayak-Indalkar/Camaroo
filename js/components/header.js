@@ -114,9 +114,9 @@ export const Header = {
                 <button type="button" id="switch-role-menu-btn" class="w-full text-left px-3 py-2 hover:bg-[#F0F9FF] text-[#0284C7] rounded-lg font-semibold flex items-center justify-between transition-colors cursor-pointer" title="Quick toggle role between Admin and Super Admin">
                   <div class="flex items-center gap-2">
                     <svg class="w-4 h-4 text-[#0284C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
-                    <span>Switch to ${isSuperAdmin ? 'Admin' : 'Super Admin'}</span>
+                    <span>${ERP_DATA.currentUser?.roleCode ? 'Switch to Admin' : `Switch to ${isSuperAdmin ? 'Admin' : 'Super Admin'}`}</span>
                   </div>
-                  <span class="text-[9.5px] font-bold px-1.5 py-0.5 rounded ${isSuperAdmin ? 'bg-[#E3FCEF] text-[#006644]' : 'bg-[#E0F2FE] text-[#0284C7]'}">${isSuperAdmin ? 'Operational' : 'Corporate'}</span>
+                  <span class="text-[9.5px] font-bold px-1.5 py-0.5 rounded ${isSuperAdmin ? 'bg-[#E3FCEF] text-[#006644]' : 'bg-[#E0F2FE] text-[#0284C7]'}">${ERP_DATA.currentUser?.roleCode ? 'Admin' : (isSuperAdmin ? 'Operational' : 'Corporate')}</span>
                 </button>
               </div>
 
@@ -269,7 +269,9 @@ export const Header = {
     if (switchRoleBtn) {
       switchRoleBtn.addEventListener('click', (e) => {
         e.stopPropagation();
-        const nextRole = ERP_DATA.currentUser?.role === 'Super Admin' ? 'Admin' : 'Super Admin';
+        localStorage.removeItem('dfl_current_user');
+        sessionStorage.removeItem('dfl_login_user');
+        const nextRole = (ERP_DATA.currentUser?.roleCode || ERP_DATA.currentUser?.role === 'Super Admin') ? 'Admin' : 'Super Admin';
         setCurrentUserRole(nextRole);
         const existing = document.getElementById('erp-app-shell');
         if (existing) existing.remove();
@@ -286,6 +288,8 @@ export const Header = {
     const logoutBtn = document.getElementById('logout-menu-btn');
     if (logoutBtn) {
       logoutBtn.onclick = () => {
+        localStorage.removeItem('dfl_current_user');
+        sessionStorage.removeItem('dfl_login_user');
         const existing = document.getElementById('erp-app-shell');
         if (existing) existing.remove();
         window.location.hash = '#/login';

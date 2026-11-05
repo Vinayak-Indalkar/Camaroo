@@ -7,6 +7,7 @@ export const UIEnhancements = {
     this.initDropdown();
     this.initDatePicker();
     this.initAutofillObserver();
+    this.initStickyTableHeaders();
   },
 
   // =========================================================================
@@ -532,6 +533,72 @@ export const UIEnhancements = {
     this.calendarEl.classList.remove('is-open');
     this.calendarEl.style.display = 'none';
     this.activeDateInput = null;
+  },
+
+  // =========================================================================
+  // 5. GLOBAL STICKY TABLE HEADERS CONTROLLER (Window & Container Scroll Sync)
+  // Keeps table headings fixed below top navigation bar during vertical scroll
+  // while scrolling horizontally in perfect sync with columns
+  // =========================================================================
+  initStickyTableHeaders() {
+    let ticking = false;
+
+    const updateStickyHeaders = () => {
+      ticking = false;
+      const topNav = document.getElementById('top-nav-wrapper');
+      const topNavBottom = topNav ? Math.round(topNav.getBoundingClientRect().bottom) : 0;
+
+      const containers = document.querySelectorAll('.dt-table-scroll, .overflow-x-auto, div:has(> table.erp-table)');
+      containers.forEach(container => {
+        // Modals have internal scrolling inside dialogs; skip translating them
+        if (container.closest('#erp-modal-root, .fixed.inset-0')) return;
+
+        const table = container.querySelector('table');
+        if (!table) return;
+        const thead = table.querySelector('thead');
+        if (!thead) return;
+        const ths = thead.querySelectorAll('th');
+        if (ths.length === 0) return;
+
+        const cRect = container.getBoundingClientRect();
+        // If container's top has scrolled underneath topNavBottom, pin the headers
+        if (cRect.top < topNavBottom && cRect.bottom > topNavBottom + 55) {
+          const rawOffset = topNavBottom - cRect.top;
+          const maxOffset = cRect.height - thead.offsetHeight - 25;
+          const offset = Math.max(0, Math.min(Math.round(rawOffset), Math.round(maxOffset)));
+
+          if (offset > 0) {
+            ths.forEach(th => {
+              th.style.transform = `translateY(${offset}px)`;
+              th.style.zIndex = th.classList.contains('sticky-action-col') ? '35' : '25';
+              th.style.boxShadow = '0 2px 4px rgba(9, 30, 66, 0.08)';
+            });
+            return;
+          }
+        }
+
+        // Reset transform when container is in normal viewport position
+        if (ths[0] && ths[0].style.transform) {
+          ths.forEach(th => {
+            th.style.transform = '';
+            th.style.boxShadow = '';
+            th.style.zIndex = '';
+          });
+        }
+      });
+    };
+
+    const onScrollOrResize = () => {
+      if (!ticking) {
+        requestAnimationFrame(updateStickyHeaders);
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', onScrollOrResize, { passive: true });
+    window.addEventListener('resize', onScrollOrResize, { passive: true });
+    document.addEventListener('scroll', onScrollOrResize, { passive: true, capture: true });
+  }
   }
 };
 

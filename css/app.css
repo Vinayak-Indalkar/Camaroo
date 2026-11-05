@@ -551,26 +551,19 @@ button.tab-active *,
 }
 
 /* Table styling with Soft Pastel Headers and High-Contrast Data */
-table,
-.erp-table,
-#table-roles-permissions-matrix {
+.erp-table {
   width: 100%;
-  border-collapse: separate !important;
-  border-spacing: 0 !important;
+  border-collapse: separate;
+  border-spacing: 0;
 }
-table thead,
 .erp-table thead,
-#table-roles-permissions-matrix thead {
+.erp-table thead tr#dt-thead-row,
+.erp-table thead tr {
   position: sticky !important;
   top: 0 !important;
-  z-index: 20 !important;
+  z-index: 15 !important;
 }
-table thead th,
-.erp-table thead th,
-.erp-table th,
-table th,
-#table-roles-permissions-matrix thead th,
-#table-roles-permissions-matrix th {
+.erp-table th {
   background-color: #EEF3F8 !important;
   color: #334155 !important;
   font-size: 12px !important; /* +1px from 11px */
@@ -579,39 +572,19 @@ table th,
   letter-spacing: 0.05em;
   padding: 10px 14px;
   border-bottom: 1px solid #DDE5ED !important;
-  box-shadow: 0 1px 0 #DDE5ED !important;
   position: sticky !important;
   top: 0 !important;
-  z-index: 20 !important;
-  white-space: nowrap !important;
-}
-
-#table-roles-permissions-matrix thead th,
-#table-roles-permissions-matrix th {
-  background-color: #F8FAFC !important;
+  z-index: 15 !important;
+  white-space: nowrap;
 }
 
 /* Remove excessive white space on left edge across all tables */
-table th:first-child,
-table td:first-child,
 .erp-table th:first-child,
 .erp-table td:first-child {
   padding-left: 10px !important;
 }
 
 /* Snug fit for compact identifier/code columns to eliminate dead white space gaps */
-table th[data-field="code"],
-table td[data-field="code"],
-table th[data-field="id"],
-table td[data-field="id"],
-table th[data-field="billNo"],
-table td[data-field="billNo"],
-table th[data-field="docNo"],
-table td[data-field="docNo"],
-table th[data-field="trackId"],
-table td[data-field="trackId"],
-table th[data-field="lotNo"],
-table td[data-field="lotNo"],
 .erp-table th[data-field="code"],
 .erp-table td[data-field="code"],
 .erp-table th[data-field="id"],
@@ -628,7 +601,6 @@ table td[data-field="lotNo"],
   white-space: nowrap !important;
 }
 
-table td,
 .erp-table td {
   padding: 11px 14px;
   font-size: 13.5px !important; /* +1px from 12.5px */
@@ -636,60 +608,33 @@ table td,
   color: #0F172A !important;
   vertical-align: middle;
 }
-table tr:hover td,
 .erp-table tr:hover td {
   background-color: #F4F8FD !important;
 }
 
 /* Fixed Sticky Actions Column across all tables */
-table .sticky-action-col,
 .erp-table .sticky-action-col {
   position: sticky !important;
   right: 0 !important;
   background-clip: padding-box;
 }
-table th.sticky-action-col,
 .erp-table th.sticky-action-col {
-  position: sticky !important;
-  top: 0 !important;
-  right: 0 !important;
   background-color: #EEF3F8 !important;
-  z-index: 30 !important;
+  z-index: 25 !important;
   border-left: 1px solid #DDE5ED !important;
-  box-shadow: -4px 0 6px -2px rgba(9, 30, 66, 0.08) !important;
+  box-shadow: -4px 0 6px -2px rgba(9, 30, 66, 0.08);
 }
-table td.sticky-action-col,
 .erp-table td.sticky-action-col {
-  position: sticky !important;
-  right: 0 !important;
   background-color: #ffffff !important;
   z-index: 10 !important;
   border-left: 1px solid #EAF0F6 !important;
-  box-shadow: -4px 0 6px -2px rgba(9, 30, 66, 0.08) !important;
+  box-shadow: -4px 0 6px -2px rgba(9, 30, 66, 0.08);
 }
-table tr:hover td.sticky-action-col,
 .erp-table tr:hover td.sticky-action-col {
   background-color: #F4F8FD !important;
 }
-table tr.bg-\[\#F4F5F7\] td.sticky-action-col,
 .erp-table tr.bg-\[\#F4F5F7\] td.sticky-action-col {
   background-color: #F4F8FD !important;
-}
-
-/* Column Resizer Handle */
-.dt-col-resizer {
-  position: absolute !important;
-  top: 0 !important;
-  right: 0 !important;
-  bottom: 0 !important;
-  width: 6px !important;
-  cursor: col-resize !important;
-  user-select: none !important;
-  z-index: 25 !important;
-}
-.dt-col-resizer:hover,
-.dt-col-resizer.is-resizing {
-  background-color: #00A4B7 !important;
 }
 
 /* ===== DataTable Component CSS Classes ===== */
@@ -849,7 +794,7 @@ div:has(> #table-roles-permissions-matrix),
 div:has(> table) {
   overflow-x: auto !important;
   overflow-y: auto !important;
-  max-height: calc(100vh - 280px);
+  max-height: calc(100vh - 320px);
   position: relative !important;
   -webkit-overflow-scrolling: touch;
 }
@@ -858,41 +803,25 @@ div:has(> table) {
   min-height: 180px;
 }
 
-#erp-modal-root div:has(> table),
-#erp-modal-root .overflow-x-auto,
-.fixed div:has(> table),
-.fixed .overflow-x-auto,
-div[class*="max-h-"]:has(table) {
-  max-height: 420px;
-}
-
 .dt-table-scroll::-webkit-scrollbar,
-.overflow-x-auto::-webkit-scrollbar,
-div:has(> table)::-webkit-scrollbar,
 .overflow-x-auto:has(> .erp-table)::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 .dt-table-scroll::-webkit-scrollbar-track,
-.overflow-x-auto::-webkit-scrollbar-track,
-div:has(> table)::-webkit-scrollbar-track,
 .overflow-x-auto:has(> .erp-table)::-webkit-scrollbar-track {
   background: #F1F5F9;
   border-radius: 4px;
 }
 
 .dt-table-scroll::-webkit-scrollbar-thumb,
-.overflow-x-auto::-webkit-scrollbar-thumb,
-div:has(> table)::-webkit-scrollbar-thumb,
 .overflow-x-auto:has(> .erp-table)::-webkit-scrollbar-thumb {
   background: #CBD5E1;
   border-radius: 4px;
 }
 
 .dt-table-scroll::-webkit-scrollbar-thumb:hover,
-.overflow-x-auto::-webkit-scrollbar-thumb:hover,
-div:has(> table)::-webkit-scrollbar-thumb:hover,
 .overflow-x-auto:has(> .erp-table)::-webkit-scrollbar-thumb:hover {
   background: #94A3B8;
 }

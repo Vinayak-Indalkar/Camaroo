@@ -1,6 +1,6 @@
 // Enterprise Login & Persona Switcher View
 
-import { setCurrentUserRole } from '../data/mockData.js';
+import { setCurrentUserRole, ERP_DATA } from '../data/mockData.js';
 import { Toast } from '../components/toast.js';
 import { LOGO_CAMAROO, LOGIN_ILLUSTRATION } from '../data/logos.js';
 
@@ -11,9 +11,30 @@ export const LoginView = {
     const container = document.getElementById(containerId);
     if (!container) return;
 
+    // Check if target user was selected from Users Directory
+    let targetUser = null;
+    const storedUserJson = (typeof sessionStorage !== 'undefined') ? sessionStorage.getItem('dfl_login_user') : null;
+    if (storedUserJson) {
+      try {
+        targetUser = JSON.parse(storedUserJson);
+      } catch (e) {
+        targetUser = null;
+      }
+    }
+
+    const roleModulesMap = {
+      'ROL-ADM': ['Sales & Exports', 'Purchases & Sourcing', 'Preprocessing', 'Quality Control', 'Production', 'Cold Storage', 'Inventory & Store', 'Reports & Analytics', 'Master Setup', 'Admin Settings'],
+      'ROL-MGR': ['Commercial & Export Sales', 'Purchases & Sourcing', 'Preprocessing', 'Production', 'Cold Storage', 'Reports & Analytics'],
+      'ROL-SUP': ['Preprocessing & Grading', 'Quality Control & Lab', 'Raw Material Weighbridge'],
+      'ROL-OPR': ['Cold Storage & Pallets', 'Inventory & Store', 'Production Logs'],
+      'ROL-VIE': ['Commercial & Export Invoices', 'Yield & Financial Reports']
+    };
+
+    const assignedModules = targetUser ? (roleModulesMap[targetUser.roleCode] || ['Home', 'Sales & Exports', 'Reports & Analytics']) : [];
+
     const isAdmin = this.selectedRole === 'Admin';
-    const emailVal = isAdmin ? 'admin@devifisheries.com' : 'superadmin@devifisheries.com';
-    const pwdVal = isAdmin ? 'Admin@devi2024' : 'SuperAdmin@2026';
+    const emailVal = targetUser ? targetUser.email : (isAdmin ? 'admin@devifisheries.com' : 'superadmin@devifisheries.com');
+    const pwdVal = targetUser ? 'User@devi2026' : (isAdmin ? 'Admin@devi2024' : 'SuperAdmin@2026');
 
     container.innerHTML = `
       <div class="min-h-screen w-full h-screen flex flex-col lg:flex-row bg-white overflow-hidden">
@@ -36,32 +57,72 @@ export const LoginView = {
               <!-- Sign In Heading -->
               <div class="mb-5 text-center">
                 <h2 class="text-xl font-bold text-[#172B4D]">Sign In</h2>
-                <p class="text-xs text-[#5E6C84] mt-1">Select your access role and enter credentials</p>
+                <p class="text-xs text-[#5E6C84] mt-1">${targetUser ? 'Authenticating assigned corporate credentials' : 'Select your access role and enter credentials'}</p>
               </div>
 
-              <!-- Role Selector: Admin / Super Admin -->
-              <div class="mb-4">
-                <div class="grid grid-cols-2 p-1 bg-[#F4F5F7] rounded-full border border-[#DFE1E6] gap-1">
-                  <button 
-                    type="button" 
-                    id="role-tab-admin" 
-                    class="role-select-btn py-2 px-3 rounded-full text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${isAdmin ? 'bg-white text-[#00A4B7] shadow-xs border border-[#DFE1E6]' : 'text-[#5E6C84] hover:text-[#172B4D]'}"
-                    data-role="Admin"
-                  >
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
-                    <span>Admin</span>
-                  </button>
-                  <button 
-                    type="button" 
-                    id="role-tab-superadmin" 
-                    class="role-select-btn py-2 px-3 rounded-full text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${!isAdmin ? 'bg-white text-[#00A4B7] shadow-xs border border-[#DFE1E6]' : 'text-[#5E6C84] hover:text-[#172B4D]'}"
-                    data-role="Super Admin"
-                  >
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-                    <span>Super Admin</span>
-                  </button>
+              ${targetUser ? `
+                <!-- Selected User Identity Card with Assigned Menus & Modules -->
+                <div class="mb-4 p-3.5 bg-[#F0F9FF] border border-[#BAE6FD] rounded-xl shadow-2xs">
+                  <div class="flex items-center justify-between gap-2 pb-2.5 border-b border-[#BAE6FD]/70">
+                    <div class="flex items-center gap-2.5">
+                      ${targetUser.photo ? `
+                        <img src="${targetUser.photo}" alt="${targetUser.name}" class="w-10 h-10 rounded-full object-cover shrink-0 border border-[#BAE6FD]" />
+                      ` : `
+                        <div class="w-10 h-10 rounded-full bg-[#00A4B7] text-white font-extrabold flex items-center justify-center text-xs shrink-0 shadow-xs">
+                          ${targetUser.name.split(' ').map(n => n[0]).join('').substring(0, 2)}
+                        </div>
+                      `}
+                      <div class="min-w-0">
+                        <div class="flex items-center gap-1.5 flex-wrap">
+                          <span class="font-bold text-xs text-[#172B4D] truncate">${targetUser.name}</span>
+                          <span class="px-1.5 py-0.2 rounded text-[10px] font-extrabold uppercase bg-white text-[#00A4B7] border border-[#BAE6FD]">${targetUser.roleCode || 'USER'}</span>
+                        </div>
+                        <span class="text-[11px] text-[#5E6C84] block truncate mt-0.5">${targetUser.role} • ${targetUser.department}</span>
+                      </div>
+                    </div>
+                    <button type="button" id="clear-target-user-btn" class="text-[11px] font-bold text-[#00A4B7] hover:underline whitespace-nowrap cursor-pointer" title="Return to standard login switcher">
+                      Switch User
+                    </button>
+                  </div>
+
+                  <!-- Assigned Menus & Modules List -->
+                  <div class="pt-2.5">
+                    <div class="flex items-center justify-between mb-1.5">
+                      <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">Assigned Menus &amp; Modules:</span>
+                      <span class="text-[10px] font-extrabold text-[#006644]">${assignedModules.length} Modules</span>
+                    </div>
+                    <div class="flex flex-wrap gap-1 max-h-24 overflow-y-auto pr-1">
+                      ${assignedModules.map(m => `
+                        <span class="px-2 py-0.5 rounded text-[10.5px] font-semibold bg-white text-[#172B4D] border border-[#DFE1E6] shadow-2xs">${m}</span>
+                      `).join('')}
+                    </div>
+                  </div>
                 </div>
-              </div>
+              ` : `
+                <!-- Role Selector: Admin / Super Admin -->
+                <div class="mb-4">
+                  <div class="grid grid-cols-2 p-1 bg-[#F4F5F7] rounded-full border border-[#DFE1E6] gap-1">
+                    <button 
+                      type="button" 
+                      id="role-tab-admin" 
+                      class="role-select-btn py-2 px-3 rounded-full text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${isAdmin ? 'bg-white text-[#00A4B7] shadow-xs border border-[#DFE1E6]' : 'text-[#5E6C84] hover:text-[#172B4D]'}"
+                      data-role="Admin"
+                    >
+                      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                      <span>Admin</span>
+                    </button>
+                    <button 
+                      type="button" 
+                      id="role-tab-superadmin" 
+                      class="role-select-btn py-2 px-3 rounded-full text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${!isAdmin ? 'bg-white text-[#00A4B7] shadow-xs border border-[#DFE1E6]' : 'text-[#5E6C84] hover:text-[#172B4D]'}"
+                      data-role="Super Admin"
+                    >
+                      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                      <span>Super Admin</span>
+                    </button>
+                  </div>
+                </div>
+              `}
 
               <!-- Sign In Form -->
               <form id="login-form" class="space-y-4">
@@ -117,9 +178,9 @@ export const LoginView = {
                   <button 
                     type="submit" 
                     id="submit-login-btn" 
-                    class="w-full btn-primary py-3 rounded-full font-semibold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer"
+                    class="w-full btn-primary py-3 rounded-full font-semibold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer shadow-xs"
                   >
-                    <span id="login-btn-text">Sign In</span>
+                    <span id="login-btn-text">${targetUser ? `Sign In as ${targetUser.name.split(' ')[0]}` : 'Sign In'}</span>
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                   </button>
                 </div>
@@ -132,10 +193,10 @@ export const LoginView = {
       </div>
     `;
 
-    this.bindEvents();
+    this.bindEvents(containerId, targetUser);
   },
 
-  bindEvents() {
+  bindEvents(containerId, targetUser) {
     const form = document.getElementById('login-form');
     const pwdInput = document.getElementById('login-password');
     const togglePwdBtn = document.getElementById('toggle-pwd-btn');
@@ -144,6 +205,14 @@ export const LoginView = {
     const btnText = document.getElementById('login-btn-text');
     const adminTab = document.getElementById('role-tab-admin');
     const superAdminTab = document.getElementById('role-tab-superadmin');
+    const clearTargetUserBtn = document.getElementById('clear-target-user-btn');
+
+    if (clearTargetUserBtn) {
+      clearTargetUserBtn.addEventListener('click', () => {
+        sessionStorage.removeItem('dfl_login_user');
+        this.render(containerId);
+      });
+    }
 
     // Role switcher tabs
     const updateRoleUI = (role) => {
@@ -185,13 +254,11 @@ export const LoginView = {
         const eyeClosed = togglePwdBtn.querySelector('#eye-closed-icon');
         if (eyeOpen && eyeClosed) {
           if (isPwd) {
-            // Password is now text (visible) -> show open eye, title "Hide password"
             eyeOpen.classList.remove('hidden');
             eyeClosed.classList.add('hidden');
             togglePwdBtn.title = 'Hide password';
             togglePwdBtn.setAttribute('aria-label', 'Hide password');
           } else {
-            // Password is now hidden (dots) -> show closed eye, title "Show password"
             eyeOpen.classList.add('hidden');
             eyeClosed.classList.remove('hidden');
             togglePwdBtn.title = 'Show password';
@@ -217,10 +284,51 @@ export const LoginView = {
         submitBtn.classList.add('opacity-75', 'cursor-wait');
 
         setTimeout(() => {
+          if (targetUser) {
+            const user = {
+              id: targetUser.id,
+              empId: targetUser.empId,
+              name: targetUser.name,
+              role: targetUser.role,
+              roleCode: targetUser.roleCode,
+              email: targetUser.email,
+              phone: targetUser.phone,
+              department: targetUser.department,
+              avatar: targetUser.photo || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80',
+              roles: [targetUser.role],
+              company: 'Devi Fisheries Limited'
+            };
+            ERP_DATA.currentUser = user;
+            localStorage.setItem('dfl_current_role', user.role);
+            localStorage.setItem('dfl_current_user', JSON.stringify(user));
+            sessionStorage.removeItem('dfl_login_user');
+
+            localStorage.setItem('erp_layout_mode', 'option1');
+            sessionStorage.removeItem('trigger_tour_on_login');
+
+            const existing = document.getElementById('erp-app-shell');
+            if (existing) existing.remove();
+
+            Toast.show(`Welcome, ${user.name} (${user.role}) — viewing assigned modules`, 'success', 'Login Successful');
+
+            // Navigate to first assigned module for this role
+            if (targetUser.roleCode === 'ROL-SUP') {
+              window.location.hash = '#/preprocessing/dashboard/overview';
+            } else if (targetUser.roleCode === 'ROL-OPR') {
+              window.location.hash = '#/coldstore/dashboard/overview';
+            } else if (targetUser.roleCode === 'ROL-VIE') {
+              window.location.hash = '#/sales/dashboard/overview';
+            } else {
+              window.location.hash = '#/purchase/dashboard/rm-dashboard';
+            }
+            return;
+          }
+
           const email = (emailInput?.value || '').trim().toLowerCase();
           const targetRole = (this.selectedRole === 'Super Admin' || email.includes('superadmin')) ? 'Super Admin' : 'Admin';
           
           const user = setCurrentUserRole(targetRole);
+          localStorage.removeItem('dfl_current_user');
 
           localStorage.setItem('erp_layout_mode', 'option1');
           sessionStorage.removeItem('trigger_tour_on_login');

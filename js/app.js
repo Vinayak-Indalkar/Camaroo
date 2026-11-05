@@ -31,6 +31,12 @@ export const App = {
   routeVersion: 0,
 
   init() {
+    const savedUser = localStorage.getItem('dfl_current_user');
+    if (savedUser) {
+      try {
+        ERP_DATA.currentUser = JSON.parse(savedUser);
+      } catch (e) {}
+    }
     if (localStorage.getItem('dfl_theme') === 'dark') {
       document.documentElement.classList.add('theme-dark');
     }

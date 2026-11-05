@@ -967,6 +967,11 @@ export const SettingsView = {
       ],
       actions: [
         {
+          label: 'Login as User',
+          icon: '<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/></svg>',
+          onClick: (row) => this.loginAsUser(row)
+        },
+        {
           label: 'Change Password',
           icon: '<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg>',
           onClick: (row) => this.openChangePasswordModal(row)
@@ -998,6 +1003,23 @@ export const SettingsView = {
         }
       ]
     });
+  },
+
+  loginAsUser(row) {
+    if (!row) return;
+    sessionStorage.setItem('dfl_login_user', JSON.stringify({
+      id: row.id,
+      empId: row.empId,
+      name: row.name,
+      email: row.email,
+      phone: row.phone,
+      department: row.department,
+      role: row.role,
+      roleCode: row.roleCode,
+      photo: row.photo || ''
+    }));
+    Toast.show(`Opening login page for ${row.name} (${row.role})...`, 'info', 'User Login');
+    window.location.hash = '#/login';
   },
 
   bindUsersEvents(container) {
@@ -1758,7 +1780,7 @@ openRoleModal(role = null, onSaved) {
 
             <!-- Matrix Table Container -->
             <div class="max-h-[380px] overflow-y-auto overflow-x-auto rounded-xl border border-[#DFE1E6] bg-white shadow-2xs">
-              <table class="w-full text-xs text-left border-separate border-spacing-0" id="table-roles-permissions-matrix">
+              <table class="w-full text-xs text-left border-collapse" id="table-roles-permissions-matrix">
                 <thead class="sticky top-0 bg-[#F8FAFC] z-10 border-b border-[#DFE1E6] shadow-2xs">
                   <tr>
                     <th class="py-2.5 px-3 text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider min-w-[280px] bg-[#F8FAFC] sticky top-0 z-10">
