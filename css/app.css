@@ -121,17 +121,35 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Heading icons styling */
+/* Heading icons styling - Default: Brand Teal (#00A4B7), Hover: White (#FFFFFF) */
 .card-heading-icon {
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
   flex-shrink: 0 !important;
+  background-color: #F0F9FF !important;
+  border: 1px solid #BAE6FD !important;
+  color: #00A4B7 !important;
+  transition: all 0.25s ease-in-out !important;
 }
 .card-heading-icon svg {
   display: block !important;
   width: 16px !important;
   height: 16px !important;
+  color: #00A4B7 !important;
+  stroke: #00A4B7 !important;
+  transition: all 0.25s ease-in-out !important;
+}
+.group:hover .card-heading-icon,
+.card-heading-icon:hover {
+  background-color: #00A4B7 !important;
+  border-color: #008F9F !important;
+  color: #FFFFFF !important;
+}
+.group:hover .card-heading-icon svg,
+.card-heading-icon:hover svg {
+  color: #FFFFFF !important;
+  stroke: #FFFFFF !important;
 }
 
 :where(#main-content-container, #erp-modal-root, #erp-drawer-root, [id^="modal-"].fixed)
