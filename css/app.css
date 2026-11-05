@@ -3025,3 +3025,15 @@ button.lucide-icon-tile,
   max-height: 180px !important;
   height: 180px !important;
 }
+
+
+/* Collapsed Sidebar Flyout Card & Anti-Clipping */
+#sidebar-container.is-collapsed,
+#sidebar-container.is-collapsed #erp-sidebar,
+#sidebar-container.is-collapsed #sidebar-nav-groups {
+  overflow: visible !important;
+}
+
+#sidebar-container.is-collapsed .nav-module-group {
+  position: relative !important;
+}

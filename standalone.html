@@ -3093,6 +3093,18 @@ button.lucide-icon-tile,
   height: 180px !important;
 }
 
+
+/* Collapsed Sidebar Flyout Card & Anti-Clipping */
+#sidebar-container.is-collapsed,
+#sidebar-container.is-collapsed #erp-sidebar,
+#sidebar-container.is-collapsed #sidebar-nav-groups {
+  overflow: visible !important;
+}
+
+#sidebar-container.is-collapsed .nav-module-group {
+  position: relative !important;
+}
+
   </style>
 </head>
 <body class="bg-[#F2F5F9] text-[#0F172A] antialiased overflow-x-hidden min-h-screen">
@@ -7849,7 +7861,7 @@ const Sidebar = {
       // Collapsed Icon-Only Floated Sidebar Mode (Width: 68px, Rounded Corners)
       container.innerHTML = `
         <div class="relative h-full w-full">
-          <aside id="erp-sidebar" class="bg-[#0F172A] text-[#94A3B8] w-full h-full flex flex-col transition-all duration-300 select-none border border-[#1E293B] rounded-2xl overflow-hidden">
+          <aside id="erp-sidebar" class="bg-[#0F172A] text-[#94A3B8] w-full h-full flex flex-col transition-all duration-300 select-none border border-[#1E293B] rounded-2xl overflow-visible">
             <!-- Collapsed Logo Icon Header -->
             <div class="h-14 px-2 py-2 flex items-center justify-center border-b border-[#1E293B] bg-[#0B0F19] shrink-0" title="${isSuperAdmin ? 'Camaroo ERP' : 'Devi Fisheries'}">
               ${isSuperAdmin ? `
@@ -7862,7 +7874,7 @@ const Sidebar = {
             </div>
 
             <!-- Navigation Scrollable Icons Area -->
-            <div class="flex-1 flex flex-col overflow-y-auto py-3 px-2 space-y-2 overflow-x-visible bg-[#0F172A]" id="sidebar-nav-groups">
+            <div class="flex-1 flex flex-col py-3 px-2 space-y-2 overflow-visible bg-[#0F172A]" id="sidebar-nav-groups">
               ${this.renderCollapsedNavHierarchy()}
             </div>
 
@@ -8050,7 +8062,8 @@ const Sidebar = {
         `;
       }
 
-      if (isSuperAdmin && mod.id !== 'settings') {
+      // If module has no submenus, show clean tooltip
+      if (!mod.submenus || mod.submenus.length === 0) {
         return `
           <div class="${groupWrapperClass}">
             <button 
@@ -8067,6 +8080,7 @@ const Sidebar = {
         `;
       }
 
+      // Modules with submenus: Render rich hover flyout card matching design mockup
       return `
         <div class="${groupWrapperClass}">
           <!-- Icon Button -->
@@ -8079,27 +8093,31 @@ const Sidebar = {
           </button>
 
           <!-- Floating Flyout Menu on Hover -->
-          <div class="absolute left-full top-0 ml-3 w-60 bg-[#0F172A] border border-[#1E293B] rounded-xl p-2.5 hidden group-hover:block z-50 transition-all pointer-events-auto">
-            <!-- Module Title in Flyout -->
-            <div class="flex items-center gap-2 px-2.5 py-1.5 border-b border-[#1E293B] mb-1.5 text-white font-bold text-xs">
-              <span class="text-[#00A4B7]">${mod.icon}</span>
-              <span class="tracking-wide">${mod.title}</span>
+          <div class="absolute left-full top-0 ml-2.5 w-64 bg-[#1E2433] border border-[#2E384D] rounded-2xl p-3.5 shadow-2xl hidden group-hover:block z-50 transition-all pointer-events-auto">
+            <!-- Invisible bridge to prevent mouse leaving hover area -->
+            <div class="absolute -left-3 top-0 bottom-0 w-3 pointer-events-auto"></div>
+
+            <!-- Module Title & Icon Header in Flyout -->
+            <div class="flex items-center gap-2.5 pb-3 border-b border-[#2E384D]/80 mb-2">
+              <div class="w-9 h-9 rounded-xl bg-white/10 flex items-center justify-center text-white shrink-0 shadow-xs">
+                ${mod.icon}
+              </div>
+              <span class="font-bold text-white text-sm tracking-tight truncate">${mod.title}</span>
             </div>
 
             <!-- Submenus List in Flyout -->
-            <div class="space-y-0.5">
+            <div class="space-y-1">
               ${mod.submenus.map(sub => {
                 const isSubActive = isCurrentMod && (sub.id === this.activeSubmenuId);
                 const defaultHash = sub.tabs[0]?.hash || `/#/${mod.id}/${sub.id}`;
                 return `
-                  <div class="border-l-2 ${isSubActive ? 'border-[#00A4B7]' : 'border-[#334155] hover:border-[#64748B]'} pl-2 transition-colors">
-                    <a 
-                      href="${defaultHash}" 
-                      class="flex items-center px-2 py-1.5 rounded-md text-xs font-medium transition-all ${isSubActive ? 'text-[#00A4B7] font-bold' : 'text-[#94A3B8] hover:bg-white/5 hover:text-white'}"
-                    >
-                      <span>${sub.title}</span>
-                    </a>
-                  </div>
+                  <a 
+                    href="${defaultHash}" 
+                    class="flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium transition-colors group/sub ${isSubActive ? 'text-[#00A4B7] font-bold bg-white/5' : 'text-[#CBD5E1] hover:text-white hover:bg-white/5'}"
+                  >
+                    <span class="truncate">${sub.title}</span>
+                    <svg class="w-3.5 h-3.5 text-[#64748B] group-hover/sub:text-[#94A3B8] transform group-hover/sub:translate-x-0.5 transition-all shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                  </a>
                 `;
               }).join('')}
             </div>
