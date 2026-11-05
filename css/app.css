@@ -121,14 +121,17 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-:where(#main-content-container, #erp-modal-root, #erp-drawer-root, [id^="modal-"].fixed)
-:is(h2, h3, h4, h5, h6, span.font-bold.uppercase) > :is(svg, i[data-lucide]):not(.dt-top-filter-card *) {
-  display: none !important;
+/* Heading icons styling */
+.card-heading-icon {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
 }
-
-:where(#main-content-container, #erp-modal-root, #erp-drawer-root, [id^="modal-"].fixed)
-:is(div, section):has(> :is(h2, h3, h4, h5, h6)) > :is(svg, i[data-lucide], span.rounded-full:empty, span:has(> svg)):not(.dt-top-filter-card *) {
-  display: none !important;
+.card-heading-icon svg {
+  display: block !important;
+  width: 16px !important;
+  height: 16px !important;
 }
 
 :where(#main-content-container, #erp-modal-root, #erp-drawer-root, [id^="modal-"].fixed)
