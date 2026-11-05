@@ -742,9 +742,6 @@ export const SettingsView = {
 
                 <!-- Roles DataTable Container -->
                 <div id="roles-datatable-container"></div>
-
-                <!-- Departmental Matrix Summary Table -->
-                ${this.renderGovernanceSummaryTable()}
               </div>
             ` : ''}
           </div>
@@ -872,7 +869,7 @@ export const SettingsView = {
 
   renderGovernanceSummaryTable() {
     return `
-      <!-- Departmental & Governance Matrix Summary Table -->
+      <!-- Departmental & Governance Matrix Summary Table (Matching erp-table UI) -->
       <div class="mt-4 bg-white rounded-xl border border-[#DFE1E6] overflow-hidden shadow-2xs">
         <div class="px-4 py-2.5 bg-[#FAFBFC] border-b border-[#DFE1E6] flex items-center justify-between">
           <div class="flex items-center gap-2">
@@ -881,102 +878,154 @@ export const SettingsView = {
           </div>
           <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">100% Synchronized</span>
         </div>
-        <div class="overflow-x-auto">
-          <table class="w-full text-xs text-left border-collapse">
-            <thead class="bg-[#F8FAFC] border-b border-[#DFE1E6] text-[#5E6C84] font-bold uppercase tracking-wider text-[11px]">
-              <tr>
-                <th class="py-2.5 px-4">Metric / Category</th>
-                <th class="py-2.5 px-3 text-center">Allocated Count</th>
-                <th class="py-2.5 px-4">Operational Scope &amp; Description</th>
-                <th class="py-2.5 px-3 text-center">Status</th>
+        <div class="overflow-x-auto min-h-[220px]">
+          <table class="erp-table" data-resizable-init="true">
+            <thead>
+              <tr id="dt-thead-row">
+                <th data-field="category" class="cursor-pointer hover:bg-[#EBECF0] transition-colors select-none relative">
+                  <div class="flex items-center gap-1.5 pr-2">
+                    <span>Metric / Category</span>
+                  </div>
+                  <div class="dt-col-resizer" title="Drag to resize column (Double-click to reset)"></div>
+                </th>
+                <th data-field="count" class="cursor-pointer hover:bg-[#EBECF0] transition-colors select-none relative">
+                  <div class="flex items-center gap-1.5 pr-2">
+                    <span>Allocated Count</span>
+                  </div>
+                  <div class="dt-col-resizer" title="Drag to resize column (Double-click to reset)"></div>
+                </th>
+                <th data-field="description" class="cursor-pointer hover:bg-[#EBECF0] transition-colors select-none relative">
+                  <div class="flex items-center gap-1.5 pr-2">
+                    <span>Operational Scope &amp; Description</span>
+                  </div>
+                  <div class="dt-col-resizer" title="Drag to resize column (Double-click to reset)"></div>
+                </th>
+                <th data-field="status" class="cursor-pointer hover:bg-[#EBECF0] transition-colors select-none relative">
+                  <div class="flex items-center gap-1.5 pr-2">
+                    <span>Status</span>
+                  </div>
+                  <div class="dt-col-resizer" title="Drag to resize column (Double-click to reset)"></div>
+                </th>
+                <th class="text-center sticky-action-col relative" data-field="__actions__" style="min-width: 130px; overflow: visible !important;">
+                  <div class="text-center w-full">Actions</div>
+                  <div class="dt-col-resizer" title="Drag to resize column (Double-click to reset)"></div>
+                </th>
               </tr>
             </thead>
-            <tbody class="divide-y divide-[#DFE1E6] text-[#172B4D]">
-              <tr class="hover:bg-[#F8FAFC] transition-colors">
-                <td class="py-2.5 px-4 font-bold text-xs whitespace-nowrap">
+            <tbody id="dt-tbody">
+              <tr data-key="gov-1" data-row-index="0" tabindex="0" class="cursor-pointer hover:bg-[#FAFBFC] transition-colors">
+                <td title="Total Divisions" class="truncate font-bold text-xs" data-field="category">
                   <div class="flex items-center gap-2">
-                    <span class="w-2 h-2 rounded-full bg-[#00A4B7] shrink-0"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-[#00A4B7] shrink-0"></span>
                     <span class="text-[#00A4B7] font-extrabold">Total Divisions</span>
                   </div>
                 </td>
-                <td class="py-2.5 px-3 text-center whitespace-nowrap">
-                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD]">
+                <td title="${this.departments.length} Divisions" class="truncate" data-field="count">
+                  <span class="px-2.5 py-0.5 rounded-full text-[10.5px] font-extrabold bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD]">
                     ${this.departments.length}
                   </span>
                 </td>
-                <td class="py-2.5 px-4 text-[#5E6C84] text-xs">
-                  Active core operations from farm procurement to export realization.
+                <td title="Active core operations from farm procurement to export realization." class="truncate text-xs text-[#5E6C84] font-medium" data-field="description">
+                  <span class="text-xs text-[#5E6C84] font-medium">Active core operations from farm procurement to export realization.</span>
                 </td>
-                <td class="py-2.5 px-3 text-center whitespace-nowrap">
-                  <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">
+                <td title="Active" class="truncate" data-field="status">
+                  <span class="px-2.5 py-0.5 rounded-full text-[10.5px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">
                     Active
                   </span>
                 </td>
-              </tr>
-
-              <tr class="hover:bg-[#F8FAFC] transition-colors">
-                <td class="py-2.5 px-4 font-bold text-xs whitespace-nowrap">
-                  <div class="flex items-center gap-2">
-                    <span class="w-2 h-2 rounded-full bg-[#172B4D] shrink-0"></span>
-                    <span class="font-extrabold text-[#172B4D]">Total Personnel</span>
+                <td class="text-center whitespace-nowrap sticky-action-col" style="min-width: 130px; text-align: center !important; overflow: visible !important;">
+                  <div class="inline-flex items-center justify-center w-full" style="gap: 8px; display: inline-flex;">
+                    <button type="button" class="btn-summary-action dt-action-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" data-action="departments" style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 9999px; border: 1px solid #CBD5E1; background: #ffffff; color: #334155; display: inline-flex; align-items: center; justify-content: center; padding: 0;" title="Edit / Manage Departments" aria-label="Edit / Manage Departments">
+                      <svg class="w-4 h-4 text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                    </button>
                   </div>
                 </td>
-                <td class="py-2.5 px-3 text-center whitespace-nowrap">
-                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-white text-[#172B4D] border border-[#DFE1E6]">
+              </tr>
+
+              <tr data-key="gov-2" data-row-index="1" tabindex="0" class="cursor-pointer hover:bg-[#FAFBFC] transition-colors">
+                <td title="Total Personnel" class="truncate font-bold text-xs" data-field="category">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-[#172B4D] shrink-0"></span>
+                    <span class="text-[#172B4D] font-extrabold">Total Personnel</span>
+                  </div>
+                </td>
+                <td title="${this.users.length} Users" class="truncate" data-field="count">
+                  <span class="px-2.5 py-0.5 rounded-full text-[10.5px] font-extrabold bg-white text-[#172B4D] border border-[#DFE1E6]">
                     ${this.users.length} Users
                   </span>
                 </td>
-                <td class="py-2.5 px-4 text-[#5E6C84] text-xs">
-                  Assigned workforce distributed across operational units.
+                <td title="Assigned workforce distributed across operational units." class="truncate text-xs text-[#5E6C84] font-medium" data-field="description">
+                  <span class="text-xs text-[#5E6C84] font-medium">Assigned workforce distributed across operational units.</span>
                 </td>
-                <td class="py-2.5 px-3 text-center whitespace-nowrap">
-                  <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">
+                <td title="Synchronized" class="truncate" data-field="status">
+                  <span class="px-2.5 py-0.5 rounded-full text-[10.5px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">
                     Synchronized
                   </span>
                 </td>
-              </tr>
-
-              <tr class="hover:bg-[#F8FAFC] transition-colors">
-                <td class="py-2.5 px-4 font-bold text-xs whitespace-nowrap">
-                  <div class="flex items-center gap-2">
-                    <span class="w-2 h-2 rounded-full bg-[#403294] shrink-0"></span>
-                    <span class="font-extrabold text-[#172B4D]">Configured Roles</span>
+                <td class="text-center whitespace-nowrap sticky-action-col" style="min-width: 130px; text-align: center !important; overflow: visible !important;">
+                  <div class="inline-flex items-center justify-center w-full" style="gap: 8px; display: inline-flex;">
+                    <button type="button" class="btn-summary-action dt-action-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" data-action="users" style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 9999px; border: 1px solid #CBD5E1; background: #ffffff; color: #334155; display: inline-flex; align-items: center; justify-content: center; padding: 0;" title="Edit / Manage Users" aria-label="Edit / Manage Users">
+                      <svg class="w-4 h-4 text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                    </button>
                   </div>
                 </td>
-                <td class="py-2.5 px-3 text-center whitespace-nowrap">
-                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">
+              </tr>
+
+              <tr data-key="gov-3" data-row-index="2" tabindex="0" class="cursor-pointer hover:bg-[#FAFBFC] transition-colors">
+                <td title="Configured Roles" class="truncate font-bold text-xs" data-field="category">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-[#403294] shrink-0"></span>
+                    <span class="text-[#172B4D] font-extrabold">Configured Roles</span>
+                  </div>
+                </td>
+                <td title="${this.roles.length} Roles" class="truncate" data-field="count">
+                  <span class="px-2.5 py-0.5 rounded-full text-[10.5px] font-extrabold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">
                     ${this.roles.length} Roles
                   </span>
                 </td>
-                <td class="py-2.5 px-4 text-[#5E6C84] text-xs">
-                  Granular role definitions with cross-departmental scope.
+                <td title="Granular role definitions with cross-departmental scope." class="truncate text-xs text-[#5E6C84] font-medium" data-field="description">
+                  <span class="text-xs text-[#5E6C84] font-medium">Granular role definitions with cross-departmental scope.</span>
                 </td>
-                <td class="py-2.5 px-3 text-center whitespace-nowrap">
-                  <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">
+                <td title="Configured" class="truncate" data-field="status">
+                  <span class="px-2.5 py-0.5 rounded-full text-[10.5px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">
                     Configured
                   </span>
                 </td>
-              </tr>
-
-              <tr class="hover:bg-[#F8FAFC] transition-colors">
-                <td class="py-2.5 px-4 font-bold text-xs whitespace-nowrap">
-                  <div class="flex items-center gap-2">
-                    <span class="w-2 h-2 rounded-full bg-[#006644] shrink-0"></span>
-                    <span class="font-extrabold text-[#172B4D]">Access Governance</span>
+                <td class="text-center whitespace-nowrap sticky-action-col" style="min-width: 130px; text-align: center !important; overflow: visible !important;">
+                  <div class="inline-flex items-center justify-center w-full" style="gap: 8px; display: inline-flex;">
+                    <button type="button" class="btn-summary-action dt-action-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" data-action="roles" style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 9999px; border: 1px solid #CBD5E1; background: #ffffff; color: #334155; display: inline-flex; align-items: center; justify-content: center; padding: 0;" title="Edit / Manage Roles" aria-label="Edit / Manage Roles">
+                      <svg class="w-4 h-4 text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                    </button>
                   </div>
                 </td>
-                <td class="py-2.5 px-3 text-center whitespace-nowrap">
-                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">
+              </tr>
+
+              <tr data-key="gov-4" data-row-index="3" tabindex="0" class="cursor-pointer hover:bg-[#FAFBFC] transition-colors">
+                <td title="Access Governance" class="truncate font-bold text-xs" data-field="category">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-[#006644] shrink-0"></span>
+                    <span class="text-[#172B4D] font-extrabold">Access Governance</span>
+                  </div>
+                </td>
+                <td title="Strict RBAC" class="truncate" data-field="count">
+                  <span class="px-2.5 py-0.5 rounded-full text-[10.5px] font-extrabold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">
                     Strict RBAC
                   </span>
                 </td>
-                <td class="py-2.5 px-4 text-[#5E6C84] text-xs">
-                  100% synchronized permissions across User, Role and Department.
+                <td title="100% synchronized permissions across User, Role and Department." class="truncate text-xs text-[#5E6C84] font-medium" data-field="description">
+                  <span class="text-xs text-[#5E6C84] font-medium">100% synchronized permissions across User, Role and Department.</span>
                 </td>
-                <td class="py-2.5 px-3 text-center whitespace-nowrap">
-                  <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">
+                <td title="Enforced" class="truncate" data-field="status">
+                  <span class="px-2.5 py-0.5 rounded-full text-[10.5px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">
                     Enforced
                   </span>
+                </td>
+                <td class="text-center whitespace-nowrap sticky-action-col" style="min-width: 130px; text-align: center !important; overflow: visible !important;">
+                  <div class="inline-flex items-center justify-center w-full" style="gap: 8px; display: inline-flex;">
+                    <button type="button" class="btn-summary-action dt-action-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" data-action="governance" style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 9999px; border: 1px solid #CBD5E1; background: #ffffff; color: #334155; display: inline-flex; align-items: center; justify-content: center; padding: 0;" title="Configure Permissions Matrix" aria-label="Configure Permissions Matrix">
+                      <svg class="w-4 h-4 text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
+                    </button>
+                  </div>
                 </td>
               </tr>
             </tbody>
@@ -1324,6 +1373,252 @@ export const SettingsView = {
 
     document.getElementById('btn-add-role')?.addEventListener('click', () => {
       this.openRoleModal(null, () => this.renderRolesTable());
+    });
+  },
+
+  renderDepartmentsTable() {
+    const tableContainer = document.getElementById('departments-datatable-container');
+    if (!tableContainer) return;
+
+    let filtered = [...this.departments];
+    if (this.deptSearchQuery) {
+      const q = this.deptSearchQuery.toLowerCase();
+      filtered = filtered.filter(d =>
+        d.name.toLowerCase().includes(q) ||
+        d.code.toLowerCase().includes(q) ||
+        (d.head && d.head.toLowerCase().includes(q))
+      );
+    }
+    if (this.deptFilterStatus && this.deptFilterStatus !== 'All') {
+      filtered = filtered.filter(d => d.status === this.deptFilterStatus);
+    }
+
+    new DataTable({
+      container: tableContainer,
+      tableTitle: `Departments Directory (${filtered.length})`,
+      hideToolbar: true,
+      searchable: true,
+      exportable: true,
+      data: filtered,
+      columns: [
+        {
+          field: 'code',
+          header: 'Dept Code',
+          sortable: true,
+          render: (val) => `<span class="font-bold text-[#00A4B7] font-mono">${this.escape(val)}</span>`
+        },
+        {
+          field: 'name',
+          header: 'Department Name',
+          sortable: true,
+          render: (val) => `<span class="font-bold text-[#172B4D]">${this.escape(val)}</span>`
+        },
+        {
+          field: 'head',
+          header: 'Department Head / Lead',
+          sortable: true,
+          render: (val) => `<span class="font-semibold text-[#172B4D]">${this.escape(val || '—')}</span>`
+        },
+        {
+          field: 'email',
+          header: 'Contact Email',
+          sortable: true,
+          render: (val) => `<span class="text-xs text-[#5E6C84] font-medium">${this.escape(val || '—')}</span>`
+        },
+        {
+          field: 'description',
+          header: 'Scope & Functions',
+          sortable: true,
+          render: (val) => `<span class="text-xs text-[#5E6C84] font-medium">${this.escape(val || '—')}</span>`
+        },
+        {
+          field: 'usersCount',
+          header: 'Personnel Assigned',
+          sortable: true,
+          render: (val, row) => {
+            const count = this.users.filter(u => u.department === row.name).length;
+            return `<span class="px-2 py-0.5 rounded-full text-[10.5px] font-bold bg-[#F1F5F9] text-[#172B4D] border border-[#DFE1E6]">${count} Users</span>`;
+          }
+        },
+        {
+          field: 'status',
+          header: 'Status',
+          sortable: true,
+          render: (val) => `<span class="px-2.5 py-0.5 rounded-full text-[10.5px] font-bold ${val === 'Inactive' ? 'bg-[#FFEBE6] text-[#DE350B] border border-[#FFBDAD]' : 'bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]'}">${this.escape(val || 'Active')}</span>`
+        }
+      ],
+      actions: [
+        {
+          label: 'Edit',
+          icon: '<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>',
+          onClick: (row) => this.openDepartmentModal(row, () => this.renderDepartmentsTable())
+        },
+        {
+          label: 'Delete',
+          icon: '<svg class="w-4 h-4 text-[#DE350B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>',
+          onClick: (row) => {
+            Modal.confirm({
+              title: 'Delete Department',
+              message: `Are you sure you want to delete department <strong class="text-[#DE350B]">${this.escape(row.name)}</strong> (${this.escape(row.code)})? Users assigned to this department will need reassignment.`,
+              confirmText: 'Delete Department',
+              cancelText: 'Cancel',
+              isDestructive: true,
+              onConfirm: () => {
+                this.departments = this.departments.filter(d => d.id !== row.id);
+                this.renderDepartmentsTable();
+                const container = document.getElementById(this.lastContainerId || 'main-content');
+                if (container) this.renderUserRolesTab(container, this.cachedTabsBarHtml);
+                Toast.show(`Department ${row.name} deleted successfully`, 'success');
+              }
+            });
+          }
+        }
+      ]
+    });
+  },
+
+  bindDepartmentsEvents(container) {
+    document.getElementById('depts-filter-search-btn')?.addEventListener('click', () => {
+      this.deptSearchQuery = document.getElementById('flt-dept-search')?.value.trim() || '';
+      this.deptFilterStatus = document.getElementById('flt-dept-status')?.value || 'All';
+      this.renderDepartmentsTable();
+    });
+
+    document.getElementById('flt-dept-search')?.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        this.deptSearchQuery = e.target.value.trim();
+        this.deptFilterStatus = document.getElementById('flt-dept-status')?.value || 'All';
+        this.renderDepartmentsTable();
+      }
+    });
+
+    document.getElementById('depts-filter-reset')?.addEventListener('click', () => {
+      this.deptSearchQuery = '';
+      this.deptFilterStatus = 'All';
+      if (document.getElementById('flt-dept-search')) document.getElementById('flt-dept-search').value = '';
+      if (document.getElementById('flt-dept-status')) document.getElementById('flt-dept-status').value = 'All';
+      this.renderDepartmentsTable();
+      Toast.show('Department filters reset', 'info');
+    });
+
+    document.getElementById('depts-filter-toggle')?.addEventListener('click', () => {
+      const body = document.getElementById('depts-filter-body');
+      if (body) body.classList.toggle('hidden');
+    });
+
+    document.getElementById('btn-add-dept')?.addEventListener('click', () => {
+      this.openDepartmentModal(null, () => this.renderDepartmentsTable());
+    });
+
+    // Summary table actions
+    container.querySelectorAll('.btn-summary-action').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const action = btn.dataset.action;
+        if (action === 'departments') {
+          this.openDepartmentModal(null, () => this.renderDepartmentsTable());
+        } else if (action === 'users') {
+          this.openUserModal(null, () => this.renderUsersTable());
+        } else if (action === 'roles') {
+          this.openRoleModal(null, () => this.renderRolesTable());
+        } else if (action === 'governance') {
+          this.activeUserRolesSection = 'roles';
+          const mainC = document.getElementById(this.lastContainerId || 'main-content');
+          if (mainC) this.renderUserRolesTab(mainC, this.cachedTabsBarHtml);
+        }
+      });
+    });
+  },
+
+  openDepartmentModal(dept = null, onSaved) {
+    const isEdit = !!dept;
+    const title = isEdit ? 'Edit Department' : 'Add New Department';
+
+    Modal.open({
+      title,
+      size: 'lg',
+      content: `
+        <form id="form-dept-modal" class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+          <div>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Department Name <span class="text-[#DE350B]">*</span></label>
+            <input type="text" id="dept-modal-name" value="${dept ? this.escape(dept.name) : ''}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" placeholder="e.g. Processing Line 2">
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Department Code <span class="text-[#DE350B]">*</span></label>
+            <input type="text" id="dept-modal-code" value="${dept ? this.escape(dept.code) : `DEP-0${this.departments.length + 1}`}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Department Head / Lead</label>
+            <input type="text" id="dept-modal-head" value="${dept ? this.escape(dept.head || '') : ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" placeholder="e.g. Ramesh Varma">
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Contact Email</label>
+            <input type="email" id="dept-modal-email" value="${dept ? this.escape(dept.email || '') : ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" placeholder="dept@devifisheries.com">
+          </div>
+          <div class="sm:col-span-2">
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Operational Scope & Functions</label>
+            <textarea id="dept-modal-desc" rows="2" class="w-full text-xs p-2 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">${dept ? this.escape(dept.description || '') : ''}</textarea>
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Status</label>
+            <select id="dept-modal-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+              <option value="Active" ${!dept || dept.status === 'Active' ? 'selected' : ''}>Active</option>
+              <option value="Inactive" ${dept && dept.status === 'Inactive' ? 'selected' : ''}>Inactive</option>
+            </select>
+          </div>
+        </form>
+      `,
+      footerButtons: [
+        {
+          label: 'Cancel',
+          type: 'secondary',
+          class: 'btn-secondary px-5 py-2 rounded-full text-xs font-semibold border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#172B4D] transition-all cursor-pointer',
+          onClick: (m) => m.close()
+        },
+        {
+          label: isEdit ? 'Update Department' : 'Save Department',
+          type: 'primary',
+          class: 'btn-primary px-5 py-2 rounded-full text-xs font-bold shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer',
+          onClick: (m) => {
+            const name = document.getElementById('dept-modal-name')?.value.trim();
+            const code = document.getElementById('dept-modal-code')?.value.trim();
+            const head = document.getElementById('dept-modal-head')?.value.trim() || '';
+            const email = document.getElementById('dept-modal-email')?.value.trim() || '';
+            const desc = document.getElementById('dept-modal-desc')?.value.trim() || '';
+            const status = document.getElementById('dept-modal-status')?.value || 'Active';
+
+            if (!name || !code) {
+              Toast.show('Please fill in required department fields', 'warning');
+              return;
+            }
+
+            if (isEdit) {
+              dept.name = name;
+              dept.code = code;
+              dept.head = head;
+              dept.email = email;
+              dept.description = desc;
+              dept.status = status;
+              Toast.show(`Department ${name} updated successfully`, 'success');
+            } else {
+              this.departments.push({
+                id: `dept-${Date.now()}`,
+                name,
+                code,
+                head,
+                email,
+                description: desc,
+                status
+              });
+              Toast.show(`Department ${name} created successfully`, 'success');
+            }
+            m.close();
+            if (onSaved) onSaved();
+            const container = document.getElementById(this.lastContainerId || 'main-content');
+            if (container) this.renderUserRolesTab(container, this.cachedTabsBarHtml);
+          }
+        }
+      ]
     });
   },
 
