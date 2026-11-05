@@ -131,7 +131,7 @@ All screens, views, components, and user workflows MUST strictly conform to the 
   - Submenu accordion with left teal border `border-l-2 border-[#00A4B7]`.
   - Direct routing on hash change.
 - **Tabs**:
-  - Tab bar pills: Active tab has `bg-[#00A4B7] text-white font-bold`, inactive tabs have `text-[#5E6C84] hover:bg-[#EBECF0]`.
+  - Tab bar: Active tab has text in brand color `#00A4B7 font-bold` with a 2px bottom border in brand color `border-b-2 border-[#00A4B7]`, inactive tabs have muted text `text-[#5E6C84] hover:text-[#172B4D] border-b-2 border-transparent` on transparent background.
 
 ---
 

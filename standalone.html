@@ -452,7 +452,7 @@ div:has(> [role="tab"])::-webkit-scrollbar-thumb:hover {
   transform: scale(0.98) !important;
 }
 
-/* Text Tab Button without Bottom Line and without Bottom Padding */
+/* Active Tab: Brand Color Text & Brand Color Bottom Border */
 .tab-active,
 a.tab-active,
 button.tab-active,
@@ -463,12 +463,12 @@ a[role="tab"][aria-selected="true"],
   color: #00A4B7 !important;
   border-radius: 0 !important;
   border: none !important;
-  border-bottom: none !important;
+  border-bottom: 2px solid #00A4B7 !important;
   font-weight: 700 !important;
   user-select: none !important;
   -webkit-user-select: none !important;
   box-shadow: none !important;
-  margin-bottom: 0 !important;
+  margin-bottom: -1px !important;
 }
 .tab-active *,
 a.tab-active *,
@@ -485,15 +485,15 @@ button.tab-active *,
 [role="tab"] {
   border-radius: 0 !important;
   border: none !important;
-  border-bottom: none !important;
+  border-bottom: 2px solid transparent !important;
   background-color: transparent !important;
   background: transparent !important;
   color: #5E6C84 !important;
   user-select: none !important;
   -webkit-user-select: none !important;
   transition: all 0.15s ease-in-out !important;
-  margin-bottom: 0 !important;
-  padding: 4px 10px 0px 10px !important;
+  margin-bottom: -1px !important;
+  padding: 6px 12px 6px 12px !important;
   box-shadow: none !important;
 }
 
@@ -501,7 +501,7 @@ button.tab-active *,
   background-color: transparent !important;
   background: transparent !important;
   color: #172B4D !important;
-  border-bottom: none !important;
+  border-bottom: 2px solid transparent !important;
 }
 
 [role="tab"]:focus:not(:focus-visible) {
@@ -776,7 +776,7 @@ input[type="month"]::-webkit-calendar-picker-indicator:hover {
   opacity: 1;
 }
 
-/* Active Tab: Text button without active line below */
+/* Active Tab: Brand Color Text & Brand Color Bottom Border */
 .tab-active,
 a.tab-active,
 a.tab-active:visited,
@@ -787,9 +787,9 @@ a[role="tab"][aria-selected="true"],
   color: #00A4B7 !important;
   border-radius: 0 !important;
   border: none !important;
-  border-bottom: none !important;
+  border-bottom: 2px solid #00A4B7 !important;
   font-weight: 700 !important;
-  margin-bottom: 0 !important;
+  margin-bottom: -1px !important;
   box-shadow: none !important;
 }
 .tab-active *,
@@ -8401,7 +8401,7 @@ const TabBar = {
     const isExtraActive = extraAction && currentTabId === extraAction.id;
 
     container.innerHTML = `
-      <nav aria-label="${submenu.title} tabs navigation" class="mb-1">
+      <nav aria-label="${submenu.title} tabs navigation" class="mb-3 border-b border-[#DFE1E6]">
         <div class="flex items-center justify-between gap-2">
           <div 
             role="tablist" 
@@ -8419,7 +8419,7 @@ const TabBar = {
                   aria-selected="${isActive ? 'true' : 'false'}"
                   tabindex="${isActive ? '0' : '-1'}"
                   aria-controls="panel-${tab.id}"
-                  class="select-none px-2.5 pt-1.5 pb-0 text-xs font-semibold whitespace-nowrap transition-colors flex items-center gap-1.5 outline-none bg-transparent border-0 ${isActive ? 'tab-active text-[#00A4B7] font-bold' : 'text-[#5E6C84] hover:text-[#172B4D]'}"
+                  class="select-none px-3 pt-2 pb-2 text-xs font-semibold whitespace-nowrap transition-colors flex items-center gap-1.5 outline-none bg-transparent border-b-2 ${isActive ? 'tab-active text-[#00A4B7] border-[#00A4B7] font-bold' : 'text-[#5E6C84] hover:text-[#172B4D] border-transparent'}"
                 >
                   <span class="select-none">${tab.label}</span>
                 </a>
@@ -8467,12 +8467,12 @@ const TabBar = {
         t.setAttribute('aria-selected', 'false');
         t.tabIndex = -1;
         t.classList.remove('tab-active', 'text-[#00A4B7]', 'border-[#00A4B7]', 'font-bold');
-        t.classList.add('text-[#5E6C84]', 'hover:text-[#172B4D]');
+        t.classList.add('text-[#5E6C84]', 'hover:text-[#172B4D]', 'border-transparent');
       });
       clicked.setAttribute('aria-selected', 'true');
       clicked.tabIndex = 0;
       clicked.classList.remove('text-[#5E6C84]', 'hover:text-[#172B4D]', 'border-transparent', 'hover:border-[#DFE1E6]');
-      clicked.classList.add('tab-active', 'text-[#00A4B7]', 'font-bold');
+      clicked.classList.add('tab-active', 'text-[#00A4B7]', 'border-[#00A4B7]', 'font-bold');
 
       // Unselect any extra action button
       const extraBtns = document.querySelectorAll('[id^="btn-tab-extra-"]');
