@@ -192,7 +192,7 @@ export const App = {
       } else {
         if (!submenuName || submenuName === 'custom' || submenuName === 'master-setup' || submenuName === 'masters') submenuName = 'setup';
         if (!tabName || tabName === 'organization' || tabName === 'org' || tabName === 'company' || tabName === 'profile' || tabName === 'profile-setup') tabName = 'organization';
-        else if (tabName === 'user-access' || tabName === 'users-access' || tabName === 'user' || tabName === 'users' || tabName === 'access' || tabName === 'roles') tabName = 'user-access';
+        else if (tabName === 'user-roles' || tabName === 'user-role' || tabName === 'users-roles' || tabName === 'user-access' || tabName === 'users-access' || tabName === 'user' || tabName === 'users' || tabName === 'access' || tabName === 'roles') tabName = 'user-roles';
         else if (tabName === 'general' || tabName === 'general-setup' || tabName === 'setup' || tabName === 'transaction' || tabName === 'transaction-setup' || tabName === 'notifications') tabName = 'general';
         else if (tabName === 'masters' || tabName === 'master' || tabName === 'master-setup') tabName = 'masters';
         else tabName = 'organization';

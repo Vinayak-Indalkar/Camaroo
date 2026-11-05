@@ -432,7 +432,7 @@ export const ADMIN_NAV_HIERARCHY = [
         defaultTab: "organization",
         tabs: [
           { id: "organization", label: "Organization", hash: "#/settings/setup/organization" },
-          { id: "user-access", label: "User & Access", hash: "#/settings/setup/user-access" },
+          { id: "user-roles", label: "User & Roles", hash: "#/settings/setup/user-roles" },
           { id: "general", label: "General", hash: "#/settings/setup/general" },
           { id: "masters", label: "Masters", hash: "#/settings/setup/masters" }
         ]

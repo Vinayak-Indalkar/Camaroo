@@ -7723,7 +7723,7 @@ const ADMIN_NAV_HIERARCHY = [
         defaultTab: "organization",
         tabs: [
           { id: "organization", label: "Organization", hash: "#/settings/setup/organization" },
-          { id: "user-access", label: "User & Access", hash: "#/settings/setup/user-access" },
+          { id: "user-roles", label: "User & Roles", hash: "#/settings/setup/user-roles" },
           { id: "general", label: "General", hash: "#/settings/setup/general" },
           { id: "masters", label: "Masters", hash: "#/settings/setup/masters" }
         ]
@@ -91783,7 +91783,7 @@ const SettingsView = {
   renderAdminSettingsTabs(activeTab) {
     const tabs = [
       { id: 'organization', label: 'Organization', hash: '#/settings/setup/organization' },
-      { id: 'user-access', label: 'User & Access', hash: '#/settings/setup/user-access' },
+      { id: 'user-roles', label: 'User & Roles', hash: '#/settings/setup/user-roles' },
       { id: 'general', label: 'General', hash: '#/settings/setup/general' },
       { id: 'masters', label: 'Masters', hash: '#/settings/setup/masters' }
     ];
@@ -91861,8 +91861,8 @@ const SettingsView = {
     let currentTab = tabName || 'organization';
     if (currentTab === 'setup' || currentTab === 'org' || currentTab === 'company' || currentTab === 'profile' || currentTab === 'profile-setup') {
       currentTab = 'organization';
-    } else if (currentTab === 'user-access' || currentTab === 'users-access' || currentTab === 'user' || currentTab === 'users' || currentTab === 'access' || currentTab === 'roles') {
-      currentTab = 'user-access';
+    } else if (currentTab === 'user-roles' || currentTab === 'user-role' || currentTab === 'users-roles' || currentTab === 'user-access' || currentTab === 'users-access' || currentTab === 'user' || currentTab === 'users' || currentTab === 'access' || currentTab === 'roles') {
+      currentTab = 'user-roles';
     } else if (currentTab === 'general' || currentTab === 'general-setup' || currentTab === 'transaction' || currentTab === 'transaction-setup' || currentTab === 'notifications') {
       currentTab = 'general';
     } else if (currentTab === 'masters' || currentTab === 'master' || currentTab === 'master-setup' || resolvedHash.includes('master-setup') || resolvedHash.includes('/masters')) {
@@ -91877,8 +91877,9 @@ const SettingsView = {
       case 'organization':
         this.renderOrganizationTab(container, tabsBarHtml);
         break;
+      case 'user-roles':
       case 'user-access':
-        this.renderUserAccessTab(container, tabsBarHtml);
+        this.renderUserRolesTab(container, tabsBarHtml);
         break;
       case 'general':
         this.renderGeneralTab(container, tabsBarHtml);
@@ -92104,15 +92105,19 @@ const SettingsView = {
   },
 
   // -------------------------------------------------------------
-  // TAB 2: User & Access
+  // TAB 2: User & Roles
   // -------------------------------------------------------------
   renderUserAccessTab(container, tabsBarHtml) {
+    return this.renderUserRolesTab(container, tabsBarHtml);
+  },
+
+  renderUserRolesTab(container, tabsBarHtml) {
     container.innerHTML = `
       <div class="space-y-4 animate-fade-in pb-10">
         ${tabsBarHtml}
 
         <div class="flex items-center justify-between gap-3">
-          <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">User &amp; Access</h1>
+          <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">User &amp; Roles</h1>
           <button type="button" id="btn-add-user" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
             <span>Add User</span>
@@ -96532,7 +96537,7 @@ const App = {
       } else {
         if (!submenuName || submenuName === 'custom' || submenuName === 'master-setup' || submenuName === 'masters') submenuName = 'setup';
         if (!tabName || tabName === 'organization' || tabName === 'org' || tabName === 'company' || tabName === 'profile' || tabName === 'profile-setup') tabName = 'organization';
-        else if (tabName === 'user-access' || tabName === 'users-access' || tabName === 'user' || tabName === 'users' || tabName === 'access' || tabName === 'roles') tabName = 'user-access';
+        else if (tabName === 'user-roles' || tabName === 'user-role' || tabName === 'users-roles' || tabName === 'user-access' || tabName === 'users-access' || tabName === 'user' || tabName === 'users' || tabName === 'access' || tabName === 'roles') tabName = 'user-roles';
         else if (tabName === 'general' || tabName === 'general-setup' || tabName === 'setup' || tabName === 'transaction' || tabName === 'transaction-setup' || tabName === 'notifications') tabName = 'general';
         else if (tabName === 'masters' || tabName === 'master' || tabName === 'master-setup') tabName = 'masters';
         else tabName = 'organization';
