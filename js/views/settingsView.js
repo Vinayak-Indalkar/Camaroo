@@ -1592,34 +1592,25 @@ openRoleModal(role = null, onSaved) {
       // 1. Level 1: Main Menu Row
       tableRowsHtml += `
         <tr class="role-tree-row role-menu-row bg-[#F8FAFC] hover:bg-[#F1F5F9] border-y border-[#DFE1E6] transition-colors" data-level="menu" data-menu-id="${menu.id}">
-          <td class="py-2.5 px-3 font-bold text-xs text-[#172B4D] whitespace-nowrap">
+          <td class="py-2 px-3 font-bold text-xs text-[#172B4D] whitespace-nowrap">
             <div class="flex items-center gap-2">
               <button type="button" class="btn-toggle-menu-tree w-5 h-5 rounded flex items-center justify-center text-[#172B4D] bg-white border border-[#CBD5E1] shadow-2xs shrink-0 hover:text-[#00A4B7] hover:border-[#00A4B7] transition-all cursor-pointer" data-menu-id="${menu.id}" title="Expand / Collapse Menu">
                 <svg class="chevron-icon" style="display: block; width: 14px; height: 14px; min-width: 14px; min-height: 14px; stroke: #172B4D; stroke-width: 2.5px; fill: none; transition: transform 0.2s; transform: rotate(90deg);" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
               </button>
-              <span class="w-2.5 h-2.5 rounded-full bg-[#00A4B7] shrink-0"></span>
               <span class="font-extrabold text-xs text-[#172B4D] tracking-wide">${this.escape(menu.label)}</span>
-              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-white text-[#5E6C84] border border-[#DFE1E6] shrink-0">
-                ${menu.submenus.length} Submenu${menu.submenus.length !== 1 ? 's' : ''} • ${totalTabsInMenu} Tab${totalTabsInMenu !== 1 ? 's' : ''}
-              </span>
             </div>
           </td>
           <td class="py-2 px-2 text-center">
-            <input type="checkbox" class="perm-tree-cb perm-cell-add w-3.5 h-3.5 rounded text-[#006644] accent-[#00A4B7] cursor-pointer" data-level="menu" data-menu-id="${menu.id}" data-action="add" ${menuAddChecked ? 'checked' : ''} title="Toggle Add for all ${this.escape(menu.label)} tabs" />
+            <input type="checkbox" class="perm-tree-cb perm-cell-add w-3.5 h-3.5 rounded text-[#006644] accent-[#00A4B7] cursor-pointer" data-level="menu" data-menu-id="${menu.id}" data-action="add" ${menuAddChecked ? 'checked' : ''} title="Toggle ADD for all ${this.escape(menu.label)} tabs" />
           </td>
           <td class="py-2 px-2 text-center">
-            <input type="checkbox" class="perm-tree-cb perm-cell-edit w-3.5 h-3.5 rounded text-[#0284C7] accent-[#00A4B7] cursor-pointer" data-level="menu" data-menu-id="${menu.id}" data-action="edit" ${menuEditChecked ? 'checked' : ''} title="Toggle Edit for all ${this.escape(menu.label)} tabs" />
+            <input type="checkbox" class="perm-tree-cb perm-cell-edit w-3.5 h-3.5 rounded text-[#0284C7] accent-[#00A4B7] cursor-pointer" data-level="menu" data-menu-id="${menu.id}" data-action="edit" ${menuEditChecked ? 'checked' : ''} title="Toggle EDIT for all ${this.escape(menu.label)} tabs" />
           </td>
           <td class="py-2 px-2 text-center">
-            <input type="checkbox" class="perm-tree-cb perm-cell-delete w-3.5 h-3.5 rounded text-[#DE350B] accent-[#DE350B] cursor-pointer" data-level="menu" data-menu-id="${menu.id}" data-action="delete" ${menuDelChecked ? 'checked' : ''} title="Toggle Delete for all ${this.escape(menu.label)} tabs" />
+            <input type="checkbox" class="perm-tree-cb perm-cell-delete w-3.5 h-3.5 rounded text-[#DE350B] accent-[#DE350B] cursor-pointer" data-level="menu" data-menu-id="${menu.id}" data-action="delete" ${menuDelChecked ? 'checked' : ''} title="Toggle DELETE for all ${this.escape(menu.label)} tabs" />
           </td>
           <td class="py-2 px-2 text-center">
-            <input type="checkbox" class="perm-tree-cb perm-cell-read w-3.5 h-3.5 rounded text-[#42526E] accent-[#00A4B7] cursor-pointer" data-level="menu" data-menu-id="${menu.id}" data-action="read" ${menuReadChecked ? 'checked' : ''} title="Toggle Read for all ${this.escape(menu.label)} tabs" />
-          </td>
-          <td class="py-2 px-2 text-center whitespace-nowrap">
-            <button type="button" class="btn-matrix-tree-all px-2 py-0.5 rounded text-[10px] font-bold border border-[#CBD5E1] bg-white hover:bg-[#F0F9FF] hover:border-[#00A4B7] text-[#172B4D] hover:text-[#00A4B7] transition-colors cursor-pointer select-none" data-level="menu" data-menu-id="${menu.id}">
-              All
-            </button>
+            <input type="checkbox" class="perm-tree-cb perm-cell-read w-3.5 h-3.5 rounded text-[#42526E] accent-[#00A4B7] cursor-pointer" data-level="menu" data-menu-id="${menu.id}" data-action="read" ${menuReadChecked ? 'checked' : ''} title="Toggle READ for all ${this.escape(menu.label)} tabs" />
           </td>
         </tr>
       `;
@@ -1639,37 +1630,29 @@ openRoleModal(role = null, onSaved) {
         const subDelChecked = subTabsPerms.length > 0 && subTabsPerms.every(p => p.delete);
 
         tableRowsHtml += `
-          <tr class="role-tree-row role-sub-row bg-[#FAFBFC] hover:bg-[#F1F5F9] border-b border-[#F1F5F9] transition-colors" data-level="submenu" data-menu-id="${menu.id}" data-sub-id="${sub.id}">
-            <td class="py-2 px-3 text-xs text-[#172B4D] whitespace-nowrap pl-6 sm:pl-8">
-              <div class="flex items-center gap-2">
-                <svg class="w-4 h-5 text-[#00A4B7]/70 shrink-0" viewBox="0 0 16 20" fill="none">
-                  <path d="${isLastSub ? 'M4 0v10h7m-3-3l3 3-3 3' : 'M4 0v20 M4 10h7m-3-3l3 3-3 3'}" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <tr class="role-tree-row role-sub-row bg-white hover:bg-[#F8FAFC] border-b border-[#F1F5F9] transition-colors" data-level="submenu" data-menu-id="${menu.id}" data-sub-id="${sub.id}">
+            <td class="py-0 px-3 text-xs text-[#172B4D] whitespace-nowrap">
+              <div class="flex items-center gap-1.5 h-[34px]">
+                <svg class="w-5 h-[34px] shrink-0" viewBox="0 0 20 34" fill="none">
+                  <path d="${isLastSub ? 'M8 0 V17 H16 M13 14 L16 17 L13 20' : 'M8 0 V34 M8 17 H16 M13 14 L16 17 L13 20'}" stroke="#00A4B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
-                <button type="button" class="btn-toggle-sub-tree w-5 h-5 rounded flex items-center justify-center text-[#172B4D] bg-white border border-[#CBD5E1] shadow-2xs shrink-0 hover:text-[#00A4B7] hover:border-[#00A4B7] transition-all cursor-pointer" data-menu-id="${menu.id}" data-sub-id="${sub.id}" title="Expand / Collapse Submenu">
+                <button type="button" class="btn-toggle-sub-tree w-4.5 h-4.5 rounded flex items-center justify-center text-[#172B4D] bg-white border border-[#CBD5E1] shadow-2xs shrink-0 hover:text-[#00A4B7] hover:border-[#00A4B7] transition-all cursor-pointer" data-menu-id="${menu.id}" data-sub-id="${sub.id}" title="Expand / Collapse Submenu">
                   <svg class="chevron-icon" style="display: block; width: 13px; height: 13px; min-width: 13px; min-height: 13px; stroke: #172B4D; stroke-width: 2.5px; fill: none; transition: transform 0.2s; transform: rotate(90deg);" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
                 </button>
                 <span class="font-bold text-xs text-[#172B4D]">${this.escape(sub.title)}</span>
-                <span class="px-1.5 py-0.2 rounded text-[10px] font-medium bg-[#F1F5F9] text-[#5E6C84] border border-[#DFE1E6] shrink-0">
-                  ${sub.tabs.length} Tab${sub.tabs.length !== 1 ? 's' : ''}
-                </span>
               </div>
             </td>
             <td class="py-2 px-2 text-center">
-              <input type="checkbox" class="perm-tree-cb perm-cell-add w-3.5 h-3.5 rounded text-[#006644] accent-[#00A4B7] cursor-pointer" data-level="submenu" data-menu-id="${menu.id}" data-sub-id="${sub.id}" data-action="add" ${subAddChecked ? 'checked' : ''} title="Toggle Add for ${this.escape(sub.title)}" />
+              <input type="checkbox" class="perm-tree-cb perm-cell-add w-3.5 h-3.5 rounded text-[#006644] accent-[#00A4B7] cursor-pointer" data-level="submenu" data-menu-id="${menu.id}" data-sub-id="${sub.id}" data-action="add" ${subAddChecked ? 'checked' : ''} title="Toggle ADD for ${this.escape(sub.title)}" />
             </td>
             <td class="py-2 px-2 text-center">
-              <input type="checkbox" class="perm-tree-cb perm-cell-edit w-3.5 h-3.5 rounded text-[#0284C7] accent-[#00A4B7] cursor-pointer" data-level="submenu" data-menu-id="${menu.id}" data-sub-id="${sub.id}" data-action="edit" ${subEditChecked ? 'checked' : ''} title="Toggle Edit for ${this.escape(sub.title)}" />
+              <input type="checkbox" class="perm-tree-cb perm-cell-edit w-3.5 h-3.5 rounded text-[#0284C7] accent-[#00A4B7] cursor-pointer" data-level="submenu" data-menu-id="${menu.id}" data-sub-id="${sub.id}" data-action="edit" ${subEditChecked ? 'checked' : ''} title="Toggle EDIT for ${this.escape(sub.title)}" />
             </td>
             <td class="py-2 px-2 text-center">
-              <input type="checkbox" class="perm-tree-cb perm-cell-delete w-3.5 h-3.5 rounded text-[#DE350B] accent-[#DE350B] cursor-pointer" data-level="submenu" data-menu-id="${menu.id}" data-sub-id="${sub.id}" data-action="delete" ${subDelChecked ? 'checked' : ''} title="Toggle Delete for ${this.escape(sub.title)}" />
+              <input type="checkbox" class="perm-tree-cb perm-cell-delete w-3.5 h-3.5 rounded text-[#DE350B] accent-[#DE350B] cursor-pointer" data-level="submenu" data-menu-id="${menu.id}" data-sub-id="${sub.id}" data-action="delete" ${subDelChecked ? 'checked' : ''} title="Toggle DELETE for ${this.escape(sub.title)}" />
             </td>
             <td class="py-2 px-2 text-center">
-              <input type="checkbox" class="perm-tree-cb perm-cell-read w-3.5 h-3.5 rounded text-[#42526E] accent-[#00A4B7] cursor-pointer" data-level="submenu" data-menu-id="${menu.id}" data-sub-id="${sub.id}" data-action="read" ${subReadChecked ? 'checked' : ''} title="Toggle Read for ${this.escape(sub.title)}" />
-            </td>
-            <td class="py-2 px-2 text-center whitespace-nowrap">
-              <button type="button" class="btn-matrix-tree-all px-2 py-0.5 rounded text-[10px] font-bold border border-[#CBD5E1] bg-white hover:bg-[#F0F9FF] hover:border-[#00A4B7] text-[#172B4D] hover:text-[#00A4B7] transition-colors cursor-pointer select-none" data-level="submenu" data-menu-id="${menu.id}" data-sub-id="${sub.id}">
-                All
-              </button>
+              <input type="checkbox" class="perm-tree-cb perm-cell-read w-3.5 h-3.5 rounded text-[#42526E] accent-[#00A4B7] cursor-pointer" data-level="submenu" data-menu-id="${menu.id}" data-sub-id="${sub.id}" data-action="read" ${subReadChecked ? 'checked' : ''} title="Toggle READ for ${this.escape(sub.title)}" />
             </td>
           </tr>
         `;
@@ -1681,32 +1664,33 @@ openRoleModal(role = null, onSaved) {
           const tabPerm = getTabPerm(tabKey, menu.id, menu.label);
 
           tableRowsHtml += `
-            <tr class="role-tree-row role-tab-row bg-white hover:bg-[#F0F9FF]/40 border-b border-[#F1F5F9] transition-colors" data-level="tab" data-menu-id="${menu.id}" data-sub-id="${sub.id}" data-tab-id="${tab.id}" data-tab-key="${tabKey}">
-              <td class="py-0 px-3 text-xs text-[#334155] whitespace-nowrap pl-12 sm:pl-16">
-                <div class="flex items-center gap-2">
-                  <svg class="w-4 h-5 text-[#94A3B8] shrink-0" viewBox="0 0 16 20" fill="none">
-                    <path d="${isLastTab ? 'M4 0v10h7m-3-3l3 3-3 3' : 'M4 0v20 M4 10h7m-3-3l3 3-3 3'}" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <tr class="role-tree-row role-tab-row bg-white hover:bg-[#F0F9FF]/40 border-b border-[#F8FAFC] transition-colors" data-level="tab" data-menu-id="${menu.id}" data-sub-id="${sub.id}" data-tab-id="${tab.id}" data-tab-key="${tabKey}">
+              <td class="py-0 px-3 text-xs text-[#334155] whitespace-nowrap">
+                <div class="flex items-center gap-1.5 h-[32px]">
+                  ${!isLastSub ? `
+                    <svg class="w-5 h-[32px] shrink-0" viewBox="0 0 20 32" fill="none">
+                      <line x1="8" y1="0" x2="8" y2="32" stroke="#00A4B7" stroke-width="1.5"/>
+                    </svg>
+                  ` : `
+                    <span class="w-5 shrink-0"></span>
+                  `}
+                  <svg class="w-5 h-[32px] shrink-0" viewBox="0 0 20 32" fill="none">
+                    <path d="${isLastTab ? 'M8 0 V16 H16 M13 13 L16 16 L13 19' : 'M8 0 V32 M8 16 H16 M13 13 L16 16 L13 19'}" stroke="#94A3B8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
-                  <svg class="w-3.5 h-3.5 text-[#00A4B7] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
-                  <span class="font-medium text-xs text-[#172B4D]">${this.escape(tab.label)}</span>
+                  <span class="font-medium text-xs text-[#172B4D] pl-0.5">${this.escape(tab.label)}</span>
                 </div>
               </td>
-              <td class="py-0 px-2 text-center">
-                <input type="checkbox" class="perm-tree-cb perm-cell perm-cell-add w-3.5 h-3.5 rounded text-[#006644] accent-[#00A4B7] cursor-pointer" data-level="tab" data-menu-id="${menu.id}" data-sub-id="${sub.id}" data-tab-id="${tab.id}" data-action="add" ${tabPerm.add ? 'checked' : ''} title="Toggle Add for ${this.escape(tab.label)}" />
+              <td class="py-1 px-2 text-center">
+                <input type="checkbox" class="perm-tree-cb perm-cell perm-cell-add w-3.5 h-3.5 rounded text-[#006644] accent-[#00A4B7] cursor-pointer" data-level="tab" data-menu-id="${menu.id}" data-sub-id="${sub.id}" data-tab-id="${tab.id}" data-action="add" ${tabPerm.add ? 'checked' : ''} title="Toggle ADD for ${this.escape(tab.label)}" />
               </td>
-              <td class="py-0 px-2 text-center">
-                <input type="checkbox" class="perm-tree-cb perm-cell perm-cell-edit w-3.5 h-3.5 rounded text-[#0284C7] accent-[#00A4B7] cursor-pointer" data-level="tab" data-menu-id="${menu.id}" data-sub-id="${sub.id}" data-tab-id="${tab.id}" data-action="edit" ${tabPerm.edit ? 'checked' : ''} title="Toggle Edit for ${this.escape(tab.label)}" />
+              <td class="py-1 px-2 text-center">
+                <input type="checkbox" class="perm-tree-cb perm-cell perm-cell-edit w-3.5 h-3.5 rounded text-[#0284C7] accent-[#00A4B7] cursor-pointer" data-level="tab" data-menu-id="${menu.id}" data-sub-id="${sub.id}" data-tab-id="${tab.id}" data-action="edit" ${tabPerm.edit ? 'checked' : ''} title="Toggle EDIT for ${this.escape(tab.label)}" />
               </td>
-              <td class="py-0 px-2 text-center">
-                <input type="checkbox" class="perm-tree-cb perm-cell perm-cell-delete w-3.5 h-3.5 rounded text-[#DE350B] accent-[#DE350B] cursor-pointer" data-level="tab" data-menu-id="${menu.id}" data-sub-id="${sub.id}" data-tab-id="${tab.id}" data-action="delete" ${tabPerm.delete ? 'checked' : ''} title="Toggle Delete for ${this.escape(tab.label)}" />
+              <td class="py-1 px-2 text-center">
+                <input type="checkbox" class="perm-tree-cb perm-cell perm-cell-delete w-3.5 h-3.5 rounded text-[#DE350B] accent-[#DE350B] cursor-pointer" data-level="tab" data-menu-id="${menu.id}" data-sub-id="${sub.id}" data-tab-id="${tab.id}" data-action="delete" ${tabPerm.delete ? 'checked' : ''} title="Toggle DELETE for ${this.escape(tab.label)}" />
               </td>
-              <td class="py-0 px-2 text-center">
-                <input type="checkbox" class="perm-tree-cb perm-cell perm-cell-read w-3.5 h-3.5 rounded text-[#42526E] accent-[#00A4B7] cursor-pointer" data-level="tab" data-menu-id="${menu.id}" data-sub-id="${sub.id}" data-tab-id="${tab.id}" data-action="read" ${tabPerm.read ? 'checked' : ''} title="Toggle Read for ${this.escape(tab.label)}" />
-              </td>
-              <td class="py-0 px-2 text-center whitespace-nowrap">
-                <button type="button" class="btn-matrix-tree-all px-2 py-0.5 rounded text-[10px] font-bold border border-[#CBD5E1] bg-white hover:bg-[#F0F9FF] hover:border-[#00A4B7] text-[#172B4D] hover:text-[#00A4B7] transition-colors cursor-pointer select-none" data-level="tab" data-menu-id="${menu.id}" data-sub-id="${sub.id}" data-tab-id="${tab.id}">
-                  All
-                </button>
+              <td class="py-1 px-2 text-center">
+                <input type="checkbox" class="perm-tree-cb perm-cell perm-cell-read w-3.5 h-3.5 rounded text-[#42526E] accent-[#00A4B7] cursor-pointer" data-level="tab" data-menu-id="${menu.id}" data-sub-id="${sub.id}" data-tab-id="${tab.id}" data-action="read" ${tabPerm.read ? 'checked' : ''} title="Toggle READ for ${this.escape(tab.label)}" />
               </td>
             </tr>
           `;
@@ -1787,32 +1771,29 @@ openRoleModal(role = null, onSaved) {
                         <span>Menu</span>
                       </div>
                     </th>
-                    <th class="py-2.5 px-2 text-center w-20 min-w-[70px]">
-                      <label class="inline-flex items-center gap-1 font-bold text-[#006644] cursor-pointer select-none" title="Toggle Add for all rows">
+                    <th class="py-2.5 px-2 text-center w-24 min-w-[75px]">
+                      <label class="inline-flex items-center gap-1.5 font-bold text-xs text-[#006644] cursor-pointer select-none" title="Toggle ADD for all rows">
                         <input type="checkbox" id="hdr-perm-add" class="w-3.5 h-3.5 rounded text-[#006644] accent-[#00A4B7] cursor-pointer" />
-                        <span>Add</span>
+                        <span>ADD</span>
                       </label>
                     </th>
-                    <th class="py-2.5 px-2 text-center w-20 min-w-[70px]">
-                      <label class="inline-flex items-center gap-1 font-bold text-[#0284C7] cursor-pointer select-none" title="Toggle Edit for all rows">
+                    <th class="py-2.5 px-2 text-center w-24 min-w-[75px]">
+                      <label class="inline-flex items-center gap-1.5 font-bold text-xs text-[#0284C7] cursor-pointer select-none" title="Toggle EDIT for all rows">
                         <input type="checkbox" id="hdr-perm-edit" class="w-3.5 h-3.5 rounded text-[#0284C7] accent-[#00A4B7] cursor-pointer" />
-                        <span>Edit</span>
+                        <span>EDIT</span>
                       </label>
                     </th>
-                    <th class="py-2.5 px-2 text-center w-20 min-w-[70px]">
-                      <label class="inline-flex items-center gap-1 font-bold text-[#DE350B] cursor-pointer select-none" title="Toggle Delete for all rows">
+                    <th class="py-2.5 px-2 text-center w-24 min-w-[75px]">
+                      <label class="inline-flex items-center gap-1.5 font-bold text-xs text-[#DE350B] cursor-pointer select-none" title="Toggle DELETE for all rows">
                         <input type="checkbox" id="hdr-perm-delete" class="w-3.5 h-3.5 rounded text-[#DE350B] accent-[#DE350B] cursor-pointer" />
-                        <span>Delete</span>
+                        <span>DELETE</span>
                       </label>
                     </th>
-                    <th class="py-2.5 px-2 text-center w-20 min-w-[70px]">
-                      <label class="inline-flex items-center gap-1 font-bold text-[#42526E] cursor-pointer select-none" title="Toggle Read for all rows">
+                    <th class="py-2.5 px-2 text-center w-24 min-w-[75px]">
+                      <label class="inline-flex items-center gap-1.5 font-bold text-xs text-[#42526E] cursor-pointer select-none" title="Toggle READ for all rows">
                         <input type="checkbox" id="hdr-perm-read" class="w-3.5 h-3.5 rounded text-[#42526E] accent-[#00A4B7] cursor-pointer" />
-                        <span>Read</span>
+                        <span>READ</span>
                       </label>
-                    </th>
-                    <th class="py-2.5 px-2 text-center w-16 min-w-[65px] text-[10.5px] font-bold text-[#5E6C84] uppercase tracking-wider">
-                      Action
                     </th>
                   </tr>
                 </thead>
@@ -1973,20 +1954,6 @@ openRoleModal(role = null, onSaved) {
               subCb.indeterminate = false;
             }
           });
-
-          // Submenu All button
-          const btn = subRow.querySelector('.btn-matrix-tree-all');
-          if (btn) {
-            const allTabsAllChecked = childTabs.length > 0 && childTabs.every(tr => 
-              actions.every(act => tr.querySelector(`.perm-cell-${act}`)?.checked)
-            );
-            btn.textContent = allTabsAllChecked ? 'Clear' : 'All';
-            if (allTabsAllChecked) {
-              btn.className = 'btn-matrix-tree-all px-2 py-0.5 rounded text-[10px] font-bold border border-[#ABF5D1] bg-[#E3FCEF] text-[#006644] hover:bg-[#FFEBE6] hover:text-[#DE350B] hover:border-[#FFBDAD] transition-colors cursor-pointer select-none';
-            } else {
-              btn.className = 'btn-matrix-tree-all px-2 py-0.5 rounded text-[10px] font-bold border border-[#CBD5E1] bg-white hover:bg-[#F0F9FF] hover:border-[#00A4B7] text-[#172B4D] hover:text-[#00A4B7] transition-colors cursor-pointer select-none';
-            }
-          }
         });
 
         // 2. Update Menu Rows from their child Tab rows
@@ -2009,37 +1976,9 @@ openRoleModal(role = null, onSaved) {
               menuCb.indeterminate = false;
             }
           });
-
-          // Menu All button
-          const btn = menuRow.querySelector('.btn-matrix-tree-all');
-          if (btn) {
-            const allTabsAllChecked = childTabs.length > 0 && childTabs.every(tr => 
-              actions.every(act => tr.querySelector(`.perm-cell-${act}`)?.checked)
-            );
-            btn.textContent = allTabsAllChecked ? 'Clear' : 'All';
-            if (allTabsAllChecked) {
-              btn.className = 'btn-matrix-tree-all px-2 py-0.5 rounded text-[10px] font-bold border border-[#ABF5D1] bg-[#E3FCEF] text-[#006644] hover:bg-[#FFEBE6] hover:text-[#DE350B] hover:border-[#FFBDAD] transition-colors cursor-pointer select-none';
-            } else {
-              btn.className = 'btn-matrix-tree-all px-2 py-0.5 rounded text-[10px] font-bold border border-[#CBD5E1] bg-white hover:bg-[#F0F9FF] hover:border-[#00A4B7] text-[#172B4D] hover:text-[#00A4B7] transition-colors cursor-pointer select-none';
-            }
-          }
         });
 
-        // 3. Tab row All buttons
-        tabRows.forEach(tabRow => {
-          const btn = tabRow.querySelector('.btn-matrix-tree-all');
-          if (btn) {
-            const allChecked = actions.every(act => tabRow.querySelector(`.perm-cell-${act}`)?.checked);
-            btn.textContent = allChecked ? 'Clear' : 'All';
-            if (allChecked) {
-              btn.className = 'btn-matrix-tree-all px-2 py-0.5 rounded text-[10px] font-bold border border-[#ABF5D1] bg-[#E3FCEF] text-[#006644] hover:bg-[#FFEBE6] hover:text-[#DE350B] hover:border-[#FFBDAD] transition-colors cursor-pointer select-none';
-            } else {
-              btn.className = 'btn-matrix-tree-all px-2 py-0.5 rounded text-[10px] font-bold border border-[#CBD5E1] bg-white hover:bg-[#F0F9FF] hover:border-[#00A4B7] text-[#172B4D] hover:text-[#00A4B7] transition-colors cursor-pointer select-none';
-            }
-          }
-        });
-
-        // 4. Header checkboxes
+        // 3. Header checkboxes
         actions.forEach(act => {
           const hdrCb = document.getElementById(`hdr-perm-${act}`);
           if (hdrCb) {
@@ -2144,41 +2083,6 @@ openRoleModal(role = null, onSaved) {
           });
           updateAllTreeCheckboxStates();
         });
-      });
-
-      // Row / Node "All" / "Clear" Toggle
-      modalRoot.addEventListener('click', (e) => {
-        const btn = e.target.closest('.btn-matrix-tree-all');
-        if (!btn) return;
-        const level = btn.dataset.level;
-        const mId = btn.dataset.menuId;
-        const sId = btn.dataset.subId;
-        const tId = btn.dataset.tabId;
-
-        let targetTabs = [];
-        if (level === 'menu') {
-          targetTabs = Array.from(modalRoot.querySelectorAll(`.role-tab-row[data-menu-id="${mId}"]`));
-        } else if (level === 'submenu') {
-          targetTabs = Array.from(modalRoot.querySelectorAll(`.role-tab-row[data-menu-id="${mId}"][data-sub-id="${sId}"]`));
-        } else if (level === 'tab') {
-          targetTabs = Array.from(modalRoot.querySelectorAll(`.role-tab-row[data-menu-id="${mId}"][data-sub-id="${sId}"][data-tab-id="${tId}"]`));
-        }
-
-        if (targetTabs.length === 0) return;
-
-        const allCurrentlyChecked = targetTabs.every(tr => 
-          actions.every(act => tr.querySelector(`.perm-cell-${act}`)?.checked)
-        );
-
-        const newState = !allCurrentlyChecked;
-        targetTabs.forEach(tr => {
-          actions.forEach(act => {
-            const cb = tr.querySelector(`.perm-cell-${act}`);
-            if (cb) cb.checked = newState;
-          });
-        });
-
-        updateAllTreeCheckboxStates();
       });
 
       // Expand / Collapse Tree Handlers
