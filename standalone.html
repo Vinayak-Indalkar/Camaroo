@@ -618,19 +618,26 @@ button.tab-active *,
 }
 
 /* Table styling with Soft Pastel Headers and High-Contrast Data */
-.erp-table {
+table,
+.erp-table,
+#table-roles-permissions-matrix {
   width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
 }
+table thead,
 .erp-table thead,
-.erp-table thead tr#dt-thead-row,
-.erp-table thead tr {
+#table-roles-permissions-matrix thead {
   position: sticky !important;
   top: 0 !important;
-  z-index: 15 !important;
+  z-index: 20 !important;
 }
-.erp-table th {
+table thead th,
+.erp-table thead th,
+.erp-table th,
+table th,
+#table-roles-permissions-matrix thead th,
+#table-roles-permissions-matrix th {
   background-color: #EEF3F8 !important;
   color: #334155 !important;
   font-size: 12px !important; /* +1px from 11px */
@@ -639,19 +646,39 @@ button.tab-active *,
   letter-spacing: 0.05em;
   padding: 10px 14px;
   border-bottom: 1px solid #DDE5ED !important;
+  box-shadow: 0 1px 0 #DDE5ED !important;
   position: sticky !important;
   top: 0 !important;
-  z-index: 15 !important;
-  white-space: nowrap;
+  z-index: 20 !important;
+  white-space: nowrap !important;
+}
+
+#table-roles-permissions-matrix thead th,
+#table-roles-permissions-matrix th {
+  background-color: #F8FAFC !important;
 }
 
 /* Remove excessive white space on left edge across all tables */
+table th:first-child,
+table td:first-child,
 .erp-table th:first-child,
 .erp-table td:first-child {
   padding-left: 10px !important;
 }
 
 /* Snug fit for compact identifier/code columns to eliminate dead white space gaps */
+table th[data-field="code"],
+table td[data-field="code"],
+table th[data-field="id"],
+table td[data-field="id"],
+table th[data-field="billNo"],
+table td[data-field="billNo"],
+table th[data-field="docNo"],
+table td[data-field="docNo"],
+table th[data-field="trackId"],
+table td[data-field="trackId"],
+table th[data-field="lotNo"],
+table td[data-field="lotNo"],
 .erp-table th[data-field="code"],
 .erp-table td[data-field="code"],
 .erp-table th[data-field="id"],
@@ -668,6 +695,7 @@ button.tab-active *,
   white-space: nowrap !important;
 }
 
+table td,
 .erp-table td {
   padding: 11px 14px;
   font-size: 13.5px !important; /* +1px from 12.5px */
@@ -675,33 +703,60 @@ button.tab-active *,
   color: #0F172A !important;
   vertical-align: middle;
 }
+table tr:hover td,
 .erp-table tr:hover td {
   background-color: #F4F8FD !important;
 }
 
 /* Fixed Sticky Actions Column across all tables */
+table .sticky-action-col,
 .erp-table .sticky-action-col {
   position: sticky !important;
   right: 0 !important;
   background-clip: padding-box;
 }
+table th.sticky-action-col,
 .erp-table th.sticky-action-col {
+  position: sticky !important;
+  top: 0 !important;
+  right: 0 !important;
   background-color: #EEF3F8 !important;
-  z-index: 25 !important;
+  z-index: 30 !important;
   border-left: 1px solid #DDE5ED !important;
-  box-shadow: -4px 0 6px -2px rgba(9, 30, 66, 0.08);
+  box-shadow: -4px 0 6px -2px rgba(9, 30, 66, 0.08) !important;
 }
+table td.sticky-action-col,
 .erp-table td.sticky-action-col {
+  position: sticky !important;
+  right: 0 !important;
   background-color: #ffffff !important;
   z-index: 10 !important;
   border-left: 1px solid #EAF0F6 !important;
-  box-shadow: -4px 0 6px -2px rgba(9, 30, 66, 0.08);
+  box-shadow: -4px 0 6px -2px rgba(9, 30, 66, 0.08) !important;
 }
+table tr:hover td.sticky-action-col,
 .erp-table tr:hover td.sticky-action-col {
   background-color: #F4F8FD !important;
 }
+table tr.bg-\[\#F4F5F7\] td.sticky-action-col,
 .erp-table tr.bg-\[\#F4F5F7\] td.sticky-action-col {
   background-color: #F4F8FD !important;
+}
+
+/* Column Resizer Handle */
+.dt-col-resizer {
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 6px !important;
+  cursor: col-resize !important;
+  user-select: none !important;
+  z-index: 25 !important;
+}
+.dt-col-resizer:hover,
+.dt-col-resizer.is-resizing {
+  background-color: #00A4B7 !important;
 }
 
 /* ===== DataTable Component CSS Classes ===== */
@@ -853,34 +908,58 @@ button.tab-active *,
 
 /* Table Scroll Wrapper - Sticky Header vertically, moves horizontally with columns */
 .dt-table-scroll,
-.overflow-x-auto:has(> .erp-table) {
+.overflow-x-auto,
+div[class*="overflow-x-auto"],
+div[class*="overflow-x"]:has(> table),
+div:has(> table.erp-table),
+div:has(> #table-roles-permissions-matrix),
+div:has(> table) {
   overflow-x: auto !important;
   overflow-y: auto !important;
-  max-height: calc(100vh - 280px) !important;
-  min-height: 220px;
+  max-height: calc(100vh - 280px);
   position: relative !important;
   -webkit-overflow-scrolling: touch;
 }
 
+.dt-table-scroll {
+  min-height: 180px;
+}
+
+#erp-modal-root div:has(> table),
+#erp-modal-root .overflow-x-auto,
+.fixed div:has(> table),
+.fixed .overflow-x-auto,
+div[class*="max-h-"]:has(table) {
+  max-height: 420px;
+}
+
 .dt-table-scroll::-webkit-scrollbar,
+.overflow-x-auto::-webkit-scrollbar,
+div:has(> table)::-webkit-scrollbar,
 .overflow-x-auto:has(> .erp-table)::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 .dt-table-scroll::-webkit-scrollbar-track,
+.overflow-x-auto::-webkit-scrollbar-track,
+div:has(> table)::-webkit-scrollbar-track,
 .overflow-x-auto:has(> .erp-table)::-webkit-scrollbar-track {
   background: #F1F5F9;
   border-radius: 4px;
 }
 
 .dt-table-scroll::-webkit-scrollbar-thumb,
+.overflow-x-auto::-webkit-scrollbar-thumb,
+div:has(> table)::-webkit-scrollbar-thumb,
 .overflow-x-auto:has(> .erp-table)::-webkit-scrollbar-thumb {
   background: #CBD5E1;
   border-radius: 4px;
 }
 
 .dt-table-scroll::-webkit-scrollbar-thumb:hover,
+.overflow-x-auto::-webkit-scrollbar-thumb:hover,
+div:has(> table)::-webkit-scrollbar-thumb:hover,
 .overflow-x-auto:has(> .erp-table)::-webkit-scrollbar-thumb:hover {
   background: #94A3B8;
 }
@@ -6218,7 +6297,7 @@ class DataTable {
     if (this.selectable) {
       const selW = this.colWidths['__select__'] ? `style="width: ${this.colWidths['__select__']}px; min-width: ${this.colWidths['__select__']}px;"` : '';
       html += `
-        <th class="w-10 text-center relative select-none" data-field="__select__" ${selW}>
+        <th class="w-10 text-center select-none sticky top-0 z-20" data-field="__select__" ${selW}>
           <input type="checkbox" id="dt-select-all-checkbox" class="rounded border-[#DFE1E6] text-[#0284C7] focus:ring-0 cursor-pointer" />
           <div class="dt-col-resizer" title="Drag to resize column (Double-click to reset)"></div>
         </th>
@@ -6235,11 +6314,11 @@ class DataTable {
       const sortClass = col.sortable !== false && !isAction ? 'cursor-pointer hover:bg-[#EBECF0] transition-colors select-none' : '';
       const actionClass = isAction ? 'sticky-action-col text-center' : '';
       const customWidth = this.colWidths[col.field] 
-        ? `style="width: ${this.colWidths[col.field]}px; min-width: ${this.colWidths[col.field]}px; max-width: ${this.colWidths[col.field]}px; ${isAction ? 'position: sticky !important; right: 0 !important; z-index: 20 !important;' : ''}"` 
-        : (isAction ? 'style="min-width: 120px; position: sticky !important; right: 0 !important; z-index: 20 !important;"' : '');
+        ? `style="width: ${this.colWidths[col.field]}px; min-width: ${this.colWidths[col.field]}px; max-width: ${this.colWidths[col.field]}px; ${isAction ? 'position: sticky !important; right: 0 !important; top: 0 !important; z-index: 30 !important;' : ''}"` 
+        : (isAction ? 'style="min-width: 120px; position: sticky !important; right: 0 !important; top: 0 !important; z-index: 30 !important;"' : '');
 
       html += `
-        <th data-field="${col.field}" class="${sortClass} ${actionClass} relative" ${customWidth}>
+        <th data-field="${col.field}" class="${sortClass} ${actionClass} sticky top-0 z-20" ${customWidth}>
           <div class="flex items-center gap-1.5 pr-2 ${isAction ? 'justify-center w-full' : ''}">
             <span>${col.header}</span>
             ${sortIcon ? `<span class="text-xs text-[#0284C7] font-bold">${sortIcon}</span>` : ''}
@@ -6250,9 +6329,9 @@ class DataTable {
     });
 
     if (this.actions.length > 0) {
-      const actionsW = this.colWidths['__actions__'] ? `style="width: ${this.colWidths['__actions__']}px; min-width: ${this.colWidths['__actions__']}px; overflow: visible !important;"` : 'style="min-width: 130px; overflow: visible !important;"';
+      const actionsW = this.colWidths['__actions__'] ? `style="width: ${this.colWidths['__actions__']}px; min-width: ${this.colWidths['__actions__']}px; position: sticky !important; top: 0 !important; right: 0 !important; z-index: 30 !important; overflow: visible !important;"` : 'style="min-width: 130px; position: sticky !important; top: 0 !important; right: 0 !important; z-index: 30 !important; overflow: visible !important;"';
       html += `
-        <th class="text-center sticky-action-col relative" data-field="__actions__" ${actionsW}>
+        <th class="text-center sticky-action-col sticky top-0 z-30" data-field="__actions__" ${actionsW}>
           <div class="text-center w-full">${this.actionsTitle || 'Actions'}</div>
           <div class="dt-col-resizer" title="Drag to resize column (Double-click to reset)"></div>
         </th>
@@ -7155,7 +7234,10 @@ function makeTableResizable(table) {
   ths.forEach(th => {
     if (th.querySelector('.dt-col-resizer')) return;
 
-    th.style.position = 'relative';
+    if (!th.style.position || th.style.position === 'static' || th.style.position === 'relative') {
+      th.style.position = 'sticky';
+      th.style.top = '0px';
+    }
     const resizer = document.createElement('div');
     resizer.className = 'dt-col-resizer';
     resizer.title = 'Drag to resize column (Double-click to reset)';
@@ -93363,7 +93445,7 @@ openRoleModal(role = null, onSaved) {
 
             <!-- Matrix Table Container -->
             <div class="max-h-[380px] overflow-y-auto overflow-x-auto rounded-xl border border-[#DFE1E6] bg-white shadow-2xs">
-              <table class="w-full text-xs text-left border-collapse" id="table-roles-permissions-matrix">
+              <table class="w-full text-xs text-left border-separate border-spacing-0" id="table-roles-permissions-matrix">
                 <thead class="sticky top-0 bg-[#F8FAFC] z-10 border-b border-[#DFE1E6] shadow-2xs">
                   <tr>
                     <th class="py-2.5 px-3 text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider min-w-[280px] bg-[#F8FAFC] sticky top-0 z-10">

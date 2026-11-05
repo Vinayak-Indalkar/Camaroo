@@ -1758,7 +1758,7 @@ openRoleModal(role = null, onSaved) {
 
             <!-- Matrix Table Container -->
             <div class="max-h-[380px] overflow-y-auto overflow-x-auto rounded-xl border border-[#DFE1E6] bg-white shadow-2xs">
-              <table class="w-full text-xs text-left border-collapse" id="table-roles-permissions-matrix">
+              <table class="w-full text-xs text-left border-separate border-spacing-0" id="table-roles-permissions-matrix">
                 <thead class="sticky top-0 bg-[#F8FAFC] z-10 border-b border-[#DFE1E6] shadow-2xs">
                   <tr>
                     <th class="py-2.5 px-3 text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider min-w-[280px] bg-[#F8FAFC] sticky top-0 z-10">
