@@ -131,25 +131,30 @@ body {
   height: 36px !important;
   border-radius: 12px !important;
   background-color: #F1F5F9 !important;
-  color: #00A4B7 !important;
+  color: rgb(0, 164, 183) !important;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important;
+  transition: all 0.2s ease-in-out !important;
+}
+.card-heading-icon svg,
+.card-heading-icon svg path {
+  color: rgb(0, 164, 183) !important;
+  stroke: rgb(0, 164, 183) !important;
   transition: all 0.2s ease-in-out !important;
 }
 .card-heading-icon svg {
   display: block !important;
   width: 16px !important;
   height: 16px !important;
-  color: #00A4B7 !important;
-  stroke: #00A4B7 !important;
-  transition: all 0.2s ease-in-out !important;
 }
 .group:hover .card-heading-icon,
 .card-heading-icon:hover {
-  background-color: #00A4B7 !important;
+  background-color: rgb(0, 164, 183) !important;
   color: #FFFFFF !important;
 }
 .group:hover .card-heading-icon svg,
-.card-heading-icon:hover svg {
+.group:hover .card-heading-icon svg path,
+.card-heading-icon:hover svg,
+.card-heading-icon:hover svg path {
   color: #FFFFFF !important;
   stroke: #FFFFFF !important;
 }

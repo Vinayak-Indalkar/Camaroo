@@ -3723,7 +3723,7 @@ openRoleModal(role = null, onSaved) {
               <div class="flex items-center justify-between border-b border-[#F1F5F9] pb-0">
                 <div class="flex items-center gap-2.5">
                   <div class="card-heading-icon w-9 h-9 rounded-xl flex items-center justify-center font-bold shadow-xs transition-colors duration-200 bg-[#F1F5F9] text-[#00A4B7] group-hover:bg-[#00A4B7] group-hover:text-white shrink-0">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>
+                    <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="rgb(0, 164, 183)" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>
                   </div>
                   <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Sound Settings</h3>
                 </div>
