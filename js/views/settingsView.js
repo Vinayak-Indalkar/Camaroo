@@ -1761,7 +1761,7 @@ openRoleModal(role = null, onSaved) {
               <table class="w-full text-xs text-left border-collapse" id="table-roles-permissions-matrix">
                 <thead class="sticky top-0 bg-[#F8FAFC] z-10 border-b border-[#DFE1E6] shadow-2xs">
                   <tr>
-                    <th class="py-2.5 px-3 text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider min-w-[280px]">
+                    <th class="py-2.5 px-3 text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider min-w-[280px] bg-[#F8FAFC] sticky top-0 z-10">
                       <div class="flex items-center gap-2">
                         <button type="button" id="btn-tree-master-toggle" class="w-5 h-5 rounded flex items-center justify-center bg-white border border-[#CBD5E1] text-[#172B4D] hover:border-[#00A4B7] hover:text-[#00A4B7] shadow-2xs shrink-0 cursor-pointer transition-all" title="Collapse / Expand All Menus &amp; Tabs">
                           <svg class="chevron-icon" style="display: block; width: 14px; height: 14px; min-width: 14px; min-height: 14px; stroke: #172B4D; stroke-width: 2.5px; fill: none; transition: transform 0.2s; transform: rotate(90deg);" viewBox="0 0 24 24">
@@ -1771,25 +1771,25 @@ openRoleModal(role = null, onSaved) {
                         <span>Menu</span>
                       </div>
                     </th>
-                    <th class="py-2.5 px-2 text-center w-24 min-w-[75px]">
+                    <th class="py-2.5 px-2 text-center w-24 min-w-[75px] bg-[#F8FAFC] sticky top-0 z-10">
                       <label class="inline-flex items-center gap-1.5 font-bold text-xs text-[#006644] cursor-pointer select-none" title="Toggle ADD for all rows">
                         <input type="checkbox" id="hdr-perm-add" class="w-3.5 h-3.5 rounded text-[#006644] accent-[#00A4B7] cursor-pointer" />
                         <span>ADD</span>
                       </label>
                     </th>
-                    <th class="py-2.5 px-2 text-center w-24 min-w-[75px]">
+                    <th class="py-2.5 px-2 text-center w-24 min-w-[75px] bg-[#F8FAFC] sticky top-0 z-10">
                       <label class="inline-flex items-center gap-1.5 font-bold text-xs text-[#0284C7] cursor-pointer select-none" title="Toggle EDIT for all rows">
                         <input type="checkbox" id="hdr-perm-edit" class="w-3.5 h-3.5 rounded text-[#0284C7] accent-[#00A4B7] cursor-pointer" />
                         <span>EDIT</span>
                       </label>
                     </th>
-                    <th class="py-2.5 px-2 text-center w-24 min-w-[75px]">
+                    <th class="py-2.5 px-2 text-center w-24 min-w-[75px] bg-[#F8FAFC] sticky top-0 z-10">
                       <label class="inline-flex items-center gap-1.5 font-bold text-xs text-[#DE350B] cursor-pointer select-none" title="Toggle DELETE for all rows">
                         <input type="checkbox" id="hdr-perm-delete" class="w-3.5 h-3.5 rounded text-[#DE350B] accent-[#DE350B] cursor-pointer" />
                         <span>DELETE</span>
                       </label>
                     </th>
-                    <th class="py-2.5 px-2 text-center w-24 min-w-[75px]">
+                    <th class="py-2.5 px-2 text-center w-24 min-w-[75px] bg-[#F8FAFC] sticky top-0 z-10">
                       <label class="inline-flex items-center gap-1.5 font-bold text-xs text-[#42526E] cursor-pointer select-none" title="Toggle READ for all rows">
                         <input type="checkbox" id="hdr-perm-read" class="w-3.5 h-3.5 rounded text-[#42526E] accent-[#00A4B7] cursor-pointer" />
                         <span>READ</span>
