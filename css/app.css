@@ -395,7 +395,9 @@ a[role="tab"][aria-selected="true"],
   background: transparent !important;
   color: #00A4B7 !important;
   border-radius: 0 !important;
-  border: none !important;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
   border-bottom: 2px solid #00A4B7 !important;
   font-weight: 700 !important;
   user-select: none !important;
@@ -548,19 +550,28 @@ button.tab-active *,
 }
 
 /* Tab active */
-.tab-active {
+.tab-active,
+a.tab-active,
+button.tab-active,
+a[role="tab"][aria-selected="true"],
+[role="tab"][aria-selected="true"] {
   background-color: transparent !important;
   background: transparent !important;
   color: #00A4B7 !important;
   border-radius: 0 !important;
-  border: none !important;
-  border-bottom: none !important;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-bottom: 2px solid #00A4B7 !important;
   font-weight: 700 !important;
-  margin-bottom: 0 !important;
+  margin-bottom: -1px !important;
 }
-.tab-active span {
+.tab-active span,
+a.tab-active span,
+[role="tab"][aria-selected="true"] span {
   background-color: transparent !important;
   color: #00A4B7 !important;
+  font-weight: 700 !important;
 }
 
 /* Drawer & Modal Transitions */

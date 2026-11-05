@@ -187,11 +187,15 @@ export const SettingsView = {
             const isActive = t.id === activeTab;
             return `
               <a 
+                id="tab-${t.id}"
                 role="tab" 
                 href="${t.hash}" 
-                class="select-none px-3 pt-2 pb-2 text-xs font-semibold whitespace-nowrap transition-colors flex items-center gap-1.5 outline-none border-b-2 ${isActive ? 'border-[#00A4B7] text-[#00A4B7] font-bold' : 'border-transparent text-[#5E6C84] hover:text-[#172B4D]'}"
+                aria-selected="${isActive ? 'true' : 'false'}"
+                tabindex="${isActive ? '0' : '-1'}"
+                aria-controls="panel-${t.id}"
+                class="select-none px-3 pt-2 pb-2 text-xs font-semibold whitespace-nowrap transition-colors flex items-center gap-1.5 outline-none bg-transparent border-b-2 ${isActive ? 'tab-active text-[#00A4B7] border-[#00A4B7] font-bold' : 'text-[#5E6C84] hover:text-[#172B4D] border-transparent'}"
               >
-                <span>${t.label}</span>
+                <span class="select-none">${t.label}</span>
               </a>
             `;
           }).join('')}
@@ -226,14 +230,14 @@ export const SettingsView = {
       const customizerTabsBarHtml = `
         <div class="border-b border-[#DFE1E6] mb-4">
           <div role="tablist" aria-label="Customizer views" id="settings-tab-bar-container-tablist" class="flex items-center gap-1 overflow-x-auto bg-transparent p-0 scrollbar-thin">
-            <a id="tab-forms" role="tab" href="#/settings/custom/forms" class="select-none px-3 pt-2 pb-2 text-xs font-semibold whitespace-nowrap transition-colors flex items-center gap-1.5 outline-none border-b-2 ${isFormsActive ? 'border-[#00A4B7] text-[#00A4B7] font-bold' : 'border-transparent text-[#5E6C84] hover:text-[#172B4D]'}">
-              <span>Forms</span>
+            <a id="tab-forms" role="tab" href="#/settings/custom/forms" aria-selected="${isFormsActive ? 'true' : 'false'}" tabindex="${isFormsActive ? '0' : '-1'}" aria-controls="panel-forms" class="select-none px-3 pt-2 pb-2 text-xs font-semibold whitespace-nowrap transition-colors flex items-center gap-1.5 outline-none bg-transparent border-b-2 ${isFormsActive ? 'tab-active text-[#00A4B7] border-[#00A4B7] font-bold' : 'text-[#5E6C84] hover:text-[#172B4D] border-transparent'}">
+              <span class="select-none">Forms</span>
             </a>
-            <a id="tab-fields-customizer" role="tab" href="#/settings/custom/fields-customizer" class="select-none px-3 pt-2 pb-2 text-xs font-semibold whitespace-nowrap transition-colors flex items-center gap-1.5 outline-none border-b-2 ${isFieldsActive ? 'border-[#00A4B7] text-[#00A4B7] font-bold' : 'border-transparent text-[#5E6C84] hover:text-[#172B4D]'}">
-              <span>Fields Customizer</span>
+            <a id="tab-fields-customizer" role="tab" href="#/settings/custom/fields-customizer" aria-selected="${isFieldsActive ? 'true' : 'false'}" tabindex="${isFieldsActive ? '0' : '-1'}" aria-controls="panel-fields-customizer" class="select-none px-3 pt-2 pb-2 text-xs font-semibold whitespace-nowrap transition-colors flex items-center gap-1.5 outline-none bg-transparent border-b-2 ${isFieldsActive ? 'tab-active text-[#00A4B7] border-[#00A4B7] font-bold' : 'text-[#5E6C84] hover:text-[#172B4D] border-transparent'}">
+              <span class="select-none">Fields Customizer</span>
             </a>
-            <a id="tab-query-editor" role="tab" href="#/settings/custom/query-editor" class="select-none px-3 pt-2 pb-2 text-xs font-semibold whitespace-nowrap transition-colors flex items-center gap-1.5 outline-none border-b-2 ${isQueryActive ? 'border-[#00A4B7] text-[#00A4B7] font-bold' : 'border-transparent text-[#5E6C84] hover:text-[#172B4D]'}">
-              <span>Query Editor</span>
+            <a id="tab-query-editor" role="tab" href="#/settings/custom/query-editor" aria-selected="${isQueryActive ? 'true' : 'false'}" tabindex="${isQueryActive ? '0' : '-1'}" aria-controls="panel-query-editor" class="select-none px-3 pt-2 pb-2 text-xs font-semibold whitespace-nowrap transition-colors flex items-center gap-1.5 outline-none bg-transparent border-b-2 ${isQueryActive ? 'tab-active text-[#00A4B7] border-[#00A4B7] font-bold' : 'text-[#5E6C84] hover:text-[#172B4D] border-transparent'}">
+              <span class="select-none">Query Editor</span>
             </a>
           </div>
         </div>

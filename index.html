@@ -147,7 +147,9 @@
       background: transparent !important;
       color: #00A4B7 !important;
       border-radius: 0 !important;
-      border: none !important;
+      border-top: none !important;
+      border-left: none !important;
+      border-right: none !important;
       border-bottom: 2px solid #00A4B7 !important;
       font-weight: 700 !important;
       user-select: none !important;
@@ -167,15 +169,19 @@
     }
     [role="tab"] {
       border-radius: 0 !important;
-      border: none !important;
+      border-top: none !important;
+      border-left: none !important;
+      border-right: none !important;
       border-bottom: 2px solid transparent !important;
       user-select: none !important;
       -webkit-user-select: none !important;
       transition: all 0.15s ease-in-out !important;
+      margin-bottom: -1px !important;
     }
     [role="tab"]:not([aria-selected="true"]):not(.tab-active):hover {
-      background-color: #F1F5F9 !important;
-      color: #0F172A !important;
+      background-color: transparent !important;
+      color: #172B4D !important;
+      border-bottom: 2px solid transparent !important;
     }
     [role="tab"]:focus:not(:focus-visible) {
       outline: none !important;
