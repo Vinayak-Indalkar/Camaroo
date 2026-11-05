@@ -84279,7 +84279,7 @@ const SetupView = {
           <div class="space-y-5">
             <!-- 1. Client Information -->
             <div class="space-y-3.5">
-              <div class="flex items-center justify-between border-b border-[#F1F5F9] pb-2.5">
+              <div class="flex items-center justify-between border-b border-[#F1F5F9]">
                 <div class="flex items-center gap-2">
                   <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">1</span>
                   <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Client Information</span>
@@ -84359,7 +84359,7 @@ const SetupView = {
 
             <!-- 2. Plant Information (Multi-Plant Support) -->
             <div class="space-y-3.5">
-              <div class="flex items-center justify-between border-b border-[#F1F5F9] pb-2.5">
+              <div class="flex items-center justify-between border-b border-[#F1F5F9]">
                 <div class="flex items-center gap-2">
                   <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">2</span>
                   <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Plant Information</span>
@@ -84449,7 +84449,7 @@ const SetupView = {
 
             <!-- 3. Application Add-ons -->
             <div class="space-y-3.5">
-              <div class="flex items-center justify-between border-b border-[#F1F5F9] pb-2.5">
+              <div class="flex items-center justify-between border-b border-[#F1F5F9]">
                 <div class="flex items-center gap-2">
                   <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">3</span>
                   <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Application Add-ons</span>
@@ -84892,20 +84892,22 @@ const SetupView = {
       const nextLabel = step === 4 ? 'Complete & Register Client ✓' : `Next: ${nextTitles[step - 1]} &gt;`;
 
       const footerHtml = `
-        <div class="flex items-center justify-between w-full">
-          <button type="button" id="wizard-cancel-btn" class="btn-secondary px-4 py-2 rounded-full text-xs font-semibold cursor-pointer">
+        <div class="flex items-center justify-end gap-2.5 w-full">
+          ${step > 1 ? `
+            <button type="button" id="wizard-back-btn" class="btn-secondary px-4 py-2 rounded-full text-xs font-semibold flex items-center gap-1.5 cursor-pointer border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#172B4D] transition-all">
+              <span>&larr; Back</span>
+            </button>
+          ` : ''}
+          <button type="button" id="wizard-cancel-btn" class="btn-secondary px-4 py-2 rounded-full text-xs font-semibold cursor-pointer border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#172B4D] transition-all">
             Cancel
           </button>
-          <div class="flex items-center gap-2">
-            ${step > 1 ? `
-              <button type="button" id="wizard-back-btn" class="btn-secondary px-4 py-2 rounded-full text-xs font-semibold flex items-center gap-1.5 cursor-pointer">
-                <span>&larr; Back</span>
-              </button>
-            ` : ''}
-            <button type="button" id="wizard-next-btn" class="btn-primary px-5 py-2 rounded-full text-xs font-bold flex items-center gap-1.5 shadow-xs cursor-pointer">
-              <span>${nextLabel}</span>
-            </button>
-          </div>
+          <button type="button" id="wizard-save-btn" class="btn-secondary px-4 py-2 rounded-full text-xs font-semibold cursor-pointer border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#172B4D] transition-all flex items-center gap-1.5" title="Save current progress">
+            <svg class="w-3.5 h-3.5 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/></svg>
+            <span>Save</span>
+          </button>
+          <button type="button" id="wizard-next-btn" class="btn-primary px-5 py-2 rounded-full text-xs font-bold flex items-center gap-1.5 shadow-xs cursor-pointer bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
+            <span>${nextLabel}</span>
+          </button>
         </div>
       `;
 
@@ -84967,6 +84969,66 @@ const SetupView = {
             renderWizard(1);
           }
         };
+      });
+
+      // Attach Save Button
+      document.getElementById('wizard-save-btn')?.addEventListener('click', () => {
+        saveCurrentStepData(wizardState.step);
+
+        if (!wizardState.client.name) {
+          Toast.show('Please enter Client Name to save', 'warning', 'Required Field');
+          document.getElementById('w-cmp-name')?.focus();
+          return;
+        }
+
+        const clientPlants = (wizardState.client.plantList && wizardState.client.plantList.length > 0)
+          ? wizardState.client.plantList.map(p => p.name)
+          : (wizardState.client.plants ? wizardState.client.plants.split(',').map(p => p.trim()).filter(Boolean) : ['Unit-1 VSP']);
+
+        const existingIdx = this.state.companies.findIndex(c => c.id === wizardState.client.id);
+        const compData = {
+          id: wizardState.client.id,
+          name: wizardState.client.name,
+          code: wizardState.client.shortName || wizardState.client.name.slice(0, 3).toUpperCase(),
+          shortName: wizardState.client.shortName || wizardState.client.name.slice(0, 3).toUpperCase(),
+          logo: wizardState.client.logo || '',
+          address: wizardState.client.address || '',
+          contactPerson: wizardState.client.contactPerson || '',
+          phone: wizardState.client.phone || '',
+          email: wizardState.client.email || '',
+          status: wizardState.client.status || 'Active',
+          plantName: wizardState.client.plantName || 'Unit-1 VSP',
+          plantCode: wizardState.client.plantCode || 'PLT-001',
+          plantStatus: wizardState.client.plantStatus || 'Active',
+          plantContact: wizardState.client.plantContact || '',
+          plantPhone: wizardState.client.plantPhone || '',
+          plantAddress: wizardState.client.plantAddress || '',
+          plants: clientPlants,
+          plantList: wizardState.client.plantList || [],
+          appIcon: wizardState.client.appIcon || '',
+          appLogo: wizardState.client.appLogo || '',
+          headingImg: wizardState.client.headingImg || '',
+          reportHeaderImg: wizardState.client.reportHeaderImg || '',
+          reportFooterImg: wizardState.client.reportFooterImg || '',
+          primaryColor: wizardState.client.primaryColor || '#00A4B7',
+          secondaryColor: wizardState.client.secondaryColor || '#0284C7',
+          bgColor: wizardState.client.bgColor || '#F4F5F7',
+          font: wizardState.client.font || 'Inter, sans-serif',
+          fontSize: wizardState.client.fontSize || '13.5px',
+          footerText: wizardState.client.footerText || ''
+        };
+
+        if (existingIdx !== -1) {
+          this.state.companies[existingIdx] = compData;
+          this.logAudit('Company Setup', `Updated client: ${compData.name} (${compData.code})`);
+        } else {
+          this.state.companies.push(compData);
+          this.logAudit('Company Setup', `Saved client: ${compData.name} (${compData.code})`);
+        }
+
+        this.saveState();
+        if (companyTable) companyTable.setData(this.state.companies);
+        Toast.show(`Client "${compData.name}" saved successfully!`, 'success', 'Saved');
       });
 
       // Attach Cancel Button
@@ -85463,7 +85525,7 @@ const SetupView = {
         <form id="company-client-form" class="space-y-5 text-xs max-h-[75vh] overflow-y-auto px-1 py-1">
           <!-- 1. Client Information -->
           <div class="space-y-3.5">
-            <div class="flex items-center justify-between border-b border-[#F1F5F9] pb-2.5">
+            <div class="flex items-center justify-between border-b border-[#F1F5F9]">
               <div class="flex items-center gap-2">
                 <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">1</span>
                 <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Client Information</span>
@@ -85536,7 +85598,7 @@ const SetupView = {
 
           <!-- 2. Plant Information -->
           <div class="space-y-3.5">
-            <div class="flex items-center justify-between border-b border-[#F1F5F9] pb-2.5">
+            <div class="flex items-center justify-between border-b border-[#F1F5F9]">
               <div class="flex items-center gap-2">
                 <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">2</span>
                 <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Plant Information</span>
@@ -85593,7 +85655,7 @@ const SetupView = {
 
           <!-- 3. Application Add-ons -->
           <div class="space-y-3.5">
-            <div class="flex items-center justify-between border-b border-[#F1F5F9] pb-2.5">
+            <div class="flex items-center justify-between border-b border-[#F1F5F9]">
               <div class="flex items-center gap-2">
                 <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">3</span>
                 <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Application Add-ons</span>
