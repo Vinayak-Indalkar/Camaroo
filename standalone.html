@@ -96002,14 +96002,14 @@ const SettingsView = {
   // MASTER SETUP VIEW (FOR ADMIN ROLE)
   // =========================================================================
   selectedMasterCategory: 'All',
-    activeMasterModule: 'coldstore',
+  activeMasterModule: 'coldstore',
   selectedSubmasterByModule: {
-    coldstore: 'cold_chambers',
-    sales: 'global_buyers',
-    purchase: 'registered_farms',
-    preprocessing: 'grade_specs',
-    qc: 'antibiotic_screens',
-    inventory: 'master_cartons'
+    coldstore: 'cs-general-categories',
+    sales: 'variety-list',
+    purchase: 'graders-list',
+    preprocessing: 'supervisor',
+    qc: 'traceability',
+    inventory: 'vendors-master'
   },
   masterSearchQuery: '',
   masterStatusFilter: 'All',
@@ -96018,289 +96018,544 @@ const SettingsView = {
   initMasterData() {
     if (this.moduleMastersData) return;
 
+    // Helper to extract existing records from SEAFOOD_MASTERS or fallback to custom records
+    const getRecords = (id, fallback = []) => {
+      try {
+        if (typeof SEAFOOD_MASTERS !== 'undefined' && Array.isArray(SEAFOOD_MASTERS)) {
+          const found = SEAFOOD_MASTERS.find(m => m.id === id);
+          if (found && Array.isArray(found.records) && found.records.length > 0) {
+            return JSON.parse(JSON.stringify(found.records));
+          }
+        }
+      } catch (e) {
+        // fallback
+      }
+      return fallback;
+    };
+
     this.moduleMastersData = [
+      // 1. Coldstore Module
       {
         id: 'coldstore',
         title: 'Coldstore',
-        icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v18m9-9H3m15.364-6.364l-12.728 12.728m0-12.728l12.728 12.728"/></svg>`,
+        icon: '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v18m9-9H3m15.364-6.364l-12.728 12.728m0-12.728l12.728 12.728"/></svg>',
         submasters: [
           {
-            id: 'cold_chambers',
-            label: 'Cold Chambers & Deep Freeze Rooms',
+            id: 'cs-general-categories',
+            label: 'General Categories List',
             records: [
-              { code: 'CC-01', name: 'Deep Freezer Room Alpha (Vannamei)', details: 'Temp: -24°C | Capacity: 800 MT | Zone 1 West Wing', status: 'Active' },
-              { code: 'CC-02', name: 'Cold Store Bravo (Black Tiger)', details: 'Temp: -22°C | Capacity: 650 MT | Zone 2 North Wing', status: 'Active' },
-              { code: 'CC-03', name: 'Export Holding Room Charlie', details: 'Temp: -20°C | Capacity: 400 MT | Loading Dock 1', status: 'Active' },
-              { code: 'CC-04', name: 'Buffer Cold Storage Delta', details: 'Temp: -18°C | Capacity: 300 MT | Processing Dock', status: 'Inactive' }
+              { code: 'CAT-CS-01', name: 'Raw Material Holding', details: 'Frozen raw shrimp blocks | -18°C to -22°C', status: 'Active' },
+              { code: 'CAT-CS-02', name: 'Finished IQF Packaging', details: 'Individually Quick Frozen retail bags | -24°C', status: 'Active' },
+              { code: 'CAT-CS-03', name: 'Export Transit Staging', details: 'Palletized reefer container pre-cooling dock', status: 'Active' },
+              { code: 'CAT-CS-04', name: 'Value Added Ready-to-Cook', details: 'Marinated & breaded frozen line staging', status: 'Active' }
             ]
           },
           {
-            id: 'freezing_equipment',
-            label: 'Freezing Equipment (IQF / Blast)',
+            id: 'cs-general-options',
+            label: 'General Options List',
             records: [
-              { code: 'FE-01', name: 'Continuous Belt IQF Tunnel #1', details: 'Rating: 1.5 MT/hr | Refrigerant: NH3 | Cryogenic', status: 'Active' },
-              { code: 'FE-02', name: 'Continuous Belt IQF Tunnel #2', details: 'Rating: 2.0 MT/hr | Refrigerant: Freon 507 | Dual Spiral', status: 'Active' },
-              { code: 'FE-03', name: 'Plate Freezer Bank A (Blocks)', details: '16 Station Hydraulic | Cycle: 90 mins | Block Line', status: 'Active' },
-              { code: 'FE-04', name: 'Air Blast Freezer Chamber 4', details: 'Batch Capacity: 15 MT | Airflow: 45,000 CFM', status: 'Active' }
+              { code: 'OPT-DEFROST', name: 'Auto Hot Gas Defrost Cycle', details: 'Every 6 hours | Max temp swing 1.5°C', status: 'Active' },
+              { code: 'OPT-TEMP-ALARM', name: 'High Temp Alert Threshold', details: 'Trigger SMS/email if temp > -16°C for 15 mins', status: 'Active' },
+              { code: 'OPT-PALLET-TRACK', name: 'RFID Bay Scanning Verification', details: 'Mandatory barcode/RFID scan at bay ingress', status: 'Active' },
+              { code: 'OPT-ENERGY-MODE', name: 'Peak-Hour Compressor Throttling', details: '18:00 to 22:00 thermal buffer conservation', status: 'Active' }
             ]
           },
           {
-            id: 'pallet_racks',
-            label: 'Pallet Racks & Bay Locations',
+            id: 'cs-tenants',
+            label: 'Tenants List',
             records: [
-              { code: 'BAY-A1', name: 'Zone A - Heavy Duty Drive-in Rack', details: 'Levels: 4 | Positions: 320 Pallets | Height: 7.5m', status: 'Active' },
-              { code: 'BAY-B2', name: 'Zone B - Selective Pallet Rack', details: 'Levels: 3 | Positions: 240 Pallets | Height: 6.0m', status: 'Active' },
-              { code: 'BAY-C1', name: 'Zone C - Mobile Compact Racking', details: 'Levels: 5 | Positions: 480 Pallets | Automated Rail', status: 'Active' }
+              { code: 'TNT-001', name: 'Devi Fisheries Internal Storage', details: 'Self-operated core plant chambers | 3,200 MT', status: 'Active' },
+              { code: 'TNT-002', name: 'Oceanic Blue Cold Chain Logistics', details: 'Dedicated commercial lease | Bays C1-C10', status: 'Active' },
+              { code: 'TNT-003', name: 'Apex Marine Cold Storage Partner', details: 'Shared seasonal overflow facility | Zone 4', status: 'Active' }
             ]
           },
           {
-            id: 'temp_sensors',
-            label: 'Temperature Sensors & IoT Loggers',
+            id: 'cs-floor-list',
+            label: 'FloorList',
             records: [
-              { code: 'IOT-01', name: 'Wireless Core Temp Probe CC-1', details: 'Frequency: 1 min | Precision: ±0.1°C | LoRaWAN', status: 'Active' },
-              { code: 'IOT-02', name: 'Ambient Ceiling Sensor CC-2', details: 'Frequency: 5 mins | Calibrated: Oct 2026', status: 'Active' },
-              { code: 'IOT-03', name: 'Door Ajar Contact Sensor Loading', details: 'Alarm Trigger: >45 secs open | Audible Siren', status: 'Active' }
+              { code: 'FLR-G1', name: 'Ground Floor Ingress & Blast Dock', details: 'Heavy duty reinforced concrete | Height 6.5m', status: 'Active' },
+              { code: 'FLR-M1', name: 'Mezzanine Pallet High-Rack Tier 1', details: 'Drive-in automated pallet racks | Height 8.0m', status: 'Active' },
+              { code: 'FLR-M2', name: 'Mezzanine Pallet High-Rack Tier 2', details: 'Narrow aisle articulated forklift zone | Height 12.0m', status: 'Active' }
+            ]
+          },
+          {
+            id: 'cs-block-list',
+            label: 'BlockList',
+            records: [
+              { code: 'BLK-A', name: 'Block A - Deep Chill Vault', details: 'Capacity 1,200 Pallets | Temp: -25°C | Vannamei HL', status: 'Active' },
+              { code: 'BLK-B', name: 'Block B - IQF Retail Finished Goods', details: 'Capacity 950 Pallets | Temp: -22°C | Retail Cartons', status: 'Active' },
+              { code: 'BLK-C', name: 'Block C - Export Holding Buffer', details: 'Capacity 650 Pallets | Temp: -20°C | Loading Dock 1-4', status: 'Active' },
+              { code: 'BLK-D', name: 'Block D - Blast Frozen Raw Stock', details: 'Capacity 800 Pallets | Temp: -24°C | Bulk Blocks', status: 'Active' }
+            ]
+          },
+          {
+            id: 'cs-coldstores-list',
+            label: 'ColdStores List',
+            records: [
+              { code: 'CS-VIZ-01', name: 'Visakhapatnam Central Cold Store', details: 'Capacity 3,500 MT | 6 Chambers | NH3 Refrigeration', status: 'Active' },
+              { code: 'CS-NEL-02', name: 'Nellore Deep Freeze Facility', details: 'Capacity 2,800 MT | 4 Chambers | Freon 507', status: 'Active' },
+              { code: 'CS-KAP-03', name: 'Kakinada Processing Cold Hub', details: 'Capacity 1,500 MT | 3 Chambers | Ammonia Glycol', status: 'Active' }
+            ]
+          },
+          {
+            id: 'cs-hon-packing-count',
+            label: 'Hon Packing Count Master',
+            records: [
+              { code: 'HPC-1620', name: 'Head-On 16/20 Pack Matrix', details: 'Nominal 1.8 kg slab | Master 10.8 kg carton (6x1.8kg)', status: 'Active' },
+              { code: 'HPC-2125', name: 'Head-On 21/25 Pack Matrix', details: 'Nominal 2.0 kg block | Master 12.0 kg carton (6x2.0kg)', status: 'Active' },
+              { code: 'HPC-2630', name: 'Head-On 26/30 Pack Matrix', details: 'Nominal 1.8 kg slab | Master 10.8 kg carton (6x1.8kg)', status: 'Active' },
+              { code: 'HPC-3140', name: 'Head-On 31/40 Pack Matrix', details: 'Nominal 2.0 kg block | Master 12.0 kg carton (6x2.0kg)', status: 'Active' }
             ]
           }
         ]
       },
+
+      // 2. Sales Module
       {
         id: 'sales',
         title: 'Sales',
-        icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`,
+        icon: '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>',
         submasters: [
           {
-            id: 'global_buyers',
-            label: 'Global Buyers & Consignees',
+            id: 'variety-list',
+            label: 'Variety-list',
             records: [
-              { code: 'BYR-01', name: 'AquaStar USA Seafoods Corp', details: 'Country: USA | Port: Los Angeles | Term: CIF 60 Days', status: 'Active' },
-              { code: 'BYR-02', name: 'Nichirei Fresh Logistics Inc', details: 'Country: Japan | Port: Tokyo / Yokohama | Term: LC At Sight', status: 'Active' },
-              { code: 'BYR-03', name: 'Maruha Nichiro Europe B.V.', details: 'Country: Netherlands | Port: Rotterdam | Term: CAD', status: 'Active' },
-              { code: 'BYR-04', name: 'Red Chamber Foods Group', details: 'Country: USA | Port: Long Beach | Term: OA 90 Days', status: 'Active' }
+              { code: 'VAR-VAN', name: 'Litopenaeus Vannamei (White Prawn)', details: 'Cultured Brackish Water | Export Grade A1', status: 'Active' },
+              { code: 'VAR-MON', name: 'Penaeus Monodon (Black Tiger)', details: 'Wild & Cultured Premium Jumbo Shrimp', status: 'Active' },
+              { code: 'VAR-IND', name: 'Fenneropenaeus Indicus (Indian White)', details: 'Coastal Trawl Harvest | Grade B', status: 'Active' },
+              { code: 'VAR-SCAM', name: 'Macrobrachium Rosenbergii (Scampi)', details: 'Freshwater Giant Prawn | Tail & Whole', status: 'Active' }
             ]
           },
           {
-            id: 'ports_loading',
-            label: 'Ports of Loading & Discharge',
+            id: 'exporter',
+            label: 'Exporter',
+            records: getRecords('exporter', [
+              { code: 'EXP-101', name: 'Devi Fisheries Limited - VSEZ Unit', details: 'EIA 1018, FDA 19827341234, Visakhapatnam', status: 'Active' },
+              { code: 'EXP-102', name: 'Devi Marine Exports Private Ltd', details: 'EIA 1067, Nellore Value Addition Unit', status: 'Active' }
+            ])
+          },
+          {
+            id: 'processor',
+            label: 'Processor',
+            records: getRecords('processor', [
+              { code: 'PRC-01', name: 'Devi Plant 1 - Autonagar Block B', details: 'Blast Freezer 40 MT/Day, IQF Line 1', status: 'Active' },
+              { code: 'PRC-02', name: 'Devi Plant 2 - Singarayakonda Unit', details: 'Plate Freezer 25 MT/Day, Value Addition Line', status: 'Active' }
+            ])
+          },
+          {
+            id: 'payment-terms',
+            label: 'Payment Terms',
+            records: getRecords('payment-terms', [
+              { code: 'PT-01', name: '100% LC at Sight from Prime Bank', details: 'Irrevocable, confirmed letter of credit', status: 'Active' },
+              { code: 'PT-02', name: '20% Advance, Balance 80% CAD', details: 'Documents through bank upon BL surrender', status: 'Active' }
+            ])
+          },
+          {
+            id: 'liners-list',
+            label: 'Liners List',
+            records: getRecords('liners-list', [
+              { code: 'LIN-MSK', name: 'Maersk Line India Pvt Ltd', details: 'Direct Reefer Service to US East Coast / Rotterdam', status: 'Active' },
+              { code: 'LIN-MSC', name: 'Mediterranean Shipping Company (MSC)', details: 'Weekly call at Vizag / Krishnapatnam Port', status: 'Active' }
+            ])
+          },
+          {
+            id: 'countrywise-address-list',
+            label: 'Countrywise Address List',
+            records: getRecords('countrywise-address-list', [
+              { code: 'ADR-USA', name: 'US Logistics Clearing Hub - Tampa Port', details: 'Devi Seafoods Inc, 4202 Maritime Blvd, Tampa, FL 33605', status: 'Active' },
+              { code: 'ADR-EU', name: 'EU Inspection Distribution Point - Rotterdam', details: 'Devi Marine B.V., Port 2440, Maasvlakte, 3199 LK Rotterdam', status: 'Active' }
+            ])
+          },
+          {
+            id: 'cha',
+            label: 'CHA',
+            records: getRecords('cha', [
+              { code: 'CHA-01', name: 'Seaways Shipping & Logistics Ltd', details: 'Custom House Agent Lic: R-04/VIZAG, All Ports', status: 'Active' },
+              { code: 'CHA-02', name: 'Transworld Clearing Agency Pvt Ltd', details: 'Lic: CH-8812, Specialization: Reefer Containers', status: 'Active' }
+            ])
+          },
+          {
+            id: 'tax-charges',
+            label: 'Tax Charges',
+            records: getRecords('tax-charges', [
+              { code: 'TC-EIA', name: 'EIA Health Certificate Cess', details: 'Rate: 0.15% on FOB Value | Regulatory', status: 'Active' },
+              { code: 'TC-MPEDA', name: 'MPEDA Export Promotion Levy', details: 'Rate: 0.5% on Invoice Value', status: 'Active' }
+            ])
+          },
+          {
+            id: 'description-list',
+            label: 'Description List',
+            records: getRecords('description-list', [
+              { code: 'DSC-01', name: 'Frozen Headless Shell-On (HLSO) Vannamei', details: 'IQF / Block Frozen in food grade polybags', status: 'Active' },
+              { code: 'DSC-02', name: 'Frozen Peeled & Deveined Tail-On (PDTO)', details: 'Individually Quick Frozen with 100% net weight', status: 'Active' }
+            ])
+          },
+          {
+            id: 'ports-list',
+            label: 'Ports List',
+            records: getRecords('ports-list', [
+              { code: 'PORT-VTZ', name: 'Visakhapatnam Port (INVTZ1)', details: 'Reefer Plugs: 450 | Terminal: VCTPL | East Coast', status: 'Active' },
+              { code: 'PORT-KRP', name: 'Krishnapatnam Port (INKRI1)', details: 'Reefer Plugs: 320 | Terminal: KPCT | South Coast', status: 'Active' }
+            ])
+          },
+          {
+            id: 'currency',
+            label: 'Currency',
+            records: getRecords('currency', [
+              { code: 'USD', name: 'United States Dollar ($)', details: 'Standard Export Settlement Currency', status: 'Active' },
+              { code: 'EUR', name: 'Euro (€)', details: 'European Union Member States Settlement', status: 'Active' },
+              { code: 'JPY', name: 'Japanese Yen (¥)', details: 'Direct JPY L/C Remittance Currency', status: 'Active' }
+            ])
+          },
+          {
+            id: 'exchange-rates',
+            label: 'Exchange Rates',
+            records: getRecords('exchange-rates', [
+              { code: 'FX-USDINR', name: 'USD to INR Standard Custom Book Rate', details: '1 USD = ₹86.45 INR | Weekly RBI Gazette', status: 'Active' },
+              { code: 'FX-EURINR', name: 'EUR to INR Commercial Export Rate', details: '1 EUR = ₹91.80 INR | Daily Forex Fix', status: 'Active' }
+            ])
+          },
+          {
+            id: 'banks-list',
+            label: 'Banks List',
+            records: getRecords('banks-list', [
+              { code: 'BNK-SBI', name: 'State Bank of India - Overseas Branch Vizag', details: 'SWIFT: SBININBB301, Export Credit Facility ₹120 Cr', status: 'Active' },
+              { code: 'BNK-HDFC', name: 'HDFC Bank - Trade Services Division', details: 'SWIFT: HDFCINBBXXX, Forex Hedging Desk', status: 'Active' }
+            ])
+          },
+          {
+            id: 'store-delivery-details',
+            label: 'Store Delivery Details List',
+            records: getRecords('store-delivery-details', [
+              { code: 'SDD-COS', name: 'Costco Wholesale Central DC - Tracy CA', details: 'Dock 42-48, Appointment delivery, Temp: -22°C', status: 'Active' },
+              { code: 'SDD-SYS', name: 'Sysco Food Services National Cold Hub - Dallas', details: 'Gate 3 Reefer Ingress, Automated Pallet offload', status: 'Active' }
+            ])
+          },
+          {
+            id: 'freight-rates',
+            label: 'Freight Rates',
+            records: getRecords('freight-rates', [
+              { code: 'OFR-USNYC', name: 'Ocean Reefer Freight: Vizag -> New York', details: 'US$ 4,200 per 40ft High Cube Reefer (Maersk)', status: 'Active' },
+              { code: 'OFR-EURTM', name: 'Ocean Reefer Freight: Vizag -> Rotterdam', details: 'US$ 3,450 per 40ft High Cube Reefer (CMA CGM)', status: 'Active' }
+            ])
+          },
+          {
+            id: 'liners-contracts',
+            label: 'Liners Contracts',
             records: [
-              { code: 'POL-01', name: 'Visakhapatnam Port (INVTZ)', details: 'Type: Loading Port | Container Terminal: VCTPL', status: 'Active' },
-              { code: 'POL-02', name: 'Krishnapatnam Port (INKRI)', details: 'Type: Loading Port | KPCL Deep Draft Terminal', status: 'Active' },
-              { code: 'POD-01', name: 'Port of Los Angeles (USLAX)', details: 'Type: Discharge Port | Reefers Express Service', status: 'Active' },
-              { code: 'POD-02', name: 'Port of Rotterdam (NLRTM)', details: 'Type: Discharge Port | European Gateway', status: 'Active' }
+              { code: 'LNC-MSK-26', name: 'Maersk Annual Reefer Commitment 2026', details: 'Volume: 450 FEU/yr | Fixed BAF Indexation | Vizag to USWC', status: 'Active' },
+              { code: 'LNC-MSC-26', name: 'MSC Service Contract SC-99128', details: 'Volume: 250 FEU/yr | Free time: 14 days demurrage/detention', status: 'Active' },
+              { code: 'LNC-ONE-26', name: 'Ocean Network Express (ONE) Reefer Agreement', details: 'Volume: 180 FEU/yr | Dedicated Cold Treatment monitors', status: 'Active' }
             ]
           },
           {
-            id: 'shipping_liners',
-            label: 'Shipping Liners & Freight Agents',
+            id: 'reciprocal-tariffs',
+            label: 'Reciprocal Tariffs',
             records: [
-              { code: 'LIN-01', name: 'Maersk Line Reefers Express', details: 'Contact: ops@maersk.com | Smart Reefer Telematics', status: 'Active' },
-              { code: 'LIN-02', name: 'Mediterranean Shipping Co (MSC)', details: 'Contact: reefer@msc.com | Controlled Atmosphere CA', status: 'Active' },
-              { code: 'LIN-03', name: 'Ocean Network Express (ONE)', details: 'Contact: bookings@one-line.com | Asia-Pacific Core', status: 'Active' }
+              { code: 'TRF-US-AD', name: 'US Anti-Dumping Duty (DOC 19th Review)', details: 'Rate: 1.42% Cash Deposit | Applicable to Devi Fisheries Ltd', status: 'Active' },
+              { code: 'TRF-US-CVD', name: 'Countervailing Duty Preliminary Margin', details: 'Rate: 2.15% | Customs Bonded Guarantee', status: 'Active' },
+              { code: 'TRF-EU-GSP', name: 'EU Generalised Scheme of Preferences Tariff', details: 'Standard Duty: 4.2% on raw frozen shrimp', status: 'Active' }
             ]
           },
           {
-            id: 'trade_terms',
-            label: 'Commercial Trade Terms (Incoterms)',
+            id: 'po-tax-rates',
+            label: 'PO Tax Rates',
             records: [
-              { code: 'TRM-01', name: 'FOB - Free On Board (Visakhapatnam)', details: 'Seller delivers goods on board vessel nominated by buyer', status: 'Active' },
-              { code: 'TRM-02', name: 'CIF - Cost, Insurance & Freight', details: 'Seller pays sea freight & minimum insurance coverage', status: 'Active' },
-              { code: 'TRM-03', name: 'CFR - Cost and Freight', details: 'Seller pays ocean freight to destination port', status: 'Active' }
-            ]
-          },
-          {
-            id: 'exchange_rates',
-            label: 'Forex Benchmark Rates',
-            records: [
-              { code: 'FX-USD', name: 'USD / INR Benchmark', details: 'Ref Rate: 86.42 | Hedged Limit: 86.00 - 87.20', status: 'Active' },
-              { code: 'FX-EUR', name: 'EUR / INR Benchmark', details: 'Ref Rate: 93.15 | Monthly Forward Lock Active', status: 'Active' },
-              { code: 'FX-JPY', name: 'JPY / INR Benchmark', details: 'Ref Rate: 0.58 | Spot Basis Realization', status: 'Active' }
+              { code: 'POT-GST-0', name: 'Zero-Rated GST Export Supply (LUT)', details: 'IGST 0% under Letter of Undertaking for Export', status: 'Active' },
+              { code: 'POT-GST-5', name: 'Domestic Packaged Seafood GST', details: 'CGST 2.5% + SGST 2.5% = Total 5%', status: 'Active' },
+              { code: 'POT-TCS-01', name: 'TCS on Foreign Remittance / Trade', details: 'Section 206C(1H) | 0.1% on turnover > ₹50L', status: 'Active' }
             ]
           }
         ]
       },
+
+      // 3. Purchase Module
       {
         id: 'purchase',
         title: 'Purchase',
-        icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>`,
+        icon: '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>',
         submasters: [
           {
-            id: 'registered_farms',
-            label: 'Registered Farms & Ponds',
-            records: [
-              { code: 'FRM-01', name: 'Godavari Coastal Aqua Farm (Pond 1-8)', details: 'Location: Bhimavaram, AP | CAA Reg: AP-BHM-2024-89 | Area: 14 Ha', status: 'Active' },
-              { code: 'FRM-02', name: 'Krishna Delta Bio-Shrimp Cluster', details: 'Location: Machilipatnam, AP | BAP 4-Star Certified | Area: 22 Ha', status: 'Active' },
-              { code: 'FRM-03', name: 'Sunrise Aqua Hatchery Linked Ponds', details: 'Location: Nellore, AP | ASC Certified | Area: 18 Ha', status: 'Active' },
-              { code: 'FRM-04', name: 'Kalingapatnam Coastal Brackish Ponds', details: 'Location: Srikakulam, AP | Area: 10 Ha | Traditional', status: 'Active' }
-            ]
+            id: 'graders-list',
+            label: 'Graders List',
+            records: getRecords('graders-list', [
+              { code: 'GRD-01', name: 'K. Satyanarayana', details: 'Senior Raw Material Quality Grader, 14 yrs exp', status: 'Active' },
+              { code: 'GRD-02', name: 'M. Venkat Rao', details: 'Field Procurement & Count Verifier, Bapatla Center', status: 'Active' }
+            ])
           },
           {
-            id: 'purchase_rates',
-            label: 'Raw Material Purchase Rates',
-            records: [
-              { code: 'PR-30C', name: 'Vannamei 30 Count Standard Rate', details: 'INR 440 / Kg | Base Yield: 98% | Farm Gate Price', status: 'Active' },
-              { code: 'PR-40C', name: 'Vannamei 40 Count Standard Rate', details: 'INR 380 / Kg | Base Yield: 98% | Farm Gate Price', status: 'Active' },
-              { code: 'PR-50C', name: 'Vannamei 50 Count Standard Rate', details: 'INR 330 / Kg | Base Yield: 97% | Farm Gate Price', status: 'Active' },
-              { code: 'PR-BT20', name: 'Black Tiger 20 Count Premium Rate', details: 'INR 680 / Kg | Premium Color A3 | Export Grade', status: 'Active' }
-            ]
+            id: 'agents-list',
+            label: 'Agents List',
+            records: getRecords('agents-list', [
+              { code: 'AGT-01', name: 'Sri Krishna Aqua Consultants', details: 'Rep: B. Krishna, Bhimavaram Hub, Coverage: 120 Farms', status: 'Active' },
+              { code: 'AGT-02', name: 'Godavari Coastal Procurement Agency', details: 'Rep: N. Rambabu, Amalapuram, Coverage: 85 Farms', status: 'Active' }
+            ])
           },
           {
-            id: 'harvest_vehicles',
-            label: 'Insulated Harvest Vehicles',
-            records: [
-              { code: 'VEH-01', name: 'Reefer Truck AP-39-TX-4521', details: 'Capacity: 8 MT | Slurry Ice Tank Fitted | GPS Monitored', status: 'Active' },
-              { code: 'VEH-02', name: 'Insulated Van AP-37-AB-9820', details: 'Capacity: 5 MT | Insulated FRP Lining | Chilled Water', status: 'Active' },
-              { code: 'VEH-03', name: 'Heavy Hauler AP-31-ZZ-1102', details: 'Capacity: 12 MT | Twin Compressor Unit | Oxygen Aeration', status: 'Active' }
-            ]
+            id: 'financiers-list',
+            label: 'Financiers List',
+            records: getRecords('financiers-list', [
+              { code: 'FIN-01', name: 'Andhra Pradesh State Financial Corp (APSFC)', details: 'Working capital seasonal aquaculture facility', status: 'Active' },
+              { code: 'FIN-02', name: 'Nabard Aqua Refinance Scheme', details: 'Rural cold chain and farm harvest credit line', status: 'Active' }
+            ])
           },
           {
-            id: 'logistics_drivers',
-            label: 'Harvest Logistics Drivers',
-            records: [
-              { code: 'DRV-01', name: 'R. Krishna Murthy', details: 'Lic: AP-BHM-7821-C | Exp: 8 Yrs | Cold-Chain Certified', status: 'Active' },
-              { code: 'DRV-02', name: 'K. Venkateswara Rao', details: 'Lic: AP-VIZ-4412-H | Exp: 12 Yrs | Night Harvest Specialist', status: 'Active' },
-              { code: 'DRV-03', name: 'P. Appa Rao', details: 'Lic: AP-NEL-9921-X | Exp: 5 Yrs | GPS Tracked', status: 'Active' }
-            ]
+            id: 'drivers-list',
+            label: 'Drivers List',
+            records: getRecords('drivers-list', [
+              { code: 'DRV-01', name: 'P. Appala Naidu', details: 'DL: AP31 20120004523, Heavy Transport Commercial', status: 'Active' },
+              { code: 'DRV-02', name: 'S. Koteswara Rao', details: 'DL: AP39 20180009841, Insulated Truck Certified', status: 'Active' }
+            ])
           },
           {
-            id: 'hatcheries',
-            label: 'Certified Hatcheries & Broodstock',
-            records: [
-              { code: 'HAT-01', name: 'Kona Bay Broodstock Hatchery', details: 'SPF Certified | Strain: Fast Growth Gen 14 | Mangalore', status: 'Active' },
-              { code: 'HAT-02', name: 'SIS Aqua Seed Technology Center', details: 'CAA Approved | Post-Larvae PL-10 & PL-12 | Visakhapatnam', status: 'Active' }
-            ]
+            id: 'vehicle-list',
+            label: 'Vehicle List',
+            records: getRecords('vehicle-list', [
+              { code: 'VEH-AP31-TT', name: 'AP 31 TT 4452 (Reefer Truck 10T)', details: 'Carrier Transicold Unit, GPS Tracked, Temp Logger', status: 'Active' },
+              { code: 'VEH-AP39-TX', name: 'AP 39 TX 7810 (Insulated Harvest Van 6T)', details: 'Fiberglass insulated tub body, Slurry Ice Equipped', status: 'Active' }
+            ])
+          },
+          {
+            id: 'yields',
+            label: 'Yields',
+            records: getRecords('yields', [
+              { code: 'YLD-HLSO', name: 'Head-On to Headless Shell-On Yield Target', details: 'Standard: 65.5% - 67.2% | Tolerance ±0.5%', status: 'Active' },
+              { code: 'YLD-PDTO', name: 'Head-On to Peeled & Deveined Tail-On', details: 'Standard: 51.5% - 53.0% | Tolerance ±0.8%', status: 'Active' }
+            ])
+          },
+          {
+            id: 'vm-rates-2',
+            label: 'VM Rates 2',
+            records: getRecords('vm-rates-2', [
+              { code: 'VMR-30C', name: 'Vannamei Spot Procurement: 30 Count', details: 'Base: ₹440/kg | Premium for BAP 4-Star Certified', status: 'Active' },
+              { code: 'VMR-40C', name: 'Vannamei Spot Procurement: 40 Count', details: 'Base: ₹380/kg | Standard Farm Gate Price', status: 'Active' },
+              { code: 'VMR-50C', name: 'Vannamei Spot Procurement: 50 Count', details: 'Base: ₹325/kg | Grade A Clean Harvest', status: 'Active' }
+            ])
+          },
+          {
+            id: 'master-counts',
+            label: 'Master Counts',
+            records: getRecords('master-counts', [
+              { code: 'CNT-1620', name: '16/20 Pieces per Pound (Pcs/Lb)', details: 'Piece weight: 22.7g - 28.3g | Jumbo Grade', status: 'Active' },
+              { code: 'CNT-2125', name: '21/25 Pieces per Pound (Pcs/Lb)', details: 'Piece weight: 18.1g - 21.6g | Extra Large', status: 'Active' },
+              { code: 'CNT-2630', name: '26/30 Pieces per Pound (Pcs/Lb)', details: 'Piece weight: 15.1g - 17.5g | Large', status: 'Active' },
+              { code: 'CNT-3140', name: '31/40 Pieces per Pound (Pcs/Lb)', details: 'Piece weight: 11.3g - 14.6g | Medium Large', status: 'Active' }
+            ])
           }
         ]
       },
+
+      // 4. Preprocessing Module
       {
         id: 'preprocessing',
         title: 'Preprocessing',
-        icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>`,
+        icon: '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.121 14.121L19 19m-7-7l7-7m-7 7l-2.879 2.879a3 3 0 11-4.242-4.242L10.5 8.5"/></svg>',
         submasters: [
           {
-            id: 'grade_specs',
-            label: 'Count & Grade Specifications',
+            id: 'supervisor',
+            label: 'Supervisor',
+            records: getRecords('supervisor', [
+              { code: 'SUP-01', name: 'D. Srinivas Rao', details: 'Receiving, De-heading & Washing Hall Manager', status: 'Active' },
+              { code: 'SUP-02', name: 'G. Lakshmi Prasanna', details: 'Peeled & Deveined Line Quality Supervisor', status: 'Active' }
+            ])
+          },
+          {
+            id: 'hl-va-variety-list',
+            label: 'Hl Va Variety List',
+            records: getRecords('hl-va-variety-list', [
+              { code: 'HLVA-01', name: 'Vannamei Easy-Peel Butterfly Cut', details: 'Deep slit back, vein removed, tail shell retained', status: 'Active' },
+              { code: 'HLVA-02', name: 'Vannamei Skewered Nobashi Tail-On', details: 'Stretched 13-15cm, tendon cut, tempura ready', status: 'Active' },
+              { code: 'HLVA-03', name: 'Vannamei Marinated Garlic Herb Skewers', details: '4 pieces on bamboo stick, frozen retail vacuum pack', status: 'Active' }
+            ])
+          },
+          {
+            id: 'chemicals-master',
+            label: 'Chemicals Master',
+            records: getRecords('chemicals-master', [
+              { code: 'CHM-STPP', name: 'Sodium Tripolyphosphate (STPP) Food Grade', details: 'FCC / E451 standard, Moisture retention agent', status: 'Active' },
+              { code: 'CHM-NONPHOS', name: 'Non-Phosphate Moisture Retaining Blend', details: 'Sodium bicarbonate + Citric acid certified formulation', status: 'Active' },
+              { code: 'CHM-CLO2', name: 'Chlorine Dioxide Sanitizing Flakes', details: '50 ppm water disinfection in chill tank wash', status: 'Active' }
+            ])
+          },
+          {
+            id: 'chemicals-suppliers-list',
+            label: 'Chemicals SuppliersList',
             records: [
-              { code: 'GRD-16/20', name: '16/20 Count Grade (Super Jumbo)', details: 'Target: 16 to 20 pcs/lb | Uniformity Ratio < 1.25', status: 'Active' },
-              { code: 'GRD-21/25', name: '21/25 Count Grade (Extra Jumbo)', details: 'Target: 21 to 25 pcs/lb | Head-on / Headless', status: 'Active' },
-              { code: 'GRD-26/30', name: '26/30 Count Grade (Jumbo)', details: 'Target: 26 to 30 pcs/lb | Export Specification', status: 'Active' },
-              { code: 'GRD-31/40', name: '31/40 Count Grade (Large)', details: 'Target: 31 to 40 pcs/lb | High Volume Product Form', status: 'Active' },
-              { code: 'GRD-41/50', name: '41/50 Count Grade (Medium)', details: 'Target: 41 to 50 pcs/lb | Peeled Tail-on / PD', status: 'Active' }
+              { code: 'SUP-CHM-01', name: 'Prayon Phosphate Solutions India', details: 'ISO 9001 certified supplier of high-purity STPP | Mumbai', status: 'Active' },
+              { code: 'SUP-CHM-02', name: 'Aditya Birla Chemicals (Food Additives)', details: 'Non-phosphate seafood texturizer mixtures | Renukoot', status: 'Active' },
+              { code: 'SUP-CHM-03', name: 'Chemours Sanitech Systems India', details: 'Chlorine dioxide and ozone sanitation equipment | Chennai', status: 'Active' }
             ]
           },
           {
-            id: 'variety_forms',
-            label: 'Variety & Product Forms',
+            id: 'chemicals-buyers-list',
+            label: 'Chemicals BuyersList',
             records: [
-              { code: 'PF-HOSO', name: 'Head-On Shell-On (HOSO)', details: 'Intact Antennae & Head | Grade A Freshness Standard', status: 'Active' },
-              { code: 'PF-HLSO', name: 'Headless Shell-On (HLSO)', details: 'Clean manual deheading | 6 Segments intact', status: 'Active' },
-              { code: 'PF-PD', name: 'Peeled & Deveined (PD)', details: 'Dorsal vein removed | Needle deveined / Cut deveined', status: 'Active' },
-              { code: 'PF-PTO', name: 'Peeled Tail-On (PTO)', details: 'Tail fan intact | Butterfly or Round Style', status: 'Active' },
-              { code: 'PF-EZPEEL', name: 'Easy Peel (Split & Deveined)', details: 'Dorsal shell split 1st to 5th segment', status: 'Active' }
-            ]
-          },
-          {
-            id: 'yield_standards',
-            label: 'Yield Standards & Peeling Factors',
-            records: [
-              { code: 'YLD-DEHEAD', name: 'Deheading Recovery Standard', details: 'Target Recovery: 65.5% - 67.0% | Variance: ±0.5%', status: 'Active' },
-              { code: 'YLD-PEEL-PD', name: 'Peeled Deveined Peeling Yield', details: 'Target Recovery: 51.5% - 53.0% | Labor Table Standard', status: 'Active' },
-              { code: 'YLD-PEEL-PTO', name: 'Peeled Tail-On Peeling Yield', details: 'Target Recovery: 55.0% - 56.5% | Tail Fan Retention', status: 'Active' }
-            ]
-          },
-          {
-            id: 'grading_lines',
-            label: 'Grading Lines & Processing Tables',
-            records: [
-              { code: 'LINE-01', name: 'High-Speed Roller Grader Line 1', details: 'Channels: 6 Grades | Capacity: 2.5 MT/hr | Stainless 316', status: 'Active' },
-              { code: 'LINE-02', name: 'Manual Inspection Sorting Belt 2', details: 'Stations: 16 Workers | LED Illuminated | Washdown Safe', status: 'Active' },
-              { code: 'LINE-03', name: 'Deheading Processing Belt East', details: 'Stations: 32 Deheaders | Chilled Flume Drainage', status: 'Active' }
+              { code: 'BYR-CHM-01', name: 'Devi Fisheries Autonagar Unit 1 In-House', details: 'Internal transfer requisition: STPP 4.5 MT/month', status: 'Active' },
+              { code: 'BYR-CHM-02', name: 'Devi Singarayakonda Unit 2 Processing Hall', details: 'Internal transfer requisition: Non-Phos 3.0 MT/month', status: 'Active' },
+              { code: 'BYR-CHM-03', name: 'Nellore Shrimp Pre-processing Contract Unit', details: 'Authorized partner allocation under strict QC signoff', status: 'Active' }
             ]
           }
         ]
       },
+
+      // 5. Quality Control Module
       {
         id: 'qc',
         title: 'Quality Control',
-        icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>`,
+        icon: '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>',
         submasters: [
           {
-            id: 'antibiotic_screens',
-            label: 'Antibiotic & Chemical Screenings',
+            id: 'traceability',
+            label: 'Traceability',
+            records: getRecords('traceability', [
+              { code: 'TRC-BAP', name: 'BAP 4-Star End-to-End Chain of Custody', details: 'Hatchery -> Farm -> Feed Mill -> Processing Plant -> Cold Store', status: 'Active' },
+              { code: 'TRC-ASC', name: 'ASC Chain of Custody (MSC-C-54129)', details: 'Strict segregation, non-GMO verified traceability', status: 'Active' }
+            ])
+          },
+          {
+            id: 'lab-users-list',
+            label: 'LabUsersList',
+            records: getRecords('lab-users-list', [
+              { code: 'LAB-USR-01', name: 'Dr. T. Haritha (Microbiologist)', details: 'NABL Certified, LC-MS/MS & ELISA Senior Analyst', status: 'Active' },
+              { code: 'LAB-USR-02', name: 'B. Ravindra (Chemist)', details: 'Heavy metals (ICP-MS) & Nitrofurans Screening lead', status: 'Active' }
+            ])
+          },
+          {
+            id: 'lab-analysis-list',
+            label: 'Lab Analysis List',
+            records: getRecords('lab-analysis-list', [
+              { code: 'LBA-ELISA', name: 'ELISA Screening: Chloramphenicol & Nitrofurans', details: 'Limit of Detection: 0.1 ppb | Fast turnaround 3 hrs', status: 'Active' },
+              { code: 'LBA-LCMS', name: 'LC-MS/MS Confirmatory Antibiotic Screen', details: 'AOZ, AMOZ, AHD, SEM, Tetracyclines, Quinolones', status: 'Active' },
+              { code: 'LBA-MICRO', name: 'Standard Microbial Panel (TPC, E.coli, Salmonella)', details: 'ISO 4833 & ISO 6579 compliant bacteriology', status: 'Active' }
+            ])
+          },
+          {
+            id: 'external-lab-names',
+            label: 'External Lab Names',
+            records: getRecords('external-lab-names', [
+              { code: 'EXT-EIC', name: 'Export Inspection Agency (EIA) Central Lab', details: 'NABL Accr: TC-5512, Government Regulatory Body, Vizag', status: 'Active' },
+              { code: 'EXT-SGS', name: 'SGS India Testing Laboratory - Cochin', details: 'NABL Accr: TC-6029, Third Party International Inspection', status: 'Active' },
+              { code: 'EXT-EUR', name: 'Eurofins Analytical Services India - Bangalore', details: 'Global reference lab for PFAS, Microplastics & Antibiotics', status: 'Active' }
+            ])
+          },
+          {
+            id: 'audit-categories-list',
+            label: 'Audit Categories List',
             records: [
-              { code: 'QC-CAP', name: 'Chloramphenicol (CAP) Screening', details: 'Method: ELISA / LC-MS-MS | MRL: Zero Tolerance (<0.1 ppb)', status: 'Active' },
-              { code: 'QC-NITRO', name: 'Nitrofuran Metabolites (AOZ, AMOZ, SEM, AHD)', details: 'Method: LC-MS-MS Confirmation | Threshold: <0.5 ppb', status: 'Active' },
-              { code: 'QC-TETRA', name: 'Tetracycline & Oxytetracycline Group', details: 'Method: Rapid Strip & HPLC | MRL: <100 ppb EU/US Spec', status: 'Active' },
-              { code: 'QC-SULFA', name: 'Sulfonamides Multi-Residue Screen', details: 'Method: ELISA 12-plex | Limit: <10 ppb Combined', status: 'Active' }
+              { code: 'AUD-CAT-BIO', name: 'Biological Hazard & Pathogen Controls', details: 'Listeria, Salmonella, Vibrio cholerae & parahaemolyticus audits', status: 'Active' },
+              { code: 'AUD-CAT-SAN', name: 'Sanitation Standard Operating Procedures (SSOP)', details: '8 key sanitation conditions monitored across each 8-hour shift', status: 'Active' },
+              { code: 'AUD-CAT-GMP', name: 'Good Manufacturing Practices (GMP)', details: 'Facility infrastructure, personnel hygiene, water & air quality', status: 'Active' },
+              { code: 'AUD-CAT-SOC', name: 'Social Accountability & Ethical Sourcing', details: 'SMETA / SEDEX Pillar 4 human rights & workplace safety audit', status: 'Active' }
             ]
           },
           {
-            id: 'treatment_chemicals',
-            label: 'Permitted Treatment Chemicals',
+            id: 'audit-categories-options-list',
+            label: 'Audit Categories Options List',
             records: [
-              { code: 'CHM-NONPHOS', name: 'Non-Phosphate Moisture Retainer (Carastab)', details: 'Ingredients: Sodium Citrate, Carbonate | Dosage: 1.5% - 2.0%', status: 'Active' },
-              { code: 'CHM-STPP', name: 'Sodium Tripolyphosphate Food Grade', details: 'Usage: Controlled EU/US formulation | Max P2O5: 0.5%', status: 'Active' },
-              { code: 'CHM-METABI', name: 'Sodium Metabisulfite (Anti-Melanosis)', details: 'Max SO2 Residual: <10 ppm in finished peeled shrimp', status: 'Active' }
+              { code: 'ACO-MANDATORY', name: 'Mandatory Critical Non-Conformance (Stop Line)', details: 'Zero tolerance: immediate batch quarantine & root cause RCA', status: 'Active' },
+              { code: 'ACO-MAJOR', name: 'Major Non-Conformance (24h Rectification)', details: 'Corrective action plan required within 24 hours of finding', status: 'Active' },
+              { code: 'ACO-MINOR', name: 'Minor Non-Conformance (Continuous Improvement)', details: 'Resolved during routine maintenance or next scheduled review', status: 'Active' }
             ]
           },
           {
-            id: 'external_labs',
-            label: 'Approved External Testing Labs',
+            id: 'audit-dropdown-master',
+            label: 'Audit Dropdown Master',
             records: [
-              { code: 'LAB-EIC', name: 'Export Inspection Agency (EIA) Lab', details: 'Accreditation: NABL ISO 17025 | Govt Statutory Pre-Export', status: 'Active' },
-              { code: 'LAB-SGS', name: 'SGS India Seafood Testing Laboratory', details: 'Cert: ISO/IEC 17025 | 24-hr Rapid Antibiotic Turnaround', status: 'Active' },
-              { code: 'LAB-TUV', name: 'TUV SUD South Asia Food Lab', details: 'Method: Heavy Metals, Histamine, Micro Screening', status: 'Active' }
+              { code: 'ADM-RESULT', name: 'Audit Finding Disposition Statuses', details: 'Options: Pass, Conditional Pass, Fail, Re-audit Required', status: 'Active' },
+              { code: 'ADM-SCOPE', name: 'Audit Scope Boundary Definitions', details: 'Options: Receiving Dock, Processing Floor, Cold Store, Dispatch', status: 'Active' },
+              { code: 'ADM-FREQ', name: 'Audit Frequency Interval Presets', details: 'Options: Daily Pre-op, Weekly SSOP, Monthly Internal, Annual BRCGS', status: 'Active' }
             ]
           },
           {
-            id: 'traceability_codes',
-            label: 'Traceability & Lot Codes',
-            records: [
-              { code: 'TRC-BAP', name: 'BAP 4-Star Traceability Protocol', details: 'Chain of Custody Hatchery-Feed-Farm-Plant verified', status: 'Active' },
-              { code: 'TRC-ASC', name: 'ASC Chain of Custody Standard CoC', details: 'Registration: ASC-C-01824 | Segregated Storage', status: 'Active' }
-            ]
+            id: 'farms-list',
+            label: 'Farms List',
+            records: getRecords('farms-list', [
+              { code: 'FRM-CAA-01', name: 'Bapatla Aqua Farm Cluster #4', details: 'CAA Reg: AP-BPT-2018-882, Area: 45 Ha, BAP 4★ Certified', status: 'Active' },
+              { code: 'FRM-CAA-02', name: 'Kavali Coastal Shrimp Ponds Unit 2', details: 'CAA Reg: AP-NLR-2020-1194, Area: 60 Ha, ASC Certified', status: 'Active' }
+            ])
+          },
+          {
+            id: 'certification-body-list',
+            label: 'Certification Body List',
+            records: getRecords('certification-body-list', [
+              { code: 'CB-BAP', name: 'Global Seafood Alliance (BAP)', details: 'Category: Aquaculture BAP 4-Star Certified Entity', status: 'Active' },
+              { code: 'CB-BRCGS', name: 'BRCGS Global Standard for Food Safety (Issue 9)', details: 'Auditor: DNV GL Business Assurance, Grade: AA+', status: 'Active' }
+            ])
+          },
+          {
+            id: 'hatchery-list',
+            label: 'Hatchery List',
+            records: getRecords('hatchery-list', [
+              { code: 'HAT-01', name: 'Devi Aquatech Broodstock Multiplication Center', details: 'CAA Reg: HAT-AP-012, SPF Broodstock imported from Hawaii', status: 'Active' },
+              { code: 'HAT-02', name: 'Golden Marine Hatcheries - Marakkanam', details: 'CAA Reg: HAT-TN-045, High-health PL-10 Vannamei Seed', status: 'Active' }
+            ])
           }
         ]
       },
+
+      // 6. Inventory Module
       {
         id: 'inventory',
         title: 'Inventory',
-        icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>`,
+        icon: '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>',
         submasters: [
           {
-            id: 'master_cartons',
-            label: 'Master Cartons & Inner Polybags',
+            id: 'vendors-master',
+            label: 'Vendors Master',
             records: [
-              { code: 'PKG-MC-10KG', name: '5-Ply Master Carton 10 Kg Export', details: 'Bursting Strength: 14 kg/cm² | Moisture Resistant Kraft | 6x1.8kg', status: 'Active' },
-              { code: 'PKG-MC-20LB', name: 'Master Carton 20 Lbs US Retail', details: 'Dimensions: 480x320x210mm | Printed Barcode Side Panels', status: 'Active' },
-              { code: 'PKG-POLY-1KG', name: 'Printed Zipper Pouch 1 Kg (AquaStar)', details: 'Material: Multi-layer Barrier Film | Gusseted Bottom', status: 'Active' },
-              { code: 'PKG-POLY-2LB', name: 'Plain Inner Polybag 2 Lbs Food Grade', details: 'Thickness: 50 Microns Virgin LDPE | IQF Shrimp Pack', status: 'Active' }
+              { code: 'VND-PKG-01', name: 'Universal Corrugators & Packaging Ltd', details: 'Master export 5-ply cartons & inner wax duplex boxes | Chennai', status: 'Active' },
+              { code: 'VND-POLY-02', name: 'Apex Polymers Food Grade Films Pvt Ltd', details: 'Printed laminated LDPE pouch film (FDA compliant) | Hyderabad', status: 'Active' },
+              { code: 'VND-SAN-03', name: 'Diversey Hygiene India Private Ltd', details: 'CIP detergents, quaternary ammonium sanitizers | Mumbai', status: 'Active' },
+              { code: 'VND-ICE-04', name: 'Coastal Tube Ice & Refrigeration Spares', details: 'Food grade potable tube ice & cold room evaporator parts | Vizag', status: 'Active' }
             ]
           },
           {
-            id: 'consumables',
-            label: 'Operating Consumables & Additives',
+            id: 'general-items',
+            label: 'General Items',
             records: [
-              { code: 'CON-ICE', name: 'Food Grade Tube Ice (RO Purified)', details: 'Daily Consumption: 35 MT | Plant Automated Ice Dispenser', status: 'Active' },
-              { code: 'CON-GLOVE', name: 'Nitrile Food Handling Gloves Blue L', details: 'Powder-free | FDA 21 CFR 177 compliant | Box of 100', status: 'Active' },
-              { code: 'CON-APRON', name: 'Heavy Duty Waterproof Processing Aprons', details: 'PVC 0.45mm Anti-bacterial White | Reusable Sanitizable', status: 'Active' }
+              { code: 'ITM-GLV-01', name: 'Nitrile Food Handling Gloves (Powder-Free)', details: 'Blue color, Size M & L, Thickness 4 mil, Box of 100 pcs', status: 'Active' },
+              { code: 'ITM-APR-02', name: 'Waterproof Polyurethane Protective Aprons', details: 'Heavy duty, chemical resistant, White, 120cm length', status: 'Active' },
+              { code: 'ITM-BOOT-03', name: 'Steel Toe Gum Boots for Cold Processing', details: 'Anti-skid sole, white PVC, Sizes 7 to 11', status: 'Active' },
+              { code: 'ITM-STRAP-04', name: 'Automatic Box Strapping Band Rolls (12mm)', details: 'Virgin PP, Tensile strength 120 kg, 3000m roll', status: 'Active' }
             ]
           },
           {
-            id: 'cost_centers',
-            label: 'Plant Cost Centers & Store Departments',
+            id: 'brands-master',
+            label: 'Brands Master',
             records: [
-              { code: 'CC-PROC', name: 'Raw Material Processing Center Unit 1', details: 'Headcount: 140 | Focus: Grading, Peeling & Cooking', status: 'Active' },
-              { code: 'CC-COLD', name: 'Central Refrigeration & Cold Storage', details: 'Headcount: 18 | Focus: -20°C Blast, IQF & Bay Dispatch', status: 'Active' },
-              { code: 'CC-MAINT', name: 'Plant Engineering & Utility Maintenance', details: 'Focus: Compressors, Ice Plants, RO Water Purification', status: 'Active' }
+              { code: 'BRD-VOL', name: 'Volida (Devi Premium International Brand)', details: 'Flagship IQF & block brand for North America & Japan retail', status: 'Active' },
+              { code: 'BRD-DEV', name: 'Devi Royal Seafoods', details: 'Commercial wholesale brand for European foodservice distributors', status: 'Active' },
+              { code: 'BRD-SEA', name: 'Sea Fresh Harvest', details: 'Domestic supermarket chain frozen shrimp retail packs', status: 'Active' },
+              { code: 'BRD-CUST', name: 'Custom Private Label Packaging', details: 'Buyer proprietary cartons (Kroger, Sysco, Walmart private labels)', status: 'Active' }
             ]
           },
           {
-            id: 'storage_warehouses',
-            label: 'Storage Warehouses',
+            id: 'departments-master',
+            label: 'Departments Master',
+            records: getRecords('departments-master', [
+              { code: 'DPT-PRC', name: 'Seafood Processing & Production', details: 'Autonagar Main Plant, 4 processing lines', status: 'Active' },
+              { code: 'DPT-ENG', name: 'Engineering & Cold Chain Maintenance', details: 'Refrigeration, power sub-station, STP operations', status: 'Active' },
+              { code: 'DPT-QAQC', name: 'Quality Assurance & Microbiology Labs', details: 'Testing, antibiotic screening, export certifications', status: 'Active' }
+            ])
+          },
+          {
+            id: 'prices-master',
+            label: 'Prices Master',
             records: [
-              { code: 'WH-PKG', name: 'Packaging Material Dry Store Alpha', details: 'Area: 1,200 sq.m | Elevated Racks | Termite Proofed', status: 'Active' },
-              { code: 'WH-CHM', name: 'Chemical & Additive Secure Storehouse', details: 'Climate Controlled: 22°C | Restricted Biometric Access', status: 'Active' }
+              { code: 'PRC-CART-10', name: '10 kg Master Outer Carton Standard Unit Price', details: 'Contract rate: ₹48.50 per carton | Universal Corrugators', status: 'Active' },
+              { code: 'PRC-POUCH-2L', name: '2 lb Retail Printed Pouch Unit Price', details: 'Contract rate: ₹6.20 per pouch | Apex Polymers', status: 'Active' },
+              { code: 'PRC-ICE-MT', name: 'Food Grade Potable Tube Ice Bulk Rate', details: 'Rate: ₹1,400 per Metric Ton delivered to receiving dock', status: 'Active' }
             ]
+          },
+          {
+            id: 'gst-master',
+            label: 'Gst Master',
+            records: getRecords('gst-master', [
+              { code: 'GST-00', name: '0% Nil Rated - Fresh & Chilled Aquaculture Harvest', details: 'HSN 0306: Unprocessed fresh farm shrimp', status: 'Active' },
+              { code: 'GST-05', name: '5% GST - Frozen Shrimp in Unit Containers', details: 'HSN 030617: Frozen shrimp blocks & retail IQF bags', status: 'Active' },
+              { code: 'GST-12', name: '12% GST - Prepared / Preserved Seafood Items', details: 'HSN 160521: Marinated, breaded, cooked shrimp preparations', status: 'Active' },
+              { code: 'GST-18', name: '18% GST - Packaging Material, STPP & Chemicals', details: 'HSN 4819 / 2835: Corrugated cartons & food-grade additives', status: 'Active' }
+            ])
           }
         ]
       }
@@ -96348,8 +96603,6 @@ const SettingsView = {
         <div class="space-y-3" id="masters-accordion-group">
           ${this.moduleMastersData.map(mod => {
             const isExpanded = this.activeMasterModule === mod.id;
-            const submasterCount = mod.submasters.length;
-            const totalRecords = mod.submasters.reduce((acc, sm) => acc + (sm.records ? sm.records.length : 0), 0);
 
             return `
               <div class="master-accordion-card bg-white rounded-xl border border-[#DFE1E6] overflow-hidden shadow-2xs transition-all duration-200">
@@ -96495,7 +96748,7 @@ const SettingsView = {
         }
       });
 
-      // Reset button handler
+      // Filter reset handler
       const resetBtn = document.getElementById('master-filter-reset-btn');
       resetBtn?.addEventListener('click', () => {
         this.masterSearchQuery = '';
@@ -96504,31 +96757,30 @@ const SettingsView = {
         Toast.show('Filters reset', 'info');
       });
 
-      // Status change handler
-      const statusSelect = document.getElementById('master-status-select');
-      statusSelect?.addEventListener('change', (e) => {
-        this.masterStatusFilter = e.target.value;
+      // Search button handler
+      const searchBtn = document.getElementById('master-filter-search-btn');
+      searchBtn?.addEventListener('click', () => {
+        const searchInput = document.getElementById('master-search-input');
+        const statusSelect = document.getElementById('master-status-select');
+        this.masterSearchQuery = searchInput ? searchInput.value : '';
+        this.masterStatusFilter = statusSelect ? statusSelect.value : 'All';
         this.renderMasterSetupTab(container, this.cachedTabsBarHtml);
       });
 
-      // Search button handler
-      const searchBtn = document.getElementById('master-filter-search-btn');
+      // Search input Enter key handler
       const searchInput = document.getElementById('master-search-input');
-      const doSearch = () => {
-        this.masterSearchQuery = (searchInput?.value || '').trim();
-        this.renderMasterSetupTab(container, this.cachedTabsBarHtml);
-      };
-      searchBtn?.addEventListener('click', doSearch);
       searchInput?.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
-          e.preventDefault();
-          doSearch();
+          const statusSelect = document.getElementById('master-status-select');
+          this.masterSearchQuery = searchInput.value;
+          this.masterStatusFilter = statusSelect ? statusSelect.value : 'All';
+          this.renderMasterSetupTab(container, this.cachedTabsBarHtml);
         }
       });
 
       // Add Record button handler
-      const addBtn = document.getElementById('btn-add-master-record');
-      addBtn?.addEventListener('click', () => {
+      const addRecordBtn = document.getElementById('btn-add-master-record');
+      addRecordBtn?.addEventListener('click', () => {
         this.showAddMasterModal(currentSubmaster, container);
       });
 
@@ -96567,12 +96819,12 @@ const SettingsView = {
         actions: [
           {
             label: 'Edit',
-            icon: `<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>`,
+            icon: '<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>',
             onClick: (row) => this.showEditMasterModal(currentSubmaster, row, container)
           },
           {
             label: 'Delete',
-            icon: `<svg class="w-4 h-4 text-[#DE350B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>`,
+            icon: '<svg class="w-4 h-4 text-[#DE350B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>',
             onClick: (row) => {
               Modal.confirm({
                 title: `Delete ${currentSubmaster.label} Record`,
@@ -96601,20 +96853,12 @@ const SettingsView = {
 
     Modal.open({
       title: `Add ${selectedMaster.label} Record`,
-      size: 'md',
+      size: 'lg',
       content: `
-        <form id="form-add-master-rec" class="space-y-3.5 text-xs">
+        <form id="form-add-master-rec" class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
           <div>
             <label for="mrec-code" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Code / Identifier <span class="text-[#DE350B]">*</span></label>
             <input type="text" id="mrec-code" name="code" value="${defaultCode}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
-          </div>
-          <div>
-            <label for="mrec-name" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Name / Entity Description <span class="text-[#DE350B]">*</span></label>
-            <input type="text" id="mrec-name" name="name" required placeholder="e.g. Master record name..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
-          </div>
-          <div>
-            <label for="mrec-details" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Configuration &amp; Details</label>
-            <textarea id="mrec-details" name="details" rows="3" placeholder="Enter configuration metadata, address, or specifications..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs"></textarea>
           </div>
           <div>
             <label for="mrec-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Status</label>
@@ -96622,6 +96866,14 @@ const SettingsView = {
               <option value="Active" selected>Active</option>
               <option value="Inactive">Inactive</option>
             </select>
+          </div>
+          <div>
+            <label for="mrec-name" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Name / Entity Description <span class="text-[#DE350B]">*</span></label>
+            <input type="text" id="mrec-name" name="name" required placeholder="e.g. Master record name..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+          <div>
+            <label for="mrec-details" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Configuration &amp; Details</label>
+            <textarea id="mrec-details" name="details" rows="2" placeholder="Enter configuration metadata, address, or specifications..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs"></textarea>
           </div>
         </form>
       `,
@@ -96661,20 +96913,12 @@ const SettingsView = {
   showEditMasterModal(selectedMaster, record, container) {
     Modal.open({
       title: `Edit ${selectedMaster.label} - ${record.code}`,
-      size: 'md',
+      size: 'lg',
       content: `
-        <form id="form-edit-master-rec" class="space-y-3.5 text-xs">
+        <form id="form-edit-master-rec" class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
           <div>
             <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Code / Identifier</label>
             <input type="text" value="${this.escape(record.code)}" disabled class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#5E6C84] cursor-not-allowed shadow-2xs" />
-          </div>
-          <div>
-            <label for="emrec-name" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Name / Entity Description <span class="text-[#DE350B]">*</span></label>
-            <input type="text" id="emrec-name" name="name" value="${this.escape(record.name)}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
-          </div>
-          <div>
-            <label for="emrec-details" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Configuration &amp; Details</label>
-            <textarea id="emrec-details" name="details" rows="3" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">${this.escape(record.details || '')}</textarea>
           </div>
           <div>
             <label for="emrec-status" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Status</label>
@@ -96682,6 +96926,14 @@ const SettingsView = {
               <option value="Active" ${record.status === 'Active' ? 'selected' : ''}>Active</option>
               <option value="Inactive" ${record.status === 'Inactive' ? 'selected' : ''}>Inactive</option>
             </select>
+          </div>
+          <div>
+            <label for="emrec-name" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Name / Entity Description <span class="text-[#DE350B]">*</span></label>
+            <input type="text" id="emrec-name" name="name" value="${this.escape(record.name)}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+          </div>
+          <div>
+            <label for="emrec-details" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Configuration &amp; Details</label>
+            <textarea id="emrec-details" name="details" rows="2" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">${this.escape(record.details || '')}</textarea>
           </div>
         </form>
       `,
@@ -96715,7 +96967,6 @@ const SettingsView = {
       ]
     });
   },
-
   escape(str) {
     if (str === null || str === undefined) return '';
     return String(str)
