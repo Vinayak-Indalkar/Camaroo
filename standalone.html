@@ -92218,15 +92218,27 @@ const SettingsView = {
   },
 
   // -------------------------------------------------------------
-  // TAB 2: User & Roles (Dual Accordions: Users & Roles)
+  // TAB 2: User & Roles (Triple Accordions: Users, Roles, Departments)
   // -------------------------------------------------------------
-  activeUserRolesSection: 'users', // 'users' | 'roles' | null
+  activeUserRolesSection: 'users', // 'users' | 'roles' | 'departments' | null
+  departments: [
+    { id: 'dept-1', code: 'DEP-01', name: 'Executive Management', head: 'Laxmi Narayana', email: 'laxmi.n@devifisheries.com', phone: '+91 98480 12345', description: 'Corporate executive oversight, business strategy, board reporting and general governance.', status: 'Active' },
+    { id: 'dept-2', code: 'DEP-02', name: 'Procurement & Farm Sourcing', head: 'Ramesh Varma', email: 'ramesh.v@devifisheries.com', phone: '+91 98480 23456', description: 'Aqua farm grower tie-ups, raw shrimp harvest scheduling, and farm-gate procurement.', status: 'Active' },
+    { id: 'dept-3', code: 'DEP-03', name: 'Plant Operations (Unit 1)', head: 'S. K. Murthy', email: 'sk.murthy@devifisheries.com', phone: '+91 98480 34567', description: 'Factory processing lines, grading, peeling, IQF freezing, and packing execution.', status: 'Active' },
+    { id: 'dept-4', code: 'DEP-04', name: 'Quality Control & Lab', head: 'Dr. Ananya Sen', email: 'ananya.s@devifisheries.com', phone: '+91 98480 45678', description: 'Antibiotic chemical screening, microbiological testing, pre-shipment quality inspection.', status: 'Active' },
+    { id: 'dept-5', code: 'DEP-05', name: 'Cold Storage & Logistics', head: 'Venkat Rao', email: 'venkat.r@devifisheries.com', phone: '+91 98480 56789', description: '-18°C cold chain storage warehouse, pallet inventory tracking, and reefer container dispatch.', status: 'Active' },
+    { id: 'dept-6', code: 'DEP-06', name: 'Commercial & Export Sales', head: 'Rajesh Kumar', email: 'rajesh.k@devifisheries.com', phone: '+91 98480 67890', description: 'Overseas export orders, customer contract pricing, shipping line clearance and customs.', status: 'Active' },
+    { id: 'dept-7', code: 'DEP-07', name: 'Inventory & Materials', head: 'Priya Nair', email: 'priya.n@devifisheries.com', phone: '+91 98480 78901', description: 'Packaging materials, master cartons, chemicals, spare parts, and general stores inventory.', status: 'Active' },
+    { id: 'dept-8', code: 'DEP-08', name: 'Finance & Realization', head: 'Kalyan Chakravarthy', email: 'kalyan.c@devifisheries.com', phone: '+91 98480 89012', description: 'Invoicing, export bank realizations, payments, grower disbursements and statutory audits.', status: 'Active' }
+  ],
+  deptSearchQuery: '',
+  deptFilterStatus: 'All',
   roles: [
-    { id: 'role-1', code: 'ROL-ADM', name: 'Super / System Admin', level: 'Full Access', description: 'Unrestricted CRUD & approvals across all 8 ERP operational modules and settings.', usersCount: 1, permissions: 'All Modules (Full Access)', status: 'Active' },
-    { id: 'role-2', code: 'ROL-MGR', name: 'Operations / Sales Manager', level: 'Departmental', description: 'Full PO creation, Lot allocation, Production batch logs, and export dispatch authority.', usersCount: 3, permissions: 'Sales, Purchase, Coldstore, Production', status: 'Active' },
-    { id: 'role-3', code: 'ROL-SUP', name: 'Quality & Line Supervisor', level: 'Verification', description: 'Lab chemical screening entries, raw material weighment verification, and grading logs.', usersCount: 1, permissions: 'Preprocessing, Quality Control, Weighbridge', status: 'Active' },
-    { id: 'role-4', code: 'ROL-OPR', name: 'Floor & Logistics Operator', level: 'Read / Log', description: 'Coldstore pallet in/out logging, container stuffing checklists, and receiving tally entries.', usersCount: 2, permissions: 'Coldstore, Inventory, Dispatch (Data Entry)', status: 'Active' },
-    { id: 'role-5', code: 'ROL-VIE', name: 'Finance / Audit Viewer', level: 'Read Only', description: 'Auditor inspection view, financial reports generation, and read-only invoice analytics.', usersCount: 1, permissions: 'Reports, Finance, Traceability (Read Only)', status: 'Active' }
+    { id: 'role-1', code: 'ROL-ADM', name: 'Super / System Admin', level: 'Full Access', department: 'All Departments', description: 'Unrestricted CRUD & approvals across all 8 ERP operational modules and settings.', usersCount: 1, permissions: 'All Modules (Full Access)', status: 'Active' },
+    { id: 'role-2', code: 'ROL-MGR', name: 'Operations / Sales Manager', level: 'Departmental', department: 'Commercial & Export Sales', description: 'Full PO creation, Lot allocation, Production batch logs, and export dispatch authority.', usersCount: 3, permissions: 'Sales, Purchase, Coldstore, Production', status: 'Active' },
+    { id: 'role-3', code: 'ROL-SUP', name: 'Quality & Line Supervisor', level: 'Verification', department: 'Quality Control & Lab', description: 'Lab chemical screening entries, raw material weighment verification, and grading logs.', usersCount: 1, permissions: 'Preprocessing, Quality Control, Weighbridge', status: 'Active' },
+    { id: 'role-4', code: 'ROL-OPR', name: 'Floor & Logistics Operator', level: 'Read / Log', department: 'Cold Storage & Logistics', description: 'Coldstore pallet in/out logging, container stuffing checklists, and receiving tally entries.', usersCount: 2, permissions: 'Coldstore, Inventory, Dispatch (Data Entry)', status: 'Active' },
+    { id: 'role-5', code: 'ROL-VIE', name: 'Finance / Audit Viewer', level: 'Read Only', department: 'Finance & Realization', description: 'Auditor inspection view, financial reports generation, and read-only invoice analytics.', usersCount: 1, permissions: 'Reports, Finance, Traceability (Read Only)', status: 'Active' }
   ],
   roleSearchQuery: '',
   roleFilterLevel: 'All',
@@ -92242,6 +92254,7 @@ const SettingsView = {
 
     const isUsersExpanded = this.activeUserRolesSection === 'users';
     const isRolesExpanded = this.activeUserRolesSection === 'roles';
+    const isDeptsExpanded = this.activeUserRolesSection === 'departments';
 
     container.innerHTML = `
       <div class="space-y-4 animate-fade-in pb-10">
@@ -92310,15 +92323,8 @@ const SettingsView = {
                     <div>
                       <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Department</label>
                       <select id="flt-user-dept" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                        <option value="All" ${this.userFilterDept === 'All' ? 'selected' : ''}>All Departments</option>
-                        <option value="Executive Management" ${this.userFilterDept === 'Executive Management' ? 'selected' : ''}>Executive Management</option>
-                        <option value="Procurement & Farm Sourcing" ${this.userFilterDept === 'Procurement & Farm Sourcing' ? 'selected' : ''}>Procurement & Sourcing</option>
-                        <option value="Plant Operations (Unit 1)" ${this.userFilterDept === 'Plant Operations (Unit 1)' ? 'selected' : ''}>Plant Operations (Unit 1)</option>
-                        <option value="Quality Control & Lab" ${this.userFilterDept === 'Quality Control & Lab' ? 'selected' : ''}>Quality Control & Lab</option>
-                        <option value="Cold Storage & Logistics" ${this.userFilterDept === 'Cold Storage & Logistics' ? 'selected' : ''}>Cold Storage & Logistics</option>
-                        <option value="Commercial & Export Sales" ${this.userFilterDept === 'Commercial & Export Sales' ? 'selected' : ''}>Commercial & Export Sales</option>
-                        <option value="Inventory & Materials" ${this.userFilterDept === 'Inventory & Materials' ? 'selected' : ''}>Inventory & Materials</option>
-                        <option value="Finance & Realization" ${this.userFilterDept === 'Finance & Realization' ? 'selected' : ''}>Finance & Realization</option>
+                        <option value="All" ${this.userFilterDept === 'All' ? 'selected' : ''}>All Departments (${this.departments.length})</option>
+                        ${this.departments.map(d => `<option value="${this.escape(d.name)}" ${this.userFilterDept === d.name ? 'selected' : ''}>${this.escape(d.name)}</option>`).join('')}
                       </select>
                     </div>
 
@@ -92492,6 +92498,129 @@ const SettingsView = {
             ` : ''}
           </div>
 
+          <!-- ACCORDION 3: Departments Directory -->
+          <div class="user-roles-accordion-card bg-white rounded-xl border border-[#DFE1E6] overflow-hidden shadow-2xs transition-all duration-200">
+            <!-- Accordion Header Row (12px padding all sides, p-3) -->
+            <div 
+              class="user-roles-accordion-header w-full p-3 flex items-center justify-between transition-colors cursor-pointer select-none bg-white hover:bg-[#F8FAFC] ${isDeptsExpanded ? 'border-b border-[#DFE1E6]' : ''}"
+              data-section="departments"
+            >
+              <!-- Left: Icon + Title -->
+              <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl flex items-center justify-center font-bold shadow-xs transition-colors duration-200 ${isDeptsExpanded ? 'bg-[#00A4B7] text-white' : 'bg-[#F1F5F9] text-[#00A4B7]'}">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                </div>
+                <div class="flex items-center gap-2.5">
+                  <span class="font-extrabold text-[#172B4D] text-sm tracking-tight">Departments Directory</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD]">${this.departments.length} Departments</span>
+                </div>
+              </div>
+
+              <!-- Right: Chevron on far right -->
+              <div class="w-7 h-7 rounded-full flex items-center justify-center transition-colors duration-200 ${isDeptsExpanded ? 'bg-[#00A4B7] text-white' : 'bg-[#F1F5F9] text-[#64748B]'}">
+                <svg class="w-4 h-4 transform transition-transform duration-300 ${isDeptsExpanded ? 'rotate-180' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              </div>
+            </div>
+
+            <!-- Accordion Body -->
+            ${isDeptsExpanded ? `
+              <div class="user-roles-accordion-body m-0 p-4 bg-[#FAFBFC] space-y-3.5 border-t border-[#DFE1E6] animate-accordion-expand" style="margin: 0 !important;">
+                <!-- Search & Filter Card (AGENTS.md Rule 3) -->
+                <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs transition-all duration-200">
+                  <div class="flex items-center justify-between pb-1">
+                    <div class="flex items-center gap-2">
+                      <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+                      <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters — Departments</h3>
+                    </div>
+                    <div class="inline-flex items-center gap-2">
+                      <!-- Circular 32x32 Reset Button -->
+                      <button type="button" id="depts-filter-reset" class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Reset all filters">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                      </button>
+                      <!-- Circular 32x32 Collapse/Expand Toggle Button -->
+                      <button type="button" id="depts-filter-toggle" class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Toggle Filter">
+                        <svg class="w-3.5 h-3.5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div id="depts-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 text-xs" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
+                    <div>
+                      <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Search Department / Code / Lead</label>
+                      <input type="text" id="flt-dept-search" value="${this.deptSearchQuery || ''}" placeholder="Filter by department name, code, lead..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                    </div>
+
+                    <div>
+                      <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Status</label>
+                      <select id="flt-dept-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                        <option value="All" ${this.deptFilterStatus === 'All' ? 'selected' : ''}>All Statuses</option>
+                        <option value="Active" ${this.deptFilterStatus === 'Active' ? 'selected' : ''}>Active</option>
+                        <option value="Inactive" ${this.deptFilterStatus === 'Inactive' ? 'selected' : ''}>Inactive</option>
+                      </select>
+                    </div>
+
+                    <div class="flex items-end">
+                      <button type="button" id="depts-filter-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                        <span>Search</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Header Row with Add Department Button -->
+                <div class="flex items-center justify-between gap-3 pt-1">
+                  <div class="flex items-center gap-2">
+                    <span class="font-extrabold text-[#172B4D] text-sm tracking-tight">Departments Directory</span>
+                    <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD]">${this.departments.length} Records</span>
+                  </div>
+                  <button type="button" id="btn-add-dept" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                    <span>Add Department</span>
+                  </button>
+                </div>
+
+                <!-- Departments DataTable Container -->
+                <div id="departments-datatable-container"></div>
+
+                <!-- Departmental Matrix Summary Badges -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs pt-2">
+                  <div class="p-3 rounded-xl border border-[#BAE6FD] bg-[#F0F9FF] space-y-1">
+                    <div class="flex items-center justify-between">
+                      <span class="font-extrabold text-[#00A4B7] text-xs">Total Divisions</span>
+                      <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-white text-[#00A4B7] border border-[#BAE6FD]">${this.departments.length}</span>
+                    </div>
+                    <p class="text-[11px] text-[#5E6C84]">Active core operations from farm procurement to export realization.</p>
+                  </div>
+
+                  <div class="p-3 rounded-xl border border-[#CBD5E1] bg-[#F8FAFC] space-y-1">
+                    <div class="flex items-center justify-between">
+                      <span class="font-extrabold text-[#172B4D] text-xs">Total Personnel</span>
+                      <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-white text-[#172B4D] border border-[#DFE1E6]">${this.users.length} Users</span>
+                    </div>
+                    <p class="text-[11px] text-[#5E6C84]">Assigned workforce distributed across operational units.</p>
+                  </div>
+
+                  <div class="p-3 rounded-xl border border-[#CBD5E1] bg-[#F8FAFC] space-y-1">
+                    <div class="flex items-center justify-between">
+                      <span class="font-extrabold text-[#172B4D] text-xs">Configured Roles</span>
+                      <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">${this.roles.length} Roles</span>
+                    </div>
+                    <p class="text-[11px] text-[#5E6C84]">Granular role definitions with cross-departmental scope.</p>
+                  </div>
+
+                  <div class="p-3 rounded-xl border border-[#CBD5E1] bg-[#F8FAFC] space-y-1">
+                    <div class="flex items-center justify-between">
+                      <span class="font-extrabold text-[#172B4D] text-xs">Access Governance</span>
+                      <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">Strict RBAC</span>
+                    </div>
+                    <p class="text-[11px] text-[#5E6C84]">100% synchronized permissions across User, Role and Department.</p>
+                  </div>
+                </div>
+              </div>
+            ` : ''}
+          </div>
+
         </div>
       </div>
     `;
@@ -92514,6 +92643,11 @@ const SettingsView = {
     if (isRolesExpanded) {
       this.renderRolesTable();
       this.bindRolesEvents(container);
+    }
+
+    if (isDeptsExpanded) {
+      this.renderDepartmentsTable();
+      this.bindDepartmentsEvents(container);
     }
   },
 
@@ -92648,6 +92782,8 @@ const SettingsView = {
               onConfirm: () => {
                 this.users = this.users.filter(u => u.id !== row.id);
                 this.renderUsersTable();
+                const container = document.getElementById(this.lastContainerId || 'main-content');
+                if (container) this.renderUserRolesTab(container, this.cachedTabsBarHtml);
                 Toast.show(`User ${row.name} removed successfully`, 'success');
               }
             });
@@ -92740,6 +92876,15 @@ const SettingsView = {
           render: (val) => `<span class="font-bold text-[#172B4D]">${this.escape(val)}</span>`
         },
         {
+          field: 'department',
+          header: 'Department',
+          sortable: true,
+          render: (val, row) => {
+            const deptName = row.department || (row.level === 'Full Access' ? 'All Departments' : 'Operations');
+            return `<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#F0F9FF] text-[#00A4B7] border border-[#BAE6FD]">${this.escape(deptName)}</span>`;
+          }
+        },
+        {
           field: 'level',
           header: 'Access Level',
           sortable: true,
@@ -92793,6 +92938,8 @@ const SettingsView = {
               onConfirm: () => {
                 this.roles = this.roles.filter(r => r.id !== row.id);
                 this.renderRolesTable();
+                const container = document.getElementById(this.lastContainerId || 'main-content');
+                if (container) this.renderUserRolesTab(container, this.cachedTabsBarHtml);
                 Toast.show(`Role ${row.name} deleted successfully`, 'success');
               }
             });
@@ -93085,6 +93232,13 @@ openRoleModal(role = null, onSaved) {
               <input type="text" id="role-modal-name" value="${this.escape(role ? role.name : '')}" required placeholder="e.g. Production Line Supervisor" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
             </div>
             <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Associated Department</label>
+              <select id="role-modal-dept" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="All Departments" ${!role || role.department === 'All Departments' ? 'selected' : ''}>All Departments (Cross-functional)</option>
+                ${this.departments.map(d => `<option value="${this.escape(d.name)}" ${role && role.department === d.name ? 'selected' : ''}>${this.escape(d.name)}</option>`).join('')}
+              </select>
+            </div>
+            <div>
               <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Access Level / Scope <span class="text-[#DE350B]">*</span></label>
               <select id="role-modal-level" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
                 <option value="Full Access" ${role && role.level === 'Full Access' ? 'selected' : ''}>Full Access (Super Admin)</option>
@@ -93234,6 +93388,7 @@ openRoleModal(role = null, onSaved) {
           onClick: (m) => {
             const code = document.getElementById('role-modal-code')?.value.trim();
             const name = document.getElementById('role-modal-name')?.value.trim();
+            const department = document.getElementById('role-modal-dept')?.value || 'All Departments';
             const level = document.getElementById('role-modal-level')?.value;
             const status = document.getElementById('role-modal-status')?.value || 'Active';
             let permissions = document.getElementById('role-modal-permissions')?.value.trim();
@@ -93293,6 +93448,7 @@ openRoleModal(role = null, onSaved) {
 
             if (isEdit) {
               role.name = name;
+              role.department = department;
               role.level = level;
               role.status = status;
               role.permissions = permissions;
@@ -93305,6 +93461,7 @@ openRoleModal(role = null, onSaved) {
                 id: `role-${Date.now()}`,
                 code,
                 name,
+                department,
                 level,
                 description,
                 usersCount: 0,
@@ -93318,6 +93475,8 @@ openRoleModal(role = null, onSaved) {
 
             m.close();
             if (onSaved) onSaved();
+            const container = document.getElementById(this.lastContainerId || 'main-content');
+            if (container) this.renderUserRolesTab(container, this.cachedTabsBarHtml);
           }
         }
       ]
@@ -93831,14 +93990,7 @@ openRoleModal(role = null, onSaved) {
             <div>
               <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Department <span class="text-[#DE350B]">*</span></label>
               <select id="usr-modal-dept" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
-                <option value="Executive Management" ${user && user.department === 'Executive Management' ? 'selected' : ''}>Executive Management</option>
-                <option value="Procurement & Farm Sourcing" ${user && user.department === 'Procurement & Farm Sourcing' ? 'selected' : ''}>Procurement & Farm Sourcing</option>
-                <option value="Plant Operations (Unit 1)" ${user && user.department === 'Plant Operations (Unit 1)' ? 'selected' : ''}>Plant Operations (Unit 1)</option>
-                <option value="Quality Control & Lab" ${user && user.department === 'Quality Control & Lab' ? 'selected' : ''}>Quality Control & Lab</option>
-                <option value="Cold Storage & Logistics" ${user && user.department === 'Cold Storage & Logistics' ? 'selected' : ''}>Cold Storage & Logistics</option>
-                <option value="Commercial & Export Sales" ${user && user.department === 'Commercial & Export Sales' ? 'selected' : ''}>Commercial & Export Sales</option>
-                <option value="Inventory & Materials" ${user && user.department === 'Inventory & Materials' ? 'selected' : ''}>Inventory & Materials</option>
-                <option value="Finance & Realization" ${user && user.department === 'Finance & Realization' ? 'selected' : ''}>Finance & Realization</option>
+                ${this.departments.map(d => `<option value="${this.escape(d.name)}" ${user && user.department === d.name ? 'selected' : ''}>${this.escape(d.name)}</option>`).join('')}
               </select>
             </div>
             <div>
@@ -93908,6 +94060,8 @@ openRoleModal(role = null, onSaved) {
 
             m.close();
             if (onSaved) onSaved();
+            const container = document.getElementById(this.lastContainerId || 'main-content');
+            if (container) this.renderUserRolesTab(container, this.cachedTabsBarHtml);
           }
         }
       ]
