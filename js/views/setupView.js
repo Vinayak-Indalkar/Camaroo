@@ -6475,6 +6475,9 @@ export const SetupView = {
         plantPhone: '',
         plantStatus: 'Active',
         plants: 'Unit-1 VSP',
+        plantList: [
+          { name: 'Unit-1 VSP', code: 'PLT-001', status: 'Active', contact: '', phone: '', address: '' }
+        ],
         // Application Add-ons
         appIcon: '',
         appLogo: '',
@@ -6485,7 +6488,8 @@ export const SetupView = {
         secondaryColor: '#0284C7',
         bgColor: '#F4F5F7',
         footerText: '© 2026 Devi Fisheries Limited. All rights reserved.',
-        fontSize: '13.5px'
+        fontSize: '13.5px',
+        font: 'Inter, sans-serif'
       },
       user: {
         id: nextUserId,
@@ -6527,14 +6531,31 @@ export const SetupView = {
         wizardState.client.email = document.getElementById('w-cmp-email')?.value.trim() || wizardState.client.email;
         wizardState.client.status = document.getElementById('w-cmp-status')?.value || wizardState.client.status;
 
-        // 2. Plant Information
-        wizardState.client.plantName = document.getElementById('w-plant-name')?.value.trim() || wizardState.client.plantName;
-        wizardState.client.plantCode = document.getElementById('w-plant-code')?.value.trim().toUpperCase() || wizardState.client.plantCode;
-        wizardState.client.plantAddress = document.getElementById('w-plant-address')?.value.trim() || wizardState.client.plantAddress;
-        wizardState.client.plantContact = document.getElementById('w-plant-contact')?.value.trim() || wizardState.client.plantContact;
-        wizardState.client.plantPhone = document.getElementById('w-plant-phone')?.value.trim() || wizardState.client.plantPhone;
-        wizardState.client.plantStatus = document.getElementById('w-plant-status')?.value || wizardState.client.plantStatus;
-        wizardState.client.plants = wizardState.client.plantName || wizardState.client.plants;
+        // 2. Plant Information (Multiple Plants)
+        const plantContainer = document.getElementById('wizard-plants-container');
+        if (plantContainer) {
+          const plantCards = plantContainer.querySelectorAll('.wizard-plant-card');
+          const plants = [];
+          plantCards.forEach((card, i) => {
+            const name = card.querySelector('.w-plant-name')?.value.trim() || ('Unit-' + (i + 1) + ' VSP');
+            const code = card.querySelector('.w-plant-code')?.value.trim().toUpperCase() || ('PLT-' + String(i + 1).padStart(3, '0'));
+            const status = card.querySelector('.w-plant-status')?.value || 'Active';
+            const contact = card.querySelector('.w-plant-contact')?.value.trim() || '';
+            const phone = card.querySelector('.w-plant-phone')?.value.trim() || '';
+            const address = card.querySelector('.w-plant-address')?.value.trim() || '';
+            plants.push({ name, code, status, contact, phone, address });
+          });
+          if (plants.length > 0) {
+            wizardState.client.plantList = plants;
+            wizardState.client.plantName = plants[0].name;
+            wizardState.client.plantCode = plants[0].code;
+            wizardState.client.plantStatus = plants[0].status;
+            wizardState.client.plantContact = plants[0].contact;
+            wizardState.client.plantPhone = plants[0].phone;
+            wizardState.client.plantAddress = plants[0].address;
+            wizardState.client.plants = plants.map(p => p.name).join(', ');
+          }
+        }
 
         // 3. Application Add-ons
         wizardState.client.appIcon = document.getElementById('w-app-icon')?.dataset?.dataUrl || document.getElementById('w-app-icon')?.value.trim() || wizardState.client.appIcon;
@@ -6547,6 +6568,7 @@ export const SetupView = {
         wizardState.client.bgColor = document.getElementById('w-app-bg-color')?.value.trim() || wizardState.client.bgColor;
         wizardState.client.footerText = document.getElementById('w-app-footer-text')?.value.trim() || wizardState.client.footerText;
         wizardState.client.fontSize = document.getElementById('w-app-font-size')?.value || wizardState.client.fontSize;
+        wizardState.client.font = document.getElementById('w-app-font')?.value || wizardState.client.font;
         
         // Auto-seed user & role names if empty
         if (!wizardState.user.username && wizardState.client.shortName) {
@@ -6759,66 +6781,93 @@ export const SetupView = {
               </div>
             </div>
 
-            <!-- 2. Plant Information -->
+            <!-- 2. Plant Information (Multi-Plant Support) -->
             <div class="space-y-3.5">
               <div class="flex items-center justify-between border-b border-[#F1F5F9] pb-2.5">
                 <div class="flex items-center gap-2">
                   <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">2</span>
                   <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Plant Information</span>
+                  <span id="wizard-plant-count-badge" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD]">
+                    ${(wizardState.client.plantList || []).length} ${(wizardState.client.plantList || []).length === 1 ? 'Plant' : 'Plants'}
+                  </span>
                 </div>
+                <button type="button" id="wizard-add-plant-btn" class="btn-primary px-3 py-1.5 rounded-full text-xs font-bold inline-flex items-center gap-1.5 shadow-xs cursor-pointer bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                  <span>Add Plant</span>
+                </button>
               </div>
 
-              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
-                <!-- Plant Name -->
-                <div>
-                  <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1">
-                    Plant Name <span class="text-rose-500">*</span>
-                  </label>
-                  <input type="text" id="w-plant-name" value="${wizardState.client.plantName || 'Unit-1 VSP'}" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7]" placeholder="e.g. Unit-1 VSP" />
-                </div>
+              <!-- Container for multiple plant cards -->
+              <div id="wizard-plants-container" class="space-y-3.5">
+                ${(wizardState.client.plantList || [{ name: 'Unit-1 VSP', code: 'PLT-001', status: 'Active' }]).map((p, idx, arr) => `
+                  <div class="wizard-plant-card border border-[#E2E8F0] rounded-xl p-3.5 bg-[#F8FAFC]/50 space-y-3" data-idx="${idx}">
+                    <div class="flex items-center justify-between pb-1.5 border-b border-[#EEF2F6]">
+                      <div class="flex items-center gap-2">
+                        <span class="text-[11px] font-bold text-[#172B4D] uppercase tracking-wider">Plant #${idx + 1}</span>
+                        <span class="text-[10px] font-mono text-[#00A4B7] bg-white px-2 py-0.5 rounded border border-[#DFE1E6]">${p.code || ('PLT-' + String(idx + 1).padStart(3, '0'))}</span>
+                      </div>
+                      ${arr.length > 1 ? `
+                        <button type="button" class="wizard-remove-plant-btn text-rose-500 hover:text-rose-700 text-xs font-semibold flex items-center gap-1 cursor-pointer transition-colors" data-idx="${idx}" title="Remove this plant">
+                          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                          <span>Remove</span>
+                        </button>
+                      ` : ''}
+                    </div>
 
-                <!-- Plant Code -->
-                <div>
-                  <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1">
-                    Plant Code
-                  </label>
-                  <input type="text" id="w-plant-code" value="${wizardState.client.plantCode || 'PLT-001'}" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-mono uppercase focus:outline-none focus:border-[#00A4B7]" placeholder="e.g. PLT-001" />
-                </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+                      <!-- Plant Name -->
+                      <div>
+                        <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1">
+                          Plant Name <span class="text-rose-500">*</span>
+                        </label>
+                        <input type="text" class="w-plant-name w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7]" placeholder="e.g. Unit-${idx + 1} VSP" value="${p.name || ''}" required />
+                      </div>
 
-                <!-- Plant Status -->
-                <div>
-                  <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1">
-                    Status
-                  </label>
-                  <select id="w-plant-status" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7]">
-                    <option value="Active" ${(!wizardState.client.plantStatus || wizardState.client.plantStatus === 'Active') ? 'selected' : ''}>Active</option>
-                    <option value="Inactive" ${wizardState.client.plantStatus === 'Inactive' ? 'selected' : ''}>Inactive</option>
-                  </select>
-                </div>
+                      <!-- Plant Code -->
+                      <div>
+                        <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1">
+                          Plant Code
+                        </label>
+                        <input type="text" class="w-plant-code w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-mono uppercase focus:outline-none focus:border-[#00A4B7]" placeholder="e.g. PLT-${String(idx + 1).padStart(3, '0')}" value="${p.code || ''}" />
+                      </div>
 
-                <!-- Contact Person -->
-                <div>
-                  <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1">
-                    Contact Person
-                  </label>
-                  <input type="text" id="w-plant-contact" value="${wizardState.client.plantContact || ''}" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7]" placeholder="e.g. Suresh Varma" />
-                </div>
+                      <!-- Plant Status -->
+                      <div>
+                        <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1">
+                          Status
+                        </label>
+                        <select class="w-plant-status w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7]">
+                          <option value="Active" ${(!p.status || p.status === 'Active') ? 'selected' : ''}>Active</option>
+                          <option value="Inactive" ${p.status === 'Inactive' ? 'selected' : ''}>Inactive</option>
+                        </select>
+                      </div>
 
-                <!-- Mobile Number -->
-                <div class="col-span-1 sm:col-span-2">
-                  <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1">
-                    Mobile Number
-                  </label>
-                  <input type="tel" id="w-plant-phone" value="${wizardState.client.plantPhone || ''}" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7]" placeholder="e.g. +91 98765 12345" />
-                </div>
+                      <!-- Contact Person -->
+                      <div>
+                        <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1">
+                          Contact Person
+                        </label>
+                        <input type="text" class="w-plant-contact w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7]" placeholder="e.g. Suresh Varma" value="${p.contact || ''}" />
+                      </div>
 
-                <!-- Plant Address (Span 3) -->
-                <div class="col-span-1 sm:col-span-2 lg:col-span-3">
-                  <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1">
-                    Plant Address
-                  </label>
-                  <textarea id="w-plant-address" rows="2" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7]" placeholder="Enter physical plant address, harbor/coastal road, industrial area...">${wizardState.client.plantAddress || ''}</textarea>
-                </div>
+                      <!-- Mobile Number -->
+                      <div class="col-span-1 sm:col-span-2">
+                        <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1">
+                          Mobile Number
+                        </label>
+                        <input type="tel" class="w-plant-phone w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7]" placeholder="e.g. +91 98765 12345" value="${p.phone || ''}" />
+                      </div>
+
+                      <!-- Plant Address (Span 3) -->
+                      <div class="col-span-1 sm:col-span-2 lg:col-span-3">
+                        <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1">
+                          Plant Address
+                        </label>
+                        <textarea class="w-plant-address w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7]" rows="2" placeholder="Enter physical plant address, harbor/coastal road, industrial area...">${p.address || ''}</textarea>
+                      </div>
+                    </div>
+                  </div>
+                `).join('')}
               </div>
             </div>
 
@@ -6962,8 +7011,24 @@ export const SetupView = {
                   </div>
                 </div>
 
-                <!-- Footer Text (Span 3) -->
-                <div class="col-span-1 sm:col-span-2 lg:col-span-3">
+                <!-- Font Family Field (Requested!) -->
+                <div>
+                  <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1">
+                    Font
+                  </label>
+                  <select id="w-app-font" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7]">
+                    <option value="Inter, sans-serif" ${(wizardState.client.font === 'Inter, sans-serif' || !wizardState.client.font) ? 'selected' : ''}>Inter (Default)</option>
+                    <option value="'Plus Jakarta Sans', sans-serif" ${wizardState.client.font === "'Plus Jakarta Sans', sans-serif" ? 'selected' : ''}>Plus Jakarta Sans</option>
+                    <option value="'Roboto', sans-serif" ${wizardState.client.font === "'Roboto', sans-serif" ? 'selected' : ''}>Roboto</option>
+                    <option value="'Poppins', sans-serif" ${wizardState.client.font === "'Poppins', sans-serif" ? 'selected' : ''}>Poppins</option>
+                    <option value="'Outfit', sans-serif" ${wizardState.client.font === "'Outfit', sans-serif" ? 'selected' : ''}>Outfit</option>
+                    <option value="'Segoe UI', sans-serif" ${wizardState.client.font === "'Segoe UI', sans-serif" ? 'selected' : ''}>Segoe UI</option>
+                    <option value="'Open Sans', sans-serif" ${wizardState.client.font === "'Open Sans', sans-serif" ? 'selected' : ''}>Open Sans</option>
+                  </select>
+                </div>
+
+                <!-- Footer Text -->
+                <div class="col-span-1 sm:col-span-2 lg:col-span-2">
                   <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1">
                     Footer Text
                   </label>
@@ -7268,11 +7333,11 @@ export const SetupView = {
         </div>
       `;
 
-      // Render Modal Shell or update container
+            // Render Modal Shell or update container
       const containerEl = document.getElementById('client-onboarding-wizard-container');
       if (containerEl) {
         containerEl.innerHTML = stepperHeaderHtml + stepBodyHtml;
-        const footerTarget = document.querySelector('#erp-modal-root .border-t.bg-\\[\\#FAFBFC\\]');
+        const footerTarget = document.getElementById('erp-modal-footer') || document.querySelector('#erp-modal-root .border-t.bg-\[\#FAFBFC\]');
         if (footerTarget) {
           footerTarget.innerHTML = footerHtml;
         }
@@ -7281,13 +7346,8 @@ export const SetupView = {
           title: 'Register New Client - Onboarding Wizard',
           size: 'xl',
           content: `<div id="client-onboarding-wizard-container">${stepperHeaderHtml + stepBodyHtml}</div>`,
-          footerButtons: []
+          footerHtml: footerHtml
         });
-
-        const footerTarget = document.querySelector('#erp-modal-root .border-t.bg-\\[\\#FAFBFC\\]');
-        if (footerTarget) {
-          footerTarget.innerHTML = footerHtml;
-        }
       }
 
       // Attach Stepper Navigation clicks
@@ -7299,6 +7359,38 @@ export const SetupView = {
             renderWizard(targetStep);
           }
         });
+      });
+
+      // Attach Add Plant button
+      const addPlantBtn = document.getElementById('wizard-add-plant-btn');
+      if (addPlantBtn) {
+        addPlantBtn.onclick = () => {
+          saveCurrentStepData(1);
+          const currentList = wizardState.client.plantList || [];
+          const nextIdx = currentList.length + 1;
+          currentList.push({
+            name: 'Unit-' + nextIdx + ' VSP',
+            code: 'PLT-' + String(nextIdx).padStart(3, '0'),
+            status: 'Active',
+            contact: '',
+            phone: '',
+            address: ''
+          });
+          wizardState.client.plantList = currentList;
+          renderWizard(1);
+        };
+      }
+
+      // Attach Remove Plant buttons
+      document.querySelectorAll('.wizard-remove-plant-btn').forEach(btn => {
+        btn.onclick = () => {
+          saveCurrentStepData(1);
+          const removeIdx = parseInt(btn.getAttribute('data-idx') || '0');
+          if (wizardState.client.plantList && wizardState.client.plantList.length > 1) {
+            wizardState.client.plantList.splice(removeIdx, 1);
+            renderWizard(1);
+          }
+        };
       });
 
       // Attach Cancel Button
@@ -7973,7 +8065,22 @@ export const SetupView = {
                 </div>
               </div>
 
-              <div class="col-span-1 sm:col-span-2 lg:col-span-3">
+              <div>
+                <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1">
+                  Font
+                </label>
+                <select id="cmp-app-font" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7]">
+                  <option value="Inter, sans-serif" ${(company.font === 'Inter, sans-serif' || !company.font) ? 'selected' : ''}>Inter (Default)</option>
+                  <option value="'Plus Jakarta Sans', sans-serif" ${company.font === "'Plus Jakarta Sans', sans-serif" ? 'selected' : ''}>Plus Jakarta Sans</option>
+                  <option value="'Roboto', sans-serif" ${company.font === "'Roboto', sans-serif" ? 'selected' : ''}>Roboto</option>
+                  <option value="'Poppins', sans-serif" ${company.font === "'Poppins', sans-serif" ? 'selected' : ''}>Poppins</option>
+                  <option value="'Outfit', sans-serif" ${company.font === "'Outfit', sans-serif" ? 'selected' : ''}>Outfit</option>
+                  <option value="'Segoe UI', sans-serif" ${company.font === "'Segoe UI', sans-serif" ? 'selected' : ''}>Segoe UI</option>
+                  <option value="'Open Sans', sans-serif" ${company.font === "'Open Sans', sans-serif" ? 'selected' : ''}>Open Sans</option>
+                </select>
+              </div>
+
+              <div class="col-span-1 sm:col-span-2 lg:col-span-2">
                 <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1">
                   Footer Text
                 </label>
@@ -8040,6 +8147,7 @@ export const SetupView = {
             company.reportHeaderImg = reportHeaderImg;
             company.reportFooterImg = reportFooterImg;
             company.fontSize = fontSize;
+            company.font = document.getElementById('cmp-app-font')?.value || 'Inter, sans-serif';
             company.primaryColor = primaryColor;
             company.secondaryColor = secondaryColor;
             company.bgColor = bgColor;

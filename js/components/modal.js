@@ -46,7 +46,7 @@ export const Modal = {
     }
   },
 
-  open({ title, content, footerButtons = [], buttons = [], actions = [], size = 'md', confirmActions = true, onClose = null }) {
+  open({ title, content, footerButtons = [], buttons = [], actions = [], size = 'md', confirmActions = true, onClose = null, footerHtml = null }) {
     this.close();
 
     const sizeClasses = {
@@ -96,9 +96,9 @@ export const Modal = {
         </div>
 
         <!-- Modal Footer -->
-        ${activeFooterButtons.length > 0 ? `
-        <div class="px-6 py-3.5 border-t border-[#DFE1E6] bg-[#FAFBFC] flex items-center justify-end gap-2.5">
-          ${buttonsHtml}
+        ${(activeFooterButtons.length > 0 || footerHtml) ? `
+        <div id="erp-modal-footer" class="px-6 py-3.5 border-t border-[#DFE1E6] bg-[#FAFBFC] flex items-center justify-end gap-2.5">
+          ${footerHtml || buttonsHtml}
         </div>
         ` : ''}
       </div>
