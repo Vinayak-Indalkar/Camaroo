@@ -4646,9 +4646,14 @@ export const SettingsView = {
     ];
   },
 
+  renderSettingsTabs(activeTab = 'masters') {
+    return this.renderAdminSettingsTabs(activeTab);
+  },
+
   renderMasterSetupTab(container, tabsBarHtml = null) {
     this.initMasterData();
-    const effectiveTabsBar = tabsBarHtml || this.renderSettingsTabs('master-setup');
+    this.cachedTabsBarHtml = tabsBarHtml || this.cachedTabsBarHtml || this.renderAdminSettingsTabs('masters');
+    const effectiveTabsBar = this.cachedTabsBarHtml;
 
     // Find active module (default to 'coldstore' if none active)
     const activeModule = this.moduleMastersData.find(m => m.id === this.activeMasterModule) || this.moduleMastersData[0];
@@ -4686,7 +4691,7 @@ export const SettingsView = {
             const totalRecords = mod.submasters.reduce((acc, sm) => acc + (sm.records ? sm.records.length : 0), 0);
 
             return `
-              <div class="bg-white rounded-xl border border-[#DFE1E6] overflow-hidden shadow-2xs transition-all duration-200">
+              <div class="master-accordion-card bg-white rounded-xl border border-[#DFE1E6] overflow-hidden shadow-2xs transition-all duration-200">
                 <!-- Accordion Header Button -->
                 <button 
                   type="button" 
@@ -4708,14 +4713,14 @@ export const SettingsView = {
                   <div class="flex items-center gap-2">
                     <span class="text-xs font-semibold ${isExpanded ? 'text-[#00A4B7]' : 'text-[#64748B]'}">${isExpanded ? 'Collapse' : 'Expand'}</span>
                     <div class="w-7 h-7 rounded-full flex items-center justify-center ${isExpanded ? 'bg-[#00A4B7] text-white' : 'bg-[#F1F5F9] text-[#64748B]'}">
-                      <svg class="w-4 h-4 transform transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                      <svg class="w-4 h-4 transform transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </div>
                   </div>
                 </button>
 
                 <!-- Accordion Body -->
                 ${isExpanded ? `
-                  <div class="p-4 bg-[#FAFBFC] space-y-3.5">
+                  <div class="master-accordion-body p-4 bg-[#FAFBFC] space-y-3.5 border-t border-[#BAE6FD]/40 animate-accordion-expand">
                     <!-- Submaster Pills Selector Bar -->
                     <div class="bg-white p-2 rounded-xl border border-[#DFE1E6] flex items-center gap-2 overflow-x-auto shadow-2xs">
                       <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider px-2 shrink-0">Sub-Master:</span>
@@ -4805,7 +4810,7 @@ export const SettingsView = {
         const modId = btn.dataset.moduleId;
         this.activeMasterModule = (this.activeMasterModule === modId) ? null : modId;
         this.masterSearchQuery = '';
-        this.renderMasterSetupTab(container);
+        this.renderMasterSetupTab(container, this.cachedTabsBarHtml);
       });
     });
 
@@ -4819,7 +4824,7 @@ export const SettingsView = {
           const subId = pbtn.dataset.submasterId;
           this.selectedSubmasterByModule[modId] = subId;
           this.masterSearchQuery = '';
-          this.renderMasterSetupTab(container);
+          this.renderMasterSetupTab(container, this.cachedTabsBarHtml);
         });
       });
 
@@ -4845,7 +4850,7 @@ export const SettingsView = {
       resetBtn?.addEventListener('click', () => {
         this.masterSearchQuery = '';
         this.masterStatusFilter = 'All';
-        this.renderMasterSetupTab(container);
+        this.renderMasterSetupTab(container, this.cachedTabsBarHtml);
         Toast.show('Filters reset', 'info');
       });
 
@@ -4853,7 +4858,7 @@ export const SettingsView = {
       const statusSelect = document.getElementById('master-status-select');
       statusSelect?.addEventListener('change', (e) => {
         this.masterStatusFilter = e.target.value;
-        this.renderMasterSetupTab(container);
+        this.renderMasterSetupTab(container, this.cachedTabsBarHtml);
       });
 
       // Search button handler
@@ -4861,7 +4866,7 @@ export const SettingsView = {
       const searchInput = document.getElementById('master-search-input');
       const doSearch = () => {
         this.masterSearchQuery = (searchInput?.value || '').trim();
-        this.renderMasterSetupTab(container);
+        this.renderMasterSetupTab(container, this.cachedTabsBarHtml);
       };
       searchBtn?.addEventListener('click', doSearch);
       searchInput?.addEventListener('keydown', (e) => {
@@ -4928,7 +4933,7 @@ export const SettingsView = {
                   const idx = currentSubmaster.records.findIndex(r => r.code === row.code);
                   if (idx !== -1) {
                     currentSubmaster.records.splice(idx, 1);
-                    this.renderMasterSetupTab(container);
+                    this.renderMasterSetupTab(container, this.cachedTabsBarHtml);
                     Toast.show(`Record ${row.code} deleted successfully`, 'success');
                   }
                 }
