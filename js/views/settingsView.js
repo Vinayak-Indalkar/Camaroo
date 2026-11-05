@@ -4947,19 +4947,18 @@ export const SettingsView = {
               <div class="master-accordion-card bg-white rounded-xl border border-[#DFE1E6] overflow-hidden shadow-2xs transition-all duration-200">
                 <!-- Accordion Header Row -->
                 <div 
-                  class="master-accordion-header w-full px-4 py-3.5 flex items-center justify-between transition-colors cursor-pointer select-none ${isExpanded ? 'bg-[#F0F9FF] border-b border-[#BAE6FD]' : 'bg-white hover:bg-[#F8FAFC]'}"
+                  class="master-accordion-header w-full px-4 py-3.5 flex items-center justify-between transition-colors cursor-pointer select-none bg-white hover:bg-[#F8FAFC] ${isExpanded ? 'border-b border-[#DFE1E6]' : ''}"
                   data-module-id="${mod.id}"
                 >
-                  <!-- Left: Icon + Module Title -->
-                  <div class="flex items-center gap-3">
-                    <div class="w-9 h-9 rounded-xl flex items-center justify-center font-bold shadow-xs transition-colors duration-200 ${isExpanded ? 'bg-[#00A4B7] text-white' : 'bg-[#F1F5F9] text-[#00A4B7]'}">
-                      ${mod.icon}
+                  <!-- Left: Icon + Module Title + Sub Master Dropdown (immediately after Title) -->
+                  <div class="flex items-center gap-4 flex-wrap">
+                    <div class="flex items-center gap-3">
+                      <div class="w-9 h-9 rounded-xl flex items-center justify-center font-bold shadow-xs bg-[#F1F5F9] text-[#00A4B7]">
+                        ${mod.icon}
+                      </div>
+                      <span class="font-extrabold text-[#172B4D] text-sm tracking-tight">${mod.title} Masters</span>
                     </div>
-                    <span class="font-extrabold text-[#172B4D] text-sm tracking-tight">${mod.title} Masters</span>
-                  </div>
 
-                  <!-- Right: Sub Master Dropdown (only visible when expanded) + Chevron on far right -->
-                  <div class="flex items-center gap-3">
                     ${isExpanded ? `
                       <div class="submaster-dropdown-container flex items-center gap-2" onclick="event.stopPropagation()">
                         <label for="submaster-select-${mod.id}" class="text-xs font-bold text-[#5E6C84] whitespace-nowrap uppercase tracking-wider">Sub Master:</label>
@@ -4968,15 +4967,17 @@ export const SettingsView = {
                         </select>
                       </div>
                     ` : ''}
-                    <div class="w-7 h-7 rounded-full flex items-center justify-center transition-colors duration-200 ${isExpanded ? 'bg-[#00A4B7] text-white' : 'bg-[#F1F5F9] text-[#64748B]'}">
-                      <svg class="w-4 h-4 transform transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                    </div>
+                  </div>
+
+                  <!-- Right: Chevron on far right -->
+                  <div class="w-7 h-7 rounded-full flex items-center justify-center bg-[#F1F5F9] text-[#64748B] transition-colors">
+                    <svg class="w-4 h-4 transform transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                   </div>
                 </div>
 
                 <!-- Accordion Body -->
                 ${isExpanded ? `
-                  <div class="master-accordion-body p-4 bg-[#FAFBFC] space-y-3.5 border-t border-[#BAE6FD]/40 animate-accordion-expand">
+                  <div class="master-accordion-body p-4 bg-[#FAFBFC] space-y-3.5 border-t border-[#DFE1E6] animate-accordion-expand">
                     <!-- Search & Filter Card (AGENTS.md Rule 3) -->
                     <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs transition-all duration-200">
                       <div class="flex items-center justify-between pb-1">

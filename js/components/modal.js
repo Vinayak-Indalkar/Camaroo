@@ -5,6 +5,7 @@ export const Modal = {
   confirmedActionDepth: 0,
   initialized: false,
   onDismiss: null,
+  successTimer: null,
 
   isMutationAction(label) {
     return /^(save|update|create|add|delete|remove|record|register|generate|log|submit|approve|reject|confirm|launch|start|transfer|receive|pay|publish|assign|activate|deactivate|enable|disable|reset password)\b/i.test(label.trim());
@@ -155,6 +156,10 @@ export const Modal = {
   },
 
   close() {
+    if (this.successTimer) {
+      clearTimeout(this.successTimer);
+      this.successTimer = null;
+    }
     const existing = document.getElementById('erp-modal-root');
     if (existing) existing.remove();
     this.activeModal = null;
@@ -260,7 +265,7 @@ export const Modal = {
     });
   },
 
-  // Action Success / Submitted / Saved / Edited Confirmation Popup
+  // Action Success / Submitted / Saved / Edited Confirmation Popup (Auto-closes after 5 seconds)
   success({ title = 'Action Completed Successfully', message = 'The record has been processed and saved.', details = null, buttonText = 'OK', onConfirm = null }) {
     this.close();
 
@@ -304,16 +309,29 @@ export const Modal = {
     document.body.appendChild(modalEl);
     this.activeModal = modalEl;
 
+    const handleDismiss = () => {
+      if (this.successTimer) {
+        clearTimeout(this.successTimer);
+        this.successTimer = null;
+      }
+      this.close();
+      if (onConfirm) onConfirm();
+    };
+
     const btn = modalEl.querySelector('#modal-success-btn');
     if (btn) {
-      btn.addEventListener('click', () => {
-        this.close();
-        if (onConfirm) onConfirm();
-      });
+      btn.addEventListener('click', handleDismiss);
     }
 
     modalEl.addEventListener('click', (e) => {
-      if (e.target === modalEl) this.close();
+      if (e.target === modalEl) handleDismiss();
     });
+
+    // Auto-close popup automatically after 5 seconds across overall application
+    this.successTimer = setTimeout(() => {
+      if (this.activeModal === modalEl && document.getElementById('erp-modal-root') === modalEl) {
+        handleDismiss();
+      }
+    }, 5000);
   }
 };
