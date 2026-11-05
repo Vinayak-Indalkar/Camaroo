@@ -511,7 +511,7 @@ export class DataTable {
           ${!this.hideToolbar ? `<!-- Table Control Toolbar (Column visibility, Download, Copy, Search) -->
           <div class="px-4 py-2.5 border-b border-[#DFE1E6] bg-[#FAFBFC] flex flex-wrap items-center justify-between gap-3">
             <div class="flex items-center gap-2.5 flex-wrap">
-              ${this.tableTitle ? `<h3 class="font-bold text-[#172B4D] text-xs">${this.tableTitle}</h3>` : ''}
+              ${this.tableTitle ? `<h2 class="text-sm font-bold text-[#172B4D] uppercase tracking-wide">${this.tableTitle} (${this.filteredData.length})</h2>` : ''}
               
               <div id="dt-filter-container" class="flex items-center gap-2"></div>
             </div>
@@ -579,7 +579,7 @@ export class DataTable {
           </div>
 
           <!-- Table Container -->
-          <div class="overflow-x-auto min-h-[220px]">
+          <div class="dt-table-scroll">
             <table class="erp-table" ${this.minWidth ? `style="min-width: ${this.minWidth} !important;"` : ''}>
               <thead>
                 <tr id="dt-thead-row"></tr>
@@ -857,8 +857,7 @@ export class DataTable {
                 data-key="${keyVal}" 
                 disabled="disabled"
                 aria-disabled="true"
-                class="dt-action-btn dt-action-btn-disabled w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-[#F4F5F7] border border-[#DFE1E6] text-[#94A3B8] rounded-full select-none cursor-not-allowed opacity-35" 
-                style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 9999px; border: 1px solid #DFE1E6 !important; background: #F4F5F7 !important; color: #94A3B8 !important; display: inline-flex; align-items: center; justify-content: center; padding: 0; cursor: not-allowed !important; opacity: 0.35 !important;"
+                class="dt-action-btn dt-action-btn-disabled" 
                 title="${tooltip.replace(/"/g, '&quot;')}" 
                 aria-label="${tooltip.replace(/"/g, '&quot;')}"
               >
@@ -866,13 +865,21 @@ export class DataTable {
               </button>
             `;
           } else {
+            let actionClass = 'dt-action-btn';
+            if (actLabel.toLowerCase().includes('edit')) {
+              actionClass += ' dt-edit-action';
+            } else if (actLabel.toLowerCase().includes('delete') || actLabel.toLowerCase().includes('remove')) {
+              actionClass += ' dt-delete-action';
+            } else if (actLabel.toLowerCase().includes('download')) {
+              actionClass += ' dt-download-action';
+            }
+            
             rowsHtml += `
               <button 
                 type="button"
                 data-action-idx="${actIdx}" 
                 data-key="${keyVal}" 
-                class="dt-action-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" 
-                style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 9999px; border: 1px solid #CBD5E1; background: #ffffff; color: #334155; display: inline-flex; align-items: center; justify-content: center; padding: 0;"
+                class="${actionClass}"
                 title="${tooltip.replace(/"/g, '&quot;')}" 
                 aria-label="${tooltip.replace(/"/g, '&quot;')}"
               >
@@ -932,11 +939,7 @@ export class DataTable {
     for (let p = startPage; p <= endPage; p++) {
       const isActive = p === this.currentPage;
       pagesHtml += `
-        <button type="button" class="dt-page-btn w-9 h-9 min-w-[36px] flex items-center justify-center text-sm font-semibold rounded-xl transition-all cursor-pointer select-none ${
-          isActive
-            ? 'bg-black text-white shadow-xs'
-            : 'bg-white border border-[#CBD5E1] text-[#334155] hover:border-[#0284C7] hover:text-[#0284C7]'
-        }" data-page="${p}">
+        <button type="button" class="dt-page-btn ${isActive ? 'active' : ''}" data-page="${p}">
           ${p}
         </button>
       `;
@@ -962,9 +965,7 @@ export class DataTable {
         <!-- Page navigation buttons -->
         <div class="flex flex-wrap items-center gap-1.5 max-w-full">
           <!-- Previous page button -->
-          <button type="button" id="dt-page-prev" style="padding: 0 !important; width: 36px !important; height: 36px !important;" class="w-9 h-9 min-w-[36px] flex items-center justify-center bg-white border border-[#CBD5E1] rounded-xl text-[#64748B] hover:text-[#0284C7] hover:border-[#0284C7] transition-all ${
-            this.currentPage === 1 ? 'opacity-40 cursor-not-allowed hover:border-[#CBD5E1] hover:text-[#64748B]' : 'cursor-pointer'
-          }" title="Previous page" aria-label="Previous page" ${this.currentPage === 1 ? 'disabled' : ''}>
+          <button type="button" id="dt-page-prev" class="dt-page-btn" title="Previous page" aria-label="Previous page" ${this.currentPage === 1 ? 'disabled' : ''}>
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
           </button>
 
@@ -972,9 +973,7 @@ export class DataTable {
           ${pagesHtml}
 
           <!-- Next page button -->
-          <button type="button" id="dt-page-next" style="padding: 0 !important; width: 36px !important; height: 36px !important;" class="w-9 h-9 min-w-[36px] flex items-center justify-center bg-white border border-[#CBD5E1] rounded-xl text-[#64748B] hover:text-[#0284C7] hover:border-[#0284C7] transition-all ${
-            this.currentPage >= totalPages ? 'opacity-40 cursor-not-allowed hover:border-[#CBD5E1] hover:text-[#64748B]' : 'cursor-pointer'
-          }" title="Next page" aria-label="Next page" ${this.currentPage >= totalPages ? 'disabled' : ''}>
+          <button type="button" id="dt-page-next" class="dt-page-btn" title="Next page" aria-label="Next page" ${this.currentPage >= totalPages ? 'disabled' : ''}>
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
           </button>
         </div>

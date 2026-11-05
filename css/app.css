@@ -606,6 +606,205 @@ button.tab-active *,
   background-color: #F4F8FD !important;
 }
 
+/* ===== DataTable Component CSS Classes ===== */
+
+/* Table Action Button Styling */
+.dt-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  min-width: 32px !important;
+  min-height: 32px !important;
+  border-radius: 50% !important;
+  background-color: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  color: #334155;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.dt-action-btn:hover {
+  background-color: #F0F9FF;
+  border-color: #00A4B7;
+  color: #00A4B7;
+}
+
+.dt-action-btn:active {
+  transform: scale(0.95);
+}
+
+.dt-action-btn[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Download Icon - Teal */
+.dt-action-btn.dt-download-action svg {
+  color: #0284C7;
+}
+
+/* Edit Icon - Teal */
+.dt-action-btn.dt-edit-action svg {
+  color: #00A4B7;
+}
+
+/* Delete Icon - Red */
+.dt-action-btn.dt-delete-action svg {
+  color: #DC2626;
+}
+
+.dt-action-btn.dt-delete-action:hover {
+  background-color: #FEE2E2;
+  border-color: #DC2626;
+  color: #DC2626;
+}
+
+/* Pagination Button Styling */
+.dt-page-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  min-width: 36px !important;
+  min-height: 36px !important;
+  padding: 0 !important;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px !important;
+  background-color: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  color: #334155;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dt-page-btn:hover {
+  border-color: #0284C7;
+  color: #0284C7;
+}
+
+.dt-page-btn.active {
+  background-color: #000000 !important;
+  color: #FFFFFF !important;
+  border-color: #000000 !important;
+  font-weight: 700;
+}
+
+.dt-page-btn[disabled] {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Filter Controls */
+.dt-filter-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  color: #5E6C84;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+}
+
+.dt-filter-input,
+.dt-filter-select {
+  width: 100%;
+  font-size: 13px;
+  padding: 8px 10px;
+  background-color: #FFFFFF;
+  border: 1px solid #DFE1E6;
+  border-radius: 4px;
+  color: #172B4D;
+  font-weight: 600;
+  transition: all 0.15s ease;
+}
+
+.dt-filter-input:focus,
+.dt-filter-select:focus {
+  outline: none;
+  border-color: #00A4B7;
+  box-shadow: 0 0 0 3px rgba(0, 164, 183, 0.1);
+}
+
+/* Toolbar Button (Search) */
+.dt-search-btn {
+  padding: 8px 20px !important;
+  height: 32px;
+  border-radius: 9999px !important;
+  font-size: 13px;
+  font-weight: 600;
+  background-color: #00A4B7;
+  color: #FFFFFF;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.dt-search-btn:hover {
+  background-color: #008F9F;
+}
+
+/* Table Scroll Wrapper */
+.dt-table-scroll {
+  overflow-x: auto;
+  min-height: 220px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.dt-table-scroll::-webkit-scrollbar {
+  height: 8px;
+}
+
+.dt-table-scroll::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+
+.dt-table-scroll::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 4px;
+}
+
+.dt-table-scroll::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+/* Responsive Table on Mobile */
+@media (max-width: 768px) {
+  .dt-action-btn {
+    width: 36px;
+    height: 36px;
+    min-width: 36px !important;
+    min-height: 36px !important;
+  }
+  
+  .dt-page-btn {
+    width: 32px;
+    height: 32px;
+    min-width: 32px !important;
+    min-height: 32px !important;
+    font-size: 12px;
+  }
+  
+  .erp-table th {
+    font-size: 11px !important;
+    padding: 8px 10px;
+  }
+  
+  .erp-table td {
+    font-size: 12px !important;
+    padding: 8px 10px;
+  }
+}
+
 /* Nav Item Active - Pastel Sky Pill with Accessible Marine Text */
 .nav-item-active {
   background-color: #E0F2FE !important;
