@@ -863,6 +863,10 @@ a[role="tab"][aria-selected="true"],
   margin-bottom: 0 !important;
 }
 
+.user-roles-accordion-card.is-expanded {
+  border-color: #00A4B7 !important;
+}
+
 .master-accordion-body .dt-top-filter-card,
 .user-roles-accordion-body .dt-top-filter-card {
   margin: 0 !important;
@@ -92287,7 +92291,7 @@ const SettingsView = {
         <div class="space-y-3" id="user-roles-accordion-group">
           
           <!-- ACCORDION 1: Users Directory -->
-          <div class="user-roles-accordion-card bg-white rounded-xl border border-[#DFE1E6] overflow-hidden shadow-2xs transition-all duration-200">
+          <div class="user-roles-accordion-card bg-white rounded-xl border ${isUsersExpanded ? 'border-[#00A4B7] is-expanded shadow-xs' : 'border-[#DFE1E6] shadow-2xs'} overflow-hidden transition-all duration-200">
             <!-- Accordion Header Row (12px padding all sides, p-3) -->
             <div 
               class="user-roles-accordion-header w-full p-3 flex items-center justify-between transition-colors cursor-pointer select-none bg-white hover:bg-[#F8FAFC] ${isUsersExpanded ? 'border-b border-[#DFE1E6]' : ''}"
@@ -92382,7 +92386,7 @@ const SettingsView = {
           </div>
 
           <!-- ACCORDION 2: Roles & Permissions -->
-          <div class="user-roles-accordion-card bg-white rounded-xl border border-[#DFE1E6] overflow-hidden shadow-2xs transition-all duration-200">
+          <div class="user-roles-accordion-card bg-white rounded-xl border ${isRolesExpanded ? 'border-[#00A4B7] is-expanded shadow-xs' : 'border-[#DFE1E6] shadow-2xs'} overflow-hidden transition-all duration-200">
             <!-- Accordion Header Row (12px padding all sides, p-3) -->
             <div 
               class="user-roles-accordion-header w-full p-3 flex items-center justify-between transition-colors cursor-pointer select-none bg-white hover:bg-[#F8FAFC] ${isRolesExpanded ? 'border-b border-[#DFE1E6]' : ''}"
@@ -92482,7 +92486,7 @@ const SettingsView = {
           </div>
 
           <!-- ACCORDION 3: Departments Directory -->
-          <div class="user-roles-accordion-card bg-white rounded-xl border border-[#DFE1E6] overflow-hidden shadow-2xs transition-all duration-200">
+          <div class="user-roles-accordion-card bg-white rounded-xl border ${isDeptsExpanded ? 'border-[#00A4B7] is-expanded shadow-xs' : 'border-[#DFE1E6] shadow-2xs'} overflow-hidden transition-all duration-200">
             <!-- Accordion Header Row (12px padding all sides, p-3) -->
             <div 
               class="user-roles-accordion-header w-full p-3 flex items-center justify-between transition-colors cursor-pointer select-none bg-white hover:bg-[#F8FAFC] ${isDeptsExpanded ? 'border-b border-[#DFE1E6]' : ''}"
@@ -92565,9 +92569,6 @@ const SettingsView = {
 
                 <!-- Departments DataTable Container -->
                 <div id="departments-datatable-container"></div>
-
-                <!-- Departmental Matrix Summary Table -->
-                ${this.renderGovernanceSummaryTable()}
               </div>
             ` : ''}
           </div>
@@ -92600,174 +92601,6 @@ const SettingsView = {
       this.renderDepartmentsTable();
       this.bindDepartmentsEvents(container);
     }
-  },
-
-  renderGovernanceSummaryTable() {
-    return `
-      <!-- Departmental & Governance Matrix Summary Table (Matching erp-table UI) -->
-      <div class="mt-4 bg-white rounded-xl border border-[#DFE1E6] overflow-hidden shadow-2xs">
-        <div class="px-4 py-2.5 bg-[#FAFBFC] border-b border-[#DFE1E6] flex items-center justify-between">
-          <div class="flex items-center gap-2">
-            <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
-            <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Departmental &amp; Governance Summary</span>
-          </div>
-          <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">100% Synchronized</span>
-        </div>
-        <div class="overflow-x-auto min-h-[220px]">
-          <table class="erp-table" data-resizable-init="true">
-            <thead>
-              <tr id="dt-thead-row">
-                <th data-field="category" class="cursor-pointer hover:bg-[#EBECF0] transition-colors select-none relative">
-                  <div class="flex items-center gap-1.5 pr-2">
-                    <span>Metric / Category</span>
-                  </div>
-                  <div class="dt-col-resizer" title="Drag to resize column (Double-click to reset)"></div>
-                </th>
-                <th data-field="count" class="cursor-pointer hover:bg-[#EBECF0] transition-colors select-none relative">
-                  <div class="flex items-center gap-1.5 pr-2">
-                    <span>Allocated Count</span>
-                  </div>
-                  <div class="dt-col-resizer" title="Drag to resize column (Double-click to reset)"></div>
-                </th>
-                <th data-field="description" class="cursor-pointer hover:bg-[#EBECF0] transition-colors select-none relative">
-                  <div class="flex items-center gap-1.5 pr-2">
-                    <span>Operational Scope &amp; Description</span>
-                  </div>
-                  <div class="dt-col-resizer" title="Drag to resize column (Double-click to reset)"></div>
-                </th>
-                <th data-field="status" class="cursor-pointer hover:bg-[#EBECF0] transition-colors select-none relative">
-                  <div class="flex items-center gap-1.5 pr-2">
-                    <span>Status</span>
-                  </div>
-                  <div class="dt-col-resizer" title="Drag to resize column (Double-click to reset)"></div>
-                </th>
-                <th class="text-center sticky-action-col relative" data-field="__actions__" style="min-width: 130px; overflow: visible !important;">
-                  <div class="text-center w-full">Actions</div>
-                  <div class="dt-col-resizer" title="Drag to resize column (Double-click to reset)"></div>
-                </th>
-              </tr>
-            </thead>
-            <tbody id="dt-tbody">
-              <tr data-key="gov-1" data-row-index="0" tabindex="0" class="cursor-pointer hover:bg-[#FAFBFC] transition-colors">
-                <td title="Total Divisions" class="truncate font-bold text-xs" data-field="category">
-                  <div class="flex items-center gap-2">
-                    <span class="w-2.5 h-2.5 rounded-full bg-[#00A4B7] shrink-0"></span>
-                    <span class="text-[#00A4B7] font-extrabold">Total Divisions</span>
-                  </div>
-                </td>
-                <td title="${this.departments.length} Divisions" class="truncate" data-field="count">
-                  <span class="px-2.5 py-0.5 rounded-full text-[10.5px] font-extrabold bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD]">
-                    ${this.departments.length}
-                  </span>
-                </td>
-                <td title="Active core operations from farm procurement to export realization." class="truncate text-xs text-[#5E6C84] font-medium" data-field="description">
-                  <span class="text-xs text-[#5E6C84] font-medium">Active core operations from farm procurement to export realization.</span>
-                </td>
-                <td title="Active" class="truncate" data-field="status">
-                  <span class="px-2.5 py-0.5 rounded-full text-[10.5px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">
-                    Active
-                  </span>
-                </td>
-                <td class="text-center whitespace-nowrap sticky-action-col" style="min-width: 130px; text-align: center !important; overflow: visible !important;">
-                  <div class="inline-flex items-center justify-center w-full" style="gap: 8px; display: inline-flex;">
-                    <button type="button" class="btn-summary-action dt-action-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" data-action="departments" style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 9999px; border: 1px solid #CBD5E1; background: #ffffff; color: #334155; display: inline-flex; align-items: center; justify-content: center; padding: 0;" title="Edit / Manage Departments" aria-label="Edit / Manage Departments">
-                      <svg class="w-4 h-4 text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
-                    </button>
-                  </div>
-                </td>
-              </tr>
-
-              <tr data-key="gov-2" data-row-index="1" tabindex="0" class="cursor-pointer hover:bg-[#FAFBFC] transition-colors">
-                <td title="Total Personnel" class="truncate font-bold text-xs" data-field="category">
-                  <div class="flex items-center gap-2">
-                    <span class="w-2.5 h-2.5 rounded-full bg-[#172B4D] shrink-0"></span>
-                    <span class="text-[#172B4D] font-extrabold">Total Personnel</span>
-                  </div>
-                </td>
-                <td title="${this.users.length} Users" class="truncate" data-field="count">
-                  <span class="px-2.5 py-0.5 rounded-full text-[10.5px] font-extrabold bg-white text-[#172B4D] border border-[#DFE1E6]">
-                    ${this.users.length} Users
-                  </span>
-                </td>
-                <td title="Assigned workforce distributed across operational units." class="truncate text-xs text-[#5E6C84] font-medium" data-field="description">
-                  <span class="text-xs text-[#5E6C84] font-medium">Assigned workforce distributed across operational units.</span>
-                </td>
-                <td title="Synchronized" class="truncate" data-field="status">
-                  <span class="px-2.5 py-0.5 rounded-full text-[10.5px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">
-                    Synchronized
-                  </span>
-                </td>
-                <td class="text-center whitespace-nowrap sticky-action-col" style="min-width: 130px; text-align: center !important; overflow: visible !important;">
-                  <div class="inline-flex items-center justify-center w-full" style="gap: 8px; display: inline-flex;">
-                    <button type="button" class="btn-summary-action dt-action-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" data-action="users" style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 9999px; border: 1px solid #CBD5E1; background: #ffffff; color: #334155; display: inline-flex; align-items: center; justify-content: center; padding: 0;" title="Edit / Manage Users" aria-label="Edit / Manage Users">
-                      <svg class="w-4 h-4 text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
-                    </button>
-                  </div>
-                </td>
-              </tr>
-
-              <tr data-key="gov-3" data-row-index="2" tabindex="0" class="cursor-pointer hover:bg-[#FAFBFC] transition-colors">
-                <td title="Configured Roles" class="truncate font-bold text-xs" data-field="category">
-                  <div class="flex items-center gap-2">
-                    <span class="w-2.5 h-2.5 rounded-full bg-[#403294] shrink-0"></span>
-                    <span class="text-[#172B4D] font-extrabold">Configured Roles</span>
-                  </div>
-                </td>
-                <td title="${this.roles.length} Roles" class="truncate" data-field="count">
-                  <span class="px-2.5 py-0.5 rounded-full text-[10.5px] font-extrabold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">
-                    ${this.roles.length} Roles
-                  </span>
-                </td>
-                <td title="Granular role definitions with cross-departmental scope." class="truncate text-xs text-[#5E6C84] font-medium" data-field="description">
-                  <span class="text-xs text-[#5E6C84] font-medium">Granular role definitions with cross-departmental scope.</span>
-                </td>
-                <td title="Configured" class="truncate" data-field="status">
-                  <span class="px-2.5 py-0.5 rounded-full text-[10.5px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">
-                    Configured
-                  </span>
-                </td>
-                <td class="text-center whitespace-nowrap sticky-action-col" style="min-width: 130px; text-align: center !important; overflow: visible !important;">
-                  <div class="inline-flex items-center justify-center w-full" style="gap: 8px; display: inline-flex;">
-                    <button type="button" class="btn-summary-action dt-action-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" data-action="roles" style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 9999px; border: 1px solid #CBD5E1; background: #ffffff; color: #334155; display: inline-flex; align-items: center; justify-content: center; padding: 0;" title="Edit / Manage Roles" aria-label="Edit / Manage Roles">
-                      <svg class="w-4 h-4 text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
-                    </button>
-                  </div>
-                </td>
-              </tr>
-
-              <tr data-key="gov-4" data-row-index="3" tabindex="0" class="cursor-pointer hover:bg-[#FAFBFC] transition-colors">
-                <td title="Access Governance" class="truncate font-bold text-xs" data-field="category">
-                  <div class="flex items-center gap-2">
-                    <span class="w-2.5 h-2.5 rounded-full bg-[#006644] shrink-0"></span>
-                    <span class="text-[#172B4D] font-extrabold">Access Governance</span>
-                  </div>
-                </td>
-                <td title="Strict RBAC" class="truncate" data-field="count">
-                  <span class="px-2.5 py-0.5 rounded-full text-[10.5px] font-extrabold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">
-                    Strict RBAC
-                  </span>
-                </td>
-                <td title="100% synchronized permissions across User, Role and Department." class="truncate text-xs text-[#5E6C84] font-medium" data-field="description">
-                  <span class="text-xs text-[#5E6C84] font-medium">100% synchronized permissions across User, Role and Department.</span>
-                </td>
-                <td title="Enforced" class="truncate" data-field="status">
-                  <span class="px-2.5 py-0.5 rounded-full text-[10.5px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">
-                    Enforced
-                  </span>
-                </td>
-                <td class="text-center whitespace-nowrap sticky-action-col" style="min-width: 130px; text-align: center !important; overflow: visible !important;">
-                  <div class="inline-flex items-center justify-center w-full" style="gap: 8px; display: inline-flex;">
-                    <button type="button" class="btn-summary-action dt-action-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" data-action="governance" style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 9999px; border: 1px solid #CBD5E1; background: #ffffff; color: #334155; display: inline-flex; align-items: center; justify-content: center; padding: 0;" title="Configure Permissions Matrix" aria-label="Configure Permissions Matrix">
-                      <svg class="w-4 h-4 text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    `;
   },
 
   renderUsersTable() {
@@ -94441,7 +94274,6 @@ openRoleModal(role = null, onSaved) {
                 <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider">Profile Photo</label>
                 <span class="text-[10px] text-[#5E6C84] font-medium">(PNG, JPG, WebP up to 5MB)</span>
               </div>
-              <p class="text-[11px] text-[#5E6C84] mt-0.5">Upload an employee headshot for identity verification across ERP audit logs and tables.</p>
               
               <div class="flex items-center gap-2 mt-2 justify-center sm:justify-start flex-wrap">
                 <input type="file" id="usr-modal-photo-input" accept="image/*" class="hidden" />

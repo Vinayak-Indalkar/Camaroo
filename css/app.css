@@ -796,6 +796,10 @@ a[role="tab"][aria-selected="true"],
   margin-bottom: 0 !important;
 }
 
+.user-roles-accordion-card.is-expanded {
+  border-color: #00A4B7 !important;
+}
+
 .master-accordion-body .dt-top-filter-card,
 .user-roles-accordion-body .dt-top-filter-card {
   margin: 0 !important;
