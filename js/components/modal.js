@@ -79,13 +79,13 @@ export const Modal = {
     });
 
     modalEl.innerHTML = `
-      <div class="bg-white rounded-lg shadow-2xl border border-[#DFE1E6] w-full ${modalWidthClass} flex flex-col max-h-[90vh] animate-fade-in overflow-hidden">
+      <div class="bg-white rounded-lg shadow-2xl border border-[#DFE1E6] w-full ${modalWidthClass} flex flex-col max-h-[90vh] animate-fade-in overflow-hidden" role="dialog" aria-modal="true" aria-labelledby="erp-modal-title">
         <!-- Modal Header -->
         <div class="px-6 py-4 border-b border-[#DFE1E6] flex items-center justify-between bg-[#FAFBFC]">
-          <h3 class="text-base font-semibold text-[#172B4D] flex items-center gap-2">
+          <h3 id="erp-modal-title" class="text-base font-semibold text-[#172B4D] flex items-center gap-2">
             ${title}
           </h3>
-          <button id="erp-modal-close-btn" class="text-[#6B778C] hover:text-[#172B4D] p-1.5 rounded hover:bg-[#EBECF0] transition-colors">
+          <button id="erp-modal-close-btn" class="text-[#6B778C] hover:text-[#172B4D] p-1.5 rounded hover:bg-[#EBECF0] transition-colors" aria-label="Close modal" title="Close modal">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
           </button>
         </div>
@@ -181,7 +181,7 @@ export const Modal = {
         <!-- Drawer Header -->
         <div class="px-6 py-4 border-b border-[#DFE1E6] flex items-center justify-between bg-[#FAFBFC]">
           <div>
-            <h3 class="text-base font-bold text-[#172B4D]">${title}</h3>
+            <h3 id="erp-confirm-title" class="text-base font-bold text-[#172B4D]">${title}</h3>
             ${subtitle ? `<p class="text-xs text-[#5E6C84] mt-0.5">${subtitle}</p>` : ''}
           </div>
           <button id="erp-drawer-close-btn" class="text-[#6B778C] hover:text-[#172B4D] p-1.5 rounded hover:bg-[#EBECF0] transition-colors">
@@ -294,7 +294,7 @@ export const Modal = {
         </div>
         
         <h3 class="text-base font-extrabold text-[#172B4D] mb-1.5">${title}</h3>
-        <p class="text-xs text-[#5E6C84] leading-relaxed">${message}</p>
+        <p id="erp-confirm-msg" class="text-xs text-[#5E6C84] leading-relaxed">${message}</p>
         
         ${detailsHtml}
 

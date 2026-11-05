@@ -1,3 +1,4 @@
+import { AppSettings } from './services/appSettings.js';
 import { UIEnhancements } from './components/uiEnhancements.js';
 // Master Application Controller & Router for Fisheries ERP
 
@@ -30,7 +31,107 @@ import { SettingsView } from './views/settingsView.js';
 export const App = {
   routeVersion: 0,
 
+  applyClientBrandingTheme(customComp = null) {
+    try {
+      const STUDIO_KEY = 'dfl_erp_master_studio_state_v3';
+      let comp = customComp;
+      if (!comp) {
+        const raw = localStorage.getItem(STUDIO_KEY);
+        if (raw) {
+          try {
+            const state = JSON.parse(raw);
+            if (state && Array.isArray(state.companies)) {
+              comp = state.companies.find(c => c.id === state.activeCompanyId) || state.companies[0];
+            }
+          } catch(e) {}
+        }
+      }
+      if (!comp) {
+        const savedTheme = localStorage.getItem('dfl_erp_active_client_theme');
+        if (savedTheme) {
+          try { comp = JSON.parse(savedTheme); } catch(e) {}
+        }
+      }
+      if (!comp) return;
+
+      // Save to direct active theme storage
+      localStorage.setItem('dfl_erp_active_client_theme', JSON.stringify(comp));
+
+      // 1. Dynamic Font Family & Base Font Size
+      if (comp.font) {
+        document.documentElement.style.setProperty('--app-font-family', comp.font);
+        document.body.style.fontFamily = comp.font;
+      }
+      if (comp.fontSize) {
+        document.documentElement.style.setProperty('--app-base-font-size', comp.fontSize);
+        document.body.style.fontSize = comp.fontSize;
+      }
+
+      // 2. Dynamic Primary Brand Color & Secondary Accent Color & Background
+      if (comp.primaryColor) {
+        document.documentElement.style.setProperty('--color-primary', comp.primaryColor);
+        document.documentElement.style.setProperty('--brand-teal', comp.primaryColor);
+      }
+      if (comp.secondaryColor) {
+        document.documentElement.style.setProperty('--color-secondary', comp.secondaryColor);
+      }
+      if (comp.bgColor) {
+        document.documentElement.style.setProperty('--color-page-bg', comp.bgColor);
+        document.body.style.backgroundColor = comp.bgColor;
+      }
+
+      // 3. Dynamic Stylesheet Rule Injection for 100% full coverage
+      let styleTag = document.getElementById('dfl-dynamic-client-theme');
+      if (!styleTag) {
+        styleTag = document.createElement('style');
+        styleTag.id = 'dfl-dynamic-client-theme';
+        document.head.appendChild(styleTag);
+      }
+      const fontRule = comp.font ? `body, input, select, textarea, button, table { font-family: ${comp.font} !important; }` : '';
+      const sizeRule = comp.fontSize ? `html, body { font-size: ${comp.fontSize} !important; }` : '';
+      const primaryRule = comp.primaryColor ? `
+        .btn-primary, button.btn-primary, .bg-\\[\\#00A4B7\\] { background-color: ${comp.primaryColor} !important; }
+        .tab-active, .text-\\[\\#00A4B7\\] { color: ${comp.primaryColor} !important; }
+        .border-\\[\\#00A4B7\\] { border-color: ${comp.primaryColor} !important; }
+        .hover\\:bg-\\[\\#008F9F\\]:hover { filter: brightness(0.92); }
+      ` : '';
+      const bgRule = comp.bgColor ? `
+        #app-layout-main, #main-content-container, body { background-color: ${comp.bgColor} !important; }
+      ` : '';
+      styleTag.textContent = `${fontRule} ${sizeRule} ${primaryRule} ${bgRule}`;
+
+      // 4. Dynamic Favicon (App Icon)
+      if (comp.appIcon) {
+        let link = document.querySelector("link[rel*='icon']");
+        if (!link) {
+          link = document.createElement('link');
+          link.rel = 'shortcut icon';
+          document.head.appendChild(link);
+        }
+        link.href = comp.appIcon;
+      }
+
+      // 5. Dynamic Application Header / Sidebar Logo
+      const activeLogo = comp.appLogo || comp.logo;
+      if (activeLogo) {
+        document.querySelectorAll('img[alt="Devi Fisheries"], #header-app-logo, .sidebar-brand-logo').forEach(img => {
+          img.src = activeLogo;
+        });
+      }
+
+      // 6. Dynamic Footer Text
+      if (comp.footerText) {
+        document.querySelectorAll('.app-footer-text, #app-footer-text, #standalone-footer-text').forEach(el => {
+          el.textContent = comp.footerText;
+        });
+      }
+    } catch (e) {
+      console.warn('Error applying client branding theme:', e);
+    }
+  },
+
   init() {
+
     const savedUser = localStorage.getItem('dfl_current_user');
     if (savedUser) {
       try {
@@ -40,9 +141,11 @@ export const App = {
     if (localStorage.getItem('dfl_theme') === 'dark') {
       document.documentElement.classList.add('theme-dark');
     }
+    AppSettings.init();
     Toast.init();
     Modal.init();
     UIEnhancements.init();
+    this.applyClientBrandingTheme();
     this.bindHashChange();
     this.bindDatePickerHelper();
     this.bindTableTruncationTooltip();
@@ -197,11 +300,11 @@ export const App = {
         if (tabName === 'query-editer') tabName = 'query-editor';
       } else {
         if (!submenuName || submenuName === 'custom' || submenuName === 'master-setup' || submenuName === 'masters') submenuName = 'setup';
-        if (!tabName || tabName === 'organization' || tabName === 'org' || tabName === 'company' || tabName === 'profile' || tabName === 'profile-setup') tabName = 'organization';
+        if (!tabName || tabName === 'general' || tabName === 'general-setup' || tabName === 'setup' || tabName === 'transaction' || tabName === 'transaction-setup' || tabName === 'notifications') tabName = 'general';
+        else if (tabName === 'organization' || tabName === 'org' || tabName === 'company' || tabName === 'profile' || tabName === 'profile-setup') tabName = 'organization';
         else if (tabName === 'user-roles' || tabName === 'user-role' || tabName === 'users-roles' || tabName === 'user-access' || tabName === 'users-access' || tabName === 'user' || tabName === 'users' || tabName === 'access' || tabName === 'roles') tabName = 'user-roles';
-        else if (tabName === 'general' || tabName === 'general-setup' || tabName === 'setup' || tabName === 'transaction' || tabName === 'transaction-setup' || tabName === 'notifications') tabName = 'general';
         else if (tabName === 'masters' || tabName === 'master' || tabName === 'master-setup') tabName = 'masters';
-        else tabName = 'organization';
+        else tabName = 'general';
       }
     }
     const targetHierarchy = isSuperAdmin ? SUPER_ADMIN_NAV_HIERARCHY : ADMIN_NAV_HIERARCHY;
@@ -736,6 +839,7 @@ export const App = {
 
 // Expose App globally
 window.App = App;
+window.applyGlobalClientTheme = (comp) => App.applyClientBrandingTheme(comp);
 window.switchERPLayout = () => {
   localStorage.setItem('erp_layout_mode', 'option1');
   const shell = document.getElementById('erp-app-shell');

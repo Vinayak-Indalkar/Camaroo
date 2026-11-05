@@ -19,7 +19,7 @@ export const Header = {
             <svg class="w-4 h-4 text-[#94A3B8] pointer-events-none" style="left: 12px; width: 16px; height: 16px; position: absolute; top: 50%; transform: translateY(-50%); pointer-events: none; z-index: 5;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
             <input 
               type="text" 
-              id="header-global-search-input" 
+              id="header-global-search-input" aria-label="Search ERP records across modules" 
               placeholder="Search ERP records..." 
               autocomplete="off"
               style="padding-left: 42px !important; padding-right: 36px !important;"
@@ -27,7 +27,7 @@ export const Header = {
             />
             <button 
               type="button" 
-              id="header-search-clear-btn" 
+              id="header-search-clear-btn" aria-label="Clear search input" 
               style="display: none !important;"
               class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-[#94A3B8] hover:text-[#0F172A] p-0.5 rounded-full hover:bg-[#E2E8F0] transition-colors cursor-pointer items-center justify-center"
               title="Clear Search"
@@ -50,7 +50,7 @@ export const Header = {
         <div class="flex items-center gap-2">
           <!-- Notifications -->
           <div class="relative">
-            <button id="header-notifications-btn" class="p-2 text-[#64748B] hover:text-[#0F172A] hover:bg-[#F8FAFC] rounded-full relative transition-colors cursor-pointer border border-[#E2E8F0]" title="Notifications">
+            <button id="header-notifications-btn" class="p-2 text-[#64748B] hover:text-[#0F172A] hover:bg-[#F8FAFC] rounded-full relative transition-colors cursor-pointer border border-[#E2E8F0]" title="Notifications" aria-label="Notifications, 3 unread" aria-haspopup="true" aria-expanded="false">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
               <span class="absolute top-1 right-1 w-2 h-2 bg-[#EF4444] rounded-full ring-2 ring-white"></span>
             </button>

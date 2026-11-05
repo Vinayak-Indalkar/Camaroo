@@ -8,6 +8,8 @@ export const Toast = {
       this.container = document.createElement('div');
       this.container.id = 'erp-toast-container';
       this.container.className = 'fixed bottom-5 right-5 z-50 flex flex-col gap-2.5 max-w-md w-full pointer-events-none';
+      this.container.setAttribute('role', 'region');
+      this.container.setAttribute('aria-label', 'Notifications');
       document.body.appendChild(this.container);
     }
   },
@@ -15,10 +17,17 @@ export const Toast = {
   show(message, type = 'info', title = null, duration = 4000) {
     this.init();
 
+    // Trigger Enterprise AppSettings audio and desktop notification handlers
+    if (typeof window !== 'undefined' && window.AppSettings && typeof window.AppSettings.onToast === 'function') {
+      window.AppSettings.onToast(type, message, title);
+    }
+
     const toastId = 'toast-' + Math.random().toString(36).substr(2, 9);
     const toast = document.createElement('div');
     toast.id = toastId;
     toast.className = 'pointer-events-auto bg-white rounded shadow-lg border border-[#DFE1E6] p-3.5 flex items-start gap-3 transform transition-all duration-300 translate-y-4 opacity-0 text-sm animate-fade-in';
+    toast.setAttribute('role', 'alert');
+    toast.setAttribute('aria-live', (type === 'danger' || type === 'error') ? 'assertive' : 'polite');
 
     let iconSvg = '';
     let accentBorder = 'border-l-4 border-[#0284C7]';
@@ -47,7 +56,7 @@ export const Toast = {
         <div class="font-semibold text-[#172B4D] text-xs uppercase tracking-wider">${title}</div>
         <div class="text-[#42526E] text-xs mt-0.5">${message}</div>
       </div>
-      <button class="text-[#6B778C] hover:text-[#172B4D] p-1 rounded transition-colors" onclick="document.getElementById('${toastId}').remove()">
+      <button class="text-[#6B778C] hover:text-[#172B4D] p-1 rounded transition-colors" aria-label="Dismiss notification" title="Dismiss notification" onclick="document.getElementById('${toastId}').remove()">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
       </button>
     `;

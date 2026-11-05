@@ -49,7 +49,7 @@ export const Breadcrumbs = {
       <nav class="flex items-center gap-1.5 text-[11px] py-0.5 select-none flex-wrap" aria-label="Breadcrumb">
         ${crumbs.map((c, idx) => {
           const isLast = idx === crumbs.length - 1;
-          const separator = !isLast ? `<span class="text-[#CBD5E1] font-bold text-[9px] mx-0.5">/</span>` : '';
+          const separator = !isLast ? `<span class="text-[#94A3B8] font-bold text-[9px] mx-0.5" aria-hidden="true">/</span>` : '';
           
           if (c.active || isLast || !c.hash) {
             return `<span class="font-semibold text-[#0F172A] truncate max-w-xs">${c.label}</span> ${separator}`;

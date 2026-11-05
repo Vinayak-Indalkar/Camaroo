@@ -939,7 +939,7 @@ export class DataTable {
     for (let p = startPage; p <= endPage; p++) {
       const isActive = p === this.currentPage;
       pagesHtml += `
-        <button type="button" class="dt-page-btn ${isActive ? 'active' : ''}" data-page="${p}">
+        <button type="button" class="dt-page-btn ${isActive ? 'active' : ''}" data-page="${p}" aria-label="Page ${p}" ${isActive ? 'aria-current="page"' : ''}>
           ${p}
         </button>
       `;

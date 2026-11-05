@@ -604,7 +604,7 @@ export const Sidebar = {
       // Collapsed Icon-Only Floated Sidebar Mode (Width: 68px, Rounded Corners)
       container.innerHTML = `
         <div class="relative h-full w-full">
-          <aside id="erp-sidebar" class="bg-[#0F172A] text-[#94A3B8] w-full h-full flex flex-col transition-all duration-300 select-none border border-[#1E293B] rounded-[16px] overflow-visible">
+          <aside id="erp-sidebar" role="navigation" aria-label="Primary Navigation" class="bg-[#0F172A] text-[#94A3B8] w-full h-full flex flex-col transition-all duration-300 select-none border border-[#1E293B] rounded-[16px] overflow-visible">
             <!-- Collapsed Logo Icon Header -->
             <div class="h-14 px-2 py-2 flex items-center justify-center border-b border-[#1E293B] bg-[#0B0F19] shrink-0 rounded-t-[16px]" title="${isSuperAdmin ? 'Camaroo ERP' : 'Devi Fisheries'}">
               ${isSuperAdmin ? `
@@ -629,7 +629,7 @@ export const Sidebar = {
 
           <!-- Toggle Button: Half inside, half outside right edge -->
           <button 
-            id="sidebar-edge-toggle-btn" 
+            id="sidebar-edge-toggle-btn" aria-label="Toggle navigation sidebar" 
             class="absolute -right-3 top-4 w-6 h-6 rounded-full bg-white border border-[#CBD5E1] text-[#475569] hover:text-[#0284C7] hover:border-[#0284C7] flex items-center justify-center z-50 cursor-pointer shadow-xs transition-colors" 
             title="Expand Sidebar"
           >
@@ -641,7 +641,7 @@ export const Sidebar = {
       // Expanded Full Floated Sidebar Mode (Width: 272px, Rounded Corners)
       container.innerHTML = `
         <div class="relative h-full w-full">
-          <aside id="erp-sidebar" class="bg-[#0F172A] text-[#94A3B8] w-full h-full flex flex-col transition-all duration-300 select-none border border-[#1E293B] rounded-[16px] overflow-hidden">
+          <aside id="erp-sidebar" role="navigation" aria-label="Primary Navigation" class="bg-[#0F172A] text-[#94A3B8] w-full h-full flex flex-col transition-all duration-300 select-none border border-[#1E293B] rounded-[16px] overflow-hidden">
             <!-- Logo Branding Header -->
             <div class="h-14 px-4 py-2 flex items-center justify-between border-b border-[#1E293B] bg-[#0B0F19] shrink-0 rounded-t-[16px]">
               ${isSuperAdmin ? `
@@ -672,7 +672,7 @@ export const Sidebar = {
 
           <!-- Toggle Button: Half inside, half outside right edge -->
           <button 
-            id="sidebar-edge-toggle-btn" 
+            id="sidebar-edge-toggle-btn" aria-label="Toggle navigation sidebar" 
             class="absolute -right-3 top-4 w-6 h-6 rounded-full bg-white border border-[#CBD5E1] text-[#475569] hover:text-[#0284C7] hover:border-[#0284C7] flex items-center justify-center z-50 cursor-pointer shadow-xs transition-colors" 
             title="Collapse Sidebar"
           >
@@ -893,50 +893,7 @@ export const Sidebar = {
 
     const isCurrentMod = this.activeModuleId === 'settings';
 
-    // Super Admin: Has Customizer submenu
-    if (isSuperAdmin) {
-      const isExpanded = isCurrentMod;
-      return `
-        <div class="nav-module-group">
-          <button 
-            data-module-id="settings" 
-            class="sidebar-mod-btn w-full px-3 py-2 rounded-xl text-xs font-bold flex items-center justify-between transition-colors cursor-pointer ${isCurrentMod ? 'bg-white/10 text-white font-bold' : 'text-[#94A3B8] hover:bg-white/5 hover:text-white'}"
-            title="Settings"
-          >
-            <div class="flex items-center gap-2.5 truncate">
-              <span class="w-4 h-4 flex items-center justify-center shrink-0 ${isCurrentMod ? 'text-[#00A4B7]' : 'text-[#94A3B8]'}">${settingsMod.icon}</span>
-              <span class="text-xs tracking-tight truncate ${isCurrentMod ? 'text-white' : 'text-[#94A3B8]'}">${settingsMod.title}</span>
-            </div>
-            <div class="flex items-center gap-1 shrink-0">
-              <svg class="w-3.5 h-3.5 transform transition-transform duration-200 text-[#94A3B8] ${isExpanded ? 'rotate-90' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-            </div>
-          </button>
-          ${isExpanded ? `
-            <div class="nav-submenus-list mt-1 ml-4 py-1 space-y-0.5">
-              ${settingsMod.submenus.map(sub => {
-                const isSubActive = sub.id === this.activeSubmenuId;
-                const defaultHash = sub.tabs[0]?.hash || `/#/settings/${sub.id}`;
-                return `
-                  <div class="nav-submenu-block border-l-2 ${isSubActive ? 'border-[#00A4B7]' : 'border-[#334155] hover:border-[#64748B]'} pl-2.5 transition-colors">
-                    <a 
-                      href="${defaultHash}" 
-                      class="flex items-center px-2.5 py-1.5 rounded-md text-xs font-semibold transition-all ${isSubActive ? 'text-[#00A4B7] font-bold' : 'text-[#94A3B8] hover:bg-white/5 hover:text-white'}"
-                    >
-                      <div class="flex items-center gap-2 truncate">
-                        <span class="w-1.5 h-1.5 rounded-full ${isSubActive ? 'bg-[#00A4B7]' : 'bg-[#475569]'} shrink-0"></span>
-                        <span class="truncate">${sub.title}</span>
-                      </div>
-                    </a>
-                  </div>
-                `;
-              }).join('')}
-            </div>
-          ` : ''}
-        </div>
-      `;
-    }
-
-    // Admin role: Clean direct button without submenus
+        // Clean direct button without dropdown arrow or submenus (both Super Admin & Admin)
     return `
       <div class="nav-module-group">
         <button 

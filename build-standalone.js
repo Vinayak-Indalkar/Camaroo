@@ -19,6 +19,7 @@ const breadcrumbs = fs.readFileSync(path.join(__dirname, 'js', 'components', 'br
 const header = fs.readFileSync(path.join(__dirname, 'js', 'components', 'header.js'), 'utf-8');
 const charts = fs.readFileSync(path.join(__dirname, 'js', 'components', 'charts.js'), 'utf-8');
 const skeleton = fs.readFileSync(path.join(__dirname, 'js', 'components', 'skeleton.js'), 'utf-8');
+const appSettings = fs.readFileSync(path.join(__dirname, 'js', 'services', 'appSettings.js'), 'utf-8');
 
 
 const homeView = fs.readFileSync(path.join(__dirname, 'js', 'views', 'homeView.js'), 'utf-8');
@@ -67,6 +68,9 @@ const combinedJS = `
   ${cleanCode(header)}
   ${cleanCode(charts)}
   ${cleanCode(skeleton)}
+
+  // App Settings Engine
+  ${cleanCode(appSettings)}
 
   // Views
   ${cleanCode(homeView)}

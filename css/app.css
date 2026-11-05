@@ -514,7 +514,7 @@ button.tab-active *,
 
 /* WCAG 2.4.7 High-Contrast Visible Focus Indicator */
 :focus-visible {
-  outline: 2px solid #0284C7 !important;
+  outline: 2px solid #00A4B7 !important;
   outline-offset: 2px !important;
 }
 
@@ -1079,19 +1079,23 @@ a[role="tab"][aria-selected="true"],
 
 /* Accordion body & cards: strictly NO unwanted margins */
 .master-accordion-body,
-.user-roles-accordion-body {
+.user-roles-accordion-body,
+.admin-accordion-body,
+.org-accordion-body {
   margin: 0 !important;
   margin-top: 0 !important;
   margin-bottom: 0 !important;
-  background-color: #ececec !important;
+  background-color: #daedef !important;
 }
 
 .master-accordion-card,
-.user-roles-accordion-card {
+.user-roles-accordion-card,
+.org-accordion-card {
   margin-bottom: 0 !important;
 }
 
-.user-roles-accordion-card.is-expanded {
+.user-roles-accordion-card.is-expanded,
+.org-accordion-card.is-expanded {
   border-color: #00A4B7 !important;
 }
 
@@ -3046,4 +3050,132 @@ button.lucide-icon-tile,
 #master-records-table-container div:has(> #dt-download-btn),
 #master-records-table-container div:has(> #dt-columns-btn) {
   display: none !important;
+}
+
+/* ==========================================================================
+   ENTERPRISE GENERAL SETTINGS ENGINE SYSTEM STYLES
+   ========================================================================== */
+
+/* 1. Table Density Modes */
+html[data-density="compact"] .erp-table th,
+html[data-density="compact"] .erp-table td,
+html[data-density="compact"] table th,
+html[data-density="compact"] table td {
+  padding-top: 5px !important;
+  padding-bottom: 5px !important;
+  padding-left: 8px !important;
+  padding-right: 8px !important;
+  font-size: 11px !important;
+  line-height: 1.3 !important;
+}
+
+html[data-density="spacious"] .erp-table th,
+html[data-density="spacious"] .erp-table td,
+html[data-density="spacious"] table th,
+html[data-density="spacious"] table td {
+  padding-top: 13px !important;
+  padding-bottom: 13px !important;
+  padding-left: 14px !important;
+  padding-right: 14px !important;
+  font-size: 13.5px !important;
+  line-height: 1.6 !important;
+}
+
+/* 2. High Contrast Theme Mode */
+html.theme-high-contrast {
+  filter: contrast(1.12);
+}
+html.theme-high-contrast body,
+html.theme-high-contrast table,
+html.theme-high-contrast button,
+html.theme-high-contrast input,
+html.theme-high-contrast select {
+  font-weight: 500 !important;
+}
+html.theme-high-contrast .border-\[\#DFE1E6\],
+html.theme-high-contrast .border-\[\#CBD5E1\],
+html.theme-high-contrast .border-\[\#E2E8F0\],
+html.theme-high-contrast .border-\[\#F1F5F9\],
+html.theme-high-contrast .border {
+  border-color: #64748B !important;
+}
+html.theme-high-contrast .text-\[\#5E6C84\],
+html.theme-high-contrast .text-\[\#64748B\] {
+  color: #1E293B !important;
+  font-weight: 600 !important;
+}
+html.theme-high-contrast button,
+html.theme-high-contrast input,
+html.theme-high-contrast select {
+  border-width: 1.5px !important;
+  border-color: #334155 !important;
+}
+
+/* 3. Sidebar Style Themes */
+html[data-sidebar-style="pure-black"] #erp-sidebar,
+html[data-sidebar-style="pure-black"] #sidebar-nav-groups,
+html[data-sidebar-style="pure-black"] #sidebar-bottom-settings,
+html[data-sidebar-style="pure-black"] #sidebar-bottom-settings-collapsed {
+  background-color: #030712 !important;
+  border-color: #111827 !important;
+}
+html[data-sidebar-style="pure-black"] #erp-sidebar .border-\[\#1E293B\] {
+  border-color: #111827 !important;
+}
+
+html[data-sidebar-style="teal-brand"] #erp-sidebar,
+html[data-sidebar-style="teal-brand"] #sidebar-nav-groups,
+html[data-sidebar-style="teal-brand"] #sidebar-bottom-settings,
+html[data-sidebar-style="teal-brand"] #sidebar-bottom-settings-collapsed {
+  background-color: #00363F !important;
+  border-color: #004D56 !important;
+}
+html[data-sidebar-style="teal-brand"] #erp-sidebar .border-\[\#1E293B\] {
+  border-color: #004D56 !important;
+}
+
+/* 4. Motion and Animations Control */
+html.reduce-motion *,
+html.no-animations * {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* 5. Accessibility: Large Focus Rings */
+html.large-focus-rings *:focus-visible {
+  outline: 3px solid #00A4B7 !important;
+  outline-offset: 2.5px !important;
+  box-shadow: 0 0 0 4px rgba(0, 164, 183, 0.25) !important;
+}
+
+/* 6. Accessibility: High Legibility */
+html.high-legibility body,
+html.high-legibility input,
+html.high-legibility select,
+html.high-legibility button,
+html.high-legibility table,
+html.high-legibility p,
+html.high-legibility span {
+  letter-spacing: 0.03em !important;
+  word-spacing: 0.05em !important;
+}
+
+/* 7. Color Blindness Filter Modes */
+html.colorblind-protanopia {
+  filter: url('#protanopia-filter') !important;
+}
+html.colorblind-deuteranopia {
+  filter: url('#deuteranopia-filter') !important;
+}
+html.colorblind-tritanopia {
+  filter: url('#tritanopia-filter') !important;
+}
+
+/* Light Theme Accessible Status Text Contrast Enhancement (WCAG 2.1 AA) */
+.bg-\[\#FFFAE6\].text-\[\#FF8B00\],
+.bg-\[\#FFFAE6\] .text-\[\#FF8B00\],
+span.text-\[\#FF8B00\] {
+  color: #974F00 !important; /* 4.9:1 contrast vs #FFFAE6 and white */
 }
