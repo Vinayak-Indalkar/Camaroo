@@ -7325,8 +7325,7 @@ export const SetupView = {
           <button type="button" id="wizard-cancel-btn" class="btn-secondary px-4 py-2 rounded-full text-xs font-semibold cursor-pointer border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#172B4D] transition-all">
             Cancel
           </button>
-          <button type="button" id="wizard-save-btn" class="btn-secondary px-4 py-2 rounded-full text-xs font-semibold cursor-pointer border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#172B4D] transition-all flex items-center gap-1.5" title="Save current progress">
-            <svg class="w-3.5 h-3.5 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/></svg>
+          <button type="button" id="wizard-save-btn" class="btn-primary px-5 py-2 rounded-full text-xs font-bold shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer" title="Save">
             <span>Save</span>
           </button>
           <button type="button" id="wizard-next-btn" class="btn-primary px-5 py-2 rounded-full text-xs font-bold flex items-center gap-1.5 shadow-xs cursor-pointer bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
