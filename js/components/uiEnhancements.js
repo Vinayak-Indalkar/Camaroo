@@ -592,13 +592,11 @@ export const UIEnhancements = {
       if (!ticking) {
         requestAnimationFrame(updateStickyHeaders);
         ticking = true;
-      }
-    };
-
+  }
+};
     window.addEventListener('scroll', onScrollOrResize, { passive: true });
     window.addEventListener('resize', onScrollOrResize, { passive: true });
     document.addEventListener('scroll', onScrollOrResize, { passive: true, capture: true });
-  }
   }
 };
 

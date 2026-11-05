@@ -174,9 +174,9 @@ export const SettingsView = {
 
   renderAdminSettingsTabs(activeTab) {
     const tabs = [
+      { id: 'general', label: 'General', hash: '#/settings/setup/general' },
       { id: 'organization', label: 'Organization', hash: '#/settings/setup/organization' },
       { id: 'user-roles', label: 'User & Roles', hash: '#/settings/setup/user-roles' },
-      { id: 'general', label: 'General', hash: '#/settings/setup/general' },
       { id: 'masters', label: 'Masters', hash: '#/settings/setup/masters' }
     ];
 
@@ -284,7 +284,7 @@ export const SettingsView = {
         this.renderMasterSetupTab(container, tabsBarHtml);
         break;
       default:
-        this.renderOrganizationTab(container, tabsBarHtml);
+        this.renderGeneralTab(container, tabsBarHtml);
         break;
     }
   },
