@@ -329,7 +329,7 @@ export const App = {
           <!-- Main Layout Wrapper (offset by floating sidebar width + margins) -->
           <div id="main-layout-wrapper" class="${collapsedClass} flex flex-col min-h-screen">
             <!-- Fixed / Sticky Top Header & Breadcrumbs Wrapper (Masked to prevent scrolled content leakage) -->
-            <div id="top-nav-wrapper" class="sticky top-0 z-45 pt-3 pb-1 bg-[#F2F5F9]">
+            <div id="top-nav-wrapper" class="sticky top-0 z-35 pt-3 pb-1 bg-[#F2F5F9]">
               <div class="rounded-2xl border border-[#E2E8F0] bg-white shadow-2xs relative">
                 <div id="header-container" class="bg-white rounded-t-2xl"></div>
                 <!-- Breadcrumbs Bar (Fixed in position right below Header) -->

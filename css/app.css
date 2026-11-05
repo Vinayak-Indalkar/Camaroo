@@ -107,12 +107,13 @@ body {
   left: var(--erp-sidebar-offset) !important;
   bottom: var(--erp-sidebar-offset) !important;
   width: var(--erp-sidebar-width) !important;
-  z-index: 40 !important;
+  z-index: 50 !important;
   transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
 #sidebar-container.is-collapsed {
   width: var(--erp-sidebar-collapsed-width) !important;
+  z-index: 60 !important;
 }
 
 #sidebar-container #erp-sidebar {
@@ -225,7 +226,7 @@ body {
 #top-nav-wrapper {
   position: sticky !important;
   top: 0 !important;
-  z-index: 45 !important;
+  z-index: 35 !important;
   padding-top: 12px !important;
   padding-bottom: 4px !important;
   background-color: #F2F5F9 !important;
@@ -3106,6 +3107,7 @@ button.lucide-icon-tile,
 
 /* Collapsed Sidebar Flyout Card & Anti-Clipping */
 #sidebar-container.is-collapsed,
+#sidebar-container.is-collapsed > div,
 #sidebar-container.is-collapsed #erp-sidebar,
 #sidebar-container.is-collapsed #sidebar-nav-groups,
 #sidebar-bottom-settings-collapsed {
@@ -3116,8 +3118,23 @@ button.lucide-icon-tile,
   position: relative !important;
 }
 
+#sidebar-container.is-collapsed .nav-module-group:hover {
+  z-index: 70 !important;
+}
+
+#sidebar-container.is-collapsed .sidebar-flyout-container {
+  z-index: 100 !important;
+}
+
 #sidebar-container.is-collapsed .nav-module-group:hover > .sidebar-flyout-container {
   display: block !important;
+}
+
+/* Modals and Drawers Backdrop Priority */
+#erp-modal-root,
+#erp-drawer-root,
+.drawer-backdrop {
+  z-index: 1000 !important;
 }
 
 
