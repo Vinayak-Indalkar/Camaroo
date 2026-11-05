@@ -7,7 +7,7 @@ export const UIEnhancements = {
     this.initDropdown();
     this.initDatePicker();
     this.initAutofillObserver();
-    this.initStickyTableHeaders();
+    // Native CSS position:sticky is used on table th elements
   },
 
   // =========================================================================

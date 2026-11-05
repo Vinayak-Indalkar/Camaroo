@@ -551,19 +551,28 @@ button.tab-active *,
 }
 
 /* Table styling with Soft Pastel Headers and High-Contrast Data */
-.erp-table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
+table,
+.erp-table,
+#table-roles-permissions-matrix {
+  width: 100% !important;
+  max-width: 100%;
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+  display: table !important;
+  margin: 0 !important;
 }
+table thead,
 .erp-table thead,
-.erp-table thead tr#dt-thead-row,
-.erp-table thead tr {
-  position: sticky !important;
-  top: 0 !important;
-  z-index: 15 !important;
+#table-roles-permissions-matrix thead {
+  position: static;
+  z-index: 10;
 }
-.erp-table th {
+table thead th,
+.erp-table thead th,
+.erp-table th,
+table th,
+#table-roles-permissions-matrix thead th,
+#table-roles-permissions-matrix th {
   background-color: #EEF3F8 !important;
   color: #334155 !important;
   font-size: 12px !important; /* +1px from 11px */
@@ -572,10 +581,11 @@ button.tab-active *,
   letter-spacing: 0.05em;
   padding: 10px 14px;
   border-bottom: 1px solid #DDE5ED !important;
+  box-shadow: 0 1px 0 #DDE5ED !important;
   position: sticky !important;
   top: 0 !important;
-  z-index: 15 !important;
-  white-space: nowrap;
+  z-index: 20 !important;
+  white-space: nowrap !important;
 }
 
 /* Remove excessive white space on left edge across all tables */
@@ -1682,8 +1692,7 @@ label .required {
   margin-left: 2px !important;
 }
 
-/* 3. DATA TABLES */
-table,
+/* Action Button Icons */
 button.dt-action-btn:not(.dt-top-filter-reset-btn):not(.dt-top-filter-toggle-btn) svg {
   width: 15px !important;
   height: 15px !important;

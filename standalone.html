@@ -618,19 +618,28 @@ button.tab-active *,
 }
 
 /* Table styling with Soft Pastel Headers and High-Contrast Data */
-.erp-table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
+table,
+.erp-table,
+#table-roles-permissions-matrix {
+  width: 100% !important;
+  max-width: 100%;
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+  display: table !important;
+  margin: 0 !important;
 }
+table thead,
 .erp-table thead,
-.erp-table thead tr#dt-thead-row,
-.erp-table thead tr {
-  position: sticky !important;
-  top: 0 !important;
-  z-index: 15 !important;
+#table-roles-permissions-matrix thead {
+  position: static;
+  z-index: 10;
 }
-.erp-table th {
+table thead th,
+.erp-table thead th,
+.erp-table th,
+table th,
+#table-roles-permissions-matrix thead th,
+#table-roles-permissions-matrix th {
   background-color: #EEF3F8 !important;
   color: #334155 !important;
   font-size: 12px !important; /* +1px from 11px */
@@ -639,10 +648,11 @@ button.tab-active *,
   letter-spacing: 0.05em;
   padding: 10px 14px;
   border-bottom: 1px solid #DDE5ED !important;
+  box-shadow: 0 1px 0 #DDE5ED !important;
   position: sticky !important;
   top: 0 !important;
-  z-index: 15 !important;
-  white-space: nowrap;
+  z-index: 20 !important;
+  white-space: nowrap !important;
 }
 
 /* Remove excessive white space on left edge across all tables */
@@ -1749,8 +1759,7 @@ label .required {
   margin-left: 2px !important;
 }
 
-/* 3. DATA TABLES */
-table,
+/* Action Button Icons */
 button.dt-action-btn:not(.dt-top-filter-reset-btn):not(.dt-top-filter-toggle-btn) svg {
   width: 15px !important;
   height: 15px !important;
@@ -4722,7 +4731,7 @@ const UIEnhancements = {
     this.initDropdown();
     this.initDatePicker();
     this.initAutofillObserver();
-    this.initStickyTableHeaders();
+    // Native CSS position:sticky is used on table th elements
   },
 
   // =========================================================================
@@ -6291,7 +6300,7 @@ class DataTable {
     if (this.selectable) {
       const selW = this.colWidths['__select__'] ? `style="width: ${this.colWidths['__select__']}px; min-width: ${this.colWidths['__select__']}px;"` : '';
       html += `
-        <th class="w-10 text-center relative select-none" data-field="__select__" ${selW}>
+        <th class="w-10 text-center select-none sticky top-0 z-20" data-field="__select__" ${selW}>
           <input type="checkbox" id="dt-select-all-checkbox" class="rounded border-[#DFE1E6] text-[#0284C7] focus:ring-0 cursor-pointer" />
           <div class="dt-col-resizer" title="Drag to resize column (Double-click to reset)"></div>
         </th>
@@ -6312,7 +6321,7 @@ class DataTable {
         : (isAction ? 'style="min-width: 120px; position: sticky !important; right: 0 !important; z-index: 20 !important;"' : '');
 
       html += `
-        <th data-field="${col.field}" class="${sortClass} ${actionClass} relative" ${customWidth}>
+        <th data-field="${col.field}" class="${sortClass} ${actionClass} sticky top-0 z-20" ${customWidth}>
           <div class="flex items-center gap-1.5 pr-2 ${isAction ? 'justify-center w-full' : ''}">
             <span>${col.header}</span>
             ${sortIcon ? `<span class="text-xs text-[#0284C7] font-bold">${sortIcon}</span>` : ''}
@@ -6325,7 +6334,7 @@ class DataTable {
     if (this.actions.length > 0) {
       const actionsW = this.colWidths['__actions__'] ? `style="width: ${this.colWidths['__actions__']}px; min-width: ${this.colWidths['__actions__']}px; overflow: visible !important;"` : 'style="min-width: 130px; overflow: visible !important;"';
       html += `
-        <th class="text-center sticky-action-col relative" data-field="__actions__" ${actionsW}>
+        <th class="text-center sticky-action-col sticky top-0 z-30" data-field="__actions__" ${actionsW}>
           <div class="text-center w-full">${this.actionsTitle || 'Actions'}</div>
           <div class="dt-col-resizer" title="Drag to resize column (Double-click to reset)"></div>
         </th>
@@ -7228,7 +7237,7 @@ function makeTableResizable(table) {
   ths.forEach(th => {
     if (th.querySelector('.dt-col-resizer')) return;
 
-    th.style.position = 'relative';
+    if (!th.style.position || th.style.position === 'static' || th.style.position === 'relative') { th.style.position = 'sticky'; th.style.top = '0px'; }
     const resizer = document.createElement('div');
     resizer.className = 'dt-col-resizer';
     resizer.title = 'Drag to resize column (Double-click to reset)';
