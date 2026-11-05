@@ -141,3 +141,10 @@ All screens, views, components, and user workflows MUST strictly conform to the 
 3. **Update**: Action button / click -> pre-populated modal -> update -> `Toast.show('... updated successfully', 'success')`.
 4. **Delete**: Action button -> `Modal.confirm` destructive popup -> removal from dataset -> table refresh -> `Toast.show('... deleted', 'success')`.
 
+---
+
+## 8. Role Separation & Scope Rules
+- **Admin Scope by Default**: All user requests, prompts, UI refinements, layout adjustments, menu alterations, and settings modifications apply strictly to the **Admin user (Devi Fisheries portal)**.
+- **Strict Super Admin Isolation**: DO NOT alter, override, or regress any Super Admin navigation, submenus, Customizer views (Forms, Fields Customizer, Query Editor), or Super Admin features (`SUPER_ADMIN_NAV_HIERARCHY`) unless the user explicitly and specifically instructs to modify "Super Admin". Super Admin must remain fully isolated and intact.
+
+
