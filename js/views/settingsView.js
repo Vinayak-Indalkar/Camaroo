@@ -1584,8 +1584,8 @@ openRoleModal(role = null, onSaved) {
         <tr class="role-tree-row role-menu-row bg-[#F8FAFC] hover:bg-[#F1F5F9] border-y border-[#DFE1E6] transition-colors" data-level="menu" data-menu-id="${menu.id}">
           <td class="py-2.5 px-3 font-bold text-xs text-[#172B4D] whitespace-nowrap">
             <div class="flex items-center gap-2">
-              <button type="button" class="btn-toggle-menu-tree w-5 h-5 rounded flex items-center justify-center text-[#5E6C84] bg-white border border-[#CBD5E1] shadow-2xs shrink-0 hover:text-[#00A4B7] hover:border-[#00A4B7] transition-all cursor-pointer" data-menu-id="${menu.id}" title="Expand / Collapse Menu">
-                <svg class="w-3 h-3 transform transition-transform duration-200 chevron-icon rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+              <button type="button" class="btn-toggle-menu-tree w-5 h-5 rounded flex items-center justify-center text-[#172B4D] bg-white border border-[#CBD5E1] shadow-2xs shrink-0 hover:text-[#00A4B7] hover:border-[#00A4B7] transition-all cursor-pointer" data-menu-id="${menu.id}" title="Expand / Collapse Menu">
+                <svg class="chevron-icon" style="display: block; width: 14px; height: 14px; min-width: 14px; min-height: 14px; stroke: #172B4D; stroke-width: 2.5px; fill: none; transition: transform 0.2s; transform: rotate(90deg);" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
               </button>
               <span class="w-2.5 h-2.5 rounded-full bg-[#00A4B7] shrink-0"></span>
               <span class="font-extrabold text-xs text-[#172B4D] tracking-wide">${this.escape(menu.label)}</span>
@@ -1604,7 +1604,7 @@ openRoleModal(role = null, onSaved) {
             <input type="checkbox" class="perm-tree-cb perm-cell-delete w-3.5 h-3.5 rounded text-[#DE350B] accent-[#DE350B] cursor-pointer" data-level="menu" data-menu-id="${menu.id}" data-action="delete" ${menuDelChecked ? 'checked' : ''} title="Toggle Delete for all ${this.escape(menu.label)} tabs" />
           </td>
           <td class="py-2 px-2 text-center">
-            <input type="checkbox" class="perm-tree-cb perm-cell-read w-3.5 h-3.5 rounded text-[#42526E] accent-[#00A4B7] cursor-pointer" data-level="menu" data-menu-id="${menu.id}" data-action="read" ${menuReadChecked ? 'checked' : ''} title="Toggle Read Only for all ${this.escape(menu.label)} tabs" />
+            <input type="checkbox" class="perm-tree-cb perm-cell-read w-3.5 h-3.5 rounded text-[#42526E] accent-[#00A4B7] cursor-pointer" data-level="menu" data-menu-id="${menu.id}" data-action="read" ${menuReadChecked ? 'checked' : ''} title="Toggle Read for all ${this.escape(menu.label)} tabs" />
           </td>
           <td class="py-2 px-2 text-center whitespace-nowrap">
             <button type="button" class="btn-matrix-tree-all px-2 py-0.5 rounded text-[10px] font-bold border border-[#CBD5E1] bg-white hover:bg-[#F0F9FF] hover:border-[#00A4B7] text-[#172B4D] hover:text-[#00A4B7] transition-colors cursor-pointer select-none" data-level="menu" data-menu-id="${menu.id}">
@@ -1632,11 +1632,11 @@ openRoleModal(role = null, onSaved) {
           <tr class="role-tree-row role-sub-row bg-[#FAFBFC] hover:bg-[#F1F5F9] border-b border-[#F1F5F9] transition-colors" data-level="submenu" data-menu-id="${menu.id}" data-sub-id="${sub.id}">
             <td class="py-2 px-3 text-xs text-[#172B4D] whitespace-nowrap pl-6 sm:pl-8">
               <div class="flex items-center gap-2">
-                <svg class="w-4 h-5 text-[#94A3B8] shrink-0" viewBox="0 0 16 20" fill="none">
-                  <path d="${isLastSub ? 'M4 0v10h10' : 'M4 0v20 M4 10h10'}" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <svg class="w-4 h-5 text-[#00A4B7]/70 shrink-0" viewBox="0 0 16 20" fill="none">
+                  <path d="${isLastSub ? 'M4 0v10h7m-3-3l3 3-3 3' : 'M4 0v20 M4 10h7m-3-3l3 3-3 3'}" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
-                <button type="button" class="btn-toggle-sub-tree w-4 h-4 rounded flex items-center justify-center text-[#5E6C84] bg-white border border-[#DFE1E6] shrink-0 hover:text-[#00A4B7] hover:border-[#00A4B7] transition-all cursor-pointer" data-menu-id="${menu.id}" data-sub-id="${sub.id}" title="Expand / Collapse Submenu">
-                  <svg class="w-2.5 h-2.5 transform transition-transform duration-200 chevron-icon rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                <button type="button" class="btn-toggle-sub-tree w-5 h-5 rounded flex items-center justify-center text-[#172B4D] bg-white border border-[#CBD5E1] shadow-2xs shrink-0 hover:text-[#00A4B7] hover:border-[#00A4B7] transition-all cursor-pointer" data-menu-id="${menu.id}" data-sub-id="${sub.id}" title="Expand / Collapse Submenu">
+                  <svg class="chevron-icon" style="display: block; width: 13px; height: 13px; min-width: 13px; min-height: 13px; stroke: #172B4D; stroke-width: 2.5px; fill: none; transition: transform 0.2s; transform: rotate(90deg);" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
                 </button>
                 <span class="font-bold text-xs text-[#172B4D]">${this.escape(sub.title)}</span>
                 <span class="px-1.5 py-0.2 rounded text-[10px] font-medium bg-[#F1F5F9] text-[#5E6C84] border border-[#DFE1E6] shrink-0">
@@ -1654,7 +1654,7 @@ openRoleModal(role = null, onSaved) {
               <input type="checkbox" class="perm-tree-cb perm-cell-delete w-3.5 h-3.5 rounded text-[#DE350B] accent-[#DE350B] cursor-pointer" data-level="submenu" data-menu-id="${menu.id}" data-sub-id="${sub.id}" data-action="delete" ${subDelChecked ? 'checked' : ''} title="Toggle Delete for ${this.escape(sub.title)}" />
             </td>
             <td class="py-2 px-2 text-center">
-              <input type="checkbox" class="perm-tree-cb perm-cell-read w-3.5 h-3.5 rounded text-[#42526E] accent-[#00A4B7] cursor-pointer" data-level="submenu" data-menu-id="${menu.id}" data-sub-id="${sub.id}" data-action="read" ${subReadChecked ? 'checked' : ''} title="Toggle Read Only for ${this.escape(sub.title)}" />
+              <input type="checkbox" class="perm-tree-cb perm-cell-read w-3.5 h-3.5 rounded text-[#42526E] accent-[#00A4B7] cursor-pointer" data-level="submenu" data-menu-id="${menu.id}" data-sub-id="${sub.id}" data-action="read" ${subReadChecked ? 'checked' : ''} title="Toggle Read for ${this.escape(sub.title)}" />
             </td>
             <td class="py-2 px-2 text-center whitespace-nowrap">
               <button type="button" class="btn-matrix-tree-all px-2 py-0.5 rounded text-[10px] font-bold border border-[#CBD5E1] bg-white hover:bg-[#F0F9FF] hover:border-[#00A4B7] text-[#172B4D] hover:text-[#00A4B7] transition-colors cursor-pointer select-none" data-level="submenu" data-menu-id="${menu.id}" data-sub-id="${sub.id}">
@@ -1674,12 +1674,11 @@ openRoleModal(role = null, onSaved) {
             <tr class="role-tree-row role-tab-row bg-white hover:bg-[#F0F9FF]/40 border-b border-[#F1F5F9] transition-colors" data-level="tab" data-menu-id="${menu.id}" data-sub-id="${sub.id}" data-tab-id="${tab.id}" data-tab-key="${tabKey}">
               <td class="py-2 px-3 text-xs text-[#334155] whitespace-nowrap pl-12 sm:pl-16">
                 <div class="flex items-center gap-2">
-                  <svg class="w-4 h-5 text-[#CBD5E1] shrink-0" viewBox="0 0 16 20" fill="none">
-                    <path d="${isLastTab ? 'M4 0v10h10' : 'M4 0v20 M4 10h10'}" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <svg class="w-4 h-5 text-[#94A3B8] shrink-0" viewBox="0 0 16 20" fill="none">
+                    <path d="${isLastTab ? 'M4 0v10h7m-3-3l3 3-3 3' : 'M4 0v20 M4 10h7m-3-3l3 3-3 3'}" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
-                  <svg class="w-3.5 h-3.5 text-[#00A4B7]/80 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                  <svg class="w-3.5 h-3.5 text-[#00A4B7] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
                   <span class="font-medium text-xs text-[#172B4D]">${this.escape(tab.label)}</span>
-                  ${tab.route ? `<span class="text-[10px] font-mono text-[#94A3B8] hidden md:inline-block">(${this.escape(tab.route.replace('#/', ''))})</span>` : ''}
                 </div>
               </td>
               <td class="py-2 px-2 text-center">
@@ -1692,7 +1691,7 @@ openRoleModal(role = null, onSaved) {
                 <input type="checkbox" class="perm-tree-cb perm-cell perm-cell-delete w-3.5 h-3.5 rounded text-[#DE350B] accent-[#DE350B] cursor-pointer" data-level="tab" data-menu-id="${menu.id}" data-sub-id="${sub.id}" data-tab-id="${tab.id}" data-action="delete" ${tabPerm.delete ? 'checked' : ''} title="Toggle Delete for ${this.escape(tab.label)}" />
               </td>
               <td class="py-2 px-2 text-center">
-                <input type="checkbox" class="perm-tree-cb perm-cell perm-cell-read w-3.5 h-3.5 rounded text-[#42526E] accent-[#00A4B7] cursor-pointer" data-level="tab" data-menu-id="${menu.id}" data-sub-id="${sub.id}" data-tab-id="${tab.id}" data-action="read" ${tabPerm.read ? 'checked' : ''} title="Toggle Read Only for ${this.escape(tab.label)}" />
+                <input type="checkbox" class="perm-tree-cb perm-cell perm-cell-read w-3.5 h-3.5 rounded text-[#42526E] accent-[#00A4B7] cursor-pointer" data-level="tab" data-menu-id="${menu.id}" data-sub-id="${sub.id}" data-tab-id="${tab.id}" data-action="read" ${tabPerm.read ? 'checked' : ''} title="Toggle Read for ${this.escape(tab.label)}" />
               </td>
               <td class="py-2 px-2 text-center whitespace-nowrap">
                 <button type="button" class="btn-matrix-tree-all px-2 py-0.5 rounded text-[10px] font-bold border border-[#CBD5E1] bg-white hover:bg-[#F0F9FF] hover:border-[#00A4B7] text-[#172B4D] hover:text-[#00A4B7] transition-colors cursor-pointer select-none" data-level="tab" data-menu-id="${menu.id}" data-sub-id="${sub.id}" data-tab-id="${tab.id}">
@@ -1775,13 +1774,13 @@ openRoleModal(role = null, onSaved) {
                 <thead class="sticky top-0 bg-[#F8FAFC] z-10 border-b border-[#DFE1E6] shadow-2xs">
                   <tr>
                     <th class="py-2.5 px-3 text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider min-w-[280px]">
-                      <div class="flex items-center justify-between">
+                      <div class="flex items-center gap-2">
+                        <button type="button" id="btn-tree-master-toggle" class="w-5 h-5 rounded flex items-center justify-center bg-white border border-[#CBD5E1] text-[#172B4D] hover:border-[#00A4B7] hover:text-[#00A4B7] shadow-2xs shrink-0 cursor-pointer transition-all" title="Collapse / Expand All Menus &amp; Tabs">
+                          <svg class="chevron-icon" style="display: block; width: 14px; height: 14px; min-width: 14px; min-height: 14px; stroke: #172B4D; stroke-width: 2.5px; fill: none; transition: transform 0.2s; transform: rotate(90deg);" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+                          </svg>
+                        </button>
                         <span>Menu</span>
-                        <div class="flex items-center gap-1.5 font-semibold text-[10px] normal-case">
-                          <button type="button" id="btn-tree-expand-all" class="text-[#00A4B7] hover:underline cursor-pointer">Expand All</button>
-                          <span class="text-[#CBD5E1]">|</span>
-                          <button type="button" id="btn-tree-collapse-all" class="text-[#5E6C84] hover:underline cursor-pointer">Collapse All</button>
-                        </div>
                       </div>
                     </th>
                     <th class="py-2.5 px-2 text-center w-20 min-w-[70px]">
@@ -1802,10 +1801,10 @@ openRoleModal(role = null, onSaved) {
                         <span>Delete</span>
                       </label>
                     </th>
-                    <th class="py-2.5 px-2 text-center w-24 min-w-[85px]">
-                      <label class="inline-flex items-center gap-1 font-bold text-[#42526E] cursor-pointer select-none" title="Toggle Read Only for all rows">
+                    <th class="py-2.5 px-2 text-center w-20 min-w-[70px]">
+                      <label class="inline-flex items-center gap-1 font-bold text-[#42526E] cursor-pointer select-none" title="Toggle Read for all rows">
                         <input type="checkbox" id="hdr-perm-read" class="w-3.5 h-3.5 rounded text-[#42526E] accent-[#00A4B7] cursor-pointer" />
-                        <span>Read Only</span>
+                        <span>Read</span>
                       </label>
                     </th>
                     <th class="py-2.5 px-2 text-center w-16 min-w-[65px] text-[10.5px] font-bold text-[#5E6C84] uppercase tracking-wider">
@@ -2174,22 +2173,52 @@ openRoleModal(role = null, onSaved) {
 
       // Expand / Collapse Tree Handlers
       modalRoot.addEventListener('click', (e) => {
+        // Master Toggle (All Menus, Submenus & Tabs)
+        const masterToggleBtn = e.target.closest('#btn-tree-master-toggle');
+        if (masterToggleBtn) {
+          const masterSvg = masterToggleBtn.querySelector('.chevron-icon');
+          const isCurrentlyCollapsed = masterSvg?.style.transform === 'rotate(0deg)';
+
+          if (isCurrentlyCollapsed) {
+            // Expand All
+            if (masterSvg) masterSvg.style.transform = 'rotate(90deg)';
+            masterToggleBtn.title = 'Collapse All Menus & Tabs';
+            modalRoot.querySelectorAll('.role-tree-row').forEach(r => r.classList.remove('hidden'));
+            modalRoot.querySelectorAll('.chevron-icon').forEach(ci => {
+              ci.style.transform = 'rotate(90deg)';
+            });
+          } else {
+            // Collapse All
+            if (masterSvg) masterSvg.style.transform = 'rotate(0deg)';
+            masterToggleBtn.title = 'Expand All Menus & Tabs';
+            modalRoot.querySelectorAll('.role-tree-row:not(.role-menu-row)').forEach(r => r.classList.add('hidden'));
+            modalRoot.querySelectorAll('.chevron-icon').forEach(ci => {
+              ci.style.transform = 'rotate(0deg)';
+            });
+          }
+          return;
+        }
+
         // Toggle Menu
         const toggleMenuBtn = e.target.closest('.btn-toggle-menu-tree');
         if (toggleMenuBtn) {
           const mId = toggleMenuBtn.dataset.menuId;
           const chevron = toggleMenuBtn.querySelector('.chevron-icon');
           const childRows = modalRoot.querySelectorAll(`.role-tree-row[data-menu-id="${mId}"]:not(.role-menu-row)`);
-          const isCurrentlyCollapsed = chevron?.classList.contains('rotate-0');
+          const isCurrentlyCollapsed = chevron?.style.transform === 'rotate(0deg)';
 
           if (isCurrentlyCollapsed) {
-            chevron?.classList.remove('rotate-0');
-            chevron?.classList.add('rotate-90');
+            if (chevron) chevron.style.transform = 'rotate(90deg)';
             childRows.forEach(r => r.classList.remove('hidden'));
+            modalRoot.querySelectorAll(`.btn-toggle-sub-tree[data-menu-id="${mId}"] .chevron-icon`).forEach(ci => {
+              ci.style.transform = 'rotate(90deg)';
+            });
           } else {
-            chevron?.classList.remove('rotate-90');
-            chevron?.classList.add('rotate-0');
+            if (chevron) chevron.style.transform = 'rotate(0deg)';
             childRows.forEach(r => r.classList.add('hidden'));
+            modalRoot.querySelectorAll(`.btn-toggle-sub-tree[data-menu-id="${mId}"] .chevron-icon`).forEach(ci => {
+              ci.style.transform = 'rotate(0deg)';
+            });
           }
           return;
         }
@@ -2201,37 +2230,15 @@ openRoleModal(role = null, onSaved) {
           const sId = toggleSubBtn.dataset.subId;
           const chevron = toggleSubBtn.querySelector('.chevron-icon');
           const childTabRows = modalRoot.querySelectorAll(`.role-tab-row[data-menu-id="${mId}"][data-sub-id="${sId}"]`);
-          const isCurrentlyCollapsed = chevron?.classList.contains('rotate-0');
+          const isCurrentlyCollapsed = chevron?.style.transform === 'rotate(0deg)';
 
           if (isCurrentlyCollapsed) {
-            chevron?.classList.remove('rotate-0');
-            chevron?.classList.add('rotate-90');
+            if (chevron) chevron.style.transform = 'rotate(90deg)';
             childTabRows.forEach(r => r.classList.remove('hidden'));
           } else {
-            chevron?.classList.remove('rotate-90');
-            chevron?.classList.add('rotate-0');
+            if (chevron) chevron.style.transform = 'rotate(0deg)';
             childTabRows.forEach(r => r.classList.add('hidden'));
           }
-          return;
-        }
-
-        // Expand All
-        if (e.target.closest('#btn-tree-expand-all')) {
-          modalRoot.querySelectorAll('.role-tree-row').forEach(r => r.classList.remove('hidden'));
-          modalRoot.querySelectorAll('.chevron-icon').forEach(ci => {
-            ci.classList.remove('rotate-0');
-            ci.classList.add('rotate-90');
-          });
-          return;
-        }
-
-        // Collapse All
-        if (e.target.closest('#btn-tree-collapse-all')) {
-          modalRoot.querySelectorAll('.role-tree-row:not(.role-menu-row)').forEach(r => r.classList.add('hidden'));
-          modalRoot.querySelectorAll('.chevron-icon').forEach(ci => {
-            ci.classList.remove('rotate-90');
-            ci.classList.add('rotate-0');
-          });
           return;
         }
       });
