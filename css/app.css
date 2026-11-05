@@ -121,35 +121,48 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Heading icons styling - Default: Brand Teal (#00A4B7), Hover: White (#FFFFFF) */
+/* Heading icons styling - 36x36 rounded-xl (w-9 h-9 rounded-xl bg-[#00A4B7] text-white) */
 .card-heading-icon {
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
   flex-shrink: 0 !important;
-  background-color: #F0F9FF !important;
-  border: 1px solid #BAE6FD !important;
-  color: #00A4B7 !important;
+  width: 36px !important;
+  height: 36px !important;
+  border-radius: 12px !important;
+  background-color: #00A4B7 !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important;
   transition: all 0.25s ease-in-out !important;
 }
 .card-heading-icon svg {
   display: block !important;
-  width: 16px !important;
-  height: 16px !important;
-  color: #00A4B7 !important;
-  stroke: #00A4B7 !important;
+  width: 18px !important;
+  height: 18px !important;
+  color: #FFFFFF !important;
+  stroke: #FFFFFF !important;
   transition: all 0.25s ease-in-out !important;
 }
 .group:hover .card-heading-icon,
 .card-heading-icon:hover {
-  background-color: #00A4B7 !important;
-  border-color: #008F9F !important;
+  background-color: #008F9F !important;
   color: #FFFFFF !important;
 }
 .group:hover .card-heading-icon svg,
 .card-heading-icon:hover svg {
   color: #FFFFFF !important;
   stroke: #FFFFFF !important;
+}
+
+/* General Settings Cards - Hover border color to brand teal (#00A4B7) */
+.general-settings-card {
+  border: 1px solid #DFE1E6 !important;
+  transition: border-color 0.25s ease-in-out, box-shadow 0.25s ease-in-out, transform 0.25s ease-in-out !important;
+}
+
+.general-settings-card:hover {
+  border-color: #00A4B7 !important;
+  box-shadow: 0 6px 16px -2px rgba(0, 164, 183, 0.16), 0 2px 6px -1px rgba(0, 164, 183, 0.08) !important;
 }
 
 :where(#main-content-container, #erp-modal-root, #erp-drawer-root, [id^="modal-"].fixed)

@@ -3578,9 +3578,9 @@ openRoleModal(role = null, onSaved) {
         <!-- Page Header -->
         <div class="flex items-center justify-between gap-3 mb-1">
           <div class="flex items-center gap-2.5">
-            <span class="card-heading-icon w-8 h-8 rounded-lg bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center shrink-0 shadow-2xs" style="display: inline-flex !important;">
+            <div class="card-heading-icon w-9 h-9 rounded-xl flex items-center justify-center font-bold shadow-xs transition-colors duration-200 bg-[#00A4B7] text-white shrink-0">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-            </span>
+            </div>
             <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">General Settings</h1>
           </div>
           <span class="text-xs font-semibold text-[#5E6C84] bg-[#F1F5F9] px-3 py-1 rounded-full border border-[#DFE1E6] flex items-center gap-1.5">
@@ -3593,13 +3593,13 @@ openRoleModal(role = null, onSaved) {
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
           <!-- CARD 1: Notification Settings -->
-          <div class="bg-white rounded-xl border border-[#DFE1E6] hover:border-[#00A4B7] p-5 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 space-y-4 flex flex-col justify-between group">
+          <div class="general-settings-card bg-white rounded-xl border border-[#DFE1E6] hover:border-[#00A4B7] p-5 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 space-y-4 flex flex-col justify-between group">
             <div class="space-y-3">
               <div class="flex items-center justify-between border-b border-[#F1F5F9] pb-3">
                 <div class="flex items-center gap-2.5">
-                  <span class="card-heading-icon w-7 h-7 rounded-lg bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center shrink-0 group-hover:bg-[#00A4B7] group-hover:text-white transition-all duration-200 shadow-2xs" style="display: inline-flex !important;">
+                  <div class="card-heading-icon w-9 h-9 rounded-xl flex items-center justify-center font-bold shadow-xs transition-colors duration-200 bg-[#00A4B7] text-white shrink-0">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
-                  </span>
+                  </div>
                   <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Notification Settings</h3>
                 </div>
                 <span id="notif-active-badge" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1] transition-all">
@@ -3670,13 +3670,13 @@ openRoleModal(role = null, onSaved) {
 
 
           <!-- CARD 2: Email Settings -->
-          <div class="bg-white rounded-xl border border-[#DFE1E6] hover:border-[#00A4B7] p-5 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 space-y-4 flex flex-col justify-between group">
+          <div class="general-settings-card bg-white rounded-xl border border-[#DFE1E6] hover:border-[#00A4B7] p-5 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 space-y-4 flex flex-col justify-between group">
             <div class="space-y-3">
               <div class="flex items-center justify-between border-b border-[#F1F5F9] pb-3">
                 <div class="flex items-center gap-2.5">
-                  <span class="card-heading-icon w-7 h-7 rounded-lg bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center shrink-0 group-hover:bg-[#00A4B7] group-hover:text-white transition-all duration-200 shadow-2xs" style="display: inline-flex !important;">
+                  <div class="card-heading-icon w-9 h-9 rounded-xl flex items-center justify-center font-bold shadow-xs transition-colors duration-200 bg-[#00A4B7] text-white shrink-0">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                  </span>
+                  </div>
                   <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Email Settings</h3>
                 </div>
               </div>
@@ -3723,13 +3723,13 @@ openRoleModal(role = null, onSaved) {
 
 
           <!-- CARD 3: Sound Settings -->
-          <div class="bg-white rounded-xl border border-[#DFE1E6] hover:border-[#00A4B7] p-5 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 space-y-4 flex flex-col justify-between group">
+          <div class="general-settings-card bg-white rounded-xl border border-[#DFE1E6] hover:border-[#00A4B7] p-5 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 space-y-4 flex flex-col justify-between group">
             <div class="space-y-3">
               <div class="flex items-center justify-between border-b border-[#F1F5F9] pb-3">
                 <div class="flex items-center gap-2.5">
-                  <span class="card-heading-icon w-7 h-7 rounded-lg bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center shrink-0 group-hover:bg-[#00A4B7] group-hover:text-white transition-all duration-200 shadow-2xs" style="display: inline-flex !important;">
+                  <div class="card-heading-icon w-9 h-9 rounded-xl flex items-center justify-center font-bold shadow-xs transition-colors duration-200 bg-[#00A4B7] text-white shrink-0">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>
-                  </span>
+                  </div>
                   <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Sound Settings</h3>
                 </div>
               </div>
@@ -3798,13 +3798,13 @@ openRoleModal(role = null, onSaved) {
 
 
           <!-- CARD 4: Appearance Settings -->
-          <div class="bg-white rounded-xl border border-[#DFE1E6] hover:border-[#00A4B7] p-5 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 space-y-4 flex flex-col justify-between group">
+          <div class="general-settings-card bg-white rounded-xl border border-[#DFE1E6] hover:border-[#00A4B7] p-5 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 space-y-4 flex flex-col justify-between group">
             <div class="space-y-3">
               <div class="flex items-center justify-between border-b border-[#F1F5F9] pb-3">
                 <div class="flex items-center gap-2.5">
-                  <span class="card-heading-icon w-7 h-7 rounded-lg bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center shrink-0 group-hover:bg-[#00A4B7] group-hover:text-white transition-all duration-200 shadow-2xs" style="display: inline-flex !important;">
+                  <div class="card-heading-icon w-9 h-9 rounded-xl flex items-center justify-center font-bold shadow-xs transition-colors duration-200 bg-[#00A4B7] text-white shrink-0">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
-                  </span>
+                  </div>
                   <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Appearance Settings</h3>
                 </div>
               </div>
@@ -3864,13 +3864,13 @@ openRoleModal(role = null, onSaved) {
 
 
           <!-- CARD 5: Accessibility Settings -->
-          <div class="bg-white rounded-xl border border-[#DFE1E6] hover:border-[#00A4B7] p-5 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 space-y-4 flex flex-col justify-between group">
+          <div class="general-settings-card bg-white rounded-xl border border-[#DFE1E6] hover:border-[#00A4B7] p-5 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 space-y-4 flex flex-col justify-between group">
             <div class="space-y-3">
               <div class="flex items-center justify-between border-b border-[#F1F5F9] pb-3">
                 <div class="flex items-center gap-2.5">
-                  <span class="card-heading-icon w-7 h-7 rounded-lg bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center shrink-0 group-hover:bg-[#00A4B7] group-hover:text-white transition-all duration-200 shadow-2xs" style="display: inline-flex !important;">
+                  <div class="card-heading-icon w-9 h-9 rounded-xl flex items-center justify-center font-bold shadow-xs transition-colors duration-200 bg-[#00A4B7] text-white shrink-0">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-                  </span>
+                  </div>
                   <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Accessibility Settings</h3>
                 </div>
               </div>
@@ -3930,13 +3930,13 @@ openRoleModal(role = null, onSaved) {
 
 
           <!-- CARD 6: Regional & Localization Defaults -->
-          <div class="bg-white rounded-xl border border-[#DFE1E6] hover:border-[#00A4B7] p-5 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 space-y-4 flex flex-col justify-between group">
+          <div class="general-settings-card bg-white rounded-xl border border-[#DFE1E6] hover:border-[#00A4B7] p-5 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 space-y-4 flex flex-col justify-between group">
             <div class="space-y-3">
               <div class="flex items-center justify-between border-b border-[#F1F5F9] pb-3">
                 <div class="flex items-center gap-2.5">
-                  <span class="card-heading-icon w-7 h-7 rounded-lg bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center shrink-0 group-hover:bg-[#00A4B7] group-hover:text-white transition-all duration-200 shadow-2xs" style="display: inline-flex !important;">
+                  <div class="card-heading-icon w-9 h-9 rounded-xl flex items-center justify-center font-bold shadow-xs transition-colors duration-200 bg-[#00A4B7] text-white shrink-0">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                  </span>
+                  </div>
                   <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Regional &amp; Localization</h3>
                 </div>
               </div>
@@ -3995,13 +3995,13 @@ openRoleModal(role = null, onSaved) {
 
 
           <!-- CARD 7: Security & Session Policy -->
-          <div class="bg-white rounded-xl border border-[#DFE1E6] hover:border-[#00A4B7] p-5 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 space-y-4 flex flex-col justify-between group">
+          <div class="general-settings-card bg-white rounded-xl border border-[#DFE1E6] hover:border-[#00A4B7] p-5 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 space-y-4 flex flex-col justify-between group">
             <div class="space-y-3">
               <div class="flex items-center justify-between border-b border-[#F1F5F9] pb-3">
                 <div class="flex items-center gap-2.5">
-                  <span class="card-heading-icon w-7 h-7 rounded-lg bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center shrink-0 group-hover:bg-[#00A4B7] group-hover:text-white transition-all duration-200 shadow-2xs" style="display: inline-flex !important;">
+                  <div class="card-heading-icon w-9 h-9 rounded-xl flex items-center justify-center font-bold shadow-xs transition-colors duration-200 bg-[#00A4B7] text-white shrink-0">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-                  </span>
+                  </div>
                   <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Security &amp; Session Policy</h3>
                 </div>
               </div>
@@ -4061,13 +4061,13 @@ openRoleModal(role = null, onSaved) {
 
 
           <!-- CARD 8: System Backup & Data Maintenance -->
-          <div class="bg-white rounded-xl border border-[#DFE1E6] hover:border-[#00A4B7] p-5 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 space-y-4 flex flex-col justify-between group">
+          <div class="general-settings-card bg-white rounded-xl border border-[#DFE1E6] hover:border-[#00A4B7] p-5 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 space-y-4 flex flex-col justify-between group">
             <div class="space-y-3">
               <div class="flex items-center justify-between border-b border-[#F1F5F9] pb-3">
                 <div class="flex items-center gap-2.5">
-                  <span class="card-heading-icon w-7 h-7 rounded-lg bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center shrink-0 group-hover:bg-[#00A4B7] group-hover:text-white transition-all duration-200 shadow-2xs" style="display: inline-flex !important;">
+                  <div class="card-heading-icon w-9 h-9 rounded-xl flex items-center justify-center font-bold shadow-xs transition-colors duration-200 bg-[#00A4B7] text-white shrink-0">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/></svg>
-                  </span>
+                  </div>
                   <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">System Backup &amp; Maintenance</h3>
                 </div>
               </div>
@@ -4112,13 +4112,13 @@ openRoleModal(role = null, onSaved) {
 
 
           <!-- CARD 9: Audit Trail & Compliance -->
-          <div class="bg-white rounded-xl border border-[#DFE1E6] hover:border-[#00A4B7] p-5 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 space-y-4 flex flex-col justify-between group">
+          <div class="general-settings-card bg-white rounded-xl border border-[#DFE1E6] hover:border-[#00A4B7] p-5 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 space-y-4 flex flex-col justify-between group">
             <div class="space-y-3">
               <div class="flex items-center justify-between border-b border-[#F1F5F9] pb-3">
                 <div class="flex items-center gap-2.5">
-                  <span class="card-heading-icon w-7 h-7 rounded-lg bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center shrink-0 group-hover:bg-[#00A4B7] group-hover:text-white transition-all duration-200 shadow-2xs" style="display: inline-flex !important;">
+                  <div class="card-heading-icon w-9 h-9 rounded-xl flex items-center justify-center font-bold shadow-xs transition-colors duration-200 bg-[#00A4B7] text-white shrink-0">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
-                  </span>
+                  </div>
                   <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Audit Trail &amp; Traceability</h3>
                 </div>
               </div>
