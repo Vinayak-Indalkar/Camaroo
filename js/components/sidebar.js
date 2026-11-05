@@ -587,15 +587,17 @@ export const Sidebar = {
       // Collapsed Icon-Only Floated Sidebar Mode (Width: 68px, Rounded Corners)
       container.innerHTML = `
         <div class="relative h-full w-full">
-          <aside id="erp-sidebar" class="bg-[#0F172A] text-[#94A3B8] w-full h-full flex flex-col transition-all duration-300 select-none border border-[#1E293B] rounded-2xl overflow-visible">
+          <aside id="erp-sidebar" class="bg-[#0F172A] text-[#94A3B8] w-full h-full flex flex-col transition-all duration-300 select-none border border-[#1E293B] rounded-[24px] overflow-visible">
             <!-- Collapsed Logo Icon Header -->
-            <div class="h-14 px-2 py-2 flex items-center justify-center border-b border-[#1E293B] bg-[#0B0F19] shrink-0" title="${isSuperAdmin ? 'Camaroo ERP' : 'Devi Fisheries'}">
+            <div class="h-14 px-2 py-2 flex items-center justify-center border-b border-[#1E293B] bg-[#0B0F19] shrink-0 rounded-t-[24px]" title="${isSuperAdmin ? 'Camaroo ERP' : 'Devi Fisheries'}">
               ${isSuperAdmin ? `
-                <div class="w-9 h-9 rounded-lg bg-[#0284C7] border border-[#38BDF8]/30 flex items-center justify-center font-black text-white text-xs">
+                <div class="w-10 h-10 rounded-xl bg-[#0284C7] border border-[#38BDF8]/30 flex items-center justify-center font-black text-white text-xs shadow-xs">
                   CMR
                 </div>
               ` : `
-                <img src="${LOGO_WHITE}" alt="Devi Fisheries" class="h-8 w-8 object-contain shrink-0" />
+                <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center p-1 shadow-xs">
+                  <img src="${LOGO_WHITE}" alt="Devi Fisheries" class="h-8 w-8 object-contain shrink-0 rounded-md" />
+                </div>
               `}
             </div>
 
@@ -605,7 +607,7 @@ export const Sidebar = {
             </div>
 
             <!-- Bottom Sticky Settings -->
-            <div class="shrink-0 py-3 px-2 border-t border-[#1E293B] flex justify-center bg-[#0F172A]" id="sidebar-bottom-settings-collapsed">
+            <div class="shrink-0 py-3 px-2 border-t border-[#1E293B] flex justify-center bg-[#0F172A] rounded-b-[24px]" id="sidebar-bottom-settings-collapsed">
               ${this.renderCollapsedSettingsModule()}
             </div>
           </aside>
@@ -624,9 +626,9 @@ export const Sidebar = {
       // Expanded Full Floated Sidebar Mode (Width: 272px, Rounded Corners)
       container.innerHTML = `
         <div class="relative h-full w-full">
-          <aside id="erp-sidebar" class="bg-[#0F172A] text-[#94A3B8] w-full h-full flex flex-col transition-all duration-300 select-none border border-[#1E293B] rounded-2xl overflow-hidden">
+          <aside id="erp-sidebar" class="bg-[#0F172A] text-[#94A3B8] w-full h-full flex flex-col transition-all duration-300 select-none border border-[#1E293B] rounded-[24px] overflow-hidden">
             <!-- Logo Branding Header -->
-            <div class="h-14 px-4 py-2 flex items-center justify-between border-b border-[#1E293B] bg-[#0B0F19] shrink-0">
+            <div class="h-14 px-4 py-2 flex items-center justify-between border-b border-[#1E293B] bg-[#0B0F19] shrink-0 rounded-t-[24px]">
               ${isSuperAdmin ? `
                 <div class="flex items-center gap-2.5">
                   <img src="${LOGO_CAMAROO_WHITE}" alt="Camaroo" class="h-7 w-auto max-w-[160px] object-contain shrink-0" />
@@ -648,7 +650,7 @@ export const Sidebar = {
             </div>
 
             <!-- Bottom Sticky Settings -->
-            <div class="shrink-0 p-3 border-t border-[#1E293B] bg-[#0F172A]" id="sidebar-bottom-settings">
+            <div class="shrink-0 p-3 border-t border-[#1E293B] bg-[#0F172A] rounded-b-[24px]" id="sidebar-bottom-settings">
               ${this.renderSettingsModule()}
             </div>
           </aside>

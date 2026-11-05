@@ -3037,3 +3037,20 @@ button.lucide-icon-tile,
 #sidebar-container.is-collapsed .nav-module-group {
   position: relative !important;
 }
+
+
+/* Sidebar Capsule Border Radius & Corner Smoothing */
+#erp-sidebar {
+  border-radius: 24px !important;
+}
+
+#erp-sidebar > div:first-child {
+  border-top-left-radius: 23px !important;
+  border-top-right-radius: 23px !important;
+}
+
+#sidebar-bottom-settings-collapsed,
+#sidebar-bottom-settings {
+  border-bottom-left-radius: 23px !important;
+  border-bottom-right-radius: 23px !important;
+}
