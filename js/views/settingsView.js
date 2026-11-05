@@ -163,7 +163,6 @@ export const SettingsView = {
       { id: 'profile-setup', label: 'Profile Setup', hash: '#/settings/setup/profile-setup' },
       { id: 'master-setup', label: 'Master Setup', hash: '#/settings/setup/master-setup' },
       { id: 'transaction-setup', label: 'Transaction Setup', hash: '#/settings/setup/transaction-setup' },
-      { id: 'customizer', label: 'Customizer', hash: '#/settings/setup/customizer' },
       { id: 'notifications', label: 'Notifications & Alerts', hash: '#/settings/setup/notifications' }
     ];
 
@@ -171,7 +170,7 @@ export const SettingsView = {
       <div class="border-b border-[#DFE1E6] mb-4">
         <div role="tablist" aria-label="Settings navigation" id="settings-tab-bar-container-tablist" class="flex items-center gap-1 overflow-x-auto bg-transparent p-0 scrollbar-thin">
           ${tabs.map(t => {
-            const isActive = t.id === activeTab || (t.id === 'customizer' && ['forms', 'fields-customizer', 'query-editor'].includes(activeTab));
+            const isActive = t.id === activeTab;
             return `
               <a 
                 role="tab" 
@@ -187,14 +186,58 @@ export const SettingsView = {
     `;
   },
 
-  render(containerId, tabName = 'general-setup', resolvedHash = '#/settings/setup/general-setup') {
+  render(containerId, tabName = '', resolvedHash = '') {
     this.lastContainerId = containerId;
     const container = document.getElementById(containerId);
     if (!container) return;
 
-    // Normalize active tab
+    const isSuperAdmin = ERP_DATA.currentUser?.role === 'Super Admin';
+
+    // Super Admin: Render Customizer View (Forms, Fields Customizer, Query Editor)
+    if (isSuperAdmin) {
+      let activeTab = 'forms';
+      if (tabName === 'fields-customizer' || tabName === 'filds-customizer' || tabName === 'field-builder' || tabName === 'custom-fields' || resolvedHash.includes('fields-customizer')) {
+        activeTab = 'fields-customizer';
+      } else if (tabName === 'query-editor' || tabName === 'query-editer' || resolvedHash.includes('query-editor')) {
+        activeTab = 'query-editor';
+      } else {
+        activeTab = 'forms';
+      }
+      this.activeTab = activeTab;
+
+      const isFormsActive = activeTab === 'forms';
+      const isFieldsActive = activeTab === 'fields-customizer';
+      const isQueryActive = activeTab === 'query-editor';
+
+      const customizerTabsBarHtml = `
+        <div class="border-b border-[#DFE1E6] mb-4">
+          <div role="tablist" aria-label="Customizer views" id="settings-tab-bar-container-tablist" class="flex items-center gap-1 overflow-x-auto bg-transparent p-0 scrollbar-thin">
+            <a id="tab-forms" role="tab" href="#/settings/custom/forms" class="select-none px-3 pt-2 pb-2 text-xs font-semibold whitespace-nowrap transition-colors flex items-center gap-1.5 outline-none border-b-2 ${isFormsActive ? 'border-[#00A4B7] text-[#00A4B7] font-bold' : 'border-transparent text-[#5E6C84] hover:text-[#172B4D]'}">
+              <span>Forms</span>
+            </a>
+            <a id="tab-fields-customizer" role="tab" href="#/settings/custom/fields-customizer" class="select-none px-3 pt-2 pb-2 text-xs font-semibold whitespace-nowrap transition-colors flex items-center gap-1.5 outline-none border-b-2 ${isFieldsActive ? 'border-[#00A4B7] text-[#00A4B7] font-bold' : 'border-transparent text-[#5E6C84] hover:text-[#172B4D]'}">
+              <span>Fields Customizer</span>
+            </a>
+            <a id="tab-query-editor" role="tab" href="#/settings/custom/query-editor" class="select-none px-3 pt-2 pb-2 text-xs font-semibold whitespace-nowrap transition-colors flex items-center gap-1.5 outline-none border-b-2 ${isQueryActive ? 'border-[#00A4B7] text-[#00A4B7] font-bold' : 'border-transparent text-[#5E6C84] hover:text-[#172B4D]'}">
+              <span>Query Editor</span>
+            </a>
+          </div>
+        </div>
+      `;
+
+      if (activeTab === 'fields-customizer') {
+        this.renderFieldsCustomizerTab(container, customizerTabsBarHtml);
+      } else if (activeTab === 'query-editor') {
+        this.renderQueryEditorTab(container, customizerTabsBarHtml);
+      } else {
+        this.renderFormsTab(container, customizerTabsBarHtml);
+      }
+      return;
+    }
+
+    // Admin role (Devi Fisheries Admin): Render Admin Settings View (General, Profile, Master, Transaction, Notifications)
     let currentTab = tabName || 'general-setup';
-    if (currentTab === 'setup' || currentTab === 'general' || currentTab === 'settings') currentTab = 'general-setup';
+    if (currentTab === 'setup' || currentTab === 'general' || currentTab === 'settings' || currentTab === 'forms') currentTab = 'general-setup';
     if (currentTab === 'profile') currentTab = 'profile-setup';
     if (currentTab === 'masters' || currentTab === 'master') currentTab = 'master-setup';
     if (currentTab === 'transaction' || currentTab === 'tranjection' || currentTab === 'tranjection-setup') currentTab = 'transaction-setup';
@@ -218,12 +261,8 @@ export const SettingsView = {
       case 'notifications':
         this.renderNotificationsTab(container, tabsBarHtml);
         break;
-      case 'customizer':
-      case 'forms':
-      case 'fields-customizer':
-      case 'query-editor':
       default:
-        this.renderCustomizerTab(container, tabsBarHtml, currentTab);
+        this.renderGeneralSetupTab(container, tabsBarHtml);
         break;
     }
   },

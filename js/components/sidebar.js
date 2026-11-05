@@ -435,7 +435,6 @@ export const ADMIN_NAV_HIERARCHY = [
           { id: "profile-setup", label: "Profile Setup", hash: "#/settings/setup/profile-setup" },
           { id: "master-setup", label: "Master Setup", hash: "#/settings/setup/master-setup" },
           { id: "transaction-setup", label: "Transaction Setup", hash: "#/settings/setup/transaction-setup" },
-          { id: "customizer", label: "Customizer", hash: "#/settings/setup/customizer" },
           { id: "notifications", label: "Notifications & Alerts", hash: "#/settings/setup/notifications" }
         ]
       }
@@ -505,16 +504,13 @@ export const SUPER_ADMIN_NAV_HIERARCHY = [
     icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>`,
     submenus: [
       {
-        id: "setup",
-        title: "Settings",
-        defaultTab: "general-setup",
+        id: "custom",
+        title: "Customizer",
+        defaultTab: "forms",
         tabs: [
-          { id: "general-setup", label: "General Setup", hash: "#/settings/setup/general-setup" },
-          { id: "profile-setup", label: "Profile Setup", hash: "#/settings/setup/profile-setup" },
-          { id: "master-setup", label: "Master Setup", hash: "#/settings/setup/master-setup" },
-          { id: "transaction-setup", label: "Transaction Setup", hash: "#/settings/setup/transaction-setup" },
-          { id: "customizer", label: "Customizer", hash: "#/settings/setup/customizer" },
-          { id: "notifications", label: "Notifications & Alerts", hash: "#/settings/setup/notifications" }
+          { id: "forms", label: "Forms", hash: "#/settings/custom/forms" },
+          { id: "fields-customizer", label: "Fields Customizer", hash: "#/settings/custom/fields-customizer" },
+          { id: "query-editor", label: "Query Editor", hash: "#/settings/custom/query-editor" }
         ]
       }
     ]
@@ -863,11 +859,55 @@ export const Sidebar = {
 
     const isCurrentMod = this.activeModuleId === 'settings';
 
+    // Super Admin: Has Customizer submenu
+    if (isSuperAdmin) {
+      const isExpanded = isCurrentMod;
+      return `
+        <div class="nav-module-group">
+          <button 
+            data-module-id="settings" 
+            class="sidebar-mod-btn w-full px-3 py-2 rounded-xl text-xs font-bold flex items-center justify-between transition-colors cursor-pointer ${isCurrentMod ? 'bg-white/10 text-white font-bold' : 'text-[#94A3B8] hover:bg-white/5 hover:text-white'}"
+            title="Settings"
+          >
+            <div class="flex items-center gap-2.5 truncate">
+              <span class="w-4 h-4 flex items-center justify-center shrink-0 ${isCurrentMod ? 'text-[#00A4B7]' : 'text-[#94A3B8]'}">${settingsMod.icon}</span>
+              <span class="text-xs tracking-tight truncate ${isCurrentMod ? 'text-white' : 'text-[#94A3B8]'}">${settingsMod.title}</span>
+            </div>
+            <div class="flex items-center gap-1 shrink-0">
+              <svg class="w-3.5 h-3.5 transform transition-transform duration-200 text-[#94A3B8] ${isExpanded ? 'rotate-90' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </div>
+          </button>
+          ${isExpanded ? `
+            <div class="nav-submenus-list mt-1 ml-4 py-1 space-y-0.5">
+              ${settingsMod.submenus.map(sub => {
+                const isSubActive = sub.id === this.activeSubmenuId;
+                const defaultHash = sub.tabs[0]?.hash || `/#/settings/${sub.id}`;
+                return `
+                  <div class="nav-submenu-block border-l-2 ${isSubActive ? 'border-[#00A4B7]' : 'border-[#334155] hover:border-[#64748B]'} pl-2.5 transition-colors">
+                    <a 
+                      href="${defaultHash}" 
+                      class="flex items-center px-2.5 py-1.5 rounded-md text-xs font-semibold transition-all ${isSubActive ? 'text-[#00A4B7] font-bold' : 'text-[#94A3B8] hover:bg-white/5 hover:text-white'}"
+                    >
+                      <div class="flex items-center gap-2 truncate">
+                        <span class="w-1.5 h-1.5 rounded-full ${isSubActive ? 'bg-[#00A4B7]' : 'bg-[#475569]'} shrink-0"></span>
+                        <span class="truncate">${sub.title}</span>
+                      </div>
+                    </a>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          ` : ''}
+        </div>
+      `;
+    }
+
+    // Admin role: Clean direct button without submenus
     return `
       <div class="nav-module-group">
         <button 
           data-module-id="settings" 
-          class="sidebar-mod-btn w-full px-3 py-2 rounded-lg text-xs font-bold flex items-center justify-between transition-colors cursor-pointer ${isCurrentMod ? 'bg-white/10 text-white font-bold' : 'text-[#94A3B8] hover:bg-white/5 hover:text-white'}"
+          class="sidebar-mod-btn w-full px-3 py-2 rounded-xl text-xs font-bold flex items-center justify-between transition-colors cursor-pointer ${isCurrentMod ? 'bg-white/10 text-white font-bold' : 'text-[#94A3B8] hover:bg-white/5 hover:text-white'}"
           title="Settings"
         >
           <div class="flex items-center gap-2.5 truncate">
@@ -888,12 +928,60 @@ export const Sidebar = {
 
     const isCurrentMod = settingsMod.id === this.activeModuleId;
 
+    // Super Admin: Hover flyout card with Customizer
+    if (isSuperAdmin && settingsMod.submenus && settingsMod.submenus.length > 0) {
+      return `
+        <div class="relative group flex justify-center nav-module-group w-full">
+          <!-- Icon Button -->
+          <button 
+            data-module-id="settings" 
+            class="sidebar-mod-btn w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-200 cursor-pointer ${isCurrentMod ? 'bg-[#00A4B7] text-white ring-2 ring-[#00A4B7] font-bold' : 'text-[#94A3B8] hover:bg-white/5 hover:text-white'}"
+            title="Settings"
+          >
+            <span class="w-4 h-4 flex items-center justify-center ${isCurrentMod ? 'text-white' : ''}">${settingsMod.icon}</span>
+          </button>
+
+          <!-- Floating Flyout Menu on Hover -->
+          <div class="absolute left-full bottom-0 ml-2.5 w-64 bg-[#1E2433] border border-[#2E384D] rounded-2xl p-3.5 shadow-2xl hidden group-hover:block z-50 transition-all pointer-events-auto">
+            <!-- Invisible bridge -->
+            <div class="absolute -left-3 top-0 bottom-0 w-3 pointer-events-auto"></div>
+
+            <!-- Header -->
+            <div class="flex items-center gap-2.5 pb-3 border-b border-[#2E384D]/80 mb-2">
+              <div class="w-9 h-9 rounded-xl bg-white/10 flex items-center justify-center text-white shrink-0 shadow-xs">
+                ${settingsMod.icon}
+              </div>
+              <span class="font-bold text-white text-sm tracking-tight truncate">${settingsMod.title}</span>
+            </div>
+
+            <!-- Submenus List in Flyout -->
+            <div class="space-y-1">
+              ${settingsMod.submenus.map(sub => {
+                const isSubActive = isCurrentMod && (sub.id === this.activeSubmenuId);
+                const defaultHash = sub.tabs[0]?.hash || `/#/settings/${sub.id}`;
+                return `
+                  <a 
+                    href="${defaultHash}" 
+                    class="flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium transition-colors group/sub ${isSubActive ? 'text-[#00A4B7] font-bold bg-white/5' : 'text-[#CBD5E1] hover:text-white hover:bg-white/5'}"
+                  >
+                    <span class="truncate">${sub.title}</span>
+                    <svg class="w-3.5 h-3.5 text-[#64748B] group-hover/sub:text-[#94A3B8] transform group-hover/sub:translate-x-0.5 transition-all shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                  </a>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // Admin role: Clean tooltip
     return `
       <div class="relative group flex justify-center nav-module-group w-full">
         <!-- Icon Button -->
         <button 
           data-module-id="settings" 
-          class="sidebar-mod-btn w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-200 cursor-pointer ${isCurrentMod ? 'bg-[#00A4B7] text-white ring-2 ring-[#00A4B7] font-bold' : 'text-[#94A3B8] hover:bg-white/5 hover:text-white'}"
+          class="sidebar-mod-btn w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-200 cursor-pointer ${isCurrentMod ? 'bg-[#00A4B7] text-white ring-2 ring-[#00A4B7] font-bold' : 'text-[#94A3B8] hover:bg-white/5 hover:text-white'}"
           title="Settings"
         >
           <span class="w-4 h-4 flex items-center justify-center ${isCurrentMod ? 'text-white' : ''}">${settingsMod.icon}</span>
@@ -921,10 +1009,14 @@ export const Sidebar = {
           return;
         }
 
-        // Direct single-click navigation for settings
+        // Settings direct click navigation
         if (modId === 'settings') {
           this.activeModuleId = 'settings';
-          window.location.hash = '#/settings/setup/general-setup';
+          if (isSuperAdmin) {
+            window.location.hash = '#/settings/custom/forms';
+          } else {
+            window.location.hash = '#/settings/setup/general-setup';
+          }
           return;
         }
 

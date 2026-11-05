@@ -184,11 +184,18 @@ export const App = {
     }
 
     if (moduleName === 'settings') {
-      if (!submenuName || submenuName === 'custom' || submenuName === 'master-setup') submenuName = 'setup';
-      if (!tabName || tabName === 'general' || tabName === 'masters') tabName = 'general-setup';
-      if (tabName === 'profile') tabName = 'profile-setup';
-      if (tabName === 'master') tabName = 'master-setup';
-      if (tabName === 'transaction' || tabName === 'tranjection' || tabName === 'tranjection-setup') tabName = 'transaction-setup';
+      if (isSuperAdmin) {
+        if (!submenuName || submenuName === 'customizer' || submenuName === 'master-setup' || submenuName === 'setup') submenuName = 'custom';
+        if (!tabName || tabName === 'form' || tabName === 'form-list' || tabName === 'forms-list' || tabName === 'masters' || tabName === 'general-setup') tabName = 'forms';
+        if (tabName === 'custom-fields' || tabName === 'field-builder' || tabName === 'fields' || tabName === 'filds-customizer') tabName = 'fields-customizer';
+        if (tabName === 'query-editer') tabName = 'query-editor';
+      } else {
+        if (!submenuName || submenuName === 'custom' || submenuName === 'master-setup') submenuName = 'setup';
+        if (!tabName || tabName === 'general' || tabName === 'masters' || tabName === 'forms') tabName = 'general-setup';
+        if (tabName === 'profile') tabName = 'profile-setup';
+        if (tabName === 'master') tabName = 'master-setup';
+        if (tabName === 'transaction' || tabName === 'tranjection' || tabName === 'tranjection-setup') tabName = 'transaction-setup';
+      }
     }
     const targetHierarchy = isSuperAdmin ? SUPER_ADMIN_NAV_HIERARCHY : ADMIN_NAV_HIERARCHY;
     const modObj = targetHierarchy.find(m => m.id === moduleName) || NAV_HIERARCHY.find(m => m.id === moduleName);
