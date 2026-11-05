@@ -96344,54 +96344,38 @@ const SettingsView = {
 
             return `
               <div class="master-accordion-card bg-white rounded-xl border border-[#DFE1E6] overflow-hidden shadow-2xs transition-all duration-200">
-                <!-- Accordion Header Button -->
-                <button 
-                  type="button" 
-                  class="master-accordion-header w-full px-4 py-3.5 flex items-center justify-between transition-colors cursor-pointer select-none text-left ${isExpanded ? 'bg-[#F0F9FF] border-b border-[#BAE6FD]' : 'bg-white hover:bg-[#F8FAFC]'}"
+                <!-- Accordion Header Row -->
+                <div 
+                  class="master-accordion-header w-full px-4 py-3.5 flex items-center justify-between transition-colors cursor-pointer select-none ${isExpanded ? 'bg-[#F0F9FF] border-b border-[#BAE6FD]' : 'bg-white hover:bg-[#F8FAFC]'}"
                   data-module-id="${mod.id}"
                 >
+                  <!-- Left: Icon + Module Title -->
                   <div class="flex items-center gap-3">
-                    <div class="w-9 h-9 rounded-xl flex items-center justify-center font-bold shadow-xs ${isExpanded ? 'bg-[#00A4B7] text-white' : 'bg-[#F1F5F9] text-[#00A4B7]'}">
+                    <div class="w-9 h-9 rounded-xl flex items-center justify-center font-bold shadow-xs transition-colors duration-200 ${isExpanded ? 'bg-[#00A4B7] text-white' : 'bg-[#F1F5F9] text-[#00A4B7]'}">
                       ${mod.icon}
                     </div>
-                    <div>
-                      <div class="flex items-center gap-2">
-                        <span class="font-extrabold text-[#172B4D] text-sm tracking-tight">${mod.title} Masters</span>
-                        <span class="px-2 py-0.5 rounded text-[10px] font-bold ${isExpanded ? 'bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD]' : 'bg-[#F1F5F9] text-[#5E6C84] border border-[#DFE1E6]'} uppercase">${submasterCount} Masters</span>
-                        <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">${totalRecords} Records</span>
-                      </div>
-                    </div>
+                    <span class="font-extrabold text-[#172B4D] text-sm tracking-tight">${mod.title} Masters</span>
                   </div>
-                  <div class="flex items-center gap-2">
-                    <span class="text-xs font-semibold ${isExpanded ? 'text-[#00A4B7]' : 'text-[#64748B]'}">${isExpanded ? 'Collapse' : 'Expand'}</span>
-                    <div class="w-7 h-7 rounded-full flex items-center justify-center ${isExpanded ? 'bg-[#00A4B7] text-white' : 'bg-[#F1F5F9] text-[#64748B]'}">
+
+                  <!-- Right: Sub Master Dropdown (only visible when expanded) + Chevron on far right -->
+                  <div class="flex items-center gap-3">
+                    ${isExpanded ? `
+                      <div class="submaster-dropdown-container flex items-center gap-2" onclick="event.stopPropagation()">
+                        <label for="submaster-select-${mod.id}" class="text-xs font-bold text-[#5E6C84] whitespace-nowrap uppercase tracking-wider">Sub Master:</label>
+                        <select id="submaster-select-${mod.id}" data-module-id="${mod.id}" class="submaster-dropdown-select text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] min-w-[240px] shadow-2xs">
+                          ${mod.submasters.map(sm => `<option value="${sm.id}" ${sm.id === currentSubmaster.id ? 'selected' : ''}>${sm.label} (${sm.records.length})</option>`).join('')}
+                        </select>
+                      </div>
+                    ` : ''}
+                    <div class="w-7 h-7 rounded-full flex items-center justify-center transition-colors duration-200 ${isExpanded ? 'bg-[#00A4B7] text-white' : 'bg-[#F1F5F9] text-[#64748B]'}">
                       <svg class="w-4 h-4 transform transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </div>
                   </div>
-                </button>
+                </div>
 
                 <!-- Accordion Body -->
                 ${isExpanded ? `
                   <div class="master-accordion-body p-4 bg-[#FAFBFC] space-y-3.5 border-t border-[#BAE6FD]/40 animate-accordion-expand">
-                    <!-- Submaster Pills Selector Bar -->
-                    <div class="bg-white p-2 rounded-xl border border-[#DFE1E6] flex items-center gap-2 overflow-x-auto shadow-2xs">
-                      <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider px-2 shrink-0">Sub-Master:</span>
-                      ${mod.submasters.map(sm => {
-                        const isSubSelected = sm.id === currentSubmaster.id;
-                        return `
-                          <button 
-                            type="button" 
-                            class="submaster-pill-btn px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer whitespace-nowrap inline-flex items-center gap-1.5 ${isSubSelected ? 'bg-[#00A4B7] text-white shadow-xs' : 'bg-[#F4F5F7] text-[#5E6C84] hover:bg-[#EBECF0] hover:text-[#172B4D]'}" 
-                            data-module-id="${mod.id}" 
-                            data-submaster-id="${sm.id}"
-                          >
-                            <span>${sm.label}</span>
-                            <span class="px-1.5 py-0.2 rounded-full text-[10px] ${isSubSelected ? 'bg-white/25 text-white' : 'bg-[#DFE1E6] text-[#172B4D]'}">${sm.records.length}</span>
-                          </button>
-                        `;
-                      }).join('')}
-                    </div>
-
                     <!-- Search & Filter Card (AGENTS.md Rule 3) -->
                     <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs transition-all duration-200">
                       <div class="flex items-center justify-between pb-1">
@@ -96455,30 +96439,35 @@ const SettingsView = {
       </div>
     `;
 
-    // Bind Accordion Header Clicks
+    // Bind Accordion Header Clicks: Ensure strictly ONE is open at a time with smooth transition
     const headerBtns = container.querySelectorAll('.master-accordion-header');
     headerBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
+      btn.addEventListener('click', (e) => {
+        // Prevent toggle if clicking inside the submaster select dropdown or its label
+        if (e.target.closest('.submaster-dropdown-container') || e.target.tagName === 'SELECT' || e.target.tagName === 'OPTION') {
+          return;
+        }
         const modId = btn.dataset.moduleId;
         this.activeMasterModule = (this.activeMasterModule === modId) ? null : modId;
         this.masterSearchQuery = '';
+        this.masterStatusFilter = 'All';
         this.renderMasterSetupTab(container, this.cachedTabsBarHtml);
       });
     });
 
     // If an accordion is expanded, bind its inner controls
-    if (this.activeMasterModule) {
-      // Bind Submaster Pills
-      const pillBtns = container.querySelectorAll('.submaster-pill-btn');
-      pillBtns.forEach(pbtn => {
-        pbtn.addEventListener('click', () => {
-          const modId = pbtn.dataset.moduleId;
-          const subId = pbtn.dataset.submasterId;
-          this.selectedSubmasterByModule[modId] = subId;
-          this.masterSearchQuery = '';
-          this.renderMasterSetupTab(container, this.cachedTabsBarHtml);
-        });
+    if (this.activeMasterModule && currentSubmaster) {
+      // Bind Submaster Dropdown Select
+      const submasterSelect = container.querySelector('.submaster-dropdown-select');
+      submasterSelect?.addEventListener('change', (e) => {
+        e.stopPropagation();
+        const modId = submasterSelect.dataset.moduleId;
+        const subId = submasterSelect.value;
+        this.selectedSubmasterByModule[modId] = subId;
+        this.masterSearchQuery = '';
+        this.renderMasterSetupTab(container, this.cachedTabsBarHtml);
       });
+      submasterSelect?.addEventListener('click', (e) => e.stopPropagation());
 
       // Filter toggle handler
       const toggleBtn = document.getElementById('master-filter-toggle-btn');
