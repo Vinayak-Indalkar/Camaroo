@@ -6461,9 +6461,31 @@ export const SetupView = {
         id: nextCompId,
         name: '',
         shortName: '',
-        plants: 'Unit-1 VSP',
+        logo: '',
+        address: '',
+        contactPerson: '',
+        phone: '',
+        email: '',
         status: 'Active',
-        address: ''
+        // Plant Information
+        plantName: 'Unit-1 VSP',
+        plantCode: 'PLT-001',
+        plantAddress: '',
+        plantContact: '',
+        plantPhone: '',
+        plantStatus: 'Active',
+        plants: 'Unit-1 VSP',
+        // Application Add-ons
+        appIcon: '',
+        appLogo: '',
+        headingImg: '',
+        reportHeaderImg: '',
+        reportFooterImg: '',
+        primaryColor: '#00A4B7',
+        secondaryColor: '#0284C7',
+        bgColor: '#F4F5F7',
+        footerText: '© 2026 Devi Fisheries Limited. All rights reserved.',
+        fontSize: '13.5px'
       },
       user: {
         id: nextUserId,
@@ -6495,11 +6517,36 @@ export const SetupView = {
 
     const saveCurrentStepData = (currentStep) => {
       if (currentStep === 1) {
+        // 1. Client Information
         wizardState.client.name = document.getElementById('w-cmp-name')?.value.trim() || wizardState.client.name;
-        wizardState.client.shortName = document.getElementById('w-cmp-short-name')?.value.trim().toUpperCase() || wizardState.client.shortName;
-        wizardState.client.plants = document.getElementById('w-cmp-plant')?.value.trim() || wizardState.client.plants;
-        wizardState.client.status = document.getElementById('w-cmp-status')?.value || wizardState.client.status;
+        wizardState.client.shortName = document.getElementById('w-cmp-short-name')?.value.trim().toUpperCase() || (wizardState.client.name ? wizardState.client.name.slice(0, 3).toUpperCase() : '');
+        wizardState.client.logo = document.getElementById('w-cmp-logo')?.value.trim() || wizardState.client.logo;
         wizardState.client.address = document.getElementById('w-cmp-address')?.value.trim() || wizardState.client.address;
+        wizardState.client.contactPerson = document.getElementById('w-cmp-contact-person')?.value.trim() || wizardState.client.contactPerson;
+        wizardState.client.phone = document.getElementById('w-cmp-phone')?.value.trim() || wizardState.client.phone;
+        wizardState.client.email = document.getElementById('w-cmp-email')?.value.trim() || wizardState.client.email;
+        wizardState.client.status = document.getElementById('w-cmp-status')?.value || wizardState.client.status;
+
+        // 2. Plant Information
+        wizardState.client.plantName = document.getElementById('w-plant-name')?.value.trim() || wizardState.client.plantName;
+        wizardState.client.plantCode = document.getElementById('w-plant-code')?.value.trim().toUpperCase() || wizardState.client.plantCode;
+        wizardState.client.plantAddress = document.getElementById('w-plant-address')?.value.trim() || wizardState.client.plantAddress;
+        wizardState.client.plantContact = document.getElementById('w-plant-contact')?.value.trim() || wizardState.client.plantContact;
+        wizardState.client.plantPhone = document.getElementById('w-plant-phone')?.value.trim() || wizardState.client.plantPhone;
+        wizardState.client.plantStatus = document.getElementById('w-plant-status')?.value || wizardState.client.plantStatus;
+        wizardState.client.plants = wizardState.client.plantName || wizardState.client.plants;
+
+        // 3. Application Add-ons
+        wizardState.client.appIcon = document.getElementById('w-app-icon')?.value.trim() || wizardState.client.appIcon;
+        wizardState.client.appLogo = document.getElementById('w-app-logo')?.value.trim() || wizardState.client.appLogo;
+        wizardState.client.headingImg = document.getElementById('w-app-heading-img')?.value.trim() || wizardState.client.headingImg;
+        wizardState.client.reportHeaderImg = document.getElementById('w-app-report-header')?.value.trim() || wizardState.client.reportHeaderImg;
+        wizardState.client.reportFooterImg = document.getElementById('w-app-report-footer')?.value.trim() || wizardState.client.reportFooterImg;
+        wizardState.client.primaryColor = document.getElementById('w-app-primary-color')?.value.trim() || wizardState.client.primaryColor;
+        wizardState.client.secondaryColor = document.getElementById('w-app-secondary-color')?.value.trim() || wizardState.client.secondaryColor;
+        wizardState.client.bgColor = document.getElementById('w-app-bg-color')?.value.trim() || wizardState.client.bgColor;
+        wizardState.client.footerText = document.getElementById('w-app-footer-text')?.value.trim() || wizardState.client.footerText;
+        wizardState.client.fontSize = document.getElementById('w-app-font-size')?.value || wizardState.client.fontSize;
         
         // Auto-seed user & role names if empty
         if (!wizardState.user.username && wizardState.client.shortName) {
@@ -7061,8 +7108,29 @@ export const SetupView = {
             name: wizardState.client.name || 'New Client',
             code: wizardState.client.shortName || wizardState.client.name.slice(0, 3).toUpperCase(),
             shortName: wizardState.client.shortName || wizardState.client.name.slice(0, 3).toUpperCase(),
+            logo: wizardState.client.logo || '',
             address: wizardState.client.address || '',
-            plants: clientPlants.length > 0 ? clientPlants : ['Unit-1 VSP'],
+            contactPerson: wizardState.client.contactPerson || '',
+            phone: wizardState.client.phone || '',
+            email: wizardState.client.email || '',
+            status: wizardState.client.status || 'Active',
+            plantName: wizardState.client.plantName || 'Unit-1 VSP',
+            plantCode: wizardState.client.plantCode || 'PLT-001',
+            plantAddress: wizardState.client.plantAddress || '',
+            plantContact: wizardState.client.plantContact || '',
+            plantPhone: wizardState.client.plantPhone || '',
+            plantStatus: wizardState.client.plantStatus || 'Active',
+            plants: [wizardState.client.plantName || 'Unit-1 VSP'],
+            appIcon: wizardState.client.appIcon || '',
+            appLogo: wizardState.client.appLogo || '',
+            headingImg: wizardState.client.headingImg || '',
+            reportHeaderImg: wizardState.client.reportHeaderImg || '',
+            reportFooterImg: wizardState.client.reportFooterImg || '',
+            primaryColor: wizardState.client.primaryColor || '#00A4B7',
+            secondaryColor: wizardState.client.secondaryColor || '#0284C7',
+            bgColor: wizardState.client.bgColor || '#F4F5F7',
+            footerText: wizardState.client.footerText || '',
+            fontSize: wizardState.client.fontSize || '13.5px',
             dbHost: 'localhost:3306',
             dbName: (wizardState.client.shortName || 'client').toLowerCase().replace(/[^a-z0-9]/g, '_') + '_erp',
             dbUser: 'root',
@@ -7248,6 +7316,57 @@ export const SetupView = {
 
         renderIconGrid(lucideIcons);
 
+        // Attach Step 1 file & color handlers
+        const syncColor = (pickerId, textId) => {
+          const picker = document.getElementById(pickerId);
+          const txt = document.getElementById(textId);
+          if (picker && txt) {
+            picker.oninput = (e) => { txt.value = e.target.value.toUpperCase(); };
+            txt.oninput = (e) => {
+              if (/^#[0-9A-F]{6}$/i.test(e.target.value.trim())) {
+                picker.value = e.target.value.trim();
+              }
+            };
+          }
+        };
+        syncColor('w-app-primary-color-picker', 'w-app-primary-color');
+        syncColor('w-app-secondary-color-picker', 'w-app-secondary-color');
+        syncColor('w-app-bg-color-picker', 'w-app-bg-color');
+
+        const bindImageUpload = (fileId, textId, previewId) => {
+          const fileInput = document.getElementById(fileId);
+          const textInput = document.getElementById(textId);
+          const preview = document.getElementById(previewId);
+          if (!fileInput || !textInput || !preview) return;
+
+          fileInput.onchange = (e) => {
+            const file = e.target.files && e.target.files[0];
+            if (file) {
+              const reader = new FileReader();
+              reader.onload = (evt) => {
+                const dataUrl = evt.target.result;
+                textInput.value = dataUrl;
+                preview.innerHTML = `<img src="${dataUrl}" class="w-full h-full object-contain" />`;
+              };
+              reader.readAsDataURL(file);
+            }
+          };
+
+          textInput.oninput = (e) => {
+            const v = e.target.value.trim();
+            if (v) {
+              preview.innerHTML = `<img src="${v}" class="w-full h-full object-contain" onerror="this.parentElement.innerHTML='🖼️'" />`;
+            }
+          };
+        };
+
+        bindImageUpload('w-cmp-logo-file', 'w-cmp-logo', 'w-cmp-logo-preview');
+        bindImageUpload('w-app-icon-file', 'w-app-icon', 'w-app-icon-preview');
+        bindImageUpload('w-app-logo-file', 'w-app-logo', 'w-app-logo-preview');
+        bindImageUpload('w-app-heading-file', 'w-app-heading-img', 'w-app-heading-preview');
+        bindImageUpload('w-app-report-header-file', 'w-app-report-header', 'w-app-report-header-preview');
+        bindImageUpload('w-app-report-footer-file', 'w-app-report-footer', 'w-app-report-footer-preview');
+
         if (iconSearchInput) {
           iconSearchInput.oninput = (e) => {
             const term = e.target.value.toLowerCase().trim();
@@ -7272,55 +7391,274 @@ export const SetupView = {
       title: isEdit ? `Edit Client: ${company.name}` : 'Add Client',
       size: 'xl',
       content: `
-        <form id="company-client-form" class="space-y-4 text-xs">
-          <!-- Client Information Card (3 Columns with Full-Width Address Row) -->
-          <div class="bg-transparent p-0 border-0 space-y-4">
-            <div class="flex items-center justify-between border-b border-[#EBECF0] pb-2.5">
-              <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Client Information</span>
+        <form id="company-client-form" class="space-y-5 text-xs max-h-[75vh] overflow-y-auto px-1 py-1">
+          <!-- 1. Client Information -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4.5 shadow-2xs space-y-3.5">
+            <div class="flex items-center justify-between border-b border-[#F1F5F9] pb-2.5">
+              <div class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">1</span>
+                <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Client Information</span>
+              </div>
+              ${company.id ? `<span class="text-[10px] font-bold text-[#00A4B7] bg-[#E0F2FE] px-2.5 py-1 rounded-full border border-[#BAE6FD] font-mono">${company.id}</span>` : ''}
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              <!-- Row 1, Col 1: Client Name -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
               <div>
-                <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-0">
-                  Client Name
+                <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1">
+                  Company Name <span class="text-rose-500">*</span>
                 </label>
-                <input type="text" id="cmp-name" value="${company.name || ''}" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#0284C7]" placeholder="e.g. Devi Fisheries Limited" />
+                <input type="text" id="cmp-name" value="${company.name || ''}" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7]" placeholder="e.g. Devi Fisheries Limited" required />
               </div>
 
-              <!-- Row 1, Col 2: Client Short Name -->
               <div>
-                <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-0">
-                  Client Short Name
+                <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1">
+                  Company Logo
                 </label>
-                <input type="text" id="cmp-short-name" value="${company.code || company.shortName || ''}" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#0284C7] font-mono uppercase" placeholder="e.g. DFL" />
+                <div class="flex items-center gap-2">
+                  <div id="cmp-logo-preview" class="w-8 h-8 rounded-lg border border-[#DFE1E6] bg-[#F8FAFC] flex items-center justify-center shrink-0 overflow-hidden text-[#94A3B8]">
+                    ${company.logo ? `<img src="${company.logo}" class="w-full h-full object-contain" />` : `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>`}
+                  </div>
+                  <input type="text" id="cmp-logo" value="${company.logo || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7]" placeholder="Logo URL..." />
+                  <label class="btn-secondary px-2 py-1.5 rounded-lg text-xs font-semibold cursor-pointer shrink-0 border border-[#CBD5E1] hover:bg-[#F8FAFC] flex items-center justify-center" title="Upload logo">
+                    <svg class="w-3.5 h-3.5 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                    <input type="file" id="cmp-logo-file" accept="image/*" class="hidden" />
+                  </label>
+                </div>
               </div>
 
-              <!-- Row 1, Col 3: Status -->
               <div>
-                <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-0">
+                <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1">
                   Status
                 </label>
-                <select id="cmp-status" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#0284C7]">
+                <select id="cmp-status" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7]">
                   <option value="Active" ${company.status === 'Active' ? 'selected' : ''}>Active</option>
                   <option value="Inactive" ${company.status === 'Inactive' ? 'selected' : ''}>Inactive</option>
                 </select>
               </div>
 
-              <!-- Row 2: Production Plant (Full Width) -->
-              <div class="col-span-1 sm:col-span-2 lg:col-span-3">
-                <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-0">
-                  Production Plant
+              <div>
+                <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1">
+                  Contact Person
                 </label>
-                <input type="text" id="cmp-plant" value="${(company.plants && company.plants.length > 0) ? company.plants.join(', ') : 'Unit-1 VSP'}" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#0284C7]" placeholder="e.g. Unit-1 VSP, Unit-2 Singarayakonda" />
+                <input type="text" id="cmp-contact-person" value="${company.contactPerson || ''}" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7]" placeholder="e.g. Rajesh Kumar" />
               </div>
 
-              <!-- Row 3: Address in Full Width (Across all 3 columns) -->
-              <div class="col-span-1 sm:col-span-2 lg:col-span-3">
-                <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-0">
-                  Address
+              <div>
+                <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1">
+                  Mobile Number
                 </label>
-                <textarea id="cmp-address" rows="3" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#0284C7]" placeholder="Enter complete corporate entity address, plant location, city, pin code...">${company.address || ''}</textarea>
+                <input type="tel" id="cmp-phone" value="${company.phone || ''}" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7]" placeholder="e.g. +91 98765 43210" />
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1">
+                  Email
+                </label>
+                <input type="email" id="cmp-email" value="${company.email || ''}" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7]" placeholder="e.g. contact@devifisheries.com" />
+              </div>
+
+              <div class="col-span-1 sm:col-span-2 lg:col-span-3">
+                <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1">
+                  Full Address
+                </label>
+                <textarea id="cmp-address" rows="2" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7]" placeholder="Enter complete corporate entity address, city, state, pin code...">${company.address || ''}</textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Plant Information -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4.5 shadow-2xs space-y-3.5">
+            <div class="flex items-center justify-between border-b border-[#F1F5F9] pb-2.5">
+              <div class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">2</span>
+                <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Plant Information</span>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+              <div>
+                <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1">
+                  Plant Name <span class="text-rose-500">*</span>
+                </label>
+                <input type="text" id="cmp-plant-name" value="${company.plantName || (company.plants && company.plants[0]) || 'Unit-1 VSP'}" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7]" placeholder="e.g. Unit-1 VSP" />
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1">
+                  Plant Code
+                </label>
+                <input type="text" id="cmp-plant-code" value="${company.plantCode || 'PLT-001'}" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-mono uppercase focus:outline-none focus:border-[#00A4B7]" placeholder="e.g. PLT-001" />
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1">
+                  Status
+                </label>
+                <select id="cmp-plant-status" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7]">
+                  <option value="Active" ${(!company.plantStatus || company.plantStatus === 'Active') ? 'selected' : ''}>Active</option>
+                  <option value="Inactive" ${company.plantStatus === 'Inactive' ? 'selected' : ''}>Inactive</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1">
+                  Contact Person
+                </label>
+                <input type="text" id="cmp-plant-contact" value="${company.plantContact || ''}" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7]" placeholder="e.g. Suresh Varma" />
+              </div>
+
+              <div class="col-span-1 sm:col-span-2">
+                <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1">
+                  Mobile Number
+                </label>
+                <input type="tel" id="cmp-plant-phone" value="${company.plantPhone || ''}" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7]" placeholder="e.g. +91 98765 12345" />
+              </div>
+
+              <div class="col-span-1 sm:col-span-2 lg:col-span-3">
+                <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1">
+                  Plant Address
+                </label>
+                <textarea id="cmp-plant-address" rows="2" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7]" placeholder="Enter physical plant address...">${company.plantAddress || ''}</textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Application Add-ons -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4.5 shadow-2xs space-y-3.5">
+            <div class="flex items-center justify-between border-b border-[#F1F5F9] pb-2.5">
+              <div class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">3</span>
+                <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Application Add-ons</span>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+              <div>
+                <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1">
+                  Application Icon
+                </label>
+                <div class="flex items-center gap-2">
+                  <div id="cmp-app-icon-preview" class="w-8 h-8 rounded-lg border border-[#DFE1E6] bg-[#F8FAFC] flex items-center justify-center shrink-0 overflow-hidden text-[#94A3B8]">
+                    ${company.appIcon ? `<img src="${company.appIcon}" class="w-full h-full object-contain" />` : `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>`}
+                  </div>
+                  <input type="text" id="cmp-app-icon" value="${company.appIcon || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7]" placeholder="Icon URL..." />
+                  <label class="btn-secondary px-2 py-1.5 rounded-lg text-xs font-semibold cursor-pointer shrink-0 border border-[#CBD5E1] hover:bg-[#F8FAFC] flex items-center justify-center" title="Upload icon">
+                    <svg class="w-3.5 h-3.5 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                    <input type="file" id="cmp-app-icon-file" accept="image/*" class="hidden" />
+                  </label>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1">
+                  Application Logo
+                </label>
+                <div class="flex items-center gap-2">
+                  <div id="cmp-app-logo-preview" class="w-8 h-8 rounded-lg border border-[#DFE1E6] bg-[#F8FAFC] flex items-center justify-center shrink-0 overflow-hidden text-[#94A3B8]">
+                    ${company.appLogo ? `<img src="${company.appLogo}" class="w-full h-full object-contain" />` : `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>`}
+                  </div>
+                  <input type="text" id="cmp-app-logo" value="${company.appLogo || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7]" placeholder="App Logo..." />
+                  <label class="btn-secondary px-2 py-1.5 rounded-lg text-xs font-semibold cursor-pointer shrink-0 border border-[#CBD5E1] hover:bg-[#F8FAFC] flex items-center justify-center" title="Upload logo">
+                    <svg class="w-3.5 h-3.5 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                    <input type="file" id="cmp-app-logo-file" accept="image/*" class="hidden" />
+                  </label>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1">
+                  Heading Image
+                </label>
+                <div class="flex items-center gap-2">
+                  <div id="cmp-app-heading-preview" class="w-8 h-8 rounded-lg border border-[#DFE1E6] bg-[#F8FAFC] flex items-center justify-center shrink-0 overflow-hidden text-[#94A3B8]">
+                    ${company.headingImg ? `<img src="${company.headingImg}" class="w-full h-full object-contain" />` : `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/></svg>`}
+                  </div>
+                  <input type="text" id="cmp-app-heading-img" value="${company.headingImg || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7]" placeholder="Heading banner..." />
+                  <label class="btn-secondary px-2 py-1.5 rounded-lg text-xs font-semibold cursor-pointer shrink-0 border border-[#CBD5E1] hover:bg-[#F8FAFC] flex items-center justify-center" title="Upload banner">
+                    <svg class="w-3.5 h-3.5 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                    <input type="file" id="cmp-app-heading-file" accept="image/*" class="hidden" />
+                  </label>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1">
+                  Report Header Image
+                </label>
+                <div class="flex items-center gap-2">
+                  <div id="cmp-app-report-header-preview" class="w-8 h-8 rounded-lg border border-[#DFE1E6] bg-[#F8FAFC] flex items-center justify-center shrink-0 overflow-hidden text-[#94A3B8]">
+                    ${company.reportHeaderImg ? `<img src="${company.reportHeaderImg}" class="w-full h-full object-contain" />` : `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>`}
+                  </div>
+                  <input type="text" id="cmp-app-report-header" value="${company.reportHeaderImg || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7]" placeholder="Report header..." />
+                  <label class="btn-secondary px-2 py-1.5 rounded-lg text-xs font-semibold cursor-pointer shrink-0 border border-[#CBD5E1] hover:bg-[#F8FAFC] flex items-center justify-center" title="Upload header">
+                    <svg class="w-3.5 h-3.5 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                    <input type="file" id="cmp-app-report-header-file" accept="image/*" class="hidden" />
+                  </label>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1">
+                  Report Footer Image
+                </label>
+                <div class="flex items-center gap-2">
+                  <div id="cmp-app-report-footer-preview" class="w-8 h-8 rounded-lg border border-[#DFE1E6] bg-[#F8FAFC] flex items-center justify-center shrink-0 overflow-hidden text-[#94A3B8]">
+                    ${company.reportFooterImg ? `<img src="${company.reportFooterImg}" class="w-full h-full object-contain" />` : `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>`}
+                  </div>
+                  <input type="text" id="cmp-app-report-footer" value="${company.reportFooterImg || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7]" placeholder="Report footer..." />
+                  <label class="btn-secondary px-2 py-1.5 rounded-lg text-xs font-semibold cursor-pointer shrink-0 border border-[#CBD5E1] hover:bg-[#F8FAFC] flex items-center justify-center" title="Upload footer">
+                    <svg class="w-3.5 h-3.5 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                    <input type="file" id="cmp-app-report-footer-file" accept="image/*" class="hidden" />
+                  </label>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1">
+                  Application Font Size
+                </label>
+                <select id="cmp-app-font-size" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7]">
+                  <option value="12px" ${company.fontSize === '12px' ? 'selected' : ''}>Small (12px)</option>
+                  <option value="13.5px" ${(!company.fontSize || company.fontSize === '13.5px') ? 'selected' : ''}>Default (13.5px)</option>
+                  <option value="15px" ${company.fontSize === '15px' ? 'selected' : ''}>Large (15px)</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1">
+                  Primary Color
+                </label>
+                <div class="flex items-center gap-2">
+                  <input type="color" id="cmp-app-primary-color-picker" value="${company.primaryColor || '#00A4B7'}" class="w-8 h-8 rounded border border-[#DFE1E6] cursor-pointer p-0.5 shrink-0" />
+                  <input type="text" id="cmp-app-primary-color" value="${company.primaryColor || '#00A4B7'}" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-mono uppercase focus:outline-none focus:border-[#00A4B7]" />
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1">
+                  Secondary Color
+                </label>
+                <div class="flex items-center gap-2">
+                  <input type="color" id="cmp-app-secondary-color-picker" value="${company.secondaryColor || '#0284C7'}" class="w-8 h-8 rounded border border-[#DFE1E6] cursor-pointer p-0.5 shrink-0" />
+                  <input type="text" id="cmp-app-secondary-color" value="${company.secondaryColor || '#0284C7'}" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-mono uppercase focus:outline-none focus:border-[#00A4B7]" />
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1">
+                  Background Color
+                </label>
+                <div class="flex items-center gap-2">
+                  <input type="color" id="cmp-app-bg-color-picker" value="${company.bgColor || '#F4F5F7'}" class="w-8 h-8 rounded border border-[#DFE1E6] cursor-pointer p-0.5 shrink-0" />
+                  <input type="text" id="cmp-app-bg-color" value="${company.bgColor || '#F4F5F7'}" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-mono uppercase focus:outline-none focus:border-[#00A4B7]" />
+                </div>
+              </div>
+
+              <div class="col-span-1 sm:col-span-2 lg:col-span-3">
+                <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1">
+                  Footer Text
+                </label>
+                <input type="text" id="cmp-app-footer-text" value="${company.footerText || '© 2026 Devi Fisheries Limited. All rights reserved.'}" class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7]" />
               </div>
             </div>
           </div>
@@ -7333,18 +7671,60 @@ export const SetupView = {
           type: 'primary',
           onClick: (m) => {
             const name = document.getElementById('cmp-name')?.value.trim() || 'New Client';
-            const shortName = document.getElementById('cmp-short-name')?.value.trim().toUpperCase() || 'CLI';
-            const address = document.getElementById('cmp-address')?.value.trim();
+            const shortName = (company.code || company.shortName || (name ? name.slice(0, 3).toUpperCase() : 'CLI'));
+            const logo = document.getElementById('cmp-logo')?.value.trim() || '';
+            const address = document.getElementById('cmp-address')?.value.trim() || '';
+            const contactPerson = document.getElementById('cmp-contact-person')?.value.trim() || '';
+            const phone = document.getElementById('cmp-phone')?.value.trim() || '';
+            const email = document.getElementById('cmp-email')?.value.trim() || '';
             const status = document.getElementById('cmp-status')?.value || 'Active';
-            const plantStr = document.getElementById('cmp-plant')?.value.trim() || 'Unit-1 VSP';
-            const plants = plantStr.split(',').map(p => p.trim()).filter(Boolean);
+
+            const plantName = document.getElementById('cmp-plant-name')?.value.trim() || 'Unit-1 VSP';
+            const plantCode = document.getElementById('cmp-plant-code')?.value.trim().toUpperCase() || 'PLT-001';
+            const plantStatus = document.getElementById('cmp-plant-status')?.value || 'Active';
+            const plantContact = document.getElementById('cmp-plant-contact')?.value.trim() || '';
+            const plantPhone = document.getElementById('cmp-plant-phone')?.value.trim() || '';
+            const plantAddress = document.getElementById('cmp-plant-address')?.value.trim() || '';
+
+            const appIcon = document.getElementById('cmp-app-icon')?.value.trim() || '';
+            const appLogo = document.getElementById('cmp-app-logo')?.value.trim() || '';
+            const headingImg = document.getElementById('cmp-app-heading-img')?.value.trim() || '';
+            const reportHeaderImg = document.getElementById('cmp-app-report-header')?.value.trim() || '';
+            const reportFooterImg = document.getElementById('cmp-app-report-footer')?.value.trim() || '';
+            const fontSize = document.getElementById('cmp-app-font-size')?.value || '13.5px';
+            const primaryColor = document.getElementById('cmp-app-primary-color')?.value.trim() || '#00A4B7';
+            const secondaryColor = document.getElementById('cmp-app-secondary-color')?.value.trim() || '#0284C7';
+            const bgColor = document.getElementById('cmp-app-bg-color')?.value.trim() || '#F4F5F7';
+            const footerText = document.getElementById('cmp-app-footer-text')?.value.trim() || '';
 
             company.name = name;
             company.code = shortName;
             company.shortName = shortName;
+            company.logo = logo;
             company.address = address;
+            company.contactPerson = contactPerson;
+            company.phone = phone;
+            company.email = email;
             company.status = status;
-            company.plants = plants.length > 0 ? plants : ['Unit-1 VSP'];
+
+            company.plantName = plantName;
+            company.plantCode = plantCode;
+            company.plantStatus = plantStatus;
+            company.plantContact = plantContact;
+            company.plantPhone = plantPhone;
+            company.plantAddress = plantAddress;
+            company.plants = [plantName];
+
+            company.appIcon = appIcon;
+            company.appLogo = appLogo;
+            company.headingImg = headingImg;
+            company.reportHeaderImg = reportHeaderImg;
+            company.reportFooterImg = reportFooterImg;
+            company.fontSize = fontSize;
+            company.primaryColor = primaryColor;
+            company.secondaryColor = secondaryColor;
+            company.bgColor = bgColor;
+            company.footerText = footerText;
 
             if (!isEdit) {
               this.state.companies.push(company);
