@@ -7045,7 +7045,7 @@ export const SetupView = {
         stepBodyHtml = `
           <div class="space-y-4">
             <div class="bg-transparent p-0 border-0 space-y-4">
-              <div class="flex items-center justify-between border-b border-[#EBECF0] pb-2.5">
+              <div class="flex items-center justify-between border-b border-[#EBECF0]">
                 <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">User Information for ${wizardState.client.name || 'New Client'}</span>
                 <span class="text-[10px] font-bold text-[#00A4B7] bg-[#E0F2FE] px-2.5 py-1 rounded-full border border-[#BAE6FD] font-mono">
                   ${wizardState.user.id}
@@ -7668,12 +7668,86 @@ export const SetupView = {
         syncColor('w-app-secondary-color-picker', 'w-app-secondary-color');
         syncColor('w-app-bg-color-picker', 'w-app-bg-color');
 
+                const showImageLightbox = (imgSrc, imgName) => {
+          const existing = document.getElementById('erp-image-lightbox-modal');
+          if (existing) existing.remove();
+
+          const overlay = document.createElement('div');
+          overlay.id = 'erp-image-lightbox-modal';
+          overlay.className = 'fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-fade-in';
+          overlay.innerHTML = `
+            <div class="bg-white rounded-xl shadow-2xl border border-[#DFE1E6] max-w-2xl w-full flex flex-col overflow-hidden animate-scale-up" onclick="event.stopPropagation()">
+              <!-- Header -->
+              <div class="px-5 py-3 border-b border-[#EBECF0] flex items-center justify-between bg-[#FAFBFC]">
+                <div class="flex items-center gap-2.5 overflow-hidden">
+                  <div class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center shrink-0">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                  </div>
+                  <span class="text-xs font-bold text-[#172B4D] truncate max-w-md">${imgName || 'Attached Image'}</span>
+                </div>
+                <button type="button" id="lightbox-close-btn" class="w-7 h-7 inline-flex items-center justify-center rounded-full hover:bg-[#EBECF0] text-[#5E6C84] hover:text-[#172B4D] transition-colors cursor-pointer" title="Close Preview">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+              </div>
+
+              <!-- Image Body -->
+              <div class="p-6 bg-[#F8FAFC] flex flex-col items-center justify-center max-h-[70vh] overflow-auto select-none">
+                <div class="bg-white p-3 rounded-xl border border-[#DFE1E6] shadow-sm max-w-full flex items-center justify-center">
+                  <img src="${imgSrc}" class="max-h-[50vh] max-w-full object-contain rounded-lg" alt="${imgName || 'Preview'}" />
+                </div>
+                <div class="mt-3.5 px-3 py-1 bg-white rounded-full border border-[#DFE1E6] text-[11px] font-medium text-[#5E6C84] flex items-center gap-1.5 shadow-2xs">
+                  <span>Attached Image:</span>
+                  <strong class="text-[#00A4B7] font-semibold">${imgName || 'Attached Image'}</strong>
+                </div>
+              </div>
+
+              <!-- Footer -->
+              <div class="px-5 py-2.5 border-t border-[#EBECF0] bg-white flex items-center justify-between">
+                <span class="text-[10px] text-[#5E6C84]">Click outside or press Close</span>
+                <button type="button" id="lightbox-close-footer-btn" class="btn-secondary px-4 py-1.5 rounded-full text-xs font-semibold border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#172B4D] cursor-pointer">
+                  Close
+                </button>
+              </div>
+            </div>
+          `;
+
+          document.body.appendChild(overlay);
+
+          const close = () => { overlay.remove(); };
+          overlay.querySelector('#lightbox-close-btn').onclick = close;
+          overlay.querySelector('#lightbox-close-footer-btn').onclick = close;
+          overlay.onclick = close;
+        };
+
         const bindImageUpload = (fileId, textId, previewId) => {
           window.__bindImageUpload = bindImageUpload;
+          window.__showImageLightbox = showImageLightbox;
           const fileInput = document.getElementById(fileId);
           const textInput = document.getElementById(textId);
           const preview = document.getElementById(previewId);
           if (!fileInput || !textInput || !preview) return;
+
+          // Make preview box clickable to view full image
+          preview.style.cursor = 'pointer';
+          preview.title = 'Click to view full image';
+          preview.classList.add('cursor-pointer', 'hover:border-[#00A4B7]', 'transition-all');
+
+          // Initialize existing preview click & dataset
+          const existingImg = preview.querySelector('img');
+          if (existingImg && existingImg.src) {
+            preview.dataset.imgSrc = existingImg.src;
+            preview.dataset.imgName = textInput.value.trim() || 'Attached Image';
+          }
+
+          preview.onclick = () => {
+            const currentSrc = preview.dataset.imgSrc || textInput.dataset.dataUrl || textInput.value.trim();
+            const currentName = preview.dataset.imgName || textInput.value.trim() || 'Attached Image';
+            if (currentSrc && (currentSrc.startsWith('data:image') || currentSrc.startsWith('http') || currentSrc.startsWith('/') || currentSrc.includes('.'))) {
+              showImageLightbox(currentSrc, currentName);
+            } else {
+              fileInput.click();
+            }
+          };
 
           // Check or create progress container
           let progressWrap = document.getElementById(fileId + '-progress-wrap');
@@ -7702,7 +7776,7 @@ export const SetupView = {
             const file = e.target.files && e.target.files[0];
             if (!file) return;
 
-            // Show progress bar & show uploaded file name in placeholder
+            // Show progress bar & show uploaded file name in placeholder and input
             progressWrap.classList.remove('hidden');
             progressBar.style.width = '15%';
             pctText.textContent = '15%';
@@ -7738,7 +7812,11 @@ export const SetupView = {
               textInput.placeholder = file.name;
               textInput.value = file.name;
 
+              // Update preview box and dataset
+              preview.dataset.imgSrc = dataUrl;
+              preview.dataset.imgName = file.name;
               preview.innerHTML = `<img src="${dataUrl}" class="w-full h-full object-contain" />`;
+              preview.title = 'Click to view ' + file.name;
 
               setTimeout(() => {
                 if (progressWrap) {
@@ -7767,7 +7845,10 @@ export const SetupView = {
             const v = e.target.value.trim();
             delete textInput.dataset.dataUrl;
             if (v) {
+              preview.dataset.imgSrc = v;
+              preview.dataset.imgName = v.split('/').pop() || 'Attached Image';
               preview.innerHTML = `<img src="${v}" class="w-full h-full object-contain" onerror="this.parentElement.innerHTML='🖼️'" />`;
+              preview.title = 'Click to view full image';
             }
           };
         };
@@ -8725,7 +8806,7 @@ export const SetupView = {
         <form id="user-setup-form" class="space-y-4 text-xs">
           <!-- User Information Card (4 Columns Layout) -->
           <div class="bg-transparent p-0 border-0 space-y-4">
-            <div class="flex items-center justify-between border-b border-[#EBECF0] pb-2.5">
+            <div class="flex items-center justify-between border-b border-[#EBECF0]">
               <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">User Information</span>
               ${isEdit ? `<span class="text-[10px] font-bold text-[#0284C7] bg-[#F0F9FF] px-2.5 py-1 rounded border border-[#BAE6FD] font-mono">${user.id}</span>` : ''}
             </div>
