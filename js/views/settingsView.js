@@ -1672,7 +1672,7 @@ openRoleModal(role = null, onSaved) {
 
           tableRowsHtml += `
             <tr class="role-tree-row role-tab-row bg-white hover:bg-[#F0F9FF]/40 border-b border-[#F1F5F9] transition-colors" data-level="tab" data-menu-id="${menu.id}" data-sub-id="${sub.id}" data-tab-id="${tab.id}" data-tab-key="${tabKey}">
-              <td class="py-2 px-3 text-xs text-[#334155] whitespace-nowrap pl-12 sm:pl-16">
+              <td class="py-0 px-3 text-xs text-[#334155] whitespace-nowrap pl-12 sm:pl-16">
                 <div class="flex items-center gap-2">
                   <svg class="w-4 h-5 text-[#94A3B8] shrink-0" viewBox="0 0 16 20" fill="none">
                     <path d="${isLastTab ? 'M4 0v10h7m-3-3l3 3-3 3' : 'M4 0v20 M4 10h7m-3-3l3 3-3 3'}" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -1681,19 +1681,19 @@ openRoleModal(role = null, onSaved) {
                   <span class="font-medium text-xs text-[#172B4D]">${this.escape(tab.label)}</span>
                 </div>
               </td>
-              <td class="py-2 px-2 text-center">
+              <td class="py-0 px-2 text-center">
                 <input type="checkbox" class="perm-tree-cb perm-cell perm-cell-add w-3.5 h-3.5 rounded text-[#006644] accent-[#00A4B7] cursor-pointer" data-level="tab" data-menu-id="${menu.id}" data-sub-id="${sub.id}" data-tab-id="${tab.id}" data-action="add" ${tabPerm.add ? 'checked' : ''} title="Toggle Add for ${this.escape(tab.label)}" />
               </td>
-              <td class="py-2 px-2 text-center">
+              <td class="py-0 px-2 text-center">
                 <input type="checkbox" class="perm-tree-cb perm-cell perm-cell-edit w-3.5 h-3.5 rounded text-[#0284C7] accent-[#00A4B7] cursor-pointer" data-level="tab" data-menu-id="${menu.id}" data-sub-id="${sub.id}" data-tab-id="${tab.id}" data-action="edit" ${tabPerm.edit ? 'checked' : ''} title="Toggle Edit for ${this.escape(tab.label)}" />
               </td>
-              <td class="py-2 px-2 text-center">
+              <td class="py-0 px-2 text-center">
                 <input type="checkbox" class="perm-tree-cb perm-cell perm-cell-delete w-3.5 h-3.5 rounded text-[#DE350B] accent-[#DE350B] cursor-pointer" data-level="tab" data-menu-id="${menu.id}" data-sub-id="${sub.id}" data-tab-id="${tab.id}" data-action="delete" ${tabPerm.delete ? 'checked' : ''} title="Toggle Delete for ${this.escape(tab.label)}" />
               </td>
-              <td class="py-2 px-2 text-center">
+              <td class="py-0 px-2 text-center">
                 <input type="checkbox" class="perm-tree-cb perm-cell perm-cell-read w-3.5 h-3.5 rounded text-[#42526E] accent-[#00A4B7] cursor-pointer" data-level="tab" data-menu-id="${menu.id}" data-sub-id="${sub.id}" data-tab-id="${tab.id}" data-action="read" ${tabPerm.read ? 'checked' : ''} title="Toggle Read for ${this.escape(tab.label)}" />
               </td>
-              <td class="py-2 px-2 text-center whitespace-nowrap">
+              <td class="py-0 px-2 text-center whitespace-nowrap">
                 <button type="button" class="btn-matrix-tree-all px-2 py-0.5 rounded text-[10px] font-bold border border-[#CBD5E1] bg-white hover:bg-[#F0F9FF] hover:border-[#00A4B7] text-[#172B4D] hover:text-[#00A4B7] transition-colors cursor-pointer select-none" data-level="tab" data-menu-id="${menu.id}" data-sub-id="${sub.id}" data-tab-id="${tab.id}">
                   All
                 </button>
@@ -1709,8 +1709,8 @@ openRoleModal(role = null, onSaved) {
       size: 'xl',
       content: `
         <form id="form-role-modal" class="space-y-3.5 text-xs">
-          <!-- Role Metadata Grid -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3">
+          <!-- Role Metadata Grid (Single Unified 4-Column Layout) -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
             <div>
               <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Role Code <span class="text-[#DE350B]">*</span></label>
               <input type="text" id="role-modal-code" value="${this.escape(defaultCode)}" ${isEdit ? 'disabled' : 'required'} class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs ${isEdit ? 'bg-[#F4F5F7] cursor-not-allowed' : ''}" />
@@ -1743,14 +1743,11 @@ openRoleModal(role = null, onSaved) {
                 <option value="Inactive" ${role && role.status === 'Inactive' ? 'selected' : ''}>Inactive</option>
               </select>
             </div>
-          </div>
-
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Module Permissions &amp; Authority</label>
               <input type="text" id="role-modal-permissions" value="${this.escape(role ? role.permissions : 'All Modules (Full Access)')}" placeholder="e.g. Sales, Purchase, Coldstore, Production" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
             </div>
-            <div>
+            <div class="sm:col-span-2 lg:col-span-2">
               <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Role Description &amp; Scope Responsibilities</label>
               <input type="text" id="role-modal-desc" value="${this.escape(role ? role.description : '')}" placeholder="Define operational responsibility boundaries..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
             </div>
