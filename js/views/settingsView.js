@@ -745,36 +745,36 @@ export const SettingsView = {
 
                 <!-- Departmental Matrix Summary Badges -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs pt-2">
-                  <div class="p-3 rounded-xl border border-[#BAE6FD] bg-[#F0F9FF] space-y-1.5">
+                  <div class="p-3 rounded-xl border border-[#BAE6FD] bg-[#F0F9FF] space-y-1">
                     <div class="flex items-center justify-between">
-                      <span class="font-extrabold text-[#00A4B7] text-xs">Admin</span>
-                      <span class="px-2 py-0.5 rounded text-[10px] font-extrabold bg-[#E0F2FE] text-[#00A4B7]">Full Access</span>
+                      <span class="font-extrabold text-[#00A4B7] text-xs">Total Divisions</span>
+                      <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-white text-[#00A4B7] border border-[#BAE6FD]">${this.departments.length}</span>
                     </div>
-                    <p class="text-[11px] text-[#5E6C84]">Unrestricted CRUD &amp; approvals across all 8 ERP operational modules and settings.</p>
+                    <p class="text-[11px] text-[#5E6C84]">Active core operations from farm procurement to export realization.</p>
                   </div>
 
-                  <div class="p-3 rounded-xl border border-[#CBD5E1] bg-[#F8FAFC] space-y-1.5">
+                  <div class="p-3 rounded-xl border border-[#CBD5E1] bg-[#F8FAFC] space-y-1">
                     <div class="flex items-center justify-between">
-                      <span class="font-extrabold text-[#172B4D] text-xs">Manager</span>
-                      <span class="px-2 py-0.5 rounded text-[10px] font-extrabold bg-[#EAE6FF] text-[#403294]">Departmental</span>
+                      <span class="font-extrabold text-[#172B4D] text-xs">Total Personnel</span>
+                      <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-white text-[#172B4D] border border-[#DFE1E6]">${this.users.length} Users</span>
                     </div>
-                    <p class="text-[11px] text-[#5E6C84]">Full PO creation, Lot allocation, Production batch logs, and export dispatch authority.</p>
+                    <p class="text-[11px] text-[#5E6C84]">Assigned workforce distributed across operational units.</p>
                   </div>
 
-                  <div class="p-3 rounded-xl border border-[#CBD5E1] bg-[#F8FAFC] space-y-1.5">
+                  <div class="p-3 rounded-xl border border-[#CBD5E1] bg-[#F8FAFC] space-y-1">
                     <div class="flex items-center justify-between">
-                      <span class="font-extrabold text-[#172B4D] text-xs">Supervisor</span>
-                      <span class="px-2 py-0.5 rounded text-[10px] font-extrabold bg-[#FFFAE6] text-[#FF8B00]">Verification</span>
+                      <span class="font-extrabold text-[#172B4D] text-xs">Configured Roles</span>
+                      <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">${this.roles.length} Roles</span>
                     </div>
-                    <p class="text-[11px] text-[#5E6C84]">Lab chemical screening entries, raw material weighment verification, and grading logs.</p>
+                    <p class="text-[11px] text-[#5E6C84]">Granular role definitions with cross-departmental scope.</p>
                   </div>
 
-                  <div class="p-3 rounded-xl border border-[#CBD5E1] bg-[#F8FAFC] space-y-1.5">
+                  <div class="p-3 rounded-xl border border-[#CBD5E1] bg-[#F8FAFC] space-y-1">
                     <div class="flex items-center justify-between">
-                      <span class="font-extrabold text-[#172B4D] text-xs">Operator / Viewer</span>
-                      <span class="px-2 py-0.5 rounded text-[10px] font-extrabold bg-[#F1F5F9] text-[#5E6C84]">Read / Log</span>
+                      <span class="font-extrabold text-[#172B4D] text-xs">Access Governance</span>
+                      <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">Strict RBAC</span>
                     </div>
-                    <p class="text-[11px] text-[#5E6C84]">Coldstore pallet in/out logging, container stuffing checklists, and read-only reports.</p>
+                    <p class="text-[11px] text-[#5E6C84]">100% synchronized permissions across User, Role and Department.</p>
                   </div>
                 </div>
               </div>
