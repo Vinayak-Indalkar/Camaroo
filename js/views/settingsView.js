@@ -743,40 +743,8 @@ export const SettingsView = {
                 <!-- Roles DataTable Container -->
                 <div id="roles-datatable-container"></div>
 
-                <!-- Departmental Matrix Summary Badges -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs pt-2">
-                  <div class="p-3 rounded-xl border border-[#BAE6FD] bg-[#F0F9FF] space-y-1">
-                    <div class="flex items-center justify-between">
-                      <span class="font-extrabold text-[#00A4B7] text-xs">Total Divisions</span>
-                      <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-white text-[#00A4B7] border border-[#BAE6FD]">${this.departments.length}</span>
-                    </div>
-                    <p class="text-[11px] text-[#5E6C84]">Active core operations from farm procurement to export realization.</p>
-                  </div>
-
-                  <div class="p-3 rounded-xl border border-[#CBD5E1] bg-[#F8FAFC] space-y-1">
-                    <div class="flex items-center justify-between">
-                      <span class="font-extrabold text-[#172B4D] text-xs">Total Personnel</span>
-                      <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-white text-[#172B4D] border border-[#DFE1E6]">${this.users.length} Users</span>
-                    </div>
-                    <p class="text-[11px] text-[#5E6C84]">Assigned workforce distributed across operational units.</p>
-                  </div>
-
-                  <div class="p-3 rounded-xl border border-[#CBD5E1] bg-[#F8FAFC] space-y-1">
-                    <div class="flex items-center justify-between">
-                      <span class="font-extrabold text-[#172B4D] text-xs">Configured Roles</span>
-                      <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">${this.roles.length} Roles</span>
-                    </div>
-                    <p class="text-[11px] text-[#5E6C84]">Granular role definitions with cross-departmental scope.</p>
-                  </div>
-
-                  <div class="p-3 rounded-xl border border-[#CBD5E1] bg-[#F8FAFC] space-y-1">
-                    <div class="flex items-center justify-between">
-                      <span class="font-extrabold text-[#172B4D] text-xs">Access Governance</span>
-                      <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">Strict RBAC</span>
-                    </div>
-                    <p class="text-[11px] text-[#5E6C84]">100% synchronized permissions across User, Role and Department.</p>
-                  </div>
-                </div>
+                <!-- Departmental Matrix Summary Table -->
+                ${this.renderGovernanceSummaryTable()}
               </div>
             ` : ''}
           </div>
@@ -866,40 +834,8 @@ export const SettingsView = {
                 <!-- Departments DataTable Container -->
                 <div id="departments-datatable-container"></div>
 
-                <!-- Departmental Matrix Summary Badges -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs pt-2">
-                  <div class="p-3 rounded-xl border border-[#BAE6FD] bg-[#F0F9FF] space-y-1">
-                    <div class="flex items-center justify-between">
-                      <span class="font-extrabold text-[#00A4B7] text-xs">Total Divisions</span>
-                      <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-white text-[#00A4B7] border border-[#BAE6FD]">${this.departments.length}</span>
-                    </div>
-                    <p class="text-[11px] text-[#5E6C84]">Active core operations from farm procurement to export realization.</p>
-                  </div>
-
-                  <div class="p-3 rounded-xl border border-[#CBD5E1] bg-[#F8FAFC] space-y-1">
-                    <div class="flex items-center justify-between">
-                      <span class="font-extrabold text-[#172B4D] text-xs">Total Personnel</span>
-                      <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-white text-[#172B4D] border border-[#DFE1E6]">${this.users.length} Users</span>
-                    </div>
-                    <p class="text-[11px] text-[#5E6C84]">Assigned workforce distributed across operational units.</p>
-                  </div>
-
-                  <div class="p-3 rounded-xl border border-[#CBD5E1] bg-[#F8FAFC] space-y-1">
-                    <div class="flex items-center justify-between">
-                      <span class="font-extrabold text-[#172B4D] text-xs">Configured Roles</span>
-                      <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">${this.roles.length} Roles</span>
-                    </div>
-                    <p class="text-[11px] text-[#5E6C84]">Granular role definitions with cross-departmental scope.</p>
-                  </div>
-
-                  <div class="p-3 rounded-xl border border-[#CBD5E1] bg-[#F8FAFC] space-y-1">
-                    <div class="flex items-center justify-between">
-                      <span class="font-extrabold text-[#172B4D] text-xs">Access Governance</span>
-                      <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">Strict RBAC</span>
-                    </div>
-                    <p class="text-[11px] text-[#5E6C84]">100% synchronized permissions across User, Role and Department.</p>
-                  </div>
-                </div>
+                <!-- Departmental Matrix Summary Table -->
+                ${this.renderGovernanceSummaryTable()}
               </div>
             ` : ''}
           </div>
@@ -932,6 +868,122 @@ export const SettingsView = {
       this.renderDepartmentsTable();
       this.bindDepartmentsEvents(container);
     }
+  },
+
+  renderGovernanceSummaryTable() {
+    return `
+      <!-- Departmental & Governance Matrix Summary Table -->
+      <div class="mt-4 bg-white rounded-xl border border-[#DFE1E6] overflow-hidden shadow-2xs">
+        <div class="px-4 py-2.5 bg-[#FAFBFC] border-b border-[#DFE1E6] flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+            <span class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Departmental &amp; Governance Summary</span>
+          </div>
+          <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">100% Synchronized</span>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs text-left border-collapse">
+            <thead class="bg-[#F8FAFC] border-b border-[#DFE1E6] text-[#5E6C84] font-bold uppercase tracking-wider text-[11px]">
+              <tr>
+                <th class="py-2.5 px-4">Metric / Category</th>
+                <th class="py-2.5 px-3 text-center">Allocated Count</th>
+                <th class="py-2.5 px-4">Operational Scope &amp; Description</th>
+                <th class="py-2.5 px-3 text-center">Status</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-[#DFE1E6] text-[#172B4D]">
+              <tr class="hover:bg-[#F8FAFC] transition-colors">
+                <td class="py-2.5 px-4 font-bold text-xs whitespace-nowrap">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-[#00A4B7] shrink-0"></span>
+                    <span class="text-[#00A4B7] font-extrabold">Total Divisions</span>
+                  </div>
+                </td>
+                <td class="py-2.5 px-3 text-center whitespace-nowrap">
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD]">
+                    ${this.departments.length}
+                  </span>
+                </td>
+                <td class="py-2.5 px-4 text-[#5E6C84] text-xs">
+                  Active core operations from farm procurement to export realization.
+                </td>
+                <td class="py-2.5 px-3 text-center whitespace-nowrap">
+                  <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">
+                    Active
+                  </span>
+                </td>
+              </tr>
+
+              <tr class="hover:bg-[#F8FAFC] transition-colors">
+                <td class="py-2.5 px-4 font-bold text-xs whitespace-nowrap">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-[#172B4D] shrink-0"></span>
+                    <span class="font-extrabold text-[#172B4D]">Total Personnel</span>
+                  </div>
+                </td>
+                <td class="py-2.5 px-3 text-center whitespace-nowrap">
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-white text-[#172B4D] border border-[#DFE1E6]">
+                    ${this.users.length} Users
+                  </span>
+                </td>
+                <td class="py-2.5 px-4 text-[#5E6C84] text-xs">
+                  Assigned workforce distributed across operational units.
+                </td>
+                <td class="py-2.5 px-3 text-center whitespace-nowrap">
+                  <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">
+                    Synchronized
+                  </span>
+                </td>
+              </tr>
+
+              <tr class="hover:bg-[#F8FAFC] transition-colors">
+                <td class="py-2.5 px-4 font-bold text-xs whitespace-nowrap">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-[#403294] shrink-0"></span>
+                    <span class="font-extrabold text-[#172B4D]">Configured Roles</span>
+                  </div>
+                </td>
+                <td class="py-2.5 px-3 text-center whitespace-nowrap">
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">
+                    ${this.roles.length} Roles
+                  </span>
+                </td>
+                <td class="py-2.5 px-4 text-[#5E6C84] text-xs">
+                  Granular role definitions with cross-departmental scope.
+                </td>
+                <td class="py-2.5 px-3 text-center whitespace-nowrap">
+                  <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">
+                    Configured
+                  </span>
+                </td>
+              </tr>
+
+              <tr class="hover:bg-[#F8FAFC] transition-colors">
+                <td class="py-2.5 px-4 font-bold text-xs whitespace-nowrap">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-[#006644] shrink-0"></span>
+                    <span class="font-extrabold text-[#172B4D]">Access Governance</span>
+                  </div>
+                </td>
+                <td class="py-2.5 px-3 text-center whitespace-nowrap">
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">
+                    Strict RBAC
+                  </span>
+                </td>
+                <td class="py-2.5 px-4 text-[#5E6C84] text-xs">
+                  100% synchronized permissions across User, Role and Department.
+                </td>
+                <td class="py-2.5 px-3 text-center whitespace-nowrap">
+                  <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">
+                    Enforced
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    `;
   },
 
   renderUsersTable() {
