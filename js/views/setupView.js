@@ -6680,7 +6680,7 @@ export const SetupView = {
         stepBodyHtml = `
           <div class="space-y-5">
             <!-- 1. Client Information -->
-            <div class="bg-white rounded-xl border border-[#DFE1E6] p-4.5 shadow-2xs space-y-3.5">
+            <div class="space-y-3.5">
               <div class="flex items-center justify-between border-b border-[#F1F5F9] pb-2.5">
                 <div class="flex items-center gap-2">
                   <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">1</span>
@@ -6763,7 +6763,7 @@ export const SetupView = {
             </div>
 
             <!-- 2. Plant Information -->
-            <div class="bg-white rounded-xl border border-[#DFE1E6] p-4.5 shadow-2xs space-y-3.5">
+            <div class="space-y-3.5">
               <div class="flex items-center justify-between border-b border-[#F1F5F9] pb-2.5">
                 <div class="flex items-center gap-2">
                   <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">2</span>
@@ -6826,7 +6826,7 @@ export const SetupView = {
             </div>
 
             <!-- 3. Application Add-ons -->
-            <div class="bg-white rounded-xl border border-[#DFE1E6] p-4.5 shadow-2xs space-y-3.5">
+            <div class="space-y-3.5">
               <div class="flex items-center justify-between border-b border-[#F1F5F9] pb-2.5">
                 <div class="flex items-center gap-2">
                   <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">3</span>
@@ -7639,7 +7639,7 @@ export const SetupView = {
       content: `
         <form id="company-client-form" class="space-y-5 text-xs max-h-[75vh] overflow-y-auto px-1 py-1">
           <!-- 1. Client Information -->
-          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4.5 shadow-2xs space-y-3.5">
+          <div class="space-y-3.5">
             <div class="flex items-center justify-between border-b border-[#F1F5F9] pb-2.5">
               <div class="flex items-center gap-2">
                 <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">1</span>
@@ -7713,7 +7713,7 @@ export const SetupView = {
           </div>
 
           <!-- 2. Plant Information -->
-          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4.5 shadow-2xs space-y-3.5">
+          <div class="space-y-3.5">
             <div class="flex items-center justify-between border-b border-[#F1F5F9] pb-2.5">
               <div class="flex items-center gap-2">
                 <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">2</span>
@@ -7770,7 +7770,7 @@ export const SetupView = {
           </div>
 
           <!-- 3. Application Add-ons -->
-          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4.5 shadow-2xs space-y-3.5">
+          <div class="space-y-3.5">
             <div class="flex items-center justify-between border-b border-[#F1F5F9] pb-2.5">
               <div class="flex items-center gap-2">
                 <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">3</span>
