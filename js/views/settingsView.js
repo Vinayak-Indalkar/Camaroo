@@ -1244,14 +1244,60 @@ openRoleModal(role = null, onSaved) {
       });
     });
 
-    // Build the Table Rows HTML
+    // Build the Hierarchical Table Rows HTML (Collapsible Main Menu rows + Child Tab rows)
     let tableRowsHtml = '';
     navTree.forEach(menu => {
+      let menuTabsCount = 0;
+      menu.submenus.forEach(s => {
+        menuTabsCount += (s.tabs || []).length;
+      });
+
+      // 1. Parent Collapsible Main Menu Row (merges Menu, Sub Menu & Tabs in colspan="3")
+      tableRowsHtml += `
+        <tr class="role-menu-header-row bg-[#F8FAFC] hover:bg-[#F1F5F9] border-y border-[#DFE1E6] cursor-pointer select-none transition-colors" data-menu-id="${menu.id}" data-menu-label="${this.escape(menu.label.toLowerCase())}">
+          <td colspan="3" class="py-2.5 px-3 font-bold text-xs text-[#172B4D] whitespace-nowrap">
+            <div class="flex items-center gap-2">
+              <span class="w-5 h-5 rounded flex items-center justify-center text-[#5E6C84] bg-white border border-[#CBD5E1] shadow-2xs shrink-0 transition-transform duration-200 menu-row-chevron" data-menu-id="${menu.id}">
+                <svg class="w-3 h-3 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+              </span>
+              <span class="w-2.5 h-2.5 rounded-full bg-[#00A4B7] shrink-0"></span>
+              <span class="font-extrabold text-xs text-[#172B4D] tracking-wide">${this.escape(menu.label)}</span>
+              <span class="menu-stat-pill px-2 py-0.5 rounded-full text-[10px] font-bold bg-white text-[#5E6C84] border border-[#DFE1E6] shrink-0">
+                ${menu.submenus.length} Submenus • ${menuTabsCount} Tabs
+              </span>
+            </div>
+          </td>
+          <!-- Menu Add Toggle -->
+          <td class="py-2 px-2 text-center" onclick="event.stopPropagation()">
+            <input type="checkbox" class="menu-perm-cb menu-perm-add w-3.5 h-3.5 rounded text-[#006644] accent-[#00A4B7] cursor-pointer" data-menu-id="${menu.id}" data-action="add" title="Toggle Add for all ${this.escape(menu.label)} tabs" />
+          </td>
+          <!-- Menu Edit Toggle -->
+          <td class="py-2 px-2 text-center" onclick="event.stopPropagation()">
+            <input type="checkbox" class="menu-perm-cb menu-perm-edit w-3.5 h-3.5 rounded text-[#0284C7] accent-[#00A4B7] cursor-pointer" data-menu-id="${menu.id}" data-action="edit" title="Toggle Edit for all ${this.escape(menu.label)} tabs" />
+          </td>
+          <!-- Menu Delete Toggle -->
+          <td class="py-2 px-2 text-center" onclick="event.stopPropagation()">
+            <input type="checkbox" class="menu-perm-cb menu-perm-delete w-3.5 h-3.5 rounded text-[#DE350B] accent-[#DE350B] cursor-pointer" data-menu-id="${menu.id}" data-action="delete" title="Toggle Delete for all ${this.escape(menu.label)} tabs" />
+          </td>
+          <!-- Menu Read Only Toggle -->
+          <td class="py-2 px-2 text-center" onclick="event.stopPropagation()">
+            <input type="checkbox" class="menu-perm-cb menu-perm-read w-3.5 h-3.5 rounded text-[#42526E] accent-[#00A4B7] cursor-pointer" data-menu-id="${menu.id}" data-action="read" title="Toggle Read Only for all ${this.escape(menu.label)} tabs" />
+          </td>
+          <!-- Menu Row Action -->
+          <td class="py-2 px-2 text-center whitespace-nowrap" onclick="event.stopPropagation()">
+            <button type="button" class="btn-menu-row-all px-2 py-0.5 rounded text-[10px] font-bold border border-[#CBD5E1] bg-white hover:bg-[#F0F9FF] hover:border-[#00A4B7] text-[#172B4D] hover:text-[#00A4B7] transition-colors cursor-pointer select-none" data-menu-id="${menu.id}">
+              All
+            </button>
+          </td>
+        </tr>
+      `;
+
+      // 2. Child Rows for each Sub Menu & Tab (hidden by default, expands on clicking Menu row)
       menu.submenus.forEach(sub => {
         sub.tabs.forEach(tab => {
           const tabKey = `${menu.id}:${sub.id}:${tab.id}`;
           tableRowsHtml += `
-            <tr class="role-matrix-row hover:bg-[#F0F9FF]/40 border-b border-[#F1F5F9] transition-colors" 
+            <tr class="role-matrix-row role-matrix-child hidden bg-white hover:bg-[#F0F9FF]/40 border-b border-[#F1F5F9] transition-colors" 
                 data-menu-id="${menu.id}" 
                 data-menu-label="${this.escape(menu.label.toLowerCase())}" 
                 data-submenu-id="${sub.id}" 
@@ -1259,44 +1305,44 @@ openRoleModal(role = null, onSaved) {
                 data-tab-id="${tab.id}" 
                 data-tab-label="${this.escape(tab.label.toLowerCase())}"
                 data-key="${tabKey}">
-              <!-- Menu -->
-              <td class="py-2.5 px-3 font-bold text-xs text-[#172B4D] whitespace-nowrap">
-                <span class="inline-flex items-center gap-1.5">
-                  <span class="w-2 h-2 rounded-full bg-[#00A4B7] shrink-0"></span>
-                  <span class="truncate max-w-[130px]" title="${this.escape(menu.label)}">${this.escape(menu.label)}</span>
+              <!-- Col 1: Hierarchy Tree indentation -->
+              <td class="py-2 px-3 text-xs pl-8 whitespace-nowrap text-[#64748B]">
+                <span class="inline-flex items-center gap-1.5 font-medium">
+                  <span class="text-[#94A3B8]">↳</span>
+                  <span class="truncate max-w-[120px] text-[11px] text-[#64748B]">${this.escape(menu.label)}</span>
                 </span>
               </td>
-              <!-- Sub Menu -->
-              <td class="py-2.5 px-3 text-xs whitespace-nowrap">
-                <span class="px-2 py-0.5 rounded text-[11px] font-medium bg-[#F1F5F9] text-[#172B4D] border border-[#DFE1E6] truncate inline-block max-w-[140px]" title="${this.escape(sub.title)}">
+              <!-- Col 2: Sub Menu -->
+              <td class="py-2 px-3 text-xs whitespace-nowrap">
+                <span class="px-2 py-0.5 rounded text-[10.5px] font-semibold bg-[#F1F5F9] text-[#172B4D] border border-[#DFE1E6] truncate inline-block max-w-[140px]" title="${this.escape(sub.title)}">
                   ${this.escape(sub.title)}
                 </span>
               </td>
-              <!-- Tabs / Screen -->
-              <td class="py-2.5 px-3 font-semibold text-xs text-[#172B4D]">
+              <!-- Col 3: Tab / Screen Name -->
+              <td class="py-2 px-3 font-semibold text-xs text-[#172B4D]">
                 <span class="truncate block max-w-[200px] sm:max-w-xs" title="${this.escape(tab.label)}">
                   ${this.escape(tab.label)}
                 </span>
               </td>
               <!-- Add -->
               <td class="py-2 px-2 text-center">
-                <input type="checkbox" class="perm-cell perm-cell-add w-3.5 h-3.5 rounded text-[#006644] accent-[#00A4B7] cursor-pointer" data-key="${tabKey}" data-action="add" title="Grant Add permission" />
+                <input type="checkbox" class="perm-cell perm-cell-add w-3.5 h-3.5 rounded text-[#006644] accent-[#00A4B7] cursor-pointer" data-menu-id="${menu.id}" data-submenu-id="${sub.id}" data-key="${tabKey}" data-action="add" />
               </td>
               <!-- Edit -->
               <td class="py-2 px-2 text-center">
-                <input type="checkbox" class="perm-cell perm-cell-edit w-3.5 h-3.5 rounded text-[#0284C7] accent-[#00A4B7] cursor-pointer" data-key="${tabKey}" data-action="edit" title="Grant Edit permission" />
+                <input type="checkbox" class="perm-cell perm-cell-edit w-3.5 h-3.5 rounded text-[#0284C7] accent-[#00A4B7] cursor-pointer" data-menu-id="${menu.id}" data-submenu-id="${sub.id}" data-key="${tabKey}" data-action="edit" />
               </td>
               <!-- Delete -->
               <td class="py-2 px-2 text-center">
-                <input type="checkbox" class="perm-cell perm-cell-delete w-3.5 h-3.5 rounded text-[#DE350B] accent-[#DE350B] cursor-pointer" data-key="${tabKey}" data-action="delete" title="Grant Delete permission" />
+                <input type="checkbox" class="perm-cell perm-cell-delete w-3.5 h-3.5 rounded text-[#DE350B] accent-[#DE350B] cursor-pointer" data-menu-id="${menu.id}" data-submenu-id="${sub.id}" data-key="${tabKey}" data-action="delete" />
               </td>
               <!-- Read Only -->
               <td class="py-2 px-2 text-center">
-                <input type="checkbox" class="perm-cell perm-cell-read w-3.5 h-3.5 rounded text-[#42526E] accent-[#00A4B7] cursor-pointer" data-key="${tabKey}" data-action="read" title="Grant Read Only permission" />
+                <input type="checkbox" class="perm-cell perm-cell-read w-3.5 h-3.5 rounded text-[#42526E] accent-[#00A4B7] cursor-pointer" data-menu-id="${menu.id}" data-submenu-id="${sub.id}" data-key="${tabKey}" data-action="read" />
               </td>
               <!-- Row Action -->
               <td class="py-2 px-2 text-center whitespace-nowrap">
-                <button type="button" class="btn-matrix-row-all px-2 py-0.5 rounded text-[10px] font-bold border border-[#CBD5E1] bg-white hover:bg-[#F0F9FF] hover:border-[#00A4B7] text-[#172B4D] hover:text-[#00A4B7] transition-colors cursor-pointer select-none" data-key="${tabKey}" title="Toggle all permissions for this row">
+                <button type="button" class="btn-matrix-row-all px-2 py-0.5 rounded text-[10px] font-bold border border-[#CBD5E1] bg-white hover:bg-[#F0F9FF] hover:border-[#00A4B7] text-[#172B4D] hover:text-[#00A4B7] transition-colors cursor-pointer select-none" data-key="${tabKey}">
                   All
                 </button>
               </td>
@@ -1367,13 +1413,17 @@ openRoleModal(role = null, onSaved) {
 
               <!-- Quick Presets -->
               <div class="flex items-center gap-1.5 flex-wrap">
+                <button type="button" id="btn-toggle-all-tree" class="px-2.5 py-1 text-[11px] font-bold text-[#5E6C84] bg-white hover:bg-[#F4F5F7] border border-[#DFE1E6] rounded cursor-pointer transition-colors inline-flex items-center gap-1" title="Expand or Collapse all menus">
+                  <svg id="icon-toggle-all-tree" class="w-3 h-3 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                  <span id="txt-toggle-all-tree">Expand All</span>
+                </button>
                 <button type="button" id="btn-perm-grant-full" class="px-2.5 py-1 text-[11px] font-bold text-[#006644] bg-[#E3FCEF] hover:bg-[#ABF5D1] border border-[#ABF5D1] rounded cursor-pointer transition-colors inline-flex items-center gap-1" title="Grant Full Access (Read, Add, Edit, Delete)">
                   <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                   <span>Full Access</span>
                 </button>
                 <button type="button" id="btn-perm-grant-operator" class="px-2.5 py-1 text-[11px] font-bold text-[#0284C7] bg-[#F0F9FF] hover:bg-[#BAE6FD] border border-[#BAE6FD] rounded cursor-pointer transition-colors inline-flex items-center gap-1" title="Grant Operator Access (Read, Add, Edit - No Delete)">
                   <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
-                  <span>Operator (Add+Edit)</span>
+                  <span>Operator</span>
                 </button>
                 <button type="button" id="btn-perm-grant-readonly" class="px-2.5 py-1 text-[11px] font-bold text-[#42526E] bg-[#FAFBFC] hover:bg-[#EBECF0] border border-[#DFE1E6] rounded cursor-pointer transition-colors inline-flex items-center gap-1" title="Grant Read Only view only">
                   <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
@@ -1556,7 +1606,7 @@ openRoleModal(role = null, onSaved) {
       ]
     });
 
-    // Wire up all table events, live search, filters, and presets
+    // Wire up all table events, collapsible tree, live search, filters, and presets
     setTimeout(() => {
       const modalRoot = document.getElementById('erp-modal-root');
       if (!modalRoot) return;
@@ -1566,14 +1616,14 @@ openRoleModal(role = null, onSaved) {
       };
 
       const updateAllState = () => {
-        const allRows = modalRoot.querySelectorAll('.role-matrix-row');
+        const allChildRows = modalRoot.querySelectorAll('.role-matrix-row');
         let totalActiveTabs = 0;
         let countAdd = 0;
         let countEdit = 0;
         let countDel = 0;
         let countRead = 0;
 
-        allRows.forEach(row => {
+        allChildRows.forEach(row => {
           const r = row.querySelector('.perm-cell-read')?.checked;
           const a = row.querySelector('.perm-cell-add')?.checked;
           const e = row.querySelector('.perm-cell-edit')?.checked;
@@ -1594,6 +1644,47 @@ openRoleModal(role = null, onSaved) {
             } else {
               btnAll.textContent = 'All';
               btnAll.className = 'btn-matrix-row-all px-2 py-0.5 rounded text-[10px] font-bold border border-[#CBD5E1] bg-white hover:bg-[#F0F9FF] hover:border-[#00A4B7] text-[#172B4D] hover:text-[#00A4B7] transition-colors cursor-pointer select-none';
+            }
+          }
+        });
+
+        // Update menu-level checkboxes and counts for each Main Menu row
+        navTree.forEach(menu => {
+          const menuId = menu.id;
+          const menuHeaderRow = modalRoot.querySelector(`.role-menu-header-row[data-menu-id="${menuId}"]`);
+          if (!menuHeaderRow) return;
+
+          const childRows = modalRoot.querySelectorAll(`.role-matrix-row[data-menu-id="${menuId}"]`);
+          const totalMenuTabs = childRows.length;
+
+          ['add', 'edit', 'delete', 'read'].forEach(action => {
+            const menuCb = menuHeaderRow.querySelector(`.menu-perm-${action}`);
+            if (menuCb && totalMenuTabs > 0) {
+              const checkedCount = Array.from(childRows).filter(r => r.querySelector(`.perm-cell-${action}`)?.checked).length;
+              if (checkedCount === totalMenuTabs) {
+                menuCb.checked = true;
+                menuCb.indeterminate = false;
+              } else if (checkedCount > 0) {
+                menuCb.checked = false;
+                menuCb.indeterminate = true;
+              } else {
+                menuCb.checked = false;
+                menuCb.indeterminate = false;
+              }
+            }
+          });
+
+          // Update menu row "All" button
+          const btnMenuAll = menuHeaderRow.querySelector('.btn-menu-row-all');
+          if (btnMenuAll && totalMenuTabs > 0) {
+            const allCells = modalRoot.querySelectorAll(`.role-matrix-row[data-menu-id="${menuId}"] .perm-cell`);
+            const allChecked = Array.from(allCells).every(c => c.checked);
+            if (allChecked) {
+              btnMenuAll.textContent = 'Clear';
+              btnMenuAll.className = 'btn-menu-row-all px-2 py-0.5 rounded text-[10px] font-bold border border-[#ABF5D1] bg-[#E3FCEF] text-[#006644] hover:bg-[#FFEBE6] hover:text-[#DE350B] hover:border-[#FFBDAD] transition-colors cursor-pointer select-none';
+            } else {
+              btnMenuAll.textContent = 'All';
+              btnMenuAll.className = 'btn-menu-row-all px-2 py-0.5 rounded text-[10px] font-bold border border-[#CBD5E1] bg-white hover:bg-[#F0F9FF] hover:border-[#00A4B7] text-[#172B4D] hover:text-[#00A4B7] transition-colors cursor-pointer select-none';
             }
           }
         });
@@ -1631,7 +1722,7 @@ openRoleModal(role = null, onSaved) {
         });
       };
 
-      // 1. Pre-population
+      // 1. Pre-population of permissions
       if (role) {
         if (role.permissionsMatrix && typeof role.permissionsMatrix === 'object') {
           Object.entries(role.permissionsMatrix).forEach(([key, perms]) => {
@@ -1672,7 +1763,67 @@ openRoleModal(role = null, onSaved) {
 
       updateAllState();
 
-      // 2. Cell Checkbox Change Handler (with smart Read-Only dependency)
+      // 2. Main Menu Collapsible Row Click Handler: Toggle child hierarchy rows
+      modalRoot.addEventListener('click', (e) => {
+        const headerRow = e.target.closest('.role-menu-header-row');
+        if (!headerRow) return;
+
+        // If clicking inside input checkbox or button, do not toggle accordion
+        if (e.target.closest('input[type="checkbox"]') || e.target.closest('button.btn-menu-row-all')) {
+          return;
+        }
+
+        const menuId = headerRow.dataset.menuId;
+        const childRows = modalRoot.querySelectorAll(`.role-matrix-child[data-menu-id="${menuId}"]`);
+        const chevron = headerRow.querySelector('.menu-row-chevron');
+
+        const isCurrentlyExpanded = chevron?.classList.contains('rotate-90');
+        if (isCurrentlyExpanded) {
+          childRows.forEach(r => r.classList.add('hidden'));
+          chevron?.classList.remove('rotate-90');
+        } else {
+          childRows.forEach(r => r.classList.remove('hidden'));
+          chevron?.classList.add('rotate-90');
+        }
+      });
+
+      // 3. Main Menu Checkbox Change Handler (applies to all tabs under this menu)
+      modalRoot.addEventListener('change', (e) => {
+        if (e.target.classList.contains('menu-perm-cb')) {
+          const menuId = e.target.dataset.menuId;
+          const action = e.target.dataset.action;
+          const isChecked = e.target.checked;
+          const childRows = modalRoot.querySelectorAll(`.role-matrix-row[data-menu-id="${menuId}"]`);
+
+          childRows.forEach(row => {
+            const cb = row.querySelector(`.perm-cell-${action}`);
+            if (cb) cb.checked = isChecked;
+
+            if (isChecked && action !== 'read') {
+              const readCb = row.querySelector('.perm-cell-read');
+              if (readCb) readCb.checked = true;
+            } else if (!isChecked && action === 'read') {
+              row.querySelectorAll('.perm-cell').forEach(c => { c.checked = false; });
+            }
+          });
+
+          updateAllState();
+        }
+      });
+
+      // 4. Main Menu Row "All" / "Clear" Toggle
+      modalRoot.addEventListener('click', (e) => {
+        const btn = e.target.closest('.btn-menu-row-all');
+        if (!btn) return;
+        const menuId = btn.dataset.menuId;
+        const childCells = modalRoot.querySelectorAll(`.role-matrix-row[data-menu-id="${menuId}"] .perm-cell`);
+        const allChecked = Array.from(childCells).every(c => c.checked);
+
+        childCells.forEach(c => { c.checked = !allChecked; });
+        updateAllState();
+      });
+
+      // 5. Individual Cell Checkbox Change Handler (with smart Read-Only dependency)
       modalRoot.addEventListener('change', (e) => {
         if (e.target.classList.contains('perm-cell')) {
           const row = e.target.closest('.role-matrix-row');
@@ -1680,11 +1831,9 @@ openRoleModal(role = null, onSaved) {
           const isChecked = e.target.checked;
 
           if (isChecked && (action === 'add' || action === 'edit' || action === 'delete')) {
-            // Auto check Read Only
             const readCb = row?.querySelector('.perm-cell-read');
             if (readCb) readCb.checked = true;
           } else if (!isChecked && action === 'read') {
-            // If unchecking read only, uncheck write actions
             const addCb = row?.querySelector('.perm-cell-add');
             const editCb = row?.querySelector('.perm-cell-edit');
             const delCb = row?.querySelector('.perm-cell-delete');
@@ -1697,7 +1846,7 @@ openRoleModal(role = null, onSaved) {
         }
       });
 
-      // 3. Header column toggle checkboxes
+      // 6. Header column toggle checkboxes (for all visible rows)
       ['add', 'edit', 'delete', 'read'].forEach(action => {
         document.getElementById(`hdr-perm-${action}`)?.addEventListener('change', (e) => {
           const isChecked = e.target.checked;
@@ -1716,7 +1865,7 @@ openRoleModal(role = null, onSaved) {
         });
       });
 
-      // 4. Row "All" / "Clear" Toggle
+      // 7. Individual Row "All" / "Clear" Toggle
       modalRoot.addEventListener('click', (e) => {
         const btn = e.target.closest('.btn-matrix-row-all');
         if (!btn) return;
@@ -1729,7 +1878,32 @@ openRoleModal(role = null, onSaved) {
         updateAllState();
       });
 
-      // 5. Presets
+      // 8. Expand All / Collapse All Toggle Button
+      let allTreeExpanded = false;
+      document.getElementById('btn-toggle-all-tree')?.addEventListener('click', () => {
+        allTreeExpanded = !allTreeExpanded;
+        const childRows = modalRoot.querySelectorAll('.role-matrix-child');
+        const chevrons = modalRoot.querySelectorAll('.menu-row-chevron');
+        const txt = document.getElementById('txt-toggle-all-tree');
+        const icon = document.getElementById('icon-toggle-all-tree');
+
+        childRows.forEach(r => {
+          if (allTreeExpanded) r.classList.remove('hidden');
+          else r.classList.add('hidden');
+        });
+        chevrons.forEach(c => {
+          if (allTreeExpanded) c.classList.add('rotate-90');
+          else c.classList.remove('rotate-90');
+        });
+
+        if (txt) txt.textContent = allTreeExpanded ? 'Collapse All' : 'Expand All';
+        if (icon) {
+          if (allTreeExpanded) icon.classList.add('rotate-180');
+          else icon.classList.remove('rotate-180');
+        }
+      });
+
+      // 9. Presets
       document.getElementById('btn-perm-grant-full')?.addEventListener('click', () => {
         getVisibleRows().forEach(row => {
           row.querySelectorAll('.perm-cell').forEach(c => { c.checked = true; });
@@ -1764,7 +1938,7 @@ openRoleModal(role = null, onSaved) {
         updateAllState();
       });
 
-      // 6. Search Filter and Menu Dropdown Filter
+      // 10. Search Filter and Menu Dropdown Filter
       const searchInput = document.getElementById('role-matrix-search-input');
       const searchClear = document.getElementById('role-matrix-search-clear');
       const menuSelect = document.getElementById('role-matrix-menu-flt');
@@ -1778,20 +1952,47 @@ openRoleModal(role = null, onSaved) {
           else searchClear.classList.add('hidden');
         }
 
-        const rows = modalRoot.querySelectorAll('.role-matrix-row');
-        rows.forEach(row => {
-          const mId = row.dataset.menuId;
-          const mLabel = row.dataset.menuLabel;
-          const sTitle = row.dataset.submenuTitle;
-          const tLabel = row.dataset.tabLabel;
+        const menuRows = modalRoot.querySelectorAll('.role-menu-header-row');
+        menuRows.forEach(menuRow => {
+          const mId = menuRow.dataset.menuId;
+          const mLabel = menuRow.dataset.menuLabel || '';
+          const childRows = modalRoot.querySelectorAll(`.role-matrix-child[data-menu-id="${mId}"]`);
+          const chevron = menuRow.querySelector('.menu-row-chevron');
 
-          const matchesMenu = (selectedMenu === 'All' || mId === selectedMenu);
-          const matchesQuery = (!q || mLabel.includes(q) || sTitle.includes(q) || tLabel.includes(q));
+          if (selectedMenu !== 'All' && mId !== selectedMenu) {
+            menuRow.classList.add('hidden');
+            childRows.forEach(r => r.classList.add('hidden'));
+            return;
+          }
 
-          if (matchesMenu && matchesQuery) {
-            row.classList.remove('hidden');
+          let anyChildMatches = false;
+          childRows.forEach(row => {
+            const sTitle = row.dataset.submenuTitle || '';
+            const tLabel = row.dataset.tabLabel || '';
+            const matchesQuery = (!q || mLabel.includes(q) || sTitle.includes(q) || tLabel.includes(q));
+
+            if (matchesQuery) {
+              anyChildMatches = true;
+              if (q || allTreeExpanded) {
+                row.classList.remove('hidden');
+              } else {
+                row.classList.add('hidden');
+              }
+            } else {
+              row.classList.add('hidden');
+            }
+          });
+
+          if (!q || mLabel.includes(q) || anyChildMatches) {
+            menuRow.classList.remove('hidden');
+            if (q && anyChildMatches) {
+              // Auto-expand menu when searching
+              chevron?.classList.add('rotate-90');
+            } else if (!allTreeExpanded) {
+              chevron?.classList.remove('rotate-90');
+            }
           } else {
-            row.classList.add('hidden');
+            menuRow.classList.add('hidden');
           }
         });
 
@@ -1807,9 +2008,19 @@ openRoleModal(role = null, onSaved) {
         }
       });
 
-      menuSelect?.addEventListener('change', applyFilters);
+      menuSelect?.addEventListener('change', (e) => {
+        applyFilters();
+        // If single menu selected, auto-expand it
+        if (e.target.value !== 'All') {
+          const targetRow = modalRoot.querySelector(`.role-menu-header-row[data-menu-id="${e.target.value}"]`);
+          const chevron = targetRow?.querySelector('.menu-row-chevron');
+          const childRows = modalRoot.querySelectorAll(`.role-matrix-child[data-menu-id="${e.target.value}"]`);
+          childRows.forEach(r => r.classList.remove('hidden'));
+          chevron?.classList.add('rotate-90');
+        }
+      });
 
-      // 7. Access Level dropdown change
+      // 11. Access Level dropdown change
       document.getElementById('role-modal-level')?.addEventListener('change', (e) => {
         if (e.target.value === 'Full Access') {
           modalRoot.querySelectorAll('.perm-cell').forEach(cb => { cb.checked = true; });
