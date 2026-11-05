@@ -756,16 +756,33 @@ a[role="tab"][aria-selected="true"],
   border-color: #075985 !important;
 }
 
-/* Search & Filters Card Margin: exactly 12px */
-.dt-top-filter-card,
-div:has(> .dt-top-filter-body),
-div:has(> div > .dt-top-filter-body),
-div:has(> div > div > .dt-top-filter-body) {
+/* Search & Filters Card Margin */
+.dt-top-filter-card:not(.master-accordion-body *):not(.user-roles-accordion-body *) {
   margin-bottom: 12px !important;
 }
 
 .dt-top-filter-body {
   margin-top: 12px !important;
+}
+
+/* Accordion body & cards: strictly NO unwanted margins */
+.master-accordion-body,
+.user-roles-accordion-body {
+  margin: 0 !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.master-accordion-card,
+.user-roles-accordion-card {
+  margin-bottom: 0 !important;
+}
+
+.master-accordion-body .dt-top-filter-card,
+.user-roles-accordion-body .dt-top-filter-card {
+  margin: 0 !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
 }
 
 /* Filter Bar Action Buttons: exactly match action column icons */

@@ -563,7 +563,7 @@ export const SettingsView = {
 
             <!-- Accordion Body -->
             ${isUsersExpanded ? `
-              <div class="user-roles-accordion-body p-4 bg-[#FAFBFC] space-y-3.5 border-t border-[#DFE1E6] animate-accordion-expand">
+              <div class="user-roles-accordion-body m-0 p-4 bg-[#FAFBFC] space-y-3.5 border-t border-[#DFE1E6] animate-accordion-expand" style="margin: 0 !important;">
                 <!-- Search & Filter Card (AGENTS.md Rule 3) -->
                 <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs transition-all duration-200">
                   <div class="flex items-center justify-between pb-1">
@@ -669,7 +669,7 @@ export const SettingsView = {
 
             <!-- Accordion Body -->
             ${isRolesExpanded ? `
-              <div class="user-roles-accordion-body p-4 bg-[#FAFBFC] space-y-3.5 border-t border-[#DFE1E6] animate-accordion-expand">
+              <div class="user-roles-accordion-body m-0 p-4 bg-[#FAFBFC] space-y-3.5 border-t border-[#DFE1E6] animate-accordion-expand" style="margin: 0 !important;">
                 <!-- Search & Filter Card (AGENTS.md Rule 3) -->
                 <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs transition-all duration-200">
                   <div class="flex items-center justify-between pb-1">
@@ -5364,7 +5364,7 @@ export const SettingsView = {
 
                 <!-- Accordion Body -->
                 ${isExpanded ? `
-                  <div class="master-accordion-body p-4 bg-[#FAFBFC] space-y-3.5 border-t border-[#DFE1E6] animate-accordion-expand">
+                  <div class="master-accordion-body m-0 p-4 bg-[#FAFBFC] space-y-3.5 border-t border-[#DFE1E6] animate-accordion-expand" style="margin: 0 !important;">
                     <!-- Search & Filter Card (AGENTS.md Rule 3) -->
                     <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs transition-all duration-200">
                       <div class="flex items-center justify-between pb-1">
