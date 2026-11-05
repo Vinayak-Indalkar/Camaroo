@@ -356,7 +356,7 @@ export const HomeView = {
           label: 'Task & Details',
           sortable: true,
           render: (val, row) => `
-            <div class="max-w-md py-0.5">
+            <div class="min-w-[280px] py-0.5">
               <div class="font-bold text-xs text-[#172B4D] hover:text-[#00A4B7] transition-colors">${val}</div>
               <div class="text-[11px] text-[#5E6C84] line-clamp-1 mt-0.5">${row.description}</div>
               <div class="text-[10px] text-[#8993A4] font-medium mt-0.5 flex items-center gap-1">

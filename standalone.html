@@ -65,7 +65,7 @@
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
-    ﻿/* ============================================================================
+    /* ============================================================================
    DEVI FISHERIES ERP - DEDUPLICATED CSS STYLESHEET
    ============================================================================
    
@@ -623,6 +623,13 @@ button.tab-active *,
   border-collapse: separate;
   border-spacing: 0;
 }
+.erp-table thead,
+.erp-table thead tr#dt-thead-row,
+.erp-table thead tr {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 15 !important;
+}
 .erp-table th {
   background-color: #EEF3F8 !important;
   color: #334155 !important;
@@ -632,11 +639,35 @@ button.tab-active *,
   letter-spacing: 0.05em;
   padding: 10px 14px;
   border-bottom: 1px solid #DDE5ED !important;
-  position: sticky;
-  top: 0;
-  z-index: 10;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 15 !important;
   white-space: nowrap;
 }
+
+/* Remove excessive white space on left edge across all tables */
+.erp-table th:first-child,
+.erp-table td:first-child {
+  padding-left: 10px !important;
+}
+
+/* Snug fit for compact identifier/code columns to eliminate dead white space gaps */
+.erp-table th[data-field="code"],
+.erp-table td[data-field="code"],
+.erp-table th[data-field="id"],
+.erp-table td[data-field="id"],
+.erp-table th[data-field="billNo"],
+.erp-table td[data-field="billNo"],
+.erp-table th[data-field="docNo"],
+.erp-table td[data-field="docNo"],
+.erp-table th[data-field="trackId"],
+.erp-table td[data-field="trackId"],
+.erp-table th[data-field="lotNo"],
+.erp-table td[data-field="lotNo"] {
+  width: 1%;
+  white-space: nowrap !important;
+}
+
 .erp-table td {
   padding: 11px 14px;
   font-size: 13.5px !important; /* +1px from 12.5px */
@@ -656,7 +687,7 @@ button.tab-active *,
 }
 .erp-table th.sticky-action-col {
   background-color: #EEF3F8 !important;
-  z-index: 20 !important;
+  z-index: 25 !important;
   border-left: 1px solid #DDE5ED !important;
   box-shadow: -4px 0 6px -2px rgba(9, 30, 66, 0.08);
 }
@@ -671,6 +702,215 @@ button.tab-active *,
 }
 .erp-table tr.bg-\[\#F4F5F7\] td.sticky-action-col {
   background-color: #F4F8FD !important;
+}
+
+/* ===== DataTable Component CSS Classes ===== */
+
+/* Table Action Button Styling */
+.dt-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  min-width: 32px !important;
+  min-height: 32px !important;
+  border-radius: 50% !important;
+  background-color: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  color: #334155;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.dt-action-btn:hover {
+  background-color: #F0F9FF;
+  border-color: #00A4B7;
+  color: #00A4B7;
+}
+
+.dt-action-btn:active {
+  transform: scale(0.95);
+}
+
+.dt-action-btn[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Download Icon - Teal */
+.dt-action-btn.dt-download-action svg {
+  color: #0284C7;
+}
+
+/* Edit Icon - Teal */
+.dt-action-btn.dt-edit-action svg {
+  color: #00A4B7;
+}
+
+/* Delete Icon - Red */
+.dt-action-btn.dt-delete-action svg {
+  color: #DC2626;
+}
+
+.dt-action-btn.dt-delete-action:hover {
+  background-color: #FEE2E2;
+  border-color: #DC2626;
+  color: #DC2626;
+}
+
+/* Pagination Button Styling */
+.dt-page-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  min-width: 36px !important;
+  min-height: 36px !important;
+  padding: 0 !important;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px !important;
+  background-color: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  color: #334155;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dt-page-btn:hover {
+  border-color: #0284C7;
+  color: #0284C7;
+}
+
+.dt-page-btn.active {
+  background-color: #000000 !important;
+  color: #FFFFFF !important;
+  border-color: #000000 !important;
+  font-weight: 700;
+}
+
+.dt-page-btn[disabled] {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Filter Controls */
+.dt-filter-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  color: #5E6C84;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+}
+
+.dt-filter-input,
+.dt-filter-select {
+  width: 100%;
+  font-size: 13px;
+  padding: 8px 10px;
+  background-color: #FFFFFF;
+  border: 1px solid #DFE1E6;
+  border-radius: 4px;
+  color: #172B4D;
+  font-weight: 600;
+  transition: all 0.15s ease;
+}
+
+.dt-filter-input:focus,
+.dt-filter-select:focus {
+  outline: none;
+  border-color: #00A4B7;
+  box-shadow: 0 0 0 3px rgba(0, 164, 183, 0.1);
+}
+
+/* Toolbar Button (Search) */
+.dt-search-btn {
+  padding: 8px 20px !important;
+  height: 32px;
+  border-radius: 9999px !important;
+  font-size: 13px;
+  font-weight: 600;
+  background-color: #00A4B7;
+  color: #FFFFFF;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.dt-search-btn:hover {
+  background-color: #008F9F;
+}
+
+/* Table Scroll Wrapper - Sticky Header vertically, moves horizontally with columns */
+.dt-table-scroll,
+.overflow-x-auto:has(> .erp-table) {
+  overflow-x: auto !important;
+  overflow-y: auto !important;
+  max-height: calc(100vh - 280px) !important;
+  min-height: 220px;
+  position: relative !important;
+  -webkit-overflow-scrolling: touch;
+}
+
+.dt-table-scroll::-webkit-scrollbar,
+.overflow-x-auto:has(> .erp-table)::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.dt-table-scroll::-webkit-scrollbar-track,
+.overflow-x-auto:has(> .erp-table)::-webkit-scrollbar-track {
+  background: #F1F5F9;
+  border-radius: 4px;
+}
+
+.dt-table-scroll::-webkit-scrollbar-thumb,
+.overflow-x-auto:has(> .erp-table)::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 4px;
+}
+
+.dt-table-scroll::-webkit-scrollbar-thumb:hover,
+.overflow-x-auto:has(> .erp-table)::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+/* Responsive Table on Mobile */
+@media (max-width: 768px) {
+  .dt-action-btn {
+    width: 36px;
+    height: 36px;
+    min-width: 36px !important;
+    min-height: 36px !important;
+  }
+  
+  .dt-page-btn {
+    width: 32px;
+    height: 32px;
+    min-width: 32px !important;
+    min-height: 32px !important;
+    font-size: 12px;
+  }
+  
+  .erp-table th {
+    font-size: 11px !important;
+    padding: 8px 10px;
+  }
+  
+  .erp-table td {
+    font-size: 12px !important;
+    padding: 8px 10px;
+  }
 }
 
 /* Nav Item Active - Pastel Sky Pill with Accessible Marine Text */
@@ -5854,11 +6094,11 @@ class DataTable {
         ${topFilterHTML}
 
         <!-- Table Card Container -->
-        <div class="bg-white rounded-none border border-[#DFE1E6] shadow-sm flex flex-col overflow-hidden">
+        <div class="bg-white rounded-xl border border-[#DFE1E6] shadow-xs flex flex-col overflow-hidden">
           ${!this.hideToolbar ? `<!-- Table Control Toolbar (Column visibility, Download, Copy, Search) -->
           <div class="px-4 py-2.5 border-b border-[#DFE1E6] bg-[#FAFBFC] flex flex-wrap items-center justify-between gap-3">
             <div class="flex items-center gap-2.5 flex-wrap">
-              ${this.tableTitle ? `<h3 class="font-bold text-[#172B4D] text-xs">${this.tableTitle}</h3>` : ''}
+              ${this.tableTitle ? `<h2 class="text-sm font-bold text-[#172B4D] uppercase tracking-wide">${this.tableTitle} (${this.filteredData.length})</h2>` : ''}
               
               <div id="dt-filter-container" class="flex items-center gap-2"></div>
             </div>
@@ -5926,7 +6166,7 @@ class DataTable {
           </div>
 
           <!-- Table Container -->
-          <div class="overflow-x-auto min-h-[220px]">
+          <div class="dt-table-scroll">
             <table class="erp-table" ${this.minWidth ? `style="min-width: ${this.minWidth} !important;"` : ''}>
               <thead>
                 <tr id="dt-thead-row"></tr>
@@ -6204,8 +6444,7 @@ class DataTable {
                 data-key="${keyVal}" 
                 disabled="disabled"
                 aria-disabled="true"
-                class="dt-action-btn dt-action-btn-disabled w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-[#F4F5F7] border border-[#DFE1E6] text-[#94A3B8] rounded-full select-none cursor-not-allowed opacity-35" 
-                style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 9999px; border: 1px solid #DFE1E6 !important; background: #F4F5F7 !important; color: #94A3B8 !important; display: inline-flex; align-items: center; justify-content: center; padding: 0; cursor: not-allowed !important; opacity: 0.35 !important;"
+                class="dt-action-btn dt-action-btn-disabled" 
                 title="${tooltip.replace(/"/g, '&quot;')}" 
                 aria-label="${tooltip.replace(/"/g, '&quot;')}"
               >
@@ -6213,13 +6452,21 @@ class DataTable {
               </button>
             `;
           } else {
+            let actionClass = 'dt-action-btn';
+            if (actLabel.toLowerCase().includes('edit')) {
+              actionClass += ' dt-edit-action';
+            } else if (actLabel.toLowerCase().includes('delete') || actLabel.toLowerCase().includes('remove')) {
+              actionClass += ' dt-delete-action';
+            } else if (actLabel.toLowerCase().includes('download')) {
+              actionClass += ' dt-download-action';
+            }
+            
             rowsHtml += `
               <button 
                 type="button"
                 data-action-idx="${actIdx}" 
                 data-key="${keyVal}" 
-                class="dt-action-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" 
-                style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 9999px; border: 1px solid #CBD5E1; background: #ffffff; color: #334155; display: inline-flex; align-items: center; justify-content: center; padding: 0;"
+                class="${actionClass}"
                 title="${tooltip.replace(/"/g, '&quot;')}" 
                 aria-label="${tooltip.replace(/"/g, '&quot;')}"
               >
@@ -6279,11 +6526,7 @@ class DataTable {
     for (let p = startPage; p <= endPage; p++) {
       const isActive = p === this.currentPage;
       pagesHtml += `
-        <button type="button" class="dt-page-btn w-9 h-9 min-w-[36px] flex items-center justify-center text-sm font-semibold rounded-xl transition-all cursor-pointer select-none ${
-          isActive
-            ? 'bg-black text-white shadow-xs'
-            : 'bg-white border border-[#CBD5E1] text-[#334155] hover:border-[#0284C7] hover:text-[#0284C7]'
-        }" data-page="${p}">
+        <button type="button" class="dt-page-btn ${isActive ? 'active' : ''}" data-page="${p}">
           ${p}
         </button>
       `;
@@ -6309,9 +6552,7 @@ class DataTable {
         <!-- Page navigation buttons -->
         <div class="flex flex-wrap items-center gap-1.5 max-w-full">
           <!-- Previous page button -->
-          <button type="button" id="dt-page-prev" style="padding: 0 !important; width: 36px !important; height: 36px !important;" class="w-9 h-9 min-w-[36px] flex items-center justify-center bg-white border border-[#CBD5E1] rounded-xl text-[#64748B] hover:text-[#0284C7] hover:border-[#0284C7] transition-all ${
-            this.currentPage === 1 ? 'opacity-40 cursor-not-allowed hover:border-[#CBD5E1] hover:text-[#64748B]' : 'cursor-pointer'
-          }" title="Previous page" aria-label="Previous page" ${this.currentPage === 1 ? 'disabled' : ''}>
+          <button type="button" id="dt-page-prev" class="dt-page-btn" title="Previous page" aria-label="Previous page" ${this.currentPage === 1 ? 'disabled' : ''}>
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
           </button>
 
@@ -6319,9 +6560,7 @@ class DataTable {
           ${pagesHtml}
 
           <!-- Next page button -->
-          <button type="button" id="dt-page-next" style="padding: 0 !important; width: 36px !important; height: 36px !important;" class="w-9 h-9 min-w-[36px] flex items-center justify-center bg-white border border-[#CBD5E1] rounded-xl text-[#64748B] hover:text-[#0284C7] hover:border-[#0284C7] transition-all ${
-            this.currentPage >= totalPages ? 'opacity-40 cursor-not-allowed hover:border-[#CBD5E1] hover:text-[#64748B]' : 'cursor-pointer'
-          }" title="Next page" aria-label="Next page" ${this.currentPage >= totalPages ? 'disabled' : ''}>
+          <button type="button" id="dt-page-next" class="dt-page-btn" title="Next page" aria-label="Next page" ${this.currentPage >= totalPages ? 'disabled' : ''}>
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
           </button>
         </div>
@@ -9384,7 +9623,7 @@ const HomeView = {
           label: 'Task & Details',
           sortable: true,
           render: (val, row) => `
-            <div class="max-w-md py-0.5">
+            <div class="min-w-[280px] py-0.5">
               <div class="font-bold text-xs text-[#172B4D] hover:text-[#00A4B7] transition-colors">${val}</div>
               <div class="text-[11px] text-[#5E6C84] line-clamp-1 mt-0.5">${row.description}</div>
               <div class="text-[10px] text-[#8993A4] font-medium mt-0.5 flex items-center gap-1">

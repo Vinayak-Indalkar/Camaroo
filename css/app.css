@@ -1,4 +1,4 @@
-﻿/* ============================================================================
+/* ============================================================================
    DEVI FISHERIES ERP - DEDUPLICATED CSS STYLESHEET
    ============================================================================
    
@@ -556,6 +556,13 @@ button.tab-active *,
   border-collapse: separate;
   border-spacing: 0;
 }
+.erp-table thead,
+.erp-table thead tr#dt-thead-row,
+.erp-table thead tr {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 15 !important;
+}
 .erp-table th {
   background-color: #EEF3F8 !important;
   color: #334155 !important;
@@ -565,11 +572,35 @@ button.tab-active *,
   letter-spacing: 0.05em;
   padding: 10px 14px;
   border-bottom: 1px solid #DDE5ED !important;
-  position: sticky;
-  top: 0;
-  z-index: 10;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 15 !important;
   white-space: nowrap;
 }
+
+/* Remove excessive white space on left edge across all tables */
+.erp-table th:first-child,
+.erp-table td:first-child {
+  padding-left: 10px !important;
+}
+
+/* Snug fit for compact identifier/code columns to eliminate dead white space gaps */
+.erp-table th[data-field="code"],
+.erp-table td[data-field="code"],
+.erp-table th[data-field="id"],
+.erp-table td[data-field="id"],
+.erp-table th[data-field="billNo"],
+.erp-table td[data-field="billNo"],
+.erp-table th[data-field="docNo"],
+.erp-table td[data-field="docNo"],
+.erp-table th[data-field="trackId"],
+.erp-table td[data-field="trackId"],
+.erp-table th[data-field="lotNo"],
+.erp-table td[data-field="lotNo"] {
+  width: 1%;
+  white-space: nowrap !important;
+}
+
 .erp-table td {
   padding: 11px 14px;
   font-size: 13.5px !important; /* +1px from 12.5px */
@@ -589,7 +620,7 @@ button.tab-active *,
 }
 .erp-table th.sticky-action-col {
   background-color: #EEF3F8 !important;
-  z-index: 20 !important;
+  z-index: 25 !important;
   border-left: 1px solid #DDE5ED !important;
   box-shadow: -4px 0 6px -2px rgba(9, 30, 66, 0.08);
 }
@@ -753,27 +784,37 @@ button.tab-active *,
   background-color: #008F9F;
 }
 
-/* Table Scroll Wrapper */
-.dt-table-scroll {
-  overflow-x: auto;
+/* Table Scroll Wrapper - Sticky Header vertically, moves horizontally with columns */
+.dt-table-scroll,
+.overflow-x-auto:has(> .erp-table) {
+  overflow-x: auto !important;
+  overflow-y: auto !important;
+  max-height: calc(100vh - 280px) !important;
   min-height: 220px;
+  position: relative !important;
   -webkit-overflow-scrolling: touch;
 }
 
-.dt-table-scroll::-webkit-scrollbar {
+.dt-table-scroll::-webkit-scrollbar,
+.overflow-x-auto:has(> .erp-table)::-webkit-scrollbar {
+  width: 8px;
   height: 8px;
 }
 
-.dt-table-scroll::-webkit-scrollbar-track {
+.dt-table-scroll::-webkit-scrollbar-track,
+.overflow-x-auto:has(> .erp-table)::-webkit-scrollbar-track {
   background: #F1F5F9;
+  border-radius: 4px;
 }
 
-.dt-table-scroll::-webkit-scrollbar-thumb {
+.dt-table-scroll::-webkit-scrollbar-thumb,
+.overflow-x-auto:has(> .erp-table)::-webkit-scrollbar-thumb {
   background: #CBD5E1;
   border-radius: 4px;
 }
 
-.dt-table-scroll::-webkit-scrollbar-thumb:hover {
+.dt-table-scroll::-webkit-scrollbar-thumb:hover,
+.overflow-x-auto:has(> .erp-table)::-webkit-scrollbar-thumb:hover {
   background: #94A3B8;
 }
 

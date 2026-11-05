@@ -507,7 +507,7 @@ export class DataTable {
         ${topFilterHTML}
 
         <!-- Table Card Container -->
-        <div class="bg-white rounded-none border border-[#DFE1E6] shadow-sm flex flex-col overflow-hidden">
+        <div class="bg-white rounded-xl border border-[#DFE1E6] shadow-xs flex flex-col overflow-hidden">
           ${!this.hideToolbar ? `<!-- Table Control Toolbar (Column visibility, Download, Copy, Search) -->
           <div class="px-4 py-2.5 border-b border-[#DFE1E6] bg-[#FAFBFC] flex flex-wrap items-center justify-between gap-3">
             <div class="flex items-center gap-2.5 flex-wrap">
