@@ -3097,12 +3097,17 @@ button.lucide-icon-tile,
 /* Collapsed Sidebar Flyout Card & Anti-Clipping */
 #sidebar-container.is-collapsed,
 #sidebar-container.is-collapsed #erp-sidebar,
-#sidebar-container.is-collapsed #sidebar-nav-groups {
+#sidebar-container.is-collapsed #sidebar-nav-groups,
+#sidebar-bottom-settings-collapsed {
   overflow: visible !important;
 }
 
 #sidebar-container.is-collapsed .nav-module-group {
   position: relative !important;
+}
+
+#sidebar-container.is-collapsed .nav-module-group:hover > .sidebar-flyout-container {
+  display: block !important;
 }
 
 
@@ -8051,10 +8056,10 @@ const Sidebar = {
     const allModules = isSuperAdmin ? SUPER_ADMIN_NAV_HIERARCHY : ADMIN_NAV_HIERARCHY;
     const modules = allModules.filter(m => m.id !== 'settings');
 
-    return modules.map(mod => {
+    return modules.map((mod, index) => {
       const isCurrentMod = mod.id === this.activeModuleId;
       const groupWrapperClass = 'relative group flex justify-center nav-module-group';
-      const firstTabHash = mod.submenus[0]?.tabs[0]?.hash || '#/';
+      const isNearBottom = index >= modules.length - 3;
 
       // Home in collapsed mode: clean icon with tooltip, no submenus flyout
       if (mod.id === 'dashboard') {
@@ -8067,8 +8072,10 @@ const Sidebar = {
             >
               <span class="w-4 h-4 flex items-center justify-center ${isCurrentMod ? 'text-white' : ''}">${mod.icon}</span>
             </button>
-            <div class="absolute left-full top-0 ml-3 px-2 py-1 bg-[#0F172A] border border-[#1E293B] rounded-lg text-white font-bold text-xs whitespace-nowrap hidden group-hover:block z-50 pointer-events-none">
-              Home
+            <div class="sidebar-flyout-container absolute left-full top-0 pl-2.5 w-auto hidden group-hover:block z-50 pointer-events-none">
+              <div class="px-2.5 py-1.5 bg-[#18202F] border border-[#283548] rounded-lg text-white font-bold text-xs whitespace-nowrap shadow-xl">
+                Home
+              </div>
             </div>
           </div>
         `;
@@ -8085,14 +8092,16 @@ const Sidebar = {
             >
               <span class="w-4 h-4 flex items-center justify-center ${isCurrentMod ? 'text-white' : ''}">${mod.icon}</span>
             </button>
-            <div class="absolute left-full top-0 ml-3 px-2 py-1 bg-[#0F172A] border border-[#1E293B] rounded-lg text-white font-bold text-xs whitespace-nowrap hidden group-hover:block z-50 pointer-events-none">
-              ${mod.title}
+            <div class="sidebar-flyout-container absolute left-full top-0 pl-2.5 w-auto hidden group-hover:block z-50 pointer-events-none">
+              <div class="px-2.5 py-1.5 bg-[#18202F] border border-[#283548] rounded-lg text-white font-bold text-xs whitespace-nowrap shadow-xl">
+                ${mod.title}
+              </div>
             </div>
           </div>
         `;
       }
 
-      // Modules with submenus: Render rich hover flyout card matching design mockup
+      // Modules with submenus: Render rich hover flyout card matching user screenshot
       return `
         <div class="${groupWrapperClass}">
           <!-- Icon Button -->
@@ -8104,34 +8113,33 @@ const Sidebar = {
             <span class="w-4 h-4 flex items-center justify-center ${isCurrentMod ? 'text-white' : ''}">${mod.icon}</span>
           </button>
 
-          <!-- Floating Flyout Menu on Hover -->
-          <div class="absolute left-full top-0 ml-2.5 w-64 bg-[#1E2433] border border-[#2E384D] rounded-2xl p-3.5 shadow-2xl hidden group-hover:block z-50 transition-all pointer-events-auto">
-            <!-- Invisible bridge to prevent mouse leaving hover area -->
-            <div class="absolute -left-3 top-0 bottom-0 w-3 pointer-events-auto"></div>
-
-            <!-- Module Title & Icon Header in Flyout -->
-            <div class="flex items-center gap-2.5 pb-3 border-b border-[#2E384D]/80 mb-2">
-              <div class="w-9 h-9 rounded-xl bg-white/10 flex items-center justify-center text-white shrink-0 shadow-xs">
-                ${mod.icon}
+          <!-- Floating Flyout Menu on Hover (Zero-gap anti-flicker wrapper) -->
+          <div class="sidebar-flyout-container absolute left-full ${isNearBottom ? 'bottom-0' : 'top-0'} pl-2.5 w-60 hidden group-hover:block z-50 transition-all pointer-events-auto">
+            <div class="bg-[#18202F] border border-[#283548] rounded-2xl p-3 shadow-2xl">
+              <!-- Module Title & Icon Header in Flyout -->
+              <div class="flex items-center gap-2.5 pb-2.5 border-b border-[#283548] mb-2">
+                <div class="w-8 h-8 rounded-lg bg-[#243048] flex items-center justify-center text-white shrink-0 shadow-xs">
+                  ${mod.icon}
+                </div>
+                <span class="font-semibold text-white text-[14px] tracking-tight truncate">${mod.title}</span>
               </div>
-              <span class="font-bold text-white text-sm tracking-tight truncate">${mod.title}</span>
-            </div>
 
-            <!-- Submenus List in Flyout -->
-            <div class="space-y-1">
-              ${mod.submenus.map(sub => {
-                const isSubActive = isCurrentMod && (sub.id === this.activeSubmenuId);
-                const defaultHash = sub.tabs[0]?.hash || `/#/${mod.id}/${sub.id}`;
-                return `
-                  <a 
-                    href="${defaultHash}" 
-                    class="flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium transition-colors group/sub ${isSubActive ? 'text-[#00A4B7] font-bold bg-white/5' : 'text-[#CBD5E1] hover:text-white hover:bg-white/5'}"
-                  >
-                    <span class="truncate">${sub.title}</span>
-                    <svg class="w-3.5 h-3.5 text-[#64748B] group-hover/sub:text-[#94A3B8] transform group-hover/sub:translate-x-0.5 transition-all shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                  </a>
-                `;
-              }).join('')}
+              <!-- Submenus List in Flyout -->
+              <div class="space-y-1">
+                ${mod.submenus.map(sub => {
+                  const isSubActive = isCurrentMod && (sub.id === this.activeSubmenuId);
+                  const defaultHash = sub.tabs && sub.tabs.length > 0 ? sub.tabs[0].hash : ('#/' + mod.id + '/' + sub.id);
+                  return `
+                    <a 
+                      href="${defaultHash}" 
+                      class="sidebar-flyout-link flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium transition-colors group/sub ${isSubActive ? 'text-[#00A4B7] font-bold bg-[#00A4B7]/15' : 'text-[#CBD5E1] hover:text-white hover:bg-white/5'}"
+                    >
+                      <span class="truncate">${sub.title}</span>
+                      <svg class="w-3.5 h-3.5 text-[#64748B] group-hover/sub:text-[#94A3B8] transform group-hover/sub:translate-x-0.5 transition-all shrink-0 ${isSubActive ? 'text-[#00A4B7]' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    </a>
+                  `;
+                }).join('')}
+              </div>
             </div>
           </div>
         </div>
@@ -8216,66 +8224,55 @@ const Sidebar = {
 
     const isCurrentMod = settingsMod.id === this.activeModuleId;
 
-    // Super Admin: Hover flyout card with Customizer
-    if (isSuperAdmin && settingsMod.submenus && settingsMod.submenus.length > 0) {
-      return `
-        <div class="relative group flex justify-center nav-module-group w-full">
-          <!-- Icon Button -->
-          <button 
-            data-module-id="settings" 
-            class="sidebar-mod-btn w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-200 cursor-pointer ${isCurrentMod ? 'bg-[#00A4B7] text-white ring-2 ring-[#00A4B7] font-bold' : 'text-[#94A3B8] hover:bg-white/5 hover:text-white'}"
-            title="Settings"
-          >
-            <span class="w-4 h-4 flex items-center justify-center ${isCurrentMod ? 'text-white' : ''}">${settingsMod.icon}</span>
-          </button>
+    const items = isSuperAdmin ? [
+      { id: 'forms', title: 'Forms', hash: '#/settings/custom/forms' },
+      { id: 'fields-customizer', title: 'Fields Customizer', hash: '#/settings/custom/fields-customizer' },
+      { id: 'query-editor', title: 'Query Editor', hash: '#/settings/custom/query-editor' }
+    ] : [
+      { id: 'organization', title: 'Organization', hash: '#/settings/setup/organization' },
+      { id: 'user-roles', title: 'User & Roles', hash: '#/settings/setup/user-roles' },
+      { id: 'general', title: 'General', hash: '#/settings/setup/general' },
+      { id: 'masters', title: 'Masters', hash: '#/settings/setup/masters' }
+    ];
 
-          <!-- Floating Flyout Menu on Hover -->
-          <div class="absolute left-full bottom-0 ml-2.5 w-64 bg-[#1E2433] border border-[#2E384D] rounded-2xl p-3.5 shadow-2xl hidden group-hover:block z-50 transition-all pointer-events-auto">
-            <!-- Invisible bridge -->
-            <div class="absolute -left-3 top-0 bottom-0 w-3 pointer-events-auto"></div>
-
-            <!-- Header -->
-            <div class="flex items-center gap-2.5 pb-3 border-b border-[#2E384D]/80 mb-2">
-              <div class="w-9 h-9 rounded-xl bg-white/10 flex items-center justify-center text-white shrink-0 shadow-xs">
-                ${settingsMod.icon}
-              </div>
-              <span class="font-bold text-white text-sm tracking-tight truncate">${settingsMod.title}</span>
-            </div>
-
-            <!-- Submenus List in Flyout -->
-            <div class="space-y-1">
-              ${settingsMod.submenus.map(sub => {
-                const isSubActive = isCurrentMod && (sub.id === this.activeSubmenuId);
-                const defaultHash = sub.tabs[0]?.hash || `/#/settings/${sub.id}`;
-                return `
-                  <a 
-                    href="${defaultHash}" 
-                    class="flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium transition-colors group/sub ${isSubActive ? 'text-[#00A4B7] font-bold bg-white/5' : 'text-[#CBD5E1] hover:text-white hover:bg-white/5'}"
-                  >
-                    <span class="truncate">${sub.title}</span>
-                    <svg class="w-3.5 h-3.5 text-[#64748B] group-hover/sub:text-[#94A3B8] transform group-hover/sub:translate-x-0.5 transition-all shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                  </a>
-                `;
-              }).join('')}
-            </div>
-          </div>
-        </div>
-      `;
-    }
-
-    // Admin role: Clean tooltip
     return `
       <div class="relative group flex justify-center nav-module-group w-full">
         <!-- Icon Button -->
         <button 
           data-module-id="settings" 
-          class="sidebar-mod-btn w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-200 cursor-pointer ${isCurrentMod ? 'bg-[#00A4B7] text-white ring-2 ring-[#00A4B7] font-bold' : 'text-[#94A3B8] hover:bg-white/5 hover:text-white'}"
+          class="sidebar-mod-btn w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-200 cursor-pointer ${isCurrentMod ? 'bg-[#00A4B7] text-white ring-2 ring-[#00A4B7] font-bold' : 'text-[#94A3B8] hover:bg-white/5 hover:text-white'}"
           title="Settings"
         >
           <span class="w-4 h-4 flex items-center justify-center ${isCurrentMod ? 'text-white' : ''}">${settingsMod.icon}</span>
         </button>
-        <div class="absolute left-full bottom-0 ml-3 px-2 py-1 bg-[#0F172A] border border-[#1E293B] rounded-lg text-white font-bold text-xs whitespace-nowrap hidden group-hover:block z-50 pointer-events-none">
-          Settings
+
+        <!-- Floating Flyout Menu on Hover (Opens upwards from bottom) -->
+        <div class="sidebar-flyout-container absolute left-full bottom-0 pl-2.5 w-60 hidden group-hover:block z-50 transition-all pointer-events-auto">
+          <div class="bg-[#18202F] border border-[#283548] rounded-2xl p-3 shadow-2xl">
+            <!-- Header -->
+            <div class="flex items-center gap-2.5 pb-2.5 border-b border-[#283548] mb-2">
+              <div class="w-8 h-8 rounded-lg bg-[#243048] flex items-center justify-center text-white shrink-0 shadow-xs">
+                ${settingsMod.icon}
+              </div>
+              <span class="font-semibold text-white text-[14px] tracking-tight truncate">${settingsMod.title}</span>
+            </div>
+
+            <!-- Submenus List in Flyout -->
+            <div class="space-y-1">
+              ${items.map(item => {
+                const isItemActive = isCurrentMod && (this.activeTabId === item.id || this.activeSubmenuId === item.id);
+                return `
+                  <a 
+                    href="${item.hash}" 
+                    class="sidebar-flyout-link flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium transition-colors group/sub ${isItemActive ? 'text-[#00A4B7] font-bold bg-[#00A4B7]/15' : 'text-[#CBD5E1] hover:text-white hover:bg-white/5'}"
+                  >
+                    <span class="truncate">${item.title}</span>
+                    <svg class="w-3.5 h-3.5 text-[#64748B] group-hover/sub:text-[#94A3B8] transform group-hover/sub:translate-x-0.5 transition-all shrink-0 ${isItemActive ? 'text-[#00A4B7]' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                  </a>
+                `;
+              }).join('')}
+            </div>
+          </div>
         </div>
       </div>
     `;
@@ -8337,6 +8334,16 @@ const Sidebar = {
           const firstSub = targetMod.submenus[0];
           const firstTab = firstSub.tabs[0];
           window.location.hash = firstTab.hash;
+        }
+      });
+    });
+
+    const flyoutLinks = document.querySelectorAll('.sidebar-flyout-link');
+    flyoutLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
+        if (href) {
+          window.location.hash = href;
         }
       });
     });
@@ -95945,269 +95952,603 @@ const SettingsView = {
   // MASTER SETUP VIEW (FOR ADMIN ROLE)
   // =========================================================================
   selectedMasterCategory: 'All',
-  selectedMasterId: 'exporter',
+    activeMasterModule: 'coldstore',
+  selectedSubmasterByModule: {
+    coldstore: 'cold_chambers',
+    sales: 'global_buyers',
+    purchase: 'registered_farms',
+    preprocessing: 'grade_specs',
+    qc: 'antibiotic_screens',
+    inventory: 'master_cartons'
+  },
   masterSearchQuery: '',
-  mastersList: null,
+  masterStatusFilter: 'All',
+  moduleMastersData: null,
 
   initMasterData() {
-    if (!this.mastersList) {
-      const source = (typeof SEAFOOD_MASTERS !== 'undefined' && Array.isArray(SEAFOOD_MASTERS))
-        ? SEAFOOD_MASTERS
-        : (window.SEAFOOD_MASTERS || []);
-      this.mastersList = source.map(m => ({
-        ...m,
-        records: Array.isArray(m.records) ? m.records.map(r => ({ ...r })) : []
-      }));
-    }
+    if (this.moduleMastersData) return;
+
+    this.moduleMastersData = [
+      {
+        id: 'coldstore',
+        title: 'Coldstore',
+        icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v18m9-9H3m15.364-6.364l-12.728 12.728m0-12.728l12.728 12.728"/></svg>`,
+        submasters: [
+          {
+            id: 'cold_chambers',
+            label: 'Cold Chambers & Deep Freeze Rooms',
+            records: [
+              { code: 'CC-01', name: 'Deep Freezer Room Alpha (Vannamei)', details: 'Temp: -24°C | Capacity: 800 MT | Zone 1 West Wing', status: 'Active' },
+              { code: 'CC-02', name: 'Cold Store Bravo (Black Tiger)', details: 'Temp: -22°C | Capacity: 650 MT | Zone 2 North Wing', status: 'Active' },
+              { code: 'CC-03', name: 'Export Holding Room Charlie', details: 'Temp: -20°C | Capacity: 400 MT | Loading Dock 1', status: 'Active' },
+              { code: 'CC-04', name: 'Buffer Cold Storage Delta', details: 'Temp: -18°C | Capacity: 300 MT | Processing Dock', status: 'Inactive' }
+            ]
+          },
+          {
+            id: 'freezing_equipment',
+            label: 'Freezing Equipment (IQF / Blast)',
+            records: [
+              { code: 'FE-01', name: 'Continuous Belt IQF Tunnel #1', details: 'Rating: 1.5 MT/hr | Refrigerant: NH3 | Cryogenic', status: 'Active' },
+              { code: 'FE-02', name: 'Continuous Belt IQF Tunnel #2', details: 'Rating: 2.0 MT/hr | Refrigerant: Freon 507 | Dual Spiral', status: 'Active' },
+              { code: 'FE-03', name: 'Plate Freezer Bank A (Blocks)', details: '16 Station Hydraulic | Cycle: 90 mins | Block Line', status: 'Active' },
+              { code: 'FE-04', name: 'Air Blast Freezer Chamber 4', details: 'Batch Capacity: 15 MT | Airflow: 45,000 CFM', status: 'Active' }
+            ]
+          },
+          {
+            id: 'pallet_racks',
+            label: 'Pallet Racks & Bay Locations',
+            records: [
+              { code: 'BAY-A1', name: 'Zone A - Heavy Duty Drive-in Rack', details: 'Levels: 4 | Positions: 320 Pallets | Height: 7.5m', status: 'Active' },
+              { code: 'BAY-B2', name: 'Zone B - Selective Pallet Rack', details: 'Levels: 3 | Positions: 240 Pallets | Height: 6.0m', status: 'Active' },
+              { code: 'BAY-C1', name: 'Zone C - Mobile Compact Racking', details: 'Levels: 5 | Positions: 480 Pallets | Automated Rail', status: 'Active' }
+            ]
+          },
+          {
+            id: 'temp_sensors',
+            label: 'Temperature Sensors & IoT Loggers',
+            records: [
+              { code: 'IOT-01', name: 'Wireless Core Temp Probe CC-1', details: 'Frequency: 1 min | Precision: ±0.1°C | LoRaWAN', status: 'Active' },
+              { code: 'IOT-02', name: 'Ambient Ceiling Sensor CC-2', details: 'Frequency: 5 mins | Calibrated: Oct 2026', status: 'Active' },
+              { code: 'IOT-03', name: 'Door Ajar Contact Sensor Loading', details: 'Alarm Trigger: >45 secs open | Audible Siren', status: 'Active' }
+            ]
+          }
+        ]
+      },
+      {
+        id: 'sales',
+        title: 'Sales',
+        icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`,
+        submasters: [
+          {
+            id: 'global_buyers',
+            label: 'Global Buyers & Consignees',
+            records: [
+              { code: 'BYR-01', name: 'AquaStar USA Seafoods Corp', details: 'Country: USA | Port: Los Angeles | Term: CIF 60 Days', status: 'Active' },
+              { code: 'BYR-02', name: 'Nichirei Fresh Logistics Inc', details: 'Country: Japan | Port: Tokyo / Yokohama | Term: LC At Sight', status: 'Active' },
+              { code: 'BYR-03', name: 'Maruha Nichiro Europe B.V.', details: 'Country: Netherlands | Port: Rotterdam | Term: CAD', status: 'Active' },
+              { code: 'BYR-04', name: 'Red Chamber Foods Group', details: 'Country: USA | Port: Long Beach | Term: OA 90 Days', status: 'Active' }
+            ]
+          },
+          {
+            id: 'ports_loading',
+            label: 'Ports of Loading & Discharge',
+            records: [
+              { code: 'POL-01', name: 'Visakhapatnam Port (INVTZ)', details: 'Type: Loading Port | Container Terminal: VCTPL', status: 'Active' },
+              { code: 'POL-02', name: 'Krishnapatnam Port (INKRI)', details: 'Type: Loading Port | KPCL Deep Draft Terminal', status: 'Active' },
+              { code: 'POD-01', name: 'Port of Los Angeles (USLAX)', details: 'Type: Discharge Port | Reefers Express Service', status: 'Active' },
+              { code: 'POD-02', name: 'Port of Rotterdam (NLRTM)', details: 'Type: Discharge Port | European Gateway', status: 'Active' }
+            ]
+          },
+          {
+            id: 'shipping_liners',
+            label: 'Shipping Liners & Freight Agents',
+            records: [
+              { code: 'LIN-01', name: 'Maersk Line Reefers Express', details: 'Contact: ops@maersk.com | Smart Reefer Telematics', status: 'Active' },
+              { code: 'LIN-02', name: 'Mediterranean Shipping Co (MSC)', details: 'Contact: reefer@msc.com | Controlled Atmosphere CA', status: 'Active' },
+              { code: 'LIN-03', name: 'Ocean Network Express (ONE)', details: 'Contact: bookings@one-line.com | Asia-Pacific Core', status: 'Active' }
+            ]
+          },
+          {
+            id: 'trade_terms',
+            label: 'Commercial Trade Terms (Incoterms)',
+            records: [
+              { code: 'TRM-01', name: 'FOB - Free On Board (Visakhapatnam)', details: 'Seller delivers goods on board vessel nominated by buyer', status: 'Active' },
+              { code: 'TRM-02', name: 'CIF - Cost, Insurance & Freight', details: 'Seller pays sea freight & minimum insurance coverage', status: 'Active' },
+              { code: 'TRM-03', name: 'CFR - Cost and Freight', details: 'Seller pays ocean freight to destination port', status: 'Active' }
+            ]
+          },
+          {
+            id: 'exchange_rates',
+            label: 'Forex Benchmark Rates',
+            records: [
+              { code: 'FX-USD', name: 'USD / INR Benchmark', details: 'Ref Rate: 86.42 | Hedged Limit: 86.00 - 87.20', status: 'Active' },
+              { code: 'FX-EUR', name: 'EUR / INR Benchmark', details: 'Ref Rate: 93.15 | Monthly Forward Lock Active', status: 'Active' },
+              { code: 'FX-JPY', name: 'JPY / INR Benchmark', details: 'Ref Rate: 0.58 | Spot Basis Realization', status: 'Active' }
+            ]
+          }
+        ]
+      },
+      {
+        id: 'purchase',
+        title: 'Purchase',
+        icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>`,
+        submasters: [
+          {
+            id: 'registered_farms',
+            label: 'Registered Farms & Ponds',
+            records: [
+              { code: 'FRM-01', name: 'Godavari Coastal Aqua Farm (Pond 1-8)', details: 'Location: Bhimavaram, AP | CAA Reg: AP-BHM-2024-89 | Area: 14 Ha', status: 'Active' },
+              { code: 'FRM-02', name: 'Krishna Delta Bio-Shrimp Cluster', details: 'Location: Machilipatnam, AP | BAP 4-Star Certified | Area: 22 Ha', status: 'Active' },
+              { code: 'FRM-03', name: 'Sunrise Aqua Hatchery Linked Ponds', details: 'Location: Nellore, AP | ASC Certified | Area: 18 Ha', status: 'Active' },
+              { code: 'FRM-04', name: 'Kalingapatnam Coastal Brackish Ponds', details: 'Location: Srikakulam, AP | Area: 10 Ha | Traditional', status: 'Active' }
+            ]
+          },
+          {
+            id: 'purchase_rates',
+            label: 'Raw Material Purchase Rates',
+            records: [
+              { code: 'PR-30C', name: 'Vannamei 30 Count Standard Rate', details: 'INR 440 / Kg | Base Yield: 98% | Farm Gate Price', status: 'Active' },
+              { code: 'PR-40C', name: 'Vannamei 40 Count Standard Rate', details: 'INR 380 / Kg | Base Yield: 98% | Farm Gate Price', status: 'Active' },
+              { code: 'PR-50C', name: 'Vannamei 50 Count Standard Rate', details: 'INR 330 / Kg | Base Yield: 97% | Farm Gate Price', status: 'Active' },
+              { code: 'PR-BT20', name: 'Black Tiger 20 Count Premium Rate', details: 'INR 680 / Kg | Premium Color A3 | Export Grade', status: 'Active' }
+            ]
+          },
+          {
+            id: 'harvest_vehicles',
+            label: 'Insulated Harvest Vehicles',
+            records: [
+              { code: 'VEH-01', name: 'Reefer Truck AP-39-TX-4521', details: 'Capacity: 8 MT | Slurry Ice Tank Fitted | GPS Monitored', status: 'Active' },
+              { code: 'VEH-02', name: 'Insulated Van AP-37-AB-9820', details: 'Capacity: 5 MT | Insulated FRP Lining | Chilled Water', status: 'Active' },
+              { code: 'VEH-03', name: 'Heavy Hauler AP-31-ZZ-1102', details: 'Capacity: 12 MT | Twin Compressor Unit | Oxygen Aeration', status: 'Active' }
+            ]
+          },
+          {
+            id: 'logistics_drivers',
+            label: 'Harvest Logistics Drivers',
+            records: [
+              { code: 'DRV-01', name: 'R. Krishna Murthy', details: 'Lic: AP-BHM-7821-C | Exp: 8 Yrs | Cold-Chain Certified', status: 'Active' },
+              { code: 'DRV-02', name: 'K. Venkateswara Rao', details: 'Lic: AP-VIZ-4412-H | Exp: 12 Yrs | Night Harvest Specialist', status: 'Active' },
+              { code: 'DRV-03', name: 'P. Appa Rao', details: 'Lic: AP-NEL-9921-X | Exp: 5 Yrs | GPS Tracked', status: 'Active' }
+            ]
+          },
+          {
+            id: 'hatcheries',
+            label: 'Certified Hatcheries & Broodstock',
+            records: [
+              { code: 'HAT-01', name: 'Kona Bay Broodstock Hatchery', details: 'SPF Certified | Strain: Fast Growth Gen 14 | Mangalore', status: 'Active' },
+              { code: 'HAT-02', name: 'SIS Aqua Seed Technology Center', details: 'CAA Approved | Post-Larvae PL-10 & PL-12 | Visakhapatnam', status: 'Active' }
+            ]
+          }
+        ]
+      },
+      {
+        id: 'preprocessing',
+        title: 'Preprocessing',
+        icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>`,
+        submasters: [
+          {
+            id: 'grade_specs',
+            label: 'Count & Grade Specifications',
+            records: [
+              { code: 'GRD-16/20', name: '16/20 Count Grade (Super Jumbo)', details: 'Target: 16 to 20 pcs/lb | Uniformity Ratio < 1.25', status: 'Active' },
+              { code: 'GRD-21/25', name: '21/25 Count Grade (Extra Jumbo)', details: 'Target: 21 to 25 pcs/lb | Head-on / Headless', status: 'Active' },
+              { code: 'GRD-26/30', name: '26/30 Count Grade (Jumbo)', details: 'Target: 26 to 30 pcs/lb | Export Specification', status: 'Active' },
+              { code: 'GRD-31/40', name: '31/40 Count Grade (Large)', details: 'Target: 31 to 40 pcs/lb | High Volume Product Form', status: 'Active' },
+              { code: 'GRD-41/50', name: '41/50 Count Grade (Medium)', details: 'Target: 41 to 50 pcs/lb | Peeled Tail-on / PD', status: 'Active' }
+            ]
+          },
+          {
+            id: 'variety_forms',
+            label: 'Variety & Product Forms',
+            records: [
+              { code: 'PF-HOSO', name: 'Head-On Shell-On (HOSO)', details: 'Intact Antennae & Head | Grade A Freshness Standard', status: 'Active' },
+              { code: 'PF-HLSO', name: 'Headless Shell-On (HLSO)', details: 'Clean manual deheading | 6 Segments intact', status: 'Active' },
+              { code: 'PF-PD', name: 'Peeled & Deveined (PD)', details: 'Dorsal vein removed | Needle deveined / Cut deveined', status: 'Active' },
+              { code: 'PF-PTO', name: 'Peeled Tail-On (PTO)', details: 'Tail fan intact | Butterfly or Round Style', status: 'Active' },
+              { code: 'PF-EZPEEL', name: 'Easy Peel (Split & Deveined)', details: 'Dorsal shell split 1st to 5th segment', status: 'Active' }
+            ]
+          },
+          {
+            id: 'yield_standards',
+            label: 'Yield Standards & Peeling Factors',
+            records: [
+              { code: 'YLD-DEHEAD', name: 'Deheading Recovery Standard', details: 'Target Recovery: 65.5% - 67.0% | Variance: ±0.5%', status: 'Active' },
+              { code: 'YLD-PEEL-PD', name: 'Peeled Deveined Peeling Yield', details: 'Target Recovery: 51.5% - 53.0% | Labor Table Standard', status: 'Active' },
+              { code: 'YLD-PEEL-PTO', name: 'Peeled Tail-On Peeling Yield', details: 'Target Recovery: 55.0% - 56.5% | Tail Fan Retention', status: 'Active' }
+            ]
+          },
+          {
+            id: 'grading_lines',
+            label: 'Grading Lines & Processing Tables',
+            records: [
+              { code: 'LINE-01', name: 'High-Speed Roller Grader Line 1', details: 'Channels: 6 Grades | Capacity: 2.5 MT/hr | Stainless 316', status: 'Active' },
+              { code: 'LINE-02', name: 'Manual Inspection Sorting Belt 2', details: 'Stations: 16 Workers | LED Illuminated | Washdown Safe', status: 'Active' },
+              { code: 'LINE-03', name: 'Deheading Processing Belt East', details: 'Stations: 32 Deheaders | Chilled Flume Drainage', status: 'Active' }
+            ]
+          }
+        ]
+      },
+      {
+        id: 'qc',
+        title: 'Quality Control',
+        icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>`,
+        submasters: [
+          {
+            id: 'antibiotic_screens',
+            label: 'Antibiotic & Chemical Screenings',
+            records: [
+              { code: 'QC-CAP', name: 'Chloramphenicol (CAP) Screening', details: 'Method: ELISA / LC-MS-MS | MRL: Zero Tolerance (<0.1 ppb)', status: 'Active' },
+              { code: 'QC-NITRO', name: 'Nitrofuran Metabolites (AOZ, AMOZ, SEM, AHD)', details: 'Method: LC-MS-MS Confirmation | Threshold: <0.5 ppb', status: 'Active' },
+              { code: 'QC-TETRA', name: 'Tetracycline & Oxytetracycline Group', details: 'Method: Rapid Strip & HPLC | MRL: <100 ppb EU/US Spec', status: 'Active' },
+              { code: 'QC-SULFA', name: 'Sulfonamides Multi-Residue Screen', details: 'Method: ELISA 12-plex | Limit: <10 ppb Combined', status: 'Active' }
+            ]
+          },
+          {
+            id: 'treatment_chemicals',
+            label: 'Permitted Treatment Chemicals',
+            records: [
+              { code: 'CHM-NONPHOS', name: 'Non-Phosphate Moisture Retainer (Carastab)', details: 'Ingredients: Sodium Citrate, Carbonate | Dosage: 1.5% - 2.0%', status: 'Active' },
+              { code: 'CHM-STPP', name: 'Sodium Tripolyphosphate Food Grade', details: 'Usage: Controlled EU/US formulation | Max P2O5: 0.5%', status: 'Active' },
+              { code: 'CHM-METABI', name: 'Sodium Metabisulfite (Anti-Melanosis)', details: 'Max SO2 Residual: <10 ppm in finished peeled shrimp', status: 'Active' }
+            ]
+          },
+          {
+            id: 'external_labs',
+            label: 'Approved External Testing Labs',
+            records: [
+              { code: 'LAB-EIC', name: 'Export Inspection Agency (EIA) Lab', details: 'Accreditation: NABL ISO 17025 | Govt Statutory Pre-Export', status: 'Active' },
+              { code: 'LAB-SGS', name: 'SGS India Seafood Testing Laboratory', details: 'Cert: ISO/IEC 17025 | 24-hr Rapid Antibiotic Turnaround', status: 'Active' },
+              { code: 'LAB-TUV', name: 'TUV SUD South Asia Food Lab', details: 'Method: Heavy Metals, Histamine, Micro Screening', status: 'Active' }
+            ]
+          },
+          {
+            id: 'traceability_codes',
+            label: 'Traceability & Lot Codes',
+            records: [
+              { code: 'TRC-BAP', name: 'BAP 4-Star Traceability Protocol', details: 'Chain of Custody Hatchery-Feed-Farm-Plant verified', status: 'Active' },
+              { code: 'TRC-ASC', name: 'ASC Chain of Custody Standard CoC', details: 'Registration: ASC-C-01824 | Segregated Storage', status: 'Active' }
+            ]
+          }
+        ]
+      },
+      {
+        id: 'inventory',
+        title: 'Inventory',
+        icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>`,
+        submasters: [
+          {
+            id: 'master_cartons',
+            label: 'Master Cartons & Inner Polybags',
+            records: [
+              { code: 'PKG-MC-10KG', name: '5-Ply Master Carton 10 Kg Export', details: 'Bursting Strength: 14 kg/cm² | Moisture Resistant Kraft | 6x1.8kg', status: 'Active' },
+              { code: 'PKG-MC-20LB', name: 'Master Carton 20 Lbs US Retail', details: 'Dimensions: 480x320x210mm | Printed Barcode Side Panels', status: 'Active' },
+              { code: 'PKG-POLY-1KG', name: 'Printed Zipper Pouch 1 Kg (AquaStar)', details: 'Material: Multi-layer Barrier Film | Gusseted Bottom', status: 'Active' },
+              { code: 'PKG-POLY-2LB', name: 'Plain Inner Polybag 2 Lbs Food Grade', details: 'Thickness: 50 Microns Virgin LDPE | IQF Shrimp Pack', status: 'Active' }
+            ]
+          },
+          {
+            id: 'consumables',
+            label: 'Operating Consumables & Additives',
+            records: [
+              { code: 'CON-ICE', name: 'Food Grade Tube Ice (RO Purified)', details: 'Daily Consumption: 35 MT | Plant Automated Ice Dispenser', status: 'Active' },
+              { code: 'CON-GLOVE', name: 'Nitrile Food Handling Gloves Blue L', details: 'Powder-free | FDA 21 CFR 177 compliant | Box of 100', status: 'Active' },
+              { code: 'CON-APRON', name: 'Heavy Duty Waterproof Processing Aprons', details: 'PVC 0.45mm Anti-bacterial White | Reusable Sanitizable', status: 'Active' }
+            ]
+          },
+          {
+            id: 'cost_centers',
+            label: 'Plant Cost Centers & Store Departments',
+            records: [
+              { code: 'CC-PROC', name: 'Raw Material Processing Center Unit 1', details: 'Headcount: 140 | Focus: Grading, Peeling & Cooking', status: 'Active' },
+              { code: 'CC-COLD', name: 'Central Refrigeration & Cold Storage', details: 'Headcount: 18 | Focus: -20°C Blast, IQF & Bay Dispatch', status: 'Active' },
+              { code: 'CC-MAINT', name: 'Plant Engineering & Utility Maintenance', details: 'Focus: Compressors, Ice Plants, RO Water Purification', status: 'Active' }
+            ]
+          },
+          {
+            id: 'storage_warehouses',
+            label: 'Storage Warehouses',
+            records: [
+              { code: 'WH-PKG', name: 'Packaging Material Dry Store Alpha', details: 'Area: 1,200 sq.m | Elevated Racks | Termite Proofed', status: 'Active' },
+              { code: 'WH-CHM', name: 'Chemical & Additive Secure Storehouse', details: 'Climate Controlled: 22°C | Restricted Biometric Access', status: 'Active' }
+            ]
+          }
+        ]
+      }
+    ];
   },
 
   renderMasterSetupTab(container, tabsBarHtml = null) {
     this.initMasterData();
     const effectiveTabsBar = tabsBarHtml || this.renderSettingsTabs('master-setup');
 
-    const categories = ['All', 'Logistics', 'Processing', 'Commercial', 'Quality', 'Aquaculture', 'Compliance', 'Operations'];
+    // Find active module (default to 'coldstore' if none active)
+    const activeModule = this.moduleMastersData.find(m => m.id === this.activeMasterModule) || this.moduleMastersData[0];
+    const currentSubmasterId = this.selectedSubmasterByModule[activeModule.id] || activeModule.submasters[0].id;
+    const currentSubmaster = activeModule.submasters.find(sm => sm.id === currentSubmasterId) || activeModule.submasters[0];
 
-    // Filter masters list by category
-    const filteredMasters = (this.mastersList || []).filter(m => {
-      if (this.selectedMasterCategory === 'All') return true;
-      return m.category === this.selectedMasterCategory;
-    });
-
-    // Resolve selected master
-    let selectedMaster = filteredMasters.find(m => m.id === this.selectedMasterId);
-    if (!selectedMaster && filteredMasters.length > 0) {
-      selectedMaster = filteredMasters[0];
-      this.selectedMasterId = selectedMaster.id;
-    }
-    if (!selectedMaster && this.mastersList && this.mastersList.length > 0) {
-      selectedMaster = this.mastersList[0];
-      this.selectedMasterId = selectedMaster.id;
-    }
-    if (!selectedMaster) {
-      selectedMaster = { id: 'exporter', label: 'Exporter', category: 'Logistics', records: [] };
-    }
-
-    // Filter records by search query
+    // Filter records by search query and status
     const q = (this.masterSearchQuery || '').toLowerCase().trim();
-    const records = (selectedMaster.records || []).filter(r => {
+    const statusFilter = this.masterStatusFilter || 'All';
+    const filteredRecords = (currentSubmaster.records || []).filter(r => {
+      const matchesStatus = (statusFilter === 'All') || (r.status === statusFilter);
+      if (!matchesStatus) return false;
       if (!q) return true;
       return (
         (r.code && r.code.toLowerCase().includes(q)) ||
         (r.name && r.name.toLowerCase().includes(q)) ||
-        (r.details && r.details.toLowerCase().includes(q)) ||
-        (r.status && r.status.toLowerCase().includes(q))
+        (r.details && r.details.toLowerCase().includes(q))
       );
     });
 
     container.innerHTML = `
-      <div class="space-y-3">
+      <div class="space-y-4">
         ${effectiveTabsBar}
+
         <!-- Page Header (Clean H1, strictly no subheading per AGENTS.md Rule 2) -->
         <div class="flex items-center justify-between gap-3 mb-1">
           <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Master Setup</h1>
-          <button type="button" id="btn-add-master-record" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-            <span>Add Record</span>
-          </button>
         </div>
 
-        <!-- Search & Filter Card (AGENTS.md Rule 3) -->
-        <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200">
-          <div class="flex items-center justify-between pb-1">
-            <div class="flex items-center gap-2">
-              <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
-              <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
-            </div>
-            <div class="inline-flex items-center gap-2">
-              <!-- Circular 32x32 Reset Button -->
-              <button type="button" id="master-filter-reset-btn" class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Reset all filters">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-              </button>
-              <!-- Circular 32x32 Collapse/Expand Toggle Button -->
-              <button type="button" id="master-filter-toggle-btn" class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Hide Filter">
-                <svg class="w-3.5 h-3.5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-              </button>
-            </div>
-          </div>
-          <div id="master-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
-            <div>
-              <label for="master-cat-select" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Domain / Category</label>
-              <select id="master-cat-select" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                ${categories.map(c => `<option value="${c}" ${c === this.selectedMasterCategory ? 'selected' : ''}>${c}</option>`).join('')}
-              </select>
-            </div>
-            <div>
-              <label for="master-entity-select" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Master Entity</label>
-              <select id="master-entity-select" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                ${filteredMasters.map(m => `<option value="${m.id}" ${m.id === selectedMaster.id ? 'selected' : ''}>${m.label} (${m.records ? m.records.length : 0} records)</option>`).join('')}
-              </select>
-            </div>
-            <div>
-              <label for="master-search-input" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Search Record</label>
-              <input type="text" id="master-search-input" value="${this.escape(this.masterSearchQuery || '')}" placeholder="Search code, name, details..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
-            </div>
-            <div class="flex items-end">
-              <button type="button" id="master-filter-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                <span>Search</span>
-              </button>
-            </div>
-          </div>
-        </div>
+        <!-- Module Accordions Container -->
+        <div class="space-y-3" id="masters-accordion-group">
+          ${this.moduleMastersData.map(mod => {
+            const isExpanded = this.activeMasterModule === mod.id;
+            const submasterCount = mod.submasters.length;
+            const totalRecords = mod.submasters.reduce((acc, sm) => acc + (sm.records ? sm.records.length : 0), 0);
 
-        <!-- Master Entity Summary Banner -->
-        <div class="bg-gradient-to-r from-[#F0F9FF] to-[#F8FAFC] p-3.5 rounded-xl border border-[#BAE6FD] flex flex-wrap items-center justify-between gap-3 shadow-2xs">
-          <div class="flex items-center gap-3">
-            <div class="w-9 h-9 rounded-xl bg-[#00A4B7] text-white flex items-center justify-center font-bold shadow-xs">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
-            </div>
-            <div>
-              <div class="flex items-center gap-2">
-                <span class="font-extrabold text-[#172B4D] text-sm">${selectedMaster.label}</span>
-                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF] uppercase">${selectedMaster.category}</span>
-                <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD]">${records.length} Records</span>
+            return `
+              <div class="bg-white rounded-xl border border-[#DFE1E6] overflow-hidden shadow-2xs transition-all duration-200">
+                <!-- Accordion Header Button -->
+                <button 
+                  type="button" 
+                  class="master-accordion-header w-full px-4 py-3.5 flex items-center justify-between transition-colors cursor-pointer select-none text-left ${isExpanded ? 'bg-[#F0F9FF] border-b border-[#BAE6FD]' : 'bg-white hover:bg-[#F8FAFC]'}"
+                  data-module-id="${mod.id}"
+                >
+                  <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl flex items-center justify-center font-bold shadow-xs ${isExpanded ? 'bg-[#00A4B7] text-white' : 'bg-[#F1F5F9] text-[#00A4B7]'}">
+                      ${mod.icon}
+                    </div>
+                    <div>
+                      <div class="flex items-center gap-2">
+                        <span class="font-extrabold text-[#172B4D] text-sm tracking-tight">${mod.title} Masters</span>
+                        <span class="px-2 py-0.5 rounded text-[10px] font-bold ${isExpanded ? 'bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD]' : 'bg-[#F1F5F9] text-[#5E6C84] border border-[#DFE1E6]'} uppercase">${submasterCount} Masters</span>
+                        <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">${totalRecords} Records</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span class="text-xs font-semibold ${isExpanded ? 'text-[#00A4B7]' : 'text-[#64748B]'}">${isExpanded ? 'Collapse' : 'Expand'}</span>
+                    <div class="w-7 h-7 rounded-full flex items-center justify-center ${isExpanded ? 'bg-[#00A4B7] text-white' : 'bg-[#F1F5F9] text-[#64748B]'}">
+                      <svg class="w-4 h-4 transform transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </div>
+                  </div>
+                </button>
+
+                <!-- Accordion Body -->
+                ${isExpanded ? `
+                  <div class="p-4 bg-[#FAFBFC] space-y-3.5">
+                    <!-- Submaster Pills Selector Bar -->
+                    <div class="bg-white p-2 rounded-xl border border-[#DFE1E6] flex items-center gap-2 overflow-x-auto shadow-2xs">
+                      <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider px-2 shrink-0">Sub-Master:</span>
+                      ${mod.submasters.map(sm => {
+                        const isSubSelected = sm.id === currentSubmaster.id;
+                        return `
+                          <button 
+                            type="button" 
+                            class="submaster-pill-btn px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer whitespace-nowrap inline-flex items-center gap-1.5 ${isSubSelected ? 'bg-[#00A4B7] text-white shadow-xs' : 'bg-[#F4F5F7] text-[#5E6C84] hover:bg-[#EBECF0] hover:text-[#172B4D]'}" 
+                            data-module-id="${mod.id}" 
+                            data-submaster-id="${sm.id}"
+                          >
+                            <span>${sm.label}</span>
+                            <span class="px-1.5 py-0.2 rounded-full text-[10px] ${isSubSelected ? 'bg-white/25 text-white' : 'bg-[#DFE1E6] text-[#172B4D]'}">${sm.records.length}</span>
+                          </button>
+                        `;
+                      }).join('')}
+                    </div>
+
+                    <!-- Search & Filter Card (AGENTS.md Rule 3) -->
+                    <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs transition-all duration-200">
+                      <div class="flex items-center justify-between pb-1">
+                        <div class="flex items-center gap-2">
+                          <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+                          <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters — ${currentSubmaster.label}</h3>
+                        </div>
+                        <div class="inline-flex items-center gap-2">
+                          <!-- Circular 32x32 Reset Button -->
+                          <button type="button" id="master-filter-reset-btn" class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Reset all filters">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                          </button>
+                          <!-- Circular 32x32 Collapse/Expand Toggle Button -->
+                          <button type="button" id="master-filter-toggle-btn" class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Hide Filter">
+                            <svg class="w-3.5 h-3.5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                          </button>
+                        </div>
+                      </div>
+                      <div id="master-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
+                        <div>
+                          <label for="master-search-input" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Search Keywords</label>
+                          <input type="text" id="master-search-input" value="${this.escape(this.masterSearchQuery || '')}" placeholder="Search code, name, specifications..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+                        </div>
+                        <div>
+                          <label for="master-status-select" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Record Status</label>
+                          <select id="master-status-select" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                            <option value="All" ${this.masterStatusFilter === 'All' ? 'selected' : ''}>All Statuses</option>
+                            <option value="Active" ${this.masterStatusFilter === 'Active' ? 'selected' : ''}>Active</option>
+                            <option value="Inactive" ${this.masterStatusFilter === 'Inactive' ? 'selected' : ''}>Inactive</option>
+                          </select>
+                        </div>
+                        <div class="flex items-end">
+                          <button type="button" id="master-filter-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                            <span>Search</span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Header Row with Add Record Button -->
+                    <div class="flex items-center justify-between gap-3 pt-1">
+                      <div class="flex items-center gap-2">
+                        <span class="font-extrabold text-[#172B4D] text-sm tracking-tight">${currentSubmaster.label}</span>
+                        <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD]">${filteredRecords.length} Records</span>
+                      </div>
+                      <button type="button" id="btn-add-master-record" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                        <span>Add Record</span>
+                      </button>
+                    </div>
+
+                    <!-- DataTable Container -->
+                    <div id="master-records-table-container"></div>
+                  </div>
+                ` : ''}
               </div>
-              <span class="text-[11px] text-[#5E6C84] mt-0.5 block">Configure operational master registry and dropdown values for ${selectedMaster.label}.</span>
-            </div>
-          </div>
+            `;
+          }).join('')}
         </div>
-
-        <!-- DataTable Container -->
-        <div id="master-records-table-container"></div>
       </div>
     `;
 
-    // Filter toggle handler
-    const toggleBtn = document.getElementById('master-filter-toggle-btn');
-    toggleBtn?.addEventListener('click', () => {
-      const body = document.getElementById('master-filter-body');
-      const icon = toggleBtn.querySelector('svg');
-      if (body) {
-        body.classList.toggle('hidden');
-        if (body.classList.contains('hidden')) {
-          toggleBtn.title = 'Show Filter';
-          icon?.classList.add('-rotate-90');
-        } else {
-          toggleBtn.title = 'Hide Filter';
-          icon?.classList.remove('-rotate-90');
-        }
-      }
+    // Bind Accordion Header Clicks
+    const headerBtns = container.querySelectorAll('.master-accordion-header');
+    headerBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const modId = btn.dataset.moduleId;
+        this.activeMasterModule = (this.activeMasterModule === modId) ? null : modId;
+        this.masterSearchQuery = '';
+        this.renderMasterSetupTab(container);
+      });
     });
 
-    // Reset button handler
-    const resetBtn = document.getElementById('master-filter-reset-btn');
-    resetBtn?.addEventListener('click', () => {
-      this.selectedMasterCategory = 'All';
-      this.masterSearchQuery = '';
-      this.renderMasterSetupTab(container);
-      Toast.show('Filters reset', 'info');
-    });
+    // If an accordion is expanded, bind its inner controls
+    if (this.activeMasterModule) {
+      // Bind Submaster Pills
+      const pillBtns = container.querySelectorAll('.submaster-pill-btn');
+      pillBtns.forEach(pbtn => {
+        pbtn.addEventListener('click', () => {
+          const modId = pbtn.dataset.moduleId;
+          const subId = pbtn.dataset.submasterId;
+          this.selectedSubmasterByModule[modId] = subId;
+          this.masterSearchQuery = '';
+          this.renderMasterSetupTab(container);
+        });
+      });
 
-    // Category change handler
-    const catSelect = document.getElementById('master-cat-select');
-    catSelect?.addEventListener('change', (e) => {
-      this.selectedMasterCategory = e.target.value;
-      const nextFiltered = (this.mastersList || []).filter(m => this.selectedMasterCategory === 'All' || m.category === this.selectedMasterCategory);
-      if (nextFiltered.length > 0 && !nextFiltered.some(m => m.id === this.selectedMasterId)) {
-        this.selectedMasterId = nextFiltered[0].id;
-      }
-      this.renderMasterSetupTab(container);
-    });
-
-    // Entity change handler
-    const entitySelect = document.getElementById('master-entity-select');
-    entitySelect?.addEventListener('change', (e) => {
-      this.selectedMasterId = e.target.value;
-      this.renderMasterSetupTab(container);
-    });
-
-    // Search button handler
-    const searchBtn = document.getElementById('master-filter-search-btn');
-    const searchInput = document.getElementById('master-search-input');
-    const doSearch = () => {
-      this.masterSearchQuery = (searchInput?.value || '').trim();
-      this.renderMasterSetupTab(container);
-    };
-    searchBtn?.addEventListener('click', doSearch);
-    searchInput?.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        doSearch();
-      }
-    });
-
-    // Add Record button handler
-    const addBtn = document.getElementById('btn-add-master-record');
-    addBtn?.addEventListener('click', () => {
-      this.showAddMasterModal(selectedMaster, container);
-    });
-
-    // Render DataTable strictly following AGENTS.md Rule 4
-    new DataTable({
-      containerId: 'master-records-table-container',
-      data: records,
-      keyField: 'code',
-      tableTitle: `${selectedMaster.label} (${records.length})`,
-      searchable: true,
-      exportable: true,
-      pageSize: 10,
-      columns: [
-        {
-          field: 'code',
-          header: 'Code / ID',
-          render: (v) => `<span class="font-bold text-[#00A4B7] font-mono">${this.escape(v)}</span>`
-        },
-        {
-          field: 'name',
-          header: 'Name / Entity Description',
-          render: (v) => `<span class="font-bold text-[#172B4D]">${this.escape(v)}</span>`
-        },
-        {
-          field: 'details',
-          header: 'Details / Metadata',
-          render: (v) => `<span class="text-xs text-[#5E6C84]">${this.escape(v || '-')}</span>`
-        },
-        {
-          field: 'category',
-          header: 'Domain',
-          render: () => `<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">${this.escape(selectedMaster.category)}</span>`
-        },
-        {
-          field: 'status',
-          header: 'Status',
-          render: (v) => `<span class="inline-flex px-2 py-0.5 rounded-full text-[10px] font-extrabold tracking-wide uppercase ${(v === 'Inactive' || v === 'Disabled') ? 'bg-[#FFEBE6] text-[#DE350B] border border-[#FFBDAD]' : 'bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]'}">${this.escape(v || 'Active')}</span>`
-        }
-      ],
-      actions: [
-        {
-          label: 'Edit',
-          icon: `<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>`,
-          onClick: (row) => this.showEditMasterModal(selectedMaster, row, container)
-        },
-        {
-          label: 'Delete',
-          icon: `<svg class="w-4 h-4 text-[#DE350B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>`,
-          onClick: (row) => {
-            Modal.confirm({
-              title: `Delete ${selectedMaster.label} Record`,
-              message: `Are you sure you want to delete <strong class="text-[#DE350B]">${this.escape(row.name)}</strong> (${this.escape(row.code)})? This action cannot be undone.`,
-              confirmText: 'Delete Record',
-              cancelText: 'Cancel',
-              isDestructive: true,
-              onConfirm: () => {
-                const idx = selectedMaster.records.findIndex(r => r.code === row.code);
-                if (idx !== -1) {
-                  selectedMaster.records.splice(idx, 1);
-                  selectedMaster.count = selectedMaster.records.length;
-                  this.renderMasterSetupTab(container);
-                  Toast.show(`Record ${row.code} deleted successfully`, 'success');
-                }
-              }
-            });
+      // Filter toggle handler
+      const toggleBtn = document.getElementById('master-filter-toggle-btn');
+      toggleBtn?.addEventListener('click', () => {
+        const body = document.getElementById('master-filter-body');
+        const icon = toggleBtn.querySelector('svg');
+        if (body) {
+          body.classList.toggle('hidden');
+          if (body.classList.contains('hidden')) {
+            toggleBtn.title = 'Show Filter';
+            icon?.classList.add('-rotate-90');
+          } else {
+            toggleBtn.title = 'Hide Filter';
+            icon?.classList.remove('-rotate-90');
           }
         }
-      ]
-    });
+      });
+
+      // Reset button handler
+      const resetBtn = document.getElementById('master-filter-reset-btn');
+      resetBtn?.addEventListener('click', () => {
+        this.masterSearchQuery = '';
+        this.masterStatusFilter = 'All';
+        this.renderMasterSetupTab(container);
+        Toast.show('Filters reset', 'info');
+      });
+
+      // Status change handler
+      const statusSelect = document.getElementById('master-status-select');
+      statusSelect?.addEventListener('change', (e) => {
+        this.masterStatusFilter = e.target.value;
+        this.renderMasterSetupTab(container);
+      });
+
+      // Search button handler
+      const searchBtn = document.getElementById('master-filter-search-btn');
+      const searchInput = document.getElementById('master-search-input');
+      const doSearch = () => {
+        this.masterSearchQuery = (searchInput?.value || '').trim();
+        this.renderMasterSetupTab(container);
+      };
+      searchBtn?.addEventListener('click', doSearch);
+      searchInput?.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          doSearch();
+        }
+      });
+
+      // Add Record button handler
+      const addBtn = document.getElementById('btn-add-master-record');
+      addBtn?.addEventListener('click', () => {
+        this.showAddMasterModal(currentSubmaster, container);
+      });
+
+      // Render DataTable strictly following AGENTS.md Rule 4
+      new DataTable({
+        containerId: 'master-records-table-container',
+        data: filteredRecords,
+        keyField: 'code',
+        tableTitle: `${currentSubmaster.label} (${filteredRecords.length})`,
+        searchable: true,
+        exportable: true,
+        pageSize: 10,
+        columns: [
+          {
+            field: 'code',
+            header: 'Code / ID',
+            render: (v) => `<span class="font-bold text-[#00A4B7] font-mono">${this.escape(v)}</span>`
+          },
+          {
+            field: 'name',
+            header: 'Name / Entity Description',
+            render: (v) => `<span class="font-bold text-[#172B4D]">${this.escape(v)}</span>`
+          },
+          {
+            field: 'details',
+            header: 'Details / Specifications',
+            render: (v) => `<span class="text-xs text-[#5E6C84]">${this.escape(v || '-')}</span>`
+          },
+          {
+            field: 'status',
+            header: 'Status',
+            render: (v) => `<span class="inline-flex px-2 py-0.5 rounded-full text-[10px] font-extrabold tracking-wide uppercase ${(v === 'Inactive' || v === 'Disabled') ? 'bg-[#FFEBE6] text-[#DE350B] border border-[#FFBDAD]' : 'bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]'}">${this.escape(v || 'Active')}</span>`
+          }
+        ],
+        actions: [
+          {
+            label: 'Edit',
+            icon: `<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>`,
+            onClick: (row) => this.showEditMasterModal(currentSubmaster, row, container)
+          },
+          {
+            label: 'Delete',
+            icon: `<svg class="w-4 h-4 text-[#DE350B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>`,
+            onClick: (row) => {
+              Modal.confirm({
+                title: `Delete ${currentSubmaster.label} Record`,
+                message: `Are you sure you want to delete <strong class="text-[#DE350B]">${this.escape(row.name)}</strong> (${this.escape(row.code)})? This action cannot be undone.`,
+                confirmText: 'Delete Record',
+                cancelText: 'Cancel',
+                isDestructive: true,
+                onConfirm: () => {
+                  const idx = currentSubmaster.records.findIndex(r => r.code === row.code);
+                  if (idx !== -1) {
+                    currentSubmaster.records.splice(idx, 1);
+                    this.renderMasterSetupTab(container);
+                    Toast.show(`Record ${row.code} deleted successfully`, 'success');
+                  }
+                }
+              });
+            }
+          }
+        ]
+      });
+    }
   },
 
   showAddMasterModal(selectedMaster, container) {

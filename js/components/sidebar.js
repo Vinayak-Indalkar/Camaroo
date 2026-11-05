@@ -760,10 +760,10 @@ export const Sidebar = {
     const allModules = isSuperAdmin ? SUPER_ADMIN_NAV_HIERARCHY : ADMIN_NAV_HIERARCHY;
     const modules = allModules.filter(m => m.id !== 'settings');
 
-    return modules.map(mod => {
+    return modules.map((mod, index) => {
       const isCurrentMod = mod.id === this.activeModuleId;
       const groupWrapperClass = 'relative group flex justify-center nav-module-group';
-      const firstTabHash = mod.submenus[0]?.tabs[0]?.hash || '#/';
+      const isNearBottom = index >= modules.length - 3;
 
       // Home in collapsed mode: clean icon with tooltip, no submenus flyout
       if (mod.id === 'dashboard') {
@@ -776,8 +776,10 @@ export const Sidebar = {
             >
               <span class="w-4 h-4 flex items-center justify-center ${isCurrentMod ? 'text-white' : ''}">${mod.icon}</span>
             </button>
-            <div class="absolute left-full top-0 ml-3 px-2 py-1 bg-[#0F172A] border border-[#1E293B] rounded-lg text-white font-bold text-xs whitespace-nowrap hidden group-hover:block z-50 pointer-events-none">
-              Home
+            <div class="sidebar-flyout-container absolute left-full top-0 pl-2.5 w-auto hidden group-hover:block z-50 pointer-events-none">
+              <div class="px-2.5 py-1.5 bg-[#18202F] border border-[#283548] rounded-lg text-white font-bold text-xs whitespace-nowrap shadow-xl">
+                Home
+              </div>
             </div>
           </div>
         `;
@@ -794,14 +796,16 @@ export const Sidebar = {
             >
               <span class="w-4 h-4 flex items-center justify-center ${isCurrentMod ? 'text-white' : ''}">${mod.icon}</span>
             </button>
-            <div class="absolute left-full top-0 ml-3 px-2 py-1 bg-[#0F172A] border border-[#1E293B] rounded-lg text-white font-bold text-xs whitespace-nowrap hidden group-hover:block z-50 pointer-events-none">
-              ${mod.title}
+            <div class="sidebar-flyout-container absolute left-full top-0 pl-2.5 w-auto hidden group-hover:block z-50 pointer-events-none">
+              <div class="px-2.5 py-1.5 bg-[#18202F] border border-[#283548] rounded-lg text-white font-bold text-xs whitespace-nowrap shadow-xl">
+                ${mod.title}
+              </div>
             </div>
           </div>
         `;
       }
 
-      // Modules with submenus: Render rich hover flyout card matching design mockup
+      // Modules with submenus: Render rich hover flyout card matching user screenshot
       return `
         <div class="${groupWrapperClass}">
           <!-- Icon Button -->
@@ -813,34 +817,33 @@ export const Sidebar = {
             <span class="w-4 h-4 flex items-center justify-center ${isCurrentMod ? 'text-white' : ''}">${mod.icon}</span>
           </button>
 
-          <!-- Floating Flyout Menu on Hover -->
-          <div class="absolute left-full top-0 ml-2.5 w-64 bg-[#1E2433] border border-[#2E384D] rounded-2xl p-3.5 shadow-2xl hidden group-hover:block z-50 transition-all pointer-events-auto">
-            <!-- Invisible bridge to prevent mouse leaving hover area -->
-            <div class="absolute -left-3 top-0 bottom-0 w-3 pointer-events-auto"></div>
-
-            <!-- Module Title & Icon Header in Flyout -->
-            <div class="flex items-center gap-2.5 pb-3 border-b border-[#2E384D]/80 mb-2">
-              <div class="w-9 h-9 rounded-xl bg-white/10 flex items-center justify-center text-white shrink-0 shadow-xs">
-                ${mod.icon}
+          <!-- Floating Flyout Menu on Hover (Zero-gap anti-flicker wrapper) -->
+          <div class="sidebar-flyout-container absolute left-full ${isNearBottom ? 'bottom-0' : 'top-0'} pl-2.5 w-60 hidden group-hover:block z-50 transition-all pointer-events-auto">
+            <div class="bg-[#18202F] border border-[#283548] rounded-2xl p-3 shadow-2xl">
+              <!-- Module Title & Icon Header in Flyout -->
+              <div class="flex items-center gap-2.5 pb-2.5 border-b border-[#283548] mb-2">
+                <div class="w-8 h-8 rounded-lg bg-[#243048] flex items-center justify-center text-white shrink-0 shadow-xs">
+                  ${mod.icon}
+                </div>
+                <span class="font-semibold text-white text-[14px] tracking-tight truncate">${mod.title}</span>
               </div>
-              <span class="font-bold text-white text-sm tracking-tight truncate">${mod.title}</span>
-            </div>
 
-            <!-- Submenus List in Flyout -->
-            <div class="space-y-1">
-              ${mod.submenus.map(sub => {
-                const isSubActive = isCurrentMod && (sub.id === this.activeSubmenuId);
-                const defaultHash = sub.tabs[0]?.hash || `/#/${mod.id}/${sub.id}`;
-                return `
-                  <a 
-                    href="${defaultHash}" 
-                    class="flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium transition-colors group/sub ${isSubActive ? 'text-[#00A4B7] font-bold bg-white/5' : 'text-[#CBD5E1] hover:text-white hover:bg-white/5'}"
-                  >
-                    <span class="truncate">${sub.title}</span>
-                    <svg class="w-3.5 h-3.5 text-[#64748B] group-hover/sub:text-[#94A3B8] transform group-hover/sub:translate-x-0.5 transition-all shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                  </a>
-                `;
-              }).join('')}
+              <!-- Submenus List in Flyout -->
+              <div class="space-y-1">
+                ${mod.submenus.map(sub => {
+                  const isSubActive = isCurrentMod && (sub.id === this.activeSubmenuId);
+                  const defaultHash = sub.tabs && sub.tabs.length > 0 ? sub.tabs[0].hash : ('#/' + mod.id + '/' + sub.id);
+                  return `
+                    <a 
+                      href="${defaultHash}" 
+                      class="sidebar-flyout-link flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium transition-colors group/sub ${isSubActive ? 'text-[#00A4B7] font-bold bg-[#00A4B7]/15' : 'text-[#CBD5E1] hover:text-white hover:bg-white/5'}"
+                    >
+                      <span class="truncate">${sub.title}</span>
+                      <svg class="w-3.5 h-3.5 text-[#64748B] group-hover/sub:text-[#94A3B8] transform group-hover/sub:translate-x-0.5 transition-all shrink-0 ${isSubActive ? 'text-[#00A4B7]' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    </a>
+                  `;
+                }).join('')}
+              </div>
             </div>
           </div>
         </div>
@@ -925,66 +928,55 @@ export const Sidebar = {
 
     const isCurrentMod = settingsMod.id === this.activeModuleId;
 
-    // Super Admin: Hover flyout card with Customizer
-    if (isSuperAdmin && settingsMod.submenus && settingsMod.submenus.length > 0) {
-      return `
-        <div class="relative group flex justify-center nav-module-group w-full">
-          <!-- Icon Button -->
-          <button 
-            data-module-id="settings" 
-            class="sidebar-mod-btn w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-200 cursor-pointer ${isCurrentMod ? 'bg-[#00A4B7] text-white ring-2 ring-[#00A4B7] font-bold' : 'text-[#94A3B8] hover:bg-white/5 hover:text-white'}"
-            title="Settings"
-          >
-            <span class="w-4 h-4 flex items-center justify-center ${isCurrentMod ? 'text-white' : ''}">${settingsMod.icon}</span>
-          </button>
+    const items = isSuperAdmin ? [
+      { id: 'forms', title: 'Forms', hash: '#/settings/custom/forms' },
+      { id: 'fields-customizer', title: 'Fields Customizer', hash: '#/settings/custom/fields-customizer' },
+      { id: 'query-editor', title: 'Query Editor', hash: '#/settings/custom/query-editor' }
+    ] : [
+      { id: 'organization', title: 'Organization', hash: '#/settings/setup/organization' },
+      { id: 'user-roles', title: 'User & Roles', hash: '#/settings/setup/user-roles' },
+      { id: 'general', title: 'General', hash: '#/settings/setup/general' },
+      { id: 'masters', title: 'Masters', hash: '#/settings/setup/masters' }
+    ];
 
-          <!-- Floating Flyout Menu on Hover -->
-          <div class="absolute left-full bottom-0 ml-2.5 w-64 bg-[#1E2433] border border-[#2E384D] rounded-2xl p-3.5 shadow-2xl hidden group-hover:block z-50 transition-all pointer-events-auto">
-            <!-- Invisible bridge -->
-            <div class="absolute -left-3 top-0 bottom-0 w-3 pointer-events-auto"></div>
-
-            <!-- Header -->
-            <div class="flex items-center gap-2.5 pb-3 border-b border-[#2E384D]/80 mb-2">
-              <div class="w-9 h-9 rounded-xl bg-white/10 flex items-center justify-center text-white shrink-0 shadow-xs">
-                ${settingsMod.icon}
-              </div>
-              <span class="font-bold text-white text-sm tracking-tight truncate">${settingsMod.title}</span>
-            </div>
-
-            <!-- Submenus List in Flyout -->
-            <div class="space-y-1">
-              ${settingsMod.submenus.map(sub => {
-                const isSubActive = isCurrentMod && (sub.id === this.activeSubmenuId);
-                const defaultHash = sub.tabs[0]?.hash || `/#/settings/${sub.id}`;
-                return `
-                  <a 
-                    href="${defaultHash}" 
-                    class="flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium transition-colors group/sub ${isSubActive ? 'text-[#00A4B7] font-bold bg-white/5' : 'text-[#CBD5E1] hover:text-white hover:bg-white/5'}"
-                  >
-                    <span class="truncate">${sub.title}</span>
-                    <svg class="w-3.5 h-3.5 text-[#64748B] group-hover/sub:text-[#94A3B8] transform group-hover/sub:translate-x-0.5 transition-all shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                  </a>
-                `;
-              }).join('')}
-            </div>
-          </div>
-        </div>
-      `;
-    }
-
-    // Admin role: Clean tooltip
     return `
       <div class="relative group flex justify-center nav-module-group w-full">
         <!-- Icon Button -->
         <button 
           data-module-id="settings" 
-          class="sidebar-mod-btn w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-200 cursor-pointer ${isCurrentMod ? 'bg-[#00A4B7] text-white ring-2 ring-[#00A4B7] font-bold' : 'text-[#94A3B8] hover:bg-white/5 hover:text-white'}"
+          class="sidebar-mod-btn w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-200 cursor-pointer ${isCurrentMod ? 'bg-[#00A4B7] text-white ring-2 ring-[#00A4B7] font-bold' : 'text-[#94A3B8] hover:bg-white/5 hover:text-white'}"
           title="Settings"
         >
           <span class="w-4 h-4 flex items-center justify-center ${isCurrentMod ? 'text-white' : ''}">${settingsMod.icon}</span>
         </button>
-        <div class="absolute left-full bottom-0 ml-3 px-2 py-1 bg-[#0F172A] border border-[#1E293B] rounded-lg text-white font-bold text-xs whitespace-nowrap hidden group-hover:block z-50 pointer-events-none">
-          Settings
+
+        <!-- Floating Flyout Menu on Hover (Opens upwards from bottom) -->
+        <div class="sidebar-flyout-container absolute left-full bottom-0 pl-2.5 w-60 hidden group-hover:block z-50 transition-all pointer-events-auto">
+          <div class="bg-[#18202F] border border-[#283548] rounded-2xl p-3 shadow-2xl">
+            <!-- Header -->
+            <div class="flex items-center gap-2.5 pb-2.5 border-b border-[#283548] mb-2">
+              <div class="w-8 h-8 rounded-lg bg-[#243048] flex items-center justify-center text-white shrink-0 shadow-xs">
+                ${settingsMod.icon}
+              </div>
+              <span class="font-semibold text-white text-[14px] tracking-tight truncate">${settingsMod.title}</span>
+            </div>
+
+            <!-- Submenus List in Flyout -->
+            <div class="space-y-1">
+              ${items.map(item => {
+                const isItemActive = isCurrentMod && (this.activeTabId === item.id || this.activeSubmenuId === item.id);
+                return `
+                  <a 
+                    href="${item.hash}" 
+                    class="sidebar-flyout-link flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium transition-colors group/sub ${isItemActive ? 'text-[#00A4B7] font-bold bg-[#00A4B7]/15' : 'text-[#CBD5E1] hover:text-white hover:bg-white/5'}"
+                  >
+                    <span class="truncate">${item.title}</span>
+                    <svg class="w-3.5 h-3.5 text-[#64748B] group-hover/sub:text-[#94A3B8] transform group-hover/sub:translate-x-0.5 transition-all shrink-0 ${isItemActive ? 'text-[#00A4B7]' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                  </a>
+                `;
+              }).join('')}
+            </div>
+          </div>
         </div>
       </div>
     `;
@@ -1046,6 +1038,16 @@ export const Sidebar = {
           const firstSub = targetMod.submenus[0];
           const firstTab = firstSub.tabs[0];
           window.location.hash = firstTab.hash;
+        }
+      });
+    });
+
+    const flyoutLinks = document.querySelectorAll('.sidebar-flyout-link');
+    flyoutLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
+        if (href) {
+          window.location.hash = href;
         }
       });
     });

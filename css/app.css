@@ -3030,12 +3030,17 @@ button.lucide-icon-tile,
 /* Collapsed Sidebar Flyout Card & Anti-Clipping */
 #sidebar-container.is-collapsed,
 #sidebar-container.is-collapsed #erp-sidebar,
-#sidebar-container.is-collapsed #sidebar-nav-groups {
+#sidebar-container.is-collapsed #sidebar-nav-groups,
+#sidebar-bottom-settings-collapsed {
   overflow: visible !important;
 }
 
 #sidebar-container.is-collapsed .nav-module-group {
   position: relative !important;
+}
+
+#sidebar-container.is-collapsed .nav-module-group:hover > .sidebar-flyout-container {
+  display: block !important;
 }
 
 
