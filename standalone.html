@@ -91876,14 +91876,14 @@ const SettingsView = {
 
   // Users dataset for User & Access Management
   users: [
-    { id: 'usr-1', empId: 'EMP-101', name: 'Laxmi Narayana', email: 'laxmi.n@devifisheries.com', phone: '+91 98480 12345', department: 'Executive Management', role: 'Admin', status: 'Active', lastActive: 'Just now' },
-    { id: 'usr-2', empId: 'EMP-102', name: 'Ramesh Varma', email: 'ramesh.v@devifisheries.com', phone: '+91 98480 23456', department: 'Procurement & Farm Sourcing', role: 'Manager', status: 'Active', lastActive: '15 mins ago' },
-    { id: 'usr-3', empId: 'EMP-103', name: 'S. K. Murthy', email: 'sk.murthy@devifisheries.com', phone: '+91 98480 34567', department: 'Plant Operations (Unit 1)', role: 'Manager', status: 'Active', lastActive: '1 hour ago' },
-    { id: 'usr-4', empId: 'EMP-104', name: 'Dr. Ananya Sen', email: 'ananya.s@devifisheries.com', phone: '+91 98480 45678', department: 'Quality Control & Lab', role: 'Supervisor', status: 'Active', lastActive: '30 mins ago' },
-    { id: 'usr-5', empId: 'EMP-105', name: 'Venkat Rao', email: 'venkat.r@devifisheries.com', phone: '+91 98480 56789', department: 'Cold Storage & Logistics', role: 'Operator', status: 'Active', lastActive: '3 hours ago' },
-    { id: 'usr-6', empId: 'EMP-106', name: 'Rajesh Kumar', email: 'rajesh.k@devifisheries.com', phone: '+91 98480 67890', department: 'Commercial & Export Sales', role: 'Manager', status: 'Active', lastActive: 'Yesterday' },
-    { id: 'usr-7', empId: 'EMP-107', name: 'Priya Nair', email: 'priya.n@devifisheries.com', phone: '+91 98480 78901', department: 'Inventory & Materials', role: 'Operator', status: 'Active', lastActive: '2 days ago' },
-    { id: 'usr-8', empId: 'EMP-108', name: 'Kalyan Chakravarthy', email: 'kalyan.c@devifisheries.com', phone: '+91 98480 89012', department: 'Finance & Realization', role: 'Viewer', status: 'Active', lastActive: '3 days ago' }
+    { id: 'usr-1', empId: 'EMP-101', name: 'Laxmi Narayana', email: 'laxmi.n@devifisheries.com', phone: '+91 98480 12345', department: 'Executive Management', role: 'Super / System Admin', roleCode: 'ROL-ADM', status: 'Active', lastActive: 'Just now' },
+    { id: 'usr-2', empId: 'EMP-102', name: 'Ramesh Varma', email: 'ramesh.v@devifisheries.com', phone: '+91 98480 23456', department: 'Procurement & Farm Sourcing', role: 'Operations / Sales Manager', roleCode: 'ROL-MGR', status: 'Active', lastActive: '15 mins ago' },
+    { id: 'usr-3', empId: 'EMP-103', name: 'S. K. Murthy', email: 'sk.murthy@devifisheries.com', phone: '+91 98480 34567', department: 'Plant Operations (Unit 1)', role: 'Operations / Sales Manager', roleCode: 'ROL-MGR', status: 'Active', lastActive: '1 hour ago' },
+    { id: 'usr-4', empId: 'EMP-104', name: 'Dr. Ananya Sen', email: 'ananya.s@devifisheries.com', phone: '+91 98480 45678', department: 'Quality Control & Lab', role: 'Quality & Line Supervisor', roleCode: 'ROL-SUP', status: 'Active', lastActive: '30 mins ago' },
+    { id: 'usr-5', empId: 'EMP-105', name: 'Venkat Rao', email: 'venkat.r@devifisheries.com', phone: '+91 98480 56789', department: 'Cold Storage & Logistics', role: 'Floor & Logistics Operator', roleCode: 'ROL-OPR', status: 'Active', lastActive: '3 hours ago' },
+    { id: 'usr-6', empId: 'EMP-106', name: 'Rajesh Kumar', email: 'rajesh.k@devifisheries.com', phone: '+91 98480 67890', department: 'Commercial & Export Sales', role: 'Operations / Sales Manager', roleCode: 'ROL-MGR', status: 'Active', lastActive: 'Yesterday' },
+    { id: 'usr-7', empId: 'EMP-107', name: 'Priya Nair', email: 'priya.n@devifisheries.com', phone: '+91 98480 78901', department: 'Inventory & Materials', role: 'Floor & Logistics Operator', roleCode: 'ROL-OPR', status: 'Active', lastActive: '2 days ago' },
+    { id: 'usr-8', empId: 'EMP-108', name: 'Kalyan Chakravarthy', email: 'kalyan.c@devifisheries.com', phone: '+91 98480 89012', department: 'Finance & Realization', role: 'Finance / Audit Viewer', roleCode: 'ROL-VIE', status: 'Active', lastActive: '3 days ago' }
   ],
   userSearchQuery: '',
   userFilterDept: 'All',
@@ -92325,12 +92325,8 @@ const SettingsView = {
                     <div>
                       <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Role / Access Level</label>
                       <select id="flt-user-role" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                        <option value="All" ${this.userFilterRole === 'All' ? 'selected' : ''}>All Roles</option>
-                        <option value="Admin" ${this.userFilterRole === 'Admin' ? 'selected' : ''}>Admin</option>
-                        <option value="Manager" ${this.userFilterRole === 'Manager' ? 'selected' : ''}>Manager</option>
-                        <option value="Supervisor" ${this.userFilterRole === 'Supervisor' ? 'selected' : ''}>Supervisor</option>
-                        <option value="Operator" ${this.userFilterRole === 'Operator' ? 'selected' : ''}>Operator</option>
-                        <option value="Viewer" ${this.userFilterRole === 'Viewer' ? 'selected' : ''}>Viewer</option>
+                        <option value="All" ${this.userFilterRole === 'All' ? 'selected' : ''}>All Roles (${this.roles.length})</option>
+                        ${this.roles.map(r => `<option value="${this.escape(r.name)}" ${this.userFilterRole === r.name ? 'selected' : ''}>${this.escape(r.name)} (${this.escape(r.code)})</option>`).join('')}
                       </select>
                     </div>
 
@@ -92588,11 +92584,31 @@ const SettingsView = {
         },
         {
           field: 'role',
-          header: 'Role',
+          header: 'Assigned Role',
           sortable: true,
-          render: (val) => `
-            <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">${this.escape(val)}</span>
-          `
+          render: (val, row) => {
+            const roleObj = this.roles.find(r => r.name === val || r.code === val || r.code === row.roleCode || r.name.toLowerCase() === (val || '').toLowerCase());
+            const roleName = roleObj ? roleObj.name : val;
+            const roleCode = roleObj ? roleObj.code : (row.roleCode || '');
+            const level = roleObj ? roleObj.level : '';
+
+            let colorCls = 'bg-[#EAE6FF] text-[#403294] border-[#D3C7FF]';
+            if (level === 'Full Access' || roleCode === 'ROL-ADM') colorCls = 'bg-[#E0F2FE] text-[#00A4B7] border-[#BAE6FD]';
+            else if (level === 'Departmental' || roleCode === 'ROL-MGR') colorCls = 'bg-[#EAE6FF] text-[#403294] border-[#D3C7FF]';
+            else if (level === 'Verification' || roleCode === 'ROL-SUP') colorCls = 'bg-[#FFFAE6] text-[#FF8B00] border-[#FFE380]';
+            else if (level === 'Read / Log' || roleCode === 'ROL-OPR') colorCls = 'bg-[#E3FCEF] text-[#006644] border-[#ABF5D1]';
+            else if (level === 'Read Only' || roleCode === 'ROL-VIE') colorCls = 'bg-[#F1F5F9] text-[#5E6C84] border-[#DFE1E6]';
+
+            return `
+              <div>
+                <div class="flex items-center gap-1.5 flex-wrap">
+                  <span class="font-bold text-xs text-[#172B4D] block truncate">${this.escape(roleName)}</span>
+                  ${roleCode ? `<span class="font-mono text-[10px] font-extrabold text-[#00A4B7] bg-[#F0F9FF] px-1.5 py-0.2 rounded border border-[#BAE6FD]">${this.escape(roleCode)}</span>` : ''}
+                </div>
+                ${level ? `<div class="mt-0.5"><span class="px-1.5 py-0.2 rounded text-[10px] font-bold border ${colorCls}">${this.escape(level)}</span></div>` : ''}
+              </div>
+            `;
+          }
         },
         {
           field: 'status',
@@ -92742,7 +92758,10 @@ const SettingsView = {
           field: 'usersCount',
           header: 'Assigned Users',
           sortable: true,
-          render: (val) => `<span class="px-2 py-0.5 rounded-full text-[10.5px] font-bold bg-[#F1F5F9] text-[#172B4D] border border-[#DFE1E6]">${val} Users</span>`
+          render: (val, row) => {
+            const count = this.users.filter(u => u.role === row.name || u.roleCode === row.code || u.role === row.code).length;
+            return `<span class="px-2 py-0.5 rounded-full text-[10.5px] font-bold bg-[#F1F5F9] text-[#172B4D] border border-[#DFE1E6]">${count} Users</span>`;
+          }
         },
         {
           field: 'status',
@@ -93479,11 +93498,11 @@ getRoleNavTree() {
           <div>
             <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Access Role <span class="text-[#DE350B]">*</span></label>
             <select id="usr-modal-role" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
-              <option value="Admin" ${user && user.role === 'Admin' ? 'selected' : ''}>Admin (Full Access)</option>
-              <option value="Manager" ${user && user.role === 'Manager' ? 'selected' : ''}>Manager (Departmental)</option>
-              <option value="Supervisor" ${user && user.role === 'Supervisor' ? 'selected' : ''}>Supervisor (Verification)</option>
-              <option value="Operator" ${user && user.role === 'Operator' ? 'selected' : ''}>Operator (Data Logging)</option>
-              <option value="Viewer" ${user && user.role === 'Viewer' ? 'selected' : ''}>Viewer (Read-only)</option>
+              ${this.roles.map(r => `
+                <option value="${this.escape(r.name)}" ${user && (user.role === r.name || user.roleCode === r.code) ? 'selected' : ''}>
+                  ${this.escape(r.name)} (${this.escape(r.code)} — ${this.escape(r.level)})
+                </option>
+              `).join('')}
             </select>
           </div>
         </form>
@@ -93519,6 +93538,8 @@ getRoleNavTree() {
               user.phone = phone;
               user.department = department;
               user.role = role;
+              const matchedRole = this.roles.find(r => r.name === role);
+              user.roleCode = matchedRole ? matchedRole.code : '';
               Toast.show(`User ${name} updated successfully`, 'success');
             } else {
               this.users.unshift({
@@ -93529,6 +93550,7 @@ getRoleNavTree() {
                 phone,
                 department,
                 role,
+                roleCode: (this.roles.find(r => r.name === role)?.code || ''),
                 status: 'Active',
                 lastActive: 'Just now'
               });
