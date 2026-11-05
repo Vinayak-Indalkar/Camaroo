@@ -292,10 +292,16 @@ body {
 #top-nav-wrapper {
   position: sticky !important;
   top: 0 !important;
-  z-index: 30 !important;
+  z-index: 45 !important;
   padding-top: 12px !important;
   padding-bottom: 4px !important;
   background-color: #F2F5F9 !important;
+}
+
+#user-dropdown-menu,
+#notifications-dropdown,
+#header-search-dropdown {
+  z-index: 100 !important;
 }
 
 html.theme-dark #top-nav-wrapper {
@@ -8863,7 +8869,7 @@ const Header = {
             </button>
 
             <!-- User Menu Popup -->
-            <div id="user-dropdown-menu" class="hidden absolute right-0 mt-2 w-64 bg-white rounded-xl border border-[#DFE1E6] py-2 z-[60] text-xs">
+            <div id="user-dropdown-menu" class="hidden absolute right-0 mt-2 w-64 bg-white rounded-xl border border-[#DFE1E6] shadow-xl py-2 z-[100] text-xs">
               <div class="px-3 py-2 border-b border-[#EBECF0]">
                 <div class="font-bold text-[#172B4D]">${ERP_DATA.currentUser.name}</div>
                 <div class="text-[11px] text-[#5E6C84]">${ERP_DATA.currentUser.email}</div>
@@ -92533,8 +92539,8 @@ const SettingsView = {
 
                   <div id="depts-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 text-xs" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
                     <div>
-                      <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Search Department / Code / Lead</label>
-                      <input type="text" id="flt-dept-search" value="${this.deptSearchQuery || ''}" placeholder="Filter by department name, code, lead..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                      <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Search Department / Code</label>
+                      <input type="text" id="flt-dept-search" value="${this.deptSearchQuery || ''}" placeholder="Filter by department name, code..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
                     </div>
 
                     <div>
@@ -92954,7 +92960,7 @@ const SettingsView = {
       filtered = filtered.filter(d =>
         d.name.toLowerCase().includes(q) ||
         d.code.toLowerCase().includes(q) ||
-        (d.head && d.head.toLowerCase().includes(q))
+        (d.description && d.description.toLowerCase().includes(q))
       );
     }
     if (this.deptFilterStatus && this.deptFilterStatus !== 'All') {
@@ -92980,18 +92986,6 @@ const SettingsView = {
           header: 'Department Name',
           sortable: true,
           render: (val) => `<span class="font-bold text-[#172B4D]">${this.escape(val)}</span>`
-        },
-        {
-          field: 'head',
-          header: 'Department Head / Lead',
-          sortable: true,
-          render: (val) => `<span class="font-semibold text-[#172B4D]">${this.escape(val || '—')}</span>`
-        },
-        {
-          field: 'email',
-          header: 'Contact Email',
-          sortable: true,
-          render: (val) => `<span class="text-xs text-[#5E6C84] font-medium">${this.escape(val || '—')}</span>`
         },
         {
           field: 'description',
@@ -93104,28 +93098,22 @@ const SettingsView = {
 
     Modal.open({
       title,
-      size: 'lg',
+      size: 'md',
       content: `
-        <form id="form-dept-modal" class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-          <div>
-            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Department Name <span class="text-[#DE350B]">*</span></label>
-            <input type="text" id="dept-modal-name" value="${dept ? this.escape(dept.name) : ''}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" placeholder="e.g. Processing Line 2">
+        <form id="form-dept-modal" class="space-y-3.5 text-xs">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Department Name <span class="text-[#DE350B]">*</span></label>
+              <input type="text" id="dept-modal-name" value="${dept ? this.escape(dept.name) : ''}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" placeholder="e.g. Processing Line 2">
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Department Code <span class="text-[#DE350B]">*</span></label>
+              <input type="text" id="dept-modal-code" value="${dept ? this.escape(dept.code) : `DEP-0${this.departments.length + 1}`}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+            </div>
           </div>
           <div>
-            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Department Code <span class="text-[#DE350B]">*</span></label>
-            <input type="text" id="dept-modal-code" value="${dept ? this.escape(dept.code) : `DEP-0${this.departments.length + 1}`}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
-          </div>
-          <div>
-            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Department Head / Lead</label>
-            <input type="text" id="dept-modal-head" value="${dept ? this.escape(dept.head || '') : ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" placeholder="e.g. Ramesh Varma">
-          </div>
-          <div>
-            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Contact Email</label>
-            <input type="email" id="dept-modal-email" value="${dept ? this.escape(dept.email || '') : ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" placeholder="dept@devifisheries.com">
-          </div>
-          <div class="sm:col-span-2">
             <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Operational Scope & Functions</label>
-            <textarea id="dept-modal-desc" rows="2" class="w-full text-xs p-2 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">${dept ? this.escape(dept.description || '') : ''}</textarea>
+            <textarea id="dept-modal-desc" rows="3" class="w-full text-xs p-2 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" placeholder="Define department functions, scope, operations...">${dept ? this.escape(dept.description || '') : ''}</textarea>
           </div>
           <div>
             <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Status</label>
@@ -93150,8 +93138,6 @@ const SettingsView = {
           onClick: (m) => {
             const name = document.getElementById('dept-modal-name')?.value.trim();
             const code = document.getElementById('dept-modal-code')?.value.trim();
-            const head = document.getElementById('dept-modal-head')?.value.trim() || '';
-            const email = document.getElementById('dept-modal-email')?.value.trim() || '';
             const desc = document.getElementById('dept-modal-desc')?.value.trim() || '';
             const status = document.getElementById('dept-modal-status')?.value || 'Active';
 
@@ -93163,8 +93149,6 @@ const SettingsView = {
             if (isEdit) {
               dept.name = name;
               dept.code = code;
-              dept.head = head;
-              dept.email = email;
               dept.description = desc;
               dept.status = status;
               Toast.show(`Department ${name} updated successfully`, 'success');
@@ -93173,8 +93157,6 @@ const SettingsView = {
                 id: `dept-${Date.now()}`,
                 name,
                 code,
-                head,
-                email,
                 description: desc,
                 status
               });
@@ -99203,11 +99185,11 @@ const App = {
           <!-- Main Layout Wrapper (offset by floating sidebar width + margins) -->
           <div id="main-layout-wrapper" class="${collapsedClass} flex flex-col min-h-screen">
             <!-- Fixed / Sticky Top Header & Breadcrumbs Wrapper (Masked to prevent scrolled content leakage) -->
-            <div id="top-nav-wrapper" class="sticky top-0 z-30 pt-3 pb-1 bg-[#F2F5F9]">
-              <div class="rounded-2xl border border-[#E2E8F0] bg-white overflow-hidden shadow-2xs">
-                <div id="header-container" class="bg-white"></div>
+            <div id="top-nav-wrapper" class="sticky top-0 z-45 pt-3 pb-1 bg-[#F2F5F9]">
+              <div class="rounded-2xl border border-[#E2E8F0] bg-white shadow-2xs relative">
+                <div id="header-container" class="bg-white rounded-t-2xl"></div>
                 <!-- Breadcrumbs Bar (Fixed in position right below Header) -->
-                <div class="px-6 py-2 bg-[#F8FAFC] border-t border-[#E2E8F0] flex items-center justify-between">
+                <div class="px-6 py-2 bg-[#F8FAFC] border-t border-[#E2E8F0] flex items-center justify-between rounded-b-2xl">
                   <div id="breadcrumbs-container"></div>
                 </div>
               </div>

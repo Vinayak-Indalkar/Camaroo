@@ -794,8 +794,8 @@ export const SettingsView = {
 
                   <div id="depts-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 text-xs" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
                     <div>
-                      <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Search Department / Code / Lead</label>
-                      <input type="text" id="flt-dept-search" value="${this.deptSearchQuery || ''}" placeholder="Filter by department name, code, lead..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                      <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Search Department / Code</label>
+                      <input type="text" id="flt-dept-search" value="${this.deptSearchQuery || ''}" placeholder="Filter by department name, code..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
                     </div>
 
                     <div>
@@ -1215,7 +1215,7 @@ export const SettingsView = {
       filtered = filtered.filter(d =>
         d.name.toLowerCase().includes(q) ||
         d.code.toLowerCase().includes(q) ||
-        (d.head && d.head.toLowerCase().includes(q))
+        (d.description && d.description.toLowerCase().includes(q))
       );
     }
     if (this.deptFilterStatus && this.deptFilterStatus !== 'All') {
@@ -1241,18 +1241,6 @@ export const SettingsView = {
           header: 'Department Name',
           sortable: true,
           render: (val) => `<span class="font-bold text-[#172B4D]">${this.escape(val)}</span>`
-        },
-        {
-          field: 'head',
-          header: 'Department Head / Lead',
-          sortable: true,
-          render: (val) => `<span class="font-semibold text-[#172B4D]">${this.escape(val || '—')}</span>`
-        },
-        {
-          field: 'email',
-          header: 'Contact Email',
-          sortable: true,
-          render: (val) => `<span class="text-xs text-[#5E6C84] font-medium">${this.escape(val || '—')}</span>`
         },
         {
           field: 'description',
@@ -1365,28 +1353,22 @@ export const SettingsView = {
 
     Modal.open({
       title,
-      size: 'lg',
+      size: 'md',
       content: `
-        <form id="form-dept-modal" class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-          <div>
-            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Department Name <span class="text-[#DE350B]">*</span></label>
-            <input type="text" id="dept-modal-name" value="${dept ? this.escape(dept.name) : ''}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" placeholder="e.g. Processing Line 2">
+        <form id="form-dept-modal" class="space-y-3.5 text-xs">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Department Name <span class="text-[#DE350B]">*</span></label>
+              <input type="text" id="dept-modal-name" value="${dept ? this.escape(dept.name) : ''}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" placeholder="e.g. Processing Line 2">
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Department Code <span class="text-[#DE350B]">*</span></label>
+              <input type="text" id="dept-modal-code" value="${dept ? this.escape(dept.code) : `DEP-0${this.departments.length + 1}`}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+            </div>
           </div>
           <div>
-            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Department Code <span class="text-[#DE350B]">*</span></label>
-            <input type="text" id="dept-modal-code" value="${dept ? this.escape(dept.code) : `DEP-0${this.departments.length + 1}`}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
-          </div>
-          <div>
-            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Department Head / Lead</label>
-            <input type="text" id="dept-modal-head" value="${dept ? this.escape(dept.head || '') : ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" placeholder="e.g. Ramesh Varma">
-          </div>
-          <div>
-            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Contact Email</label>
-            <input type="email" id="dept-modal-email" value="${dept ? this.escape(dept.email || '') : ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" placeholder="dept@devifisheries.com">
-          </div>
-          <div class="sm:col-span-2">
             <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Operational Scope & Functions</label>
-            <textarea id="dept-modal-desc" rows="2" class="w-full text-xs p-2 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">${dept ? this.escape(dept.description || '') : ''}</textarea>
+            <textarea id="dept-modal-desc" rows="3" class="w-full text-xs p-2 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" placeholder="Define department functions, scope, operations...">${dept ? this.escape(dept.description || '') : ''}</textarea>
           </div>
           <div>
             <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Status</label>
@@ -1411,8 +1393,6 @@ export const SettingsView = {
           onClick: (m) => {
             const name = document.getElementById('dept-modal-name')?.value.trim();
             const code = document.getElementById('dept-modal-code')?.value.trim();
-            const head = document.getElementById('dept-modal-head')?.value.trim() || '';
-            const email = document.getElementById('dept-modal-email')?.value.trim() || '';
             const desc = document.getElementById('dept-modal-desc')?.value.trim() || '';
             const status = document.getElementById('dept-modal-status')?.value || 'Active';
 
@@ -1424,8 +1404,6 @@ export const SettingsView = {
             if (isEdit) {
               dept.name = name;
               dept.code = code;
-              dept.head = head;
-              dept.email = email;
               dept.description = desc;
               dept.status = status;
               Toast.show(`Department ${name} updated successfully`, 'success');
@@ -1434,8 +1412,6 @@ export const SettingsView = {
                 id: `dept-${Date.now()}`,
                 name,
                 code,
-                head,
-                email,
                 description: desc,
                 status
               });

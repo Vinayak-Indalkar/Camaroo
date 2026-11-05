@@ -225,10 +225,16 @@ body {
 #top-nav-wrapper {
   position: sticky !important;
   top: 0 !important;
-  z-index: 30 !important;
+  z-index: 45 !important;
   padding-top: 12px !important;
   padding-bottom: 4px !important;
   background-color: #F2F5F9 !important;
+}
+
+#user-dropdown-menu,
+#notifications-dropdown,
+#header-search-dropdown {
+  z-index: 100 !important;
 }
 
 html.theme-dark #top-nav-wrapper {

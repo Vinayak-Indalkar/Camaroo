@@ -97,7 +97,7 @@ export const Header = {
             </button>
 
             <!-- User Menu Popup -->
-            <div id="user-dropdown-menu" class="hidden absolute right-0 mt-2 w-64 bg-white rounded-xl border border-[#DFE1E6] py-2 z-[60] text-xs">
+            <div id="user-dropdown-menu" class="hidden absolute right-0 mt-2 w-64 bg-white rounded-xl border border-[#DFE1E6] shadow-xl py-2 z-[100] text-xs">
               <div class="px-3 py-2 border-b border-[#EBECF0]">
                 <div class="font-bold text-[#172B4D]">${ERP_DATA.currentUser.name}</div>
                 <div class="text-[11px] text-[#5E6C84]">${ERP_DATA.currentUser.email}</div>
