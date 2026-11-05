@@ -92686,22 +92686,11 @@ const SettingsView = {
             const roleObj = this.roles.find(r => r.name === val || r.code === val || r.code === row.roleCode || r.name.toLowerCase() === (val || '').toLowerCase());
             const roleName = roleObj ? roleObj.name : val;
             const roleCode = roleObj ? roleObj.code : (row.roleCode || '');
-            const level = roleObj ? roleObj.level : '';
-
-            let colorCls = 'bg-[#EAE6FF] text-[#403294] border-[#D3C7FF]';
-            if (level === 'Full Access' || roleCode === 'ROL-ADM') colorCls = 'bg-[#E0F2FE] text-[#00A4B7] border-[#BAE6FD]';
-            else if (level === 'Departmental' || roleCode === 'ROL-MGR') colorCls = 'bg-[#EAE6FF] text-[#403294] border-[#D3C7FF]';
-            else if (level === 'Verification' || roleCode === 'ROL-SUP') colorCls = 'bg-[#FFFAE6] text-[#FF8B00] border-[#FFE380]';
-            else if (level === 'Read / Log' || roleCode === 'ROL-OPR') colorCls = 'bg-[#E3FCEF] text-[#006644] border-[#ABF5D1]';
-            else if (level === 'Read Only' || roleCode === 'ROL-VIE') colorCls = 'bg-[#F1F5F9] text-[#5E6C84] border-[#DFE1E6]';
 
             return `
               <div>
-                <div class="flex items-center gap-1.5 flex-wrap">
-                  <span class="font-bold text-xs text-[#172B4D] block truncate">${this.escape(roleName)}</span>
-                  ${roleCode ? `<span class="font-mono text-[10px] font-extrabold text-[#00A4B7] bg-[#F0F9FF] px-1.5 py-0.2 rounded border border-[#BAE6FD]">${this.escape(roleCode)}</span>` : ''}
-                </div>
-                ${level ? `<div class="mt-0.5"><span class="px-1.5 py-0.2 rounded text-[10px] font-bold border ${colorCls}">${this.escape(level)}</span></div>` : ''}
+                <span class="font-bold text-xs text-[#172B4D] block truncate">${this.escape(roleName)}</span>
+                ${roleCode ? `<span class="font-mono text-[10.5px] font-semibold text-[#00A4B7] block mt-0.5">${this.escape(roleCode)}</span>` : ''}
               </div>
             `;
           }
