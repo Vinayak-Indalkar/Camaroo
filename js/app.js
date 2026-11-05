@@ -186,15 +186,16 @@ export const App = {
     if (moduleName === 'settings') {
       if (isSuperAdmin) {
         if (!submenuName || submenuName === 'customizer' || submenuName === 'master-setup' || submenuName === 'setup') submenuName = 'custom';
-        if (!tabName || tabName === 'form' || tabName === 'form-list' || tabName === 'forms-list' || tabName === 'masters' || tabName === 'general-setup') tabName = 'forms';
+        if (!tabName || tabName === 'form' || tabName === 'form-list' || tabName === 'forms-list' || tabName === 'masters' || tabName === 'general-setup' || tabName === 'organization') tabName = 'forms';
         if (tabName === 'custom-fields' || tabName === 'field-builder' || tabName === 'fields' || tabName === 'filds-customizer') tabName = 'fields-customizer';
         if (tabName === 'query-editer') tabName = 'query-editor';
       } else {
-        if (!submenuName || submenuName === 'custom' || submenuName === 'master-setup') submenuName = 'setup';
-        if (!tabName || tabName === 'general' || tabName === 'masters' || tabName === 'forms') tabName = 'general-setup';
-        if (tabName === 'profile') tabName = 'profile-setup';
-        if (tabName === 'master') tabName = 'master-setup';
-        if (tabName === 'transaction' || tabName === 'tranjection' || tabName === 'tranjection-setup') tabName = 'transaction-setup';
+        if (!submenuName || submenuName === 'custom' || submenuName === 'master-setup' || submenuName === 'masters') submenuName = 'setup';
+        if (!tabName || tabName === 'organization' || tabName === 'org' || tabName === 'company' || tabName === 'profile' || tabName === 'profile-setup') tabName = 'organization';
+        else if (tabName === 'user-access' || tabName === 'users-access' || tabName === 'user' || tabName === 'users' || tabName === 'access' || tabName === 'roles') tabName = 'user-access';
+        else if (tabName === 'general' || tabName === 'general-setup' || tabName === 'setup' || tabName === 'transaction' || tabName === 'transaction-setup' || tabName === 'notifications') tabName = 'general';
+        else if (tabName === 'masters' || tabName === 'master' || tabName === 'master-setup') tabName = 'masters';
+        else tabName = 'organization';
       }
     }
     const targetHierarchy = isSuperAdmin ? SUPER_ADMIN_NAV_HIERARCHY : ADMIN_NAV_HIERARCHY;

@@ -7720,13 +7720,12 @@ const ADMIN_NAV_HIERARCHY = [
       {
         id: "setup",
         title: "Settings",
-        defaultTab: "general-setup",
+        defaultTab: "organization",
         tabs: [
-          { id: "general-setup", label: "General Setup", hash: "#/settings/setup/general-setup" },
-          { id: "profile-setup", label: "Profile Setup", hash: "#/settings/setup/profile-setup" },
-          { id: "master-setup", label: "Master Setup", hash: "#/settings/setup/master-setup" },
-          { id: "transaction-setup", label: "Transaction Setup", hash: "#/settings/setup/transaction-setup" },
-          { id: "notifications", label: "Notifications & Alerts", hash: "#/settings/setup/notifications" }
+          { id: "organization", label: "Organization", hash: "#/settings/setup/organization" },
+          { id: "user-access", label: "User & Access", hash: "#/settings/setup/user-access" },
+          { id: "general", label: "General", hash: "#/settings/setup/general" },
+          { id: "masters", label: "Masters", hash: "#/settings/setup/masters" }
         ]
       }
     ]
@@ -8304,7 +8303,7 @@ const Sidebar = {
           if (isSuperAdmin) {
             window.location.hash = '#/settings/custom/forms';
           } else {
-            window.location.hash = '#/settings/setup/general-setup';
+            window.location.hash = '#/settings/setup/organization';
           }
           return;
         }
@@ -91766,13 +91765,27 @@ const SettingsView = {
     ]
   },
 
-  renderSettingsTabs(activeTab) {
+  // Users dataset for User & Access Management
+  users: [
+    { id: 'usr-1', empId: 'EMP-101', name: 'Laxmi Narayana', email: 'laxmi.n@devifisheries.com', phone: '+91 98480 12345', department: 'Executive Management', role: 'Admin', status: 'Active', lastActive: 'Just now' },
+    { id: 'usr-2', empId: 'EMP-102', name: 'Ramesh Varma', email: 'ramesh.v@devifisheries.com', phone: '+91 98480 23456', department: 'Procurement & Farm Sourcing', role: 'Manager', status: 'Active', lastActive: '15 mins ago' },
+    { id: 'usr-3', empId: 'EMP-103', name: 'S. K. Murthy', email: 'sk.murthy@devifisheries.com', phone: '+91 98480 34567', department: 'Plant Operations (Unit 1)', role: 'Manager', status: 'Active', lastActive: '1 hour ago' },
+    { id: 'usr-4', empId: 'EMP-104', name: 'Dr. Ananya Sen', email: 'ananya.s@devifisheries.com', phone: '+91 98480 45678', department: 'Quality Control & Lab', role: 'Supervisor', status: 'Active', lastActive: '30 mins ago' },
+    { id: 'usr-5', empId: 'EMP-105', name: 'Venkat Rao', email: 'venkat.r@devifisheries.com', phone: '+91 98480 56789', department: 'Cold Storage & Logistics', role: 'Operator', status: 'Active', lastActive: '3 hours ago' },
+    { id: 'usr-6', empId: 'EMP-106', name: 'Rajesh Kumar', email: 'rajesh.k@devifisheries.com', phone: '+91 98480 67890', department: 'Commercial & Export Sales', role: 'Manager', status: 'Active', lastActive: 'Yesterday' },
+    { id: 'usr-7', empId: 'EMP-107', name: 'Priya Nair', email: 'priya.n@devifisheries.com', phone: '+91 98480 78901', department: 'Inventory & Materials', role: 'Operator', status: 'Active', lastActive: '2 days ago' },
+    { id: 'usr-8', empId: 'EMP-108', name: 'Kalyan Chakravarthy', email: 'kalyan.c@devifisheries.com', phone: '+91 98480 89012', department: 'Finance & Realization', role: 'Viewer', status: 'Active', lastActive: '3 days ago' }
+  ],
+  userSearchQuery: '',
+  userFilterDept: 'All',
+  userFilterRole: 'All',
+
+  renderAdminSettingsTabs(activeTab) {
     const tabs = [
-      { id: 'general-setup', label: 'General Setup', hash: '#/settings/setup/general-setup' },
-      { id: 'profile-setup', label: 'Profile Setup', hash: '#/settings/setup/profile-setup' },
-      { id: 'master-setup', label: 'Master Setup', hash: '#/settings/setup/master-setup' },
-      { id: 'transaction-setup', label: 'Transaction Setup', hash: '#/settings/setup/transaction-setup' },
-      { id: 'notifications', label: 'Notifications & Alerts', hash: '#/settings/setup/notifications' }
+      { id: 'organization', label: 'Organization', hash: '#/settings/setup/organization' },
+      { id: 'user-access', label: 'User & Access', hash: '#/settings/setup/user-access' },
+      { id: 'general', label: 'General', hash: '#/settings/setup/general' },
+      { id: 'masters', label: 'Masters', hash: '#/settings/setup/masters' }
     ];
 
     return `
@@ -91844,77 +91857,117 @@ const SettingsView = {
       return;
     }
 
-    // Admin role (Devi Fisheries Admin): Render Admin Settings View (General, Profile, Master, Transaction, Notifications)
-    let currentTab = tabName || 'general-setup';
-    if (currentTab === 'setup' || currentTab === 'general' || currentTab === 'settings' || currentTab === 'forms') currentTab = 'general-setup';
-    if (currentTab === 'profile') currentTab = 'profile-setup';
-    if (currentTab === 'masters' || currentTab === 'master') currentTab = 'master-setup';
-    if (currentTab === 'transaction' || currentTab === 'tranjection' || currentTab === 'tranjection-setup') currentTab = 'transaction-setup';
-    if (resolvedHash.includes('master-setup') || resolvedHash.includes('/masters')) currentTab = 'master-setup';
+    // Admin role: Render 4 Settings tabs (Organization, User & Access, General, Masters)
+    let currentTab = tabName || 'organization';
+    if (currentTab === 'setup' || currentTab === 'org' || currentTab === 'company' || currentTab === 'profile' || currentTab === 'profile-setup') {
+      currentTab = 'organization';
+    } else if (currentTab === 'user-access' || currentTab === 'users-access' || currentTab === 'user' || currentTab === 'users' || currentTab === 'access' || currentTab === 'roles') {
+      currentTab = 'user-access';
+    } else if (currentTab === 'general' || currentTab === 'general-setup' || currentTab === 'transaction' || currentTab === 'transaction-setup' || currentTab === 'notifications') {
+      currentTab = 'general';
+    } else if (currentTab === 'masters' || currentTab === 'master' || currentTab === 'master-setup' || resolvedHash.includes('master-setup') || resolvedHash.includes('/masters')) {
+      currentTab = 'masters';
+    } else {
+      currentTab = 'organization';
+    }
 
-    const tabsBarHtml = this.renderSettingsTabs(currentTab);
+    const tabsBarHtml = this.renderAdminSettingsTabs(currentTab);
 
     switch (currentTab) {
-      case 'general-setup':
-        this.renderGeneralSetupTab(container, tabsBarHtml);
+      case 'organization':
+        this.renderOrganizationTab(container, tabsBarHtml);
         break;
-      case 'profile-setup':
-        this.renderProfileSetupTab(container, tabsBarHtml);
+      case 'user-access':
+        this.renderUserAccessTab(container, tabsBarHtml);
         break;
-      case 'master-setup':
+      case 'general':
+        this.renderGeneralTab(container, tabsBarHtml);
+        break;
+      case 'masters':
         this.renderMasterSetupTab(container, tabsBarHtml);
         break;
-      case 'transaction-setup':
-        this.renderTransactionSetupTab(container, tabsBarHtml);
-        break;
-      case 'notifications':
-        this.renderNotificationsTab(container, tabsBarHtml);
-        break;
       default:
-        this.renderGeneralSetupTab(container, tabsBarHtml);
+        this.renderOrganizationTab(container, tabsBarHtml);
         break;
     }
   },
 
   // -------------------------------------------------------------
-  // TAB: General Setup
+  // TAB 1: Organization
   // -------------------------------------------------------------
-  renderGeneralSetupTab(container, tabsBarHtml) {
+  renderOrganizationTab(container, tabsBarHtml) {
     container.innerHTML = `
       <div class="space-y-4 animate-fade-in pb-10">
         ${tabsBarHtml}
 
         <div class="flex items-center justify-between gap-3">
-          <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">General Setup</h1>
-          <button type="button" id="btn-save-general-setup" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
+          <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Organization</h1>
+          <button type="button" id="btn-save-organization" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-            <span>Save Configuration</span>
+            <span>Save Changes</span>
           </button>
         </div>
 
+        <!-- Top Hero / Summary Card -->
+        <div class="bg-gradient-to-r from-[#F0F9FF] to-[#F8FAFC] p-4 rounded-xl border border-[#BAE6FD] flex flex-wrap items-center justify-between gap-3 shadow-2xs">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-[#00A4B7] text-white flex items-center justify-center font-bold shadow-xs">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+            </div>
+            <div>
+              <div class="flex items-center gap-2 flex-wrap">
+                <span class="font-extrabold text-[#0F172A] text-base">Devi Fisheries Limited</span>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold tracking-wide uppercase bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">Active Entity</span>
+                <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">Seafood Processing &amp; Export</span>
+              </div>
+              <div class="text-[11px] text-[#64748B] mt-0.5 font-medium flex items-center gap-1.5 flex-wrap">
+                <span>Head Office: Visakhapatnam, Andhra Pradesh</span>
+                <span>•</span>
+                <span>Incorporated: 1997</span>
+                <span>•</span>
+                <span class="font-mono">CIN: U05005AP1997PLC026857</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-2 shrink-0">
+            <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[90px]">
+              <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Plants</span>
+              <span class="font-extrabold text-xs text-[#006644]">4 Facilities</span>
+            </div>
+            <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[100px]">
+              <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Cold Storage</span>
+              <span class="font-extrabold text-xs text-[#00A4B7]">5,200 MT</span>
+            </div>
+            <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[100px]">
+              <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Accreditations</span>
+              <span class="font-extrabold text-xs text-[#006644]">BAP 4★, BRCGS</span>
+            </div>
+          </div>
+        </div>
+
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <!-- Company Profile Card -->
+          <!-- Section 1: Corporate Legal & Registrations -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs space-y-3">
             <div class="flex items-center gap-2 border-b border-[#F1F5F9] pb-2">
               <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">1</span>
-              <h2 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Corporate &amp; Legal Entity</h2>
+              <h2 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Corporate &amp; Tax Registrations</h2>
             </div>
-
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
               <div>
                 <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Company Legal Name</label>
-                <input type="text" id="gen-company-name" value="Devi Fisheries Limited" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+                <input type="text" id="org-name" value="Devi Fisheries Limited" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
               </div>
               <div>
                 <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Trade Short Name</label>
-                <input type="text" id="gen-short-name" value="DFL" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+                <input type="text" id="org-short-name" value="DFL" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
               </div>
               <div>
                 <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Corporate ID (CIN)</label>
                 <input type="text" value="U05005AP1997PLC026857" class="w-full text-xs px-2.5 py-1.5 bg-[#F8FAFC] border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D]">
               </div>
               <div>
-                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">GSTIN Registration</label>
+                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">GSTIN Number</label>
                 <input type="text" value="37AAACD1829B1ZX" class="w-full text-xs px-2.5 py-1.5 bg-[#F8FAFC] border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D]">
               </div>
               <div>
@@ -91925,109 +91978,119 @@ const SettingsView = {
                 <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">US FDA Plant Reg. No.</label>
                 <input type="text" value="10982736192" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
               </div>
+              <div>
+                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">EU Approval Number</label>
+                <input type="text" value="EIA/AP/09/SH/014" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">FSSAI Central License</label>
+                <input type="text" value="10012044000189" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+              </div>
             </div>
           </div>
 
-          <!-- Regional & Operational Defaults Card -->
+          <!-- Section 2: Seafood Processing Units -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs space-y-3">
             <div class="flex items-center gap-2 border-b border-[#F1F5F9] pb-2">
               <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">2</span>
-              <h2 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Regional &amp; Currency Settings</h2>
+              <h2 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Operational Facilities &amp; Plants</h2>
             </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-              <div>
-                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Base Currency</label>
-                <select class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
-                  <option value="INR" selected>INR (₹) - Indian Rupee</option>
-                  <option value="USD">USD ($) - US Dollar</option>
-                  <option value="EUR">EUR (€) - Euro</option>
-                </select>
+            <div class="space-y-2 text-xs">
+              <div class="p-2.5 rounded-lg border border-[#DFE1E6] bg-[#F8FAFC] flex items-center justify-between">
+                <div>
+                  <span class="font-bold text-[#172B4D] block">Unit 1 - Visakhapatnam Main Plant</span>
+                  <span class="text-[11px] text-[#5E6C84]">Block IQF, Cooked &amp; Raw Shrimp Processing • Cap: 45 MT/Day</span>
+                </div>
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">Operational</span>
               </div>
-              <div>
-                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Export Billing Currency</label>
-                <select class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
-                  <option value="USD" selected>USD ($) - Commercial Invoices</option>
-                  <option value="EUR">EUR (€) - European Contracts</option>
-                  <option value="JPY">JPY (¥) - Japanese Contracts</option>
-                </select>
+              <div class="p-2.5 rounded-lg border border-[#DFE1E6] bg-[#F8FAFC] flex items-center justify-between">
+                <div>
+                  <span class="font-bold text-[#172B4D] block">Unit 2 - Singarayakonda Plant</span>
+                  <span class="text-[11px] text-[#5E6C84]">Peeled &amp; Deveined Tail-on Value-added Processing • Cap: 35 MT/Day</span>
+                </div>
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">Operational</span>
               </div>
-              <div>
-                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Active Financial Year</label>
-                <input type="text" value="FY 2026-2027 (01-Apr to 31-Mar)" class="w-full text-xs px-2.5 py-1.5 bg-[#F8FAFC] border border-[#DFE1E6] rounded font-semibold text-[#172B4D]" readonly>
+              <div class="p-2.5 rounded-lg border border-[#DFE1E6] bg-[#F8FAFC] flex items-center justify-between">
+                <div>
+                  <span class="font-bold text-[#172B4D] block">Pre-Processing Hub - Kakinada</span>
+                  <span class="text-[11px] text-[#5E6C84]">De-heading, Grading, Icing &amp; Primary Washing • Cap: 50 MT/Day</span>
+                </div>
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">Operational</span>
               </div>
-              <div>
-                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Operational Timezone</label>
-                <input type="text" value="Asia/Kolkata (IST +05:30)" class="w-full text-xs px-2.5 py-1.5 bg-[#F8FAFC] border border-[#DFE1E6] rounded font-semibold text-[#172B4D]" readonly>
-              </div>
-              <div>
-                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Temperature Display Unit</label>
-                <select class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
-                  <option value="C" selected>Celsius (°C)</option>
-                  <option value="F">Fahrenheit (°F)</option>
-                </select>
-              </div>
-              <div>
-                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Weight Unit Standard</label>
-                <select class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
-                  <option value="KG" selected>Kilograms (Kg) / Metric Tons (MT)</option>
-                  <option value="LBS">Pounds (Lbs)</option>
-                </select>
+              <div class="p-2.5 rounded-lg border border-[#DFE1E6] bg-[#F8FAFC] flex items-center justify-between">
+                <div>
+                  <span class="font-bold text-[#172B4D] block">Central Cold Storage Hub</span>
+                  <span class="text-[11px] text-[#5E6C84]">Deep Frozen Cold Chambers (-22°C to -25°C) • Cap: 5,200 MT</span>
+                </div>
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">Operational</span>
               </div>
             </div>
           </div>
 
-          <!-- Processing Plants & Shifts Card -->
+          <!-- Section 3: Registered Office Address -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs space-y-3">
             <div class="flex items-center gap-2 border-b border-[#F1F5F9] pb-2">
               <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">3</span>
-              <h2 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Default Plant &amp; Shift Schedule</h2>
+              <h2 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Registered Corporate Address</h2>
             </div>
-
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
               <div class="sm:col-span-2">
-                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Default Processing Plant</label>
-                <select class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
-                  <option value="DFL-UNIT-5" selected>DFL UNIT-5 (JPT) — Main IQF &amp; Block Freeze Hub</option>
-                  <option value="DFL-UNIT-1">DFL UNIT-1 (VSP) — Primary Export Facility</option>
-                  <option value="DFL-UNIT-2">DFL UNIT-2 (Nellore) — Aquaculture Processing Plant</option>
-                  <option value="DFL-UNIT-3">DFL UNIT-3 (Kakinada) — Value Added Seafood Center</option>
-                </select>
+                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Premises / Building Address</label>
+                <input type="text" value="#20-41-11, Devi House, Beach Road, Pandurangapuram" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
               </div>
               <div>
-                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Shift A (Morning)</label>
-                <input type="text" value="06:00 AM - 02:00 PM" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D]">
+                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">City</label>
+                <input type="text" value="Visakhapatnam" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
               </div>
               <div>
-                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Shift B (Evening)</label>
-                <input type="text" value="02:00 PM - 10:00 PM" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D]">
+                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">State / Province</label>
+                <input type="text" value="Andhra Pradesh" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">PIN / Postal Code</label>
+                <input type="text" value="530003" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Official Contact Phone</label>
+                <input type="text" value="+91 891 256 7890" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Official Email</label>
+                <input type="email" value="info@devifisheries.com" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Corporate Website</label>
+                <input type="text" value="https://www.devifisheries.com" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
               </div>
             </div>
           </div>
 
-          <!-- Trade Compliance & Anti-Dumping -->
+          <!-- Section 4: Export Certifications -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs space-y-3">
             <div class="flex items-center gap-2 border-b border-[#F1F5F9] pb-2">
               <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">4</span>
-              <h2 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Export Compliance &amp; ADD Tracking</h2>
+              <h2 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Accreditations &amp; Food Safety Standards</h2>
             </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-              <div>
-                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">US DOC Anti-Dumping Mode</label>
-                <span class="px-2.5 py-1 rounded font-bold text-[11px] bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1] inline-block">Active (Audit Compliant)</span>
+            <div class="grid grid-cols-2 gap-3 text-xs">
+              <div class="p-3 rounded-lg border border-[#BAE6FD] bg-[#F0F9FF]">
+                <span class="font-extrabold text-[#00A4B7] block text-xs">BAP 4-Star Certified</span>
+                <span class="text-[10.5px] text-[#5E6C84] mt-0.5 block">Hatchery, Farm, Feed Mill &amp; Processing Plant</span>
+                <span class="mt-2 inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-[#E3FCEF] text-[#006644]">Certified Valid 2027</span>
               </div>
-              <div>
-                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Current ADD Tariff Rate</label>
-                <input type="text" value="1.35% (US DOC 2026 Revision)" class="w-full text-xs px-2.5 py-1.5 bg-[#F8FAFC] border border-[#DFE1E6] rounded font-semibold text-[#172B4D]" readonly>
+              <div class="p-3 rounded-lg border border-[#CBD5E1] bg-[#F8FAFC]">
+                <span class="font-extrabold text-[#172B4D] block text-xs">BRCGS Grade AA</span>
+                <span class="text-[10.5px] text-[#5E6C84] mt-0.5 block">Global Food Safety Standard Issue 9</span>
+                <span class="mt-2 inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-[#E3FCEF] text-[#006644]">Grade AA Verified</span>
               </div>
-              <div>
-                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">BAP Certification Status</label>
-                <span class="px-2.5 py-1 rounded font-bold text-[11px] bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD] inline-block">BAP 4-Star Certified</span>
+              <div class="p-3 rounded-lg border border-[#CBD5E1] bg-[#F8FAFC]">
+                <span class="font-extrabold text-[#172B4D] block text-xs">MSC Chain of Custody</span>
+                <span class="text-[10.5px] text-[#5E6C84] mt-0.5 block">Marine Stewardship Council Certified CoC</span>
+                <span class="mt-2 inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-[#E3FCEF] text-[#006644]">Active Certified</span>
               </div>
-              <div>
-                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Audit Record Retention</label>
-                <input type="text" value="7 Years (Automated Cloud Archival)" class="w-full text-xs px-2.5 py-1.5 bg-[#F8FAFC] border border-[#DFE1E6] rounded font-semibold text-[#172B4D]" readonly>
+              <div class="p-3 rounded-lg border border-[#CBD5E1] bg-[#F8FAFC]">
+                <span class="font-extrabold text-[#172B4D] block text-xs">EIA Approved Export</span>
+                <span class="text-[10.5px] text-[#5E6C84] mt-0.5 block">Export Inspection Council of India</span>
+                <span class="mt-2 inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-[#E3FCEF] text-[#006644]">Approval Current</span>
               </div>
             </div>
           </div>
@@ -92035,260 +92098,572 @@ const SettingsView = {
       </div>
     `;
 
-    const saveBtn = document.getElementById('btn-save-general-setup');
-    if (saveBtn) {
-      saveBtn.onclick = () => {
-        Toast.show('General configuration saved successfully', 'success');
-      };
-    }
+    document.getElementById('btn-save-organization')?.addEventListener('click', () => {
+      Toast.show('Organization details updated successfully', 'success');
+    });
   },
 
   // -------------------------------------------------------------
-  // TAB: Profile Setup
+  // TAB 2: User & Access
   // -------------------------------------------------------------
-  renderProfileSetupTab(container, tabsBarHtml) {
-    const user = ERP_DATA.currentUser || { name: 'Laxmi Narayana', role: 'Admin', email: 'laxmi.narayana@devifisheries.com' };
-
+  renderUserAccessTab(container, tabsBarHtml) {
     container.innerHTML = `
       <div class="space-y-4 animate-fade-in pb-10">
         ${tabsBarHtml}
 
         <div class="flex items-center justify-between gap-3">
-          <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Profile Setup</h1>
-          <button type="button" id="btn-save-profile" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-            <span>Update Profile</span>
+          <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">User &amp; Access</h1>
+          <button type="button" id="btn-add-user" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+            <span>Add User</span>
           </button>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <!-- Profile Card -->
-          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs space-y-3">
-            <div class="flex items-center gap-3 border-b border-[#F1F5F9] pb-3">
-              <div class="w-12 h-12 rounded-full bg-[#00A4B7] text-white flex items-center justify-center font-bold text-base shadow-xs">
-                ${user.name ? user.name.substring(0, 2).toUpperCase() : 'DF'}
-              </div>
-              <div>
-                <h2 class="text-sm font-bold text-[#172B4D]">${user.name || 'User Profile'}</h2>
-                <div class="flex items-center gap-2 mt-0.5">
-                  <span class="px-2 py-0.5 rounded text-[10px] font-extrabold uppercase bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">${user.role || 'Admin'}</span>
-                  <span class="text-xs text-[#5E6C84]">Employee ID: EMP-DFL-2041</span>
-                </div>
-              </div>
+        <!-- Search & Filter Card -->
+        <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200">
+          <div class="flex items-center justify-between pb-1">
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+              <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
             </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-              <div>
-                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Full Name</label>
-                <input type="text" id="prof-name" value="${user.name || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
-              </div>
-              <div>
-                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Email Address</label>
-                <input type="email" id="prof-email" value="${user.email || 'user@devifisheries.com'}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
-              </div>
-              <div>
-                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Phone Number</label>
-                <input type="text" value="+91 98480 23419" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
-              </div>
-              <div>
-                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Department</label>
-                <input type="text" value="Operations &amp; Production Management" class="w-full text-xs px-2.5 py-1.5 bg-[#F8FAFC] border border-[#DFE1E6] rounded font-semibold text-[#172B4D]" readonly>
-              </div>
+            <div class="inline-flex items-center gap-2">
+              <button type="button" id="users-filter-reset" class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Reset all filters">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+              </button>
+              <button type="button" id="users-filter-toggle" class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Toggle Filter">
+                <svg class="w-3.5 h-3.5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              </button>
             </div>
           </div>
 
-          <!-- Security & Password Card -->
-          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs space-y-3">
-            <div class="flex items-center gap-2 border-b border-[#F1F5F9] pb-2">
-              <span class="w-6 h-6 rounded-md bg-[#FFEBE6] text-[#DE350B] flex items-center justify-center font-bold text-xs">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-              </span>
-              <h2 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Security &amp; Password</h2>
+          <div id="users-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Search User / Email</label>
+              <input type="text" id="flt-user-search" value="${this.userSearchQuery || ''}" placeholder="Filter by name, email, ID..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
             </div>
 
-            <div class="space-y-2.5 text-xs">
-              <div>
-                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Current Password</label>
-                <input type="password" id="prof-curr-pwd" placeholder="••••••••" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
-              </div>
-              <div class="grid grid-cols-2 gap-2">
-                <div>
-                  <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">New Password</label>
-                  <input type="password" id="prof-new-pwd" placeholder="New Password" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
-                </div>
-                <div>
-                  <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Confirm Password</label>
-                  <input type="password" id="prof-conf-pwd" placeholder="Confirm Password" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
-                </div>
-              </div>
-              <div class="pt-1 flex items-center justify-between">
-                <span class="text-[11px] text-[#5E6C84]">Two-Factor Authentication (2FA)</span>
-                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">Enabled</span>
-              </div>
-              <button type="button" id="btn-change-pwd" class="btn-secondary w-full py-1.5 text-xs font-bold rounded-lg border border-[#CBD5E1] hover:bg-[#F8FAFC] transition-colors cursor-pointer mt-1">
-                Change Password
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Department</label>
+              <select id="flt-user-dept" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="All">All Departments</option>
+                <option value="Executive Management">Executive Management</option>
+                <option value="Procurement & Farm Sourcing">Procurement & Sourcing</option>
+                <option value="Plant Operations (Unit 1)">Plant Operations (Unit 1)</option>
+                <option value="Quality Control & Lab">Quality Control & Lab</option>
+                <option value="Cold Storage & Logistics">Cold Storage & Logistics</option>
+                <option value="Commercial & Export Sales">Commercial & Export Sales</option>
+                <option value="Inventory & Materials">Inventory & Materials</option>
+                <option value="Finance & Realization">Finance & Realization</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Role / Access Level</label>
+              <select id="flt-user-role" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="All">All Roles</option>
+                <option value="Admin">Admin</option>
+                <option value="Manager">Manager</option>
+                <option value="Supervisor">Supervisor</option>
+                <option value="Operator">Operator</option>
+                <option value="Viewer">Viewer</option>
+              </select>
+            </div>
+
+            <div class="flex items-end">
+              <button type="button" id="users-filter-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                <span>Search</span>
               </button>
             </div>
           </div>
         </div>
+
+        <!-- Users DataTable Container -->
+        <div id="users-datatable-container" class="bg-white rounded-xl border border-[#DFE1E6] shadow-xs"></div>
+
+        <!-- Roles & Permissions Matrix Overview -->
+        <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs space-y-3 mt-4">
+          <div class="flex items-center gap-2 border-b border-[#F1F5F9] pb-2">
+            <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            <h2 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Access Roles &amp; Departmental Permissions Matrix</h2>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+            <div class="p-3 rounded-xl border border-[#BAE6FD] bg-[#F0F9FF] space-y-1.5">
+              <div class="flex items-center justify-between">
+                <span class="font-extrabold text-[#00A4B7] text-xs">Admin</span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-extrabold bg-[#E0F2FE] text-[#00A4B7]">Full Access</span>
+              </div>
+              <p class="text-[11px] text-[#5E6C84]">Unrestricted CRUD &amp; approvals across all 8 ERP operational modules and settings.</p>
+            </div>
+
+            <div class="p-3 rounded-xl border border-[#CBD5E1] bg-[#F8FAFC] space-y-1.5">
+              <div class="flex items-center justify-between">
+                <span class="font-extrabold text-[#172B4D] text-xs">Manager</span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-extrabold bg-[#EAE6FF] text-[#403294]">Departmental</span>
+              </div>
+              <p class="text-[11px] text-[#5E6C84]">Full PO creation, Lot allocation, Production batch logs, and export dispatch authority.</p>
+            </div>
+
+            <div class="p-3 rounded-xl border border-[#CBD5E1] bg-[#F8FAFC] space-y-1.5">
+              <div class="flex items-center justify-between">
+                <span class="font-extrabold text-[#172B4D] text-xs">Supervisor</span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-extrabold bg-[#FFFAE6] text-[#FF8B00]">Verification</span>
+              </div>
+              <p class="text-[11px] text-[#5E6C84]">Lab chemical screening entries, raw material weighment verification, and grading logs.</p>
+            </div>
+
+            <div class="p-3 rounded-xl border border-[#CBD5E1] bg-[#F8FAFC] space-y-1.5">
+              <div class="flex items-center justify-between">
+                <span class="font-extrabold text-[#172B4D] text-xs">Operator / Viewer</span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-extrabold bg-[#F1F5F9] text-[#5E6C84]">Read / Log</span>
+              </div>
+              <p class="text-[11px] text-[#5E6C84]">Coldstore pallet in/out logging, container stuffing checklists, and read-only reports.</p>
+            </div>
+          </div>
+        </div>
       </div>
     `;
 
-    document.getElementById('btn-save-profile')?.addEventListener('click', () => {
-      Toast.show('User profile details updated successfully', 'success');
+    this.renderUsersTable();
+    this.bindUserAccessEvents(container, tabsBarHtml);
+  },
+
+  renderUsersTable() {
+    const tableContainer = document.getElementById('users-datatable-container');
+    if (!tableContainer) return;
+
+    let filtered = [...this.users];
+    if (this.userSearchQuery) {
+      const q = this.userSearchQuery.toLowerCase();
+      filtered = filtered.filter(u => 
+        u.name.toLowerCase().includes(q) ||
+        u.email.toLowerCase().includes(q) ||
+        u.empId.toLowerCase().includes(q) ||
+        u.department.toLowerCase().includes(q)
+      );
+    }
+    if (this.userFilterDept && this.userFilterDept !== 'All') {
+      filtered = filtered.filter(u => u.department === this.userFilterDept);
+    }
+    if (this.userFilterRole && this.userFilterRole !== 'All') {
+      filtered = filtered.filter(u => u.role === this.userFilterRole);
+    }
+
+    tableContainer.innerHTML = '';
+
+    new DataTable({
+      containerId: 'users-datatable-container',
+      keyField: 'id',
+      tableTitle: `Users Directory (${filtered.length})`,
+      selectable: false,
+      searchable: true,
+      exportable: true,
+      data: filtered,
+      columns: [
+        {
+          field: 'name',
+          header: 'Employee / User',
+          sortable: true,
+          render: (val, row) => `
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-full bg-[#00A4B7]/10 text-[#00A4B7] font-bold flex items-center justify-center text-xs shrink-0 border border-[#BAE6FD]">
+                ${val.split(' ').map(n => n[0]).join('').substring(0, 2)}
+              </div>
+              <div class="min-w-0">
+                <span class="font-bold text-[#172B4D] block truncate">${val}</span>
+                <span class="font-mono text-[10.5px] text-[#64748B] block">${row.empId}</span>
+              </div>
+            </div>
+          `
+        },
+        {
+          field: 'email',
+          header: 'Email & Contact',
+          sortable: true,
+          render: (val, row) => `
+            <div>
+              <span class="text-xs text-[#172B4D] font-medium block truncate">${val}</span>
+              <span class="text-[10.5px] text-[#64748B] block">${row.phone}</span>
+            </div>
+          `
+        },
+        {
+          field: 'department',
+          header: 'Department',
+          sortable: true,
+          render: (val) => `<span class="font-medium text-xs text-[#172B4D]">${val}</span>`
+        },
+        {
+          field: 'role',
+          header: 'Role',
+          sortable: true,
+          render: (val) => `
+            <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">${val}</span>
+          `
+        },
+        {
+          field: 'status',
+          header: 'Status',
+          sortable: true,
+          render: (val) => `
+            <span class="px-2.5 py-0.5 rounded-full text-[10.5px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">${val}</span>
+          `
+        },
+        {
+          field: 'lastActive',
+          header: 'Last Active',
+          sortable: true,
+          render: (val) => `<span class="text-xs text-[#64748B] font-mono">${val}</span>`
+        },
+        {
+          field: 'id',
+          header: 'Actions',
+          sortable: false,
+          align: 'right',
+          render: (val, row) => `
+            <div class="inline-flex items-center gap-1.5 justify-end">
+              <button type="button" class="dt-action-btn edit-user-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white border border-[#CBD5E1] rounded-full text-[#00A4B7] hover:bg-[#F0F9FF] cursor-pointer" data-id="${row.id}" title="Edit User">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+              </button>
+              <button type="button" class="dt-action-btn delete-user-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white border border-[#CBD5E1] rounded-full text-[#DE350B] hover:bg-[#FFEBE6] cursor-pointer" data-id="${row.id}" title="Delete User">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+              </button>
+            </div>
+          `
+        }
+      ]
     });
-    document.getElementById('btn-change-pwd')?.addEventListener('click', () => {
-      const p = document.getElementById('prof-new-pwd')?.value;
-      const c = document.getElementById('prof-conf-pwd')?.value;
-      if (!p || !c) {
-        Toast.show('Please enter both new and confirm password', 'warning');
+  },
+
+  bindUserAccessEvents(container, tabsBarHtml) {
+    // Search & Filters
+    document.getElementById('users-filter-search-btn')?.addEventListener('click', () => {
+      this.userSearchQuery = document.getElementById('flt-user-search')?.value.trim() || '';
+      this.userFilterDept = document.getElementById('flt-user-dept')?.value || 'All';
+      this.userFilterRole = document.getElementById('flt-user-role')?.value || 'All';
+      this.renderUsersTable();
+    });
+
+    document.getElementById('users-filter-reset')?.addEventListener('click', () => {
+      this.userSearchQuery = '';
+      this.userFilterDept = 'All';
+      this.userFilterRole = 'All';
+      if (document.getElementById('flt-user-search')) document.getElementById('flt-user-search').value = '';
+      if (document.getElementById('flt-user-dept')) document.getElementById('flt-user-dept').value = 'All';
+      if (document.getElementById('flt-user-role')) document.getElementById('flt-user-role').value = 'All';
+      this.renderUsersTable();
+    });
+
+    document.getElementById('users-filter-toggle')?.addEventListener('click', () => {
+      const body = document.getElementById('users-filter-body');
+      if (body) body.classList.toggle('hidden');
+    });
+
+    // Add User
+    document.getElementById('btn-add-user')?.addEventListener('click', () => {
+      this.openUserModal(null, () => this.renderUsersTable());
+    });
+
+    // Delegate Edit and Delete on table
+    container.addEventListener('click', (e) => {
+      const editBtn = e.target.closest('.edit-user-btn');
+      if (editBtn) {
+        const id = editBtn.dataset.id;
+        const user = this.users.find(u => u.id === id);
+        if (user) {
+          this.openUserModal(user, () => this.renderUsersTable());
+        }
         return;
       }
-      if (p !== c) {
-        Toast.show('New password and confirm password do not match', 'danger');
-        return;
+
+      const delBtn = e.target.closest('.delete-user-btn');
+      if (delBtn) {
+        const id = delBtn.dataset.id;
+        const user = this.users.find(u => u.id === id);
+        if (user) {
+          Modal.confirm({
+            title: 'Delete User Account',
+            message: `Are you sure you want to delete user account for "${user.name}" (${user.empId})? This action cannot be undone.`,
+            confirmText: 'Delete User',
+            cancelText: 'Cancel',
+            isDestructive: true,
+            onConfirm: () => {
+              this.users = this.users.filter(u => u.id !== id);
+              this.renderUsersTable();
+              Toast.show(`User ${user.name} removed successfully`, 'success');
+            }
+          });
+        }
       }
-      Toast.show('Password changed successfully', 'success');
-      document.getElementById('prof-curr-pwd').value = '';
-      document.getElementById('prof-new-pwd').value = '';
-      document.getElementById('prof-conf-pwd').value = '';
+    });
+  },
+
+  openUserModal(user = null, onSaved) {
+    const isEdit = !!user;
+    const title = isEdit ? 'Edit User Profile' : 'Add New User';
+
+    const contentHtml = `
+      <form id="form-user-modal" class="space-y-3.5 text-xs">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Full Name *</label>
+            <input type="text" id="usr-modal-name" value="${user ? user.name : ''}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" placeholder="e.g. Anand Murugan">
+          </div>
+          <div>
+            <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Employee ID *</label>
+            <input type="text" id="usr-modal-empid" value="${user ? user.empId : `EMP-${Math.floor(100 + Math.random() * 900)}`}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+          </div>
+          <div>
+            <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Email Address *</label>
+            <input type="email" id="usr-modal-email" value="${user ? user.email : ''}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" placeholder="name@devifisheries.com">
+          </div>
+          <div>
+            <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Phone Number</label>
+            <input type="text" id="usr-modal-phone" value="${user ? user.phone : '+91 98480 '}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+          </div>
+          <div>
+            <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Department *</label>
+            <select id="usr-modal-dept" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+              <option value="Executive Management" ${user && user.department === 'Executive Management' ? 'selected' : ''}>Executive Management</option>
+              <option value="Procurement & Farm Sourcing" ${user && user.department === 'Procurement & Farm Sourcing' ? 'selected' : ''}>Procurement & Farm Sourcing</option>
+              <option value="Plant Operations (Unit 1)" ${user && user.department === 'Plant Operations (Unit 1)' ? 'selected' : ''}>Plant Operations (Unit 1)</option>
+              <option value="Quality Control & Lab" ${user && user.department === 'Quality Control & Lab' ? 'selected' : ''}>Quality Control & Lab</option>
+              <option value="Cold Storage & Logistics" ${user && user.department === 'Cold Storage & Logistics' ? 'selected' : ''}>Cold Storage & Logistics</option>
+              <option value="Commercial & Export Sales" ${user && user.department === 'Commercial & Export Sales' ? 'selected' : ''}>Commercial & Export Sales</option>
+              <option value="Inventory & Materials" ${user && user.department === 'Inventory & Materials' ? 'selected' : ''}>Inventory & Materials</option>
+              <option value="Finance & Realization" ${user && user.department === 'Finance & Realization' ? 'selected' : ''}>Finance & Realization</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Access Role *</label>
+            <select id="usr-modal-role" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+              <option value="Admin" ${user && user.role === 'Admin' ? 'selected' : ''}>Admin (Full Access)</option>
+              <option value="Manager" ${user && user.role === 'Manager' ? 'selected' : ''}>Manager (Departmental)</option>
+              <option value="Supervisor" ${user && user.role === 'Supervisor' ? 'selected' : ''}>Supervisor (Verification)</option>
+              <option value="Operator" ${user && user.role === 'Operator' ? 'selected' : ''}>Operator (Data Logging)</option>
+              <option value="Viewer" ${user && user.role === 'Viewer' ? 'selected' : ''}>Viewer (Read-only)</option>
+            </select>
+          </div>
+        </div>
+      </form>
+    `;
+
+    Modal.show({
+      title,
+      content: contentHtml,
+      size: 'lg',
+      confirmText: isEdit ? 'Save Changes' : 'Create User',
+      onConfirm: () => {
+        const name = document.getElementById('usr-modal-name')?.value.trim();
+        const empId = document.getElementById('usr-modal-empid')?.value.trim();
+        const email = document.getElementById('usr-modal-email')?.value.trim();
+        const phone = document.getElementById('usr-modal-phone')?.value.trim();
+        const department = document.getElementById('usr-modal-dept')?.value;
+        const role = document.getElementById('usr-modal-role')?.value;
+
+        if (!name || !email || !empId) {
+          Toast.show('Please fill in all mandatory fields', 'warning');
+          return false;
+        }
+
+        if (isEdit) {
+          user.name = name;
+          user.empId = empId;
+          user.email = email;
+          user.phone = phone;
+          user.department = department;
+          user.role = role;
+          Toast.show(`User ${name} updated successfully`, 'success');
+        } else {
+          this.users.unshift({
+            id: `usr-${Date.now()}`,
+            empId,
+            name,
+            email,
+            phone,
+            department,
+            role,
+            status: 'Active',
+            lastActive: 'Just now'
+          });
+          Toast.show(`User ${name} added successfully`, 'success');
+        }
+
+        if (onSaved) onSaved();
+        return true;
+      }
     });
   },
 
   // -------------------------------------------------------------
-  // TAB: Transaction Setup
+  // TAB 3: General
   // -------------------------------------------------------------
-  renderTransactionSetupTab(container, tabsBarHtml) {
+  renderGeneralTab(container, tabsBarHtml) {
     container.innerHTML = `
       <div class="space-y-4 animate-fade-in pb-10">
         ${tabsBarHtml}
 
         <div class="flex items-center justify-between gap-3">
-          <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Transaction Setup</h1>
-          <button type="button" id="btn-save-trx-setup" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
+          <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">General</h1>
+          <button type="button" id="btn-save-general-settings" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-            <span>Save Transaction Rules</span>
+            <span>Save Configuration</span>
           </button>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <!-- Numbering Series Card -->
+          <!-- Section 1: Financial & Accounting Preferences -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs space-y-3">
             <div class="flex items-center gap-2 border-b border-[#F1F5F9] pb-2">
               <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">1</span>
-              <h2 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Numbering Series &amp; Auto-Sequences</h2>
+              <h2 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Financial &amp; Fiscal Preferences</h2>
             </div>
-
-            <div class="space-y-2 text-xs">
-              <div class="flex items-center justify-between p-2 rounded-lg bg-[#F8FAFC] border border-[#DFE1E6]">
-                <div>
-                  <span class="font-bold text-[#172B4D] block">Raw Material Inward Code</span>
-                  <span class="text-[10px] text-[#5E6C84]">Pond arrivals &amp; procurement gate entries</span>
-                </div>
-                <div class="flex items-center gap-1.5 font-mono text-xs">
-                  <span class="px-2 py-0.5 rounded bg-white border border-[#CBD5E1] text-[#00A4B7] font-bold">DFL-ARR-</span>
-                  <input type="text" value="9043" class="w-16 px-1.5 py-0.5 text-center bg-white border border-[#CBD5E1] rounded font-bold text-[#172B4D]">
-                </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+              <div>
+                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Active Financial Year</label>
+                <select class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+                  <option selected>FY 2026-2027 (01-Apr-2026 to 31-Mar-2027)</option>
+                  <option>FY 2025-2026 (01-Apr-2025 to 31-Mar-2026)</option>
+                </select>
               </div>
-
-              <div class="flex items-center justify-between p-2 rounded-lg bg-[#F8FAFC] border border-[#DFE1E6]">
-                <div>
-                  <span class="font-bold text-[#172B4D] block">Lot Traceability Number</span>
-                  <span class="text-[10px] text-[#5E6C84]">Factory processing &amp; grading lots</span>
-                </div>
-                <div class="flex items-center gap-1.5 font-mono text-xs">
-                  <span class="px-2 py-0.5 rounded bg-white border border-[#CBD5E1] text-[#00A4B7] font-bold">LOT-2026-</span>
-                  <input type="text" value="00129" class="w-16 px-1.5 py-0.5 text-center bg-white border border-[#CBD5E1] rounded font-bold text-[#172B4D]">
-                </div>
+              <div>
+                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Primary Accounting Currency</label>
+                <select class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+                  <option selected>USD ($) - US Dollars (Export Invoicing)</option>
+                  <option>INR (₹) - Indian Rupee</option>
+                  <option>EUR (€) - Euro</option>
+                </select>
               </div>
-
-              <div class="flex items-center justify-between p-2 rounded-lg bg-[#F8FAFC] border border-[#DFE1E6]">
-                <div>
-                  <span class="font-bold text-[#172B4D] block">De-Heading Floor Batch</span>
-                  <span class="text-[10px] text-[#5E6C84]">De-heading output tracking</span>
-                </div>
-                <div class="flex items-center gap-1.5 font-mono text-xs">
-                  <span class="px-2 py-0.5 rounded bg-white border border-[#CBD5E1] text-[#00A4B7] font-bold">DH-2026-</span>
-                  <input type="text" value="504" class="w-16 px-1.5 py-0.5 text-center bg-white border border-[#CBD5E1] rounded font-bold text-[#172B4D]">
-                </div>
+              <div>
+                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Secondary Domestic Currency</label>
+                <input type="text" value="INR (₹) - Indian Rupee" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F8FAFC] border border-[#DFE1E6] rounded font-semibold text-[#172B4D]">
               </div>
-
-              <div class="flex items-center justify-between p-2 rounded-lg bg-[#F8FAFC] border border-[#DFE1E6]">
-                <div>
-                  <span class="font-bold text-[#172B4D] block">Soaking &amp; Chemical Treatment</span>
-                  <span class="text-[10px] text-[#5E6C84]">STPP / Non-Phosphate bath lots</span>
-                </div>
-                <div class="flex items-center gap-1.5 font-mono text-xs">
-                  <span class="px-2 py-0.5 rounded bg-white border border-[#CBD5E1] text-[#00A4B7] font-bold">SOAK-</span>
-                  <input type="text" value="812" class="w-16 px-1.5 py-0.5 text-center bg-white border border-[#CBD5E1] rounded font-bold text-[#172B4D]">
-                </div>
-              </div>
-
-              <div class="flex items-center justify-between p-2 rounded-lg bg-[#F8FAFC] border border-[#DFE1E6]">
-                <div>
-                  <span class="font-bold text-[#172B4D] block">Proforma Invoices (PI)</span>
-                  <span class="text-[10px] text-[#5E6C84]">Export orders contract series</span>
-                </div>
-                <div class="flex items-center gap-1.5 font-mono text-xs">
-                  <span class="px-2 py-0.5 rounded bg-white border border-[#CBD5E1] text-[#00A4B7] font-bold">PI-2026-</span>
-                  <input type="text" value="1105" class="w-16 px-1.5 py-0.5 text-center bg-white border border-[#CBD5E1] rounded font-bold text-[#172B4D]">
-                </div>
+              <div>
+                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Forex Benchmark Source</label>
+                <input type="text" value="RBI Daily Official Benchmark Reference" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
               </div>
             </div>
           </div>
 
-          <!-- Yield Tolerances & Process Rules Card -->
+          <!-- Section 2: Regional & Seafood Measurement Defaults -->
           <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs space-y-3">
             <div class="flex items-center gap-2 border-b border-[#F1F5F9] pb-2">
               <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">2</span>
-              <h2 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Yield Tolerances &amp; Thresholds</h2>
+              <h2 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Regional &amp; Measurement Defaults</h2>
             </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+              <div>
+                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Standard Mass / Weight Unit</label>
+                <select class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+                  <option selected>Metric Tons (MT) &amp; Kilograms (Kg)</option>
+                  <option>Pounds (Lbs) &amp; Kilograms (Kg)</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Head-on / Head-less Glaze Basis</label>
+                <select class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+                  <option selected>Net Weight excl. Glaze (100% Seafood Realization)</option>
+                  <option>Gross Frozen Weight incl. Glaze</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Date Display Format</label>
+                <select class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+                  <option selected>DD-MM-YYYY (e.g. 05-Nov-2026)</option>
+                  <option>YYYY-MM-DD (ISO 8601)</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">System Timezone</label>
+                <input type="text" value="Asia/Kolkata (IST, UTC +05:30)" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F8FAFC] border border-[#DFE1E6] rounded font-semibold text-[#172B4D]">
+              </div>
+            </div>
+          </div>
 
-            <div class="space-y-2.5 text-xs">
-              <div class="flex items-center justify-between">
+          <!-- Section 3: Document Numbering Sequences -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs space-y-3">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9] pb-2">
+              <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">3</span>
+              <h2 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Document Auto-Numbering Series</h2>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs">
+              <div>
+                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Proforma Invoice</label>
+                <input type="text" value="PI-26-" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Commercial Invoice</label>
+                <input type="text" value="CI-EXP-" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Purchase Order</label>
+                <input type="text" value="PO-DFL-" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Harvest Farm Lot</label>
+                <input type="text" value="LOT-26-" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Goods Receipt (GRN)</label>
+                <input type="text" value="GRN-" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Gate Pass</label>
+                <input type="text" value="GP-" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 4: Automated System Alerts & Toggles -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs space-y-3">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9] pb-2">
+              <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">4</span>
+              <h2 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Critical System Notifications &amp; Alerts</h2>
+            </div>
+            <div class="divide-y divide-[#F1F5F9] text-xs">
+              <div class="py-2.5 flex items-center justify-between">
                 <div>
-                  <span class="font-bold text-[#172B4D] block">De-Heading Recovery Target</span>
-                  <span class="text-[10px] text-[#5E6C84]">Acceptable variance before supervisor flag</span>
+                  <span class="font-bold text-[#172B4D] block">Daily Harvest &amp; Raw Material Summary</span>
+                  <span class="text-[11px] text-[#5E6C84]">Automated daily procurement email report to management at 21:00 hrs</span>
                 </div>
-                <span class="font-mono font-bold text-[#172B4D] bg-[#F1F5F9] px-2.5 py-1 rounded border border-[#DFE1E6]">62.0% (±2.5%)</span>
+                <label class="relative inline-flex items-center cursor-pointer">
+                  <input type="checkbox" checked class="sr-only peer">
+                  <div class="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#00A4B7]"></div>
+                </label>
               </div>
 
-              <div class="flex items-center justify-between">
+              <div class="py-2.5 flex items-center justify-between">
                 <div>
-                  <span class="font-bold text-[#172B4D] block">Chemical Soaking Weight Gain Max</span>
-                  <span class="text-[10px] text-[#5E6C84]">Maximum allowed moisture absorption</span>
+                  <span class="font-bold text-[#172B4D] block">Raw Material QC Screening Rejection Alert</span>
+                  <span class="text-[11px] text-[#5E6C84]">Immediate notification on Antibiotic positive / Soft-gill quality rejection</span>
                 </div>
-                <span class="font-mono font-bold text-[#DE350B] bg-[#FFEBE6] px-2.5 py-1 rounded border border-[#FFBDAD]">12.0% Max</span>
+                <label class="relative inline-flex items-center cursor-pointer">
+                  <input type="checkbox" checked class="sr-only peer">
+                  <div class="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#00A4B7]"></div>
+                </label>
               </div>
 
-              <div class="flex items-center justify-between">
+              <div class="py-2.5 flex items-center justify-between">
                 <div>
-                  <span class="font-bold text-[#172B4D] block">Glazing Water Absorption Range</span>
-                  <span class="text-[10px] text-[#5E6C84]">Post-tunnel ice glaze percentage</span>
+                  <span class="font-bold text-[#172B4D] block">Coldstore Chamber Temp Excursion Alert</span>
+                  <span class="text-[11px] text-[#5E6C84]">Alert plant managers if temperature exceeds -18°C for &gt; 15 mins</span>
                 </div>
-                <span class="font-mono font-bold text-[#006644] bg-[#E3FCEF] px-2.5 py-1 rounded border border-[#ABF5D1]">8.0% - 15.0%</span>
+                <label class="relative inline-flex items-center cursor-pointer">
+                  <input type="checkbox" checked class="sr-only peer">
+                  <div class="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#00A4B7]"></div>
+                </label>
               </div>
 
-              <div class="flex items-center justify-between">
+              <div class="py-2.5 flex items-center justify-between">
                 <div>
-                  <span class="font-bold text-[#172B4D] block">Inward Raw Material Temp Threshold</span>
-                  <span class="text-[10px] text-[#5E6C84]">Core temperature at truck gate entry</span>
+                  <span class="font-bold text-[#172B4D] block">Forex Forward Contract Maturity Warning</span>
+                  <span class="text-[11px] text-[#5E6C84]">Trigger alert 7 days prior to hedging maturity date for export realization</span>
                 </div>
-                <span class="font-mono font-bold text-[#00A4B7] bg-[#E0F2FE] px-2.5 py-1 rounded border border-[#BAE6FD]">&le; 4.0 &deg;C</span>
-              </div>
-
-              <div class="pt-2 border-t border-[#F1F5F9]">
-                <h3 class="text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-2">Mandatory Approvals</h3>
-                <div class="space-y-1.5">
-                  <label class="flex items-center gap-2 cursor-pointer">
-                    <input type="checkbox" checked class="rounded border-[#CBD5E1] text-[#00A4B7] focus:ring-0">
-                    <span class="font-semibold text-[#172B4D]">Require QC Lab Antibiotic Clearance before grading</span>
-                  </label>
-                  <label class="flex items-center gap-2 cursor-pointer">
-                    <input type="checkbox" checked class="rounded border-[#CBD5E1] text-[#00A4B7] focus:ring-0">
-                    <span class="font-semibold text-[#172B4D]">Require Coldstore Pallet Verification before Commercial Invoice</span>
-                  </label>
-                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                  <input type="checkbox" checked class="sr-only peer">
+                  <div class="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#00A4B7]"></div>
+                </label>
               </div>
             </div>
           </div>
@@ -92296,72 +92671,8 @@ const SettingsView = {
       </div>
     `;
 
-    document.getElementById('btn-save-trx-setup')?.addEventListener('click', () => {
-      Toast.show('Transaction sequences and tolerance rules saved successfully', 'success');
-    });
-  },
-
-  // -------------------------------------------------------------
-  // TAB: Notifications & Alerts
-  // -------------------------------------------------------------
-  renderNotificationsTab(container, tabsBarHtml) {
-    container.innerHTML = `
-      <div class="space-y-4 animate-fade-in pb-10">
-        ${tabsBarHtml}
-
-        <div class="flex items-center justify-between gap-3">
-          <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Notifications &amp; Alerts</h1>
-          <button type="button" id="btn-save-notifications" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-            <span>Save Preferences</span>
-          </button>
-        </div>
-
-        <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs space-y-3">
-          <div class="flex items-center gap-2 border-b border-[#F1F5F9] pb-2">
-            <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
-            <h2 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Automated Operational Threshold Alerts</h2>
-          </div>
-
-          <div class="divide-y divide-[#F1F5F9] text-xs">
-            <div class="py-2.5 flex items-center justify-between">
-              <div>
-                <span class="font-bold text-[#172B4D] block">Coldstore Deep Freeze Temperature Excursion</span>
-                <span class="text-[11px] text-[#5E6C84]">Trigger alert when chamber temperature rises above -18°C for longer than 15 minutes</span>
-              </div>
-              <span class="px-2.5 py-0.5 rounded font-extrabold text-[10px] bg-[#FFEBE6] text-[#DE350B] border border-[#FFBDAD]">Immediate SMS &amp; App</span>
-            </div>
-
-            <div class="py-2.5 flex items-center justify-between">
-              <div>
-                <span class="font-bold text-[#172B4D] block">QC Antibiotic Residue Positive Detection</span>
-                <span class="text-[11px] text-[#5E6C84]">Instant plant-wide lockdown alert for positive Chloramphenicol/Nitrofurans sample</span>
-              </div>
-              <span class="px-2.5 py-0.5 rounded font-extrabold text-[10px] bg-[#FFEBE6] text-[#DE350B] border border-[#FFBDAD]">Critical Lockdown</span>
-            </div>
-
-            <div class="py-2.5 flex items-center justify-between">
-              <div>
-                <span class="font-bold text-[#172B4D] block">Raw Material Inward Truck Delay (> 3 Hours Transit)</span>
-                <span class="text-[11px] text-[#5E6C84]">Alert procurement supervisor if transport truck exceeds scheduled transit time</span>
-              </div>
-              <span class="px-2.5 py-0.5 rounded font-extrabold text-[10px] bg-[#FFFAE6] text-[#FF8B00] border border-[#FFE380]">Warning Alert</span>
-            </div>
-
-            <div class="py-2.5 flex items-center justify-between">
-              <div>
-                <span class="font-bold text-[#172B4D] block">Export Container Shipping Bill Customs Clearance</span>
-                <span class="text-[11px] text-[#5E6C84]">Notify commercial team on electronic customs approval at port</span>
-              </div>
-              <span class="px-2.5 py-0.5 rounded font-extrabold text-[10px] bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">Standard Email</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    `;
-
-    document.getElementById('btn-save-notifications')?.addEventListener('click', () => {
-      Toast.show('Notification preferences updated successfully', 'success');
+    document.getElementById('btn-save-general-settings')?.addEventListener('click', () => {
+      Toast.show('General configuration saved successfully', 'success');
     });
   },
 
@@ -96215,15 +96526,16 @@ const App = {
     if (moduleName === 'settings') {
       if (isSuperAdmin) {
         if (!submenuName || submenuName === 'customizer' || submenuName === 'master-setup' || submenuName === 'setup') submenuName = 'custom';
-        if (!tabName || tabName === 'form' || tabName === 'form-list' || tabName === 'forms-list' || tabName === 'masters' || tabName === 'general-setup') tabName = 'forms';
+        if (!tabName || tabName === 'form' || tabName === 'form-list' || tabName === 'forms-list' || tabName === 'masters' || tabName === 'general-setup' || tabName === 'organization') tabName = 'forms';
         if (tabName === 'custom-fields' || tabName === 'field-builder' || tabName === 'fields' || tabName === 'filds-customizer') tabName = 'fields-customizer';
         if (tabName === 'query-editer') tabName = 'query-editor';
       } else {
-        if (!submenuName || submenuName === 'custom' || submenuName === 'master-setup') submenuName = 'setup';
-        if (!tabName || tabName === 'general' || tabName === 'masters' || tabName === 'forms') tabName = 'general-setup';
-        if (tabName === 'profile') tabName = 'profile-setup';
-        if (tabName === 'master') tabName = 'master-setup';
-        if (tabName === 'transaction' || tabName === 'tranjection' || tabName === 'tranjection-setup') tabName = 'transaction-setup';
+        if (!submenuName || submenuName === 'custom' || submenuName === 'master-setup' || submenuName === 'masters') submenuName = 'setup';
+        if (!tabName || tabName === 'organization' || tabName === 'org' || tabName === 'company' || tabName === 'profile' || tabName === 'profile-setup') tabName = 'organization';
+        else if (tabName === 'user-access' || tabName === 'users-access' || tabName === 'user' || tabName === 'users' || tabName === 'access' || tabName === 'roles') tabName = 'user-access';
+        else if (tabName === 'general' || tabName === 'general-setup' || tabName === 'setup' || tabName === 'transaction' || tabName === 'transaction-setup' || tabName === 'notifications') tabName = 'general';
+        else if (tabName === 'masters' || tabName === 'master' || tabName === 'master-setup') tabName = 'masters';
+        else tabName = 'organization';
       }
     }
     const targetHierarchy = isSuperAdmin ? SUPER_ADMIN_NAV_HIERARCHY : ADMIN_NAV_HIERARCHY;

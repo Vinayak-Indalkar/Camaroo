@@ -429,13 +429,12 @@ export const ADMIN_NAV_HIERARCHY = [
       {
         id: "setup",
         title: "Settings",
-        defaultTab: "general-setup",
+        defaultTab: "organization",
         tabs: [
-          { id: "general-setup", label: "General Setup", hash: "#/settings/setup/general-setup" },
-          { id: "profile-setup", label: "Profile Setup", hash: "#/settings/setup/profile-setup" },
-          { id: "master-setup", label: "Master Setup", hash: "#/settings/setup/master-setup" },
-          { id: "transaction-setup", label: "Transaction Setup", hash: "#/settings/setup/transaction-setup" },
-          { id: "notifications", label: "Notifications & Alerts", hash: "#/settings/setup/notifications" }
+          { id: "organization", label: "Organization", hash: "#/settings/setup/organization" },
+          { id: "user-access", label: "User & Access", hash: "#/settings/setup/user-access" },
+          { id: "general", label: "General", hash: "#/settings/setup/general" },
+          { id: "masters", label: "Masters", hash: "#/settings/setup/masters" }
         ]
       }
     ]
@@ -1013,7 +1012,7 @@ export const Sidebar = {
           if (isSuperAdmin) {
             window.location.hash = '#/settings/custom/forms';
           } else {
-            window.location.hash = '#/settings/setup/general-setup';
+            window.location.hash = '#/settings/setup/organization';
           }
           return;
         }
