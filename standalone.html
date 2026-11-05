@@ -92264,7 +92264,7 @@ const SettingsView = {
             >
               <!-- Left: Icon + Title -->
               <div class="flex items-center gap-3">
-                <div class="w-9 h-9 rounded-xl flex items-center justify-center font-bold shadow-xs bg-[#F1F5F9] text-[#00A4B7]">
+                <div class="w-9 h-9 rounded-xl flex items-center justify-center font-bold shadow-xs transition-colors duration-200 ${isUsersExpanded ? 'bg-[#00A4B7] text-white' : 'bg-[#F1F5F9] text-[#00A4B7]'}">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
                 </div>
                 <div class="flex items-center gap-2.5">
@@ -92274,7 +92274,7 @@ const SettingsView = {
               </div>
 
               <!-- Right: Chevron on far right -->
-              <div class="w-7 h-7 rounded-full flex items-center justify-center bg-[#F1F5F9] text-[#64748B] transition-colors">
+              <div class="w-7 h-7 rounded-full flex items-center justify-center transition-colors duration-200 ${isUsersExpanded ? 'bg-[#00A4B7] text-white' : 'bg-[#F1F5F9] text-[#64748B]'}">
                 <svg class="w-4 h-4 transform transition-transform duration-300 ${isUsersExpanded ? 'rotate-180' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
               </div>
             </div>
@@ -92370,7 +92370,7 @@ const SettingsView = {
             >
               <!-- Left: Icon + Title -->
               <div class="flex items-center gap-3">
-                <div class="w-9 h-9 rounded-xl flex items-center justify-center font-bold shadow-xs bg-[#F1F5F9] text-[#00A4B7]">
+                <div class="w-9 h-9 rounded-xl flex items-center justify-center font-bold shadow-xs transition-colors duration-200 ${isRolesExpanded ? 'bg-[#00A4B7] text-white' : 'bg-[#F1F5F9] text-[#00A4B7]'}">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
                 </div>
                 <div class="flex items-center gap-2.5">
@@ -92380,7 +92380,7 @@ const SettingsView = {
               </div>
 
               <!-- Right: Chevron on far right -->
-              <div class="w-7 h-7 rounded-full flex items-center justify-center bg-[#F1F5F9] text-[#64748B] transition-colors">
+              <div class="w-7 h-7 rounded-full flex items-center justify-center transition-colors duration-200 ${isRolesExpanded ? 'bg-[#00A4B7] text-white' : 'bg-[#F1F5F9] text-[#64748B]'}">
                 <svg class="w-4 h-4 transform transition-transform duration-300 ${isRolesExpanded ? 'rotate-180' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
               </div>
             </div>
@@ -92817,48 +92817,265 @@ const SettingsView = {
     });
   },
 
+getRoleNavTree() {
+    const tree = [];
+    const seen = new Set();
+
+    const addMenuNode = (menuId, menuLabel, submenus) => {
+      const k = String(menuId).toLowerCase();
+      if (seen.has(k)) return;
+      seen.add(k);
+      tree.push({
+        id: menuId,
+        key: k,
+        label: menuLabel,
+        submenus: submenus || []
+      });
+    };
+
+    // 1. General Menu (Super Admin General tab)
+    addMenuNode('general', 'GENERAL', [
+      {
+        id: 'configuration',
+        title: 'Configuration',
+        tabs: [
+          { id: 'clients', label: 'Clients', route: '#/general/configuration/clients' },
+          { id: 'users', label: 'Users', route: '#/general/configuration/users' },
+          { id: 'roles', label: 'Roles', route: '#/general/configuration/roles' },
+          { id: 'menus', label: 'Menus', route: '#/general/configuration/menus' }
+        ]
+      }
+    ]);
+
+    // 2. All Modules from Super Admin Menus / Modules Studio
+    const sv = (typeof SetupView !== 'undefined') ? SetupView : null;
+    let modulesList = [];
+    let submenusMap = {};
+    let tabsList = [];
+
+    if (sv && sv.state && Array.isArray(sv.state.modulesConfig) && sv.state.modulesConfig.length > 0) {
+      modulesList = sv.state.modulesConfig;
+      submenusMap = sv.state.submenusConfig || {};
+      tabsList = sv.state.tabsConfig || [];
+    } else {
+      try {
+        const saved = localStorage.getItem('dfl_erp_master_studio_state_v3');
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed.modulesConfig)) {
+            modulesList = parsed.modulesConfig;
+            submenusMap = parsed.submenusConfig || {};
+            tabsList = parsed.tabsConfig || [];
+          }
+        }
+      } catch (e) {
+        console.warn('Could not read studio state for roles nav tree', e);
+      }
+    }
+
+    if (modulesList.length > 0) {
+      modulesList.forEach(mod => {
+        const modKey = mod.id || mod.key;
+        const k = String(modKey).toLowerCase();
+        if (seen.has(k)) return;
+
+        const sms = submenusMap[modKey] || submenusMap[mod.id] || [];
+        const submenus = sms.map(sm => {
+          const smId = sm.id || sm.key || 'default';
+          const smTitle = sm.title || sm.name || smId;
+          let tabs = Array.isArray(sm.tabs) && sm.tabs.length > 0 ? sm.tabs : [];
+          if (tabs.length === 0 && Array.isArray(tabsList)) {
+            tabs = tabsList.filter(t => 
+              (String(t.menuKey).toLowerCase() === k || String(t.menuKey).toLowerCase() === String(mod.id).toLowerCase()) &&
+              (String(t.submenuId).toLowerCase() === String(smId).toLowerCase() || String(t.submenuId).toLowerCase() === String(sm.id).toLowerCase())
+            );
+          }
+          return {
+            id: smId,
+            title: smTitle,
+            tabs: tabs.map(t => ({
+              id: t.id || t.key,
+              label: t.label || t.title || t.id,
+              route: t.route || t.hash || ''
+            }))
+          };
+        });
+
+        addMenuNode(modKey, mod.label || mod.name || modKey.toUpperCase(), submenus);
+      });
+    }
+
+    // 3. Settings / Customizer (Super Admin Setting tab)
+    if (!seen.has('settings')) {
+      addMenuNode('settings', 'SETTINGS', [
+        {
+          id: 'custom',
+          title: 'Customizer',
+          tabs: [
+            { id: 'forms', label: 'Forms', route: '#/settings/custom/forms' },
+            { id: 'fields-customizer', label: 'Fields Customizer', route: '#/settings/custom/fields-customizer' },
+            { id: 'query-editor', label: 'Query Editor', route: '#/settings/custom/query-editor' }
+          ]
+        }
+      ]);
+    }
+
+    return tree;
+  },
+
   openRoleModal(role = null, onSaved) {
     const isEdit = !!role;
     const title = isEdit ? `Edit Role - ${role.code}` : 'Add New Access Role';
     const defaultCode = isEdit ? role.code : `ROL-${Math.floor(100 + Math.random() * 900)}`;
 
+    const navTree = this.getRoleNavTree();
+
+    // Build the Tree HTML
+    const treeHtml = navTree.map(menu => {
+      let totalMenuTabs = 0;
+      menu.submenus.forEach(s => {
+        totalMenuTabs += (s.tabs || []).length;
+      });
+
+      return `
+        <div class="role-menu-card rounded-xl border border-[#DFE1E6] bg-white overflow-hidden shadow-2xs mb-2 transition-all duration-150" data-menu-id="${menu.id}" data-menu-label="${this.escape(menu.label.toLowerCase())}">
+          <!-- Menu Header -->
+          <div class="role-menu-header w-full px-3.5 py-2.5 flex items-center justify-between bg-[#F8FAFC] hover:bg-[#F1F5F9] cursor-pointer select-none transition-colors border-b border-transparent" data-menu-id="${menu.id}">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <input type="checkbox" class="role-menu-cb w-4 h-4 rounded text-[#00A4B7] accent-[#00A4B7] cursor-pointer shrink-0" data-menu-id="${menu.id}" />
+              <div class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] font-bold flex items-center justify-center text-[10px] shrink-0 border border-[#BAE6FD]">
+                ${menu.label.substring(0, 2).toUpperCase()}
+              </div>
+              <span class="font-extrabold text-xs text-[#172B4D] truncate">${menu.label}</span>
+              <span class="role-menu-stat-pill px-2 py-0.5 rounded-full text-[10px] font-bold bg-white text-[#5E6C84] border border-[#DFE1E6] shrink-0">
+                0/${menu.submenus.length} Submenus • 0/${totalMenuTabs} Tabs
+              </span>
+            </div>
+            <div class="flex items-center gap-1.5 shrink-0">
+              <button type="button" class="role-menu-toggle-btn w-6 h-6 rounded flex items-center justify-center text-[#5E6C84] hover:text-[#172B4D] hover:bg-white transition-colors" data-menu-id="${menu.id}" title="Toggle Menu">
+                <svg class="w-3.5 h-3.5 transform transition-transform duration-200 role-menu-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Menu Body (Submenus + Tabs) -->
+          <div class="role-menu-body p-3 space-y-2.5 bg-white border-t border-[#F1F5F9] hidden" data-menu-id="${menu.id}">
+            ${menu.submenus.map(sub => `
+              <div class="role-submenu-box rounded-lg border border-[#DFE1E6] p-2.5 bg-[#FAFBFC]/60" data-menu-id="${menu.id}" data-submenu-id="${sub.id}" data-submenu-title="${this.escape(sub.title.toLowerCase())}">
+                <!-- Submenu Header -->
+                <div class="flex items-center justify-between pb-1.5 border-b border-[#EBECF0] mb-2">
+                  <label class="flex items-center gap-2 cursor-pointer select-none">
+                    <input type="checkbox" class="role-sub-cb w-3.5 h-3.5 rounded text-[#00A4B7] accent-[#00A4B7] cursor-pointer shrink-0" data-menu-id="${menu.id}" data-submenu-id="${sub.id}" />
+                    <span class="font-bold text-xs text-[#172B4D]">${sub.title}</span>
+                    <span class="text-[10px] text-[#5E6C84] font-medium">(${sub.tabs.length} ${sub.tabs.length === 1 ? 'Tab' : 'Tabs'})</span>
+                  </label>
+                </div>
+                <!-- Tabs Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1.5 pl-5">
+                  ${sub.tabs.map(tab => `
+                    <label class="role-tab-item flex items-center gap-2 p-1.5 rounded hover:bg-white hover:border-[#BAE6FD] border border-transparent cursor-pointer select-none transition-colors" data-label="${this.escape(tab.label.toLowerCase())}" title="${this.escape(tab.label)}">
+                      <input type="checkbox" class="role-tab-cb w-3.5 h-3.5 rounded text-[#00A4B7] accent-[#00A4B7] cursor-pointer shrink-0" data-menu-id="${menu.id}" data-submenu-id="${sub.id}" data-tab-id="${tab.id}" />
+                      <span class="text-[11.5px] font-medium text-[#172B4D] truncate">${this.escape(tab.label)}</span>
+                    </label>
+                  `).join('')}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }).join('');
+
     Modal.open({
       title,
-      size: 'lg',
+      size: 'xl',
       content: `
-        <form id="form-role-modal" class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-          <div>
-            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Role Code <span class="text-[#DE350B]">*</span></label>
-            <input type="text" id="role-modal-code" value="${this.escape(defaultCode)}" ${isEdit ? 'disabled' : 'required'} class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs ${isEdit ? 'bg-[#F4F5F7] cursor-not-allowed' : ''}" />
+        <form id="form-role-modal" class="space-y-3.5 text-xs">
+          <!-- Role Metadata Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Role Code <span class="text-[#DE350B]">*</span></label>
+              <input type="text" id="role-modal-code" value="${this.escape(defaultCode)}" ${isEdit ? 'disabled' : 'required'} class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs ${isEdit ? 'bg-[#F4F5F7] cursor-not-allowed' : ''}" />
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Role Name <span class="text-[#DE350B]">*</span></label>
+              <input type="text" id="role-modal-name" value="${this.escape(role ? role.name : '')}" required placeholder="e.g. Production Line Supervisor" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Access Level / Scope <span class="text-[#DE350B]">*</span></label>
+              <select id="role-modal-level" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="Full Access" ${role && role.level === 'Full Access' ? 'selected' : ''}>Full Access (Super Admin)</option>
+                <option value="Departmental" ${!role || role.level === 'Departmental' ? 'selected' : ''}>Departmental (Operations / Sales)</option>
+                <option value="Verification" ${role && role.level === 'Verification' ? 'selected' : ''}>Verification (Supervisor / QC)</option>
+                <option value="Read / Log" ${role && role.level === 'Read / Log' ? 'selected' : ''}>Read / Log (Floor Operator)</option>
+                <option value="Read Only" ${role && role.level === 'Read Only' ? 'selected' : ''}>Read Only (Auditor / Viewer)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Status</label>
+              <select id="role-modal-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="Active" ${!role || role.status === 'Active' ? 'selected' : ''}>Active</option>
+                <option value="Inactive" ${role && role.status === 'Inactive' ? 'selected' : ''}>Inactive</option>
+              </select>
+            </div>
           </div>
-          <div>
-            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Status</label>
-            <select id="role-modal-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-              <option value="Active" ${!role || role.status === 'Active' ? 'selected' : ''}>Active</option>
-              <option value="Inactive" ${role && role.status === 'Inactive' ? 'selected' : ''}>Inactive</option>
-            </select>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Module Permissions &amp; Authority</label>
+              <input type="text" id="role-modal-permissions" value="${this.escape(role ? role.permissions : 'All Modules (Full Access)')}" placeholder="e.g. Sales, Purchase, Coldstore, Production" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Role Description &amp; Scope Responsibilities</label>
+              <input type="text" id="role-modal-desc" value="${this.escape(role ? role.description : '')}" placeholder="Define operational responsibility boundaries..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            </div>
           </div>
-          <div>
-            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Role Name <span class="text-[#DE350B]">*</span></label>
-            <input type="text" id="role-modal-name" value="${this.escape(role ? role.name : '')}" required placeholder="e.g. Production Line Supervisor" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
-          </div>
-          <div>
-            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Access Level / Scope <span class="text-[#DE350B]">*</span></label>
-            <select id="role-modal-level" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-              <option value="Full Access" ${role && role.level === 'Full Access' ? 'selected' : ''}>Full Access (Super Admin)</option>
-              <option value="Departmental" ${!role || role.level === 'Departmental' ? 'selected' : ''}>Departmental (Operations / Sales)</option>
-              <option value="Verification" ${role && role.level === 'Verification' ? 'selected' : ''}>Verification (Supervisor / QC)</option>
-              <option value="Read / Log" ${role && role.level === 'Read / Log' ? 'selected' : ''}>Read / Log (Floor Operator)</option>
-              <option value="Read Only" ${role && role.level === 'Read Only' ? 'selected' : ''}>Read Only (Auditor / Viewer)</option>
-            </select>
-          </div>
-          <div class="sm:col-span-2">
-            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Module Permissions &amp; Authority</label>
-            <input type="text" id="role-modal-permissions" value="${this.escape(role ? role.permissions : 'Sales, Purchase, Coldstore, Production')}" placeholder="e.g. Sales, Purchase, Coldstore, Production" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
-          </div>
-          <div class="sm:col-span-2">
-            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Role Description &amp; Scope Responsibilities</label>
-            <textarea id="role-modal-desc" rows="2" placeholder="Define operational responsibility boundaries..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">${this.escape(role ? role.description : '')}</textarea>
+
+          <!-- Menu, Sub Menu & Tabs Access Permissions Section -->
+          <div class="pt-3 border-t border-[#DFE1E6]">
+            <!-- Header bar with Title, Badge, and Action buttons -->
+            <div class="flex flex-wrap items-center justify-between gap-2 pb-2.5">
+              <div class="flex items-center gap-2 flex-wrap">
+                <div class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs shrink-0">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                </div>
+                <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Menu, Sub Menu &amp; Tabs Access Permissions</h4>
+                <span id="role-perm-stats-badge" class="px-2.5 py-0.5 rounded-full text-[10.5px] font-extrabold bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD]">
+                  0 Menus • 0 Submenus • 0 Tabs Selected
+                </span>
+              </div>
+
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <button type="button" id="btn-role-perm-select-all" class="px-2.5 py-1 text-[11px] font-bold text-[#00A4B7] bg-[#F0F9FF] hover:bg-[#E0F2FE] border border-[#BAE6FD] rounded cursor-pointer transition-colors inline-flex items-center gap-1">
+                  <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                  <span>Select All</span>
+                </button>
+                <button type="button" id="btn-role-perm-deselect-all" class="px-2.5 py-1 text-[11px] font-bold text-[#5E6C84] bg-white hover:bg-[#F4F5F7] border border-[#DFE1E6] rounded cursor-pointer transition-colors inline-flex items-center gap-1">
+                  <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                  <span>Deselect All</span>
+                </button>
+                <button type="button" id="btn-role-perm-toggle-collapse" class="px-2.5 py-1 text-[11px] font-bold text-[#5E6C84] bg-white hover:bg-[#F4F5F7] border border-[#DFE1E6] rounded cursor-pointer transition-colors inline-flex items-center gap-1">
+                  <svg id="role-perm-toggle-collapse-icon" class="w-3 h-3 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                  <span id="role-perm-toggle-collapse-txt">Expand All</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Quick Filter Bar -->
+            <div class="relative mb-2.5">
+              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-[#5E6C84]">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+              </div>
+              <input type="text" id="role-perm-search-input" placeholder="Search menus, submenus, or tabs (e.g. Sales, Orders, PI Register, Coldstore, QC)..." class="w-full text-xs pl-8 pr-8 py-1.5 bg-white border border-[#DFE1E6] rounded font-medium text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              <button type="button" id="role-perm-search-clear" class="absolute inset-y-0 right-0 pr-3 flex items-center text-[#5E6C84] hover:text-[#172B4D] hidden cursor-pointer">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+              </button>
+            </div>
+
+            <!-- Tree Container -->
+            <div id="role-nav-tree-container" class="max-h-[360px] overflow-y-auto space-y-2 p-2 rounded-xl border border-[#DFE1E6] bg-[#F8FAFC]">
+              ${treeHtml}
+            </div>
           </div>
         </form>
       `,
@@ -92878,7 +93095,7 @@ const SettingsView = {
             const name = document.getElementById('role-modal-name')?.value.trim();
             const level = document.getElementById('role-modal-level')?.value;
             const status = document.getElementById('role-modal-status')?.value || 'Active';
-            const permissions = document.getElementById('role-modal-permissions')?.value.trim() || 'General Operations';
+            let permissions = document.getElementById('role-modal-permissions')?.value.trim();
             const description = document.getElementById('role-modal-desc')?.value.trim();
 
             if (!name || !code) {
@@ -92886,12 +93103,41 @@ const SettingsView = {
               return;
             }
 
+            // Gather selected menus, submenus, and tabs
+            const checkedTabs = Array.from(document.querySelectorAll('.role-tab-cb:checked')).map(cb => `${cb.dataset.menuId}:${cb.dataset.submenuId}:${cb.dataset.tabId}`);
+            const checkedSubs = Array.from(document.querySelectorAll('.role-sub-cb:checked')).map(cb => `${cb.dataset.menuId}:${cb.dataset.submenuId}`);
+            const checkedMenus = Array.from(document.querySelectorAll('.role-menu-cb:checked')).map(cb => cb.dataset.menuId);
+
+            // Compute summary if empty or default
+            if (!permissions || permissions === 'All Modules (Full Access)' || permissions === 'General Operations') {
+              const allTabs = document.querySelectorAll('.role-tab-cb');
+              if (checkedTabs.length === allTabs.length && allTabs.length > 0) {
+                permissions = 'All Modules (Full Access)';
+              } else if (checkedTabs.length === 0) {
+                permissions = 'No Modules Assigned';
+              } else {
+                const activeMenuNames = [];
+                navTree.forEach(m => {
+                  const hasChecked = document.querySelector(`.role-tab-cb[data-menu-id="${m.id}"]:checked`);
+                  if (hasChecked) activeMenuNames.push(m.label);
+                });
+                permissions = activeMenuNames.slice(0, 4).join(', ') + (activeMenuNames.length > 4 ? ` (+${activeMenuNames.length - 4} more)` : '') + ` (${checkedTabs.length} Tabs)`;
+              }
+            }
+
+            const permissionsHierarchy = {
+              menus: checkedMenus,
+              submenus: checkedSubs,
+              tabs: checkedTabs
+            };
+
             if (isEdit) {
               role.name = name;
               role.level = level;
               role.status = status;
               role.permissions = permissions;
               role.description = description;
+              role.permissionsHierarchy = permissionsHierarchy;
               Toast.show(`Role ${name} updated successfully`, 'success');
             } else {
               this.roles.unshift({
@@ -92902,6 +93148,7 @@ const SettingsView = {
                 description,
                 usersCount: 0,
                 permissions,
+                permissionsHierarchy,
                 status
               });
               Toast.show(`Role ${name} created successfully`, 'success');
@@ -92913,6 +93160,282 @@ const SettingsView = {
         }
       ]
     });
+
+    // Wire up all events and interactive logic after modal opens
+    setTimeout(() => {
+      const modalRoot = document.getElementById('erp-modal-root');
+      if (!modalRoot) return;
+
+      const updateAllState = () => {
+        let totalCheckedMenus = 0;
+        let totalCheckedSubmenus = 0;
+        let totalCheckedTabs = 0;
+        const totalTabsCount = modalRoot.querySelectorAll('.role-tab-cb').length;
+
+        navTree.forEach(menu => {
+          const menuCard = modalRoot.querySelector(`.role-menu-card[data-menu-id="${menu.id}"]`);
+          const menuCb = modalRoot.querySelector(`.role-menu-cb[data-menu-id="${menu.id}"]`);
+          const statPill = menuCard?.querySelector('.role-menu-stat-pill');
+
+          let menuSubCount = menu.submenus.length;
+          let menuCheckedSubs = 0;
+          let menuTotalTabs = 0;
+          let menuCheckedTabs = 0;
+
+          menu.submenus.forEach(sub => {
+            const subCb = modalRoot.querySelector(`.role-sub-cb[data-menu-id="${menu.id}"][data-submenu-id="${sub.id}"]`);
+            const subTabs = modalRoot.querySelectorAll(`.role-tab-cb[data-menu-id="${menu.id}"][data-submenu-id="${sub.id}"]`);
+            const checkedSubTabs = modalRoot.querySelectorAll(`.role-tab-cb[data-menu-id="${menu.id}"][data-submenu-id="${sub.id}"]:checked`);
+
+            menuTotalTabs += subTabs.length;
+            menuCheckedTabs += checkedSubTabs.length;
+            totalCheckedTabs += checkedSubTabs.length;
+
+            if (subCb) {
+              if (checkedSubTabs.length === subTabs.length && subTabs.length > 0) {
+                subCb.checked = true;
+                subCb.indeterminate = false;
+                menuCheckedSubs++;
+                totalCheckedSubmenus++;
+              } else if (checkedSubTabs.length > 0) {
+                subCb.checked = false;
+                subCb.indeterminate = true;
+              } else {
+                subCb.checked = false;
+                subCb.indeterminate = false;
+              }
+            }
+          });
+
+          if (menuCb) {
+            if (menuCheckedTabs === menuTotalTabs && menuTotalTabs > 0) {
+              menuCb.checked = true;
+              menuCb.indeterminate = false;
+              totalCheckedMenus++;
+            } else if (menuCheckedTabs > 0) {
+              menuCb.checked = false;
+              menuCb.indeterminate = true;
+            } else {
+              menuCb.checked = false;
+              menuCb.indeterminate = false;
+            }
+          }
+
+          if (statPill) {
+            statPill.textContent = `${menuCheckedSubs}/${menuSubCount} Submenus • ${menuCheckedTabs}/${menuTotalTabs} Tabs`;
+            if (menuCheckedTabs === menuTotalTabs && menuTotalTabs > 0) {
+              statPill.className = 'role-menu-stat-pill px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1] shrink-0';
+            } else if (menuCheckedTabs > 0) {
+              statPill.className = 'role-menu-stat-pill px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD] shrink-0';
+            } else {
+              statPill.className = 'role-menu-stat-pill px-2 py-0.5 rounded-full text-[10px] font-bold bg-white text-[#5E6C84] border border-[#DFE1E6] shrink-0';
+            }
+          }
+        });
+
+        // Update top stats badge
+        const statsBadge = document.getElementById('role-perm-stats-badge');
+        if (statsBadge) {
+          statsBadge.textContent = `${totalCheckedMenus} Menus • ${totalCheckedSubmenus} Submenus • ${totalCheckedTabs}/${totalTabsCount} Tabs Selected`;
+          if (totalCheckedTabs === totalTabsCount && totalTabsCount > 0) {
+            statsBadge.className = 'px-2.5 py-0.5 rounded-full text-[10.5px] font-extrabold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]';
+          } else if (totalCheckedTabs > 0) {
+            statsBadge.className = 'px-2.5 py-0.5 rounded-full text-[10.5px] font-extrabold bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD]';
+          } else {
+            statsBadge.className = 'px-2.5 py-0.5 rounded-full text-[10.5px] font-extrabold bg-[#F1F5F9] text-[#5E6C84] border border-[#DFE1E6]';
+          }
+        }
+      };
+
+      // 1. Pre-populate existing role permissions
+      if (role) {
+        if (role.permissionsHierarchy && Array.isArray(role.permissionsHierarchy.tabs)) {
+          const tabSet = new Set(role.permissionsHierarchy.tabs);
+          modalRoot.querySelectorAll('.role-tab-cb').forEach(cb => {
+            const key = `${cb.dataset.menuId}:${cb.dataset.submenuId}:${cb.dataset.tabId}`;
+            if (tabSet.has(key)) cb.checked = true;
+          });
+        } else if (role.level === 'Full Access' || role.name?.toLowerCase().includes('admin') || role.permissions?.includes('Full Access')) {
+          modalRoot.querySelectorAll('.role-tab-cb').forEach(cb => { cb.checked = true; });
+        } else if (role.permissions) {
+          const permWords = role.permissions.toLowerCase().split(/[,;/+]+/).map(w => w.trim()).filter(Boolean);
+          navTree.forEach(m => {
+            const mLabel = m.label.toLowerCase();
+            const mId = m.id.toLowerCase();
+            const isMatch = permWords.some(w => mLabel.includes(w) || mId.includes(w) || w.includes(mLabel) || w.includes(mId));
+            if (isMatch) {
+              modalRoot.querySelectorAll(`.role-tab-cb[data-menu-id="${m.id}"]`).forEach(cb => { cb.checked = true; });
+            }
+          });
+        }
+      } else {
+        // When adding new role, if "Full Access" is selected, pre-check all
+        const initialLevel = document.getElementById('role-modal-level')?.value;
+        if (initialLevel === 'Full Access') {
+          modalRoot.querySelectorAll('.role-tab-cb').forEach(cb => { cb.checked = true; });
+        }
+      }
+
+      updateAllState();
+
+      // 2. Tab checkbox change
+      modalRoot.addEventListener('change', (e) => {
+        if (e.target.classList.contains('role-tab-cb')) {
+          updateAllState();
+        } else if (e.target.classList.contains('role-sub-cb')) {
+          const menuId = e.target.dataset.menuId;
+          const subId = e.target.dataset.submenuId;
+          const isChecked = e.target.checked;
+          modalRoot.querySelectorAll(`.role-tab-cb[data-menu-id="${menuId}"][data-submenu-id="${subId}"]`).forEach(cb => {
+            cb.checked = isChecked;
+          });
+          updateAllState();
+        } else if (e.target.classList.contains('role-menu-cb')) {
+          const menuId = e.target.dataset.menuId;
+          const isChecked = e.target.checked;
+          modalRoot.querySelectorAll(`.role-tab-cb[data-menu-id="${menuId}"]`).forEach(cb => {
+            cb.checked = isChecked;
+          });
+          modalRoot.querySelectorAll(`.role-sub-cb[data-menu-id="${menuId}"]`).forEach(cb => {
+            cb.checked = isChecked;
+          });
+          updateAllState();
+        }
+      });
+
+      // 3. Accordion toggle for Menu cards
+      modalRoot.addEventListener('click', (e) => {
+        const header = e.target.closest('.role-menu-header');
+        if (!header) return;
+
+        // Ignore clicks directly on checkboxes
+        if (e.target.closest('input[type="checkbox"]')) return;
+
+        const menuId = header.dataset.menuId;
+        const body = modalRoot.querySelector(`.role-menu-body[data-menu-id="${menuId}"]`);
+        const chevron = header.querySelector('.role-menu-chevron');
+        if (body) {
+          const isHidden = body.classList.contains('hidden');
+          if (isHidden) {
+            body.classList.remove('hidden');
+            if (chevron) chevron.classList.add('rotate-180');
+          } else {
+            body.classList.add('hidden');
+            if (chevron) chevron.classList.remove('rotate-180');
+          }
+        }
+      });
+
+      // 4. Quick Action buttons
+      document.getElementById('btn-role-perm-select-all')?.addEventListener('click', () => {
+        modalRoot.querySelectorAll('.role-tab-cb').forEach(cb => { cb.checked = true; });
+        updateAllState();
+      });
+
+      document.getElementById('btn-role-perm-deselect-all')?.addEventListener('click', () => {
+        modalRoot.querySelectorAll('.role-tab-cb').forEach(cb => { cb.checked = false; });
+        updateAllState();
+      });
+
+      let allExpanded = false;
+      document.getElementById('btn-role-perm-toggle-collapse')?.addEventListener('click', () => {
+        allExpanded = !allExpanded;
+        const bodies = modalRoot.querySelectorAll('.role-menu-body');
+        const chevrons = modalRoot.querySelectorAll('.role-menu-chevron');
+        const txt = document.getElementById('role-perm-toggle-collapse-txt');
+        const icon = document.getElementById('role-perm-toggle-collapse-icon');
+
+        bodies.forEach(b => {
+          if (allExpanded) b.classList.remove('hidden');
+          else b.classList.add('hidden');
+        });
+        chevrons.forEach(c => {
+          if (allExpanded) c.classList.add('rotate-180');
+          else c.classList.remove('rotate-180');
+        });
+
+        if (txt) txt.textContent = allExpanded ? 'Collapse All' : 'Expand All';
+        if (icon) {
+          if (allExpanded) icon.classList.add('rotate-180');
+          else icon.classList.remove('rotate-180');
+        }
+      });
+
+      // 5. Search Filter Input
+      const searchInput = document.getElementById('role-perm-search-input');
+      const searchClear = document.getElementById('role-perm-search-clear');
+
+      searchInput?.addEventListener('input', (e) => {
+        const q = e.target.value.toLowerCase().trim();
+        if (searchClear) {
+          if (q) searchClear.classList.remove('hidden');
+          else searchClear.classList.add('hidden');
+        }
+
+        const cards = modalRoot.querySelectorAll('.role-menu-card');
+        cards.forEach(card => {
+          const menuLabel = card.dataset.menuLabel || '';
+          const subBoxes = card.querySelectorAll('.role-submenu-box');
+          let menuMatches = menuLabel.includes(q);
+          let subMatchesCount = 0;
+
+          subBoxes.forEach(box => {
+            const subTitle = box.dataset.submenuTitle || '';
+            const tabItems = box.querySelectorAll('.role-tab-item');
+            let boxMatches = menuMatches || subTitle.includes(q);
+            let tabMatchesCount = 0;
+
+            tabItems.forEach(tab => {
+              const tabLabel = tab.dataset.label || '';
+              if (!q || menuMatches || subTitle.includes(q) || tabLabel.includes(q)) {
+                tab.classList.remove('hidden');
+                tabMatchesCount++;
+              } else {
+                tab.classList.add('hidden');
+              }
+            });
+
+            if (!q || boxMatches || tabMatchesCount > 0) {
+              box.classList.remove('hidden');
+              subMatchesCount++;
+            } else {
+              box.classList.add('hidden');
+            }
+          });
+
+          const body = card.querySelector('.role-menu-body');
+          const chevron = card.querySelector('.role-menu-chevron');
+
+          if (!q || menuMatches || subMatchesCount > 0) {
+            card.classList.remove('hidden');
+            if (q) {
+              body?.classList.remove('hidden');
+              chevron?.classList.add('rotate-180');
+            }
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+      });
+
+      searchClear?.addEventListener('click', () => {
+        if (searchInput) {
+          searchInput.value = '';
+          searchInput.dispatchEvent(new Event('input'));
+          searchInput.focus();
+        }
+      });
+
+      // 6. Access Level change handler
+      document.getElementById('role-modal-level')?.addEventListener('change', (e) => {
+        if (e.target.value === 'Full Access') {
+          modalRoot.querySelectorAll('.role-tab-cb').forEach(cb => { cb.checked = true; });
+          updateAllState();
+          const permInput = document.getElementById('role-modal-permissions');
+          if (permInput) permInput.value = 'All Modules (Full Access)';
+        }
+      });
+    }, 50);
   },
 
   openUserModal(user = null, onSaved) {
@@ -97075,7 +97598,7 @@ const SettingsView = {
                   <!-- Left: Icon + Module Title + Sub Master Dropdown (immediately after Title) -->
                   <div class="flex items-center gap-4 flex-wrap">
                     <div class="flex items-center gap-3">
-                      <div class="w-9 h-9 rounded-xl flex items-center justify-center font-bold shadow-xs bg-[#F1F5F9] text-[#00A4B7]">
+                      <div class="w-9 h-9 rounded-xl flex items-center justify-center font-bold shadow-xs transition-colors duration-200 ${isExpanded ? 'bg-[#00A4B7] text-white' : 'bg-[#F1F5F9] text-[#00A4B7]'}">
                         ${mod.icon}
                       </div>
                       <span class="font-extrabold text-[#172B4D] text-sm tracking-tight">${mod.title} Masters</span>
@@ -97092,7 +97615,7 @@ const SettingsView = {
                   </div>
 
                   <!-- Right: Chevron on far right -->
-                  <div class="w-7 h-7 rounded-full flex items-center justify-center bg-[#F1F5F9] text-[#64748B] transition-colors">
+                  <div class="w-7 h-7 rounded-full flex items-center justify-center transition-colors duration-200 ${isExpanded ? 'bg-[#00A4B7] text-white' : 'bg-[#F1F5F9] text-[#64748B]'}">
                     <svg class="w-4 h-4 transform transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                   </div>
                 </div>
