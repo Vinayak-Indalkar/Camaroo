@@ -838,9 +838,13 @@ export const SettingsView = {
           sortable: true,
           render: (val, row) => `
             <div class="flex items-center gap-2.5">
-              <div class="w-8 h-8 rounded-full bg-[#00A4B7]/10 text-[#00A4B7] font-bold flex items-center justify-center text-xs shrink-0 border border-[#BAE6FD]">
-                ${val.split(' ').map(n => n[0]).join('').substring(0, 2)}
-              </div>
+              ${row.photo ? `
+                <img src="${row.photo}" alt="${this.escape(val)}" class="w-8 h-8 rounded-full object-cover shrink-0 border border-[#BAE6FD]" />
+              ` : `
+                <div class="w-8 h-8 rounded-full bg-[#00A4B7]/10 text-[#00A4B7] font-bold flex items-center justify-center text-xs shrink-0 border border-[#BAE6FD]">
+                  ${val.split(' ').map(n => n[0]).join('').substring(0, 2)}
+                </div>
+              `}
               <div class="min-w-0">
                 <span class="font-bold text-[#172B4D] block truncate">${this.escape(val)}</span>
                 <span class="font-mono text-[10.5px] text-[#64748B] block">${this.escape(row.empId)}</span>
@@ -1825,50 +1829,100 @@ openRoleModal(role = null, onSaved) {
   openUserModal(user = null, onSaved) {
     const isEdit = !!user;
     const title = isEdit ? 'Edit User Profile' : 'Add New User';
+    let currentPhoto = user?.photo || '';
+    const userInitials = (user?.name || 'User')
+      .split(' ')
+      .map(n => n[0])
+      .join('')
+      .substring(0, 2)
+      .toUpperCase() || 'US';
 
     Modal.open({
       title,
       size: 'lg',
       content: `
-        <form id="form-user-modal" class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-          <div>
-            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Full Name <span class="text-[#DE350B]">*</span></label>
-            <input type="text" id="usr-modal-name" value="${this.escape(user ? user.name : '')}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" placeholder="e.g. Anand Murugan">
+        <form id="form-user-modal" class="space-y-4 text-xs">
+          <!-- Profile Photo Upload Card -->
+          <div class="p-3.5 bg-[#F8FAFC] rounded-xl border border-[#DFE1E6] flex flex-col sm:flex-row items-center gap-4">
+            <!-- Avatar Display / Preview -->
+            <div class="relative shrink-0">
+              <div id="usr-avatar-preview" class="w-16 h-16 rounded-full overflow-hidden border-2 border-[#00A4B7] bg-white flex items-center justify-center shadow-xs">
+                ${currentPhoto ? `
+                  <img src="${currentPhoto}" alt="User Photo" class="w-full h-full object-cover" />
+                ` : `
+                  <div class="w-full h-full bg-[#E0F2FE] text-[#00A4B7] font-extrabold flex items-center justify-center text-lg">
+                    ${userInitials}
+                  </div>
+                `}
+              </div>
+              <label for="usr-modal-photo-input" class="absolute bottom-0 right-0 w-6 h-6 rounded-full bg-[#00A4B7] text-white flex items-center justify-center shadow-xs cursor-pointer hover:bg-[#008F9F] transition-all" title="Upload Photo">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              </label>
+            </div>
+
+            <!-- Upload Info & Controls -->
+            <div class="flex-1 min-w-0 text-center sm:text-left">
+              <div class="flex items-center gap-2 justify-center sm:justify-start">
+                <label class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider">Profile Photo</label>
+                <span class="text-[10px] text-[#5E6C84] font-medium">(PNG, JPG, WebP up to 5MB)</span>
+              </div>
+              <p class="text-[11px] text-[#5E6C84] mt-0.5">Upload an employee headshot for identity verification across ERP audit logs and tables.</p>
+              
+              <div class="flex items-center gap-2 mt-2 justify-center sm:justify-start flex-wrap">
+                <input type="file" id="usr-modal-photo-input" accept="image/*" class="hidden" />
+                <button type="button" id="btn-trigger-photo-upload" class="px-3 py-1 rounded-full text-xs font-bold bg-white hover:bg-[#F0F9FF] text-[#00A4B7] border border-[#00A4B7] shadow-2xs cursor-pointer transition-colors inline-flex items-center gap-1.5">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                  <span>Upload Photo</span>
+                </button>
+                <button type="button" id="btn-remove-photo" class="px-2.5 py-1 rounded-full text-xs font-semibold bg-white hover:bg-[#FFEBE6] text-[#DE350B] border border-[#DFE1E6] hover:border-[#FFBDAD] cursor-pointer transition-colors ${currentPhoto ? '' : 'hidden'}">
+                  Remove
+                </button>
+                <span id="usr-photo-filename" class="text-[11px] text-[#5E6C84] truncate max-w-[180px]"></span>
+              </div>
+            </div>
           </div>
-          <div>
-            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Employee ID <span class="text-[#DE350B]">*</span></label>
-            <input type="text" id="usr-modal-empid" value="${this.escape(user ? user.empId : `EMP-${Math.floor(100 + Math.random() * 900)}`)}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
-          </div>
-          <div>
-            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Email Address <span class="text-[#DE350B]">*</span></label>
-            <input type="email" id="usr-modal-email" value="${this.escape(user ? user.email : '')}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" placeholder="name@devifisheries.com">
-          </div>
-          <div>
-            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Phone Number</label>
-            <input type="text" id="usr-modal-phone" value="${this.escape(user ? user.phone : '+91 98480 11223')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
-          </div>
-          <div>
-            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Department <span class="text-[#DE350B]">*</span></label>
-            <select id="usr-modal-dept" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
-              <option value="Executive Management" ${user && user.department === 'Executive Management' ? 'selected' : ''}>Executive Management</option>
-              <option value="Procurement & Farm Sourcing" ${user && user.department === 'Procurement & Farm Sourcing' ? 'selected' : ''}>Procurement & Farm Sourcing</option>
-              <option value="Plant Operations (Unit 1)" ${user && user.department === 'Plant Operations (Unit 1)' ? 'selected' : ''}>Plant Operations (Unit 1)</option>
-              <option value="Quality Control & Lab" ${user && user.department === 'Quality Control & Lab' ? 'selected' : ''}>Quality Control & Lab</option>
-              <option value="Cold Storage & Logistics" ${user && user.department === 'Cold Storage & Logistics' ? 'selected' : ''}>Cold Storage & Logistics</option>
-              <option value="Commercial & Export Sales" ${user && user.department === 'Commercial & Export Sales' ? 'selected' : ''}>Commercial & Export Sales</option>
-              <option value="Inventory & Materials" ${user && user.department === 'Inventory & Materials' ? 'selected' : ''}>Inventory & Materials</option>
-              <option value="Finance & Realization" ${user && user.department === 'Finance & Realization' ? 'selected' : ''}>Finance & Realization</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Access Role <span class="text-[#DE350B]">*</span></label>
-            <select id="usr-modal-role" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
-              ${this.roles.map(r => `
-                <option value="${this.escape(r.name)}" ${user && (user.role === r.name || user.roleCode === r.code) ? 'selected' : ''}>
-                  ${this.escape(r.name)} (${this.escape(r.code)} — ${this.escape(r.level)})
-                </option>
-              `).join('')}
-            </select>
+
+          <!-- User Details Form Fields -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Full Name <span class="text-[#DE350B]">*</span></label>
+              <input type="text" id="usr-modal-name" value="${this.escape(user ? user.name : '')}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" placeholder="e.g. Anand Murugan">
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Employee ID <span class="text-[#DE350B]">*</span></label>
+              <input type="text" id="usr-modal-empid" value="${this.escape(user ? user.empId : `EMP-${Math.floor(100 + Math.random() * 900)}`)}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Email Address <span class="text-[#DE350B]">*</span></label>
+              <input type="email" id="usr-modal-email" value="${this.escape(user ? user.email : '')}" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]" placeholder="name@devifisheries.com">
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Phone Number</label>
+              <input type="text" id="usr-modal-phone" value="${this.escape(user ? user.phone : '+91 98480 11223')}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Department <span class="text-[#DE350B]">*</span></label>
+              <select id="usr-modal-dept" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+                <option value="Executive Management" ${user && user.department === 'Executive Management' ? 'selected' : ''}>Executive Management</option>
+                <option value="Procurement & Farm Sourcing" ${user && user.department === 'Procurement & Farm Sourcing' ? 'selected' : ''}>Procurement & Farm Sourcing</option>
+                <option value="Plant Operations (Unit 1)" ${user && user.department === 'Plant Operations (Unit 1)' ? 'selected' : ''}>Plant Operations (Unit 1)</option>
+                <option value="Quality Control & Lab" ${user && user.department === 'Quality Control & Lab' ? 'selected' : ''}>Quality Control & Lab</option>
+                <option value="Cold Storage & Logistics" ${user && user.department === 'Cold Storage & Logistics' ? 'selected' : ''}>Cold Storage & Logistics</option>
+                <option value="Commercial & Export Sales" ${user && user.department === 'Commercial & Export Sales' ? 'selected' : ''}>Commercial & Export Sales</option>
+                <option value="Inventory & Materials" ${user && user.department === 'Inventory & Materials' ? 'selected' : ''}>Inventory & Materials</option>
+                <option value="Finance & Realization" ${user && user.department === 'Finance & Realization' ? 'selected' : ''}>Finance & Realization</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Access Role <span class="text-[#DE350B]">*</span></label>
+              <select id="usr-modal-role" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+                ${this.roles.map(r => `
+                  <option value="${this.escape(r.name)}" ${user && (user.role === r.name || user.roleCode === r.code) ? 'selected' : ''}>
+                    ${this.escape(r.name)} (${this.escape(r.code)} — ${this.escape(r.level)})
+                  </option>
+                `).join('')}
+              </select>
+            </div>
           </div>
         </form>
       `,
@@ -1903,6 +1957,7 @@ openRoleModal(role = null, onSaved) {
               user.phone = phone;
               user.department = department;
               user.role = role;
+              user.photo = currentPhoto;
               const matchedRole = this.roles.find(r => r.name === role);
               user.roleCode = matchedRole ? matchedRole.code : '';
               Toast.show(`User ${name} updated successfully`, 'success');
@@ -1916,6 +1971,7 @@ openRoleModal(role = null, onSaved) {
                 department,
                 role,
                 roleCode: (this.roles.find(r => r.name === role)?.code || ''),
+                photo: currentPhoto,
                 status: 'Active',
                 lastActive: 'Just now'
               });
@@ -1928,6 +1984,68 @@ openRoleModal(role = null, onSaved) {
         }
       ]
     });
+
+    // Wire up Photo Upload events
+    setTimeout(() => {
+      const fileInput = document.getElementById('usr-modal-photo-input');
+      const triggerBtn = document.getElementById('btn-trigger-photo-upload');
+      const removeBtn = document.getElementById('btn-remove-photo');
+      const previewDiv = document.getElementById('usr-avatar-preview');
+      const filenameSpan = document.getElementById('usr-photo-filename');
+      const nameInput = document.getElementById('usr-modal-name');
+
+      triggerBtn?.addEventListener('click', () => {
+        fileInput?.click();
+      });
+
+      fileInput?.addEventListener('change', (e) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        if (!file.type.startsWith('image/')) {
+          Toast.show('Please select a valid image file (PNG, JPG, WebP)', 'warning');
+          return;
+        }
+
+        if (file.size > 5 * 1024 * 1024) {
+          Toast.show('Photo size should be less than 5MB', 'warning');
+          return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          currentPhoto = event.target.result;
+          if (previewDiv) {
+            previewDiv.innerHTML = `<img src="${currentPhoto}" alt="User Photo" class="w-full h-full object-cover" />`;
+          }
+          if (removeBtn) removeBtn.classList.remove('hidden');
+          if (filenameSpan) filenameSpan.textContent = file.name;
+          Toast.show('Photo uploaded successfully', 'success');
+        };
+        reader.readAsDataURL(file);
+      });
+
+      removeBtn?.addEventListener('click', () => {
+        currentPhoto = '';
+        if (fileInput) fileInput.value = '';
+        const currentName = nameInput?.value.trim() || user?.name || 'User';
+        const inits = currentName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'US';
+        if (previewDiv) {
+          previewDiv.innerHTML = `<div class="w-full h-full bg-[#E0F2FE] text-[#00A4B7] font-extrabold flex items-center justify-center text-lg">${inits}</div>`;
+        }
+        if (removeBtn) removeBtn.classList.add('hidden');
+        if (filenameSpan) filenameSpan.textContent = '';
+      });
+
+      // Update initials live if name changes and no custom photo uploaded
+      nameInput?.addEventListener('input', (e) => {
+        if (!currentPhoto && previewDiv) {
+          const val = e.target.value.trim() || 'User';
+          const inits = val.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'US';
+          previewDiv.innerHTML = `<div class="w-full h-full bg-[#E0F2FE] text-[#00A4B7] font-extrabold flex items-center justify-center text-lg">${inits}</div>`;
+        }
+      });
+    }, 50);
   },
 // -------------------------------------------------------------
   // TAB 3: General
