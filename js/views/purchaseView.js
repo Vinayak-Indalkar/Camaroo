@@ -3854,7 +3854,7 @@ export const PurchaseView = {
   openCreateLotModal(tableInstance) {
     Modal.open({
       title: 'Register New Raw Material Lot',
-      size: 'lg',
+      size: 'xl',
       content: `
         <form class="space-y-3">
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
@@ -4033,7 +4033,7 @@ export const PurchaseView = {
     const nextArrNo = `RMA-2026-${100 + this.rmArrivalsList.length + 1}`;
     Modal.open({
       title: 'Create Raw Material Arrival',
-      size: 'lg',
+      size: 'xl',
       content: `
         <form id="form-create-rm-arrival" class="space-y-4 text-xs">
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
@@ -4203,7 +4203,7 @@ export const PurchaseView = {
     const editDateVal = arrival.date ? (arrival.date.includes('/') ? arrival.date.split('/').reverse().join('-') : arrival.date) : '2026-10-06';
     Modal.open({
       title: `Edit Raw Material Arrival: ${arrival.arrivalNumber || arrival.id}`,
-      size: 'lg',
+      size: 'xl',
       content: `
         <form id="form-edit-rm-arrival" class="space-y-4 text-xs">
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
@@ -5135,7 +5135,7 @@ export const PurchaseView = {
   showArrivalRecordDetails(arrival) {
     Modal.open({
       title: `Arrival Catch Receipt Registry: ${arrival.arrivalCode}`,
-      size: 'full',
+      size: 'xl',
       content: `
         <div class="space-y-4 text-xs">
           <!-- Key Details Grid (12 Fields) -->
@@ -5830,7 +5830,7 @@ export const PurchaseView = {
 
     Modal.open({
       title: `Booking Agreement Registry: ${booking.bookingNo}`,
-      size: 'full',
+      size: 'xl',
       content: `
         <div class="space-y-4 text-xs">
           <!-- Key Details Grid (12 Fields) -->
@@ -6387,7 +6387,7 @@ export const PurchaseView = {
 
     Modal.open({
       title: `Raw Material Arrival Registry: ${arrNo}`,
-      size: 'full',
+      size: 'xl',
       content: `
         <div class="space-y-4 text-xs">
           <!-- Key Details Grid (12 Fields) -->
@@ -6938,7 +6938,7 @@ export const PurchaseView = {
 
     Modal.open({
       title: `Supplier Commercial Bill Registry: ${billNumber}`,
-      size: 'full',
+      size: 'xl',
       content: `
         <div class="space-y-4 text-xs">
           <!-- Key Details Grid (12 Fields) -->
@@ -7080,7 +7080,7 @@ export const PurchaseView = {
 
     Modal.open({
       title: `Commercial Transaction Registry: ${txn.txnId}`,
-      size: 'full',
+      size: 'xl',
       content: `
         <div class="space-y-4 text-xs">
           <!-- Key Details Grid (12 Fields) -->
@@ -7756,7 +7756,7 @@ export const PurchaseView = {
 
     Modal.open({
       title: `Payment Voucher Registry: ${payment.voucherNo}`,
-      size: 'full',
+      size: 'xl',
       content: `
         <div class="space-y-4 text-xs">
           <!-- Key Details Grid (8 Fields) -->

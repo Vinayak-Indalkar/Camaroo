@@ -3283,7 +3283,7 @@ export const SalesView = {
 
     Modal.open({
       title: modalTitle,
-      size: 'full',
+      size: 'xl',
       content: `
         <form id="form-pi-details" class="space-y-4 text-xs">
           <!-- Section 1: Exporter & Processor Details -->
@@ -3680,7 +3680,7 @@ export const SalesView = {
 
     Modal.open({
       title: modalTitle,
-      size: 'full',
+      size: 'xl',
       content: `
         <div class="space-y-4 text-xs">
           <!-- Step 2 Form Input Fields (No border, No padding) -->
@@ -4305,7 +4305,7 @@ export const SalesView = {
 
     Modal.open({
       title: `Custom Invoice Details - ${d.invoiceNo}`,
-      size: 'full',
+      size: 'xl',
       content: `
         <div class="space-y-4 text-xs animate-fade-in">
           <!-- Top Hero / Summary Card -->
@@ -4797,7 +4797,7 @@ export const SalesView = {
 
     Modal.open({
       title: modalTitle,
-      size: 'full',
+      size: 'xl',
       content: `
         <form id="form-ci-step1" class="space-y-4 text-xs">
           <!-- Section 1: Customs Invoice & Reference Numbers -->
@@ -5057,7 +5057,7 @@ export const SalesView = {
 
     Modal.open({
       title: modalTitle,
-      size: 'full',
+      size: 'xl',
       content: `
         <div class="space-y-4 text-xs animate-fade-in">
           <!-- Form Input Fields (Variety & Pricing) - No border, No padding -->
@@ -5662,7 +5662,7 @@ export const SalesView = {
 
     Modal.open({
       title: isEdit ? `ISF 10+2 Filing Form - ${d.invoiceNo}` : 'Submit New ISF 10+2 Filing',
-      size: 'full',
+      size: 'xl',
       content: `
         <form id="form-isf-modal" class="space-y-4 text-xs animate-fade-in">
           <!-- Section 1: Commercial & Invoice Identifiers -->
@@ -6060,7 +6060,7 @@ export const SalesView = {
 
     Modal.open({
       title: `ISF 10+2 Filing Details - ${d.invoiceNo || d.id}`,
-      size: 'full',
+      size: 'xl',
       content: `
         <div class="space-y-4 text-xs animate-fade-in">
           <!-- Top Hero / Summary Card -->
@@ -6570,7 +6570,7 @@ export const SalesView = {
 
     Modal.open({
       title: isEdit ? `Edit Shipping Bill - ${d.shippingBillNo}` : 'Generate Shipping Bill (Indian Customs Export EDI)',
-      size: 'full',
+      size: 'xl',
       content: `
         <form id="form-sb-modal" class="space-y-4 text-xs animate-fade-in">
           <!-- SHIPPING BILLING — Form Input Fields (Top Section) -->
@@ -6797,7 +6797,7 @@ export const SalesView = {
 
     Modal.open({
       title: `Shipping Bill Details - ${d.shippingBillNo || d.id}`,
-      size: 'full',
+      size: 'xl',
       content: `
         <div class="space-y-4 text-xs animate-fade-in">
           <!-- Top Hero / Summary Card -->
@@ -7219,7 +7219,7 @@ export const SalesView = {
 
     Modal.open({
       title: `Commercial Invoice & Product Specifications &mdash; ${d.invoiceNo || d.id}`,
-      size: 'full',
+      size: 'xl',
       content: `
         <form id="form-cinv-complete-modal" class="space-y-4 text-xs animate-fade-in">
           <!-- Reference Header Bar -->
@@ -7625,7 +7625,7 @@ export const SalesView = {
 
     Modal.open({
       title: `Commercial Invoice Details - ${d.invoiceNo || d.id}`,
-      size: 'full',
+      size: 'xl',
       content: `
         <div class="space-y-4 text-xs animate-fade-in">
           <!-- Top Hero / Summary Card -->
@@ -8354,7 +8354,7 @@ export const SalesView = {
     const d = row || {};
     Modal.open({
       title: `ETA Schedule & Voyage Details &mdash; ${d.containerNo}`,
-      size: 'full',
+      size: 'xl',
       content: `
         <div class="space-y-4 text-xs animate-fade-in">
           <!-- Top Hero / Summary Card -->
@@ -8783,7 +8783,7 @@ export const SalesView = {
 
     Modal.open({
       title: isEdit ? `FDA Clearance & Admissibility - ${d.invNo || d.invoiceNo}` : 'Add FDA Status Record',
-      size: 'full',
+      size: 'xl',
       content: `
         <form id="form-fda-31-fields" class="space-y-4 text-xs animate-fade-in">
           <!-- Section 1: Commercial, Invoice & Container Identifiers -->
@@ -9066,7 +9066,7 @@ export const SalesView = {
 
     Modal.open({
       title: `FDA Admissibility & Clearance Details - ${d.invNo || d.invoiceNo}`,
-      size: 'full',
+      size: 'xl',
       content: `
         <div class="space-y-4 text-xs animate-fade-in">
           <!-- Top Hero / Summary Card -->
@@ -9520,7 +9520,7 @@ export const SalesView = {
 
     Modal.open({
       title: isEdit ? `Update Customs Clearing Entry — ${d.invNo}` : 'Add Customs Clearing Entry',
-      size: 'full',
+      size: 'xl',
       content: `
         <form id="form-cha-entry-modal" class="space-y-4 text-xs animate-fade-in">
           <!-- SECTION 1: CLEARING AGENT FORM — Invoice Details -->
@@ -9937,7 +9937,7 @@ export const SalesView = {
 
     Modal.open({
       title: `Customs Clearing Details — ${d.invNo || d.id}`,
-      size: 'full',
+      size: 'xl',
       content: `
         <div class="space-y-4 text-xs animate-fade-in">
           <!-- Top Hero / Summary Card -->

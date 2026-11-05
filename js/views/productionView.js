@@ -5070,7 +5070,7 @@ export const ProductionView = {
   showEditSoakingV2Modal(row, container) {
     Modal.open({
       title: `Edit Soaking Lot (V2): ${row.lot || row.lotCode}`,
-      size: 'lg',
+      size: 'xl',
       content: `
         <form id="form-edit-soak-v2" class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
           <div>

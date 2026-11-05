@@ -2073,7 +2073,7 @@ export const QCView = {
 
     Modal.open({
       title: `Add Raw Material Inspection Details - ${r.lot || r.id}`,
-      size: 'full',
+      size: 'xl',
       content: `
         <div class="space-y-4 text-xs text-[#172B4D]">
           <!-- Overview Summary Banner -->
@@ -2294,7 +2294,7 @@ export const QCView = {
     const today = new Date().toISOString().slice(0, 10);
     Modal.open({
       title: `${row ? 'Edit' : 'Add'} ${schema.title}`,
-      size: 'full',
+      size: 'xl',
       content: `<form id="qc-record-form" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs">
         ${schema.fields.map(field => {
           const value = row?.[field.key] ?? (field.key === 'exporter' ? this.exporterName(row || {}) : field.type === 'date' ? today : '');
@@ -2413,7 +2413,7 @@ export const QCView = {
 
     Modal.open({
       title: `${row ? 'Edit' : 'Add'} In-House Lab Report`,
-      size: 'full',
+      size: 'xl',
       content: `
         <form id="form-lab-report" class="space-y-4 text-xs text-[#172B4D]" onsubmit="return false;">
           <!-- Section 1: General Information Fields (4-Column Responsive Grid) -->
@@ -2567,7 +2567,7 @@ export const QCView = {
 
     Modal.open({
       title: `${row ? 'Edit' : 'Add'} Microbiology Report`,
-      size: 'full',
+      size: 'xl',
       content: `
         <div class="space-y-4 text-xs text-[#172B4D]">
           <!-- Section 1: Facility & Inspector Information (Strict 4-Column Responsive Grid) -->
@@ -2855,7 +2855,7 @@ export const QCView = {
 
     Modal.open({
       title: `${row ? 'Edit' : 'Add'} Antibiotic & Chemical Testing Record (ELISA)`,
-      size: 'full',
+      size: 'xl',
       content: `
         <form id="qc-record-form" class="space-y-4" onsubmit="return false;">
           <!-- Section 1: Facility & Inspection Meta -->
@@ -3469,7 +3469,7 @@ export const QCView = {
       return typeof value === 'number' ? value.toLocaleString('en-IN', { maximumFractionDigits: 4 }) : String(value);
     };
     Modal.open({
-      title: `${qcSchemas[key].title} - Details`, size: 'full',
+      title: `${qcSchemas[key].title} - Details`, size: 'xl',
       content: `<div class="space-y-4 text-xs">
         <div class="flex flex-wrap items-center justify-between gap-3 border-b border-[#DFE1E6] pb-3">
           <span class="min-w-0 break-all font-bold text-sm text-[#00A4B7]">${this.escape(reference)}</span>

@@ -1661,7 +1661,7 @@ export const InventoryView = {
 
     Modal.open({
       title: `Indent Requisition Details - ${record.docNo}`,
-      size: '2xl',
+      size: 'xl',
       content: `
         <div class="space-y-4 text-xs text-[#172B4D]">
           <!-- Overview Header Card -->
@@ -1760,7 +1760,7 @@ export const InventoryView = {
   showEditIndentModal(row, onSuccess) {
     Modal.open({
       title: `Edit Indent: ${row.docNo}`,
-      size: 'lg',
+      size: 'xl',
       confirmActions: false,
       content: `
         <form id="form-edit-indent" class="space-y-4 text-xs text-[#172B4D]">
@@ -2103,7 +2103,7 @@ export const InventoryView = {
 
     Modal.open({
       title: 'Add General Store Proforma Order',
-      size: 'full',
+      size: 'xl',
       confirmActions: false,
       content: `
         <form id="modal-add-po-form" class="space-y-4 text-xs text-[#172B4D]" onsubmit="return false;">
@@ -2689,7 +2689,7 @@ export const InventoryView = {
   showEditProformaOrderModal(row, onSuccess) {
     Modal.open({
       title: `Edit Proforma Order: ${row.docNo}`,
-      size: 'lg',
+      size: 'xl',
       confirmActions: false,
       content: `
         <form id="form-edit-po" class="space-y-4 text-xs text-[#172B4D]" onsubmit="return false;">
@@ -3064,7 +3064,7 @@ export const InventoryView = {
 
     Modal.open({
       title: 'Add Goods Receipt Note (GS)',
-      size: 'full',
+      size: 'xl',
       confirmActions: false,
       content: `
         <form id="modal-add-grn-form" class="space-y-4 text-xs text-[#172B4D]" onsubmit="return false;">
@@ -3555,7 +3555,7 @@ export const InventoryView = {
 
     Modal.open({
       title: `Goods Receipt Note Details: ${row.docNo} (${row.code})`,
-      size: 'full',
+      size: 'xl',
       content: `
         <div class="space-y-4 text-xs text-[#172B4D]">
           <!-- Header Information Overview -->
@@ -3685,7 +3685,7 @@ export const InventoryView = {
   showEditGrnModal(row, onSuccess) {
     Modal.open({
       title: `Edit Goods Receipt Note: ${row.docNo}`,
-      size: 'lg',
+      size: 'xl',
       confirmActions: false,
       content: `
         <form id="form-edit-grn" class="space-y-4 text-xs text-[#172B4D]" onsubmit="return false;">
@@ -4080,7 +4080,7 @@ export const InventoryView = {
 
     Modal.open({
       title: 'Add Material Issue (GS)',
-      size: 'full',
+      size: 'xl',
       confirmActions: false,
       content: `
         <form id="modal-add-issue-form" class="space-y-4 text-xs text-[#172B4D]" onsubmit="return false;">
@@ -4487,7 +4487,7 @@ export const InventoryView = {
 
     Modal.open({
       title: `Material Issue Details: ${row.docNo}`,
-      size: 'full',
+      size: 'xl',
       content: `
         <div class="space-y-4 text-xs text-[#172B4D]">
           <!-- Overview Cards -->
@@ -4599,7 +4599,7 @@ export const InventoryView = {
   showEditMaterialIssueModal(row, onSuccess) {
     Modal.open({
       title: `Edit Material Issue: ${row.docNo}`,
-      size: 'lg',
+      size: 'xl',
       confirmActions: false,
       content: `
         <form id="form-edit-issue" class="space-y-4 text-xs text-[#172B4D]" onsubmit="return false;">
@@ -4916,7 +4916,7 @@ export const InventoryView = {
 
     Modal.open({
       title: 'Add PROFORMA INVOICE',
-      size: 'full',
+      size: 'xl',
       confirmActions: false,
       content: `
         <form id="modal-add-pm-pi-form" class="space-y-4 text-xs text-[#172B4D]" onsubmit="return false;">
@@ -5446,7 +5446,7 @@ export const InventoryView = {
   showEditPmPiModal(row, onSuccess = null) {
     Modal.open({
       title: `Edit Proforma Invoice: ${row.docNo || row.piNumber}`,
-      size: 'lg',
+      size: 'xl',
       confirmActions: false,
       content: `
         <form id="form-edit-pm-pi" class="space-y-4 text-xs text-[#172B4D]" onsubmit="return false;">
@@ -5540,7 +5540,7 @@ export const InventoryView = {
     const items = row.items || [];
     Modal.open({
       title: `Proforma Invoice Details: ${row.docNo || row.piNumber}`,
-      size: '2xl',
+      size: 'xl',
       content: `
         <div class="space-y-4 text-xs text-[#172B4D]">
           <!-- Header Information Grid -->
@@ -5995,7 +5995,7 @@ export const InventoryView = {
 
     Modal.open({
       title: 'Add Purchase Order (PM)',
-      size: 'full',
+      size: 'xl',
       confirmActions: false,
       content: `
         <form id="modal-add-pm-po-form" class="space-y-4 text-xs text-[#172B4D]" onsubmit="return false;">
@@ -6571,7 +6571,7 @@ export const InventoryView = {
 
     Modal.open({
       title: `Edit Purchase Order (PM) — ${row.docNo}`,
-      size: 'full',
+      size: 'xl',
       confirmActions: false,
       content: `
         <div class="space-y-4 text-xs text-[#172B4D]">
@@ -6768,7 +6768,7 @@ export const InventoryView = {
 
     Modal.open({
       title: `Purchase Order (PM) Details — ${row.docNo}`,
-      size: 'full',
+      size: 'xl',
       confirmActions: false,
       content: `
         <div class="space-y-4 text-xs text-[#172B4D]">
@@ -7231,7 +7231,7 @@ export const InventoryView = {
 
     Modal.open({
       title: 'Add Goods Receipt Note (PM)',
-      size: 'full',
+      size: 'xl',
       confirmActions: false,
       content: `
         <form id="modal-add-pm-grn-form" class="space-y-4 text-xs text-[#172B4D]" onsubmit="return false;">
@@ -7864,7 +7864,7 @@ export const InventoryView = {
 
     Modal.open({
       title: `Edit Goods Receipt Note (PM) — ${row.docNo}`,
-      size: 'full',
+      size: 'xl',
       confirmActions: false,
       content: `
         <div class="space-y-4 text-xs text-[#172B4D]">
@@ -8084,7 +8084,7 @@ export const InventoryView = {
 
     Modal.open({
       title: `Goods Receipt Note (PM) Details — ${row.docNo}`,
-      size: 'full',
+      size: 'xl',
       confirmActions: false,
       content: `
         <div class="space-y-4 text-xs text-[#172B4D]">
@@ -8502,7 +8502,7 @@ export const InventoryView = {
 
     Modal.open({
       title: 'Add Material Issue (PM)',
-      size: 'full',
+      size: 'xl',
       confirmActions: false,
       content: `
         <form id="modal-add-pm-issue-form" class="space-y-4 text-xs text-[#172B4D]" onsubmit="return false;">
@@ -8979,7 +8979,7 @@ export const InventoryView = {
 
     Modal.open({
       title: `Edit Material Issue (PM) — ${row.docNo}`,
-      size: 'full',
+      size: 'xl',
       confirmActions: false,
       content: `
         <div class="space-y-4 text-xs text-[#172B4D]">
@@ -9121,7 +9121,7 @@ export const InventoryView = {
 
     Modal.open({
       title: `Material Issue (PM) Details — ${row.docNo}`,
-      size: 'full',
+      size: 'xl',
       confirmActions: false,
       content: `
         <div class="space-y-4 text-xs text-[#172B4D]">
@@ -9503,7 +9503,7 @@ export const InventoryView = {
 
     Modal.open({
       title: 'Add Proforma Register',
-      size: 'full',
+      size: 'xl',
       confirmActions: false,
       content: `
         <form id="reg-add-form" class="space-y-4 text-xs text-[#172B4D]">
@@ -9712,7 +9712,7 @@ export const InventoryView = {
 
     Modal.open({
       title: `Edit Proforma Register: ${row.proNo}`,
-      size: 'full',
+      size: 'xl',
       confirmActions: false,
       content: `
         <form id="reg-edit-form" class="space-y-4 text-xs text-[#172B4D]">
@@ -9919,7 +9919,7 @@ export const InventoryView = {
 
     Modal.open({
       title: `Proforma Register Record: ${row.proNo}`,
-      size: 'full',
+      size: 'xl',
       content: `
         <div class="space-y-4 text-xs text-[#172B4D]">
           <!-- Key Overview Header Grid -->

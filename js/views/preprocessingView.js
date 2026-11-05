@@ -2093,7 +2093,7 @@ export const PreprocessingView = {
 
     Modal.open({
       title: 'Add Deheading',
-      size: 'full',
+      size: 'xl',
       content: `
         <div class="space-y-3.5">
           <!-- Form Section -->
@@ -2519,7 +2519,7 @@ export const PreprocessingView = {
     ];
     Modal.open({
       title: `Edit Deheading: ${row.id}`,
-      size: 'full',
+      size: 'xl',
       content: `<form id="form-edit-deheading" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs">
         ${fields.map(field => `<div>
           <label for="edh-${field.name}" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">${field.label}${field.optional ? '' : ' <span class="text-[#DE350B]">*</span>'}</label>
@@ -2604,7 +2604,7 @@ export const PreprocessingView = {
 
     Modal.open({
       title: 'Add Grading',
-      size: 'full',
+      size: 'xl',
       content: `
         <div class="space-y-3.5">
           <!-- Form Section -->
@@ -2962,7 +2962,7 @@ export const PreprocessingView = {
     ];
     Modal.open({
       title: `Edit Grading Run: ${row.id}`,
-      size: 'full',
+      size: 'xl',
       content: `<form id="form-edit-grading" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs">
         ${fields.map(field => `<div>
           <label for="egr-${field.name}" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-0">${field.label}${field.optional ? '' : ' <span class="text-[#DE350B]">*</span>'}</label>
@@ -4303,7 +4303,7 @@ export const PreprocessingView = {
 
     Modal.open({
       title: 'Generate RM Track ID',
-      size: 'full',
+      size: 'xl',
       content: `
         <form id="form-gen-rm-track" class="space-y-4" onsubmit="return false;">
           <!-- 1. HEADER SPECIFICATION SECTION -->
@@ -4890,7 +4890,7 @@ export const PreprocessingView = {
 
     Modal.open({
       title: `Edit RM Track ID: ${row.trackId}`,
-      size: 'full',
+      size: 'xl',
       content: `
         <form id="form-edit-rm-track" class="space-y-4" onsubmit="return false;">
           <!-- 1. HEADER SPECIFICATION SECTION -->
@@ -5318,7 +5318,7 @@ export const PreprocessingView = {
 
     Modal.open({
       title: `RM Track ID Registry: ${row.trackId}`,
-      size: 'full',
+      size: 'xl',
       content: `
         <div class="space-y-4 text-xs">
           <!-- Key Details Grid -->
@@ -5842,7 +5842,7 @@ export const PreprocessingView = {
 
     Modal.open({
       title: 'Generate De-Heading Track ID',
-      size: 'full',
+      size: 'xl',
       content: `
         <form id="form-gen-dh-track" class="space-y-4" onsubmit="return false;">
           <!-- 1. HEADER SPECIFICATION SECTION -->
@@ -6373,7 +6373,7 @@ export const PreprocessingView = {
 
     Modal.open({
       title: `Edit De-Heading Track ID: ${row.trackId}`,
-      size: 'full',
+      size: 'xl',
       content: `
         <form id="form-edit-dh-track" class="space-y-4" onsubmit="return false;">
           <!-- 1. HEADER SPECIFICATION SECTION -->
@@ -7378,7 +7378,7 @@ export const PreprocessingView = {
 
     Modal.open({
       title: 'Generate Grading Track ID',
-      size: 'full',
+      size: 'xl',
       content: `
         <form id="form-gen-gr-track" class="space-y-4" onsubmit="return false;">
           <!-- 11 Form Input Fields -->
@@ -7734,7 +7734,7 @@ export const PreprocessingView = {
 
     Modal.open({
       title: `Edit Grading Track ID: ${row.trackId}`,
-      size: 'full',
+      size: 'xl',
       content: `
         <form id="form-edit-gr-track" class="space-y-4" onsubmit="return false;">
           <!-- 11 Form Input Fields -->
@@ -8043,7 +8043,7 @@ export const PreprocessingView = {
 
     Modal.open({
       title: `Grading Track ID Registry: ${row.trackId}`,
-      size: 'full',
+      size: 'xl',
       content: `
         <div class="space-y-4 text-xs">
           <!-- Key Details Grid (Standardized to De-Heading & RM Details Style) -->
@@ -8688,7 +8688,7 @@ export const PreprocessingView = {
 
     Modal.open({
       title: 'Generate Value Addition Track ID',
-      size: 'full',
+      size: 'xl',
       content: `
         <form id="form-gen-va-track" class="space-y-4" onsubmit="return false;">
           <!-- 1. HEADER SPECIFICATION SECTION -->
@@ -9283,7 +9283,7 @@ export const PreprocessingView = {
 
     Modal.open({
       title: `Edit Value Addition Track ID: ${row.trackId}`,
-      size: 'full',
+      size: 'xl',
       content: `
         <form id="form-edit-va-track" class="space-y-4" onsubmit="return false;">
           <!-- 1. HEADER SPECIFICATION SECTION -->
@@ -9610,7 +9610,7 @@ export const PreprocessingView = {
 
     Modal.open({
       title: `Value Addition Track ID Registry: ${row.trackId}`,
-      size: 'full',
+      size: 'xl',
       content: `
         <div class="space-y-4 text-xs">
           <!-- Key Details Grid (12 Fields) -->
@@ -10291,7 +10291,7 @@ export const PreprocessingView = {
 
     Modal.open({
       title: 'Add HON QTY Transfer After VA',
-      size: 'full',
+      size: 'xl',
       content: `
         <form id="form-add-hon-transfer" class="space-y-4" onsubmit="return false;">
           <!-- 1. Header Registry Specification Section -->
@@ -10592,7 +10592,7 @@ export const PreprocessingView = {
   showEditHonTransferModal(row, container) {
     Modal.open({
       title: `Edit HON QTY Transfer: ${row.trackId}`,
-      size: 'lg',
+      size: 'xl',
       content: `
         <form id="form-edit-hon-transfer" class="space-y-4" onsubmit="return false;">
           <!-- 9 Form Input Fields -->
@@ -10729,7 +10729,7 @@ export const PreprocessingView = {
 
     Modal.open({
       title: `HON QTY Transfer Registry: ${row.trackId}`,
-      size: 'full',
+      size: 'xl',
       content: `
         <div class="space-y-4 text-xs">
           <!-- Key Details Grid (12 Fields) -->
@@ -11448,7 +11448,7 @@ export const PreprocessingView = {
 
     Modal.open({
       title: `Chemical PO Registry: ${row.poNo}`,
-      size: 'full',
+      size: 'xl',
       content: `
         <div class="space-y-4 text-xs">
           <!-- Key Details Grid (12 Fields) -->
@@ -11845,7 +11845,7 @@ export const PreprocessingView = {
 
     Modal.open({
       title: 'Receive Chemicals',
-      size: 'lg',
+      size: 'xl',
       content: `
         <form id="form-receive-chem" class="space-y-3.5 text-xs" onsubmit="return false;">
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -12018,7 +12018,7 @@ export const PreprocessingView = {
   showEditReceivedChemicalModal(row, container) {
     Modal.open({
       title: `Edit Received Consignment: ${row.poNo}`,
-      size: 'lg',
+      size: 'xl',
       content: `
         <form id="form-edit-received-chem" class="space-y-3.5 text-xs" onsubmit="return false;">
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -12154,7 +12154,7 @@ export const PreprocessingView = {
 
     Modal.open({
       title: `Received Chemical Consignment Registry: ${row.poNo}`,
-      size: 'full',
+      size: 'xl',
       content: `
         <div class="space-y-4 text-xs">
           <!-- Key Details Grid (12 Fields) -->
@@ -12786,7 +12786,7 @@ export const PreprocessingView = {
 
     Modal.open({
       title: `Chemical Consumption Registry: ${row.chemicalName}`,
-      size: 'full',
+      size: 'xl',
       content: `
         <div class="space-y-4 text-xs">
           <!-- Key Details Grid (12 Fields) -->
@@ -14203,7 +14203,7 @@ export const PreprocessingView = {
 
     Modal.open({
       title: `Chemical Payment Voucher Registry: ${row.poNo || row.paymentRef || 'VOUCHER'}`,
-      size: 'full',
+      size: 'xl',
       content: `
         <div class="space-y-4 text-xs">
           <!-- Key Details Grid (12 Fields) -->

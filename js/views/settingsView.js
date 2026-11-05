@@ -2394,7 +2394,7 @@ openRoleModal(role = null, onSaved) {
 
     Modal.open({
       title,
-      size: 'lg',
+      size: 'xl',
       content: `
         <form id="form-user-modal" class="space-y-4 text-xs">
           <!-- Profile Photo Upload Card -->
@@ -4510,7 +4510,7 @@ openRoleModal(role = null, onSaved) {
   openAddFormModal() {
     Modal.open({
       title: 'Add New Form Definition',
-      size: 'lg',
+      size: 'xl',
       content: `
         <form id="modal-form-add-form" class="space-y-4">
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
@@ -4604,7 +4604,7 @@ openRoleModal(role = null, onSaved) {
 
     Modal.open({
       title: `Assign Database Model: ${form.name}`,
-      size: 'lg',
+      size: 'xl',
       content: `
         <div class="space-y-4 max-h-[75vh] overflow-y-auto pr-1">
           <!-- Form Header Context -->
@@ -5049,7 +5049,7 @@ openRoleModal(role = null, onSaved) {
 
     Modal.open({
       title: 'Add Custom Field',
-      size: 'full',
+      size: 'xl',
       content: `
         <form id="modal-form-add-field" class="flex flex-col lg:flex-row gap-5 items-start">
           <!-- LEFT: Form Configuration Fields (Scrollable area) -->
@@ -6908,7 +6908,7 @@ openRoleModal(role = null, onSaved) {
 
     Modal.open({
       title: `Add ${selectedMaster.label} Record`,
-      size: 'lg',
+      size: 'xl',
       content: `
         <form id="form-add-master-rec" class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
           <div>
@@ -6979,7 +6979,7 @@ openRoleModal(role = null, onSaved) {
   showEditMasterModal(selectedMaster, record, container) {
     Modal.open({
       title: `Edit ${selectedMaster.label} - ${record.code}`,
-      size: 'lg',
+      size: 'xl',
       content: `
         <form id="form-edit-master-rec" class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
           <div>

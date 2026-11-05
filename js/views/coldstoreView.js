@@ -4451,7 +4451,7 @@ export const ColdstoreView = {
 
     Modal.open({
       title: 'Add Stock (Coldstore Inward)',
-      size: '2xl',
+      size: 'xl',
       content: `
         <form id="form-add-stock" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs">
           <!-- 1. PRODUCTION PLANT * -->
@@ -5750,7 +5750,7 @@ export const ColdstoreView = {
   showOrderStatusDetailModal(row) {
     Modal.open({
       title: `Order Status Detail: ${row.poNo} (${row.buyer})`,
-      size: '2xl',
+      size: 'xl',
       content: `
         <div class="space-y-4 text-xs text-[#172B4D]">
           <!-- Header Banner -->
@@ -6974,7 +6974,7 @@ export const ColdstoreView = {
   showPrintStockTagModal(row) {
     Modal.open({
       title: `Print Stock Tag - ${row.bid} (${row.trackCode})`,
-      size: 'lg',
+      size: 'xl',
       content: `
         <div class="space-y-4 text-xs text-[#172B4D]">
           <div class="border-2 border-dashed border-[#0284C7] p-5 rounded-xl bg-white space-y-4">
@@ -9770,7 +9770,7 @@ export const ColdstoreView = {
 
     Modal.open({
       title: `Inter-Branch Transfer Details: ${orderNo}`,
-      size: 'full',
+      size: 'xl',
       content: `
         <div class="space-y-4 text-xs text-[#172B4D]">
           <!-- Header Banner -->
@@ -9893,7 +9893,7 @@ export const ColdstoreView = {
   showCreateIbtRequestModal(onSuccessCallback) {
     Modal.open({
       title: 'Create Inter-Branch Transfer Request',
-      size: 'full',
+      size: 'xl',
       content: `
         <div class="space-y-4 text-xs text-[#172B4D]">
           <!-- Filter Card (13 Input Fields + Search Button) -->
@@ -10998,7 +10998,7 @@ export const ColdstoreView = {
 
     Modal.open({
       title: 'Are you sure to Load the consignment?',
-      size: 'full',
+      size: 'xl',
       content: `
         <div class="text-xs text-[#172B4D]">
           <!-- Consolidated Table Card (Table + Bottom Footer Bar All in One Unit) -->
@@ -11152,7 +11152,7 @@ export const ColdstoreView = {
   showShipmentLotDetailModal(row) {
     Modal.open({
       title: `Shipment Lot Details: ${row.poNumber || row.lotId} (${row.barCode || ''})`,
-      size: 'lg',
+      size: 'xl',
       content: `
         <div class="space-y-4 text-xs text-[#172B4D]">
           <div class="p-3 bg-[#F4F5F7] border border-[#DFE1E6] rounded-lg flex items-center justify-between">
@@ -11621,7 +11621,7 @@ export const ColdstoreView = {
 
     Modal.open({
       title: 'Add Freezing Run',
-      size: '2xl',
+      size: 'xl',
       content: `
         <form id="form-add-freezing" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs">
           <!-- 1. PRODUCTION DATE * -->
@@ -11913,7 +11913,7 @@ export const ColdstoreView = {
   showEditFreezingModal(row, onSuccessCallback) {
     Modal.open({
       title: `Edit Freezing Run: ${row.arrivalLotCode || row.runCode}`,
-      size: '2xl',
+      size: 'xl',
       content: `
         <form id="form-edit-freezing" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs">
           <div>
@@ -12009,7 +12009,7 @@ export const ColdstoreView = {
   showFreezingDetailModal(row) {
     Modal.open({
       title: `Freezing Run Details: ${row.arrivalLotCode || row.runCode}`,
-      size: '2xl',
+      size: 'xl',
       content: `
         <div class="space-y-4 text-xs text-[#172B4D]">
           <!-- Hero Header Banner -->

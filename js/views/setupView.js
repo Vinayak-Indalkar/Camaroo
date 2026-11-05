@@ -6414,7 +6414,7 @@ export const SetupView = {
 
     Modal.open({
       title: `User Details & Permissions: ${user.name || user.username}`,
-      size: 'lg',
+      size: 'xl',
       content: contentHtml,
       footerButtons: [
         { label: 'Close', type: 'secondary', onClick: () => Modal.close() }
@@ -8649,7 +8649,7 @@ export const SetupView = {
 
     Modal.open({
       title: `Assigned Menus: ${role.name}`,
-      size: 'lg',
+      size: 'xl',
       content: `
         <div class="space-y-3">
           <div class="flex items-center justify-between p-3 bg-[#FAFBFC] rounded-lg border border-[#DFE1E6]">
@@ -10107,7 +10107,7 @@ export const SetupView = {
 
     const subModal = Modal.open({
       title: `Submenus in ${mod.label}`,
-      size: 'lg',
+      size: 'xl',
       content: getModalContent(),
       footerButtons: [
         { label: 'Close', type: 'secondary', onClick: () => Modal.close() }
@@ -13076,7 +13076,7 @@ export const SetupView = {
         </div>
       `,
       content: '<div id="audit-history-modal-body" class="w-full"></div>',
-      size: 'full',
+      size: 'xl',
       onClose: () => {
         if (btn) {
           btn.classList.remove('bg-[#E0F2FE]', 'border-[#00A4B7]', 'text-[#00A4B7]', 'shadow-xs');
