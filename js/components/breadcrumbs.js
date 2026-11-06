@@ -19,7 +19,11 @@ export const Breadcrumbs = {
     const isSuperAdmin = ERP_DATA.currentUser?.role === 'Super Admin';
     const targetHierarchy = isSuperAdmin ? SUPER_ADMIN_NAV_HIERARCHY : ADMIN_NAV_HIERARCHY;
     const module = targetHierarchy.find(m => m.id === modId) || NAV_HIERARCHY.find(m => m.id === modId);
-    if (module) {
+    if (modId === 'notifications') {
+      crumbs.push({ label: 'Notifications', hash: '#/notifications', active: true });
+    } else if (modId === 'profile') {
+      crumbs.push({ label: 'My Profile', hash: '#/profile', active: true });
+    } else if (module) {
       const defaultModHash = module.submenus[0]?.tabs[0]?.hash || `/${modId}`;
       crumbs.push({ label: module.title, hash: defaultModHash });
 

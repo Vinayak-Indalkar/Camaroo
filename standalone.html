@@ -1857,8 +1857,16 @@ button.dt-action-btn:not(.dt-top-filter-reset-btn):not(.dt-top-filter-toggle-btn
   justify-content: center !important;
 }
 
+#header-search-clear-btn,
+.pwd-toggle-btn,
+#btn-remove-avatar {
+  padding: 6px !important;
+  min-height: auto !important;
+  box-sizing: border-box !important;
+}
+
 /* 4. BUTTONS & CONTROLS - PILL GEOMETRY & WCAG CALIBRATED SYSTEM */
-button:not(.sidebar-mod-btn):not(#header-settings-btn):not(#header-notifications-btn):not(#header-help-btn):not(#user-menu-btn):not(.settings-dropdown-link):not([role="tab"]):not(#sidebar-edge-toggle-btn):not(.dt-action-btn):not(.dt-top-filter-reset-btn):not(.dt-top-filter-toggle-btn):not(.btn-show-all-submenus):not(.btn-sub-edit):not(.btn-sub-toggle):not(.btn-sub-del):not(#toggle-pwd-btn):not(#toggle-usr-modal-password-btn):not(#toggle-asgn-db-pass-btn):not(.btn-toggle-cpwd):not(#dt-opt-excel):not(#dt-opt-csv):not(#dt-opt-pdf):not([id^="dt-opt-"]):not([class*="text-left"]):not(#dt-page-prev):not(#dt-page-next):not([id*="page-prev"]):not([id*="page-next"]):not(.dt-page-btn):not([class*="page-btn"]):not(#erp-cal-prev-btn):not(#erp-cal-next-btn):not(#erp-cal-clear-btn):not(#erp-cal-today-btn):not(.erp-cal-day),
+button:not(.sidebar-mod-btn):not(#header-settings-btn):not(#header-notifications-btn):not(#header-help-btn):not(#user-menu-btn):not(.settings-dropdown-link):not([role="tab"]):not(#sidebar-edge-toggle-btn):not(.dt-action-btn):not(.dt-top-filter-reset-btn):not(.dt-top-filter-toggle-btn):not(.btn-show-all-submenus):not(.btn-sub-edit):not(.btn-sub-toggle):not(.btn-sub-del):not(#toggle-pwd-btn):not(#toggle-usr-modal-password-btn):not(#toggle-asgn-db-pass-btn):not(.btn-toggle-cpwd):not(#dt-opt-excel):not(#dt-opt-csv):not(#dt-opt-pdf):not([id^="dt-opt-"]):not([class*="text-left"]):not(#dt-page-prev):not(#dt-page-next):not([id*="page-prev"]):not([id*="page-next"]):not(.dt-page-btn):not([class*="page-btn"]):not(#erp-cal-prev-btn):not(#erp-cal-next-btn):not(#erp-cal-clear-btn):not(#erp-cal-today-btn):not(.erp-cal-day):not(#header-search-clear-btn):not(.pwd-toggle-btn):not(#btn-remove-avatar),
 .btn,
 .btn-primary,
 .btn-primary-deep,
@@ -8842,7 +8850,11 @@ const Breadcrumbs = {
     const isSuperAdmin = ERP_DATA.currentUser?.role === 'Super Admin';
     const targetHierarchy = isSuperAdmin ? SUPER_ADMIN_NAV_HIERARCHY : ADMIN_NAV_HIERARCHY;
     const module = targetHierarchy.find(m => m.id === modId) || NAV_HIERARCHY.find(m => m.id === modId);
-    if (module) {
+    if (modId === 'notifications') {
+      crumbs.push({ label: 'Notifications', hash: '#/notifications', active: true });
+    } else if (modId === 'profile') {
+      crumbs.push({ label: 'My Profile', hash: '#/profile', active: true });
+    } else if (module) {
       const defaultModHash = module.submenus[0]?.tabs[0]?.hash || `/${modId}`;
       crumbs.push({ label: module.title, hash: defaultModHash });
 
@@ -8892,13 +8904,18 @@ const Breadcrumbs = {
 
 
 
+
 const Header = {
+  notifSubscribed: false,
+
   render(containerId) {
     const container = document.getElementById(containerId);
     if (!container) return;
 
     const isCollapsed = localStorage.getItem('dfl_sidebar_collapsed') === 'true';
     const isSuperAdmin = ERP_DATA.currentUser?.role === 'Super Admin';
+    const unreadNotifs = NotificationService.getUnread();
+    const unreadCount = unreadNotifs.length;
 
     container.innerHTML = `
       <header class="bg-white border-b border-[#E2E8F0] h-14 px-5 flex items-center justify-between select-none rounded-t-2xl">
@@ -8917,8 +8934,8 @@ const Header = {
             <button 
               type="button" 
               id="header-search-clear-btn" aria-label="Clear search input" 
-              style="display: none !important;"
-              class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-[#94A3B8] hover:text-[#0F172A] p-0.5 rounded-full hover:bg-[#E2E8F0] transition-colors cursor-pointer items-center justify-center"
+              style="display: none !important; padding: 6px !important; min-height: auto !important;"
+              class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-[#94A3B8] hover:text-[#0F172A] p-[6px] rounded-full hover:bg-[#E2E8F0] transition-colors cursor-pointer items-center justify-center"
               title="Clear Search"
             >
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
@@ -8938,39 +8955,13 @@ const Header = {
         <!-- Right: Actions, Notifications & Profile -->
         <div class="flex items-center gap-2">
           <!-- Notifications -->
-          <div class="relative">
-            <button id="header-notifications-btn" class="p-2 text-[#64748B] hover:text-[#0F172A] hover:bg-[#F8FAFC] rounded-full relative transition-colors cursor-pointer border border-[#E2E8F0]" title="Notifications" aria-label="Notifications, 3 unread" aria-haspopup="true" aria-expanded="false">
+          <div class="relative" id="header-notifications-container">
+            <button id="header-notifications-btn" class="p-2 text-[#64748B] hover:text-[#0F172A] hover:bg-[#F8FAFC] rounded-full relative transition-colors cursor-pointer border border-[#E2E8F0]" title="Notifications" aria-label="Notifications, ${unreadCount} unread" aria-haspopup="true" aria-expanded="false">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
-              <span class="absolute top-1 right-1 w-2 h-2 bg-[#EF4444] rounded-full ring-2 ring-white"></span>
+              ${unreadCount > 0 ? `<span id="header-notif-badge" class="absolute -top-0.5 -right-0.5 min-w-[16px] h-4 px-1 bg-[#EF4444] text-white text-[9px] font-extrabold rounded-full flex items-center justify-center ring-2 ring-white">${unreadCount > 9 ? '9+' : unreadCount}</span>` : ''}
             </button>
-            <div id="notifications-dropdown" class="hidden absolute right-0 mt-2 w-80 bg-white rounded-xl border border-[#E2E8F0] shadow-xl py-2 z-50 text-xs">
-              <div class="px-3 py-1.5 font-bold text-[#0F172A] border-b border-[#F1F5F9] flex justify-between items-center">
-                <span>Notifications (3 New)</span>
-                <span class="text-[10px] text-[#0284C7] cursor-pointer hover:underline font-semibold">Mark all read</span>
-              </div>
-              <div class="divide-y divide-[#F1F5F9] max-h-64 overflow-y-auto">
-                <div class="p-3 hover:bg-[#F8FAFC] cursor-pointer">
-                  <div class="flex items-center gap-1.5 text-[#0284C7] font-semibold text-[11px]">
-                    <span class="w-1.5 h-1.5 rounded-full bg-[#0284C7]"></span> RM Arrival #RMA-2026-00341
-                  </div>
-                  <div class="text-[#475569] mt-0.5">Godavari Coastal 2,980 KG Vannamei Shrimp staged at Dock #1 awaiting QC approval.</div>
-                  <div class="text-[10px] text-[#94A3B8] mt-1">20 minutes ago</div>
-                </div>
-                <div class="p-3 hover:bg-[#F8FAFC] cursor-pointer">
-                  <div class="flex items-center gap-1.5 text-[#15803D] font-semibold text-[11px]">
-                    <span class="w-1.5 h-1.5 rounded-full bg-[#15803D]"></span> QC Antibiotic Clearance
-                  </div>
-                  <div class="text-[#475569] mt-0.5">LOT-2026-00128 Seabass passed all rapid nitrofurans & organoleptic panels.</div>
-                  <div class="text-[10px] text-[#94A3B8] mt-1">1 hour ago</div>
-                </div>
-                <div class="p-3 hover:bg-[#F8FAFC] cursor-pointer">
-                  <div class="flex items-center gap-1.5 text-[#6D28D9] font-semibold text-[11px]">
-                    <span class="w-1.5 h-1.5 rounded-full bg-[#6D28D9]"></span> Export Vessel Gate-In
-                  </div>
-                  <div class="text-[#475569] mt-0.5">Container ONEU-440912-8 (14 MT Black Tiger) cleared customs for Tokyo.</div>
-                  <div class="text-[10px] text-[#94A3B8] mt-1">3 hours ago</div>
-                </div>
-              </div>
+            <div id="notifications-dropdown" class="hidden absolute right-0 mt-2 w-80 sm:w-96 bg-white rounded-xl border border-[#DFE1E6] shadow-xl z-50 text-xs overflow-hidden">
+              <!-- Rendered via Header.renderNotificationDropdownContent() -->
             </div>
           </div>
 
@@ -8986,7 +8977,7 @@ const Header = {
             </button>
 
             <!-- User Menu Popup -->
-            <div id="user-dropdown-menu" class="hidden absolute right-0 mt-2 w-64 bg-white rounded-xl border border-[#DFE1E6] shadow-xl py-2 z-[100] text-xs">
+            <div id="user-dropdown-menu" class="hidden absolute right-0 mt-2 w-64 bg-white rounded-xl border border-[#DFE1E6] shadow-xl py-2 px-[6px] z-[100] text-xs">
               <div class="px-3 py-2 border-b border-[#EBECF0]">
                 <div class="font-bold text-[#172B4D]">${ERP_DATA.currentUser.name}</div>
                 <div class="text-[11px] text-[#5E6C84]">${ERP_DATA.currentUser.email}</div>
@@ -8996,7 +8987,13 @@ const Header = {
                 </div>
               </div>
 
-
+              <!-- My Profile Action -->
+              <div class="p-1 border-b border-[#EBECF0]">
+                <button type="button" id="my-profile-menu-btn" class="w-full text-left px-3 py-2 hover:bg-[#F0F9FF] text-[#172B4D] hover:text-[#00A4B7] rounded-lg font-semibold flex items-center gap-2 transition-colors cursor-pointer">
+                  <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                  <span>My Profile</span>
+                </button>
+              </div>
 
               <!-- Quick Switch Role Action -->
               <div class="p-1 border-b border-[#EBECF0]">
@@ -9021,7 +9018,120 @@ const Header = {
       </header>
     `;
 
+    this.renderNotificationDropdownContent();
     this.bindEvents();
+
+    if (!this.notifSubscribed) {
+      this.notifSubscribed = true;
+      NotificationService.subscribe(() => {
+        this.renderNotificationDropdownContent();
+      });
+    }
+  },
+
+  renderNotificationDropdownContent() {
+    const unreadNotifs = NotificationService.getUnread();
+    const unreadCount = unreadNotifs.length;
+    const dropdown = document.getElementById('notifications-dropdown');
+    const btn = document.getElementById('header-notifications-btn');
+
+    if (btn) {
+      btn.setAttribute('aria-label', `Notifications, ${unreadCount} unread`);
+      let badgeEl = btn.querySelector('#header-notif-badge');
+      if (unreadCount > 0) {
+        if (!badgeEl) {
+          badgeEl = document.createElement('span');
+          badgeEl.id = 'header-notif-badge';
+          badgeEl.className = 'absolute -top-0.5 -right-0.5 min-w-[16px] h-4 px-1 bg-[#EF4444] text-white text-[9px] font-extrabold rounded-full flex items-center justify-center ring-2 ring-white';
+          btn.appendChild(badgeEl);
+        }
+        badgeEl.textContent = unreadCount > 9 ? '9+' : unreadCount;
+      } else if (badgeEl) {
+        badgeEl.remove();
+      }
+    }
+
+    if (!dropdown) return;
+
+    dropdown.innerHTML = `
+      <div class="px-3.5 py-2.5 font-bold text-[#172B4D] border-b border-[#F1F5F9] flex items-center bg-[#F8FAFC]">
+        <span class="text-xs font-bold text-[#172B4D]">Notifications</span>
+      </div>
+
+      <div class="divide-y divide-[#F1F5F9] max-h-72 overflow-y-auto">
+        ${unreadCount === 0 ? `
+          <div class="p-6 text-center text-[#5E6C84]">
+            <div class="w-10 h-10 mx-auto rounded-full bg-[#E3FCEF] text-[#006644] flex items-center justify-center mb-2">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <p class="font-bold text-[#172B4D] text-xs">All caught up!</p>
+            <p class="text-[11px] text-[#64748B] mt-0.5">No unread notifications right now.</p>
+          </div>
+        ` : unreadNotifs.map(item => {
+          let dotColor = 'bg-[#00A4B7]';
+          if (item.severity === 'success') {
+            dotColor = 'bg-[#006644]';
+          } else if (item.severity === 'warning') {
+            dotColor = 'bg-[#FF8B00]';
+          } else if (item.severity === 'purple') {
+            dotColor = 'bg-[#403294]';
+          }
+          return `
+            <div class="p-3 hover:bg-[#F8FAFC] cursor-pointer transition-colors header-notif-item" data-id="${item.id}" data-hash="${item.targetHash || ''}">
+              <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full ${dotColor} shrink-0"></span>
+                <span class="text-xs font-bold text-[#172B4D] break-words">${item.title}</span>
+              </div>
+              <div class="text-xs text-[#5E6C84] mt-1 leading-snug break-words">${item.message}</div>
+              <div class="text-[11px] text-[#94A3B8] mt-1.5 flex items-center gap-1.5 font-medium">
+                <span>${item.time}</span>
+                <span>•</span>
+                <span>${item.category}</span>
+              </div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+
+      <div class="p-2 border-t border-[#F1F5F9] bg-[#F8FAFC]">
+        <button type="button" id="header-notif-see-all-btn" class="w-full py-1.5 px-3 text-center text-xs font-bold text-[#00A4B7] hover:text-[#008F9F] hover:bg-white rounded-lg transition-colors cursor-pointer border border-transparent hover:border-[#DFE1E6] flex items-center justify-center gap-1.5">
+          <span>See All Notifications</span>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    `;
+
+    this.bindNotificationDropdownEvents();
+  },
+
+  bindNotificationDropdownEvents() {
+    const dropdown = document.getElementById('notifications-dropdown');
+    if (!dropdown) return;
+
+    // See all button -> route to notifications page
+    const seeAllBtn = document.getElementById('header-notif-see-all-btn');
+    if (seeAllBtn) {
+      seeAllBtn.onclick = (e) => {
+        e.stopPropagation();
+        dropdown.classList.add('hidden');
+        window.location.hash = '#/notifications';
+      };
+    }
+
+    // Clicking notification item -> mark read & go to destination
+    dropdown.querySelectorAll('.header-notif-item').forEach(itemEl => {
+      itemEl.onclick = (e) => {
+        const id = itemEl.dataset.id;
+        const hash = itemEl.dataset.hash;
+        if (id) {
+          NotificationService.markAsRead(id);
+        }
+        dropdown.classList.add('hidden');
+        if (hash) {
+          window.location.hash = hash;
+        }
+      };
+    });
   },
 
   bindEvents() {
@@ -9044,7 +9154,13 @@ const Header = {
       notifBtn.onclick = (e) => {
         e.stopPropagation();
         if (userMenu) userMenu.classList.add('hidden');
-        notifMenu.classList.toggle('hidden');
+        const isHidden = notifMenu.classList.contains('hidden');
+        if (isHidden) {
+          this.renderNotificationDropdownContent();
+          notifMenu.classList.remove('hidden');
+        } else {
+          notifMenu.classList.add('hidden');
+        }
       };
     }
 
@@ -9151,7 +9267,15 @@ const Header = {
       });
     }
 
-
+    // My Profile Link in User Dropdown
+    const myProfileBtn = document.getElementById('my-profile-menu-btn');
+    if (myProfileBtn) {
+      myProfileBtn.onclick = (e) => {
+        e.stopPropagation();
+        if (userMenu) userMenu.classList.add('hidden');
+        window.location.hash = '#/profile';
+      };
+    }
 
     // Quick Switch Role (Admin <-> Super Admin)
     const switchRoleBtn = document.getElementById('switch-role-menu-btn');
@@ -9525,7 +9649,223 @@ if (typeof window !== 'undefined') {
 }
 
 
-  // App Settings Engine
+  // App Services
+  // Notification Data Store & Service for Devi Fisheries ERP
+
+const NotificationService = {
+  STORAGE_KEY: 'camaroo_notifications_v1',
+  listeners: [],
+
+  defaultNotifications: [
+    {
+      id: 'notif-1',
+      title: 'Raw Material Arrival #RMA-2026-00341',
+      message: 'Godavari Coastal 2,980 KG Vannamei Shrimp staged at Dock #1 awaiting QC approval.',
+      category: 'Procurement',
+      time: '20 mins ago',
+      date: '06-Nov-2026, 09:30 AM',
+      severity: 'info',
+      read: false,
+      targetHash: '#/purchase/orders/purchase-orders'
+    },
+    {
+      id: 'notif-2',
+      title: 'QC Antibiotic Clearance Alert',
+      message: 'LOT-2026-00128 Seabass passed all rapid nitrofurans & organoleptic panels.',
+      category: 'Quality Control',
+      time: '1 hour ago',
+      date: '06-Nov-2026, 08:50 AM',
+      severity: 'success',
+      read: false,
+      targetHash: '#/quality/inspections/raw-material-qc'
+    },
+    {
+      id: 'notif-3',
+      title: 'Export Vessel Gate-In Confirmation',
+      message: 'Container ONEU-440912-8 (14 MT Black Tiger) cleared customs for Tokyo.',
+      category: 'Export Logistics',
+      time: '3 hours ago',
+      date: '06-Nov-2026, 06:45 AM',
+      severity: 'purple',
+      read: false,
+      targetHash: '#/sales/orders/sales-orders'
+    },
+    {
+      id: 'notif-4',
+      title: 'Coldstore Chamber #2 Temp Alert',
+      message: 'Temperature stabilized back to -20.4°C after transient loading cycle.',
+      category: 'Coldstore',
+      time: 'Yesterday 04:15 PM',
+      date: '05-Nov-2026, 04:15 PM',
+      severity: 'warning',
+      read: true,
+      targetHash: '#/coldstore/realtime/temperature-monitoring'
+    },
+    {
+      id: 'notif-5',
+      title: 'Batch #PRD-2026-880 Packaging Completed',
+      message: '9,200 KG Head-on IQF Vannamei boxed and palletized into Room B.',
+      category: 'Production',
+      time: 'Yesterday 02:00 PM',
+      date: '05-Nov-2026, 02:00 PM',
+      severity: 'success',
+      read: true,
+      targetHash: '#/production/batches/production-orders'
+    },
+    {
+      id: 'notif-6',
+      title: 'Daily Automated Database Backup',
+      message: 'Encrypted snapshot vault sync completed successfully (420 MB compressed).',
+      category: 'System Alert',
+      time: '05-Nov-2026, 02:00 AM',
+      date: '05-Nov-2026, 02:00 AM',
+      severity: 'info',
+      read: true,
+      targetHash: '#/settings/setup/general'
+    },
+    {
+      id: 'notif-7',
+      title: 'Supplier Pre-Harvest Nitrate Verification',
+      message: 'Nellore Block #4 pond water testing sample verified compliant with EU limits.',
+      category: 'Procurement',
+      time: '04-Nov-2026, 11:30 AM',
+      date: '04-Nov-2026, 11:30 AM',
+      severity: 'info',
+      read: true,
+      targetHash: '#/purchase/orders/purchase-orders'
+    },
+    {
+      id: 'notif-8',
+      title: 'Customer LC Payment Received',
+      message: 'Letter of credit confirmation received from Marubeni Corp ($240,000 USD).',
+      category: 'Export Logistics',
+      time: '03-Nov-2026, 05:20 PM',
+      date: '03-Nov-2026, 05:20 PM',
+      severity: 'success',
+      read: true,
+      targetHash: '#/sales/orders/sales-orders'
+    }
+  ],
+
+  load() {
+    try {
+      const stored = localStorage.getItem(this.STORAGE_KEY);
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          return parsed;
+        }
+      }
+    } catch (e) {
+      console.warn('Failed to parse notifications from localStorage, using defaults.', e);
+    }
+    this.save(this.defaultNotifications);
+    return [...this.defaultNotifications];
+  },
+
+  save(items) {
+    try {
+      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(items));
+    } catch (e) {
+      console.warn('Failed to save notifications to localStorage.', e);
+    }
+    this.notifyListeners(items);
+  },
+
+  getAll() {
+    return this.load();
+  },
+
+  getUnread() {
+    return this.load().filter(n => !n.read);
+  },
+
+  getRead() {
+    return this.load().filter(n => n.read);
+  },
+
+  getUnreadCount() {
+    return this.getUnread().length;
+  },
+
+  markAsRead(id) {
+    const list = this.load();
+    const item = list.find(n => n.id === id);
+    if (item && !item.read) {
+      item.read = true;
+      this.save(list);
+    }
+  },
+
+  markAsUnread(id) {
+    const list = this.load();
+    const item = list.find(n => n.id === id);
+    if (item && item.read) {
+      item.read = false;
+      this.save(list);
+    }
+  },
+
+  markAllAsRead() {
+    const list = this.load();
+    let changed = false;
+    list.forEach(n => {
+      if (!n.read) {
+        n.read = true;
+        changed = true;
+      }
+    });
+    if (changed) {
+      this.save(list);
+    }
+  },
+
+  deleteNotification(id) {
+    const list = this.load().filter(n => n.id !== id);
+    this.save(list);
+  },
+
+  clearAllRead() {
+    const list = this.load().filter(n => !n.read);
+    this.save(list);
+  },
+
+  addNotification(notif) {
+    const list = this.load();
+    const newNotif = {
+      id: `notif-${Date.now()}`,
+      time: 'Just now',
+      date: new Date().toLocaleString(),
+      read: false,
+      severity: 'info',
+      ...notif
+    };
+    list.unshift(newNotif);
+    this.save(list);
+    return newNotif;
+  },
+
+  subscribe(callback) {
+    if (typeof callback === 'function' && !this.listeners.includes(callback)) {
+      this.listeners.push(callback);
+    }
+    return () => {
+      this.listeners = this.listeners.filter(l => l !== callback);
+    };
+  },
+
+  notifyListeners(items) {
+    this.listeners.forEach(fn => {
+      try {
+        fn(items);
+      } catch (err) {
+        console.error('Notification listener callback error:', err);
+      }
+    });
+  }
+};
+
+
   // Devi Fisheries ERP - Enterprise General Settings Engine & Global App State
 
 
@@ -102378,6 +102718,615 @@ openRoleModal(role = null, onSaved) {
   }
 };
 
+  // Notifications View for Devi Fisheries ERP
+
+
+
+const NotificationsView = {
+  searchQuery: '',
+  selectedCategory: 'all',
+  selectedSeverity: 'all',
+  unsubscribe: null,
+
+  render(containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    // Subscribe to notification updates if not already subscribed
+    if (this.unsubscribe) {
+      this.unsubscribe();
+      this.unsubscribe = null;
+    }
+    this.unsubscribe = NotificationService.subscribe(() => {
+      this.renderList();
+    });
+
+    container.innerHTML = `
+      <div class="notifications-page-container max-w-7xl mx-auto space-y-4 px-[6px]">
+        <!-- Header -->
+        <div class="flex items-center justify-between">
+          <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Notifications</h1>
+        </div>
+
+        <!-- Search & Filter Card -->
+        <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs transition-all duration-200">
+          <div class="flex items-center justify-between pb-1">
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+              <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
+            </div>
+            <div class="inline-flex items-center gap-2">
+              <button type="button" id="notif-filter-reset-btn" class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Reset all filters">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
+            <div>
+              <label for="notif-search-input" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Search Notification</label>
+              <input type="text" id="notif-search-input" value="${this.searchQuery}" placeholder="Keywords, RM #, Lot..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            </div>
+            <div>
+              <label for="notif-category-filter" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Category</label>
+              <select id="notif-category-filter" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="all" ${this.selectedCategory === 'all' ? 'selected' : ''}>All Categories</option>
+                <option value="Procurement" ${this.selectedCategory === 'Procurement' ? 'selected' : ''}>Procurement</option>
+                <option value="Quality Control" ${this.selectedCategory === 'Quality Control' ? 'selected' : ''}>Quality Control</option>
+                <option value="Export Logistics" ${this.selectedCategory === 'Export Logistics' ? 'selected' : ''}>Export Logistics</option>
+                <option value="Coldstore" ${this.selectedCategory === 'Coldstore' ? 'selected' : ''}>Coldstore</option>
+                <option value="Production" ${this.selectedCategory === 'Production' ? 'selected' : ''}>Production</option>
+                <option value="System Alert" ${this.selectedCategory === 'System Alert' ? 'selected' : ''}>System Alert</option>
+              </select>
+            </div>
+            <div>
+              <label for="notif-severity-filter" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Severity / Priority</label>
+              <select id="notif-severity-filter" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="all" ${this.selectedSeverity === 'all' ? 'selected' : ''}>All Severities</option>
+                <option value="info" ${this.selectedSeverity === 'info' ? 'selected' : ''}>Info / General</option>
+                <option value="success" ${this.selectedSeverity === 'success' ? 'selected' : ''}>Success / Operational</option>
+                <option value="warning" ${this.selectedSeverity === 'warning' ? 'selected' : ''}>Warning</option>
+                <option value="purple" ${this.selectedSeverity === 'purple' ? 'selected' : ''}>Logistics & Customs</option>
+              </select>
+            </div>
+            <div class="flex items-end">
+              <button type="button" id="notif-filter-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                <span>Search</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Notifications List Container -->
+        <div id="notifications-list-container" class="space-y-2.5">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+    `;
+
+    this.renderList();
+    this.bindEvents();
+  },
+
+  getFilteredNotifications() {
+    let items = NotificationService.getAll();
+
+    if (this.selectedCategory !== 'all') {
+      items = items.filter(n => n.category === this.selectedCategory);
+    }
+
+    if (this.selectedSeverity !== 'all') {
+      items = items.filter(n => n.severity === this.selectedSeverity);
+    }
+
+    if (this.searchQuery.trim()) {
+      const q = this.searchQuery.toLowerCase().trim();
+      items = items.filter(n => 
+        (n.title && n.title.toLowerCase().includes(q)) ||
+        (n.message && n.message.toLowerCase().includes(q)) ||
+        (n.category && n.category.toLowerCase().includes(q))
+      );
+    }
+
+    return items;
+  },
+
+  renderList() {
+    const listEl = document.getElementById('notifications-list-container');
+    if (!listEl) return;
+
+    const items = this.getFilteredNotifications();
+
+    if (items.length === 0) {
+      listEl.innerHTML = `
+        <div class="bg-white rounded-xl border border-[#DFE1E6] p-8 text-center">
+          <div class="w-12 h-12 mx-auto rounded-full bg-[#F0F9FF] text-[#00A4B7] flex items-center justify-center mb-3">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+          </div>
+          <h3 class="text-sm font-bold text-[#172B4D]">No notifications found</h3>
+          <p class="text-xs text-[#5E6C84] mt-1">There are no notifications matching the current filter criteria.</p>
+        </div>
+      `;
+      return;
+    }
+
+    listEl.innerHTML = items.map(item => this.renderItem(item)).join('');
+  },
+
+  renderItem(item) {
+    const isUnread = !item.read;
+
+    // Severity badges and icon styles
+    let iconBg = 'bg-[#F0F9FF] text-[#00A4B7] border border-[#BAE6FD]';
+    let iconSvg = `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`;
+    let statusPill = isUnread 
+      ? `<span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase bg-[#FFEBE6] text-[#DE350B] border border-[#FFBDAD]">New</span>` 
+      : `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-[#F1F5F9] text-[#5E6C84] border border-[#DFE1E6]">Read</span>`;
+
+    if (item.severity === 'success') {
+      iconBg = 'bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]';
+      iconSvg = `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`;
+    } else if (item.severity === 'warning') {
+      iconBg = 'bg-[#FFFAE6] text-[#FF8B00] border border-[#FFE380]';
+      iconSvg = `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>`;
+    } else if (item.severity === 'purple') {
+      iconBg = 'bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]';
+      iconSvg = `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>`;
+    }
+
+    return `
+      <div class="notif-item-card bg-white rounded-xl border ${isUnread ? 'border-[#BAE6FD] border-l-4 border-l-[#00A4B7] bg-gradient-to-r from-[#F0F9FF]/40 to-white' : 'border-[#DFE1E6]'} p-4 shadow-2xs hover:shadow-xs transition-all flex items-start gap-3.5">
+        <!-- Icon -->
+        <div class="w-10 h-10 min-w-[40px] rounded-xl flex items-center justify-center shrink-0 shadow-2xs ${iconBg}">
+          ${iconSvg}
+        </div>
+
+        <!-- Content -->
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center gap-2 flex-wrap mb-1">
+            <h3 class="text-xs font-bold text-[#172B4D] truncate">${item.title}</h3>
+            ${statusPill}
+            <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-[#F1F5F9] text-[#172B4D] border border-[#DFE1E6]">
+              ${item.category}
+            </span>
+          </div>
+          <p class="text-xs text-[#5E6C84] leading-relaxed break-words">${item.message}</p>
+          <div class="flex items-center gap-3 text-[11px] text-[#5E6C84] mt-2 font-medium">
+            <span class="inline-flex items-center gap-1">
+              <svg class="w-3.5 h-3.5 text-[#5E6C84]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              ${item.time}
+            </span>
+            <span>•</span>
+            <span>${item.date}</span>
+          </div>
+        </div>
+      </div>
+    `;
+  },
+
+  bindEvents() {
+    // Search and filters
+    const searchInput = document.getElementById('notif-search-input');
+    const categorySelect = document.getElementById('notif-category-filter');
+    const severitySelect = document.getElementById('notif-severity-filter');
+    const searchBtn = document.getElementById('notif-filter-search-btn');
+    const resetBtn = document.getElementById('notif-filter-reset-btn');
+
+    const applyFilters = () => {
+      if (searchInput) this.searchQuery = searchInput.value;
+      if (categorySelect) this.selectedCategory = categorySelect.value;
+      if (severitySelect) this.selectedSeverity = severitySelect.value;
+      this.renderList();
+    };
+
+    if (searchBtn) searchBtn.onclick = applyFilters;
+    if (searchInput) {
+      searchInput.onkeyup = (e) => {
+        if (e.key === 'Enter') applyFilters();
+      };
+    }
+    if (categorySelect) categorySelect.onchange = applyFilters;
+    if (severitySelect) severitySelect.onchange = applyFilters;
+
+    if (resetBtn) {
+      resetBtn.onclick = () => {
+        this.searchQuery = '';
+        this.selectedCategory = 'all';
+        this.selectedSeverity = 'all';
+        if (searchInput) searchInput.value = '';
+        if (categorySelect) categorySelect.value = 'all';
+        if (severitySelect) severitySelect.value = 'all';
+        this.renderList();
+        Toast.show('Filters reset', 'info');
+      };
+    }
+  }
+};
+
+  // My Profile View for Devi Fisheries ERP
+
+
+
+
+const ProfileView = {
+  tempAvatarUrl: null,
+
+  render(containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    const user = ERP_DATA.currentUser || {
+      id: 'ADM-001',
+      name: 'P. Rama Krishna',
+      role: 'Admin',
+      email: 'ramakrishna.p@devifisheries.com',
+      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80',
+      roles: ['Admin'],
+      company: 'Devi Fisheries Limited',
+      phone: '+91 98480 12345'
+    };
+
+    const currentPhone = user.phone || '+91 98480 12345';
+    const currentAltPhone = user.altPhone || '+91 891 2788900';
+    const currentAvatar = this.tempAvatarUrl || user.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80';
+
+    container.innerHTML = `
+      <div class="profile-page-container w-full space-y-4 px-[6px]">
+        <!-- Page Header -->
+        <div class="flex items-center justify-between">
+          <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">My Profile</h1>
+        </div>
+
+        <!-- Profile Hero & Picture Card (Editable Profile Picture) -->
+        <div class="bg-white p-4 rounded-xl border border-[#DFE1E6] flex flex-wrap items-center justify-between gap-4 shadow-2xs">
+          <div class="flex items-center gap-4">
+            <!-- Profile Avatar with Upload Indicator -->
+            <div class="relative group">
+              <img id="profile-preview-avatar" src="${currentAvatar}" alt="${user.name}" class="w-16 h-16 rounded-2xl object-cover ring-2 ring-[#00A4B7] shadow-xs bg-white" />
+              <label for="profile-avatar-file-input" class="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-[#00A4B7] hover:bg-[#008F9F] text-white flex items-center justify-center cursor-pointer shadow-xs transition-transform transform hover:scale-110" title="Upload new photo">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              </label>
+              <input type="file" id="profile-avatar-file-input" accept="image/*" class="hidden" />
+            </div>
+
+            <div>
+              <div class="flex items-center gap-2 flex-wrap">
+                <h2 class="text-base font-extrabold text-[#0F172A]">${user.name}</h2>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD]">
+                  ${user.role}
+                </span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">
+                  Active
+                </span>
+              </div>
+              <div class="text-xs text-[#5E6C84] mt-0.5">${user.email} • ID: <span class="font-mono font-bold text-[#172B4D]">${user.id}</span></div>
+              <div class="text-[11px] text-[#64748B] mt-1 flex items-center gap-2">
+                <span>${user.company || 'Devi Fisheries Limited'}</span>
+                <span>•</span>
+                <span>Visakhapatnam Plant 1 (EIA 1018)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <button type="button" id="btn-trigger-upload" class="px-3.5 py-1.5 bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#172B4D] hover:text-[#00A4B7] rounded-full text-xs font-semibold inline-flex items-center gap-1.5 transition-colors cursor-pointer shadow-2xs">
+              <svg class="w-3.5 h-3.5 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+              <span>Change Photo</span>
+            </button>
+            <button type="button" id="btn-remove-avatar" style="padding: 6px !important; min-height: auto !important;" class="p-[6px] bg-white hover:bg-[#FFEBE6] border border-[#CBD5E1] hover:border-[#DE350B] text-[#5E6C84] hover:text-[#DE350B] rounded-full inline-flex items-center justify-center transition-colors cursor-pointer shadow-2xs" title="Reset photo to default">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Section 1: Contact Information (EDITABLE Contact No.) -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs space-y-3">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9] pb-2">
+              <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">1</span>
+              <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Contact Information</h3>
+            </div>
+
+            <div>
+              <label for="prof-phone-input" class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1">
+                Primary Contact Number <span class="text-[#DE350B]">*</span>
+              </label>
+              <input 
+                type="text" 
+                id="prof-phone-input" 
+                value="${currentPhone}" 
+                placeholder="+91 98480 12345" 
+                class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" 
+              />
+              <p class="text-[10px] text-[#5E6C84] mt-1">Used for urgent SMS dispatch notifications and OTP verification.</p>
+            </div>
+
+            <div>
+              <label for="prof-alt-phone-input" class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1">
+                Alternate Contact / WhatsApp Number
+              </label>
+              <input 
+                type="text" 
+                id="prof-alt-phone-input" 
+                value="${currentAltPhone}" 
+                placeholder="+91 891 2788900" 
+                class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" 
+              />
+            </div>
+          </div>
+
+          <!-- Section 2: Security & Password (EDITABLE Change Password) -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs space-y-3">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
+              <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">2</span>
+              <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Change Password</h3>
+            </div>
+
+            <div>
+              <label for="prof-current-pwd" class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1">Current Password</label>
+              <div class="relative">
+                <input 
+                  type="password" 
+                  id="prof-current-pwd" 
+                  placeholder="Enter current password" 
+                  autocomplete="current-password"
+                  class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs pr-8" 
+                />
+                <button type="button" style="padding: 6px !important; min-height: auto !important;" class="pwd-toggle-btn p-[6px] absolute right-2 top-1/2 -translate-y-1/2 text-[#94A3B8] hover:text-[#172B4D] cursor-pointer rounded-full hover:bg-[#F1F5F9] transition-colors" data-target="prof-current-pwd">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              <div>
+                <label for="prof-new-pwd" class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1">New Password</label>
+                <div class="relative">
+                  <input 
+                    type="password" 
+                    id="prof-new-pwd" 
+                    placeholder="Min 6 characters" 
+                    autocomplete="new-password"
+                    class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs pr-8" 
+                  />
+                  <button type="button" style="padding: 6px !important; min-height: auto !important;" class="pwd-toggle-btn p-[6px] absolute right-2 top-1/2 -translate-y-1/2 text-[#94A3B8] hover:text-[#172B4D] cursor-pointer rounded-full hover:bg-[#F1F5F9] transition-colors" data-target="prof-new-pwd">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                  </button>
+                </div>
+              </div>
+
+              <div>
+                <label for="prof-confirm-pwd" class="block text-[11px] font-bold text-[#172B4D] uppercase tracking-wider mb-1">Confirm New Password</label>
+                <div class="relative">
+                  <input 
+                    type="password" 
+                    id="prof-confirm-pwd" 
+                    placeholder="Re-type new password" 
+                    autocomplete="new-password"
+                    class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs pr-8" 
+                  />
+                  <button type="button" style="padding: 6px !important; min-height: auto !important;" class="pwd-toggle-btn p-[6px] absolute right-2 top-1/2 -translate-y-1/2 text-[#94A3B8] hover:text-[#172B4D] cursor-pointer rounded-full hover:bg-[#F1F5F9] transition-colors" data-target="prof-confirm-pwd">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <p class="text-[10px] text-[#5E6C84]">Leave blank if you do not wish to change your password.</p>
+          </div>
+        </div>
+
+        <!-- Section 3: Identity & Enterprise Roles (DISABLED PER USER INSTRUCTIONS) -->
+        <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs space-y-3">
+          <div class="flex items-center gap-2 border-b border-[#F1F5F9] pb-2">
+            <span class="w-6 h-6 rounded-md bg-[#F1F5F9] text-[#5E6C84] flex items-center justify-center font-bold text-xs">3</span>
+            <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Enterprise Identity & Organization Details</h3>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Full Name</label>
+              <input type="text" value="${user.name}" disabled readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-semibold text-[#5E6C84] cursor-not-allowed select-none shadow-none" />
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Employee ID</label>
+              <input type="text" value="${user.id}" disabled readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-mono font-bold text-[#5E6C84] cursor-not-allowed select-none shadow-none" />
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Work Email Address</label>
+              <input type="text" value="${user.email}" disabled readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-semibold text-[#5E6C84] cursor-not-allowed select-none shadow-none" />
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Primary Role</label>
+              <input type="text" value="${user.role}" disabled readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-semibold text-[#5E6C84] cursor-not-allowed select-none shadow-none" />
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Company / Organization</label>
+              <input type="text" value="${user.company || 'Devi Fisheries Limited'}" disabled readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-semibold text-[#5E6C84] cursor-not-allowed select-none shadow-none" />
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Department</label>
+              <input type="text" value="Operations & Cold Chain Management" disabled readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-semibold text-[#5E6C84] cursor-not-allowed select-none shadow-none" />
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Assigned Plant Scope</label>
+              <input type="text" value="Vizag Processing Unit 1 (EIA 1018)" disabled readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-semibold text-[#5E6C84] cursor-not-allowed select-none shadow-none" />
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Account Security Status</label>
+              <div class="w-full text-xs px-2.5 py-1.5 bg-[#F4F5F7] border border-[#DFE1E6] rounded font-semibold text-[#006644] cursor-not-allowed select-none flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-[#006644]"></span>
+                <span>Active & Compliant</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 4: Bottom Save Bar -->
+        <div class="flex items-center justify-end gap-3 pt-2">
+          <button type="button" id="btn-cancel-profile" class="px-5 py-2 rounded-full text-xs font-semibold border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#172B4D] transition-all cursor-pointer">
+            Cancel
+          </button>
+          <button type="button" id="btn-save-user-profile-bottom" class="btn-primary px-6 py-2 rounded-full text-xs font-bold inline-flex items-center justify-center cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
+            <span>Save Profile</span>
+          </button>
+        </div>
+      </div>
+    `;
+
+    this.bindEvents();
+  },
+
+  bindEvents() {
+    const fileInput = document.getElementById('profile-avatar-file-input');
+    const triggerBtn = document.getElementById('btn-trigger-upload');
+    const removeBtn = document.getElementById('btn-remove-avatar');
+    const previewImg = document.getElementById('profile-preview-avatar');
+
+    // Trigger file dialog
+    if (triggerBtn && fileInput) {
+      triggerBtn.onclick = () => fileInput.click();
+    }
+
+    // Handle avatar file upload
+    if (fileInput && previewImg) {
+      fileInput.onchange = (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+
+        if (!file.type.startsWith('image/')) {
+          Toast.show('Please select a valid image file (PNG, JPG, WebP)', 'error');
+          return;
+        }
+
+        if (file.size > 5 * 1024 * 1024) {
+          Toast.show('Image size exceeds 5MB limit', 'warning');
+          return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          this.tempAvatarUrl = event.target.result;
+          previewImg.src = this.tempAvatarUrl;
+          Toast.show('Photo selected. Click "Save Profile" to apply changes.', 'info');
+        };
+        reader.readAsDataURL(file);
+      };
+    }
+
+    // Reset avatar
+    if (removeBtn && previewImg) {
+      removeBtn.onclick = () => {
+        const defaultAvatar = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80';
+        this.tempAvatarUrl = defaultAvatar;
+        previewImg.src = defaultAvatar;
+        Toast.show('Photo reset to default. Click "Save Profile" to persist.', 'info');
+      };
+    }
+
+    // Password visibility toggles
+    document.querySelectorAll('.pwd-toggle-btn').forEach(btn => {
+      btn.onclick = () => {
+        const targetId = btn.dataset.target;
+        const input = document.getElementById(targetId);
+        if (!input) return;
+        const isPassword = input.type === 'password';
+        input.type = isPassword ? 'text' : 'password';
+        btn.innerHTML = isPassword
+          ? `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18"/></svg>`
+          : `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>`;
+      };
+    });
+
+    // Save profile handler
+    const saveProfile = () => {
+      const phoneInput = document.getElementById('prof-phone-input');
+      const altPhoneInput = document.getElementById('prof-alt-phone-input');
+      const currentPwd = document.getElementById('prof-current-pwd');
+      const newPwd = document.getElementById('prof-new-pwd');
+      const confirmPwd = document.getElementById('prof-confirm-pwd');
+
+      const phone = phoneInput ? phoneInput.value.trim() : '';
+      const altPhone = altPhoneInput ? altPhoneInput.value.trim() : '';
+
+      if (!phone) {
+        Toast.show('Primary Contact Number is required', 'warning');
+        phoneInput?.focus();
+        return;
+      }
+
+      // Password validation if entered
+      if (newPwd && newPwd.value.trim()) {
+        const np = newPwd.value.trim();
+        const cp = confirmPwd ? confirmPwd.value.trim() : '';
+        const curp = currentPwd ? currentPwd.value.trim() : '';
+
+        if (!curp) {
+          Toast.show('Please enter your current password to authorize changes', 'warning');
+          currentPwd?.focus();
+          return;
+        }
+
+        if (np.length < 6) {
+          Toast.show('New password must be at least 6 characters long', 'warning');
+          newPwd?.focus();
+          return;
+        }
+
+        if (np !== cp) {
+          Toast.show('New password and confirmation password do not match', 'error');
+          confirmPwd?.focus();
+          return;
+        }
+      }
+
+      // Apply changes to ERP_DATA.currentUser
+      ERP_DATA.currentUser.phone = phone;
+      ERP_DATA.currentUser.altPhone = altPhone;
+      if (this.tempAvatarUrl) {
+        ERP_DATA.currentUser.avatar = this.tempAvatarUrl;
+      }
+
+      // Persist to localStorage
+      try {
+        localStorage.setItem('dfl_current_user', JSON.stringify(ERP_DATA.currentUser));
+      } catch (err) {
+        console.warn('Failed to persist user profile', err);
+      }
+
+      // Update header avatar & details in real time
+      Header.render('header-container');
+
+      // Clear password fields
+      if (currentPwd) currentPwd.value = '';
+      if (newPwd) newPwd.value = '';
+      if (confirmPwd) confirmPwd.value = '';
+
+      Toast.show('My Profile updated successfully', 'success', 'Profile Saved');
+    };
+
+    const saveBtn = document.getElementById('btn-save-user-profile');
+    const saveBtnBottom = document.getElementById('btn-save-user-profile-bottom');
+    const cancelBtn = document.getElementById('btn-cancel-profile');
+
+    if (saveBtn) saveBtn.onclick = saveProfile;
+    if (saveBtnBottom) saveBtnBottom.onclick = saveProfile;
+
+    if (cancelBtn) {
+      cancelBtn.onclick = () => {
+        window.history.back();
+      };
+    }
+  }
+};
+
+
 
   // App Controller
   
@@ -102394,6 +103343,9 @@ openRoleModal(role = null, onSaved) {
 
 
 // Views
+
+
+
 
 
 
@@ -102663,6 +103615,64 @@ const App = {
     let submenuName = parts[1] || '';
     let tabName = parts[2] || '';
     const homeHash = '#/dashboard/overview/system-overview';
+
+    if (moduleName === 'notifications') {
+      const resolvedHash = '#/notifications';
+      Sidebar.render('sidebar-container', resolvedHash);
+      Breadcrumbs.render('breadcrumbs-container', resolvedHash);
+
+      const mainContainer = 'main-content-container';
+      const mainEl = document.getElementById(mainContainer);
+      if (!mainEl) return;
+      mainEl.setAttribute('aria-busy', 'true');
+      mainEl.innerHTML = Skeleton.renderTable();
+      setTimeout(() => requestAnimationFrame(() => {
+        try {
+          if (routeVersion === this.routeVersion) {
+            NotificationsView.render(mainContainer);
+          }
+        } catch (error) {
+          console.error('Failed to render notifications view', error);
+          this.renderRouteError(500, 'Page unavailable', 'An unexpected error prevented this page from loading.', homeHash);
+        } finally {
+          if (routeVersion === this.routeVersion) {
+            const renderedMain = document.getElementById(mainContainer);
+            renderedMain?.removeAttribute('aria-busy');
+            if (renderedMain) renderedMain.scrollTop = 0;
+          }
+        }
+      }), 120);
+      return;
+    }
+
+    if (moduleName === 'profile') {
+      const resolvedHash = '#/profile';
+      Sidebar.render('sidebar-container', resolvedHash);
+      Breadcrumbs.render('breadcrumbs-container', resolvedHash);
+
+      const mainContainer = 'main-content-container';
+      const mainEl = document.getElementById(mainContainer);
+      if (!mainEl) return;
+      mainEl.setAttribute('aria-busy', 'true');
+      mainEl.innerHTML = Skeleton.renderTable();
+      setTimeout(() => requestAnimationFrame(() => {
+        try {
+          if (routeVersion === this.routeVersion) {
+            ProfileView.render(mainContainer);
+          }
+        } catch (error) {
+          console.error('Failed to render profile view', error);
+          this.renderRouteError(500, 'Page unavailable', 'An unexpected error prevented this page from loading.', homeHash);
+        } finally {
+          if (routeVersion === this.routeVersion) {
+            const renderedMain = document.getElementById(mainContainer);
+            renderedMain?.removeAttribute('aria-busy');
+            if (renderedMain) renderedMain.scrollTop = 0;
+          }
+        }
+      }), 120);
+      return;
+    }
 
     // Keep direct URL navigation subject to the same module restrictions as the sidebar.
     const operationalModules = ['dashboard', 'purchase', 'preprocessing', 'quality', 'production', 'coldstore', 'inventory', 'sales', 'reports', 'master'];

@@ -2,14 +2,19 @@
 
 import { ERP_DATA, setCurrentUserRole } from '../data/mockData.js';
 import { Toast } from './toast.js';
+import { NotificationService } from '../services/notificationService.js';
 
 export const Header = {
+  notifSubscribed: false,
+
   render(containerId) {
     const container = document.getElementById(containerId);
     if (!container) return;
 
     const isCollapsed = localStorage.getItem('dfl_sidebar_collapsed') === 'true';
     const isSuperAdmin = ERP_DATA.currentUser?.role === 'Super Admin';
+    const unreadNotifs = NotificationService.getUnread();
+    const unreadCount = unreadNotifs.length;
 
     container.innerHTML = `
       <header class="bg-white border-b border-[#E2E8F0] h-14 px-5 flex items-center justify-between select-none rounded-t-2xl">
@@ -28,8 +33,8 @@ export const Header = {
             <button 
               type="button" 
               id="header-search-clear-btn" aria-label="Clear search input" 
-              style="display: none !important;"
-              class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-[#94A3B8] hover:text-[#0F172A] p-0.5 rounded-full hover:bg-[#E2E8F0] transition-colors cursor-pointer items-center justify-center"
+              style="display: none !important; padding: 6px !important; min-height: auto !important;"
+              class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-[#94A3B8] hover:text-[#0F172A] p-[6px] rounded-full hover:bg-[#E2E8F0] transition-colors cursor-pointer items-center justify-center"
               title="Clear Search"
             >
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
@@ -49,39 +54,13 @@ export const Header = {
         <!-- Right: Actions, Notifications & Profile -->
         <div class="flex items-center gap-2">
           <!-- Notifications -->
-          <div class="relative">
-            <button id="header-notifications-btn" class="p-2 text-[#64748B] hover:text-[#0F172A] hover:bg-[#F8FAFC] rounded-full relative transition-colors cursor-pointer border border-[#E2E8F0]" title="Notifications" aria-label="Notifications, 3 unread" aria-haspopup="true" aria-expanded="false">
+          <div class="relative" id="header-notifications-container">
+            <button id="header-notifications-btn" class="p-2 text-[#64748B] hover:text-[#0F172A] hover:bg-[#F8FAFC] rounded-full relative transition-colors cursor-pointer border border-[#E2E8F0]" title="Notifications" aria-label="Notifications, ${unreadCount} unread" aria-haspopup="true" aria-expanded="false">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
-              <span class="absolute top-1 right-1 w-2 h-2 bg-[#EF4444] rounded-full ring-2 ring-white"></span>
+              ${unreadCount > 0 ? `<span id="header-notif-badge" class="absolute -top-0.5 -right-0.5 min-w-[16px] h-4 px-1 bg-[#EF4444] text-white text-[9px] font-extrabold rounded-full flex items-center justify-center ring-2 ring-white">${unreadCount > 9 ? '9+' : unreadCount}</span>` : ''}
             </button>
-            <div id="notifications-dropdown" class="hidden absolute right-0 mt-2 w-80 bg-white rounded-xl border border-[#E2E8F0] shadow-xl py-2 z-50 text-xs">
-              <div class="px-3 py-1.5 font-bold text-[#0F172A] border-b border-[#F1F5F9] flex justify-between items-center">
-                <span>Notifications (3 New)</span>
-                <span class="text-[10px] text-[#0284C7] cursor-pointer hover:underline font-semibold">Mark all read</span>
-              </div>
-              <div class="divide-y divide-[#F1F5F9] max-h-64 overflow-y-auto">
-                <div class="p-3 hover:bg-[#F8FAFC] cursor-pointer">
-                  <div class="flex items-center gap-1.5 text-[#0284C7] font-semibold text-[11px]">
-                    <span class="w-1.5 h-1.5 rounded-full bg-[#0284C7]"></span> RM Arrival #RMA-2026-00341
-                  </div>
-                  <div class="text-[#475569] mt-0.5">Godavari Coastal 2,980 KG Vannamei Shrimp staged at Dock #1 awaiting QC approval.</div>
-                  <div class="text-[10px] text-[#94A3B8] mt-1">20 minutes ago</div>
-                </div>
-                <div class="p-3 hover:bg-[#F8FAFC] cursor-pointer">
-                  <div class="flex items-center gap-1.5 text-[#15803D] font-semibold text-[11px]">
-                    <span class="w-1.5 h-1.5 rounded-full bg-[#15803D]"></span> QC Antibiotic Clearance
-                  </div>
-                  <div class="text-[#475569] mt-0.5">LOT-2026-00128 Seabass passed all rapid nitrofurans & organoleptic panels.</div>
-                  <div class="text-[10px] text-[#94A3B8] mt-1">1 hour ago</div>
-                </div>
-                <div class="p-3 hover:bg-[#F8FAFC] cursor-pointer">
-                  <div class="flex items-center gap-1.5 text-[#6D28D9] font-semibold text-[11px]">
-                    <span class="w-1.5 h-1.5 rounded-full bg-[#6D28D9]"></span> Export Vessel Gate-In
-                  </div>
-                  <div class="text-[#475569] mt-0.5">Container ONEU-440912-8 (14 MT Black Tiger) cleared customs for Tokyo.</div>
-                  <div class="text-[10px] text-[#94A3B8] mt-1">3 hours ago</div>
-                </div>
-              </div>
+            <div id="notifications-dropdown" class="hidden absolute right-0 mt-2 w-80 sm:w-96 bg-white rounded-xl border border-[#DFE1E6] shadow-xl z-50 text-xs overflow-hidden">
+              <!-- Rendered via Header.renderNotificationDropdownContent() -->
             </div>
           </div>
 
@@ -97,7 +76,7 @@ export const Header = {
             </button>
 
             <!-- User Menu Popup -->
-            <div id="user-dropdown-menu" class="hidden absolute right-0 mt-2 w-64 bg-white rounded-xl border border-[#DFE1E6] shadow-xl py-2 z-[100] text-xs">
+            <div id="user-dropdown-menu" class="hidden absolute right-0 mt-2 w-64 bg-white rounded-xl border border-[#DFE1E6] shadow-xl py-2 px-[6px] z-[100] text-xs">
               <div class="px-3 py-2 border-b border-[#EBECF0]">
                 <div class="font-bold text-[#172B4D]">${ERP_DATA.currentUser.name}</div>
                 <div class="text-[11px] text-[#5E6C84]">${ERP_DATA.currentUser.email}</div>
@@ -107,7 +86,13 @@ export const Header = {
                 </div>
               </div>
 
-
+              <!-- My Profile Action -->
+              <div class="p-1 border-b border-[#EBECF0]">
+                <button type="button" id="my-profile-menu-btn" class="w-full text-left px-3 py-2 hover:bg-[#F0F9FF] text-[#172B4D] hover:text-[#00A4B7] rounded-lg font-semibold flex items-center gap-2 transition-colors cursor-pointer">
+                  <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                  <span>My Profile</span>
+                </button>
+              </div>
 
               <!-- Quick Switch Role Action -->
               <div class="p-1 border-b border-[#EBECF0]">
@@ -132,7 +117,120 @@ export const Header = {
       </header>
     `;
 
+    this.renderNotificationDropdownContent();
     this.bindEvents();
+
+    if (!this.notifSubscribed) {
+      this.notifSubscribed = true;
+      NotificationService.subscribe(() => {
+        this.renderNotificationDropdownContent();
+      });
+    }
+  },
+
+  renderNotificationDropdownContent() {
+    const unreadNotifs = NotificationService.getUnread();
+    const unreadCount = unreadNotifs.length;
+    const dropdown = document.getElementById('notifications-dropdown');
+    const btn = document.getElementById('header-notifications-btn');
+
+    if (btn) {
+      btn.setAttribute('aria-label', `Notifications, ${unreadCount} unread`);
+      let badgeEl = btn.querySelector('#header-notif-badge');
+      if (unreadCount > 0) {
+        if (!badgeEl) {
+          badgeEl = document.createElement('span');
+          badgeEl.id = 'header-notif-badge';
+          badgeEl.className = 'absolute -top-0.5 -right-0.5 min-w-[16px] h-4 px-1 bg-[#EF4444] text-white text-[9px] font-extrabold rounded-full flex items-center justify-center ring-2 ring-white';
+          btn.appendChild(badgeEl);
+        }
+        badgeEl.textContent = unreadCount > 9 ? '9+' : unreadCount;
+      } else if (badgeEl) {
+        badgeEl.remove();
+      }
+    }
+
+    if (!dropdown) return;
+
+    dropdown.innerHTML = `
+      <div class="px-3.5 py-2.5 font-bold text-[#172B4D] border-b border-[#F1F5F9] flex items-center bg-[#F8FAFC]">
+        <span class="text-xs font-bold text-[#172B4D]">Notifications</span>
+      </div>
+
+      <div class="divide-y divide-[#F1F5F9] max-h-72 overflow-y-auto">
+        ${unreadCount === 0 ? `
+          <div class="p-6 text-center text-[#5E6C84]">
+            <div class="w-10 h-10 mx-auto rounded-full bg-[#E3FCEF] text-[#006644] flex items-center justify-center mb-2">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <p class="font-bold text-[#172B4D] text-xs">All caught up!</p>
+            <p class="text-[11px] text-[#64748B] mt-0.5">No unread notifications right now.</p>
+          </div>
+        ` : unreadNotifs.map(item => {
+          let dotColor = 'bg-[#00A4B7]';
+          if (item.severity === 'success') {
+            dotColor = 'bg-[#006644]';
+          } else if (item.severity === 'warning') {
+            dotColor = 'bg-[#FF8B00]';
+          } else if (item.severity === 'purple') {
+            dotColor = 'bg-[#403294]';
+          }
+          return `
+            <div class="p-3 hover:bg-[#F8FAFC] cursor-pointer transition-colors header-notif-item" data-id="${item.id}" data-hash="${item.targetHash || ''}">
+              <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full ${dotColor} shrink-0"></span>
+                <span class="text-xs font-bold text-[#172B4D] break-words">${item.title}</span>
+              </div>
+              <div class="text-xs text-[#5E6C84] mt-1 leading-snug break-words">${item.message}</div>
+              <div class="text-[11px] text-[#94A3B8] mt-1.5 flex items-center gap-1.5 font-medium">
+                <span>${item.time}</span>
+                <span>•</span>
+                <span>${item.category}</span>
+              </div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+
+      <div class="p-2 border-t border-[#F1F5F9] bg-[#F8FAFC]">
+        <button type="button" id="header-notif-see-all-btn" class="w-full py-1.5 px-3 text-center text-xs font-bold text-[#00A4B7] hover:text-[#008F9F] hover:bg-white rounded-lg transition-colors cursor-pointer border border-transparent hover:border-[#DFE1E6] flex items-center justify-center gap-1.5">
+          <span>See All Notifications</span>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    `;
+
+    this.bindNotificationDropdownEvents();
+  },
+
+  bindNotificationDropdownEvents() {
+    const dropdown = document.getElementById('notifications-dropdown');
+    if (!dropdown) return;
+
+    // See all button -> route to notifications page
+    const seeAllBtn = document.getElementById('header-notif-see-all-btn');
+    if (seeAllBtn) {
+      seeAllBtn.onclick = (e) => {
+        e.stopPropagation();
+        dropdown.classList.add('hidden');
+        window.location.hash = '#/notifications';
+      };
+    }
+
+    // Clicking notification item -> mark read & go to destination
+    dropdown.querySelectorAll('.header-notif-item').forEach(itemEl => {
+      itemEl.onclick = (e) => {
+        const id = itemEl.dataset.id;
+        const hash = itemEl.dataset.hash;
+        if (id) {
+          NotificationService.markAsRead(id);
+        }
+        dropdown.classList.add('hidden');
+        if (hash) {
+          window.location.hash = hash;
+        }
+      };
+    });
   },
 
   bindEvents() {
@@ -155,7 +253,13 @@ export const Header = {
       notifBtn.onclick = (e) => {
         e.stopPropagation();
         if (userMenu) userMenu.classList.add('hidden');
-        notifMenu.classList.toggle('hidden');
+        const isHidden = notifMenu.classList.contains('hidden');
+        if (isHidden) {
+          this.renderNotificationDropdownContent();
+          notifMenu.classList.remove('hidden');
+        } else {
+          notifMenu.classList.add('hidden');
+        }
       };
     }
 
@@ -262,7 +366,15 @@ export const Header = {
       });
     }
 
-
+    // My Profile Link in User Dropdown
+    const myProfileBtn = document.getElementById('my-profile-menu-btn');
+    if (myProfileBtn) {
+      myProfileBtn.onclick = (e) => {
+        e.stopPropagation();
+        if (userMenu) userMenu.classList.add('hidden');
+        window.location.hash = '#/profile';
+      };
+    }
 
     // Quick Switch Role (Admin <-> Super Admin)
     const switchRoleBtn = document.getElementById('switch-role-menu-btn');

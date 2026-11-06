@@ -19,6 +19,7 @@ const breadcrumbs = fs.readFileSync(path.join(__dirname, 'js', 'components', 'br
 const header = fs.readFileSync(path.join(__dirname, 'js', 'components', 'header.js'), 'utf-8');
 const charts = fs.readFileSync(path.join(__dirname, 'js', 'components', 'charts.js'), 'utf-8');
 const skeleton = fs.readFileSync(path.join(__dirname, 'js', 'components', 'skeleton.js'), 'utf-8');
+const notificationService = fs.readFileSync(path.join(__dirname, 'js', 'services', 'notificationService.js'), 'utf-8');
 const appSettings = fs.readFileSync(path.join(__dirname, 'js', 'services', 'appSettings.js'), 'utf-8');
 
 
@@ -37,6 +38,8 @@ const helpView = fs.readFileSync(path.join(__dirname, 'js', 'views', 'helpView.j
 const superAdminDashboardView = fs.readFileSync(path.join(__dirname, 'js', 'views', 'superAdminDashboardView.js'), 'utf-8');
 const superAdminReportsView = fs.readFileSync(path.join(__dirname, 'js', 'views', 'superAdminReportsView.js'), 'utf-8');
 const settingsView = fs.readFileSync(path.join(__dirname, 'js', 'views', 'settingsView.js'), 'utf-8');
+const notificationsView = fs.readFileSync(path.join(__dirname, 'js', 'views', 'notificationsView.js'), 'utf-8');
+const profileView = fs.readFileSync(path.join(__dirname, 'js', 'views', 'profileView.js'), 'utf-8');
 const app = fs.readFileSync(path.join(__dirname, 'js', 'app.js'), 'utf-8');
 
 function cleanCode(code) {
@@ -69,7 +72,8 @@ const combinedJS = `
   ${cleanCode(charts)}
   ${cleanCode(skeleton)}
 
-  // App Settings Engine
+  // App Services
+  ${cleanCode(notificationService)}
   ${cleanCode(appSettings)}
 
   // Views
@@ -88,6 +92,8 @@ const combinedJS = `
   ${cleanCode(superAdminDashboardView)}
   ${cleanCode(superAdminReportsView)}
   ${cleanCode(settingsView)}
+  ${cleanCode(notificationsView)}
+  ${cleanCode(profileView)}
 
   // App Controller
   ${cleanCode(app)}

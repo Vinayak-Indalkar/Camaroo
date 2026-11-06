@@ -27,6 +27,9 @@ import { HelpView } from './views/helpView.js';
 import { SuperAdminDashboardView } from './views/superAdminDashboardView.js';
 import { SuperAdminReportsView } from './views/superAdminReportsView.js';
 import { SettingsView } from './views/settingsView.js';
+import { NotificationsView } from './views/notificationsView.js';
+import { ProfileView } from './views/profileView.js';
+import { NotificationService } from './services/notificationService.js';
 
 export const App = {
   routeVersion: 0,
@@ -281,6 +284,64 @@ export const App = {
     let submenuName = parts[1] || '';
     let tabName = parts[2] || '';
     const homeHash = '#/dashboard/overview/system-overview';
+
+    if (moduleName === 'notifications') {
+      const resolvedHash = '#/notifications';
+      Sidebar.render('sidebar-container', resolvedHash);
+      Breadcrumbs.render('breadcrumbs-container', resolvedHash);
+
+      const mainContainer = 'main-content-container';
+      const mainEl = document.getElementById(mainContainer);
+      if (!mainEl) return;
+      mainEl.setAttribute('aria-busy', 'true');
+      mainEl.innerHTML = Skeleton.renderTable();
+      setTimeout(() => requestAnimationFrame(() => {
+        try {
+          if (routeVersion === this.routeVersion) {
+            NotificationsView.render(mainContainer);
+          }
+        } catch (error) {
+          console.error('Failed to render notifications view', error);
+          this.renderRouteError(500, 'Page unavailable', 'An unexpected error prevented this page from loading.', homeHash);
+        } finally {
+          if (routeVersion === this.routeVersion) {
+            const renderedMain = document.getElementById(mainContainer);
+            renderedMain?.removeAttribute('aria-busy');
+            if (renderedMain) renderedMain.scrollTop = 0;
+          }
+        }
+      }), 120);
+      return;
+    }
+
+    if (moduleName === 'profile') {
+      const resolvedHash = '#/profile';
+      Sidebar.render('sidebar-container', resolvedHash);
+      Breadcrumbs.render('breadcrumbs-container', resolvedHash);
+
+      const mainContainer = 'main-content-container';
+      const mainEl = document.getElementById(mainContainer);
+      if (!mainEl) return;
+      mainEl.setAttribute('aria-busy', 'true');
+      mainEl.innerHTML = Skeleton.renderTable();
+      setTimeout(() => requestAnimationFrame(() => {
+        try {
+          if (routeVersion === this.routeVersion) {
+            ProfileView.render(mainContainer);
+          }
+        } catch (error) {
+          console.error('Failed to render profile view', error);
+          this.renderRouteError(500, 'Page unavailable', 'An unexpected error prevented this page from loading.', homeHash);
+        } finally {
+          if (routeVersion === this.routeVersion) {
+            const renderedMain = document.getElementById(mainContainer);
+            renderedMain?.removeAttribute('aria-busy');
+            if (renderedMain) renderedMain.scrollTop = 0;
+          }
+        }
+      }), 120);
+      return;
+    }
 
     // Keep direct URL navigation subject to the same module restrictions as the sidebar.
     const operationalModules = ['dashboard', 'purchase', 'preprocessing', 'quality', 'production', 'coldstore', 'inventory', 'sales', 'reports', 'master'];

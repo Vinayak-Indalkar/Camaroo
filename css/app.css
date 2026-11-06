@@ -1790,8 +1790,16 @@ button.dt-action-btn:not(.dt-top-filter-reset-btn):not(.dt-top-filter-toggle-btn
   justify-content: center !important;
 }
 
+#header-search-clear-btn,
+.pwd-toggle-btn,
+#btn-remove-avatar {
+  padding: 6px !important;
+  min-height: auto !important;
+  box-sizing: border-box !important;
+}
+
 /* 4. BUTTONS & CONTROLS - PILL GEOMETRY & WCAG CALIBRATED SYSTEM */
-button:not(.sidebar-mod-btn):not(#header-settings-btn):not(#header-notifications-btn):not(#header-help-btn):not(#user-menu-btn):not(.settings-dropdown-link):not([role="tab"]):not(#sidebar-edge-toggle-btn):not(.dt-action-btn):not(.dt-top-filter-reset-btn):not(.dt-top-filter-toggle-btn):not(.btn-show-all-submenus):not(.btn-sub-edit):not(.btn-sub-toggle):not(.btn-sub-del):not(#toggle-pwd-btn):not(#toggle-usr-modal-password-btn):not(#toggle-asgn-db-pass-btn):not(.btn-toggle-cpwd):not(#dt-opt-excel):not(#dt-opt-csv):not(#dt-opt-pdf):not([id^="dt-opt-"]):not([class*="text-left"]):not(#dt-page-prev):not(#dt-page-next):not([id*="page-prev"]):not([id*="page-next"]):not(.dt-page-btn):not([class*="page-btn"]):not(#erp-cal-prev-btn):not(#erp-cal-next-btn):not(#erp-cal-clear-btn):not(#erp-cal-today-btn):not(.erp-cal-day),
+button:not(.sidebar-mod-btn):not(#header-settings-btn):not(#header-notifications-btn):not(#header-help-btn):not(#user-menu-btn):not(.settings-dropdown-link):not([role="tab"]):not(#sidebar-edge-toggle-btn):not(.dt-action-btn):not(.dt-top-filter-reset-btn):not(.dt-top-filter-toggle-btn):not(.btn-show-all-submenus):not(.btn-sub-edit):not(.btn-sub-toggle):not(.btn-sub-del):not(#toggle-pwd-btn):not(#toggle-usr-modal-password-btn):not(#toggle-asgn-db-pass-btn):not(.btn-toggle-cpwd):not(#dt-opt-excel):not(#dt-opt-csv):not(#dt-opt-pdf):not([id^="dt-opt-"]):not([class*="text-left"]):not(#dt-page-prev):not(#dt-page-next):not([id*="page-prev"]):not([id*="page-next"]):not(.dt-page-btn):not([class*="page-btn"]):not(#erp-cal-prev-btn):not(#erp-cal-next-btn):not(#erp-cal-clear-btn):not(#erp-cal-today-btn):not(.erp-cal-day):not(#header-search-clear-btn):not(.pwd-toggle-btn):not(#btn-remove-avatar),
 .btn,
 .btn-primary,
 .btn-primary-deep,
