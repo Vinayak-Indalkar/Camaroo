@@ -37,7 +37,7 @@ export const TabBar = {
     const visibleTabs = submenu.tabs.filter(t => t.id !== 'audit-history');
 
     // Check for extra action icon (e.g. Audit History on General Configuration)
-    const isGeneralConfig = (modId === 'general' && (subId === 'configuration' || subId === 'general'));
+    const isGeneralConfig = ((modId === 'general' || modId === 'clients-setup') && (subId === 'configuration' || subId === 'general' || subId === 'clients-setup'));
     const extraAction = submenu.extraAction || (isGeneralConfig ? {
       id: "audit-history",
       label: "Audit History",

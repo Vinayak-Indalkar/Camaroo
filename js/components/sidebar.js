@@ -253,7 +253,7 @@ export const ADMIN_NAV_HIERARCHY = [
   {
     id: "coldstore",
     title: "Coldstore",
-    icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>`,
+    icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v18m0-18l3 3m-3-3l-3 3m0 12l3 3m0 0l3-3m-6-6h18m-18 0l3-3m-3 3l3 3m12-6l3 3m0 0l-3 3"/></svg>`,
     submenus: [
       {
         id: "dashboard",
@@ -422,6 +422,31 @@ export const ADMIN_NAV_HIERARCHY = [
     ]
   },
   {
+    id: "configuration",
+    title: "Configuration",
+    icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>`,
+    submenus: [
+      {
+        id: "masters",
+        title: "Masters",
+        defaultTab: "master-records",
+        tabs: [
+          { id: "master-records", label: "Masters", hash: "#/configuration/masters/master-records" }
+        ]
+      },
+      {
+        id: "form-builder",
+        title: "Forms Builder",
+        defaultTab: "forms",
+        tabs: [
+          { id: "forms", label: "Forms", hash: "#/configuration/form-builder/forms" },
+          { id: "fields-customizer", label: "Fields Customizer", hash: "#/configuration/form-builder/fields-customizer" },
+          { id: "query-editor", label: "Query Editor", hash: "#/configuration/form-builder/query-editor" }
+        ]
+      }
+    ]
+  },
+  {
     id: "settings",
     title: "Settings",
     icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>`,
@@ -434,7 +459,6 @@ export const ADMIN_NAV_HIERARCHY = [
           { id: "general", label: "General", hash: "#/settings/setup/general" },
           { id: "organization", label: "Organization", hash: "#/settings/setup/organization" },
           { id: "user-roles", label: "User & Roles", hash: "#/settings/setup/user-roles" },
-          { id: "masters", label: "Masters", hash: "#/settings/setup/masters" }
         ]
       }
     ]
@@ -460,12 +484,12 @@ export const SUPER_ADMIN_NAV_HIERARCHY = [
   },
   {
     id: "general",
-    title: "General",
-    icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>`,
+    title: "Clients Setup",
+    icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>`,
     submenus: [
       {
         id: "configuration",
-        title: "Configuration",
+        title: "Clients Setup",
         defaultTab: "clients",
         tabs: [
           { id: "clients", label: "Clients", hash: "#/general/configuration/clients" },
@@ -498,18 +522,41 @@ export const SUPER_ADMIN_NAV_HIERARCHY = [
     ]
   },
   {
+    id: "configuration",
+    title: "Configuration",
+    icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>`,
+    submenus: [
+      {
+        id: "masters",
+        title: "Masters",
+        defaultTab: "master-records",
+        tabs: [
+          { id: "master-records", label: "Masters", hash: "#/configuration/masters/master-records" }
+        ]
+      },
+      {
+        id: "form-builder",
+        title: "Forms Builder",
+        defaultTab: "forms",
+        tabs: [
+          { id: "forms", label: "Forms", hash: "#/configuration/form-builder/forms" },
+          { id: "fields-customizer", label: "Fields Customizer", hash: "#/configuration/form-builder/fields-customizer" },
+          { id: "query-editor", label: "Query Editor", hash: "#/configuration/form-builder/query-editor" }
+        ]
+      }
+    ]
+  },
+  {
     id: "settings",
     title: "Settings",
     icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>`,
     submenus: [
       {
-        id: "custom",
-        title: "Customizer",
-        defaultTab: "forms",
+        id: "setup",
+        title: "Settings",
+        defaultTab: "general",
         tabs: [
-          { id: "forms", label: "Forms", hash: "#/settings/custom/forms" },
-          { id: "fields-customizer", label: "Fields Customizer", hash: "#/settings/custom/fields-customizer" },
-          { id: "query-editor", label: "Query Editor", hash: "#/settings/custom/query-editor" }
+          { id: "general", label: "General", hash: "#/settings/setup/general" }
         ]
       }
     ]
@@ -523,7 +570,7 @@ export function getAssignedModuleIdsForRole(roleCode, roleName) {
   const name = (roleName || '').toLowerCase();
   
   if (code === 'ROL-ADM' || name.includes('super / system admin') || name.includes('system admin') || name === 'admin') {
-    return ['dashboard', 'sales', 'purchase', 'preprocessing', 'quality', 'production', 'coldstore', 'inventory', 'reports', 'setup', 'settings'];
+    return ['dashboard', 'sales', 'purchase', 'preprocessing', 'quality', 'production', 'coldstore', 'inventory', 'reports', 'setup', 'settings', 'configuration'];
   }
   if (code === 'ROL-MGR' || name.includes('operations / sales manager') || name.includes('manager')) {
     return ['dashboard', 'purchase', 'preprocessing', 'production', 'coldstore', 'sales', 'reports'];
@@ -537,7 +584,7 @@ export function getAssignedModuleIdsForRole(roleCode, roleName) {
   if (code === 'ROL-VIE' || name.includes('finance / audit viewer') || name.includes('viewer') || name.includes('audit')) {
     return ['dashboard', 'sales', 'reports'];
   }
-  return ['dashboard', 'sales', 'purchase', 'preprocessing', 'quality', 'production', 'coldstore', 'inventory', 'reports', 'setup', 'settings'];
+  return ['dashboard', 'sales', 'purchase', 'preprocessing', 'quality', 'production', 'coldstore', 'inventory', 'reports', 'setup', 'settings', 'configuration'];
 }
 
 
@@ -718,7 +765,7 @@ export const Sidebar = {
       }
 
       // Super Admin: Clean direct menu buttons for non-settings modules
-      if (isSuperAdmin && mod.id !== 'settings') {
+      if (isSuperAdmin && mod.id !== 'settings' && (!mod.submenus || mod.submenus.length <= 1)) {
         return `
           <div class="${groupWrapperClass}">
             <button 
@@ -924,14 +971,11 @@ export const Sidebar = {
     const isCurrentMod = settingsMod.id === this.activeModuleId;
 
     const items = isSuperAdmin ? [
-      { id: 'forms', title: 'Forms', hash: '#/settings/custom/forms' },
-      { id: 'fields-customizer', title: 'Fields Customizer', hash: '#/settings/custom/fields-customizer' },
-      { id: 'query-editor', title: 'Query Editor', hash: '#/settings/custom/query-editor' }
+      { id: 'general', title: 'General', hash: '#/settings/setup/general' }
     ] : [
       { id: 'general', title: 'General', hash: '#/settings/setup/general' },
       { id: 'organization', title: 'Organization', hash: '#/settings/setup/organization' },
-      { id: 'user-roles', title: 'User & Roles', hash: '#/settings/setup/user-roles' },
-      { id: 'masters', title: 'Masters', hash: '#/settings/setup/masters' }
+      { id: 'user-roles', title: 'User & Roles', hash: '#/settings/setup/user-roles' }
     ];
 
     return `
@@ -996,16 +1040,12 @@ export const Sidebar = {
         // Settings direct click navigation
         if (modId === 'settings') {
           this.activeModuleId = 'settings';
-          if (isSuperAdmin) {
-            window.location.hash = '#/settings/custom/forms';
-          } else {
-            window.location.hash = '#/settings/setup/general';
-          }
+          window.location.hash = '#/settings/setup/general';
           return;
         }
 
         // Super Admin: Direct single-click navigation for non-settings modules
-        if (isSuperAdmin && modId !== 'settings') {
+        if (isSuperAdmin && modId !== 'settings' && (!targetMod || !targetMod.submenus || targetMod.submenus.length <= 1)) {
           this.activeModuleId = modId;
           if (targetMod && targetMod.submenus.length > 0) {
             const firstSub = targetMod.submenus[0];
@@ -1033,6 +1073,17 @@ export const Sidebar = {
           const firstSub = targetMod.submenus[0];
           const firstTab = firstSub.tabs[0];
           window.location.hash = firstTab.hash;
+        }
+      });
+    });
+
+    const submenuLinks = document.querySelectorAll('.nav-submenus-list a');
+    submenuLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          e.preventDefault();
+          window.location.hash = href;
         }
       });
     });

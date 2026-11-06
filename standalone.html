@@ -7809,7 +7809,7 @@ const ADMIN_NAV_HIERARCHY = [
   {
     id: "coldstore",
     title: "Coldstore",
-    icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>`,
+    icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v18m0-18l3 3m-3-3l-3 3m0 12l3 3m0 0l3-3m-6-6h18m-18 0l3-3m-3 3l3 3m12-6l3 3m0 0l-3 3"/></svg>`,
     submenus: [
       {
         id: "dashboard",
@@ -7978,6 +7978,31 @@ const ADMIN_NAV_HIERARCHY = [
     ]
   },
   {
+    id: "configuration",
+    title: "Configuration",
+    icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>`,
+    submenus: [
+      {
+        id: "masters",
+        title: "Masters",
+        defaultTab: "master-records",
+        tabs: [
+          { id: "master-records", label: "Masters", hash: "#/configuration/masters/master-records" }
+        ]
+      },
+      {
+        id: "form-builder",
+        title: "Forms Builder",
+        defaultTab: "forms",
+        tabs: [
+          { id: "forms", label: "Forms", hash: "#/configuration/form-builder/forms" },
+          { id: "fields-customizer", label: "Fields Customizer", hash: "#/configuration/form-builder/fields-customizer" },
+          { id: "query-editor", label: "Query Editor", hash: "#/configuration/form-builder/query-editor" }
+        ]
+      }
+    ]
+  },
+  {
     id: "settings",
     title: "Settings",
     icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>`,
@@ -7990,7 +8015,6 @@ const ADMIN_NAV_HIERARCHY = [
           { id: "general", label: "General", hash: "#/settings/setup/general" },
           { id: "organization", label: "Organization", hash: "#/settings/setup/organization" },
           { id: "user-roles", label: "User & Roles", hash: "#/settings/setup/user-roles" },
-          { id: "masters", label: "Masters", hash: "#/settings/setup/masters" }
         ]
       }
     ]
@@ -8016,12 +8040,12 @@ const SUPER_ADMIN_NAV_HIERARCHY = [
   },
   {
     id: "general",
-    title: "General",
-    icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>`,
+    title: "Clients Setup",
+    icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>`,
     submenus: [
       {
         id: "configuration",
-        title: "Configuration",
+        title: "Clients Setup",
         defaultTab: "clients",
         tabs: [
           { id: "clients", label: "Clients", hash: "#/general/configuration/clients" },
@@ -8054,18 +8078,41 @@ const SUPER_ADMIN_NAV_HIERARCHY = [
     ]
   },
   {
+    id: "configuration",
+    title: "Configuration",
+    icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>`,
+    submenus: [
+      {
+        id: "masters",
+        title: "Masters",
+        defaultTab: "master-records",
+        tabs: [
+          { id: "master-records", label: "Masters", hash: "#/configuration/masters/master-records" }
+        ]
+      },
+      {
+        id: "form-builder",
+        title: "Forms Builder",
+        defaultTab: "forms",
+        tabs: [
+          { id: "forms", label: "Forms", hash: "#/configuration/form-builder/forms" },
+          { id: "fields-customizer", label: "Fields Customizer", hash: "#/configuration/form-builder/fields-customizer" },
+          { id: "query-editor", label: "Query Editor", hash: "#/configuration/form-builder/query-editor" }
+        ]
+      }
+    ]
+  },
+  {
     id: "settings",
     title: "Settings",
     icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>`,
     submenus: [
       {
-        id: "custom",
-        title: "Customizer",
-        defaultTab: "forms",
+        id: "setup",
+        title: "Settings",
+        defaultTab: "general",
         tabs: [
-          { id: "forms", label: "Forms", hash: "#/settings/custom/forms" },
-          { id: "fields-customizer", label: "Fields Customizer", hash: "#/settings/custom/fields-customizer" },
-          { id: "query-editor", label: "Query Editor", hash: "#/settings/custom/query-editor" }
+          { id: "general", label: "General", hash: "#/settings/setup/general" }
         ]
       }
     ]
@@ -8079,7 +8126,7 @@ function getAssignedModuleIdsForRole(roleCode, roleName) {
   const name = (roleName || '').toLowerCase();
   
   if (code === 'ROL-ADM' || name.includes('super / system admin') || name.includes('system admin') || name === 'admin') {
-    return ['dashboard', 'sales', 'purchase', 'preprocessing', 'quality', 'production', 'coldstore', 'inventory', 'reports', 'setup', 'settings'];
+    return ['dashboard', 'sales', 'purchase', 'preprocessing', 'quality', 'production', 'coldstore', 'inventory', 'reports', 'setup', 'settings', 'configuration'];
   }
   if (code === 'ROL-MGR' || name.includes('operations / sales manager') || name.includes('manager')) {
     return ['dashboard', 'purchase', 'preprocessing', 'production', 'coldstore', 'sales', 'reports'];
@@ -8093,7 +8140,7 @@ function getAssignedModuleIdsForRole(roleCode, roleName) {
   if (code === 'ROL-VIE' || name.includes('finance / audit viewer') || name.includes('viewer') || name.includes('audit')) {
     return ['dashboard', 'sales', 'reports'];
   }
-  return ['dashboard', 'sales', 'purchase', 'preprocessing', 'quality', 'production', 'coldstore', 'inventory', 'reports', 'setup', 'settings'];
+  return ['dashboard', 'sales', 'purchase', 'preprocessing', 'quality', 'production', 'coldstore', 'inventory', 'reports', 'setup', 'settings', 'configuration'];
 }
 
 
@@ -8274,7 +8321,7 @@ const Sidebar = {
       }
 
       // Super Admin: Clean direct menu buttons for non-settings modules
-      if (isSuperAdmin && mod.id !== 'settings') {
+      if (isSuperAdmin && mod.id !== 'settings' && (!mod.submenus || mod.submenus.length <= 1)) {
         return `
           <div class="${groupWrapperClass}">
             <button 
@@ -8480,14 +8527,11 @@ const Sidebar = {
     const isCurrentMod = settingsMod.id === this.activeModuleId;
 
     const items = isSuperAdmin ? [
-      { id: 'forms', title: 'Forms', hash: '#/settings/custom/forms' },
-      { id: 'fields-customizer', title: 'Fields Customizer', hash: '#/settings/custom/fields-customizer' },
-      { id: 'query-editor', title: 'Query Editor', hash: '#/settings/custom/query-editor' }
+      { id: 'general', title: 'General', hash: '#/settings/setup/general' }
     ] : [
       { id: 'general', title: 'General', hash: '#/settings/setup/general' },
       { id: 'organization', title: 'Organization', hash: '#/settings/setup/organization' },
-      { id: 'user-roles', title: 'User & Roles', hash: '#/settings/setup/user-roles' },
-      { id: 'masters', title: 'Masters', hash: '#/settings/setup/masters' }
+      { id: 'user-roles', title: 'User & Roles', hash: '#/settings/setup/user-roles' }
     ];
 
     return `
@@ -8552,16 +8596,12 @@ const Sidebar = {
         // Settings direct click navigation
         if (modId === 'settings') {
           this.activeModuleId = 'settings';
-          if (isSuperAdmin) {
-            window.location.hash = '#/settings/custom/forms';
-          } else {
-            window.location.hash = '#/settings/setup/general';
-          }
+          window.location.hash = '#/settings/setup/general';
           return;
         }
 
         // Super Admin: Direct single-click navigation for non-settings modules
-        if (isSuperAdmin && modId !== 'settings') {
+        if (isSuperAdmin && modId !== 'settings' && (!targetMod || !targetMod.submenus || targetMod.submenus.length <= 1)) {
           this.activeModuleId = modId;
           if (targetMod && targetMod.submenus.length > 0) {
             const firstSub = targetMod.submenus[0];
@@ -8589,6 +8629,17 @@ const Sidebar = {
           const firstSub = targetMod.submenus[0];
           const firstTab = firstSub.tabs[0];
           window.location.hash = firstTab.hash;
+        }
+      });
+    });
+
+    const submenuLinks = document.querySelectorAll('.nav-submenus-list a');
+    submenuLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          e.preventDefault();
+          window.location.hash = href;
         }
       });
     });
@@ -8652,7 +8703,7 @@ const TabBar = {
     const visibleTabs = submenu.tabs.filter(t => t.id !== 'audit-history');
 
     // Check for extra action icon (e.g. Audit History on General Configuration)
-    const isGeneralConfig = (modId === 'general' && (subId === 'configuration' || subId === 'general'));
+    const isGeneralConfig = ((modId === 'general' || modId === 'clients-setup') && (subId === 'configuration' || subId === 'general' || subId === 'clients-setup'));
     const extraAction = submenu.extraAction || (isGeneralConfig ? {
       id: "audit-history",
       label: "Audit History",
@@ -68570,46 +68621,217 @@ const SalesView = {
       }
     ],
 
-    // 4. Insurance Submenu datasets
+        // 4. Insurance Submenu datasets
     pendingInsurance: [
       {
+        id: "INS-2026-001",
+        invNo: "INV-EXP-2026-088",
+        year: "2026-2027",
+        exporter: "Devi Fisheries Limited",
+        consignee: "Sysco Corporation International",
+        vesselName: "MSC MAYA / V.2601W",
+        shippingOnboardDt: "02-Nov-2026",
+        containerNo: "MSCU7823901",
+        portOfLoading: "Visakhapatnam (INVTZ)",
+        portOfDischarge: "New York (USNYC)",
+        destinationCountry: "United States",
+        totalInvoiceValue: 211200,
+        cargoValueUsd: 211200,
         lotRef: "LOT-EXP-2026-088",
         contractNo: "SC-USA-2026-448",
-        consignee: "Sysco Corporation International",
-        cargoDescription: "Vannamei Cooked Tail-On 31/40 IQF (22,000 Kg)",
-        cargoValueUsd: 211200,
-        loadingPort: "Visakhapatnam Sea (INVTZ)",
-        dischargePort: "New York Terminal, USA",
-        etdDate: "2026-11-02",
+        cargoDescription: "Frozen Vannamei Cooked Tail-On 31/40 IQF (22,000 Kg)",
         requiredClauses: "ICC (A) + Reefer Temp Deviation + War & Strikes",
         assignedUnderwriter: "The New India Assurance Co. Ltd.",
         status: "DECLARATION_PENDING"
       },
       {
+        id: "INS-2026-002",
+        invNo: "INV-EXP-2026-089",
+        year: "2026-2027",
+        exporter: "Devi Fisheries Limited",
+        consignee: "High Liner Foods Canada",
+        vesselName: "MAERSK MC-KINNEY / V.2604E",
+        shippingOnboardDt: "08-Nov-2026",
+        containerNo: "MRKU4912084",
+        portOfLoading: "Visakhapatnam (INVTZ)",
+        portOfDischarge: "Vancouver (CAVAN)",
+        destinationCountry: "Canada",
+        totalInvoiceValue: 171600,
+        cargoValueUsd: 171600,
         lotRef: "LOT-EXP-2026-089",
         contractNo: "SC-CAN-2026-033",
-        consignee: "High Liner Foods Canada",
-        cargoDescription: "Vannamei PDTO 21/25 IQF Bulk (16,500 Kg)",
-        cargoValueUsd: 171600,
-        loadingPort: "Visakhapatnam Sea (INVTZ)",
-        dischargePort: "Vancouver Port, Canada",
-        etdDate: "2026-11-08",
+        cargoDescription: "Frozen Vannamei PDTO 21/25 IQF Bulk (16,500 Kg)",
         requiredClauses: "ICC (A) Frozen Food Clause + 24hr Machinery",
         assignedUnderwriter: "United India Insurance Co. Ltd.",
         status: "QUOTATION_UNDER_REVIEW"
       },
       {
+        id: "INS-2026-003",
+        invNo: "INV-EXP-2026-090",
+        year: "2026-2027",
+        exporter: "Devi Sea Foods Ltd",
+        consignee: "Direct Seafoods UK Ltd",
+        vesselName: "CMA CGM MARCO POLO / V.2602N",
+        shippingOnboardDt: "14-Nov-2026",
+        containerNo: "CMAU6193820",
+        portOfLoading: "Visakhapatnam (INVTZ)",
+        portOfDischarge: "Felixstowe (GBFXT)",
+        destinationCountry: "United Kingdom",
+        totalInvoiceValue: 98000,
+        cargoValueUsd: 98000,
         lotRef: "LOT-EXP-2026-090",
         contractNo: "SC-EU-2026-082",
-        consignee: "Direct Seafoods UK Ltd",
         cargoDescription: "Asian Seabass Whole Gutted 400-600g (10,000 Kg)",
-        cargoValueUsd: 98000,
-        loadingPort: "Visakhapatnam Sea (INVTZ)",
-        dischargePort: "Felixstowe Port, UK",
-        etdDate: "2026-11-14",
         requiredClauses: "ICC (A) Institute Frozen Food Clauses",
-        assignedUnderwriter: "Pending Underwriter Selection",
+        assignedUnderwriter: "ICICI Lombard General Insurance",
         status: "DRAFT_CERT_PREPARED"
+      },
+      {
+        id: "INS-2026-004",
+        invNo: "INV-EXP-2026-091",
+        year: "2026-2027",
+        exporter: "Devi Fisheries Limited",
+        consignee: "US Foods Trading Co",
+        vesselName: "EVER GIVEN / V.1082S",
+        shippingOnboardDt: "19-Nov-2026",
+        containerNo: "EGLV8841092",
+        portOfLoading: "Chennai (INMAA)",
+        portOfDischarge: "Long Beach (USLGB)",
+        destinationCountry: "United States",
+        totalInvoiceValue: 342500,
+        cargoValueUsd: 342500,
+        lotRef: "LOT-EXP-2026-091",
+        contractNo: "SC-USA-2026-455",
+        cargoDescription: "Frozen Black Tiger HOSO 16/20 Semi-IQF (24,000 Kg)",
+        requiredClauses: "ICC (A) All Risks + Temperature Breakdown",
+        assignedUnderwriter: "The New India Assurance Co. Ltd.",
+        status: "COVER_NOTE_ISSUED"
+      },
+      {
+        id: "INS-2026-005",
+        invNo: "INV-EXP-2026-092",
+        year: "2026-2027",
+        exporter: "Devi Fisheries Limited",
+        consignee: "Nippon Suisan Kaisha Ltd",
+        vesselName: "ONE APUS / V.009E",
+        shippingOnboardDt: "24-Nov-2026",
+        containerNo: "ONEY3948102",
+        portOfLoading: "Visakhapatnam (INVTZ)",
+        portOfDischarge: "Tokyo Port (JPTYO)",
+        destinationCountry: "Japan",
+        totalInvoiceValue: 189000,
+        cargoValueUsd: 189000,
+        lotRef: "LOT-EXP-2026-092",
+        contractNo: "SC-JPN-2026-019",
+        cargoDescription: "Vannamei Nobashi Ebi 30pcs Tray Pack (14,200 Kg)",
+        requiredClauses: "ICC (A) + Reefer Thermal Variation Guarantee",
+        assignedUnderwriter: "National Insurance Co. Ltd.",
+        status: "DECLARATION_PENDING"
+      },
+      {
+        id: "INS-2026-006",
+        invNo: "INV-EXP-2026-093",
+        year: "2025-2026",
+        exporter: "Devi Aqua Feeds Pvt Ltd",
+        consignee: "Royal Greenland Seafood A/S",
+        vesselName: "HAPAG AL DAHNA / V.2603W",
+        shippingOnboardDt: "29-Nov-2026",
+        containerNo: "HLXU5591204",
+        portOfLoading: "Kolkata (INCCU)",
+        portOfDischarge: "Rotterdam (NLRTM)",
+        destinationCountry: "Netherlands",
+        totalInvoiceValue: 275400,
+        cargoValueUsd: 275400,
+        lotRef: "LOT-EXP-2026-093",
+        contractNo: "SC-NLD-2026-112",
+        cargoDescription: "Vannamei Easy Peel Raw 26/30 (21,500 Kg)",
+        requiredClauses: "ICC (A) Institute Frozen Food Clauses",
+        assignedUnderwriter: "United India Insurance Co. Ltd.",
+        status: "QUOTATION_UNDER_REVIEW"
+      },
+      {
+        id: "INS-2026-007",
+        invNo: "INV-EXP-2026-094",
+        year: "2026-2027",
+        exporter: "Devi Fisheries Limited",
+        consignee: "Minh Phu Seafood Corp",
+        vesselName: "COSCO SHIPPING UNIVERSE / V.2605E",
+        shippingOnboardDt: "04-Dec-2026",
+        containerNo: "COSU6283910",
+        portOfLoading: "Visakhapatnam (INVTZ)",
+        portOfDischarge: "Haiphong (VNHPH)",
+        destinationCountry: "Vietnam",
+        totalInvoiceValue: 145000,
+        cargoValueUsd: 145000,
+        lotRef: "LOT-EXP-2026-094",
+        contractNo: "SC-VNM-2026-042",
+        cargoDescription: "Frozen Headless Shell-On White Shrimp 41/50 (15,000 Kg)",
+        requiredClauses: "ICC (A) All Risks + Marine Transit",
+        assignedUnderwriter: "ICICI Lombard General Insurance",
+        status: "DRAFT_CERT_PREPARED"
+      },
+      {
+        id: "INS-2026-008",
+        invNo: "INV-EXP-2026-095",
+        year: "2026-2027",
+        exporter: "Devi Fisheries Limited",
+        consignee: "Aqua Star USA",
+        vesselName: "MSC OSCAR / V.2606W",
+        shippingOnboardDt: "10-Dec-2026",
+        containerNo: "MSCU9912044",
+        portOfLoading: "Chennai (INMAA)",
+        portOfDischarge: "Savannah (USSAV)",
+        destinationCountry: "United States",
+        totalInvoiceValue: 228900,
+        cargoValueUsd: 228900,
+        lotRef: "LOT-EXP-2026-095",
+        contractNo: "SC-USA-2026-462",
+        cargoDescription: "Vannamei Cooked Salad Shrimp 100/200 (19,800 Kg)",
+        requiredClauses: "ICC (A) + Reefer Machinery Failure Clause",
+        assignedUnderwriter: "The New India Assurance Co. Ltd.",
+        status: "DECLARATION_PENDING"
+      },
+      {
+        id: "INS-2026-009",
+        invNo: "INV-EXP-2026-096",
+        year: "2025-2026",
+        exporter: "Devi Sea Foods Ltd",
+        consignee: "Deutsche See GmbH",
+        vesselName: "HYUNDAI BRAVE / V.045E",
+        shippingOnboardDt: "15-Dec-2026",
+        containerNo: "HDMU4491028",
+        portOfLoading: "Visakhapatnam (INVTZ)",
+        portOfDischarge: "Hamburg (DEHAM)",
+        destinationCountry: "Germany",
+        totalInvoiceValue: 195000,
+        cargoValueUsd: 195000,
+        lotRef: "LOT-EXP-2026-096",
+        contractNo: "SC-DEU-2026-077",
+        cargoDescription: "Organic Black Tiger Peeled Deveined (12,500 Kg)",
+        requiredClauses: "ICC (A) Frozen Cargo All Risks",
+        assignedUnderwriter: "United India Insurance Co. Ltd.",
+        status: "COVER_NOTE_ISSUED"
+      },
+      {
+        id: "INS-2026-010",
+        invNo: "INV-EXP-2026-097",
+        year: "2026-2027",
+        exporter: "Devi Fisheries Limited",
+        consignee: "Maruha Nichiro Corporation",
+        vesselName: "OOCL HONG KONG / V.2607S",
+        shippingOnboardDt: "21-Dec-2026",
+        containerNo: "OOLU7718290",
+        portOfLoading: "Visakhapatnam (INVTZ)",
+        portOfDischarge: "Osaka Port (JPOSA)",
+        destinationCountry: "Japan",
+        totalInvoiceValue: 312000,
+        cargoValueUsd: 312000,
+        lotRef: "LOT-EXP-2026-097",
+        contractNo: "SC-JPN-2026-025",
+        cargoDescription: "Vannamei Sushi Ebi 4L/5L Vacuum Packed (20,000 Kg)",
+        requiredClauses: "ICC (A) + Reefer Temp Deviation + War & Strikes",
+        assignedUnderwriter: "National Insurance Co. Ltd.",
+        status: "DECLARATION_PENDING"
       }
     ],
 
@@ -76941,41 +77163,821 @@ const SalesView = {
     }
   },
 
-  // Insurance Tab 1: Pending Insurance
+    // Insurance Tab 1: Pending Insurance
   renderPendingInsurance(container) {
-    this.renderGenericTablePage({
-      container,
-      pageTitle: 'Pending Insurance (Marine Declarations & Coverage Underwriting)',
-            primaryBtnText: 'Generate Marine Declaration',
-      onPrimaryClick: () => Toast.show('Marine Declaration generation modal opened', 'info'),
-      filterFields: [
-        { id: 'pi-lot', label: 'Cargo Lot Ref', placeholder: 'e.g. LOT-EXP' },
-        { id: 'pi-contract', label: 'Contract No', placeholder: 'e.g. SC-USA' },
-        { id: 'pi-consignee', label: 'Consignee / Importer', placeholder: 'e.g. Sysco' },
-        { id: 'pi-status', label: 'Insurance Status', type: 'select', options: ['All Status', 'Declaration Pending', 'Quotation Under Review', 'Draft Cert Prepared'] }
-      ],
-      data: this.state.pendingInsurance,
-      keyField: 'lotRef',
-      tableTitle: 'Pending Cargo Insurance Lots',
-      columns: [
-        { field: 'lotRef', header: 'Lot Ref', render: (v) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${v}</span>` },
-        { field: 'contractNo', header: 'Contract No', render: (v) => `<span class="font-mono text-xs font-semibold text-[#172B4D]">${v}</span>` },
-        { field: 'consignee', header: 'Buyer / Consignee', render: (v) => `<span class="font-bold text-[#172B4D] text-xs">${v}</span>` },
-        { field: 'cargoDescription', header: 'Cargo Specifications', render: (v) => `<span class="text-xs text-[#5E6C84] truncate max-w-[220px] block" title="${v}">${v}</span>` },
-        { field: 'cargoValueUsd', header: 'Declared CIF (USD)', render: (v) => `<span class="font-mono font-extrabold text-xs text-[#006644]">$${Number(v).toLocaleString('en-IN')}</span>` },
-        { field: 'dischargePort', header: 'Port of Discharge', render: (v) => `<span class="text-xs text-[#5E6C84] font-medium">${v}</span>` },
-        { field: 'etdDate', header: 'Planned ETD', render: (v) => `<span class="font-mono text-xs text-[#5E6C84]">${v}</span>` },
-        { field: 'assignedUnderwriter', header: 'Assigned Underwriter', render: (v) => `<span class="text-xs font-semibold text-[#172B4D]">${v}</span>` },
-        { field: 'requiredClauses', header: 'Requested Risk Scope', render: (v) => `<span class="text-[11px] text-[#5E6C84] truncate max-w-[200px] block" title="${v}">${v}</span>` },
+    const rawData = this.state.pendingInsurance || [];
+
+    // Distinct filter dropdown options derived from live data
+    const years = ['All Years', ...new Set(rawData.map(r => r.year).filter(Boolean))];
+    const exporters = ['All Exporters', ...new Set(rawData.map(r => r.exporter).filter(Boolean))];
+    const consignees = ['All Consignees', ...new Set(rawData.map(r => r.consignee).filter(Boolean))];
+    const countries = ['All Countries', ...new Set(rawData.map(r => r.destinationCountry).filter(Boolean))];
+
+    container.innerHTML = `
+      <div class="space-y-3 animate-fade-in">
+        <!-- Page Title & Header Actions (Clean H1, strictly no subheading per AGENTS.md Rule 2) -->
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-1">
+          <div>
+            <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Pending Insurance</h1>
+          </div>
+        </div>
+
+        <!-- Search & Filter Card (Strictly adhering to AGENTS.md Design System Rule 3) -->
+        <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200">
+          <div class="flex items-center justify-between pb-1">
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+              <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
+            </div>
+            <div class="inline-flex items-center gap-2">
+              <!-- Circular 32x32 Reset Button -->
+              <button type="button" id="flt-ins-reset-btn" class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Reset all filters">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+              </button>
+              <!-- Circular 32x32 Collapse/Expand Toggle Button -->
+              <button type="button" id="flt-ins-toggle-btn" class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Hide Filter">
+                <svg class="w-3.5 h-3.5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              </button>
+            </div>
+          </div>
+          <!-- Body: Margin-top 0, border-top none -->
+          <div id="flt-ins-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
+            <!-- 1. Select Year -->
+            <div>
+              <label for="flt-ins-year" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Select Year</label>
+              <select id="flt-ins-year" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                ${years.map(y => `<option value="${y}">${y}</option>`).join('')}
+              </select>
+            </div>
+
+            <!-- 2. Select Exporter -->
+            <div>
+              <label for="flt-ins-exporter" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Select Exporter</label>
+              <select id="flt-ins-exporter" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                ${exporters.map(e => `<option value="${e}">${e}</option>`).join('')}
+              </select>
+            </div>
+
+            <!-- 3. Select Consignee -->
+            <div>
+              <label for="flt-ins-consignee" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Select Consignee</label>
+              <select id="flt-ins-consignee" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                ${consignees.map(c => `<option value="${c}">${c}</option>`).join('')}
+              </select>
+            </div>
+
+            <!-- 4. Select Country -->
+            <div>
+              <label for="flt-ins-country" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Select Country</label>
+              <select id="flt-ins-country" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                ${countries.map(c => `<option value="${c}">${c}</option>`).join('')}
+              </select>
+            </div>
+
+            <!-- MANDATORY Search button always placed after the last input field -->
+            <div class="flex items-end">
+              <button type="button" id="flt-ins-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                <span>Search</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- DataTable Container -->
+        <div id="pending-insurance-table-container"></div>
+      </div>
+    `;
+
+    // Toggle filter body
+    const toggleBtn = container.querySelector('#flt-ins-toggle-btn');
+    const filterBody = container.querySelector('#flt-ins-body');
+    toggleBtn?.addEventListener('click', () => {
+      filterBody?.classList.toggle('hidden');
+      toggleBtn.querySelector('svg')?.classList.toggle('-rotate-90');
+    });
+
+    // Exactly the 11 user-specified columns: S.No, ID, Inv No, Vessel Name, Shipping Onboard Dt, Container No, Port of Loading, Port Of Discharge, Destination Country, Total Invoice Value, Action
+    const columns = [
+      {
+        field: '__sno__',
+        header: 'S.No',
+        render: (v, r, idx) => `<span class="font-mono text-xs text-[#5E6C84]">${idx + 1}</span>`
+      },
+      {
+        field: 'id',
+        header: 'ID',
+        render: (v) => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer">${v || '-'}</span>`
+      },
+      {
+        field: 'invNo',
+        header: 'Inv No',
+        render: (v) => `<span class="font-mono font-bold text-xs text-[#172B4D] hover:underline cursor-pointer">${v || '-'}</span>`
+      },
+      {
+        field: 'vesselName',
+        header: 'Vessel Name',
+        render: (v) => `<span class="font-semibold text-xs text-[#172B4D]">${v || '-'}</span>`
+      },
+      {
+        field: 'shippingOnboardDt',
+        header: 'Shipping Onboard Dt',
+        render: (v) => `<span class="font-mono text-xs text-[#5E6C84]">${v || '-'}</span>`
+      },
+      {
+        field: 'containerNo',
+        header: 'Container No',
+        render: (v) => `<span class="font-mono font-semibold text-xs text-[#403294]">${v || '-'}</span>`
+      },
+      {
+        field: 'portOfLoading',
+        header: 'Port of Loading',
+        render: (v) => `<span class="text-xs text-[#172B4D]">${v || '-'}</span>`
+      },
+      {
+        field: 'portOfDischarge',
+        header: 'Port Of Discharge',
+        render: (v) => `<span class="text-xs text-[#172B4D]">${v || '-'}</span>`
+      },
+      {
+        field: 'destinationCountry',
+        header: 'Destination Country',
+        render: (v) => `<span class="text-xs font-semibold text-[#172B4D]">${v || '-'}</span>`
+      },
+      {
+        field: 'totalInvoiceValue',
+        header: 'Total Invoice Value',
+        render: (v) => `<span class="font-mono font-extrabold text-xs text-[#006644]">${Number(v || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>`
+      }
+    ];
+
+    // Render DataTable instance
+    let dtInstance = null;
+    const renderTable = (dataToDisplay) => {
+      dtInstance = new DataTable({
+        containerId: 'pending-insurance-table-container',
+        data: dataToDisplay,
+        keyField: 'id',
+        tableTitle: `Pending Insurance (${dataToDisplay.length})`,
+        searchable: true,
+        exportable: true,
+        selectable: true,
+        showSelectedCount: false,
+        pageSize: 10,
+        actionsTitle: 'Action',
+        toolbarButtons: [
+          {
+            id: 'btn-create-table-insurance',
+            label: 'Create Table',
+            title: 'Create Insurance Declaration Table for selected records',
+            requiresSelection: true,
+            variant: 'primary',
+            className: 'btn-primary px-3.5 py-1.5 rounded-full text-xs font-bold shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white flex items-center gap-1.5 transition-all cursor-pointer',
+            icon: `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18m-9-4v8m-7 4h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>`,
+            onClick: (keys, rows) => {
+              const selectedRecords = rows && rows.length > 0 ? rows : (this.state.pendingInsurance || []).filter(r => (keys || []).includes(r.id));
+              this.showCreateInsuranceTemplateModal(selectedRecords);
+            }
+          }
+        ],
+        onRowClick: (row) => this.showPendingInsuranceDetailsModal(row),
+        columns,
+        actions: [
+          {
+            label: 'Create Template',
+            icon: `<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2zM15 2v5a2 2 0 002 2h5"/></svg>`,
+            onClick: (row) => this.showCreateInsuranceTemplateModal([row])
+          }
+        ]
+      });
+    };
+
+    renderTable(rawData);
+
+    // Search and Reset button handlers
+    const searchBtn = container.querySelector('#flt-ins-search-btn');
+    const resetBtn = container.querySelector('#flt-ins-reset-btn');
+
+    searchBtn?.addEventListener('click', () => {
+      const yearVal = container.querySelector('#flt-ins-year')?.value || 'ALL';
+      const exporterVal = container.querySelector('#flt-ins-exporter')?.value || 'ALL';
+      const consigneeVal = container.querySelector('#flt-ins-consignee')?.value || 'ALL';
+      const countryVal = container.querySelector('#flt-ins-country')?.value || 'ALL';
+
+      let filtered = [...(this.state.pendingInsurance || [])];
+
+      if (yearVal !== 'ALL' && yearVal !== 'All Years') {
+        filtered = filtered.filter(r => r.year === yearVal);
+      }
+      if (exporterVal !== 'ALL' && exporterVal !== 'All Exporters') {
+        filtered = filtered.filter(r => r.exporter === exporterVal);
+      }
+      if (consigneeVal !== 'ALL' && consigneeVal !== 'All Consignees') {
+        filtered = filtered.filter(r => r.consignee === consigneeVal);
+      }
+      if (countryVal !== 'ALL' && countryVal !== 'All Countries') {
+        filtered = filtered.filter(r => r.destinationCountry === countryVal);
+      }
+
+      renderTable(filtered);
+      Toast.show(`Found ${filtered.length} insurance record(s)`, 'info');
+    });
+
+    resetBtn?.addEventListener('click', () => {
+      const yearSelect = container.querySelector('#flt-ins-year');
+      const expSelect = container.querySelector('#flt-ins-exporter');
+      const conSelect = container.querySelector('#flt-ins-consignee');
+      const ctrySelect = container.querySelector('#flt-ins-country');
+
+      if (yearSelect) yearSelect.selectedIndex = 0;
+      if (expSelect) expSelect.selectedIndex = 0;
+      if (conSelect) conSelect.selectedIndex = 0;
+      if (ctrySelect) ctrySelect.selectedIndex = 0;
+
+      renderTable(this.state.pendingInsurance || []);
+      Toast.show('Filters reset', 'info');
+    });
+  },
+
+  // Marine Insurance Declaration Details Modal (Strictly AGENTS.md Section 5)
+  showPendingInsuranceDetailsModal(row) {
+    if (!row) return;
+
+    Modal.show({
+      title: 'Marine Insurance Declaration & Coverage Details',
+      size: 'xl',
+      content: `
+        <div class="space-y-4 text-xs">
+          <!-- Top Hero / Summary Card -->
+          <div class="bg-gradient-to-r from-[#F0F9FF] to-[#F8FAFC] p-4 rounded-xl border border-[#BAE6FD] flex flex-wrap items-center justify-between gap-3 shadow-2xs">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-[#00A4B7] text-white flex items-center justify-center font-bold shadow-xs shrink-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+              </div>
+              <div>
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span class="font-mono font-extrabold text-[#0F172A] text-base">${row.id}</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold tracking-wide uppercase bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD]">${(row.status || 'PENDING').replace(/_/g, ' ')}</span>
+                  <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">Marine Transit Insurance</span>
+                </div>
+                <div class="text-[11px] text-[#64748B] mt-0.5 font-medium flex items-center gap-1.5 flex-wrap">
+                  <span>🏢 ${row.exporter || 'Devi Fisheries Limited'}</span>
+                  <span>•</span>
+                  <span>Buyer: ${row.consignee || '-'}</span>
+                  <span>•</span>
+                  <span>Inv: <strong class="font-mono text-[#172B4D]">${row.invNo || '-'}</strong></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Metrics Badges -->
+            <div class="flex items-center gap-2 flex-wrap">
+              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[100px]">
+                <div class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider">Total Value</div>
+                <div class="text-sm font-extrabold text-[#006644] font-mono mt-0.5">${Number(row.totalInvoiceValue || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+              </div>
+              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[90px]">
+                <div class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider">Container</div>
+                <div class="text-xs font-bold text-[#403294] font-mono mt-0.5">${row.containerNo || '-'}</div>
+              </div>
+              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[90px]">
+                <div class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider">Destination</div>
+                <div class="text-xs font-bold text-[#00A4B7] mt-0.5">${row.destinationCountry || '-'}</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 1: Voyage & Shipping Onboard Specifications -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs space-y-3">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9] pb-2">
+              <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">1</span>
+              <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Voyage &amp; Shipping Onboard Specifications</h3>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3.5">
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Vessel Name</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${row.vesselName || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Shipping Onboard Dt</span>
+                <span class="font-mono text-[#172B4D] text-xs block mt-0.5">${row.shippingOnboardDt || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Container No</span>
+                <span class="font-mono font-bold text-[#403294] text-xs block mt-0.5">${row.containerNo || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Port of Loading</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${row.portOfLoading || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Port of Discharge</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${row.portOfDischarge || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Destination Country</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${row.destinationCountry || '-'}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Commercial Export & Invoice Information -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs space-y-3">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9] pb-2">
+              <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">2</span>
+              <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Commercial Export &amp; Invoice Information</h3>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Invoice Number</span>
+                <span class="font-mono font-bold text-[#00A4B7] text-xs block mt-0.5">${row.invNo || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Exporter Name</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${row.exporter || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Consignee / Importer</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${row.consignee || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Financial Year</span>
+                <span class="font-mono font-semibold text-[#172B4D] text-xs block mt-0.5">${row.year || '2026-2027'}</span>
+              </div>
+              <div class="col-span-2 sm:col-span-4">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Cargo Specifications</span>
+                <span class="font-medium text-[#172B4D] text-xs block mt-0.5">${row.cargoDescription || 'Frozen Seafood Consignment'}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 3: Marine Insurance Underwriting & Risk Scope -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs space-y-3">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9] pb-2">
+              <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">3</span>
+              <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Marine Insurance Underwriting &amp; Risk Scope</h3>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3.5">
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Assigned Underwriter</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${row.assignedUnderwriter || 'The New India Assurance Co. Ltd.'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Sum Insured (CIF + 10%)</span>
+                <span class="font-mono font-extrabold text-[#006644] text-xs block mt-0.5">${(Number(row.totalInvoiceValue || 0) * 1.1).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Declaration Status</span>
+                <span class="font-semibold text-[#00A4B7] text-xs block mt-0.5">${(row.status || 'PENDING').replace(/_/g, ' ')}</span>
+              </div>
+              <div class="col-span-2 sm:col-span-3">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Applicable Risk Clauses</span>
+                <span class="text-xs text-[#5E6C84] block mt-0.5 bg-[#F8FAFC] p-2.5 rounded-lg border border-[#E2E8F0] font-mono">${row.requiredClauses || 'ICC (A) All Risks + Institute Frozen Food Clauses + 24hr Machinery Derangement + War & Strikes Clauses'}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      `,
+      actions: [
         {
-          field: 'status',
-          header: 'Status',
-          render: (v) => {
-            const cls = v.includes('PENDING') ? 'bg-[#FFFAE6] text-[#FF8B00] border-[#FFE380]' : 'bg-[#F0F9FF] text-[#00A4B7] border-[#BAE6FD]';
-            return `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold border ${cls} uppercase">${v.replace(/_/g, ' ')}</span>`;
+          label: 'Print Declaration',
+          className: 'btn-secondary px-5 py-2 rounded-full text-xs font-semibold border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#172B4D] transition-all cursor-pointer',
+          onClick: () => Toast.show(`Printing declaration document for ${row.id}...`, 'info')
+        },
+        {
+          label: 'Download Certificate',
+          className: 'btn-primary px-5 py-2 rounded-full text-xs font-bold shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer',
+          onClick: () => {
+            Modal.close();
+            Toast.show(`Downloading official Marine Certificate for ${row.id}...`, 'success');
           }
         }
       ]
+    });
+  },
+
+  // Add Marine Insurance Declaration Modal
+  showAddPendingInsuranceModal(onCreated) {
+    const nextSeq = ((this.state.pendingInsurance || []).length + 1).toString().padStart(3, '0');
+    const newId = `INS-2026-${nextSeq}`;
+
+    Modal.show({
+      title: 'New Marine Insurance Declaration',
+      size: 'xl',
+      content: `
+        <form id="form-add-pending-insurance" class="space-y-4 text-xs">
+          <div class="bg-[#F0F9FF] p-3 rounded-lg border border-[#BAE6FD] flex items-center justify-between text-xs">
+            <div>
+              <span class="font-bold text-[#00A4B7]">System Generated ID:</span>
+              <span class="font-mono font-extrabold text-[#0284C7] ml-1">${newId}</span>
+            </div>
+            <div class="text-[11px] text-[#5E6C84]">All fields marked with <span class="text-rose-500">*</span> are mandatory</div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Invoice Number <span class="text-rose-500">*</span></label>
+              <input type="text" id="add-ins-inv" required placeholder="e.g. INV-EXP-2026-098" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Financial Year <span class="text-rose-500">*</span></label>
+              <select id="add-ins-year" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+                <option value="2026-2027" selected>2026-2027</option>
+                <option value="2025-2026">2025-2026</option>
+                <option value="2024-2025">2024-2025</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Exporter <span class="text-rose-500">*</span></label>
+              <select id="add-ins-exporter" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+                <option value="Devi Fisheries Limited" selected>Devi Fisheries Limited</option>
+                <option value="Devi Sea Foods Ltd">Devi Sea Foods Ltd</option>
+                <option value="Devi Aqua Feeds Pvt Ltd">Devi Aqua Feeds Pvt Ltd</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Consignee / Importer <span class="text-rose-500">*</span></label>
+              <input type="text" id="add-ins-consignee" required placeholder="e.g. Sysco Corporation International" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Vessel Name <span class="text-rose-500">*</span></label>
+              <input type="text" id="add-ins-vessel" required placeholder="e.g. MSC MAYA / V.2601W" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Shipping Onboard Dt <span class="text-rose-500">*</span></label>
+              <input type="date" id="add-ins-date" required value="2026-11-06" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Container No <span class="text-rose-500">*</span></label>
+              <input type="text" id="add-ins-container" required placeholder="e.g. MSCU7823901" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Port of Loading <span class="text-rose-500">*</span></label>
+              <input type="text" id="add-ins-pol" required value="Visakhapatnam (INVTZ)" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Port of Discharge <span class="text-rose-500">*</span></label>
+              <input type="text" id="add-ins-pod" required placeholder="e.g. New York (USNYC)" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Destination Country <span class="text-rose-500">*</span></label>
+              <select id="add-ins-country" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+                <option value="United States" selected>United States</option>
+                <option value="Canada">Canada</option>
+                <option value="United Kingdom">United Kingdom</option>
+                <option value="Japan">Japan</option>
+                <option value="Netherlands">Netherlands</option>
+                <option value="Vietnam">Vietnam</option>
+                <option value="Germany">Germany</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Total Invoice Value (USD) <span class="text-rose-500">*</span></label>
+              <input type="number" id="add-ins-val" required min="1" step="0.01" placeholder="e.g. 215000" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Assigned Underwriter</label>
+              <select id="add-ins-underwriter" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+                <option value="The New India Assurance Co. Ltd." selected>The New India Assurance Co. Ltd.</option>
+                <option value="United India Insurance Co. Ltd.">United India Insurance Co. Ltd.</option>
+                <option value="ICICI Lombard General Insurance">ICICI Lombard General Insurance</option>
+                <option value="National Insurance Co. Ltd.">National Insurance Co. Ltd.</option>
+              </select>
+            </div>
+          </div>
+        </form>
+      `,
+      actions: [
+        {
+          label: 'Cancel',
+          className: 'btn-secondary px-5 py-2 rounded-full text-xs font-semibold border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#172B4D] transition-all cursor-pointer',
+          onClick: () => Modal.close()
+        },
+        {
+          label: 'Save Declaration',
+          className: 'btn-primary px-5 py-2 rounded-full text-xs font-bold shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer',
+          onClick: () => {
+            const form = document.getElementById('form-add-pending-insurance');
+            if (form && !form.checkValidity()) {
+              form.reportValidity();
+              return;
+            }
+
+            const invNo = document.getElementById('add-ins-inv')?.value.trim();
+            const year = document.getElementById('add-ins-year')?.value;
+            const exporter = document.getElementById('add-ins-exporter')?.value;
+            const consignee = document.getElementById('add-ins-consignee')?.value.trim();
+            const vesselName = document.getElementById('add-ins-vessel')?.value.trim();
+            const rawDate = document.getElementById('add-ins-date')?.value;
+            const containerNo = document.getElementById('add-ins-container')?.value.trim();
+            const portOfLoading = document.getElementById('add-ins-pol')?.value.trim();
+            const portOfDischarge = document.getElementById('add-ins-pod')?.value.trim();
+            const destinationCountry = document.getElementById('add-ins-country')?.value;
+            const totalInvoiceValue = parseFloat(document.getElementById('add-ins-val')?.value || '0');
+            const assignedUnderwriter = document.getElementById('add-ins-underwriter')?.value;
+
+            // Format date e.g. 06-Nov-2026
+            let formattedDate = rawDate;
+            try {
+              if (rawDate) {
+                const [y, m, d] = rawDate.split('-');
+                const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+                formattedDate = `${d}-${monthNames[parseInt(m, 10) - 1]}-${y}`;
+              }
+            } catch (e) {}
+
+            const newRecord = {
+              id: newId,
+              invNo,
+              year,
+              exporter,
+              consignee,
+              vesselName,
+              shippingOnboardDt: formattedDate,
+              containerNo,
+              portOfLoading,
+              portOfDischarge,
+              destinationCountry,
+              totalInvoiceValue,
+              cargoValueUsd: totalInvoiceValue,
+              lotRef: `LOT-${newId}`,
+              contractNo: `SC-NEW-${nextSeq}`,
+              cargoDescription: 'Frozen Seafood Consignment IQF',
+              requiredClauses: 'ICC (A) All Risks + Reefer Temp Deviation + War & Strikes',
+              assignedUnderwriter,
+              status: 'DECLARATION_PENDING'
+            };
+
+            this.state.pendingInsurance = [newRecord, ...(this.state.pendingInsurance || [])];
+            Modal.close();
+            Toast.show(`Insurance Declaration ${newId} added successfully`, 'success');
+            if (typeof onCreated === 'function') onCreated();
+          }
+        }
+      ]
+    });
+  },
+
+  // Edit Marine Insurance Declaration Modal
+  showEditPendingInsuranceModal(row, onUpdated) {
+    if (!row) return;
+
+    Modal.show({
+      title: `Edit Insurance Declaration — ${row.id}`,
+      size: 'xl',
+      content: `
+        <form id="form-edit-pending-insurance" class="space-y-4 text-xs">
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Invoice Number</label>
+              <input type="text" id="edit-ins-inv" required value="${row.invNo || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Financial Year</label>
+              <select id="edit-ins-year" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+                <option value="2026-2027" ${row.year === '2026-2027' ? 'selected' : ''}>2026-2027</option>
+                <option value="2025-2026" ${row.year === '2025-2026' ? 'selected' : ''}>2025-2026</option>
+                <option value="2024-2025" ${row.year === '2024-2025' ? 'selected' : ''}>2024-2025</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Exporter</label>
+              <input type="text" id="edit-ins-exporter" value="${row.exporter || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Consignee</label>
+              <input type="text" id="edit-ins-consignee" required value="${row.consignee || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Vessel Name</label>
+              <input type="text" id="edit-ins-vessel" required value="${row.vesselName || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Shipping Onboard Dt</label>
+              <input type="text" id="edit-ins-date" required value="${row.shippingOnboardDt || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Container No</label>
+              <input type="text" id="edit-ins-container" required value="${row.containerNo || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Port of Loading</label>
+              <input type="text" id="edit-ins-pol" required value="${row.portOfLoading || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Port of Discharge</label>
+              <input type="text" id="edit-ins-pod" required value="${row.portOfDischarge || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Destination Country</label>
+              <input type="text" id="edit-ins-country" required value="${row.destinationCountry || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Total Invoice Value (USD)</label>
+              <input type="number" id="edit-ins-val" required min="1" step="0.01" value="${row.totalInvoiceValue || 0}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Status</label>
+              <select id="edit-ins-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+                <option value="DECLARATION_PENDING" ${row.status === 'DECLARATION_PENDING' ? 'selected' : ''}>DECLARATION PENDING</option>
+                <option value="QUOTATION_UNDER_REVIEW" ${row.status === 'QUOTATION_UNDER_REVIEW' ? 'selected' : ''}>QUOTATION UNDER REVIEW</option>
+                <option value="DRAFT_CERT_PREPARED" ${row.status === 'DRAFT_CERT_PREPARED' ? 'selected' : ''}>DRAFT CERT PREPARED</option>
+                <option value="COVER_NOTE_ISSUED" ${row.status === 'COVER_NOTE_ISSUED' ? 'selected' : ''}>COVER NOTE ISSUED</option>
+              </select>
+            </div>
+          </div>
+        </form>
+      `,
+      actions: [
+        {
+          label: 'Cancel',
+          className: 'btn-secondary px-5 py-2 rounded-full text-xs font-semibold border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#172B4D] transition-all cursor-pointer',
+          onClick: () => Modal.close()
+        },
+        {
+          label: 'Save Changes',
+          className: 'btn-primary px-5 py-2 rounded-full text-xs font-bold shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer',
+          onClick: () => {
+            const form = document.getElementById('form-edit-pending-insurance');
+            if (form && !form.checkValidity()) {
+              form.reportValidity();
+              return;
+            }
+
+            row.invNo = document.getElementById('edit-ins-inv')?.value.trim() || row.invNo;
+            row.year = document.getElementById('edit-ins-year')?.value || row.year;
+            row.exporter = document.getElementById('edit-ins-exporter')?.value.trim() || row.exporter;
+            row.consignee = document.getElementById('edit-ins-consignee')?.value.trim() || row.consignee;
+            row.vesselName = document.getElementById('edit-ins-vessel')?.value.trim() || row.vesselName;
+            row.shippingOnboardDt = document.getElementById('edit-ins-date')?.value.trim() || row.shippingOnboardDt;
+            row.containerNo = document.getElementById('edit-ins-container')?.value.trim() || row.containerNo;
+            row.portOfLoading = document.getElementById('edit-ins-pol')?.value.trim() || row.portOfLoading;
+            row.portOfDischarge = document.getElementById('edit-ins-pod')?.value.trim() || row.portOfDischarge;
+            row.destinationCountry = document.getElementById('edit-ins-country')?.value.trim() || row.destinationCountry;
+            row.totalInvoiceValue = parseFloat(document.getElementById('edit-ins-val')?.value || '0') || row.totalInvoiceValue;
+            row.cargoValueUsd = row.totalInvoiceValue;
+            row.status = document.getElementById('edit-ins-status')?.value || row.status;
+
+            Modal.close();
+            Toast.show(`Insurance Declaration ${row.id} updated successfully`, 'success');
+            if (typeof onUpdated === 'function') onUpdated();
+          }
+        }
+      ]
+    });
+  },
+
+
+  showCreateInsuranceTemplateModal(records = []) {
+    if (!records || records.length === 0) {
+      Toast.show('Please select at least one record to create insurance table / template.', 'warning');
+      return;
+    }
+
+    const totalVal = records.reduce((sum, r) => sum + Number(r.totalInvoiceValue || 0), 0);
+    const invoicesList = records.map(r => r.invNo).filter(Boolean).join(', ');
+    const defaultCoverNo = 'OPC-MAR-' + new Date().getFullYear() + '-' + Math.floor(1000 + Math.random() * 9000);
+
+    Modal.open({
+      title: 'Create Marine Insurance Table & Template (' + records.length + ' Shipments)',
+      size: 'xl',
+      content: `
+        <div class="space-y-4 text-xs">
+          <!-- Summary Hero Card -->
+          <div class="bg-gradient-to-r from-[#F0F9FF] to-[#F8FAFC] p-4 rounded-xl border border-[#BAE6FD] flex flex-wrap items-center justify-between gap-3 shadow-2xs">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-[#00A4B7] text-white flex items-center justify-center font-bold shadow-xs shrink-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              </div>
+              <div>
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span class="font-mono font-extrabold text-[#0F172A] text-base">INS-DECL-TBL-${Math.floor(1000 + Math.random() * 9000)}</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold tracking-wide uppercase bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD]">Marine Cargo Open Cover</span>
+                </div>
+                <div class="text-[11px] text-[#64748B] mt-0.5 font-medium flex items-center gap-1.5 flex-wrap">
+                  <span>Selected Shipments: <strong>${records.length} Invoices</strong> (${invoicesList})</span>
+                </div>
+              </div>
+            </div>
+            <div class="bg-white px-4 py-2 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[120px]">
+              <div class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider">Total Insured Value</div>
+              <div class="text-sm font-extrabold text-[#006644] font-mono mt-0.5">${totalVal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+            </div>
+          </div>
+
+          <!-- Policy & Underwriting Specifications -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs space-y-3">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9] pb-2">
+              <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">1</span>
+              <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Underwriting & Policy Specifications</h3>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3.5">
+              <div>
+                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Open Cover / Policy No</label>
+                <input type="text" id="ins-tbl-policy" value="${defaultCoverNo}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Underwriter / Insurer</label>
+                <select id="ins-tbl-insurer" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="New India Assurance Co. Ltd">New India Assurance Co. Ltd</option>
+                  <option value="United India Insurance Co. Ltd">United India Insurance Co. Ltd</option>
+                  <option value="ICICI Lombard General Insurance">ICICI Lombard General Insurance</option>
+                  <option value="Tata AIG General Insurance">Tata AIG General Insurance</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Coverage Basis</label>
+                <input type="text" id="ins-tbl-basis" value="110% CIF Value (All Risks + War & SRCC)" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Certificate Template</label>
+                <select id="ins-tbl-type" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="Standard Marine Transit Declaration">Standard Marine Transit Declaration</option>
+                  <option value="Consolidated Shipment Table Schedule">Consolidated Shipment Table Schedule</option>
+                  <option value="Underwriting Cover Note">Underwriting Cover Note</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Selected Shipments Declaration Table -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs space-y-3">
+            <div class="flex items-center justify-between border-b border-[#F1F5F9] pb-2">
+              <div class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">2</span>
+                <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Declaration Schedule Table (${records.length} Selected Records)</h3>
+              </div>
+              <span class="text-[11px] font-bold text-[#00A4B7]">Institute Cargo Clauses (A)</span>
+            </div>
+            <div class="overflow-x-auto max-h-[220px] overflow-y-auto">
+              <table class="w-full text-left text-xs">
+                <thead>
+                  <tr class="border-b border-[#DFE1E6] text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider bg-[#FAFBFC]">
+                    <th class="p-2">Inv No</th>
+                    <th class="p-2">Vessel Name</th>
+                    <th class="p-2">Onboard Dt</th>
+                    <th class="p-2">Container No</th>
+                    <th class="p-2">Port of Loading</th>
+                    <th class="p-2">Port of Discharge</th>
+                    <th class="p-2">Destination</th>
+                    <th class="p-2 text-right">Invoice Value</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-[#F1F5F9]">
+                  ${records.map(r => `
+                    <tr class="hover:bg-[#F0F9FF] transition-colors">
+                      <td class="p-2 font-mono font-bold text-[#172B4D]">${r.invNo || '-'}</td>
+                      <td class="p-2 font-semibold text-[#172B4D]">${r.vesselName || '-'}</td>
+                      <td class="p-2 font-mono text-[#5E6C84]">${r.shippingOnboardDt || '-'}</td>
+                      <td class="p-2 font-mono font-semibold text-[#403294]">${r.containerNo || '-'}</td>
+                      <td class="p-2 text-[#172B4D]">${r.portOfLoading || '-'}</td>
+                      <td class="p-2 text-[#172B4D]">${r.portOfDischarge || '-'}</td>
+                      <td class="p-2 text-[#172B4D]">${r.destinationCountry || '-'}</td>
+                      <td class="p-2 font-mono font-extrabold text-[#006644] text-right">${Number(r.totalInvoiceValue || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      `,
+      footer: `
+        <div class="flex items-center justify-end gap-2.5">
+          <button type="button" class="btn-secondary px-5 py-2 rounded-full text-xs font-semibold border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#172B4D] transition-all cursor-pointer" onclick="Modal.close()">Cancel</button>
+          <button type="button" id="btn-confirm-create-ins-template" class="btn-primary px-5 py-2 rounded-full text-xs font-bold shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer flex items-center gap-1.5">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            <span>Create Declaration Table</span>
+          </button>
+        </div>
+      `
+    });
+
+    document.getElementById('btn-confirm-create-ins-template')?.addEventListener('click', () => {
+      Modal.close();
+      Toast.show('Marine Insurance Declaration Table created successfully for ' + records.length + ' shipments!', 'success');
     });
   },
 
@@ -93267,7 +94269,10 @@ const HelpView = {
   }
 };
 
-  // Super Admin Central Executive Dashboard View (General, Master & Reports Data with Charts)
+  // Super Admin Central Executive Dashboard View
+// Enterprise Overview across Multi-Tenant Clients, RBAC Security, Master Registries, and System Health
+// Strictly conforms to AGENTS.md Design System rules with smooth hover effects and ZERO click events.
+
 
 
 
@@ -93285,7 +94290,7 @@ const SuperAdminDashboardView = {
 
     setTimeout(() => {
       this.renderUnifiedDashboard(container);
-    }, 120);
+    }, 80);
   },
 
   renderUnifiedDashboard(container) {
@@ -93300,253 +94305,404 @@ const SuperAdminDashboardView = {
     this.chartInstances = {};
 
     const state = SetupView.state || {};
-    const allCompanies = state.companies || [
-      { id: 'CMP-001', code: 'DFL', shortName: 'DFL', name: 'Devi Fisheries Limited', dbHost: 'localhost:3306', dbName: 'devi_erp', dbUser: 'root', plants: ['Unit-1 VSP', 'Unit-2 Nellore', 'Unit-3 Kakinada'], status: 'Active', country: 'India', currency: 'INR' },
-      { id: 'CMP-002', code: 'CME', shortName: 'CME', name: 'Coastal Marine Exports', dbHost: '192.168.1.105:3306', dbName: 'cme_db', dbUser: 'cme_admin', plants: ['Chennai Plant A', 'Tuticorin Dock Unit'], status: 'Active', country: 'India', currency: 'INR' },
-      { id: 'CMP-003', code: 'BPF', shortName: 'BPF', name: 'Bay Pride Foods', dbHost: 'cloud-rds.devi.internal:3306', dbName: 'baypride_erp', dbUser: 'bpf_svc', plants: ['Singapore Port Unit', 'Jurong Cold Chain Hub'], status: 'Active', country: 'Singapore', currency: 'SGD' }
+    const allCompanies = state.companies && state.companies.length > 0 ? state.companies : [
+      { id: 'CMP-001', code: 'DFL', shortName: 'DFL', name: 'Devi Fisheries Limited', dbHost: 'localhost:3306', dbName: 'devi_erp', dbUser: 'root', plants: ['Unit-1 VSP', 'Unit-2 Singarayakonda', 'Unit-3 Kakinada', 'Central Cold Storage Hub'], status: 'Active', country: 'India', currency: 'INR', latency: '4ms' },
+      { id: 'CMP-002', code: 'CME', shortName: 'CME', name: 'Coastal Marine Exports', dbHost: '192.168.1.105:3306', dbName: 'cme_db', dbUser: 'cme_admin', plants: ['Chennai Plant A', 'Tuticorin Dock Unit'], status: 'Active', country: 'India', currency: 'INR', latency: '6ms' },
+      { id: 'CMP-003', code: 'BPF', shortName: 'BPF', name: 'Bay Pride Foods', dbHost: 'cloud-rds.devi.internal:3306', dbName: 'baypride_erp', dbUser: 'bpf_svc', plants: ['Singapore Port Unit', 'Jurong Cold Chain Hub'], status: 'Active', country: 'Singapore', currency: 'SGD', latency: '11ms' }
     ];
 
-    const allUsers = state.users || [];
-    const allRoles = state.roles || [];
-    const allModules = state.modulesConfig || [];
-    const allAuditLogs = state.auditLogs || [];
-    const allMasters = state.masters || SEAFOOD_MASTERS || [];
-    const publishedVersion = state.publishedVersion || 'v2.4.1';
+    const allUsers = state.users && state.users.length > 0 ? state.users : [
+      { id: 'USR-001', name: 'Suresh Varma', email: 'suresh.varma@devifisheries.com', role: 'Super Admin', status: 'Active', company: 'Devi Fisheries Limited' },
+      { id: 'USR-002', name: 'P. Rambabu', email: 'rambabu.p@devifisheries.com', role: 'Plant Admin', status: 'Active', company: 'Devi Fisheries Limited' },
+      { id: 'USR-003', name: 'Dr. K. V. Sharma', email: 'kv.sharma@devifisheries.com', role: 'QC Manager', status: 'Active', company: 'Devi Fisheries Limited' },
+      { id: 'USR-004', name: 'M. Venkat Rao', email: 'venkat.rao@devifisheries.com', role: 'Coldstore Lead', status: 'Active', company: 'Devi Fisheries Limited' },
+      { id: 'USR-005', name: 'Srinivas Rao', email: 'srinivas.rao@devifisheries.com', role: 'Procurement Officer', status: 'Active', company: 'Devi Fisheries Limited' },
+      { id: 'USR-006', name: 'R. K. Narayanan', email: 'narayanan.rk@cme.in', role: 'Plant Admin', status: 'Active', company: 'Coastal Marine Exports' },
+      { id: 'USR-007', name: 'Anita Thomas', email: 'anita.t@cme.in', role: 'QC Inspector', status: 'Active', company: 'Coastal Marine Exports' },
+      { id: 'USR-008', name: 'David Tan', email: 'david.tan@baypride.sg', role: 'Commercial Lead', status: 'Active', company: 'Bay Pride Foods' },
+      { id: 'USR-009', name: 'Marcus Lim', email: 'marcus.l@baypride.sg', role: 'Coldstore Lead', status: 'Active', company: 'Bay Pride Foods' },
+      { id: 'USR-010', name: 'K. Satyanarayana', email: 'satya.k@devifisheries.com', role: 'Production Lead', status: 'Active', company: 'Devi Fisheries Limited' },
+      { id: 'USR-011', name: 'Chitra Subramanian', email: 'chitra.s@cme.in', role: 'Accounts Manager', status: 'Active', company: 'Coastal Marine Exports' },
+      { id: 'USR-012', name: 'Auditor External', email: 'audit@kpmg-partner.in', role: 'Auditor', status: 'Active', company: 'Devi Fisheries Limited' },
+      { id: 'USR-013', name: 'Trainee Operator', email: 'trainee@devifisheries.com', role: 'Operator', status: 'Inactive', company: 'Devi Fisheries Limited' },
+      { id: 'USR-014', name: 'Archived User CME', email: 'temp@cme.in', role: 'Operator', status: 'Inactive', company: 'Coastal Marine Exports' },
+      { id: 'USR-015', name: 'Dev Account', email: 'dev@devi.internal', role: 'Super Admin', status: 'Active', company: 'Devi Fisheries Limited' }
+    ];
 
+    const allRoles = state.roles && state.roles.length > 0 ? state.roles : [
+      { id: 'ROLE-SUPER', name: 'Super Admin', department: 'Executive Governance', usersCount: 2, status: 'Active' },
+      { id: 'ROLE-PLANT', name: 'Plant Admin', department: 'Plant Operations', usersCount: 2, status: 'Active' },
+      { id: 'ROLE-QC', name: 'QC Manager', department: 'Quality Assurance', usersCount: 2, status: 'Active' },
+      { id: 'ROLE-COLD', name: 'Coldstore Lead', department: 'Cold Storage & WMS', usersCount: 2, status: 'Active' },
+      { id: 'ROLE-PROD', name: 'Production Lead', department: 'Processing & Freezing', usersCount: 1, status: 'Active' },
+      { id: 'ROLE-COMM', name: 'Commercial Lead', department: 'Exports & Invoicing', usersCount: 2, status: 'Active' }
+    ];
+
+    const allAuditLogs = state.auditLogs && state.auditLogs.length > 0 ? state.auditLogs : [
+      { id: 'AUD-091', timestamp: 'Today, 15:10', actor: 'Super Admin', action: 'Custom Field Published', detail: 'Added "Blast Freezing Spec" to Commercial Invoice Register', category: 'Schema' },
+      { id: 'AUD-090', timestamp: 'Today, 14:25', actor: 'System Daemon', action: 'Cluster Health Check', detail: 'All 3 multi-tenant databases verified with 0 replication lag', category: 'Health' },
+      { id: 'AUD-089', timestamp: 'Today, 12:40', actor: 'Super Admin', action: 'Master Entity Sync', detail: 'Synchronized 32 rack allocation units across Central Coldstore', category: 'Masters' },
+      { id: 'AUD-088', timestamp: 'Today, 10:15', actor: 'Super Admin', action: 'Role Matrix Verified', detail: 'Verified RBAC permission scopes for Plant Admin & QC Inspector', category: 'Security' },
+      { id: 'AUD-087', timestamp: 'Yesterday, 18:30', actor: 'System Daemon', action: 'Automated Snapshot', detail: 'Encrypted snapshot generated for devi_erp, cme_db & baypride_erp', category: 'Backup' }
+    ];
+
+    // Master domains data
+    const masterDomains = [
+      { name: 'Cold Store Logistics', code: 'CS', count: 320, color: '#00A4B7', submasters: ['Chambers', 'Rack Locations', 'Pallet Types', 'Temp Zones'] },
+      { name: 'Raw Material Procurement', code: 'PROC', count: 410, color: '#00875A', submasters: ['Farmers', 'Landing Centers', 'Ice Suppliers', 'Agents'] },
+      { name: 'Processing & Freezing', code: 'PROD', count: 345, color: '#FF8B00', submasters: ['Processing Lines', 'Glaze Specs', 'Blast Freezers', 'Packs'] },
+      { name: 'Sales & Commercial Exports', code: 'SALES', count: 460, color: '#6554C0', submasters: ['Export Markets', 'Buyers', 'Shipping Lines', 'Discharge Ports'] },
+      { name: 'Finance & Accounts', code: 'FIN', count: 185, color: '#0284C7', submasters: ['Cost Centers', 'Currencies', 'Tax Codes', 'Payment Terms'] },
+      { name: 'General & Plant Ops', code: 'GEN', count: 215, color: '#5E6C84', submasters: ['Vehicles', 'Weighbridges', 'Shift Timings', 'Packaging'] }
+    ];
+
+    const totalMasterRecords = masterDomains.reduce((acc, d) => acc + d.count, 0);
     const activeUsersCount = allUsers.filter(u => (u.status || 'Active').toLowerCase() === 'active').length;
-    const inactiveUsersCount = allUsers.length - activeUsersCount;
-    const activeModulesCount = allModules.filter(m => m.status === 'Active' || (m.status === undefined && m.visible !== false)).length;
-    const totalMasterRecords = allMasters.reduce((acc, m) => acc + (m.records?.length || m.count || 0), 0);
-
-    // Group Masters by Category
-    const masterCategories = {
-      'Logistics': [],
-      'Processing': [],
-      'Commercial': [],
-      'Operations': []
-    };
-    allMasters.forEach(m => {
-      const cat = m.category || 'General';
-      if (!masterCategories[cat]) masterCategories[cat] = [];
-      masterCategories[cat].push(m);
-    });
-
-    const logisticsRecords = masterCategories['Logistics'].reduce((a, m) => a + (m.records?.length || m.count || 0), 0);
-    const processingRecords = masterCategories['Processing'].reduce((a, m) => a + (m.records?.length || m.count || 0), 0);
-    const commercialRecords = masterCategories['Commercial'].reduce((a, m) => a + (m.records?.length || m.count || 0), 0);
-    const operationsRecords = masterCategories['Operations'].reduce((a, m) => a + (m.records?.length || m.count || 0), 0);
+    const totalPlantsCount = allCompanies.reduce((acc, c) => acc + (Array.isArray(c.plants) ? c.plants.length : 1), 0);
+    const totalFormsCount = 8;
+    const totalCustomFieldsCount = 42;
 
     container.innerHTML = `
-      <div class="space-y-5 animate-fade-in pb-8">
-        <!-- 1. High-Level KPI Summary Cards (4 Cards across General, Master, Reports) -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <!-- KPI 1: Corporate Clients (General) -->
-          <a href="#/general/configuration/clients" class="block bg-white border border-[#DFE1E6] hover:border-[#0284C7] rounded-2xl p-4 shadow-xs hover:shadow-md transition-all group">
-            <div class="flex items-center justify-between">
-              <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Corporate Clients</span>
-              <div class="w-8 h-8 rounded-lg bg-[#F0F9FF] text-[#0284C7] flex items-center justify-center group-hover:scale-110 transition-transform">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
-              </div>
-            </div>
-            <div class="mt-2.5 flex items-baseline gap-2">
-              <span class="text-2xl font-black text-[#172B4D]">${allCompanies.length}</span>
-              <span class="text-xs text-[#00875A] font-semibold">100% DBs Online</span>
-            </div>
-            <div class="mt-2 pt-2 border-t border-[#F4F5F7] flex items-center justify-between text-[11px] text-[#5E6C84]">
-              <span>Multi-Tenant DBs</span>
-              <span class="font-bold text-[#0284C7] group-hover:underline">View Clients →</span>
-            </div>
-          </a>
+      <div class="space-y-4 animate-fade-in pb-10">
 
-          <!-- KPI 2: Enterprise Users (General) -->
-          <a href="#/general/configuration/users" class="block bg-white border border-[#DFE1E6] hover:border-[#00875A] rounded-2xl p-4 shadow-xs hover:shadow-md transition-all group">
-            <div class="flex items-center justify-between">
-              <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Configured Users</span>
-              <div class="w-8 h-8 rounded-lg bg-[#E3FCEF] text-[#00875A] flex items-center justify-center group-hover:scale-110 transition-transform">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-              </div>
+        <!-- 1. Page Header (Strictly AGENTS.md Rule 2: Title ONLY, no subheadings, contextual status badges on line) -->
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-1">
+          <div class="flex items-center gap-3">
+            <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Super Admin Executive Dashboard</h1>
+          </div>
+          <div class="flex items-center gap-2.5 flex-wrap">
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-[#DFE1E6] shadow-2xs hover:border-[#00A4B7] transition-all duration-200 cursor-default select-none">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              <span class="text-xs font-semibold text-[#172B4D]">Clusters Operational (99.98% Uptime)</span>
             </div>
-            <div class="mt-2.5 flex items-baseline gap-2">
-              <span class="text-2xl font-black text-[#172B4D]">${allUsers.length}</span>
-              <span class="text-xs text-[#00875A] font-semibold">${activeUsersCount} Active</span>
+            <div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD] text-xs font-extrabold cursor-default select-none hover:bg-[#BAE6FD] transition-colors">
+              <span>v2.4.1 Production</span>
             </div>
-            <div class="mt-2 pt-2 border-t border-[#F4F5F7] flex items-center justify-between text-[11px] text-[#5E6C84]">
-              <span>${allRoles.length} Roles Assigned</span>
-              <span class="font-bold text-[#00875A] group-hover:underline">Manage Users →</span>
-            </div>
-          </a>
-
-          <!-- KPI 3: Master Data Registries (Master) -->
-          <a href="#/master/master-data/masters" class="block bg-white border border-[#DFE1E6] hover:border-[#FF991F] rounded-2xl p-4 shadow-xs hover:shadow-md transition-all group">
-            <div class="flex items-center justify-between">
-              <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Master Data Catalogs</span>
-              <div class="w-8 h-8 rounded-lg bg-[#FFF0B3] text-[#B76E00] flex items-center justify-center group-hover:scale-110 transition-transform">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2 1.5 3 3.5 3h9c2 0 3.5-1 3.5-3V7M4 7c0-2 1.5-3 3.5-3h9c2 0 3.5 1 3.5 3M4 7h16m-8 4v6m-4-3h8"/></svg>
-              </div>
-            </div>
-            <div class="mt-2.5 flex items-baseline gap-2">
-              <span class="text-2xl font-black text-[#172B4D]">${allMasters.length}</span>
-              <span class="text-xs text-[#5E6C84] font-semibold">${totalMasterRecords} Records</span>
-            </div>
-            <div class="mt-2 pt-2 border-t border-[#F4F5F7] flex items-center justify-between text-[11px] text-[#5E6C84]">
-              <span>4 Functional Domains</span>
-              <span class="font-bold text-[#B76E00] group-hover:underline">Open Masters →</span>
-            </div>
-          </a>
-
-          <!-- KPI 4: Security & Audit Governance (Reports) -->
-          <a href="#/general/configuration/audit-history" class="block bg-white border border-[#DFE1E6] hover:border-[#6554C0] rounded-2xl p-4 shadow-xs hover:shadow-md transition-all group">
-            <div class="flex items-center justify-between">
-              <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Audit & Security</span>
-              <div class="w-8 h-8 rounded-lg bg-[#EAE6FF] text-[#6554C0] flex items-center justify-center group-hover:scale-110 transition-transform">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-              </div>
-            </div>
-            <div class="mt-2.5 flex items-baseline gap-2">
-              <span class="text-2xl font-black text-[#172B4D]">${allAuditLogs.length}</span>
-              <span class="text-xs text-[#00875A] font-semibold">${publishedVersion} Live</span>
-            </div>
-            <div class="mt-2 pt-2 border-t border-[#F4F5F7] flex items-center justify-between text-[11px] text-[#5E6C84]">
-              <span>RBAC Matrix Verified</span>
-              <span class="font-bold text-[#6554C0] group-hover:underline">Audit Trail →</span>
-            </div>
-          </a>
+          </div>
         </div>
 
-        <!-- 2. PRIMARY CHARTS ROW (Users by Client Bar Chart + Roles Allocation Donut Chart) -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
-          <!-- Chart A (Left 2 Cols): Client Users & Database Capacity -->
-          <div class="lg:col-span-2 bg-white border border-[#DFE1E6] rounded-2xl p-4 sm:p-5 shadow-xs space-y-3 flex flex-col justify-between">
-            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[#EBECF0] pb-3">
+        <!-- 2. High-Impact KPI Metrics Row (4 Cards across Multi-Tenant Clients, Users, Schema, Masters) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+
+          <!-- Card 1: Multi-Tenant Corporate Clients -->
+          <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-2xs hover:-translate-y-1 hover:shadow-md hover:border-[#00A4B7] transition-all duration-200 cursor-default select-none group flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Corporate Tenants</span>
+                <div class="w-9 h-9 rounded-xl bg-[#F0F9FF] text-[#00A4B7] flex items-center justify-center group-hover:scale-110 transition-transform duration-200 shadow-2xs border border-[#BAE6FD]">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                </div>
+              </div>
+              <div class="mt-2 flex items-baseline gap-2">
+                <span class="text-2xl font-black text-[#172B4D] tracking-tight">${allCompanies.length}</span>
+                <span class="text-[11px] font-extrabold text-[#006644] bg-[#E3FCEF] border border-[#ABF5D1] px-2 py-0.5 rounded-full">100% Online</span>
+              </div>
+              <p class="text-[11px] font-semibold text-[#5E6C84] mt-1">${totalPlantsCount} Processing & Coldstore Plants</p>
+            </div>
+            <div class="mt-3 pt-2.5 border-t border-[#F1F5F9] flex items-center justify-between text-[11px] text-[#5E6C84]">
+              <span>Multi-Tenant DB Latency</span>
+              <span class="font-bold font-mono text-[#00A4B7]">< 8ms Healthy</span>
+            </div>
+          </div>
+
+          <!-- Card 2: Enterprise Users & RBAC Security -->
+          <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-2xs hover:-translate-y-1 hover:shadow-md hover:border-[#00875A] transition-all duration-200 cursor-default select-none group flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Enterprise Users</span>
+                <div class="w-9 h-9 rounded-xl bg-[#E3FCEF] text-[#00875A] flex items-center justify-center group-hover:scale-110 transition-transform duration-200 shadow-2xs border border-[#ABF5D1]">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                </div>
+              </div>
+              <div class="mt-2 flex items-baseline gap-2">
+                <span class="text-2xl font-black text-[#172B4D] tracking-tight">${allUsers.length}</span>
+                <span class="text-[11px] font-extrabold text-[#006644] bg-[#E3FCEF] border border-[#ABF5D1] px-2 py-0.5 rounded-full">${activeUsersCount} Active</span>
+              </div>
+              <p class="text-[11px] font-semibold text-[#5E6C84] mt-1">${allRoles.length} Configured RBAC Security Roles</p>
+            </div>
+            <div class="mt-3 pt-2.5 border-t border-[#F1F5F9] flex items-center justify-between text-[11px] text-[#5E6C84]">
+              <span>Security Compliance</span>
+              <span class="font-bold text-[#00875A]">100% RBAC Verified</span>
+            </div>
+          </div>
+
+          <!-- Card 3: Forms Builder & Dynamic Schema -->
+          <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-2xs hover:-translate-y-1 hover:shadow-md hover:border-[#6554C0] transition-all duration-200 cursor-default select-none group flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Forms & Schema Models</span>
+                <div class="w-9 h-9 rounded-xl bg-[#EAE6FF] text-[#6554C0] flex items-center justify-center group-hover:scale-110 transition-transform duration-200 shadow-2xs border border-[#D3C7FF]">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                </div>
+              </div>
+              <div class="mt-2 flex items-baseline gap-2">
+                <span class="text-2xl font-black text-[#172B4D] tracking-tight">${totalFormsCount} Forms</span>
+                <span class="text-[11px] font-extrabold text-[#403294] bg-[#EAE6FF] border border-[#D3C7FF] px-2 py-0.5 rounded-full">Customizer</span>
+              </div>
+              <p class="text-[11px] font-semibold text-[#5E6C84] mt-1">${totalCustomFieldsCount} Custom Fields & Analytical Models</p>
+            </div>
+            <div class="mt-3 pt-2.5 border-t border-[#F1F5F9] flex items-center justify-between text-[11px] text-[#5E6C84]">
+              <span>SQL Query Engine</span>
+              <span class="font-bold text-[#6554C0]">Active & Validated</span>
+            </div>
+          </div>
+
+          <!-- Card 4: Enterprise Master Registries -->
+          <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-2xs hover:-translate-y-1 hover:shadow-md hover:border-[#FF8B00] transition-all duration-200 cursor-default select-none group flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Master Data Catalogs</span>
+                <div class="w-9 h-9 rounded-xl bg-[#FFF0B3] text-[#B76E00] flex items-center justify-center group-hover:scale-110 transition-transform duration-200 shadow-2xs border border-[#FFE380]">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2 1.5 3 3.5 3h9c2 0 3.5-1 3.5-3V7M4 7c0-2 1.5-3 3.5-3h9c2 0 3.5 1 3.5 3M4 7h16m-8 4v6m-4-3h8"/></svg>
+                </div>
+              </div>
+              <div class="mt-2 flex items-baseline gap-2">
+                <span class="text-2xl font-black text-[#172B4D] tracking-tight">${totalMasterRecords.toLocaleString()}</span>
+                <span class="text-[11px] font-extrabold text-[#B76E00] bg-[#FFF0B3] border border-[#FFE380] px-2 py-0.5 rounded-full">6 Domains</span>
+              </div>
+              <p class="text-[11px] font-semibold text-[#5E6C84] mt-1">Coldstore, Procurement, Production & Sales</p>
+            </div>
+            <div class="mt-3 pt-2.5 border-t border-[#F1F5F9] flex items-center justify-between text-[11px] text-[#5E6C84]">
+              <span>Cross-Plant Sync</span>
+              <span class="font-bold text-[#B76E00]">100% Synchronized</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- 3. Primary Charts Row: Clients Distribution & RBAC Security Personas -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-3.5">
+
+          <!-- Chart A (Left 2 Columns): Client Tenants — Users Allocation & Plant Footprint -->
+          <div class="lg:col-span-2 bg-white border border-[#DFE1E6] rounded-xl p-4 sm:p-5 shadow-2xs hover:-translate-y-1 hover:shadow-md hover:border-[#00A4B7] transition-all duration-200 cursor-default select-none flex flex-col justify-between">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[#F1F5F9] pb-3">
               <div>
-                <h3 class="text-sm font-bold text-[#172B4D] flex items-center gap-2">
-                  <span class="w-2.5 h-2.5 rounded-full bg-[#0284C7]"></span>
-                  Corporate Clients — User Allocation & Plant Footprint
+                <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-[#00A4B7]"></span>
+                  Corporate Tenants — User Allocation & Plant Footprint
                 </h3>
-                <p class="text-[11px] text-[#5E6C84] mt-0.5">Active vs. Inactive user distribution across multi-tenant clients</p>
               </div>
               <div class="flex items-center gap-3 text-xs">
-                <span class="flex items-center gap-1.5 text-[11px] font-semibold text-[#172B4D]">
-                  <span class="w-3 h-3 rounded bg-[#0284C7]"></span> Active Users
+                <span class="flex items-center gap-1.5 text-[11px] font-bold text-[#172B4D]">
+                  <span class="w-2.5 h-2.5 rounded bg-[#00A4B7]"></span> Active Users
                 </span>
-                <span class="flex items-center gap-1.5 text-[11px] font-semibold text-[#5E6C84]">
-                  <span class="w-3 h-3 rounded bg-[#CBD5E1]"></span> Inactive Users
+                <span class="flex items-center gap-1.5 text-[11px] font-bold text-[#6554C0]">
+                  <span class="w-2.5 h-2.5 rounded bg-[#6554C0]"></span> Connected Plants
+                </span>
+                <span class="flex items-center gap-1.5 text-[11px] font-bold text-[#94A3B8]">
+                  <span class="w-2.5 h-2.5 rounded bg-[#CBD5E1]"></span> Inactive Users
                 </span>
               </div>
             </div>
 
-            <!-- Canvas wrapper -->
-            <div class="relative w-full h-[250px] sm:h-[280px]">
+            <!-- Canvas Container -->
+            <div class="relative w-full h-[250px] sm:h-[270px] my-2">
               <canvas id="dash-chart-client-users"></canvas>
             </div>
 
-            <div class="pt-2 border-t border-[#EBECF0] flex flex-wrap items-center justify-between gap-2 text-xs text-[#5E6C84]">
-              <span>Total Multi-Tenant Databases: <strong class="text-[#172B4D] font-mono">${allCompanies.length} Active</strong></span>
-              <a href="#/general/configuration/clients" class="font-bold text-[#0284C7] hover:underline">Manage Clients Setup →</a>
+            <div class="pt-2.5 border-t border-[#F1F5F9] flex flex-wrap items-center justify-between gap-2 text-[11px] text-[#5E6C84]">
+              <span>Multi-Tenant Cluster: <strong class="text-[#172B4D] font-mono">${allCompanies.length} Active Databases</strong></span>
+              <span class="font-bold text-[#00A4B7]">Zero Failover Events • Multi-Region Resilient</span>
             </div>
           </div>
 
-          <!-- Chart B (Right 1 Col): Role Personas Allocation (Donut Chart) -->
-          <div class="bg-white border border-[#DFE1E6] rounded-2xl p-4 sm:p-5 shadow-xs space-y-3 flex flex-col justify-between">
-            <div class="border-b border-[#EBECF0] pb-3">
-              <h3 class="text-sm font-bold text-[#172B4D] flex items-center gap-2">
+          <!-- Chart B (Right 1 Column): RBAC Security Personas Donut Chart -->
+          <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 sm:p-5 shadow-2xs hover:-translate-y-1 hover:shadow-md hover:border-[#6554C0] transition-all duration-200 cursor-default select-none flex flex-col justify-between">
+            <div class="flex items-center justify-between border-b border-[#F1F5F9] pb-3">
+              <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider flex items-center gap-2">
                 <span class="w-2.5 h-2.5 rounded-full bg-[#6554C0]"></span>
-                Role Personas Distribution
+                RBAC Security Personas
               </h3>
-              <p class="text-[11px] text-[#5E6C84] mt-0.5">${allRoles.length} configured RBAC security roles</p>
+              <span class="px-2 py-0.5 rounded text-[10px] font-extrabold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">
+                ${allRoles.length} Roles
+              </span>
             </div>
 
-            <!-- Canvas wrapper -->
-            <div class="relative w-full h-[230px] sm:h-[250px] flex items-center justify-center">
+            <!-- Canvas Container -->
+            <div class="relative w-full h-[230px] sm:h-[250px] my-2 flex items-center justify-center">
               <canvas id="dash-chart-roles-donut"></canvas>
             </div>
 
-            <div class="pt-2 border-t border-[#EBECF0] flex items-center justify-between text-xs">
-              <span class="text-[#5E6C84]">RBAC Matrix:</span>
-              <a href="#/general/configuration/roles" class="font-bold text-[#6554C0] hover:underline">Configure Roles →</a>
+            <div class="pt-2.5 border-t border-[#F1F5F9] flex items-center justify-between text-[11px] text-[#5E6C84]">
+              <span>Role Permissions Matrix</span>
+              <span class="font-bold text-[#6554C0]">Zero Privilege Drift</span>
             </div>
           </div>
+
         </div>
 
-        <!-- 3. SECONDARY CHARTS ROW (Master Data Volume + Audit Activity Trend) -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        <!-- 4. Secondary Analytics Row: Master Registries by Domain & Governance Velocity -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-3.5">
+
           <!-- Chart C: Master Catalog Domain Breakdown -->
-          <div class="bg-white border border-[#DFE1E6] rounded-2xl p-4 sm:p-5 shadow-xs space-y-3 flex flex-col justify-between">
-            <div class="flex items-center justify-between border-b border-[#EBECF0] pb-3">
+          <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 sm:p-5 shadow-2xs hover:-translate-y-1 hover:shadow-md hover:border-[#00875A] transition-all duration-200 cursor-default select-none flex flex-col justify-between">
+            <div class="flex items-center justify-between border-b border-[#F1F5F9] pb-3">
               <div>
-                <h3 class="text-sm font-bold text-[#172B4D] flex items-center gap-2">
-                  <span class="w-2.5 h-2.5 rounded-full bg-[#FF991F]"></span>
-                  Seafood Master Registries Volume by Domain
+                <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-[#00875A]"></span>
+                  Master Registries Volume by Domain
                 </h3>
-                <p class="text-[11px] text-[#5E6C84] mt-0.5">Records cataloged across Logistics, Processing, Commercial & Operations</p>
               </div>
-              <span class="px-2 py-0.5 rounded text-[10.5px] font-bold bg-[#FFF0B3] text-[#B76E00] border border-[#FFE380]">
-                ${totalMasterRecords} Records
+              <span class="px-2 py-0.5 rounded text-[10px] font-extrabold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">
+                ${totalMasterRecords.toLocaleString()} Total Records
               </span>
             </div>
 
-            <!-- Canvas wrapper -->
-            <div class="relative w-full h-[230px] sm:h-[250px]">
+            <!-- Canvas Container -->
+            <div class="relative w-full h-[230px] sm:h-[250px] my-2">
               <canvas id="dash-chart-master-categories"></canvas>
             </div>
 
-            <div class="pt-2 border-t border-[#EBECF0] flex items-center justify-between text-xs text-[#5E6C84]">
-              <span>Active Registries: <strong class="text-[#172B4D]">${allMasters.length} Tables</strong></span>
-              <a href="#/master/master-data/masters" class="font-bold text-[#FF991F] hover:underline">Explore Master Studio →</a>
+            <div class="pt-2.5 border-t border-[#F1F5F9] flex items-center justify-between text-[11px] text-[#5E6C84]">
+              <span>Configured Enterprise Catalogs</span>
+              <span class="font-bold text-[#00875A]">6 Core ERP Domains Operational</span>
             </div>
           </div>
 
-          <!-- Chart D: Audit Activity Trend (Line Chart) -->
-          <div class="bg-white border border-[#DFE1E6] rounded-2xl p-4 sm:p-5 shadow-xs space-y-3 flex flex-col justify-between">
-            <div class="flex items-center justify-between border-b border-[#EBECF0] pb-3">
+          <!-- Chart D: Governance & Configuration Velocity -->
+          <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 sm:p-5 shadow-2xs hover:-translate-y-1 hover:shadow-md hover:border-[#00A4B7] transition-all duration-200 cursor-default select-none flex flex-col justify-between">
+            <div class="flex items-center justify-between border-b border-[#F1F5F9] pb-3">
               <div>
-                <h3 class="text-sm font-bold text-[#172B4D] flex items-center gap-2">
-                  <span class="w-2.5 h-2.5 rounded-full bg-[#00875A]"></span>
-                  Governance & Configuration Activity Velocity
+                <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-[#00A4B7]"></span>
+                  Governance & System Activity Velocity
                 </h3>
-                <p class="text-[11px] text-[#5E6C84] mt-0.5">Chronological system changes, schema updates & user audits</p>
               </div>
-              <span class="px-2 py-0.5 rounded-full text-[10.5px] font-bold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">
-                ${allAuditLogs.length} Events Logged
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD]">
+                ${allAuditLogs.length} Events Tracked
               </span>
             </div>
 
-            <!-- Canvas wrapper -->
-            <div class="relative w-full h-[230px] sm:h-[250px]">
+            <!-- Canvas Container -->
+            <div class="relative w-full h-[230px] sm:h-[250px] my-2">
               <canvas id="dash-chart-audit-trend"></canvas>
             </div>
 
-            <div class="pt-2 border-t border-[#EBECF0] flex items-center justify-between text-xs text-[#5E6C84]">
-              <span>Release Version: <strong class="text-[#172B4D] font-mono">${publishedVersion}</strong></span>
-              <a href="#/general/configuration/audit-history" class="font-bold text-[#00875A] hover:underline">View Audit Timeline →</a>
+            <div class="pt-2.5 border-t border-[#F1F5F9] flex items-center justify-between text-[11px] text-[#5E6C84]">
+              <span>Continuous Audit Logging</span>
+              <span class="font-bold text-[#00A4B7]">Immutable Trail Retention</span>
             </div>
           </div>
+
         </div>
+
+        <!-- 5. Bottom Detailed Status Row: Multi-Tenant Clusters Table & Recent Governance Feed -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-3.5">
+
+          <!-- Panel 1 (Left 2 Columns): Live Multi-Tenant Database Health -->
+          <div class="lg:col-span-2 bg-white border border-[#DFE1E6] rounded-xl p-4 sm:p-5 shadow-2xs hover:-translate-y-1 hover:shadow-md hover:border-[#00A4B7] transition-all duration-200 cursor-default select-none">
+            <div class="flex items-center justify-between border-b border-[#F1F5F9] pb-3 mb-3">
+              <div class="flex items-center gap-2">
+                <div class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2 1.5 3 3.5 3h9c2 0 3.5-1 3.5-3V7M4 7c0-2 1.5-3 3.5-3h9c2 0 3.5 1 3.5 3M4 7h16m-8 4v6m-4-3h8"/></svg>
+                </div>
+                <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Multi-Tenant Database Cluster Registry</h3>
+              </div>
+              <span class="text-[11px] font-semibold text-[#5E6C84]">MySQL 8.0 • InnoDB Cluster</span>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs">
+                <thead>
+                  <tr class="border-b border-[#DFE1E6] text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider">
+                    <th class="pb-2">Corporate Client</th>
+                    <th class="pb-2">Database Name</th>
+                    <th class="pb-2">Host & Endpoint</th>
+                    <th class="pb-2">Connected Plants</th>
+                    <th class="pb-2">Latency</th>
+                    <th class="pb-2 text-right">Status</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-[#F1F5F9]">
+                  ${allCompanies.map(c => `
+                    <tr class="hover:bg-[#F0F9FF] transition-colors duration-150 cursor-default">
+                      <td class="py-2.5 font-bold text-[#172B4D]">
+                        <div class="flex items-center gap-2">
+                          <span class="w-6 h-6 rounded bg-[#F1F5F9] text-[#00A4B7] font-mono text-[10px] font-black flex items-center justify-center border border-[#DFE1E6]">${c.shortName || c.code || 'CMP'}</span>
+                          <span>${c.name}</span>
+                        </div>
+                      </td>
+                      <td class="py-2.5 font-mono text-xs text-[#00A4B7] font-semibold">${c.dbName || 'devi_erp'}</td>
+                      <td class="py-2.5 font-mono text-xs text-[#5E6C84]">${c.dbHost || 'localhost:3306'}</td>
+                      <td class="py-2.5 text-xs text-[#172B4D] font-semibold">${Array.isArray(c.plants) ? c.plants.length : 1} Plants</td>
+                      <td class="py-2.5 font-mono text-xs text-[#00875A] font-bold">${c.latency || '< 5ms'}</td>
+                      <td class="py-2.5 text-right">
+                        <span class="inline-flex px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]">
+                          ${c.status || 'Active'}
+                        </span>
+                      </td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Panel 2 (Right 1 Column): Recent Governance & Audit Feed -->
+          <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 sm:p-5 shadow-2xs hover:-translate-y-1 hover:shadow-md hover:border-[#6554C0] transition-all duration-200 cursor-default select-none flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between border-b border-[#F1F5F9] pb-3 mb-3">
+                <div class="flex items-center gap-2">
+                  <div class="w-6 h-6 rounded-md bg-[#EAE6FF] text-[#6554C0] flex items-center justify-center font-bold text-xs">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                  </div>
+                  <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Recent Governance Activity</h3>
+                </div>
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping" title="Live stream active"></span>
+              </div>
+
+              <!-- Events List with Hover Effects -->
+              <div class="space-y-2.5">
+                ${allAuditLogs.slice(0, 4).map(log => `
+                  <div class="p-2.5 rounded-lg border border-[#F1F5F9] hover:border-[#00A4B7] hover:bg-[#F8FAFC] transition-all duration-150 cursor-default">
+                    <div class="flex items-center justify-between gap-1 mb-1">
+                      <span class="font-bold text-xs text-[#172B4D]">${log.action}</span>
+                      <span class="text-[10px] font-mono text-[#5E6C84]">${log.timestamp}</span>
+                    </div>
+                    <p class="text-[11px] text-[#5E6C84] leading-relaxed line-clamp-2">${log.detail}</p>
+                    <div class="mt-1.5 flex items-center justify-between text-[10px]">
+                      <span class="font-semibold text-[#00A4B7]">${log.actor}</span>
+                      <span class="px-1.5 py-0.5 rounded font-extrabold uppercase text-[9px] bg-[#F1F5F9] text-[#475569] border border-[#E2E8F0]">${log.category || 'General'}</span>
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+
+            <div class="pt-3 mt-3 border-t border-[#F1F5F9] flex items-center justify-between text-[11px] text-[#5E6C84]">
+              <span>Audit Storage Retention</span>
+              <span class="font-bold text-[#172B4D]">365 Days Verified</span>
+            </div>
+          </div>
+
+        </div>
+
       </div>
     `;
 
-    // Initialize the 4 Dashboard Charts via Chart.js
+    // Initialize all 4 Charts via Chart.js
     setTimeout(() => {
-      this.initDashboardCharts(allCompanies, allUsers, allRoles, masterCategories, allAuditLogs);
-    }, 50);
+      this.initDashboardCharts(allCompanies, allUsers, allRoles, masterDomains, allAuditLogs);
+    }, 60);
   },
 
-  initDashboardCharts(companies, users, roles, masterCategories, auditLogs) {
+  initDashboardCharts(companies, users, roles, masterDomains, auditLogs) {
     if (typeof Chart === 'undefined') return;
 
-    // 1. Chart A: Clients Users Allocation (Stacked Bar Chart)
+    // 1. Chart A: Clients Users Allocation & Plant Footprint (Grouped Bar Chart)
     const clientCanvas = document.getElementById('dash-chart-client-users');
     if (clientCanvas) {
       const clientLabels = companies.map(c => c.shortName || c.code || c.name);
       const activeData = companies.map(c => {
         return users.filter(u => 
-          (u.companyId === c.id || u.companyName === c.name || u.companyName === c.shortName || u.companyName === c.code) &&
+          (u.companyId === c.id || u.company === c.name || u.companyName === c.name || u.companyName === c.shortName || u.companyName === c.code) &&
           (u.status || 'Active').toLowerCase() === 'active'
         ).length;
       });
+      const plantsData = companies.map(c => Array.isArray(c.plants) ? c.plants.length : 1);
       const inactiveData = companies.map(c => {
         return users.filter(u => 
-          (u.companyId === c.id || u.companyName === c.name || u.companyName === c.shortName || u.companyName === c.code) &&
+          (u.companyId === c.id || u.company === c.name || u.companyName === c.name || u.companyName === c.shortName || u.companyName === c.code) &&
           (u.status || 'Active').toLowerCase() !== 'active'
         ).length;
       });
@@ -93559,16 +94715,23 @@ const SuperAdminDashboardView = {
             {
               label: 'Active Users',
               data: activeData,
-              backgroundColor: '#0284C7',
+              backgroundColor: '#00A4B7',
               borderRadius: 6,
-              barThickness: 28
+              barThickness: 22
+            },
+            {
+              label: 'Connected Plants',
+              data: plantsData,
+              backgroundColor: '#6554C0',
+              borderRadius: 6,
+              barThickness: 22
             },
             {
               label: 'Inactive Users',
               data: inactiveData,
               backgroundColor: '#CBD5E1',
               borderRadius: 6,
-              barThickness: 28
+              barThickness: 22
             }
           ]
         },
@@ -93586,26 +94749,27 @@ const SuperAdminDashboardView = {
           },
           scales: {
             x: {
-              stacked: true,
               grid: { display: false },
-              ticks: { color: '#6B778C', font: { size: 11, family: 'Inter' } }
+              ticks: { color: '#5E6C84', font: { size: 11, family: 'Inter', weight: '600' } }
             },
             y: {
-              stacked: true,
-              grid: { color: '#EBECF0' },
-              ticks: { precision: 0, color: '#6B778C', font: { size: 10, family: 'Inter' } }
+              grid: { color: '#F1F5F9' },
+              ticks: { precision: 0, color: '#5E6C84', font: { size: 10, family: 'Inter' } }
             }
           }
         }
       });
     }
 
-    // 2. Chart B: Role Personas Distribution (Doughnut Chart)
+    // 2. Chart B: RBAC Security Personas (Doughnut Chart)
     const rolesCanvas = document.getElementById('dash-chart-roles-donut');
     if (rolesCanvas) {
       const topRoles = roles.slice(0, 6);
       const roleLabels = topRoles.map(r => r.name);
-      const roleCounts = topRoles.map(r => users.filter(u => u.role === r.name || u.role === r.id).length);
+      const roleCounts = topRoles.map(r => {
+        const matching = users.filter(u => u.role === r.name || u.role === r.id).length;
+        return matching > 0 ? matching : (r.usersCount || 2);
+      });
 
       this.chartInstances.rolesDonut = new Chart(rolesCanvas, {
         type: 'doughnut',
@@ -93614,14 +94778,14 @@ const SuperAdminDashboardView = {
           datasets: [{
             data: roleCounts,
             backgroundColor: [
-              '#0284C7',
+              '#00A4B7',
               '#00875A',
-              '#FF991F',
               '#6554C0',
-              '#36B37E',
-              '#00B8D9'
+              '#FF8B00',
+              '#0284C7',
+              '#36B37E'
             ],
-            borderWidth: 2,
+            borderWidth: 3,
             borderColor: '#FFFFFF'
           }]
         },
@@ -93633,16 +94797,16 @@ const SuperAdminDashboardView = {
             legend: {
               position: 'bottom',
               labels: {
-                boxWidth: 10,
-                boxHeight: 10,
-                font: { size: 10, family: 'Inter' },
-                color: '#42526E',
-                padding: 10
+                boxWidth: 8,
+                boxHeight: 8,
+                font: { size: 10, family: 'Inter', weight: '600' },
+                color: '#172B4D',
+                padding: 8
               }
             },
             tooltip: {
               backgroundColor: '#172B4D',
-              padding: 8,
+              padding: 9,
               cornerRadius: 6
             }
           }
@@ -93650,16 +94814,12 @@ const SuperAdminDashboardView = {
       });
     }
 
-    // 3. Chart C: Master Catalog Domain Breakdown (Horizontal / Vertical Bar Chart)
+    // 3. Chart C: Master Catalog Domain Breakdown (Bar Chart)
     const masterCanvas = document.getElementById('dash-chart-master-categories');
     if (masterCanvas) {
-      const domainLabels = ['Logistics & Ports', 'Plant Processing', 'Commercial & Forex', 'Operations & Coldstore'];
-      const domainCounts = [
-        (masterCategories['Logistics'] || []).reduce((a, m) => a + (m.records?.length || m.count || 0), 0),
-        (masterCategories['Processing'] || []).reduce((a, m) => a + (m.records?.length || m.count || 0), 0),
-        (masterCategories['Commercial'] || []).reduce((a, m) => a + (m.records?.length || m.count || 0), 0),
-        (masterCategories['Operations'] || []).reduce((a, m) => a + (m.records?.length || m.count || 0), 0)
-      ];
+      const domainLabels = masterDomains.map(d => d.name);
+      const domainCounts = masterDomains.map(d => d.count);
+      const domainColors = masterDomains.map(d => d.color);
 
       this.chartInstances.masterDomain = new Chart(masterCanvas, {
         type: 'bar',
@@ -93668,55 +94828,56 @@ const SuperAdminDashboardView = {
           datasets: [{
             label: 'Master Records',
             data: domainCounts,
-            backgroundColor: ['#0284C7', '#00875A', '#FF991F', '#6554C0'],
+            backgroundColor: domainColors,
             borderRadius: 6,
-            barThickness: 26
+            barThickness: 20
           }]
         },
         options: {
+          indexAxis: 'y',
           responsive: true,
           maintainAspectRatio: false,
           plugins: {
             legend: { display: false },
             tooltip: {
               backgroundColor: '#172B4D',
-              padding: 10,
+              padding: 9,
               cornerRadius: 6
             }
           },
           scales: {
             x: {
-              grid: { display: false },
-              ticks: { color: '#6B778C', font: { size: 10, family: 'Inter' } }
+              grid: { color: '#F1F5F9' },
+              ticks: { precision: 0, color: '#5E6C84', font: { size: 10, family: 'Inter' } }
             },
             y: {
-              grid: { color: '#EBECF0' },
-              ticks: { precision: 0, color: '#6B778C', font: { size: 10, family: 'Inter' } }
+              grid: { display: false },
+              ticks: { color: '#172B4D', font: { size: 11, family: 'Inter', weight: '600' } }
             }
           }
         }
       });
     }
 
-    // 4. Chart D: Audit Activity Trend (Line / Area Chart)
+    // 4. Chart D: Governance & System Activity Velocity (Smooth Line / Area Chart)
     const auditCanvas = document.getElementById('dash-chart-audit-trend');
     if (auditCanvas) {
-      const trendLabels = ['04 Oct', '05 Oct', '06 Oct', '07 Oct', '08 Oct', '09 Oct', 'Today'];
-      const trendData = [3, 5, 8, 12, 9, 14, auditLogs.length > 0 ? auditLogs.length + 8 : 16];
+      const trendLabels = ['01 Nov', '02 Nov', '03 Nov', '04 Nov', '05 Nov', '06 Nov', 'Today'];
+      const trendData = [8, 12, 15, 22, 19, 28, auditLogs.length > 0 ? auditLogs.length + 24 : 32];
 
       this.chartInstances.auditTrend = new Chart(auditCanvas, {
         type: 'line',
         data: {
           labels: trendLabels,
           datasets: [{
-            label: 'Configuration & Governance Events',
+            label: 'Governance & Schema Velocity',
             data: trendData,
-            borderColor: '#00875A',
-            backgroundColor: 'rgba(0, 135, 90, 0.08)',
+            borderColor: '#00A4B7',
+            backgroundColor: 'rgba(0, 164, 183, 0.12)',
             fill: true,
             tension: 0.38,
             borderWidth: 2.5,
-            pointBackgroundColor: '#00875A',
+            pointBackgroundColor: '#00A4B7',
             pointRadius: 4,
             pointHoverRadius: 6
           }]
@@ -93728,18 +94889,18 @@ const SuperAdminDashboardView = {
             legend: { display: false },
             tooltip: {
               backgroundColor: '#172B4D',
-              padding: 10,
+              padding: 9,
               cornerRadius: 6
             }
           },
           scales: {
             x: {
-              grid: { color: '#F4F5F7' },
-              ticks: { color: '#6B778C', font: { size: 10, family: 'Inter' } }
+              grid: { color: '#F1F5F9' },
+              ticks: { color: '#5E6C84', font: { size: 10, family: 'Inter' } }
             },
             y: {
-              grid: { color: '#EBECF0' },
-              ticks: { precision: 0, color: '#6B778C', font: { size: 10, family: 'Inter' } }
+              grid: { color: '#F1F5F9' },
+              ticks: { precision: 0, color: '#5E6C84', font: { size: 10, family: 'Inter' } }
             }
           }
         }
@@ -94147,7 +95308,6 @@ const SettingsView = {
       { id: 'general', label: 'General', hash: '#/settings/setup/general' },
       { id: 'organization', label: 'Organization', hash: '#/settings/setup/organization' },
       { id: 'user-roles', label: 'User & Roles', hash: '#/settings/setup/user-roles' },
-      { id: 'masters', label: 'Masters', hash: '#/settings/setup/masters' }
     ];
 
     setTimeout(() => {
@@ -94197,45 +95357,9 @@ const SettingsView = {
 
     const isSuperAdmin = ERP_DATA.currentUser?.role === 'Super Admin';
 
-    // Super Admin: Render Customizer View (Forms, Fields Customizer, Query Editor)
+    // Super Admin: Render General Settings directly (No Customizer tabs list; Forms Builder is under Configuration)
     if (isSuperAdmin) {
-      let activeTab = 'forms';
-      if (tabName === 'fields-customizer' || tabName === 'filds-customizer' || tabName === 'field-builder' || tabName === 'custom-fields' || resolvedHash.includes('fields-customizer')) {
-        activeTab = 'fields-customizer';
-      } else if (tabName === 'query-editor' || tabName === 'query-editer' || resolvedHash.includes('query-editor')) {
-        activeTab = 'query-editor';
-      } else {
-        activeTab = 'forms';
-      }
-      this.activeTab = activeTab;
-
-      const isFormsActive = activeTab === 'forms';
-      const isFieldsActive = activeTab === 'fields-customizer';
-      const isQueryActive = activeTab === 'query-editor';
-
-      const customizerTabsBarHtml = `
-        <div class="border-b border-[#DFE1E6] mb-4">
-          <div role="tablist" aria-label="Customizer views" id="settings-tab-bar-container-tablist" class="flex items-center gap-1 overflow-x-auto bg-transparent p-0 scrollbar-thin">
-            <a id="tab-forms" role="tab" href="#/settings/custom/forms" aria-selected="${isFormsActive ? 'true' : 'false'}" tabindex="${isFormsActive ? '0' : '-1'}" aria-controls="panel-forms" class="select-none px-3 pt-2 pb-2 text-xs font-semibold whitespace-nowrap transition-colors flex items-center gap-1.5 outline-none bg-transparent border-b-2 ${isFormsActive ? 'tab-active text-[#00A4B7] border-[#00A4B7] font-bold' : 'text-[#5E6C84] hover:text-[#172B4D] border-transparent'}">
-              <span class="select-none">Forms</span>
-            </a>
-            <a id="tab-fields-customizer" role="tab" href="#/settings/custom/fields-customizer" aria-selected="${isFieldsActive ? 'true' : 'false'}" tabindex="${isFieldsActive ? '0' : '-1'}" aria-controls="panel-fields-customizer" class="select-none px-3 pt-2 pb-2 text-xs font-semibold whitespace-nowrap transition-colors flex items-center gap-1.5 outline-none bg-transparent border-b-2 ${isFieldsActive ? 'tab-active text-[#00A4B7] border-[#00A4B7] font-bold' : 'text-[#5E6C84] hover:text-[#172B4D] border-transparent'}">
-              <span class="select-none">Fields Customizer</span>
-            </a>
-            <a id="tab-query-editor" role="tab" href="#/settings/custom/query-editor" aria-selected="${isQueryActive ? 'true' : 'false'}" tabindex="${isQueryActive ? '0' : '-1'}" aria-controls="panel-query-editor" class="select-none px-3 pt-2 pb-2 text-xs font-semibold whitespace-nowrap transition-colors flex items-center gap-1.5 outline-none bg-transparent border-b-2 ${isQueryActive ? 'tab-active text-[#00A4B7] border-[#00A4B7] font-bold' : 'text-[#5E6C84] hover:text-[#172B4D] border-transparent'}">
-              <span class="select-none">Query Editor</span>
-            </a>
-          </div>
-        </div>
-      `;
-
-      if (activeTab === 'fields-customizer') {
-        this.renderFieldsCustomizerTab(container, customizerTabsBarHtml);
-      } else if (activeTab === 'query-editor') {
-        this.renderQueryEditorTab(container, customizerTabsBarHtml);
-      } else {
-        this.renderFormsTab(container, customizerTabsBarHtml);
-      }
+      this.renderGeneralTab(container, '');
       return;
     }
 
@@ -94248,7 +95372,8 @@ const SettingsView = {
     } else if (currentTab === 'user-roles' || currentTab === 'user-role' || currentTab === 'users-roles' || currentTab === 'user-access' || currentTab === 'users-access' || currentTab === 'user' || currentTab === 'users' || currentTab === 'access' || currentTab === 'roles') {
       currentTab = 'user-roles';
     } else if (currentTab === 'masters' || currentTab === 'master' || currentTab === 'master-setup' || resolvedHash.includes('master-setup') || resolvedHash.includes('/masters')) {
-      currentTab = 'masters';
+      window.location.hash = '#/configuration/masters/master-records';
+      return;
     } else {
       currentTab = 'general';
     }
@@ -94267,8 +95392,8 @@ const SettingsView = {
         this.renderGeneralTab(container, tabsBarHtml);
         break;
       case 'masters':
-        this.renderMasterSetupTab(container, tabsBarHtml);
-        break;
+        window.location.hash = '#/configuration/masters/master-records';
+        return;
       default:
         this.renderGeneralTab(container, tabsBarHtml);
         break;
@@ -94741,9 +95866,6 @@ const SettingsView = {
                               <span>Upload</span>
                               <input type="file" id="admin-app-logo-file" accept="image/*" class="hidden" />
                             </label>
-                            <button type="button" id="admin-app-logo-clear-btn" class="w-7 h-7 rounded-lg text-rose-500 hover:text-white hover:bg-rose-500 transition-colors flex items-center justify-center cursor-pointer shrink-0 ${comp.appLogo ? '' : 'hidden'}" title="Remove logo">
-                              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-                            </button>
                           </div>
                           <input type="text" id="admin-app-logo" value="${comp.appLogo || ''}" class="w-full text-[11px] px-2.5 py-1 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7] truncate font-medium text-[#172B4D]" placeholder="No file uploaded..." readonly />
                         </div>
@@ -95293,7 +96415,7 @@ const SettingsView = {
 
     bindImageUpload('admin-org-logo-file', 'admin-org-logo', 'admin-org-logo-preview', comp.name + ' Logo', null, null, 'logo');
     bindImageUpload('admin-app-icon-file', 'admin-app-icon', 'admin-app-icon-preview', 'Application Icon', 'admin-app-icon-status-badge', 'admin-app-icon-clear-btn', 'appIcon');
-    bindImageUpload('admin-app-logo-file', 'admin-app-logo', 'admin-app-logo-preview', 'Application Logo', 'admin-app-logo-status-badge', 'admin-app-logo-clear-btn', 'appLogo');
+    bindImageUpload('admin-app-logo-file', 'admin-app-logo', 'admin-app-logo-preview', 'Application Logo', 'admin-app-logo-status-badge', null, 'appLogo');
     bindImageUpload('admin-app-report-header-file', 'admin-app-report-header', 'admin-app-report-header-preview', 'Report Header Image', 'admin-app-report-header-status-badge', 'admin-app-report-header-clear-btn', 'reportHeaderImg');
     bindImageUpload('admin-app-report-footer-file', 'admin-app-report-footer', 'admin-app-report-footer-preview', 'Report Footer Image', 'admin-app-report-footer-status-badge', 'admin-app-report-footer-clear-btn', 'reportFooterImg');
 
@@ -97532,9 +98654,13 @@ openRoleModal(role = null, onSaved) {
 // -------------------------------------------------------------
   // TAB 3: General
   // -------------------------------------------------------------
-  renderGeneralTab(container, tabsBarHtml) {
-    this.cachedTabsBarHtml = this.renderAdminSettingsTabs('general');
-    const effectiveTabsBar = this.cachedTabsBarHtml;
+  renderGeneralTab(container, tabsBarHtml = null) {
+    if (tabsBarHtml !== null && tabsBarHtml !== undefined) {
+      this.cachedTabsBarHtml = tabsBarHtml;
+    } else {
+      this.cachedTabsBarHtml = this.renderAdminSettingsTabs('general');
+    }
+    const effectiveTabsBar = this.cachedTabsBarHtml || '';
 
     // Load persisted settings from Enterprise AppSettings Engine
     const g = AppSettings.load();
@@ -97546,10 +98672,6 @@ openRoleModal(role = null, onSaved) {
         <!-- Page Header -->
         <div class="flex items-center justify-between gap-3 mb-1">
           <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">General Settings</h1>
-          <span class="text-xs font-semibold text-[#5E6C84] bg-[#F1F5F9] px-3 py-1 rounded-full border border-[#DFE1E6] flex items-center gap-1.5">
-            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-            System Online &amp; Operational
-          </span>
         </div>
 
         <!-- Settings Cards Grid (Interactive 9-Card Enterprise Layout) -->
@@ -102285,10 +103407,15 @@ openRoleModal(role = null, onSaved) {
 
   renderMasterSetupTab(container, tabsBarHtml = null) {
     this.initMasterData();
-    this.cachedTabsBarHtml = tabsBarHtml || this.cachedTabsBarHtml || this.renderAdminSettingsTabs('masters');
-    const effectiveTabsBar = this.cachedTabsBarHtml;
+    if (tabsBarHtml !== null && tabsBarHtml !== undefined) {
+      this.cachedTabsBarHtml = tabsBarHtml;
+    } else {
+      this.cachedTabsBarHtml = this.cachedTabsBarHtml || this.renderAdminSettingsTabs('masters');
+    }
+    const effectiveTabsBar = this.cachedTabsBarHtml || '';
 
     // Find active module (default to 'coldstore' if none active)
+    this.activeMasterModule = this.activeMasterModule || 'coldstore';
     const activeModule = this.moduleMastersData.find(m => m.id === this.activeMasterModule) || this.moduleMastersData[0];
     const currentSubmasterId = this.selectedSubmasterByModule[activeModule.id] || activeModule.submasters[0].id;
     const currentSubmaster = activeModule.submasters.find(sm => sm.id === currentSubmasterId) || activeModule.submasters[0];
@@ -102308,262 +103435,239 @@ openRoleModal(role = null, onSaved) {
     });
 
     container.innerHTML = `
-      <div class="space-y-4">
+      <div class="space-y-3 animate-fade-in">
         ${effectiveTabsBar}
 
-        <!-- Page Header (Clean H1, strictly no subheading per AGENTS.md Rule 2) -->
-        <div class="flex items-center justify-between gap-3 mb-1">
-          <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Master Setup</h1>
+        <!-- 6 Horizontal Module Tabs (AGENTS.md Section 6 Design System) -->
+        <nav aria-label="Master Setup tabs navigation" class="mb-3 border-b border-[#DFE1E6]">
+          <div class="flex items-center justify-between gap-2">
+            <div role="tablist" aria-label="Master Setup Modules" class="flex items-center gap-1 overflow-x-auto bg-transparent p-0 scrollbar-thin flex-1 min-w-0">
+              ${this.moduleMastersData.map(mod => {
+                const isActive = activeModule.id === mod.id;
+                return `
+                  <button
+                    type="button"
+                    role="tab"
+                    data-module-id="${mod.id}"
+                    aria-selected="${isActive ? 'true' : 'false'}"
+                    class="master-module-tab-btn select-none px-3 pt-2 pb-2 text-xs font-semibold whitespace-nowrap transition-colors flex items-center gap-1.5 outline-none bg-transparent border-b-2 cursor-pointer ${
+                      isActive
+                        ? 'tab-active text-[#00A4B7] border-[#00A4B7] font-bold'
+                        : 'text-[#5E6C84] hover:text-[#172B4D] border-transparent'
+                    }"
+                  >
+                    <span class="select-none">${mod.title}</span>
+                  </button>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        </nav>
+
+        <!-- Page Header & Contextual Sub-Master Selector (AGENTS.md Rule 2) -->
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-1">
+          <div class="flex items-center gap-3">
+            <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">${currentSubmaster.label}</h1>
+          </div>
+          <div class="flex items-center gap-3 flex-wrap">
+            <div class="flex items-center gap-2">
+              <label for="submaster-select" class="text-xs font-bold text-[#5E6C84] whitespace-nowrap uppercase tracking-wider">Sub Master:</label>
+              <select id="submaster-select" class="submaster-dropdown-select text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] min-w-[240px] shadow-2xs cursor-pointer">
+                ${activeModule.submasters.map(sm => `
+                  <option value="${sm.id}" ${sm.id === currentSubmaster.id ? 'selected' : ''}>
+                    ${sm.label} (${sm.records.length} records)
+                  </option>
+                `).join('')}
+              </select>
+            </div>
+            <button type="button" id="btn-add-master-record" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+              <span>Add Record</span>
+            </button>
+          </div>
         </div>
 
-        <!-- Module Accordions Container -->
-        <div class="space-y-3" id="masters-accordion-group">
-          ${this.moduleMastersData.map(mod => {
-            const isExpanded = this.activeMasterModule === mod.id;
-
-            return `
-              <div class="master-accordion-card bg-white rounded-xl border border-[#DFE1E6] overflow-hidden shadow-2xs transition-all duration-200">
-                <!-- Accordion Header Row -->
-                <div 
-                  class="master-accordion-header w-full p-3 flex items-center justify-between transition-colors cursor-pointer select-none bg-white hover:bg-[#F8FAFC] ${isExpanded ? 'border-b border-[#DFE1E6]' : ''}"
-                  data-module-id="${mod.id}"
-                >
-                  <!-- Left: Icon + Module Title + Sub Master Dropdown (immediately after Title) -->
-                  <div class="flex items-center gap-4 flex-wrap">
-                    <div class="flex items-center gap-3">
-                      <div class="w-9 h-9 rounded-xl flex items-center justify-center font-bold shadow-xs transition-colors duration-200 ${isExpanded ? 'bg-[#00A4B7] text-white' : 'bg-[#F1F5F9] text-[#00A4B7]'}">
-                        ${mod.icon}
-                      </div>
-                      <span class="font-extrabold text-[#172B4D] text-sm tracking-tight">${mod.title} Masters</span>
-                    </div>
-
-                    ${isExpanded ? `
-                      <div class="submaster-dropdown-container flex items-center gap-2" onclick="event.stopPropagation()">
-                        <label for="submaster-select-${mod.id}" class="text-xs font-bold text-[#5E6C84] whitespace-nowrap uppercase tracking-wider">Sub Master:</label>
-                        <select id="submaster-select-${mod.id}" data-module-id="${mod.id}" class="submaster-dropdown-select text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] min-w-[240px] shadow-2xs">
-                          ${mod.submasters.map(sm => `<option value="${sm.id}" ${sm.id === currentSubmaster.id ? 'selected' : ''}>${sm.label} (${sm.records.length})</option>`).join('')}
-                        </select>
-                      </div>
-                    ` : ''}
-                  </div>
-
-                  <!-- Right: Chevron on far right -->
-                  <div class="w-7 h-7 rounded-full flex items-center justify-center transition-colors duration-200 ${isExpanded ? 'bg-[#00A4B7] text-white' : 'bg-[#F1F5F9] text-[#64748B]'}">
-                    <svg class="w-4 h-4 transform transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                  </div>
-                </div>
-
-                <!-- Accordion Body -->
-                ${isExpanded ? `
-                  <div class="master-accordion-body m-0 p-4 bg-[#daedef] space-y-3.5 border-t border-[#DFE1E6] animate-accordion-expand" style="margin: 0 !important; background-color: #daedef !important;">
-                    <!-- Search & Filter Card (AGENTS.md Rule 3) -->
-                    <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs transition-all duration-200">
-                      <div class="flex items-center justify-between pb-1">
-                        <div class="flex items-center gap-2">
-                          <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
-                          <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters — ${currentSubmaster.label}</h3>
-                        </div>
-                        <div class="inline-flex items-center gap-2">
-                          <!-- Circular 32x32 Reset Button -->
-                          <button type="button" id="master-filter-reset-btn" class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Reset all filters">
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-                          </button>
-                          <!-- Circular 32x32 Collapse/Expand Toggle Button -->
-                          <button type="button" id="master-filter-toggle-btn" class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Hide Filter">
-                            <svg class="w-3.5 h-3.5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                          </button>
-                        </div>
-                      </div>
-                      <div id="master-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
-                        <div>
-                          <label for="master-search-input" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Search Keywords</label>
-                          <input type="text" id="master-search-input" value="${this.escape(this.masterSearchQuery || '')}" placeholder="Search code, name, specifications..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
-                        </div>
-                        <div>
-                          <label for="master-status-select" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Record Status</label>
-                          <select id="master-status-select" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                            <option value="All" ${this.masterStatusFilter === 'All' ? 'selected' : ''}>All Statuses</option>
-                            <option value="Active" ${this.masterStatusFilter === 'Active' ? 'selected' : ''}>Active</option>
-                            <option value="Inactive" ${this.masterStatusFilter === 'Inactive' ? 'selected' : ''}>Inactive</option>
-                          </select>
-                        </div>
-                        <div class="flex items-end">
-                          <button type="button" id="master-filter-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                            <span>Search</span>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- Header Row with Add Record Button -->
-                    <div class="flex items-center justify-between gap-3 pt-1">
-                      <div class="flex items-center gap-2">
-                        <span class="font-extrabold text-[#172B4D] text-sm tracking-tight">${currentSubmaster.label}</span>
-                        <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD]">${filteredRecords.length} Records</span>
-                      </div>
-                      <button type="button" id="btn-add-master-record" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                        <span>Add Record</span>
-                      </button>
-                    </div>
-
-                    <!-- DataTable Container -->
-                    <div id="master-records-table-container"></div>
-                  </div>
-                ` : ''}
-              </div>
-            `;
-          }).join('')}
+        <!-- Search & Filter Card (AGENTS.md Rule 3) -->
+        <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200">
+          <div class="flex items-center justify-between pb-1">
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+              <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
+            </div>
+            <div class="inline-flex items-center gap-2">
+              <!-- Circular 32x32 Reset Button -->
+              <button type="button" id="master-filter-reset-btn" class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Reset all filters">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+              </button>
+              <!-- Circular 32x32 Collapse/Expand Toggle Button -->
+              <button type="button" id="master-filter-toggle-btn" class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Hide Filter">
+                <svg class="w-3.5 h-3.5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              </button>
+            </div>
+          </div>
+          <div id="master-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
+            <div>
+              <label for="master-search-input" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Search Keywords</label>
+              <input type="text" id="master-search-input" value="${this.escape(this.masterSearchQuery || '')}" placeholder="Search code, name, specifications..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            </div>
+            <div>
+              <label for="master-status-select" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Record Status</label>
+              <select id="master-status-select" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="All" ${this.masterStatusFilter === 'All' ? 'selected' : ''}>All Statuses</option>
+                <option value="Active" ${this.masterStatusFilter === 'Active' ? 'selected' : ''}>Active</option>
+                <option value="Inactive" ${this.masterStatusFilter === 'Inactive' ? 'selected' : ''}>Inactive</option>
+              </select>
+            </div>
+            <div class="flex items-end">
+              <button type="button" id="master-filter-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                <span>Search</span>
+              </button>
+            </div>
+          </div>
         </div>
+
+        <!-- DataTable Container (Full toolbar enabled per AGENTS.md Rule 4) -->
+        <div id="master-records-table-container"></div>
       </div>
     `;
 
-    // Bind Accordion Header Clicks: Ensure strictly ONE is open at a time with smooth transition
-    const headerBtns = container.querySelectorAll('.master-accordion-header');
-    headerBtns.forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        // Prevent toggle if clicking inside the submaster select dropdown or its label
-        if (e.target.closest('.submaster-dropdown-container') || e.target.tagName === 'SELECT' || e.target.tagName === 'OPTION') {
-          return;
-        }
+    // 1. Bind 6 Module Tab clicks
+    const moduleTabBtns = container.querySelectorAll('.master-module-tab-btn');
+    moduleTabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
         const modId = btn.dataset.moduleId;
-        this.activeMasterModule = (this.activeMasterModule === modId) ? null : modId;
-        this.masterSearchQuery = '';
-        this.masterStatusFilter = 'All';
-        this.renderMasterSetupTab(container, this.cachedTabsBarHtml);
-      });
-    });
-
-    // If an accordion is expanded, bind its inner controls
-    if (this.activeMasterModule && currentSubmaster) {
-      // Bind Submaster Dropdown Select
-      const submasterSelect = container.querySelector('.submaster-dropdown-select');
-      submasterSelect?.addEventListener('change', (e) => {
-        e.stopPropagation();
-        const modId = submasterSelect.dataset.moduleId;
-        const subId = submasterSelect.value;
-        this.selectedSubmasterByModule[modId] = subId;
-        this.masterSearchQuery = '';
-        this.renderMasterSetupTab(container, this.cachedTabsBarHtml);
-      });
-      submasterSelect?.addEventListener('click', (e) => e.stopPropagation());
-
-      // Filter toggle handler
-      const toggleBtn = document.getElementById('master-filter-toggle-btn');
-      toggleBtn?.addEventListener('click', () => {
-        const body = document.getElementById('master-filter-body');
-        const icon = toggleBtn.querySelector('svg');
-        if (body) {
-          body.classList.toggle('hidden');
-          if (body.classList.contains('hidden')) {
-            toggleBtn.title = 'Show Filter';
-            icon?.classList.add('-rotate-90');
-          } else {
-            toggleBtn.title = 'Hide Filter';
-            icon?.classList.remove('-rotate-90');
-          }
-        }
-      });
-
-      // Filter reset handler
-      const resetBtn = document.getElementById('master-filter-reset-btn');
-      resetBtn?.addEventListener('click', () => {
-        this.masterSearchQuery = '';
-        this.masterStatusFilter = 'All';
-        this.renderMasterSetupTab(container, this.cachedTabsBarHtml);
-        Toast.show('Filters reset', 'info');
-      });
-
-      // Search button handler
-      const searchBtn = document.getElementById('master-filter-search-btn');
-      searchBtn?.addEventListener('click', () => {
-        const searchInput = document.getElementById('master-search-input');
-        const statusSelect = document.getElementById('master-status-select');
-        this.masterSearchQuery = searchInput ? searchInput.value : '';
-        this.masterStatusFilter = statusSelect ? statusSelect.value : 'All';
-        this.renderMasterSetupTab(container, this.cachedTabsBarHtml);
-      });
-
-      // Search input Enter key handler
-      const searchInput = document.getElementById('master-search-input');
-      searchInput?.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-          const statusSelect = document.getElementById('master-status-select');
-          this.masterSearchQuery = searchInput.value;
-          this.masterStatusFilter = statusSelect ? statusSelect.value : 'All';
+        if (modId && modId !== this.activeMasterModule) {
+          this.activeMasterModule = modId;
+          this.masterSearchQuery = '';
+          this.masterStatusFilter = 'All';
           this.renderMasterSetupTab(container, this.cachedTabsBarHtml);
         }
       });
+    });
 
-      // Add Record button handler
-      const addRecordBtn = document.getElementById('btn-add-master-record');
-      addRecordBtn?.addEventListener('click', () => {
-        this.showAddMasterModal(currentSubmaster, container);
-      });
+    // 2. Bind Submaster Dropdown Select
+    const submasterSelect = container.querySelector('.submaster-dropdown-select');
+    submasterSelect?.addEventListener('change', () => {
+      const subId = submasterSelect.value;
+      this.selectedSubmasterByModule[activeModule.id] = subId;
+      this.masterSearchQuery = '';
+      this.renderMasterSetupTab(container, this.cachedTabsBarHtml);
+    });
 
-      // Render DataTable strictly following AGENTS.md Rule 4
-      new DataTable({
-        containerId: 'master-records-table-container',
-        data: filteredRecords,
-        keyField: 'code',
-        tableTitle: `${currentSubmaster.label} (${filteredRecords.length})`,
-        hideToolbar: true,
-        searchable: true,
-        exportable: true,
-        pageSize: 10,
-        columns: [
-          {
-            field: 'code',
-            header: 'Code / ID',
-            render: (v) => `<span class="font-bold text-[#00A4B7] font-mono">${this.escape(v)}</span>`
-          },
-          {
-            field: 'name',
-            header: 'Name / Entity Description',
-            render: (v) => `<span class="font-bold text-[#172B4D]">${this.escape(v)}</span>`
-          },
-          {
-            field: 'details',
-            header: 'Details / Specifications',
-            render: (v) => `<span class="text-xs text-[#5E6C84]">${this.escape(v || '-')}</span>`
-          },
-          {
-            field: 'status',
-            header: 'Status',
-            render: (v) => `<span class="inline-flex px-2 py-0.5 rounded-full text-[10px] font-extrabold tracking-wide uppercase ${(v === 'Inactive' || v === 'Disabled') ? 'bg-[#FFEBE6] text-[#DE350B] border border-[#FFBDAD]' : 'bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]'}">${this.escape(v || 'Active')}</span>`
-          }
-        ],
-        actions: [
-          {
-            label: 'Edit',
-            icon: '<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>',
-            onClick: (row) => this.showEditMasterModal(currentSubmaster, row, container)
-          },
-          {
-            label: 'Delete',
-            icon: '<svg class="w-4 h-4 text-[#DE350B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>',
-            onClick: (row) => {
-              Modal.confirm({
-                title: `Delete ${currentSubmaster.label} Record`,
-                message: `Are you sure you want to delete <strong class="text-[#DE350B]">${this.escape(row.name)}</strong> (${this.escape(row.code)})? This action cannot be undone.`,
-                confirmText: 'Delete Record',
-                cancelText: 'Cancel',
-                isDestructive: true,
-                onConfirm: () => {
-                  const idx = currentSubmaster.records.findIndex(r => r.code === row.code);
-                  if (idx !== -1) {
-                    currentSubmaster.records.splice(idx, 1);
-                    this.renderMasterSetupTab(container, this.cachedTabsBarHtml);
-                    Toast.show(`Record ${row.code} deleted successfully`, 'success');
-                  }
+    // 3. Filter toggle handler
+    const toggleBtn = document.getElementById('master-filter-toggle-btn');
+    toggleBtn?.addEventListener('click', () => {
+      const body = document.getElementById('master-filter-body');
+      const icon = toggleBtn.querySelector('svg');
+      if (body) {
+        body.classList.toggle('hidden');
+        if (body.classList.contains('hidden')) {
+          toggleBtn.title = 'Show Filter';
+          icon?.classList.add('-rotate-90');
+        } else {
+          toggleBtn.title = 'Hide Filter';
+          icon?.classList.remove('-rotate-90');
+        }
+      }
+    });
+
+    // 4. Filter reset handler
+    const resetBtn = document.getElementById('master-filter-reset-btn');
+    resetBtn?.addEventListener('click', () => {
+      this.masterSearchQuery = '';
+      this.masterStatusFilter = 'All';
+      this.renderMasterSetupTab(container, this.cachedTabsBarHtml);
+      Toast.show('Filters reset', 'info');
+    });
+
+    // 5. Search button handler
+    const searchBtn = document.getElementById('master-filter-search-btn');
+    searchBtn?.addEventListener('click', () => {
+      const searchInput = document.getElementById('master-search-input');
+      const statusSelect = document.getElementById('master-status-select');
+      this.masterSearchQuery = searchInput ? searchInput.value : '';
+      this.masterStatusFilter = statusSelect ? statusSelect.value : 'All';
+      this.renderMasterSetupTab(container, this.cachedTabsBarHtml);
+    });
+
+    // 6. Search input Enter key handler
+    const searchInput = document.getElementById('master-search-input');
+    searchInput?.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const statusSelect = document.getElementById('master-status-select');
+        this.masterSearchQuery = searchInput.value;
+        this.masterStatusFilter = statusSelect ? statusSelect.value : 'All';
+        this.renderMasterSetupTab(container, this.cachedTabsBarHtml);
+      }
+    });
+
+    // 7. Add Record button handler
+    const addRecordBtn = document.getElementById('btn-add-master-record');
+    addRecordBtn?.addEventListener('click', () => {
+      this.showAddMasterModal(currentSubmaster, container);
+    });
+
+    // 8. Render DataTable strictly following AGENTS.md Rule 4
+    new DataTable({
+      containerId: 'master-records-table-container',
+      data: filteredRecords,
+      keyField: 'code',
+      tableTitle: `${currentSubmaster.label} (${filteredRecords.length})`,
+      searchable: true,
+      exportable: true,
+      pageSize: 10,
+      columns: [
+        {
+          field: 'code',
+          header: 'Code / ID',
+          render: (v) => `<span class="font-bold text-[#00A4B7] font-mono">${this.escape(v)}</span>`
+        },
+        {
+          field: 'name',
+          header: 'Name / Entity Description',
+          render: (v) => `<span class="font-bold text-[#172B4D]">${this.escape(v)}</span>`
+        },
+        {
+          field: 'details',
+          header: 'Details / Specifications',
+          render: (v) => `<span class="text-xs text-[#5E6C84]">${this.escape(v || '-')}</span>`
+        },
+        {
+          field: 'status',
+          header: 'Status',
+          render: (v) => `<span class="inline-flex px-2.5 py-0.5 rounded-full text-[10px] font-extrabold tracking-wide uppercase ${(v === 'Inactive' || v === 'Disabled') ? 'bg-[#FFEBE6] text-[#DE350B] border border-[#FFBDAD]' : 'bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]'}">${this.escape(v || 'Active')}</span>`
+        }
+      ],
+      actions: [
+        {
+          label: 'Edit',
+          icon: '<svg class="w-3.5 h-3.5 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>',
+          onClick: (row) => this.showEditMasterModal(currentSubmaster, row, container)
+        },
+        {
+          label: 'Delete',
+          icon: '<svg class="w-3.5 h-3.5 text-[#DE350B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>',
+          onClick: (row) => {
+            Modal.confirm({
+              title: `Delete ${currentSubmaster.label} Record`,
+              message: `Are you sure you want to delete <strong class="text-[#DE350B]">${this.escape(row.name)}</strong> (${this.escape(row.code)})? This action cannot be undone.`,
+              confirmText: 'Delete Record',
+              cancelText: 'Cancel',
+              isDestructive: true,
+              onConfirm: () => {
+                const idx = currentSubmaster.records.findIndex(r => r.code === row.code);
+                if (idx !== -1) {
+                  currentSubmaster.records.splice(idx, 1);
+                  this.renderMasterSetupTab(container, this.cachedTabsBarHtml);
+                  Toast.show(`Record ${row.code} deleted successfully`, 'success');
                 }
-              });
-            }
+              }
+            });
           }
-        ]
-      });
-    }
+        }
+      ]
+    });
   },
 
   showAddMasterModal(selectedMaster, container) {
@@ -103327,6 +104431,83 @@ const ProfileView = {
 };
 
 
+  // Devi Fisheries ERP — Configuration Module Views (Masters & Forms Builder)
+// Unified configuration access for both Super Admin and Admin portal
+
+
+
+const ConfigurationView = {
+  render(containerId, submenu = 'masters', tab = 'master-records', resolvedHash = '') {
+    const container = typeof containerId === 'string' ? document.getElementById(containerId) : containerId;
+    if (!container) return;
+
+    const submenuClean = (submenu || '').toLowerCase();
+    const tabClean = (tab || '').toLowerCase();
+
+    // 1. Masters Submenu: All enterprise master entities from Admin site settings
+    if (submenuClean === 'masters' || submenuClean === 'master' || submenuClean === 'master-setup') {
+      SettingsView.initMasterData();
+      SettingsView.activeMasterModule = SettingsView.activeMasterModule || 'coldstore';
+      SettingsView.masterSearchQuery = '';
+      SettingsView.masterStatusFilter = 'All';
+      SettingsView.renderMasterSetupTab(container, '', 'Masters');
+      return;
+    }
+
+    // 2. Forms Builder Submenu: Forms, Fields Customizer, and Query Editor from Super Admin Settings
+    let activeTab = 'forms';
+    if (
+      tabClean === 'fields-customizer' ||
+      tabClean === 'field-builder' ||
+      tabClean === 'fields' ||
+      tabClean === 'custom-fields' ||
+      (resolvedHash && resolvedHash.includes('fields-customizer'))
+    ) {
+      activeTab = 'fields-customizer';
+    } else if (
+      tabClean === 'query-editor' ||
+      tabClean === 'query-editer' ||
+      (resolvedHash && resolvedHash.includes('query-editor'))
+    ) {
+      activeTab = 'query-editor';
+    } else {
+      activeTab = 'forms';
+    }
+
+    const isFormsActive = activeTab === 'forms';
+    const isFieldsActive = activeTab === 'fields-customizer';
+    const isQueryActive = activeTab === 'query-editor';
+
+    // Horizontal Tab Bar strictly adhering to Design System Rule 6
+    const formBuilderTabsBarHtml = `
+      <div class="border-b border-[#DFE1E6] mb-4">
+        <div role="tablist" aria-label="Forms Builder views" id="configuration-tab-bar-container-tablist" class="flex items-center gap-1 overflow-x-auto bg-transparent p-0 scrollbar-thin">
+          <a id="tab-cfg-forms" role="tab" href="#/configuration/form-builder/forms" aria-selected="${isFormsActive ? 'true' : 'false'}" tabindex="${isFormsActive ? '0' : '-1'}" aria-controls="panel-forms" class="select-none px-3 pt-2 pb-2 text-xs font-semibold whitespace-nowrap transition-colors flex items-center gap-1.5 outline-none bg-transparent border-b-2 ${isFormsActive ? 'tab-active text-[#00A4B7] border-[#00A4B7] font-bold' : 'text-[#5E6C84] hover:text-[#172B4D] border-transparent'}">
+            <span class="select-none">Forms</span>
+          </a>
+          <a id="tab-cfg-fields-customizer" role="tab" href="#/configuration/form-builder/fields-customizer" aria-selected="${isFieldsActive ? 'true' : 'false'}" tabindex="${isFieldsActive ? '0' : '-1'}" aria-controls="panel-fields-customizer" class="select-none px-3 pt-2 pb-2 text-xs font-semibold whitespace-nowrap transition-colors flex items-center gap-1.5 outline-none bg-transparent border-b-2 ${isFieldsActive ? 'tab-active text-[#00A4B7] border-[#00A4B7] font-bold' : 'text-[#5E6C84] hover:text-[#172B4D] border-transparent'}">
+            <span class="select-none">Fields Customizer</span>
+          </a>
+          <a id="tab-cfg-query-editor" role="tab" href="#/configuration/form-builder/query-editor" aria-selected="${isQueryActive ? 'true' : 'false'}" tabindex="${isQueryActive ? '0' : '-1'}" aria-controls="panel-query-editor" class="select-none px-3 pt-2 pb-2 text-xs font-semibold whitespace-nowrap transition-colors flex items-center gap-1.5 outline-none bg-transparent border-b-2 ${isQueryActive ? 'tab-active text-[#00A4B7] border-[#00A4B7] font-bold' : 'text-[#5E6C84] hover:text-[#172B4D] border-transparent'}">
+            <span class="select-none">Query Editor</span>
+          </a>
+        </div>
+      </div>
+    `;
+
+    if (activeTab === 'fields-customizer') {
+      SettingsView.renderFieldsCustomizerTab(container, formBuilderTabsBarHtml);
+    } else if (activeTab === 'query-editor') {
+      SettingsView.renderQueryEditorTab(container, formBuilderTabsBarHtml);
+    } else {
+      SettingsView.renderFormsTab(container, formBuilderTabsBarHtml);
+    }
+  }
+};
+
+window.ConfigurationView = ConfigurationView;
+
+
 
   // App Controller
   
@@ -103343,6 +104524,7 @@ const ProfileView = {
 
 
 // Views
+
 
 
 
@@ -103676,8 +104858,8 @@ const App = {
 
     // Keep direct URL navigation subject to the same module restrictions as the sidebar.
     const operationalModules = ['dashboard', 'purchase', 'preprocessing', 'quality', 'production', 'coldstore', 'inventory', 'sales', 'reports', 'master'];
-    const superAdminModules = ['general', 'super-reports'];
-    if (moduleName !== 'settings' && moduleName !== 'dashboard') {
+    const superAdminModules = ['general', 'clients-setup', 'super-reports'];
+    if (moduleName !== 'settings' && moduleName !== 'dashboard' && moduleName !== 'configuration') {
       if ((isSuperAdmin && operationalModules.includes(moduleName)) || (!isSuperAdmin && superAdminModules.includes(moduleName))) {
         this.renderRouteError(403, 'Access denied', 'You do not have permission to access this section.', homeHash);
         return;
@@ -103686,10 +104868,12 @@ const App = {
 
     if (moduleName === 'settings') {
       if (isSuperAdmin) {
-        if (!submenuName || submenuName === 'customizer' || submenuName === 'master-setup' || submenuName === 'setup') submenuName = 'custom';
-        if (!tabName || tabName === 'form' || tabName === 'form-list' || tabName === 'forms-list' || tabName === 'masters' || tabName === 'general-setup' || tabName === 'organization') tabName = 'forms';
-        if (tabName === 'custom-fields' || tabName === 'field-builder' || tabName === 'fields' || tabName === 'filds-customizer') tabName = 'fields-customizer';
-        if (tabName === 'query-editer') tabName = 'query-editor';
+        if (submenuName === 'custom' || tabName === 'forms' || tabName === 'fields-customizer' || tabName === 'query-editor') {
+          window.location.hash = '#/configuration/form-builder/' + (tabName || 'forms');
+          return;
+        }
+        submenuName = 'setup';
+        tabName = 'general';
       } else {
         if (!submenuName || submenuName === 'custom' || submenuName === 'master-setup' || submenuName === 'masters') submenuName = 'setup';
         if (!tabName || tabName === 'general' || tabName === 'general-setup' || tabName === 'setup' || tabName === 'transaction' || tabName === 'transaction-setup' || tabName === 'notifications') tabName = 'general';
@@ -103757,8 +104941,13 @@ const App = {
       try {
         switch (modObj.id) {
           case 'dashboard':
-            HomeView.render(mainContainer, tabName, resolvedHash);
+            if (isSuperAdmin) {
+              SuperAdminDashboardView.render(mainContainer, tabName, resolvedHash);
+            } else {
+              HomeView.render(mainContainer, tabName, resolvedHash);
+            }
             break;
+          case 'clients-setup':
           case 'general':
             SetupView.render(mainContainer, tabName, resolvedHash);
             break;
@@ -103788,6 +104977,9 @@ const App = {
             break;
           case 'sales':
             SalesView.render(mainContainer, tabName, resolvedHash);
+            break;
+          case 'configuration':
+            ConfigurationView.render(mainContainer, submenuName, tabName, resolvedHash);
             break;
           case 'settings':
             SettingsView.render(mainContainer, tabName, resolvedHash);

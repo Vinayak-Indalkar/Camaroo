@@ -179,7 +179,6 @@ export const SettingsView = {
       { id: 'general', label: 'General', hash: '#/settings/setup/general' },
       { id: 'organization', label: 'Organization', hash: '#/settings/setup/organization' },
       { id: 'user-roles', label: 'User & Roles', hash: '#/settings/setup/user-roles' },
-      { id: 'masters', label: 'Masters', hash: '#/settings/setup/masters' }
     ];
 
     setTimeout(() => {
@@ -229,45 +228,9 @@ export const SettingsView = {
 
     const isSuperAdmin = ERP_DATA.currentUser?.role === 'Super Admin';
 
-    // Super Admin: Render Customizer View (Forms, Fields Customizer, Query Editor)
+    // Super Admin: Render General Settings directly (No Customizer tabs list; Forms Builder is under Configuration)
     if (isSuperAdmin) {
-      let activeTab = 'forms';
-      if (tabName === 'fields-customizer' || tabName === 'filds-customizer' || tabName === 'field-builder' || tabName === 'custom-fields' || resolvedHash.includes('fields-customizer')) {
-        activeTab = 'fields-customizer';
-      } else if (tabName === 'query-editor' || tabName === 'query-editer' || resolvedHash.includes('query-editor')) {
-        activeTab = 'query-editor';
-      } else {
-        activeTab = 'forms';
-      }
-      this.activeTab = activeTab;
-
-      const isFormsActive = activeTab === 'forms';
-      const isFieldsActive = activeTab === 'fields-customizer';
-      const isQueryActive = activeTab === 'query-editor';
-
-      const customizerTabsBarHtml = `
-        <div class="border-b border-[#DFE1E6] mb-4">
-          <div role="tablist" aria-label="Customizer views" id="settings-tab-bar-container-tablist" class="flex items-center gap-1 overflow-x-auto bg-transparent p-0 scrollbar-thin">
-            <a id="tab-forms" role="tab" href="#/settings/custom/forms" aria-selected="${isFormsActive ? 'true' : 'false'}" tabindex="${isFormsActive ? '0' : '-1'}" aria-controls="panel-forms" class="select-none px-3 pt-2 pb-2 text-xs font-semibold whitespace-nowrap transition-colors flex items-center gap-1.5 outline-none bg-transparent border-b-2 ${isFormsActive ? 'tab-active text-[#00A4B7] border-[#00A4B7] font-bold' : 'text-[#5E6C84] hover:text-[#172B4D] border-transparent'}">
-              <span class="select-none">Forms</span>
-            </a>
-            <a id="tab-fields-customizer" role="tab" href="#/settings/custom/fields-customizer" aria-selected="${isFieldsActive ? 'true' : 'false'}" tabindex="${isFieldsActive ? '0' : '-1'}" aria-controls="panel-fields-customizer" class="select-none px-3 pt-2 pb-2 text-xs font-semibold whitespace-nowrap transition-colors flex items-center gap-1.5 outline-none bg-transparent border-b-2 ${isFieldsActive ? 'tab-active text-[#00A4B7] border-[#00A4B7] font-bold' : 'text-[#5E6C84] hover:text-[#172B4D] border-transparent'}">
-              <span class="select-none">Fields Customizer</span>
-            </a>
-            <a id="tab-query-editor" role="tab" href="#/settings/custom/query-editor" aria-selected="${isQueryActive ? 'true' : 'false'}" tabindex="${isQueryActive ? '0' : '-1'}" aria-controls="panel-query-editor" class="select-none px-3 pt-2 pb-2 text-xs font-semibold whitespace-nowrap transition-colors flex items-center gap-1.5 outline-none bg-transparent border-b-2 ${isQueryActive ? 'tab-active text-[#00A4B7] border-[#00A4B7] font-bold' : 'text-[#5E6C84] hover:text-[#172B4D] border-transparent'}">
-              <span class="select-none">Query Editor</span>
-            </a>
-          </div>
-        </div>
-      `;
-
-      if (activeTab === 'fields-customizer') {
-        this.renderFieldsCustomizerTab(container, customizerTabsBarHtml);
-      } else if (activeTab === 'query-editor') {
-        this.renderQueryEditorTab(container, customizerTabsBarHtml);
-      } else {
-        this.renderFormsTab(container, customizerTabsBarHtml);
-      }
+      this.renderGeneralTab(container, '');
       return;
     }
 
@@ -280,7 +243,8 @@ export const SettingsView = {
     } else if (currentTab === 'user-roles' || currentTab === 'user-role' || currentTab === 'users-roles' || currentTab === 'user-access' || currentTab === 'users-access' || currentTab === 'user' || currentTab === 'users' || currentTab === 'access' || currentTab === 'roles') {
       currentTab = 'user-roles';
     } else if (currentTab === 'masters' || currentTab === 'master' || currentTab === 'master-setup' || resolvedHash.includes('master-setup') || resolvedHash.includes('/masters')) {
-      currentTab = 'masters';
+      window.location.hash = '#/configuration/masters/master-records';
+      return;
     } else {
       currentTab = 'general';
     }
@@ -299,8 +263,8 @@ export const SettingsView = {
         this.renderGeneralTab(container, tabsBarHtml);
         break;
       case 'masters':
-        this.renderMasterSetupTab(container, tabsBarHtml);
-        break;
+        window.location.hash = '#/configuration/masters/master-records';
+        return;
       default:
         this.renderGeneralTab(container, tabsBarHtml);
         break;
@@ -773,9 +737,6 @@ export const SettingsView = {
                               <span>Upload</span>
                               <input type="file" id="admin-app-logo-file" accept="image/*" class="hidden" />
                             </label>
-                            <button type="button" id="admin-app-logo-clear-btn" class="w-7 h-7 rounded-lg text-rose-500 hover:text-white hover:bg-rose-500 transition-colors flex items-center justify-center cursor-pointer shrink-0 ${comp.appLogo ? '' : 'hidden'}" title="Remove logo">
-                              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-                            </button>
                           </div>
                           <input type="text" id="admin-app-logo" value="${comp.appLogo || ''}" class="w-full text-[11px] px-2.5 py-1 bg-white border border-[#DFE1E6] rounded-lg focus:outline-none focus:border-[#00A4B7] truncate font-medium text-[#172B4D]" placeholder="No file uploaded..." readonly />
                         </div>
@@ -1325,7 +1286,7 @@ export const SettingsView = {
 
     bindImageUpload('admin-org-logo-file', 'admin-org-logo', 'admin-org-logo-preview', comp.name + ' Logo', null, null, 'logo');
     bindImageUpload('admin-app-icon-file', 'admin-app-icon', 'admin-app-icon-preview', 'Application Icon', 'admin-app-icon-status-badge', 'admin-app-icon-clear-btn', 'appIcon');
-    bindImageUpload('admin-app-logo-file', 'admin-app-logo', 'admin-app-logo-preview', 'Application Logo', 'admin-app-logo-status-badge', 'admin-app-logo-clear-btn', 'appLogo');
+    bindImageUpload('admin-app-logo-file', 'admin-app-logo', 'admin-app-logo-preview', 'Application Logo', 'admin-app-logo-status-badge', null, 'appLogo');
     bindImageUpload('admin-app-report-header-file', 'admin-app-report-header', 'admin-app-report-header-preview', 'Report Header Image', 'admin-app-report-header-status-badge', 'admin-app-report-header-clear-btn', 'reportHeaderImg');
     bindImageUpload('admin-app-report-footer-file', 'admin-app-report-footer', 'admin-app-report-footer-preview', 'Report Footer Image', 'admin-app-report-footer-status-badge', 'admin-app-report-footer-clear-btn', 'reportFooterImg');
 
@@ -3564,9 +3525,13 @@ openRoleModal(role = null, onSaved) {
 // -------------------------------------------------------------
   // TAB 3: General
   // -------------------------------------------------------------
-  renderGeneralTab(container, tabsBarHtml) {
-    this.cachedTabsBarHtml = this.renderAdminSettingsTabs('general');
-    const effectiveTabsBar = this.cachedTabsBarHtml;
+  renderGeneralTab(container, tabsBarHtml = null) {
+    if (tabsBarHtml !== null && tabsBarHtml !== undefined) {
+      this.cachedTabsBarHtml = tabsBarHtml;
+    } else {
+      this.cachedTabsBarHtml = this.renderAdminSettingsTabs('general');
+    }
+    const effectiveTabsBar = this.cachedTabsBarHtml || '';
 
     // Load persisted settings from Enterprise AppSettings Engine
     const g = AppSettings.load();
@@ -3578,10 +3543,6 @@ openRoleModal(role = null, onSaved) {
         <!-- Page Header -->
         <div class="flex items-center justify-between gap-3 mb-1">
           <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">General Settings</h1>
-          <span class="text-xs font-semibold text-[#5E6C84] bg-[#F1F5F9] px-3 py-1 rounded-full border border-[#DFE1E6] flex items-center gap-1.5">
-            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-            System Online &amp; Operational
-          </span>
         </div>
 
         <!-- Settings Cards Grid (Interactive 9-Card Enterprise Layout) -->
@@ -8317,10 +8278,15 @@ openRoleModal(role = null, onSaved) {
 
   renderMasterSetupTab(container, tabsBarHtml = null) {
     this.initMasterData();
-    this.cachedTabsBarHtml = tabsBarHtml || this.cachedTabsBarHtml || this.renderAdminSettingsTabs('masters');
-    const effectiveTabsBar = this.cachedTabsBarHtml;
+    if (tabsBarHtml !== null && tabsBarHtml !== undefined) {
+      this.cachedTabsBarHtml = tabsBarHtml;
+    } else {
+      this.cachedTabsBarHtml = this.cachedTabsBarHtml || this.renderAdminSettingsTabs('masters');
+    }
+    const effectiveTabsBar = this.cachedTabsBarHtml || '';
 
     // Find active module (default to 'coldstore' if none active)
+    this.activeMasterModule = this.activeMasterModule || 'coldstore';
     const activeModule = this.moduleMastersData.find(m => m.id === this.activeMasterModule) || this.moduleMastersData[0];
     const currentSubmasterId = this.selectedSubmasterByModule[activeModule.id] || activeModule.submasters[0].id;
     const currentSubmaster = activeModule.submasters.find(sm => sm.id === currentSubmasterId) || activeModule.submasters[0];
@@ -8340,262 +8306,239 @@ openRoleModal(role = null, onSaved) {
     });
 
     container.innerHTML = `
-      <div class="space-y-4">
+      <div class="space-y-3 animate-fade-in">
         ${effectiveTabsBar}
 
-        <!-- Page Header (Clean H1, strictly no subheading per AGENTS.md Rule 2) -->
-        <div class="flex items-center justify-between gap-3 mb-1">
-          <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Master Setup</h1>
+        <!-- 6 Horizontal Module Tabs (AGENTS.md Section 6 Design System) -->
+        <nav aria-label="Master Setup tabs navigation" class="mb-3 border-b border-[#DFE1E6]">
+          <div class="flex items-center justify-between gap-2">
+            <div role="tablist" aria-label="Master Setup Modules" class="flex items-center gap-1 overflow-x-auto bg-transparent p-0 scrollbar-thin flex-1 min-w-0">
+              ${this.moduleMastersData.map(mod => {
+                const isActive = activeModule.id === mod.id;
+                return `
+                  <button
+                    type="button"
+                    role="tab"
+                    data-module-id="${mod.id}"
+                    aria-selected="${isActive ? 'true' : 'false'}"
+                    class="master-module-tab-btn select-none px-3 pt-2 pb-2 text-xs font-semibold whitespace-nowrap transition-colors flex items-center gap-1.5 outline-none bg-transparent border-b-2 cursor-pointer ${
+                      isActive
+                        ? 'tab-active text-[#00A4B7] border-[#00A4B7] font-bold'
+                        : 'text-[#5E6C84] hover:text-[#172B4D] border-transparent'
+                    }"
+                  >
+                    <span class="select-none">${mod.title}</span>
+                  </button>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        </nav>
+
+        <!-- Page Header & Contextual Sub-Master Selector (AGENTS.md Rule 2) -->
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-1">
+          <div class="flex items-center gap-3">
+            <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">${currentSubmaster.label}</h1>
+          </div>
+          <div class="flex items-center gap-3 flex-wrap">
+            <div class="flex items-center gap-2">
+              <label for="submaster-select" class="text-xs font-bold text-[#5E6C84] whitespace-nowrap uppercase tracking-wider">Sub Master:</label>
+              <select id="submaster-select" class="submaster-dropdown-select text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] min-w-[240px] shadow-2xs cursor-pointer">
+                ${activeModule.submasters.map(sm => `
+                  <option value="${sm.id}" ${sm.id === currentSubmaster.id ? 'selected' : ''}>
+                    ${sm.label} (${sm.records.length} records)
+                  </option>
+                `).join('')}
+              </select>
+            </div>
+            <button type="button" id="btn-add-master-record" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+              <span>Add Record</span>
+            </button>
+          </div>
         </div>
 
-        <!-- Module Accordions Container -->
-        <div class="space-y-3" id="masters-accordion-group">
-          ${this.moduleMastersData.map(mod => {
-            const isExpanded = this.activeMasterModule === mod.id;
-
-            return `
-              <div class="master-accordion-card bg-white rounded-xl border border-[#DFE1E6] overflow-hidden shadow-2xs transition-all duration-200">
-                <!-- Accordion Header Row -->
-                <div 
-                  class="master-accordion-header w-full p-3 flex items-center justify-between transition-colors cursor-pointer select-none bg-white hover:bg-[#F8FAFC] ${isExpanded ? 'border-b border-[#DFE1E6]' : ''}"
-                  data-module-id="${mod.id}"
-                >
-                  <!-- Left: Icon + Module Title + Sub Master Dropdown (immediately after Title) -->
-                  <div class="flex items-center gap-4 flex-wrap">
-                    <div class="flex items-center gap-3">
-                      <div class="w-9 h-9 rounded-xl flex items-center justify-center font-bold shadow-xs transition-colors duration-200 ${isExpanded ? 'bg-[#00A4B7] text-white' : 'bg-[#F1F5F9] text-[#00A4B7]'}">
-                        ${mod.icon}
-                      </div>
-                      <span class="font-extrabold text-[#172B4D] text-sm tracking-tight">${mod.title} Masters</span>
-                    </div>
-
-                    ${isExpanded ? `
-                      <div class="submaster-dropdown-container flex items-center gap-2" onclick="event.stopPropagation()">
-                        <label for="submaster-select-${mod.id}" class="text-xs font-bold text-[#5E6C84] whitespace-nowrap uppercase tracking-wider">Sub Master:</label>
-                        <select id="submaster-select-${mod.id}" data-module-id="${mod.id}" class="submaster-dropdown-select text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] min-w-[240px] shadow-2xs">
-                          ${mod.submasters.map(sm => `<option value="${sm.id}" ${sm.id === currentSubmaster.id ? 'selected' : ''}>${sm.label} (${sm.records.length})</option>`).join('')}
-                        </select>
-                      </div>
-                    ` : ''}
-                  </div>
-
-                  <!-- Right: Chevron on far right -->
-                  <div class="w-7 h-7 rounded-full flex items-center justify-center transition-colors duration-200 ${isExpanded ? 'bg-[#00A4B7] text-white' : 'bg-[#F1F5F9] text-[#64748B]'}">
-                    <svg class="w-4 h-4 transform transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                  </div>
-                </div>
-
-                <!-- Accordion Body -->
-                ${isExpanded ? `
-                  <div class="master-accordion-body m-0 p-4 bg-[#daedef] space-y-3.5 border-t border-[#DFE1E6] animate-accordion-expand" style="margin: 0 !important; background-color: #daedef !important;">
-                    <!-- Search & Filter Card (AGENTS.md Rule 3) -->
-                    <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs transition-all duration-200">
-                      <div class="flex items-center justify-between pb-1">
-                        <div class="flex items-center gap-2">
-                          <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
-                          <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters — ${currentSubmaster.label}</h3>
-                        </div>
-                        <div class="inline-flex items-center gap-2">
-                          <!-- Circular 32x32 Reset Button -->
-                          <button type="button" id="master-filter-reset-btn" class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Reset all filters">
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-                          </button>
-                          <!-- Circular 32x32 Collapse/Expand Toggle Button -->
-                          <button type="button" id="master-filter-toggle-btn" class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Hide Filter">
-                            <svg class="w-3.5 h-3.5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                          </button>
-                        </div>
-                      </div>
-                      <div id="master-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
-                        <div>
-                          <label for="master-search-input" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Search Keywords</label>
-                          <input type="text" id="master-search-input" value="${this.escape(this.masterSearchQuery || '')}" placeholder="Search code, name, specifications..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
-                        </div>
-                        <div>
-                          <label for="master-status-select" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Record Status</label>
-                          <select id="master-status-select" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                            <option value="All" ${this.masterStatusFilter === 'All' ? 'selected' : ''}>All Statuses</option>
-                            <option value="Active" ${this.masterStatusFilter === 'Active' ? 'selected' : ''}>Active</option>
-                            <option value="Inactive" ${this.masterStatusFilter === 'Inactive' ? 'selected' : ''}>Inactive</option>
-                          </select>
-                        </div>
-                        <div class="flex items-end">
-                          <button type="button" id="master-filter-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                            <span>Search</span>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- Header Row with Add Record Button -->
-                    <div class="flex items-center justify-between gap-3 pt-1">
-                      <div class="flex items-center gap-2">
-                        <span class="font-extrabold text-[#172B4D] text-sm tracking-tight">${currentSubmaster.label}</span>
-                        <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD]">${filteredRecords.length} Records</span>
-                      </div>
-                      <button type="button" id="btn-add-master-record" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                        <span>Add Record</span>
-                      </button>
-                    </div>
-
-                    <!-- DataTable Container -->
-                    <div id="master-records-table-container"></div>
-                  </div>
-                ` : ''}
-              </div>
-            `;
-          }).join('')}
+        <!-- Search & Filter Card (AGENTS.md Rule 3) -->
+        <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200">
+          <div class="flex items-center justify-between pb-1">
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+              <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
+            </div>
+            <div class="inline-flex items-center gap-2">
+              <!-- Circular 32x32 Reset Button -->
+              <button type="button" id="master-filter-reset-btn" class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Reset all filters">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+              </button>
+              <!-- Circular 32x32 Collapse/Expand Toggle Button -->
+              <button type="button" id="master-filter-toggle-btn" class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Hide Filter">
+                <svg class="w-3.5 h-3.5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              </button>
+            </div>
+          </div>
+          <div id="master-filter-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
+            <div>
+              <label for="master-search-input" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Search Keywords</label>
+              <input type="text" id="master-search-input" value="${this.escape(this.masterSearchQuery || '')}" placeholder="Search code, name, specifications..." class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+            </div>
+            <div>
+              <label for="master-status-select" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Record Status</label>
+              <select id="master-status-select" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="All" ${this.masterStatusFilter === 'All' ? 'selected' : ''}>All Statuses</option>
+                <option value="Active" ${this.masterStatusFilter === 'Active' ? 'selected' : ''}>Active</option>
+                <option value="Inactive" ${this.masterStatusFilter === 'Inactive' ? 'selected' : ''}>Inactive</option>
+              </select>
+            </div>
+            <div class="flex items-end">
+              <button type="button" id="master-filter-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                <span>Search</span>
+              </button>
+            </div>
+          </div>
         </div>
+
+        <!-- DataTable Container (Full toolbar enabled per AGENTS.md Rule 4) -->
+        <div id="master-records-table-container"></div>
       </div>
     `;
 
-    // Bind Accordion Header Clicks: Ensure strictly ONE is open at a time with smooth transition
-    const headerBtns = container.querySelectorAll('.master-accordion-header');
-    headerBtns.forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        // Prevent toggle if clicking inside the submaster select dropdown or its label
-        if (e.target.closest('.submaster-dropdown-container') || e.target.tagName === 'SELECT' || e.target.tagName === 'OPTION') {
-          return;
-        }
+    // 1. Bind 6 Module Tab clicks
+    const moduleTabBtns = container.querySelectorAll('.master-module-tab-btn');
+    moduleTabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
         const modId = btn.dataset.moduleId;
-        this.activeMasterModule = (this.activeMasterModule === modId) ? null : modId;
-        this.masterSearchQuery = '';
-        this.masterStatusFilter = 'All';
-        this.renderMasterSetupTab(container, this.cachedTabsBarHtml);
-      });
-    });
-
-    // If an accordion is expanded, bind its inner controls
-    if (this.activeMasterModule && currentSubmaster) {
-      // Bind Submaster Dropdown Select
-      const submasterSelect = container.querySelector('.submaster-dropdown-select');
-      submasterSelect?.addEventListener('change', (e) => {
-        e.stopPropagation();
-        const modId = submasterSelect.dataset.moduleId;
-        const subId = submasterSelect.value;
-        this.selectedSubmasterByModule[modId] = subId;
-        this.masterSearchQuery = '';
-        this.renderMasterSetupTab(container, this.cachedTabsBarHtml);
-      });
-      submasterSelect?.addEventListener('click', (e) => e.stopPropagation());
-
-      // Filter toggle handler
-      const toggleBtn = document.getElementById('master-filter-toggle-btn');
-      toggleBtn?.addEventListener('click', () => {
-        const body = document.getElementById('master-filter-body');
-        const icon = toggleBtn.querySelector('svg');
-        if (body) {
-          body.classList.toggle('hidden');
-          if (body.classList.contains('hidden')) {
-            toggleBtn.title = 'Show Filter';
-            icon?.classList.add('-rotate-90');
-          } else {
-            toggleBtn.title = 'Hide Filter';
-            icon?.classList.remove('-rotate-90');
-          }
-        }
-      });
-
-      // Filter reset handler
-      const resetBtn = document.getElementById('master-filter-reset-btn');
-      resetBtn?.addEventListener('click', () => {
-        this.masterSearchQuery = '';
-        this.masterStatusFilter = 'All';
-        this.renderMasterSetupTab(container, this.cachedTabsBarHtml);
-        Toast.show('Filters reset', 'info');
-      });
-
-      // Search button handler
-      const searchBtn = document.getElementById('master-filter-search-btn');
-      searchBtn?.addEventListener('click', () => {
-        const searchInput = document.getElementById('master-search-input');
-        const statusSelect = document.getElementById('master-status-select');
-        this.masterSearchQuery = searchInput ? searchInput.value : '';
-        this.masterStatusFilter = statusSelect ? statusSelect.value : 'All';
-        this.renderMasterSetupTab(container, this.cachedTabsBarHtml);
-      });
-
-      // Search input Enter key handler
-      const searchInput = document.getElementById('master-search-input');
-      searchInput?.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-          const statusSelect = document.getElementById('master-status-select');
-          this.masterSearchQuery = searchInput.value;
-          this.masterStatusFilter = statusSelect ? statusSelect.value : 'All';
+        if (modId && modId !== this.activeMasterModule) {
+          this.activeMasterModule = modId;
+          this.masterSearchQuery = '';
+          this.masterStatusFilter = 'All';
           this.renderMasterSetupTab(container, this.cachedTabsBarHtml);
         }
       });
+    });
 
-      // Add Record button handler
-      const addRecordBtn = document.getElementById('btn-add-master-record');
-      addRecordBtn?.addEventListener('click', () => {
-        this.showAddMasterModal(currentSubmaster, container);
-      });
+    // 2. Bind Submaster Dropdown Select
+    const submasterSelect = container.querySelector('.submaster-dropdown-select');
+    submasterSelect?.addEventListener('change', () => {
+      const subId = submasterSelect.value;
+      this.selectedSubmasterByModule[activeModule.id] = subId;
+      this.masterSearchQuery = '';
+      this.renderMasterSetupTab(container, this.cachedTabsBarHtml);
+    });
 
-      // Render DataTable strictly following AGENTS.md Rule 4
-      new DataTable({
-        containerId: 'master-records-table-container',
-        data: filteredRecords,
-        keyField: 'code',
-        tableTitle: `${currentSubmaster.label} (${filteredRecords.length})`,
-        hideToolbar: true,
-        searchable: true,
-        exportable: true,
-        pageSize: 10,
-        columns: [
-          {
-            field: 'code',
-            header: 'Code / ID',
-            render: (v) => `<span class="font-bold text-[#00A4B7] font-mono">${this.escape(v)}</span>`
-          },
-          {
-            field: 'name',
-            header: 'Name / Entity Description',
-            render: (v) => `<span class="font-bold text-[#172B4D]">${this.escape(v)}</span>`
-          },
-          {
-            field: 'details',
-            header: 'Details / Specifications',
-            render: (v) => `<span class="text-xs text-[#5E6C84]">${this.escape(v || '-')}</span>`
-          },
-          {
-            field: 'status',
-            header: 'Status',
-            render: (v) => `<span class="inline-flex px-2 py-0.5 rounded-full text-[10px] font-extrabold tracking-wide uppercase ${(v === 'Inactive' || v === 'Disabled') ? 'bg-[#FFEBE6] text-[#DE350B] border border-[#FFBDAD]' : 'bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]'}">${this.escape(v || 'Active')}</span>`
-          }
-        ],
-        actions: [
-          {
-            label: 'Edit',
-            icon: '<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>',
-            onClick: (row) => this.showEditMasterModal(currentSubmaster, row, container)
-          },
-          {
-            label: 'Delete',
-            icon: '<svg class="w-4 h-4 text-[#DE350B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>',
-            onClick: (row) => {
-              Modal.confirm({
-                title: `Delete ${currentSubmaster.label} Record`,
-                message: `Are you sure you want to delete <strong class="text-[#DE350B]">${this.escape(row.name)}</strong> (${this.escape(row.code)})? This action cannot be undone.`,
-                confirmText: 'Delete Record',
-                cancelText: 'Cancel',
-                isDestructive: true,
-                onConfirm: () => {
-                  const idx = currentSubmaster.records.findIndex(r => r.code === row.code);
-                  if (idx !== -1) {
-                    currentSubmaster.records.splice(idx, 1);
-                    this.renderMasterSetupTab(container, this.cachedTabsBarHtml);
-                    Toast.show(`Record ${row.code} deleted successfully`, 'success');
-                  }
+    // 3. Filter toggle handler
+    const toggleBtn = document.getElementById('master-filter-toggle-btn');
+    toggleBtn?.addEventListener('click', () => {
+      const body = document.getElementById('master-filter-body');
+      const icon = toggleBtn.querySelector('svg');
+      if (body) {
+        body.classList.toggle('hidden');
+        if (body.classList.contains('hidden')) {
+          toggleBtn.title = 'Show Filter';
+          icon?.classList.add('-rotate-90');
+        } else {
+          toggleBtn.title = 'Hide Filter';
+          icon?.classList.remove('-rotate-90');
+        }
+      }
+    });
+
+    // 4. Filter reset handler
+    const resetBtn = document.getElementById('master-filter-reset-btn');
+    resetBtn?.addEventListener('click', () => {
+      this.masterSearchQuery = '';
+      this.masterStatusFilter = 'All';
+      this.renderMasterSetupTab(container, this.cachedTabsBarHtml);
+      Toast.show('Filters reset', 'info');
+    });
+
+    // 5. Search button handler
+    const searchBtn = document.getElementById('master-filter-search-btn');
+    searchBtn?.addEventListener('click', () => {
+      const searchInput = document.getElementById('master-search-input');
+      const statusSelect = document.getElementById('master-status-select');
+      this.masterSearchQuery = searchInput ? searchInput.value : '';
+      this.masterStatusFilter = statusSelect ? statusSelect.value : 'All';
+      this.renderMasterSetupTab(container, this.cachedTabsBarHtml);
+    });
+
+    // 6. Search input Enter key handler
+    const searchInput = document.getElementById('master-search-input');
+    searchInput?.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const statusSelect = document.getElementById('master-status-select');
+        this.masterSearchQuery = searchInput.value;
+        this.masterStatusFilter = statusSelect ? statusSelect.value : 'All';
+        this.renderMasterSetupTab(container, this.cachedTabsBarHtml);
+      }
+    });
+
+    // 7. Add Record button handler
+    const addRecordBtn = document.getElementById('btn-add-master-record');
+    addRecordBtn?.addEventListener('click', () => {
+      this.showAddMasterModal(currentSubmaster, container);
+    });
+
+    // 8. Render DataTable strictly following AGENTS.md Rule 4
+    new DataTable({
+      containerId: 'master-records-table-container',
+      data: filteredRecords,
+      keyField: 'code',
+      tableTitle: `${currentSubmaster.label} (${filteredRecords.length})`,
+      searchable: true,
+      exportable: true,
+      pageSize: 10,
+      columns: [
+        {
+          field: 'code',
+          header: 'Code / ID',
+          render: (v) => `<span class="font-bold text-[#00A4B7] font-mono">${this.escape(v)}</span>`
+        },
+        {
+          field: 'name',
+          header: 'Name / Entity Description',
+          render: (v) => `<span class="font-bold text-[#172B4D]">${this.escape(v)}</span>`
+        },
+        {
+          field: 'details',
+          header: 'Details / Specifications',
+          render: (v) => `<span class="text-xs text-[#5E6C84]">${this.escape(v || '-')}</span>`
+        },
+        {
+          field: 'status',
+          header: 'Status',
+          render: (v) => `<span class="inline-flex px-2.5 py-0.5 rounded-full text-[10px] font-extrabold tracking-wide uppercase ${(v === 'Inactive' || v === 'Disabled') ? 'bg-[#FFEBE6] text-[#DE350B] border border-[#FFBDAD]' : 'bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1]'}">${this.escape(v || 'Active')}</span>`
+        }
+      ],
+      actions: [
+        {
+          label: 'Edit',
+          icon: '<svg class="w-3.5 h-3.5 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>',
+          onClick: (row) => this.showEditMasterModal(currentSubmaster, row, container)
+        },
+        {
+          label: 'Delete',
+          icon: '<svg class="w-3.5 h-3.5 text-[#DE350B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>',
+          onClick: (row) => {
+            Modal.confirm({
+              title: `Delete ${currentSubmaster.label} Record`,
+              message: `Are you sure you want to delete <strong class="text-[#DE350B]">${this.escape(row.name)}</strong> (${this.escape(row.code)})? This action cannot be undone.`,
+              confirmText: 'Delete Record',
+              cancelText: 'Cancel',
+              isDestructive: true,
+              onConfirm: () => {
+                const idx = currentSubmaster.records.findIndex(r => r.code === row.code);
+                if (idx !== -1) {
+                  currentSubmaster.records.splice(idx, 1);
+                  this.renderMasterSetupTab(container, this.cachedTabsBarHtml);
+                  Toast.show(`Record ${row.code} deleted successfully`, 'success');
                 }
-              });
-            }
+              }
+            });
           }
-        ]
-      });
-    }
+        }
+      ]
+    });
   },
 
   showAddMasterModal(selectedMaster, container) {

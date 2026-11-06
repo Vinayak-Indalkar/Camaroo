@@ -29,6 +29,7 @@ import { SuperAdminReportsView } from './views/superAdminReportsView.js';
 import { SettingsView } from './views/settingsView.js';
 import { NotificationsView } from './views/notificationsView.js';
 import { ProfileView } from './views/profileView.js';
+import { ConfigurationView } from './views/configurationView.js';
 import { NotificationService } from './services/notificationService.js';
 
 export const App = {
@@ -345,8 +346,8 @@ export const App = {
 
     // Keep direct URL navigation subject to the same module restrictions as the sidebar.
     const operationalModules = ['dashboard', 'purchase', 'preprocessing', 'quality', 'production', 'coldstore', 'inventory', 'sales', 'reports', 'master'];
-    const superAdminModules = ['general', 'super-reports'];
-    if (moduleName !== 'settings' && moduleName !== 'dashboard') {
+    const superAdminModules = ['general', 'clients-setup', 'super-reports'];
+    if (moduleName !== 'settings' && moduleName !== 'dashboard' && moduleName !== 'configuration') {
       if ((isSuperAdmin && operationalModules.includes(moduleName)) || (!isSuperAdmin && superAdminModules.includes(moduleName))) {
         this.renderRouteError(403, 'Access denied', 'You do not have permission to access this section.', homeHash);
         return;
@@ -355,10 +356,12 @@ export const App = {
 
     if (moduleName === 'settings') {
       if (isSuperAdmin) {
-        if (!submenuName || submenuName === 'customizer' || submenuName === 'master-setup' || submenuName === 'setup') submenuName = 'custom';
-        if (!tabName || tabName === 'form' || tabName === 'form-list' || tabName === 'forms-list' || tabName === 'masters' || tabName === 'general-setup' || tabName === 'organization') tabName = 'forms';
-        if (tabName === 'custom-fields' || tabName === 'field-builder' || tabName === 'fields' || tabName === 'filds-customizer') tabName = 'fields-customizer';
-        if (tabName === 'query-editer') tabName = 'query-editor';
+        if (submenuName === 'custom' || tabName === 'forms' || tabName === 'fields-customizer' || tabName === 'query-editor') {
+          window.location.hash = '#/configuration/form-builder/' + (tabName || 'forms');
+          return;
+        }
+        submenuName = 'setup';
+        tabName = 'general';
       } else {
         if (!submenuName || submenuName === 'custom' || submenuName === 'master-setup' || submenuName === 'masters') submenuName = 'setup';
         if (!tabName || tabName === 'general' || tabName === 'general-setup' || tabName === 'setup' || tabName === 'transaction' || tabName === 'transaction-setup' || tabName === 'notifications') tabName = 'general';
@@ -426,8 +429,13 @@ export const App = {
       try {
         switch (modObj.id) {
           case 'dashboard':
-            HomeView.render(mainContainer, tabName, resolvedHash);
+            if (isSuperAdmin) {
+              SuperAdminDashboardView.render(mainContainer, tabName, resolvedHash);
+            } else {
+              HomeView.render(mainContainer, tabName, resolvedHash);
+            }
             break;
+          case 'clients-setup':
           case 'general':
             SetupView.render(mainContainer, tabName, resolvedHash);
             break;
@@ -457,6 +465,9 @@ export const App = {
             break;
           case 'sales':
             SalesView.render(mainContainer, tabName, resolvedHash);
+            break;
+          case 'configuration':
+            ConfigurationView.render(mainContainer, submenuName, tabName, resolvedHash);
             break;
           case 'settings':
             SettingsView.render(mainContainer, tabName, resolvedHash);

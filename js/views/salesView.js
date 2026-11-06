@@ -2042,46 +2042,217 @@ export const SalesView = {
       }
     ],
 
-    // 4. Insurance Submenu datasets
+        // 4. Insurance Submenu datasets
     pendingInsurance: [
       {
+        id: "INS-2026-001",
+        invNo: "INV-EXP-2026-088",
+        year: "2026-2027",
+        exporter: "Devi Fisheries Limited",
+        consignee: "Sysco Corporation International",
+        vesselName: "MSC MAYA / V.2601W",
+        shippingOnboardDt: "02-Nov-2026",
+        containerNo: "MSCU7823901",
+        portOfLoading: "Visakhapatnam (INVTZ)",
+        portOfDischarge: "New York (USNYC)",
+        destinationCountry: "United States",
+        totalInvoiceValue: 211200,
+        cargoValueUsd: 211200,
         lotRef: "LOT-EXP-2026-088",
         contractNo: "SC-USA-2026-448",
-        consignee: "Sysco Corporation International",
-        cargoDescription: "Vannamei Cooked Tail-On 31/40 IQF (22,000 Kg)",
-        cargoValueUsd: 211200,
-        loadingPort: "Visakhapatnam Sea (INVTZ)",
-        dischargePort: "New York Terminal, USA",
-        etdDate: "2026-11-02",
+        cargoDescription: "Frozen Vannamei Cooked Tail-On 31/40 IQF (22,000 Kg)",
         requiredClauses: "ICC (A) + Reefer Temp Deviation + War & Strikes",
         assignedUnderwriter: "The New India Assurance Co. Ltd.",
         status: "DECLARATION_PENDING"
       },
       {
+        id: "INS-2026-002",
+        invNo: "INV-EXP-2026-089",
+        year: "2026-2027",
+        exporter: "Devi Fisheries Limited",
+        consignee: "High Liner Foods Canada",
+        vesselName: "MAERSK MC-KINNEY / V.2604E",
+        shippingOnboardDt: "08-Nov-2026",
+        containerNo: "MRKU4912084",
+        portOfLoading: "Visakhapatnam (INVTZ)",
+        portOfDischarge: "Vancouver (CAVAN)",
+        destinationCountry: "Canada",
+        totalInvoiceValue: 171600,
+        cargoValueUsd: 171600,
         lotRef: "LOT-EXP-2026-089",
         contractNo: "SC-CAN-2026-033",
-        consignee: "High Liner Foods Canada",
-        cargoDescription: "Vannamei PDTO 21/25 IQF Bulk (16,500 Kg)",
-        cargoValueUsd: 171600,
-        loadingPort: "Visakhapatnam Sea (INVTZ)",
-        dischargePort: "Vancouver Port, Canada",
-        etdDate: "2026-11-08",
+        cargoDescription: "Frozen Vannamei PDTO 21/25 IQF Bulk (16,500 Kg)",
         requiredClauses: "ICC (A) Frozen Food Clause + 24hr Machinery",
         assignedUnderwriter: "United India Insurance Co. Ltd.",
         status: "QUOTATION_UNDER_REVIEW"
       },
       {
+        id: "INS-2026-003",
+        invNo: "INV-EXP-2026-090",
+        year: "2026-2027",
+        exporter: "Devi Sea Foods Ltd",
+        consignee: "Direct Seafoods UK Ltd",
+        vesselName: "CMA CGM MARCO POLO / V.2602N",
+        shippingOnboardDt: "14-Nov-2026",
+        containerNo: "CMAU6193820",
+        portOfLoading: "Visakhapatnam (INVTZ)",
+        portOfDischarge: "Felixstowe (GBFXT)",
+        destinationCountry: "United Kingdom",
+        totalInvoiceValue: 98000,
+        cargoValueUsd: 98000,
         lotRef: "LOT-EXP-2026-090",
         contractNo: "SC-EU-2026-082",
-        consignee: "Direct Seafoods UK Ltd",
         cargoDescription: "Asian Seabass Whole Gutted 400-600g (10,000 Kg)",
-        cargoValueUsd: 98000,
-        loadingPort: "Visakhapatnam Sea (INVTZ)",
-        dischargePort: "Felixstowe Port, UK",
-        etdDate: "2026-11-14",
         requiredClauses: "ICC (A) Institute Frozen Food Clauses",
-        assignedUnderwriter: "Pending Underwriter Selection",
+        assignedUnderwriter: "ICICI Lombard General Insurance",
         status: "DRAFT_CERT_PREPARED"
+      },
+      {
+        id: "INS-2026-004",
+        invNo: "INV-EXP-2026-091",
+        year: "2026-2027",
+        exporter: "Devi Fisheries Limited",
+        consignee: "US Foods Trading Co",
+        vesselName: "EVER GIVEN / V.1082S",
+        shippingOnboardDt: "19-Nov-2026",
+        containerNo: "EGLV8841092",
+        portOfLoading: "Chennai (INMAA)",
+        portOfDischarge: "Long Beach (USLGB)",
+        destinationCountry: "United States",
+        totalInvoiceValue: 342500,
+        cargoValueUsd: 342500,
+        lotRef: "LOT-EXP-2026-091",
+        contractNo: "SC-USA-2026-455",
+        cargoDescription: "Frozen Black Tiger HOSO 16/20 Semi-IQF (24,000 Kg)",
+        requiredClauses: "ICC (A) All Risks + Temperature Breakdown",
+        assignedUnderwriter: "The New India Assurance Co. Ltd.",
+        status: "COVER_NOTE_ISSUED"
+      },
+      {
+        id: "INS-2026-005",
+        invNo: "INV-EXP-2026-092",
+        year: "2026-2027",
+        exporter: "Devi Fisheries Limited",
+        consignee: "Nippon Suisan Kaisha Ltd",
+        vesselName: "ONE APUS / V.009E",
+        shippingOnboardDt: "24-Nov-2026",
+        containerNo: "ONEY3948102",
+        portOfLoading: "Visakhapatnam (INVTZ)",
+        portOfDischarge: "Tokyo Port (JPTYO)",
+        destinationCountry: "Japan",
+        totalInvoiceValue: 189000,
+        cargoValueUsd: 189000,
+        lotRef: "LOT-EXP-2026-092",
+        contractNo: "SC-JPN-2026-019",
+        cargoDescription: "Vannamei Nobashi Ebi 30pcs Tray Pack (14,200 Kg)",
+        requiredClauses: "ICC (A) + Reefer Thermal Variation Guarantee",
+        assignedUnderwriter: "National Insurance Co. Ltd.",
+        status: "DECLARATION_PENDING"
+      },
+      {
+        id: "INS-2026-006",
+        invNo: "INV-EXP-2026-093",
+        year: "2025-2026",
+        exporter: "Devi Aqua Feeds Pvt Ltd",
+        consignee: "Royal Greenland Seafood A/S",
+        vesselName: "HAPAG AL DAHNA / V.2603W",
+        shippingOnboardDt: "29-Nov-2026",
+        containerNo: "HLXU5591204",
+        portOfLoading: "Kolkata (INCCU)",
+        portOfDischarge: "Rotterdam (NLRTM)",
+        destinationCountry: "Netherlands",
+        totalInvoiceValue: 275400,
+        cargoValueUsd: 275400,
+        lotRef: "LOT-EXP-2026-093",
+        contractNo: "SC-NLD-2026-112",
+        cargoDescription: "Vannamei Easy Peel Raw 26/30 (21,500 Kg)",
+        requiredClauses: "ICC (A) Institute Frozen Food Clauses",
+        assignedUnderwriter: "United India Insurance Co. Ltd.",
+        status: "QUOTATION_UNDER_REVIEW"
+      },
+      {
+        id: "INS-2026-007",
+        invNo: "INV-EXP-2026-094",
+        year: "2026-2027",
+        exporter: "Devi Fisheries Limited",
+        consignee: "Minh Phu Seafood Corp",
+        vesselName: "COSCO SHIPPING UNIVERSE / V.2605E",
+        shippingOnboardDt: "04-Dec-2026",
+        containerNo: "COSU6283910",
+        portOfLoading: "Visakhapatnam (INVTZ)",
+        portOfDischarge: "Haiphong (VNHPH)",
+        destinationCountry: "Vietnam",
+        totalInvoiceValue: 145000,
+        cargoValueUsd: 145000,
+        lotRef: "LOT-EXP-2026-094",
+        contractNo: "SC-VNM-2026-042",
+        cargoDescription: "Frozen Headless Shell-On White Shrimp 41/50 (15,000 Kg)",
+        requiredClauses: "ICC (A) All Risks + Marine Transit",
+        assignedUnderwriter: "ICICI Lombard General Insurance",
+        status: "DRAFT_CERT_PREPARED"
+      },
+      {
+        id: "INS-2026-008",
+        invNo: "INV-EXP-2026-095",
+        year: "2026-2027",
+        exporter: "Devi Fisheries Limited",
+        consignee: "Aqua Star USA",
+        vesselName: "MSC OSCAR / V.2606W",
+        shippingOnboardDt: "10-Dec-2026",
+        containerNo: "MSCU9912044",
+        portOfLoading: "Chennai (INMAA)",
+        portOfDischarge: "Savannah (USSAV)",
+        destinationCountry: "United States",
+        totalInvoiceValue: 228900,
+        cargoValueUsd: 228900,
+        lotRef: "LOT-EXP-2026-095",
+        contractNo: "SC-USA-2026-462",
+        cargoDescription: "Vannamei Cooked Salad Shrimp 100/200 (19,800 Kg)",
+        requiredClauses: "ICC (A) + Reefer Machinery Failure Clause",
+        assignedUnderwriter: "The New India Assurance Co. Ltd.",
+        status: "DECLARATION_PENDING"
+      },
+      {
+        id: "INS-2026-009",
+        invNo: "INV-EXP-2026-096",
+        year: "2025-2026",
+        exporter: "Devi Sea Foods Ltd",
+        consignee: "Deutsche See GmbH",
+        vesselName: "HYUNDAI BRAVE / V.045E",
+        shippingOnboardDt: "15-Dec-2026",
+        containerNo: "HDMU4491028",
+        portOfLoading: "Visakhapatnam (INVTZ)",
+        portOfDischarge: "Hamburg (DEHAM)",
+        destinationCountry: "Germany",
+        totalInvoiceValue: 195000,
+        cargoValueUsd: 195000,
+        lotRef: "LOT-EXP-2026-096",
+        contractNo: "SC-DEU-2026-077",
+        cargoDescription: "Organic Black Tiger Peeled Deveined (12,500 Kg)",
+        requiredClauses: "ICC (A) Frozen Cargo All Risks",
+        assignedUnderwriter: "United India Insurance Co. Ltd.",
+        status: "COVER_NOTE_ISSUED"
+      },
+      {
+        id: "INS-2026-010",
+        invNo: "INV-EXP-2026-097",
+        year: "2026-2027",
+        exporter: "Devi Fisheries Limited",
+        consignee: "Maruha Nichiro Corporation",
+        vesselName: "OOCL HONG KONG / V.2607S",
+        shippingOnboardDt: "21-Dec-2026",
+        containerNo: "OOLU7718290",
+        portOfLoading: "Visakhapatnam (INVTZ)",
+        portOfDischarge: "Osaka Port (JPOSA)",
+        destinationCountry: "Japan",
+        totalInvoiceValue: 312000,
+        cargoValueUsd: 312000,
+        lotRef: "LOT-EXP-2026-097",
+        contractNo: "SC-JPN-2026-025",
+        cargoDescription: "Vannamei Sushi Ebi 4L/5L Vacuum Packed (20,000 Kg)",
+        requiredClauses: "ICC (A) + Reefer Temp Deviation + War & Strikes",
+        assignedUnderwriter: "National Insurance Co. Ltd.",
+        status: "DECLARATION_PENDING"
       }
     ],
 
@@ -10413,41 +10584,821 @@ export const SalesView = {
     }
   },
 
-  // Insurance Tab 1: Pending Insurance
+    // Insurance Tab 1: Pending Insurance
   renderPendingInsurance(container) {
-    this.renderGenericTablePage({
-      container,
-      pageTitle: 'Pending Insurance (Marine Declarations & Coverage Underwriting)',
-            primaryBtnText: 'Generate Marine Declaration',
-      onPrimaryClick: () => Toast.show('Marine Declaration generation modal opened', 'info'),
-      filterFields: [
-        { id: 'pi-lot', label: 'Cargo Lot Ref', placeholder: 'e.g. LOT-EXP' },
-        { id: 'pi-contract', label: 'Contract No', placeholder: 'e.g. SC-USA' },
-        { id: 'pi-consignee', label: 'Consignee / Importer', placeholder: 'e.g. Sysco' },
-        { id: 'pi-status', label: 'Insurance Status', type: 'select', options: ['All Status', 'Declaration Pending', 'Quotation Under Review', 'Draft Cert Prepared'] }
-      ],
-      data: this.state.pendingInsurance,
-      keyField: 'lotRef',
-      tableTitle: 'Pending Cargo Insurance Lots',
-      columns: [
-        { field: 'lotRef', header: 'Lot Ref', render: (v) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${v}</span>` },
-        { field: 'contractNo', header: 'Contract No', render: (v) => `<span class="font-mono text-xs font-semibold text-[#172B4D]">${v}</span>` },
-        { field: 'consignee', header: 'Buyer / Consignee', render: (v) => `<span class="font-bold text-[#172B4D] text-xs">${v}</span>` },
-        { field: 'cargoDescription', header: 'Cargo Specifications', render: (v) => `<span class="text-xs text-[#5E6C84] truncate max-w-[220px] block" title="${v}">${v}</span>` },
-        { field: 'cargoValueUsd', header: 'Declared CIF (USD)', render: (v) => `<span class="font-mono font-extrabold text-xs text-[#006644]">$${Number(v).toLocaleString('en-IN')}</span>` },
-        { field: 'dischargePort', header: 'Port of Discharge', render: (v) => `<span class="text-xs text-[#5E6C84] font-medium">${v}</span>` },
-        { field: 'etdDate', header: 'Planned ETD', render: (v) => `<span class="font-mono text-xs text-[#5E6C84]">${v}</span>` },
-        { field: 'assignedUnderwriter', header: 'Assigned Underwriter', render: (v) => `<span class="text-xs font-semibold text-[#172B4D]">${v}</span>` },
-        { field: 'requiredClauses', header: 'Requested Risk Scope', render: (v) => `<span class="text-[11px] text-[#5E6C84] truncate max-w-[200px] block" title="${v}">${v}</span>` },
+    const rawData = this.state.pendingInsurance || [];
+
+    // Distinct filter dropdown options derived from live data
+    const years = ['All Years', ...new Set(rawData.map(r => r.year).filter(Boolean))];
+    const exporters = ['All Exporters', ...new Set(rawData.map(r => r.exporter).filter(Boolean))];
+    const consignees = ['All Consignees', ...new Set(rawData.map(r => r.consignee).filter(Boolean))];
+    const countries = ['All Countries', ...new Set(rawData.map(r => r.destinationCountry).filter(Boolean))];
+
+    container.innerHTML = `
+      <div class="space-y-3 animate-fade-in">
+        <!-- Page Title & Header Actions (Clean H1, strictly no subheading per AGENTS.md Rule 2) -->
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-1">
+          <div>
+            <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Pending Insurance</h1>
+          </div>
+        </div>
+
+        <!-- Search & Filter Card (Strictly adhering to AGENTS.md Design System Rule 3) -->
+        <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200">
+          <div class="flex items-center justify-between pb-1">
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+              <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
+            </div>
+            <div class="inline-flex items-center gap-2">
+              <!-- Circular 32x32 Reset Button -->
+              <button type="button" id="flt-ins-reset-btn" class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Reset all filters">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+              </button>
+              <!-- Circular 32x32 Collapse/Expand Toggle Button -->
+              <button type="button" id="flt-ins-toggle-btn" class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Hide Filter">
+                <svg class="w-3.5 h-3.5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              </button>
+            </div>
+          </div>
+          <!-- Body: Margin-top 0, border-top none -->
+          <div id="flt-ins-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
+            <!-- 1. Select Year -->
+            <div>
+              <label for="flt-ins-year" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Select Year</label>
+              <select id="flt-ins-year" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                ${years.map(y => `<option value="${y}">${y}</option>`).join('')}
+              </select>
+            </div>
+
+            <!-- 2. Select Exporter -->
+            <div>
+              <label for="flt-ins-exporter" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Select Exporter</label>
+              <select id="flt-ins-exporter" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                ${exporters.map(e => `<option value="${e}">${e}</option>`).join('')}
+              </select>
+            </div>
+
+            <!-- 3. Select Consignee -->
+            <div>
+              <label for="flt-ins-consignee" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Select Consignee</label>
+              <select id="flt-ins-consignee" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                ${consignees.map(c => `<option value="${c}">${c}</option>`).join('')}
+              </select>
+            </div>
+
+            <!-- 4. Select Country -->
+            <div>
+              <label for="flt-ins-country" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Select Country</label>
+              <select id="flt-ins-country" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                ${countries.map(c => `<option value="${c}">${c}</option>`).join('')}
+              </select>
+            </div>
+
+            <!-- MANDATORY Search button always placed after the last input field -->
+            <div class="flex items-end">
+              <button type="button" id="flt-ins-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                <span>Search</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- DataTable Container -->
+        <div id="pending-insurance-table-container"></div>
+      </div>
+    `;
+
+    // Toggle filter body
+    const toggleBtn = container.querySelector('#flt-ins-toggle-btn');
+    const filterBody = container.querySelector('#flt-ins-body');
+    toggleBtn?.addEventListener('click', () => {
+      filterBody?.classList.toggle('hidden');
+      toggleBtn.querySelector('svg')?.classList.toggle('-rotate-90');
+    });
+
+    // Exactly the 11 user-specified columns: S.No, ID, Inv No, Vessel Name, Shipping Onboard Dt, Container No, Port of Loading, Port Of Discharge, Destination Country, Total Invoice Value, Action
+    const columns = [
+      {
+        field: '__sno__',
+        header: 'S.No',
+        render: (v, r, idx) => `<span class="font-mono text-xs text-[#5E6C84]">${idx + 1}</span>`
+      },
+      {
+        field: 'id',
+        header: 'ID',
+        render: (v) => `<span class="font-mono font-bold text-xs text-[#00A4B7] hover:underline cursor-pointer">${v || '-'}</span>`
+      },
+      {
+        field: 'invNo',
+        header: 'Inv No',
+        render: (v) => `<span class="font-mono font-bold text-xs text-[#172B4D] hover:underline cursor-pointer">${v || '-'}</span>`
+      },
+      {
+        field: 'vesselName',
+        header: 'Vessel Name',
+        render: (v) => `<span class="font-semibold text-xs text-[#172B4D]">${v || '-'}</span>`
+      },
+      {
+        field: 'shippingOnboardDt',
+        header: 'Shipping Onboard Dt',
+        render: (v) => `<span class="font-mono text-xs text-[#5E6C84]">${v || '-'}</span>`
+      },
+      {
+        field: 'containerNo',
+        header: 'Container No',
+        render: (v) => `<span class="font-mono font-semibold text-xs text-[#403294]">${v || '-'}</span>`
+      },
+      {
+        field: 'portOfLoading',
+        header: 'Port of Loading',
+        render: (v) => `<span class="text-xs text-[#172B4D]">${v || '-'}</span>`
+      },
+      {
+        field: 'portOfDischarge',
+        header: 'Port Of Discharge',
+        render: (v) => `<span class="text-xs text-[#172B4D]">${v || '-'}</span>`
+      },
+      {
+        field: 'destinationCountry',
+        header: 'Destination Country',
+        render: (v) => `<span class="text-xs font-semibold text-[#172B4D]">${v || '-'}</span>`
+      },
+      {
+        field: 'totalInvoiceValue',
+        header: 'Total Invoice Value',
+        render: (v) => `<span class="font-mono font-extrabold text-xs text-[#006644]">${Number(v || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>`
+      }
+    ];
+
+    // Render DataTable instance
+    let dtInstance = null;
+    const renderTable = (dataToDisplay) => {
+      dtInstance = new DataTable({
+        containerId: 'pending-insurance-table-container',
+        data: dataToDisplay,
+        keyField: 'id',
+        tableTitle: `Pending Insurance (${dataToDisplay.length})`,
+        searchable: true,
+        exportable: true,
+        selectable: true,
+        showSelectedCount: false,
+        pageSize: 10,
+        actionsTitle: 'Action',
+        toolbarButtons: [
+          {
+            id: 'btn-create-table-insurance',
+            label: 'Create Table',
+            title: 'Create Insurance Declaration Table for selected records',
+            requiresSelection: true,
+            variant: 'primary',
+            className: 'btn-primary px-3.5 py-1.5 rounded-full text-xs font-bold shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white flex items-center gap-1.5 transition-all cursor-pointer',
+            icon: `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18m-9-4v8m-7 4h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>`,
+            onClick: (keys, rows) => {
+              const selectedRecords = rows && rows.length > 0 ? rows : (this.state.pendingInsurance || []).filter(r => (keys || []).includes(r.id));
+              this.showCreateInsuranceTemplateModal(selectedRecords);
+            }
+          }
+        ],
+        onRowClick: (row) => this.showPendingInsuranceDetailsModal(row),
+        columns,
+        actions: [
+          {
+            label: 'Create Template',
+            icon: `<svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2zM15 2v5a2 2 0 002 2h5"/></svg>`,
+            onClick: (row) => this.showCreateInsuranceTemplateModal([row])
+          }
+        ]
+      });
+    };
+
+    renderTable(rawData);
+
+    // Search and Reset button handlers
+    const searchBtn = container.querySelector('#flt-ins-search-btn');
+    const resetBtn = container.querySelector('#flt-ins-reset-btn');
+
+    searchBtn?.addEventListener('click', () => {
+      const yearVal = container.querySelector('#flt-ins-year')?.value || 'ALL';
+      const exporterVal = container.querySelector('#flt-ins-exporter')?.value || 'ALL';
+      const consigneeVal = container.querySelector('#flt-ins-consignee')?.value || 'ALL';
+      const countryVal = container.querySelector('#flt-ins-country')?.value || 'ALL';
+
+      let filtered = [...(this.state.pendingInsurance || [])];
+
+      if (yearVal !== 'ALL' && yearVal !== 'All Years') {
+        filtered = filtered.filter(r => r.year === yearVal);
+      }
+      if (exporterVal !== 'ALL' && exporterVal !== 'All Exporters') {
+        filtered = filtered.filter(r => r.exporter === exporterVal);
+      }
+      if (consigneeVal !== 'ALL' && consigneeVal !== 'All Consignees') {
+        filtered = filtered.filter(r => r.consignee === consigneeVal);
+      }
+      if (countryVal !== 'ALL' && countryVal !== 'All Countries') {
+        filtered = filtered.filter(r => r.destinationCountry === countryVal);
+      }
+
+      renderTable(filtered);
+      Toast.show(`Found ${filtered.length} insurance record(s)`, 'info');
+    });
+
+    resetBtn?.addEventListener('click', () => {
+      const yearSelect = container.querySelector('#flt-ins-year');
+      const expSelect = container.querySelector('#flt-ins-exporter');
+      const conSelect = container.querySelector('#flt-ins-consignee');
+      const ctrySelect = container.querySelector('#flt-ins-country');
+
+      if (yearSelect) yearSelect.selectedIndex = 0;
+      if (expSelect) expSelect.selectedIndex = 0;
+      if (conSelect) conSelect.selectedIndex = 0;
+      if (ctrySelect) ctrySelect.selectedIndex = 0;
+
+      renderTable(this.state.pendingInsurance || []);
+      Toast.show('Filters reset', 'info');
+    });
+  },
+
+  // Marine Insurance Declaration Details Modal (Strictly AGENTS.md Section 5)
+  showPendingInsuranceDetailsModal(row) {
+    if (!row) return;
+
+    Modal.show({
+      title: 'Marine Insurance Declaration & Coverage Details',
+      size: 'xl',
+      content: `
+        <div class="space-y-4 text-xs">
+          <!-- Top Hero / Summary Card -->
+          <div class="bg-gradient-to-r from-[#F0F9FF] to-[#F8FAFC] p-4 rounded-xl border border-[#BAE6FD] flex flex-wrap items-center justify-between gap-3 shadow-2xs">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-[#00A4B7] text-white flex items-center justify-center font-bold shadow-xs shrink-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+              </div>
+              <div>
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span class="font-mono font-extrabold text-[#0F172A] text-base">${row.id}</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold tracking-wide uppercase bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD]">${(row.status || 'PENDING').replace(/_/g, ' ')}</span>
+                  <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">Marine Transit Insurance</span>
+                </div>
+                <div class="text-[11px] text-[#64748B] mt-0.5 font-medium flex items-center gap-1.5 flex-wrap">
+                  <span>🏢 ${row.exporter || 'Devi Fisheries Limited'}</span>
+                  <span>•</span>
+                  <span>Buyer: ${row.consignee || '-'}</span>
+                  <span>•</span>
+                  <span>Inv: <strong class="font-mono text-[#172B4D]">${row.invNo || '-'}</strong></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Metrics Badges -->
+            <div class="flex items-center gap-2 flex-wrap">
+              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[100px]">
+                <div class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider">Total Value</div>
+                <div class="text-sm font-extrabold text-[#006644] font-mono mt-0.5">${Number(row.totalInvoiceValue || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+              </div>
+              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[90px]">
+                <div class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider">Container</div>
+                <div class="text-xs font-bold text-[#403294] font-mono mt-0.5">${row.containerNo || '-'}</div>
+              </div>
+              <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[90px]">
+                <div class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider">Destination</div>
+                <div class="text-xs font-bold text-[#00A4B7] mt-0.5">${row.destinationCountry || '-'}</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 1: Voyage & Shipping Onboard Specifications -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs space-y-3">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9] pb-2">
+              <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">1</span>
+              <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Voyage &amp; Shipping Onboard Specifications</h3>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3.5">
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Vessel Name</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${row.vesselName || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Shipping Onboard Dt</span>
+                <span class="font-mono text-[#172B4D] text-xs block mt-0.5">${row.shippingOnboardDt || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Container No</span>
+                <span class="font-mono font-bold text-[#403294] text-xs block mt-0.5">${row.containerNo || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Port of Loading</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${row.portOfLoading || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Port of Discharge</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${row.portOfDischarge || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Destination Country</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${row.destinationCountry || '-'}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Commercial Export & Invoice Information -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs space-y-3">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9] pb-2">
+              <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">2</span>
+              <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Commercial Export &amp; Invoice Information</h3>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Invoice Number</span>
+                <span class="font-mono font-bold text-[#00A4B7] text-xs block mt-0.5">${row.invNo || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Exporter Name</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${row.exporter || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Consignee / Importer</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${row.consignee || '-'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Financial Year</span>
+                <span class="font-mono font-semibold text-[#172B4D] text-xs block mt-0.5">${row.year || '2026-2027'}</span>
+              </div>
+              <div class="col-span-2 sm:col-span-4">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Cargo Specifications</span>
+                <span class="font-medium text-[#172B4D] text-xs block mt-0.5">${row.cargoDescription || 'Frozen Seafood Consignment'}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 3: Marine Insurance Underwriting & Risk Scope -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs space-y-3">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9] pb-2">
+              <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">3</span>
+              <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Marine Insurance Underwriting &amp; Risk Scope</h3>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3.5">
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Assigned Underwriter</span>
+                <span class="font-semibold text-[#172B4D] text-xs block mt-0.5">${row.assignedUnderwriter || 'The New India Assurance Co. Ltd.'}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Sum Insured (CIF + 10%)</span>
+                <span class="font-mono font-extrabold text-[#006644] text-xs block mt-0.5">${(Number(row.totalInvoiceValue || 0) * 1.1).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Declaration Status</span>
+                <span class="font-semibold text-[#00A4B7] text-xs block mt-0.5">${(row.status || 'PENDING').replace(/_/g, ' ')}</span>
+              </div>
+              <div class="col-span-2 sm:col-span-3">
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Applicable Risk Clauses</span>
+                <span class="text-xs text-[#5E6C84] block mt-0.5 bg-[#F8FAFC] p-2.5 rounded-lg border border-[#E2E8F0] font-mono">${row.requiredClauses || 'ICC (A) All Risks + Institute Frozen Food Clauses + 24hr Machinery Derangement + War & Strikes Clauses'}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      `,
+      actions: [
         {
-          field: 'status',
-          header: 'Status',
-          render: (v) => {
-            const cls = v.includes('PENDING') ? 'bg-[#FFFAE6] text-[#FF8B00] border-[#FFE380]' : 'bg-[#F0F9FF] text-[#00A4B7] border-[#BAE6FD]';
-            return `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold border ${cls} uppercase">${v.replace(/_/g, ' ')}</span>`;
+          label: 'Print Declaration',
+          className: 'btn-secondary px-5 py-2 rounded-full text-xs font-semibold border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#172B4D] transition-all cursor-pointer',
+          onClick: () => Toast.show(`Printing declaration document for ${row.id}...`, 'info')
+        },
+        {
+          label: 'Download Certificate',
+          className: 'btn-primary px-5 py-2 rounded-full text-xs font-bold shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer',
+          onClick: () => {
+            Modal.close();
+            Toast.show(`Downloading official Marine Certificate for ${row.id}...`, 'success');
           }
         }
       ]
+    });
+  },
+
+  // Add Marine Insurance Declaration Modal
+  showAddPendingInsuranceModal(onCreated) {
+    const nextSeq = ((this.state.pendingInsurance || []).length + 1).toString().padStart(3, '0');
+    const newId = `INS-2026-${nextSeq}`;
+
+    Modal.show({
+      title: 'New Marine Insurance Declaration',
+      size: 'xl',
+      content: `
+        <form id="form-add-pending-insurance" class="space-y-4 text-xs">
+          <div class="bg-[#F0F9FF] p-3 rounded-lg border border-[#BAE6FD] flex items-center justify-between text-xs">
+            <div>
+              <span class="font-bold text-[#00A4B7]">System Generated ID:</span>
+              <span class="font-mono font-extrabold text-[#0284C7] ml-1">${newId}</span>
+            </div>
+            <div class="text-[11px] text-[#5E6C84]">All fields marked with <span class="text-rose-500">*</span> are mandatory</div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Invoice Number <span class="text-rose-500">*</span></label>
+              <input type="text" id="add-ins-inv" required placeholder="e.g. INV-EXP-2026-098" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Financial Year <span class="text-rose-500">*</span></label>
+              <select id="add-ins-year" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+                <option value="2026-2027" selected>2026-2027</option>
+                <option value="2025-2026">2025-2026</option>
+                <option value="2024-2025">2024-2025</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Exporter <span class="text-rose-500">*</span></label>
+              <select id="add-ins-exporter" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+                <option value="Devi Fisheries Limited" selected>Devi Fisheries Limited</option>
+                <option value="Devi Sea Foods Ltd">Devi Sea Foods Ltd</option>
+                <option value="Devi Aqua Feeds Pvt Ltd">Devi Aqua Feeds Pvt Ltd</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Consignee / Importer <span class="text-rose-500">*</span></label>
+              <input type="text" id="add-ins-consignee" required placeholder="e.g. Sysco Corporation International" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Vessel Name <span class="text-rose-500">*</span></label>
+              <input type="text" id="add-ins-vessel" required placeholder="e.g. MSC MAYA / V.2601W" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Shipping Onboard Dt <span class="text-rose-500">*</span></label>
+              <input type="date" id="add-ins-date" required value="2026-11-06" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Container No <span class="text-rose-500">*</span></label>
+              <input type="text" id="add-ins-container" required placeholder="e.g. MSCU7823901" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Port of Loading <span class="text-rose-500">*</span></label>
+              <input type="text" id="add-ins-pol" required value="Visakhapatnam (INVTZ)" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Port of Discharge <span class="text-rose-500">*</span></label>
+              <input type="text" id="add-ins-pod" required placeholder="e.g. New York (USNYC)" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Destination Country <span class="text-rose-500">*</span></label>
+              <select id="add-ins-country" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+                <option value="United States" selected>United States</option>
+                <option value="Canada">Canada</option>
+                <option value="United Kingdom">United Kingdom</option>
+                <option value="Japan">Japan</option>
+                <option value="Netherlands">Netherlands</option>
+                <option value="Vietnam">Vietnam</option>
+                <option value="Germany">Germany</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Total Invoice Value (USD) <span class="text-rose-500">*</span></label>
+              <input type="number" id="add-ins-val" required min="1" step="0.01" placeholder="e.g. 215000" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Assigned Underwriter</label>
+              <select id="add-ins-underwriter" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+                <option value="The New India Assurance Co. Ltd." selected>The New India Assurance Co. Ltd.</option>
+                <option value="United India Insurance Co. Ltd.">United India Insurance Co. Ltd.</option>
+                <option value="ICICI Lombard General Insurance">ICICI Lombard General Insurance</option>
+                <option value="National Insurance Co. Ltd.">National Insurance Co. Ltd.</option>
+              </select>
+            </div>
+          </div>
+        </form>
+      `,
+      actions: [
+        {
+          label: 'Cancel',
+          className: 'btn-secondary px-5 py-2 rounded-full text-xs font-semibold border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#172B4D] transition-all cursor-pointer',
+          onClick: () => Modal.close()
+        },
+        {
+          label: 'Save Declaration',
+          className: 'btn-primary px-5 py-2 rounded-full text-xs font-bold shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer',
+          onClick: () => {
+            const form = document.getElementById('form-add-pending-insurance');
+            if (form && !form.checkValidity()) {
+              form.reportValidity();
+              return;
+            }
+
+            const invNo = document.getElementById('add-ins-inv')?.value.trim();
+            const year = document.getElementById('add-ins-year')?.value;
+            const exporter = document.getElementById('add-ins-exporter')?.value;
+            const consignee = document.getElementById('add-ins-consignee')?.value.trim();
+            const vesselName = document.getElementById('add-ins-vessel')?.value.trim();
+            const rawDate = document.getElementById('add-ins-date')?.value;
+            const containerNo = document.getElementById('add-ins-container')?.value.trim();
+            const portOfLoading = document.getElementById('add-ins-pol')?.value.trim();
+            const portOfDischarge = document.getElementById('add-ins-pod')?.value.trim();
+            const destinationCountry = document.getElementById('add-ins-country')?.value;
+            const totalInvoiceValue = parseFloat(document.getElementById('add-ins-val')?.value || '0');
+            const assignedUnderwriter = document.getElementById('add-ins-underwriter')?.value;
+
+            // Format date e.g. 06-Nov-2026
+            let formattedDate = rawDate;
+            try {
+              if (rawDate) {
+                const [y, m, d] = rawDate.split('-');
+                const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+                formattedDate = `${d}-${monthNames[parseInt(m, 10) - 1]}-${y}`;
+              }
+            } catch (e) {}
+
+            const newRecord = {
+              id: newId,
+              invNo,
+              year,
+              exporter,
+              consignee,
+              vesselName,
+              shippingOnboardDt: formattedDate,
+              containerNo,
+              portOfLoading,
+              portOfDischarge,
+              destinationCountry,
+              totalInvoiceValue,
+              cargoValueUsd: totalInvoiceValue,
+              lotRef: `LOT-${newId}`,
+              contractNo: `SC-NEW-${nextSeq}`,
+              cargoDescription: 'Frozen Seafood Consignment IQF',
+              requiredClauses: 'ICC (A) All Risks + Reefer Temp Deviation + War & Strikes',
+              assignedUnderwriter,
+              status: 'DECLARATION_PENDING'
+            };
+
+            this.state.pendingInsurance = [newRecord, ...(this.state.pendingInsurance || [])];
+            Modal.close();
+            Toast.show(`Insurance Declaration ${newId} added successfully`, 'success');
+            if (typeof onCreated === 'function') onCreated();
+          }
+        }
+      ]
+    });
+  },
+
+  // Edit Marine Insurance Declaration Modal
+  showEditPendingInsuranceModal(row, onUpdated) {
+    if (!row) return;
+
+    Modal.show({
+      title: `Edit Insurance Declaration — ${row.id}`,
+      size: 'xl',
+      content: `
+        <form id="form-edit-pending-insurance" class="space-y-4 text-xs">
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Invoice Number</label>
+              <input type="text" id="edit-ins-inv" required value="${row.invNo || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Financial Year</label>
+              <select id="edit-ins-year" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+                <option value="2026-2027" ${row.year === '2026-2027' ? 'selected' : ''}>2026-2027</option>
+                <option value="2025-2026" ${row.year === '2025-2026' ? 'selected' : ''}>2025-2026</option>
+                <option value="2024-2025" ${row.year === '2024-2025' ? 'selected' : ''}>2024-2025</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Exporter</label>
+              <input type="text" id="edit-ins-exporter" value="${row.exporter || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Consignee</label>
+              <input type="text" id="edit-ins-consignee" required value="${row.consignee || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Vessel Name</label>
+              <input type="text" id="edit-ins-vessel" required value="${row.vesselName || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Shipping Onboard Dt</label>
+              <input type="text" id="edit-ins-date" required value="${row.shippingOnboardDt || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Container No</label>
+              <input type="text" id="edit-ins-container" required value="${row.containerNo || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Port of Loading</label>
+              <input type="text" id="edit-ins-pol" required value="${row.portOfLoading || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Port of Discharge</label>
+              <input type="text" id="edit-ins-pod" required value="${row.portOfDischarge || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Destination Country</label>
+              <input type="text" id="edit-ins-country" required value="${row.destinationCountry || ''}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Total Invoice Value (USD)</label>
+              <input type="number" id="edit-ins-val" required min="1" step="0.01" value="${row.totalInvoiceValue || 0}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Status</label>
+              <select id="edit-ins-status" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
+                <option value="DECLARATION_PENDING" ${row.status === 'DECLARATION_PENDING' ? 'selected' : ''}>DECLARATION PENDING</option>
+                <option value="QUOTATION_UNDER_REVIEW" ${row.status === 'QUOTATION_UNDER_REVIEW' ? 'selected' : ''}>QUOTATION UNDER REVIEW</option>
+                <option value="DRAFT_CERT_PREPARED" ${row.status === 'DRAFT_CERT_PREPARED' ? 'selected' : ''}>DRAFT CERT PREPARED</option>
+                <option value="COVER_NOTE_ISSUED" ${row.status === 'COVER_NOTE_ISSUED' ? 'selected' : ''}>COVER NOTE ISSUED</option>
+              </select>
+            </div>
+          </div>
+        </form>
+      `,
+      actions: [
+        {
+          label: 'Cancel',
+          className: 'btn-secondary px-5 py-2 rounded-full text-xs font-semibold border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#172B4D] transition-all cursor-pointer',
+          onClick: () => Modal.close()
+        },
+        {
+          label: 'Save Changes',
+          className: 'btn-primary px-5 py-2 rounded-full text-xs font-bold shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer',
+          onClick: () => {
+            const form = document.getElementById('form-edit-pending-insurance');
+            if (form && !form.checkValidity()) {
+              form.reportValidity();
+              return;
+            }
+
+            row.invNo = document.getElementById('edit-ins-inv')?.value.trim() || row.invNo;
+            row.year = document.getElementById('edit-ins-year')?.value || row.year;
+            row.exporter = document.getElementById('edit-ins-exporter')?.value.trim() || row.exporter;
+            row.consignee = document.getElementById('edit-ins-consignee')?.value.trim() || row.consignee;
+            row.vesselName = document.getElementById('edit-ins-vessel')?.value.trim() || row.vesselName;
+            row.shippingOnboardDt = document.getElementById('edit-ins-date')?.value.trim() || row.shippingOnboardDt;
+            row.containerNo = document.getElementById('edit-ins-container')?.value.trim() || row.containerNo;
+            row.portOfLoading = document.getElementById('edit-ins-pol')?.value.trim() || row.portOfLoading;
+            row.portOfDischarge = document.getElementById('edit-ins-pod')?.value.trim() || row.portOfDischarge;
+            row.destinationCountry = document.getElementById('edit-ins-country')?.value.trim() || row.destinationCountry;
+            row.totalInvoiceValue = parseFloat(document.getElementById('edit-ins-val')?.value || '0') || row.totalInvoiceValue;
+            row.cargoValueUsd = row.totalInvoiceValue;
+            row.status = document.getElementById('edit-ins-status')?.value || row.status;
+
+            Modal.close();
+            Toast.show(`Insurance Declaration ${row.id} updated successfully`, 'success');
+            if (typeof onUpdated === 'function') onUpdated();
+          }
+        }
+      ]
+    });
+  },
+
+
+  showCreateInsuranceTemplateModal(records = []) {
+    if (!records || records.length === 0) {
+      Toast.show('Please select at least one record to create insurance table / template.', 'warning');
+      return;
+    }
+
+    const totalVal = records.reduce((sum, r) => sum + Number(r.totalInvoiceValue || 0), 0);
+    const invoicesList = records.map(r => r.invNo).filter(Boolean).join(', ');
+    const defaultCoverNo = 'OPC-MAR-' + new Date().getFullYear() + '-' + Math.floor(1000 + Math.random() * 9000);
+
+    Modal.open({
+      title: 'Create Marine Insurance Table & Template (' + records.length + ' Shipments)',
+      size: 'xl',
+      content: `
+        <div class="space-y-4 text-xs">
+          <!-- Summary Hero Card -->
+          <div class="bg-gradient-to-r from-[#F0F9FF] to-[#F8FAFC] p-4 rounded-xl border border-[#BAE6FD] flex flex-wrap items-center justify-between gap-3 shadow-2xs">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-[#00A4B7] text-white flex items-center justify-center font-bold shadow-xs shrink-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              </div>
+              <div>
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span class="font-mono font-extrabold text-[#0F172A] text-base">INS-DECL-TBL-${Math.floor(1000 + Math.random() * 9000)}</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold tracking-wide uppercase bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD]">Marine Cargo Open Cover</span>
+                </div>
+                <div class="text-[11px] text-[#64748B] mt-0.5 font-medium flex items-center gap-1.5 flex-wrap">
+                  <span>Selected Shipments: <strong>${records.length} Invoices</strong> (${invoicesList})</span>
+                </div>
+              </div>
+            </div>
+            <div class="bg-white px-4 py-2 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[120px]">
+              <div class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider">Total Insured Value</div>
+              <div class="text-sm font-extrabold text-[#006644] font-mono mt-0.5">${totalVal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+            </div>
+          </div>
+
+          <!-- Policy & Underwriting Specifications -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs space-y-3">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9] pb-2">
+              <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">1</span>
+              <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Underwriting & Policy Specifications</h3>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3.5">
+              <div>
+                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Open Cover / Policy No</label>
+                <input type="text" id="ins-tbl-policy" value="${defaultCoverNo}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Underwriter / Insurer</label>
+                <select id="ins-tbl-insurer" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="New India Assurance Co. Ltd">New India Assurance Co. Ltd</option>
+                  <option value="United India Insurance Co. Ltd">United India Insurance Co. Ltd</option>
+                  <option value="ICICI Lombard General Insurance">ICICI Lombard General Insurance</option>
+                  <option value="Tata AIG General Insurance">Tata AIG General Insurance</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Coverage Basis</label>
+                <input type="text" id="ins-tbl-basis" value="110% CIF Value (All Risks + War & SRCC)" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Certificate Template</label>
+                <select id="ins-tbl-type" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="Standard Marine Transit Declaration">Standard Marine Transit Declaration</option>
+                  <option value="Consolidated Shipment Table Schedule">Consolidated Shipment Table Schedule</option>
+                  <option value="Underwriting Cover Note">Underwriting Cover Note</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Selected Shipments Declaration Table -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs space-y-3">
+            <div class="flex items-center justify-between border-b border-[#F1F5F9] pb-2">
+              <div class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">2</span>
+                <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Declaration Schedule Table (${records.length} Selected Records)</h3>
+              </div>
+              <span class="text-[11px] font-bold text-[#00A4B7]">Institute Cargo Clauses (A)</span>
+            </div>
+            <div class="overflow-x-auto max-h-[220px] overflow-y-auto">
+              <table class="w-full text-left text-xs">
+                <thead>
+                  <tr class="border-b border-[#DFE1E6] text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider bg-[#FAFBFC]">
+                    <th class="p-2">Inv No</th>
+                    <th class="p-2">Vessel Name</th>
+                    <th class="p-2">Onboard Dt</th>
+                    <th class="p-2">Container No</th>
+                    <th class="p-2">Port of Loading</th>
+                    <th class="p-2">Port of Discharge</th>
+                    <th class="p-2">Destination</th>
+                    <th class="p-2 text-right">Invoice Value</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-[#F1F5F9]">
+                  ${records.map(r => `
+                    <tr class="hover:bg-[#F0F9FF] transition-colors">
+                      <td class="p-2 font-mono font-bold text-[#172B4D]">${r.invNo || '-'}</td>
+                      <td class="p-2 font-semibold text-[#172B4D]">${r.vesselName || '-'}</td>
+                      <td class="p-2 font-mono text-[#5E6C84]">${r.shippingOnboardDt || '-'}</td>
+                      <td class="p-2 font-mono font-semibold text-[#403294]">${r.containerNo || '-'}</td>
+                      <td class="p-2 text-[#172B4D]">${r.portOfLoading || '-'}</td>
+                      <td class="p-2 text-[#172B4D]">${r.portOfDischarge || '-'}</td>
+                      <td class="p-2 text-[#172B4D]">${r.destinationCountry || '-'}</td>
+                      <td class="p-2 font-mono font-extrabold text-[#006644] text-right">${Number(r.totalInvoiceValue || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      `,
+      footer: `
+        <div class="flex items-center justify-end gap-2.5">
+          <button type="button" class="btn-secondary px-5 py-2 rounded-full text-xs font-semibold border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#172B4D] transition-all cursor-pointer" onclick="Modal.close()">Cancel</button>
+          <button type="button" id="btn-confirm-create-ins-template" class="btn-primary px-5 py-2 rounded-full text-xs font-bold shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer flex items-center gap-1.5">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            <span>Create Declaration Table</span>
+          </button>
+        </div>
+      `
+    });
+
+    document.getElementById('btn-confirm-create-ins-template')?.addEventListener('click', () => {
+      Modal.close();
+      Toast.show('Marine Insurance Declaration Table created successfully for ' + records.length + ' shipments!', 'success');
     });
   },
 
