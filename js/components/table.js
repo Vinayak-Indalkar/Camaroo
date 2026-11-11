@@ -64,7 +64,8 @@ export class DataTable {
     this.exportable = exportable;
     this.showCopy = showCopy;
     const derivedTitle = typeof containerId === 'string' ? containerId.replace(/^[a-z0-9]+-/, '').replace(/-table$/, '').split('-').filter(Boolean).map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ') : '';
-    this.tableTitle = tableTitle || derivedTitle;
+    const rawTitle = tableTitle || derivedTitle;
+    this.tableTitle = rawTitle ? rawTitle.replace(/\s*\(\d+\)\s*$/, '').trim() : '';
     this.topFilterTitle = topFilterTitle || this.tableTitle || 'DATA EXPLORER & RECORDS';
     this.hideTopFilterBar = hideTopFilterBar;
     this.isFilterCollapsed = false;
@@ -511,7 +512,7 @@ export class DataTable {
           ${!this.hideToolbar ? `<!-- Table Control Toolbar (Column visibility, Download, Copy, Search) -->
           <div class="px-4 py-2.5 border-b border-[#DFE1E6] bg-[#FAFBFC] flex flex-wrap items-center justify-between gap-3">
             <div class="flex items-center gap-2.5 flex-wrap">
-              ${this.tableTitle ? `<h2 class="text-sm font-bold text-[#172B4D] uppercase tracking-wide">${this.tableTitle} (${this.filteredData.length})</h2>` : ''}
+              ${this.tableTitle ? `<h2 class="text-sm font-bold text-[#172B4D] uppercase tracking-wide">${(this.tableTitle || '').replace(/\s*\(\d+\)\s*$/, '').trim()} (${this.filteredData.length})</h2>` : ''}
               
               <div id="dt-filter-container" class="flex items-center gap-2"></div>
             </div>

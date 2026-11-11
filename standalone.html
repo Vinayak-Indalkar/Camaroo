@@ -5921,7 +5921,8 @@ class DataTable {
     this.exportable = exportable;
     this.showCopy = showCopy;
     const derivedTitle = typeof containerId === 'string' ? containerId.replace(/^[a-z0-9]+-/, '').replace(/-table$/, '').split('-').filter(Boolean).map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ') : '';
-    this.tableTitle = tableTitle || derivedTitle;
+    const rawTitle = tableTitle || derivedTitle;
+    this.tableTitle = rawTitle ? rawTitle.replace(/\s*\(\d+\)\s*$/, '').trim() : '';
     this.topFilterTitle = topFilterTitle || this.tableTitle || 'DATA EXPLORER & RECORDS';
     this.hideTopFilterBar = hideTopFilterBar;
     this.isFilterCollapsed = false;
@@ -6368,7 +6369,7 @@ class DataTable {
           ${!this.hideToolbar ? `<!-- Table Control Toolbar (Column visibility, Download, Copy, Search) -->
           <div class="px-4 py-2.5 border-b border-[#DFE1E6] bg-[#FAFBFC] flex flex-wrap items-center justify-between gap-3">
             <div class="flex items-center gap-2.5 flex-wrap">
-              ${this.tableTitle ? `<h2 class="text-sm font-bold text-[#172B4D] uppercase tracking-wide">${this.tableTitle} (${this.filteredData.length})</h2>` : ''}
+              ${this.tableTitle ? `<h2 class="text-sm font-bold text-[#172B4D] uppercase tracking-wide">${(this.tableTitle || '').replace(/\s*\(\d+\)\s*$/, '').trim()} (${this.filteredData.length})</h2>` : ''}
               
               <div id="dt-filter-container" class="flex items-center gap-2"></div>
             </div>
@@ -38271,6 +38272,7 @@ const QCView = {
 
 
 
+
 const ProductionView = {
   escape(value) {
     return String(value ?? '').replace(/[&<>"']/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[character]));
@@ -39387,194 +39389,219 @@ const ProductionView = {
   },
 
   // =========================================================================
+    // =========================================================================
+    // =========================================================================
   // SUB MENU: DASHBOARD -> PRODUCTION OPERATIONS DASHBOARD
   // =========================================================================
   renderProductionDashboard(container) {
     try {
-      const totalFloorProd = '42,850';
-      const avgYield = '84.8%';
-      const tunnelOutput = '28,400';
-      const activeBatchesCount = (this.state.freezingTrackIds?.length || 0) + (this.state.soakingTrackIds?.length || 0);
+      const soakCount = this.state.soakingTrackIds?.length || 12;
+      const freezeCount = this.state.freezingTrackIds?.length || 18;
+      const yieldCount = this.state.standardYields?.length || 15;
+      const storeCount = this.state.freezingStoreReports?.length || 8;
 
-      // Floor lines data
-      const lines = [
-        { id: 1, name: 'Line #1 — IQF Tunnel 1', product: 'Vannamei PD IQF 31/40', output: '7,420 Kgs', temp: '-22.5°C', glaze: '10%', status: 'RUNNING', badgeCls: 'bg-[#E3FCEF] text-[#006644]' },
-        { id: 2, name: 'Line #2 — IQF Tunnel 2', product: 'Black Tiger HOSO IQF 16/20', output: '6,850 Kgs', temp: '-23.1°C', glaze: '12%', status: 'RUNNING', badgeCls: 'bg-[#E3FCEF] text-[#006644]' },
-        { id: 3, name: 'Line #3 — Plate Freezer', product: 'Vannamei HLSO Block 26/30', output: '8,200 Kgs', temp: '-26.0°C', glaze: 'None', status: 'COMPLETED', badgeCls: 'bg-[#DEEBFF] text-[#0747A6]' },
-        { id: 4, name: 'Line #4 — Blast Freezer', product: 'Sea Pearl Cooked PDTO', output: '5,930 Kgs', temp: '-24.8°C', glaze: '5%', status: 'STAGED', badgeCls: 'bg-[#FFF0B3] text-[#172B4D]' }
-      ];
-
-      // Quick Action modules
-      const modules = [
-        { title: 'Soaking Track ID', desc: 'Pre-chill parameters, chemical dosing & soaking lot IDs', hash: '#/production/pre-processing/soaking-trackid', count: `${this.state.soakingTrackIds?.length || 0} Lots`, color: '#0284C7' },
-        { title: 'Freezing Track ID', desc: 'Freezer timer, slab output & floor rejection tracking', hash: '#/production/pre-processing/freezing-trackid', count: `${this.state.freezingTrackIds?.length || 0} Runs`, color: '#00875A' },
-        { title: 'Standard Yields', desc: 'Enterprise standard yield benchmarks by species & grade', hash: '#/production/operations/production-standard-yields', count: `${this.state.standardYields?.length || 0} Targets`, color: '#6554C0' },
-        { title: 'Soaking Operations', desc: 'Live tub weights, salt & chemical solution batch logs', hash: '#/production/operations/soaking', count: `${this.state.soakingOperations?.length || 0} Batches`, color: '#FFAB00' },
-        { title: 'Freezing-Store Intake', desc: 'IQF carton packing reports & coldstore chamber staging', hash: '#/production/operations/freezing-store', count: `${this.state.freezingStoreReports?.length || 0} Reports`, color: '#00B8D9' }
+      // 6 Production Menu Tabs (Static overview cards, zero click events)
+      const productionTabs = [
+        {
+          title: 'Soaking Track ID',
+          section: 'Pre-Processing',
+          count: `${soakCount} Lots`,
+          icon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>`
+        },
+        {
+          title: 'Freezing Track ID',
+          section: 'Pre-Processing',
+          count: `${freezeCount} Runs`,
+          icon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v18m0-18l3 3m-3-3l-3 3m0 12l3 3m0 0l3-3m-6-6h18m-18 0l3-3m-3 3l3 3m12-6l3 3m0 0l-3 3"/></svg>`
+        },
+        {
+          title: 'Standard Yields',
+          section: 'Operations',
+          count: `${yieldCount} Targets`,
+          icon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>`
+        },
+        {
+          title: 'Soaking Operations',
+          section: 'Operations',
+          count: `${this.state.soakingOperations?.length || 6} Batches`,
+          icon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/></svg>`
+        },
+        {
+          title: 'Soaking (V2)',
+          section: 'Operations',
+          count: 'Active',
+          icon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/></svg>`
+        },
+        {
+          title: 'Freezing-Store Intake',
+          section: 'Operations',
+          count: `${storeCount} Reports`,
+          icon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>`
+        }
       ];
 
       container.innerHTML = `
-        <div class="space-y-4">
-          <!-- Top Header & Live Status -->
-          <div class="flex flex-wrap items-center justify-between gap-3 mb-1">
-            <div>
-              <h1 class="text-xl font-extrabold text-[#172B4D] flex items-center gap-2">
-                <span>Production Operations Dashboard</span>
-              </h1>
+        <div class="space-y-4 animate-fade-in select-none">
+          <!-- Page Title (Strictly clean H1 per AGENTS.md Rule 2) -->
+          <div class="flex items-center justify-between mb-1">
+            <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Production Operations Dashboard</h1>
+          </div>
+
+          <!-- Production Summary Cards (Clean Minimalist 4-KPI Grid) -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+            <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
+              <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Soaking Track IDs</div>
+              <div class="text-2xl font-black text-[#172B4D] mt-1 font-mono">${soakCount} <span class="text-xs font-semibold text-[#5E6C84]">Lots</span></div>
+              <div class="text-[11px] font-semibold text-[#00A4B7] mt-1">Pre-Processing</div>
             </div>
-            <div class="flex items-center gap-2 flex-wrap">
-              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E3FCEF] text-[#006644] text-xs font-bold border border-[#ABF5D1]">
-                <span class="w-2 h-2 rounded-full bg-[#00875A] animate-pulse"></span>
-                Shift A (Day) • Floor Running
-              </span>
-              <span class="px-3 py-1 rounded-full bg-white text-[#172B4D] text-xs font-semibold border border-[#DFE1E6] shadow-2xs">
-                Plant: <strong>DFL UNIT-5 (JPT)</strong>
-              </span>
+            <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
+              <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Freezing Track IDs</div>
+              <div class="text-2xl font-black text-[#172B4D] mt-1 font-mono">${freezeCount} <span class="text-xs font-semibold text-[#5E6C84]">Runs</span></div>
+              <div class="text-[11px] font-semibold text-[#00A4B7] mt-1">Pre-Processing</div>
+            </div>
+            <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
+              <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Standard Yields</div>
+              <div class="text-2xl font-black text-[#006644] mt-1 font-mono">84.8%</div>
+              <div class="text-[11px] font-semibold text-[#006644] mt-1">82.0% Target Baseline</div>
+            </div>
+            <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
+              <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Freezing-Store Intake</div>
+              <div class="text-2xl font-black text-[#172B4D] mt-1 font-mono">${storeCount} <span class="text-xs font-semibold text-[#5E6C84]">Reports</span></div>
+              <div class="text-[11px] font-semibold text-[#5E6C84] mt-1">Stored Inventory</div>
             </div>
           </div>
 
-          <!-- 4 Top KPI Cards -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
-            <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
-              <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Today's Floor Production</div>
-              <div class="text-2xl font-black text-[#172B4D] mt-1.5">${totalFloorProd} <span class="text-xs font-bold text-[#6B778C]">Kgs</span></div>
-              <div class="text-[11px] font-semibold text-[#00875A] mt-1">+12.4% vs Shift Target • 4 Active Lines</div>
-            </div>
-            <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
-              <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Average Process Yield</div>
-              <div class="text-2xl font-black text-[#00875A] mt-1.5">${avgYield}</div>
-              <div class="text-[11px] font-semibold text-[#00875A] mt-1">Target: 82.0% • +2.8% Positive Variance</div>
-            </div>
-            <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
-              <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Tunnel Freezing Output</div>
-              <div class="text-2xl font-black text-[#0284C7] mt-1.5">${tunnelOutput} <span class="text-xs font-bold text-[#6B778C]">Kgs</span></div>
-              <div class="text-[11px] font-semibold text-[#5E6C84] mt-1">IQF: 18.2 MT • Plate Block: 10.2 MT</div>
-            </div>
-            <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
-              <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Active Batches In-Process</div>
-              <div class="text-2xl font-black text-[#6554C0] mt-1.5">${activeBatchesCount} <span class="text-xs font-bold text-[#6B778C]">Batches</span></div>
-              <div class="text-[11px] font-semibold text-[#6554C0] mt-1">${this.state.soakingTrackIds?.length || 0} Soaking • ${this.state.freezingTrackIds?.length || 0} Freezing Runs</div>
-            </div>
-          </div>
-
-          <!-- 4 Freezing Tunnels & Lines Telemetry Status -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
-            ${lines.map(line => `
-              <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 shadow-xs flex flex-col justify-between">
-                <div>
-                  <div class="flex items-center justify-between pb-2 border-b border-[#F4F5F7]">
-                    <h4 class="text-xs font-bold text-[#172B4D] truncate">${line.name}</h4>
-                    <span class="px-2 py-0.5 rounded text-[10px] font-bold ${line.badgeCls}">${line.status}</span>
+          <!-- Production Menu Sections (Minimalist 6-Card Grid, Static Display) -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+            ${productionTabs.map(tab => `
+              <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 shadow-xs flex items-center justify-between cursor-default">
+                <div class="flex items-center gap-3">
+                  <div class="w-9 h-9 rounded-lg bg-[#F0F9FF] border border-[#BAE6FD] text-[#00A4B7] flex items-center justify-center shrink-0">
+                    ${tab.icon}
                   </div>
-                  <div class="mt-2.5 text-xs">
-                    <div class="text-[#172B4D] font-semibold truncate">${line.product}</div>
-                    <div class="flex items-center justify-between mt-2 text-[11px] text-[#5E6C84]">
-                      <span>Output: <strong class="text-[#172B4D]">${line.output}</strong></span>
-                      <span>Glaze: <strong class="text-[#172B4D]">${line.glaze}</strong></span>
-                    </div>
+                  <div>
+                    <div class="text-xs font-bold text-[#172B4D]">${tab.title}</div>
+                    <div class="text-[10px] font-semibold text-[#5E6C84] uppercase tracking-wider mt-0.5">${tab.section}</div>
                   </div>
                 </div>
-                <div class="mt-3 pt-2.5 border-t border-[#F4F5F7] flex items-center justify-between text-xs">
-                  <span class="text-[11px] font-bold text-[#5E6C84] uppercase">Exit Temp</span>
-                  <span class="font-mono font-bold text-[#0284C7]">${line.temp}</span>
-                </div>
+                <span class="px-2.5 py-0.5 rounded-full text-xs font-bold font-mono bg-[#F4F5F7] text-[#172B4D] border border-[#DFE1E6]">${tab.count}</span>
               </div>
             `).join('')}
           </div>
 
-          <!-- Quick Navigation / Production Sections -->
-          <div>
-            <div class="flex items-center justify-between mb-2">
-              <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Production Operations Sections</h3>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
-              ${modules.map(m => `
-                <a href="${m.hash}" class="bg-white border border-[#DFE1E6] hover:border-[#0284C7] rounded-xl p-3.5 shadow-xs transition-all hover:shadow-sm group flex flex-col justify-between">
-                  <div>
-                    <div class="flex items-center justify-between">
-                      <span class="text-xs font-bold text-[#172B4D] group-hover:text-[#0284C7] transition-colors truncate">${m.title}</span>
-                      <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-[#F4F5F7] text-[#5E6C84]">${m.count}</span>
-                    </div>
-                    <p class="text-[11px] text-[#6B778C] mt-1.5 leading-snug line-clamp-2">${m.desc}</p>
-                  </div>
-                  <div class="mt-3 pt-2 border-t border-[#F4F5F7] text-[11px] font-bold text-[#0284C7] flex items-center justify-between">
-                    <span>Open Section</span>
-                    <svg class="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                  </div>
-                </a>
-              `).join('')}
-            </div>
-          </div>
-
-          <!-- Live Floor Runs & Track Code Registry Table -->
-          <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
-            <div class="flex items-center justify-between pb-3 border-b border-[#F4F5F7] mb-3">
-              <div>
-                <h3 class="text-sm font-bold text-[#172B4D]">Recent Production Floor Runs & Batches</h3>
-                <p class="text-xs text-[#6B778C]">Click any row to open full batch parameters and quality sign-offs</p>
+          <!-- Production Operations Visual Graphs (Replacing Table with Static Visual Charts) -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <!-- Graph 1: Production Output by Stage -->
+            <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
+              <div class="flex items-center justify-between pb-3 border-b border-[#F4F5F7] mb-3">
+                <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Production Output by Stage (Kgs)</h3>
+                <span class="text-[11px] font-semibold text-[#5E6C84]">Shift Total</span>
+              </div>
+              <div class="h-64 w-full">
+                <canvas id="prod-stage-chart"></canvas>
               </div>
             </div>
-            <div id="prod-dashboard-table"></div>
+
+            <!-- Graph 2: Process Yield vs Standard Benchmark -->
+            <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
+              <div class="flex items-center justify-between pb-3 border-b border-[#F4F5F7] mb-3">
+                <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Process Yield vs Standard Benchmark (%)</h3>
+                <span class="text-[11px] font-semibold text-[#006644] font-mono">Target: 82.0%</span>
+              </div>
+              <div class="h-64 w-full">
+                <canvas id="prod-yield-chart"></canvas>
+              </div>
+            </div>
           </div>
         </div>
       `;
 
-      // Unified Floor Runs Data
-      const runsData = [
-        ...(this.state.freezingTrackIds || []).slice(0, 4).map(r => ({
-          trackCode: r.trackCode,
-          stage: 'Freezing Tunnel',
-          plant: r.plant || r.productionPlant || 'DFL UNIT-5 (JPT)',
-          variety: r.variety || 'Vannamei (VM)',
-          grade: r.grade || '31/40',
-          shift: r.shift || 'Shift A (Day)',
-          output: `${r.productionSlabs || 400} Slabs (${r.prodWeight || '800.0 Kgs'})`,
-          yieldPct: '85.2%',
-          status: r.abStatus || 'ACTIVE',
-          type: 'freezing',
-          raw: r
-        })),
-        ...(this.state.soakingTrackIds || []).slice(0, 4).map(r => ({
-          trackCode: r.trackCode,
-          stage: 'Soaking Floor',
-          plant: r.plant || r.productionPlant || 'DFL UNIT-5 (JPT)',
-          variety: r.variety || 'Vannamei (VM)',
-          grade: r.grade || '21/25',
-          shift: r.shift || 'Shift A (Day)',
-          output: `${r.inQuantity || 1200} Kg In / ${r.outQuantity || 1240} Kg Out`,
-          yieldPct: '103.3%',
-          status: 'COMPLETED',
-          type: 'soaking',
-          raw: r
-        }))
-      ];
-
-      new DataTable({
-        containerId: 'prod-dashboard-table',
-        keyField: 'trackCode',
-        searchable: true,
-        exportable: true,
-        pageSize: 8,
-        onRowClick: (row) => {
-          if (row.type === 'freezing') {
-            this.showFreezingDetails(row.raw);
-          } else {
-            this.showSoakingDetails(row.raw);
+      // Render Charts after DOM injection
+      setTimeout(() => {
+        const chartHelper = typeof Charts !== 'undefined' ? Charts : (typeof window !== 'undefined' ? window.Charts : null);
+        if (chartHelper) {
+          // 1. Production Stage Volume Bar Chart
+          if (typeof chartHelper.renderBarChart === 'function') {
+            chartHelper.renderBarChart(
+              'prod-stage-chart',
+              ['Soaking Track ID', 'Soaking Ops', 'Freezing Track ID', 'Freezing-Store'],
+              [
+                {
+                  label: 'Throughput (Kgs)',
+                  data: [14200, 13850, 12600, 12150],
+                  backgroundColor: '#00A4B7',
+                  borderRadius: 6
+                }
+              ],
+              {
+                plugins: {
+                  legend: { display: false }
+                },
+                scales: {
+                  y: {
+                    grid: { color: '#F1F5F9' },
+                    ticks: {
+                      font: { size: 10, family: 'Inter' },
+                      color: '#5E6C84',
+                      callback: v => `${v.toLocaleString()} Kg`
+                    }
+                  },
+                  x: {
+                    grid: { display: false },
+                    ticks: { font: { size: 10, family: 'Inter', weight: 'bold' }, color: '#172B4D' }
+                  }
+                }
+              }
+            );
           }
-        },
-        columns: [
-          { field: 'trackCode', header: 'Track Code', sortable: true, render: v => `<span class="font-mono font-bold text-[#0284C7]">${v}</span>` },
-          { field: 'stage', header: 'Operation Stage', render: v => `<span class="px-2 py-0.5 rounded text-[10px] font-bold ${v.includes('Freezing') ? 'bg-[#E3FCEF] text-[#006644]' : 'bg-[#DEEBFF] text-[#0747A6]'}">${v}</span>` },
-          { field: 'plant', header: 'Production Plant' },
-          { field: 'variety', header: 'Variety' },
-          { field: 'grade', header: 'Grade' },
-          { field: 'shift', header: 'Shift' },
-          { field: 'output', header: 'Output / Throughput', render: v => `<span class="font-mono font-bold text-[#172B4D]">${v}</span>` },
-          { field: 'yieldPct', header: 'Yield', render: v => `<span class="font-mono font-bold text-[#00875A]">${v}</span>` },
-          { field: 'status', header: 'Status', render: v => `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${v === 'ACTIVE' || v === 'COMPLETED' ? 'bg-[#E3FCEF] text-[#006644]' : 'bg-[#FFF0B3] text-[#172B4D]'}">${v}</span>` }
-        ],
-        data: runsData
-      });
+
+          // 2. Process Yield vs Benchmark Line Chart
+          if (typeof chartHelper.renderLineChart === 'function') {
+            chartHelper.renderLineChart(
+              'prod-yield-chart',
+              ['16/20', '21/25', '26/30', '31/40', '41/50', '51/60'],
+              [
+                {
+                  label: 'Actual Yield %',
+                  data: [86.5, 85.2, 84.8, 83.9, 82.4, 81.8],
+                  borderColor: '#00A4B7',
+                  backgroundColor: 'rgba(0, 164, 183, 0.1)',
+                  fill: true,
+                  pointBackgroundColor: '#00A4B7',
+                  pointRadius: 4
+                },
+                {
+                  label: 'Standard Benchmark %',
+                  data: [84.0, 83.0, 82.5, 82.0, 81.0, 80.0],
+                  borderColor: '#5E6C84',
+                  borderDash: [4, 4],
+                  backgroundColor: 'transparent',
+                  pointRadius: 3
+                }
+              ],
+              {
+                scales: {
+                  y: {
+                    min: 75,
+                    max: 95,
+                    grid: { color: '#F1F5F9' },
+                    ticks: {
+                      font: { size: 10, family: 'Inter' },
+                      color: '#5E6C84',
+                      callback: v => `${v}%`
+                    }
+                  },
+                  x: {
+                    grid: { display: false },
+                    ticks: { font: { size: 10, family: 'Inter', weight: 'bold' }, color: '#172B4D' }
+                  }
+                }
+              }
+            );
+          }
+        }
+      }, 60);
+
     } catch (e) {
       console.error('Error rendering Production Dashboard:', e);
       container.innerHTML = `<div class="p-6 bg-white border border-[#DFE1E6] rounded-xl text-center text-[#DE350B]">Production Dashboard encountered an error: ${e.message}</div>`;
@@ -68836,96 +68863,71 @@ const SalesView = {
     ],
 
     insuranceTemplates: [
-      {
-        templateCode: "TPL-MAR-USA-01",
-        templateName: "USA Sea Container - Comprehensive All Risks",
-        underwriter: "The New India Assurance Co. Ltd.",
-        policyScope: "Visakhapatnam (INVTZ) to US East/West Coast Ports",
-        clausesSummary: "Institute Cargo Clauses (A) 2009, War & Strikes, Reefer Breakdown 24h",
-        premiumRate: "0.045% of CIF + 10%",
-        deductibleUsd: 1000,
-        currency: "USD",
-        status: "ACTIVE_DEFAULT"
-      },
-      {
-        templateCode: "TPL-MAR-EU-02",
-        templateName: "EU Frozen Seafood Standard Policy Template",
-        underwriter: "United India Insurance Co. Ltd.",
-        policyScope: "Visakhapatnam (INVTZ) to Rotterdam / Antwerp / Hamburg",
-        clausesSummary: "Institute Frozen Food Clauses (A), Temperature Variation, Port Delays",
-        premiumRate: "0.048% of CIF + 10%",
-        deductibleUsd: 850,
-        currency: "EUR / USD",
-        status: "ACTIVE_DEFAULT"
-      },
-      {
-        templateCode: "TPL-MAR-JPN-03",
-        templateName: "Japan HOSO / Sashimi Grade Transit Protocol",
-        underwriter: "ICICI Lombard General Insurance",
-        policyScope: "Visakhapatnam (INVTZ) to Tokyo / Yokohama / Osaka",
-        clausesSummary: "All Risks Marine Cargo + Coldstore Pre-Shipment & Post-Discharge 15 Days",
-        premiumRate: "0.052% of Invoice Value",
-        deductibleUsd: 750,
-        currency: "USD",
-        status: "ACTIVE_VERIFIED"
-      }
+      { id: 1, sNo: 1, invoiceTemplateNo: "INS-TPL-2026-001", generatedOn: "04-Nov-2026", year: "2026-2027", insuranceType: "Marine Cargo Open Cover", exporter: "Devi Fisheries Limited" },
+      { id: 2, sNo: 2, invoiceTemplateNo: "INS-TPL-2026-002", generatedOn: "02-Nov-2026", year: "2026-2027", insuranceType: "All Risks - Institute Cargo Clauses (A)", exporter: "Devi Fisheries Limited" },
+      { id: 3, sNo: 3, invoiceTemplateNo: "INS-TPL-2026-003", generatedOn: "30-Oct-2026", year: "2026-2027", insuranceType: "Institute Frozen Food Clauses (A)", exporter: "Devi Sea Foods Ltd" },
+      { id: 4, sNo: 4, invoiceTemplateNo: "INS-TPL-2026-004", generatedOn: "28-Oct-2026", year: "2026-2027", insuranceType: "USA Sea Container - Comprehensive All Risks", exporter: "Devi Fisheries Limited" },
+      { id: 5, sNo: 5, invoiceTemplateNo: "INS-TPL-2026-005", generatedOn: "25-Oct-2026", year: "2026-2027", insuranceType: "EU Frozen Seafood Standard Policy Template", exporter: "Devi Fisheries Limited" },
+      { id: 6, sNo: 6, invoiceTemplateNo: "INS-TPL-2026-006", generatedOn: "22-Oct-2026", year: "2026-2027", insuranceType: "Marine Cargo Specific Voyage Policy", exporter: "Devi Sea Foods Ltd" },
+      { id: 7, sNo: 7, invoiceTemplateNo: "INS-TPL-2026-007", generatedOn: "18-Oct-2026", year: "2026-2027", insuranceType: "Reefer Breakdown & Temperature Deviation Cover", exporter: "Devi Aqua Feeds Pvt Ltd" },
+      { id: 8, sNo: 8, invoiceTemplateNo: "INS-TPL-2026-008", generatedOn: "15-Oct-2026", year: "2026-2027", insuranceType: "Marine Cargo Open Cover", exporter: "Devi Fisheries Limited" }
     ],
 
     insurancePayments: [
       {
-        premInvoiceNo: "PREM-INV-2026-104",
+        id: "PAY-001",
+        sNo: 1,
+        insNo: "INS-2026-001",
+        invoices: "INV-EXP-2026-088",
+        year: "2026-2027",
         policyNo: "POL-MAR-2026-7701",
+        premInvoiceNo: "PREM-INV-2026-104",
         underwriter: "The New India Assurance Co. Ltd.",
-        cargoLot: "LOT-2026-00125",
         sumInsuredUsd: 175230,
-        basicPremiumInr: 72800,
-        gstTaxInr: 13104,
         totalPaidInr: 85904,
         paymentDate: "2026-10-17",
-        paymentMode: "NEFT / Direct Debit",
-        utrNumber: "UBIN26101788210",
         status: "PAID_RECEIPTED"
       },
       {
-        premInvoiceNo: "PREM-INV-2026-105",
+        id: "PAY-002",
+        sNo: 2,
+        insNo: "INS-2026-002",
+        invoices: "INV-EXP-2026-089",
+        year: "2026-2027",
         policyNo: "POL-MAR-2026-7702",
+        premInvoiceNo: "PREM-INV-2026-105",
         underwriter: "United India Insurance Co. Ltd.",
-        cargoLot: "LOT-2026-00126",
         sumInsuredUsd: 223300,
-        basicPremiumInr: 91400,
-        gstTaxInr: 16452,
         totalPaidInr: 107852,
         paymentDate: "2026-10-13",
-        paymentMode: "RTGS Bank Transfer",
-        utrNumber: "SBIN26101344102",
         status: "PAID_RECEIPTED"
       },
       {
-        premInvoiceNo: "PREM-INV-2026-106",
+        id: "PAY-003",
+        sNo: 3,
+        insNo: "INS-2026-003",
+        invoices: "INV-EXP-2026-090",
+        year: "2026-2027",
         policyNo: "POL-MAR-2026-7703",
+        premInvoiceNo: "PREM-INV-2026-106",
         underwriter: "ICICI Lombard General Insurance",
-        cargoLot: "LOT-2026-00128",
         sumInsuredUsd: 147840,
-        basicPremiumInr: 61500,
-        gstTaxInr: 11070,
         totalPaidInr: 72570,
         paymentDate: "2026-10-26",
-        paymentMode: "Online Corporate Banking",
-        utrNumber: "ICIC26102609912",
         status: "PAID_RECEIPTED"
       },
       {
-        premInvoiceNo: "PREM-INV-2026-107",
+        id: "PAY-004",
+        sNo: 4,
+        insNo: "INS-2026-004",
+        invoices: "INV-EXP-2026-091",
+        year: "2026-2027",
         policyNo: "POL-MAR-2026-7704",
+        premInvoiceNo: "PREM-INV-2026-107",
         underwriter: "The New India Assurance Co. Ltd.",
-        cargoLot: "LOT-2026-00130",
         sumInsuredUsd: 232320,
-        basicPremiumInr: 96500,
-        gstTaxInr: 17370,
         totalPaidInr: 113870,
         paymentDate: "2026-11-04",
-        paymentMode: "Treasury Cheque / Pending",
-        utrNumber: "PENDING_CLEARING",
         status: "APPROVAL_PENDING"
       }
     ]
@@ -77318,7 +77320,7 @@ const SalesView = {
         containerId: 'pending-insurance-table-container',
         data: dataToDisplay,
         keyField: 'id',
-        tableTitle: `Pending Insurance (${dataToDisplay.length})`,
+        tableTitle: 'Pending Insurance',
         searchable: true,
         exportable: true,
         selectable: true,
@@ -77852,205 +77854,386 @@ const SalesView = {
 
   showCreateInsuranceTemplateModal(records = []) {
     if (!records || records.length === 0) {
-      Toast.show('Please select at least one record to create insurance table / template.', 'warning');
+      Toast.show('Please select at least one record to configure insurance.', 'warning');
       return;
     }
 
-    const totalVal = records.reduce((sum, r) => sum + Number(r.totalInvoiceValue || 0), 0);
-    const invoicesList = records.map(r => r.invNo).filter(Boolean).join(', ');
-    const defaultCoverNo = 'OPC-MAR-' + new Date().getFullYear() + '-' + Math.floor(1000 + Math.random() * 9000);
+    const currentInsType = records[0]?.insuranceType || 'Marine Cargo Open Cover';
+    const insuranceTypeOptions = [
+      'Marine Cargo Open Cover',
+      'All Risks - Institute Cargo Clauses (A)',
+      'Institute Frozen Food Clauses (A)',
+      'USA Sea Container - Comprehensive All Risks',
+      'EU Frozen Seafood Standard Policy Template',
+      'Marine Cargo Specific Voyage Policy',
+      'Reefer Breakdown & Temperature Deviation Cover',
+      'War, Strikes, Riots & Civil Commotions (SRCC)'
+    ];
+
+    if (!insuranceTypeOptions.includes(currentInsType) && currentInsType) {
+      insuranceTypeOptions.unshift(currentInsType);
+    }
 
     Modal.open({
-      title: 'Create Marine Insurance Table & Template (' + records.length + ' Shipments)',
-      size: 'xl',
+      title: 'Create Insurance Template',
+      size: 'md',
       content: `
-        <div class="space-y-4 text-xs">
-          <!-- Summary Hero Card -->
-          <div class="bg-gradient-to-r from-[#F0F9FF] to-[#F8FAFC] p-4 rounded-xl border border-[#BAE6FD] flex flex-wrap items-center justify-between gap-3 shadow-2xs">
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl bg-[#00A4B7] text-white flex items-center justify-center font-bold shadow-xs shrink-0">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-              </div>
-              <div>
-                <div class="flex items-center gap-2 flex-wrap">
-                  <span class="font-mono font-extrabold text-[#0F172A] text-base">INS-DECL-TBL-${Math.floor(1000 + Math.random() * 9000)}</span>
-                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold tracking-wide uppercase bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD]">Marine Cargo Open Cover</span>
-                </div>
-                <div class="text-[11px] text-[#64748B] mt-0.5 font-medium flex items-center gap-1.5 flex-wrap">
-                  <span>Selected Shipments: <strong>${records.length} Invoices</strong> (${invoicesList})</span>
-                </div>
-              </div>
-            </div>
-            <div class="bg-white px-4 py-2 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[120px]">
-              <div class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider">Total Insured Value</div>
-              <div class="text-sm font-extrabold text-[#006644] font-mono mt-0.5">${totalVal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
-            </div>
-          </div>
-
-          <!-- Policy & Underwriting Specifications -->
-          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs space-y-3">
-            <div class="flex items-center gap-2 border-b border-[#F1F5F9] pb-2">
-              <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">1</span>
-              <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Underwriting & Policy Specifications</h3>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3.5">
-              <div>
-                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Open Cover / Policy No</label>
-                <input type="text" id="ins-tbl-policy" value="${defaultCoverNo}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
-              </div>
-              <div>
-                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Underwriter / Insurer</label>
-                <select id="ins-tbl-insurer" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                  <option value="New India Assurance Co. Ltd">New India Assurance Co. Ltd</option>
-                  <option value="United India Insurance Co. Ltd">United India Insurance Co. Ltd</option>
-                  <option value="ICICI Lombard General Insurance">ICICI Lombard General Insurance</option>
-                  <option value="Tata AIG General Insurance">Tata AIG General Insurance</option>
-                </select>
-              </div>
-              <div>
-                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Coverage Basis</label>
-                <input type="text" id="ins-tbl-basis" value="110% CIF Value (All Risks + War & SRCC)" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
-              </div>
-              <div>
-                <label class="block text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Certificate Template</label>
-                <select id="ins-tbl-type" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                  <option value="Standard Marine Transit Declaration">Standard Marine Transit Declaration</option>
-                  <option value="Consolidated Shipment Table Schedule">Consolidated Shipment Table Schedule</option>
-                  <option value="Underwriting Cover Note">Underwriting Cover Note</option>
-                </select>
-              </div>
-            </div>
-          </div>
-
-          <!-- Selected Shipments Declaration Table -->
-          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs space-y-3">
-            <div class="flex items-center justify-between border-b border-[#F1F5F9] pb-2">
-              <div class="flex items-center gap-2">
-                <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">2</span>
-                <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Declaration Schedule Table (${records.length} Selected Records)</h3>
-              </div>
-              <span class="text-[11px] font-bold text-[#00A4B7]">Institute Cargo Clauses (A)</span>
-            </div>
-            <div class="overflow-x-auto max-h-[220px] overflow-y-auto">
-              <table class="w-full text-left text-xs">
-                <thead>
-                  <tr class="border-b border-[#DFE1E6] text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider bg-[#FAFBFC]">
-                    <th class="p-2">Inv No</th>
-                    <th class="p-2">Vessel Name</th>
-                    <th class="p-2">Onboard Dt</th>
-                    <th class="p-2">Container No</th>
-                    <th class="p-2">Port of Loading</th>
-                    <th class="p-2">Port of Discharge</th>
-                    <th class="p-2">Destination</th>
-                    <th class="p-2 text-right">Invoice Value</th>
-                  </tr>
-                </thead>
-                <tbody class="divide-y divide-[#F1F5F9]">
-                  ${records.map(r => `
-                    <tr class="hover:bg-[#F0F9FF] transition-colors">
-                      <td class="p-2 font-mono font-bold text-[#172B4D]">${r.invNo || '-'}</td>
-                      <td class="p-2 font-semibold text-[#172B4D]">${r.vesselName || '-'}</td>
-                      <td class="p-2 font-mono text-[#5E6C84]">${r.shippingOnboardDt || '-'}</td>
-                      <td class="p-2 font-mono font-semibold text-[#403294]">${r.containerNo || '-'}</td>
-                      <td class="p-2 text-[#172B4D]">${r.portOfLoading || '-'}</td>
-                      <td class="p-2 text-[#172B4D]">${r.portOfDischarge || '-'}</td>
-                      <td class="p-2 text-[#172B4D]">${r.destinationCountry || '-'}</td>
-                      <td class="p-2 font-mono font-extrabold text-[#006644] text-right">${Number(r.totalInvoiceValue || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-                    </tr>
-                  `).join('')}
-                </tbody>
-              </table>
-            </div>
+        <div class="space-y-4 text-xs py-2">
+          <div>
+            <label for="ins-tbl-type" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1.5">
+              Insurance Type <span class="text-[#DE350B]">*</span>
+            </label>
+            <select 
+              id="ins-tbl-type" 
+              class="w-full text-xs px-3 py-2 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs cursor-pointer" 
+              required 
+            >
+              ${insuranceTypeOptions.map(opt => `<option value="${opt}" ${opt === currentInsType ? 'selected' : ''}>${opt}</option>`).join('')}
+            </select>
           </div>
         </div>
       `,
       footer: `
         <div class="flex items-center justify-end gap-2.5">
           <button type="button" class="btn-secondary px-5 py-2 rounded-full text-xs font-semibold border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#172B4D] transition-all cursor-pointer" onclick="Modal.close()">Cancel</button>
-          <button type="button" id="btn-confirm-create-ins-template" class="btn-primary px-5 py-2 rounded-full text-xs font-bold shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer flex items-center gap-1.5">
+          <button type="button" id="btn-save-insurance-changes" class="btn-primary px-5 py-2 rounded-full text-xs font-bold shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer flex items-center gap-1.5">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-            <span>Create Declaration Table</span>
+            <span>Save</span>
           </button>
         </div>
       `
     });
 
-    document.getElementById('btn-confirm-create-ins-template')?.addEventListener('click', () => {
+    document.getElementById('btn-save-insurance-changes')?.addEventListener('click', () => {
+      const insTypeValue = document.getElementById('ins-tbl-type')?.value?.trim() || 'Marine Cargo Open Cover';
+      records.forEach(r => {
+        r.insuranceType = insTypeValue;
+      });
       Modal.close();
-      Toast.show('Marine Insurance Declaration Table created successfully for ' + records.length + ' shipments!', 'success');
+      Toast.show(`Insurance Type updated to "${insTypeValue}" successfully for ${records.length} shipment(s)!`, 'success');
     });
   },
 
-  // Insurance Tab 2: Insurance Templates
+    // Insurance Tab 2: Insurance Templates
   renderInsuranceTemplates(container) {
-    this.renderGenericTablePage({
-      container,
-      pageTitle: 'Insurance Templates (Marine Policy & Endorsement Presets)',
-            primaryBtnText: 'Create Insurance Template',
-      onPrimaryClick: () => Toast.show('New Marine Insurance Template creation modal opened', 'info'),
-      filterFields: [
-        { id: 'tpl-code', label: 'Template Code', placeholder: 'e.g. TPL-MAR' },
-        { id: 'tpl-name', label: 'Template Name', placeholder: 'e.g. Comprehensive' },
-        { id: 'tpl-underwriter', label: 'Underwriter', type: 'select', options: ['All Underwriters', 'The New India Assurance Co. Ltd.', 'United India Insurance Co. Ltd.', 'ICICI Lombard General Insurance'] },
-        { id: 'tpl-status', label: 'Status', type: 'select', options: ['All Status', 'Active & Default', 'Active & Verified'] }
-      ],
-      data: this.state.insuranceTemplates,
-      keyField: 'templateCode',
-      tableTitle: 'Marine Policy Templates Library',
-      columns: [
-        { field: 'templateCode', header: 'Template Code', render: (v) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${v}</span>` },
-        { field: 'templateName', header: 'Policy Template Name', render: (v) => `<span class="font-bold text-[#172B4D] text-xs">${v}</span>` },
-        { field: 'underwriter', header: 'Insurance Partner', render: (v) => `<span class="text-xs font-semibold text-[#172B4D]">${v}</span>` },
-        { field: 'policyScope', header: 'Voyage Scope', render: (v) => `<span class="text-xs text-[#5E6C84]">${v}</span>` },
-        { field: 'premiumRate', header: 'Tariff Premium Rate', render: (v) => `<span class="font-mono font-bold text-xs text-[#006644]">${v}</span>` },
-        { field: 'deductibleUsd', header: 'Policy Deductible', render: (v, r) => `<span class="font-mono text-xs text-[#5E6C84] font-semibold">$${v} (${r.currency})</span>` },
-        { field: 'clausesSummary', header: 'Standard Risk Endorsements', render: (v) => `<span class="text-[11px] text-[#5E6C84] truncate max-w-[240px] block" title="${v}">${v}</span>` },
-        {
-          field: 'status',
-          header: 'Template Status',
-          render: (v) => `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1] uppercase">${v.replace(/_/g, ' ')}</span>`
-        }
-      ]
+    const rawData = this.state.insuranceTemplates || [];
+    const years = ['All Years', ...new Set(rawData.map(r => r.year).filter(Boolean))];
+
+    container.innerHTML = `
+      <div class="space-y-3 animate-fade-in">
+        <!-- Page Title strictly clean, no subheading per AGENTS.md Rule 2 and no action button per user request -->
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-1">
+          <div>
+            <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Insurance Templates</h1>
+          </div>
+        </div>
+
+        <!-- Search & Filter Card (Customized according to new Data Table columns) -->
+        <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200">
+          <div class="flex items-center justify-between pb-1">
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+              <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
+            </div>
+            <div class="inline-flex items-center gap-2">
+              <!-- Circular 32x32 Reset Button -->
+              <button type="button" id="flt-tpl-reset-btn" class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Reset all filters">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+              </button>
+              <!-- Circular 32x32 Collapse/Expand Toggle Button -->
+              <button type="button" id="flt-tpl-toggle-btn" class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Hide Filter">
+                <svg class="w-3.5 h-3.5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              </button>
+            </div>
+          </div>
+          <!-- Body: Margin-top 0, border-top none -->
+          <div id="flt-tpl-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
+            <!-- 1. Select Year (INSURANCE TEMPLATE — Filter Fields per user specification) -->
+            <div>
+              <label for="flt-tpl-year" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Select Year</label>
+              <select id="flt-tpl-year" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                ${years.map(y => `<option value="${y}">${y}</option>`).join('')}
+              </select>
+            </div>
+
+            <!-- MANDATORY Search button always placed after the last input field -->
+            <div class="flex items-end">
+              <button type="button" id="flt-tpl-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                <span>Search</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- DataTable Container -->
+        <div id="insurance-templates-table-container"></div>
+      </div>
+    `;
+
+    // Render DataTable instance
+    let dtInstance = null;
+    const renderTable = (dataToDisplay) => {
+      dtInstance = new DataTable({
+        containerId: 'insurance-templates-table-container',
+        data: dataToDisplay,
+        keyField: 'invoiceTemplateNo',
+        tableTitle: 'Insurance Templates',
+        searchable: true,
+        exportable: true,
+        pageSize: 10,
+        actionsTitle: 'Actions',
+        columns: [
+          {
+            field: 'sNo',
+            header: 'S.No',
+            width: '80px',
+            render: (v, r, idx) => `<span class="font-mono text-xs font-semibold text-[#5E6C84]">${v || (idx + 1)}</span>`
+          },
+          {
+            field: 'invoiceTemplateNo',
+            header: 'Invoice Template No',
+            render: (v) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${v || '-'}</span>`
+          },
+          {
+            field: 'generatedOn',
+            header: 'Generated On',
+            render: (v) => `<span class="font-mono text-xs text-[#172B4D] font-medium">${v || '-'}</span>`
+          }
+        ],
+        actions: [
+          {
+            label: 'Download',
+            icon: `<svg class="w-3.5 h-3.5 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>`,
+            tooltip: 'Download Invoice Template',
+            onClick: (row) => {
+              const contentText = `========================================\nDEVIFISHERIES ERP - INSURANCE TEMPLATE\n========================================\nTemplate No: ${row.invoiceTemplateNo}\nGenerated On: ${row.generatedOn}\nInsurance Type: ${row.insuranceType || 'Marine Cargo Open Cover'}\nExporter: ${row.exporter || 'Devi Fisheries Limited'}\nStatus: Active & Verified\n========================================`;
+              const blob = new Blob([contentText], { type: 'text/plain;charset=utf-8' });
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement('a');
+              a.href = url;
+              a.download = `${row.invoiceTemplateNo}.txt`;
+              document.body.appendChild(a);
+              a.click();
+              document.body.removeChild(a);
+              URL.revokeObjectURL(url);
+              Toast.show(`Template ${row.invoiceTemplateNo} downloaded successfully!`, 'success');
+            }
+          },
+          {
+            label: 'Delete',
+            icon: `<svg class="w-3.5 h-3.5 text-[#DE350B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>`,
+            tooltip: 'Delete Invoice Template',
+            onClick: (row) => {
+              Modal.confirm({
+                title: 'Delete Insurance Template',
+                message: `Are you sure you want to delete template <strong>${row.invoiceTemplateNo}</strong>? This action cannot be undone.`,
+                confirmText: 'Delete',
+                cancelText: 'Cancel',
+                isDestructive: true,
+                onConfirm: () => {
+                  this.state.insuranceTemplates = (this.state.insuranceTemplates || []).filter(t => t.invoiceTemplateNo !== row.invoiceTemplateNo);
+                  this.state.insuranceTemplates.forEach((t, i) => { t.sNo = i + 1; });
+                  this.renderInsuranceTemplates(container);
+                  Toast.show(`Template ${row.invoiceTemplateNo} deleted successfully!`, 'success');
+                }
+              });
+            }
+          }
+        ]
+      });
+    };
+
+    renderTable(rawData);
+
+    // Filter search logic
+    const applyFilters = () => {
+      const yearVal = document.getElementById('flt-tpl-year')?.value || 'All Years';
+      const filtered = (this.state.insuranceTemplates || []).filter(item => {
+        if (yearVal !== 'All Years' && item.year !== yearVal) return false;
+        return true;
+      });
+      renderTable(filtered);
+    };
+
+    document.getElementById('flt-tpl-search-btn')?.addEventListener('click', applyFilters);
+    document.getElementById('flt-tpl-no')?.addEventListener('keyup', (e) => {
+      if (e.key === 'Enter') applyFilters();
     });
+    document.getElementById('flt-tpl-date')?.addEventListener('keyup', (e) => {
+      if (e.key === 'Enter') applyFilters();
+    });
+    document.getElementById('flt-tpl-year')?.addEventListener('change', applyFilters);
+
+    // Reset button
+    document.getElementById('flt-tpl-reset-btn')?.addEventListener('click', () => {
+      const y = document.getElementById('flt-tpl-year');
+      const n = document.getElementById('flt-tpl-no');
+      const d = document.getElementById('flt-tpl-date');
+      if (y) y.value = 'All Years';
+      if (n) n.value = '';
+      if (d) d.value = '';
+      renderTable(this.state.insuranceTemplates || []);
+      Toast.show('Filters reset', 'info');
+    });
+
+    // Toggle button
+    const toggleBtn = document.getElementById('flt-tpl-toggle-btn');
+    const filterBody = document.getElementById('flt-tpl-body');
+    if (toggleBtn && filterBody) {
+      let isCollapsed = false;
+      toggleBtn.addEventListener('click', () => {
+        isCollapsed = !isCollapsed;
+        filterBody.classList.toggle('hidden', isCollapsed);
+        const svg = toggleBtn.querySelector('svg');
+        if (svg) svg.style.transform = isCollapsed ? 'rotate(180deg)' : '';
+        toggleBtn.title = isCollapsed ? 'Show Filter' : 'Hide Filter';
+      });
+    }
   },
 
-  // Insurance Tab 3: Insurance Payments
+    // Insurance Tab 3: Insurance Payments
   renderInsurancePayments(container) {
-    this.renderGenericTablePage({
-      container,
-      pageTitle: 'Insurance Payments (Marine Premium Disbursements)',
-            primaryBtnText: 'Record Premium Payment',
-      onPrimaryClick: () => Toast.show('Premium payment disbursement form opened', 'info'),
-      filterFields: [
-        { id: 'ip-inv', label: 'Premium Invoice', placeholder: 'e.g. PREM-INV' },
-        { id: 'ip-pol', label: 'Policy No', placeholder: 'e.g. POL-MAR' },
-        { id: 'ip-underwriter', label: 'Underwriter', type: 'select', options: ['All Underwriters', 'The New India Assurance Co. Ltd.', 'United India Insurance Co. Ltd.', 'ICICI Lombard General Insurance'] },
-        { id: 'ip-status', label: 'Payment Status', type: 'select', options: ['All Status', 'Paid & Receipted', 'Approval Pending'] }
-      ],
-      data: this.state.insurancePayments,
-      keyField: 'premInvoiceNo',
-      tableTitle: 'Marine Premium Payments Register',
-      columns: [
-        { field: 'premInvoiceNo', header: 'Premium Invoice', render: (v) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${v}</span>` },
-        { field: 'policyNo', header: 'Policy / Cover Note', render: (v) => `<span class="font-mono text-xs font-semibold text-[#172B4D]">${v}</span>` },
-        { field: 'underwriter', header: 'Underwriter', render: (v) => `<span class="font-bold text-[#172B4D] text-xs">${v}</span>` },
-        { field: 'cargoLot', header: 'Cargo Lot', render: (v) => `<span class="font-mono text-xs text-[#5E6C84] font-medium">${v}</span>` },
-        { field: 'sumInsuredUsd', header: 'Sum Insured', render: (v) => `<span class="font-mono font-bold text-xs text-[#172B4D]">$${Number(v).toLocaleString('en-IN')}</span>` },
-        { field: 'basicPremiumInr', header: 'Basic Premium', render: (v) => `<span class="font-mono text-xs text-[#5E6C84]">₹${Number(v).toLocaleString('en-IN')}</span>` },
-        { field: 'gstTaxInr', header: 'GST (18%)', render: (v) => `<span class="font-mono text-xs text-[#5E6C84]">₹${Number(v).toLocaleString('en-IN')}</span>` },
-        { field: 'totalPaidInr', header: 'Total Paid (INR)', render: (v) => `<span class="font-mono font-extrabold text-xs text-[#006644]">₹${Number(v).toLocaleString('en-IN')}</span>` },
-        { field: 'utrNumber', header: 'Bank UTR Ref', render: (v) => `<span class="font-mono text-[11px] text-[#403294] font-bold">${v}</span>` },
-        { field: 'paymentDate', header: 'Payment Date', render: (v) => `<span class="font-mono text-xs text-[#5E6C84]">${v}</span>` },
-        {
-          field: 'status',
-          header: 'Payment Status',
-          render: (v) => {
-            const cls = v.includes('PAID') ? 'bg-[#E3FCEF] text-[#006644] border-[#ABF5D1]' : 'bg-[#FFFAE6] text-[#FF8B00] border-[#FFE380]';
-            return `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold border ${cls} uppercase">${v.replace(/_/g, ' ')}</span>`;
+    const rawData = this.state.insurancePayments || [];
+    const years = ['All Years', ...new Set(rawData.map(r => r.year).filter(Boolean))];
+
+    container.innerHTML = `
+      <div class="space-y-3 animate-fade-in">
+        <!-- Page Title strictly clean, no subheading per AGENTS.md Rule 2 and removed Record Premium Payment button per user request -->
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-1">
+          <div>
+            <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Insurance Payments</h1>
+          </div>
+        </div>
+
+        <!-- Search & Filter Card (Filter Field: Select Year) -->
+        <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200">
+          <div class="flex items-center justify-between pb-1">
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+              <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
+            </div>
+            <div class="inline-flex items-center gap-2">
+              <!-- Circular 32x32 Reset Button -->
+              <button type="button" id="flt-pay-reset-btn" class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Reset all filters">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+              </button>
+              <!-- Circular 32x32 Collapse/Expand Toggle Button -->
+              <button type="button" id="flt-pay-toggle-btn" class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Hide Filter">
+                <svg class="w-3.5 h-3.5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              </button>
+            </div>
+          </div>
+          <!-- Body: Margin-top 0, border-top none -->
+          <div id="flt-pay-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
+            <!-- 1. Select Year -->
+            <div>
+              <label for="flt-pay-year" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Select Year</label>
+              <select id="flt-pay-year" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                ${years.map(y => `<option value="${y}">${y}</option>`).join('')}
+              </select>
+            </div>
+
+            <!-- MANDATORY Search button always placed after the last input field -->
+            <div class="flex items-end">
+              <button type="button" id="flt-pay-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                <span>Search</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- DataTable Container -->
+        <div id="insurance-payments-table-container"></div>
+      </div>
+    `;
+
+    // Render DataTable instance
+    let dtInstance = null;
+    const renderTable = (dataToDisplay) => {
+      dtInstance = new DataTable({
+        containerId: 'insurance-payments-table-container',
+        data: dataToDisplay,
+        keyField: 'insNo',
+        tableTitle: 'Marine Premium Payments Register',
+        searchable: true,
+        exportable: true,
+        selectable: true,
+        showSelectedCount: false,
+        pageSize: 10,
+        toolbarButtons: [
+          {
+            id: 'btn-save-payments',
+            label: 'Save',
+            title: 'Save Payment Records',
+            requiresSelection: true,
+            variant: 'primary',
+            className: 'btn-primary px-4 py-1.5 rounded-full text-xs font-bold shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white flex items-center gap-1.5 transition-all cursor-pointer',
+            icon: `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>`,
+            onClick: (keys, rows) => {
+              const count = (keys && keys.length) || 1;
+              Toast.show(`Saved ${count} marine premium payment record(s) successfully!`, 'success');
+            }
           }
-        }
-      ]
+        ],
+        columns: [
+          {
+            field: 'sNo',
+            header: 'S.No.',
+            width: '80px',
+            render: (v, r, idx) => `<span class="font-mono text-xs font-semibold text-[#5E6C84]">${v || (idx + 1)}</span>`
+          },
+          {
+            field: 'insNo',
+            header: 'INS No',
+            render: (v) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${v || '-'}</span>`
+          },
+          {
+            field: 'invoices',
+            header: 'Invoices',
+            render: (v) => `<span class="font-mono text-xs text-[#172B4D] font-medium">${v || '-'}</span>`
+          }
+        ]
+      });
+    };
+
+    renderTable(rawData);
+
+    // Filter search logic
+    const applyFilters = () => {
+      const yearVal = document.getElementById('flt-pay-year')?.value || 'All Years';
+      const filtered = (this.state.insurancePayments || []).filter(item => {
+        if (yearVal !== 'All Years' && item.year !== yearVal) return false;
+        return true;
+      });
+      renderTable(filtered);
+    };
+
+    document.getElementById('flt-pay-search-btn')?.addEventListener('click', applyFilters);
+    document.getElementById('flt-pay-year')?.addEventListener('change', applyFilters);
+
+    // Reset button
+    document.getElementById('flt-pay-reset-btn')?.addEventListener('click', () => {
+      const y = document.getElementById('flt-pay-year');
+      if (y) y.value = 'All Years';
+      renderTable(this.state.insurancePayments || []);
+      Toast.show('Filters reset', 'info');
     });
+
+    // Toggle button
+    const toggleBtn = document.getElementById('flt-pay-toggle-btn');
+    const filterBody = document.getElementById('flt-pay-body');
+    if (toggleBtn && filterBody) {
+      let isCollapsed = false;
+      toggleBtn.addEventListener('click', () => {
+        isCollapsed = !isCollapsed;
+        filterBody.classList.toggle('hidden', isCollapsed);
+        const svg = toggleBtn.querySelector('svg');
+        if (svg) svg.style.transform = isCollapsed ? 'rotate(180deg)' : '';
+        toggleBtn.title = isCollapsed ? 'Show Filter' : 'Hide Filter';
+      });
+    }
   },
   // ----------------------------------------------------
   // REUSABLE ENTERPRISE TABLE VIEW GENERATOR
