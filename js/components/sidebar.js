@@ -247,6 +247,14 @@ export const ADMIN_NAV_HIERARCHY = [
           { id: "soaking-v2", label: "Soaking (V2)", hash: "#/production/operations/soaking-v2" },
           { id: "freezing-store", label: "Freezing-Store", hash: "#/production/operations/freezing-store" }
         ]
+      },
+      {
+        id: "anti-dumping",
+        title: "Anti Dumping",
+        defaultTab: "anti-dumping-records",
+        tabs: [
+          { id: "anti-dumping-records", label: "Anti Dumping", hash: "#/production/anti-dumping/anti-dumping-records" }
+        ]
       }
     ]
   },
@@ -411,14 +419,22 @@ export const ADMIN_NAV_HIERARCHY = [
           { id: "coldstore-analytics", label: "Coldstore Analytics", hash: "#/reports/coldstore-analytics/coldstore-analytics" }
         ]
       },
-      {
-        id: "sales-export-analytics",
-        title: "Sales & Export Analytics",
-        defaultTab: "sales-export-analytics",
-        tabs: [
-          { id: "sales-export-analytics", label: "Sales & Export Analytics", hash: "#/reports/sales-export-analytics/sales-export-analytics" }
-        ]
-      }
+              {
+          id: "sales-export-analytics",
+          title: "Sales & Export Analytics",
+          defaultTab: "sales-export-analytics",
+          tabs: [
+            { id: "sales-export-analytics", label: "Sales & Export Analytics", hash: "#/reports/sales-export-analytics/sales-export-analytics" }
+          ]
+        },
+        {
+          id: "anti-dumping-reports",
+          title: "Anti Dumping Reports",
+          defaultTab: "anti-dumping-reports",
+          tabs: [
+            { id: "anti-dumping-reports", label: "Anti Dumping Reports", hash: "#/reports/anti-dumping-reports/anti-dumping-reports" }
+          ]
+        }
     ]
   },
   {

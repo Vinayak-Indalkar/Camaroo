@@ -28,6 +28,153 @@ export const ProductionView = {
   },
 
   state: {
+    antiDumpingRecords: [
+      {
+        id: 'AD-2026-001',
+        sNo: 1,
+        date: '10/11/2026',
+        productionPlant: 'DFL UNIT-5 (JPT)',
+        stockBelongsTo: 'Devi Fisheries Limited',
+        groupType: 'AD Duty Eligible',
+        group: 'US ADD Group-A',
+        poNumber: 'PO-USA-2026-881',
+        supc: 'SUPC-DFL-9042',
+        product: 'HLSO Vannamei IQF',
+        variety: 'Vannamei (VM)',
+        fromPlant: 'DFL UNIT-5 (JPT)',
+        toPlant: 'Coldstore Chamber #1',
+        grade: '21/25',
+        packingStyle: '10 x 2 Kg Master Carton',
+        freezingType: 'IQF (Tunnel Freezing)',
+        glazePct: 10.0,
+        soakingTreatment: 'Non-Phosphate',
+        productCategory: 'Raw Frozen',
+        slabs: 450,
+        kgs: 9000,
+        lastUpdatedDate: '11/11/2026',
+        remarks: 'ADD benchmark audit batch, certified by US DOC',
+        openingStock: 1200,
+        closingStock: 1450,
+        totalInwardSlabs: 450,
+        totalOutwardSlabs: 200
+      },
+      {
+        id: 'AD-2026-002',
+        sNo: 2,
+        date: '08/11/2026',
+        productionPlant: 'DFL UNIT-3 (PSP)',
+        stockBelongsTo: 'Devi Sea Foods Ltd',
+        groupType: 'AD Duty Eligible',
+        group: 'US ADD Group-A',
+        poNumber: 'PO-USA-2026-885',
+        supc: 'SUPC-DSF-7718',
+        product: 'PD Tail-On White IQF',
+        variety: 'Vannamei (VM)',
+        fromPlant: 'DFL UNIT-3 (PSP)',
+        toPlant: 'Coldstore Chamber #2',
+        grade: '26/30',
+        packingStyle: '5 x 2 Lbs Retail Pouch',
+        freezingType: 'IQF (Spiral Freezing)',
+        glazePct: 8.0,
+        soakingTreatment: 'Food Grade STPP',
+        productCategory: 'Cooked IQF',
+        slabs: 600,
+        kgs: 5440,
+        lastUpdatedDate: '10/11/2026',
+        remarks: 'Red Lobster seasonal program, full chain traceability verified',
+        openingStock: 800,
+        closingStock: 1100,
+        totalInwardSlabs: 600,
+        totalOutwardSlabs: 300
+      },
+      {
+        id: 'AD-2026-003',
+        sNo: 3,
+        date: '05/11/2026',
+        productionPlant: 'DFL UNIT-1 (VSP)',
+        stockBelongsTo: 'Devi Fisheries Limited',
+        groupType: 'Exempted Commercial',
+        group: 'EU Traceability Group',
+        poNumber: 'PO-EU-2026-419',
+        supc: 'SUPC-DFL-3105',
+        product: 'Easy Peel Black Tiger Block',
+        variety: 'Black Tiger (BT)',
+        fromPlant: 'DFL UNIT-1 (VSP)',
+        toPlant: 'Deep Freeze Vault #3',
+        grade: '16/20',
+        packingStyle: '6 x 1.8 Kg Block Slabs',
+        freezingType: 'Contact Plate Freezer',
+        glazePct: 5.0,
+        soakingTreatment: 'Fresh Raw (Untreated)',
+        productCategory: 'EZ Peel',
+        slabs: 380,
+        kgs: 4104,
+        lastUpdatedDate: '09/11/2026',
+        remarks: 'Zero antibiotic clearance, non-dumping compliance report verified',
+        openingStock: 500,
+        closingStock: 680,
+        totalInwardSlabs: 380,
+        totalOutwardSlabs: 200
+      },
+      {
+        id: 'AD-2026-004',
+        sNo: 4,
+        date: '02/11/2026',
+        productionPlant: 'DFL UNIT-2 (KKD)',
+        stockBelongsTo: 'Devi Aqua Feeds',
+        groupType: 'AD Duty Eligible',
+        group: 'US ADD Group-B',
+        poNumber: 'PO-USA-2026-902',
+        supc: 'SUPC-DAF-1190',
+        product: 'Cooked P&D Salad Shrimp',
+        variety: 'Vannamei (VM)',
+        fromPlant: 'DFL UNIT-2 (KKD)',
+        toPlant: 'Coldstore Chamber #1',
+        grade: '41/50',
+        packingStyle: '10 x 1 Kg Polybag',
+        freezingType: 'IQF (Tunnel Freezing)',
+        glazePct: 12.0,
+        soakingTreatment: 'Non-Phosphate Blend',
+        productCategory: 'Cooked IQF',
+        slabs: 520,
+        kgs: 5200,
+        lastUpdatedDate: '07/11/2026',
+        remarks: 'Export staging clearance passed, certified by MPEDA / EIA',
+        openingStock: 900,
+        closingStock: 1020,
+        totalInwardSlabs: 520,
+        totalOutwardSlabs: 400
+      },
+      {
+        id: 'AD-2026-005',
+        sNo: 5,
+        date: '28/10/2026',
+        productionPlant: 'DFL UNIT-5 (JPT)',
+        stockBelongsTo: 'Devi Fisheries Limited',
+        groupType: 'AD Duty Eligible',
+        group: 'US ADD Group-A',
+        poNumber: 'PO-USA-2026-915',
+        supc: 'SUPC-DFL-8820',
+        product: 'Raw Head-On Shell-On',
+        variety: 'Sea White',
+        fromPlant: 'DFL UNIT-5 (JPT)',
+        toPlant: 'Coldstore Chamber #2',
+        grade: '31/40',
+        packingStyle: '6 x 2 Kg Semi-IQF Box',
+        freezingType: 'Semi-IQF Blast Freeze',
+        glazePct: 6.0,
+        soakingTreatment: 'Citric Acid & Marine Salt',
+        productCategory: 'Raw Frozen',
+        slabs: 420,
+        kgs: 5040,
+        lastUpdatedDate: '04/11/2026',
+        remarks: 'Audit verification sample drawn, DOC verification ledger updated',
+        openingStock: 750,
+        closingStock: 870,
+        totalInwardSlabs: 420,
+        totalOutwardSlabs: 300
+      }
+    ],
     soakingTrackIds: [
       {
         sNo: 1,
@@ -1104,6 +1251,11 @@ export const ProductionView = {
 
     if (subPage === 'freezing-store') {
       this.renderFreezingStoreScreen(subContainer);
+      return;
+    }
+
+    if (subPage === 'anti-dumping-records' || subPage === 'anti-dumping' || (activeHash && activeHash.includes('anti-dumping'))) {
+      this.renderAntiDumpingScreen(subContainer);
       return;
     }
 
@@ -6158,5 +6310,671 @@ export const ProductionView = {
         }
       }
     });
-  }
+  },
+
+  // =========================================================================
+  // SUB MENU: ANTI DUMPING -> DATA TABLE, FILTERS & MODAL
+  // =========================================================================
+  renderAntiDumpingScreen(container) {
+    container.innerHTML = `
+      <div class="space-y-3 animate-fade-in">
+        <!-- Page Title & Header Action (Clean H1 per AGENTS.md Rule 2) -->
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-1">
+          <div>
+            <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Anti Dumping</h1>
+          </div>
+          <div class="inline-flex items-center gap-2">
+            <button type="button" id="btn-add-ad-record" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+              <span>Add Anti Dumping Record</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Filter & Search Card (Exact Devi Fisheries Design System Rule 3) -->
+        <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200">
+          <div class="flex items-center justify-between pb-1">
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+              <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
+            </div>
+            <div class="inline-flex items-center gap-2">
+              <button type="button" id="ad-flt-reset-btn" class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Reset all filters">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+              </button>
+              <button type="button" id="ad-flt-toggle-btn" class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Hide Filter">
+                <svg class="w-3.5 h-3.5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              </button>
+            </div>
+          </div>
+          <div id="ad-flt-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
+            <div>
+              <label for="ad-flt-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Date</label>
+              <input type="date" id="ad-flt-date" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+            </div>
+            <div>
+              <label for="ad-flt-plant" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Production Plant</label>
+              <select id="ad-flt-plant" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="All">All Plants</option>
+                <option value="DFL UNIT-1 (VSP)">DFL UNIT-1 (VSP)</option>
+                <option value="DFL UNIT-2 (KKD)">DFL UNIT-2 (KKD)</option>
+                <option value="DFL UNIT-3 (PSP)">DFL UNIT-3 (PSP)</option>
+                <option value="DFL UNIT-5 (JPT)">DFL UNIT-5 (JPT)</option>
+              </select>
+            </div>
+            <div>
+              <label for="ad-flt-group-type" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Group Type</label>
+              <select id="ad-flt-group-type" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="All">All Group Types</option>
+                <option value="AD Duty Eligible">AD Duty Eligible</option>
+                <option value="Exempted Commercial">Exempted Commercial</option>
+              </select>
+            </div>
+            <div>
+              <label for="ad-flt-group" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Group</label>
+              <select id="ad-flt-group" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="All">All Groups</option>
+                <option value="US ADD Group-A">US ADD Group-A</option>
+                <option value="US ADD Group-B">US ADD Group-B</option>
+                <option value="EU Traceability Group">EU Traceability Group</option>
+              </select>
+            </div>
+            <div>
+              <label for="ad-flt-po" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">PO Number</label>
+              <input type="text" id="ad-flt-po" placeholder="e.g. PO-USA-2026" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+            </div>
+            <div>
+              <label for="ad-flt-category" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Product Category</label>
+              <select id="ad-flt-category" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="All">All Categories</option>
+                <option value="Raw Frozen">Raw Frozen</option>
+                <option value="Cooked IQF">Cooked IQF</option>
+                <option value="EZ Peel">EZ Peel</option>
+                <option value="Blanched">Blanched</option>
+              </select>
+            </div>
+            <div>
+              <label for="ad-flt-grade" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Grade</label>
+              <select id="ad-flt-grade" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="All">All Grades</option>
+                <option value="16/20">16/20</option>
+                <option value="21/25">21/25</option>
+                <option value="26/30">26/30</option>
+                <option value="31/40">31/40</option>
+                <option value="41/50">41/50</option>
+              </select>
+            </div>
+            <div class="flex items-end">
+              <button type="button" id="ad-flt-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                <span>Search</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- DataTable Container -->
+        <div id="anti-dumping-table-container"></div>
+      </div>
+    `;
+
+    // Hook add action
+    container.querySelector('#btn-add-ad-record')?.addEventListener('click', () => {
+      this.openAntiDumpingModal(null, () => renderTable(this.state.antiDumpingRecords));
+    });
+
+    // Toggle filter
+    const toggleBtn = container.querySelector('#ad-flt-toggle-btn');
+    const filterBody = container.querySelector('#ad-flt-body');
+    toggleBtn?.addEventListener('click', () => {
+      filterBody?.classList.toggle('hidden');
+      toggleBtn.querySelector('svg')?.classList.toggle('-rotate-90');
+    });
+
+    // Render Table function
+    const renderTable = (currentData) => {
+      new DataTable({
+        containerId: 'anti-dumping-table-container',
+        data: currentData,
+        keyField: 'id',
+        tableTitle: `Anti Dumping Records (${currentData.length})`,
+        searchable: true,
+        exportable: true,
+        selectable: true,
+        showSelectedCount: false,
+        pageSize: 10,
+        toolbarButtons: [
+          {
+            id: 'btn-delete-all-ad',
+            label: 'Delete All',
+            title: 'Delete Selected Anti Dumping Records',
+            requiresSelection: true,
+            className: 'btn-danger px-3.5 py-1.5 rounded-full text-xs font-bold shadow-xs bg-[#FFEBE6] text-[#DE350B] border border-[#FFBDAD] hover:bg-[#DE350B] hover:text-white flex items-center gap-1.5 transition-all cursor-pointer',
+            icon: `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>`,
+            onClick: (keys, rows, dt) => {
+              const selectedKeys = keys && keys.length > 0 ? keys : Array.from(dt?.selectedKeys || []);
+              if (!selectedKeys || selectedKeys.length === 0) return;
+              Modal.confirm({
+                title: 'Delete Anti Dumping Records',
+                message: `Are you sure you want to delete <strong>${selectedKeys.length}</strong> selected Anti Dumping record(s)? This action cannot be undone.`,
+                confirmText: 'Delete Selected',
+                cancelText: 'Cancel',
+                isDestructive: true,
+                onConfirm: () => {
+                  const keySet = new Set(selectedKeys);
+                  this.state.antiDumpingRecords = this.state.antiDumpingRecords.filter(item => !keySet.has(item.id));
+                  renderTable(this.state.antiDumpingRecords);
+                  Toast.show(`Successfully deleted ${selectedKeys.length} Anti Dumping record(s)`, 'success');
+                }
+              });
+            }
+          }
+        ],
+        columns: [
+          { field: 'sNo', header: 'S.No', render: (v, r, idx) => `<span class="font-bold text-[#172B4D]">${v || (idx + 1)}</span>` },
+          { field: 'productionPlant', header: 'Production Plant', render: (v) => `<span class="font-semibold text-xs text-[#172B4D] whitespace-nowrap">${v}</span>` },
+          { field: 'stockBelongsTo', header: 'Stock Belongs to', render: (v) => `<span class="text-xs text-[#5E6C84] whitespace-nowrap">${v}</span>` },
+          { field: 'date', header: 'Date', render: (v) => `<span class="font-mono text-xs text-[#172B4D] whitespace-nowrap">${v}</span>` },
+          { field: 'group', header: 'Group', render: (v) => `<span class="px-2 py-0.5 rounded text-[11px] font-bold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF] whitespace-nowrap">${v}</span>` },
+          { field: 'poNumber', header: 'Po Number', render: (v) => `<span class="font-mono font-bold text-xs text-[#00A4B7] whitespace-nowrap">${v || '—'}</span>` },
+          { field: 'supc', header: 'SUPC', render: (v) => `<span class="font-mono text-xs font-semibold text-[#172B4D] whitespace-nowrap">${v}</span>` },
+          { field: 'product', header: 'Product', render: (v) => `<span class="font-bold text-xs text-[#172B4D] whitespace-nowrap">${v}</span>` },
+          { field: 'fromPlant', header: 'From Plant', render: (v) => `<span class="text-xs text-[#5E6C84] whitespace-nowrap">${v}</span>` },
+          { field: 'toPlant', header: 'To Plant', render: (v) => `<span class="text-xs text-[#5E6C84] whitespace-nowrap">${v}</span>` },
+          { field: 'grade', header: 'Grade', render: (v) => `<span class="px-2 py-0.5 rounded text-[11px] font-bold bg-[#F1F5F9] text-[#172B4D] border border-[#DFE1E6] whitespace-nowrap">${v}</span>` },
+          { field: 'packingStyle', header: 'Packing Style', render: (v) => `<span class="text-xs text-[#5E6C84] whitespace-nowrap">${v}</span>` },
+          { field: 'productCategory', header: 'Product Category', render: (v) => `<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD] whitespace-nowrap">${v}</span>` },
+          { field: 'slabs', header: 'Slabs', render: (v) => `<span class="font-mono font-bold text-xs text-[#172B4D] whitespace-nowrap">${Number(v).toLocaleString()}</span>` },
+          { field: 'kgs', header: 'Kgs', render: (v) => `<span class="font-mono font-extrabold text-xs text-[#006644] whitespace-nowrap">${Number(v).toLocaleString()} KG</span>` },
+          { field: 'lastUpdatedDate', header: 'Last Updated Date', render: (v) => `<span class="font-mono text-[11px] text-[#5E6C84] whitespace-nowrap">${v}</span>` },
+          { field: 'remarks', header: 'Remarks', render: (v) => `<span class="text-[11px] text-[#5E6C84] truncate max-w-[160px] block" title="${v}">${v || '—'}</span>` },
+          {
+            field: 'actions',
+            header: 'Actions',
+            render: (v, row) => `
+              <div class="flex items-center gap-1.5 justify-center">
+                <button type="button" class="btn-download-ad dt-action-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] rounded-full text-[#00A4B7] transition-colors cursor-pointer" data-id="${row.id}" title="Download Anti Dumping Document">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                </button>
+                <button type="button" class="btn-delete-ad dt-action-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#FFEBE6] border border-[#CBD5E1] hover:border-[#DE350B] rounded-full text-[#DE350B] transition-colors cursor-pointer" data-id="${row.id}" title="Delete Anti Dumping Record">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                </button>
+              </div>
+            `
+          }
+        ]
+      });
+
+      // Actions Event Listeners
+      const tableWrapper = document.getElementById('anti-dumping-table-container');
+      if (tableWrapper) {
+        // Download
+        tableWrapper.querySelectorAll('.btn-download-ad').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const id = btn.getAttribute('data-id');
+            Toast.show(`Downloading Anti Dumping compliance sheet for ${id}...`, 'success');
+          });
+        });
+
+        // Delete (with confirmation popup)
+        tableWrapper.querySelectorAll('.btn-delete-ad').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const id = btn.getAttribute('data-id');
+            Modal.confirm({
+              title: 'Delete Anti Dumping Record',
+              message: `Are you sure you want to delete Anti Dumping Record <strong>${id}</strong>? This action cannot be undone.`,
+              confirmText: 'Delete Record',
+              cancelText: 'Cancel',
+              isDestructive: true,
+              onConfirm: () => {
+                this.state.antiDumpingRecords = this.state.antiDumpingRecords.filter(item => item.id !== id);
+                renderTable(this.state.antiDumpingRecords);
+                Toast.show(`Anti Dumping Record ${id} deleted successfully`, 'success');
+              }
+            });
+          });
+        });
+      }
+    };
+
+    renderTable(this.state.antiDumpingRecords);
+
+    // Search and Reset filters handlers
+    const searchBtn = container.querySelector('#ad-flt-search-btn');
+    const resetBtn = container.querySelector('#ad-flt-reset-btn');
+
+    searchBtn?.addEventListener('click', () => {
+      const dateVal = container.querySelector('#ad-flt-date')?.value || '';
+      const plantVal = container.querySelector('#ad-flt-plant')?.value || 'All';
+      const groupTypeVal = container.querySelector('#ad-flt-group-type')?.value || 'All';
+      const groupVal = container.querySelector('#ad-flt-group')?.value || 'All';
+      const poVal = container.querySelector('#ad-flt-po')?.value?.trim().toLowerCase() || '';
+      const catVal = container.querySelector('#ad-flt-category')?.value || 'All';
+      const gradeVal = container.querySelector('#ad-flt-grade')?.value || 'All';
+
+      let filtered = [...this.state.antiDumpingRecords];
+
+      if (dateVal) {
+        const parts = dateVal.split('-');
+        if (parts.length === 3) {
+          const formatted = `${parts[2]}/${parts[1]}/${parts[0]}`;
+          filtered = filtered.filter(item => item.date === formatted);
+        }
+      }
+      if (plantVal !== 'All') {
+        filtered = filtered.filter(item => item.productionPlant === plantVal);
+      }
+      if (groupTypeVal !== 'All') {
+        filtered = filtered.filter(item => item.groupType === groupTypeVal);
+      }
+      if (groupVal !== 'All') {
+        filtered = filtered.filter(item => item.group === groupVal);
+      }
+      if (poVal) {
+        filtered = filtered.filter(item => item.poNumber && item.poNumber.toLowerCase().includes(poVal));
+      }
+      if (catVal !== 'All') {
+        filtered = filtered.filter(item => item.productCategory === catVal);
+      }
+      if (gradeVal !== 'All') {
+        filtered = filtered.filter(item => item.grade === gradeVal);
+      }
+
+      renderTable(filtered);
+      Toast.show(`Filtered ${filtered.length} Anti Dumping record(s)`, 'info');
+    });
+
+    resetBtn?.addEventListener('click', () => {
+      const dEl = container.querySelector('#ad-flt-date');
+      const pEl = container.querySelector('#ad-flt-plant');
+      const gtEl = container.querySelector('#ad-flt-group-type');
+      const gEl = container.querySelector('#ad-flt-group');
+      const poEl = container.querySelector('#ad-flt-po');
+      const cEl = container.querySelector('#ad-flt-category');
+      const grEl = container.querySelector('#ad-flt-grade');
+
+      if (dEl) dEl.value = '';
+      if (pEl) pEl.value = 'All';
+      if (gtEl) gtEl.value = 'All';
+      if (gEl) gEl.value = 'All';
+      if (poEl) poEl.value = '';
+      if (cEl) cEl.value = 'All';
+      if (grEl) grEl.value = 'All';
+
+      renderTable(this.state.antiDumpingRecords);
+      Toast.show('Filters reset', 'info');
+    });
+  },
+
+  // Modal: Add / Edit Anti Dumping Record (Exact 18 Form Input Fields)
+  openAntiDumpingModal(row = null, onSaved = null) {
+    const isEdit = !!row;
+    const modalTitle = isEdit ? `Edit Anti Dumping Record — ${row.id}` : 'Add Anti Dumping Record';
+
+    const plants = ['DFL UNIT-5 (JPT)', 'DFL UNIT-3 (PSP)', 'DFL UNIT-1 (VSP)', 'DFL UNIT-2 (KKD)', 'DFL UNIT-4 (PND)'];
+    const groupTypes = ['AD Duty Eligible', 'Exempted Commercial', 'Subsidized Tariff'];
+    const groups = ['US ADD Group-A', 'US ADD Group-B', 'EU Traceability Group', 'General Export'];
+    const varieties = ['Vannamei (VM)', 'Black Tiger (BT)', 'Sea White', 'Scampi'];
+    const packings = ['10 x 2 Kg Master Carton', '5 x 2 Lbs Retail Pouch', '6 x 1.8 Kg Block Slabs', '10 x 1 Kg Polybag', '6 x 2 Kg Semi-IQF Box'];
+    const freezingTypes = ['IQF (Tunnel Freezing)', 'IQF (Spiral Freezing)', 'Contact Plate Freezer', 'Semi-IQF Blast Freeze'];
+    const treatments = ['Non-Phosphate', 'Food Grade STPP', 'Fresh Raw (Untreated)', 'Citric Acid & Marine Salt'];
+    const categories = ['Raw Frozen', 'Cooked IQF', 'EZ Peel', 'Blanched', 'Breaded'];
+    const grades = ['16/20', '21/25', '26/30', '31/40', '41/50', '51/60'];
+
+    const toDateInputVal = (dStr) => {
+      if (!dStr) return '';
+      if (dStr.includes('/')) {
+        const parts = dStr.split('/');
+        if (parts.length === 3) return `${parts[2]}-${parts[1].padStart(2, '0')}-${parts[0].padStart(2, '0')}`;
+      }
+      return dStr;
+    };
+
+    const initialDate = toDateInputVal(row?.date) || '2026-11-10';
+    const initialPlant = row?.productionPlant || 'DFL UNIT-5 (JPT)';
+    const initialGroupType = row?.groupType || 'AD Duty Eligible';
+    const initialGroup = row?.group || 'US ADD Group-A';
+    const initialPo = row?.poNumber || '';
+    const initialVariety = row?.variety || 'Vannamei (VM)';
+    const initialPacking = row?.packingStyle || '10 x 2 Kg Master Carton';
+    const initialFreezing = row?.freezingType || 'IQF (Tunnel Freezing)';
+    const initialGlaze = row?.glazePct ?? 10.0;
+    const initialTreatment = row?.soakingTreatment || 'Non-Phosphate';
+    const initialCategory = row?.productCategory || 'Raw Frozen';
+    const initialGrade = row?.grade || '21/25';
+    const initialSlabs = row?.slabs || '';
+    const initialRemarks = row?.remarks || '';
+    const initialOpening = row?.openingStock ?? 1000;
+    const initialClosing = row?.closingStock ?? 1250;
+    const initialInward = row?.totalInwardSlabs ?? 450;
+    const initialOutward = row?.totalOutwardSlabs ?? 200;
+
+    Modal.open({
+      title: modalTitle,
+      size: 'xl',
+      content: `
+        <form id="form-anti-dumping" class="space-y-4 text-xs animate-fade-in">
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+            <!-- 1. DATE * -->
+              <div>
+                <label for="ad-in-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
+                  DATE <span class="text-[#DE350B]">*</span>
+                </label>
+                <input type="date" id="ad-in-date" required value="${initialDate}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <!-- 2. PRODUCTION PLANT * -->
+              <div>
+                <label for="ad-in-plant" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
+                  PRODUCTION PLANT <span class="text-[#DE350B]">*</span>
+                </label>
+                <select id="ad-in-plant" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  ${plants.map(p => `<option value="${p}" ${p === initialPlant ? 'selected' : ''}>${p}</option>`).join('')}
+                </select>
+              </div>
+
+              <!-- 3. GROUP TYPE * -->
+              <div>
+                <label for="ad-in-group-type" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
+                  GROUP TYPE <span class="text-[#DE350B]">*</span>
+                </label>
+                <select id="ad-in-group-type" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  ${groupTypes.map(gt => `<option value="${gt}" ${gt === initialGroupType ? 'selected' : ''}>${gt}</option>`).join('')}
+                </select>
+              </div>
+
+              <!-- 4. GROUP * -->
+              <div>
+                <label for="ad-in-group" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
+                  GROUP <span class="text-[#DE350B]">*</span>
+                </label>
+                <select id="ad-in-group" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  ${groups.map(g => `<option value="${g}" ${g === initialGroup ? 'selected' : ''}>${g}</option>`).join('')}
+                </select>
+              </div>
+
+              <!-- 5. PO NUMBER -->
+              <div>
+                <label for="ad-in-po" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
+                  PO NUMBER
+                </label>
+                <input type="text" id="ad-in-po" value="${initialPo}" placeholder="e.g. PO-USA-2026-881" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs font-mono">
+              </div>
+
+              <!-- 6. VARIETY * -->
+              <div>
+                <label for="ad-in-variety" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
+                  VARIETY <span class="text-[#DE350B]">*</span>
+                </label>
+                <select id="ad-in-variety" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  ${varieties.map(v => `<option value="${v}" ${v === initialVariety ? 'selected' : ''}>${v}</option>`).join('')}
+                </select>
+              </div>
+
+              <!-- 7. PACKING STYLE * -->
+              <div>
+                <label for="ad-in-packing" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
+                  PACKING STYLE <span class="text-[#DE350B]">*</span>
+                </label>
+                <select id="ad-in-packing" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  ${packings.map(pk => `<option value="${pk}" ${pk === initialPacking ? 'selected' : ''}>${pk}</option>`).join('')}
+                </select>
+              </div>
+
+              <!-- 8. FREEZING TYPE -->
+              <div>
+                <label for="ad-in-freezing" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
+                  FREEZING TYPE
+                </label>
+                <select id="ad-in-freezing" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  ${freezingTypes.map(ft => `<option value="${ft}" ${ft === initialFreezing ? 'selected' : ''}>${ft}</option>`).join('')}
+                </select>
+              </div>
+
+              <!-- 9. GLAZE(%) -->
+              <div>
+                <label for="ad-in-glaze" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
+                  GLAZE(%)
+                </label>
+                <input type="number" step="0.5" id="ad-in-glaze" value="${initialGlaze}" placeholder="e.g. 10.0" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs font-mono">
+              </div>
+
+              <!-- 10. SOAKING-TREATMENT -->
+              <div>
+                <label for="ad-in-treatment" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
+                  SOAKING-TREATMENT
+                </label>
+                <select id="ad-in-treatment" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  ${treatments.map(t => `<option value="${t}" ${t === initialTreatment ? 'selected' : ''}>${t}</option>`).join('')}
+                </select>
+              </div>
+
+              <!-- 11. PRODUCT CATEGORY * -->
+              <div>
+                <label for="ad-in-category" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
+                  PRODUCT CATEGORY <span class="text-[#DE350B]">*</span>
+                </label>
+                <select id="ad-in-category" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  ${categories.map(c => `<option value="${c}" ${c === initialCategory ? 'selected' : ''}>${c}</option>`).join('')}
+                </select>
+              </div>
+
+              <!-- 12. GRADE -->
+              <div>
+                <label for="ad-in-grade" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
+                  GRADE
+                </label>
+                <select id="ad-in-grade" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  ${grades.map(g => `<option value="${g}" ${g === initialGrade ? 'selected' : ''}>${g}</option>`).join('')}
+                </select>
+              </div>
+
+              <!-- 13. SLABS * -->
+              <div>
+                <label for="ad-in-slabs" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
+                  SLABS <span class="text-[#DE350B]">*</span>
+                </label>
+                <input type="number" id="ad-in-slabs" required value="${initialSlabs}" placeholder="e.g. 450" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs font-mono">
+              </div>
+
+              <!-- KGS -->
+              <div>
+                <label for="ad-in-kgs" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">KGS</label>
+                <input type="number" id="ad-in-kgs" value="${row?.kgs || (initialSlabs ? initialSlabs * 20 : '')}" placeholder="Auto calc" class="w-full text-xs px-2.5 py-1.5 bg-[#F8FAFC] border border-[#CBD5E1] rounded font-extrabold text-[#006644] focus:outline-none shadow-2xs font-mono">
+              </div>
+
+              <!-- 15. OPENING STOCK -->
+              <div>
+                <label for="ad-in-opening" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
+                  OPENING STOCK
+                </label>
+                <input type="number" id="ad-in-opening" value="${initialOpening}" placeholder="e.g. 1200" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs font-mono">
+              </div>
+
+              <!-- 17. TOTAL INWARD SLABS -->
+              <div>
+                <label for="ad-in-inward" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
+                  TOTAL INWARD SLABS
+                </label>
+                <input type="number" id="ad-in-inward" value="${initialInward}" placeholder="e.g. 450" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs font-mono">
+              </div>
+
+              <!-- 18. TOTAL OUTWARD SLABS -->
+              <div>
+                <label for="ad-in-outward" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
+                  TOTAL OUTWARD SLABS
+                </label>
+                <input type="number" id="ad-in-outward" value="${initialOutward}" placeholder="e.g. 200" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs font-mono">
+              </div>
+
+              <!-- 16. CLOSING STOCK -->
+              <div>
+                <label for="ad-in-closing" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
+                  CLOSING STOCK
+                </label>
+                <input type="number" id="ad-in-closing" value="${initialClosing}" placeholder="Auto calc" class="w-full text-xs px-2.5 py-1.5 bg-[#F8FAFC] border border-[#CBD5E1] rounded font-bold text-[#00A4B7] focus:outline-none shadow-2xs font-mono">
+              </div>
+
+              <!-- 14. REMARKS (Span 2) -->
+              <div class="sm:col-span-2">
+                <label for="ad-in-remarks" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
+                  REMARKS
+                </label>
+                <input type="text" id="ad-in-remarks" value="${initialRemarks}" placeholder="e.g. ADD benchmark audit batch, certified by US DOC" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <!-- Stock Belongs to -->
+              <div>
+                <label for="ad-in-belongs" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">STOCK BELONGS TO</label>
+                <input type="text" id="ad-in-belongs" value="${row?.stockBelongsTo || 'Devi Fisheries Limited'}" class="w-full text-xs px-2.5 py-1.5 bg-[#F8FAFC] border border-[#CBD5E1] rounded font-semibold text-[#172B4D] focus:outline-none shadow-2xs">
+              </div>
+
+              <!-- From Plant & To Plant -->
+              <div>
+                <label for="ad-in-from" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FROM PLANT</label>
+                <input type="text" id="ad-in-from" value="${row?.fromPlant || initialPlant}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+              <div>
+                <label for="ad-in-to" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">TO PLANT</label>
+                <input type="text" id="ad-in-to" value="${row?.toPlant || 'Coldstore Chamber #1'}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <!-- SUPC code -->
+              <div>
+                <label for="ad-in-supc" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">SUPC</label>
+                <input type="text" id="ad-in-supc" value="${row?.supc || 'SUPC-DFL-9042'}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs font-mono">
+              </div>
+            </div>
+
+          <!-- Modal Action Buttons Footer -->
+          <div class="flex items-center justify-end gap-3 pt-3 border-t border-[#DFE1E6]">
+            <button type="button" id="btn-cancel-ad-modal" class="btn-secondary px-5 py-2 rounded-full text-xs font-semibold border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#172B4D] transition-all cursor-pointer">
+              Cancel
+            </button>
+            <button type="submit" id="btn-save-ad-modal" class="btn-primary px-5 py-2 rounded-full text-xs font-bold shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer">
+              <span>${isEdit ? 'Update Record' : 'Save Record'}</span>
+            </button>
+          </div>
+        </form>
+      `
+    });
+
+    // Auto-calculate Kgs and Closing Stock
+    const slabsEl = document.getElementById('ad-in-slabs');
+    const kgsEl = document.getElementById('ad-in-kgs');
+    const openEl = document.getElementById('ad-in-opening');
+    const inEl = document.getElementById('ad-in-inward');
+    const outEl = document.getElementById('ad-in-outward');
+    const closeEl = document.getElementById('ad-in-closing');
+
+    slabsEl?.addEventListener('input', () => {
+      const s = parseFloat(slabsEl.value) || 0;
+      if (kgsEl) kgsEl.value = s * 20;
+    });
+
+    const updateClosingStock = () => {
+      const o = parseFloat(openEl?.value) || 0;
+      const i = parseFloat(inEl?.value) || 0;
+      const out = parseFloat(outEl?.value) || 0;
+      if (closeEl) closeEl.value = Math.max(0, o + i - out);
+    };
+
+    openEl?.addEventListener('input', updateClosingStock);
+    inEl?.addEventListener('input', updateClosingStock);
+    outEl?.addEventListener('input', updateClosingStock);
+
+    // Cancel Button
+    document.getElementById('btn-cancel-ad-modal')?.addEventListener('click', () => {
+      Modal.close();
+    });
+
+    // Form Submit
+    document.getElementById('form-anti-dumping')?.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const dateRaw = document.getElementById('ad-in-date')?.value || '';
+      const productionPlant = document.getElementById('ad-in-plant')?.value || '';
+      const groupType = document.getElementById('ad-in-group-type')?.value || '';
+      const group = document.getElementById('ad-in-group')?.value || '';
+      const poNumber = document.getElementById('ad-in-po')?.value?.trim() || '';
+      const stockBelongsTo = document.getElementById('ad-in-belongs')?.value?.trim() || 'Devi Fisheries Limited';
+      const fromPlant = document.getElementById('ad-in-from')?.value?.trim() || productionPlant;
+      const toPlant = document.getElementById('ad-in-to')?.value?.trim() || 'Coldstore Chamber #1';
+      const variety = document.getElementById('ad-in-variety')?.value || '';
+      const packingStyle = document.getElementById('ad-in-packing')?.value || '';
+      const freezingType = document.getElementById('ad-in-freezing')?.value || '';
+      const glazePct = parseFloat(document.getElementById('ad-in-glaze')?.value) || 0;
+      const soakingTreatment = document.getElementById('ad-in-treatment')?.value || '';
+      const productCategory = document.getElementById('ad-in-category')?.value || '';
+      const grade = document.getElementById('ad-in-grade')?.value || '';
+      const supc = document.getElementById('ad-in-supc')?.value?.trim() || 'SUPC-DFL-9042';
+      const slabs = parseInt(document.getElementById('ad-in-slabs')?.value) || 0;
+      const kgs = parseFloat(document.getElementById('ad-in-kgs')?.value) || (slabs * 20);
+      const openingStock = parseInt(document.getElementById('ad-in-opening')?.value) || 0;
+      const closingStock = parseInt(document.getElementById('ad-in-closing')?.value) || 0;
+      const totalInwardSlabs = parseInt(document.getElementById('ad-in-inward')?.value) || 0;
+      const totalOutwardSlabs = parseInt(document.getElementById('ad-in-outward')?.value) || 0;
+      const remarks = document.getElementById('ad-in-remarks')?.value?.trim() || '';
+
+      const formatDate = (isoStr) => {
+        if (!isoStr) return '';
+        const parts = isoStr.split('-');
+        if (parts.length === 3) return `${parts[2]}/${parts[1]}/${parts[0]}`;
+        return isoStr;
+      };
+
+      const date = formatDate(dateRaw);
+      const product = `${variety.split(' ')[0]} ${grade} ${productCategory}`;
+      const id = isEdit ? row.id : `AD-2026-${String(this.state.antiDumpingRecords.length + 1).padStart(3, '0')}`;
+
+      const record = {
+        id,
+        productionPlant,
+        stockBelongsTo,
+        date,
+        groupType,
+        group,
+        poNumber,
+        supc,
+        product,
+        variety,
+        fromPlant,
+        toPlant,
+        grade,
+        packingStyle,
+        freezingType,
+        glazePct,
+        soakingTreatment,
+        productCategory,
+        slabs,
+        kgs,
+        lastUpdatedDate: '11/11/2026',
+        remarks,
+        openingStock,
+        closingStock,
+        totalInwardSlabs,
+        totalOutwardSlabs
+      };
+
+      if (isEdit) {
+        const idx = this.state.antiDumpingRecords.findIndex(r => r.id === row.id);
+        if (idx !== -1) {
+          this.state.antiDumpingRecords[idx] = { ...this.state.antiDumpingRecords[idx], ...record };
+        }
+      } else {
+        record.sNo = this.state.antiDumpingRecords.length + 1;
+        this.state.antiDumpingRecords.unshift(record);
+      }
+
+      Modal.close();
+      Toast.show(isEdit ? `Anti Dumping Record ${id} updated successfully` : `Anti Dumping Record ${id} added successfully`, 'success');
+
+      if (typeof onSaved === 'function') {
+        onSaved();
+      }
+    });
+  },
+
 };

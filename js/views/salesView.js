@@ -1794,56 +1794,144 @@ export const SalesView = {
     // 3. Payments Submenu datasets
     forwardContracts: [
       {
-        contractNo: "FWD-2026-081",
-        bankName: "State Bank of India (Forex Cell)",
-        currencyPair: "USD/INR",
-        bookingDate: "2026-10-15",
-        maturityDate: "2026-12-31",
-        contractRate: 84.65,
-        bookedAmount: 250000,
-        utilizedAmount: 180000,
-        balanceAmount: 70000,
-        purpose: "Export Realization Hedge - US Shrimp Shipments",
-        status: "ACTIVE_OPEN"
+        sNo: 1,
+        id: 'FWD-2026-081',
+        contractNo: 'FWD-2026-081',
+        company: 'Devi Fisheries Limited',
+        exporter: 'Devi Fisheries Limited',
+        type: 'Export Hedge',
+        year: '2026-2027',
+        bookedDate: '15/10/2026',
+        spotRate: 83.95,
+        currentDate: '11/11/2026',
+        diff: '+0.70',
+        startDate: '15/10/2026',
+        endDate: '31/12/2026',
+        period: '77 Days',
+        month: 'December 2026',
+        premiumRate: 0.60,
+        branchMargin: 0.10,
+        totalRate: 84.65,
+        bookedRate: 84.65,
+        bookedValue: 250000,
+        value: 250000,
+        utilisation: 180000,
+        utilizedValue: 180000,
+        balanceUsd: 70000,
+        balanceValue: 70000,
+        status: 'ACTIVE_OPEN'
       },
       {
-        contractNo: "FWD-2026-082",
-        bankName: "Canara Bank Overseas Branch",
-        currencyPair: "USD/INR",
-        bookingDate: "2026-10-10",
-        maturityDate: "2026-11-30",
-        contractRate: 84.78,
-        bookedAmount: 500000,
-        utilizedAmount: 500000,
-        balanceAmount: 0,
-        purpose: "Forward Sale Hedge - Japan Black Tiger Contract",
-        status: "FULLY_UTILIZED"
+        sNo: 2,
+        id: 'FWD-2026-082',
+        contractNo: 'FWD-2026-082',
+        company: 'Devi Sea Foods Ltd',
+        exporter: 'Devi Sea Foods Ltd',
+        type: 'Forward Sale Hedge',
+        year: '2026-2027',
+        bookedDate: '10/10/2026',
+        spotRate: 84.05,
+        currentDate: '11/11/2026',
+        diff: '+0.73',
+        startDate: '10/10/2026',
+        endDate: '30/11/2026',
+        period: '51 Days',
+        month: 'November 2026',
+        premiumRate: 0.62,
+        branchMargin: 0.11,
+        totalRate: 84.78,
+        bookedRate: 84.78,
+        bookedValue: 500000,
+        value: 500000,
+        utilisation: 500000,
+        utilizedValue: 500000,
+        balanceUsd: 0,
+        balanceValue: 0,
+        status: 'FULLY_UTILIZED'
       },
       {
-        contractNo: "FWD-2026-083",
-        bankName: "HDFC Bank Trade Finance",
-        currencyPair: "EUR/INR",
-        bookingDate: "2026-10-20",
-        maturityDate: "2027-01-31",
-        contractRate: 91.40,
-        bookedAmount: 150000,
-        utilizedAmount: 35000,
-        balanceAmount: 115000,
-        purpose: "Seabass Fillets Hedge - EU Buyer Coverage",
-        status: "ACTIVE_OPEN"
+        sNo: 3,
+        id: 'FWD-2026-083',
+        contractNo: 'FWD-2026-083',
+        company: 'Devi Fisheries Limited',
+        exporter: 'Devi Fisheries Limited',
+        type: 'Export Hedge',
+        year: '2026-2027',
+        bookedDate: '20/10/2026',
+        spotRate: 90.75,
+        currentDate: '11/11/2026',
+        diff: '+0.65',
+        startDate: '20/10/2026',
+        endDate: '31/01/2027',
+        period: '103 Days',
+        month: 'January 2027',
+        premiumRate: 0.55,
+        branchMargin: 0.10,
+        totalRate: 91.40,
+        bookedRate: 91.40,
+        bookedValue: 150000,
+        value: 150000,
+        utilisation: 35000,
+        utilizedValue: 35000,
+        balanceUsd: 115000,
+        balanceValue: 115000,
+        status: 'ACTIVE_OPEN'
       },
       {
-        contractNo: "FWD-2026-084",
-        bankName: "State Bank of India (Forex Cell)",
-        currencyPair: "USD/INR",
-        bookingDate: "2026-10-25",
-        maturityDate: "2027-02-28",
-        contractRate: 84.92,
-        bookedAmount: 350000,
-        utilizedAmount: 0,
-        balanceAmount: 350000,
-        purpose: "Sysco & Red Lobster Winter Export Hedge",
-        status: "ACTIVE_OPEN"
+        sNo: 4,
+        id: 'FWD-2026-084',
+        contractNo: 'FWD-2026-084',
+        company: 'Devi Aqua Feeds',
+        exporter: 'Devi Aqua Feeds',
+        type: 'Import Coverage',
+        year: '2026-2027',
+        bookedDate: '25/10/2026',
+        spotRate: 84.20,
+        currentDate: '11/11/2026',
+        diff: '+0.72',
+        startDate: '25/10/2026',
+        endDate: '28/02/2027',
+        period: '126 Days',
+        month: 'February 2027',
+        premiumRate: 0.62,
+        branchMargin: 0.10,
+        totalRate: 84.92,
+        bookedRate: 84.92,
+        bookedValue: 350000,
+        value: 350000,
+        utilisation: 0,
+        utilizedValue: 0,
+        balanceUsd: 350000,
+        balanceValue: 350000,
+        status: 'ACTIVE_OPEN'
+      },
+      {
+        sNo: 5,
+        id: 'FWD-2026-085',
+        contractNo: 'FWD-2026-085',
+        company: 'Devi Fisheries Limited',
+        exporter: 'Devi Fisheries Limited',
+        type: 'Export Hedge',
+        year: '2026-2027',
+        bookedDate: '01/11/2026',
+        spotRate: 84.10,
+        currentDate: '11/11/2026',
+        diff: '+0.70',
+        startDate: '01/11/2026',
+        endDate: '31/03/2027',
+        period: '150 Days',
+        month: 'March 2027',
+        premiumRate: 0.60,
+        branchMargin: 0.10,
+        totalRate: 84.80,
+        bookedRate: 84.80,
+        bookedValue: 400000,
+        value: 400000,
+        utilisation: 50000,
+        utilizedValue: 50000,
+        balanceUsd: 350000,
+        balanceValue: 350000,
+        status: 'ACTIVE_OPEN'
       }
     ],
 
@@ -10336,39 +10424,530 @@ export const SalesView = {
 
   // Payments Tab 1: Forward Contracts
   renderForwardContracts(container) {
-    this.renderGenericTablePage({
-      container,
-      pageTitle: 'Forward Contracts (Foreign Currency Forex Hedging)',
-            primaryBtnText: 'Book Forward Contract',
-      onPrimaryClick: () => Toast.show('Booking form for Foreign Exchange Forward Contract opened', 'info'),
-      filterFields: [
-        { id: 'fwd-no', label: 'Contract No', placeholder: 'e.g. FWD-2026' },
-        { id: 'fwd-bank', label: 'Bank Name', placeholder: 'e.g. State Bank of India' },
-        { id: 'fwd-pair', label: 'Currency Pair', type: 'select', options: ['All Currency Pairs', 'USD/INR', 'EUR/INR', 'GBP/INR'] },
-        { id: 'fwd-status', label: 'Contract Status', type: 'select', options: ['All Status', 'Active & Open', 'Fully Utilized'] }
-      ],
-      data: this.state.forwardContracts,
-      keyField: 'contractNo',
-      tableTitle: 'Forward Contracts Register',
-      columns: [
-        { field: 'contractNo', header: 'Contract No', render: (v) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${v}</span>` },
-        { field: 'bankName', header: 'Treasury / Forex Bank', render: (v) => `<span class="font-bold text-[#172B4D] text-xs">${v}</span>` },
-        { field: 'currencyPair', header: 'Pair', render: (v) => `<span class="px-2 py-0.5 rounded text-[11px] font-bold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">${v}</span>` },
-        { field: 'contractRate', header: 'Booked Rate (INR)', render: (v) => `<span class="font-mono font-extrabold text-xs text-[#006644]">₹${Number(v).toFixed(2)}</span>` },
-        { field: 'bookedAmount', header: 'Booked (FC)', render: (v, r) => `<span class="font-mono font-bold text-xs text-[#172B4D]">$${Number(v).toLocaleString('en-IN')}</span>` },
-        { field: 'utilizedAmount', header: 'Utilized (FC)', render: (v) => `<span class="font-mono text-xs font-semibold text-[#5E6C84]">$${Number(v).toLocaleString('en-IN')}</span>` },
-        { field: 'balanceAmount', header: 'Available Balance', render: (v) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">$${Number(v).toLocaleString('en-IN')}</span>` },
-        { field: 'maturityDate', header: 'Maturity Date', render: (v) => `<span class="font-mono text-xs text-[#5E6C84]">${v}</span>` },
-        { field: 'purpose', header: 'Hedging Purpose', render: (v) => `<span class="text-[11px] text-[#5E6C84] truncate max-w-[200px] block" title="${v}">${v}</span>` },
-        {
-          field: 'status',
-          header: 'Status',
-          render: (v) => {
-            const cls = v.includes('ACTIVE') ? 'bg-[#E3FCEF] text-[#006644] border-[#ABF5D1]' : 'bg-[#F1F5F9] text-[#172B4D] border-[#DFE1E6]';
-            return `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold border ${cls} uppercase">${v.replace(/_/g, ' ')}</span>`;
+    container.innerHTML = `
+      <div class="space-y-3 animate-fade-in">
+        <!-- Page Title & Header Actions (Strictly clean H1 per AGENTS.md Rule 2) -->
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-1">
+          <div>
+            <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Forward Contracts</h1>
+          </div>
+          <div class="inline-flex items-center gap-2">
+            <button type="button" id="btn-add-forward-contract" class="btn-primary px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+              <span>Book Forward Contract</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- FORWARD CONTRACT — Filter Fields -->
+        <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200">
+          <div class="flex items-center justify-between pb-1">
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+              <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
+            </div>
+            <div class="inline-flex items-center gap-2">
+              <button type="button" id="fwd-flt-reset-btn" class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Reset all filters">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+              </button>
+              <button type="button" id="fwd-flt-toggle-btn" class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Hide Filter">
+                <svg class="w-3.5 h-3.5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              </button>
+            </div>
+          </div>
+          <div id="fwd-flt-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
+            <div>
+              <label for="fwd-flt-year" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Select Year</label>
+              <select id="fwd-flt-year" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="All">All Years</option>
+                <option value="2026-2027" selected>2026-2027</option>
+                <option value="2025-2026">2025-2026</option>
+                <option value="2024-2025">2024-2025</option>
+                <option value="2023-2024">2023-2024</option>
+              </select>
+            </div>
+            <div>
+              <label for="fwd-flt-exporter" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Select Exporter</label>
+              <select id="fwd-flt-exporter" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="All">All Exporters</option>
+                <option value="Devi Fisheries Limited">Devi Fisheries Limited</option>
+                <option value="Devi Sea Foods Ltd">Devi Sea Foods Ltd</option>
+                <option value="Devi Aqua Feeds">Devi Aqua Feeds</option>
+              </select>
+            </div>
+            <div>
+              <label for="fwd-flt-type" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Type</label>
+              <select id="fwd-flt-type" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                <option value="All">All Types</option>
+                <option value="Export Hedge">Export Hedge</option>
+                <option value="Import Coverage">Import Coverage</option>
+                <option value="Forward Sale Hedge">Forward Sale Hedge</option>
+              </select>
+            </div>
+            <div class="flex items-end">
+              <button type="button" id="fwd-flt-search-btn" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                <span>Search</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- DataTable Container -->
+        <div id="fwd-table-container"></div>
+      </div>
+    `;
+
+    // Hook primary action
+    container.querySelector('#btn-add-forward-contract')?.addEventListener('click', () => {
+      this.openBookForwardContractModal(null, () => renderTable(this.state.forwardContracts));
+    });
+
+    // Toggle filter
+    const toggleBtn = container.querySelector('#fwd-flt-toggle-btn');
+    const filterBody = container.querySelector('#fwd-flt-body');
+    toggleBtn?.addEventListener('click', () => {
+      filterBody?.classList.toggle('hidden');
+      toggleBtn.querySelector('svg')?.classList.toggle('-rotate-90');
+    });
+
+    // Render Table function
+    const renderTable = (currentData) => {
+      new DataTable({
+        containerId: 'fwd-table-container',
+        data: currentData,
+        keyField: 'contractNo',
+        tableTitle: `Forward Contracts (${currentData.length})`,
+        searchable: true,
+        exportable: true,
+        pageSize: 10,
+        columns: [
+          { field: 'sNo', header: 'S.No', render: (v, r, idx) => `<span class="font-bold text-[#172B4D]">${v || (idx + 1)}</span>` },
+          { field: 'bookedDate', header: 'Booked Date', render: (v) => `<span class="text-xs text-[#172B4D] whitespace-nowrap">${v}</span>` },
+          { field: 'spotRate', header: 'Spot Rate', render: (v) => `<span class="font-mono text-xs font-semibold text-[#5E6C84]">₹${Number(v).toFixed(2)}</span>` },
+          { field: 'contractNo', header: 'Forward Contract No', render: (v) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${v}</span>` },
+          { field: 'currentDate', header: 'Current Date', render: (v) => `<span class="text-xs text-[#5E6C84] whitespace-nowrap">${v || '11/11/2026'}</span>` },
+          { field: 'diff', header: 'Diff', render: (v) => `<span class="font-mono font-bold text-xs ${String(v).startsWith('-') ? 'text-[#DE350B]' : 'text-[#006644]'}">${v}</span>` },
+          { field: 'startDate', header: 'Start Date', render: (v) => `<span class="text-xs text-[#5E6C84] whitespace-nowrap">${v}</span>` },
+          { field: 'endDate', header: 'End Date', render: (v) => `<span class="text-xs text-[#5E6C84] whitespace-nowrap">${v}</span>` },
+          { field: 'month', header: 'Month', render: (v) => `<span class="text-xs font-medium text-[#172B4D] whitespace-nowrap">${v}</span>` },
+          { field: 'bookedRate', header: 'Booked Rate', render: (v) => `<span class="font-mono font-extrabold text-xs text-[#006644]">₹${Number(v).toFixed(2)}</span>` },
+          { field: 'bookedValue', header: 'Booked Value', render: (v) => `<span class="font-mono font-bold text-xs text-[#172B4D]">$${Number(v).toLocaleString('en-US')}</span>` },
+          { field: 'utilisation', header: 'Utilisation', render: (v) => `<span class="font-mono text-xs font-semibold text-[#5E6C84]">$${Number(v).toLocaleString('en-US')}</span>` },
+          { field: 'balanceUsd', header: 'Balance US$', render: (v) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">$${Number(v).toLocaleString('en-US')}</span>` },
+          {
+            field: 'actions',
+            header: 'Actions',
+            render: (v, row) => `
+              <div class="flex items-center gap-1.5 justify-center">
+                <button type="button" class="btn-download-fwd dt-action-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] rounded-full text-[#00A4B7] transition-colors cursor-pointer" data-id="${row.contractNo}" title="Download Forward Contract">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                </button>
+                <button type="button" class="btn-edit-fwd dt-action-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] rounded-full text-[#00A4B7] transition-colors cursor-pointer" data-id="${row.contractNo}" title="Edit Forward Contract">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+                </button>
+                <button type="button" class="btn-delete-fwd dt-action-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#FFEBE6] border border-[#CBD5E1] hover:border-[#DE350B] rounded-full text-[#DE350B] transition-colors cursor-pointer" data-id="${row.contractNo}" title="Delete Forward Contract">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                </button>
+              </div>
+            `
           }
+        ]
+      });
+
+      // Attach Actions Event Listeners
+      const tableWrapper = document.getElementById('fwd-table-container');
+      if (tableWrapper) {
+        // Download
+        tableWrapper.querySelectorAll('.btn-download-fwd').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const id = btn.getAttribute('data-id');
+            Toast.show(`Downloading Forward Contract document for ${id}...`, 'success');
+          });
+        });
+
+        // Edit
+        tableWrapper.querySelectorAll('.btn-edit-fwd').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const id = btn.getAttribute('data-id');
+            const targetRow = this.state.forwardContracts.find(item => item.contractNo === id);
+            if (targetRow) {
+              this.openBookForwardContractModal(targetRow, () => renderTable(this.state.forwardContracts));
+            }
+          });
+        });
+
+        // Delete
+        tableWrapper.querySelectorAll('.btn-delete-fwd').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const id = btn.getAttribute('data-id');
+            Modal.confirm({
+              title: 'Delete Forward Contract',
+              message: `Are you sure you want to delete Forward Contract <strong>${id}</strong>? This action cannot be undone.`,
+              confirmText: 'Delete Contract',
+              cancelText: 'Cancel',
+              isDestructive: true,
+              onConfirm: () => {
+                this.state.forwardContracts = this.state.forwardContracts.filter(item => item.contractNo !== id);
+                renderTable(this.state.forwardContracts);
+                Toast.show(`Forward Contract ${id} deleted successfully`, 'success');
+              }
+            });
+          });
+        });
+      }
+    };
+
+    renderTable(this.state.forwardContracts);
+
+    // Search and Reset filters handlers
+    const searchBtn = container.querySelector('#fwd-flt-search-btn');
+    const resetBtn = container.querySelector('#fwd-flt-reset-btn');
+
+    searchBtn?.addEventListener('click', () => {
+      const yearVal = container.querySelector('#fwd-flt-year')?.value || 'All';
+      const exporterVal = container.querySelector('#fwd-flt-exporter')?.value || 'All';
+      const typeVal = container.querySelector('#fwd-flt-type')?.value || 'All';
+
+      let filtered = [...this.state.forwardContracts];
+
+      if (yearVal !== 'All') {
+        filtered = filtered.filter(item => item.year === yearVal);
+      }
+      if (exporterVal !== 'All') {
+        filtered = filtered.filter(item => item.exporter === exporterVal || item.company === exporterVal);
+      }
+      if (typeVal !== 'All') {
+        filtered = filtered.filter(item => item.type === typeVal);
+      }
+
+      renderTable(filtered);
+      Toast.show(`Filtered ${filtered.length} forward contract(s)`, 'info');
+    });
+
+    resetBtn?.addEventListener('click', () => {
+      const yearEl = container.querySelector('#fwd-flt-year');
+      const expEl = container.querySelector('#fwd-flt-exporter');
+      const typeEl = container.querySelector('#fwd-flt-type');
+      if (yearEl) yearEl.value = 'All';
+      if (expEl) expEl.value = 'All';
+      if (typeEl) typeEl.value = 'All';
+
+      renderTable(this.state.forwardContracts);
+      Toast.show('Filters reset', 'info');
+    });
+  },
+
+  // Modal: Book Forward Contract
+  openBookForwardContractModal(row = null, onSaved = null) {
+    const isEdit = !!row;
+    const modalTitle = isEdit ? `Edit Forward Contract — ${row.contractNo}` : 'Book Forward Contract';
+
+    const companies = ['Devi Fisheries Limited', 'Devi Sea Foods Ltd', 'Devi Aqua Feeds'];
+    const months = ['October 2026', 'November 2026', 'December 2026', 'January 2027', 'February 2027', 'March 2027', 'April 2027', 'May 2027'];
+
+    const initialCompany = row?.company || row?.exporter || 'Devi Fisheries Limited';
+    const toDateInputVal = (dStr) => {
+      if (!dStr) return '';
+      if (dStr.includes('/')) {
+        const parts = dStr.split('/');
+        if (parts.length === 3) return `${parts[2]}-${parts[1].padStart(2, '0')}-${parts[0].padStart(2, '0')}`;
+      }
+      return dStr;
+    };
+
+    const initialBookingDate = toDateInputVal(row?.bookedDate) || '2026-10-15';
+    const initialContractNo = row?.contractNo || `FWD-2026-${String(this.state.forwardContracts.length + 81).padStart(3, '0')}`;
+    const initialValue = row?.bookedValue || row?.value || '';
+    const initialPeriod = row?.period || '75 Days';
+    const initialMonth = row?.month || 'December 2026';
+    const initialStartDate = toDateInputVal(row?.startDate) || '2026-10-15';
+    const initialEndDate = toDateInputVal(row?.endDate) || '2026-12-31';
+    const initialSpotRate = row?.spotRate ?? 83.95;
+    const initialPremiumRate = row?.premiumRate ?? 0.60;
+    const initialBranchMargin = row?.branchMargin ?? 0.10;
+    const initialTotalRate = row?.bookedRate || row?.totalRate || 84.65;
+    const initialUtilizedValue = row?.utilisation || row?.utilizedValue || 0;
+    const initialBalanceValue = row?.balanceUsd ?? (row?.bookedValue ? (row.bookedValue - (row.utilisation || 0)) : (initialValue ? initialValue : ''));
+
+    Modal.open({
+      title: modalTitle,
+      size: 'xl',
+      content: `
+        <form id="form-book-fwd" class="space-y-4 text-xs animate-fade-in">
+          <!-- Section 1: Book Forward Contract — Form Input Fields -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9] pb-2 mb-3">
+              <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">1</span>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Contract Details &amp; Validity</h4>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+              <!-- 1. SELECT COMPANY * -->
+              <div>
+                <label for="fwd-in-company" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
+                  SELECT COMPANY <span class="text-[#DE350B]">*</span>
+                </label>
+                <select id="fwd-in-company" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  ${companies.map(c => `<option value="${c}" ${c === initialCompany ? 'selected' : ''}>${c}</option>`).join('')}
+                </select>
+              </div>
+
+              <!-- 2. BOOKING DATE * -->
+              <div>
+                <label for="fwd-in-booking-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
+                  BOOKING DATE <span class="text-[#DE350B]">*</span>
+                </label>
+                <input type="date" id="fwd-in-booking-date" required value="${initialBookingDate}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <!-- 3. FORWARD CONTRACT NUMBER * -->
+              <div>
+                <label for="fwd-in-contract-no" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
+                  FORWARD CONTRACT NUMBER <span class="text-[#DE350B]">*</span>
+                </label>
+                <input type="text" id="fwd-in-contract-no" required value="${initialContractNo}" placeholder="e.g. FWD-2026-085" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs font-mono">
+              </div>
+
+              <!-- 4. VALUE * -->
+              <div>
+                <label for="fwd-in-value" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
+                  VALUE (US$) <span class="text-[#DE350B]">*</span>
+                </label>
+                <input type="number" id="fwd-in-value" required value="${initialValue}" placeholder="e.g. 250000" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs font-mono">
+              </div>
+
+              <!-- 5. PERIOD -->
+              <div>
+                <label for="fwd-in-period" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
+                  PERIOD
+                </label>
+                <input type="text" id="fwd-in-period" value="${initialPeriod}" placeholder="e.g. 77 Days" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <!-- 6. MONTH -->
+              <div>
+                <label for="fwd-in-month" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
+                  MONTH
+                </label>
+                <select id="fwd-in-month" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  ${months.map(m => `<option value="${m}" ${m === initialMonth ? 'selected' : ''}>${m}</option>`).join('')}
+                </select>
+              </div>
+
+              <!-- 7. START DATE * -->
+              <div>
+                <label for="fwd-in-start-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
+                  START DATE <span class="text-[#DE350B]">*</span>
+                </label>
+                <input type="date" id="fwd-in-start-date" required value="${initialStartDate}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+
+              <!-- 8. END DATE * -->
+              <div>
+                <label for="fwd-in-end-date" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
+                  END DATE <span class="text-[#DE350B]">*</span>
+                </label>
+                <input type="date" id="fwd-in-end-date" required value="${initialEndDate}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Rates Breakdown & Utilization -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="flex items-center gap-2 border-b border-[#F1F5F9] pb-2 mb-3">
+              <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">2</span>
+              <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Rate Structure &amp; Value Utilization</h4>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+              <!-- 9. SPOT RATE * -->
+              <div>
+                <label for="fwd-in-spot-rate" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
+                  SPOT RATE <span class="text-[#DE350B]">*</span>
+                </label>
+                <input type="number" step="0.0001" id="fwd-in-spot-rate" required value="${initialSpotRate}" placeholder="e.g. 83.95" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs font-mono">
+              </div>
+
+              <!-- 10. PREMIUM RATE -->
+              <div>
+                <label for="fwd-in-premium-rate" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
+                  PREMIUM RATE
+                </label>
+                <input type="number" step="0.0001" id="fwd-in-premium-rate" value="${initialPremiumRate}" placeholder="e.g. 0.60" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs font-mono">
+              </div>
+
+              <!-- 11. BRANCH MARGIN * -->
+              <div>
+                <label for="fwd-in-branch-margin" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
+                  BRANCH MARGIN <span class="text-[#DE350B]">*</span>
+                </label>
+                <input type="number" step="0.0001" id="fwd-in-branch-margin" required value="${initialBranchMargin}" placeholder="e.g. 0.10" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs font-mono">
+              </div>
+
+              <!-- 12. TOTAL RATE * -->
+              <div>
+                <label for="fwd-in-total-rate" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
+                  TOTAL RATE <span class="text-[#DE350B]">*</span>
+                </label>
+                <input type="number" step="0.0001" id="fwd-in-total-rate" required value="${initialTotalRate}" placeholder="e.g. 84.65" class="w-full text-xs px-2.5 py-1.5 bg-[#F8FAFC] border border-[#CBD5E1] rounded font-extrabold text-[#006644] focus:outline-none shadow-2xs font-mono">
+              </div>
+
+              <!-- 13. UTILIZED VALUE -->
+              <div>
+                <label for="fwd-in-utilized-value" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
+                  UTILIZED VALUE
+                </label>
+                <input type="number" id="fwd-in-utilized-value" value="${initialUtilizedValue}" placeholder="e.g. 0" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs font-mono">
+              </div>
+
+              <!-- 14. BALANCE VALUE -->
+              <div>
+                <label for="fwd-in-balance-value" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
+                  BALANCE VALUE
+                </label>
+                <input type="number" id="fwd-in-balance-value" value="${initialBalanceValue}" placeholder="e.g. 250000" readonly class="w-full text-xs px-2.5 py-1.5 bg-[#F8FAFC] border border-[#CBD5E1] rounded font-bold text-[#00A4B7] focus:outline-none shadow-2xs font-mono">
+              </div>
+            </div>
+          </div>
+
+          <!-- Modal Action Buttons Footer -->
+          <div class="flex items-center justify-end gap-3 pt-3 border-t border-[#DFE1E6]">
+            <button type="button" id="btn-cancel-fwd-modal" class="btn-secondary px-5 py-2 rounded-full text-xs font-semibold border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#172B4D] transition-all cursor-pointer">
+              Cancel
+            </button>
+            <button type="submit" id="btn-save-fwd-modal" class="btn-primary px-5 py-2 rounded-full text-xs font-bold shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer">
+              <span>${isEdit ? 'Update Contract' : 'Save Contract'}</span>
+            </button>
+          </div>
+        </form>
+      `
+    });
+
+    // Dynamic calculations
+    const spotEl = document.getElementById('fwd-in-spot-rate');
+    const premEl = document.getElementById('fwd-in-premium-rate');
+    const marginEl = document.getElementById('fwd-in-branch-margin');
+    const totalEl = document.getElementById('fwd-in-total-rate');
+
+    const updateTotalRate = () => {
+      const s = parseFloat(spotEl?.value) || 0;
+      const p = parseFloat(premEl?.value) || 0;
+      const m = parseFloat(marginEl?.value) || 0;
+      if (totalEl) totalEl.value = (s + p + m).toFixed(2);
+    };
+
+    spotEl?.addEventListener('input', updateTotalRate);
+    premEl?.addEventListener('input', updateTotalRate);
+    marginEl?.addEventListener('input', updateTotalRate);
+
+    const valEl = document.getElementById('fwd-in-value');
+    const utilEl = document.getElementById('fwd-in-utilized-value');
+    const balEl = document.getElementById('fwd-in-balance-value');
+
+    const updateBalance = () => {
+      const v = parseFloat(valEl?.value) || 0;
+      const u = parseFloat(utilEl?.value) || 0;
+      if (balEl) balEl.value = Math.max(0, v - u);
+    };
+
+    valEl?.addEventListener('input', updateBalance);
+    utilEl?.addEventListener('input', updateBalance);
+
+    // Cancel Button
+    document.getElementById('btn-cancel-fwd-modal')?.addEventListener('click', () => {
+      Modal.close();
+    });
+
+    // Form Submit
+    document.getElementById('form-book-fwd')?.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const company = document.getElementById('fwd-in-company')?.value || 'Devi Fisheries Limited';
+      const bookingDateRaw = document.getElementById('fwd-in-booking-date')?.value || '';
+      const contractNo = document.getElementById('fwd-in-contract-no')?.value?.trim();
+      const value = parseFloat(document.getElementById('fwd-in-value')?.value) || 0;
+      const period = document.getElementById('fwd-in-period')?.value?.trim() || '';
+      const month = document.getElementById('fwd-in-month')?.value || '';
+      const startDateRaw = document.getElementById('fwd-in-start-date')?.value || '';
+      const endDateRaw = document.getElementById('fwd-in-end-date')?.value || '';
+      const spotRate = parseFloat(document.getElementById('fwd-in-spot-rate')?.value) || 0;
+      const premiumRate = parseFloat(document.getElementById('fwd-in-premium-rate')?.value) || 0;
+      const branchMargin = parseFloat(document.getElementById('fwd-in-branch-margin')?.value) || 0;
+      const totalRate = parseFloat(document.getElementById('fwd-in-total-rate')?.value) || (spotRate + premiumRate + branchMargin);
+      const utilizedValue = parseFloat(document.getElementById('fwd-in-utilized-value')?.value) || 0;
+      const balanceValue = Math.max(0, value - utilizedValue);
+
+      if (!contractNo) {
+        Toast.show('Please enter Forward Contract Number', 'error');
+        return;
+      }
+      if (value <= 0) {
+        Toast.show('Please enter a valid Value (US$)', 'error');
+        return;
+      }
+
+      const formatDate = (isoStr) => {
+        if (!isoStr) return '';
+        const parts = isoStr.split('-');
+        if (parts.length === 3) return `${parts[2]}/${parts[1]}/${parts[0]}`;
+        return isoStr;
+      };
+
+      const bookedDate = formatDate(bookingDateRaw);
+      const startDate = formatDate(startDateRaw);
+      const endDate = formatDate(endDateRaw);
+      const currentDate = '11/11/2026';
+      const diffVal = totalRate - spotRate;
+      const diff = (diffVal >= 0 ? '+' : '') + diffVal.toFixed(2);
+
+      const record = {
+        id: contractNo,
+        contractNo,
+        company,
+        exporter: company,
+        type: 'Export Hedge',
+        year: '2026-2027',
+        bookedDate,
+        spotRate,
+        currentDate,
+        diff,
+        startDate,
+        endDate,
+        period,
+        month,
+        premiumRate,
+        branchMargin,
+        totalRate,
+        bookedRate: totalRate,
+        bookedValue: value,
+        value,
+        utilisation: utilizedValue,
+        utilizedValue,
+        balanceUsd: balanceValue,
+        balanceValue,
+        status: balanceValue === 0 ? 'FULLY_UTILIZED' : 'ACTIVE_OPEN'
+      };
+
+      if (isEdit) {
+        const idx = this.state.forwardContracts.findIndex(c => c.contractNo === row.contractNo);
+        if (idx !== -1) {
+          this.state.forwardContracts[idx] = { ...this.state.forwardContracts[idx], ...record };
         }
-      ]
+      } else {
+        record.sNo = this.state.forwardContracts.length + 1;
+        this.state.forwardContracts.unshift(record);
+      }
+
+      Modal.close();
+      Toast.show(isEdit ? `Forward Contract ${contractNo} updated successfully` : `Forward Contract ${contractNo} booked successfully`, 'success');
+
+      if (typeof onSaved === 'function') {
+        onSaved();
+      }
     });
   },
 

@@ -553,7 +553,7 @@ export class DataTable {
                 <div id="dt-columns-dropdown" class="hidden absolute right-0 mt-1.5 w-60 bg-white rounded-lg shadow-2xl border border-[#DFE1E6] py-2 z-50 text-xs select-none">
                   <div class="px-3 py-1.5 font-bold text-[#172B4D] border-b border-[#EBECF0] flex justify-between items-center">
                     <span>Select Visible Columns</span>
-                    <button type="button" id="dt-cols-reset-btn" class="text-[10px] text-[#0284C7] hover:underline font-semibold cursor-pointer">Show All</button>
+                    
                   </div>
                   <div class="px-2 py-1.5 max-h-64 overflow-y-auto space-y-1">
                     ${this.columns.map(col => `
@@ -1152,20 +1152,6 @@ export class DataTable {
         this.renderTableBody();
       });
     });
-
-    // Reset / Show All Columns Button
-    const resetColsBtn = this.container.querySelector('#dt-cols-reset-btn');
-    if (resetColsBtn) {
-      resetColsBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        this.hiddenColumns.clear();
-        this.container.querySelectorAll('.dt-col-toggle-checkbox').forEach(cb => {
-          cb.checked = true;
-        });
-        this.renderHeader();
-        this.renderTableBody();
-      });
-    }
 
     const copyBtn = this.container.querySelector('#dt-copy-btn');
     if (copyBtn) {

@@ -23,12 +23,15 @@ export const ReportsView = {
       'quality-reports': 'Quality Control Reports',
       'production-analytics': 'Production Analytics',
       'coldstore-analytics': 'Coldstore Analytics',
-      'sales-export-analytics': 'Sales & Export Analytics'
+      'sales-export-analytics': 'Sales & Export Analytics',
+      'anti-dumping-reports': 'Anti Dumping Reports'
     };
 
     pageTitle = titlesMap[submenuId] || (submenuId ? submenuId.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) : 'Reports');
 
-    let currentReportType = submenuId === 'sales-export-analytics' || submenuId.includes('sales')
+    let currentReportType = submenuId === 'anti-dumping-reports' || submenuId.includes('anti-dumping')
+      ? 'anti-dumping-report'
+      : (submenuId === 'sales-export-analytics' || submenuId.includes('sales')
       ? 'pending-contracts'
       : (submenuId === 'purchase-reports' || submenuId.includes('purchase')
         ? 'purchase-report'
@@ -40,7 +43,7 @@ export const ReportsView = {
               ? 'soaking-floor-balance'
               : (submenuId === 'coldstore-analytics' || submenuId.includes('coldstore')
                 ? 'rm-req'
-                : 'ALL')))));
+                : 'ALL'))))));
 
     const reportTypeOptionsHtml = this.getReportTypeOptions(submenuId);
     let reportData = this.getReportData(submenuId, currentReportType, pageTitle);
@@ -334,6 +337,15 @@ export const ReportsView = {
 
   // Dropdown Options per Submenu
   getReportTypeOptions(submenuId) {
+    if (submenuId === 'anti-dumping-reports' || submenuId.includes('anti-dumping')) {
+      return `
+        <option value="anti-dumping-report" selected>Anti Dumping Report</option>
+        <option value="anti-dumping-negative-report">Anti Dumping Negative Report</option>
+        <option value="anti-dumping-shipment-report">Anti Dumping Shipment Report</option>
+        <option value="anti-dumping-opening-closing-report">Anti Dumping Opening & Closing Report</option>
+        <option value="anti-dumping-closing-report">Anti Dumping Closing Report</option>
+      `;
+    }
     if (submenuId === 'sales-export-analytics' || submenuId.includes('sales')) {
       return `
         <option value="pending-contracts" selected>Pending Contracts</option>
