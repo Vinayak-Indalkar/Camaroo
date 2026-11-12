@@ -487,6 +487,12 @@
   display: none !important;
 }
 
+  
+/* All table cell values in single black color (#172B4D), EXCEPT status lozenges/badges */
+.erp-table tbody td:not(.sticky-action-col):not([data-field*="status" i]):not([data-field*="Status"]) *:not([class*="bg-[#E3FCEF]"]):not([class*="bg-[#FFFAE6]"]):not([class*="bg-[#FFEBE6]"]):not([class*="bg-[#E0F2FE]"]):not([class*="bg-[#F1F5F9]"]):not([class*="rounded-full"]):not([class*="status-badge"]):not([class*="lozenge"]):not(.dt-action-btn):not(svg):not(path) {
+  color: #172B4D !important;
+}
+
   </style>
 </head>
 <body class="bg-[#F2F5F9] text-[#0F172A] antialiased overflow-x-hidden min-h-screen">

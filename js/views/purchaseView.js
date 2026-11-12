@@ -1572,6 +1572,7 @@ export const PurchaseView = {
 
     const tableInstance = new DataTable({
       containerId: 'lot-tracking-table-container',
+      tableTitle: 'Lot Tracking Registry',
       data: ERP_DATA.lots,
       keyField: 'id',
       pageSize: 10,

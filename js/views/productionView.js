@@ -6443,6 +6443,7 @@ export const ProductionView = {
         selectable: true,
         showSelectedCount: false,
         pageSize: 10,
+        onRowClick: (row) => this.showAntiDumpingDetailsModal(row),
         toolbarButtons: [
           {
             id: 'btn-delete-all-ad',

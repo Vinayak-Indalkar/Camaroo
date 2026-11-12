@@ -46,34 +46,32 @@ function requestHandler(req, res) {
   const ext = path.extname(filePath).toLowerCase();
   const contentType = MIME_TYPES[ext] || 'application/octet-stream';
 
-  fs.stat(filePath, (err, stats) => {
-    if (err || !stats.isFile()) {
-      const fallbackPath = path.join(__dirname, 'standalone.html');
-      fs.readFile(fallbackPath, (fbErr, fbContent) => {
-        if (!fbErr) {
-          console.log(`[200 Fallback] ${req.method} ${req.url} -> standalone.html`);
-          res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-          res.end(fbContent);
-        } else {
-          console.log(`[404] ${req.method} ${req.url}`);
-          res.writeHead(404, { 'Content-Type': 'text/plain' });
-          res.end('404 Not Found: ' + reqPath);
-        }
-      });
-      return;
-    }
-
-    fs.readFile(filePath, (readErr, content) => {
+  const tryReadFile = (file, resContentType, retries = 5) => {
+    fs.readFile(file, (readErr, content) => {
       if (readErr) {
+        if (retries > 0 && (readErr.code === 'EBUSY' || readErr.code === 'EPERM' || readErr.code === 'EAGAIN')) {
+          setTimeout(() => tryReadFile(file, resContentType, retries - 1), 80);
+          return;
+        }
         console.log(`[500] ${req.method} ${req.url}: ${readErr.code}`);
         res.writeHead(500, { 'Content-Type': 'text/plain' });
         res.end(`500 Server Error: ${readErr.code}`);
       } else {
         console.log(`[200] ${req.method} ${req.url}`);
-        res.writeHead(200, { 'Content-Type': contentType });
+        res.writeHead(200, { 'Content-Type': resContentType });
         res.end(content);
       }
     });
+  };
+
+  fs.stat(filePath, (err, stats) => {
+    if (err || !stats.isFile()) {
+      const fallbackPath = path.join(__dirname, 'standalone.html');
+      tryReadFile(fallbackPath, 'text/html; charset=utf-8');
+      return;
+    }
+
+    tryReadFile(filePath, contentType);
   });
 }
 

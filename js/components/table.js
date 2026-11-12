@@ -20,6 +20,7 @@ export class DataTable {
     bulkActions = [],
     exportable = true,
     showCopy = false,
+    title = '',
     tableTitle = '',
     topFilterTitle = '',
     hideTopFilterBar = true,
@@ -63,9 +64,44 @@ export class DataTable {
     this.hideToolbar = hideToolbar;
     this.exportable = exportable;
     this.showCopy = showCopy;
-    const derivedTitle = typeof containerId === 'string' ? containerId.replace(/^[a-z0-9]+-/, '').replace(/-table$/, '').split('-').filter(Boolean).map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ') : '';
-    const rawTitle = tableTitle || derivedTitle;
-    this.tableTitle = rawTitle ? rawTitle.replace(/\s*\(\d+\)\s*$/, '').trim() : '';
+    let derivedTitle = '';
+    if (typeof containerId === 'string' && containerId.trim() !== '') {
+      let cleanId = containerId
+        .replace(/[-_]table[-_]container$/i, '')
+        .replace(/[-_]datatable[-_]container$/i, '')
+        .replace(/[-_]table$/i, '')
+        .replace(/[-_]container$/i, '')
+        .replace(/^[a-z0-9]+[-_](?=.)/i, '');
+      
+      const words = cleanId.split(/[-_]+/).filter(Boolean).map(s => {
+        const lower = s.toLowerCase();
+        if (lower === 'fwd') return 'Forward Contracts';
+        if (lower === 'col') return 'Collections';
+        if (lower === 'neg') return 'Negotiations';
+        if (lower === 'real') return 'Realization';
+        if (lower === 'realdone') return 'Realization Done';
+        if (lower === 'ibt') return 'Inter-Branch Transfer';
+        if (lower === 'grn') return 'Goods Receipt Notes';
+        if (lower === 'po') return 'Purchase Orders';
+        if (lower === 'pi') return 'Proforma Invoices';
+        if (lower === 'qc') return 'Quality Control';
+        return s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();
+      });
+      derivedTitle = words.join(' ').trim();
+    }
+
+    const userTitle = (tableTitle || title || '').trim();
+    let rawTitle = userTitle || derivedTitle;
+    if (
+      !rawTitle || 
+      /^table(\s+container)?$/i.test(rawTitle.trim()) || 
+      /^container$/i.test(rawTitle.trim()) || 
+      rawTitle.trim() === 'Record Details'
+    ) {
+      rawTitle = 'Records Explorer';
+    }
+    rawTitle = rawTitle.replace(/\bTable\s+Container\b/gi, 'Records').trim();
+    this.tableTitle = rawTitle.replace(/\s*\([\d,]+\)\s*$/, '').trim();
     this.topFilterTitle = topFilterTitle || this.tableTitle || 'DATA EXPLORER & RECORDS';
     this.hideTopFilterBar = hideTopFilterBar;
     this.isFilterCollapsed = false;
@@ -127,10 +163,13 @@ export class DataTable {
       const lk = String(key || '').toLowerCase();
       if (typeof val === 'number' || (!isNaN(Number(val)) && String(val).trim() !== '')) {
         const num = Number(val);
+        if (lk.includes('usd') || lk.includes('dollar') || lk.includes('bookedvalue') || lk.includes('utilis') || lk.includes('utiliz') || lk.includes('balanceusd') || lk.includes('balanceval') || lk.includes('balance_usd')) {
+          return '$' + num.toLocaleString('en-US');
+        }
         if (lk.includes('amount') || lk.includes('price') || lk.includes('rate') || lk.includes('cost') || lk.includes('fee')) {
           return '₹' + num.toLocaleString('en-IN');
         }
-        if (lk.includes('qty') || lk.includes('weight') || lk.includes('stock') || lk.includes('balance') || lk.includes('kgs')) {
+        if (lk.includes('qty') || lk.includes('weight') || lk.includes('stock') || (lk.includes('balance') && !lk.includes('usd') && !lk.includes('val')) || lk.includes('kgs')) {
           return num.toLocaleString('en-IN') + ' Kg';
         }
         if (lk.includes('temp')) return num + '°C';
@@ -140,7 +179,7 @@ export class DataTable {
     };
 
     // Extract Identifier
-    const recordId = row.billNo || row.orderNo || row.docNo || row.lotNo || row.refNo || row.batchNo || row.trackId || row.trackCode || row.qcNo || row.rackNo || row.reqNo || row.code || row.name || 'Record Details';
+    const recordId = row.contractNo || row.forwardContractNo || row.billNo || row.orderNo || row.docNo || row.lotNo || row.refNo || row.batchNo || row.trackId || row.trackCode || row.qcNo || row.rackNo || row.reqNo || row.code || row.name || (row.id ? String(row.id) : 'Record Details');
     
     // Extract Facility, Date & Partner
     const plant = row.arrivalPlant || row.productionPlant || row.plant || row.facility || row.coldStore || row.store || row.location || 'Central Facility';
@@ -151,10 +190,6 @@ export class DataTable {
     const status = String(row.status || 'Active Record').toUpperCase();
     const categoryTag = row.variety || row.species || row.type || row.productType || row.category || this.tableTitle || '';
 
-    // Extract Quick Metrics (Priority keys for top card)
-    const priorityMetricKeys = ['finalamount', 'amount', 'finalquantity', 'weight', 'balanceweight', 'rate', 'pickup', 'stock', 'balance', 'inqty', 'outtemp'];
-    const metricCandidates = [];
-
     // Map visible columns first for proper headers
     const colMap = {};
     (this.columns || []).forEach(col => {
@@ -163,71 +198,190 @@ export class DataTable {
       }
     });
 
-    Object.entries(row).forEach(([k, v]) => {
-      if (k === 'id' || k.startsWith('__')) return;
-      const lk = k.toLowerCase();
-      if (typeof v === 'number' || (!isNaN(Number(v)) && String(v).trim() !== '')) {
-        const pIdx = priorityMetricKeys.findIndex(pk => lk.includes(pk));
-        if (pIdx !== -1) {
-          metricCandidates.push({
-            pIdx,
-            label: (colMap[k] || formatLabel(k)).toUpperCase(),
-            val: formatValue(k, v)
-          });
+    // Detect specialized types
+    const titleLower = (this.tableTitle || '').toLowerCase();
+    const isForwardContract = titleLower.includes('forward contract') || !!(row.contractNo && (row.spotRate || row.bookedRate || row.bookedValue));
+    const isAntiDumping = titleLower.includes('anti dumping') || !!(row.groupType && (row.variety || row.packingStyle));
+    const isCollections = titleLower.includes('collection') || !!(row.bankRefNo && (row.invNo || row.invoiceNo));
+
+    let itemsToDisplay = [];
+    let topMetrics = [];
+    let subtitleHtml = '';
+
+    if (isForwardContract) {
+      const bookedValue = Number(row.bookedValue || row.value || 0);
+      const utilizedValue = Number(row.utilisation || row.utilizedValue || 0);
+      const balanceValue = Number(row.balanceUsd ?? (row.bookedValue ? (row.bookedValue - (row.utilisation || 0)) : (row.value ? (row.value - (row.utilizedValue || 0)) : 0)));
+      const spotRate = Number(row.spotRate || 0);
+      const bookedRate = Number(row.bookedRate || row.totalRate || 0);
+
+      topMetrics = [
+        { label: 'BOOKED VALUE', val: '$' + bookedValue.toLocaleString('en-US') },
+        { label: 'UTILIZED', val: '$' + utilizedValue.toLocaleString('en-US') },
+        { label: 'BALANCE US$', val: '$' + balanceValue.toLocaleString('en-US') }
+      ];
+
+      subtitleHtml = `
+        <span>Company: <strong class="text-[#334155]">${row.company || row.exporter || 'Devi Fisheries Limited'}</strong></span>
+        <span>•</span>
+        <span>Booking Date: <strong class="text-[#334155]">${row.bookedDate || date}</strong></span>
+        <span>•</span>
+        <span>Period: <strong class="text-[#334155]">${row.period || '-'} (${row.month || '-'})</strong></span>
+        <span>•</span>
+        <span>Validity: <strong class="text-[#334155]">${row.startDate || '-'} to ${row.endDate || '-'}</strong></span>
+      `;
+
+      // Ordered strictly as per Book Forward Contract form
+      itemsToDisplay = [
+        { label: 'SELECT COMPANY', val: row.company || row.exporter || 'Devi Fisheries Limited' },
+        { label: 'BOOKING DATE', val: row.bookedDate || '-' },
+        { label: 'FORWARD CONTRACT NUMBER', val: row.contractNo || recordId },
+        { label: 'VALUE (US$)', val: '$' + bookedValue.toLocaleString('en-US') },
+        { label: 'PERIOD', val: row.period || '-' },
+        { label: 'MONTH', val: row.month || '-' },
+        { label: 'START DATE', val: row.startDate || '-' },
+        { label: 'END DATE', val: row.endDate || '-' },
+        { label: 'SPOT RATE', val: '₹' + spotRate.toFixed(2) },
+        { label: 'PREMIUM RATE', val: '₹' + Number(row.premiumRate || 0).toFixed(2) },
+        { label: 'BRANCH MARGIN', val: '₹' + Number(row.branchMargin || 0).toFixed(2) },
+        { label: 'TOTAL RATE', val: '₹' + bookedRate.toFixed(2) },
+        { label: 'UTILIZED VALUE', val: '$' + utilizedValue.toLocaleString('en-US') },
+        { label: 'BALANCE VALUE', val: '$' + balanceValue.toLocaleString('en-US') },
+        { label: 'CURRENT DATE', val: row.currentDate || '11/11/2026' },
+        { label: 'RATE DIFF', val: row.diff || '0.00' }
+      ];
+    } else if (isAntiDumping) {
+      const slabs = Number(row.slabs || 0);
+      const kgs = Number(row.kgs || (slabs * 20));
+
+      topMetrics = [
+        { label: 'SLABS', val: slabs.toLocaleString() },
+        { label: 'NET KGS', val: kgs.toLocaleString() + ' Kg' },
+        { label: 'CLOSING', val: Number(row.closingStock || 0).toLocaleString() }
+      ];
+
+      subtitleHtml = `
+        <span>Plant: <strong class="text-[#334155]">${plant}</strong></span>
+        <span>•</span>
+        <span>Date: <strong class="text-[#334155]">${row.date || date}</strong></span>
+        <span>•</span>
+        <span>PO No: <strong class="text-[#334155]">${row.poNumber || '-'}</strong></span>
+        <span>•</span>
+        <span>SUPC: <strong class="text-[#334155]">${row.supc || '-'}</strong></span>
+      `;
+
+      // Ordered strictly as per Add Anti Dumping Record form
+      itemsToDisplay = [
+        { label: 'DATE', val: row.date || '-' },
+        { label: 'PRODUCTION PLANT', val: row.productionPlant || plant },
+        { label: 'GROUP TYPE', val: row.groupType || '-' },
+        { label: 'GROUP', val: row.group || '-' },
+        { label: 'PO NUMBER', val: row.poNumber || '-' },
+        { label: 'VARIETY', val: row.variety || '-' },
+        { label: 'PACKING STYLE', val: row.packingStyle || '-' },
+        { label: 'FREEZING TYPE', val: row.freezingType || '-' },
+        { label: 'GLAZE(%)', val: (row.glazePct ?? 10) + '%' },
+        { label: 'SOAKING-TREATMENT', val: row.soakingTreatment || 'Non-Phosphate' },
+        { label: 'PRODUCT CATEGORY', val: row.productCategory || '-' },
+        { label: 'GRADE', val: row.grade || '-' },
+        { label: 'SLABS', val: slabs.toLocaleString() },
+        { label: 'KGS', val: kgs.toLocaleString() + ' Kg' },
+        { label: 'OPENING STOCK', val: Number(row.openingStock || 0).toLocaleString() },
+        { label: 'TOTAL INWARD SLABS', val: '+' + Number(row.totalInwardSlabs || 0).toLocaleString() },
+        { label: 'TOTAL OUTWARD SLABS', val: '-' + Number(row.totalOutwardSlabs || 0).toLocaleString() },
+        { label: 'CLOSING STOCK', val: Number(row.closingStock || 0).toLocaleString() },
+        { label: 'STOCK BELONGS TO', val: row.stockBelongsTo || 'Devi Fisheries Limited' },
+        { label: 'FROM PLANT', val: row.fromPlant || plant },
+        { label: 'TO PLANT', val: row.toPlant || 'Coldstore Chamber #1' },
+        { label: 'SUPC', val: row.supc || '-' },
+        { label: 'REMARKS', val: row.remarks || '-' }
+      ];
+    } else if (isCollections) {
+      const billAmount = Number(row.billAmount || 0);
+      const bankCharges = Number(row.bankCharges || 0);
+      const netReceived = Number(row.netReceived || (billAmount - bankCharges));
+
+      topMetrics = [
+        { label: 'GROSS BILL', val: '$' + billAmount.toLocaleString('en-US') },
+        { label: 'CHARGES', val: '-$' + bankCharges.toLocaleString('en-US') },
+        { label: 'NET PROCEEDS', val: '$' + netReceived.toLocaleString('en-US') }
+      ];
+
+      subtitleHtml = `
+        <span>Exporter: <strong class="text-[#334155]">${row.exporter || 'Devi Fisheries Limited'}</strong></span>
+        <span>•</span>
+        <span>Consignee: <strong class="text-[#334155]">${row.consigneeName || row.buyerName || '-'}</strong></span>
+        <span>•</span>
+        <span>Country: <strong class="text-[#334155]">${row.country || 'USA'}</strong></span>
+        <span>•</span>
+        <span>Date: <strong class="text-[#334155]">${row.remittanceDate || '-'}</strong></span>
+      `;
+
+      itemsToDisplay = [
+        { label: 'SELECT YEAR', val: row.year || '2026-2027' },
+        { label: 'SELECT EXPORTER', val: row.exporter || 'Devi Fisheries Limited' },
+        { label: 'ID', val: row.id || row.collectionRef || recordId },
+        { label: 'INVNO', val: row.invNo || row.invoiceNo || '-' },
+        { label: 'PO NO.', val: row.poNo || row.contractNo || '-' },
+        { label: 'CONSIGNEE NAME', val: row.consigneeName || row.buyerName || '-' },
+        { label: 'SELECT COUNTRY', val: row.country || 'USA' },
+        { label: 'BANK REF NO', val: row.bankRefNo || '-' },
+        { label: 'COLLECTION BANK', val: row.collectionBank || 'Citibank N.A. New York (via SBI)' },
+        { label: 'REMITTANCE DATE', val: row.remittanceDate || '-' },
+        { label: 'SETTLEMENT MODE', val: row.settlementMode || 'SWIFT Wire MT103' },
+        { label: 'CURRENCY', val: row.currency || 'USD' },
+        { label: 'GROSS BILL VALUE', val: '$' + billAmount.toLocaleString('en-US') },
+        { label: 'BANK CHARGES', val: '-$' + bankCharges.toLocaleString('en-US') },
+        { label: 'NET RECEIVED', val: '$' + netReceived.toLocaleString('en-US') },
+        { label: 'STATUS', val: status.replace(/_/g, ' ') },
+        { label: 'REMARKS', val: row.remarks || 'Document and value advice verified' }
+      ];
+    } else {
+      const priorityMetricKeys = ['finalamount', 'amount', 'finalquantity', 'weight', 'balanceweight', 'rate', 'pickup', 'stock', 'balance', 'inqty', 'outtemp'];
+      const metricCandidates = [];
+
+      Object.entries(row).forEach(([k, v]) => {
+        if (k === 'id' || k.startsWith('__')) return;
+        const lk = k.toLowerCase();
+        if (typeof v === 'number' || (!isNaN(Number(v)) && String(v).trim() !== '')) {
+          const pIdx = priorityMetricKeys.findIndex(pk => lk.includes(pk));
+          if (pIdx !== -1) {
+            metricCandidates.push({
+              pIdx,
+              label: (colMap[k] || formatLabel(k)).toUpperCase(),
+              val: formatValue(k, v)
+            });
+          }
         }
-      }
-    });
+      });
 
-    metricCandidates.sort((a, b) => a.pIdx - b.pIdx);
-    const topMetrics = metricCandidates.slice(0, 3);
+      metricCandidates.sort((a, b) => a.pIdx - b.pIdx);
+      topMetrics = metricCandidates.slice(0, 3);
 
-    // Group fields into 4 categorized sections
-    const sec1 = []; // Identification & Facility Logistics
-    const sec2 = []; // Product Specifications & Quality
-    const sec3 = []; // Quantities & Measurements
-    const sec4 = []; // Commercial & Financials
-    const secOther = [];
+      subtitleHtml = `
+        <span>Facility: <strong class="text-[#334155]">${plant}</strong></span>
+        <span>•</span>
+        <span>Date: <strong class="text-[#334155]">${date}</strong></span>
+        ${partner ? `<span>•</span><span>Partner: <strong class="text-[#334155]">${partner}</strong></span>` : ''}
+      `;
 
-    const fieldSource = Object.keys(colMap).length > 0 
-      ? Object.keys(colMap).map(k => [k, row[k]]) 
-      : Object.entries(row);
+      const fieldSource = Object.keys(colMap).length > 0 
+        ? Object.keys(colMap).map(k => [k, row[k]]) 
+        : Object.entries(row);
 
-    fieldSource.forEach(([k, v]) => {
-      if (k === 'id' || k.startsWith('__')) return;
-      const lk = k.toLowerCase();
-      const item = { key: k, label: colMap[k] || formatLabel(k), val: formatValue(k, v) };
-
-      if (lk.includes('amount') || lk.includes('price') || lk.includes('cost') || lk.includes('fee') || lk.includes('tax') || lk.includes('tds') || lk.includes('due') || lk.includes('payment') || (lk.includes('rate') && !lk.includes('arrival') && !lk.includes('corporate') && !lk.includes('generate'))) {
-        sec4.push(item);
-      } else if (lk.includes('qty') || lk.includes('quantity') || lk.includes('weight') || lk.includes('stock') || lk.includes('balance') || lk.includes('yield') || lk.includes('inward') || lk.includes('outward') || lk.includes('excess') || lk.includes('shortage') || lk.includes('carton') || lk.includes('crates')) {
-        sec3.push(item);
-      } else if (lk.includes('variety') || lk.includes('species') || lk.includes('grade') || lk.includes('count') || lk.includes('item') || lk.includes('product') || lk.includes('temp') || lk.includes('pickup') || lk.includes('chemical') || lk.includes('audit') || lk.includes('qc') || lk.includes('standard') || lk.includes('defect') || (lk.includes('harvest') && !lk.includes('amount'))) {
-        sec2.push(item);
-      } else if (lk.includes('bill') || lk.includes('plant') || lk.includes('date') || lk.includes('supplier') || lk.includes('center') || lk.includes('vehicle') || lk.includes('order') || lk.includes('code') || lk.includes('doc') || lk.includes('lot') || lk.includes('ref') || lk.includes('rack') || lk.includes('store') || lk.includes('buyer') || lk.includes('shift') || lk.includes('time') || lk.includes('line')) {
-        sec1.push(item);
-      } else {
-        secOther.push(item);
-      }
-    });
-
-    secOther.forEach(item => sec1.push(item));
-
-    const sections = [];
-    if (sec1.length > 0) sections.push({ title: 'Identification, Logistics & Facility', items: sec1 });
-    if (sec2.length > 0) sections.push({ title: 'Product Specifications & Quality Parameters', items: sec2 });
-    if (sec3.length > 0) sections.push({ title: 'Quantities, Inventory & Movement Logistics', items: sec3 });
-    if (sec4.length > 0) sections.push({ title: 'Commercial Valuation & Payment Settlement', items: sec4 });
-
-    if (sections.length === 0) {
-      const all = Object.entries(row).filter(([k]) => k !== 'id' && !k.startsWith('__')).map(([k, v]) => ({ label: formatLabel(k), val: formatValue(k, v) }));
-      sections.push({ title: 'Record Details & Parameters', items: all });
+      itemsToDisplay = fieldSource
+        .filter(([k]) => k !== 'id' && !k.startsWith('__') && k !== 'actions')
+        .map(([k, v]) => ({
+          label: colMap[k] || formatLabel(k),
+          val: formatValue(k, v)
+        }));
     }
 
     Modal.open({
-      title: `${this.tableTitle || 'Record'} Details: ${recordId}`,
+      title: `${this.tableTitle || 'Record'} Details — ${recordId}`,
       size: 'xl',
       content: `
-        <div class="space-y-4 text-xs">
+        <div class="space-y-4 text-xs animate-fade-in">
           <!-- Top Hero / Batch Summary Card -->
           <div class="bg-gradient-to-r from-[#F0F9FF] to-[#F8FAFC] p-4 rounded-xl border border-[#BAE6FD] flex flex-wrap items-center justify-between gap-3 shadow-2xs">
             <div class="flex items-center gap-3">
@@ -238,13 +392,10 @@ export class DataTable {
                 <div class="flex items-center gap-2 flex-wrap">
                   <span class="font-mono font-extrabold text-[#0F172A] text-base">${recordId}</span>
                   <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold tracking-wide uppercase bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD]">${status}</span>
-                  ${categoryTag ? `<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">${categoryTag}</span>` : ''}
+                  <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">${categoryTag}</span>
                 </div>
                 <p class="text-[11px] text-[#64748B] mt-0.5 font-medium flex items-center gap-1.5 flex-wrap">
-                  <span>Facility: <strong class="text-[#334155]">${plant}</strong></span>
-                  <span>•</span>
-                  <span>Date: <strong class="text-[#334155]">${date}</strong></span>
-                  ${partner ? `<span>•</span><span>Partner: <strong class="text-[#334155]">${partner}</strong></span>` : ''}
+                  ${subtitleHtml}
                 </p>
               </div>
             </div>
@@ -262,23 +413,17 @@ export class DataTable {
             ` : ''}
           </div>
 
-          <!-- Categorized Sections -->
-          ${sections.map((sec, idx) => `
-            <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-              <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
-                <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">${idx + 1}</span>
-                <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">${sec.title}</h4>
-              </div>
-              <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
-                ${sec.items.map(item => `
-                  <div>
-                    <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">${item.label}</span>
-                    <span class="font-semibold text-[#172B4D] text-xs block mt-0.5 break-words">${item.val}</span>
-                  </div>
-                `).join('')}
-              </div>
+          <!-- Single Unified Record Section (No multiple sections, No section headings) -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+              ${itemsToDisplay.map(item => `
+                <div>
+                  <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">${item.label}</span>
+                  <span class="font-semibold text-[#172B4D] text-xs block mt-0.5 break-words">${item.val}</span>
+                </div>
+              `).join('')}
             </div>
-          `).join('')}
+          </div>
         </div>
       `,
       buttons: [
@@ -512,7 +657,7 @@ export class DataTable {
           ${!this.hideToolbar ? `<!-- Table Control Toolbar (Column visibility, Download, Copy, Search) -->
           <div class="px-4 py-2.5 border-b border-[#DFE1E6] bg-[#FAFBFC] flex flex-wrap items-center justify-between gap-3">
             <div class="flex items-center gap-2.5 flex-wrap">
-              ${this.tableTitle ? `<h2 class="text-sm font-bold text-[#172B4D] uppercase tracking-wide">${(this.tableTitle || '').replace(/\s*\(\d+\)\s*$/, '').trim()} (${this.filteredData.length})</h2>` : ''}
+              ${this.tableTitle ? `<h2 class="text-sm font-bold text-[#172B4D] uppercase tracking-wide">${(this.tableTitle || '').replace(/\s*\([\d,]+\)\s*$/, '').trim()}</h2>` : ''}
               
               <div id="dt-filter-container" class="flex items-center gap-2"></div>
             </div>
@@ -663,7 +808,7 @@ export class DataTable {
       `;
     });
 
-    if (this.actions.length > 0) {
+      if (this.actions.length > 0) {
       const actionsW = this.colWidths['__actions__'] ? `style="width: ${this.colWidths['__actions__']}px; min-width: ${this.colWidths['__actions__']}px; overflow: visible !important;"` : 'style="min-width: 130px; overflow: visible !important;"';
       html += `
         <th class="text-center sticky-action-col sticky top-0 z-30" data-field="__actions__" ${actionsW}>
@@ -804,13 +949,32 @@ export class DataTable {
 
       visibleCols.forEach(col => {
         const isAction = this.isActionColumn(col);
+        const colFieldLower = String(col.field || '').toLowerCase();
+        const colHeaderLower = String(col.header || '').toLowerCase();
+        const isStatusCol = col.type === 'status' || 
+                            colFieldLower.includes('status') || 
+                            colHeaderLower.includes('status') || 
+                            colFieldLower === 'state' ||
+                            colHeaderLower === 'state';
+
         let cellVal = row[col.field];
         let content = cellVal !== undefined && cellVal !== null ? cellVal : '-';
 
         if (col.render) {
           content = col.render(cellVal, row, startIdx + idx);
-        } else if (col.type === 'status' || col.field.toLowerCase().includes('status')) {
+        } else if (isStatusCol) {
           content = this.renderStatusLozenge(cellVal);
+        }
+
+        // Apply single dark black color (#172B4D) to all non-status cell values across the application
+        if (!isAction && !isStatusCol && content !== undefined && content !== null) {
+          if (typeof content === 'string') {
+            content = content
+              .replace(/text-\[#(?:00A4B7|008F9F|007A87|5E6C84|64748B|334155|006644|DE350B|403294|0F172A|94A3B8|CBD5E1|0284C7)[^\]]*\]/gi, 'text-[#172B4D]')
+              .replace(/text-(?:slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-\d+/gi, 'text-[#172B4D]')
+              .replace(/bg-\[#(?:EAE6FF|E0F2FE|F0F9FF|F8FAFC|F1F5F9)[^\]]*\]/gi, 'bg-transparent')
+              .replace(/border-\[#(?:D3C7FF|BAE6FD|DFE1E6|CBD5E1|E2E8F0)[^\]]*\]/gi, 'border-transparent');
+          }
         }
 
         let rawPlainText = '';
@@ -828,8 +992,10 @@ export class DataTable {
         if (isAction) {
           const actionStyle = 'min-width: 120px; position: sticky !important; right: 0 !important; z-index: 10 !important; text-align: center !important; overflow: visible !important;';
           rowsHtml += `<td class="text-center whitespace-nowrap sticky-action-col" style="${actionStyle}" data-field="${col.field}">${content}</td>`;
-        } else {
+        } else if (isStatusCol) {
           rowsHtml += `<td title="${rawPlainText.replace(/"/g, '&quot;')}" class="truncate" data-field="${col.field}">${content}</td>`;
+        } else {
+          rowsHtml += `<td title="${rawPlainText.replace(/"/g, '&quot;')}" class="truncate text-[#172B4D]" style="color: #172B4D !important;" data-field="${col.field}">${content}</td>`;
         }
       });
 
@@ -1631,11 +1797,13 @@ if (typeof window !== 'undefined') {
     attachAll();
   }
 
-  const tableObserver = new MutationObserver(() => {
-    attachAll();
-  });
-  if (document.body) {
-    tableObserver.observe(document.body, { childList: true, subtree: true });
+  if (typeof MutationObserver !== 'undefined') {
+    const tableObserver = new MutationObserver(() => {
+      attachAll();
+    });
+    if (document.body) {
+      tableObserver.observe(document.body, { childList: true, subtree: true });
+    }
   }
 }
 

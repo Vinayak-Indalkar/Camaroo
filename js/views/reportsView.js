@@ -1522,23 +1522,17 @@ export const ReportsView = {
             ` : ''}
           </div>
 
-          <!-- Categorized Sections -->
-          ${sections.map((sec, idx) => `
-            <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
-              <div class="flex items-center gap-2 border-b border-[#F1F5F9]">
-                <span class="w-6 h-6 rounded-md bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center font-bold text-xs">${idx + 1}</span>
-                <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">${sec.title}</h4>
-              </div>
-              <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
-                ${sec.items.map(item => `
-                  <div>
-                    <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">${item.label}</span>
-                    <span class="font-semibold text-[#172B4D] text-xs block mt-0.5 break-words">${item.val}</span>
-                  </div>
-                `).join('')}
-              </div>
+                    <!-- Single Unified Record Section (No multiple sections, No section headings) -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+              ${(sections.flatMap(s => s.items) || []).map(item => `
+                <div>
+                  <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">${item.label}</span>
+                  <span class="font-semibold text-[#172B4D] text-xs block mt-0.5 break-words">${item.val}</span>
+                </div>
+              `).join('')}
             </div>
-          `).join('')}
+          </div>
         </div>
       `,
       buttons: [
