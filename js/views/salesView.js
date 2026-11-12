@@ -9,6 +9,40 @@ import { Charts } from '../components/charts.js';
 
 export const SalesView = {
   state: {
+    // Dashboard KPI & Insertion Log Data (from UI specifications)
+    dashboardMetrics: {
+      pendingContracts: 474,
+      onWater: 134,
+      delivered: 872,
+      orders: 1480,
+      pendingPayments: 377,
+      paymentsReceived: 847,
+      totalRecords2Days: 21,
+      modulesActive2Days: 2,
+      latestActivity2Days: '12-11-2026 00:00:00'
+    },
+    moduleSummary2Days: [
+      {
+        name: 'QC Last Code Issue',
+        module: 'QUALITY CONTROL',
+        count: 16,
+        latest: '12-11-2026 00:00:00'
+      },
+      {
+        name: 'Last Realization Entry',
+        module: 'SALES / EXPORT',
+        count: 5,
+        latest: '12-11-2026 00:00:00'
+      }
+    ],
+    insertionRecords: [
+      { sNo: 16, dateTime: '11-11-2026 00:00:00', dateSource: 'ProductReleaseDate / PsipSentDate / BestBeforeDt / HarvestDt / ReceivingDt', module: 'QC Last Code Issue', moduleCategory: 'Code Issue', recordId: '#6247', reference: 'Inv: 2515 | Serial: - | Trace: 974' },
+      { sNo: 17, dateTime: '11-11-2026 00:00:00', dateSource: 'ProductReleaseDate / PsipSentDate / BestBeforeDt / HarvestDt / ReceivingDt', module: 'QC Last Code Issue', moduleCategory: 'Code Issue', recordId: '#6248', reference: 'Inv: 2515 | Serial: - | Trace: 1157' },
+      { sNo: 18, dateTime: '11-11-2026 00:00:00', dateSource: 'ProductReleaseDate / PsipSentDate / BestBeforeDt / HarvestDt / ReceivingDt', module: 'QC Last Code Issue', moduleCategory: 'Code Issue', recordId: '#6249', reference: 'Inv: 2516 | Serial: - | Trace: 981' },
+      { sNo: 19, dateTime: '11-11-2026 00:00:00', dateSource: 'ProductReleaseDate / PsipSentDate / BestBeforeDt / HarvestDt / ReceivingDt', module: 'QC Last Code Issue', moduleCategory: 'Code Issue', recordId: '#6250', reference: 'Inv: 2518 | Serial: - | Trace: 1042' },
+      { sNo: 20, dateTime: '11-11-2026 00:00:00', dateSource: 'RealizationDate / BankAdviseDt / ClosureDt', module: 'Last Realization Entry', moduleCategory: 'SALES / EXPORT', recordId: '#5102', reference: 'Inv: EXP-2026-301 | Bank: SBI | e-BRC: Valid' },
+      { sNo: 21, dateTime: '11-11-2026 00:00:00', dateSource: 'RealizationDate / BankAdviseDt / ClosureDt', module: 'Last Realization Entry', moduleCategory: 'SALES / EXPORT', recordId: '#5103', reference: 'Inv: EXP-2026-302 | Bank: Citi | e-BRC: Valid' }
+    ],
     // 1. Dashboard Contracts & Analytics
     contracts: [
       {
@@ -3056,155 +3090,645 @@ export const SalesView = {
   },
 
   // ----------------------------------------------------
-  // 1. DASHBOARD SUBMENU VIEW (MINIMALIST EXECUTIVE OVERVIEW WITH CHARTS)
+  // 1. DASHBOARD SUBMENU VIEW (MATCHING USER SCREENSHOT SPECIFICATIONS)
   // ----------------------------------------------------
   renderDashboard(container) {
     try {
-      const totalContracts = (this.state.contracts || []).length;
-      const totalValue = (this.state.contracts || []).reduce((sum, c) => sum + (c.totalValueUsd || 0), 0) || 1425800;
-      const activeDispatches = (this.state.etaStatusList || []).length || 18;
-      const realizedVal = (this.state.realizationDone || []).reduce((sum, p) => sum + (p.realizedUsd || 0), 0) || 1180500;
-      const sumInsured = (this.state.pendingInsurance || []).reduce((sum, p) => sum + (p.cargoValueUsd || 0), 0) || 1450000;
-      const realizationPct = totalValue > 0 ? ((realizedVal / totalValue) * 100).toFixed(1) : '82.8';
-
-      const proformaCount = (this.state.proformaList || []).length || 8;
-      const commercialInvCount = (this.state.commercialInvoices || []).length || 12;
-      const shippingBillCount = (this.state.shippingBills || []).length || 9;
-      const fwdContractCount = (this.state.forwardContracts || []).length || 6;
-      const collectionsCount = (this.state.collections || []).length || 14;
-      const realDoneCount = (this.state.realizationDone || []).length || 11;
-
-      // 6 Sales & Exports Menu Overview Cards (Static overview cards, zero click events)
-      const salesTabs = [
-        {
-          title: 'Sales Contracts & Orders',
-          section: 'Commercial Execution',
-          count: `${totalContracts || 8} Active Contracts`,
-          icon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>`
-        },
-        {
-          title: 'Commercial Invoices & ISF',
-          section: 'Export Documentation',
-          count: `${commercialInvCount} Invoices`,
-          icon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"/></svg>`
-        },
-        {
-          title: 'Shipping Bills & Customs',
-          section: 'Customs & Logistics',
-          count: `${shippingBillCount} Declarations`,
-          icon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"/></svg>`
-        },
-        {
-          title: 'Bank LC & Negotiations',
-          section: 'Banking & Discounting',
-          count: `${fwdContractCount} Portfolios`,
-          icon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"/></svg>`
-        },
-        {
-          title: 'Inward Collections',
-          section: 'Buyer Remittances',
-          count: `${collectionsCount} Receipts`,
-          icon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`
-        },
-        {
-          title: 'Realization Done (e-BRC)',
-          section: 'RBI / DGFT Compliance',
-          count: `${realDoneCount} Closed Certs`,
-          icon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`
-        }
-      ];
+      const metrics = this.state.dashboardMetrics || {
+        pendingContracts: 474,
+        onWater: 134,
+        delivered: 872,
+        orders: 1480,
+        pendingPayments: 377,
+        paymentsReceived: 847,
+        totalRecords2Days: 21,
+        modulesActive2Days: 2,
+        latestActivity2Days: '12-11-2026 00:00:00'
+      };
 
       container.innerHTML = `
-        <div class="space-y-4 animate-fade-in select-none">
-          <!-- Page Title (Strictly clean H1 per AGENTS.md Rule 2) -->
+        <div class="space-y-4 animate-fade-in select-none pb-8">
+          <!-- Page Title (Strictly Rule 2: Title ONLY, no subheadings) -->
           <div class="flex items-center justify-between mb-1">
             <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Sales &amp; Exports Commercial Dashboard</h1>
           </div>
 
-          <!-- Sales & Exports Summary Cards (Clean Minimalist 4-KPI Grid) -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
-            <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
-              <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Total Export Orders</div>
-              <div class="text-2xl font-black text-[#172B4D] mt-1 font-mono">$${(totalValue / 1000).toLocaleString(undefined, { minimumFractionDigits: 1, maximumFractionDigits: 1 })}k</div>
-              <div class="text-[11px] font-semibold text-[#00A4B7] mt-1">${totalContracts || 8} Active Contracts</div>
+          <!-- Top Filter Card (Matching Screenshot 1) -->
+          <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200">
+            <div class="flex items-center justify-between pb-1">
+              <div class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+                <h3 class="text-xs font-bold text-[#172B4D]">Search &amp; Filters</h3>
+              </div>
+              <div class="inline-flex items-center gap-2">
+                <button type="button" id="sales-dash-flt-reset-btn" class="dt-action-btn dt-top-filter-reset-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Reset all filters">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                </button>
+                <button type="button" id="sales-dash-flt-toggle-btn" class="dt-action-btn dt-top-filter-toggle-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#F0F9FF] border border-[#CBD5E1] hover:border-[#00A4B7] text-[#334155] hover:text-[#00A4B7] rounded-full transition-colors cursor-pointer select-none" title="Hide Filter">
+                  <svg class="w-3.5 h-3.5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+              </div>
             </div>
-            <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
-              <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Active Dispatches</div>
-              <div class="text-2xl font-black text-[#006644] mt-1 font-mono">${activeDispatches} <span class="text-xs font-semibold text-[#5E6C84]">Containers</span></div>
-              <div class="text-[11px] font-semibold text-[#006644] mt-1">Vessels In Transit</div>
-            </div>
-            <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
-              <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Realized Revenue</div>
-              <div class="text-2xl font-black text-[#172B4D] mt-1 font-mono">$${(realizedVal / 1000).toLocaleString(undefined, { minimumFractionDigits: 1, maximumFractionDigits: 1 })}k</div>
-              <div class="text-[11px] font-semibold text-[#00A4B7] mt-1">${realizationPct}% Realized Rate</div>
-            </div>
-            <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
-              <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Marine Cargo Cover</div>
-              <div class="text-2xl font-black text-[#172B4D] mt-1 font-mono">$${(sumInsured / 1000).toLocaleString(undefined, { minimumFractionDigits: 1, maximumFractionDigits: 1 })}k</div>
-              <div class="text-[11px] font-semibold text-[#5E6C84] mt-1">100% Policy Protection</div>
+            <div id="sales-dash-flt-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3 text-xs" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Exporter:</label>
+                <select id="flt-exporter" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="DEVI FISHERIES LIMITED" selected>DEVI FISHERIES LIMITED</option>
+                  <option value="DEVI MARINE FOOD EXPORTS">DEVI MARINE FOOD EXPORTS</option>
+                  <option value="DEVI AQUA PRODUCTS">DEVI AQUA PRODUCTS</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Consignee:</label>
+                <select id="flt-consignee" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="All" selected>All</option>
+                  <option value="Red Lobster Supply Chain LLC">Red Lobster Supply Chain LLC</option>
+                  <option value="Maruha Nichiro Corporation">Maruha Nichiro Corporation</option>
+                  <option value="Devi Inc USA">Devi Inc USA</option>
+                  <option value="Mark Foods LLC">Mark Foods LLC</option>
+                  <option value="Stanley">Stanley</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Brand:</label>
+                <select id="flt-brand" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="All" selected>All</option>
+                  <option value="Devi Classic">Devi Classic</option>
+                  <option value="Portico Classic">Portico Classic</option>
+                  <option value="Ocean King">Ocean King</option>
+                  <option value="Sindhu Classic">Sindhu Classic</option>
+                  <option value="Blue Ocean">Blue Ocean</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Country:</label>
+                <select id="flt-country" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="All" selected>All</option>
+                  <option value="U.S.A.">U.S.A.</option>
+                  <option value="China">China</option>
+                  <option value="Russia">Russia</option>
+                  <option value="Belgium">Belgium</option>
+                  <option value="Canada">Canada</option>
+                  <option value="France">France</option>
+                  <option value="Japan">Japan</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Year:</label>
+                <select id="flt-year" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="2026-2027" selected>2026-2027</option>
+                  <option value="2025-2026">2025-2026</option>
+                  <option value="2024-2025">2024-2025</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">From Date</label>
+                <input type="date" id="flt-from-date" value="2026-04-01" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">To Date</label>
+                <input type="date" id="flt-to-date" value="2027-03-31" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+              </div>
+              <div class="col-span-full flex justify-center pt-1">
+                <button type="button" id="btn-sales-dash-search" class="btn-primary px-6 py-1.5 rounded-full text-xs font-bold inline-flex items-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px]">
+                  <span>Search</span>
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                </button>
+              </div>
             </div>
           </div>
 
-          <!-- Sales & Exports Menu Sections (Minimalist 6-Card Grid, Static Display) -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
-            ${salesTabs.map(tab => `
-              <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 shadow-xs flex items-center justify-between cursor-default">
-                <div class="flex items-center gap-3">
-                  <div class="w-9 h-9 rounded-lg bg-[#F0F9FF] border border-[#BAE6FD] text-[#00A4B7] flex items-center justify-center shrink-0">
-                    ${tab.icon}
-                  </div>
-                  <div>
-                    <div class="text-xs font-bold text-[#172B4D]">${tab.title}</div>
-                    <div class="text-[10px] font-semibold text-[#5E6C84] uppercase tracking-wider mt-0.5">${tab.section}</div>
+          <!-- 6 Key Metric Badges (Matching Screenshot 1) -->
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5">
+            <!-- 1. Pending Contracts: 474 -->
+            <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 shadow-xs flex items-center justify-between">
+              <div>
+                <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Pending Contracts</div>
+                <div class="text-2xl font-black text-[#172B4D] mt-1 font-mono">${metrics.pendingContracts}</div>
+              </div>
+              <div class="w-9 h-9 rounded-lg bg-[#F0F9FF] border border-[#BAE6FD] text-[#00A4B7] flex items-center justify-center shrink-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+              </div>
+            </div>
+
+            <!-- 2. On Water: 134 -->
+            <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 shadow-xs flex items-center justify-between">
+              <div>
+                <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">On Water</div>
+                <div class="text-2xl font-black text-[#006644] mt-1 font-mono">${metrics.onWater}</div>
+              </div>
+              <div class="w-9 h-9 rounded-lg bg-[#E3FCEF] border border-[#ABF5D1] text-[#006644] flex items-center justify-center shrink-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"/></svg>
+              </div>
+            </div>
+
+            <!-- 3. Delivered: 872 -->
+            <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 shadow-xs flex items-center justify-between">
+              <div>
+                <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Delivered</div>
+                <div class="text-2xl font-black text-[#172B4D] mt-1 font-mono">${metrics.delivered}</div>
+              </div>
+              <div class="w-9 h-9 rounded-lg bg-[#F0F9FF] border border-[#BAE6FD] text-[#00A4B7] flex items-center justify-center shrink-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+              </div>
+            </div>
+
+            <!-- 4. Orders: 1480 -->
+            <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 shadow-xs flex items-center justify-between">
+              <div>
+                <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Orders</div>
+                <div class="text-2xl font-black text-[#172B4D] mt-1 font-mono">${Number(metrics.orders).toLocaleString()}</div>
+              </div>
+              <div class="w-9 h-9 rounded-lg bg-[#EAE6FF] border border-[#D3C7FF] text-[#403294] flex items-center justify-center shrink-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+              </div>
+            </div>
+
+            <!-- 5. Pending Payments: 377 -->
+            <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 shadow-xs flex items-center justify-between">
+              <div>
+                <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Pending Payments</div>
+                <div class="text-2xl font-black text-[#FF8B00] mt-1 font-mono">${metrics.pendingPayments}</div>
+              </div>
+              <div class="w-9 h-9 rounded-lg bg-[#FFFAE6] border border-[#FFE380] text-[#FF8B00] flex items-center justify-center shrink-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+            </div>
+
+            <!-- 6. Payments Received: 847 -->
+            <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 shadow-xs flex items-center justify-between">
+              <div>
+                <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Payments Received</div>
+                <div class="text-2xl font-black text-[#006644] mt-1 font-mono">${metrics.paymentsReceived}</div>
+              </div>
+              <div class="w-9 h-9 rounded-lg bg-[#E3FCEF] border border-[#ABF5D1] text-[#006644] flex items-center justify-center shrink-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section: Analytics Charts (Row 1 & 2 - Matching Screenshot 3) -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <!-- Chart 1: Invoice Vs Shipments (Screenshot 3 Top Left) -->
+            <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
+              <div class="flex items-center justify-between pb-3 border-b border-[#F4F5F7] mb-3">
+                <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Invoice Vs Shipments</h3>
+                <div class="flex items-center gap-3 text-xs font-semibold text-[#5E6C84]">
+                  <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#334155]"></span> Invoices</span>
+                  <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#00A4B7]"></span> Shipments</span>
+                </div>
+              </div>
+              <div class="h-64 w-full">
+                <canvas id="sales-chart-invoice-vs-shipments"></canvas>
+              </div>
+            </div>
+
+            <!-- Chart 2: Plant Wise Orders (Screenshot 3 Top Right) -->
+            <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
+              <div class="flex items-center justify-between pb-3 border-b border-[#F4F5F7] mb-3">
+                <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Plant Wise Orders</h3>
+                <div class="flex items-center gap-3 text-xs font-semibold text-[#5E6C84]">
+                  <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#00A4B7]"></span> Total</span>
+                  <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#006644]"></span> Shipped</span>
+                  <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#FF8B00]"></span> Pending</span>
+                </div>
+              </div>
+              <div class="h-64 w-full">
+                <canvas id="sales-chart-plant-orders"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <!-- Chart 3: Country Wise Details (Screenshot 3 Bottom Left) -->
+            <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
+              <div class="flex items-center justify-between pb-3 border-b border-[#F4F5F7] mb-3">
+                <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Country Wise Details</h3>
+                <span class="text-[11px] font-semibold text-[#5E6C84]">Top Export Destinations</span>
+              </div>
+              <div class="h-64 w-full flex items-center justify-center">
+                <canvas id="sales-chart-country-details"></canvas>
+              </div>
+            </div>
+
+            <!-- Chart 4: Shipped Containers (Port Wise) (Screenshot 3 Bottom Right) -->
+            <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
+              <div class="flex items-center justify-between pb-3 border-b border-[#F4F5F7] mb-3">
+                <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Shipped Containers (Port Wise)</h3>
+                <span class="text-[11px] font-semibold text-[#5E6C84]">Major Discharge Ports</span>
+              </div>
+              <div class="h-64 w-full flex items-center justify-center">
+                <canvas id="sales-chart-port-containers"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Chart 5: To be shipped Qty vs Shipped Qty (Screenshot 4 Top) -->
+          <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
+            <div class="flex items-center justify-between pb-3 border-b border-[#F4F5F7] mb-3">
+              <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">To be shipped Qty vs Shipped Qty (Tons)</h3>
+              <div class="flex items-center gap-3 text-xs font-semibold text-[#5E6C84]">
+                <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#334155]"></span> To be shipped Qty (Tons)</span>
+                <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#00A4B7]"></span> Shipped Qty (Tons)</span>
+              </div>
+            </div>
+            <div class="h-72 w-full">
+              <canvas id="sales-chart-qty-shipped"></canvas>
+            </div>
+          </div>
+
+          <!-- Chart 6: Freight Rates Section (Screenshot 4 Bottom) -->
+          <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
+            <div class="flex items-center justify-between pb-3 border-b border-[#F4F5F7] mb-3">
+              <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Freight Rates (Sample data)</h3>
+              <button type="button" id="btn-export-freight-rates" class="btn-primary px-3 py-1.5 rounded-full text-xs font-bold inline-flex items-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                <span>Download</span>
+              </button>
+            </div>
+
+            <!-- Liner & Port Filter Chips Bar -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3 text-xs items-end bg-[#F8FAFC] p-3 rounded-lg border border-[#DFE1E6] mb-3">
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Liner</label>
+                <div class="flex items-center gap-1.5 flex-wrap">
+                  <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD]">✕ ONE LINE</span>
+                  <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD]">✕ MAERSK LINE</span>
+                </div>
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Destination Port</label>
+                <span class="px-2.5 py-1 rounded text-xs font-semibold bg-[#E3FCEF] text-[#006644] border border-[#ABF5D1] inline-block">✕ SAVANNAH</span>
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">From Date:</label>
+                <input type="date" value="2026-09-12" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] shadow-2xs">
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">To Date:</label>
+                <input type="date" value="2026-11-12" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] shadow-2xs">
+              </div>
+              <div>
+                <button type="button" class="btn-primary w-full py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px]">
+                  <span>Search</span>
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="h-64 w-full">
+              <canvas id="sales-chart-freight-rates"></canvas>
+            </div>
+          </div>
+
+          <!-- Section: Last 2 Days Insertion Log & DataTable (Screenshots 1 & 2) -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs">
+            <div class="flex items-center justify-between pb-3 border-b border-[#F4F5F7] mb-3">
+              <div class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-lg bg-[#F0F9FF] text-[#00A4B7] flex items-center justify-center font-bold">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+                <div>
+                  <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Last 2 Days Insertion Log</h3>
+                  <p class="text-[11px] text-[#5E6C84] mt-0.5">Review newly inserted records across purchase, pre-processing, production, export and quality-control modules.</p>
+                </div>
+              </div>
+              <span class="px-3 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD]">Last 2 Days</span>
+            </div>
+
+            <!-- Filter Controls -->
+            <div class="bg-[#F8FAFC] rounded-lg border border-[#DFE1E6] p-3 mb-3">
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs items-end">
+                <div>
+                  <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Start Date / Time</label>
+                  <input type="text" id="log-start-time" value="10/11/2026, 06:02 pm" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                </div>
+                <div>
+                  <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">End Date / Time</label>
+                  <input type="text" id="log-end-time" value="12/11/2026, 06:02 pm" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                </div>
+                <div>
+                  <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Module</label>
+                  <select id="log-module-select" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                    <option value="ALL" selected>All Modules</option>
+                    <option value="QUALITY CONTROL">Quality Control</option>
+                    <option value="SALES / EXPORT">Sales / Export</option>
+                    <option value="PURCHASE">Purchase</option>
+                    <option value="PRE-PROCESSING">Pre-Processing</option>
+                    <option value="PRODUCTION">Production</option>
+                  </select>
+                </div>
+                <div class="flex items-center gap-2">
+                  <button type="button" id="btn-log-apply" class="btn-primary px-4 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px]">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+                    <span>Apply Filters</span>
+                  </button>
+                  <button type="button" id="btn-log-reset" class="btn-secondary px-3 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1 border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#172B4D] transition-all cursor-pointer h-[32px]">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                    <span>Reset</span>
+                  </button>
+                </div>
+              </div>
+              <div class="text-[10px] text-[#64748B] mt-2 flex items-center gap-1">
+                <svg class="w-3 h-3 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <span>Rows are matched on the module's activity date/time. Where a business table has no insertion timestamp, the closest business date is used.</span>
+              </div>
+            </div>
+
+            <!-- 3 Summary Metrics -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-3">
+              <div class="bg-white border border-[#DFE1E6] rounded-xl p-3 shadow-2xs flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center shrink-0">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"/></svg>
+                </div>
+                <div>
+                  <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">TOTAL RECORDS</span>
+                  <span class="font-mono font-black text-lg text-[#172B4D]">${metrics.totalRecords2Days}</span>
+                </div>
+              </div>
+              <div class="bg-white border border-[#DFE1E6] rounded-xl p-3 shadow-2xs flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-[#E3FCEF] text-[#006644] flex items-center justify-center shrink-0">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                </div>
+                <div>
+                  <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">MODULES ACTIVE</span>
+                  <span class="font-mono font-black text-lg text-[#006644]">${metrics.modulesActive2Days}</span>
+                </div>
+              </div>
+              <div class="bg-white border border-[#DFE1E6] rounded-xl p-3 shadow-2xs flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-[#FFFAE6] text-[#FF8B00] flex items-center justify-center shrink-0">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+                <div>
+                  <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">LATEST ACTIVITY</span>
+                  <span class="font-mono font-bold text-xs text-[#172B4D]">${metrics.latestActivity2Days}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Module-wise Summary Cards (Screenshot 2) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
+              <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 shadow-2xs flex items-center justify-between">
+                <div>
+                  <div class="text-xs font-bold text-[#172B4D]">QC Last Code Issue</div>
+                  <div class="text-[10px] font-semibold text-[#5E6C84] uppercase tracking-wider mt-0.5">QUALITY CONTROL</div>
+                  <div class="text-[10px] text-[#64748B] mt-1 flex items-center gap-1 font-mono">
+                    <svg class="w-3 h-3 text-[#5E6C84]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    <span>Latest: 12-11-2026 00:00:00</span>
                   </div>
                 </div>
-                <span class="px-2.5 py-0.5 rounded-full text-xs font-bold font-mono bg-[#F4F5F7] text-[#172B4D] border border-[#DFE1E6]">${tab.count}</span>
+                <span class="text-2xl font-black font-mono text-[#00A4B7]">16</span>
               </div>
-            `).join('')}
-          </div>
-
-          <!-- Sales & Exports Visual Graphs (Replacing Heavy Tables with Clean Visual Charts) -->
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            <!-- Graph 1: Export Revenue by Destination Market (USD in Thousands) -->
-            <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
-              <div class="flex items-center justify-between pb-3 border-b border-[#F4F5F7] mb-3">
-                <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Export Revenue by Destination ($k USD)</h3>
-                <span class="text-[11px] font-semibold text-[#5E6C84]">Active Portfolios</span>
-              </div>
-              <div class="h-64 w-full">
-                <canvas id="sales-dest-chart"></canvas>
+              <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 shadow-2xs flex items-center justify-between">
+                <div>
+                  <div class="text-xs font-bold text-[#172B4D]">Last Realization Entry</div>
+                  <div class="text-[10px] font-semibold text-[#5E6C84] uppercase tracking-wider mt-0.5">SALES / EXPORT</div>
+                  <div class="text-[10px] text-[#64748B] mt-1 flex items-center gap-1 font-mono">
+                    <svg class="w-3 h-3 text-[#5E6C84]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    <span>Latest: 12-11-2026 00:00:00</span>
+                  </div>
+                </div>
+                <span class="text-2xl font-black font-mono text-[#00A4B7]">5</span>
               </div>
             </div>
 
-            <!-- Graph 2: Monthly Realization vs Booking Trend ($k USD) -->
-            <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
-              <div class="flex items-center justify-between pb-3 border-b border-[#F4F5F7] mb-3">
-                <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Realization vs Booking Trend ($k USD)</h3>
-                <span class="text-[11px] font-semibold text-[#006644] font-mono">Target: 85% Realization</span>
-              </div>
-              <div class="h-64 w-full">
-                <canvas id="sales-realization-chart"></canvas>
-              </div>
-            </div>
+            <!-- Insertion Records DataTable Container -->
+            <div id="sales-dash-insertion-table-container"></div>
           </div>
         </div>
       `;
+
+      // Filter Controls Binding
+      const fltResetBtn = container.querySelector('#sales-dash-flt-reset-btn');
+      const fltToggleBtn = container.querySelector('#sales-dash-flt-toggle-btn');
+      const fltBody = container.querySelector('#sales-dash-flt-body');
+
+      fltToggleBtn?.addEventListener('click', () => {
+        fltBody?.classList.toggle('hidden');
+        fltToggleBtn.querySelector('svg')?.classList.toggle('-rotate-90');
+      });
+
+      fltResetBtn?.addEventListener('click', () => {
+        const selects = fltBody.querySelectorAll('select');
+        selects.forEach(s => s.selectedIndex = 0);
+        Toast.show('Filters reset to default', 'info');
+      });
+
+      // Render Insertion Records DataTable (Screenshot 2)
+      const renderInsertionTable = (records) => {
+        new DataTable({
+          containerId: 'sales-dash-insertion-table-container',
+          tableTitle: 'Insertion Records',
+          data: records,
+          keyField: 'recordId',
+          pageSize: 10,
+          searchable: true,
+          exportable: true,
+          columns: [
+            {
+              field: 'sNo',
+              header: 'S.No',
+              sortable: true,
+              render: (v) => `<span class="font-bold text-[#172B4D]">${v}</span>`
+            },
+            {
+              field: 'dateTime',
+              header: 'Date / Time',
+              sortable: true,
+              render: (v, r) => `
+                <div>
+                  <div class="font-mono text-xs font-bold text-[#172B4D]">${v}</div>
+                  <div class="text-[10px] text-[#64748B] mt-0.5 break-words">${r.dateSource || 'ProductReleaseDate / PsipSentDate / BestBeforeDt / HarvestDt'}</div>
+                </div>
+              `
+            },
+            {
+              field: 'module',
+              header: 'Module',
+              sortable: true,
+              render: (v, r) => `
+                <div>
+                  <div class="font-bold text-xs text-[#172B4D]">${v}</div>
+                  <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF] mt-0.5 inline-block">${r.moduleCategory || 'Code Issue'}</span>
+                </div>
+              `
+            },
+            {
+              field: 'recordId',
+              header: 'Record ID',
+              sortable: true,
+              render: (v) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">${v}</span>`
+            },
+            {
+              field: 'reference',
+              header: 'Reference',
+              sortable: true,
+              render: (v) => `<span class="font-mono text-xs text-[#172B4D]">${v}</span>`
+            }
+          ]
+        });
+      };
+
+      renderInsertionTable(this.state.insertionRecords || []);
+
+      // Insertion log filter
+      const btnLogApply = container.querySelector('#btn-log-apply');
+      const btnLogReset = container.querySelector('#btn-log-reset');
+      const modSelect = container.querySelector('#log-module-select');
+
+      btnLogApply?.addEventListener('click', () => {
+        const modVal = modSelect ? modSelect.value : 'ALL';
+        let filtered = [...(this.state.insertionRecords || [])];
+        if (modVal !== 'ALL') {
+          filtered = filtered.filter(r => r.module.toUpperCase().includes(modVal) || (r.category && r.category.toUpperCase().includes(modVal)));
+        }
+        renderInsertionTable(filtered);
+        Toast.show(`Filtered ${filtered.length} insertion record(s)`, 'info');
+      });
+
+      btnLogReset?.addEventListener('click', () => {
+        if (modSelect) modSelect.selectedIndex = 0;
+        renderInsertionTable(this.state.insertionRecords || []);
+        Toast.show('Insertion filters reset', 'info');
+      });
 
       // Render Charts after DOM injection
       setTimeout(() => {
         const chartHelper = typeof Charts !== 'undefined' ? Charts : (typeof window !== 'undefined' ? window.Charts : null);
         if (chartHelper && typeof Chart !== 'undefined') {
-          // 1. Export Revenue by Destination Bar Chart
+          // 1. Chart 1: Invoice Vs Shipments (Screenshot 3 Top Left)
           if (typeof chartHelper.renderBarChart === 'function') {
             chartHelper.renderBarChart(
-              'sales-dest-chart',
-              ['USA', 'Japan', 'EU (Netherlands)', 'UK', 'Canada', 'UAE'],
+              'sales-chart-invoice-vs-shipments',
+              ['April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December', 'January', 'February', 'March'],
               [
                 {
-                  label: 'Revenue ($k USD)',
-                  data: [520, 310, 240, 160, 110, 85],
+                  label: 'Invoices',
+                  data: [169, 158, 182, 164, 160, 185, 162, 32, 2, 0, 1, 2],
+                  backgroundColor: '#334155',
+                  borderRadius: 4
+                },
+                {
+                  label: 'Shipments',
+                  data: [168, 155, 180, 162, 158, 184, 160, 18, 0, 0, 0, 1],
                   backgroundColor: '#00A4B7',
-                  borderRadius: 6
+                  borderRadius: 4
+                }
+              ],
+              {
+                plugins: {
+                  legend: { display: false }
+                },
+                scales: {
+                  y: {
+                    grid: { color: '#F1F5F9' },
+                    ticks: { font: { size: 10, family: 'Inter' }, color: '#5E6C84' }
+                  },
+                  x: {
+                    grid: { display: false },
+                    ticks: { font: { size: 9, family: 'Inter', weight: 'bold' }, color: '#172B4D' }
+                  }
+                }
+              }
+            );
+          }
+
+          // 2. Chart 2: Plant Wise Orders (Screenshot 3 Top Right)
+          if (typeof chartHelper.renderBarChart === 'function') {
+            chartHelper.renderBarChart(
+              'sales-chart-plant-orders',
+              ['Unit 1(853)', 'Unit 2(857)', 'Unit 3(990)', 'Unit 4(1936)', 'Unit 5(1885)', 'Unit 6(1975)', 'All'],
+              [
+                {
+                  label: 'Total',
+                  data: [44, 210, 260, 310, 480, 240, 1544],
+                  backgroundColor: '#00A4B7',
+                  borderRadius: 4
+                },
+                {
+                  label: 'Shipped',
+                  data: [38, 175, 215, 275, 410, 195, 1308],
+                  backgroundColor: '#006644',
+                  borderRadius: 4
+                },
+                {
+                  label: 'Pending',
+                  data: [6, 35, 45, 35, 70, 45, 236],
+                  backgroundColor: '#FF8B00',
+                  borderRadius: 4
+                }
+              ],
+              {
+                plugins: {
+                  legend: { display: false }
+                },
+                scales: {
+                  y: {
+                    grid: { color: '#F1F5F9' },
+                    ticks: { font: { size: 10, family: 'Inter' }, color: '#5E6C84' }
+                  },
+                  x: {
+                    grid: { display: false },
+                    ticks: { font: { size: 9, family: 'Inter', weight: 'bold' }, color: '#172B4D' }
+                  }
+                }
+              }
+            );
+          }
+
+          // 3. Chart 3: Country Wise Details (Screenshot 3 Bottom Left)
+          if (typeof chartHelper.renderDonutChart === 'function') {
+            chartHelper.renderDonutChart(
+              'sales-chart-country-details',
+              ['U.S.A.', 'CHINA', 'RUSSIA', 'BELGIUM', 'CANADA', 'FRANCE', 'UNITED KINGDOM', 'OTHER'],
+              [902, 166, 54, 50, 13, 10, 7, 23],
+              ['#00A4B7', '#006644', '#FF8B00', '#403294', '#0284C7', '#E11D48', '#059669', '#94A3B8'],
+              {
+                plugins: {
+                  legend: {
+                    position: 'right',
+                    labels: { font: { size: 10, family: 'Inter' }, boxWidth: 10 }
+                  }
+                }
+              }
+            );
+          }
+
+          // 4. Chart 4: Shipped Containers (Port Wise) (Screenshot 3 Bottom Right)
+          if (typeof chartHelper.renderDonutChart === 'function') {
+            chartHelper.renderDonutChart(
+              'sales-chart-port-containers',
+              ['SAVANNAH', 'LOS ANGELES', 'NEW YORK', 'BALTIMORE', 'ZHANJIANG', 'NEWARK', 'ANTWERP', 'OTHER'],
+              [316, 171, 152, 121, 112, 52, 50, 147],
+              ['#0284C7', '#E11D48', '#006644', '#7C3AED', '#00A4B7', '#FF8B00', '#059669', '#64748B'],
+              {
+                plugins: {
+                  legend: {
+                    position: 'right',
+                    labels: { font: { size: 10, family: 'Inter' }, boxWidth: 10 }
+                  }
+                }
+              }
+            );
+          }
+
+          // 5. Chart 5: To be shipped Qty vs Shipped Qty (Screenshot 4 Top)
+          if (typeof chartHelper.renderBarChart === 'function') {
+            chartHelper.renderBarChart(
+              'sales-chart-qty-shipped',
+              ['BROKEN', '16/20', '20/30', '21/25', '26/30', '31/40', '41/50', '51/60', '61/70', '71/90', '91/110', '100/200'],
+              [
+                {
+                  label: 'To be shipped Qty - Tons',
+                  data: [0.0, 720, 210, 780, 810, 1780, 520, 790, 450, 680, 240, 110],
+                  backgroundColor: '#334155',
+                  borderRadius: 3
+                },
+                {
+                  label: 'Shipped Qty - Tons',
+                  data: [18.0, 2640, 540, 2520, 2350, 4180, 1540, 2040, 890, 1150, 450, 220],
+                  backgroundColor: '#00A4B7',
+                  borderRadius: 3
                 }
               ],
               {
@@ -3217,50 +3741,80 @@ export const SalesView = {
                     ticks: {
                       font: { size: 10, family: 'Inter' },
                       color: '#5E6C84',
-                      callback: v => `$${v.toLocaleString()}k`
+                      callback: v => `${v} T`
                     }
                   },
                   x: {
                     grid: { display: false },
-                    ticks: { font: { size: 10, family: 'Inter', weight: 'bold' }, color: '#172B4D' }
+                    ticks: { font: { size: 9, family: 'Inter', weight: 'bold' }, color: '#172B4D' }
                   }
                 }
               }
             );
           }
 
-          // 2. Monthly Realization vs Booking Trend Line Chart
+          // 6. Chart 6: Freight Rates Trend (Screenshot 4 Bottom)
           if (typeof chartHelper.renderLineChart === 'function') {
             chartHelper.renderLineChart(
-              'sales-realization-chart',
-              ['Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr'],
+              'sales-chart-freight-rates',
+              ['12/09', '26/09', '10/10', '24/10', '07/11', '21/11'],
               [
                 {
-                  label: 'Actual Realized ($k)',
-                  data: [190, 215, 230, 245, 260, 280],
-                  borderColor: '#00A4B7',
-                  backgroundColor: 'rgba(0, 164, 183, 0.1)',
-                  fill: true,
-                  pointBackgroundColor: '#00A4B7',
-                  pointRadius: 4
+                  label: 'ONE LINE',
+                  data: [11469, 11769, 11824, 11769, 11769, 6500],
+                  borderColor: '#E11D48',
+                  backgroundColor: 'transparent',
+                  borderWidth: 2,
+                  pointRadius: 4,
+                  pointBackgroundColor: '#E11D48'
                 },
                 {
-                  label: 'Booked Orders ($k)',
-                  data: [210, 230, 250, 265, 280, 295],
-                  borderColor: '#5E6C84',
-                  borderDash: [4, 4],
+                  label: 'MAERSK LINE',
+                  data: [10958, 10958, 11824, 9324, 9324, 6200],
+                  borderColor: '#0284C7',
                   backgroundColor: 'transparent',
-                  pointRadius: 3
+                  borderWidth: 2,
+                  pointRadius: 4,
+                  pointBackgroundColor: '#0284C7'
+                },
+                {
+                  label: 'MSC',
+                  data: [8337, 8400, 10037, 10037, 10037, 5900],
+                  borderColor: '#7C3AED',
+                  backgroundColor: 'transparent',
+                  borderWidth: 2,
+                  pointRadius: 4,
+                  pointBackgroundColor: '#7C3AED'
+                },
+                {
+                  label: 'HAPAG-LLOYD',
+                  data: [7164, 7151, 7097, 7097, 7097, 6100],
+                  borderColor: '#059669',
+                  backgroundColor: 'transparent',
+                  borderWidth: 2,
+                  pointRadius: 4,
+                  pointBackgroundColor: '#059669'
+                },
+                {
+                  label: 'CMA CGM',
+                  data: [7164, 8164, 7986, 7986, 6716, 6716],
+                  borderColor: '#D97706',
+                  backgroundColor: 'transparent',
+                  borderWidth: 2,
+                  pointRadius: 4,
+                  pointBackgroundColor: '#D97706'
                 }
               ],
               {
                 scales: {
                   y: {
+                    min: 5000,
+                    max: 13000,
                     grid: { color: '#F1F5F9' },
                     ticks: {
                       font: { size: 10, family: 'Inter' },
                       color: '#5E6C84',
-                      callback: v => `$${v}k`
+                      callback: v => `$${v}`
                     }
                   },
                   x: {
