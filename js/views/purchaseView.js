@@ -1233,8 +1233,8 @@ export const PurchaseView = {
               legend: { display: false },
               tooltip: {
                 backgroundColor: '#172B4D',
-                titleFont: { size: 11, family: 'Inter' },
-                bodyFont: { size: 10, family: 'Inter' },
+                titleFont: { size: 11, family: 'Noto Sans' },
+                bodyFont: { size: 10, family: 'Noto Sans' },
                 padding: 6,
                 callbacks: {
                   label: (ctx) => `Intake: ${ctx.parsed.y.toFixed(2)} T`
@@ -1244,14 +1244,14 @@ export const PurchaseView = {
             scales: {
               x: {
                 grid: { display: false },
-                ticks: { font: { size: 10, family: 'Inter' }, color: '#6B778C' }
+                ticks: { font: { size: 10, family: 'Noto Sans' }, color: '#6B778C' }
               },
               y: {
                 beginAtZero: true,
                 max: 200,
                 ticks: {
                   stepSize: 40,
-                  font: { size: 10, family: 'Inter' },
+                  font: { size: 10, family: 'Noto Sans' },
                   color: '#6B778C',
                   callback: (v) => v.toFixed(2)
                 },
@@ -1288,8 +1288,8 @@ export const PurchaseView = {
               legend: { display: false },
               tooltip: {
                 backgroundColor: '#172B4D',
-                titleFont: { size: 11, family: 'Inter' },
-                bodyFont: { size: 10, family: 'Inter' },
+                titleFont: { size: 11, family: 'Noto Sans' },
+                bodyFont: { size: 10, family: 'Noto Sans' },
                 padding: 6,
                 callbacks: {
                   label: (ctx) => `Grade ${ctx.label}: ${ctx.parsed.y} T`
@@ -1333,8 +1333,8 @@ export const PurchaseView = {
               legend: { display: false },
               tooltip: {
                 backgroundColor: '#172B4D',
-                titleFont: { size: 11, family: 'Inter' },
-                bodyFont: { size: 10, family: 'Inter' },
+                titleFont: { size: 11, family: 'Noto Sans' },
+                bodyFont: { size: 10, family: 'Noto Sans' },
                 padding: 6,
                 callbacks: {
                   label: (ctx) => `${ctx.label}: ${ctx.parsed} T`
@@ -1368,8 +1368,8 @@ export const PurchaseView = {
               legend: { display: false },
               tooltip: {
                 backgroundColor: '#172B4D',
-                titleFont: { size: 11, family: 'Inter' },
-                bodyFont: { size: 10, family: 'Inter' },
+                titleFont: { size: 11, family: 'Noto Sans' },
+                bodyFont: { size: 10, family: 'Noto Sans' },
                 padding: 6,
                 callbacks: {
                   label: (ctx) => ctx.label
@@ -7947,3 +7947,4 @@ export const PurchaseView = {
     });
   }
 };
+

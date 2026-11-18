@@ -51,7 +51,7 @@ export const DEFAULT_SETTINGS = {
   dateFormat: 'DD-MM-YYYY',
   timeFormat: '12h',
   massUnit: 'MT_KG',
-  currency: 'USD',
+  currency: 'INR',
   numberFormat: 'indian',
 
   // 7. Security & Session Policy
@@ -414,20 +414,13 @@ export const AppSettings = {
 
   formatCurrency(amount) {
     const n = Number(amount);
-    if (isNaN(n)) return '$0';
+    if (isNaN(n)) return '₹0';
 
     const locale = this.settings.numberFormat === 'indian' ? 'en-IN' : 'en-US';
     const formatted = Math.abs(n).toLocaleString(locale, { minimumFractionDigits: 0, maximumFractionDigits: 2 });
     const sign = n < 0 ? '-' : '';
 
-    const symbols = {
-      'USD': '$',
-      'INR': '₹',
-      'EUR': '€',
-      'GBP': '£',
-      'JPY': '¥'
-    };
-    const sym = symbols[this.settings.currency] || '$';
+    const sym = '₹';
     return `${sign}${sym}${formatted}`;
   },
 

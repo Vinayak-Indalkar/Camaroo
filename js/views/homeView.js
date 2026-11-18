@@ -72,7 +72,7 @@ export const HomeView = {
           </div>
           <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
             <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Export Revenue</div>
-            <div class="text-2xl font-black text-[#172B4D] mt-1 font-mono">$1.42M</div>
+            <div class="text-2xl font-black text-[#172B4D] mt-1 font-mono">₹1.42M</div>
             <div class="text-[11px] font-semibold text-[#5E6C84] mt-1">18 Containers In Transit</div>
           </div>
         </div>
@@ -108,11 +108,11 @@ export const HomeView = {
             </div>
           </div>
 
-          <!-- Graph 2: Monthly Commercial Export Revenue Trend ($k USD) -->
+          <!-- Graph 2: Monthly Commercial Export Revenue Trend (₹k) -->
           <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
             <div class="flex items-center justify-between pb-3 border-b border-[#F4F5F7] mb-3">
-              <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Export Revenue &amp; Realization ($k USD)</h3>
-              <span class="text-[11px] font-semibold text-[#006644] font-mono">Target: $250k/mo</span>
+              <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Export Revenue &amp; Realization (₹k)</h3>
+              <span class="text-[11px] font-semibold text-[#006644] font-mono">Target: ₹250k/mo</span>
             </div>
             <div class="h-64 w-full">
               <canvas id="home-revenue-chart"></canvas>
@@ -147,14 +147,14 @@ export const HomeView = {
                 y: {
                   grid: { color: '#F1F5F9' },
                   ticks: {
-                    font: { size: 10, family: 'Inter' },
+                    font: { size: 10, family: 'Noto Sans' },
                     color: '#5E6C84',
                     callback: v => `${v.toLocaleString()} KG`
                   }
                 },
                 x: {
                   grid: { display: false },
-                  ticks: { font: { size: 10, family: 'Inter', weight: 'bold' }, color: '#172B4D' }
+                  ticks: { font: { size: 10, family: 'Noto Sans', weight: 'bold' }, color: '#172B4D' }
                 }
               }
             }
@@ -168,7 +168,7 @@ export const HomeView = {
             ['Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr'],
             [
               {
-                label: 'Realized Revenue ($k)',
+                label: 'Realized Revenue (₹k)',
                 data: [190, 215, 230, 245, 260, 280],
                 borderColor: '#00A4B7',
                 backgroundColor: 'rgba(0, 164, 183, 0.1)',
@@ -177,7 +177,7 @@ export const HomeView = {
                 pointRadius: 4
               },
               {
-                label: 'Order Booking ($k)',
+                label: 'Order Booking (₹k)',
                 data: [210, 230, 250, 265, 280, 295],
                 borderColor: '#5E6C84',
                 borderDash: [4, 4],
@@ -190,14 +190,14 @@ export const HomeView = {
                 y: {
                   grid: { color: '#F1F5F9' },
                   ticks: {
-                    font: { size: 10, family: 'Inter' },
+                    font: { size: 10, family: 'Noto Sans' },
                     color: '#5E6C84',
-                    callback: v => `$${v}k`
+                    callback: v => `₹${v}k`
                   }
                 },
                 x: {
                   grid: { display: false },
-                  ticks: { font: { size: 10, family: 'Inter', weight: 'bold' }, color: '#172B4D' }
+                  ticks: { font: { size: 10, family: 'Noto Sans', weight: 'bold' }, color: '#172B4D' }
                 }
               }
             }
@@ -207,3 +207,4 @@ export const HomeView = {
     }, 60);
   }
 };
+

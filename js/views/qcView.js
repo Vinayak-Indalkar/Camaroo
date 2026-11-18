@@ -4215,7 +4215,7 @@ export const QCView = {
         plugins: {
           legend: {
             position: 'bottom',
-            labels: { boxWidth: 10, font: { size: 11, family: 'Inter' } }
+            labels: { boxWidth: 10, font: { size: 11, family: 'Noto Sans' } }
           }
         }
       }
@@ -4231,7 +4231,7 @@ export const QCView = {
         plugins: {
           legend: {
             position: 'bottom',
-            labels: { boxWidth: 10, font: { size: 11, family: 'Inter' } }
+            labels: { boxWidth: 10, font: { size: 11, family: 'Noto Sans' } }
           }
         }
       }
@@ -4318,7 +4318,7 @@ export const QCView = {
         plugins: {
           legend: {
             position: 'bottom',
-            labels: { boxWidth: 10, font: { size: 10, family: 'Inter' } }
+            labels: { boxWidth: 10, font: { size: 10, family: 'Noto Sans' } }
           }
         },
         scales: {
@@ -4350,7 +4350,7 @@ export const QCView = {
         plugins: {
           legend: {
             position: 'bottom',
-            labels: { boxWidth: 10, font: { size: 10, family: 'Inter' } }
+            labels: { boxWidth: 10, font: { size: 10, family: 'Noto Sans' } }
           }
         },
         scales: {
@@ -4382,7 +4382,7 @@ export const QCView = {
         plugins: {
           legend: {
             position: 'bottom',
-            labels: { boxWidth: 10, font: { size: 10, family: 'Inter' } }
+            labels: { boxWidth: 10, font: { size: 10, family: 'Noto Sans' } }
           }
         },
         scales: {
@@ -4393,4 +4393,5 @@ export const QCView = {
     );
   }
 };
+
 

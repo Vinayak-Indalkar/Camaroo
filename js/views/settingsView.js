@@ -3919,8 +3919,8 @@ openRoleModal(role = null, onSaved) {
                 <div>
                   <label class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Export Currency</label>
                   <select id="g-currency" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded-lg font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7]">
-                    <option value="USD" selected="">USD ($) - Export Billing</option>
-                    <option value="INR">INR (₹) - Indian Rupee</option>
+                    <option value="INR" selected="">INR (₹) - Indian Rupee</option>
+                    <option value="USD">USD - Export Billing</option>
                     <option value="EUR">EUR (€) - Euro</option>
                   </select>
                 </div>
@@ -5083,7 +5083,7 @@ openRoleModal(role = null, onSaved) {
       subtitle: 'IF / CONCAT / DATEDIF',
       filename: 'CALCULATED_FORMULA.expr',
       icon: '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>',
-      defaultQuery: 'CONCAT(buyerName, " — ", species, " (", quantityLbs, " LBS) [USD $", ROUND(fobValueUsd, 2), "]")',
+      defaultQuery: 'CONCAT(buyerName, " — ", species, " (", quantityLbs, " LBS) [INR ₹", ROUND(fobValueUsd, 2), "]")',
       engineLabel: 'Computed (Formula)'
     },
     {
@@ -5176,7 +5176,7 @@ openRoleModal(role = null, onSaved) {
       port: 'Port of Los Angeles, USA',
       container: 'MEDU-9928174 / Seal #9921',
       qty: '44,000 LBS',
-      amount: '$246,400',
+      amount: '₹2,46,400',
       icegate: 'LEO Issued',
       payment: 'LC Realized'
     },
@@ -5188,7 +5188,7 @@ openRoleModal(role = null, onSaved) {
       port: 'Port of Tokyo, Japan',
       container: 'MSCU-4410293 / Seal #8812',
       qty: '38,500 LBS',
-      amount: '$288,750',
+      amount: '₹2,88,750',
       icegate: 'Inspection Cleared',
       payment: 'Pending Wire'
     },
@@ -5200,7 +5200,7 @@ openRoleModal(role = null, onSaved) {
       port: 'Port of Rotterdam, Netherlands',
       container: 'CMAU-7718290 / Seal #5541',
       qty: '42,000 LBS',
-      amount: '$231,000',
+      amount: '₹2,31,000',
       icegate: 'LEO Issued',
       payment: 'Realized'
     },
@@ -5212,7 +5212,7 @@ openRoleModal(role = null, onSaved) {
       port: 'Port of Houston, USA',
       container: 'ONEU-5529182 / Seal #1209',
       qty: '40,000 LBS',
-      amount: '$260,000',
+      amount: '₹2,60,000',
       icegate: 'LEO Issued',
       payment: 'LC Confirmed'
     },
@@ -5224,7 +5224,7 @@ openRoleModal(role = null, onSaved) {
       port: 'Port of Savannah, USA',
       container: 'HLCU-1192837 / Seal #7712',
       qty: '44,000 LBS',
-      amount: '$272,800',
+      amount: '₹2,72,800',
       icegate: 'Under Scrutiny',
       payment: 'Pending Wire'
     },
@@ -5236,7 +5236,7 @@ openRoleModal(role = null, onSaved) {
       port: 'Port of Yokohama, Japan',
       container: 'NYKU-3301928 / Seal #4410',
       qty: '36,000 LBS',
-      amount: '$312,000',
+      amount: '₹3,12,000',
       icegate: 'LEO Issued',
       payment: 'LC Realized'
     },
@@ -5248,7 +5248,7 @@ openRoleModal(role = null, onSaved) {
       port: 'Port of Kobe, Japan',
       container: 'MOLU-8820192 / Seal #3301',
       qty: '41,500 LBS',
-      amount: '$298,800',
+      amount: '₹2,98,800',
       icegate: 'LEO Issued',
       payment: 'Advance Received'
     },
@@ -5260,7 +5260,7 @@ openRoleModal(role = null, onSaved) {
       port: 'Port of Seattle, USA',
       container: 'EGLU-6610291 / Seal #9901',
       qty: '45,000 LBS',
-      amount: '$324,000',
+      amount: '₹3,24,000',
       icegate: 'LEO Issued',
       payment: 'LC Confirmed'
     },
@@ -5272,7 +5272,7 @@ openRoleModal(role = null, onSaved) {
       port: 'Port of Le Havre, France',
       container: 'MSCU-9018274 / Seal #6610',
       qty: '39,000 LBS',
-      amount: '$273,000',
+      amount: '₹2,73,000',
       icegate: 'LEO Issued',
       payment: 'Realized'
     }
@@ -5751,7 +5751,7 @@ openRoleModal(role = null, onSaved) {
         if (fieldEngineLabel) fieldEngineLabel.textContent = targetMode.engineLabel;
 
         const outputVal = modeId === 'formula' 
-          ? '"Ocean Harvest Global LLC — Vannamei White 16/20 (44,000 LBS) [USD $246,400.00]"'
+          ? '"Ocean Harvest Global LLC — Vannamei White 16/20 (44,000 LBS) [INR ₹2,46,400.00]"'
           : '[9 Records Matched]';
         this.queryEditorState.outputResult = outputVal;
         if (displayBox) displayBox.textContent = outputVal;
@@ -5796,7 +5796,7 @@ openRoleModal(role = null, onSaved) {
         if (fieldEngineLabel && targetMode) fieldEngineLabel.textContent = targetMode.engineLabel;
 
         const outputVal = tmpl.mode === 'formula' 
-          ? 'USD $5.28 / KG (Realized Rate)'
+          ? 'INR ₹440.00 / KG (Realized Rate)'
           : '[9 Records Matched]';
         this.queryEditorState.outputResult = outputVal;
         if (displayBox) displayBox.textContent = outputVal;
@@ -6481,7 +6481,7 @@ openRoleModal(role = null, onSaved) {
       } else if (typeLower.includes('currency')) {
         return `
           <div class="relative">
-            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-bold text-[#00A4B7]">$</span>
+            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-bold text-[#00A4B7]">₹</span>
             <input type="text" value="${val}" placeholder="0.00" style="padding-left: 26px;" class="w-full text-xs pr-3 py-2 bg-white border border-[#DFE1E6] rounded-lg text-[#172B4D] focus:outline-none focus:border-[#00A4B7] font-medium shadow-2xs" />
           </div>
         `;
@@ -6509,7 +6509,7 @@ openRoleModal(role = null, onSaved) {
       } else if (typeLower.includes('formula')) {
         return `
           <div class="w-full text-xs px-3 py-2 bg-[#F0F9FF] border border-[#BAE6FD] rounded-lg font-mono text-[#00A4B7] font-bold flex items-center justify-between shadow-2xs">
-            <span>$${val || '225,225.00'}</span>
+            <span>₹${val || '2,25,225.00'}</span>
             <span class="text-[9px] font-bold text-[#00A4B7] uppercase tracking-wider bg-white px-1.5 py-0.5 rounded border border-[#BAE6FD]">Auto-Calculated</span>
           </div>
         `;
@@ -6650,7 +6650,7 @@ openRoleModal(role = null, onSaved) {
       { id: 'phone', title: 'Phone Number', category: 'Text', icon: 'phone' },
       { id: 'website', title: 'Website Link (URL)', category: 'Text', icon: 'website' },
       { id: 'number', title: 'Numeric Counter', category: 'Number', icon: 'number', badge: '#' },
-      { id: 'currency', title: 'Monetary Currency', category: 'Number', icon: 'currency', badge: '$' },
+      { id: 'currency', title: 'Monetary Currency', category: 'Number', icon: 'currency', badge: '₹' },
       { id: 'dropdown', title: 'Dropdown Menu', category: 'Choice', icon: 'dropdown' },
       { id: 'multi-select', title: 'Multi-Select Tags', category: 'Choice', icon: 'multi-select' },
       { id: 'radio', title: 'Radio Choice Buttons', category: 'Choice', icon: 'radio' },
@@ -7332,7 +7332,7 @@ openRoleModal(role = null, onSaved) {
             case 'currency':
               html = `
                 <div class="relative flex items-center">
-                  <span class="absolute left-3 text-xs font-bold text-[#00A4B7]">$</span>
+                  <span class="absolute left-3 text-xs font-bold text-[#00A4B7]">₹</span>
                   <input type="number" id="live-user-input" placeholder="${placeholderVal || '0.00'}" style="padding-left: 26px;" class="w-full text-xs py-2 pr-3 bg-white border border-[#DFE1E6] rounded-lg font-medium text-[#0F172A] focus:outline-none focus:border-[#00A4B7] transition-all" />
                 </div>
               `;
@@ -7912,7 +7912,8 @@ openRoleModal(role = null, onSaved) {
             id: 'currency',
             label: 'Currency',
             records: getRecords('currency', [
-              { code: 'USD', name: 'United States Dollar ($)', details: 'Standard Export Settlement Currency', status: 'Active' },
+              { code: 'INR', name: 'Indian Rupee (₹)', details: 'Standard Settlement Currency', status: 'Active' },
+              { code: 'USD', name: 'United States Dollar (USD)', details: 'Standard Export Settlement Currency', status: 'Active' },
               { code: 'EUR', name: 'Euro (€)', details: 'European Union Member States Settlement', status: 'Active' },
               { code: 'JPY', name: 'Japanese Yen (¥)', details: 'Direct JPY L/C Remittance Currency', status: 'Active' }
             ])
@@ -7945,8 +7946,8 @@ openRoleModal(role = null, onSaved) {
             id: 'freight-rates',
             label: 'Freight Rates',
             records: getRecords('freight-rates', [
-              { code: 'OFR-USNYC', name: 'Ocean Reefer Freight: Vizag -> New York', details: 'US$ 4,200 per 40ft High Cube Reefer (Maersk)', status: 'Active' },
-              { code: 'OFR-EURTM', name: 'Ocean Reefer Freight: Vizag -> Rotterdam', details: 'US$ 3,450 per 40ft High Cube Reefer (CMA CGM)', status: 'Active' }
+              { code: 'OFR-USNYC', name: 'Ocean Reefer Freight: Vizag -> New York', details: '₹3,50,000 per 40ft High Cube Reefer (Maersk)', status: 'Active' },
+              { code: 'OFR-EURTM', name: 'Ocean Reefer Freight: Vizag -> Rotterdam', details: '₹2,90,000 per 40ft High Cube Reefer (CMA CGM)', status: 'Active' }
             ])
           },
           {
@@ -8692,3 +8693,4 @@ openRoleModal(role = null, onSaved) {
       .replace(/'/g, '&#39;');
   }
 };
+

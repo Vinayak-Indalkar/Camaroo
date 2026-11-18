@@ -473,17 +473,17 @@ export const SuperAdminDashboardView = {
               backgroundColor: '#172B4D',
               padding: 10,
               cornerRadius: 6,
-              titleFont: { size: 12, family: 'Inter', weight: 'bold' }
+              titleFont: { size: 12, family: 'Noto Sans', weight: 'bold' }
             }
           },
           scales: {
             x: {
               grid: { display: false },
-              ticks: { color: '#5E6C84', font: { size: 11, family: 'Inter', weight: '600' } }
+              ticks: { color: '#5E6C84', font: { size: 11, family: 'Noto Sans', weight: '600' } }
             },
             y: {
               grid: { color: '#F1F5F9' },
-              ticks: { precision: 0, color: '#5E6C84', font: { size: 10, family: 'Inter' } }
+              ticks: { precision: 0, color: '#5E6C84', font: { size: 10, family: 'Noto Sans' } }
             }
           }
         }
@@ -528,7 +528,7 @@ export const SuperAdminDashboardView = {
               labels: {
                 boxWidth: 8,
                 boxHeight: 8,
-                font: { size: 10, family: 'Inter', weight: '600' },
+                font: { size: 10, family: 'Noto Sans', weight: '600' },
                 color: '#172B4D',
                 padding: 8
               }
@@ -577,11 +577,11 @@ export const SuperAdminDashboardView = {
           scales: {
             x: {
               grid: { color: '#F1F5F9' },
-              ticks: { precision: 0, color: '#5E6C84', font: { size: 10, family: 'Inter' } }
+              ticks: { precision: 0, color: '#5E6C84', font: { size: 10, family: 'Noto Sans' } }
             },
             y: {
               grid: { display: false },
-              ticks: { color: '#172B4D', font: { size: 11, family: 'Inter', weight: '600' } }
+              ticks: { color: '#172B4D', font: { size: 11, family: 'Noto Sans', weight: '600' } }
             }
           }
         }
@@ -625,11 +625,11 @@ export const SuperAdminDashboardView = {
           scales: {
             x: {
               grid: { color: '#F1F5F9' },
-              ticks: { color: '#5E6C84', font: { size: 10, family: 'Inter' } }
+              ticks: { color: '#5E6C84', font: { size: 10, family: 'Noto Sans' } }
             },
             y: {
               grid: { color: '#F1F5F9' },
-              ticks: { precision: 0, color: '#5E6C84', font: { size: 10, family: 'Inter' } }
+              ticks: { precision: 0, color: '#5E6C84', font: { size: 10, family: 'Noto Sans' } }
             }
           }
         }
@@ -637,3 +637,4 @@ export const SuperAdminDashboardView = {
     }
   }
 };
+

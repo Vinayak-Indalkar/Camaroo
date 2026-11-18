@@ -19,6 +19,7 @@ const breadcrumbs = fs.readFileSync(path.join(__dirname, 'js', 'components', 'br
 const header = fs.readFileSync(path.join(__dirname, 'js', 'components', 'header.js'), 'utf-8');
 const charts = fs.readFileSync(path.join(__dirname, 'js', 'components', 'charts.js'), 'utf-8');
 const skeleton = fs.readFileSync(path.join(__dirname, 'js', 'components', 'skeleton.js'), 'utf-8');
+const mobileNav = fs.readFileSync(path.join(__dirname, 'js', 'components', 'mobileNav.js'), 'utf-8');
 const notificationService = fs.readFileSync(path.join(__dirname, 'js', 'services', 'notificationService.js'), 'utf-8');
 const appSettings = fs.readFileSync(path.join(__dirname, 'js', 'services', 'appSettings.js'), 'utf-8');
 
@@ -72,6 +73,7 @@ const combinedJS = `
   ${cleanCode(header)}
   ${cleanCode(charts)}
   ${cleanCode(skeleton)}
+  ${cleanCode(mobileNav)}
 
   // App Services
   ${cleanCode(notificationService)}

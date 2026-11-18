@@ -611,6 +611,10 @@ export const Sidebar = {
   activeTabId: 'rm-dashboard',
 
   toggleCollapse() {
+    if (window.innerWidth <= 767 && typeof window.MobileNav !== 'undefined') {
+      window.MobileNav.toggleDrawer();
+      return;
+    }
     this.isCollapsed = !this.isCollapsed;
     localStorage.setItem('dfl_sidebar_collapsed', this.isCollapsed ? 'true' : 'false');
 
@@ -812,10 +816,7 @@ export const Sidebar = {
                     href="${defaultHash}" 
                     class="flex items-center px-2.5 py-1.5 rounded-md text-xs font-semibold transition-all ${isSubActive ? 'text-[#00A4B7] font-bold' : 'text-[#94A3B8] hover:bg-white/5 hover:text-white'}"
                   >
-                    <div class="flex items-center gap-2 truncate">
-                      <span class="w-1.5 h-1.5 rounded-full ${isSubActive ? 'bg-[#00A4B7]' : 'bg-[#475569]'} shrink-0"></span>
-                      <span class="truncate">${sub.title}</span>
-                    </div>
+                    <span class="truncate">${sub.title}</span>
                   </a>
                 </div>
               `;

@@ -293,22 +293,25 @@ body {
 
 
 
-#main-layout-wrapper {
-  margin-left: calc(var(--erp-sidebar-offset) + var(--erp-sidebar-width) + var(--erp-sidebar-gap)) !important;
-  margin-right: var(--erp-sidebar-gap) !important;
-  transition: margin-left 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
-}
+/* Desktop & Tablet Sidebar Margin Offsets (Never applied on mobile < 768px) */
+@media (min-width: 768px) {
+  #main-layout-wrapper {
+    margin-left: calc(var(--erp-sidebar-offset) + var(--erp-sidebar-width) + var(--erp-sidebar-gap)) !important;
+    margin-right: var(--erp-sidebar-gap) !important;
+    transition: margin-left 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
 
-#main-layout-wrapper.is-collapsed {
-  margin-left: calc(var(--erp-sidebar-offset) + var(--erp-sidebar-collapsed-width) + var(--erp-sidebar-gap)) !important;
-  margin-right: var(--erp-sidebar-gap) !important;
+  #main-layout-wrapper.is-collapsed {
+    margin-left: calc(var(--erp-sidebar-offset) + var(--erp-sidebar-collapsed-width) + var(--erp-sidebar-gap)) !important;
+    margin-right: var(--erp-sidebar-gap) !important;
+  }
 }
 
 /* Sticky Top Navigation Wrapper: prevents scrolling page content from leaking behind/above header */
 #top-nav-wrapper {
   position: sticky !important;
   top: 0 !important;
-  z-index: 35 !important;
+  z-index: 50 !important;
   padding-top: 12px !important;
   padding-bottom: 4px !important;
   background-color: #F2F5F9 !important;
@@ -875,13 +878,207 @@ div:has(> table) {
   background: #94A3B8;
 }
 
-/* Responsive Table on Mobile */
-@media (max-width: 768px) {
+/* ============================================================================
+   MOBILE RESPONSIVE NAVIGATION & LAYOUT
+   ============================================================================ */
+
+/* Slide-in & Slide-up Keyframes */
+@keyframes slideRight {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+.animate-slide-right {
+  animation: slideRight 0.26s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+.animate-slide-up {
+  animation: slideUp 0.26s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* 1. Mobile Screens (< 768px): Fixed 5-Item Bottom Nav, Hide Side Nav, Zero Left Margin Everywhere */
+@media (max-width: 767px) {
+  html, body, #erp-app-shell, #app-root {
+    max-width: 100vw !important;
+    width: 100% !important;
+    overflow-x: clip !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    left: 0 !important;
+  }
+
+  #sidebar-container {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    position: absolute !important;
+    left: -9999px !important;
+    width: 0 !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Remove notification from top header on mobile since it is in bottom nav */
+  #header-notifications-container {
+    display: none !important;
+  }
+  
+  #main-layout-wrapper,
+  #main-layout-wrapper.is-collapsed,
+  div#main-layout-wrapper,
+  div#main-layout-wrapper.is-collapsed,
+  #erp-app-shell #main-layout-wrapper,
+  #erp-app-shell #main-layout-wrapper.is-collapsed {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    margin-top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+    padding-bottom: 84px !important; /* Ensure content is never hidden behind bottom nav */
+    width: 100% !important;
+    max-width: 100vw !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+    overflow-x: clip !important;
+  }
+
+  /* Fixed / Sticky Top Header & Breadcrumbs Card on Mobile */
+  #top-nav-wrapper {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 50 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    padding-top: 6px !important;
+    padding-bottom: 2px !important;
+    background-color: #F2F5F9 !important;
+  }
+
+  /* Responsive Breadcrumbs Bar inside Fixed Header */
+  #top-nav-wrapper .rounded-b-2xl {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
+  }
+
+  #breadcrumbs-container nav {
+    font-size: 11px !important;
+    flex-wrap: wrap !important;
+    gap: 3px !important;
+  }
+
+  #breadcrumbs-container a {
+    color: #00A4B7 !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    padding: 1px 2px !important;
+    cursor: pointer !important;
+  }
+
+  #breadcrumbs-container a:hover {
+    text-decoration: underline !important;
+  }
+
+  #main-content-container {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  #mobile-bottom-nav {
+    display: flex !important;
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 64px !important;
+    background-color: #0F172A !important;
+    border-top: 1px solid #1E293B !important;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.4) !important;
+    z-index: 60 !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+    padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+  }
+
+  .mob-nav-item {
+    flex: 1 1 0% !important;
+    min-width: 0 !important;
+    padding: 3px 1px !important;
+    overflow: visible !important;
+  }
+
+  .mob-nav-item span.mob-nav-label,
+  .mob-nav-item span:not(#mob-notif-badge) {
+    font-size: 9px !important;
+    letter-spacing: -0.02em !important;
+    max-width: 100% !important;
+    white-space: nowrap !important;
+    text-overflow: clip !important;
+    overflow: visible !important;
+    text-align: center !important;
+    display: block !important;
+  }
+
+  #mob-btn-notif span.mob-nav-label,
+  #mob-btn-notif span:not(#mob-notif-badge) {
+    font-size: 8px !important;
+    letter-spacing: -0.04em !important;
+  }
+  
+  #top-nav-wrapper {
+    padding-top: 8px !important;
+    padding-bottom: 2px !important;
+  }
+  
+  #header-container header {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    height: 52px !important;
+  }
+  
+  #header-search-container {
+    width: auto !important;
+    max-width: calc(100vw - 110px) !important;
+    flex: 1 1 auto !important;
+  }
+  
+  #header-search-container > div {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  
+  #header-search-container input {
+    font-size: 11px !important;
+  }
+
   .dt-action-btn {
-    width: 36px;
-    height: 36px;
-    min-width: 36px !important;
-    min-height: 36px !important;
+    width: 34px;
+    height: 34px;
+    min-width: 34px !important;
+    min-height: 34px !important;
   }
   
   .dt-page-btn {
@@ -900,6 +1097,36 @@ div:has(> table) {
   .erp-table td {
     font-size: 12px !important;
     padding: 8px 10px;
+  }
+}
+
+/* 2. Tablet Screens (768px - 1023px): Collapsible Responsive Navigation */
+@media (min-width: 768px) and (max-width: 1023px) {
+  #mobile-bottom-nav {
+    display: none !important;
+  }
+  
+  #sidebar-container {
+    display: block !important;
+  }
+  
+  #main-layout-wrapper {
+    padding-bottom: 24px !important;
+  }
+}
+
+/* 3. Desktop Screens (>= 1024px): Standard Desktop Layout */
+@media (min-width: 1024px) {
+  #mobile-bottom-nav {
+    display: none !important;
+  }
+  
+  #sidebar-container {
+    display: block !important;
+  }
+  
+  #main-layout-wrapper {
+    padding-bottom: 24px !important;
   }
 }
 
@@ -1792,14 +2019,91 @@ button.dt-action-btn:not(.dt-top-filter-reset-btn):not(.dt-top-filter-toggle-btn
 
 #header-search-clear-btn,
 .pwd-toggle-btn,
-#btn-remove-avatar {
-  padding: 6px !important;
-  min-height: auto !important;
+#btn-remove-avatar,
+.mob-mod-toggle-btn,
+.mob-nav-item,
+#mob-drawer-close-btn,
+#mob-sales-close-btn,
+#mob-drawer-signout-btn,
+#mob-drawer-clear-search,
+.mob-drawer-link {
   box-sizing: border-box !important;
 }
 
+/* Explicit styling for Mobile Drawer Close Buttons */
+#mob-sales-close-btn,
+#mob-drawer-close-btn {
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  min-height: 32px !important;
+  max-width: 32px !important;
+  max-height: 32px !important;
+  padding: 0 !important;
+  border-radius: 9999px !important;
+  background-color: rgba(255, 255, 255, 0.15) !important;
+  color: #FFFFFF !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  cursor: pointer !important;
+  flex-shrink: 0 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+#mob-sales-close-btn:hover,
+#mob-drawer-close-btn:hover {
+  background-color: rgba(255, 255, 255, 0.25) !important;
+  color: #FFFFFF !important;
+}
+
+#mob-sales-close-btn svg,
+#mob-drawer-close-btn svg {
+  width: 16px !important;
+  height: 16px !important;
+  min-width: 16px !important;
+  min-height: 16px !important;
+  stroke: #FFFFFF !important;
+  stroke-width: 2.5px !important;
+  color: #FFFFFF !important;
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Explicit alignment & dimensions for mobile drawer buttons & links */
+.mob-mod-toggle-btn {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  text-align: left !important;
+  width: 100% !important;
+  min-height: auto !important;
+  padding: 10px 14px !important;
+  border-radius: 12px !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+}
+.mob-mod-toggle-btn * {
+  text-align: left !important;
+}
+.mob-drawer-link {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  text-align: left !important;
+  width: 100% !important;
+  min-height: auto !important;
+  box-shadow: none !important;
+}
+.mob-drawer-link * {
+  text-align: left !important;
+}
+
 /* 4. BUTTONS & CONTROLS - PILL GEOMETRY & WCAG CALIBRATED SYSTEM */
-button:not(.sidebar-mod-btn):not(#header-settings-btn):not(#header-notifications-btn):not(#header-help-btn):not(#user-menu-btn):not(.settings-dropdown-link):not([role="tab"]):not(#sidebar-edge-toggle-btn):not(.dt-action-btn):not(.dt-top-filter-reset-btn):not(.dt-top-filter-toggle-btn):not(.btn-show-all-submenus):not(.btn-sub-edit):not(.btn-sub-toggle):not(.btn-sub-del):not(#toggle-pwd-btn):not(#toggle-usr-modal-password-btn):not(#toggle-asgn-db-pass-btn):not(.btn-toggle-cpwd):not(#dt-opt-excel):not(#dt-opt-csv):not(#dt-opt-pdf):not([id^="dt-opt-"]):not([class*="text-left"]):not(#dt-page-prev):not(#dt-page-next):not([id*="page-prev"]):not([id*="page-next"]):not(.dt-page-btn):not([class*="page-btn"]):not(#erp-cal-prev-btn):not(#erp-cal-next-btn):not(#erp-cal-clear-btn):not(#erp-cal-today-btn):not(.erp-cal-day):not(#header-search-clear-btn):not(.pwd-toggle-btn):not(#btn-remove-avatar),
+button:not(.sidebar-mod-btn):not(#header-settings-btn):not(#header-notifications-btn):not(#header-help-btn):not(#user-menu-btn):not(.settings-dropdown-link):not([role="tab"]):not(#sidebar-edge-toggle-btn):not(.dt-action-btn):not(.dt-top-filter-reset-btn):not(.dt-top-filter-toggle-btn):not(.btn-show-all-submenus):not(.btn-sub-edit):not(.btn-sub-toggle):not(.btn-sub-del):not(#toggle-pwd-btn):not(#toggle-usr-modal-password-btn):not(#toggle-asgn-db-pass-btn):not(.btn-toggle-cpwd):not(#dt-opt-excel):not(#dt-opt-csv):not(#dt-opt-pdf):not([id^="dt-opt-"]):not([class*="text-left"]):not(#dt-page-prev):not(#dt-page-next):not([id*="page-prev"]):not([id*="page-next"]):not(.dt-page-btn):not([class*="page-btn"]):not(#erp-cal-prev-btn):not(#erp-cal-next-btn):not(#erp-cal-clear-btn):not(#erp-cal-today-btn):not(.erp-cal-day):not(#header-search-clear-btn):not(.pwd-toggle-btn):not(#btn-remove-avatar):not(.mob-mod-toggle-btn):not(.mob-nav-item):not(#mob-drawer-close-btn):not(#mob-sales-close-btn):not(#mob-drawer-signout-btn):not(#mob-drawer-clear-search),
 .btn,
 .btn-primary,
 .btn-primary-deep,

@@ -584,7 +584,7 @@ export const InventoryView = {
         id: 1,
         docNo: 'PI-PM-2026-0041',
         date: '2026-10-28',
-        currency: 'USD ($)',
+        currency: 'INR (₹)',
         exchangeRate: '86.50',
         consignee: 'AquaStar Global Foods LLC, Seattle WA',
         company: 'Devi Fisheries Limited - Plant 5',
@@ -676,7 +676,7 @@ export const InventoryView = {
         id: 3,
         docNo: 'PI-PM-2026-0043',
         date: '2026-10-26',
-        currency: 'USD ($)',
+        currency: 'INR (₹)',
         exchangeRate: '86.50',
         consignee: 'Nichirei Fresh Inc, Tokyo Japan',
         company: 'Devi Fisheries Limited - Plant 5',
@@ -4948,11 +4948,11 @@ export const InventoryView = {
               <div>
                 <label for="mpi-currency" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CURRENCY <span class="text-[#DE350B]">*</span></label>
                 <select id="mpi-currency" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                  <option value="USD ($)" selected>USD ($)</option>
+                  <option value="INR (₹)" selected>INR (₹)</option>
+                  <option value="USD">USD</option>
                   <option value="EUR (€)">EUR (€)</option>
                   <option value="GBP (£)">GBP (£)</option>
                   <option value="JPY (¥)">JPY (¥)</option>
-                  <option value="INR (₹)">INR (₹)</option>
                 </select>
               </div>
 
@@ -5091,7 +5091,7 @@ export const InventoryView = {
 
               <!-- 23. ADVANCE AMOUNT -->
               <div>
-                <label for="mpi-advance-amt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ADVANCE AMOUNT ($)</label>
+                <label for="mpi-advance-amt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ADVANCE AMOUNT (₹)</label>
                 <input type="number" id="mpi-advance-amt" value="19440.00" step="0.01" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#00875A] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
               </div>
 
@@ -5461,7 +5461,7 @@ export const InventoryView = {
             </div>
             <div>
               <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CURRENCY</label>
-              <input type="text" id="edit-pm-pi-currency" value="${row.currency || 'USD ($)'}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
+              <input type="text" id="edit-pm-pi-currency" value="${row.currency || 'INR (₹)'}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
             </div>
             <div class="sm:col-span-2 md:col-span-3">
               <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CONSIGNEE</label>
@@ -5555,7 +5555,7 @@ export const InventoryView = {
             </div>
             <div>
               <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">CURRENCY</span>
-              <span class="font-semibold text-xs text-[#172B4D]">${row.currency || 'USD ($)'} (Ex. Rate: ${row.exchangeRate || '86.50'})</span>
+              <span class="font-semibold text-xs text-[#172B4D]">${row.currency || 'INR (₹)'} (Ex. Rate: ${row.exchangeRate || '86.50'})</span>
             </div>
             <div>
               <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">PRO NO / BO NO</span>
@@ -9593,7 +9593,7 @@ export const InventoryView = {
 
             <!-- 13. ADVANCE AMOUNT -->
             <div>
-              <label for="reg-add-advamt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ADVANCE AMOUNT ($) <span class="text-[#DE350B]">*</span></label>
+              <label for="reg-add-advamt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ADVANCE AMOUNT (₹) <span class="text-[#DE350B]">*</span></label>
               <input type="number" id="reg-add-advamt" value="35000" min="0" step="0.01" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
             </div>
 
@@ -9605,7 +9605,7 @@ export const InventoryView = {
 
             <!-- 15. COMMISSION VALUE -->
             <div>
-              <label for="reg-add-commval" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">COMMISSION VALUE ($)</label>
+              <label for="reg-add-commval" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">COMMISSION VALUE (₹)</label>
               <input type="number" id="reg-add-commval" value="2500" min="0" step="0.01" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
             </div>
 
@@ -9802,7 +9802,7 @@ export const InventoryView = {
 
             <!-- 13. ADVANCE AMOUNT -->
             <div>
-              <label for="reg-edit-advamt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ADVANCE AMOUNT ($) <span class="text-[#DE350B]">*</span></label>
+              <label for="reg-edit-advamt" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">ADVANCE AMOUNT (₹) <span class="text-[#DE350B]">*</span></label>
               <input type="number" id="reg-edit-advamt" value="${row.advanceAmount || 0}" min="0" step="0.01" required class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
             </div>
 
@@ -9814,7 +9814,7 @@ export const InventoryView = {
 
             <!-- 15. COMMISSION VALUE -->
             <div>
-              <label for="reg-edit-commval" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">COMMISSION VALUE ($)</label>
+              <label for="reg-edit-commval" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">COMMISSION VALUE (₹)</label>
               <input type="number" id="reg-edit-commval" value="${row.commissionValue || 0}" min="0" step="0.01" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00875A] focus:outline-none focus:border-[#00A4B7] shadow-2xs" />
             </div>
 
@@ -10030,3 +10030,4 @@ export const InventoryView = {
     });
   }
 };
+

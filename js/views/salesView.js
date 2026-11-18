@@ -36,12 +36,27 @@ export const SalesView = {
       }
     ],
     insertionRecords: [
+      { sNo: 1, dateTime: '10-11-2026 18:40:00', dateSource: 'ProductReleaseDate / PsipSentDate / BestBeforeDt / HarvestDt / ReceivingDt', module: 'QC Last Code Issue', moduleCategory: 'Code Issue', recordId: '#6232', reference: 'Inv: 2501 | Serial: - | Trace: 840' },
+      { sNo: 2, dateTime: '10-11-2026 19:15:00', dateSource: 'ProductReleaseDate / PsipSentDate / BestBeforeDt / HarvestDt / ReceivingDt', module: 'QC Last Code Issue', moduleCategory: 'Code Issue', recordId: '#6233', reference: 'Inv: 2502 | Serial: - | Trace: 852' },
+      { sNo: 3, dateTime: '10-11-2026 20:05:00', dateSource: 'ProductReleaseDate / PsipSentDate / BestBeforeDt / HarvestDt / ReceivingDt', module: 'QC Last Code Issue', moduleCategory: 'Code Issue', recordId: '#6234', reference: 'Inv: 2503 | Serial: - | Trace: 866' },
+      { sNo: 4, dateTime: '10-11-2026 21:30:00', dateSource: 'ProductReleaseDate / PsipSentDate / BestBeforeDt / HarvestDt / ReceivingDt', module: 'QC Last Code Issue', moduleCategory: 'Code Issue', recordId: '#6235', reference: 'Inv: 2504 | Serial: - | Trace: 871' },
+      { sNo: 5, dateTime: '10-11-2026 22:10:00', dateSource: 'ProductReleaseDate / PsipSentDate / BestBeforeDt / HarvestDt / ReceivingDt', module: 'QC Last Code Issue', moduleCategory: 'Code Issue', recordId: '#6236', reference: 'Inv: 2505 | Serial: - | Trace: 885' },
+      { sNo: 6, dateTime: '11-11-2026 00:00:00', dateSource: 'ProductReleaseDate / PsipSentDate / BestBeforeDt / HarvestDt / ReceivingDt', module: 'QC Last Code Issue', moduleCategory: 'Code Issue', recordId: '#6237', reference: 'Inv: 2506 | Serial: - | Trace: 890' },
+      { sNo: 7, dateTime: '11-11-2026 00:00:00', dateSource: 'ProductReleaseDate / PsipSentDate / BestBeforeDt / HarvestDt / ReceivingDt', module: 'QC Last Code Issue', moduleCategory: 'Code Issue', recordId: '#6238', reference: 'Inv: 2507 | Serial: - | Trace: 902' },
+      { sNo: 8, dateTime: '11-11-2026 00:00:00', dateSource: 'ProductReleaseDate / PsipSentDate / BestBeforeDt / HarvestDt / ReceivingDt', module: 'QC Last Code Issue', moduleCategory: 'Code Issue', recordId: '#6239', reference: 'Inv: 2508 | Serial: - | Trace: 915' },
+      { sNo: 9, dateTime: '11-11-2026 00:00:00', dateSource: 'ProductReleaseDate / PsipSentDate / BestBeforeDt / HarvestDt / ReceivingDt', module: 'QC Last Code Issue', moduleCategory: 'Code Issue', recordId: '#6240', reference: 'Inv: 2509 | Serial: - | Trace: 923' },
+      { sNo: 10, dateTime: '11-11-2026 00:00:00', dateSource: 'ProductReleaseDate / PsipSentDate / BestBeforeDt / HarvestDt / ReceivingDt', module: 'QC Last Code Issue', moduleCategory: 'Code Issue', recordId: '#6241', reference: 'Inv: 2510 | Serial: - | Trace: 934' },
+      { sNo: 11, dateTime: '11-11-2026 00:00:00', dateSource: 'ProductReleaseDate / PsipSentDate / BestBeforeDt / HarvestDt / ReceivingDt', module: 'QC Last Code Issue', moduleCategory: 'Code Issue', recordId: '#6242', reference: 'Inv: 2511 | Serial: - | Trace: 945' },
+      { sNo: 12, dateTime: '11-11-2026 00:00:00', dateSource: 'ProductReleaseDate / PsipSentDate / BestBeforeDt / HarvestDt / ReceivingDt', module: 'QC Last Code Issue', moduleCategory: 'Code Issue', recordId: '#6243', reference: 'Inv: 2512 | Serial: - | Trace: 952' },
+      { sNo: 13, dateTime: '11-11-2026 00:00:00', dateSource: 'ProductReleaseDate / PsipSentDate / BestBeforeDt / HarvestDt / ReceivingDt', module: 'QC Last Code Issue', moduleCategory: 'Code Issue', recordId: '#6244', reference: 'Inv: 2513 | Serial: - | Trace: 960' },
+      { sNo: 14, dateTime: '11-11-2026 00:00:00', dateSource: 'ProductReleaseDate / PsipSentDate / BestBeforeDt / HarvestDt / ReceivingDt', module: 'QC Last Code Issue', moduleCategory: 'Code Issue', recordId: '#6245', reference: 'Inv: 2514 | Serial: - | Trace: 965' },
+      { sNo: 15, dateTime: '11-11-2026 00:00:00', dateSource: 'ProductReleaseDate / PsipSentDate / BestBeforeDt / HarvestDt / ReceivingDt', module: 'QC Last Code Issue', moduleCategory: 'Code Issue', recordId: '#6246', reference: 'Inv: 2514 | Serial: - | Trace: 968' },
       { sNo: 16, dateTime: '11-11-2026 00:00:00', dateSource: 'ProductReleaseDate / PsipSentDate / BestBeforeDt / HarvestDt / ReceivingDt', module: 'QC Last Code Issue', moduleCategory: 'Code Issue', recordId: '#6247', reference: 'Inv: 2515 | Serial: - | Trace: 974' },
       { sNo: 17, dateTime: '11-11-2026 00:00:00', dateSource: 'ProductReleaseDate / PsipSentDate / BestBeforeDt / HarvestDt / ReceivingDt', module: 'QC Last Code Issue', moduleCategory: 'Code Issue', recordId: '#6248', reference: 'Inv: 2515 | Serial: - | Trace: 1157' },
-      { sNo: 18, dateTime: '11-11-2026 00:00:00', dateSource: 'ProductReleaseDate / PsipSentDate / BestBeforeDt / HarvestDt / ReceivingDt', module: 'QC Last Code Issue', moduleCategory: 'Code Issue', recordId: '#6249', reference: 'Inv: 2516 | Serial: - | Trace: 981' },
-      { sNo: 19, dateTime: '11-11-2026 00:00:00', dateSource: 'ProductReleaseDate / PsipSentDate / BestBeforeDt / HarvestDt / ReceivingDt', module: 'QC Last Code Issue', moduleCategory: 'Code Issue', recordId: '#6250', reference: 'Inv: 2518 | Serial: - | Trace: 1042' },
-      { sNo: 20, dateTime: '11-11-2026 00:00:00', dateSource: 'RealizationDate / BankAdviseDt / ClosureDt', module: 'Last Realization Entry', moduleCategory: 'SALES / EXPORT', recordId: '#5102', reference: 'Inv: EXP-2026-301 | Bank: SBI | e-BRC: Valid' },
-      { sNo: 21, dateTime: '11-11-2026 00:00:00', dateSource: 'RealizationDate / BankAdviseDt / ClosureDt', module: 'Last Realization Entry', moduleCategory: 'SALES / EXPORT', recordId: '#5103', reference: 'Inv: EXP-2026-302 | Bank: Citi | e-BRC: Valid' }
+      { sNo: 18, dateTime: '11-11-2026 14:20:00', dateSource: 'RealizationDate / BankAdviseDt / ClosureDt', module: 'Last Realization Entry', moduleCategory: 'SALES / EXPORT', recordId: '#5100', reference: 'Inv: EXP-2026-299 | Bank: HDFC | e-BRC: Valid' },
+      { sNo: 19, dateTime: '11-11-2026 15:45:00', dateSource: 'RealizationDate / BankAdviseDt / ClosureDt', module: 'Last Realization Entry', moduleCategory: 'SALES / EXPORT', recordId: '#5101', reference: 'Inv: EXP-2026-300 | Bank: ICICI | e-BRC: Valid' },
+      { sNo: 20, dateTime: '12-11-2026 00:00:00', dateSource: 'RealizationDate / BankAdviseDt / ClosureDt', module: 'Last Realization Entry', moduleCategory: 'SALES / EXPORT', recordId: '#5102', reference: 'Inv: EXP-2026-301 | Bank: SBI | e-BRC: Valid' },
+      { sNo: 21, dateTime: '12-11-2026 00:00:00', dateSource: 'RealizationDate / BankAdviseDt / ClosureDt', module: 'Last Realization Entry', moduleCategory: 'SALES / EXPORT', recordId: '#5103', reference: 'Inv: EXP-2026-302 | Bank: Citi | e-BRC: Valid' }
     ],
     // 1. Dashboard Contracts & Analytics
     contracts: [
@@ -154,7 +169,7 @@ export const SalesView = {
         shipmentTerms: "Full Container Load (FCL)",
         deliveryTerms: "CIF Port of Destination",
         quantityUnits: "Kilograms (Kg)",
-        currency: "USD ($)",
+        currency: "INR (₹)",
         freight: "Freight Prepaid",
         chargeName: "Ocean Freight & Reefer THC",
         chargeAmount: 4850,
@@ -235,7 +250,7 @@ export const SalesView = {
         shipmentTerms: "Full Container Load (FCL)",
         deliveryTerms: "FOB Visakhapatnam Port",
         quantityUnits: "Kilograms (Kg)",
-        currency: "USD ($)",
+        currency: "INR (₹)",
         freight: "Freight Collect",
         chargeName: "THC & Carting Charges",
         chargeAmount: 2200,
@@ -377,7 +392,7 @@ export const SalesView = {
         shipmentTerms: "Full Container Load (FCL)",
         deliveryTerms: "CIF New York Terminal",
         quantityUnits: "Kilograms (Kg)",
-        currency: "USD ($)",
+        currency: "INR (₹)",
         freight: "Freight Prepaid",
         chargeName: "Reefer Monitoring & Peak Surcharge",
         chargeAmount: 5200,
@@ -438,7 +453,7 @@ export const SalesView = {
         shipmentTerms: "Full Container Load (FCL)",
         deliveryTerms: "CIF Houston Sea Port",
         quantityUnits: "Kilograms (Kg)",
-        currency: "USD ($)",
+        currency: "INR (₹)",
         freight: "Freight Prepaid",
         chargeName: "Chassis & Demurrage Insurance",
         chargeAmount: 1800,
@@ -2690,7 +2705,7 @@ export const SalesView = {
         bankCharges: 150.00,
         fbkCharges: 110.00,
         otherCharges: 35.00,
-        remarks: "$50 short receipt due to correspondent wire deductions.",
+        remarks: "₹4,200 short receipt due to correspondent wire deductions.",
         eBrcNumber: "eBRC-SBI-2026-99215",
         status: "CLOSED_RECONCILED"
       },
@@ -3113,7 +3128,7 @@ export const SalesView = {
             <h1 class="text-xl font-extrabold text-[#172B4D] tracking-tight">Sales &amp; Exports Commercial Dashboard</h1>
           </div>
 
-          <!-- Top Filter Card (Matching Screenshot 1) -->
+          <!-- Top Filter Card (Matching Screenshot 1 & Enterprise Design System) -->
           <div class="dt-top-filter-card bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs mb-3 transition-all duration-200">
             <div class="flex items-center justify-between pb-1">
               <div class="flex items-center gap-2">
@@ -3129,7 +3144,7 @@ export const SalesView = {
                 </button>
               </div>
             </div>
-            <div id="sales-dash-flt-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
+            <div id="sales-dash-flt-body" class="dt-top-filter-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3 text-xs" style="margin-top: 0px !important; border-top: none !important; padding-top: 0px !important;">
               <div>
                 <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Exporter:</label>
                 <select id="flt-exporter" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
@@ -3176,6 +3191,7 @@ export const SalesView = {
               <div>
                 <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Year:</label>
                 <select id="flt-year" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                  <option value="Select Year">Select Year</option>
                   <option value="2026-2027" selected>2026-2027</option>
                   <option value="2025-2026">2025-2026</option>
                   <option value="2024-2025">2024-2025</option>
@@ -3189,19 +3205,20 @@ export const SalesView = {
                 <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">To Date</label>
                 <input type="date" id="flt-to-date" value="2027-03-31" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
               </div>
-              <div class="flex items-end">
-                <button type="button" id="btn-sales-dash-search" class="dt-top-filter-search-btn btn-primary px-5 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px] w-auto">
-                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                  <span>Search</span>
-                </button>
-              </div>
+            </div>
+            <!-- Search Button Centered Below Inputs (Matching Screenshot 1) -->
+            <div class="flex items-center justify-center pt-3 border-t border-[#F1F5F9] mt-3">
+              <button type="button" id="btn-sales-dash-search" class="btn-primary px-6 py-2 rounded-full text-xs font-bold inline-flex items-center gap-2 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer">
+                <span>Search</span>
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+              </button>
             </div>
           </div>
 
-          <!-- 6 Key Metric Badges (Matching Screenshot 1) -->
+          <!-- 6 Key Metric Badges (Screenshot 1: Pending Contracts, On Water, Delivered, Orders, Pending Payments, Payments Received) -->
           <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5">
             <!-- 1. Pending Contracts: 474 -->
-            <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 shadow-xs flex items-center justify-between">
+            <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 shadow-xs flex items-center justify-between hover:shadow-md transition-shadow">
               <div>
                 <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Pending Contracts</div>
                 <div class="text-2xl font-black text-[#172B4D] mt-1 font-mono">${metrics.pendingContracts}</div>
@@ -3212,18 +3229,18 @@ export const SalesView = {
             </div>
 
             <!-- 2. On Water: 134 -->
-            <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 shadow-xs flex items-center justify-between">
+            <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 shadow-xs flex items-center justify-between hover:shadow-md transition-shadow">
               <div>
                 <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">On Water</div>
-                <div class="text-2xl font-black text-[#006644] mt-1 font-mono">${metrics.onWater}</div>
+                <div class="text-2xl font-black text-[#172B4D] mt-1 font-mono">${metrics.onWater}</div>
               </div>
-              <div class="w-9 h-9 rounded-lg bg-[#E3FCEF] border border-[#ABF5D1] text-[#006644] flex items-center justify-center shrink-0">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"/></svg>
+              <div class="w-9 h-9 rounded-lg bg-[#F0F9FF] border border-[#BAE6FD] text-[#0284C7] flex items-center justify-center shrink-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
               </div>
             </div>
 
             <!-- 3. Delivered: 872 -->
-            <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 shadow-xs flex items-center justify-between">
+            <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 shadow-xs flex items-center justify-between hover:shadow-md transition-shadow">
               <div>
                 <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Delivered</div>
                 <div class="text-2xl font-black text-[#172B4D] mt-1 font-mono">${metrics.delivered}</div>
@@ -3234,7 +3251,7 @@ export const SalesView = {
             </div>
 
             <!-- 4. Orders: 1480 -->
-            <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 shadow-xs flex items-center justify-between">
+            <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 shadow-xs flex items-center justify-between hover:shadow-md transition-shadow">
               <div>
                 <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Orders</div>
                 <div class="text-2xl font-black text-[#172B4D] mt-1 font-mono">${Number(metrics.orders).toLocaleString()}</div>
@@ -3245,10 +3262,10 @@ export const SalesView = {
             </div>
 
             <!-- 5. Pending Payments: 377 -->
-            <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 shadow-xs flex items-center justify-between">
+            <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 shadow-xs flex items-center justify-between hover:shadow-md transition-shadow">
               <div>
                 <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Pending Payments</div>
-                <div class="text-2xl font-black text-[#FF8B00] mt-1 font-mono">${metrics.pendingPayments}</div>
+                <div class="text-2xl font-black text-[#172B4D] mt-1 font-mono">${metrics.pendingPayments}</div>
               </div>
               <div class="w-9 h-9 rounded-lg bg-[#FFFAE6] border border-[#FFE380] text-[#FF8B00] flex items-center justify-center shrink-0">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
@@ -3256,10 +3273,10 @@ export const SalesView = {
             </div>
 
             <!-- 6. Payments Received: 847 -->
-            <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 shadow-xs flex items-center justify-between">
+            <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 shadow-xs flex items-center justify-between hover:shadow-md transition-shadow">
               <div>
                 <div class="text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider">Payments Received</div>
-                <div class="text-2xl font-black text-[#006644] mt-1 font-mono">${metrics.paymentsReceived}</div>
+                <div class="text-2xl font-black text-[#172B4D] mt-1 font-mono">${metrics.paymentsReceived}</div>
               </div>
               <div class="w-9 h-9 rounded-lg bg-[#E3FCEF] border border-[#ABF5D1] text-[#006644] flex items-center justify-center shrink-0">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
@@ -3267,7 +3284,145 @@ export const SalesView = {
             </div>
           </div>
 
-          <!-- Section: Analytics Charts (Row 1 & 2 - Matching Screenshot 3) -->
+          <!-- Section: Last 2 Days Insertion Log & DataTable (Screenshots 1 & 2 - Placed Directly Below KPIs) -->
+          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs">
+            <div class="flex items-center justify-between pb-3 border-b border-[#F4F5F7] mb-3">
+              <div>
+                <h3 class="text-sm font-extrabold text-[#172B4D] tracking-tight">Last 2 Days Insertion Log</h3>
+                <p class="text-xs text-[#5E6C84] mt-0.5">Review newly inserted records across purchase, pre-processing, production, export and quality-control modules. The default window is the last 48 hours; change the date/time range or filter by module and user.</p>
+              </div>
+              <span class="px-3.5 py-1 rounded-full text-[11px] font-extrabold tracking-wider uppercase bg-[#00A4B7] text-white shadow-2xs">Last 2 Days</span>
+            </div>
+
+            <!-- Subcard: Filter Records (Screenshot 1) -->
+            <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 mb-4 shadow-2xs">
+              <div class="flex items-center gap-2 mb-3">
+                <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+                <h4 class="text-xs font-bold text-[#172B4D]">Filter Records</h4>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs items-end">
+                <div>
+                  <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Start Date / Time</label>
+                  <div class="relative">
+                    <input type="text" id="log-start-time" value="10/11/2026, 06:02 pm" class="w-full text-xs pl-2.5 pr-8 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                    <svg class="w-4 h-4 text-[#5E6C84] absolute right-2.5 top-2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                  </div>
+                </div>
+                <div>
+                  <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">End Date / Time</label>
+                  <div class="relative">
+                    <input type="text" id="log-end-time" value="12/11/2026, 06:02 pm" class="w-full text-xs pl-2.5 pr-8 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                    <svg class="w-4 h-4 text-[#5E6C84] absolute right-2.5 top-2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                  </div>
+                </div>
+                <div>
+                  <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Module</label>
+                  <select id="log-module-select" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
+                    <option value="ALL" selected>All Modules</option>
+                    <option value="QUALITY CONTROL">Quality Control</option>
+                    <option value="SALES / EXPORT">Sales / Export</option>
+                    <option value="PURCHASE">Purchase</option>
+                    <option value="PRE-PROCESSING">Pre-Processing</option>
+                    <option value="PRODUCTION">Production</option>
+                  </select>
+                </div>
+                <div class="flex items-center gap-2">
+                  <button type="button" id="btn-log-apply" class="btn-primary px-4 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px]">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+                    <span>Apply Filters</span>
+                  </button>
+                  <button type="button" id="btn-log-reset" class="btn-secondary px-3 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1 border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#172B4D] transition-all cursor-pointer h-[32px]">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                    <span>Reset</span>
+                  </button>
+                </div>
+              </div>
+              <div class="text-[11px] text-[#64748B] mt-2.5 flex items-center gap-1.5">
+                <svg class="w-3.5 h-3.5 text-[#00A4B7] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <span>Rows are matched on the module's activity date/time. Where a business table has no insertion timestamp, the closest business date is used and is shown in the Date Source column.</span>
+              </div>
+            </div>
+
+            <!-- 3 Summary Metrics (Screenshot 1) -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
+              <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 shadow-2xs flex items-center gap-3">
+                <div class="w-9 h-9 rounded-lg bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center shrink-0">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"/></svg>
+                </div>
+                <div>
+                  <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">TOTAL RECORDS</span>
+                  <span class="font-mono font-black text-xl text-[#172B4D]">${metrics.totalRecords2Days}</span>
+                </div>
+              </div>
+              <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 shadow-2xs flex items-center gap-3">
+                <div class="w-9 h-9 rounded-lg bg-[#E3FCEF] text-[#006644] flex items-center justify-center shrink-0">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                </div>
+                <div>
+                  <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">MODULES ACTIVE</span>
+                  <span class="font-mono font-black text-xl text-[#006644]">${metrics.modulesActive2Days}</span>
+                </div>
+              </div>
+              <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 shadow-2xs flex items-center gap-3">
+                <div class="w-9 h-9 rounded-lg bg-[#FFFAE6] text-[#FF8B00] flex items-center justify-center shrink-0">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+                <div>
+                  <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">LATEST ACTIVITY</span>
+                  <span class="font-mono font-bold text-xs text-[#172B4D]">${metrics.latestActivity2Days}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Module-wise Summary (Screenshot 2) -->
+            <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 mb-4 shadow-2xs">
+              <div class="flex items-center justify-between pb-3 border-b border-[#F4F5F7] mb-3">
+                <div class="flex items-center gap-2">
+                  <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"/></svg>
+                  <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Module-wise Summary</h4>
+                </div>
+                <span class="text-[11px] font-mono font-semibold text-[#5E6C84]">10-11-2026 18:02 to 12-11-2026 18:02</span>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div class="bg-[#F8FAFC] border border-[#DFE1E6] rounded-xl p-3.5 shadow-2xs flex items-center justify-between">
+                  <div>
+                    <div class="text-xs font-bold text-[#172B4D]">QC Last Code Issue</div>
+                    <div class="text-[10px] font-semibold text-[#5E6C84] uppercase tracking-wider mt-0.5">QUALITY CONTROL</div>
+                    <div class="text-[10px] text-[#64748B] mt-1 flex items-center gap-1 font-mono">
+                      <svg class="w-3 h-3 text-[#5E6C84]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                      <span>Latest: 12-11-2026 00:00:00</span>
+                    </div>
+                  </div>
+                  <span class="text-3xl font-black font-mono text-[#00A4B7]">16</span>
+                </div>
+                <div class="bg-[#F8FAFC] border border-[#DFE1E6] rounded-xl p-3.5 shadow-2xs flex items-center justify-between">
+                  <div>
+                    <div class="text-xs font-bold text-[#172B4D]">Last Realization Entry</div>
+                    <div class="text-[10px] font-semibold text-[#5E6C84] uppercase tracking-wider mt-0.5">SALES / EXPORT</div>
+                    <div class="text-[10px] text-[#64748B] mt-1 flex items-center gap-1 font-mono">
+                      <svg class="w-3 h-3 text-[#5E6C84]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                      <span>Latest: 12-11-2026 00:00:00</span>
+                    </div>
+                  </div>
+                  <span class="text-3xl font-black font-mono text-[#00A4B7]">5</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Insertion Records DataTable Container (Screenshot 2) -->
+            <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-2xs">
+              <div class="flex items-center justify-between pb-3 border-b border-[#F4F5F7] mb-3">
+                <div class="flex items-center gap-2">
+                  <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
+                  <h4 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Insertion Records</h4>
+                </div>
+                <span class="text-[11px] font-mono font-semibold text-[#5E6C84]">10-11-2026 18:02 to 12-11-2026 18:02</span>
+              </div>
+              <div id="sales-dash-insertion-table-container"></div>
+            </div>
+          </div>
+
+          <!-- Section: Analytics Charts (Row 1 & 2 - Screenshot 3) -->
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <!-- Chart 1: Invoice Vs Shipments (Screenshot 3 Top Left) -->
             <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
@@ -3326,10 +3481,16 @@ export const SalesView = {
           <!-- Chart 5: To be shipped Qty vs Shipped Qty (Screenshot 4 Top) -->
           <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
             <div class="flex items-center justify-between pb-3 border-b border-[#F4F5F7] mb-3">
-              <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">To be shipped Qty vs Shipped Qty (Tons)</h3>
-              <div class="flex items-center gap-3 text-xs font-semibold text-[#5E6C84]">
-                <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#334155]"></span> To be shipped Qty (Tons)</span>
-                <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#00A4B7]"></span> Shipped Qty (Tons)</span>
+              <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">To be shipped Qty vs Shipped Qty</h3>
+              <div class="flex items-center gap-4 text-xs font-semibold text-[#172B4D]">
+                <label class="inline-flex items-center gap-1.5 cursor-pointer">
+                  <input type="checkbox" id="chk-toggle-to-ship" checked class="rounded border-[#CBD5E1] text-[#4F46E5] focus:ring-0">
+                  <span class="text-[#5E6C84]">To be shipped Qty - Tons</span>
+                </label>
+                <label class="inline-flex items-center gap-1.5 cursor-pointer">
+                  <input type="checkbox" id="chk-toggle-shipped" checked class="rounded border-[#CBD5E1] text-[#00A4B7] focus:ring-0">
+                  <span class="text-[#5E6C84]">Shipped Qty - Tons</span>
+                </label>
               </div>
             </div>
             <div class="h-72 w-full">
@@ -3340,7 +3501,7 @@ export const SalesView = {
           <!-- Chart 6: Freight Rates Section (Screenshot 4 Bottom) -->
           <div class="bg-white border border-[#DFE1E6] rounded-xl p-4 shadow-xs">
             <div class="flex items-center justify-between pb-3 border-b border-[#F4F5F7] mb-3">
-              <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Freight Rates (Sample data)</h3>
+              <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Freight Rates(Sample data)</h3>
               <button type="button" id="btn-export-freight-rates" class="btn-primary px-3 py-1.5 rounded-full text-xs font-bold inline-flex items-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
                 <span>Download</span>
@@ -3380,121 +3541,6 @@ export const SalesView = {
               <canvas id="sales-chart-freight-rates"></canvas>
             </div>
           </div>
-
-          <!-- Section: Last 2 Days Insertion Log & DataTable (Screenshots 1 & 2) -->
-          <div class="bg-white rounded-xl border border-[#DFE1E6] p-4 shadow-xs">
-            <div class="flex items-center justify-between pb-3 border-b border-[#F4F5F7] mb-3">
-              <div class="flex items-center gap-2">
-                <div class="w-8 h-8 rounded-lg bg-[#F0F9FF] text-[#00A4B7] flex items-center justify-center font-bold">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                </div>
-                <div>
-                  <h3 class="text-xs font-bold text-[#172B4D] uppercase tracking-wider">Last 2 Days Insertion Log</h3>
-                  <p class="text-[11px] text-[#5E6C84] mt-0.5">Review newly inserted records across purchase, pre-processing, production, export and quality-control modules.</p>
-                </div>
-              </div>
-              <span class="px-3 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase bg-[#E0F2FE] text-[#00A4B7] border border-[#BAE6FD]">Last 2 Days</span>
-            </div>
-
-            <!-- Filter Controls -->
-            <div class="bg-[#F8FAFC] rounded-lg border border-[#DFE1E6] p-3 mb-3">
-              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs items-end">
-                <div>
-                  <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Start Date / Time</label>
-                  <input type="text" id="log-start-time" value="10/11/2026, 06:02 pm" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                </div>
-                <div>
-                  <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">End Date / Time</label>
-                  <input type="text" id="log-end-time" value="12/11/2026, 06:02 pm" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                </div>
-                <div>
-                  <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Module</label>
-                  <select id="log-module-select" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
-                    <option value="ALL" selected>All Modules</option>
-                    <option value="QUALITY CONTROL">Quality Control</option>
-                    <option value="SALES / EXPORT">Sales / Export</option>
-                    <option value="PURCHASE">Purchase</option>
-                    <option value="PRE-PROCESSING">Pre-Processing</option>
-                    <option value="PRODUCTION">Production</option>
-                  </select>
-                </div>
-                <div class="flex items-center gap-2">
-                  <button type="button" id="btn-log-apply" class="btn-primary px-4 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1.5 shadow-xs bg-[#00A4B7] hover:bg-[#008F9F] text-white transition-all cursor-pointer h-[32px]">
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
-                    <span>Apply Filters</span>
-                  </button>
-                  <button type="button" id="btn-log-reset" class="btn-secondary px-3 py-1.5 rounded-full text-xs font-semibold inline-flex items-center justify-center gap-1 border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#172B4D] transition-all cursor-pointer h-[32px]">
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-                    <span>Reset</span>
-                  </button>
-                </div>
-              </div>
-              <div class="text-[10px] text-[#64748B] mt-2 flex items-center gap-1">
-                <svg class="w-3 h-3 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                <span>Rows are matched on the module's activity date/time. Where a business table has no insertion timestamp, the closest business date is used.</span>
-              </div>
-            </div>
-
-            <!-- 3 Summary Metrics -->
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-3">
-              <div class="bg-white border border-[#DFE1E6] rounded-xl p-3 shadow-2xs flex items-center gap-3">
-                <div class="w-8 h-8 rounded-lg bg-[#E0F2FE] text-[#00A4B7] flex items-center justify-center shrink-0">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"/></svg>
-                </div>
-                <div>
-                  <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">TOTAL RECORDS</span>
-                  <span class="font-mono font-black text-lg text-[#172B4D]">${metrics.totalRecords2Days}</span>
-                </div>
-              </div>
-              <div class="bg-white border border-[#DFE1E6] rounded-xl p-3 shadow-2xs flex items-center gap-3">
-                <div class="w-8 h-8 rounded-lg bg-[#E3FCEF] text-[#006644] flex items-center justify-center shrink-0">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
-                </div>
-                <div>
-                  <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">MODULES ACTIVE</span>
-                  <span class="font-mono font-black text-lg text-[#006644]">${metrics.modulesActive2Days}</span>
-                </div>
-              </div>
-              <div class="bg-white border border-[#DFE1E6] rounded-xl p-3 shadow-2xs flex items-center gap-3">
-                <div class="w-8 h-8 rounded-lg bg-[#FFFAE6] text-[#FF8B00] flex items-center justify-center shrink-0">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                </div>
-                <div>
-                  <span class="text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider block">LATEST ACTIVITY</span>
-                  <span class="font-mono font-bold text-xs text-[#172B4D]">${metrics.latestActivity2Days}</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Module-wise Summary Cards (Screenshot 2) -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
-              <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 shadow-2xs flex items-center justify-between">
-                <div>
-                  <div class="text-xs font-bold text-[#172B4D]">QC Last Code Issue</div>
-                  <div class="text-[10px] font-semibold text-[#5E6C84] uppercase tracking-wider mt-0.5">QUALITY CONTROL</div>
-                  <div class="text-[10px] text-[#64748B] mt-1 flex items-center gap-1 font-mono">
-                    <svg class="w-3 h-3 text-[#5E6C84]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                    <span>Latest: 12-11-2026 00:00:00</span>
-                  </div>
-                </div>
-                <span class="text-2xl font-black font-mono text-[#00A4B7]">16</span>
-              </div>
-              <div class="bg-white border border-[#DFE1E6] rounded-xl p-3.5 shadow-2xs flex items-center justify-between">
-                <div>
-                  <div class="text-xs font-bold text-[#172B4D]">Last Realization Entry</div>
-                  <div class="text-[10px] font-semibold text-[#5E6C84] uppercase tracking-wider mt-0.5">SALES / EXPORT</div>
-                  <div class="text-[10px] text-[#64748B] mt-1 flex items-center gap-1 font-mono">
-                    <svg class="w-3 h-3 text-[#5E6C84]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                    <span>Latest: 12-11-2026 00:00:00</span>
-                  </div>
-                </div>
-                <span class="text-2xl font-black font-mono text-[#00A4B7]">5</span>
-              </div>
-            </div>
-
-            <!-- Insertion Records DataTable Container -->
-            <div id="sales-dash-insertion-table-container"></div>
-          </div>
         </div>
       `;
 
@@ -3502,6 +3548,7 @@ export const SalesView = {
       const fltResetBtn = container.querySelector('#sales-dash-flt-reset-btn');
       const fltToggleBtn = container.querySelector('#sales-dash-flt-toggle-btn');
       const fltBody = container.querySelector('#sales-dash-flt-body');
+      const searchBtn = container.querySelector('#btn-sales-dash-search');
 
       fltToggleBtn?.addEventListener('click', () => {
         fltBody?.classList.toggle('hidden');
@@ -3514,14 +3561,18 @@ export const SalesView = {
         Toast.show('Filters reset to default', 'info');
       });
 
+      searchBtn?.addEventListener('click', () => {
+        Toast.show('Dashboard filters applied successfully', 'success');
+      });
+
       // Render Insertion Records DataTable (Screenshot 2)
       const renderInsertionTable = (records) => {
         new DataTable({
           containerId: 'sales-dash-insertion-table-container',
-          tableTitle: 'Insertion Records',
+          tableTitle: `Insertion Records (${records.length})`,
           data: records,
           keyField: 'recordId',
-          pageSize: 10,
+          pageSize: 25,
           searchable: true,
           exportable: true,
           columns: [
@@ -3538,7 +3589,7 @@ export const SalesView = {
               render: (v, r) => `
                 <div>
                   <div class="font-mono text-xs font-bold text-[#172B4D]">${v}</div>
-                  <div class="text-[10px] text-[#64748B] mt-0.5 break-words">${r.dateSource || 'ProductReleaseDate / PsipSentDate / BestBeforeDt / HarvestDt'}</div>
+                  <div class="text-[10px] text-[#64748B] mt-0.5 break-words">${r.dateSource || 'ProductReleaseDate / PsipSentDate / BestBeforeDt / HarvestDt / ReceivingDt'}</div>
                 </div>
               `
             },
@@ -3580,7 +3631,7 @@ export const SalesView = {
         const modVal = modSelect ? modSelect.value : 'ALL';
         let filtered = [...(this.state.insertionRecords || [])];
         if (modVal !== 'ALL') {
-          filtered = filtered.filter(r => r.module.toUpperCase().includes(modVal) || (r.category && r.category.toUpperCase().includes(modVal)));
+          filtered = filtered.filter(r => r.module.toUpperCase().includes(modVal) || (r.moduleCategory && r.moduleCategory.toUpperCase().includes(modVal)));
         }
         renderInsertionTable(filtered);
         Toast.show(`Filtered ${filtered.length} insertion record(s)`, 'info');
@@ -3617,16 +3668,22 @@ export const SalesView = {
               ],
               {
                 plugins: {
-                  legend: { display: false }
+                  legend: { display: false },
+                  tooltip: {
+                    callbacks: {
+                      title: (items) => items[0]?.label || '',
+                      label: (ctx) => `  ${ctx.dataset.label}: ${ctx.parsed.y}`
+                    }
+                  }
                 },
                 scales: {
                   y: {
                     grid: { color: '#F1F5F9' },
-                    ticks: { font: { size: 10, family: 'Inter' }, color: '#5E6C84' }
+                    ticks: { font: { size: 10, family: 'Noto Sans' }, color: '#5E6C84' }
                   },
                   x: {
                     grid: { display: false },
-                    ticks: { font: { size: 9, family: 'Inter', weight: 'bold' }, color: '#172B4D' }
+                    ticks: { font: { size: 9, family: 'Noto Sans', weight: 'bold' }, color: '#172B4D' }
                   }
                 }
               }
@@ -3665,11 +3722,11 @@ export const SalesView = {
                 scales: {
                   y: {
                     grid: { color: '#F1F5F9' },
-                    ticks: { font: { size: 10, family: 'Inter' }, color: '#5E6C84' }
+                    ticks: { font: { size: 10, family: 'Noto Sans' }, color: '#5E6C84' }
                   },
                   x: {
                     grid: { display: false },
-                    ticks: { font: { size: 9, family: 'Inter', weight: 'bold' }, color: '#172B4D' }
+                    ticks: { font: { size: 9, family: 'Noto Sans', weight: 'bold' }, color: '#172B4D' }
                   }
                 }
               }
@@ -3680,14 +3737,32 @@ export const SalesView = {
           if (typeof chartHelper.renderDonutChart === 'function') {
             chartHelper.renderDonutChart(
               'sales-chart-country-details',
-              ['U.S.A.', 'CHINA', 'RUSSIA', 'BELGIUM', 'CANADA', 'FRANCE', 'UNITED KINGDOM', 'OTHER'],
-              [902, 166, 54, 50, 13, 10, 7, 23],
-              ['#00A4B7', '#006644', '#FF8B00', '#403294', '#0284C7', '#E11D48', '#059669', '#94A3B8'],
+              ['U.S.A.', 'CHINA', 'RUSSIA', 'BELGIUM', 'CANADA', 'FRANCE', 'UNITED KINGDOM', 'IRELAND', 'NEW ZEALAND', 'JAPAN', 'GERMANY', 'BAHAMAS', 'POLAND'],
+              [902, 166, 54, 50, 13, 10, 7, 5, 4, 4, 3, 3, 3],
+              ['#00A4B7', '#006644', '#FF8B00', '#403294', '#0284C7', '#E11D48', '#059669', '#6366F1', '#EC4899', '#84CC16', '#14B8A6', '#F59E0B', '#94A3B8'],
               {
+                cutout: '60%',
                 plugins: {
                   legend: {
                     position: 'right',
-                    labels: { font: { size: 10, family: 'Inter' }, boxWidth: 10 }
+                    labels: {
+                      font: { size: 9, family: 'Noto Sans' },
+                      boxWidth: 8,
+                      generateLabels: (chart) => {
+                        const data = chart.data;
+                        const total = data.datasets[0].data.reduce((a, b) => a + b, 0);
+                        return data.labels.map((label, i) => {
+                          const val = data.datasets[0].data[i];
+                          const pct = ((val / total) * 100).toFixed(1);
+                          return {
+                            text: `${label}: ${val} (${pct}%)`,
+                            fillStyle: data.datasets[0].backgroundColor[i],
+                            hidden: false,
+                            index: i
+                          };
+                        });
+                      }
+                    }
                   }
                 }
               }
@@ -3698,128 +3773,209 @@ export const SalesView = {
           if (typeof chartHelper.renderDonutChart === 'function') {
             chartHelper.renderDonutChart(
               'sales-chart-port-containers',
-              ['SAVANNAH', 'LOS ANGELES', 'NEW YORK', 'BALTIMORE', 'ZHANJIANG', 'NEWARK', 'ANTWERP', 'OTHER'],
-              [316, 171, 152, 121, 112, 52, 50, 147],
-              ['#0284C7', '#E11D48', '#006644', '#7C3AED', '#00A4B7', '#FF8B00', '#059669', '#64748B'],
+              ['SAVANNAH', 'LOS ANGELES', 'NEW YORK', 'BALTIMORE', 'ZHANJIANG', 'NEWARK', 'ANTWERP', 'ST PETERSBURG', 'SEATTLE', 'LONG BEACH', 'JACKSONVILLE', 'OTHER'],
+              [316, 171, 152, 121, 112, 52, 50, 38, 33, 24, 18, 92],
+              ['#0284C7', '#E11D48', '#006644', '#7C3AED', '#00A4B7', '#FF8B00', '#059669', '#3B82F6', '#8B5CF6', '#EC4899', '#10B981', '#64748B'],
               {
+                cutout: '60%',
                 plugins: {
                   legend: {
                     position: 'right',
-                    labels: { font: { size: 10, family: 'Inter' }, boxWidth: 10 }
+                    labels: {
+                      font: { size: 9, family: 'Noto Sans' },
+                      boxWidth: 8,
+                      generateLabels: (chart) => {
+                        const data = chart.data;
+                        return data.labels.map((label, i) => ({
+                          text: `${label}: ${data.datasets[0].data[i]}`,
+                          fillStyle: data.datasets[0].backgroundColor[i],
+                          hidden: false,
+                          index: i
+                        }));
+                      }
+                    }
                   }
                 }
               }
             );
           }
 
-          // 5. Chart 5: To be shipped Qty vs Shipped Qty (Screenshot 4 Top)
+          // 5. Chart 5: To be shipped Qty vs Shipped Qty (Screenshot 4 Top - All 35 Size Grades)
+          const qtyLabels = [
+            'BROKEN', '16/20', '16/22', '16/25', '20/30', '20/40', '21/30', '21/25', '26/30',
+            '31/40', '31/35', '32/37', '36/40', '40/130', '41/45', '41/60', '41/50', '45/51',
+            '50/70', '51/60', '56/74', '57/62', '60/90', '60/80', '61/70', '61/90', '61/80',
+            '71/90', '80/120', '90/120', '91/110', '100/150', '100/200', '150/200', '200/250'
+          ];
+          const toShipData = [
+            0.0, 720.0, 20.0, 45.0, 210.0, 30.0, 40.0, 780.0, 810.0,
+            1780.0, 50.0, 25.0, 60.0, 15.0, 30.0, 450.0, 520.0, 40.0,
+            85.0, 790.0, 30.0, 25.0, 20.0, 40.0, 420.0, 35.0, 50.0,
+            650.0, 25.0, 30.0, 40.0, 30.0, 35.0, 20.0, 15.0
+          ];
+          const shippedData = [
+            18.0, 2640.0, 240.0, 120.0, 540.0, 80.0, 110.0, 2520.0, 2350.0,
+            4180.0, 180.0, 95.0, 160.0, 45.0, 120.0, 1100.0, 1540.0, 110.0,
+            240.0, 1920.0, 90.0, 80.0, 70.0, 115.0, 900.0, 95.0, 110.0,
+            1000.0, 85.0, 90.0, 120.0, 85.0, 95.0, 70.0, 50.0
+          ];
+
+          let qtyChart = null;
           if (typeof chartHelper.renderBarChart === 'function') {
-            chartHelper.renderBarChart(
+            qtyChart = chartHelper.renderBarChart(
               'sales-chart-qty-shipped',
-              ['BROKEN', '16/20', '20/30', '21/25', '26/30', '31/40', '41/50', '51/60', '61/70', '71/90', '91/110', '100/200'],
+              qtyLabels,
               [
                 {
                   label: 'To be shipped Qty - Tons',
-                  data: [0.0, 720, 210, 780, 810, 1780, 520, 790, 450, 680, 240, 110],
-                  backgroundColor: '#334155',
-                  borderRadius: 3
+                  data: toShipData,
+                  backgroundColor: '#4F46E5',
+                  borderRadius: 2
                 },
                 {
                   label: 'Shipped Qty - Tons',
-                  data: [18.0, 2640, 540, 2520, 2350, 4180, 1540, 2040, 890, 1150, 450, 220],
+                  data: shippedData,
                   backgroundColor: '#00A4B7',
-                  borderRadius: 3
+                  borderRadius: 2
                 }
               ],
               {
                 plugins: {
-                  legend: { display: false }
+                  legend: { display: false },
+                  tooltip: {
+                    callbacks: {
+                      title: (items) => {
+                        const idx = items[0]?.dataIndex || 0;
+                        const label = qtyLabels[idx];
+                        const total = (toShipData[idx] + shippedData[idx]).toFixed(3);
+                        return `${label} (Total: ${total} Tons)`;
+                      },
+                      label: (ctx) => `  ${ctx.dataset.label}: ${Number(ctx.parsed.y).toFixed(3)}`
+                    }
+                  }
                 },
                 scales: {
                   y: {
                     grid: { color: '#F1F5F9' },
                     ticks: {
-                      font: { size: 10, family: 'Inter' },
+                      font: { size: 9, family: 'Noto Sans' },
                       color: '#5E6C84',
-                      callback: v => `${v} T`
+                      callback: v => `${v}`
                     }
                   },
                   x: {
                     grid: { display: false },
-                    ticks: { font: { size: 9, family: 'Inter', weight: 'bold' }, color: '#172B4D' }
+                    ticks: {
+                      font: { size: 8, family: 'Noto Sans', weight: 'bold' },
+                      color: '#172B4D',
+                      maxRotation: 45,
+                      minRotation: 45
+                    }
                   }
                 }
               }
             );
+
+            // Checkbox binding to toggle series
+            const chkToShip = container.querySelector('#chk-toggle-to-ship');
+            const chkShipped = container.querySelector('#chk-toggle-shipped');
+
+            chkToShip?.addEventListener('change', (e) => {
+              if (qtyChart) {
+                qtyChart.setDatasetVisibility(0, e.target.checked);
+                qtyChart.update();
+              }
+            });
+
+            chkShipped?.addEventListener('change', (e) => {
+              if (qtyChart) {
+                qtyChart.setDatasetVisibility(1, e.target.checked);
+                qtyChart.update();
+              }
+            });
           }
 
-          // 6. Chart 6: Freight Rates Trend (Screenshot 4 Bottom)
+          // 6. Chart 6: Freight Rates Trend (Screenshot 4 Bottom - Multi-line with exact figures & ₹ Currency)
           if (typeof chartHelper.renderLineChart === 'function') {
             chartHelper.renderLineChart(
               'sales-chart-freight-rates',
-              ['12/09', '26/09', '10/10', '24/10', '07/11', '21/11'],
+              ['12/09/2026', '26/09/2026', '10/10/2026', '24/10/2026', '07/11/2026', '21/11/2026'],
               [
                 {
                   label: 'ONE LINE',
-                  data: [11469, 11769, 11824, 11769, 11769, 6500],
-                  borderColor: '#E11D48',
+                  data: [11469, 11769, 11824, 11769, 11769, 6800],
+                  borderColor: '#EF4444',
                   backgroundColor: 'transparent',
-                  borderWidth: 2,
+                  borderWidth: 2.5,
                   pointRadius: 4,
-                  pointBackgroundColor: '#E11D48'
+                  pointBackgroundColor: '#EF4444'
                 },
                 {
                   label: 'MAERSK LINE',
-                  data: [10958, 10958, 11824, 9324, 9324, 6200],
-                  borderColor: '#0284C7',
+                  data: [10958, 10958, 11824, 10037, 9324, 6200],
+                  borderColor: '#3B82F6',
                   backgroundColor: 'transparent',
-                  borderWidth: 2,
+                  borderWidth: 2.5,
                   pointRadius: 4,
-                  pointBackgroundColor: '#0284C7'
+                  pointBackgroundColor: '#3B82F6'
                 },
                 {
                   label: 'MSC',
-                  data: [8337, 8400, 10037, 10037, 10037, 5900],
-                  borderColor: '#7C3AED',
+                  data: [8337, 8337, 10037, 10037, 10037, 5900],
+                  borderColor: '#8B5CF6',
                   backgroundColor: 'transparent',
-                  borderWidth: 2,
+                  borderWidth: 2.5,
                   pointRadius: 4,
-                  pointBackgroundColor: '#7C3AED'
-                },
-                {
-                  label: 'HAPAG-LLOYD',
-                  data: [7164, 7151, 7097, 7097, 7097, 6100],
-                  borderColor: '#059669',
-                  backgroundColor: 'transparent',
-                  borderWidth: 2,
-                  pointRadius: 4,
-                  pointBackgroundColor: '#059669'
+                  pointBackgroundColor: '#8B5CF6'
                 },
                 {
                   label: 'CMA CGM',
-                  data: [7164, 8164, 7986, 7986, 6716, 6716],
-                  borderColor: '#D97706',
+                  data: [7164.69, 8164.69, 7986.69, 7986.69, 6716.69, 6716.69],
+                  borderColor: '#F59E0B',
                   backgroundColor: 'transparent',
-                  borderWidth: 2,
+                  borderWidth: 2.5,
                   pointRadius: 4,
-                  pointBackgroundColor: '#D97706'
+                  pointBackgroundColor: '#F59E0B'
+                },
+                {
+                  label: 'HAPAG-LLOYD',
+                  data: [7151, 7151, 7097, 7097, 7097, 6100],
+                  borderColor: '#10B981',
+                  backgroundColor: 'transparent',
+                  borderWidth: 2.5,
+                  pointRadius: 4,
+                  pointBackgroundColor: '#10B981'
                 }
               ],
               {
+                plugins: {
+                  legend: {
+                    position: 'top',
+                    labels: {
+                      boxWidth: 12,
+                      font: { size: 10, family: 'Noto Sans', weight: 'bold' }
+                    }
+                  },
+                  tooltip: {
+                    callbacks: {
+                      label: (ctx) => ` ${ctx.dataset.label}: ₹${Number(ctx.parsed.y).toLocaleString('en-IN')}`
+                    }
+                  }
+                },
                 scales: {
                   y: {
                     min: 5000,
                     max: 13000,
                     grid: { color: '#F1F5F9' },
                     ticks: {
-                      font: { size: 10, family: 'Inter' },
+                      font: { size: 10, family: 'Noto Sans' },
                       color: '#5E6C84',
-                      callback: v => `$${v}`
+                      callback: v => `₹${Number(v).toLocaleString('en-IN')}`
                     }
                   },
                   x: {
                     grid: { display: false },
-                    ticks: { font: { size: 10, family: 'Inter', weight: 'bold' }, color: '#172B4D' }
+                    ticks: { font: { size: 10, family: 'Noto Sans', weight: 'bold' }, color: '#172B4D' }
                   }
                 }
               }
@@ -4214,7 +4370,7 @@ export const SalesView = {
                 <div class="flex items-center gap-2 flex-wrap">
                   <span class="font-mono font-extrabold text-[#0F172A] text-base">${row.piNumber}</span>
                   <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold tracking-wide uppercase border ${statusClass}">${statusVal.replace(/_/g, ' ')}</span>
-                  <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">${row.currency || 'USD ($)'}</span>
+                  <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#EAE6FF] text-[#403294] border border-[#D3C7FF]">${row.currency || 'INR (₹)'}</span>
                 </div>
                 <div class="text-[11px] text-[#64748B] mt-0.5 font-medium flex items-center gap-1.5 flex-wrap">
                   <span><strong>Processor:</strong> ${row.processor || row.exporter}</span>
@@ -4240,7 +4396,7 @@ export const SalesView = {
               </div>
               <div class="bg-white px-3.5 py-1.5 rounded-lg border border-[#ABF5D1] bg-[#F0FDF4] shadow-2xs text-center min-w-[100px]">
                 <span class="text-[10px] font-bold text-[#006644] uppercase tracking-wider block">Total Amount</span>
-                <span class="font-mono font-extrabold text-[#006644] text-sm mt-0.5 block">$${Number(totAmount).toLocaleString('en-IN')}</span>
+                <span class="font-mono font-extrabold text-[#006644] text-sm mt-0.5 block">₹${Number(totAmount).toLocaleString('en-IN')}</span>
               </div>
             </div>
           </div>
@@ -4405,7 +4561,7 @@ export const SalesView = {
               </div>
               <div>
                 <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">CURRENCY</span>
-                <span class="font-bold text-[#403294] text-xs block mt-0.5">${row.currency || 'USD ($)'}</span>
+                <span class="font-bold text-[#403294] text-xs block mt-0.5">${row.currency || 'INR (₹)'}</span>
               </div>
             </div>
           </div>
@@ -4426,7 +4582,7 @@ export const SalesView = {
               </div>
               <div>
                 <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">CHARGE AMOUNT</span>
-                <span class="font-mono font-bold text-[#172B4D] text-xs block mt-0.5">$${Number(row.chargeAmount || 0).toLocaleString('en-IN')}</span>
+                <span class="font-mono font-bold text-[#172B4D] text-xs block mt-0.5">₹${Number(row.chargeAmount || 0).toLocaleString('en-IN')}</span>
               </div>
               <div>
                 <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">STATUS</span>
@@ -4480,9 +4636,9 @@ export const SalesView = {
                       <td class="py-2.5 px-2.5 font-medium">${item.brand}</td>
                       <td class="py-2.5 px-2.5 text-right font-mono font-bold">${Number(item.mcs).toLocaleString('en-IN')}</td>
                       <td class="py-2.5 px-2.5 text-right font-mono text-[#5E6C84]">${Number(item.traysQty).toLocaleString('en-IN')}</td>
-                      <td class="py-2.5 px-2.5 text-right font-mono font-semibold text-[#172B4D]">$${Number(item.unitPriceBags).toFixed(2)}</td>
-                      <td class="py-2.5 px-2.5 text-right font-mono text-[#5E6C84]">$${Number(item.ddpPrice).toFixed(2)}</td>
-                      <td class="py-2.5 px-2.5 text-right font-mono font-extrabold text-[#006644]">$${Number(item.amountUsd).toLocaleString('en-IN')}</td>
+                      <td class="py-2.5 px-2.5 text-right font-mono font-semibold text-[#172B4D]">₹${Number(item.unitPriceBags).toFixed(2)}</td>
+                      <td class="py-2.5 px-2.5 text-right font-mono text-[#5E6C84]">₹${Number(item.ddpPrice).toFixed(2)}</td>
+                      <td class="py-2.5 px-2.5 text-right font-mono font-extrabold text-[#006644]">₹${Number(item.amountUsd).toLocaleString('en-IN')}</td>
                     </tr>
                   `).join('')}
                 </tbody>
@@ -4492,7 +4648,7 @@ export const SalesView = {
                     <td class="py-2.5 px-2.5 text-right font-mono font-extrabold text-xs text-[#172B4D]">${Number(totMcs).toLocaleString('en-IN')}</td>
                     <td class="py-2.5 px-2.5 text-right font-mono font-bold text-xs text-[#5E6C84]">${Number(totTrays).toLocaleString('en-IN')}</td>
                     <td colspan="2" class="py-2.5 px-2.5"></td>
-                    <td class="py-2.5 px-2.5 text-right font-mono font-extrabold text-xs text-[#006644]">$${Number(totAmount).toLocaleString('en-IN')}</td>
+                    <td class="py-2.5 px-2.5 text-right font-mono font-extrabold text-xs text-[#006644]">₹${Number(totAmount).toLocaleString('en-IN')}</td>
                   </tr>
                 </tfoot>
               </table>
@@ -4637,7 +4793,7 @@ export const SalesView = {
       shipmentTerms: 'Full Container Load (FCL)',
       deliveryTerms: 'CIF Port of Destination',
       quantityUnits: 'Kilograms (Kg)',
-      currency: 'USD ($)',
+      currency: "INR (₹)",
       freight: 'Freight Prepaid',
       chargeName: 'Ocean Freight & Reefer THC',
       chargeAmount: 4850,
@@ -4885,7 +5041,7 @@ export const SalesView = {
               <div>
                 <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CURRENCY <span class="text-[#DE350B]">*</span></label>
                 <select id="form-pi-currency" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
-                  <option value="USD ($)" ${d.currency?.includes('USD') ? 'selected' : ''}>USD ($)</option>
+                  <option value="INR (₹)" ${d.currency?.includes('USD') ? 'selected' : ''}>INR (₹)</option>
                   <option value="EUR (€)" ${d.currency?.includes('EUR') ? 'selected' : ''}>EUR (€)</option>
                   <option value="JPY (¥)" ${d.currency?.includes('JPY') ? 'selected' : ''}>JPY (¥)</option>
                   <option value="GBP (£)" ${d.currency?.includes('GBP') ? 'selected' : ''}>GBP (£)</option>
@@ -5020,9 +5176,9 @@ export const SalesView = {
           <td class="py-2.5 px-2.5 font-medium">${item.brand}</td>
           <td class="py-2.5 px-2.5 text-right font-mono font-bold">${Number(item.mcs).toLocaleString('en-IN')}</td>
           <td class="py-2.5 px-2.5 text-right font-mono text-[#5E6C84]">${Number(item.traysQty).toLocaleString('en-IN')}</td>
-          <td class="py-2.5 px-2.5 text-right font-mono font-semibold text-[#172B4D]">$${Number(item.unitPriceBags).toFixed(2)}</td>
-          <td class="py-2.5 px-2.5 text-right font-mono text-[#5E6C84]">$${Number(item.ddpPrice).toFixed(2)}</td>
-          <td class="py-2.5 px-2.5 text-right font-mono font-extrabold text-[#006644]">$${Number(item.amountUsd).toLocaleString('en-IN')}</td>
+          <td class="py-2.5 px-2.5 text-right font-mono font-semibold text-[#172B4D]">₹${Number(item.unitPriceBags).toFixed(2)}</td>
+          <td class="py-2.5 px-2.5 text-right font-mono text-[#5E6C84]">₹${Number(item.ddpPrice).toFixed(2)}</td>
+          <td class="py-2.5 px-2.5 text-right font-mono font-extrabold text-[#006644]">₹${Number(item.amountUsd).toLocaleString('en-IN')}</td>
           <td class="py-2.5 px-2.5 text-center">
             <button type="button" data-del-item-id="${item.id}" class="btn-del-item dt-action-btn w-8 h-8 min-w-[32px] min-h-[32px] inline-flex items-center justify-center bg-white hover:bg-[#FFEBE6] border border-[#CBD5E1] hover:border-[#DE350B] text-[#DE350B] rounded-full transition-colors cursor-pointer" title="Remove line item">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
@@ -5042,7 +5198,7 @@ export const SalesView = {
           <td class="py-2.5 px-2.5 text-right font-mono font-extrabold text-xs text-[#172B4D]">${totMcs.toLocaleString('en-IN')}</td>
           <td class="py-2.5 px-2.5 text-right font-mono font-bold text-xs text-[#5E6C84]">${totTrays.toLocaleString('en-IN')}</td>
           <td colspan="2" class="py-2.5 px-2.5"></td>
-          <td class="py-2.5 px-2.5 text-right font-mono font-extrabold text-xs text-[#006644]">$${totAmount.toLocaleString('en-IN')}</td>
+          <td class="py-2.5 px-2.5 text-right font-mono font-extrabold text-xs text-[#006644]">₹${totAmount.toLocaleString('en-IN')}</td>
           <td></td>
         </tr>
       `;
@@ -5724,7 +5880,7 @@ export const SalesView = {
               </div>
               <div class="bg-white px-3.5 py-1.5 rounded-lg border border-[#ABF5D1] bg-[#F0FDF4] shadow-2xs text-center min-w-[100px]">
                 <span class="text-[10px] font-bold text-[#006644] uppercase tracking-wider block">Total CIF Value</span>
-                <span class="font-mono font-extrabold text-[#006644] text-sm mt-0.5 block">$${Number(totAmount).toLocaleString('en-IN')}</span>
+                <span class="font-mono font-extrabold text-[#006644] text-sm mt-0.5 block">₹${Number(totAmount).toLocaleString('en-IN')}</span>
               </div>
             </div>
           </div>
@@ -5921,7 +6077,7 @@ export const SalesView = {
               </div>
               <div>
                 <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">CURRENCY</span>
-                <span class="font-bold text-[#403294] text-xs block mt-0.5">${d.currency || 'USD ($)'}</span>
+                <span class="font-bold text-[#403294] text-xs block mt-0.5">${d.currency || 'INR (₹)'}</span>
               </div>
             </div>
           </div>
@@ -5942,11 +6098,11 @@ export const SalesView = {
               </div>
               <div>
                 <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">FOB VALUE (USD)</span>
-                <span class="font-mono font-bold text-[#172B4D] text-xs block mt-0.5">$${Number(d.fobValueUsd || Math.round(totAmount * 0.96)).toLocaleString('en-IN')}</span>
+                <span class="font-mono font-bold text-[#172B4D] text-xs block mt-0.5">₹${Number(d.fobValueUsd || Math.round(totAmount * 0.96)).toLocaleString('en-IN')}</span>
               </div>
               <div>
                 <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">CIF VALUE (USD)</span>
-                <span class="font-mono font-extrabold text-[#006644] text-xs block mt-0.5">$${Number(d.cifValueUsd || totAmount).toLocaleString('en-IN')}</span>
+                <span class="font-mono font-extrabold text-[#006644] text-xs block mt-0.5">₹${Number(d.cifValueUsd || totAmount).toLocaleString('en-IN')}</span>
               </div>
               <div>
                 <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">FREIGHT</span>
@@ -5958,7 +6114,7 @@ export const SalesView = {
               </div>
               <div>
                 <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">CHARGE AMOUNT</span>
-                <span class="font-mono font-bold text-[#172B4D] text-xs block mt-0.5">$${Number(d.chargeAmount || 4850).toLocaleString('en-IN')}</span>
+                <span class="font-mono font-bold text-[#172B4D] text-xs block mt-0.5">₹${Number(d.chargeAmount || 4850).toLocaleString('en-IN')}</span>
               </div>
               <div>
                 <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">STATUS</span>
@@ -6012,9 +6168,9 @@ export const SalesView = {
                       <td class="py-2.5 px-2.5 font-medium">${item.brand}</td>
                       <td class="py-2.5 px-2.5 text-right font-mono font-bold">${Number(item.mcs).toLocaleString('en-IN')}</td>
                       <td class="py-2.5 px-2.5 text-right font-mono text-[#5E6C84]">${Number(item.traysQty).toLocaleString('en-IN')}</td>
-                      <td class="py-2.5 px-2.5 text-right font-mono font-semibold text-[#172B4D]">$${Number(item.unitPriceBags).toFixed(2)}</td>
-                      <td class="py-2.5 px-2.5 text-right font-mono text-[#5E6C84]">$${Number(item.ddpPrice).toFixed(2)}</td>
-                      <td class="py-2.5 px-2.5 text-right font-mono font-extrabold text-[#006644]">$${Number(item.amountUsd).toLocaleString('en-IN')}</td>
+                      <td class="py-2.5 px-2.5 text-right font-mono font-semibold text-[#172B4D]">₹${Number(item.unitPriceBags).toFixed(2)}</td>
+                      <td class="py-2.5 px-2.5 text-right font-mono text-[#5E6C84]">₹${Number(item.ddpPrice).toFixed(2)}</td>
+                      <td class="py-2.5 px-2.5 text-right font-mono font-extrabold text-[#006644]">₹${Number(item.amountUsd).toLocaleString('en-IN')}</td>
                     </tr>
                   `).join('')}
                 </tbody>
@@ -6024,7 +6180,7 @@ export const SalesView = {
                     <td class="py-2.5 px-2.5 text-right font-mono font-extrabold text-xs text-[#172B4D]">${Number(totMcs).toLocaleString('en-IN')}</td>
                     <td class="py-2.5 px-2.5 text-right font-mono font-bold text-xs text-[#5E6C84]">${Number(totTrays).toLocaleString('en-IN')}</td>
                     <td colspan="2" class="py-2.5 px-2.5"></td>
-                    <td class="py-2.5 px-2.5 text-right font-mono font-extrabold text-xs text-[#006644]">$${Number(totAmount).toLocaleString('en-IN')}</td>
+                    <td class="py-2.5 px-2.5 text-right font-mono font-extrabold text-xs text-[#006644]">₹${Number(totAmount).toLocaleString('en-IN')}</td>
                   </tr>
                 </tfoot>
               </table>
@@ -7996,12 +8152,12 @@ export const SalesView = {
               </div>
 
               <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">INVOICE VALUE ($)</label>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">INVOICE VALUE (₹)</label>
                 <input type="number" step="0.01" id="sb-form-invoice-val" value="${d.invoiceValue || 154200}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
               </div>
 
               <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FREIGHT ($)</label>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FREIGHT (₹)</label>
                 <input type="number" step="0.01" id="sb-form-freight" value="${d.freight || 4800}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
               </div>
 
@@ -8667,13 +8823,13 @@ export const SalesView = {
 
               <!-- Discount -->
               <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Discount ($)</label>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Discount (₹)</label>
                 <input type="number" step="0.01" id="ci-discount" value="${d.discount || 0.00}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
               </div>
 
               <!-- Freight * -->
               <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Freight ($) <span class="text-[#DE350B]">*</span></label>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Freight (₹) <span class="text-[#DE350B]">*</span></label>
                 <input type="number" step="0.01" id="ci-freight" value="${d.freight || 4800.00}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs" required>
               </div>
 
@@ -10219,12 +10375,12 @@ export const SalesView = {
               </div>
 
               <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">INVOICE VALUE ($)</label>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">INVOICE VALUE (₹)</label>
                 <input type="number" step="0.01" id="fda-field-invoice-val" value="${d.invoiceValue || 154200}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#00A4B7] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
               </div>
 
               <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FREIGHT ($)</label>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">FREIGHT (₹)</label>
                 <input type="number" step="0.01" id="fda-field-freight" value="${d.freight || 4800}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
               </div>
 
@@ -10533,11 +10689,11 @@ export const SalesView = {
                 <span class="font-mono font-bold text-[#172B4D] text-xs block mt-0.5">${Number(d.netWeightKg || 0).toLocaleString('en-IN')} Kg</span>
               </div>
               <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">INVOICE VALUE ($)</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">INVOICE VALUE (₹)</span>
                 <span class="font-mono font-bold text-[#00A4B7] text-xs block mt-0.5">${Number(d.invoiceValue || 0).toLocaleString('en-IN')}</span>
               </div>
               <div>
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">FREIGHT ($)</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">FREIGHT (₹)</span>
                 <span class="font-mono text-[#172B4D] text-xs block mt-0.5">${Number(d.freight || 0).toLocaleString('en-IN')}</span>
               </div>
               <div>
@@ -10884,7 +11040,7 @@ export const SalesView = {
           <td class="py-2.5 px-3 font-semibold text-[#172B4D]">${tx.category || '-'}</td>
           <td class="py-2.5 px-3 font-mono font-bold text-[#00A4B7]">${tx.billNumber || '-'}</td>
           <td class="py-2.5 px-3 font-mono text-xs text-[#5E6C84]">${tx.billDate || '-'}</td>
-          <td class="py-2.5 px-3 text-right font-mono font-bold text-[#006644]">$${Number(tx.billAmount || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+          <td class="py-2.5 px-3 text-right font-mono font-bold text-[#006644]">₹${Number(tx.billAmount || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
           <td class="py-2.5 px-3 text-center">
             <button type="button" class="btn-remove-tx text-[#DE350B] hover:text-[#BF2600] p-1.5 rounded-full hover:bg-[#FFEBE6] transition-colors cursor-pointer inline-flex items-center justify-center" data-idx="${idx}" title="Remove transaction">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
@@ -10994,7 +11150,7 @@ export const SalesView = {
                 </div>
 
                 <div>
-                  <label class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BILL AMOUNT ($) <span class="text-[#DE350B]">*</span></label>
+                  <label class="block text-[10px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">BILL AMOUNT (₹) <span class="text-[#DE350B]">*</span></label>
                   <input type="number" step="0.01" id="mtx-bill-amount" placeholder="0.00" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
                 </div>
 
@@ -11056,52 +11212,52 @@ export const SalesView = {
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-3">
               <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">C&amp;F Charges ($)</label>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">C&amp;F Charges (₹)</label>
                 <input type="number" step="0.01" id="cha-duty-cf" value="${d.cfCharges ?? 0}" class="duty-calc-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
               </div>
 
               <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">AD Duty ($)</label>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">AD Duty (₹)</label>
                 <input type="number" step="0.01" id="cha-duty-ad" value="${d.adDuty ?? 0}" class="duty-calc-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
               </div>
 
               <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">HM Duty ($)</label>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">HM Duty (₹)</label>
                 <input type="number" step="0.01" id="cha-duty-hm" value="${d.hmDuty ?? 0}" class="duty-calc-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
               </div>
 
               <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">MP Duty ($)</label>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">MP Duty (₹)</label>
                 <input type="number" step="0.01" id="cha-duty-mp" value="${d.mpDuty ?? 0}" class="duty-calc-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
               </div>
 
               <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CV Duty ($)</label>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">CV Duty (₹)</label>
                 <input type="number" step="0.01" id="cha-duty-cv" value="${d.cvDuty ?? 0}" class="duty-calc-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
               </div>
 
               <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">RT Duty ($)</label>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">RT Duty (₹)</label>
                 <input type="number" step="0.01" id="cha-duty-rt" value="${d.rtDuty ?? 0}" class="duty-calc-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
               </div>
 
               <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Invoice Value ($)</label>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Invoice Value (₹)</label>
                 <input type="number" step="0.01" id="cha-duty-inv-val" value="${d.invoiceValue ?? 0}" class="w-full text-xs px-2.5 py-1.5 bg-[#F8FAFC] border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
               </div>
 
               <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Entered Invoice Value ($)</label>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Entered Invoice Value (₹)</label>
                 <input type="number" step="0.01" id="cha-duty-entered-val" value="${d.enteredInvoiceValue ?? 0}" class="duty-calc-input w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
               </div>
 
               <div>
-                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Total ($)</label>
+                <label class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">Total (₹)</label>
                 <input type="number" step="0.01" id="cha-duty-total" value="${d.total ?? 0}" class="w-full text-xs px-2.5 py-1.5 bg-[#F0FDF4] border border-[#BBF7D0] rounded font-mono font-extrabold text-[#006644] focus:outline-none shadow-2xs" readonly>
               </div>
 
               <div>
-                <label class="block text-[11px] font-bold text-[#00A4B7] uppercase tracking-wider mb-1">Grand Total ($)</label>
+                <label class="block text-[11px] font-bold text-[#00A4B7] uppercase tracking-wider mb-1">Grand Total (₹)</label>
                 <input type="number" step="0.01" id="cha-duty-grand-total" value="${d.grandTotal ?? 0}" class="w-full text-xs px-2.5 py-1.5 bg-[#F0F9FF] border border-[#BAE6FD] rounded font-mono font-extrabold text-[#00A4B7] focus:outline-none shadow-2xs" readonly>
               </div>
             </div>
@@ -11305,7 +11461,7 @@ export const SalesView = {
       statusClass = 'bg-[#FFFAE6] text-[#FF8B00] border-[#FFE380]';
     }
 
-    const fmt = (num) => '$' + Number(num || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const fmt = (num) => '₹' + Number(num || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     const moreTransactionsList = Array.isArray(d.moreTransactions) ? d.moreTransactions : [
       { category: 'Customs Clearance Charges', billNumber: 'BILL-CUS-88210', billDate: d.entryDate || '2026-03-28', billAmount: 1850.00 },
       { category: 'Port & Handling Charges', billNumber: 'BILL-PRT-44012', billDate: d.invDate || '2026-03-25', billAmount: 1400.00 }
@@ -11434,7 +11590,7 @@ export const SalesView = {
                           <td class="py-2.5 px-3 font-semibold text-[#172B4D]">${tx.category || '-'}</td>
                           <td class="py-2.5 px-3 font-mono font-bold text-[#00A4B7]">${tx.billNumber || '-'}</td>
                           <td class="py-2.5 px-3 font-mono text-xs text-[#5E6C84]">${tx.billDate || '-'}</td>
-                          <td class="py-2.5 px-3 text-right font-mono font-bold text-[#006644]">$${Number(tx.billAmount || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                          <td class="py-2.5 px-3 text-right font-mono font-bold text-[#006644]">₹${Number(tx.billAmount || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
                         </tr>
                       `).join('')
                       : `
@@ -11675,9 +11831,9 @@ export const SalesView = {
           { field: 'endDate', header: 'End Date', render: (v) => `<span class="text-xs text-[#5E6C84] whitespace-nowrap">${v}</span>` },
           { field: 'month', header: 'Month', render: (v) => `<span class="text-xs font-medium text-[#172B4D] whitespace-nowrap">${v}</span>` },
           { field: 'bookedRate', header: 'Booked Rate', render: (v) => `<span class="font-mono font-extrabold text-xs text-[#006644]">₹${Number(v).toFixed(2)}</span>` },
-          { field: 'bookedValue', header: 'Booked Value', render: (v) => `<span class="font-mono font-bold text-xs text-[#172B4D]">$${Number(v).toLocaleString('en-US')}</span>` },
-          { field: 'utilisation', header: 'Utilisation', render: (v) => `<span class="font-mono text-xs font-semibold text-[#5E6C84]">$${Number(v).toLocaleString('en-US')}</span>` },
-          { field: 'balanceUsd', header: 'Balance US$', render: (v) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">$${Number(v).toLocaleString('en-US')}</span>` },
+          { field: 'bookedValue', header: 'Booked Value', render: (v) => `<span class="font-mono font-bold text-xs text-[#172B4D]">₹${Number(v).toLocaleString('en-US')}</span>` },
+          { field: 'utilisation', header: 'Utilisation', render: (v) => `<span class="font-mono text-xs font-semibold text-[#5E6C84]">₹${Number(v).toLocaleString('en-US')}</span>` },
+          { field: 'balanceUsd', header: 'Balance (₹)', render: (v) => `<span class="font-mono font-bold text-xs text-[#00A4B7]">₹${Number(v).toLocaleString('en-US')}</span>` },
           {
             field: 'actions',
             header: 'Actions',
@@ -11851,7 +12007,7 @@ export const SalesView = {
             <!-- 4. VALUE * -->
             <div>
               <label for="fwd-in-value" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
-                VALUE (US$) <span class="text-[#DE350B]">*</span>
+                VALUE (₹) <span class="text-[#DE350B]">*</span>
               </label>
               <input type="number" id="fwd-in-value" required value="${initialValue}" placeholder="e.g. 250000" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs font-mono">
             </div>
@@ -12011,7 +12167,7 @@ export const SalesView = {
         return;
       }
       if (value <= 0) {
-        Toast.show('Please enter a valid Value (US$)', 'error');
+        Toast.show('Please enter a valid Value (₹)', 'error');
         return;
       }
 
@@ -12093,7 +12249,7 @@ export const SalesView = {
       { label: 'SELECT COMPANY', val: row.company || row.exporter || 'Devi Fisheries Limited' },
       { label: 'BOOKING DATE', val: row.bookedDate || '-' },
       { label: 'FORWARD CONTRACT NUMBER', val: contractNo },
-      { label: 'VALUE (US$)', val: '$' + bookedValue.toLocaleString('en-US') },
+      { label: 'VALUE (₹)', val: '₹' +  bookedValue.toLocaleString('en-US') },
       { label: 'PERIOD', val: row.period || '-' },
       { label: 'MONTH', val: row.month || '-' },
       { label: 'START DATE', val: row.startDate || '-' },
@@ -12102,8 +12258,8 @@ export const SalesView = {
       { label: 'PREMIUM RATE', val: '₹' + premiumRate.toFixed(2) },
       { label: 'BRANCH MARGIN', val: '₹' + branchMargin.toFixed(2) },
       { label: 'TOTAL RATE', val: '₹' + totalRate.toFixed(2) },
-      { label: 'UTILIZED VALUE', val: '$' + utilizedValue.toLocaleString('en-US') },
-      { label: 'BALANCE VALUE', val: '$' + balanceValue.toLocaleString('en-US') },
+      { label: 'UTILIZED VALUE', val: '₹' +  utilizedValue.toLocaleString('en-US') },
+      { label: 'BALANCE VALUE', val: '₹' +  balanceValue.toLocaleString('en-US') },
       { label: 'CURRENT DATE', val: row.currentDate || '11/11/2026' },
       { label: 'RATE DIFF', val: row.diff || '0.00' }
     ];
@@ -12141,15 +12297,15 @@ export const SalesView = {
             <div class="flex items-center gap-2 flex-wrap">
               <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[80px]">
                 <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">BOOKED VALUE</span>
-                <span class="font-mono font-extrabold text-xs text-[#006644]">$${bookedValue.toLocaleString('en-US')}</span>
+                <span class="font-mono font-extrabold text-xs text-[#006644]">₹${bookedValue.toLocaleString('en-US')}</span>
               </div>
               <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[80px]">
                 <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">UTILIZED</span>
-                <span class="font-mono font-extrabold text-xs text-[#006644]">$${utilizedValue.toLocaleString('en-US')}</span>
+                <span class="font-mono font-extrabold text-xs text-[#006644]">₹${utilizedValue.toLocaleString('en-US')}</span>
               </div>
               <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[80px]">
-                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">BALANCE US$</span>
-                <span class="font-mono font-extrabold text-xs text-[#00A4B7]">$${balanceValue.toLocaleString('en-US')}</span>
+                <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">BALANCE (₹)</span>
+                <span class="font-mono font-extrabold text-xs text-[#00A4B7]">₹${balanceValue.toLocaleString('en-US')}</span>
               </div>
             </div>
           </div>
@@ -12476,9 +12632,9 @@ export const SalesView = {
       { label: 'REMITTANCE DATE', val: row.remittanceDate || '-' },
       { label: 'SETTLEMENT MODE', val: row.settlementMode || 'SWIFT Wire MT103' },
       { label: 'CURRENCY', val: row.currency || 'USD' },
-      { label: 'GROSS BILL VALUE', val: '$' + billAmount.toLocaleString('en-US') },
-      { label: 'BANK CHARGES', val: '-$' + bankCharges.toLocaleString('en-US') },
-      { label: 'NET RECEIVED', val: '$' + netReceived.toLocaleString('en-US') },
+      { label: 'GROSS BILL VALUE', val: '₹' +  billAmount.toLocaleString('en-US') },
+      { label: 'BANK CHARGES', val: '-₹' +  bankCharges.toLocaleString('en-US') },
+      { label: 'NET RECEIVED', val: '₹' +  netReceived.toLocaleString('en-US') },
       { label: 'STATUS', val: status.replace(/_/g, ' ') },
       { label: 'REMARKS', val: row.remarks || 'Document and value advice verified' }
     ];
@@ -12516,15 +12672,15 @@ export const SalesView = {
             <div class="flex items-center gap-2 flex-wrap">
               <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[80px]">
                 <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">GROSS BILL</span>
-                <span class="font-mono font-extrabold text-xs text-[#172B4D]">$${billAmount.toLocaleString('en-US')}</span>
+                <span class="font-mono font-extrabold text-xs text-[#172B4D]">₹${billAmount.toLocaleString('en-US')}</span>
               </div>
               <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[80px]">
                 <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">CHARGES</span>
-                <span class="font-mono font-extrabold text-xs text-[#DE350B]">-$${bankCharges.toLocaleString('en-US')}</span>
+                <span class="font-mono font-extrabold text-xs text-[#DE350B]">-₹${bankCharges.toLocaleString('en-US')}</span>
               </div>
               <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[80px]">
                 <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">NET PROCEEDS</span>
-                <span class="font-mono font-extrabold text-xs text-[#006644]">$${netReceived.toLocaleString('en-US')}</span>
+                <span class="font-mono font-extrabold text-xs text-[#006644]">₹${netReceived.toLocaleString('en-US')}</span>
               </div>
             </div>
           </div>
@@ -12632,7 +12788,7 @@ export const SalesView = {
           </td>
           <td class="py-2 px-3 font-mono font-bold text-xs text-[#00A4B7]">${t.refNo || '-'}</td>
           <td class="py-2 px-3 font-mono text-xs text-[#172B4D]">${t.bankRefNo || '-'}</td>
-          <td class="py-2 px-3 font-mono font-bold text-xs text-[#172B4D] text-right">$${Number(t.utilizedValue || 0).toLocaleString('en-US')}</td>
+          <td class="py-2 px-3 font-mono font-bold text-xs text-[#172B4D] text-right">₹${Number(t.utilizedValue || 0).toLocaleString('en-US')}</td>
           <td class="py-2 px-3 text-xs text-[#5E6C84] whitespace-nowrap">${t.utilizedDate || '-'}</td>
           <td class="py-2 px-3 font-mono text-xs font-semibold text-[#5E6C84] text-right">₹${Number(t.rate || 0).toFixed(2)}</td>
           <td class="py-2 px-3 font-mono font-extrabold text-xs text-[#006644] text-right">₹${Number(t.utilizedInr || 0).toLocaleString('en-IN')}</td>
@@ -12709,7 +12865,7 @@ export const SalesView = {
               <!-- 7. BANK CHARGES -->
               <div>
                 <label for="col-top-charges" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
-                  BANK CHARGES ($)
+                  BANK CHARGES (₹)
                 </label>
                 <input type="number" id="col-top-charges" value="${initialCharges}" placeholder="120" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs font-mono">
               </div>
@@ -12812,7 +12968,7 @@ export const SalesView = {
               <!-- 8. BALANCE -->
               <div>
                 <label for="col-pay-balance" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
-                  BALANCE ($)
+                  BALANCE (₹)
                 </label>
                 <input type="number" readonly id="col-pay-balance" value="${calcRemainingBalance()}" class="w-full text-xs px-2.5 py-1.5 bg-[#F8FAFC] border border-[#CBD5E1] rounded font-mono font-extrabold text-[#00A4B7] focus:outline-none shadow-2xs">
               </div>
@@ -12903,8 +13059,8 @@ export const SalesView = {
       if (balInput) balInput.value = rem;
       const heroUtil = document.getElementById('hero-total-utilized');
       const heroBal = document.getElementById('hero-rem-balance');
-      if (heroUtil) heroUtil.textContent = '$' + totUtil.toLocaleString('en-US');
-      if (heroBal) heroBal.textContent = '$' + rem.toLocaleString('en-US');
+      if (heroUtil) heroUtil.textContent = '₹' + totUtil.toLocaleString('en-US');
+      if (heroBal) heroBal.textContent = '₹' + rem.toLocaleString('en-US');
 
       const tbody = document.getElementById('collection-trans-tbody');
       if (tbody) tbody.innerHTML = renderTransRows();
@@ -12943,7 +13099,7 @@ export const SalesView = {
       const uInr = Math.round(uVal * rate);
 
       if (uVal <= 0) {
-        Toast.show('Please enter a valid Utilized Value ($)', 'error');
+        Toast.show('Please enter a valid Utilized Value (₹)', 'error');
         return;
       }
 
@@ -12958,7 +13114,7 @@ export const SalesView = {
       });
 
       refreshBalanceAndHero();
-      Toast.show(`Added transaction of $${uVal.toLocaleString('en-US')}`, 'success');
+      Toast.show(`Added transaction of ₹${uVal.toLocaleString('en-US')}`, 'success');
 
       // Update next default utilized value to remaining balance
       const rem = calcRemainingBalance();
@@ -13345,7 +13501,7 @@ export const SalesView = {
           </td>
           <td class="py-2 px-3 font-mono font-bold text-xs text-[#00A4B7]">${t.refNo || '-'}</td>
           <td class="py-2 px-3 font-mono text-xs text-[#172B4D]">${t.bankRefNo || '-'}</td>
-          <td class="py-2 px-3 font-mono font-bold text-xs text-[#172B4D] text-right">$${Number(t.utilizedValue || 0).toLocaleString('en-US')}</td>
+          <td class="py-2 px-3 font-mono font-bold text-xs text-[#172B4D] text-right">₹${Number(t.utilizedValue || 0).toLocaleString('en-US')}</td>
           <td class="py-2 px-3 text-xs text-[#5E6C84] whitespace-nowrap">${t.utilizedDate || '-'}</td>
           <td class="py-2 px-3 font-mono text-xs font-semibold text-[#5E6C84] text-right">₹${Number(t.rate || 0).toFixed(2)}</td>
           <td class="py-2 px-3 font-mono font-extrabold text-xs text-[#006644] text-right">₹${Number(t.utilizedInr || 0).toLocaleString('en-IN')}</td>
@@ -13422,7 +13578,7 @@ export const SalesView = {
               <!-- 7. BANK CHARGES -->
               <div>
                 <label for="neg-top-charges" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
-                  BANK CHARGES ($)
+                  BANK CHARGES (₹)
                 </label>
                 <input type="number" id="neg-top-charges" value="${initialCharges}" placeholder="150" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs font-mono">
               </div>
@@ -13525,7 +13681,7 @@ export const SalesView = {
               <!-- 8. BALANCE -->
               <div>
                 <label for="neg-pay-balance" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
-                  BALANCE ($)
+                  BALANCE (₹)
                 </label>
                 <input type="number" readonly id="neg-pay-balance" value="${calcRemainingBalance()}" class="w-full text-xs px-2.5 py-1.5 bg-[#F8FAFC] border border-[#CBD5E1] rounded font-mono font-extrabold text-[#00A4B7] focus:outline-none shadow-2xs">
               </div>
@@ -13652,7 +13808,7 @@ export const SalesView = {
       const uInr = Math.round(uVal * rate);
 
       if (uVal <= 0) {
-        Toast.show('Please enter a valid Utilized Value ($)', 'error');
+        Toast.show('Please enter a valid Utilized Value (₹)', 'error');
         return;
       }
 
@@ -13667,7 +13823,7 @@ export const SalesView = {
       });
 
       refreshBalance();
-      Toast.show(`Added transaction of $${uVal.toLocaleString('en-US')}`, 'success');
+      Toast.show(`Added transaction of ₹${uVal.toLocaleString('en-US')}`, 'success');
 
       const rem = calcRemainingBalance();
       if (utilInput) utilInput.value = rem > 0 ? rem : 0;
@@ -14056,7 +14212,7 @@ export const SalesView = {
               <!-- INVOICE VALUE -->
               <div>
                 <label for="real-in-inv-val" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
-                  INVOICE VALUE ($)
+                  INVOICE VALUE (₹)
                 </label>
                 <input type="number" step="0.01" id="real-in-inv-val" value="${row.invoiceValue ?? 159300.00}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
               </div>
@@ -14064,7 +14220,7 @@ export const SalesView = {
               <!-- REALISED BALANCE -->
               <div>
                 <label for="real-in-balance" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
-                  REALISED BALANCE ($)
+                  REALISED BALANCE (₹)
                 </label>
                 <input type="number" step="0.01" id="real-in-balance" readonly value="${row.realisedBalance ?? 0}" class="w-full text-xs px-2.5 py-1.5 bg-[#F8FAFC] border border-[#CBD5E1] rounded font-mono font-bold text-[#006644] focus:outline-none shadow-2xs">
               </div>
@@ -14072,7 +14228,7 @@ export const SalesView = {
               <!-- BANK CHARGES -->
               <div>
                 <label for="real-in-bank-charges" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
-                  BANK CHARGES ($)
+                  BANK CHARGES (₹)
                 </label>
                 <input type="number" step="0.01" id="real-in-bank-charges" value="${row.bankCharges ?? 120.00}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
               </div>
@@ -14102,7 +14258,7 @@ export const SalesView = {
                   <input type="text" id="real-bank-ref-1" value="${row.bankRef1 || row.bankRef || ''}" placeholder="e.g. SBI-COLL-2026-901" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
                 </div>
                 <div>
-                  <label for="real-val-1" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">REALISED VALUE 1 ($)</label>
+                  <label for="real-val-1" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">REALISED VALUE 1 (₹)</label>
                   <input type="number" step="0.01" id="real-val-1" value="${row.realisedVal1 ?? ''}" placeholder="0.00" class="real-calc-val w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
                 </div>
                 <div>
@@ -14118,7 +14274,7 @@ export const SalesView = {
                   <input type="text" id="real-bank-ref-2" value="${row.bankRef2 || ''}" placeholder="e.g. SBI-COLL-2026-902" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
                 </div>
                 <div>
-                  <label for="real-val-2" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">REALISED VALUE 2 ($)</label>
+                  <label for="real-val-2" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">REALISED VALUE 2 (₹)</label>
                   <input type="number" step="0.01" id="real-val-2" value="${row.realisedVal2 ?? ''}" placeholder="0.00" class="real-calc-val w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
                 </div>
                 <div>
@@ -14134,7 +14290,7 @@ export const SalesView = {
                   <input type="text" id="real-bank-ref-3" value="${row.bankRef3 || ''}" placeholder="e.g. SBI-COLL-2026-903" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
                 </div>
                 <div>
-                  <label for="real-val-3" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">REALISED VALUE 3 ($)</label>
+                  <label for="real-val-3" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">REALISED VALUE 3 (₹)</label>
                   <input type="number" step="0.01" id="real-val-3" value="${row.realisedVal3 ?? ''}" placeholder="0.00" class="real-calc-val w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-mono font-bold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
                 </div>
                 <div>
@@ -14156,7 +14312,7 @@ export const SalesView = {
               <!-- FBK CHARGES -->
               <div>
                 <label for="real-fbk-charges" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
-                  FBK CHARGES ($)
+                  FBK CHARGES (₹)
                 </label>
                 <input type="number" step="0.01" id="real-fbk-charges" value="${row.fbkCharges ?? 85.00}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
               </div>
@@ -14164,7 +14320,7 @@ export const SalesView = {
               <!-- OTHER CHARGES -->
               <div>
                 <label for="real-other-charges" class="block text-[11px] font-bold text-[#5E6C84] uppercase tracking-wider mb-1">
-                  OTHER CHARGES ($)
+                  OTHER CHARGES (₹)
                 </label>
                 <input type="number" step="0.01" id="real-other-charges" value="${row.otherCharges ?? 25.00}" class="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DFE1E6] rounded font-semibold text-[#172B4D] focus:outline-none focus:border-[#00A4B7] shadow-2xs">
               </div>
@@ -14550,13 +14706,13 @@ export const SalesView = {
             field: 'totalInvoiceValue',
             header: 'Total Invoice Value$',
             sortable: true,
-            render: (v) => `<span class="font-mono font-bold text-xs text-[#172B4D] text-right block whitespace-nowrap">$${Number(v || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>`
+            render: (v) => `<span class="font-mono font-bold text-xs text-[#172B4D] text-right block whitespace-nowrap">₹${Number(v || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>`
           },
           {
             field: 'realisedValue',
             header: 'Realised Value$',
             sortable: true,
-            render: (v) => `<span class="font-mono font-bold text-xs text-[#006644] text-right block whitespace-nowrap">$${Number(v || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>`
+            render: (v) => `<span class="font-mono font-bold text-xs text-[#006644] text-right block whitespace-nowrap">₹${Number(v || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>`
           },
           {
             field: 'dateOfDiscounting',
@@ -14580,7 +14736,7 @@ export const SalesView = {
             field: 'amountOfReceipt1',
             header: 'Amount Of Receipt Of Payment-1',
             sortable: true,
-            render: (v) => `<span class="font-mono font-bold text-xs text-[#172B4D] text-right block whitespace-nowrap">${v ? '$' + Number(v).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '—'}</span>`
+            render: (v) => `<span class="font-mono font-bold text-xs text-[#172B4D] text-right block whitespace-nowrap">${v ? '₹' + Number(v).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '—'}</span>`
           },
           {
             field: 'bankRefNo2',
@@ -14598,7 +14754,7 @@ export const SalesView = {
             field: 'amountOfReceipt2',
             header: 'Amount Of Receipt Of Payment-2',
             sortable: true,
-            render: (v) => `<span class="font-mono font-bold text-xs text-[#172B4D] text-right block whitespace-nowrap">${v ? '$' + Number(v).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '—'}</span>`
+            render: (v) => `<span class="font-mono font-bold text-xs text-[#172B4D] text-right block whitespace-nowrap">${v ? '₹' + Number(v).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '—'}</span>`
           },
           {
             field: 'bankRefNo3',
@@ -14616,13 +14772,13 @@ export const SalesView = {
             field: 'amountOfReceipt3',
             header: 'Amount Of Receipt Of Payment-3',
             sortable: true,
-            render: (v) => `<span class="font-mono font-bold text-xs text-[#172B4D] text-right block whitespace-nowrap">${v ? '$' + Number(v).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '—'}</span>`
+            render: (v) => `<span class="font-mono font-bold text-xs text-[#172B4D] text-right block whitespace-nowrap">${v ? '₹' + Number(v).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '—'}</span>`
           },
           {
             field: 'totalUtilizedValueUsd',
             header: 'Total Utilized Value$',
             sortable: true,
-            render: (v) => `<span class="font-mono font-bold text-xs text-[#172B4D] text-right block whitespace-nowrap">$${Number(v || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>`
+            render: (v) => `<span class="font-mono font-bold text-xs text-[#172B4D] text-right block whitespace-nowrap">₹${Number(v || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>`
           },
           {
             field: 'totalUtilizedValueInr',
@@ -14636,28 +14792,28 @@ export const SalesView = {
             sortable: true,
             render: (v) => {
               const num = Number(v || 0);
-              if (num === 0) return `<span class="font-mono font-semibold text-xs text-[#5E6C84] text-right block whitespace-nowrap">$0.00</span>`;
+              if (num === 0) return `<span class="font-mono font-semibold text-xs text-[#5E6C84] text-right block whitespace-nowrap">₹0.00</span>`;
               const cls = num < 0 ? 'text-[#DE350B]' : 'text-[#006644]';
-              return `<span class="font-mono font-bold text-xs ${cls} text-right block whitespace-nowrap">${num < 0 ? '-' : '+'}$${Math.abs(num).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>`;
+              return `<span class="font-mono font-bold text-xs ${cls} text-right block whitespace-nowrap">${num < 0 ? '-₹' : '+₹'}${Math.abs(num).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>`;
             }
           },
           {
             field: 'bankCharges',
             header: 'Bank charges',
             sortable: true,
-            render: (v) => `<span class="font-mono text-xs text-[#5E6C84] text-right block whitespace-nowrap">$${Number(v || 0).toFixed(2)}</span>`
+            render: (v) => `<span class="font-mono text-xs text-[#5E6C84] text-right block whitespace-nowrap">₹${Number(v || 0).toFixed(2)}</span>`
           },
           {
             field: 'fbkCharges',
             header: 'FBK Charges',
             sortable: true,
-            render: (v) => `<span class="font-mono text-xs text-[#5E6C84] text-right block whitespace-nowrap">$${Number(v || 0).toFixed(2)}</span>`
+            render: (v) => `<span class="font-mono text-xs text-[#5E6C84] text-right block whitespace-nowrap">₹${Number(v || 0).toFixed(2)}</span>`
           },
           {
             field: 'otherCharges',
             header: 'Other Charges',
             sortable: true,
-            render: (v) => `<span class="font-mono text-xs text-[#5E6C84] text-right block whitespace-nowrap">$${Number(v || 0).toFixed(2)}</span>`
+            render: (v) => `<span class="font-mono text-xs text-[#5E6C84] text-right block whitespace-nowrap">₹${Number(v || 0).toFixed(2)}</span>`
           },
           {
             field: 'remarks',
@@ -14752,11 +14908,11 @@ export const SalesView = {
             <div class="flex items-center gap-2 flex-wrap">
               <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[90px]">
                 <span class="text-[10px] uppercase font-bold text-[#64748B] block">Total Invoice</span>
-                <span class="font-mono font-extrabold text-xs text-[#172B4D]">$${Number(row.totalInvoiceValue || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                <span class="font-mono font-extrabold text-xs text-[#172B4D]">₹${Number(row.totalInvoiceValue || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
               </div>
               <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[90px]">
                 <span class="text-[10px] uppercase font-bold text-[#64748B] block">Realised Value</span>
-                <span class="font-mono font-extrabold text-xs text-[#006644]">$${Number(row.realisedValue || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                <span class="font-mono font-extrabold text-xs text-[#006644]">₹${Number(row.realisedValue || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
               </div>
               <div class="bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-2xs text-center min-w-[100px]">
                 <span class="text-[10px] uppercase font-bold text-[#64748B] block">Realised INR</span>
@@ -14786,7 +14942,7 @@ export const SalesView = {
               </div>
               <div>
                 <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">SHORT / EXCESS</span>
-                <span class="font-mono font-bold text-xs ${row.shortExcess < 0 ? 'text-[#DE350B]' : 'text-[#006644]'} block mt-0.5">${row.shortExcess < 0 ? '-' : ''}$${Math.abs(row.shortExcess || 0).toFixed(2)}</span>
+                <span class="font-mono font-bold text-xs ${row.shortExcess < 0 ? 'text-[#DE350B]' : 'text-[#006644]'} block mt-0.5">${row.shortExcess < 0 ? '-₹' : '₹'}${Math.abs(row.shortExcess || 0).toFixed(2)}</span>
               </div>
             </div>
           </div>
@@ -14804,7 +14960,7 @@ export const SalesView = {
                     <th class="py-2 px-3">Receipt Tranche</th>
                     <th class="py-2 px-3">Bank Ref No</th>
                     <th class="py-2 px-3">Receipt Date</th>
-                    <th class="py-2 px-3 text-right">Receipt Amount ($)</th>
+                    <th class="py-2 px-3 text-right">Receipt Amount (₹)</th>
                   </tr>
                 </thead>
                 <tbody class="divide-y divide-[#F1F5F9]">
@@ -14812,14 +14968,14 @@ export const SalesView = {
                     <td class="py-2 px-3 font-semibold text-[#172B4D]">Payment-1</td>
                     <td class="py-2 px-3 font-mono text-[#00A4B7] font-bold">${row.bankRefNo1 || '—'}</td>
                     <td class="py-2 px-3 text-[#5E6C84]">${row.dateOfReceipt1 || '—'}</td>
-                    <td class="py-2 px-3 font-mono font-bold text-[#172B4D] text-right">${row.amountOfReceipt1 ? '$' + Number(row.amountOfReceipt1).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '—'}</td>
+                    <td class="py-2 px-3 font-mono font-bold text-[#172B4D] text-right">${row.amountOfReceipt1 ? '₹' + Number(row.amountOfReceipt1).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '—'}</td>
                   </tr>
                   ${row.amountOfReceipt2 > 0 || row.bankRefNo2 ? `
                   <tr>
                     <td class="py-2 px-3 font-semibold text-[#172B4D]">Payment-2</td>
                     <td class="py-2 px-3 font-mono text-[#00A4B7] font-bold">${row.bankRefNo2 || '—'}</td>
                     <td class="py-2 px-3 text-[#5E6C84]">${row.dateOfReceipt2 || '—'}</td>
-                    <td class="py-2 px-3 font-mono font-bold text-[#172B4D] text-right">${row.amountOfReceipt2 ? '$' + Number(row.amountOfReceipt2).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '—'}</td>
+                    <td class="py-2 px-3 font-mono font-bold text-[#172B4D] text-right">${row.amountOfReceipt2 ? '₹' + Number(row.amountOfReceipt2).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '—'}</td>
                   </tr>
                   ` : ''}
                   ${row.amountOfReceipt3 > 0 || row.bankRefNo3 ? `
@@ -14827,7 +14983,7 @@ export const SalesView = {
                     <td class="py-2 px-3 font-semibold text-[#172B4D]">Payment-3</td>
                     <td class="py-2 px-3 font-mono text-[#00A4B7] font-bold">${row.bankRefNo3 || '—'}</td>
                     <td class="py-2 px-3 text-[#5E6C84]">${row.dateOfReceipt3 || '—'}</td>
-                    <td class="py-2 px-3 font-mono font-bold text-[#172B4D] text-right">${row.amountOfReceipt3 ? '$' + Number(row.amountOfReceipt3).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '—'}</td>
+                    <td class="py-2 px-3 font-mono font-bold text-[#172B4D] text-right">${row.amountOfReceipt3 ? '₹' + Number(row.amountOfReceipt3).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '—'}</td>
                   </tr>
                   ` : ''}
                 </tbody>
@@ -14844,19 +15000,19 @@ export const SalesView = {
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
               <div>
                 <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">BANK CHARGES</span>
-                <span class="font-mono font-semibold text-xs text-[#172B4D] block mt-0.5">$${Number(row.bankCharges || 0).toFixed(2)}</span>
+                <span class="font-mono font-semibold text-xs text-[#172B4D] block mt-0.5">₹${Number(row.bankCharges || 0).toFixed(2)}</span>
               </div>
               <div>
                 <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">FBK CHARGES</span>
-                <span class="font-mono font-semibold text-xs text-[#172B4D] block mt-0.5">$${Number(row.fbkCharges || 0).toFixed(2)}</span>
+                <span class="font-mono font-semibold text-xs text-[#172B4D] block mt-0.5">₹${Number(row.fbkCharges || 0).toFixed(2)}</span>
               </div>
               <div>
                 <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">OTHER CHARGES</span>
-                <span class="font-mono font-semibold text-xs text-[#172B4D] block mt-0.5">$${Number(row.otherCharges || 0).toFixed(2)}</span>
+                <span class="font-mono font-semibold text-xs text-[#172B4D] block mt-0.5">₹${Number(row.otherCharges || 0).toFixed(2)}</span>
               </div>
               <div>
                 <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">TOTAL DEDUCTIONS</span>
-                <span class="font-mono font-bold text-xs text-[#DE350B] block mt-0.5">$${(Number(row.bankCharges || 0) + Number(row.fbkCharges || 0) + Number(row.otherCharges || 0)).toFixed(2)}</span>
+                <span class="font-mono font-bold text-xs text-[#DE350B] block mt-0.5">₹${(Number(row.bankCharges || 0) + Number(row.fbkCharges || 0) + Number(row.otherCharges || 0)).toFixed(2)}</span>
               </div>
             </div>
           </div>
@@ -16110,3 +16266,4 @@ export const SalesView = {
   },
 
 };
+

@@ -85,7 +85,7 @@ export const NotificationService = {
     {
       id: 'notif-8',
       title: 'Customer LC Payment Received',
-      message: 'Letter of credit confirmation received from Marubeni Corp ($240,000 USD).',
+      message: 'Letter of credit confirmation received from Marubeni Corp (₹2,40,000).',
       category: 'Export Logistics',
       time: '03-Nov-2026, 05:20 PM',
       date: '03-Nov-2026, 05:20 PM',

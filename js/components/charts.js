@@ -35,14 +35,14 @@ export const Charts = {
             position: 'top',
             labels: {
               boxWidth: 12,
-              font: { size: 11, family: 'Inter' },
+              font: { size: 11, family: 'Noto Sans' },
               color: '#42526E'
             }
           },
           tooltip: {
             backgroundColor: '#172B4D',
-            titleFont: { size: 12, family: 'Inter', weight: 'bold' },
-            bodyFont: { size: 11, family: 'Inter' },
+            titleFont: { size: 12, family: 'Noto Sans', weight: 'bold' },
+            bodyFont: { size: 11, family: 'Noto Sans' },
             padding: 8,
             cornerRadius: 4
           }
@@ -50,11 +50,11 @@ export const Charts = {
         scales: {
           x: {
             grid: { color: '#EBECF0' },
-            ticks: { color: '#6B778C', font: { size: 10, family: 'Inter' } }
+            ticks: { color: '#6B778C', font: { size: 10, family: 'Noto Sans' } }
           },
           y: {
             grid: { color: '#EBECF0' },
-            ticks: { color: '#6B778C', font: { size: 10, family: 'Inter' } }
+            ticks: { color: '#6B778C', font: { size: 10, family: 'Noto Sans' } }
           }
         },
         ...options
@@ -81,7 +81,7 @@ export const Charts = {
             position: 'top',
             labels: {
               boxWidth: 12,
-              font: { size: 11, family: 'Inter' },
+              font: { size: 11, family: 'Noto Sans' },
               color: '#42526E'
             }
           },
@@ -134,7 +134,7 @@ export const Charts = {
             position: 'right',
             labels: {
               boxWidth: 10,
-              font: { size: 11, family: 'Inter' },
+              font: { size: 11, family: 'Noto Sans' },
               color: '#42526E'
             }
           }

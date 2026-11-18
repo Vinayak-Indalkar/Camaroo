@@ -164,7 +164,7 @@ export class DataTable {
       if (typeof val === 'number' || (!isNaN(Number(val)) && String(val).trim() !== '')) {
         const num = Number(val);
         if (lk.includes('usd') || lk.includes('dollar') || lk.includes('bookedvalue') || lk.includes('utilis') || lk.includes('utiliz') || lk.includes('balanceusd') || lk.includes('balanceval') || lk.includes('balance_usd')) {
-          return '$' + num.toLocaleString('en-US');
+          return '₹' + num.toLocaleString('en-IN');
         }
         if (lk.includes('amount') || lk.includes('price') || lk.includes('rate') || lk.includes('cost') || lk.includes('fee')) {
           return '₹' + num.toLocaleString('en-IN');
@@ -216,9 +216,9 @@ export class DataTable {
       const bookedRate = Number(row.bookedRate || row.totalRate || 0);
 
       topMetrics = [
-        { label: 'BOOKED VALUE', val: '$' + bookedValue.toLocaleString('en-US') },
-        { label: 'UTILIZED', val: '$' + utilizedValue.toLocaleString('en-US') },
-        { label: 'BALANCE US$', val: '$' + balanceValue.toLocaleString('en-US') }
+        { label: 'BOOKED VALUE', val: '₹' + bookedValue.toLocaleString('en-IN') },
+        { label: 'UTILIZED', val: '₹' + utilizedValue.toLocaleString('en-IN') },
+        { label: 'BALANCE', val: '₹' + balanceValue.toLocaleString('en-IN') }
       ];
 
       subtitleHtml = `
@@ -236,7 +236,7 @@ export class DataTable {
         { label: 'SELECT COMPANY', val: row.company || row.exporter || 'Devi Fisheries Limited' },
         { label: 'BOOKING DATE', val: row.bookedDate || '-' },
         { label: 'FORWARD CONTRACT NUMBER', val: row.contractNo || recordId },
-        { label: 'VALUE (US$)', val: '$' + bookedValue.toLocaleString('en-US') },
+        { label: 'VALUE', val: '₹' + bookedValue.toLocaleString('en-IN') },
         { label: 'PERIOD', val: row.period || '-' },
         { label: 'MONTH', val: row.month || '-' },
         { label: 'START DATE', val: row.startDate || '-' },
@@ -245,8 +245,8 @@ export class DataTable {
         { label: 'PREMIUM RATE', val: '₹' + Number(row.premiumRate || 0).toFixed(2) },
         { label: 'BRANCH MARGIN', val: '₹' + Number(row.branchMargin || 0).toFixed(2) },
         { label: 'TOTAL RATE', val: '₹' + bookedRate.toFixed(2) },
-        { label: 'UTILIZED VALUE', val: '$' + utilizedValue.toLocaleString('en-US') },
-        { label: 'BALANCE VALUE', val: '$' + balanceValue.toLocaleString('en-US') },
+        { label: 'UTILIZED VALUE', val: '₹' + utilizedValue.toLocaleString('en-IN') },
+        { label: 'BALANCE VALUE', val: '₹' + balanceValue.toLocaleString('en-IN') },
         { label: 'CURRENT DATE', val: row.currentDate || '11/11/2026' },
         { label: 'RATE DIFF', val: row.diff || '0.00' }
       ];
@@ -302,9 +302,9 @@ export class DataTable {
       const netReceived = Number(row.netReceived || (billAmount - bankCharges));
 
       topMetrics = [
-        { label: 'GROSS BILL', val: '$' + billAmount.toLocaleString('en-US') },
-        { label: 'CHARGES', val: '-$' + bankCharges.toLocaleString('en-US') },
-        { label: 'NET PROCEEDS', val: '$' + netReceived.toLocaleString('en-US') }
+        { label: 'GROSS BILL', val: '₹' + billAmount.toLocaleString('en-IN') },
+        { label: 'CHARGES', val: '-₹' + bankCharges.toLocaleString('en-IN') },
+        { label: 'NET PROCEEDS', val: '₹' + netReceived.toLocaleString('en-IN') }
       ];
 
       subtitleHtml = `
@@ -329,10 +329,10 @@ export class DataTable {
         { label: 'COLLECTION BANK', val: row.collectionBank || 'Citibank N.A. New York (via SBI)' },
         { label: 'REMITTANCE DATE', val: row.remittanceDate || '-' },
         { label: 'SETTLEMENT MODE', val: row.settlementMode || 'SWIFT Wire MT103' },
-        { label: 'CURRENCY', val: row.currency || 'USD' },
-        { label: 'GROSS BILL VALUE', val: '$' + billAmount.toLocaleString('en-US') },
-        { label: 'BANK CHARGES', val: '-$' + bankCharges.toLocaleString('en-US') },
-        { label: 'NET RECEIVED', val: '$' + netReceived.toLocaleString('en-US') },
+        { label: 'CURRENCY', val: row.currency || 'INR' },
+        { label: 'GROSS BILL VALUE', val: '₹' + billAmount.toLocaleString('en-IN') },
+        { label: 'BANK CHARGES', val: '-₹' + bankCharges.toLocaleString('en-IN') },
+        { label: 'NET RECEIVED', val: '₹' + netReceived.toLocaleString('en-IN') },
         { label: 'STATUS', val: status.replace(/_/g, ' ') },
         { label: 'REMARKS', val: row.remarks || 'Document and value advice verified' }
       ];

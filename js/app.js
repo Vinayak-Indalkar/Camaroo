@@ -10,6 +10,7 @@ import { renderRouteMessage } from './components/emptyState.js';
 import { Header } from './components/header.js';
 import { Sidebar, NAV_HIERARCHY, ADMIN_NAV_HIERARCHY, SUPER_ADMIN_NAV_HIERARCHY } from './components/sidebar.js';
 import { Breadcrumbs } from './components/breadcrumbs.js';
+import { MobileNav } from './components/mobileNav.js';
 
 // Views
 import { LoginView } from './views/loginView.js';
@@ -148,6 +149,7 @@ export const App = {
     AppSettings.init();
     Toast.init();
     Modal.init();
+    MobileNav.init();
     UIEnhancements.init();
     this.applyClientBrandingTheme();
     this.bindHashChange();
@@ -416,6 +418,7 @@ export const App = {
 
     // Render Navigation & Breadcrumbs (Standard Option 1: Floating Sidebar)
     Sidebar.render('sidebar-container', resolvedHash);
+    MobileNav.render('mobile-bottom-nav', resolvedHash);
     Breadcrumbs.render('breadcrumbs-container', resolvedHash);
 
     const mainContainer = 'main-content-container';
@@ -510,7 +513,7 @@ export const App = {
           <!-- Main Layout Wrapper (offset by floating sidebar width + margins) -->
           <div id="main-layout-wrapper" class="${collapsedClass} flex flex-col min-h-screen">
             <!-- Fixed / Sticky Top Header & Breadcrumbs Wrapper (Masked to prevent scrolled content leakage) -->
-            <div id="top-nav-wrapper" class="sticky top-0 z-35 pt-3 pb-1 bg-[#F2F5F9]">
+            <div id="top-nav-wrapper" class="sticky top-0 z-40 pt-3 pb-1 bg-[#F2F5F9]">
               <div class="rounded-2xl border border-[#E2E8F0] bg-white shadow-2xs relative">
                 <div id="header-container" class="bg-white rounded-t-2xl"></div>
                 <!-- Breadcrumbs Bar (Fixed in position right below Header) -->
@@ -523,11 +526,18 @@ export const App = {
             <!-- Module Subview Injected Here (Full-Width Responsive UI) -->
             <main id="main-content-container" class="py-4 flex-1 w-full"></main>
           </div>
+
+          <!-- Mobile Bottom Navigation (Fixed at bottom on screens < 768px) -->
+          <nav id="mobile-bottom-nav" aria-label="Mobile Navigation" class="flex md:hidden"></nav>
+
+          <!-- Mobile Navigation Drawer & Sheet Containers -->
+          <div id="mobile-drawer-container"></div>
         </div>
       `;
 
-      // Mount Header
+      // Mount Header & Mobile Nav
       Header.render('header-container');
+      MobileNav.render('mobile-bottom-nav');
     }
   },
 

@@ -53,8 +53,8 @@ export const Header = {
 
         <!-- Right: Actions, Notifications & Profile -->
         <div class="flex items-center gap-2">
-          <!-- Notifications -->
-          <div class="relative" id="header-notifications-container">
+          <!-- Notifications (Desktop/Tablet only; hidden on mobile since it is in bottom nav) -->
+          <div class="relative hidden md:block" id="header-notifications-container">
             <button id="header-notifications-btn" class="p-2 text-[#64748B] hover:text-[#0F172A] hover:bg-[#F8FAFC] rounded-full relative transition-colors cursor-pointer border border-[#E2E8F0]" title="Notifications" aria-label="Notifications, ${unreadCount} unread" aria-haspopup="true" aria-expanded="false">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
               ${unreadCount > 0 ? `<span id="header-notif-badge" class="absolute -top-0.5 -right-0.5 min-w-[16px] h-4 px-1 bg-[#EF4444] text-white text-[9px] font-extrabold rounded-full flex items-center justify-center ring-2 ring-white">${unreadCount > 9 ? '9+' : unreadCount}</span>` : ''}
@@ -64,8 +64,8 @@ export const Header = {
             </div>
           </div>
 
-          <!-- User Profile Dropdown -->
-          <div class="relative pl-1 border-l border-[#E2E8F0]">
+          <!-- User Profile Dropdown (Left border removed) -->
+          <div class="relative">
             <button id="user-menu-btn" class="flex items-center gap-2 px-2 py-1 rounded-full hover:bg-[#F8FAFC] transition-colors cursor-pointer">
               <img src="${ERP_DATA.currentUser.avatar}" alt="Avatar" class="w-10 h-10 min-w-[40px] min-h-[40px] rounded-full object-cover ring-1 ring-[#E2E8F0]" style="width: 40px; height: 40px; min-width: 40px; min-height: 40px;" />
               <div class="hidden lg:flex flex-col text-left">
@@ -91,17 +91,6 @@ export const Header = {
                 <button type="button" id="my-profile-menu-btn" class="w-full text-left px-3 py-2 hover:bg-[#F0F9FF] text-[#172B4D] hover:text-[#00A4B7] rounded-lg font-semibold flex items-center gap-2 transition-colors cursor-pointer">
                   <svg class="w-4 h-4 text-[#00A4B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
                   <span>My Profile</span>
-                </button>
-              </div>
-
-              <!-- Quick Switch Role Action -->
-              <div class="p-1 border-b border-[#EBECF0]">
-                <button type="button" id="switch-role-menu-btn" class="w-full text-left px-3 py-2 hover:bg-[#F0F9FF] text-[#0284C7] rounded-lg font-semibold flex items-center justify-between transition-colors cursor-pointer" title="Quick toggle role between Admin and Super Admin">
-                  <div class="flex items-center gap-2">
-                    <svg class="w-4 h-4 text-[#0284C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
-                    <span>${ERP_DATA.currentUser?.roleCode ? 'Switch to Admin' : `Switch to ${isSuperAdmin ? 'Admin' : 'Super Admin'}`}</span>
-                  </div>
-                  <span class="text-[9.5px] font-bold px-1.5 py-0.5 rounded ${isSuperAdmin ? 'bg-[#E3FCEF] text-[#006644]' : 'bg-[#E0F2FE] text-[#0284C7]'}">${ERP_DATA.currentUser?.roleCode ? 'Admin' : (isSuperAdmin ? 'Operational' : 'Corporate')}</span>
                 </button>
               </div>
 
@@ -374,26 +363,6 @@ export const Header = {
         if (userMenu) userMenu.classList.add('hidden');
         window.location.hash = '#/profile';
       };
-    }
-
-    // Quick Switch Role (Admin <-> Super Admin)
-    const switchRoleBtn = document.getElementById('switch-role-menu-btn');
-    if (switchRoleBtn) {
-      switchRoleBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        localStorage.removeItem('dfl_current_user');
-        sessionStorage.removeItem('dfl_login_user');
-        const nextRole = (ERP_DATA.currentUser?.roleCode || ERP_DATA.currentUser?.role === 'Super Admin') ? 'Admin' : 'Super Admin';
-        setCurrentUserRole(nextRole);
-        const existing = document.getElementById('erp-app-shell');
-        if (existing) existing.remove();
-        Toast.show(`Switched active context to ${nextRole}`, 'success', 'Role Updated');
-        if (nextRole === 'Super Admin') {
-          window.location.hash = '#/dashboard/overview/system-overview';
-        } else {
-          window.location.hash = '#/purchase/dashboard/rm-dashboard';
-        }
-      });
     }
 
     // Logout

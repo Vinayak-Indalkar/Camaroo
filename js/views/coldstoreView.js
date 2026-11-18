@@ -1982,7 +1982,7 @@ export const ColdstoreView = {
                     position: 'top',
                     labels: {
                       boxWidth: 12,
-                      font: { size: 10, family: 'Inter', weight: 'bold' },
+                      font: { size: 10, family: 'Noto Sans', weight: 'bold' },
                       color: '#172B4D'
                     }
                   }
@@ -1991,14 +1991,14 @@ export const ColdstoreView = {
                   y: {
                     grid: { color: '#F1F5F9' },
                     ticks: {
-                      font: { size: 10, family: 'Inter' },
+                      font: { size: 10, family: 'Noto Sans' },
                       color: '#5E6C84',
                       callback: v => `${v} MT`
                     }
                   },
                   x: {
                     grid: { display: false },
-                    ticks: { font: { size: 10, family: 'Inter', weight: 'bold' }, color: '#172B4D' }
+                    ticks: { font: { size: 10, family: 'Noto Sans', weight: 'bold' }, color: '#172B4D' }
                   }
                 }
               }
@@ -2036,14 +2036,14 @@ export const ColdstoreView = {
                     max: -20,
                     grid: { color: '#F1F5F9' },
                     ticks: {
-                      font: { size: 10, family: 'Inter' },
+                      font: { size: 10, family: 'Noto Sans' },
                       color: '#5E6C84',
                       callback: v => `${v}°C`
                     }
                   },
                   x: {
                     grid: { display: false },
-                    ticks: { font: { size: 10, family: 'Inter', weight: 'bold' }, color: '#172B4D' }
+                    ticks: { font: { size: 10, family: 'Noto Sans', weight: 'bold' }, color: '#172B4D' }
                   }
                 }
               }
@@ -12270,3 +12270,4 @@ export const ColdstoreView = {
   }
 
 };
+

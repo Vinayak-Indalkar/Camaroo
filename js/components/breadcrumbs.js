@@ -19,18 +19,21 @@ export const Breadcrumbs = {
     const isSuperAdmin = ERP_DATA.currentUser?.role === 'Super Admin';
     const targetHierarchy = isSuperAdmin ? SUPER_ADMIN_NAV_HIERARCHY : ADMIN_NAV_HIERARCHY;
     const module = targetHierarchy.find(m => m.id === modId) || NAV_HIERARCHY.find(m => m.id === modId);
-    if (modId === 'notifications') {
+    
+    if (modId === 'home' || modId === '' || clean === '' || clean === 'home') {
+      crumbs.push({ label: 'Home', hash: '#/home', active: true });
+    } else if (modId === 'notifications') {
       crumbs.push({ label: 'Notifications', hash: '#/notifications', active: true });
     } else if (modId === 'profile') {
       crumbs.push({ label: 'My Profile', hash: '#/profile', active: true });
     } else if (module) {
-      const defaultModHash = module.submenus[0]?.tabs[0]?.hash || `/${modId}`;
-      crumbs.push({ label: module.title, hash: defaultModHash });
+      const defaultModHash = module.submenus[0]?.tabs[0]?.hash || `/#/${modId}`;
+      crumbs.push({ label: module.title, hash: defaultModHash.startsWith('#') ? defaultModHash : `#${defaultModHash}` });
 
       const submenu = module.submenus.find(s => s.id === subId);
       if (submenu && submenu.title !== module.title) {
-        const defaultSubHash = submenu.tabs[0]?.hash || `/${modId}/${subId}`;
-        crumbs.push({ label: submenu.title, hash: defaultSubHash });
+        const defaultSubHash = submenu.tabs[0]?.hash || `/#/${modId}/${subId}`;
+        crumbs.push({ label: submenu.title, hash: defaultSubHash.startsWith('#') ? defaultSubHash : `#${defaultSubHash}` });
       }
 
       if (submenu) {
@@ -54,11 +57,12 @@ export const Breadcrumbs = {
         ${crumbs.map((c, idx) => {
           const isLast = idx === crumbs.length - 1;
           const separator = !isLast ? `<span class="text-[#94A3B8] font-bold text-[9px] mx-0.5" aria-hidden="true">/</span>` : '';
+          const targetHash = c.hash ? (c.hash.startsWith('#') ? c.hash : `#${c.hash}`) : null;
           
-          if (c.active || isLast || !c.hash) {
-            return `<span class="font-semibold text-[#0F172A] truncate max-w-xs">${c.label}</span> ${separator}`;
+          if (c.active || isLast || !targetHash) {
+            return `<span class="font-semibold text-[#0F172A] truncate max-w-xs cursor-default">${c.label}</span> ${separator}`;
           } else {
-            return `<a href="${c.hash}" class="text-[#64748B] hover:text-[#00A4B7] font-medium transition-colors truncate max-w-xs">${c.label}</a> ${separator}`;
+            return `<a href="${targetHash}" class="text-[#64748B] hover:text-[#00A4B7] font-medium transition-colors truncate max-w-xs cursor-pointer select-none">${c.label}</a> ${separator}`;
           }
         }).join('')}
       </nav>
