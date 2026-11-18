@@ -67,7 +67,7 @@ export const MobileNav = {
     if (!navContainer) return;
 
     navContainer.innerHTML = `
-      <div class="w-full h-full flex items-center justify-around px-2 max-w-lg mx-auto bg-[#0F172A]">
+      <div class="w-full h-full flex items-center justify-around px-2 max-w-lg mx-auto bg-[#0F172A] rounded-t-[8px]">
         
         <!-- 1. Menu -->
         <button 

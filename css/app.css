@@ -1012,6 +1012,8 @@ div:has(> table) {
     height: 64px !important;
     background-color: #0F172A !important;
     border-top: 1px solid #1E293B !important;
+    border-top-left-radius: 8px !important;
+    border-top-right-radius: 8px !important;
     box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.4) !important;
     z-index: 60 !important;
     align-items: center !important;

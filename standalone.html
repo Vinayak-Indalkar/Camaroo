@@ -1079,6 +1079,8 @@ div:has(> table) {
     height: 64px !important;
     background-color: #0F172A !important;
     border-top: 1px solid #1E293B !important;
+    border-top-left-radius: 8px !important;
+    border-top-right-radius: 8px !important;
     box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.4) !important;
     z-index: 60 !important;
     align-items: center !important;
@@ -10223,7 +10225,7 @@ const MobileNav = {
     if (!navContainer) return;
 
     navContainer.innerHTML = `
-      <div class="w-full h-full flex items-center justify-around px-2 max-w-lg mx-auto bg-[#0F172A]">
+      <div class="w-full h-full flex items-center justify-around px-2 max-w-lg mx-auto bg-[#0F172A] rounded-t-[8px]">
         
         <!-- 1. Menu -->
         <button 
@@ -111322,7 +111324,7 @@ const App = {
           </div>
 
           <!-- Mobile Bottom Navigation (Fixed at bottom on screens < 768px) -->
-          <nav id="mobile-bottom-nav" aria-label="Mobile Navigation" class="flex md:hidden"></nav>
+          <nav id="mobile-bottom-nav" aria-label="Mobile Navigation" class="flex md:hidden rounded-t-[8px]"></nav>
 
           <!-- Mobile Navigation Drawer & Sheet Containers -->
           <div id="mobile-drawer-container"></div>

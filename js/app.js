@@ -528,7 +528,7 @@ export const App = {
           </div>
 
           <!-- Mobile Bottom Navigation (Fixed at bottom on screens < 768px) -->
-          <nav id="mobile-bottom-nav" aria-label="Mobile Navigation" class="flex md:hidden"></nav>
+          <nav id="mobile-bottom-nav" aria-label="Mobile Navigation" class="flex md:hidden rounded-t-[8px]"></nav>
 
           <!-- Mobile Navigation Drawer & Sheet Containers -->
           <div id="mobile-drawer-container"></div>
